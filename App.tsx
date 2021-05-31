@@ -107,12 +107,12 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 24,
-        fontWeight: '600',
+        fontFamily: 'AvenirNext-DemiBold',
     },
     sectionDescription: {
         marginTop: 8,
         fontSize: 18,
-        fontWeight: '400',
+        fontFamily: 'AvenirNext-Regular',
     },
     highlight: {
         fontWeight: '700',
