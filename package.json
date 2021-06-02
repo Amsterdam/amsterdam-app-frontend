@@ -19,6 +19,7 @@
     "appcenter-crashes": "4.1.0",
     "react": "17.0.1",
     "react-native": "0.64.1",
+    "react-native-clean-project": "^3.6.4",
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
