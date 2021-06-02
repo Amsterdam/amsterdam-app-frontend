@@ -12,6 +12,8 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-picker/picker": "^1.16.1",
+    "@types/styled-components": "^5.1.9",
+    "@types/styled-components-react-native": "^5.1.1",
     "appcenter": "4.1.0",
     "appcenter-analytics": "4.1.0",
     "appcenter-crashes": "4.1.0",
