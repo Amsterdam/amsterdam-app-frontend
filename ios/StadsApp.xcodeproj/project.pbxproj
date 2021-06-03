@@ -11,13 +11,13 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		6A19800B395FA72D9E5D77B7 /* libPods-StadsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-StadsApp.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C4927713A1A784BB3B18DBC4 /* libPods-StadsApp-StadsAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */; };
-		B8B17B9267E84934AEE3EEB7 /* AvenirNext-DemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */; };
-		E19EDA9ACE52446CB71690AE /* AvenirNext-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */; };
 		484CDBDFAA544C0B8AFB3CD6 /* AvenirNext-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 451A22EB45E040D49C361FC4 /* AvenirNext-Medium.ttf */; };
 		55380EAE8D9045DA9204B5DE /* AvenirNext-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */; };
+		6A19800B395FA72D9E5D77B7 /* libPods-StadsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-StadsApp.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B8B17B9267E84934AEE3EEB7 /* AvenirNext-DemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */; };
+		C4927713A1A784BB3B18DBC4 /* libPods-StadsApp-StadsAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */; };
+		E19EDA9ACE52446CB71690AE /* AvenirNext-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,18 +40,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = StadsApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = StadsApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = StadsApp/main.m; sourceTree = "<group>"; };
+		1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-Italic.ttf"; path = "../src/assets/fonts/AvenirNext-Italic.ttf"; sourceTree = "<group>"; };
+		25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-DemiBold.ttf"; path = "../src/assets/fonts/AvenirNext-DemiBold.ttf"; sourceTree = "<group>"; };
 		2F69FEEA62C39F6CD7DB1371 /* Pods-StadsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp.debug.xcconfig"; path = "Target Support Files/Pods-StadsApp/Pods-StadsApp.debug.xcconfig"; sourceTree = "<group>"; };
+		451A22EB45E040D49C361FC4 /* AvenirNext-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-Medium.ttf"; path = "../src/assets/fonts/AvenirNext-Medium.ttf"; sourceTree = "<group>"; };
 		6DDA178AA6481C1B77F62BDC /* libPods-StadsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StadsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E87AB06EFAA4881C55967FC /* Pods-StadsApp-StadsAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp-StadsAppTests.debug.xcconfig"; path = "Target Support Files/Pods-StadsApp-StadsAppTests/Pods-StadsApp-StadsAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = StadsApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		821E7F8ECED95084C6B6ACE3 /* Pods-StadsApp-StadsAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp-StadsAppTests.release.xcconfig"; path = "Target Support Files/Pods-StadsApp-StadsAppTests/Pods-StadsApp-StadsAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A3830F9D08EB4C084763DC88 /* Pods-StadsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp.release.xcconfig"; path = "Target Support Files/Pods-StadsApp/Pods-StadsApp.release.xcconfig"; sourceTree = "<group>"; };
+		E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-Regular.ttf"; path = "../src/assets/fonts/AvenirNext-Regular.ttf"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StadsApp-StadsAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */ = {isa = PBXFileReference; name = "AvenirNext-DemiBold.ttf"; path = "../src/assets/fonts/AvenirNext-DemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */ = {isa = PBXFileReference; name = "AvenirNext-Italic.ttf"; path = "../src/assets/fonts/AvenirNext-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		451A22EB45E040D49C361FC4 /* AvenirNext-Medium.ttf */ = {isa = PBXFileReference; name = "AvenirNext-Medium.ttf"; path = "../src/assets/fonts/AvenirNext-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */ = {isa = PBXFileReference; name = "AvenirNext-Regular.ttf"; path = "../src/assets/fonts/AvenirNext-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +114,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		33C66B9996D642ECB7D265F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */,
+				1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */,
+				451A22EB45E040D49C361FC4 /* AvenirNext-Medium.ttf */,
+				E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		720F794A08B2E6964BBDB320 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,18 +169,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		33C66B9996D642ECB7D265F6 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */,
-				1A28F05EFC2945828B23D78B /* AvenirNext-Italic.ttf */,
-				451A22EB45E040D49C361FC4 /* AvenirNext-Medium.ttf */,
-				E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

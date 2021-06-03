@@ -1628,40 +1628,6 @@
     "normalize-path" "^3.0.0"
     "picomatch" "^2.0.4"
 
-"appcenter-analytics@4.1.0":
-  "integrity" "sha512-pEsz08wer7J3+zjNV78eSB0FY1bjMxmFHukV6PimAoMpIm8E+X7saGP0QQw2cQTUFiexMujHRvZfM259ksg6hg=="
-  "resolved" "https://registry.npmjs.org/appcenter-analytics/-/appcenter-analytics-4.1.0.tgz"
-  "version" "4.1.0"
-  dependencies:
-    "appcenter" "4.1.0"
-
-"appcenter-crashes@4.1.0":
-  "integrity" "sha512-erl7387yAPRKa7d8L7KxNd82OAZ+EQwThpsu7tZLQYn3iuIT4P98dNFCnJKO6y64li4dn4B9rCF3s0PN7tPb1A=="
-  "resolved" "https://registry.npmjs.org/appcenter-crashes/-/appcenter-crashes-4.1.0.tgz"
-  "version" "4.1.0"
-  dependencies:
-    "appcenter" "4.1.0"
-
-"appcenter-link-scripts@4.1.0":
-  "integrity" "sha512-sTd8H4H9wNwBkUKHasvDGNBln34+dHEFlaT/P6O0gvs6TWU3JxlY8uXpB/IqAi2lSWPs3TMgQ7NGXTjvC6oZig=="
-  "resolved" "https://registry.npmjs.org/appcenter-link-scripts/-/appcenter-link-scripts-4.1.0.tgz"
-  "version" "4.1.0"
-  dependencies:
-    "debug" "4.1.1"
-    "glob" "5.0.15"
-    "minimist" "1.2.5"
-    "mkdirp" "0.5.3"
-    "plist" "3.0.1"
-    "which" "1.2.11"
-    "xcode" "2.0.0"
-
-"appcenter@4.1.0":
-  "integrity" "sha512-JUwb/4sMw68CN2AlJEp1G5iVl/Rzv8fg8t9CzeRaEcnOku42h6+vlYbYe3P5YW18kAIA/hCH0uoDaa0kc9qfDA=="
-  "resolved" "https://registry.npmjs.org/appcenter/-/appcenter-4.1.0.tgz"
-  "version" "4.1.0"
-  dependencies:
-    "appcenter-link-scripts" "4.1.0"
-
 "appdirsjs@^1.2.4":
   "integrity" "sha512-WO5StDORR6JF/xYnXk/Fm0yu+iULaV5ULKuUw0Tu+jbgiTlSquaWBCgbpnsHLMXldf+fM3Gxn5p7vjond7He6w=="
   "resolved" "https://registry.npmjs.org/appdirsjs/-/appdirsjs-1.2.4.tgz"
@@ -1991,7 +1957,7 @@
     "mixin-deep" "^1.2.0"
     "pascalcase" "^0.1.1"
 
-"base64-js@^1.1.2", "base64-js@^1.2.3", "base64-js@^1.5.1":
+"base64-js@^1.1.2", "base64-js@^1.5.1":
   "integrity" "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA=="
   "resolved" "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz"
   "version" "1.5.1"
@@ -2512,13 +2478,6 @@
   "version" "2.6.9"
   dependencies:
     "ms" "2.0.0"
-
-"debug@4.1.1":
-  "integrity" "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw=="
-  "resolved" "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz"
-  "version" "4.1.1"
-  dependencies:
-    "ms" "^2.1.1"
 
 "decamelize@^1.2.0":
   "integrity" "sha1-9lNNFRSCabIDUue+4m9QH5oZEpA="
@@ -3313,17 +3272,6 @@
     "once" "^1.3.0"
     "path-is-absolute" "^1.0.0"
 
-"glob@5.0.15":
-  "integrity" "sha1-G8k2ueAvSmA/zCIuz3Yz0wuLk7E="
-  "resolved" "https://registry.npmjs.org/glob/-/glob-5.0.15.tgz"
-  "version" "5.0.15"
-  dependencies:
-    "inflight" "^1.0.4"
-    "inherits" "2"
-    "minimatch" "2 || 3"
-    "once" "^1.3.0"
-    "path-is-absolute" "^1.0.0"
-
 "globals@^11.1.0":
   "integrity" "sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA=="
   "resolved" "https://registry.npmjs.org/globals/-/globals-11.12.0.tgz"
@@ -3813,11 +3761,6 @@
   "integrity" "sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE="
   "resolved" "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
   "version" "1.0.0"
-
-"isexe@^1.1.1":
-  "integrity" "sha1-NvPiLmB1CSD15yQaR2qMakInWtA="
-  "resolved" "https://registry.npmjs.org/isexe/-/isexe-1.1.2.tgz"
-  "version" "1.1.2"
 
 "isexe@^2.0.0":
   "integrity" "sha1-6PvzdNxVb/iUehDcsFctYz8s+hA="
@@ -5041,14 +4984,14 @@
   "resolved" "https://registry.npmjs.org/mimic-fn/-/mimic-fn-2.1.0.tgz"
   "version" "2.1.0"
 
-"minimatch@^3.0.2", "minimatch@^3.0.4", "minimatch@2 || 3":
+"minimatch@^3.0.2", "minimatch@^3.0.4":
   "integrity" "sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA=="
   "resolved" "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz"
   "version" "3.0.4"
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"minimist@^1.1.1", "minimist@^1.2.0", "minimist@^1.2.5", "minimist@1.2.5":
+"minimist@^1.1.1", "minimist@^1.2.0", "minimist@^1.2.5":
   "integrity" "sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw=="
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   "version" "1.2.5"
@@ -5068,18 +5011,6 @@
   dependencies:
     "minimist" "^1.2.5"
 
-"mkdirp@0.5.3":
-  "integrity" "sha512-P+2gwrFqx8lhew375MQHHeTlY8AuOJSrGf0R5ddkEndUkmwpgUob/vQuBD1V22/Cw1/lJr4x+EjllSezBThzBg=="
-  "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.3.tgz"
-  "version" "0.5.3"
-  dependencies:
-    "minimist" "^1.2.5"
-
-"ms@^2.1.1", "ms@2.1.2":
-  "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
-  "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
-  "version" "2.1.2"
-
 "ms@2.0.0":
   "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -5089,6 +5020,11 @@
   "integrity" "sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg=="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz"
   "version" "2.1.1"
+
+"ms@2.1.2":
+  "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
+  "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
+  "version" "2.1.2"
 
 "nanomatch@^1.2.9":
   "integrity" "sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA=="
@@ -5539,15 +5475,6 @@
     "base64-js" "^1.5.1"
     "xmlbuilder" "^9.0.7"
     "xmldom" "^0.5.0"
-
-"plist@3.0.1":
-  "integrity" "sha512-GpgvHHocGRyQm74b6FWEZZVRroHKE1I0/BTjAmySaohK+cUn+hZpbqXkc3KWgW3gQYkqcQej35FohcT0FRlkRQ=="
-  "resolved" "https://registry.npmjs.org/plist/-/plist-3.0.1.tgz"
-  "version" "3.0.1"
-  dependencies:
-    "base64-js" "^1.2.3"
-    "xmlbuilder" "^9.0.7"
-    "xmldom" "0.1.x"
 
 "posix-character-classes@^0.1.0":
   "integrity" "sha1-AerA/jta9xoqbAL+q7jB/vfgDqs="
@@ -7012,13 +6939,6 @@
   dependencies:
     "isexe" "^2.0.0"
 
-"which@1.2.11":
-  "integrity" "sha1-yLLu6muMFln6fB3U/aq+lTPcXos="
-  "resolved" "https://registry.npmjs.org/which/-/which-1.2.11.tgz"
-  "version" "1.2.11"
-  dependencies:
-    "isexe" "^1.1.1"
-
 "word-wrap@^1.2.3", "word-wrap@~1.2.3":
   "integrity" "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ=="
   "resolved" "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz"
@@ -7090,14 +7010,6 @@
     "simple-plist" "^1.0.0"
     "uuid" "^3.3.2"
 
-"xcode@2.0.0":
-  "integrity" "sha512-5xF6RCjAdDEiEsbbZaS/gBRt3jZ/177otZcpoLCjGN/u1LrfgH7/Sgeeavpr/jELpyDqN2im3AKosl2G2W8hfw=="
-  "resolved" "https://registry.npmjs.org/xcode/-/xcode-2.0.0.tgz"
-  "version" "2.0.0"
-  dependencies:
-    "simple-plist" "^1.0.0"
-    "uuid" "^3.3.2"
-
 "xml-name-validator@^3.0.0":
   "integrity" "sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw=="
   "resolved" "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-3.0.0.tgz"
@@ -7124,11 +7036,6 @@
   "integrity" "sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA=="
   "resolved" "https://registry.npmjs.org/xmldom/-/xmldom-0.5.0.tgz"
   "version" "0.5.0"
-
-"xmldom@0.1.x":
-  "integrity" "sha512-yS2uJflVQs6n+CyjHoaBmVSqIDevTAWrzMmjG1Gc7h1qQ7uVozNhEPJAwZXWyGQ/Gafo3fCwrcaokezLPupVyQ=="
-  "resolved" "https://registry.npmjs.org/xmldom/-/xmldom-0.1.31.tgz"
-  "version" "0.1.31"
 
 "xtend@~4.0.1":
   "integrity" "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="
