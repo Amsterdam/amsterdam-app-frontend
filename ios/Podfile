@@ -12,6 +12,8 @@ target 'StadsApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'StadsAppTests' do
     inherit! :complete
     # Pods for testing
