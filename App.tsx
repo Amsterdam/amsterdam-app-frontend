@@ -18,7 +18,16 @@ import {
   View,
 } from 'react-native'
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen'
+// These were from RN’s ‘New App Screen’. TODO Customise for Amsterdam.
+const Colors = {
+  primary: '#1292B4',
+  white: '#FFF',
+  lighter: '#F3F3F3',
+  light: '#DAE1E7',
+  dark: '#444',
+  darker: '#222',
+  black: '#000',
+}
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -34,7 +43,6 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
-          <Header />
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
