@@ -9,8 +9,9 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native'
-import React from 'react'
+import React, {useState} from 'react'
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -30,11 +31,15 @@ const Colors = {
 }
 
 const App = () => {
+  const [counter, setCounter] = useState(0)
+
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   }
+
+  const updateCounter = () => setCounter(counter + 1)
 
   return (
     <NavigationContainer>
@@ -48,6 +53,12 @@ const App = () => {
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
             }}
           />
+          <View style={{padding: 32}}>
+            <Button
+              onPress={updateCounter}
+              title={`${counter} keer geklikt!`}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </NavigationContainer>
