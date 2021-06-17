@@ -51,9 +51,8 @@ const App = () => {
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}
-          />
-          <View style={{padding: 32}}>
+              padding: 32,
+            }}>
             <Button
               onPress={updateCounter}
               title={`${counter} keer geklikt!`}
