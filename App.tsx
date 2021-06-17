@@ -54,6 +54,7 @@ const App = () => {
               padding: 32,
             }}>
             <Button
+              color="red"
               onPress={updateCounter}
               title={`${counter} keer geklikt!`}
             />
