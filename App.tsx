@@ -8,50 +8,28 @@
  * @format
  */
 
+import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
-import React, {useState} from 'react'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native'
-import Button from './src/components/ui/Button'
-import {color} from './src/tokens'
+import {createStackNavigator} from '@react-navigation/stack'
+import HomeScreen from './src/screens/Home'
+import WebScreen from './src/screens/Web'
 
-const App = () => {
-  const [counter, setCounter] = useState(0)
-
-  const isDarkMode = useColorScheme() === 'dark'
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
+export type RootStackParamList = {
+  Home: undefined
+  Web: {uri: string}
   }
 
-  const updateCounter = () => setCounter(counter + 1)
+const App = () => {
+  const Stack = createStackNavigator()
 
   return (
     <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <View style={styles.buttonContainer}>
-            <Button onPress={updateCounter} text={`${counter} keer geklikt!`} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Web" component={WebScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 32,
-  },
-})
 
 export default App
