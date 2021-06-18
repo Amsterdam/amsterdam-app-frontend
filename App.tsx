@@ -11,24 +11,15 @@
 import {NavigationContainer} from '@react-navigation/native'
 import React, {useState} from 'react'
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
+  StyleSheet,
   useColorScheme,
   View,
 } from 'react-native'
-
-// These were from RN’s ‘New App Screen’. TODO Customise for Amsterdam.
-const Colors = {
-  primary: '#1292B4',
-  white: '#FFF',
-  lighter: '#F3F3F3',
-  light: '#DAE1E7',
-  dark: '#444',
-  darker: '#222',
-  black: '#000',
-}
+import Button from './src/components/ui/Button'
+import {colors} from './src/components/shared/constants'
 
 const App = () => {
   const [counter, setCounter] = useState(0)
@@ -36,7 +27,7 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? colors.tint.level7 : colors.tint.level1,
   }
 
   const updateCounter = () => setCounter(counter + 1)
@@ -48,21 +39,19 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-              padding: 32,
-            }}>
-            <Button
-              color="red"
-              onPress={updateCounter}
-              title={`${counter} keer geklikt!`}
-            />
+          <View style={styles.buttonContainer}>
+            <Button onPress={updateCounter} text={`${counter} keer geklikt!`} />
           </View>
         </ScrollView>
       </SafeAreaView>
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    padding: 32,
+  },
+})
 
 export default App
