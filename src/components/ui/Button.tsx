@@ -1,30 +1,33 @@
 import React from 'react'
 import {TouchableOpacityProps, TouchableOpacity, StyleSheet} from 'react-native'
 import {colors} from '../shared/constants'
-import {setSpacing} from '../../utils/setSpacing'
+import themeSpacing from '../../utils/themeSpacing'
 import Text from './Text'
 
-type ButtonProps = {
+type Props = {
   text: string
+  variant?: 'primary'
 } & TouchableOpacityProps
 
-const Button = ({style, text, ...otherProps}: ButtonProps) => {
+type PropsWithoutStyle = Omit<Props, 'style'>
+
+const Button = ({
+  text,
+  variant = 'primary',
+  ...otherProps
+}: PropsWithoutStyle) => {
   return (
-    <TouchableOpacity style={[styles.button, style]} {...otherProps}>
-      <Text style={styles.buttonText}>{text}</Text>
+    <TouchableOpacity style={styles[variant]} {...otherProps}>
+      <Text variant="buttonPrimary">{text}</Text>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  button: {
+  primary: {
     backgroundColor: colors.primary.main,
-    paddingVertical: setSpacing(3),
-    paddingHorizontal: setSpacing(4),
-  },
-  buttonText: {
-    fontFamily: 'AvenirNext-DemiBold',
-    color: 'white',
+    paddingVertical: themeSpacing(3),
+    paddingHorizontal: themeSpacing(4),
   },
 })
 

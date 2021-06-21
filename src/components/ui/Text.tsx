@@ -1,24 +1,35 @@
 import React from 'react'
 import {StyleSheet, Text as TextRN, TextProps} from 'react-native'
+import fontSize from '../../tokens/fontSize'
+import fontFamily from '../../tokens/fontFamily'
+
+type Props = {
+  children: React.ReactNode
+  variant?: 'default' | 'buttonPrimary'
+} & TextProps
+
+type PropsWithoutStyle = Omit<Props, 'style'>
 
 const Text = ({
   children,
-  style,
+  variant = 'default',
   ...otherProps
-}: {
-  children: React.ReactNode
-} & TextProps) => {
+}: PropsWithoutStyle) => {
   return (
-    <TextRN style={[styles.text, style]} {...otherProps}>
+    <TextRN style={[styles.default, styles[variant]]} {...otherProps}>
       {children}
     </TextRN>
   )
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'AvenirNext-Regular',
-    fontSize: 20,
+  default: {
+    fontFamily: fontFamily.regular,
+    fontSize: fontSize.md,
+  },
+  buttonPrimary: {
+    fontFamily: fontFamily.demiBold,
+    color: 'white',
   },
 })
 
