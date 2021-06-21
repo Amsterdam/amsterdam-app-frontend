@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import colors from '../../tokens/colors'
+import color from '../../tokens/color'
 import themeSpacing from '../../utils/themeSpacing'
 import Text from './Text'
 
@@ -19,7 +19,7 @@ const Button = ({text, variant = 'primary', ...otherProps}: Props) => {
 
 const styles = StyleSheet.create({
   primary: {
-    backgroundColor: colors.primary.main,
+    backgroundColor: color.primary.main,
     paddingVertical: themeSpacing(3),
     paddingHorizontal: themeSpacing(4),
   },

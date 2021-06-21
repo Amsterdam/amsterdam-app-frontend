@@ -19,7 +19,7 @@ import {
   View,
 } from 'react-native'
 import Button from './src/components/ui/Button'
-import colors from './src/tokens/colors'
+import color from './src/tokens/color'
 
 const App = () => {
   const [counter, setCounter] = useState(0)
@@ -27,7 +27,7 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? colors.tint.level7 : colors.tint.level1,
+    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
   }
 
   const updateCounter = () => setCounter(counter + 1)
