@@ -1,6 +1,6 @@
 import React from 'react'
 import {TouchableOpacityProps, TouchableOpacity, StyleSheet} from 'react-native'
-import {colors} from '../shared/constants'
+import colors from '../../tokens/colors'
 import themeSpacing from '../../utils/themeSpacing'
 import Text from './Text'
 
