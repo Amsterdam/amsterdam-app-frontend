@@ -32,8 +32,8 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
         <View style={styles.buttonContainer}>
           <Button
             onPress={() =>
-              navigation.navigate('Web', {
-                uri: 'https://meldingen.amsterdam.nl',
+              navigation.navigate('Melding', {
+                uri: 'https://meldingen.amsterdam.nl/',
               })
             }
             text="Maak een melding"
