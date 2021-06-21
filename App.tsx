@@ -19,7 +19,7 @@ import {
   View,
 } from 'react-native'
 import Button from './src/components/ui/Button'
-import {color} from './src/tokens/color'
+import {color} from './src/tokens'
 
 const App = () => {
   const [counter, setCounter] = useState(0)

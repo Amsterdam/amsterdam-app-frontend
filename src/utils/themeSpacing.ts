@@ -1,4 +1,4 @@
-import {spacing} from '../tokens/spacing'
+import {spacing} from '../tokens'
 
 const themeSpacing = (factor: number) => {
   return factor * spacing

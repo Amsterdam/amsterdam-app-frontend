@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text as TextRN, TextProps} from 'react-native'
-import {fontSize} from '../../tokens/fontSize'
-import {fontFamily} from '../../tokens/fontFamily'
+import {fontFamily, fontSize} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
