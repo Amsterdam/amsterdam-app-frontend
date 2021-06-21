@@ -4,7 +4,7 @@ import {fontFamily, fontSize} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
-  variant?: 'default' | 'buttonPrimary'
+  variant?: 'default' | 'inverse'
 } & Omit<TextProps, 'style'>
 
 const Text = ({children, variant = 'default', ...otherProps}: Props) => {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.regular,
     fontSize: fontSize.md,
   },
-  buttonPrimary: {
+  inverse: {
     fontFamily: fontFamily.demiBold,
     color: 'white',
   },

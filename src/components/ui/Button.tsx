@@ -12,7 +12,7 @@ type Props = {
 const Button = ({text, variant = 'primary', ...otherProps}: Props) => {
   return (
     <TouchableOpacity style={styles[variant]} {...otherProps}>
-      <Text variant="buttonPrimary">{text}</Text>
+      <Text variant="inverse">{text}</Text>
     </TouchableOpacity>
   )
 }
