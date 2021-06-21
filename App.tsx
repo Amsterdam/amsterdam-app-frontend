@@ -9,62 +9,28 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native'
-import React from 'react'
+import React, {useState} from 'react'
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native'
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
-
-type SectionProps = {
-  title: string
-  children: React.ReactNode
-}
-
-const Section = ({children, title}: SectionProps) => {
-  const isDarkMode = useColorScheme() === 'dark'
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  )
-}
+import Button from './src/components/ui/Button'
+import {color} from './src/tokens'
 
 const App = () => {
+  const [counter, setCounter] = useState(0)
+
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
   }
+
+  const updateCounter = () => setCounter(counter + 1)
 
   return (
     <NavigationContainer>
@@ -73,25 +39,8 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
-          <Header />
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Step One">
-              Edit <Text style={styles.highlight}>App.js</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-              <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-              <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-              Read the docs to discover what to do next:
-            </Section>
-            <LearnMoreLinks />
+          <View style={styles.buttonContainer}>
+            <Button onPress={updateCounter} text={`${counter} keer geklikt!`} />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -100,21 +49,8 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontFamily: 'AvenirNext-DemiBold',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontFamily: 'AvenirNext-Regular',
-  },
-  highlight: {
-    fontWeight: '700',
+  buttonContainer: {
+    padding: 32,
   },
 })
 
