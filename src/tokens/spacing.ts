@@ -1,1 +1,1 @@
-export default 4
+export const spacing = 4
