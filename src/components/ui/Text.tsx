@@ -6,15 +6,9 @@ import fontFamily from '../../tokens/fontFamily'
 type Props = {
   children: React.ReactNode
   variant?: 'default' | 'buttonPrimary'
-} & TextProps
+} & Omit<TextProps, 'style'>
 
-type PropsWithoutStyle = Omit<Props, 'style'>
-
-const Text = ({
-  children,
-  variant = 'default',
-  ...otherProps
-}: PropsWithoutStyle) => {
+const Text = ({children, variant = 'default', ...otherProps}: Props) => {
   return (
     <TextRN style={[styles.default, styles[variant]]} {...otherProps}>
       {children}
