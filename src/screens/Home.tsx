@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {colors} from '../components/shared/constants'
+import {color} from '../tokens'
 import Button from '../components/ui/Button'
 import {RootStackParamList} from '../../App'
 
@@ -20,7 +20,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? colors.tint.level7 : colors.tint.level1,
+    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
   }
 
   return (
