@@ -1,34 +1,17 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../../App'
 import Button from '../components/ui/Button'
-import {color} from '../tokens'
+import {WrapScreen} from '../components/ui/Container'
 
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
-  const isDarkMode = useColorScheme() === 'dark'
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
-  }
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+    <WrapScreen>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() =>
@@ -39,8 +22,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
             text="Maak een melding"
           />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+    </WrapScreen>
   )
 }
 
