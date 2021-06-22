@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "android:phone": "react-native run-android",
+    "android:tablet": "emulator @Pixel_C_API_30 & react-native run-android --deviceId='Pixel_C_API_30'",
+    "ios:phone": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "ios:tablet": "react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)'",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
