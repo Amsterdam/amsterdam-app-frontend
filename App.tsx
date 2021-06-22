@@ -1,57 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
+import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
-import React, {useState} from 'react'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native'
-import Button from './src/components/ui/Button'
-import {color} from './src/tokens'
+import {createStackNavigator} from '@react-navigation/stack'
+import HomeScreen from './src/screens/Home'
+import MeldingScreen from './src/screens/Melding'
+
+export type RootStackParamList = {
+  Home: undefined
+  Melding: {uri: string}
+}
 
 const App = () => {
-  const [counter, setCounter] = useState(0)
-
-  const isDarkMode = useColorScheme() === 'dark'
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
-  }
-
-  const updateCounter = () => setCounter(counter + 1)
+  const Stack = createStackNavigator()
 
   return (
     <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <View style={styles.buttonContainer}>
-            <Button onPress={updateCounter} text={`${counter} keer geklikt!`} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Melding" component={MeldingScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 32,
-  },
-})
 
 export default App
