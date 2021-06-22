@@ -15,8 +15,11 @@ https://reactnative.dev/docs/environment-setup
 - Install XCode dependencies: `cd amsterdam-app && pod install && cd ..`
 - Install Node dependencies: `npm i`
 - Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`
-- Start the iOS emulator: `npm run ios`
-- Start the Android emulator: `npm run android`
+- Start the iOS-phone emulator: `npm run ios:phone`
+- Start the iOS-tablet emulator: `npm run ios:tablet`
+- Start the Android-phone emulator: `npm run android:phone`
+- Start the Android-tablet emulator: `npm run android:phone`
+    - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager
 
 We recommend installing this [React Native debugger](https://github.com/jhen0409/react-native-debugger) additionally:
 `brew install --cask react-native-debugger`
