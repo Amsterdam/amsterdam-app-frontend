@@ -1,3 +1,4 @@
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {
   SafeAreaView,
@@ -7,10 +8,9 @@ import {
   useColorScheme,
   View,
 } from 'react-native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {color} from '../tokens'
-import Button from '../components/ui/Button'
 import {RootStackParamList} from '../../App'
+import Button from '../components/ui/Button'
+import {color} from '../tokens'
 
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>

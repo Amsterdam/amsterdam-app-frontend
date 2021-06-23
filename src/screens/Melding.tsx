@@ -1,7 +1,7 @@
-import React from 'react'
 import {RouteProp} from '@react-navigation/native'
-import WebView from '../components/WebView'
+import React from 'react'
 import {RootStackParamList} from '../../App'
+import WebView from '../components/WebView'
 
 type WebScreenRouteProp = RouteProp<RootStackParamList, 'Melding'>
 
