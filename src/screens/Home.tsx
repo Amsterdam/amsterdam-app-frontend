@@ -16,7 +16,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
         <Button
           onPress={() =>
             navigation.navigate('Melding', {
-              uri: 'https://meldingen.amsterdam.nl/',
+              uri: 'https://acc.meldingen.amsterdam.nl/',
             })
           }
           text="Maak een melding"
