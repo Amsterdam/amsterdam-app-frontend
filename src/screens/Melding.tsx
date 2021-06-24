@@ -1,5 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
+import {WebView} from 'react-native-webview'
 import {RootStackParamList} from '../../App'
 import Header from '../components/ui/Header'
 
