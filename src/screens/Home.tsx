@@ -3,7 +3,7 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import Button from '../components/ui/Button'
-import {WrapScreen} from '../components/ui/Container'
+import ScreenWrapper from '../components/ui/ScreenWrapper'
 
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
@@ -11,7 +11,7 @@ type HomeScreenProps = {
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
   return (
-    <WrapScreen>
+    <ScreenWrapper>
       <View style={styles.buttonContainer}>
         <Button
           onPress={() =>
@@ -22,7 +22,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
           text="Maak een melding"
         />
       </View>
-    </WrapScreen>
+    </ScreenWrapper>
   )
 }
 
