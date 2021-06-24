@@ -11,7 +11,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "clean": "react-native-clean-project"
+    "clean": "react-native-clean-project",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -40,6 +41,8 @@
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^27.0.2",
     "eslint": "^7.14.0",
+    "eslint-plugin-import": "^2.23.4",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.0",
     "react-test-renderer": "17.0.1",
