@@ -1,7 +1,7 @@
 import React from 'react'
-import {WebView as WebViewRN} from 'react-native-webview'
+import {WebView as WebViewRN, WebViewProps} from 'react-native-webview'
 
-const WebView = ({uri}: {uri: string}) => {
+const WebView = ({uri}: {uri: string} & WebViewProps) => {
   return <WebViewRN source={{uri}} />
 }
 
