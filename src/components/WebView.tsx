@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
-import {WebView as WebViewRN, WebViewProps} from 'react-native-webview'
+import {WebView as WebViewRN} from 'react-native-webview'
 
 const WebView = ({uri}: {uri: string}) => {
   return <WebViewRN source={{uri}} style={styles.withoutHeader} />
