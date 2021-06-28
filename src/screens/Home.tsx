@@ -21,6 +21,10 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
           }
           text="Maak een melding"
         />
+        <Button
+          onPress={() => navigation.navigate('Project')}
+          text="Bekijk bouwprojecten"
+        />
       </View>
     </ScreenWrapper>
   )
