@@ -26,6 +26,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   view: {
+    backgroundColor: 'white',
     padding: 10,
   },
 })

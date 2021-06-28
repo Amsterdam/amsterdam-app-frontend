@@ -24,6 +24,7 @@ const ScreenWrapper = ({children}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#F5F5F5',
     flex: 1,
   },
 })
