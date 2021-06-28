@@ -5,6 +5,15 @@ import {RootStackParamList} from '../../App'
 import Button from '../components/ui/Button'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 
+const styles = StyleSheet.create({
+  buttonContainer: {
+    padding: 32,
+  },
+  gap: {
+    marginBottom: 10,
+  },
+})
+
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
@@ -13,14 +22,16 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
   return (
     <ScreenWrapper>
       <View style={styles.buttonContainer}>
-        <Button
-          onPress={() =>
-            navigation.navigate('Melding', {
-              uri: 'https://acc.meldingen.amsterdam.nl/',
-            })
-          }
-          text="Maak een melding"
-        />
+        <View style={styles.gap}>
+          <Button
+            onPress={() =>
+              navigation.navigate('Melding', {
+                uri: 'https://acc.meldingen.amsterdam.nl/',
+              })
+            }
+            text="Maak een melding"
+          />
+        </View>
         <Button
           onPress={() => navigation.navigate('Project')}
           text="Bekijk bouwprojecten"
@@ -29,11 +40,5 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
     </ScreenWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 32,
-  },
-})
 
 export default HomeScreen
