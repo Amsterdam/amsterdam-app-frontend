@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, Text} from 'react-native'
+import {fontFamily} from '../../tokens'
 
 export type TitleProps = {
   level: 1 | 2 | 3 | 4
@@ -12,6 +13,7 @@ function Title({level, children}: TitleProps) {
 
   const styles = StyleSheet.create({
     title: {
+      fontFamily: fontFamily.demi,
       fontSize: fontSize[level],
       lineHeight: lineHeight[level],
       color: '#000000',
