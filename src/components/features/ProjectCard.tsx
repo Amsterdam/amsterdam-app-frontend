@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image, StyleSheet, Text, View} from 'react-native'
-import Title from '../ui/Title'
+import {Title} from '../ui/Title'
 
 export const styles = StyleSheet.create({
   card: {
