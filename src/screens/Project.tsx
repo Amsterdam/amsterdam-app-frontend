@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native'
 import {Card} from '../components/ui/Card'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 import Title from '../components/ui/Title'
+import {fontFamily} from '../tokens'
 
 const styles = StyleSheet.create({
   cardsRow: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'navy',
+    fontFamily: fontFamily.regular,
     textDecorationLine: 'underline',
   },
   titleRow: {
