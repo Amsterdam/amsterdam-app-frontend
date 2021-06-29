@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   titleRow: {
-    flexDirection: 'row',
     alignItems: 'baseline',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   screen: {
-    padding: 20,
+    padding: 15,
   },
 })
 
@@ -30,7 +30,7 @@ const ProjectScreen = () => (
   <ScreenWrapper>
     <View style={styles.screen}>
       <View style={styles.titleRow}>
-        <Title level={1} text="Centrum" />
+        <Title level={2} text="Centrum" />
         <Link to="#" style={styles.link}>
           Ga naar overzicht
         </Link>

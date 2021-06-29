@@ -6,11 +6,11 @@ import Button from '../components/ui/Button'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 32,
+  body: {
+    padding: 45,
   },
   gap: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
 })
 
@@ -21,7 +21,7 @@ type HomeScreenProps = {
 const HomeScreen = ({navigation}: HomeScreenProps) => {
   return (
     <ScreenWrapper>
-      <View style={styles.buttonContainer}>
+      <View style={styles.body}>
         <View style={styles.gap}>
           <Button
             onPress={() =>

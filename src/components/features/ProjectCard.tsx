@@ -5,28 +5,27 @@ import {Title} from '../ui/Title'
 export const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    width: 224,
+    width: 256,
   },
   cardBody: {
-    padding: 10,
+    padding: 15,
   },
   image: {
-    height: 99,
+    height: 144,
     maxWidth: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
+    width: 256,
   },
 })
 
 export const ProjectCard = () => (
   <View style={styles.card}>
     <Image
-      width={224}
-      height={154}
-      style={styles.image}
       source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
+      style={styles.image}
     />
     <View style={styles.cardBody}>
-      <Title level={3} text="Marnixstraat-Rozengracht" />
+      <Title level={4} text="Marnixstraat-Rozengracht" />
       <Text>Herinrichting kruispunt</Text>
     </View>
   </View>

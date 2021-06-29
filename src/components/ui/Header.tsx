@@ -26,8 +26,9 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   view: {
+    alignItems: 'center',
     backgroundColor: 'white',
-    padding: 10,
+    padding: 15,
   },
 })
 
