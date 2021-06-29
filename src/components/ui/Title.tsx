@@ -3,11 +3,11 @@ import {StyleSheet, Text} from 'react-native'
 import {fontFamily} from '../../tokens'
 
 export type TitleProps = {
-  level: 1 | 2 | 3 | 4
+  level?: 1 | 2 | 3 | 4
   text: string
 }
 
-function Title({level, text}: TitleProps) {
+function Title({level = 1, text}: TitleProps) {
   const fontSize = [24, 20, 20, 18]
   const lineHeight = [30, 28, 28, 25]
 
