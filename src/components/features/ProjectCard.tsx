@@ -26,7 +26,7 @@ export const ProjectCard = () => (
       source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
     />
     <View style={styles.cardBody}>
-      <Title level={3}>Marnixstraat-Rozengracht</Title>
+      <Title level={3} text="Marnixstraat-Rozengracht" />
       <Text>Herinrichting kruispunt</Text>
     </View>
   </View>

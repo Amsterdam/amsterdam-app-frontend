@@ -30,7 +30,7 @@ const ProjectScreen = () => (
   <ScreenWrapper>
     <View style={styles.screen}>
       <View style={styles.titleRow}>
-        <Title level={2}>Centrum</Title>
+        <Title level={2} text="Centrum" />
         <Link to="#" style={styles.link}>
           Ga naar overzicht
         </Link>

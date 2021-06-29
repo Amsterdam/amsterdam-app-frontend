@@ -1,13 +1,13 @@
-import React, {ReactNode} from 'react'
+import React from 'react'
 import {StyleSheet, Text} from 'react-native'
 import {fontFamily} from '../../tokens'
 
 export type TitleProps = {
   level: 1 | 2 | 3 | 4
-  children: ReactNode
+  text: string
 }
 
-function Title({level, children}: TitleProps) {
+function Title({level, text}: TitleProps) {
   const fontSize = [24, 20, 20, 18]
   const lineHeight = [30, 28, 28, 25]
 
@@ -21,7 +21,7 @@ function Title({level, children}: TitleProps) {
     },
   })
 
-  return <Text style={styles.title}>{children}</Text>
+  return <Text style={styles.title}>{text}</Text>
 }
 
 export default Title
