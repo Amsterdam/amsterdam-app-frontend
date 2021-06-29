@@ -1,9 +1,9 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import ProjectScreen from './src/screens/Project'
 import HomeScreen from './src/screens/Home'
 import MeldingScreen from './src/screens/Melding'
+import ProjectScreen from './src/screens/Project'
 
 export type RootStackParamList = {
   Project: undefined
