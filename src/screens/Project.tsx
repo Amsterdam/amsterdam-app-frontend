@@ -1,7 +1,7 @@
 import {Link} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Card} from '../components/features/Card'
+import {ProjectCard} from '../components/features/ProjectCard'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 import Title from '../components/ui/Title'
 import {fontFamily} from '../tokens'
@@ -36,7 +36,7 @@ const ProjectScreen = () => (
         </Link>
       </View>
       <View style={styles.cardsRow}>
-        <Card />
+        <ProjectCard />
       </View>
     </View>
   </ScreenWrapper>

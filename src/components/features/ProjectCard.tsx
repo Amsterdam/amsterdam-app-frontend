@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
 })
 
-export const Card = () => (
+export const ProjectCard = () => (
   <View style={styles.card}>
     <Image
       width={224}
