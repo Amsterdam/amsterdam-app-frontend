@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.md,
   },
   inverse: {
-    fontFamily: fontFamily.demiBold,
+    fontFamily: fontFamily.demi,
     color: 'white',
   },
 })
