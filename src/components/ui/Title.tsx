@@ -14,8 +14,8 @@ function Title({level, children}: TitleProps) {
   const styles = StyleSheet.create({
     title: {
       fontFamily: fontFamily.demi,
-      fontSize: fontSize[level],
-      lineHeight: lineHeight[level],
+      fontSize: fontSize[level - 1],
+      lineHeight: lineHeight[level - 1],
       color: '#000000',
       fontWeight: '700',
     },
