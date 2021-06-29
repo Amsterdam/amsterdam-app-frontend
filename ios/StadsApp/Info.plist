@@ -54,8 +54,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>AvenirNext-DemiBold.ttf</string>
-		<string>AvenirNext-Italic.ttf</string>
-		<string>AvenirNext-Medium.ttf</string>
 		<string>AvenirNext-Regular.ttf</string>
 	</array>
 </dict>
