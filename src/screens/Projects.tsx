@@ -5,7 +5,7 @@ import {ProjectCard} from '../components/features'
 import {ScreenWrapper, Title} from '../components/ui'
 import {fontFamily} from '../tokens'
 
-export const ProjectScreen = () => (
+export const ProjectsScreen = () => (
   <ScreenWrapper>
     <View style={styles.screen}>
       <View style={styles.titleRow}>

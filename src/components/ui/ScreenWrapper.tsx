@@ -1,7 +1,7 @@
 import React from 'react'
 import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
 import {color} from '../../tokens'
-import {Header} from './Header'
+import {Header} from './'
 
 type ScreenWrapperProps = {
   children: React.ReactNode

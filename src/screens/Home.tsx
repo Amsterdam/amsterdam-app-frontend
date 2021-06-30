@@ -15,7 +15,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
         <View style={styles.gap}>
           <Button
             onPress={() =>
-              navigation.navigate('Melding', {
+              navigation.navigate('Report', {
                 uri: 'https://acc.meldingen.amsterdam.nl/',
               })
             }
@@ -23,7 +23,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
           />
         </View>
         <Button
-          onPress={() => navigation.navigate('Project')}
+          onPress={() => navigation.navigate('Projects')}
           text="Bekijk bouwprojecten"
         />
       </View>

@@ -1,3 +1,3 @@
 export * from './Home'
-export * from './Melding'
-export * from './Project'
+export * from './Report'
+export * from './Projects'
