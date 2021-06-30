@@ -5,15 +5,6 @@ import {RootStackParamList} from '../../App'
 import Button from '../components/ui/Button'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 
-const styles = StyleSheet.create({
-  body: {
-    padding: 45,
-  },
-  gap: {
-    marginBottom: 15,
-  },
-})
-
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
@@ -40,5 +31,14 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
     </ScreenWrapper>
   )
 }
+
+const styles = StyleSheet.create({
+  body: {
+    padding: 45,
+  },
+  gap: {
+    marginBottom: 15,
+  },
+})
 
 export default HomeScreen
