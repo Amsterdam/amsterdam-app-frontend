@@ -1,6 +1,5 @@
 import React from 'react'
 import {Image, StyleSheet, View} from 'react-native'
-import {fontFamily} from '../../tokens'
 import Text from '../ui/Text'
 
 export const styles = StyleSheet.create({
@@ -26,9 +25,7 @@ export const ProjectCard = () => (
       style={styles.image}
     />
     <View style={styles.cardBody}>
-      <Text style={{fontFamily: fontFamily.demi}}>
-        Marnixstraat-Rozengracht
-      </Text>
+      <Text emphasis>Marnixstraat-Rozengracht</Text>
       <Text>Herinrichting kruispunt</Text>
     </View>
   </View>
