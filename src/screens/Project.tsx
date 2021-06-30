@@ -1,7 +1,7 @@
 import {Link} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {ProjectCard} from '../components/features/ProjectCard'
+import ProjectCard from '../components/features/ProjectCard'
 import ScreenWrapper from '../components/ui/ScreenWrapper'
 import {Title} from '../components/ui/Title'
 import {fontFamily} from '../tokens'

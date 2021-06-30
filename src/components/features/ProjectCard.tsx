@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
 })
 
-export const ProjectCard = () => (
+const ProjectCard = () => (
   <View style={styles.card}>
     <Image
       source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
@@ -30,3 +30,5 @@ export const ProjectCard = () => (
     </View>
   </View>
 )
+
+export default ProjectCard
