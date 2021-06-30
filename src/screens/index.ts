@@ -1,3 +1,3 @@
-export * from './Home'
-export * from './Report'
-export * from './Projects'
+export * from './HomeScreen'
+export * from './ProjectsScreen'
+export * from './ReportScreen'
