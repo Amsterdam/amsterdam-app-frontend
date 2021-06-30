@@ -1,4 +1,3 @@
-import {Link} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {ProjectCard} from '../components/features'
@@ -10,9 +9,6 @@ export const ProjectsScreen = () => (
     <View style={styles.screen}>
       <View style={styles.titleRow}>
         <Title level={2} text="Centrum" />
-        <Link to="#" style={styles.link}>
-          Ga naar overzicht
-        </Link>
       </View>
       <View style={styles.cardsRow}>
         <ProjectCard />
