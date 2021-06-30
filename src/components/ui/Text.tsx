@@ -1,31 +1,19 @@
 import React from 'react'
 import {
-  StyleProp,
   StyleSheet,
   Text as TextRN,
   TextProps as TextRNProps,
-  TextStyle,
 } from 'react-native'
 import {fontFamily} from '../../tokens'
 
 type Props = {
-  emphasis?: Boolean
   children: React.ReactNode
   variant?: 'default' | 'inverse'
 } & Omit<TextRNProps, 'style'>
 
-const Text = ({
-  children,
-  emphasis,
-  variant = 'default',
-  ...otherProps
-}: Props) => {
-  const style: StyleProp<TextStyle> = emphasis
-    ? {fontFamily: fontFamily.demi}
-    : undefined
-
+const Text = ({children, variant = 'default', ...otherProps}: Props) => {
   return (
-    <TextRN style={[styles.default, styles[variant], style]} {...otherProps}>
+    <TextRN style={[styles.default, styles[variant]]} {...otherProps}>
       {children}
     </TextRN>
   )

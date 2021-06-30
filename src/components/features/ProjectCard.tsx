@@ -1,6 +1,7 @@
 import React from 'react'
 import {Image, StyleSheet, View} from 'react-native'
 import Text from '../ui/Text'
+import {Title} from '../ui/Title'
 
 const ProjectCard = () => (
   <View style={styles.card}>
@@ -9,7 +10,7 @@ const ProjectCard = () => (
       style={styles.image}
     />
     <View style={styles.cardBody}>
-      <Text emphasis>Marnixstraat-Rozengracht</Text>
+      <Title level={4} text="Marnixstraat-Rozengracht" />
       <Text>Herinrichting kruispunt</Text>
     </View>
   </View>
