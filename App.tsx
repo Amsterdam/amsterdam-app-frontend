@@ -1,9 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import HomeScreen from './src/screens/Home'
-import MeldingScreen from './src/screens/Melding'
-import ProjectScreen from './src/screens/Project'
+import {HomeScreen, MeldingScreen, ProjectScreen} from './src/screens'
 
 export type RootStackParamList = {
   Project: undefined
@@ -11,7 +9,7 @@ export type RootStackParamList = {
   Melding: {uri: string}
 }
 
-const App = () => {
+export const App = () => {
   const Stack = createStackNavigator()
 
   return (
@@ -24,5 +22,3 @@ const App = () => {
     </NavigationContainer>
   )
 }
-
-export default App

@@ -5,14 +5,12 @@ export type CardProps = {
   children: React.ReactNode
 }
 
-const Card = ({children}: CardProps) => (
+export const Card = ({children}: CardProps) => (
   <View style={styles.card}>{children}</View>
 )
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
   },
 })
-
-export default Card

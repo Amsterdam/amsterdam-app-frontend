@@ -1,10 +1,8 @@
 import React from 'react'
 import {Image, StyleSheet, View} from 'react-native'
-import Card from '../ui/Card'
-import Text from '../ui/Text'
-import Title from '../ui/Title'
+import {Card, Text, Title} from '../ui'
 
-const ProjectCard = () => (
+export const ProjectCard = () => (
   <Card>
     <Image
       source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
@@ -17,7 +15,7 @@ const ProjectCard = () => (
   </Card>
 )
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   image: {
     height: 150,
     maxWidth: '100%',
@@ -29,5 +27,3 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 })
-
-export default ProjectCard

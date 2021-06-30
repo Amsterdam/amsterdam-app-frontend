@@ -1,13 +1,13 @@
 import React from 'react'
 import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
 import {color} from '../../tokens'
-import Header from './Header'
+import {Header} from './Header'
 
-type Props = {
+type ScreenWrapperProps = {
   children: React.ReactNode
 }
 
-const ScreenWrapper = ({children}: Props) => {
+export const ScreenWrapper = ({children}: ScreenWrapperProps) => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyles = {
@@ -28,5 +28,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 })
-
-export default ScreenWrapper

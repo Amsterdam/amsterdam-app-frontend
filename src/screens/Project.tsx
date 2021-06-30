@@ -1,12 +1,11 @@
 import {Link} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import ProjectCard from '../components/features/ProjectCard'
-import ScreenWrapper from '../components/ui/ScreenWrapper'
-import Title from '../components/ui/Title'
+import {ProjectCard} from '../components/features'
+import {ScreenWrapper, Title} from '../components/ui'
 import {fontFamily} from '../tokens'
 
-const ProjectScreen = () => (
+export const ProjectScreen = () => (
   <ScreenWrapper>
     <View style={styles.screen}>
       <View style={styles.titleRow}>
@@ -41,5 +40,3 @@ const styles = StyleSheet.create({
     padding: 15,
   },
 })
-
-export default ProjectScreen

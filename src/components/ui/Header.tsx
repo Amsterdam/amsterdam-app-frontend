@@ -14,13 +14,11 @@ const Logo = () => (
   </Svg>
 )
 
-const Header = () => {
+export const Header = () => {
   return (
-    <>
-      <View style={styles.view}>
-        <Logo />
-      </View>
-    </>
+    <View style={styles.view}>
+      <Logo />
+    </View>
   )
 }
 
@@ -31,5 +29,3 @@ const styles = StyleSheet.create({
     padding: 15,
   },
 })
-
-export default Header

@@ -6,12 +6,16 @@ import {
 } from 'react-native'
 import {fontFamily} from '../../tokens'
 
-type Props = {
+type TextProps = {
   children: React.ReactNode
   variant?: 'default' | 'inverse'
 } & Omit<TextRNProps, 'style'>
 
-const Text = ({children, variant = 'default', ...otherProps}: Props) => {
+export const Text = ({
+  children,
+  variant = 'default',
+  ...otherProps
+}: TextProps) => {
   return (
     <TextRN style={[styles.default, styles[variant]]} {...otherProps}>
       {children}
@@ -29,5 +33,3 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 })
-
-export default Text

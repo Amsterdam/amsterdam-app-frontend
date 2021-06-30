@@ -2,14 +2,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import Button from '../components/ui/Button'
-import ScreenWrapper from '../components/ui/ScreenWrapper'
+import {Button, ScreenWrapper} from '../components/ui'
 
 type HomeScreenProps = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
-const HomeScreen = ({navigation}: HomeScreenProps) => {
+export const HomeScreen = ({navigation}: HomeScreenProps) => {
   return (
     <ScreenWrapper>
       <View style={styles.body}>
@@ -40,5 +39,3 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 })
-
-export default HomeScreen
