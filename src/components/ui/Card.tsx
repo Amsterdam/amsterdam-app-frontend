@@ -1,11 +1,11 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 
-export type CardProps = {
+type CardProps = {
   children: React.ReactNode
 }
 
-export type CardBodyProps = CardProps
+type CardBodyProps = CardProps
 
 export const Card = ({children}: CardProps) => (
   <View style={styles.card}>{children}</View>

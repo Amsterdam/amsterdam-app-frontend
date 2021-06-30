@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, Text} from 'react-native'
 import {fontFamily} from '../../tokens'
 
-export type TitleProps = {
+type TitleProps = {
   level?: 1 | 2 | 3 | 4
   text: string
 }
