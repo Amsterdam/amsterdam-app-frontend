@@ -2,7 +2,7 @@ import React from 'react'
 import {Image, StyleSheet, View} from 'react-native'
 import Card from '../ui/Card'
 import Text from '../ui/Text'
-import {Title} from '../ui/Title'
+import Title from '../ui/Title'
 
 const ProjectCard = () => (
   <Card>

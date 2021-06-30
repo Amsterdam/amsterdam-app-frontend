@@ -7,7 +7,7 @@ export type TitleProps = {
   text: string
 }
 
-export function Title({level = 1, text}: TitleProps) {
+const Title = ({level = 1, text}: TitleProps) => {
   const fontSize = [24, 20, 20, 18]
   const lineHeight = [30, 28, 28, 25]
 
@@ -23,3 +23,5 @@ export function Title({level = 1, text}: TitleProps) {
 
   return <Text style={styles.title}>{text}</Text>
 }
+
+export default Title
