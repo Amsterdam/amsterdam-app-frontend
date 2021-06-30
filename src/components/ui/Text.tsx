@@ -1,15 +1,19 @@
 import React from 'react'
-import {StyleSheet, Text as TextRN, TextProps} from 'react-native'
-import {fontFamily, fontSize} from '../../tokens'
+import {
+  StyleSheet,
+  Text as TextRN,
+  TextProps as TextRNProps,
+} from 'react-native'
+import {fontFamily} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
   variant?: 'default' | 'inverse'
-} & Omit<TextProps, 'style'>
+} & TextRNProps
 
-const Text = ({children, variant = 'default', ...otherProps}: Props) => {
+const Text = ({children, style, variant = 'default', ...otherProps}: Props) => {
   return (
-    <TextRN style={[styles.default, styles[variant]]} {...otherProps}>
+    <TextRN style={[styles.default, styles[variant], style]} {...otherProps}>
       {children}
     </TextRN>
   )
@@ -18,7 +22,7 @@ const Text = ({children, variant = 'default', ...otherProps}: Props) => {
 const styles = StyleSheet.create({
   default: {
     fontFamily: fontFamily.regular,
-    fontSize: fontSize.md,
+    fontSize: 16,
   },
   inverse: {
     fontFamily: fontFamily.demi,

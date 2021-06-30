@@ -1,6 +1,7 @@
 import React from 'react'
-import {Image, StyleSheet, Text, View} from 'react-native'
-import {Title} from '../ui/Title'
+import {Image, StyleSheet, View} from 'react-native'
+import {fontFamily} from '../../tokens'
+import Text from '../ui/Text'
 
 export const styles = StyleSheet.create({
   card: {
@@ -25,7 +26,9 @@ export const ProjectCard = () => (
       style={styles.image}
     />
     <View style={styles.cardBody}>
-      <Title level={4} text="Marnixstraat-Rozengracht" />
+      <Text style={{fontFamily: fontFamily.demi}}>
+        Marnixstraat-Rozengracht
+      </Text>
       <Text>Herinrichting kruispunt</Text>
     </View>
   </View>
