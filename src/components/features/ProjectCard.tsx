@@ -1,6 +1,6 @@
 import React from 'react'
-import {Image, StyleSheet, View} from 'react-native'
-import {Card, Text, Title} from '../ui'
+import {Image, StyleSheet} from 'react-native'
+import {Card, CardBody, Text, Title} from '../ui'
 
 export const ProjectCard = () => (
   <Card>
@@ -8,10 +8,10 @@ export const ProjectCard = () => (
       source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
       style={styles.image}
     />
-    <View style={styles.inset}>
+    <CardBody>
       <Title level={4} text="Marnixstraat-Rozengracht" />
       <Text>Herinrichting kruispunt</Text>
-    </View>
+    </CardBody>
   </Card>
 )
 
@@ -21,9 +21,5 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     resizeMode: 'cover',
     width: 300,
-  },
-  inset: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
   },
 })
