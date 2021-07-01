@@ -14,14 +14,10 @@ export const ProjectOverviewScreen = () => {
         <FlatList
           data={projects}
           horizontal
-          ItemSeparatorComponent={() => <View style={{width: 10}} />}
+          ItemSeparatorComponent={() => <View style={styles.gutter} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <ProjectCard
-              imageSource={item.imageSource}
-              text={item.text}
-              title={item.title}
-            />
+            <ProjectCard imageSource={item.imageSource} title={item.title} />
           )}
         />
       </View>
@@ -30,6 +26,9 @@ export const ProjectOverviewScreen = () => {
 }
 
 const styles = StyleSheet.create({
+  gutter: {
+    width: 10,
+  },
   titleRow: {
     marginBottom: 15,
   },

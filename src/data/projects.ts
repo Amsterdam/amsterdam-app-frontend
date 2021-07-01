@@ -3,7 +3,6 @@ export type Project = {
   imageSource: {
     uri: string
   }
-  text: string
   title: string
 }
 
@@ -13,15 +12,13 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/961922/stp_marnixstraat_940.jpg',
     },
-    text: 'Herinrichting kruispunt',
-    title: 'Marnixstraat-Rozengracht',
+    title: 'Marnixstraat-Rozengracht: herinrichting kruispunt',
   },
   {
     id: '966195',
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/966195/940x415_a_programma_brug.jpg',
     },
-    text: 'Vernieuwing 9 bruggen en 5 straten',
-    title: 'Oranje Loper',
+    title: 'Oranje Loper: vernieuwing 9 bruggen en 5 straten',
   },
 ]
