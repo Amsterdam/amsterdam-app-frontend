@@ -1,15 +1,18 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {color} from '../../tokens'
-import {themeSpacing} from '../../utils/themeSpacing'
-import Text from './Text'
+import {Text} from './'
 
-type Props = {
+type ButtonProps = {
   text: string
   variant?: 'primary'
 } & Omit<TouchableOpacityProps, 'style'>
 
-const Button = ({text, variant = 'primary', ...otherProps}: Props) => {
+export const Button = ({
+  text,
+  variant = 'primary',
+  ...otherProps
+}: ButtonProps) => {
   return (
     <TouchableOpacity style={styles[variant]} {...otherProps}>
       <Text variant="inverse">{text}</Text>
@@ -20,9 +23,7 @@ const Button = ({text, variant = 'primary', ...otherProps}: Props) => {
 const styles = StyleSheet.create({
   primary: {
     backgroundColor: color.primary.main,
-    paddingVertical: themeSpacing(3),
-    paddingHorizontal: themeSpacing(4),
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
 })
-
-export default Button
