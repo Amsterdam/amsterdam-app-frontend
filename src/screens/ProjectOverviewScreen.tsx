@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {ProjectCard} from '../components/features'
 import {ScreenWrapper, Title} from '../components/ui'
 
-export const ProjectsScreen = () => (
+export const ProjectOverviewScreen = () => (
   <ScreenWrapper>
     <View style={styles.screen}>
       <View style={styles.titleRow}>

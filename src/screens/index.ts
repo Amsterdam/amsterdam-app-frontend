@@ -1,3 +1,3 @@
 export * from './HomeScreen'
-export * from './ProjectsScreen'
+export * from './ProjectOverviewScreen'
 export * from './ReportScreen'
