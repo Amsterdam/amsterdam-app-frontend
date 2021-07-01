@@ -2,7 +2,6 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {ProjectCard} from '../components/features'
 import {ScreenWrapper, Title} from '../components/ui'
-import {fontFamily} from '../tokens'
 
 export const ProjectsScreen = () => (
   <ScreenWrapper>
@@ -21,15 +20,7 @@ const styles = StyleSheet.create({
   cardsRow: {
     flexDirection: 'row',
   },
-  link: {
-    color: 'navy',
-    fontFamily: fontFamily.regular,
-    textDecorationLine: 'underline',
-  },
   titleRow: {
-    alignItems: 'baseline',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 15,
   },
   screen: {
