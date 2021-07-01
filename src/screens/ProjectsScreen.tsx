@@ -10,7 +10,20 @@ export const ProjectsScreen = () => (
         <Title level={2} text="Centrum" />
       </View>
       <View style={styles.cardsRow}>
-        <ProjectCard />
+        <ProjectCard
+          imageSource={{
+            uri: 'https://www.amsterdam.nl/publish/pages/961922/stp_marnixstraat_940.jpg',
+          }}
+          text="Herinrichting kruispunt"
+          title="Marnixstraat-Rozengracht"
+        />
+        <ProjectCard
+          imageSource={{
+            uri: 'https://www.amsterdam.nl/publish/pages/966195/940x415_a_programma_brug.jpg',
+          }}
+          text="Vernieuwing 9 bruggen en 5 straten"
+          title="Oranje Loper"
+        />
       </View>
     </View>
   </ScreenWrapper>
