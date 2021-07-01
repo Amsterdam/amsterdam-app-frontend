@@ -14,6 +14,7 @@ export const ProjectOverviewScreen = () => {
         <FlatList
           data={projects}
           horizontal
+          ItemSeparatorComponent={() => <View style={{width: 10}} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard
