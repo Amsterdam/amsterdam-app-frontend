@@ -16,6 +16,7 @@ import {
 
 export type RootStackParamList = {
   Home: undefined
+  ProjectDetail: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByBorough: undefined
   Report: {uri: string}

@@ -8,7 +8,7 @@ import {projects} from '../data/projects'
 import {fontFamily} from '../tokens'
 
 type ProjectOverviewScreenProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
 export const ProjectOverviewScreen = ({
@@ -33,7 +33,9 @@ export const ProjectOverviewScreen = ({
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard
+              id={item.id}
               imageSource={item.imageSource}
+              navigation={navigation}
               title={item.title}
               width={300}
             />
