@@ -8,6 +8,7 @@ import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
 import {
   HomeScreen,
+  ProjectDetailScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
   ReportScreen,
@@ -47,6 +48,12 @@ export const routes: Routes = {
       title: 'Bouwprojecten per stadsdeel',
     },
   },
+  projectDetail: {
+    name: 'ProjectDetail',
+    options: {
+      title: 'Bouwproject detail',
+    },
+  },
   report: {
     name: 'Report',
     options: {
@@ -67,7 +74,13 @@ const globalScreenOptions: StackNavigationOptions = {
 
 export const App = () => {
   const Stack = createStackNavigator()
-  const {home, projectOverview, projectOverviewByBorough, report} = routes
+  const {
+    home,
+    projectDetail,
+    projectOverview,
+    projectOverviewByBorough,
+    report,
+  } = routes
 
   return (
     <NavigationContainer>
@@ -88,6 +101,11 @@ export const App = () => {
           name={projectOverviewByBorough.name}
           component={ProjectOverviewByBoroughScreen}
           options={projectOverviewByBorough.options}
+        />
+        <Stack.Screen
+          name={projectDetail.name}
+          component={ProjectDetailScreen}
+          options={projectDetail.options}
         />
         <Stack.Screen
           name="Report"

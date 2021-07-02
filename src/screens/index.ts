@@ -1,4 +1,5 @@
 export * from './HomeScreen'
+export * from './ProjectDetailScreen'
 export * from './ProjectOverviewByBoroughScreen'
 export * from './ProjectOverviewScreen'
 export * from './ReportScreen'
