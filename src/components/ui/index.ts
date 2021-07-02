@@ -1,5 +1,6 @@
 export * from './Button'
 export * from './Card'
+export * from './Gutter'
 export * from './Header'
 export * from './ScreenWrapper'
 export * from './Text'

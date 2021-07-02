@@ -1,16 +1,17 @@
 import React from 'react'
-import {Image, StyleSheet} from 'react-native'
-import {Card, CardBody, Text, Title} from '../ui'
+import {Image, ImageSourcePropType, StyleSheet} from 'react-native'
+import {Card, CardBody, Title} from '../ui'
 
-export const ProjectCard = () => (
+type ProjectCardProps = {
+  imageSource: ImageSourcePropType
+  title: string
+}
+
+export const ProjectCard = ({imageSource, title}: ProjectCardProps) => (
   <Card>
-    <Image
-      source={require('../../assets/images/mock/projects/stp_marnixstraat_940.jpeg')}
-      style={styles.image}
-    />
+    <Image source={imageSource} style={styles.image} />
     <CardBody>
-      <Title level={4} text="Marnixstraat-Rozengracht" />
-      <Text>Herinrichting kruispunt</Text>
+      <Title level={4} text={title} />
     </CardBody>
   </Card>
 )

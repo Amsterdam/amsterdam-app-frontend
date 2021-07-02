@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {HomeScreen, ProjectsScreen, ReportScreen} from './src/screens'
+import {HomeScreen, ProjectOverviewScreen, ReportScreen} from './src/screens'
 
 export type RootStackParamList = {
   Home: undefined
@@ -18,7 +18,7 @@ export const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen
           name="Projects"
-          component={ProjectsScreen}
+          component={ProjectOverviewScreen}
           options={{title: 'Bouwprojecten'}}
         />
         <Stack.Screen
