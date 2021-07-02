@@ -1,16 +1,12 @@
-import {useRoute} from '@react-navigation/native'
 import React from 'react'
 import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
-import {routes} from '../../../App'
 import {color} from '../../tokens'
-import {Header} from './'
 
 type ScreenWrapperProps = {
   children: React.ReactNode
 }
 
 export const ScreenWrapper = ({children}: ScreenWrapperProps) => {
-  const route = useRoute()
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyles = {
@@ -19,7 +15,6 @@ export const ScreenWrapper = ({children}: ScreenWrapperProps) => {
 
   return (
     <SafeAreaView style={[backgroundStyles, {...styles.container}]}>
-      {route.name === routes.home.name && <Header />}
       {children}
     </SafeAreaView>
   )
