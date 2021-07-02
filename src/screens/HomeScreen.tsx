@@ -23,7 +23,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
           />
         </View>
         <Button
-          onPress={() => navigation.navigate('Projects')}
+          onPress={() => navigation.navigate('ProjectOverview')}
           text="Bekijk bouwprojecten"
         />
       </View>

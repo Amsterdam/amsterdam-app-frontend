@@ -10,7 +10,7 @@ import {HomeScreen, ProjectOverviewScreen, ReportScreen} from './src/screens'
 
 export type RootStackParamList = {
   Home: undefined
-  Projects: undefined
+  ProjectOverview: undefined
   Report: {uri: string}
 }
 
@@ -29,8 +29,8 @@ export const routes: Routes = {
       headerTitle: () => <Logo width={85} />,
     },
   },
-  projects: {
-    name: 'Projects',
+  projectOverview: {
+    name: 'ProjectOverview',
     options: {
       title: 'Bouwprojecten',
     },
@@ -55,7 +55,7 @@ const globalScreenOptions: StackNavigationOptions = {
 
 export const App = () => {
   const Stack = createStackNavigator()
-  const {home, projects, report} = routes
+  const {home, projectOverview, report} = routes
 
   return (
     <NavigationContainer>
@@ -68,9 +68,9 @@ export const App = () => {
           options={home.options}
         />
         <Stack.Screen
-          name={projects.name}
+          name={projectOverview.name}
           component={ProjectOverviewScreen}
-          options={projects.options}
+          options={projectOverview.options}
         />
         <Stack.Screen
           name="Report"
