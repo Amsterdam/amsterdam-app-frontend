@@ -4,9 +4,9 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React from 'react'
-import {HomeScreen, ProjectsScreen, ReportScreen} from './src/screens'
 import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
+import {HomeScreen, ProjectsScreen, ReportScreen} from './src/screens'
 
 export type RootStackParamList = {
   Home: undefined
