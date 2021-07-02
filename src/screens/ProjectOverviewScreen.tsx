@@ -1,7 +1,7 @@
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {ProjectCard} from '../components/features'
-import {ScreenWrapper, Title} from '../components/ui'
+import {Gutter, ScreenWrapper, Title} from '../components/ui'
 import {projects} from '../data/projects'
 
 export const ProjectOverviewScreen = () => {
@@ -14,7 +14,7 @@ export const ProjectOverviewScreen = () => {
         <FlatList
           data={projects}
           horizontal
-          ItemSeparatorComponent={() => <View style={styles.gutter} />}
+          ItemSeparatorComponent={() => <Gutter width={10} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard imageSource={item.imageSource} title={item.title} />
@@ -26,9 +26,6 @@ export const ProjectOverviewScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  gutter: {
-    width: 10,
-  },
   titleRow: {
     marginBottom: 15,
   },
