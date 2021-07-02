@@ -30,7 +30,11 @@ export const ProjectOverviewScreen = ({
           ItemSeparatorComponent={() => <Gutter width={10} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <ProjectCard imageSource={item.imageSource} title={item.title} />
+            <ProjectCard
+              imageSource={item.imageSource}
+              title={item.title}
+              width={300}
+            />
           )}
         />
       </View>

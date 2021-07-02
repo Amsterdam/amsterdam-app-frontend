@@ -18,7 +18,6 @@ export const CardBody = ({children}: CardBodyProps) => (
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    maxWidth: 300, // HACK
   },
   cardBody: {
     paddingHorizontal: 15,
