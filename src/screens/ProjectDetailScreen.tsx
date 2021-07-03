@@ -57,7 +57,9 @@ export const ProjectDetailScreen = ({route}: Props) => {
             <Text inverse>{project.contact.email}</Text>
           )}
           {project.contact.list?.map(item => (
-            <Text inverse>{item}</Text>
+            <Text key={item} inverse>
+              – {item}
+            </Text>
           ))}
         </View>
       )}
