@@ -8,6 +8,6 @@ export const WebView = ({uri}: {uri: string}) => {
 
 const styles = StyleSheet.create({
   withoutHeader: {
-    marginTop: -52,
+    marginTop: -54,
   },
 })
