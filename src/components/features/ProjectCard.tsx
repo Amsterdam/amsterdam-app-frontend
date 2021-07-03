@@ -1,8 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native'
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+} from 'react-native'
 import {RootStackParamList} from '../../../App'
-import {Button, Card, CardBody, Title} from '../ui'
+import {Card, CardBody, Title} from '../ui'
 
 type Props = {
   id: string
@@ -20,16 +26,15 @@ export const ProjectCard = ({
   width,
 }: Props) => (
   <View style={{width}}>
-    <Card>
-      <Image source={imageSource} style={styles.image} />
-      <CardBody>
-        <Title level={4} text={title} />
-        <Button
-          onPress={() => navigation.navigate('ProjectDetail', {id})}
-          text="Ga naar project"
-        />
-      </CardBody>
-    </Card>
+    <TouchableHighlight
+      onPress={() => navigation.navigate('ProjectDetail', {id})}>
+      <Card>
+        <Image source={imageSource} style={styles.image} />
+        <CardBody>
+          <Title level={4} text={title} />
+        </CardBody>
+      </Card>
+    </TouchableHighlight>
   </View>
 )
 
