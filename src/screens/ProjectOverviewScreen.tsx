@@ -7,13 +7,11 @@ import {Button, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {projects} from '../data/projects'
 import {fontFamily} from '../tokens'
 
-type ProjectOverviewScreenProps = {
+type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
-export const ProjectOverviewScreen = ({
-  navigation,
-}: ProjectOverviewScreenProps) => {
+export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
       <View style={styles.screen}>

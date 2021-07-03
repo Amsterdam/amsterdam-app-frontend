@@ -3,13 +3,13 @@ import React from 'react'
 import {RootStackParamList} from '../../App'
 import {ScreenWrapper, WebView} from '../components/ui'
 
-type ReportScreenProps = {
+type Props = {
   route: RouteProp<RootStackParamList, 'Report'>
 }
 
 type UriProp = {uri: string}
 
-export const ReportScreen = ({route}: ReportScreenProps) => {
+export const ReportScreen = ({route}: Props) => {
   const {uri}: UriProp = route.params
   return (
     <ScreenWrapper>

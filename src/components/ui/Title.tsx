@@ -2,14 +2,14 @@ import React from 'react'
 import {StyleSheet, Text} from 'react-native'
 import {color, fontFamily} from '../../tokens'
 
-type TitleProps = {
+type Props = {
   level?: 1 | 2 | 3 | 4
   inverse?: Boolean
   prose?: Boolean
   text: string
 }
 
-export const Title = ({level = 1, inverse, prose, text}: TitleProps) => {
+export const Title = ({level = 1, inverse, prose, text}: Props) => {
   const fontSize = [24, 20, 20, 18]
   const lineHeight = [30, 28, 28, 25]
   const marginVertical = [20, 15, 10, 5]

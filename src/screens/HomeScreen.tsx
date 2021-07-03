@@ -4,11 +4,11 @@ import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Button, ScreenWrapper} from '../components/ui'
 
-type HomeScreenProps = {
+type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
-export const HomeScreen = ({navigation}: HomeScreenProps) => {
+export const HomeScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
       <View style={styles.body}>

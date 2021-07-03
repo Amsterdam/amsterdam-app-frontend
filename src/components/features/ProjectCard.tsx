@@ -4,7 +4,7 @@ import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../App'
 import {Button, Card, CardBody, Title} from '../ui'
 
-type ProjectCardProps = {
+type Props = {
   id: string
   imageSource: ImageSourcePropType
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
@@ -18,7 +18,7 @@ export const ProjectCard = ({
   navigation,
   title,
   width,
-}: ProjectCardProps) => (
+}: Props) => (
   <View style={{width}}>
     <Card>
       <Image source={imageSource} style={styles.image} />

@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import {color, fontFamily} from '../../tokens'
 
-type TextProps = {
+type Props = {
   children: React.ReactNode
   inverse?: Boolean
   variant?: 'default' | 'inverse'
@@ -17,7 +17,7 @@ export const Text = ({
   inverse,
   variant = 'default',
   ...otherProps
-}: TextProps) => {
+}: Props) => {
   return (
     <TextRN
       style={[styles.default, styles[variant], inverse && styles.inverse]}
