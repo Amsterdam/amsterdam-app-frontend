@@ -3,7 +3,7 @@ import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Gutter, ScreenWrapper, Title} from '../components/ui'
+import {Gutter, Inset, ScreenWrapper, Title} from '../components/ui'
 import {projects} from '../data/projects'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
-      <View style={styles.screen}>
+      <Inset>
         <View style={styles.titleRow}>
           <Title level={2} prose text="Centrum" />
         </View>
@@ -30,7 +30,7 @@ export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
             />
           )}
         />
-      </View>
+      </Inset>
     </ScreenWrapper>
   )
 }
@@ -38,8 +38,5 @@ export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
 const styles = StyleSheet.create({
   titleRow: {
     marginBottom: 15,
-  },
-  screen: {
-    padding: 15,
   },
 })

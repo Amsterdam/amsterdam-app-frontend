@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Text, Title} from '../components/ui'
+import {Inset, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 
@@ -35,13 +35,13 @@ export const ProjectDetailScreen = ({route}: Props) => {
   return (
     <ScrollView>
       <Image source={project.imageSource} style={styles.image} />
-      <View style={styles.screen}>
+      <Inset>
         <Title prose text={project.title} />
         {project.lead?.text && <Text>{project.lead?.text}</Text>}
         <Section title="Wat" text={project.body?.what} />
         <Section title="Waar" text={project.body?.where} />
         <Section title="Wanneer" text={project.body?.when} />
-      </View>
+      </Inset>
       {project.contact && (
         <View style={styles.contact}>
           <Title inverse level={2} prose text="Contact" />
@@ -77,8 +77,5 @@ const styles = StyleSheet.create({
     height: 150,
     maxWidth: '100%',
     resizeMode: 'cover',
-  },
-  screen: {
-    padding: 15,
   },
 })
