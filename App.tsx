@@ -22,7 +22,7 @@ export type RootStackParamList = {
 
 type Routes = {
   [route: string]: {
-    name: string
+    name: keyof RootStackParamList
     title?: string
     options?: StackNavigationOptions
   }

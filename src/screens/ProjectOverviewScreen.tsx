@@ -1,7 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../App'
+import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Button, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {projects} from '../data/projects'
@@ -20,7 +20,9 @@ export const ProjectOverviewScreen = ({
         <View style={styles.titleRow}>
           <Title level={2} text="Centrum" />
           <Button
-            onPress={() => navigation.navigate('ProjectOverviewByBorough')}
+            onPress={() =>
+              navigation.navigate(routes.projectOverviewByBorough.name)
+            }
             text="Ga naar overzicht"
           />
         </View>

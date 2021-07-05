@@ -1,7 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../App'
+import {RootStackParamList, routes} from '../../App'
 import {Button, ScreenWrapper} from '../components/ui'
 
 type HomeScreenProps = {
@@ -15,7 +15,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
         <View style={styles.gap}>
           <Button
             onPress={() =>
-              navigation.navigate('Report', {
+              navigation.navigate(routes.report.name, {
                 uri: 'https://acc.meldingen.amsterdam.nl/',
               })
             }
@@ -23,7 +23,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
           />
         </View>
         <Button
-          onPress={() => navigation.navigate('ProjectOverview')}
+          onPress={() => navigation.navigate(routes.projectOverview.name)}
           text="Bekijk bouwprojecten"
         />
       </View>
