@@ -6,17 +6,23 @@ import {
 import React from 'react'
 import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
-import {HomeScreen, ProjectOverviewScreen, ReportScreen} from './src/screens'
+import {
+  HomeScreen,
+  ProjectOverviewByBoroughScreen,
+  ProjectOverviewScreen,
+  ReportScreen,
+} from './src/screens'
 
 export type RootStackParamList = {
   Home: undefined
-  Projects: undefined
+  ProjectOverview: undefined
+  ProjectOverviewByBorough: undefined
   Report: {uri: string}
 }
 
 type Routes = {
   [route: string]: {
-    name: string
+    name: keyof RootStackParamList
     title?: string
     options?: StackNavigationOptions
   }
@@ -29,10 +35,16 @@ export const routes: Routes = {
       headerTitle: () => <Logo width={85} />,
     },
   },
-  projects: {
-    name: 'Projects',
+  projectOverview: {
+    name: 'ProjectOverview',
     options: {
       title: 'Bouwprojecten',
+    },
+  },
+  projectOverviewByBorough: {
+    name: 'ProjectOverviewByBorough',
+    options: {
+      title: 'Bouwprojecten per stadsdeel',
     },
   },
   report: {
@@ -55,7 +67,7 @@ const globalScreenOptions: StackNavigationOptions = {
 
 export const App = () => {
   const Stack = createStackNavigator()
-  const {home, projects, report} = routes
+  const {home, projectOverview, projectOverviewByBorough, report} = routes
 
   return (
     <NavigationContainer>
@@ -68,9 +80,14 @@ export const App = () => {
           options={home.options}
         />
         <Stack.Screen
-          name={projects.name}
+          name={projectOverview.name}
           component={ProjectOverviewScreen}
-          options={projects.options}
+          options={projectOverview.options}
+        />
+        <Stack.Screen
+          name={projectOverviewByBorough.name}
+          component={ProjectOverviewByBoroughScreen}
+          options={projectOverviewByBorough.options}
         />
         <Stack.Screen
           name="Report"
