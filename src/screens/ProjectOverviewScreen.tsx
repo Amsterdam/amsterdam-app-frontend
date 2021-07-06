@@ -38,9 +38,10 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                   <ProjectCard
-                    id={item.id}
                     imageSource={item.imageSource}
-                    navigation={navigation}
+                    onPress={() =>
+                      navigation.navigate('ProjectDetail', {id: item.id})
+                    }
                     title={item.title}
                     width={300}
                   />

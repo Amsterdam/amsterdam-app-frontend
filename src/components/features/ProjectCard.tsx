@@ -7,27 +7,18 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native'
-import {RootStackParamList} from '../../../App'
 import {Card, CardBody, Title} from '../ui'
 
 type Props = {
-  id: string
   imageSource: ImageSourcePropType
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  onPress: () => void
   title: string
   width?: number
 }
 
-export const ProjectCard = ({
-  id,
-  imageSource,
-  navigation,
-  title,
-  width,
-}: Props) => (
+export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
   <View style={{width}}>
-    <TouchableHighlight
-      onPress={() => navigation.navigate('ProjectDetail', {id})}>
+    <TouchableHighlight onPress={onPress}>
       <Card>
         <Image source={imageSource} style={styles.image} />
         <CardBody>

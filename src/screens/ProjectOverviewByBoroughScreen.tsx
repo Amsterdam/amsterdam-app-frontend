@@ -34,10 +34,11 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard
-              id={item.id}
               imageSource={item.imageSource}
               title={item.title}
-              navigation={navigation}
+              onPress={() =>
+                navigation.navigate('ProjectDetail', {id: item.id})
+              }
             />
           )}
         />
