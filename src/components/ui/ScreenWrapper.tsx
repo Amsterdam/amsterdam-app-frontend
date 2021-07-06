@@ -2,11 +2,11 @@ import React from 'react'
 import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
 import {color} from '../../tokens'
 
-type ScreenWrapperProps = {
+type Props = {
   children: React.ReactNode
 }
 
-export const ScreenWrapper = ({children}: ScreenWrapperProps) => {
+export const ScreenWrapper = ({children}: Props) => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyles = {

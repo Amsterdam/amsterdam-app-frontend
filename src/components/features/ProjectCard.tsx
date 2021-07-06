@@ -1,21 +1,31 @@
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native'
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+} from 'react-native'
 import {Card, CardBody, Title} from '../ui'
 
-type ProjectCardProps = {
+type Props = {
   imageSource: ImageSourcePropType
+  onPress: () => void
   title: string
   width?: number
 }
 
-export const ProjectCard = ({imageSource, title, width}: ProjectCardProps) => (
+export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
   <View style={{width}}>
-    <Card>
-      <Image source={imageSource} style={styles.image} />
-      <CardBody>
-        <Title level={4} text={title} />
-      </CardBody>
-    </Card>
+    <TouchableHighlight onPress={onPress}>
+      <Card>
+        <Image source={imageSource} style={styles.image} />
+        <CardBody>
+          <Title level={4} text={title} />
+        </CardBody>
+      </Card>
+    </TouchableHighlight>
   </View>
 )
 

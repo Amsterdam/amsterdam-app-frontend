@@ -3,61 +3,63 @@ import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Button, Gutter, ScreenWrapper, Title} from '../components/ui'
-import {projects} from '../data/projects'
-import {fontFamily} from '../tokens'
+import {Gutter, Inset, Link, ScreenWrapper, Title} from '../components/ui'
+import {boroughs, projects} from '../data/projects'
 
-type ProjectOverviewScreenProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+type Props = {
+  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
-export const ProjectOverviewScreen = ({
-  navigation,
-}: ProjectOverviewScreenProps) => {
+export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
-      <View style={styles.screen}>
-        <View style={styles.titleRow}>
-          <Title level={2} text="Centrum" />
-          <Button
-            onPress={() =>
-              navigation.navigate(routes.projectOverviewByBorough.name)
-            }
-            text="Ga naar overzicht"
-          />
-        </View>
-        <FlatList
-          data={projects}
-          horizontal
-          ItemSeparatorComponent={() => <Gutter width={10} />}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <ProjectCard
-              imageSource={item.imageSource}
-              title={item.title}
-              width={300}
-            />
-          )}
-        />
-      </View>
+      <Inset>
+        {boroughs.map(borough => {
+          const projectsByBorough = projects.filter(
+            project => project.boroughId === borough.id,
+          )
+          return projectsByBorough.length ? (
+            <React.Fragment key={borough.id}>
+              <View style={styles.titleRow}>
+                <Title level={2} text={borough.name} />
+                <Link
+                  onPress={() =>
+                    navigation.navigate(routes.projectOverviewByBorough.name, {
+                      boroughId: borough.id,
+                    })
+                  }
+                  text="Ga naar overzicht"
+                />
+              </View>
+              <FlatList
+                data={projectsByBorough}
+                horizontal
+                ItemSeparatorComponent={() => <Gutter width={10} />}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                  <ProjectCard
+                    imageSource={item.imageSource}
+                    onPress={() =>
+                      navigation.navigate('ProjectDetail', {id: item.id})
+                    }
+                    title={item.title}
+                    width={300}
+                  />
+                )}
+              />
+            </React.Fragment>
+          ) : null
+        })}
+      </Inset>
     </ScreenWrapper>
   )
 }
 
 const styles = StyleSheet.create({
-  link: {
-    color: 'navy',
-    fontFamily: fontFamily.regular,
-    fontSize: 16,
-    textDecorationLine: 'underline',
-  },
   titleRow: {
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 15,
-  },
-  screen: {
-    padding: 15,
   },
 })
