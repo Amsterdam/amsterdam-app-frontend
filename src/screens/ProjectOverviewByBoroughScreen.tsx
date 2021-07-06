@@ -19,14 +19,8 @@ type Props = {
 
 export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
   const {boroughId} = route.params
-
-  const borough: Borough | undefined = boroughs.find(
-    borough => borough.id === boroughId,
-  )
-
-  const projectsByBorough = projects.filter(
-    project => project.boroughId === boroughId,
-  )
+  const borough: Borough | undefined = boroughs.find(b => b.id === boroughId)
+  const projectsByBorough = projects.filter(p => p.boroughId === boroughId)
 
   return borough && projectsByBorough ? (
     <ScreenWrapper>
