@@ -19,7 +19,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
             project => project.boroughId === borough.id,
           )
           return projectsByBorough.length ? (
-            <>
+            <React.Fragment key={borough.id}>
               <View style={styles.titleRow}>
                 <Title level={2} text={borough.name} />
                 <Link
@@ -46,7 +46,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   />
                 )}
               />
-            </>
+            </React.Fragment>
           ) : null
         })}
       </Inset>
