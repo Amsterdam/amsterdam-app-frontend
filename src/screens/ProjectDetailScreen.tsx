@@ -37,7 +37,9 @@ export const ProjectDetailScreen = ({route}: Props) => {
       <Image source={project.imageSource} style={styles.image} />
       <Inset>
         <Title prose text={project.title} />
-        {project.lead?.text && <Text>{project.lead?.text}</Text>}
+        {project.intro?.title && <Title level={2} text={project.intro.title} />}
+        {project.intro?.text && <Text>{project.intro.text}</Text>}
+        {project.intro?.link && <Text>{project.intro.text}</Text>}
         <Section title="Wat" text={project.body?.what} />
         <Section title="Waar" text={project.body?.where} />
         <Section title="Wanneer" text={project.body?.when} />

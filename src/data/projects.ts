@@ -1,10 +1,25 @@
+export type Borough = {
+  id: number
+  name: string
+}
+
+export const boroughs: Borough[] = [
+  {id: 1, name: 'Centrum'},
+  {id: 2, name: 'Nieuw-West'},
+  {id: 3, name: 'Noord'},
+  {id: 4, name: 'Oost'},
+  {id: 5, name: 'West'},
+  {id: 6, name: 'Zuid'},
+  {id: 7, name: 'Zuidoost'},
+]
+
 export type Project = {
   body?: {
-    leadLink?: string
     what?: string
     when?: string
     where?: string
   }
+  boroughId: number
   contact?: {
     email?: string
     jobDescription?: string
@@ -16,10 +31,11 @@ export type Project = {
   imageSource: {
     uri: string
   }
-  lead?: {
+  intro?: {
     link?: string
     linkText?: string
     text?: string
+    title?: string
   }
   title: string
   url: string
@@ -32,6 +48,7 @@ export const projects: Project[] = [
       where:
         'De kruising Marnixstraat – Rozengracht ligt aan de westzijde van het centrum.',
     },
+    boroughId: 1,
     contact: {
       name: 'Wendy Schipper',
       jobDescription: 'omgevingsmanager',
@@ -42,7 +59,7 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/961922/stp_marnixstraat_940.jpg',
     },
-    lead: {
+    intro: {
       text: 'De kruising Marnixstraat – Rozengracht is een druk kruispunt met verkeersbewegingen in alle richtingen. Als onderdeel van de Binnenring en de Oranje Loper is de kruising een belangrijke verbindingsroute. Er rijden veel trams en fietsers, er is op de Rozengracht veel autoverkeer en de brandweer moet in elke richting kunnen uitrukken. Er zijn de laatste jaren al diverse maatregelen genomen om de kruising veiliger te maken, maar voor een grote verandering is een herinrichting van de gehele kruising nodig. Binnen een paar jaar moet het GVB groot onderhoud aan de trambaan uitvoeren waarbij alle tramsporen worden vervangen. Dit moment grijpen we aan om de totale kruising beter in te richten.',
       link: 'https://www.amsterdam.nl/projecten/marnixstraat-rozengracht/voorlopig-ontwerp/',
       linkText: 'Lees meer over het voorlopig ontwerp',
@@ -61,6 +78,7 @@ export const projects: Project[] = [
         'We werken aan de Nieuwezijds Voorburgwal en de bruggen en straten van Raadhuisstraat tot Mercatorplein. Door het werk aan de bruggen zijn we ook veel aan het werk op de aanliggende grachten en kades. Klik op de kaart hierboven voor meer informatie over de werkzaamheden per straat inclusief de bruggen.\n\n' +
         'Raadhuisstraat - Rozengracht, De Clercqstraat - Jan Evertsenstraat, Nieuwezijds Voorburgwal.',
     },
+    boroughId: 1,
     contact: {
       list: [
         'Nieuwezijds Voorburgwal: Merel Rinkel, 06 1880 6613',
@@ -80,11 +98,14 @@ export const projects: Project[] = [
   },
   {
     body: {
-      what: 'Op het Oosterdokseiland, voorheen een spooremplacement en distributiecentrum van de post, is een nieuw stuk binnenstad gecreëerd. Projectontwikkelaar BPD startte in 2003 met de bouw. Inmiddels is er een divers aanbod aan kantoren, appartementen zowel koop als (sociale) huur, winkels, horeca, een hotel, de openbare bibliotheek en het conservatorium opgeleverd. De gemeente zorgde voor een aantrekkelijk extra stuk openbare ruimte door de aanleg van een mooie houten wandelsteiger in het Oosterdok.\n\nOp het  laatste stuk nog onbebouwde grond van Oosterdokseiland, realiseert projectontwikkelaar BPD nu ongeveer 42 appartementen, een nieuw kantoor voor Booking.com met bijbehorende fietsenstalling, de uitbreiding van de parkeergarage met 349 plekken. Verder komt er 1.500 m2 publiek toegankelijke ruimtes op de begane grond van het nieuwe pand.',
+      what:
+        'Op het Oosterdokseiland, voorheen een spooremplacement en distributiecentrum van de post, is een nieuw stuk binnenstad gecreëerd. Projectontwikkelaar BPD startte in 2003 met de bouw. Inmiddels is er een divers aanbod aan kantoren, appartementen zowel koop als (sociale) huur, winkels, horeca, een hotel, de openbare bibliotheek en het conservatorium opgeleverd. De gemeente zorgde voor een aantrekkelijk extra stuk openbare ruimte door de aanleg van een mooie houten wandelsteiger in het Oosterdok.\n\n' +
+        'Op het  laatste stuk nog onbebouwde grond van Oosterdokseiland, realiseert projectontwikkelaar BPD nu ongeveer 42 appartementen, een nieuw kantoor voor Booking.com met bijbehorende fietsenstalling, de uitbreiding van de parkeergarage met 349 plekken. Verder komt er 1.500 m2 publiek toegankelijke ruimtes op de begane grond van het nieuwe pand.',
       when: 'In januari 2018 is met de laatste bebouwing op het Oosterdokseiland gestart. Naar verwachting wordt de openbare ruimte in 2021 ingericht. Na oplevering van dit project in 2021 is het Oosterdokseiland volledig afgebouwd.',
       where:
         'Oosterdokseiland ligt in het hart van het centrum, op een steenworp afstand van station Amsterdam Centraal en aan het water van het Oosterdok.',
     },
+    boroughId: 1,
     contact: {
       name: 'Wies Daamen',
       jobDescription: 'gebiedsregisseur',
@@ -103,6 +124,7 @@ export const projects: Project[] = [
       when: 'Deze renovatie duurt van eind november 2020 tot en met eind september.',
       where: 'De Oude Kerk in het centrum van de stad (Oudekerksplein 15).',
     },
+    boroughId: 1,
     contact: {
       name: 'Jan van Ingen',
       jobDescription: 'projectleider',
@@ -119,17 +141,18 @@ export const projects: Project[] = [
   {
     body: {
       what:
-        "De verkeersveiligheid in de omgeving van de Plantage Parklaan, de Plantage Kerklaan en de Roetersstraat kan beter. We gaan een 30 kilometer-per-uur gebied instellen met snelheidsverlagende drempels en met behoud van tweerichtingsverkeer voor auto's.\n\n" +
+        'De verkeersveiligheid in de omgeving van de Plantage Parklaan, de Plantage Kerklaan en de Roetersstraat kan beter. We gaan een 30 kilometer-per-uur gebied instellen met snelheidsverlagende drempels en met behoud van tweerichtingsverkeer voor auto’s.\n\n' +
         'De rijbaan van de Plantage Parklaan tussen de Anne Frankstraat en Plantage Middenlaan gaan we verschuiven richting de woningen.\n\n' +
         'Ook maken we het kruispunt van de Plantage Middenlaan met de Plantage Parklaan overzichtelijker.\n\n' +
         'In de Plantage Kerklaan en Roetersstraat gaan we de rode fietsstroken verbreden. Bij de Boekmanschool op de Roetersstraat komt knipperende led-verlichting in het asfalt bij het zebrapad.',
       when:
         'De globale planning van het project is als volgt:\n\n' +
-        '– Participatie: december 2020' +
+        '– Participatie: december 2020\n' +
         '– Uitvoering: derde of vierde kwartaal 2021',
       where:
         'De omgeving van de Plantage Parklaan, de Plantage Kerklaan en de Roetersstraat in de Plantagebuurt in stadsdeel Centrum.',
     },
+    boroughId: 1,
     contact: {
       name: 'Geesje Albrecht',
       jobDescription: 'omgevingsmanager',
@@ -141,5 +164,29 @@ export const projects: Project[] = [
     },
     title: 'Plantagebuurt: verbeteren verkeersveiligheid',
     url: 'https://www.amsterdam.nl/projecten/plantagebuurt',
+  },
+  {
+    body: {
+      when: 'Tot 2027 bouwen we in Amstel III zo’n 10.000 kleinere stadswoningen. Na 2027 kunnen hier nog eens 5.000 woningen bijkomen. Dat gebeurt niet in één keer, maar in verschillende deelprojecten.',
+      where:
+        'Amstel III is meer dan 200 voetbalvelden groot en ligt tussen station Bijlmer ArenA, de A2, het Amsterdam UMC – locatie AMC en het spoor. Het is een van de best bereikbare plekken in Nederland: het ligt in de nabijheid van 2 metrolijnen, een spoorverbinding, busverbindingen en de A2. Midden door het gebied loopt de snelweg A9.\n\n' +
+        'Amstel III kent 2 type gebieden: een typisch bedrijventerrein langs de A2 waar onder andere autodealers zitten en een kantorengebied langs het spoor waar komende jaren veel woningen worden bijgebouwd. Op het bedrijventerrein blijft juist ruimte voor bedrijven. Daar komen geen woningen.',
+    },
+    boroughId: 7,
+    contact: {
+      email: 'amsterl3@amsterdam.nl',
+    },
+    id: 'amstel3',
+    imageSource: {
+      uri: 'https://www.amsterdam.nl/publish/pages/853952/a3_bw.jpg',
+    },
+    intro: {
+      title: 'Van kantorengebied naar een gemengde stadswijk',
+      text:
+        'Het woongebied van Amsterdam Zuidoost breidt uit. De oude kantoorgebouwen in Amstel III maken plaats voor een groene gemengde stadswijk waar je plezierig kunt wonen, werken en leuke dingen kunt doen. Tot 2027 bouwen we hier zo’n 10.000 kleinere stadswoningen. Na 2027 kunnen hier nog eens 5.000 woningen bijkomen. Op de begane grond komen veel voorzieningen, zoals scholen, gezondheids- en jongerencentrum en buurtkamers. Langs het spoor en tussen de ArenA en de Ikea komen parken om te sporten en ontspannen. Het gebied stimuleert mensen om veel te gaan lopen, fietsen en het openbaar vervoer te gebruiken.\n\n' +
+        '[WAT KOMT ER (accordion)]',
+    },
+    title: 'Amstel III: ontwikkeling woongebied gemixt met werken',
+    url: 'https://www.amsterdam.nl/projecten/amstel3/',
   },
 ]
