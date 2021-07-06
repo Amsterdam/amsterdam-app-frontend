@@ -1,24 +1,41 @@
+import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Gutter, Inset, ScreenWrapper, Title} from '../components/ui'
-import {projects} from '../data/projects'
+import {Borough, boroughs, projects} from '../data/projects'
+
+type ProjectOverviewByBoroughScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'ProjectOverviewByBorough'
+>
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  route: ProjectOverviewByBoroughScreenRouteProp
 }
 
-export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
-  return (
+export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
+  const {boroughId} = route.params
+
+  const borough: Borough | undefined = boroughs.find(
+    borough => borough.id === boroughId,
+  )
+
+  const projectsByBorough = projects.filter(
+    project => project.boroughId === boroughId,
+  )
+
+  return borough && projectsByBorough ? (
     <ScreenWrapper>
       <Inset>
         <View style={styles.titleRow}>
-          <Title level={2} prose text="Centrum" />
+          <Title level={2} prose text={borough.name} />
         </View>
         <FlatList
-          data={projects}
+          data={projectsByBorough}
           ItemSeparatorComponent={() => <Gutter height={10} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
@@ -32,7 +49,7 @@ export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
         />
       </Inset>
     </ScreenWrapper>
-  )
+  ) : null
 }
 
 const styles = StyleSheet.create({
