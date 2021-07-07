@@ -26,8 +26,8 @@ export const ProjectDetailScreen = ({route}: Props) => {
   const Section = ({title, text}: {title: string; text?: string}) =>
     text ? (
       <>
-        <Title level={2} prose text={title} />
-        <Text>{text}</Text>
+        <Title level={4} prose text={title} />
+        <Text prose>{text}</Text>
       </>
     ) : null
 
@@ -38,7 +38,7 @@ export const ProjectDetailScreen = ({route}: Props) => {
         <Inset>
           <Title prose text={project.title} />
           {project.intro?.title && (
-            <Title level={2} text={project.intro.title} />
+          <Title level={2} text={project.intro.title} />
           )}
           {project.intro?.text && <Text>{project.intro.text}</Text>}
           {project.intro?.link && (

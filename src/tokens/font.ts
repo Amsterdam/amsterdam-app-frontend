@@ -1,15 +1,10 @@
 import {TextStyle} from 'react-native'
-import {fontFamily} from './fontFamily'
 import {color} from './color'
+import {fontFamily} from './fontFamily'
 
 type FontTextStyle = Pick<
   TextStyle,
-  | 'fontFamily'
-  | 'fontSize'
-  | 'lineHeight'
-  | 'marginTop'
-  | 'marginBottom'
-  | 'color'
+  'fontFamily' | 'fontSize' | 'lineHeight' | 'color'
 >
 
 type Font = {
@@ -33,64 +28,48 @@ export const font: Font = {
     fontFamily: fontFamily.demi,
     fontSize: 24,
     lineHeight: 30,
-    marginTop: 0,
-    marginBottom: 30,
     color: fontColor.regular,
   },
   h2: {
     fontFamily: fontFamily.demi,
     fontSize: 20,
     lineHeight: 28,
-    marginTop: 0,
-    marginBottom: 28,
     color: fontColor.regular,
   },
   h3: {
     fontFamily: fontFamily.demi,
     fontSize: 20,
     lineHeight: 28,
-    marginTop: 0,
-    marginBottom: 28,
     color: fontColor.regular,
   },
   h4: {
     fontFamily: fontFamily.demi,
     fontSize: 18,
     lineHeight: 25,
-    marginTop: 0,
-    marginBottom: 25,
     color: fontColor.regular,
   },
   p1: {
     fontFamily: fontFamily.regular,
     fontSize: 16,
     lineHeight: 22,
-    marginTop: 0,
-    marginBottom: 22,
     color: fontColor.regular,
   },
   p2: {
     fontFamily: fontFamily.regular,
     fontSize: 16,
     lineHeight: 22,
-    marginTop: 0,
-    marginBottom: 22,
     color: '#323232',
   },
   intro: {
     fontFamily: fontFamily.demi,
     fontSize: 16,
     lineHeight: 22,
-    marginTop: 0,
-    marginBottom: 22,
     color: fontColor.regular,
   },
   t1: {
     fontFamily: fontFamily.regular,
     fontSize: 14,
     lineHeight: 18,
-    marginTop: 0,
-    marginBottom: 18,
     color: fontColor.regular,
   },
 }

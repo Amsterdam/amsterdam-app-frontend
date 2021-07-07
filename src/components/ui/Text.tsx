@@ -4,7 +4,7 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {color, font, fontFamily} from '../../tokens'
+import {color, font, fontFamily, fontMargin} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
@@ -13,12 +13,10 @@ type Props = {
 } & Omit<TextRNProps, 'style'>
 
 export const Text = ({children, inverse, prose, ...otherProps}: Props) => {
-  const fontStyles = prose
-    ? font.p1
-    : {...font.p1, marginTop: undefined, marginBottom: undefined}
-
   return (
-    <TextRN style={[fontStyles, inverse && styles.inverse]} {...otherProps}>
+    <TextRN
+      style={[font.p1, prose && fontMargin.p1, inverse && styles.inverse]}
+      {...otherProps}>
       {children}
     </TextRN>
   )

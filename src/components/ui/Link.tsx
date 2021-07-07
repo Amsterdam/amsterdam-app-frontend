@@ -7,15 +7,11 @@ type Props = {
   onPress: () => void
 }
 
-export const Link = ({text, onPress}: Props) => {
-  const fontStyles = {...font.p1, marginTop: undefined, marginBottom: undefined}
-
-  return (
-    <Text style={[fontStyles, styles.link]} onPress={onPress}>
-      {text}
-    </Text>
-  )
-}
+export const Link = ({text, onPress}: Props) => (
+  <Text style={[font.p1, styles.link]} onPress={onPress}>
+    {text}
+  </Text>
+)
 
 const styles = StyleSheet.create({
   link: {
