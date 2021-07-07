@@ -9,19 +9,11 @@ import {color, fontFamily} from '../../tokens'
 type Props = {
   children: React.ReactNode
   inverse?: Boolean
-  variant?: 'default' | 'inverse'
 } & Omit<TextRNProps, 'style'>
 
-export const Text = ({
-  children,
-  inverse,
-  variant = 'default',
-  ...otherProps
-}: Props) => {
+export const Text = ({children, inverse, ...otherProps}: Props) => {
   return (
-    <TextRN
-      style={[styles.default, styles[variant], inverse && styles.inverse]}
-      {...otherProps}>
+    <TextRN style={[styles.default, inverse && styles.inverse]} {...otherProps}>
       {children}
     </TextRN>
   )
