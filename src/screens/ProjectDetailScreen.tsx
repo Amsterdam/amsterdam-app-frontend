@@ -39,7 +39,11 @@ export const ProjectDetailScreen = ({route}: Props) => {
         <Title prose text={project.title} />
         {project.intro?.title && <Title level={2} text={project.intro.title} />}
         {project.intro?.text && <Text>{project.intro.text}</Text>}
-        {project.intro?.link && <Text>{project.intro.text}</Text>}
+        {project.intro?.link && (
+          <Text>
+            {project.intro.linkText}: {project.intro.link}
+          </Text>
+        )}
         <Section title="Wat" text={project.body?.what} />
         <Section title="Waar" text={project.body?.where} />
         <Section title="Wanneer" text={project.body?.when} />
