@@ -1,10 +1,9 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {Image, ScrollView, StyleSheet, View} from 'react-native'
+import {Image, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {Alert, Inset, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color} from '../tokens'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -52,7 +51,7 @@ export const ProjectDetailScreen = ({route}: Props) => {
           <Section title="Wanneer" text={project.body?.when} />
         </Inset>
         {project.contact && (
-          <View style={styles.contact}>
+          <Alert background="red">
             <Title inverse level={2} prose text="Contact" />
             {(project.contact.name || project.contact.jobDescription) && (
               <Text inverse>
@@ -70,7 +69,7 @@ export const ProjectDetailScreen = ({route}: Props) => {
                 – {item}
               </Text>
             ))}
-          </View>
+          </Alert>
         )}
       </ScrollView>
     </ScreenWrapper>
@@ -78,11 +77,6 @@ export const ProjectDetailScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  contact: {
-    backgroundColor: color.secondary.main,
-    color: color.bright.main,
-    padding: 15,
-  },
   image: {
     height: 150,
     maxWidth: '100%',
