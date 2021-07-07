@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {color, fontFamily} from '../../tokens'
+import {color, font} from '../../tokens'
 
 type Props = {
   level?: 1 | 2 | 3 | 4
@@ -10,30 +10,16 @@ type Props = {
 }
 
 export const Title = ({level = 1, inverse, prose, text}: Props) => {
-  const fontSize = [24, 20, 20, 18]
-  const lineHeight = [30, 28, 28, 25]
-  const marginVertical = [20, 15, 10, 5]
-
   const styles = StyleSheet.create({
     inverse: {
       color: color.bright.main,
     },
-    prose: {
-      marginVertical: marginVertical[level - 1],
-    },
-    title: {
-      fontFamily: fontFamily.demi,
-      fontSize: fontSize[level - 1],
-      lineHeight: lineHeight[level - 1],
-      color: '#000000',
-      fontWeight: '700',
-    },
+    title: [font.h1, font.h2, font.h3, font.h4][level - 1],
   })
 
-  return (
-    <Text
-      style={[styles.title, prose && styles.prose, inverse && styles.inverse]}>
-      {text}
-    </Text>
-  )
+  const fontStyles = prose
+    ? styles.title
+    : {...styles.title, marginTop: undefined, marginBottom: undefined}
+
+  return <Text style={[fontStyles, inverse && styles.inverse]}>{text}</Text>
 }

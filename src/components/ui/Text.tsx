@@ -4,28 +4,29 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {color, fontFamily} from '../../tokens'
+import {color, font, fontFamily} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
   inverse?: Boolean
+  prose?: Boolean
 } & Omit<TextRNProps, 'style'>
 
-export const Text = ({children, inverse, ...otherProps}: Props) => {
+export const Text = ({children, inverse, prose, ...otherProps}: Props) => {
+  const fontStyles = prose
+    ? font.p1
+    : {...font.p1, marginTop: undefined, marginBottom: undefined}
+
   return (
-    <TextRN style={[styles.default, inverse && styles.inverse]} {...otherProps}>
+    <TextRN style={[fontStyles, inverse && styles.inverse]} {...otherProps}>
       {children}
     </TextRN>
   )
 }
 
 const styles = StyleSheet.create({
-  default: {
-    fontFamily: fontFamily.regular,
-    fontSize: 16,
-  },
   inverse: {
-    fontFamily: fontFamily.demi,
     color: color.bright.main,
+    fontFamily: fontFamily.demi,
   },
 })
