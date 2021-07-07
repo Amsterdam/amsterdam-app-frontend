@@ -1,15 +1,16 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {Spacing, spacing} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
-  length?: number
+  size?: keyof Spacing
 }
 
-export const Inset = ({children, length = 15}: Props) => {
+export const Inset = ({children, size = 'md'}: Props) => {
   const styles = StyleSheet.create({
     inset: {
-      padding: length,
+      padding: spacing[size],
     },
   })
 
