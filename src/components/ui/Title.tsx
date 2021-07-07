@@ -5,11 +5,11 @@ import {color, font, fontMargin} from '../../tokens'
 type Props = {
   level?: 1 | 2 | 3 | 4
   inverse?: Boolean
-  prose?: Boolean
+  margin?: Boolean
   text: string
 }
 
-export const Title = ({level = 1, inverse, prose, text}: Props) => {
+export const Title = ({level = 1, inverse, margin, text}: Props) => {
   const styles = StyleSheet.create({
     inverse: {
       color: color.bright.main,
@@ -22,7 +22,7 @@ export const Title = ({level = 1, inverse, prose, text}: Props) => {
 
   return (
     <Text
-      style={[styles.font, prose && styles.margin, inverse && styles.inverse]}>
+      style={[styles.font, margin && styles.margin, inverse && styles.inverse]}>
       {text}
     </Text>
   )

@@ -9,13 +9,13 @@ import {color, font, fontFamily, fontMargin} from '../../tokens'
 type Props = {
   children: React.ReactNode
   inverse?: Boolean
-  prose?: Boolean
+  margin?: Boolean
 } & Omit<TextRNProps, 'style'>
 
-export const Text = ({children, inverse, prose, ...otherProps}: Props) => {
+export const Text = ({children, inverse, margin, ...otherProps}: Props) => {
   return (
     <TextRN
-      style={[font.p1, prose && fontMargin.p1, inverse && styles.inverse]}
+      style={[font.p1, margin && fontMargin.p1, inverse && styles.inverse]}
       {...otherProps}>
       {children}
     </TextRN>
