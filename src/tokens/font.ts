@@ -1,4 +1,6 @@
 import {TextStyle} from 'react-native'
+import {fontFamily} from './fontFamily'
+import {color} from './color'
 
 type FontTextStyle = Pick<
   TextStyle,
@@ -22,13 +24,8 @@ type Font = {
 }
 
 const fontColor = {
-  regular: '#000000',
-  light: '#323232',
-}
-
-const fontFamily = {
-  regular: 'AvenirNext-Regular',
-  demi: 'AvenirNext-DemiBold',
+  regular: color.tint.level7,
+  light: color.tint.level6,
 }
 
 export const font: Font = {
