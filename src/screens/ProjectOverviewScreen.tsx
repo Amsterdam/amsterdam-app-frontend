@@ -14,7 +14,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
       <Inset>
-        {boroughs.map(borough => {
+        {boroughs.map((borough, index) => {
           const projectsByBorough = projects.filter(
             project => project.boroughId === borough.id,
           )
@@ -47,6 +47,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   />
                 )}
               />
+              {index < boroughs.length - 1 && <Gutter height={45} />}
             </React.Fragment>
           ) : null
         })}
