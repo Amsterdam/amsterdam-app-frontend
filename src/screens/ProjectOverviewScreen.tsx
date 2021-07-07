@@ -34,7 +34,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <FlatList
                 data={projectsByBorough}
                 horizontal
-                ItemSeparatorComponent={() => <Gutter width={10} />}
+                ItemSeparatorComponent={() => <Gutter width={15} />}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                   <ProjectCard
