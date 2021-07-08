@@ -8,6 +8,7 @@ import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
 import {
   HomeScreen,
+  ProjectDetailInformationScreen,
   ProjectDetailScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
@@ -17,6 +18,7 @@ import {
 export type RootStackParamList = {
   Home: undefined
   ProjectDetail: {id: string}
+  ProjectDetailInformation: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByBorough: {boroughId: number}
   Report: {uri: string}
@@ -55,6 +57,12 @@ export const routes: Routes = {
       title: 'Bouwproject detail',
     },
   },
+  projectDetailInformation: {
+    name: 'ProjectDetailInformation',
+    options: {
+      title: 'Bouwproject detail: informatie',
+    },
+  },
   report: {
     name: 'Report',
     options: {
@@ -78,6 +86,7 @@ export const App = () => {
   const {
     home,
     projectDetail,
+    projectDetailInformation,
     projectOverview,
     projectOverviewByBorough,
     report,
@@ -107,6 +116,11 @@ export const App = () => {
           name={projectDetail.name}
           component={ProjectDetailScreen}
           options={projectDetail.options}
+        />
+        <Stack.Screen
+          name={projectDetailInformation.name}
+          component={ProjectDetailInformationScreen}
+          options={projectDetailInformation.options}
         />
         <Stack.Screen
           name="Report"
