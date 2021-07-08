@@ -10,6 +10,7 @@ import {
   HomeScreen,
   ProjectDetailInformationScreen,
   ProjectDetailScreen,
+  ProjectDetailTimelineScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
   ReportScreen,
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Home: undefined
   ProjectDetail: {id: string}
   ProjectDetailInformation: {id: string}
+  ProjectDetailTimeline: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByBorough: {boroughId: number}
   Report: {uri: string}
@@ -63,6 +65,12 @@ export const routes: Routes = {
       title: 'Bouwproject detail: informatie',
     },
   },
+  projectDetailTimeline: {
+    name: 'ProjectDetailTimeline',
+    options: {
+      title: 'Bouwproject detail: tijdlijn',
+    },
+  },
   report: {
     name: 'Report',
     options: {
@@ -87,6 +95,7 @@ export const App = () => {
     home,
     projectDetail,
     projectDetailInformation,
+    projectDetailTimeline,
     projectOverview,
     projectOverviewByBorough,
     report,
@@ -121,6 +130,11 @@ export const App = () => {
           name={projectDetailInformation.name}
           component={ProjectDetailInformationScreen}
           options={projectDetailInformation.options}
+        />
+        <Stack.Screen
+          name={projectDetailTimeline.name}
+          component={ProjectDetailTimelineScreen}
+          options={projectDetailTimeline.options}
         />
         <Stack.Screen
           name="Report"

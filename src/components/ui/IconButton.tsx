@@ -1,10 +1,11 @@
+import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {color, fontFamily} from '../../tokens'
 
 type Props = {
-  icon: 'info'
+  icon: 'calendar' | 'info'
   label: string
   onPress: () => void
 }
@@ -12,6 +13,7 @@ type Props = {
 export const IconButton = ({icon, label, onPress}: Props) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.circle}>
+      {icon === 'calendar' && <Calendar fill={color.tint.level1} />}
       {icon === 'info' && <Info fill={color.tint.level1} />}
     </View>
     <Text style={styles.label}>{label}</Text>
@@ -31,5 +33,6 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.regular,
     fontSize: 14,
     color: color.primary.main,
+    textAlign: 'center',
   },
 })

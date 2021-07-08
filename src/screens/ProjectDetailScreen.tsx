@@ -3,7 +3,15 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {Alert, IconButton, Inset, ScreenWrapper, Section, Text, Title} from '../components/ui'
+import {
+  Alert,
+  Gutter,
+  IconButton,
+  Inset,
+  ScreenWrapper,
+  Text,
+  Title,
+} from '../components/ui'
 import {Project, projects} from '../data/projects'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -41,8 +49,17 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 }
               )}
             />
+            <Gutter width={30} />
+            <IconButton
+              icon="calendar"
+              label="Tijdlijn"
+              onPress={() =>
+                navigation.navigate(routes.projectDetailTimeline.name, {
+                  id: project.id,
+                })
+              }
+            />
           </View>
-          <Section title="Wanneer" text={project.body?.when} />
         </Inset>
         {project.contact && (
           <Alert background="red">
