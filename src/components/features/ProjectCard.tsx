@@ -4,7 +4,6 @@ import {
   ImageSourcePropType,
   StyleSheet,
   TouchableHighlight,
-  View,
 } from 'react-native'
 import {Card, CardBody, Title} from '../ui'
 
@@ -16,16 +15,14 @@ type Props = {
 }
 
 export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
-  <View style={{width}}>
-    <TouchableHighlight onPress={onPress}>
-      <Card>
-        <Image source={imageSource} style={styles.image} />
-        <CardBody>
-          <Title level={4} text={title} />
-        </CardBody>
-      </Card>
-    </TouchableHighlight>
-  </View>
+  <TouchableHighlight onPress={onPress} style={{width}}>
+    <Card>
+      <Image source={imageSource} style={styles.image} />
+      <CardBody>
+        <Title level={4} text={title} />
+      </CardBody>
+    </Card>
+  </TouchableHighlight>
 )
 
 const styles = StyleSheet.create({
