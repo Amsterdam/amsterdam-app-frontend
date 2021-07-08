@@ -59,6 +59,20 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 })
               }
             />
+            {project.contact && (
+              <>
+                <Gutter width={30} />
+                <IconButton
+                  icon="chat-bubble"
+                  label="Contact"
+                  onPress={() =>
+                    navigation.navigate(routes.projectDetailContact.name, {
+                  id: project.id,
+                })
+              }
+            />
+              </>
+            )}
           </View>
         </Inset>
         {project.contact && (

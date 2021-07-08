@@ -1,11 +1,12 @@
 import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
+import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {color, fontFamily} from '../../tokens'
 
 type Props = {
-  icon: 'calendar' | 'info'
+  icon: 'calendar' | 'chat-bubble' | 'info'
   label: string
   onPress: () => void
 }
@@ -14,6 +15,7 @@ export const IconButton = ({icon, label, onPress}: Props) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.circle}>
       {icon === 'calendar' && <Calendar fill={color.tint.level1} />}
+      {icon === 'chat-bubble' && <ChatBubble fill={color.tint.level1} />}
       {icon === 'info' && <Info fill={color.tint.level1} />}
     </View>
     <Text style={styles.label}>{label}</Text>
