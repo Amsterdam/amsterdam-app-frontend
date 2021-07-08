@@ -4,7 +4,14 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Button, Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {
+  Button,
+  Gutter,
+  Inset,
+  ScreenWrapper,
+  Text,
+  Title,
+} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
@@ -34,32 +41,41 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
           <Title text="Contact" />
         </View>
         <Inset>
-          {(project.contact?.name || project.contact?.jobDescription) && (
-            <Text>
-              {project.contact?.name}, {project.contact?.jobDescription}
-            </Text>
-          )}
-          {project.contact?.phone && (
-            <View style={styles.buttonContainer}>
-              <Button
-                icon={<Phone fill={color.tint.level1} />}
-                onPress={() => openPhoneUrl('project.contact?.phone')}
-                text={`Bel ${project.contact?.firstName}`}
-              />
-            </View>
-          )}
-          {project.contact?.email && (
-            <View style={styles.buttonContainer}>
-              <Button
-                icon={<Email fill={color.tint.level1} />}
-                onPress={() => openMailUrl('project.contact?.email')}
-                text={`E-mail ${project.contact?.firstName}`}
-              />
-            </View>
-          )}
-          {project.contact?.list?.map(item => (
-            <Text key={item}>– {item}</Text>
-          ))}
+          <View style={styles.insetWhite}>
+            {project.contact?.list ? (
+              project.contact?.list?.map(item => (
+                <Text key={item}>– {item}</Text>
+              ))
+            ) : (
+              <>
+                {project.contact?.name && (
+                  <Title level={4} text={project.contact?.name} />
+                )}
+                {project.contact?.jobDescription && (
+                  <Text>{project.contact?.jobDescription}</Text>
+                )}
+                <Gutter height={15} />
+                {project.contact?.phone && (
+                  <View style={styles.buttonContainer}>
+                    <Button
+                      icon={<Phone fill={color.tint.level1} />}
+                      onPress={() => openPhoneUrl('project.contact?.phone')}
+                      text={`Bel ${project.contact?.firstName}`}
+                    />
+                  </View>
+                )}
+                {project.contact?.email && (
+                  <View style={styles.buttonContainer}>
+                    <Button
+                      icon={<Email fill={color.tint.level1} />}
+                      onPress={() => openMailUrl('project.contact?.email')}
+                      text={`E-mail ${project.contact?.firstName}`}
+                    />
+                  </View>
+                )}
+              </>
+            )}
+          </View>
         </Inset>
       </ScrollView>
     </ScreenWrapper>
