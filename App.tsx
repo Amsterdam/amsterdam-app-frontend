@@ -1,10 +1,10 @@
+import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {NavigationContainer} from '@react-navigation/native'
 import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React from 'react'
-import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
 import {
   HomeScreen,
@@ -91,7 +91,9 @@ const globalScreenOptions: StackNavigationOptions = {
   headerStyle: {
     backgroundColor: 'white',
   },
-  headerBackImage: () => <ChevronLeft width={20} height={20} fill={'black'} />,
+  headerBackImage: () => (
+    <ChevronLeft width={20} height={20} fill={'black'} style={{margin: 10}} />
+  ),
   headerBackTitleVisible: false,
   headerBackAccessibilityLabel: 'Back button',
   headerTitleAlign: 'center',
