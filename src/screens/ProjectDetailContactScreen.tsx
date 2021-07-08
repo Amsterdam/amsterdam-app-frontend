@@ -1,3 +1,5 @@
+import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
+import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
@@ -40,6 +42,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
           {project.contact?.phone && (
             <View style={styles.buttonContainer}>
               <Button
+                icon={<Phone fill={color.tint.level1} />}
                 onPress={() => openPhoneUrl('project.contact?.phone')}
                 text={`Bel ${project.contact?.firstName}`}
               />
@@ -48,8 +51,9 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
           {project.contact?.email && (
             <View style={styles.buttonContainer}>
               <Button
+                icon={<Email fill={color.tint.level1} />}
                 onPress={() => openMailUrl('project.contact?.email')}
-                text={`Mail ${project.contact?.firstName}`}
+                text={`E-mail ${project.contact?.firstName}`}
               />
             </View>
           )}

@@ -1,3 +1,6 @@
+import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
+import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
+import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
@@ -13,6 +16,7 @@ import {
   Title,
 } from '../components/ui'
 import {Project, projects} from '../data/projects'
+import {color} from '../tokens'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -41,7 +45,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Title margin text={project.title} />
           <View style={styles.iconsRow}>
             <IconButton
-              icon="info"
+              icon={<Info fill={color.tint.level1} />}
               label="Informatie"
               onPress={() =>
                 navigation.navigate(routes.projectDetailInformation.name, {
@@ -51,7 +55,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             />
             <Gutter width={30} />
             <IconButton
-              icon="calendar"
+              icon={<Calendar fill={color.tint.level1} />}
               label="Tijdlijn"
               onPress={() =>
                 navigation.navigate(routes.projectDetailTimeline.name, {
@@ -63,7 +67,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               <>
                 <Gutter width={30} />
                 <IconButton
-                  icon="chat-bubble"
+                  icon={<ChatBubble fill={color.tint.level1} />}
                   label="Contact"
                   onPress={() =>
                     navigation.navigate(routes.projectDetailContact.name, {
