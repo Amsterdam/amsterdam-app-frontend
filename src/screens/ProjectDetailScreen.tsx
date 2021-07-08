@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Inset, Text, Title} from '../components/ui'
+import {Inset, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 
@@ -33,43 +33,47 @@ export const ProjectDetailScreen = ({route}: Props) => {
     ) : null
 
   return (
-    <ScrollView>
-      <Image source={project.imageSource} style={styles.image} />
-      <Inset>
-        <Title prose text={project.title} />
-        {project.intro?.title && <Title level={2} text={project.intro.title} />}
-        {project.intro?.text && <Text>{project.intro.text}</Text>}
-        {project.intro?.link && (
-          <Text>
-            {project.intro.linkText}: {project.intro.link}
-          </Text>
+    <ScreenWrapper>
+      <ScrollView>
+        <Image source={project.imageSource} style={styles.image} />
+        <Inset>
+          <Title prose text={project.title} />
+          {project.intro?.title && (
+            <Title level={2} text={project.intro.title} />
+          )}
+          {project.intro?.text && <Text>{project.intro.text}</Text>}
+          {project.intro?.link && (
+            <Text>
+              {project.intro.linkText}: {project.intro.link}
+            </Text>
+          )}
+          <Section title="Wat" text={project.body?.what} />
+          <Section title="Waar" text={project.body?.where} />
+          <Section title="Wanneer" text={project.body?.when} />
+        </Inset>
+        {project.contact && (
+          <View style={styles.contact}>
+            <Title inverse level={2} prose text="Contact" />
+            {(project.contact.name || project.contact.jobDescription) && (
+              <Text inverse>
+                {project.contact.name}, {project.contact.jobDescription}
+              </Text>
+            )}
+            {project.contact.phone && (
+              <Text inverse>{project.contact.phone}</Text>
+            )}
+            {project.contact.email && (
+              <Text inverse>{project.contact.email}</Text>
+            )}
+            {project.contact.list?.map(item => (
+              <Text key={item} inverse>
+                – {item}
+              </Text>
+            ))}
+          </View>
         )}
-        <Section title="Wat" text={project.body?.what} />
-        <Section title="Waar" text={project.body?.where} />
-        <Section title="Wanneer" text={project.body?.when} />
-      </Inset>
-      {project.contact && (
-        <View style={styles.contact}>
-          <Title inverse level={2} prose text="Contact" />
-          {(project.contact.name || project.contact.jobDescription) && (
-            <Text inverse>
-              {project.contact.name}, {project.contact.jobDescription}
-            </Text>
-          )}
-          {project.contact.phone && (
-            <Text inverse>{project.contact.phone}</Text>
-          )}
-          {project.contact.email && (
-            <Text inverse>{project.contact.email}</Text>
-          )}
-          {project.contact.list?.map(item => (
-            <Text key={item} inverse>
-              – {item}
-            </Text>
-          ))}
-        </View>
-      )}
-    </ScrollView>
+      </ScrollView>
+    </ScreenWrapper>
   )
 }
 
