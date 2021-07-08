@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {Image, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Alert, Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {Alert, Inset, ScreenWrapper, Section, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -22,14 +22,6 @@ export const ProjectDetailScreen = ({route}: Props) => {
   if (!project) {
     return <Text>`Project ${route.params.id} niet gevonden.`</Text>
   }
-
-  const Section = ({title, text}: {title: string; text?: string}) =>
-    text ? (
-      <>
-        <Title level={4} margin text={title} />
-        <Text margin>{text}</Text>
-      </>
-    ) : null
 
   return (
     <ScreenWrapper>
