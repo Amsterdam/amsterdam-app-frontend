@@ -18,6 +18,7 @@ export const CardBody = ({children}: CardBodyProps) => (
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
+    flexGrow: 1,
   },
   cardBody: {
     paddingHorizontal: 15,
