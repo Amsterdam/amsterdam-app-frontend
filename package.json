@@ -16,6 +16,7 @@
     "postinstall": "npx patch-package"
   },
   "dependencies": {
+    "@amsterdam/asc-assets": "^0.31.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.1",
