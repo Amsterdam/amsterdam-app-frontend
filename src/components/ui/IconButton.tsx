@@ -1,20 +1,21 @@
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {color, fontFamily} from '../../tokens'
 
 type Props = {
   icon: 'info'
   label: string
+  onPress: () => void
 }
 
-export const IconButton = ({icon, label}: Props) => (
-  <View>
+export const IconButton = ({icon, label, onPress}: Props) => (
+  <TouchableOpacity onPress={onPress}>
     <View style={styles.circle}>
       {icon === 'info' && <Info fill={color.tint.level1} />}
     </View>
     <Text style={styles.label}>{label}</Text>
-  </View>
+  </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
