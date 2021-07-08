@@ -14,7 +14,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
       <Inset>
-        {boroughs.map(borough => {
+        {boroughs.map((borough, index) => {
           const projectsByBorough = projects.filter(
             project => project.boroughId === borough.id,
           )
@@ -34,7 +34,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <FlatList
                 data={projectsByBorough}
                 horizontal
-                ItemSeparatorComponent={() => <Gutter width={10} />}
+                ItemSeparatorComponent={() => <Gutter width={15} />}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                   <ProjectCard
@@ -47,6 +47,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   />
                 )}
               />
+              {index < boroughs.length - 1 && <Gutter height={45} />}
             </React.Fragment>
           ) : null
         })}
