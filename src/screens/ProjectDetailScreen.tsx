@@ -2,6 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
+import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {Inset, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
@@ -72,6 +73,7 @@ export const ProjectDetailScreen = ({route}: Props) => {
             ))}
           </View>
         )}
+        {project.news && <NewsItemsOverview newsArticles={project.news} />}
       </ScrollView>
     </ScreenWrapper>
   )
