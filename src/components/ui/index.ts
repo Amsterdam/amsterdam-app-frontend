@@ -1,6 +1,7 @@
 export * from './Button'
 export * from './Card'
 export * from './Gutter'
+export * from './Image'
 export * from './Inset'
 export * from './Link'
 export * from './ScreenWrapper'
