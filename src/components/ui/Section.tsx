@@ -2,7 +2,12 @@ import React from 'react'
 import {Text} from './Text'
 import {Title} from './Title'
 
-export const Section = ({title, text}: {title: string; text?: string}) =>
+type Props = {
+  text?: string
+  title: string
+}
+
+export const Section = ({text, title}: Props) =>
   text ? (
     <>
       <Title level={2} prose text={title} />
