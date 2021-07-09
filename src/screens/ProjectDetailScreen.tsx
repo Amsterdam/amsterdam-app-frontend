@@ -53,7 +53,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 }
               )}
             />
-            <Gutter width={30} />
+            <Gutter width={15} />
             <IconButton
               icon={<Calendar fill={color.tint.level1} />}
               label="Tijdlijn"
@@ -65,7 +65,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             />
             {project.contact && (
               <>
-                <Gutter width={30} />
+                <Gutter width={15} />
                 <IconButton
                   icon={<ChatBubble fill={color.tint.level1} />}
                   label="Contact"
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   iconsRow: {
     flexDirection: 'row',
     marginBottom: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
   },
   iconsRow: {
     flexDirection: 'row',
