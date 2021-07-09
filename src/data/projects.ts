@@ -13,6 +13,24 @@ export const boroughs: Borough[] = [
   {id: 7, name: 'Zuidoost'},
 ]
 
+export type NewsArticle = {
+  contact?: {
+    name: string
+    email: string
+    phone: string
+  }
+  date: string
+  imageSource: {
+    uri: string
+  }
+  intro: string
+  paragraphs: {
+    text: string
+    title: string
+  }[]
+  title: string
+}
+
 export type Project = {
   body?: {
     what?: string
@@ -37,23 +55,7 @@ export type Project = {
     text?: string
     title?: string
   }
-  news?: {
-    contact?: {
-      name: string
-      email: string
-      phone: string
-    }
-    date: string
-    imageSource: {
-      uri: string
-    }
-    intro: string
-    paragraphs: {
-      text: string
-      title: string
-    }[]
-    title: string
-  }[]
+  news?: NewsArticle[]
   title: string
   url: string
 }
@@ -96,7 +98,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -105,7 +107,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
@@ -170,7 +172,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -179,7 +181,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
@@ -237,7 +239,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -246,7 +248,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
@@ -302,7 +304,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -311,7 +313,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
@@ -374,7 +376,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -383,7 +385,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
@@ -443,7 +445,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden. \n De woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -452,7 +454,7 @@ export const projects: Project[] = [
       {
         date: '1 juni 2021',
         imageSource: {
-          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
         },
         intro:
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
