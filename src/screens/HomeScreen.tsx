@@ -2,7 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {Button, ScreenWrapper} from '../components/ui'
+import {Button, ScreenWrapper, Text} from '../components/ui'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
@@ -19,13 +19,15 @@ export const HomeScreen = ({navigation}: Props) => {
                 uri: 'https://acc.meldingen.amsterdam.nl/',
               })
             }
-            text="Maak een melding"
-          />
+            variant="primary">
+            <Text variant="inverse">Maak een melding</Text>
+          </Button>
         </View>
         <Button
           onPress={() => navigation.navigate(routes.projectOverview.name)}
-          text="Bekijk bouwprojecten"
-        />
+          variant="primary">
+          <Text variant="inverse">Bekijk bouwprojecten</Text>
+        </Button>
       </View>
     </ScreenWrapper>
   )
