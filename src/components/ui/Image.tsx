@@ -7,6 +7,6 @@ export const Image = (props: ImageProps) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: '100%',
+    flex: 1,
   },
 })
