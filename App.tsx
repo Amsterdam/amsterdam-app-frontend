@@ -6,9 +6,11 @@ import {
 import React from 'react'
 import ChevronLeft from './src/assets/icons/chevron-left.svg'
 import Logo from './src/assets/icons/logo.svg'
+import {NewsArticle} from './src/data/projects'
 import {
   HomeScreen,
   ProjectDetailScreen,
+  ProjectNewsScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
   ReportScreen,
@@ -17,6 +19,7 @@ import {
 export type RootStackParamList = {
   Home: undefined
   ProjectDetail: {id: string}
+  ProjectNews: {newsArticle: NewsArticle}
   ProjectOverview: undefined
   ProjectOverviewByBorough: {boroughId: number}
   Report: {uri: string}
@@ -55,6 +58,12 @@ export const routes: Routes = {
       title: 'Bouwproject detail',
     },
   },
+  projectNews: {
+    name: 'ProjectNews',
+    options: {
+      title: 'Nieuws',
+    },
+  },
   report: {
     name: 'Report',
     options: {
@@ -80,6 +89,7 @@ export const App = () => {
     projectDetail,
     projectOverview,
     projectOverviewByBorough,
+    projectNews,
     report,
   } = routes
 
@@ -107,6 +117,11 @@ export const App = () => {
           name={projectDetail.name}
           component={ProjectDetailScreen}
           options={projectDetail.options}
+        />
+        <Stack.Screen
+          name={projectNews.name}
+          component={ProjectNewsScreen}
+          options={projectNews.options}
         />
         <Stack.Screen
           name="Report"
