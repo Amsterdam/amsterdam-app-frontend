@@ -9,7 +9,7 @@ import {color} from '../../tokens'
 import {Text} from './'
 
 type Props = {
-  icon?: React.ComponentElement<any, any>
+  icon?: React.ReactElement
   text: string
   variant?: 'primary'
 } & Omit<TouchableOpacityProps, 'style'>
