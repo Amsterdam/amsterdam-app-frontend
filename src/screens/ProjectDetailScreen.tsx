@@ -36,9 +36,9 @@ export const ProjectDetailScreen = ({route}: Props) => {
       <ScrollView>
         <Image source={project.imageSource} style={styles.image} />
         <Inset>
-        <Title margin text={project.title} />
+          <Title margin text={project.title} />
           {project.intro?.title && (
-          <Title level={2} margin text={project.intro.title} />
+            <Title level={2} margin text={project.intro.title} />
           )}
           {project.intro?.text && <Text margin>{project.intro.text}</Text>}
           {project.intro?.link && (
@@ -51,8 +51,8 @@ export const ProjectDetailScreen = ({route}: Props) => {
           <Section title="Wanneer" text={project.body?.when} />
         </Inset>
         {project.contact && (
-        <Alert background="red">
-          <Title inverse level={2} margin text="Contact" />
+          <Alert background="red">
+            <Title inverse level={2} margin text="Contact" />
             {(project.contact.name || project.contact.jobDescription) && (
               <Text inverse>
                 {project.contact.name}, {project.contact.jobDescription}
