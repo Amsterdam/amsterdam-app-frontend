@@ -31,7 +31,7 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
           <Title text="Informatie" />
         </View>
         <Inset>
-          <Text>({project.title})</Text>
+          <Text margin>({project.title})</Text>
           {project.intro?.title && (
             <Title level={2} text={project.intro.title} />
           )}
@@ -40,7 +40,7 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
             text={project.intro?.text}
           />
           {project.intro?.link && (
-            <Text>
+            <Text margin>
               {project.intro.linkText}: {project.intro.link}
             </Text>
           )}

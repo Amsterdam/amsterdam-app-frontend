@@ -7,7 +7,6 @@ import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {
-  Alert,
   Gutter,
   IconButton,
   Inset,
@@ -79,27 +78,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             )}
           </View>
         </Inset>
-        {project.contact && (
-          <Alert background="red">
-            <Title inverse level={2} margin text="Contact" />
-            {(project.contact.name || project.contact.jobDescription) && (
-              <Text inverse>
-                {project.contact.name}, {project.contact.jobDescription}
-              </Text>
-            )}
-            {project.contact.phone && (
-              <Text inverse>{project.contact.phone}</Text>
-            )}
-            {project.contact.email && (
-              <Text inverse>{project.contact.email}</Text>
-            )}
-            {project.contact.list?.map(item => (
-              <Text key={item} inverse>
-                – {item}
-              </Text>
-            ))}
-          </Alert>
-        )}
       </ScrollView>
     </ScreenWrapper>
   )

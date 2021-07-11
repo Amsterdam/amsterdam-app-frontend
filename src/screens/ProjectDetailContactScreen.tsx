@@ -4,14 +4,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {
-  Button,
-  Gutter,
-  Inset,
-  ScreenWrapper,
-  Text,
-  Title,
-} from '../components/ui'
+import {Button, Inset, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
@@ -49,12 +42,11 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
             ) : (
               <>
                 {project.contact?.name && (
-                  <Title level={4} text={project.contact?.name} />
+                  <Title level={4} margin text={project.contact?.name} />
                 )}
                 {project.contact?.jobDescription && (
-                  <Text>{project.contact?.jobDescription}</Text>
+                  <Text margin>{project.contact?.jobDescription}</Text>
                 )}
-                <Gutter height={15} />
                 {project.contact?.phone && (
                   <View style={styles.buttonContainer}>
                     <Button

@@ -10,7 +10,7 @@ type Props = {
 export const Section = ({text, title}: Props) =>
   text ? (
     <>
-      <Title level={2} margin text={title} />
-      <Text>{text}</Text>
+      <Title level={4} margin text={title} />
+      <Text margin>{text}</Text>
     </>
   ) : null
