@@ -11,7 +11,7 @@ type Props = {
 export const Button = ({text, variant = 'primary', ...otherProps}: Props) => {
   return (
     <TouchableOpacity style={styles[variant]} {...otherProps}>
-      <Text variant="inverse">{text}</Text>
+      <Text inverse>{text}</Text>
     </TouchableOpacity>
   )
 }

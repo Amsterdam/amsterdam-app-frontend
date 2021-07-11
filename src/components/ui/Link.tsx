@@ -15,9 +15,10 @@ export const Link = ({text, onPress}: Props) => (
 
 const styles = StyleSheet.create({
   link: {
-    color: color.primary.main,
     fontFamily: fontFamily.regular,
     fontSize: 16,
+    lineHeight: 22,
+    color: color.primary.main,
     textDecorationLine: 'underline',
   },
 })
