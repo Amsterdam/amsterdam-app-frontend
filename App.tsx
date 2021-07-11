@@ -92,6 +92,7 @@ const globalScreenOptions: StackNavigationOptions = {
     backgroundColor: 'white',
   },
   headerBackImage: () => (
+    // eslint-disable-next-line react-native/no-inline-styles
     <ChevronLeft width={20} height={20} fill={'black'} style={{margin: 10}} />
   ),
   headerBackTitleVisible: false,

@@ -50,8 +50,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               onPress={() =>
                 navigation.navigate(routes.projectDetailInformation.name, {
                   id: project.id,
-                }
-              )}
+                })
+              }
             />
             <Gutter width={15} />
             <IconButton
@@ -71,10 +71,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   label="Contact"
                   onPress={() =>
                     navigation.navigate(routes.projectDetailContact.name, {
-                  id: project.id,
-                })
-              }
-            />
+                      id: project.id,
+                    })
+                  }
+                />
               </>
             )}
           </View>
@@ -110,11 +110,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 30,
     paddingHorizontal: 5,
-  },
-  iconsRow: {
-    flexDirection: 'row',
-    marginBottom: 30,
-    paddingHorizontal: 15,
   },
   image: {
     height: 150,
