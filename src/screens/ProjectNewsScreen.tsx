@@ -25,7 +25,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
           {newsArticle.paragraphs?.length &&
             newsArticle.paragraphs.map(paragraph => {
               return (
-                <View>
+                <View key={paragraph.title}>
                   <Title level={2} prose text={paragraph.title} />
                   <Text>{paragraph.text}</Text>
                 </View>
