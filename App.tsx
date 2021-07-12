@@ -6,11 +6,13 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
+import {NewsArticle} from './src/data/projects'
 import {
   HomeScreen,
   ProjectDetailContactScreen,
   ProjectDetailInformationScreen,
   ProjectDetailScreen,
+  ProjectNewsScreen,
   ProjectDetailTimelineScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
@@ -20,6 +22,7 @@ import {
 export type RootStackParamList = {
   Home: undefined
   ProjectDetail: {id: string}
+  ProjectNews: {newsArticle: NewsArticle}
   ProjectDetailContact: {id: string}
   ProjectDetailInformation: {id: string}
   ProjectDetailTimeline: {id: string}
@@ -59,6 +62,12 @@ export const routes: Routes = {
     name: 'ProjectDetail',
     options: {
       title: 'Bouwproject detail',
+    },
+  },
+  projectNews: {
+    name: 'ProjectNews',
+    options: {
+      title: 'Nieuws',
     },
   },
   projectDetailContact: {
@@ -110,6 +119,7 @@ export const App = () => {
     projectDetailTimeline,
     projectOverview,
     projectOverviewByBorough,
+    projectNews,
     report,
   } = routes
 
@@ -152,6 +162,11 @@ export const App = () => {
           name={projectDetailTimeline.name}
           component={ProjectDetailTimelineScreen}
           options={projectDetailTimeline.options}
+        />
+        <Stack.Screen
+          name={projectNews.name}
+          component={ProjectNewsScreen}
+          options={projectNews.options}
         />
         <Stack.Screen
           name="Report"

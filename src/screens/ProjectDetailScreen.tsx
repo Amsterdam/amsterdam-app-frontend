@@ -6,6 +6,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
+import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {
   Gutter,
   IconButton,
@@ -77,6 +78,13 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               </>
             )}
           </View>
+          {project.news && (
+            <>
+              <Title level={2} text="Nieuws" />
+              <Gutter height={10} />
+              <NewsItemsOverview newsArticles={project.news} />
+            </>
+          )}
         </Inset>
       </ScrollView>
     </ScreenWrapper>

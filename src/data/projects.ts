@@ -13,6 +13,24 @@ export const boroughs: Borough[] = [
   {id: 7, name: 'Zuidoost'},
 ]
 
+export type NewsArticle = {
+  contact?: {
+    name: string
+    email: string
+    phone: string
+  }
+  date: string
+  imageSource: {
+    uri: string
+  }
+  intro: string
+  paragraphs: {
+    text: string
+    title: string
+  }[]
+  title: string
+}
+
 export type Project = {
   body?: {
     what?: string
@@ -38,6 +56,7 @@ export type Project = {
     text?: string
     title?: string
   }
+  news?: NewsArticle[]
   title: string
   url: string
 }
@@ -66,6 +85,51 @@ export const projects: Project[] = [
       link: 'https://www.amsterdam.nl/projecten/marnixstraat-rozengracht/voorlopig-ontwerp/',
       linkText: 'Lees meer over het voorlopig ontwerp',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Marnixstraat-Rozengracht: herinrichting kruispunt',
     url: 'https://www.amsterdam.nl/projecten/marnixstraat-rozengracht/',
   },
@@ -95,6 +159,51 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/966195/940x415_a_programma_brug.jpg',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Oranje Loper: vernieuwing 9 bruggen en 5 straten',
     url: 'https://www.amsterdam.nl/projecten/oranjeloper',
   },
@@ -118,6 +227,51 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/792070/1706308_amsterdam_ec_-_web.jpg',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Oosterdokseiland: een plek om te werken, wonen en recreëren',
     url: 'https://www.amsterdam.nl/projecten/oosterdokseiland/',
   },
@@ -139,6 +293,51 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/956867/oudekerkstoren-amsterdam-940x415.jpg',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Oudekerkstoren: renovatie binnen- en buitenzijde',
     url: '',
   },
@@ -167,6 +366,51 @@ export const projects: Project[] = [
     imageSource: {
       uri: 'https://www.amsterdam.nl/publish/pages/959014/plantagebuurt-940x415.jpg',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Plantagebuurt: verbeteren verkeersveiligheid',
     url: 'https://www.amsterdam.nl/projecten/plantagebuurt',
   },
@@ -191,6 +435,51 @@ export const projects: Project[] = [
         'Het woongebied van Amsterdam Zuidoost breidt uit. De oude kantoorgebouwen in Amstel III maken plaats voor een groene gemengde stadswijk waar je plezierig kunt wonen, werken en leuke dingen kunt doen. Tot 2027 bouwen we hier zo’n 10.000 kleinere stadswoningen. Na 2027 kunnen hier nog eens 5.000 woningen bijkomen. Op de begane grond komen veel voorzieningen, zoals scholen, gezondheids- en jongerencentrum en buurtkamers. Langs het spoor en tussen de ArenA en de Ikea komen parken om te sporten en ontspannen. Het gebied stimuleert mensen om veel te gaan lopen, fietsen en het openbaar vervoer te gebruiken.\n\n' +
         '[WAT KOMT ER (accordion)]',
     },
+    news: [
+      {
+        contact: {
+          name: 'Martijn Scheerder, omgevingsmanager',
+          email: 'martijn.scheerder@amsterdam.nl',
+          phone: '0648975912',
+        },
+        date: '20 juli 2020',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/949254/940x415_brouwersgracht_woonboten.jpg',
+        },
+        intro:
+          'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
+        paragraphs: [
+          {
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            title: 'Tijdelijke wissellocatie',
+          },
+        ],
+        title: 'Woonboten oneven zijde Brouwersgracht worden verplaatst',
+      },
+      {
+        date: '1 juni 2021',
+        imageSource: {
+          uri: 'https://www.amsterdam.nl/publish/pages/972370/940x415_da_costakade_maatregel.jpg',
+        },
+        intro:
+          'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
+        paragraphs: [
+          {
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            title: 'Wat er gaat gebeuren',
+          },
+          {
+            text: 'We heffen de 9 parkeerplaatsen tussen de Potgieterstraat / Jacobus Craandijkbrug en de Da Costakade 89 op. De gehandicaptenparkeerplaats ter hoogte van de Da Costakade 89 blijft beschikbaar. Dit geldt ook voor de parkeerplaatsen ter hoogte van huisnummers 89 tot en met 53.',
+            title: 'Parkeerplaatsen',
+          },
+          {
+            text: 'Zware vrachtwagens van meer dan 30 ton kunnen vanaf 1 juli 2021 niet meer over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Vuilniswagens zijn lichter dan 30 ton en kunnen gewoon het huishoudelijk afval ophalen.',
+            title: 'Zwaar verkeer',
+          },
+        ],
+        title: 'Veiligheidsmaatregelen Da Costakade 91 tot en met 95',
+      },
+    ],
     title: 'Amstel III: ontwikkeling woongebied gemixt met werken',
     url: 'https://www.amsterdam.nl/projecten/amstel3/',
   },
