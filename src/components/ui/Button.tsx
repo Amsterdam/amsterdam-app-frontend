@@ -1,19 +1,21 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {color} from '../../tokens'
+import {Text} from './'
 
-type Props = {
-  backgroundColor?: string
-  children: React.ReactNode
+type ButtonProps = {
+  text: string
   variant?: 'primary'
-} & TouchableOpacityProps
+} & Omit<TouchableOpacityProps, 'style'>
 
-export const Button = ({children, style, variant, ...otherProps}: Props) => {
+export const Button = ({
+  text,
+  variant = 'primary',
+  ...otherProps
+}: ButtonProps) => {
   return (
-    <TouchableOpacity
-      style={[variant && styles[variant], style]}
-      {...otherProps}>
-      {children}
+    <TouchableOpacity style={styles[variant]} {...otherProps}>
+      <Text variant="inverse">{text}</Text>
     </TouchableOpacity>
   )
 }
