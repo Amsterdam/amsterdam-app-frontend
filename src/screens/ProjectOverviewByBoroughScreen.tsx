@@ -26,7 +26,7 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
     <ScreenWrapper>
       <Inset>
         <View style={styles.titleRow}>
-          <Title level={2} prose text={borough.name} />
+          <Title level={2} margin text={borough.name} />
         </View>
         <FlatList
           data={projectsByBorough}

@@ -1,9 +1,20 @@
+import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
+import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
+import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../App'
+import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
-import {Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {
+  Gutter,
+  IconButton,
+  Inset,
+  ScreenWrapper,
+  Text,
+  Title,
+} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 
@@ -13,10 +24,11 @@ type ProjectDetailScreenRouteProp = RouteProp<
 >
 
 type Props = {
+  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
   route: ProjectDetailScreenRouteProp
 }
 
-export const ProjectDetailScreen = ({route}: Props) => {
+export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const project: Project | undefined = projects.find(
     p => p.id === route.params.id,
   )
@@ -25,65 +37,59 @@ export const ProjectDetailScreen = ({route}: Props) => {
     return <Text>`Project ${route.params.id} niet gevonden.`</Text>
   }
 
-  const Section = ({title, text}: {title: string; text?: string}) =>
-    text ? (
-      <>
-        <Title level={2} prose text={title} />
-        <Text>{text}</Text>
-      </>
-    ) : null
-
   return (
     <ScreenWrapper>
       <ScrollView>
         <Image source={project.imageSource} style={styles.image} />
         <Inset>
-          <Title prose text={project.title} />
-          {project.intro?.title && (
-            <Title level={2} text={project.intro.title} />
-          )}
-          {project.intro?.text && <Text>{project.intro.text}</Text>}
-          {project.intro?.link && (
-            <Text>
-              {project.intro.linkText}: {project.intro.link}
-            </Text>
-          )}
-          <Section title="Wat" text={project.body?.what} />
-          <Section title="Waar" text={project.body?.where} />
-          <Section title="Wanneer" text={project.body?.when} />
-        </Inset>
-        {project.contact && (
-          <View style={styles.contact}>
-            <Title inverse level={2} prose text="Contact" />
-            {(project.contact.name || project.contact.jobDescription) && (
-              <Text inverse>
-                {project.contact.name}, {project.contact.jobDescription}
-              </Text>
+          <Title margin text={project.title} />
+          <View style={styles.iconsRow}>
+            <IconButton
+              icon={<Info fill={color.tint.level1} />}
+              label="Informatie"
+              onPress={() =>
+                navigation.navigate(routes.projectDetailInformation.name, {
+                  id: project.id,
+                })
+              }
+            />
+            <Gutter width={15} />
+            <IconButton
+              icon={<Calendar fill={color.tint.level1} />}
+              label="Tijdlijn"
+              onPress={() =>
+                navigation.navigate(routes.projectDetailTimeline.name, {
+                  id: project.id,
+                })
+              }
+            />
+            {project.contact && (
+              <>
+                <Gutter width={15} />
+                <IconButton
+                  icon={<ChatBubble fill={color.tint.level1} />}
+                  label="Contact"
+                  onPress={() =>
+                    navigation.navigate(routes.projectDetailContact.name, {
+                      id: project.id,
+                    })
+                  }
+                />
+              </>
             )}
-            {project.contact.phone && (
-              <Text inverse>{project.contact.phone}</Text>
-            )}
-            {project.contact.email && (
-              <Text inverse>{project.contact.email}</Text>
-            )}
-            {project.contact.list?.map(item => (
-              <Text key={item} inverse>
-                – {item}
-              </Text>
-            ))}
           </View>
-        )}
-        {project.news && <NewsItemsOverview newsArticles={project.news} />}
+          {project.news && <NewsItemsOverview newsArticles={project.news} />}
+        </Inset>
       </ScrollView>
     </ScreenWrapper>
   )
 }
 
 const styles = StyleSheet.create({
-  contact: {
-    backgroundColor: color.secondary.main,
-    color: color.bright.main,
-    padding: 15,
+  iconsRow: {
+    flexDirection: 'row',
+    marginBottom: 30,
+    paddingHorizontal: 5,
   },
   image: {
     height: 150,

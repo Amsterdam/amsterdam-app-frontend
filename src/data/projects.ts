@@ -40,6 +40,7 @@ export type Project = {
   boroughId: number
   contact?: {
     email?: string
+    firstName?: string
     jobDescription?: string
     list?: string[]
     name?: string
@@ -70,6 +71,7 @@ export const projects: Project[] = [
     boroughId: 1,
     contact: {
       name: 'Wendy Schipper',
+      firstName: 'Wendy',
       jobDescription: 'omgevingsmanager',
       phone: '06 5100 3762',
       email: 'binnenring@amsterdam.nl',
@@ -217,6 +219,7 @@ export const projects: Project[] = [
     boroughId: 1,
     contact: {
       name: 'Wies Daamen',
+      firstName: 'Wies',
       jobDescription: 'gebiedsregisseur',
       email: 'w.daamen@amsterdam.nl',
     },
@@ -281,6 +284,7 @@ export const projects: Project[] = [
     boroughId: 1,
     contact: {
       name: 'Jan van Ingen',
+      firstName: 'Jan',
       jobDescription: 'projectleider',
       phone: '06 5434 0834',
       email: 'oudekerkstoren@koninklijkewoudenberg.nl',
@@ -354,6 +358,7 @@ export const projects: Project[] = [
     boroughId: 1,
     contact: {
       name: 'Geesje Albrecht',
+      firstName: 'Geesje',
       jobDescription: 'omgevingsmanager',
       phone: '06 1137 7741',
     },

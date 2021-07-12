@@ -1,26 +1,42 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native'
 import {color} from '../../tokens'
 import {Text} from './'
 
-type ButtonProps = {
+type Props = {
+  icon?: React.ReactElement
   text: string
   variant?: 'primary'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
+  icon,
   text,
   variant = 'primary',
   ...otherProps
-}: ButtonProps) => {
+}: Props) => {
   return (
-    <TouchableOpacity style={styles[variant]} {...otherProps}>
-      <Text variant="inverse">{text}</Text>
+    <TouchableOpacity style={[styles.button, styles[variant]]} {...otherProps}>
+      {icon && <View style={styles.iconContainer}>{icon}</View>}
+      <Text inverse>{text}</Text>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
+  button: {
+    flexDirection: 'row',
+  },
+  iconContainer: {
+    height: 20,
+    width: 20,
+    marginRight: 15,
+  },
   primary: {
     backgroundColor: color.primary.main,
     paddingHorizontal: 15,
