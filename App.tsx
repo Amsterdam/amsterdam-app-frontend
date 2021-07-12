@@ -149,9 +149,6 @@ export const App = () => {
           options={projectDetail.options}
         />
         <Stack.Screen
-          name={projectNews.name}
-          component={ProjectNewsScreen}
-          options={projectNews.options}
           name={projectDetailContact.name}
           component={ProjectDetailContactScreen}
           options={projectDetailContact.options}
@@ -165,6 +162,11 @@ export const App = () => {
           name={projectDetailTimeline.name}
           component={ProjectDetailTimelineScreen}
           options={projectDetailTimeline.options}
+        />
+        <Stack.Screen
+          name={projectNews.name}
+          component={ProjectNewsScreen}
+          options={projectNews.options}
         />
         <Stack.Screen
           name="Report"
