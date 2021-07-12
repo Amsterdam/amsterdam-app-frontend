@@ -78,6 +78,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               </>
             )}
           </View>
+          <Title text="Nieuws" />
           {project.news && <NewsItemsOverview newsArticles={project.news} />}
         </Inset>
       </ScrollView>
