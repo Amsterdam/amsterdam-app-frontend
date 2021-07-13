@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardBody: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    padding: 15,
   },
 })
