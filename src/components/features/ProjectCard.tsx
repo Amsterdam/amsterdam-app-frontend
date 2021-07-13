@@ -28,7 +28,7 @@ export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
 
 const styles = StyleSheet.create({
   image: {
-    aspectRatio: image.aspectRatio,
+    aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',
     resizeMode: 'cover',
   },
