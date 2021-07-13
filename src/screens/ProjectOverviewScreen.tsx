@@ -3,7 +3,7 @@ import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Gutter, Inset, Link, ScreenWrapper, Title} from '../components/ui'
+import {Box, Gutter, Link, ScreenWrapper, Title} from '../components/ui'
 import {boroughs, projects} from '../data/projects'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
-      <Inset>
+      <Box>
         {boroughs.map((borough, index) => {
           const projectsByBorough = projects.filter(
             project => project.boroughId === borough.id,
@@ -51,7 +51,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
             </React.Fragment>
           ) : null
         })}
-      </Inset>
+      </Box>
     </ScreenWrapper>
   )
 }

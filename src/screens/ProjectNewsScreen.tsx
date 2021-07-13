@@ -3,7 +3,7 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../App'
-import {Alert, Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {Box, ScreenWrapper, Text, Title} from '../components/ui'
 import {Image} from '../components/ui/Image'
 
 type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
@@ -18,7 +18,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Image source={newsArticle.imageSource} style={styles.image} />
-        <Inset>
+        <Box>
           <Title margin text={newsArticle.title} />
           <Text margin>{newsArticle.intro}</Text>
           {newsArticle.paragraphs?.length &&
@@ -30,14 +30,14 @@ export const ProjectNewsScreen = ({route}: Props) => {
                 </View>
               )
             })}
-        </Inset>
+        </Box>
         {newsArticle.contact && (
-          <Alert background="red">
+          <Box background="red">
             <Title inverse level={2} margin text="Contact" />
             <Text inverse>{newsArticle.contact.name}</Text>
             <Text inverse>{newsArticle.contact.phone}</Text>
             <Text inverse>{newsArticle.contact.email}</Text>
-          </Alert>
+          </Box>
         )}
       </ScrollView>
     </ScreenWrapper>

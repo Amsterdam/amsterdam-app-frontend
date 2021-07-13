@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Inset, ScreenWrapper, Section, Text, Title} from '../components/ui'
+import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 
@@ -30,7 +30,7 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
         <View style={styles.insetWhite}>
           <Title text="Informatie" />
         </View>
-        <Inset>
+        <Box>
           <Text margin>({project.title})</Text>
           {project.intro?.title && (
             <Title level={2} text={project.intro.title} />
@@ -46,7 +46,7 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
           )}
           <Section title="Wat gaat er gebeuren" text={project.body?.what} />
           <Section title="Waar" text={project.body?.where} />
-        </Inset>
+        </Box>
       </ScrollView>
     </ScreenWrapper>
   )

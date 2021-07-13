@@ -4,7 +4,7 @@ import React from 'react'
 import {FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Gutter, Inset, ScreenWrapper} from '../components/ui'
+import {Box, Gutter, ScreenWrapper} from '../components/ui'
 import {Borough, boroughs, projects} from '../data/projects'
 
 type ProjectOverviewByBoroughScreenRouteProp = RouteProp<
@@ -24,7 +24,7 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
 
   return borough && projectsByBorough ? (
     <ScreenWrapper>
-      <Inset>
+      <Box>
         <FlatList
           data={projectsByBorough}
           ItemSeparatorComponent={() => <Gutter height={15} />}
@@ -39,7 +39,7 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
             />
           )}
         />
-      </Inset>
+      </Box>
     </ScreenWrapper>
   ) : null
 }
