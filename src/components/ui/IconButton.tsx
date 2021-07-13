@@ -17,16 +17,17 @@ export const IconButton = ({icon, label, onPress}: Props) => (
 
 const styles = StyleSheet.create({
   circle: {
-    width: 58,
-    height: 58,
-    marginBottom: 8,
-    padding: 16,
     backgroundColor: color.primary.main,
-    borderRadius: 29,
+    borderRadius: 30,
+    height: 60,
+    marginBottom: 8,
+    padding: 15,
+    width: 60,
   },
   iconButton: {
-    paddingHorizontal: 10,
     alignItems: 'center',
+    paddingHorizontal: 15,
+    maxWidth: 90,
   },
   label: {
     fontFamily: fontFamily.regular,
