@@ -8,9 +8,9 @@ import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {
+  Box,
   Gutter,
   IconButton,
-  Inset,
   ScreenWrapper,
   Text,
   Title,
@@ -41,7 +41,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Image source={project.imageSource} style={styles.image} />
-        <Inset>
+        <Box background="white">
           <Title margin text={project.title} />
           <View style={styles.iconsRow}>
             <IconButton
@@ -53,7 +53,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 })
               }
             />
-            <Gutter width={15} />
             <IconButton
               icon={<Calendar fill={color.tint.level1} />}
               label="Tijdlijn"
@@ -64,28 +63,25 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               }
             />
             {project.contact && (
-              <>
-                <Gutter width={15} />
-                <IconButton
-                  icon={<ChatBubble fill={color.tint.level1} />}
-                  label="Contact"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailContact.name, {
-                      id: project.id,
-                    })
-                  }
-                />
-              </>
+              <IconButton
+                icon={<ChatBubble fill={color.tint.level1} />}
+                label="Contact"
+                onPress={() =>
+                  navigation.navigate(routes.projectDetailContact.name, {
+                    id: project.id,
+                  })
+                }
+              />
             )}
           </View>
-          {project.news && (
-            <>
-              <Title level={2} text="Nieuws" />
-              <Gutter height={10} />
-              <NewsItemsOverview newsArticles={project.news} />
-            </>
-          )}
-        </Inset>
+        </Box>
+        {project.news && (
+          <Box background="grey">
+            <Title level={2} text="Nieuws" />
+            <Gutter height={10} />
+            <NewsItemsOverview newsArticles={project.news} />
+          </Box>
+        )}
       </ScrollView>
     </ScreenWrapper>
   )
@@ -95,11 +91,17 @@ const styles = StyleSheet.create({
   iconsRow: {
     flexDirection: 'row',
     marginBottom: 30,
-    paddingHorizontal: 5,
   },
   image: {
     aspectRatio: image.aspectRatio,
     maxWidth: '100%',
     resizeMode: 'cover',
+  },
+  insetWhite: {
+    backgroundColor: 'white',
+    marginHorizontal: -15,
+    marginTop: -15,
+    paddingHorizontal: 15,
+    paddingTop: 15,
   },
 })
