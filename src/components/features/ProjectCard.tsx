@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native'
+import {image} from '../../tokens'
 import {Card, CardBody, Title} from '../ui'
 
 type Props = {
@@ -27,7 +28,7 @@ export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
 
 const styles = StyleSheet.create({
   image: {
-    height: 124,
+    aspectRatio: image.aspectRatio,
     maxWidth: '100%',
     resizeMode: 'cover',
   },

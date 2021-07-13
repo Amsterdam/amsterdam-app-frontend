@@ -16,7 +16,7 @@ import {
   Title,
 } from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color} from '../tokens'
+import {color, image} from '../tokens'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   image: {
-    height: 150,
+    aspectRatio: image.aspectRatio,
     maxWidth: '100%',
     resizeMode: 'cover',
   },
