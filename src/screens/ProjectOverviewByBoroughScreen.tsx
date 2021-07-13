@@ -1,10 +1,10 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {FlatList, StyleSheet, View} from 'react-native'
+import {FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Gutter, Inset, ScreenWrapper, Title} from '../components/ui'
+import {Gutter, Inset, ScreenWrapper} from '../components/ui'
 import {Borough, boroughs, projects} from '../data/projects'
 
 type ProjectOverviewByBoroughScreenRouteProp = RouteProp<
@@ -25,12 +25,9 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
   return borough && projectsByBorough ? (
     <ScreenWrapper>
       <Inset>
-        <View style={styles.titleRow}>
-          <Title level={2} margin text={borough.name} />
-        </View>
         <FlatList
           data={projectsByBorough}
-          ItemSeparatorComponent={() => <Gutter height={10} />}
+          ItemSeparatorComponent={() => <Gutter height={15} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard
@@ -46,9 +43,3 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
     </ScreenWrapper>
   ) : null
 }
-
-const styles = StyleSheet.create({
-  titleRow: {
-    marginBottom: 15,
-  },
-})

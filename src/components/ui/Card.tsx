@@ -7,7 +7,7 @@ type CardProps = {
 
 type CardBodyProps = {
   children: React.ReactNode
-  direction: 'column' | 'row'
+  direction?: 'column' | 'row'
 }
 
 export const Card = ({children}: CardProps) => (
