@@ -43,7 +43,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Image source={project.imageSource} style={styles.image} />
         <Box background="white">
           <Title margin text={project.title} />
-          <View style={styles.iconsRow}>
+          <View style={styles.row}>
             <IconButton
               icon={<Info fill={color.tint.level1} />}
               label="Informatie"
@@ -88,10 +88,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  iconsRow: {
-    flexDirection: 'row',
-    marginBottom: 30,
-  },
   image: {
     aspectRatio: image.aspectRatio,
     maxWidth: '100%',
@@ -103,5 +99,8 @@ const styles = StyleSheet.create({
     marginTop: -15,
     paddingHorizontal: 15,
     paddingTop: 15,
+  },
+  row: {
+    flexDirection: 'row',
   },
 })
