@@ -4,7 +4,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Button, Inset, ScreenWrapper, Text, Title} from '../components/ui'
+import {Box, Button, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
 import {color} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
@@ -33,7 +33,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
         <View style={styles.insetWhite}>
           <Title text="Contact" />
         </View>
-        <Inset>
+        <Box>
           <View style={styles.insetWhite}>
             {project.contact?.list ? (
               project.contact?.list?.map(item => (
@@ -68,7 +68,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
               </>
             )}
           </View>
-        </Inset>
+        </Box>
       </ScrollView>
     </ScreenWrapper>
   )

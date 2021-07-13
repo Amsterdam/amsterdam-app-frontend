@@ -1,8 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {Button, ScreenWrapper} from '../components/ui'
+import {Box, Button, Gutter, ScreenWrapper} from '../components/ui'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
@@ -11,31 +10,21 @@ type Props = {
 export const HomeScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
-      <View style={styles.body}>
-        <View style={styles.gap}>
-          <Button
-            onPress={() =>
-              navigation.navigate(routes.report.name, {
-                uri: 'https://acc.meldingen.amsterdam.nl/',
-              })
-            }
-            text="Maak een melding"
-          />
-        </View>
+      <Box inset="xl">
+        <Button
+          onPress={() =>
+            navigation.navigate(routes.report.name, {
+              uri: 'https://acc.meldingen.amsterdam.nl/',
+            })
+          }
+          text="Maak een melding"
+        />
+        <Gutter height={15} />
         <Button
           onPress={() => navigation.navigate(routes.projectOverview.name)}
           text="Bekijk bouwprojecten"
         />
-      </View>
+      </Box>
     </ScreenWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  body: {
-    padding: 45,
-  },
-  gap: {
-    marginBottom: 15,
-  },
-})
