@@ -34,7 +34,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <FlatList
                 data={projectsByBorough}
                 horizontal
-                ItemSeparatorComponent={() => <Gutter width={15} />}
+                ItemSeparatorComponent={() => <Gutter width={10} />}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                   <ProjectCard
@@ -43,11 +43,11 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                       navigation.navigate('ProjectDetail', {id: item.id})
                     }
                     title={item.title}
-                    width={300}
+                    width={280}
                   />
                 )}
               />
-              {index < boroughs.length - 1 && <Gutter height={45} />}
+              {index < boroughs.length - 1 && <Gutter height={30} />}
             </React.Fragment>
           ) : null
         })}
@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 10,
   },
 })
