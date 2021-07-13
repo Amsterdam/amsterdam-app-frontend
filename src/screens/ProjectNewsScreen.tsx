@@ -5,6 +5,7 @@ import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Text, Title} from '../components/ui'
 import {Image} from '../components/ui/Image'
+import {image} from '../tokens'
 
 type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
 
@@ -46,6 +47,6 @@ export const ProjectNewsScreen = ({route}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
-    height: 150,
+    aspectRatio: image.aspectRatio.wide,
   },
 })

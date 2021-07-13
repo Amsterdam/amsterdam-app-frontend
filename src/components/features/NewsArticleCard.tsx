@@ -3,6 +3,7 @@ import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
 import {Card, CardBody, Gutter, Text} from '../ui'
 import {Image} from '../ui/Image'
+import {image} from '../../tokens'
 
 type Props = {
   newsArticle: NewsArticle
@@ -10,14 +11,16 @@ type Props = {
 }
 
 export const NewsArticleCard = ({onPress, newsArticle}: Props) => (
-  <TouchableHighlight onPress={onPress} style={styles.wrapper}>
+  <TouchableHighlight onPress={onPress} style={styles.row}>
     <Card>
       <CardBody direction="row">
-        <View style={styles.imageWrapper}>
-          <Image source={newsArticle.imageSource} style={styles.image} />
-        </View>
-        <Gutter width={10} />
-        <View style={styles.textWrapper}>
+        <Image
+          source={newsArticle.imageSource}
+          style={styles.image}
+          width={150}
+        />
+        <Gutter width={15} />
+        <View style={styles.text}>
           <Text>{newsArticle.title}</Text>
         </View>
       </CardBody>
@@ -27,17 +30,13 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => (
 
 const styles = StyleSheet.create({
   image: {
-    height: 80,
+    aspectRatio: image.aspectRatio.default,
   },
-  wrapper: {
-    flex: 1,
+  row: {
     flexDirection: 'row',
   },
-  imageWrapper: {
-    width: '40%',
-    height: '100%',
-  },
-  textWrapper: {
-    width: '60%',
+  text: {
+    alignSelf: 'center',
+    flex: 1,
   },
 })
