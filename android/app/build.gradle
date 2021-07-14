@@ -134,8 +134,8 @@ android {
         applicationId "com.stadsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "0.3"
     }
     splits {
         abi {
@@ -156,7 +156,6 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            debuggable false
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
