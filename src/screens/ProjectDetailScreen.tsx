@@ -89,7 +89,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
-    aspectRatio: image.aspectRatio,
+    aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',
     resizeMode: 'cover',
   },

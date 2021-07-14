@@ -1,3 +1,6 @@
 export const image = {
-  aspectRatio: 940 / 415, // These are the width and height of the project images on amsterdam.nl
+  aspectRatio: {
+    default: 16 / 9,
+    wide: 940 / 415, // These are the width and height of the project images on amsterdam.nl
+  },
 }

@@ -100,7 +100,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -115,7 +115,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {
@@ -174,7 +174,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -189,7 +189,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {
@@ -242,7 +242,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -257,7 +257,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {
@@ -308,7 +308,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -323,7 +323,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {
@@ -381,7 +381,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -396,7 +396,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {
@@ -450,7 +450,7 @@ export const projects: Project[] = [
           'De kademuur aan de Brouwersgracht 75-101 en 101A-137 is in slechte staat en moeten wij vernieuwen. Voordat we deze kademuur vernieuwen, moeten we de woonboten aan de oneven zijde van het water verplaatsen.',
         paragraphs: [
           {
-            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
+            text: 'De vernieuwing vindt plaats vanaf het water. Daarom moeten we de woonboten aan de zuidzijde (oneven huisnummers) naar een tijdelijke wissellocatie verplaatsen. Dat moet in ieder geval gebeuren voordat we met de werkzaamheden in 2022 starten. De woonboten liggen ongeveer 2 jaar op een wissellocatie. Met de woonbootbewoners zijn we in gesprek over welke tijdelijke wissellocaties we kunnen bieden.\n\nDe woonboten aan de noordkant van de Brouwersgracht – even huisnummers – blijven liggen. De kademuur aan de even zijde vervangen we niet.',
             title: 'Tijdelijke wissellocatie',
           },
         ],
@@ -465,7 +465,7 @@ export const projects: Project[] = [
           'De kademuur ter hoogte van de Da Costakade 91 tot en met 95 laat beweging zien. Dat blijkt uit recente metingen van de kade. We nemen op korte termijn maatregelen om het gewicht op de kade te verminderen en de kade veilig te houden.',
         paragraphs: [
           {
-            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
+            text: 'We heffen 9 parkeervakken op de kade ter hoogte van de Da Costakade 91 tot en met 95 op. Vanaf 1 juli 2021 is het niet meer toegestaan om met voertuigen zwaarder dan 30 ton te rijden over de oostzijde van de Da Costakade tussen de Potgieterstraat en de De Clercqstraat. Ontheffingen voor verkeer zwaarder dan 30 ton die eerder zijn afgegeven zijn hier niet meer geldig.\n\nDeze maatregelen blijven gelden tot aan de vernieuwing van de kademuur. De vernieuwing van de kademuren van de Da Costakade staat gepland tussen eind 2022 en eind 2026.',
             title: 'Wat er gaat gebeuren',
           },
           {

@@ -13,7 +13,7 @@ export const NewsItemsOverview = ({newsArticles}: Props) => {
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      {newsArticles.map(article => {
+      {newsArticles.map((article, index) => {
         return (
           <React.Fragment key={article.title}>
             <NewsArticleCard
@@ -22,7 +22,7 @@ export const NewsItemsOverview = ({newsArticles}: Props) => {
                 navigation.navigate('ProjectNews', {newsArticle: article})
               }
             />
-            <Gutter height={15} />
+            {index < newsArticles.length - 1 && <Gutter height={15} />}
           </React.Fragment>
         )
       })}
