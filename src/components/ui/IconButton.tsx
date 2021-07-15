@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {color, fontFamily, spacing} from '../../tokens'
+import {color, font, spacing} from '../../tokens'
 
 type Props = {
   icon: React.ComponentElement<any, any>
@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
     maxWidth: spacing.xxl + 2 * spacing.md,
   },
   label: {
-    fontFamily: fontFamily.regular,
-    fontSize: 14,
+    fontFamily: font.fontFamily.regular,
+    fontSize: font.fontSize.t1,
+    lineHeight: font.lineHeight.t1,
     color: color.primary.main,
     textAlign: 'center',
     marginHorizontal: -spacing.sm, // Allow label to overlay iconButton padding

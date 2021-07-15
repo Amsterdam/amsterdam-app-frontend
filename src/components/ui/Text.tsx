@@ -4,8 +4,7 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {color, fontFamily} from '../../tokens'
-import {fontColor} from '../../tokens/fontColor'
+import {color, font} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
@@ -26,16 +25,16 @@ export const Text = ({children, inverse, margin, ...otherProps}: Props) => {
 const styles = StyleSheet.create({
   inverse: {
     color: color.bright.main,
-    fontFamily: fontFamily.demi,
+    fontFamily: font.fontFamily.demi,
   },
   margin: {
-    marginTop: 0,
-    marginBottom: 22,
+    marginBottom: font.marginBottom.p1,
+    marginTop: font.marginTop.p1,
   },
   text: {
-    fontFamily: fontFamily.regular,
-    fontSize: 16,
-    lineHeight: 22,
-    color: fontColor.regular,
+    fontFamily: font.fontFamily.regular,
+    fontSize: font.fontSize.p1,
+    lineHeight: font.lineHeight.p1,
+    color: font.fontColor.regular,
   },
 })
