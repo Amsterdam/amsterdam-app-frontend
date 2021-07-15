@@ -24,7 +24,7 @@ export const Text = ({children, inverse, margin, ...otherProps}: Props) => {
 
 const styles = StyleSheet.create({
   inverse: {
-    color: color.bright.main,
+    color: color.font.inverse,
     fontFamily: font.weight.demi,
   },
   margin: {

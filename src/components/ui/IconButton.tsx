@@ -17,7 +17,7 @@ export const IconButton = ({icon, label, onPress}: Props) => (
 
 const styles = StyleSheet.create({
   circle: {
-    backgroundColor: color.primary.main,
+    backgroundColor: color.touchable.primary,
     borderRadius: spacing.xxl / 2,
     height: spacing.xxl,
     marginBottom: spacing.sm,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontFamily: font.weight.regular,
     fontSize: font.size.t1,
     lineHeight: font.height.t1,
-    color: color.primary.main,
+    color: color.touchable.primary,
     textAlign: 'center',
     marginHorizontal: -spacing.sm, // Allow label to overlay iconButton padding
   },

@@ -55,6 +55,6 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
 const styles = StyleSheet.create({
   insetWhite: {
     padding: spacing.md,
-    backgroundColor: color.tint.level1,
+    backgroundColor: color.background.lighter,
   },
 })

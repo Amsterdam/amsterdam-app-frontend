@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginRight: spacing.md,
   },
   primary: {
-    backgroundColor: color.primary.main,
+    backgroundColor: color.touchable.primary,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },

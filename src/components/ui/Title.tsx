@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     marginTop: font.leadingTop.h4,
   },
   inverse: {
-    color: color.bright.main,
+    color: color.font.inverse,
   },
 })

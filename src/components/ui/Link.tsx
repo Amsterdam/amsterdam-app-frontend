@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
-    color: color.primary.main,
+    color: color.touchable.primary,
     textDecorationLine: 'underline',
   },
 })

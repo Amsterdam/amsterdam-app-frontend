@@ -50,7 +50,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 {project.contact?.phone && (
                   <View style={styles.buttonContainer}>
                     <Button
-                      icon={<Phone fill={color.tint.level1} />}
+                      icon={<Phone fill={color.font.inverse} />}
                       onPress={() => openPhoneUrl('project.contact?.phone')}
                       text={`Bel ${project.contact?.firstName}`}
                     />
@@ -59,7 +59,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 {project.contact?.email && (
                   <View style={styles.buttonContainer}>
                     <Button
-                      icon={<Email fill={color.tint.level1} />}
+                      icon={<Email fill={color.font.inverse} />}
                       onPress={() => openMailUrl('project.contact?.email')}
                       text={`E-mail ${project.contact?.firstName}`}
                     />
@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
   },
   insetWhite: {
     padding: spacing.md,
-    backgroundColor: color.tint.level1,
+    backgroundColor: color.background.lighter,
   },
 })

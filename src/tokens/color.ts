@@ -1,4 +1,4 @@
-export const color = {
+const baseColor = {
   primary: {
     main: '#004699',
     dark: '#00387a',
@@ -36,8 +36,22 @@ export const color = {
   error: {
     main: '#ec0000',
   },
+}
+
+export const color = {
+  background: {
+    darker: baseColor.tint.level7,
+    emphasis: baseColor.primary.main,
+    invalid: baseColor.support.invalid,
+    light: baseColor.tint.level2,
+    lighter: baseColor.tint.level1,
+  },
   font: {
-    regular: '#000000', // color.tint.level7
-    light: '#323232', // color.tint.level6
+    inverse: baseColor.tint.level1,
+    light: baseColor.tint.level6,
+    regular: baseColor.tint.level7,
+  },
+  touchable: {
+    primary: baseColor.primary.main,
   },
 }

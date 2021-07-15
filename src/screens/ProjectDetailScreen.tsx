@@ -45,7 +45,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Title margin text={project.title} />
           <View style={styles.row}>
             <IconButton
-              icon={<Info fill={color.tint.level1} />}
+              icon={<Info fill={color.font.inverse} />}
               label="Informatie"
               onPress={() =>
                 navigation.navigate(routes.projectDetailInformation.name, {
@@ -54,7 +54,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               }
             />
             <IconButton
-              icon={<Calendar fill={color.tint.level1} />}
+              icon={<Calendar fill={color.font.inverse} />}
               label="Tijdlijn"
               onPress={() =>
                 navigation.navigate(routes.projectDetailTimeline.name, {
@@ -64,7 +64,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             />
             {project.contact && (
               <IconButton
-                icon={<ChatBubble fill={color.tint.level1} />}
+                icon={<ChatBubble fill={color.font.inverse} />}
                 label="Contact"
                 onPress={() =>
                   navigation.navigate(routes.projectDetailContact.name, {

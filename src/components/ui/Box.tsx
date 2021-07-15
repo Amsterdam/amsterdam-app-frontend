@@ -10,10 +10,10 @@ type Props = {
 
 export const Box = ({background, children, inset = 'md'}: Props) => {
   const backgroundColors = {
-    blue: color.primary.main,
-    grey: color.tint.level2,
-    red: color.secondary.main,
-    white: color.tint.level1,
+    blue: color.background.emphasis,
+    grey: color.background.light,
+    red: color.background.invalid,
+    white: color.background.lighter,
   }
 
   const styles = StyleSheet.create({
