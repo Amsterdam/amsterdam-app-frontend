@@ -36,4 +36,8 @@ export const color = {
   error: {
     main: '#ec0000',
   },
+  font: {
+    regular: '#000000', // color.tint.level7
+    light: '#323232', // color.tint.level6
+  },
 }

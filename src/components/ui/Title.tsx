@@ -25,7 +25,7 @@ export const Title = ({level = 1, inverse, margin, text}: Props) => {
 
 const styles = StyleSheet.create({
   h1: {
-    color: font.fontColor.regular,
+    color: color.font.regular,
     fontFamily: font.fontFamily.demi,
     fontSize: font.fontSize.h1,
     lineHeight: font.lineHeight.h1,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginTop: font.marginTop.h1,
   },
   h2: {
-    color: font.fontColor.regular,
+    color: color.font.regular,
     fontFamily: font.fontFamily.demi,
     fontSize: font.fontSize.h2,
     lineHeight: font.lineHeight.h2,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginTop: font.marginTop.h2,
   },
   h3: {
-    color: font.fontColor.regular,
+    color: color.font.regular,
     fontFamily: font.fontFamily.demi,
     fontSize: font.fontSize.h3,
     lineHeight: font.lineHeight.h3,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     marginTop: font.marginTop.h3,
   },
   h4: {
-    color: font.fontColor.regular,
+    color: color.font.regular,
     fontFamily: font.fontFamily.demi,
     fontSize: font.fontSize.h4,
     lineHeight: font.lineHeight.h4,

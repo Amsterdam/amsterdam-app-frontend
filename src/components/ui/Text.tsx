@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     fontFamily: font.fontFamily.regular,
     fontSize: font.fontSize.p1,
     lineHeight: font.lineHeight.p1,
-    color: font.fontColor.regular,
+    color: color.font.regular,
   },
 })

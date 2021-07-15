@@ -1,10 +1,4 @@
-import {color} from './color'
-
 export const font = {
-  fontColor: {
-    regular: color.tint.level7,
-    light: color.tint.level6,
-  },
   fontFamily: {
     regular: 'AvenirNext-Regular',
     demi: 'AvenirNext-DemiBold',
