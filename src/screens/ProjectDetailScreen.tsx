@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   insetWhite: {
-    backgroundColor: 'white',
+    backgroundColor: color.background.lighter,
     marginHorizontal: -size.spacing.md,
     marginTop: -size.spacing.md,
     paddingHorizontal: size.spacing.md,

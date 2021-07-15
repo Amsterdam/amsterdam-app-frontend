@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {size} from '../../tokens'
+import {color, size} from '../../tokens'
 
 type CardProps = {
   children: React.ReactNode
@@ -21,7 +21,7 @@ export const CardBody = ({children, direction = 'column'}: CardBodyProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
+    backgroundColor: color.background.lighter,
     flexGrow: 1,
   },
   column: {
