@@ -3,22 +3,15 @@ import {StyleSheet, View} from 'react-native'
 import {color, Spacing, spacing} from '../../tokens'
 
 type Props = {
-  background?: 'blue' | 'grey' | 'red' | 'white'
+  background?: 'emphasis' | 'invalid' | 'light' | 'lighter'
   children: React.ReactNode
   inset?: keyof Spacing
 }
 
 export const Box = ({background, children, inset = 'md'}: Props) => {
-  const backgroundColors = {
-    blue: color.background.emphasis,
-    grey: color.background.light,
-    red: color.background.invalid,
-    white: color.background.lighter,
-  }
-
   const styles = StyleSheet.create({
     box: {
-      backgroundColor: background && backgroundColors[background],
+      backgroundColor: background && color.background[background],
       padding: spacing[inset],
     },
   })

@@ -41,7 +41,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Image source={project.imageSource} style={styles.image} />
-        <Box background="white">
+        <Box background="lighter">
           <Title margin text={project.title} />
           <View style={styles.row}>
             <IconButton
@@ -76,7 +76,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           </View>
         </Box>
         {project.news && (
-          <Box background="grey">
+          <Box background="light">
             <Title level={2} text="Nieuws" />
             <Gutter height={spacing.md} />
             <NewsItemsOverview newsArticles={project.news} />
