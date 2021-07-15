@@ -1,4 +1,24 @@
-export const font = {
+type FontList = {
+  h1: number
+  h2: number
+  h3: number
+  h4: number
+  p1: number
+  t1: number
+}
+
+type FontTokens = {
+  height: FontList
+  leadingBottom: FontList
+  leadingTop: FontList
+  size: FontList
+  weight: {
+    demi: string
+    regular: string
+  }
+}
+
+export const font: FontTokens = {
   height: {
     h1: 30,
     h2: 28,
@@ -32,7 +52,7 @@ export const font = {
     t1: 14,
   },
   weight: {
-    regular: 'AvenirNext-Regular',
     demi: 'AvenirNext-DemiBold',
+    regular: 'AvenirNext-Regular',
   },
 }
