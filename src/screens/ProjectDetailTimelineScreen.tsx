@@ -1,10 +1,9 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {ScrollView} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color, size} from '../tokens'
 
 type ProjectDetailTimelineScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -27,9 +26,9 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
   return (
     <ScreenWrapper>
       <ScrollView>
-        <View style={styles.insetWhite}>
+        <Box background="lighter">
           <Title text="Tijdlijn" />
-        </View>
+        </Box>
         <Box>
           <Section title="Wanneer" text={project.body?.when} />
         </Box>
@@ -37,10 +36,3 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
     </ScreenWrapper>
   )
 }
-
-const styles = StyleSheet.create({
-  insetWhite: {
-    padding: size.spacing.md,
-    backgroundColor: color.background.lighter,
-  },
-})

@@ -93,13 +93,6 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     resizeMode: 'cover',
   },
-  insetWhite: {
-    backgroundColor: color.background.lighter,
-    marginHorizontal: -size.spacing.md,
-    marginTop: -size.spacing.md,
-    paddingHorizontal: size.spacing.md,
-    paddingTop: size.spacing.md,
-  },
   row: {
     flexDirection: 'row',
   },

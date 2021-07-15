@@ -30,11 +30,11 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
   return (
     <ScreenWrapper>
       <ScrollView>
-        <View style={styles.insetWhite}>
+        <Box background="lighter">
           <Title text="Contact" />
-        </View>
+        </Box>
         <Box>
-          <View style={styles.insetWhite}>
+          <Box background="lighter">
             {project.contact?.list ? (
               project.contact?.list?.map(item => (
                 <Text key={item}>– {item}</Text>
@@ -67,7 +67,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 )}
               </>
             )}
-          </View>
+          </Box>
         </Box>
       </ScrollView>
     </ScreenWrapper>
@@ -79,9 +79,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingTop: size.spacing.md,
-  },
-  insetWhite: {
-    padding: size.spacing.md,
-    backgroundColor: color.background.lighter,
   },
 })
