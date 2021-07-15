@@ -25,16 +25,16 @@ export const Text = ({children, inverse, margin, ...otherProps}: Props) => {
 const styles = StyleSheet.create({
   inverse: {
     color: color.bright.main,
-    fontFamily: font.fontFamily.demi,
+    fontFamily: font.weight.demi,
   },
   margin: {
-    marginBottom: font.marginBottom.p1,
-    marginTop: font.marginTop.p1,
+    marginBottom: font.leadingBottom.p1,
+    marginTop: font.leadingTop.p1,
   },
   text: {
-    fontFamily: font.fontFamily.regular,
-    fontSize: font.fontSize.p1,
-    lineHeight: font.lineHeight.p1,
+    fontFamily: font.weight.regular,
+    fontSize: font.size.p1,
+    lineHeight: font.height.p1,
     color: color.font.regular,
   },
 })

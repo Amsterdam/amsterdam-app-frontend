@@ -1,17 +1,5 @@
 export const font = {
-  fontFamily: {
-    regular: 'AvenirNext-Regular',
-    demi: 'AvenirNext-DemiBold',
-  },
-  fontSize: {
-    h1: 24,
-    h2: 20,
-    h3: 20,
-    h4: 18,
-    p1: 16,
-    t1: 14,
-  },
-  lineHeight: {
+  height: {
     h1: 30,
     h2: 28,
     h3: 28,
@@ -19,7 +7,7 @@ export const font = {
     p1: 22,
     t1: 18,
   },
-  marginBottom: {
+  leadingBottom: {
     h1: 30,
     h2: 28,
     h3: 28,
@@ -27,12 +15,24 @@ export const font = {
     p1: 22,
     t1: 18,
   },
-  marginTop: {
+  leadingTop: {
     h1: 0,
     h2: 0,
     h3: 0,
     h4: 0,
     p1: 0,
     t1: 0,
+  },
+  size: {
+    h1: 24,
+    h2: 20,
+    h3: 20,
+    h4: 18,
+    p1: 16,
+    t1: 14,
+  },
+  weight: {
+    regular: 'AvenirNext-Regular',
+    demi: 'AvenirNext-DemiBold',
   },
 }

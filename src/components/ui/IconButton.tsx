@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
     maxWidth: spacing.xxl + 2 * spacing.md,
   },
   label: {
-    fontFamily: font.fontFamily.regular,
-    fontSize: font.fontSize.t1,
-    lineHeight: font.lineHeight.t1,
+    fontFamily: font.weight.regular,
+    fontSize: font.size.t1,
+    lineHeight: font.height.t1,
     color: color.primary.main,
     textAlign: 'center',
     marginHorizontal: -spacing.sm, // Allow label to overlay iconButton padding
