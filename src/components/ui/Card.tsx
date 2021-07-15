@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {spacing} from '../../tokens'
 
 type CardProps = {
   children: React.ReactNode
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardBody: {
-    padding: 15,
+    padding: spacing.md,
   },
 })

@@ -16,7 +16,7 @@ import {
   Title,
 } from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color, image} from '../tokens'
+import {color, image, spacing} from '../tokens'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -78,7 +78,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         {project.news && (
           <Box background="grey">
             <Title level={2} text="Nieuws" />
-            <Gutter height={10} />
+            <Gutter height={spacing.md} />
             <NewsItemsOverview newsArticles={project.news} />
           </Box>
         )}
@@ -95,10 +95,10 @@ const styles = StyleSheet.create({
   },
   insetWhite: {
     backgroundColor: 'white',
-    marginHorizontal: -15,
-    marginTop: -15,
-    paddingHorizontal: 15,
-    paddingTop: 15,
+    marginHorizontal: -spacing.md,
+    marginTop: -spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.md,
   },
   row: {
     flexDirection: 'row',

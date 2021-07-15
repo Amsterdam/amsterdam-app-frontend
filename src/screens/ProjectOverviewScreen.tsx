@@ -5,6 +5,7 @@ import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, Link, ScreenWrapper, Title} from '../components/ui'
 import {boroughs, projects} from '../data/projects'
+import {spacing} from '../tokens'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
@@ -34,7 +35,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <FlatList
                 data={projectsByBorough}
                 horizontal
-                ItemSeparatorComponent={() => <Gutter width={10} />}
+                ItemSeparatorComponent={() => <Gutter width={spacing.sm} />}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                   <ProjectCard
@@ -47,7 +48,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   />
                 )}
               />
-              {index < boroughs.length - 1 && <Gutter height={30} />}
+              {index < boroughs.length - 1 && <Gutter height={spacing.lg} />}
             </React.Fragment>
           ) : null
         })}
@@ -61,6 +62,6 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: spacing.sm,
   },
 })

@@ -6,7 +6,7 @@ import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, Button, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color} from '../tokens'
+import {color, spacing} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
 
 type ProjectDetailContactScreenRouteProp = RouteProp<
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingTop: 15,
+    paddingTop: spacing.md,
   },
   insetWhite: {
-    padding: 15,
+    padding: spacing.md,
     backgroundColor: color.tint.level1,
   },
 })
