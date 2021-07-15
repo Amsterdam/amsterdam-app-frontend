@@ -18,7 +18,7 @@ import {
   ProjectOverviewScreen,
   ReportScreen,
 } from './src/screens'
-import {spacing} from './src/tokens'
+import {size} from './src/tokens'
 
 export type RootStackParamList = {
   Home: undefined
@@ -106,7 +106,7 @@ const globalScreenOptions: StackNavigationOptions = {
       width={20}
       height={20}
       fill={'black'}
-      style={{margin: spacing.sm}}
+      style={{margin: size.spacing.sm}}
     />
   ),
   headerBackTitleVisible: false,

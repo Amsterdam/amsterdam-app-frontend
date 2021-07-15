@@ -6,7 +6,7 @@ import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper} from '../components/ui'
 import {Borough, boroughs, projects} from '../data/projects'
-import {spacing} from '../tokens'
+import {size} from '../tokens'
 
 type ProjectOverviewByBoroughScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -28,7 +28,7 @@ export const ProjectOverviewByBoroughScreen = ({route, navigation}: Props) => {
       <Box>
         <FlatList
           data={projectsByBorough}
-          ItemSeparatorComponent={() => <Gutter height={spacing.md} />}
+          ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <ProjectCard

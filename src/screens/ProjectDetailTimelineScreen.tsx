@@ -4,7 +4,7 @@ import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color, spacing} from '../tokens'
+import {color, size} from '../tokens'
 
 type ProjectDetailTimelineScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -40,7 +40,7 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
 
 const styles = StyleSheet.create({
   insetWhite: {
-    padding: spacing.md,
+    padding: size.spacing.md,
     backgroundColor: color.background.lighter,
   },
 })

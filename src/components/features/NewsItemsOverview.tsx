@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
-import {spacing} from '../../tokens'
+import {size} from '../../tokens'
 import {Gutter} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
@@ -23,7 +23,9 @@ export const NewsItemsOverview = ({newsArticles}: Props) => {
                 navigation.navigate('ProjectNews', {newsArticle: article})
               }
             />
-            {index < newsArticles.length - 1 && <Gutter height={spacing.md} />}
+            {index < newsArticles.length - 1 && (
+              <Gutter height={size.spacing.md} />
+            )}
           </React.Fragment>
         )
       })}

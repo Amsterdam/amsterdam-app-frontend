@@ -5,7 +5,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native'
-import {color, spacing} from '../../tokens'
+import {color, size} from '../../tokens'
 import {Text} from './'
 
 type Props = {
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
   iconContainer: {
     height: 20,
     width: 20,
-    marginRight: spacing.md,
+    marginRight: size.spacing.md,
   },
   primary: {
     backgroundColor: color.touchable.primary,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
   },
 })

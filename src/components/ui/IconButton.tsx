@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {color, font, spacing} from '../../tokens'
+import {color, font, size} from '../../tokens'
 
 type Props = {
   icon: React.ComponentElement<any, any>
@@ -18,16 +18,16 @@ export const IconButton = ({icon, label, onPress}: Props) => (
 const styles = StyleSheet.create({
   circle: {
     backgroundColor: color.touchable.primary,
-    borderRadius: spacing.xxl / 2,
-    height: spacing.xxl,
-    marginBottom: spacing.sm,
-    padding: spacing.md,
-    width: spacing.xxl,
+    borderRadius: size.spacing.xxl / 2,
+    height: size.spacing.xxl,
+    marginBottom: size.spacing.sm,
+    padding: size.spacing.md,
+    width: size.spacing.xxl,
   },
   iconButton: {
     alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    maxWidth: spacing.xxl + 2 * spacing.md,
+    paddingHorizontal: size.spacing.md,
+    maxWidth: size.spacing.xxl + 2 * size.spacing.md,
   },
   label: {
     fontFamily: font.weight.regular,
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     lineHeight: font.height.t1,
     color: color.touchable.primary,
     textAlign: 'center',
-    marginHorizontal: -spacing.sm, // Allow label to overlay iconButton padding
+    marginHorizontal: -size.spacing.sm, // Allow label to overlay iconButton padding
   },
 })
