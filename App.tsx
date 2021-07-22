@@ -32,7 +32,15 @@ export type RootStackParamList = {
   Report: {uri: string}
 }
 
-export const routes = {
+type Routes = {
+  [route: string]: {
+    name: keyof RootStackParamList
+    title?: string
+    options?: StackNavigationOptions
+  }
+}
+
+export const routes: Routes = {
   home: {
     name: 'Home',
     options: {
@@ -53,9 +61,6 @@ export const routes = {
   },
   projectDetail: {
     name: 'ProjectDetail',
-    options: {
-      title: 'Bouwproject detail',
-    },
   },
   projectNews: {
     name: 'ProjectNews',
@@ -65,21 +70,12 @@ export const routes = {
   },
   projectDetailContact: {
     name: 'ProjectDetailContact',
-    options: {
-      title: 'Bouwproject detail: contact',
-    },
   },
   projectDetailInformation: {
     name: 'ProjectDetailInformation',
-    options: {
-      title: 'Bouwproject detail: informatie',
-    },
   },
   projectDetailTimeline: {
     name: 'ProjectDetailTimeline',
-    options: {
-      title: 'Bouwproject detail: tijdlijn',
-    },
   },
   report: {
     name: 'Report',
