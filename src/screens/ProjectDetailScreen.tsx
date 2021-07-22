@@ -3,7 +3,7 @@ import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import {Image, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
@@ -32,6 +32,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const project: Project | undefined = projects.find(
     p => p.id === route.params.id,
   )
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: project?.title,
+    })
+  }, [navigation, project])
 
   if (!project) {
     return <Text>`Project ${route.params.id} niet gevonden.`</Text>
