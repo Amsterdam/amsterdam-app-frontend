@@ -10,7 +10,9 @@ export const ScreenWrapper = ({children}: Props) => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyles = {
-    backgroundColor: isDarkMode ? color.tint.level7 : color.tint.level1,
+    backgroundColor: isDarkMode
+      ? color.background.darker
+      : color.background.light,
   }
 
   return (
@@ -22,7 +24,6 @@ export const ScreenWrapper = ({children}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F5F5F5',
     flex: 1,
   },
 })

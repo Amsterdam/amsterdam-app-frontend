@@ -33,7 +33,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
             })}
         </Box>
         {newsArticle.contact && (
-          <Box background="red">
+          <Box background="invalid">
             <Title inverse level={2} margin text="Contact" />
             <Text inverse>{newsArticle.contact.name}</Text>
             <Text inverse>{newsArticle.contact.phone}</Text>

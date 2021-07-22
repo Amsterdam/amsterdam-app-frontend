@@ -12,12 +12,13 @@ import {
   ProjectDetailContactScreen,
   ProjectDetailInformationScreen,
   ProjectDetailScreen,
-  ProjectNewsScreen,
   ProjectDetailTimelineScreen,
+  ProjectNewsScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
   ReportScreen,
 } from './src/screens'
+import {size} from './src/tokens'
 
 export type RootStackParamList = {
   Home: undefined
@@ -101,8 +102,12 @@ const globalScreenOptions: StackNavigationOptions = {
     backgroundColor: 'white',
   },
   headerBackImage: () => (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <ChevronLeft width={20} height={20} fill={'black'} style={{margin: 10}} />
+    <ChevronLeft
+      width={20}
+      height={20}
+      fill={'black'}
+      style={{margin: size.spacing.sm}}
+    />
   ),
   headerBackTitleVisible: false,
   headerBackAccessibilityLabel: 'Back button',

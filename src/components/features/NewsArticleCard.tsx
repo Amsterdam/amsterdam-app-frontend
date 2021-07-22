@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
-import {image} from '../../tokens'
+import {image, size} from '../../tokens'
 import {Card, CardBody, Gutter, Text} from '../ui'
 import {Image} from '../ui/Image'
 
@@ -19,7 +19,7 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => (
           style={styles.image}
           width={150}
         />
-        <Gutter width={15} />
+        <Gutter width={size.spacing.md} />
         <View style={styles.text}>
           <Text>{newsArticle.title}</Text>
         </View>

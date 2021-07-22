@@ -16,7 +16,7 @@ import {
   Title,
 } from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color, image} from '../tokens'
+import {color, image, size} from '../tokens'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -41,11 +41,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Image source={project.imageSource} style={styles.image} />
-        <Box background="white">
+        <Box background="lighter">
           <Title margin text={project.title} />
           <View style={styles.row}>
             <IconButton
-              icon={<Info fill={color.tint.level1} />}
+              icon={<Info fill={color.font.inverse} />}
               label="Informatie"
               onPress={() =>
                 navigation.navigate(routes.projectDetailInformation.name, {
@@ -54,7 +54,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               }
             />
             <IconButton
-              icon={<Calendar fill={color.tint.level1} />}
+              icon={<Calendar fill={color.font.inverse} />}
               label="Tijdlijn"
               onPress={() =>
                 navigation.navigate(routes.projectDetailTimeline.name, {
@@ -64,7 +64,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             />
             {project.contact && (
               <IconButton
-                icon={<ChatBubble fill={color.tint.level1} />}
+                icon={<ChatBubble fill={color.font.inverse} />}
                 label="Contact"
                 onPress={() =>
                   navigation.navigate(routes.projectDetailContact.name, {
@@ -76,9 +76,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           </View>
         </Box>
         {project.news && (
-          <Box background="grey">
+          <Box background="light">
             <Title level={2} text="Nieuws" />
-            <Gutter height={10} />
+            <Gutter height={size.spacing.md} />
             <NewsItemsOverview newsArticles={project.news} />
           </Box>
         )}
@@ -92,13 +92,6 @@ const styles = StyleSheet.create({
     aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',
     resizeMode: 'cover',
-  },
-  insetWhite: {
-    backgroundColor: 'white',
-    marginHorizontal: -15,
-    marginTop: -15,
-    paddingHorizontal: 15,
-    paddingTop: 15,
   },
   row: {
     flexDirection: 'row',

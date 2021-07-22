@@ -1,4 +1,4 @@
 export * from './color'
-export * from './fontFamily'
+export * from './font'
 export * from './image'
-export * from './spacing'
+export * from './size'

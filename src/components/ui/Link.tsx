@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {color, fontFamily} from '../../tokens'
+import {color, font} from '../../tokens'
 
 type Props = {
   text: string
@@ -15,10 +15,10 @@ export const Link = ({text, onPress}: Props) => (
 
 const styles = StyleSheet.create({
   link: {
-    fontFamily: fontFamily.regular,
-    fontSize: 16,
-    lineHeight: 22,
-    color: color.primary.main,
+    fontFamily: font.weight.regular,
+    fontSize: font.size.p1,
+    lineHeight: font.height.p1,
+    color: color.touchable.primary,
     textDecorationLine: 'underline',
   },
 })

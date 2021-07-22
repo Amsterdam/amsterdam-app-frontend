@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
+import {size} from '../../tokens'
 import {Gutter} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
@@ -12,7 +13,7 @@ type Props = {
 export const NewsItemsOverview = ({newsArticles}: Props) => {
   const navigation = useNavigation()
   return (
-    <View style={styles.container}>
+    <View>
       {newsArticles.map((article, index) => {
         return (
           <React.Fragment key={article.title}>
@@ -22,16 +23,12 @@ export const NewsItemsOverview = ({newsArticles}: Props) => {
                 navigation.navigate('ProjectNews', {newsArticle: article})
               }
             />
-            {index < newsArticles.length - 1 && <Gutter height={15} />}
+            {index < newsArticles.length - 1 && (
+              <Gutter height={size.spacing.md} />
+            )}
           </React.Fragment>
         )
       })}
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#F5F5F5',
-  },
-})

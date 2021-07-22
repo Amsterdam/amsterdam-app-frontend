@@ -6,7 +6,7 @@ import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, Button, ScreenWrapper, Text, Title} from '../components/ui'
 import {Project, projects} from '../data/projects'
-import {color} from '../tokens'
+import {color, size} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
 
 type ProjectDetailContactScreenRouteProp = RouteProp<
@@ -30,11 +30,11 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
   return (
     <ScreenWrapper>
       <ScrollView>
-        <View style={styles.insetWhite}>
+        <Box background="lighter">
           <Title text="Contact" />
-        </View>
+        </Box>
         <Box>
-          <View style={styles.insetWhite}>
+          <Box background="lighter">
             {project.contact?.list ? (
               project.contact?.list?.map(item => (
                 <Text key={item}>– {item}</Text>
@@ -50,7 +50,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 {project.contact?.phone && (
                   <View style={styles.buttonContainer}>
                     <Button
-                      icon={<Phone fill={color.tint.level1} />}
+                      icon={<Phone fill={color.font.inverse} />}
                       onPress={() => openPhoneUrl('project.contact?.phone')}
                       text={`Bel ${project.contact?.firstName}`}
                     />
@@ -59,7 +59,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 {project.contact?.email && (
                   <View style={styles.buttonContainer}>
                     <Button
-                      icon={<Email fill={color.tint.level1} />}
+                      icon={<Email fill={color.font.inverse} />}
                       onPress={() => openMailUrl('project.contact?.email')}
                       text={`E-mail ${project.contact?.firstName}`}
                     />
@@ -67,7 +67,7 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
                 )}
               </>
             )}
-          </View>
+          </Box>
         </Box>
       </ScrollView>
     </ScreenWrapper>
@@ -78,10 +78,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingTop: 15,
-  },
-  insetWhite: {
-    padding: 15,
-    backgroundColor: color.tint.level1,
+    paddingTop: size.spacing.md,
   },
 })

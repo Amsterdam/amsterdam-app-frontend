@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {color, fontFamily} from '../../tokens'
-import {fontColor} from '../../tokens/fontColor'
+import {color, font} from '../../tokens'
 
 type Props = {
   level?: 1 | 2 | 3 | 4
@@ -26,46 +25,46 @@ export const Title = ({level = 1, inverse, margin, text}: Props) => {
 
 const styles = StyleSheet.create({
   h1: {
-    fontFamily: fontFamily.demi,
-    fontSize: 24,
-    lineHeight: 30,
-    color: fontColor.regular,
+    color: color.font.regular,
+    fontFamily: font.weight.demi,
+    fontSize: font.size.h1,
+    lineHeight: font.height.h1,
   },
   h1m: {
-    marginTop: 0,
-    marginBottom: 30,
+    marginBottom: font.leadingBottom.h1,
+    marginTop: font.leadingTop.h1,
   },
   h2: {
-    fontFamily: fontFamily.demi,
-    fontSize: 20,
-    lineHeight: 28,
-    color: fontColor.regular,
+    color: color.font.regular,
+    fontFamily: font.weight.demi,
+    fontSize: font.size.h2,
+    lineHeight: font.height.h2,
   },
   h2m: {
-    marginTop: 0,
-    marginBottom: 28,
+    marginBottom: font.leadingBottom.h2,
+    marginTop: font.leadingTop.h2,
   },
   h3: {
-    fontFamily: fontFamily.demi,
-    fontSize: 20,
-    lineHeight: 28,
-    color: fontColor.regular,
+    color: color.font.regular,
+    fontFamily: font.weight.demi,
+    fontSize: font.size.h3,
+    lineHeight: font.height.h3,
   },
   h3m: {
-    marginTop: 0,
-    marginBottom: 28,
+    marginBottom: font.leadingBottom.h3,
+    marginTop: font.leadingTop.h3,
   },
   h4: {
-    fontFamily: fontFamily.demi,
-    fontSize: 18,
-    lineHeight: 25,
-    color: fontColor.regular,
+    color: color.font.regular,
+    fontFamily: font.weight.demi,
+    fontSize: font.size.h4,
+    lineHeight: font.height.h4,
   },
   h4m: {
-    marginTop: 0,
-    marginBottom: 3,
+    marginBottom: font.leadingBottom.h4,
+    marginTop: font.leadingTop.h4,
   },
   inverse: {
-    color: color.bright.main,
+    color: color.font.inverse,
   },
 })
