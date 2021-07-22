@@ -55,7 +55,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               label="Informatie"
               onPress={() =>
                 navigation.navigate(routes.projectDetailInformation.name, {
-                  id: project.id,
+                  project,
                 })
               }
             />
@@ -64,7 +64,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               label="Tijdlijn"
               onPress={() =>
                 navigation.navigate(routes.projectDetailTimeline.name, {
-                  id: project.id,
+                  project,
                 })
               }
             />
@@ -74,7 +74,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 label="Contact"
                 onPress={() =>
                   navigation.navigate(routes.projectDetailContact.name, {
-                    id: project.id,
+                    project,
                   })
                 }
               />

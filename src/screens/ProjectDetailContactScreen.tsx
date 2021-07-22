@@ -1,17 +1,16 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
-import {RouteProp} from '@react-navigation/native'
-import React from 'react'
+import {RouteProp, useNavigation} from '@react-navigation/native'
+import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, Button, ScreenWrapper, Text, Title} from '../components/ui'
-import {Project, projects} from '../data/projects'
 import {color, size} from '../tokens'
 import {openMailUrl, openPhoneUrl} from '../utils'
 
 type ProjectDetailContactScreenRouteProp = RouteProp<
   RootStackParamList,
-  'ProjectDetail'
+  'ProjectDetailContact'
 >
 
 type Props = {
@@ -19,13 +18,14 @@ type Props = {
 }
 
 export const ProjectDetailContactScreen = ({route}: Props) => {
-  const project: Project | undefined = projects.find(
-    p => p.id === route.params.id,
-  )
+  const {project} = route.params
+  const navigation = useNavigation()
 
-  if (!project) {
-    return <Text>`Project ${route.params.id} niet gevonden.`</Text>
-  }
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: project.title,
+    })
+  })
 
   return (
     <ScreenWrapper>
