@@ -58,7 +58,11 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 )}
                 keyExtractor={item => item.id + item.title}
                 renderItem={({item, index}) => (
-                  <View style={index === 0 && styles.firstProject}>
+                  <View
+                    style={[
+                      styles.project,
+                      index === 0 && styles.firstProject,
+                    ]}>
                     <ProjectCard
                       imageSource={item.imageSource}
                       onPress={() =>
@@ -86,6 +90,9 @@ const styles = StyleSheet.create({
     margin: size.spacing.sm,
   },
   firstProject: {
-    paddingLeft: size.spacing.md,
+    marginLeft: size.spacing.md,
+  },
+  project: {
+    backgroundColor: 'white',
   },
 })
