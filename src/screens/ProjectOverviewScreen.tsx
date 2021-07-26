@@ -26,7 +26,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
         data={DATA}
         keyExtractor={(item, index) => `${item}${index}`}
         ItemSeparatorComponent={item =>
-          item.leadingItem.data.length === 0 ? (
+          item.leadingItem.data.length > 0 ? (
             <Gutter height={size.spacing.lg} />
           ) : null
         }
