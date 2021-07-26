@@ -1,13 +1,12 @@
-import {RouteProp} from '@react-navigation/native'
-import React from 'react'
+import {RouteProp, useNavigation} from '@react-navigation/native'
+import React, {useLayoutEffect} from 'react'
 import {ScrollView} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
-import {Project, projects} from '../data/projects'
 
 type ProjectDetailInformationScreenRouteProp = RouteProp<
   RootStackParamList,
-  'ProjectDetail'
+  'ProjectDetailInformation'
 >
 
 type Props = {
@@ -15,13 +14,14 @@ type Props = {
 }
 
 export const ProjectDetailInformationScreen = ({route}: Props) => {
-  const project: Project | undefined = projects.find(
-    p => p.id === route.params.id,
-  )
+  const {project} = route.params
+  const navigation = useNavigation()
 
-  if (!project) {
-    return <Text>`Project ${route.params.id} niet gevonden.`</Text>
-  }
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: project.title,
+    })
+  })
 
   return (
     <ScreenWrapper>
