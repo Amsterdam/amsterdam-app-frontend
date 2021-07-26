@@ -52,12 +52,8 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   <Gutter width={size.spacing.sm} />
                 )}
                 keyExtractor={item => item.id + item.title}
-                renderItem={({item, index}) => (
-                  <View
-                    style={[
-                      styles.project,
-                      index === 0 && styles.firstProject,
-                    ]}>
+                renderItem={({item}) => (
+                  <View style={styles.project}>
                     <ProjectCard
                       imageSource={item.imageSource}
                       onPress={() =>
@@ -68,6 +64,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                     />
                   </View>
                 )}
+                style={styles.projects}
               />
             </React.Fragment>
           ) : null
@@ -82,10 +79,10 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: size.spacing.sm,
+    margin: size.spacing.md,
   },
-  firstProject: {
-    marginLeft: size.spacing.md,
+  projects: {
+    paddingLeft: size.spacing.md,
   },
   project: {
     backgroundColor: 'white',
