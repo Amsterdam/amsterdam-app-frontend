@@ -7,6 +7,7 @@ import {
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
 import {NewsArticle, Project} from './src/data/projects'
+import {OrientationProvider} from './src/providers/orientation.provider'
 import {
   HomeScreen,
   ProjectDetailContactScreen,
@@ -117,56 +118,58 @@ export const App = () => {
   } = routes
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={home.name}
-        screenOptions={globalScreenOptions}>
-        <Stack.Screen
-          name={home.name}
-          component={HomeScreen}
-          options={home.options}
-        />
-        <Stack.Screen
-          name={projectOverview.name}
-          component={ProjectOverviewScreen}
-          options={projectOverview.options}
-        />
-        <Stack.Screen
-          name={projectOverviewByBorough.name}
-          component={ProjectOverviewByBoroughScreen}
-          options={projectOverviewByBorough.options}
-        />
-        <Stack.Screen
-          name={projectDetail.name}
-          component={ProjectDetailScreen}
-          options={projectDetail.options}
-        />
-        <Stack.Screen
-          name={projectDetailContact.name}
-          component={ProjectDetailContactScreen}
-          options={projectDetailContact.options}
-        />
-        <Stack.Screen
-          name={projectDetailInformation.name}
-          component={ProjectDetailInformationScreen}
-          options={projectDetailInformation.options}
-        />
-        <Stack.Screen
-          name={projectDetailTimeline.name}
-          component={ProjectDetailTimelineScreen}
-          options={projectDetailTimeline.options}
-        />
-        <Stack.Screen
-          name={projectNews.name}
-          component={ProjectNewsScreen}
-          options={projectNews.options}
-        />
-        <Stack.Screen
-          name="Report"
-          component={ReportScreen}
-          options={report.options}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <OrientationProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={home.name}
+          screenOptions={globalScreenOptions}>
+          <Stack.Screen
+            name={home.name}
+            component={HomeScreen}
+            options={home.options}
+          />
+          <Stack.Screen
+            name={projectOverview.name}
+            component={ProjectOverviewScreen}
+            options={projectOverview.options}
+          />
+          <Stack.Screen
+            name={projectOverviewByBorough.name}
+            component={ProjectOverviewByBoroughScreen}
+            options={projectOverviewByBorough.options}
+          />
+          <Stack.Screen
+            name={projectDetail.name}
+            component={ProjectDetailScreen}
+            options={projectDetail.options}
+          />
+          <Stack.Screen
+            name={projectDetailContact.name}
+            component={ProjectDetailContactScreen}
+            options={projectDetailContact.options}
+          />
+          <Stack.Screen
+            name={projectDetailInformation.name}
+            component={ProjectDetailInformationScreen}
+            options={projectDetailInformation.options}
+          />
+          <Stack.Screen
+            name={projectDetailTimeline.name}
+            component={ProjectDetailTimelineScreen}
+            options={projectDetailTimeline.options}
+          />
+          <Stack.Screen
+            name={projectNews.name}
+            component={ProjectNewsScreen}
+            options={projectNews.options}
+          />
+          <Stack.Screen
+            name="Report"
+            component={ReportScreen}
+            options={report.options}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </OrientationProvider>
   )
 }
