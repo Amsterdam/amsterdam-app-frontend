@@ -12,14 +12,24 @@ const ORIENTATION = {
   },
 }
 
-export const OrientationContext = createContext({})
+type Orientation = {
+  portrait: boolean | undefined
+  landscape: boolean | undefined
+}
+
+const initialOrientation: Orientation = {
+  portrait: undefined,
+  landscape: undefined,
+}
+
+export const OrientationContext = createContext(initialOrientation)
 
 export const OrientationProvider = ({
   children,
 }: {
   children: React.ReactNode
 }) => {
-  const [orientation, setOrientation] = useState({})
+  const [orientation, setOrientation] = useState(initialOrientation)
   const window = useWindowDimensions()
 
   useEffect(() => {
