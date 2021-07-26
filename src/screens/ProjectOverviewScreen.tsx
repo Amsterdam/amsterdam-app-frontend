@@ -26,17 +26,13 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
         data={DATA}
         keyExtractor={(item, index) => `${item}${index}`}
         ItemSeparatorComponent={item => {
-          console.log({item})
           if (item.leadingItem.data.length === 0) {
             return null
           }
           return <Gutter height={size.spacing.lg} />
         }}
         renderItem={({item}) => {
-          if (item.data.length === 0) {
-            return null
-          }
-          return (
+          return item.data.length === 0 ? (
             <React.Fragment key={item.id}>
               <View style={styles.titleRow}>
                 <Title level={2} text={item.title} />
@@ -75,7 +71,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 )}
               />
             </React.Fragment>
-          )
+          ) : null
         }}
       />
     </ScreenWrapper>
