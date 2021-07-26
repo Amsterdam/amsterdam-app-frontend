@@ -5,7 +5,7 @@ import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Gutter, Link, ScreenWrapper, Title} from '../components/ui'
 import {boroughs, projects} from '../data/projects'
-import {size} from '../tokens'
+import {color, size} from '../tokens'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
     paddingLeft: size.spacing.md,
   },
   project: {
-    backgroundColor: 'white',
+    backgroundColor: color.background.lighter,
   },
 })
