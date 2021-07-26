@@ -11,13 +11,11 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
-const boroughs = borougsData.map(borough => {
-  return {
-    id: borough.id,
-    title: borough.name,
-    data: projects.filter(project => project.boroughId === borough.id),
-  }
-})
+const boroughs = borougsData.map(borough => ({
+  id: borough.id,
+  title: borough.name,
+  data: projects.filter(project => project.boroughId === borough.id),
+}))
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
