@@ -3,60 +3,71 @@ import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Box, Gutter, Link, ScreenWrapper, Title} from '../components/ui'
-import {boroughs, projects} from '../data/projects'
-import {size} from '../tokens'
+import {Gutter, Link, ScreenWrapper, Title} from '../components/ui'
+import {boroughs as borougsData, projects} from '../data/projects'
+import {color, size} from '../tokens'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
+const boroughs = borougsData.map(borough => ({
+  id: borough.id,
+  title: borough.name,
+  data: projects.filter(project => project.boroughId === borough.id),
+}))
+
 export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
-      <Box>
-        {boroughs.map((borough, index) => {
-          const projectsByBorough = projects.filter(
-            project => project.boroughId === borough.id,
-          )
-          return projectsByBorough.length ? (
-            <React.Fragment key={borough.id}>
+      <FlatList
+        data={boroughs}
+        keyExtractor={(item, index) => `${item}${index}`}
+        ItemSeparatorComponent={item =>
+          item.leadingItem.data.length > 0 ? (
+            <Gutter height={size.spacing.lg} />
+          ) : null
+        }
+        renderItem={({item}) => {
+          return item.data.length > 0 ? (
+            <React.Fragment key={item.id}>
               <View style={styles.titleRow}>
-                <Title level={2} text={borough.name} />
+                <Title level={2} text={item.title} />
                 <Link
                   onPress={() =>
                     navigation.navigate(routes.projectOverviewByBorough.name, {
-                      boroughId: borough.id,
+                      boroughId: item.id,
                     })
                   }
                   text="Ga naar overzicht"
                 />
               </View>
+
               <FlatList
-                data={projectsByBorough}
+                data={item.data}
                 horizontal
                 ItemSeparatorComponent={() => (
                   <Gutter width={size.spacing.sm} />
                 )}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id + item.title}
                 renderItem={({item}) => (
-                  <ProjectCard
-                    imageSource={item.imageSource}
-                    onPress={() =>
-                      navigation.navigate('ProjectDetail', {id: item.id})
-                    }
-                    title={item.title}
-                    width={280}
-                  />
+                  <View style={styles.project}>
+                    <ProjectCard
+                      imageSource={item.imageSource}
+                      onPress={() =>
+                        navigation.navigate('ProjectDetail', {id: item.id})
+                      }
+                      title={item.title}
+                      width={280}
+                    />
+                  </View>
                 )}
+                style={styles.projects}
               />
-              {index < boroughs.length - 1 && (
-                <Gutter height={size.spacing.lg} />
-              )}
             </React.Fragment>
           ) : null
-        })}
-      </Box>
+        }}
+      />
     </ScreenWrapper>
   )
 }
@@ -66,6 +77,12 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: size.spacing.sm,
+    margin: size.spacing.md,
+  },
+  projects: {
+    paddingLeft: size.spacing.md,
+  },
+  project: {
+    backgroundColor: color.background.lighter,
   },
 })
