@@ -25,14 +25,13 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
       <FlatList
         data={DATA}
         keyExtractor={(item, index) => `${item}${index}`}
-        ItemSeparatorComponent={item => {
-          if (item.leadingItem.data.length === 0) {
-            return null
-          }
-          return <Gutter height={size.spacing.lg} />
-        }}
+        ItemSeparatorComponent={item =>
+          item.leadingItem.data.length === 0 ? (
+            <Gutter height={size.spacing.lg} />
+          ) : null
+        }
         renderItem={({item}) => {
-          return item.data.length === 0 ? (
+          return item.data.length > 0 ? (
             <React.Fragment key={item.id}>
               <View style={styles.titleRow}>
                 <Title level={2} text={item.title} />
