@@ -4,14 +4,14 @@ import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Gutter, Link, ScreenWrapper, Title} from '../components/ui'
-import {boroughs, projects} from '../data/projects'
+import {boroughs as borougsData, projects} from '../data/projects'
 import {color, size} from '../tokens'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
-const DATA = boroughs.map(borough => {
+const boroughs = borougsData.map(borough => {
   return {
     id: borough.id,
     title: borough.name,
@@ -23,7 +23,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <ScreenWrapper>
       <FlatList
-        data={DATA}
+        data={boroughs}
         keyExtractor={(item, index) => `${item}${index}`}
         ItemSeparatorComponent={item =>
           item.leadingItem.data.length > 0 ? (
