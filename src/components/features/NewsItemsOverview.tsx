@@ -7,14 +7,10 @@ import {size} from '../../tokens'
 import {Gutter} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
-type Props = {
-  newsArticles: NewsArticle[]
-}
-
 const URL_NEWSFEED =
   'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/da-costakade-vernieuwing-kademuren/nieuws-da-costakade/?new_json=true'
 
-export const NewsItemsOverview = ({newsArticles}: Props) => {
+export const NewsItemsOverview = () => {
   const [news, setNews] = useState<NewsArticle[]>([])
   const navigation = useNavigation()
 
@@ -24,25 +20,22 @@ export const NewsItemsOverview = ({newsArticles}: Props) => {
       .then((data: NewsArticle[]) => setNews(data))
   }, [])
 
-  console.log({news})
-
   return (
     <View>
-      {news.map((article, index) => {
-        return (
-          <React.Fragment key={article.title}>
-            <NewsArticleCard
-              newsArticle={article}
-              onPress={() =>
-                navigation.navigate('ProjectNews', {newsArticle: article})
-              }
-            />
-            {index < newsArticles.length - 1 && (
-              <Gutter height={size.spacing.md} />
-            )}
-          </React.Fragment>
-        )
-      })}
+      {news &&
+        news.map((article, index) => {
+          return (
+            <React.Fragment key={article.title}>
+              <NewsArticleCard
+                newsArticle={article}
+                onPress={() =>
+                  navigation.navigate('ProjectNews', {newsArticle: article})
+                }
+              />
+              {index < news.length - 1 && <Gutter height={size.spacing.md} />}
+            </React.Fragment>
+          )
+        })}
     </View>
   )
 }
