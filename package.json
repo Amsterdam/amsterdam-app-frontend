@@ -27,6 +27,7 @@
     "react-native-clean-project": "^3.6.4",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.2.0",
+    "react-native-render-html": "^6.0.4",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",
     "react-native-svg": "^12.1.1",

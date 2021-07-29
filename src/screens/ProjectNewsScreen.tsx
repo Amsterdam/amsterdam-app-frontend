@@ -1,11 +1,11 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
+import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Text, Title} from '../components/ui'
-import {Image} from '../components/ui/Image'
-import {image} from '../tokens'
+import {Box, Image, ScreenWrapper, Title} from '../components/ui'
+import {color, font, image} from '../tokens'
 
 type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
 
@@ -13,33 +13,47 @@ type Props = {
   route: ProjectNewsScreenRouteProp
 }
 
+const renderHtmlStyles = {
+  text: {
+    color: color.font.regular,
+    fontFamily: font.weight.regular,
+    fontSize: font.size.p1,
+    lineHeight: font.height.p1,
+    marginBottom: font.leadingBottom.p1,
+    marginTop: font.leadingTop.p1,
+  },
+  h3: {
+    color: color.font.regular,
+    fontFamily: font.weight.demi,
+    fontSize: font.size.h3,
+    lineHeight: font.height.h3,
+  },
+}
+
 export const ProjectNewsScreen = ({route}: Props) => {
   const {newsArticle} = route.params
+  const {content} = newsArticle
+  const {width} = useWindowDimensions()
+
+  const tagsStyles = {
+    p: renderHtmlStyles.text,
+    li: renderHtmlStyles.text,
+    h3: renderHtmlStyles.h3,
+  }
+
   return (
     <ScreenWrapper>
       <ScrollView>
-        <Image source={newsArticle.imageSource} style={styles.image} />
+        <Image source={{uri: newsArticle.image_url}} style={styles.image} />
         <Box>
           <Title margin text={newsArticle.title} />
-          <Text margin>{newsArticle.intro}</Text>
-          {newsArticle.paragraphs?.length &&
-            newsArticle.paragraphs.map(paragraph => {
-              return (
-                <View key={paragraph.title}>
-                  <Title level={4} margin text={paragraph.title} />
-                  <Text margin>{paragraph.text}</Text>
-                </View>
-              )
-            })}
+          <RenderHTML
+            contentWidth={width}
+            source={{html: content}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
+            tagsStyles={tagsStyles}
+          />
         </Box>
-        {newsArticle.contact && (
-          <Box background="invalid">
-            <Title inverse level={2} margin text="Contact" />
-            <Text inverse>{newsArticle.contact.name}</Text>
-            <Text inverse>{newsArticle.contact.phone}</Text>
-            <Text inverse>{newsArticle.contact.email}</Text>
-          </Box>
-        )}
       </ScrollView>
     </ScreenWrapper>
   )
