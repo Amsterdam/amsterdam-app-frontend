@@ -214,13 +214,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               )}
             </View>
           </Box>
-          {project.news && (
-            <Box background="light">
-              <Title level={2} text="Nieuws" />
-              <Gutter height={size.spacing.md} />
-              <NewsItemsOverview newsArticles={project.news} />
-            </Box>
-          )}
+          <Box background="light">
+            <Title level={2} text="Nieuws" />
+            <Gutter height={size.spacing.md} />
+            <NewsItemsOverview />
+          </Box>
         </ScrollView>
       )}
     </ScreenWrapper>
