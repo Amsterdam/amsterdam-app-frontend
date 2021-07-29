@@ -48,6 +48,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
           <RenderHTML
             contentWidth={width}
             source={{html: content}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
             tagsStyles={tagsStyles}
           />
         </Box>
