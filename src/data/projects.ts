@@ -15,19 +15,8 @@ export const boroughs: Borough[] = [
 ]
 
 export type NewsArticle = {
-  contact?: {
-    name: string
-    email: string
-    phone: string
-  }
   date: string
-  imageSource: {
-    uri: string
-  }
-  intro: string
-  paragraphs: {
-    text: string
-    title: string
-  }[]
+  image_url: string
+  content: string
   title: string
 }
