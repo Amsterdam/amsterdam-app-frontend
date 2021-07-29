@@ -14,6 +14,13 @@ type Props = {
 }
 
 const renderHtmlStyles = {
+  list: {
+    margin: 0,
+    marginLeft: -10,
+  },
+  listItem: {
+    paddingLeft: 10,
+  },
   text: {
     color: color.font.regular,
     fontFamily: font.weight.regular,
@@ -37,8 +44,9 @@ export const ProjectNewsScreen = ({route}: Props) => {
 
   const tagsStyles = {
     p: renderHtmlStyles.text,
-    li: renderHtmlStyles.text,
     h3: renderHtmlStyles.h3,
+    li: {...renderHtmlStyles.text, ...renderHtmlStyles.listItem},
+    ul: renderHtmlStyles.list,
   }
 
   return (
