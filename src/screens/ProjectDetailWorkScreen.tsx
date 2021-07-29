@@ -1,4 +1,4 @@
-import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
+import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
@@ -6,16 +6,16 @@ import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
 import {color, font, size} from '../tokens'
 
-type ProjectDetailTimelineScreenRouteProp = RouteProp<
+type ProjectDetailWorkScreenRouteProp = RouteProp<
   RootStackParamList,
-  'ProjectDetailTimeline'
+  'ProjectDetailWork'
 >
 
 type Props = {
-  route: ProjectDetailTimelineScreenRouteProp
+  route: ProjectDetailWorkScreenRouteProp
 }
 
-export const ProjectDetailTimelineScreen = ({route}: Props) => {
+export const ProjectDetailWorkScreen = ({route}: Props) => {
   const {project} = route.params
   const navigation = useNavigation()
 
@@ -30,15 +30,15 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
       <ScrollView>
         <Box background="lighter">
           <View style={styles.row}>
-            <Calendar fill={color.font.primary} style={styles.icon} />
-            <Title primary text="Tijdlijn" />
+            <LocationFields fill={color.font.primary} style={styles.icon} />
+            <Title primary text="Werkzaamheden" />
           </View>
         </Box>
         <Box>
-          {project.body.when ? (
+          {project.body.work ? (
             <Section
-              title={project.body.when.title}
-              text={project.body.when.text}
+              title={project.body.work.title}
+              text={project.body.work.text}
             />
           ) : (
             <Text>Geen informatie gevonden.</Text>

@@ -1,12 +1,10 @@
-import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
-import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
+import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Box, Button, ScreenWrapper, Text, Title} from '../components/ui'
-import {color, size} from '../tokens'
-import {openMailUrl, openPhoneUrl} from '../utils'
+import {Box, ScreenWrapper, Text, Title} from '../components/ui'
+import {color, font, size} from '../tokens'
 
 type ProjectDetailContactScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -31,43 +29,19 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Box background="lighter">
-          <Title text="Contact" />
+          <View style={styles.row}>
+            <ChatBubble fill={color.font.primary} style={styles.icon} />
+            <Title primary text="Contact" />
+          </View>
         </Box>
         <Box>
-          <Box background="lighter">
-            {project.contact?.list ? (
-              project.contact?.list?.map(item => (
-                <Text key={item}>– {item}</Text>
-              ))
-            ) : (
-              <>
-                {project.contact?.name && (
-                  <Title level={4} margin text={project.contact?.name} />
-                )}
-                {project.contact?.jobDescription && (
-                  <Text margin>{project.contact?.jobDescription}</Text>
-                )}
-                {project.contact?.phone && (
-                  <View style={styles.buttonContainer}>
-                    <Button
-                      icon={<Phone fill={color.font.inverse} />}
-                      onPress={() => openPhoneUrl('project.contact?.phone')}
-                      text={`Bel ${project.contact?.firstName}`}
-                    />
-                  </View>
-                )}
-                {project.contact?.email && (
-                  <View style={styles.buttonContainer}>
-                    <Button
-                      icon={<Email fill={color.font.inverse} />}
-                      onPress={() => openMailUrl('project.contact?.email')}
-                      text={`E-mail ${project.contact?.firstName}`}
-                    />
-                  </View>
-                )}
-              </>
-            )}
-          </Box>
+          {project.body.contact ? (
+            <Box background="lighter">
+              <Text margin>{project.body.contact.text}</Text>
+            </Box>
+          ) : (
+            <Text>Geen informatie gevonden.</Text>
+          )}
         </Box>
       </ScrollView>
     </ScreenWrapper>
@@ -75,9 +49,11 @@ export const ProjectDetailContactScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  icon: {
+    width: font.height.h1,
+    marginRight: size.spacing.md,
+  },
+  row: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingTop: size.spacing.md,
   },
 })

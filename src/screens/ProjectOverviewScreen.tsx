@@ -1,73 +1,110 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
-import {FlatList, StyleSheet, View} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import React, {useEffect, useState} from 'react'
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
+import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Gutter, Link, ScreenWrapper, Title} from '../components/ui'
-import {boroughs as borougsData, projects} from '../data/projects'
+import {Box, Gutter, ScreenWrapper, Title} from '../components/ui'
+import {boroughs as boroughsData} from '../data/projects'
 import {color, size} from '../tokens'
+import {Project, ProjectResponse} from '../types/project'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
-const boroughs = borougsData.map(borough => ({
-  id: borough.id,
-  title: borough.name,
-  data: projects.filter(project => project.boroughId === borough.id),
-}))
-
 export const ProjectOverviewScreen = ({navigation}: Props) => {
+  const [isBruggenLoading, setBruggenLoading] = useState(true)
+  const [bruggenData, setBruggenData] = useState<ProjectResponse[]>([])
+  const [isKademurenLoading, setKademurenLoading] = useState(true)
+  const [kademurenData, setKademurenData] = useState<ProjectResponse[]>([])
+
+  useEffect(() => {
+    fetch(
+      'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/?new_json=true',
+    )
+      .then(response => response.json())
+      .then(json => setBruggenData(json))
+      .catch(error => console.error(error))
+      .finally(() => setBruggenLoading(false))
+  }, [])
+
+  useEffect(() => {
+    fetch(
+      'https://www.amsterdam.nl/projecten/bruggen/maatregelen-vernieuwen-bruggen/?new_json=true',
+    )
+      .then(response => response.json())
+      .then(json => setKademurenData(json))
+      .catch(error => console.error(error))
+      .finally(() => setKademurenLoading(false))
+  }, [])
+
+  const projects: Project[] = [...bruggenData, ...kademurenData]
+    .sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0))
+    .map(({feedid, title}, index) => ({
+      boroughId: Math.ceil(
+        (index / (bruggenData.length + kademurenData.length)) *
+          boroughsData.length,
+      ),
+      id: index,
+      title,
+      url: feedid,
+    }))
+
+  const boroughs = boroughsData.map(borough => ({
+    id: borough.id,
+    title: borough.name,
+    data: projects.filter(project => project.boroughId === borough.id),
+  }))
+
   return (
     <ScreenWrapper>
-      <FlatList
-        data={boroughs}
-        keyExtractor={(item, index) => `${item}${index}`}
-        ItemSeparatorComponent={item =>
-          item.leadingItem.data.length > 0 ? (
-            <Gutter height={size.spacing.lg} />
-          ) : null
-        }
-        renderItem={({item}) => {
-          return item.data.length > 0 ? (
-            <React.Fragment key={item.id}>
-              <View style={styles.titleRow}>
-                <Title level={2} text={item.title} />
-                <Link
-                  onPress={() =>
-                    navigation.navigate(routes.projectOverviewByBorough.name, {
-                      boroughId: item.id,
-                    })
-                  }
-                  text="Ga naar overzicht"
-                />
-              </View>
+      {isBruggenLoading || isKademurenLoading ? (
+        <Box>
+          <ActivityIndicator />
+        </Box>
+      ) : (
+        <FlatList
+          data={boroughs}
+          keyExtractor={(item, index) => `${item}${index}`}
+          ItemSeparatorComponent={item =>
+            item.leadingItem.data.length > 0 ? (
+              <Gutter height={size.spacing.lg} />
+            ) : null
+          }
+          renderItem={({item}) => {
+            return item.data.length > 0 ? (
+              <React.Fragment key={item.id}>
+                <View style={styles.titleRow}>
+                  <Title level={2} text={item.title} />
+                </View>
 
-              <FlatList
-                data={item.data}
-                horizontal
-                ItemSeparatorComponent={() => (
-                  <Gutter width={size.spacing.sm} />
-                )}
-                keyExtractor={item => item.id + item.title}
-                renderItem={({item}) => (
-                  <View style={styles.project}>
-                    <ProjectCard
-                      imageSource={item.imageSource}
-                      onPress={() =>
-                        navigation.navigate('ProjectDetail', {id: item.id})
-                      }
-                      title={item.title}
-                      width={280}
-                    />
-                  </View>
-                )}
-                style={styles.projects}
-              />
-            </React.Fragment>
-          ) : null
-        }}
-      />
+                <FlatList
+                  data={item.data}
+                  horizontal
+                  ItemSeparatorComponent={() => (
+                    <Gutter width={size.spacing.sm} />
+                  )}
+                  keyExtractor={item => item.id + item.title}
+                  renderItem={({item}) => (
+                    <View style={styles.project}>
+                      <ProjectCard
+                        onPress={() =>
+                          navigation.navigate('ProjectDetail', {
+                            url: item.url,
+                          })
+                        }
+                        title={item.title}
+                        width={280}
+                      />
+                    </View>
+                  )}
+                  style={styles.projects}
+                />
+              </React.Fragment>
+            ) : null
+          }}
+        />
+      )}
     </ScreenWrapper>
   )
 }
