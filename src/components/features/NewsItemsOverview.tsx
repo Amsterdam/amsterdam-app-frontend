@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
-import React from 'react'
+import React, {useState} from 'react'
+import {useEffect} from 'react'
 import {View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
 import {size} from '../../tokens'
@@ -10,11 +11,24 @@ type Props = {
   newsArticles: NewsArticle[]
 }
 
+const URL_NEWSFEED =
+  'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/da-costakade-vernieuwing-kademuren/nieuws-da-costakade/?new_json=true'
+
 export const NewsItemsOverview = ({newsArticles}: Props) => {
+  const [news, setNews] = useState<NewsArticle[]>([])
   const navigation = useNavigation()
+
+  useEffect(() => {
+    fetch(URL_NEWSFEED)
+      .then(response => response.json())
+      .then((data: NewsArticle[]) => setNews(data))
+  }, [])
+
+  console.log({news})
+
   return (
     <View>
-      {newsArticles.map((article, index) => {
+      {news.map((article, index) => {
         return (
           <React.Fragment key={article.title}>
             <NewsArticleCard
