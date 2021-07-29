@@ -4,8 +4,7 @@ import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Title} from '../components/ui'
-import {Image} from '../components/ui'
+import {Box, Image, ScreenWrapper, Title} from '../components/ui'
 import {color, font, image} from '../tokens'
 
 type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
@@ -16,10 +15,12 @@ type Props = {
 
 const renderHtmlStyles = {
   text: {
+    color: color.font.regular,
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
-    color: color.font.regular,
+    marginBottom: font.leadingBottom.p1,
+    marginTop: font.leadingTop.p1,
   },
   h3: {
     color: color.font.regular,
@@ -39,6 +40,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
     li: renderHtmlStyles.text,
     h3: renderHtmlStyles.h3,
   }
+
   return (
     <ScreenWrapper>
       <ScrollView>
