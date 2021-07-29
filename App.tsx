@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
-import {NewsArticle, Project} from './src/data/projects'
+import {NewsArticle} from './src/data/projects'
 import {OrientationProvider} from './src/providers/orientation.provider'
 import {
   HomeScreen,
@@ -14,20 +14,23 @@ import {
   ProjectDetailInformationScreen,
   ProjectDetailScreen,
   ProjectDetailTimelineScreen,
+  ProjectDetailWorkScreen,
   ProjectNewsScreen,
   ProjectOverviewByBoroughScreen,
   ProjectOverviewScreen,
   ReportScreen,
 } from './src/screens'
 import {size} from './src/tokens'
+import {ProjectDetail} from './src/types/project'
 
 export type RootStackParamList = {
   Home: undefined
-  ProjectDetail: {id: string}
+  ProjectDetail: {url: string}
   ProjectNews: {newsArticle: NewsArticle}
-  ProjectDetailContact: {project: Project}
-  ProjectDetailInformation: {project: Project}
-  ProjectDetailTimeline: {project: Project}
+  ProjectDetailContact: {project: ProjectDetail}
+  ProjectDetailInformation: {project: ProjectDetail}
+  ProjectDetailTimeline: {project: ProjectDetail}
+  ProjectDetailWork: {project: ProjectDetail}
   ProjectOverview: undefined
   ProjectOverviewByBorough: {boroughId: number}
   Report: {uri: string}
@@ -78,6 +81,9 @@ export const routes: Routes = {
   projectDetailTimeline: {
     name: 'ProjectDetailTimeline',
   },
+  projectDetailWork: {
+    name: 'ProjectDetailWork',
+  },
   report: {
     name: 'Report',
     options: {
@@ -111,6 +117,7 @@ export const App = () => {
     projectDetailContact,
     projectDetailInformation,
     projectDetailTimeline,
+    projectDetailWork,
     projectOverview,
     projectOverviewByBorough,
     projectNews,
@@ -157,6 +164,11 @@ export const App = () => {
             name={projectDetailTimeline.name}
             component={ProjectDetailTimelineScreen}
             options={projectDetailTimeline.options}
+          />
+          <Stack.Screen
+            name={projectDetailWork.name}
+            component={ProjectDetailWorkScreen}
+            options={projectDetailWork.options}
           />
           <Stack.Screen
             name={projectNews.name}

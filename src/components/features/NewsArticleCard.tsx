@@ -2,8 +2,7 @@ import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
 import {image, size} from '../../tokens'
-import {Card, CardBody, Gutter, Text} from '../ui'
-import {Image} from '../ui/Image'
+import {Card, CardBody, Gutter, Image, Text} from '../ui'
 
 type Props = {
   newsArticle: NewsArticle

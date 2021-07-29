@@ -1,8 +1,10 @@
+import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {ScrollView} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
+import {color, font, size} from '../tokens'
 
 type ProjectDetailInformationScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -27,26 +29,32 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
     <ScreenWrapper>
       <ScrollView>
         <Box background="lighter">
-          <Title text="Informatie" />
+          <View style={styles.row}>
+            <Info fill={color.font.primary} style={styles.icon} />
+            <Title primary text="Informatie" />
+          </View>
         </Box>
         <Box>
-          <Text margin>({project.title})</Text>
-          {project.intro?.title && (
-            <Title level={2} text={project.intro.title} />
+          {project.body.what ? (
+            <Section
+              title={project.body.what.title}
+              text={project.body.what.text}
+            />
+          ) : (
+            <Text>Geen informatie gevonden.</Text>
           )}
-          <Section
-            title={project.intro?.title || 'Introductie'}
-            text={project.intro?.text}
-          />
-          {project.intro?.link && (
-            <Text margin>
-              {project.intro.linkText}: {project.intro.link}
-            </Text>
-          )}
-          <Section title="Wat gaat er gebeuren" text={project.body?.what} />
-          <Section title="Waar" text={project.body?.where} />
         </Box>
       </ScrollView>
     </ScreenWrapper>
   )
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    width: font.height.h1,
+    marginRight: size.spacing.md,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+})

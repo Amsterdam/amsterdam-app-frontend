@@ -9,7 +9,7 @@ import {image} from '../../tokens'
 import {Card, CardBody, Title} from '../ui'
 
 type Props = {
-  imageSource: ImageSourcePropType
+  imageSource?: ImageSourcePropType
   onPress: () => void
   title: string
   width?: number
@@ -18,7 +18,7 @@ type Props = {
 export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
   <TouchableHighlight onPress={onPress} style={{width}}>
     <Card>
-      <Image source={imageSource} style={styles.image} />
+      {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
         <Title level={4} text={title} />
       </CardBody>

@@ -50,6 +50,7 @@ export const color = {
     inverse: baseColor.tint.level1,
     light: baseColor.tint.level6,
     regular: baseColor.tint.level7,
+    primary: baseColor.primary.main,
   },
   touchable: {
     primary: baseColor.primary.main,

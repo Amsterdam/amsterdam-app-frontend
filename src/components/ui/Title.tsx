@@ -6,10 +6,11 @@ type Props = {
   level?: 1 | 2 | 3 | 4
   inverse?: Boolean
   margin?: Boolean
+  primary?: Boolean
   text: string
 }
 
-export const Title = ({level = 1, inverse, margin, text}: Props) => {
+export const Title = ({level = 1, inverse, margin, primary, text}: Props) => {
   const fontStyles = [styles.h1, styles.h2, styles.h3, styles.h4][level - 1]
   const marginStyles = [styles.h1m, styles.h2m, styles.h3m, styles.h4m][
     level - 1
@@ -17,7 +18,12 @@ export const Title = ({level = 1, inverse, margin, text}: Props) => {
 
   return (
     <Text
-      style={[fontStyles, margin && marginStyles, inverse && styles.inverse]}>
+      style={[
+        fontStyles,
+        inverse && styles.inverse,
+        margin && marginStyles,
+        primary && styles.primary,
+      ]}>
       {text}
     </Text>
   )
@@ -66,5 +72,8 @@ const styles = StyleSheet.create({
   },
   inverse: {
     color: color.font.inverse,
+  },
+  primary: {
+    color: color.font.primary,
   },
 })

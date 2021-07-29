@@ -30,7 +30,8 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",
     "react-native-svg": "^12.1.1",
-    "react-native-webview": "^11.6.4"
+    "react-native-webview": "^11.6.4",
+    "string-strip-html": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
