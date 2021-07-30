@@ -1,9 +1,11 @@
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
+import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Section, Text, Title} from '../components/ui'
+import {Box, ScreenWrapper, Text, Title} from '../components/ui'
+import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
 type ProjectDetailInformationScreenRouteProp = RouteProp<
@@ -18,6 +20,7 @@ type Props = {
 export const ProjectDetailInformationScreen = ({route}: Props) => {
   const {project} = route.params
   const navigation = useNavigation()
+  const {width} = useWindowDimensions()
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,10 +39,15 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
         </Box>
         <Box>
           {project.body.what ? (
-            <Section
-              title={project.body.what.title}
-              text={project.body.what.text}
-            />
+            <>
+              <Title level={4} margin text={project.body.what.title} />
+              <RenderHTML
+                contentWidth={width}
+                source={{html: project.body.what.text}}
+                systemFonts={[font.weight.regular, font.weight.demi]}
+                tagsStyles={tagsStyles}
+              />
+            </>
           ) : (
             <Text>Geen informatie gevonden.</Text>
           )}

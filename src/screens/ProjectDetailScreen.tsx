@@ -12,7 +12,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import {stripHtml} from 'string-strip-html'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {Box, Gutter, IconButton, ScreenWrapper, Title} from '../components/ui'
@@ -33,8 +32,6 @@ type Props = {
   route: ProjectDetailScreenRouteProp
 }
 
-const cleanHtml = (text?: string) => stripHtml(text?.trim() || '').result
-
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const [isLoading, setLoading] = useState(true)
   const [data, setData] = useState<ProjectDetailResponse>({item: {}})
@@ -46,8 +43,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       .catch(error => console.error(error))
       .finally(() => setLoading(false))
   }, [route.params.url])
-
-  console.clear()
 
   const blok = data?.item?.page?.cluster?.find(
     (cluster: any) => cluster.Nam === 'Blok',
@@ -82,7 +77,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
         Array.isArray(clusterCluster.veld) &&
           clusterCluster.veld.forEach((veld: any) => {
-            veldCache[veld.Nam] = veld.Wrd ?? cleanHtml(veld.Txt) ?? veld.SelAka
+            veldCache[veld.Nam] = veld.Wrd ?? veld.Txt ?? veld.SelAka
 
             if (veld.Nam === 'Afbeelding') {
               projectContent.image = veld.FilNam
