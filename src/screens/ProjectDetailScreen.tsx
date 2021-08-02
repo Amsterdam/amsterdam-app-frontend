@@ -174,23 +174,23 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   }
                 />
               )}
-              {project.body.work && (
-                <IconButton
-                  icon={<LocationFields fill={color.font.inverse} />}
-                  label="Werkzaam-heden"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailWork.name, {
-                      project,
-                    })
-                  }
-                />
-              )}
               {project.body.when && (
                 <IconButton
                   icon={<Calendar fill={color.font.inverse} />}
                   label="Tijdlijn"
                   onPress={() =>
                     navigation.navigate(routes.projectDetailTimeline.name, {
+                      project,
+                    })
+                  }
+                />
+              )}
+              {project.body.work && (
+                <IconButton
+                  icon={<LocationFields fill={color.font.inverse} />}
+                  label="Werkzaam-heden"
+                  onPress={() =>
+                    navigation.navigate(routes.projectDetailWork.name, {
                       project,
                     })
                   }
