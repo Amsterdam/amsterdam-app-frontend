@@ -40,10 +40,10 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
         <Box>
           {project.body.when ? (
             <>
-              <Title level={4} margin text={project.body.what.title} />
+              <Title level={4} margin text={project.body.when.title} />
               <RenderHTML
                 contentWidth={width}
-                source={{html: project.body.what.text}}
+                source={{html: project.body.when.text}}
                 systemFonts={[font.weight.regular, font.weight.demi]}
                 tagsStyles={tagsStyles}
               />
