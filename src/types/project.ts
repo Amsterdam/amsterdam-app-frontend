@@ -28,16 +28,16 @@ export type Section = {
 
 export type ProjectDetail = {
   body: {
-    contact: Section
-    what: Section
-    when: Section
-    where: Section
-    work: Section
+    contact?: Section
+    what?: Section
+    when?: Section
+    where?: Section
+    work?: Section
   }
   boroughId: string
   id: string
-  image: {uri: string}
-  news: any
+  image?: {uri: string}
+  news?: any
   title: string
 }
 
