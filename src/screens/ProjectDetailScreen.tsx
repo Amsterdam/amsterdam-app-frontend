@@ -16,11 +16,7 @@ import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {Box, Gutter, IconButton, ScreenWrapper, Title} from '../components/ui'
 import {color, image, size} from '../tokens'
-import {
-  ProjectDetail,
-  ProjectDetailResponse,
-  Section as ProjectSection,
-} from '../types/project'
+import {ProjectDetail, ProjectDetailResponse} from '../types/project'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -44,73 +40,65 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       .finally(() => setLoading(false))
   }, [route.params.url])
 
-  const blok = data?.item?.page?.cluster?.find(
-    (cluster: any) => cluster.Nam === 'Blok',
+  const page = data?.item?.page
+  const blok = page?.cluster?.find((c: any) => c.Nam === 'Blok')
+
+  const project: ProjectDetail = useMemo(
+    () => ({
+      body: {},
+      boroughId: '',
+      id: page?.PagIdt,
+      image: {uri: ''},
+      title: page?.title,
+    }),
+    [page?.PagIdt, page?.title],
   )
 
-  type ProjectContent = {
-    body: {
-      contact?: ProjectSection
-      what?: ProjectSection
-      when?: ProjectSection
-      where?: ProjectSection
-      work?: ProjectSection
-    }
-    boroughId: string
-    id?: string
-    image?: string
-    title?: string
-  }
-
-  const projectContent: ProjectContent = {
-    body: {},
-    boroughId:
-      data?.item?.page?.cluster[0]?.cluster?.cluster[3]?.veld?.SelItmIdt,
-    id: data?.item?.page?.PagIdt,
-    title: data?.item?.page?.title,
-  }
-
-  blok?.cluster?.forEach((blokCluster: any) => {
-    Array.isArray(blokCluster.cluster) &&
-      blokCluster.cluster.forEach((clusterCluster: any) => {
+  blok?.cluster?.forEach((clusterObj: any) => {
+    Array.isArray(clusterObj.cluster) &&
+      clusterObj.cluster.forEach((nestedClusterObj: any) => {
         const veldCache: any = {}
 
-        Array.isArray(clusterCluster.veld) &&
-          clusterCluster.veld.forEach((veld: any) => {
-            veldCache[veld.Nam] = veld.Wrd ?? veld.Txt ?? veld.SelAka
+        Array.isArray(nestedClusterObj.veld) &&
+          nestedClusterObj.veld.forEach((veldObj: any) => {
+            veldCache[veldObj.Nam] = veldObj.Wrd ?? veldObj.Txt
 
-            if (veld.Nam === 'Afbeelding') {
-              projectContent.image = veld.FilNam
+            if (veldObj.Nam === 'Afbeelding') {
+              project.image = {
+                uri:
+                  'https://www.amsterdam.nl/publish/pages/' +
+                  `${project.id}/${veldObj.FilNam}`,
+              }
             }
 
-            if (veld.Nam === 'App categorie') {
-              const selAka = veld.SelAka.toString()
+            if (veldObj.Nam === 'App categorie') {
+              const selAka = veldObj.SelAka.toString()
               if (selAka === 'contact') {
-                projectContent.body.contact = {
+                project.body.contact = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
                 }
               }
               if (selAka === 'what') {
-                projectContent.body.what = {
+                project.body.what = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
                 }
               }
               if (selAka === 'when') {
-                projectContent.body.when = {
+                project.body.when = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
                 }
               }
               if (selAka === 'where') {
-                projectContent.body.where = {
+                project.body.where = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
                 }
               }
               if (selAka === 'work') {
-                projectContent.body.work = {
+                project.body.work = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
                 }
@@ -119,31 +107,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           })
       })
   })
-
-  const project: ProjectDetail = useMemo(
-    () =>
-      !isLoading &&
-      data.item.page && {
-        body: projectContent.body,
-        boroughId: projectContent.boroughId,
-        id: projectContent.id,
-        image: {
-          uri:
-            'https://www.amsterdam.nl/publish/pages/' +
-            `${projectContent.id}/${projectContent.image}`,
-        },
-        title: projectContent.title,
-      },
-    [
-      data.item.page,
-      isLoading,
-      projectContent.body,
-      projectContent.boroughId,
-      projectContent.id,
-      projectContent.image,
-      projectContent.title,
-    ],
-  )
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -159,7 +122,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
       ) : (
         <ScrollView>
-          <Image source={project.image} style={styles.image} />
+          {project.image && (
+            <Image source={project.image} style={styles.image} />
+          )}
           <Box background="lighter">
             <Title margin text={project.title} />
             <View style={styles.row}>
