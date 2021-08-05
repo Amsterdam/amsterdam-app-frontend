@@ -24,14 +24,14 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
 
   const styles = StyleSheet.create({
     content: {
-      marginLeft: size.spacing.lg + size.spacing.md,
+      marginLeft: STYLE.INDICATOR.SIZE.WIDTH + STYLE.SPACE_BEFORE,
     },
     indicator: {
-      width: size.spacing.lg,
-      height: size.spacing.lg,
+      width: STYLE.INDICATOR.SIZE.WIDTH,
+      height: STYLE.INDICATOR.SIZE.HEIGHT,
       backgroundColor: isCurrent
-        ? color.background.emphasis
-        : color.background.inactive,
+        ? STYLE.INDICATOR.BACKGROUND.ACTIVE
+        : STYLE.INDICATOR.BACKGROUND.INACTIVE,
       borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
@@ -42,18 +42,18 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
     },
     line: {
       position: 'absolute',
-      top: firstItem ? 20 : 0,
+      top: firstItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : 0,
       left: isOpen ? size.spacing.lg : size.spacing.md,
-      width: 2,
-      height: lastItem ? 20 : '200%',
-      backgroundColor: color.background.inactive,
+      width: STYLE.LINE.WIDTH,
+      height: lastItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : '200%',
+      backgroundColor: STYLE.LINE.COLOR,
       zIndex: -1,
     },
     section: {
-      paddingVertical: size.spacing.sm,
-      marginHorizontal: isOpen ? -size.spacing.md : undefined,
-      paddingHorizontal: isOpen ? size.spacing.md : undefined,
-      backgroundColor: isOpen ? color.background.light : undefined,
+      paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
+      marginHorizontal: isOpen ? -STYLE.SPACE_BEFORE : undefined,
+      paddingHorizontal: isOpen ? STYLE.SPACE_BEFORE : undefined,
+      backgroundColor: isOpen ? STYLE.SECTION.BACKGROUND.ACTIVE : undefined,
       overflow: 'hidden',
     },
     title: {
@@ -94,4 +94,32 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
       <View style={styles.line} />
     </View>
   )
+}
+
+const STYLE = {
+  INDICATOR: {
+    SPACE_AROUND: {
+      TOP: size.spacing.sm,
+      BOTTOM: size.spacing.sm,
+      LEFT: size.spacing.md,
+    },
+    SIZE: {
+      HEIGHT: size.spacing.lg,
+      WIDTH: size.spacing.lg,
+    },
+    BACKGROUND: {
+      ACTIVE: color.background.emphasis,
+      INACTIVE: color.background.inactive,
+    },
+  },
+  LINE: {
+    COLOR: color.background.inactive,
+    WIDTH: 2,
+  },
+  SECTION: {
+    BACKGROUND: {
+      ACTIVE: color.background.light,
+    },
+  },
+  SPACE_BEFORE: size.spacing.md,
 }
