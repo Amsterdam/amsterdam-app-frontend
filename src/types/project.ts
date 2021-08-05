@@ -1,5 +1,5 @@
 export type Project = {
-  boroughId: number
+  districtId: number
   id: number
   image?: {uri: string}
   title: string
@@ -34,7 +34,7 @@ export type ProjectDetail = {
     where?: Section
     work?: Section
   }
-  boroughId: string
+  districtId: string
   id: string
   image?: {uri: string}
   news?: any

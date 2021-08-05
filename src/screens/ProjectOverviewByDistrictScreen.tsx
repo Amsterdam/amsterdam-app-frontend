@@ -8,17 +8,17 @@ import {Box, Gutter, ScreenWrapper} from '../components/ui'
 import {size} from '../tokens'
 import {Project, ProjectResponse} from '../types/project'
 
-type ProjectOverviewByBoroughScreenRouteProp = RouteProp<
+type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   RootStackParamList,
-  'ProjectOverviewByBorough'
+  'ProjectOverviewByDistrict'
 >
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
-  route: ProjectOverviewByBoroughScreenRouteProp
+  route: ProjectOverviewByDistrictScreenRouteProp
 }
 
-export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
+export const ProjectOverviewByDistrictScreen = ({navigation}: Props) => {
   const [isBruggenLoading, setBruggenLoading] = useState(true)
   const [bruggenData, setBruggenData] = useState<ProjectResponse[]>([])
   const [isKademurenLoading, setKademurenLoading] = useState(true)
@@ -47,7 +47,7 @@ export const ProjectOverviewByBoroughScreen = ({navigation}: Props) => {
   const projects: Project[] = [...bruggenData, ...kademurenData]
     .sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0))
     .map(({feedid, image_url, title}, index) => ({
-      boroughId: Math.ceil(7 * Math.random()),
+      districtId: Math.ceil(7 * Math.random()),
       id: index,
       image: {uri: image_url},
       title,

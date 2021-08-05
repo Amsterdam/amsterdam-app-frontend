@@ -16,7 +16,7 @@ import {
   ProjectDetailTimelineScreen,
   ProjectDetailWorkScreen,
   ProjectNewsScreen,
-  ProjectOverviewByBoroughScreen,
+  ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
   ReportScreen,
 } from './src/screens'
@@ -32,7 +32,7 @@ export type RootStackParamList = {
   ProjectDetailTimeline: {project: ProjectDetail}
   ProjectDetailWork: {project: ProjectDetail}
   ProjectOverview: undefined
-  ProjectOverviewByBorough: {boroughId: number}
+  ProjectOverviewByDistrict: {districtId: number}
   Report: {uri: string}
 }
 
@@ -57,8 +57,8 @@ export const routes: Routes = {
       title: 'Bouwprojecten',
     },
   },
-  projectOverviewByBorough: {
-    name: 'ProjectOverviewByBorough',
+  projectOverviewByDistrict: {
+    name: 'ProjectOverviewByDistrict',
     options: {
       title: 'Bouwprojecten per stadsdeel',
     },
@@ -119,7 +119,7 @@ export const App = () => {
     projectDetailTimeline,
     projectDetailWork,
     projectOverview,
-    projectOverviewByBorough,
+    projectOverviewByDistrict,
     projectNews,
     report,
   } = routes
@@ -141,9 +141,9 @@ export const App = () => {
             options={projectOverview.options}
           />
           <Stack.Screen
-            name={projectOverviewByBorough.name}
-            component={ProjectOverviewByBoroughScreen}
-            options={projectOverviewByBorough.options}
+            name={projectOverviewByDistrict.name}
+            component={ProjectOverviewByDistrictScreen}
+            options={projectOverviewByDistrict.options}
           />
           <Stack.Screen
             name={projectDetail.name}

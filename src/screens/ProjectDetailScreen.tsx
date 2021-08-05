@@ -46,7 +46,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const project: ProjectDetail = useMemo(
     () => ({
       body: {},
-      boroughId: '',
+      districtId: '',
       id: page?.PagIdt,
       image: {uri: ''},
       title: page?.title,
