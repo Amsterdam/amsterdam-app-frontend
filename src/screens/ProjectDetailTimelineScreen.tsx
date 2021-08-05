@@ -5,6 +5,8 @@ import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Text, Title} from '../components/ui'
+import {Timeline} from '../components/ui/Timeline/Timeline'
+import {timeline} from '../data/timeline'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
@@ -36,6 +38,10 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
             <Calendar fill={color.font.primary} style={styles.icon} />
             <Title primary text="Tijdlijn" />
           </View>
+        </Box>
+        <Box background="lighter">
+          <Title level={4} margin text={project.body.when.title} />
+          <Timeline timeline={timeline} />
         </Box>
         <Box>
           {project.body.when ? (
