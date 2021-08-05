@@ -4,7 +4,7 @@ import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper, Title} from '../components/ui'
-import {boroughs as boroughsData} from '../data/projects'
+import {districts as districtsData} from '../data/projects'
 import {color, size} from '../tokens'
 import {Project, ProjectResponse} from '../types/project'
 
@@ -41,19 +41,19 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   const projects: Project[] = [...bruggenData, ...kademurenData]
     .sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0))
     .map(({feedid, title}, index) => ({
-      boroughId: Math.ceil(
+      districtId: Math.ceil(
         (index / (bruggenData.length + kademurenData.length)) *
-          boroughsData.length,
+          districtsData.length,
       ),
       id: index,
       title,
       url: feedid,
     }))
 
-  const boroughs = boroughsData.map(borough => ({
-    id: borough.id,
-    title: borough.name,
-    data: projects.filter(project => project.boroughId === borough.id),
+  const districts = districtsData.map(district => ({
+    id: district.id,
+    title: district.name,
+    data: projects.filter(project => project.districtId === district.id),
   }))
 
   return (
@@ -64,7 +64,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
         </Box>
       ) : (
         <FlatList
-          data={boroughs}
+          data={districts}
           keyExtractor={(item, index) => `${item}${index}`}
           ItemSeparatorComponent={item =>
             item.leadingItem.data.length > 0 ? (

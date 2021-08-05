@@ -1,10 +1,10 @@
-export type Borough = {
+export type District = {
   cmsId: number
   id: number
   name: string
 }
 
-export const boroughs: Borough[] = [
+export const districts: District[] = [
   {cmsId: 5398, id: 1, name: 'Centrum'},
   {cmsId: 5520, id: 2, name: 'Nieuw-West'},
   {cmsId: 5565, id: 3, name: 'Noord'},
