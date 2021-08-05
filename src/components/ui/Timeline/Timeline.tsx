@@ -17,7 +17,11 @@ export const Timeline = ({timeline}: Props) => {
       {timeline.items.map((item, index) => {
         return (
           <React.Fragment key={item.title + index}>
-            <TimelineItem item={item} />
+            <TimelineItem
+              item={item}
+              firstItem={index === 0}
+              lastItem={index === timeline.items.length - 1}
+            />
           </React.Fragment>
         )
       })}
