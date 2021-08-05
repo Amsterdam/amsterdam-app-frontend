@@ -13,20 +13,61 @@ import {Title} from '../Title'
 
 type Props = {
   item: TimeLineItem
+  firstItem?: boolean
+  lastItem?: boolean
 }
 
-export const TimelineItem = ({item}: Props) => {
+export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
   const {width} = useWindowDimensions()
-  const [isOpen, setIsOpen] = useState(item.status === 'current')
-
   const isCurrent = item.status === 'current'
+  const [isOpen, setIsOpen] = useState(isCurrent)
+
+  const styles = StyleSheet.create({
+    content: {
+      marginLeft: size.spacing.lg + size.spacing.md,
+    },
+    indicator: {
+      width: size.spacing.lg,
+      height: size.spacing.lg,
+      backgroundColor: isCurrent
+        ? color.background.emphasis
+        : color.background.inactive,
+      borderRadius: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    heading: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    line: {
+      position: 'absolute',
+      top: firstItem ? 20 : 0,
+      left: isOpen ? size.spacing.lg : size.spacing.md,
+      width: 2,
+      height: lastItem ? 20 : '200%',
+      backgroundColor: color.background.inactive,
+      zIndex: -1,
+    },
+    section: {
+      paddingVertical: size.spacing.sm,
+      marginHorizontal: isOpen ? -size.spacing.md : undefined,
+      paddingHorizontal: isOpen ? size.spacing.md : undefined,
+      backgroundColor: isOpen ? color.background.light : undefined,
+      overflow: 'hidden',
+    },
+    title: {
+      marginLeft: size.spacing.md,
+      marginRight: size.spacing.xs,
+    },
+  })
 
   return (
-    <View style={[styles.section, isOpen && styles.sectionActive]}>
+    <View style={styles.section}>
       <TouchableWithoutFeedback
         onPress={() => setIsOpen(!isOpen)}
         style={styles.heading}>
-        <View style={[styles.indicator, isCurrent && styles.indicatorActive]}>
+        <View style={styles.indicator}>
           {item.status === 'finished' && (
             <Checkmark fill={color.background.light} height={11} width={14} />
           )}
@@ -50,39 +91,7 @@ export const TimelineItem = ({item}: Props) => {
           />
         </View>
       )}
+      <View style={styles.line} />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    marginLeft: size.spacing.lg + size.spacing.md,
-  },
-  indicator: {
-    width: size.spacing.lg,
-    height: size.spacing.lg,
-    backgroundColor: color.background.inactive,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  indicatorActive: {
-    backgroundColor: color.background.emphasis,
-  },
-  heading: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  section: {
-    paddingVertical: size.spacing.sm,
-  },
-  sectionActive: {
-    marginHorizontal: -size.spacing.md,
-    paddingHorizontal: size.spacing.md,
-    backgroundColor: color.background.light,
-  },
-  title: {
-    marginLeft: size.spacing.md,
-    marginRight: size.spacing.xs,
-  },
-})
