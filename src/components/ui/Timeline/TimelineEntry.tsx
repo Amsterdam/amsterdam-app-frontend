@@ -20,7 +20,7 @@ type Props = {
 export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
   const {width} = useWindowDimensions()
   const isCurrent = item.status === 'current'
-  const [isOpen, setIsOpen] = useState(isCurrent)
+  const [expanded, setExpanded] = useState(isCurrent)
 
   const styles = StyleSheet.create({
     content: {
@@ -43,7 +43,7 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
     line: {
       position: 'absolute',
       top: firstItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : 0,
-      left: isOpen
+      left: expanded
         ? STYLE.SPACE_BEFORE +
           STYLE.INDICATOR.SIZE.WIDTH / 2 -
           STYLE.LINE.WIDTH / 2
@@ -55,9 +55,9 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
     },
     section: {
       paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
-      marginHorizontal: isOpen ? -STYLE.SPACE_BEFORE : undefined,
-      paddingHorizontal: isOpen ? STYLE.SPACE_BEFORE : undefined,
-      backgroundColor: isOpen ? STYLE.SECTION.BACKGROUND.ACTIVE : undefined,
+      marginHorizontal: expanded ? -STYLE.SPACE_BEFORE : undefined,
+      paddingHorizontal: expanded ? STYLE.SPACE_BEFORE : undefined,
+      backgroundColor: expanded ? STYLE.SECTION.BACKGROUND.ACTIVE : undefined,
       overflow: 'hidden',
     },
     title: {
@@ -69,7 +69,7 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
   return (
     <View style={styles.section}>
       <TouchableWithoutFeedback
-        onPress={() => setIsOpen(!isOpen)}
+        onPress={() => setExpanded(!expanded)}
         style={styles.heading}>
         <View style={styles.indicator}>
           {item.status === 'finished' && (
@@ -79,13 +79,13 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
         <View style={styles.title}>
           <Title level={4} margin text={item.title} />
         </View>
-        {isOpen ? (
+        {expanded ? (
           <ChevronUp fill={color.background.darker} height={9} width={14} />
         ) : (
           <ChevronDown fill={color.background.darker} height={9} width={14} />
         )}
       </TouchableWithoutFeedback>
-      {isOpen && (
+      {expanded && (
         <View style={styles.content}>
           <RenderHTML
             contentWidth={width}
