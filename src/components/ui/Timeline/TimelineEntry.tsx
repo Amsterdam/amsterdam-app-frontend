@@ -101,7 +101,6 @@ const STYLE = {
     SPACE_AROUND: {
       TOP: size.spacing.sm,
       BOTTOM: size.spacing.sm,
-      LEFT: size.spacing.md,
     },
     SIZE: {
       HEIGHT: size.spacing.lg,
