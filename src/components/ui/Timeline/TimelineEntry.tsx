@@ -43,7 +43,11 @@ export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
     line: {
       position: 'absolute',
       top: firstItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : 0,
-      left: isOpen ? size.spacing.lg : size.spacing.md,
+      left: isOpen
+        ? STYLE.SPACE_BEFORE +
+          STYLE.INDICATOR.SIZE.WIDTH / 2 -
+          STYLE.LINE.WIDTH / 2
+        : STYLE.INDICATOR.SIZE.WIDTH / 2 - STYLE.LINE.WIDTH / 2,
       width: STYLE.LINE.WIDTH,
       height: lastItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : '200%',
       backgroundColor: STYLE.LINE.COLOR,
