@@ -1,7 +1,5 @@
 import React from 'react'
 import {Timeline as TimelineType} from '../../../data/timeline'
-import {Box} from '../Box'
-import {Text} from '../Text'
 import {TimelineItem} from './TimelineEntry'
 
 type Props = {
@@ -10,21 +8,18 @@ type Props = {
 
 export const Timeline = ({timeline}: Props) => {
   return (
-    <React.Fragment>
-      <Box verticalPaddingOnly>
-        <Text>{timeline.intro}</Text>
-      </Box>
+    <>
       {timeline.items.map((item, index) => {
         return (
           <React.Fragment key={item.title + index}>
             <TimelineItem
               item={item}
-              firstItem={index === 0}
-              lastItem={index === timeline.items.length - 1}
+              isFirst={index === 0}
+              isLast={index === timeline.items.length - 1}
             />
           </React.Fragment>
         )
       })}
-    </React.Fragment>
+    </>
   )
 }
