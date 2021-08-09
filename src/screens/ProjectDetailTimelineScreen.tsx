@@ -40,7 +40,8 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
           </View>
         </Box>
         <Box background="lighter">
-          <Title level={4} margin text={project.body.when.title} />
+          <Title level={4} margin text="Wanneer" />
+          <Text>{timeline.intro}</Text>
           <Timeline timeline={timeline} />
         </Box>
         <Box>
