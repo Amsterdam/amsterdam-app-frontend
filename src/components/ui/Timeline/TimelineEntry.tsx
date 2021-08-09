@@ -2,8 +2,7 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {useLayoutEffect, useRef, useState} from 'react'
-import {Animated, useWindowDimensions} from 'react-native'
-import {View} from 'react-native'
+import {Animated, useWindowDimensions, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {Easing} from 'react-native-reanimated'
 import RenderHTML from 'react-native-render-html'
@@ -14,19 +13,19 @@ import {Title} from '../Title'
 import {STYLE, timelineStyles} from './timelineStyles'
 
 type Props = {
+  isFirst?: boolean
+  isLast?: boolean
   item: TimeLineItem
-  firstItem?: boolean
-  lastItem?: boolean
 }
 
-export const TimelineItem = ({item, firstItem, lastItem}: Props) => {
+export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const {width} = useWindowDimensions()
   const isCurrent = item.status === 'current'
   const [expanded, setExpanded] = useState(isCurrent)
 
   const fadeAnim = useRef(new Animated.Value(0)).current
 
-  const styles = timelineStyles(isCurrent, expanded, firstItem, lastItem)
+  const styles = timelineStyles(isCurrent, expanded, isFirst, isLast)
 
   useLayoutEffect(() => {
     if (isCurrent) {
