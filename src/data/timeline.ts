@@ -1,15 +1,15 @@
-type TimeLineSubItem = Omit<TimeLineItem, 'status'>
+type TimelineSubItem = Omit<TimelineItem, 'status'>
 
-export type TimeLineItem = {
+export type TimelineItem = {
   title: string
   content: string
   status: 'current' | 'finished' | 'upcoming'
-  subitems?: TimeLineSubItem[]
+  subitems?: TimelineSubItem[]
 }
 
 export type Timeline = {
   intro: string
-  items: TimeLineItem[]
+  items: TimelineItem[]
 }
 
 export const timeline: Timeline = {
