@@ -6,14 +6,14 @@ type Props = {
   background?: 'emphasis' | 'invalid' | 'light' | 'lighter'
   children: React.ReactNode
   inset?: keyof Spacing
-  verticalPaddingOnly?: boolean
+  insetVertical?: boolean
 }
 
 export const Box = ({
   background,
   children,
   inset = 'md',
-  verticalPaddingOnly,
+  insetVertical,
 }: Props) => {
   const styles = StyleSheet.create({
     box: {
@@ -21,14 +21,13 @@ export const Box = ({
       padding: size.spacing[inset],
     },
     verticalPaddingOnly: {
-      padding: 0,
+      paddingHorizontal: 0,
       paddingVertical: size.spacing[inset],
     },
   })
 
   return (
-    <View
-      style={[styles.box, verticalPaddingOnly && styles.verticalPaddingOnly]}>
+    <View style={[styles.box, insetVertical && styles.verticalPaddingOnly]}>
       {children}
     </View>
   )
