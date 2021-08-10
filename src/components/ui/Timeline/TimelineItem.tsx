@@ -51,7 +51,11 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
 
   return (
     <View style={styles.section}>
-      <TouchableWithoutFeedback onPress={toggleExpand} style={styles.heading}>
+      <TouchableWithoutFeedback
+        onPress={toggleExpand}
+        style={styles.heading}
+        accessible={true}
+        accessibilityRole="button">
         <View style={styles.indicator}>
           {item.status === 'finished' && (
             <Checkmark fill={color.background.light} height={11} width={14} />
