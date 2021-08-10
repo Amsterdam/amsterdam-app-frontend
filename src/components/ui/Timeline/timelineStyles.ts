@@ -61,11 +61,7 @@ export const timelineStyles = (
     line: {
       position: 'absolute',
       top: firstItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : 0,
-      left: expanded
-        ? STYLE.SPACE_BEFORE +
-          STYLE.INDICATOR.SIZE.WIDTH / 2 -
-          STYLE.LINE.WIDTH / 2
-        : STYLE.INDICATOR.SIZE.WIDTH / 2 - STYLE.LINE.WIDTH / 2,
+      left: STYLE.INDICATOR.SIZE.WIDTH / 2 - STYLE.LINE.WIDTH / 2,
       width: STYLE.LINE.WIDTH,
       height: lastItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : '200%',
       backgroundColor: STYLE.LINE.COLOR,
@@ -73,9 +69,6 @@ export const timelineStyles = (
     },
     section: {
       paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
-      marginHorizontal: expanded ? -STYLE.SPACE_BEFORE : undefined,
-      paddingHorizontal: expanded ? STYLE.SPACE_BEFORE : undefined,
-      backgroundColor: expanded ? STYLE.SECTION.BACKGROUND.ACTIVE : undefined,
       overflow: 'hidden',
     },
     title: {
