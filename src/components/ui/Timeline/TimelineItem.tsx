@@ -25,7 +25,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
 
   const fadeAnim = useRef(new Animated.Value(0)).current
 
-  const styles = timelineStyles(isCurrent, expanded, isFirst, isLast)
+  const styles = timelineStyles(isCurrent, isFirst, isLast)
 
   useLayoutEffect(() => {
     if (isCurrent) {

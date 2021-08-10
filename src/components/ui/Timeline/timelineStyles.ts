@@ -11,7 +11,6 @@ export const STYLE = {
   INDICATOR: {
     SPACE_AROUND: {
       TOP: size.spacing.sm,
-      BOTTOM: size.spacing.sm,
     },
     SIZE: {
       HEIGHT: size.spacing.lg,
@@ -26,17 +25,11 @@ export const STYLE = {
     COLOR: color.background.inactive,
     WIDTH: 2,
   },
-  SECTION: {
-    BACKGROUND: {
-      ACTIVE: color.background.light,
-    },
-  },
   SPACE_BEFORE: size.spacing.md,
 }
 
 export const timelineStyles = (
   isCurrent: boolean,
-  expanded: boolean,
   firstItem: boolean | undefined,
   lastItem: boolean | undefined,
 ) => {
