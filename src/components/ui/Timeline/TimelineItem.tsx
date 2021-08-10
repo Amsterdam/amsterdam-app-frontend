@@ -6,7 +6,7 @@ import {Animated, useWindowDimensions, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {Easing} from 'react-native-reanimated'
 import RenderHTML from 'react-native-render-html'
-import {TimeLineItem} from '../../../data/timeline'
+import {TimelineItem as TimelineItemType} from '../../../data/timeline'
 import {tagsStyles} from '../../../styles/html'
 import {color, font} from '../../../tokens'
 import {Title} from '../Title'
@@ -15,7 +15,7 @@ import {STYLE, timelineStyles} from './timelineStyles'
 type Props = {
   isFirst?: boolean
   isLast?: boolean
-  item: TimeLineItem
+  item: TimelineItemType
 }
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
