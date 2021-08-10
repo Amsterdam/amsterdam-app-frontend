@@ -47,6 +47,7 @@ export const timelineStyles = (
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
+      paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
     },
     line: {
       position: 'absolute',
@@ -58,7 +59,6 @@ export const timelineStyles = (
       zIndex: -1,
     },
     section: {
-      paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
       overflow: 'hidden',
     },
     title: {
