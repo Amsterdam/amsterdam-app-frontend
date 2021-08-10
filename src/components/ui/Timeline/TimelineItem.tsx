@@ -37,14 +37,12 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
     if (expanded) {
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: STYLE.CONTENT.ANIMATION.DURATION,
         easing: Easing.bezier(0, 1, 0, 1),
         useNativeDriver: false,
       }).start()
     } else {
       Animated.timing(fadeAnim, {
         toValue: STYLE.CONTENT.MAX_HEIGHT,
-        duration: STYLE.CONTENT.ANIMATION.DURATION,
         useNativeDriver: false,
       }).start()
     }

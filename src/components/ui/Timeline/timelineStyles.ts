@@ -4,9 +4,6 @@ import {color, size} from '../../../tokens'
 export const STYLE = {
   CONTENT: {
     MAX_HEIGHT: 800,
-    ANIMATION: {
-      DURATION: 500,
-    },
   },
   INDICATOR: {
     SPACE_AROUND: {
