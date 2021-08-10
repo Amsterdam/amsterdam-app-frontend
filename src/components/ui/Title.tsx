@@ -23,7 +23,8 @@ export const Title = ({level = 1, inverse, margin, primary, text}: Props) => {
         inverse && styles.inverse,
         margin && marginStyles,
         primary && styles.primary,
-      ]}>
+      ]}
+      accessibilityRole="header">
       {text}
     </Text>
   )
