@@ -1,16 +1,4 @@
-type TimelineSubItem = Omit<TimelineItem, 'status'>
-
-export type TimelineItem = {
-  title: string
-  content: string
-  status: 'current' | 'finished' | 'upcoming'
-  subitems?: TimelineSubItem[]
-}
-
-export type Timeline = {
-  intro: string
-  items: TimelineItem[]
-}
+import {Timeline} from '../types/timeline'
 
 export const timeline: Timeline = {
   intro:

@@ -1,4 +1,4 @@
-import {Timeline} from '../data/timeline'
+import {Section, Timeline} from '.'
 
 export type Project = {
   districtId: number
@@ -20,11 +20,6 @@ export type ProjectResponse = {
   publication_date: string // date
   related_articles: string
   source_url: string // url
-  title: string
-}
-
-export type Section = {
-  text: string
   title: string
 }
 

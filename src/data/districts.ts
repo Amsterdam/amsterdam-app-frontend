@@ -1,8 +1,4 @@
-export type District = {
-  cmsId: number
-  id: number
-  name: string
-}
+import {District} from '../types/disctrict'
 
 export const districts: District[] = [
   {cmsId: 5398, id: 1, name: 'Centrum'},
@@ -13,10 +9,3 @@ export const districts: District[] = [
   {cmsId: 5396, id: 6, name: 'Zuid'},
   {cmsId: 5393, id: 7, name: 'Zuidoost'},
 ]
-
-export type NewsArticle = {
-  date: string
-  image_url: string
-  content: string
-  title: string
-}

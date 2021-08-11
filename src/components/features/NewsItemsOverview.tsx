@@ -1,9 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useState} from 'react'
-import {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {View} from 'react-native'
-import {NewsArticle} from '../../data/projects'
 import {size} from '../../tokens'
+import {NewsArticle} from '../../types'
 import {Gutter} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
