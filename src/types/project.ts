@@ -1,3 +1,5 @@
+import {Timeline} from '../data/timeline'
+
 export type Project = {
   districtId: number
   id: number
@@ -30,7 +32,7 @@ export type ProjectDetail = {
   body: {
     contact?: Section
     what?: Section
-    when?: Section
+    when?: Section & {timeline?: Timeline}
     where?: Section
     work?: Section
   }

@@ -15,6 +15,7 @@ import {
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
 import {Box, Gutter, IconButton, ScreenWrapper, Title} from '../components/ui'
+import {timeline} from '../data/timeline'
 import {color, image, size} from '../tokens'
 import {ProjectDetail, ProjectDetailResponse} from '../types/project'
 
@@ -89,6 +90,13 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 project.body.when = {
                   text: veldCache.Tekst,
                   title: veldCache.Titel,
+                }
+              }
+              if (project.id === '970738') {
+                project.body.when = {
+                  text: timeline.intro,
+                  timeline: timeline,
+                  title: 'Wanneer',
                 }
               }
               if (selAka === 'where') {

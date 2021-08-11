@@ -14,7 +14,7 @@ export type Timeline = {
 
 export const timeline: Timeline = {
   intro:
-    'We moeten de kademuur vernieuwen. Wanneer dit gebeurt, is op dit moment nog niet bekend. In juli en augustus 2021 versterken we de kade. Volgens de huidige planning is de straat vanaf 1 september weer open voor al het toegestane verkeer.',
+    '<p>We moeten de kademuur vernieuwen. Wanneer dit gebeurt, is op dit moment nog niet bekend. In juli en augustus 2021 versterken we de kade. Volgens de huidige planning is de straat vanaf 1 september weer open voor al het toegestane verkeer.</p>',
   items: [
     {
       title: 'Maandag 21 juni',
