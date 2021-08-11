@@ -1,23 +1,22 @@
 import React from 'react'
-import {Timeline as TimelineType} from '../../../data/timeline'
+import {TimelineItem as TimelineItemType} from '../../../data/timeline'
 import {TimelineItem} from './TimelineItem'
 
 type Props = {
-  timeline: TimelineType
+  items: TimelineItemType[]
 }
 
-export const Timeline = ({timeline}: Props) => {
+export const Timeline = ({items}: Props) => {
   return (
     <>
-      {timeline.items.map((item, index) => {
+      {items.map((item, index) => {
         return (
-          <React.Fragment key={item.title + index}>
-            <TimelineItem
-              isFirst={index === 0}
-              isLast={index === timeline.items.length - 1}
-              item={item}
-            />
-          </React.Fragment>
+          <TimelineItem
+            isFirst={index === 0}
+            isLast={index === items.length - 1}
+            item={item}
+            key={item.title + index}
+          />
         )
       })}
     </>

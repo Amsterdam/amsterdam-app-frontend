@@ -50,7 +50,7 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
                 />
               )}
               {project.body.when.timeline && (
-                <Timeline timeline={project.body.when.timeline} />
+                <Timeline items={project.body.when.timeline.items} />
               )}
             </>
           ) : (
