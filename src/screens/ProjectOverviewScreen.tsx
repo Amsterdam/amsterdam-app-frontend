@@ -1,50 +1,51 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {districts as districtsData} from '../data/projects'
+import {useFetch} from '../hooks/useFetch'
 import {color, size} from '../tokens'
-import {Project, ProjectResponse} from '../types/project'
+import {Project} from '../types/project'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
 }
 
+type ProjectOverviewResponse = {
+  category: string
+  feedid: string
+  publication_date: string
+  modification_date: string
+  image_url: string
+  title: string
+  content: string
+  source_url: string
+  related_articles: string
+  author: string
+  photo_author: string
+  images: []
+}[]
+
 export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const [isBruggenLoading, setBruggenLoading] = useState(true)
-  const [bruggenData, setBruggenData] = useState<ProjectResponse[]>([])
-  const [isKademurenLoading, setKademurenLoading] = useState(true)
-  const [kademurenData, setKademurenData] = useState<ProjectResponse[]>([])
+  const bruggenResponse = useFetch<ProjectOverviewResponse>({
+    url: 'https://www.amsterdam.nl/projecten/bruggen/maatregelen-vernieuwen-bruggen/?new_json=true',
+    options: {},
+  })
 
-  useEffect(() => {
-    fetch(
-      'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/?new_json=true',
-    )
-      .then(response => response.json())
-      .then(json => setBruggenData(json))
-      .catch(error => console.error(error))
-      .finally(() => setBruggenLoading(false))
-  }, [])
+  const kademurenResponse = useFetch<ProjectOverviewResponse>({
+    url: 'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/?new_json=true',
+    options: {},
+  })
 
-  useEffect(() => {
-    fetch(
-      'https://www.amsterdam.nl/projecten/bruggen/maatregelen-vernieuwen-bruggen/?new_json=true',
-    )
-      .then(response => response.json())
-      .then(json => setKademurenData(json))
-      .catch(error => console.error(error))
-      .finally(() => setKademurenLoading(false))
-  }, [])
-
-  const projects: Project[] = [...bruggenData, ...kademurenData]
+  const projects: Project[] = [
+    ...bruggenResponse.data,
+    ...kademurenResponse.data,
+  ]
     .sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0))
-    .map(({feedid, title}, index) => ({
-      districtId: Math.ceil(
-        (index / (bruggenData.length + kademurenData.length)) *
-          districtsData.length,
-      ),
+    .map(({feedid, title}, index, array) => ({
+      districtId: Math.ceil((index / array.length) * districtsData.length),
       id: index,
       title,
       url: feedid,
@@ -58,7 +59,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
   return (
     <ScreenWrapper>
-      {isBruggenLoading || isKademurenLoading ? (
+      {bruggenResponse.isLoading || kademurenResponse.isLoading ? (
         <Box>
           <ActivityIndicator />
         </Box>
