@@ -37,6 +37,8 @@ We recommend installing this [React Native debugger](https://github.com/jhen0409
 
 ### iOS
 - In Xcode, Change the version in the General tab of your target
+- In the Signing & Capabilities tab, change Bundle identifier to: org.reactjs.native.undefined.StadsApp
+- Make sure the Build configuration is "Release"
 - Make an archive of the app: Product -> Archive
 - Go to Window -> Organiser and select your archive. Click "Distribute App"
 - Choose "App store connect", then "upload"
@@ -44,4 +46,5 @@ We recommend installing this [React Native debugger](https://github.com/jhen0409
 - Upload
 - Choose "no"
 - The app is getting prepared and all the testers get an e-mail about the new release which they can download in Testflight
+- Afterwards, turn build configuration back to "Debug" for further development
 
