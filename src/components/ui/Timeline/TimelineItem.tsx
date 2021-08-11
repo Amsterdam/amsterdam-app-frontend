@@ -50,7 +50,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   }
 
   return (
-    <View style={styles.section}>
+    <View style={styles.item}>
       <TouchableWithoutFeedback
         onPress={toggleExpand}
         style={styles.heading}

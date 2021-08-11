@@ -3,16 +3,12 @@ import {color, size} from '../../../tokens'
 
 export const STYLE = {
   CONTENT: {
+    INSET_LEFT: size.spacing.md,
     MAX_HEIGHT: 800,
   },
   INDICATOR: {
-    SPACE_AROUND: {
-      TOP: size.spacing.sm,
-    },
-    SIZE: {
-      HEIGHT: size.spacing.lg,
-      WIDTH: size.spacing.lg,
-    },
+    INSET: size.spacing.sm,
+    SIZE: size.spacing.lg,
     BACKGROUND: {
       ACTIVE: color.background.emphasis,
       INACTIVE: color.background.inactive,
@@ -22,47 +18,46 @@ export const STYLE = {
     COLOR: color.background.inactive,
     WIDTH: 2,
   },
-  SPACE_BEFORE: size.spacing.md,
 }
 
 export const timelineStyles = (
   isCurrent: boolean,
-  firstItem: boolean | undefined,
-  lastItem: boolean | undefined,
+  firstItem?: boolean,
+  lastItem?: boolean,
 ) => {
   return StyleSheet.create({
     content: {
-      marginLeft: STYLE.INDICATOR.SIZE.WIDTH + STYLE.SPACE_BEFORE,
+      marginLeft: STYLE.INDICATOR.SIZE + STYLE.CONTENT.INSET_LEFT,
     },
     indicator: {
-      width: STYLE.INDICATOR.SIZE.WIDTH,
-      height: STYLE.INDICATOR.SIZE.HEIGHT,
+      width: STYLE.INDICATOR.SIZE,
+      height: STYLE.INDICATOR.SIZE,
       backgroundColor: isCurrent
         ? STYLE.INDICATOR.BACKGROUND.ACTIVE
         : STYLE.INDICATOR.BACKGROUND.INACTIVE,
-      borderRadius: 50,
+      borderRadius: STYLE.INDICATOR.SIZE / 2,
       justifyContent: 'center',
       alignItems: 'center',
     },
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: STYLE.INDICATOR.SPACE_AROUND.TOP,
+      paddingVertical: STYLE.INDICATOR.INSET,
     },
     line: {
       position: 'absolute',
-      top: firstItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : 0,
-      left: STYLE.INDICATOR.SIZE.WIDTH / 2 - STYLE.LINE.WIDTH / 2,
+      top: firstItem ? STYLE.INDICATOR.INSET : 0,
+      left: (STYLE.INDICATOR.SIZE - STYLE.LINE.WIDTH) / 2,
       width: STYLE.LINE.WIDTH,
-      height: lastItem ? STYLE.INDICATOR.SPACE_AROUND.TOP : '200%',
+      height: lastItem ? STYLE.INDICATOR.INSET : '100%',
       backgroundColor: STYLE.LINE.COLOR,
       zIndex: -1,
     },
-    section: {
+    item: {
       overflow: 'hidden',
     },
     title: {
-      marginLeft: size.spacing.md,
+      marginLeft: STYLE.CONTENT.INSET_LEFT,
       marginRight: size.spacing.xs,
     },
   })
