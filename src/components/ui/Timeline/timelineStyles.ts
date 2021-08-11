@@ -9,7 +9,7 @@ export const timelineStyles = (
   lastItem?: boolean,
 ) => {
   const tokens = {
-    content: {
+    body: {
       insetLeft: size.spacing.md,
     },
     indicator: {
@@ -27,10 +27,10 @@ export const timelineStyles = (
   }
 
   return StyleSheet.create({
-    content: {
-      marginLeft: tokens.indicator.size + tokens.content.insetLeft,
+    body: {
+      marginLeft: tokens.indicator.size + tokens.body.insetLeft,
     },
-    heading: {
+    header: {
       flexDirection: 'row',
       alignItems: 'center',
       paddingVertical: tokens.indicator.inset,
@@ -58,7 +58,7 @@ export const timelineStyles = (
       backgroundColor: tokens.line.color,
     },
     title: {
-      marginLeft: tokens.content.insetLeft,
+      marginLeft: tokens.body.insetLeft,
       marginRight: size.spacing.xs,
     },
   })

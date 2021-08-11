@@ -53,7 +53,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
     <View style={styles.item}>
       <TouchableWithoutFeedback
         onPress={toggleExpand}
-        style={styles.heading}
+        style={styles.header}
         accessible={true}
         accessibilityRole="button">
         <View style={styles.indicator}>
@@ -70,7 +70,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           <ChevronDown {...chevronProps} />
         )}
       </TouchableWithoutFeedback>
-      <Animated.View style={[styles.content, {maxHeight: fadeAnim}]}>
+      <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
         <RenderHTML
           contentWidth={width}
           source={{html: item.content}}
