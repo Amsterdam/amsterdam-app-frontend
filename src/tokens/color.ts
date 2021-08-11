@@ -53,8 +53,9 @@ export const color = {
   font: {
     inverse: baseColor.tint.level1,
     light: baseColor.tint.level6,
-    regular: baseColor.tint.level7,
     primary: baseColor.primary.main,
+    regular: baseColor.tint.level7,
+    secondary: baseColor.tint.level5,
   },
   touchable: {
     primary: baseColor.primary.main,

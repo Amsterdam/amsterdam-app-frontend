@@ -10,12 +10,24 @@ type Props = {
   children: React.ReactNode
   inverse?: Boolean
   margin?: Boolean
+  secondary?: Boolean
 } & Omit<TextRNProps, 'style'>
 
-export const Text = ({children, inverse, margin, ...otherProps}: Props) => {
+export const Text = ({
+  children,
+  inverse,
+  margin,
+  secondary,
+  ...otherProps
+}: Props) => {
   return (
     <TextRN
-      style={[styles.text, margin && styles.margin, inverse && styles.inverse]}
+      style={[
+        styles.text,
+        margin && styles.margin,
+        inverse && styles.inverse,
+        secondary && styles.secondary,
+      ]}
       {...otherProps}>
       {children}
     </TextRN>
@@ -30,6 +42,9 @@ const styles = StyleSheet.create({
   margin: {
     marginBottom: font.leadingBottom.p1,
     marginTop: font.leadingTop.p1,
+  },
+  secondary: {
+    color: color.font.secondary,
   },
   text: {
     fontFamily: font.weight.regular,
