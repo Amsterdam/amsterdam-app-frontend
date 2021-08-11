@@ -36,8 +36,8 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const toggleExpand = () => {
     if (expanded) {
       Animated.timing(fadeAnim, {
-        toValue: 0,
         easing: Easing.bezier(0, 1, 0, 1),
+        toValue: 0,
         useNativeDriver: false,
       }).start()
     } else {
@@ -52,10 +52,10 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   return (
     <View style={styles.item}>
       <TouchableWithoutFeedback
-        onPress={toggleExpand}
-        style={styles.header}
         accessible={true}
-        accessibilityRole="button">
+        accessibilityRole="button"
+        onPress={toggleExpand}
+        style={styles.header}>
         <View style={styles.indicator}>
           {item.status === 'finished' && (
             <Checkmark fill={color.background.light} height={11} width={14} />
