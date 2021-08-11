@@ -533,7 +533,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39J4LQT4VN;
+				DEVELOPMENT_TEAM = 54CFLQ289Q;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = StadsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,7 +546,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.undefined.StadsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.StadsApp;
 				PRODUCT_NAME = StadsApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
