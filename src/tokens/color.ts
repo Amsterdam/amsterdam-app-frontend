@@ -42,6 +42,7 @@ export const color = {
   background: {
     darker: baseColor.tint.level7,
     emphasis: baseColor.primary.main,
+    inactive: baseColor.tint.level5,
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level2,
     lighter: baseColor.tint.level1,

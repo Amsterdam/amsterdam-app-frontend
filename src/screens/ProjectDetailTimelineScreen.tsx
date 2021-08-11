@@ -4,7 +4,7 @@ import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Text, Title} from '../components/ui'
+import {Box, ScreenWrapper, Text, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
@@ -41,12 +41,17 @@ export const ProjectDetailTimelineScreen = ({route}: Props) => {
           {project.body.when ? (
             <>
               <Title level={4} margin text={project.body.when.title} />
-              <RenderHTML
-                contentWidth={width}
-                source={{html: project.body.when.text}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStyles}
-              />
+              {project.body.when.text && (
+                <RenderHTML
+                  contentWidth={width}
+                  source={{html: project.body.when.text}}
+                  systemFonts={[font.weight.regular, font.weight.demi]}
+                  tagsStyles={tagsStyles}
+                />
+              )}
+              {project.body.when.timeline && (
+                <Timeline items={project.body.when.timeline.items} />
+              )}
             </>
           ) : (
             <Text>Geen informatie gevonden.</Text>
