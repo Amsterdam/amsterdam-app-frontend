@@ -1,63 +1,64 @@
 import {StyleSheet} from 'react-native'
 import {color, size} from '../../../tokens'
 
-export const STYLE = {
-  CONTENT: {
-    INSET_LEFT: size.spacing.md,
-    MAX_HEIGHT: 800,
-  },
-  INDICATOR: {
-    BACKGROUND: {
-      ACTIVE: color.background.emphasis,
-      INACTIVE: color.background.inactive,
-    },
-    INSET: size.spacing.sm,
-    SIZE: size.spacing.lg,
-  },
-  LINE: {
-    COLOR: color.background.inactive,
-    WIDTH: 2,
-  },
-}
+export const maxHeight = 800
 
 export const timelineStyles = (
   isCurrent: boolean,
   firstItem?: boolean,
   lastItem?: boolean,
 ) => {
+  const tokens = {
+    content: {
+      insetLeft: size.spacing.md,
+    },
+    indicator: {
+      backgroundColor: {
+        active: color.background.emphasis,
+        inactive: color.background.inactive,
+      },
+      inset: size.spacing.sm,
+      size: size.spacing.lg,
+    },
+    line: {
+      color: color.background.inactive,
+      width: 2,
+    },
+  }
+
   return StyleSheet.create({
     content: {
-      marginLeft: STYLE.INDICATOR.SIZE + STYLE.CONTENT.INSET_LEFT,
+      marginLeft: tokens.indicator.size + tokens.content.insetLeft,
     },
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: STYLE.INDICATOR.INSET,
+      paddingVertical: tokens.indicator.inset,
     },
     indicator: {
-      width: STYLE.INDICATOR.SIZE,
-      height: STYLE.INDICATOR.SIZE,
+      width: tokens.indicator.size,
+      height: tokens.indicator.size,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: isCurrent
-        ? STYLE.INDICATOR.BACKGROUND.ACTIVE
-        : STYLE.INDICATOR.BACKGROUND.INACTIVE,
-      borderRadius: STYLE.INDICATOR.SIZE / 2,
+        ? tokens.indicator.backgroundColor.active
+        : tokens.indicator.backgroundColor.inactive,
+      borderRadius: tokens.indicator.size / 2,
     },
     item: {
       overflow: 'hidden',
     },
     line: {
       position: 'absolute',
-      top: firstItem ? STYLE.INDICATOR.INSET : 0,
-      left: (STYLE.INDICATOR.SIZE - STYLE.LINE.WIDTH) / 2,
+      top: firstItem ? tokens.indicator.inset : 0,
+      left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
-      width: STYLE.LINE.WIDTH,
-      height: lastItem ? STYLE.INDICATOR.INSET : '100%',
-      backgroundColor: STYLE.LINE.COLOR,
+      width: tokens.line.width,
+      height: lastItem ? tokens.indicator.inset : '100%',
+      backgroundColor: tokens.line.color,
     },
     title: {
-      marginLeft: STYLE.CONTENT.INSET_LEFT,
+      marginLeft: tokens.content.insetLeft,
       marginRight: size.spacing.xs,
     },
   })

@@ -10,7 +10,7 @@ import {TimelineItem as TimelineItemType} from '../../../data/timeline'
 import {tagsStyles} from '../../../styles/html'
 import {color, font} from '../../../tokens'
 import {Title} from '../Title'
-import {STYLE, timelineStyles} from './timelineStyles'
+import {maxHeight, timelineStyles} from './timelineStyles'
 
 type Props = {
   isFirst?: boolean
@@ -29,7 +29,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
 
   useLayoutEffect(() => {
     if (isCurrent) {
-      fadeAnim.setValue(STYLE.CONTENT.MAX_HEIGHT)
+      fadeAnim.setValue(maxHeight)
     }
   }, [fadeAnim, isCurrent])
 
@@ -42,7 +42,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
       }).start()
     } else {
       Animated.timing(fadeAnim, {
-        toValue: STYLE.CONTENT.MAX_HEIGHT,
+        toValue: maxHeight,
         useNativeDriver: false,
       }).start()
     }
