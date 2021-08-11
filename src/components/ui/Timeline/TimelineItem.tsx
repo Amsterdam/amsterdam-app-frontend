@@ -23,8 +23,8 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const isCurrent = item.status === 'current'
   const [expanded, setExpanded] = useState(isCurrent)
 
+  const chevronProps = {fill: color.background.darker, height: 9, width: 14}
   const fadeAnim = useRef(new Animated.Value(0)).current
-
   const styles = timelineStyles(isCurrent, isFirst, isLast)
 
   useLayoutEffect(() => {
@@ -65,9 +65,9 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           <Title level={4} margin text={item.title} />
         </View>
         {expanded ? (
-          <ChevronUp fill={color.background.darker} height={9} width={14} />
+          <ChevronUp {...chevronProps} />
         ) : (
-          <ChevronDown fill={color.background.darker} height={9} width={14} />
+          <ChevronDown {...chevronProps} />
         )}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.content, {maxHeight: fadeAnim}]}>
