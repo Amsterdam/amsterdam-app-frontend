@@ -25,6 +25,11 @@ export const HomeScreen = ({navigation}: Props) => {
           onPress={() => navigation.navigate(routes.projectOverview.name)}
           text="Bekijk bouwprojecten"
         />
+        <Gutter height={size.spacing.md} />
+        <Button
+          onPress={() => navigation.navigate(routes.wasteGuide.name)}
+          text="Raadpleeg de afvalwijzer"
+        />
       </Box>
     </ScreenWrapper>
   )

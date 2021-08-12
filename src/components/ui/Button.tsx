@@ -6,12 +6,12 @@ import {
   View,
 } from 'react-native'
 import {color, size} from '../../tokens'
-import {Text} from './'
+import {Gutter, Text} from './'
 
 type Props = {
   icon?: React.ReactElement
-  text: string
-  variant?: 'primary'
+  text?: string
+  variant?: 'primary' | 'secondary'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
@@ -23,7 +23,8 @@ export const Button = ({
   return (
     <TouchableOpacity style={[styles.button, styles[variant]]} {...otherProps}>
       {icon && <View style={styles.iconContainer}>{icon}</View>}
-      <Text inverse>{text}</Text>
+      {icon && text && <Gutter width={size.spacing.md} />}
+      {text && <Text inverse>{text}</Text>}
     </TouchableOpacity>
   )
 }
@@ -31,15 +32,17 @@ export const Button = ({
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
   },
   iconContainer: {
     height: 20,
     width: 20,
-    marginRight: size.spacing.md,
   },
   primary: {
     backgroundColor: color.touchable.primary,
-    paddingHorizontal: size.spacing.md,
-    paddingVertical: size.spacing.sm,
+  },
+  secondary: {
+    backgroundColor: color.touchable.secondary,
   },
 })

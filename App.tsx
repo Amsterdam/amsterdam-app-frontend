@@ -19,6 +19,7 @@ import {
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
   ReportScreen,
+  WasteGuideScreen,
 } from './src/screens'
 import {size} from './src/tokens'
 import {ProjectDetail} from './src/types/project'
@@ -34,6 +35,7 @@ export type RootStackParamList = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {districtId: number}
   Report: {uri: string}
+  WasteGuide: undefined
 }
 
 type Routes = {
@@ -90,6 +92,12 @@ export const routes: Routes = {
       title: 'Melding',
     },
   },
+  wasteGuide: {
+    name: 'WasteGuide',
+    options: {
+      title: 'Afvalinformatie op adres',
+    },
+  },
 }
 
 const globalScreenOptions: StackNavigationOptions = {
@@ -122,6 +130,7 @@ export const App = () => {
     projectOverviewByDistrict,
     projectNews,
     report,
+    wasteGuide,
   } = routes
 
   return (
@@ -179,6 +188,11 @@ export const App = () => {
             name="Report"
             component={ReportScreen}
             options={report.options}
+          />
+          <Stack.Screen
+            name="WasteGuide"
+            component={WasteGuideScreen}
+            options={wasteGuide.options}
           />
         </Stack.Navigator>
       </NavigationContainer>

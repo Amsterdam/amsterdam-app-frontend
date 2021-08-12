@@ -4,20 +4,22 @@ import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react'
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native'
+import React, {useLayoutEffect, useMemo} from 'react'
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
-import {Box, Gutter, IconButton, ScreenWrapper, Title} from '../components/ui'
+import {
+  Box,
+  Gutter,
+  IconButton,
+  Image,
+  ScreenWrapper,
+  Title,
+} from '../components/ui'
 import {timeline} from '../data/timeline'
+import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
-import {ProjectDetail, ProjectDetailResponse} from '../types/project'
+import {ProjectDetail} from '../types/project'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -30,18 +32,13 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
-  const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState<ProjectDetailResponse>({item: {}})
+  const response = useFetch({
+    url: `${route.params.url}?AppIdt=app-pagetype&reload=true`,
+    options: {},
+  })
 
-  useEffect(() => {
-    fetch(`${route.params.url}?AppIdt=app-pagetype&reload=true`)
-      .then(response => response.json())
-      .then(json => setData(json))
-      .catch(error => console.error(error))
-      .finally(() => setLoading(false))
-  }, [route.params.url])
-
-  const page = data?.item?.page
+  // @ts-ignore
+  const page = response.data.item?.page
   const blok = page?.cluster?.find((c: any) => c.Nam === 'Blok')
 
   const project: ProjectDetail = useMemo(
@@ -124,7 +121,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   return (
     <ScreenWrapper>
-      {isLoading ? (
+      {response.isLoading ? (
         <Box>
           <ActivityIndicator />
         </Box>

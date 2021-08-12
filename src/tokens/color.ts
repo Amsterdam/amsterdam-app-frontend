@@ -47,13 +47,18 @@ export const color = {
     light: baseColor.tint.level2,
     lighter: baseColor.tint.level1,
   },
+  border: {
+    input: baseColor.tint.level5,
+  },
   font: {
     inverse: baseColor.tint.level1,
     light: baseColor.tint.level6,
-    regular: baseColor.tint.level7,
     primary: baseColor.primary.main,
+    regular: baseColor.tint.level7,
+    secondary: baseColor.tint.level5,
   },
   touchable: {
     primary: baseColor.primary.main,
+    secondary: baseColor.secondary.main,
   },
 }

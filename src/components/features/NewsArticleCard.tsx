@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import {NewsArticle} from '../../data/projects'
-import {image, size} from '../../tokens'
+import {size} from '../../tokens'
 import {Card, CardBody, Gutter, Image, Text} from '../ui'
 
 type Props = {
@@ -14,11 +14,7 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => {
     <TouchableHighlight onPress={onPress} style={styles.row}>
       <Card>
         <CardBody direction="row">
-          <Image
-            source={{uri: newsArticle.image_url}}
-            style={styles.image}
-            width={150}
-          />
+          <Image source={{uri: newsArticle.image_url}} width={150} />
           <Gutter width={size.spacing.md} />
           <View style={styles.text}>
             <Text>{newsArticle.title}</Text>
@@ -30,9 +26,6 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  image: {
-    aspectRatio: image.aspectRatio.default,
-  },
   row: {
     flexDirection: 'row',
   },
