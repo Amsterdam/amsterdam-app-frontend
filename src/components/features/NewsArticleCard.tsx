@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import {NewsArticle} from '../../data/projects'
 import {size} from '../../tokens'
+import {NewsArticle} from '../../types'
 import {Card, CardBody, Gutter, Image, Text} from '../ui'
 
 type Props = {

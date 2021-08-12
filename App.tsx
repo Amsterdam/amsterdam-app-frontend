@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
-import {NewsArticle} from './src/data/projects'
 import {OrientationProvider} from './src/providers/orientation.provider'
 import {
   HomeScreen,
@@ -22,7 +21,7 @@ import {
   WasteGuideScreen,
 } from './src/screens'
 import {size} from './src/tokens'
-import {ProjectDetail} from './src/types/project'
+import {NewsArticle, ProjectDetail} from './src/types'
 
 export type RootStackParamList = {
   Home: undefined
