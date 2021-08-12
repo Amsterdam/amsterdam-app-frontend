@@ -37,7 +37,7 @@ export const WasteGuideByAddress = () => {
           <TextInput autoFocus onChangeText={text => setAddress(text)} />
         </View>
         <Gutter height={size.spacing.md} />
-        <View style={{alignItems: 'stretch'}}>
+        <View style={styles.stretchHorizontally}>
           <Text secondary>Huisnummer en toevoeging</Text>
           <Gutter height={size.spacing.xs} />
           <View style={styles.row}>
@@ -71,5 +71,8 @@ export const WasteGuideByAddress = () => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
+  },
+  stretchHorizontally: {
+    alignItems: 'stretch',
   },
 })
