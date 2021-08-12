@@ -1,5 +1,5 @@
 import React from 'react'
-import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native'
+import {SafeAreaView, StyleSheet} from 'react-native'
 import {color} from '../../tokens'
 
 type Props = {
@@ -7,23 +7,12 @@ type Props = {
 }
 
 export const ScreenWrapper = ({children}: Props) => {
-  const isDarkMode = useColorScheme() === 'dark'
-
-  const backgroundStyles = {
-    backgroundColor: isDarkMode
-      ? color.background.darker
-      : color.background.light,
-  }
-
-  return (
-    <SafeAreaView style={[backgroundStyles, {...styles.container}]}>
-      {children}
-    </SafeAreaView>
-  )
+  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: color.background.light,
     flex: 1,
   },
 })
