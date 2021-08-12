@@ -72,29 +72,28 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <Gutter height={size.spacing.lg} />
             ) : null
           }
-          renderItem={({item}) => {
-            return item.data.length > 0 ? (
-              <React.Fragment key={item.id}>
+          renderItem={({item: districtItem}) => {
+            return districtItem.data.length > 0 ? (
+              <React.Fragment key={districtItem.id}>
                 <View style={styles.titleRow}>
-                  <Title level={2} text={item.title} />
+                  <Title level={2} text={districtItem.title} />
                 </View>
-
                 <FlatList
-                  data={item.data}
+                  data={districtItem.data}
                   horizontal
                   ItemSeparatorComponent={() => (
                     <Gutter width={size.spacing.sm} />
                   )}
                   keyExtractor={item => item.id + item.title}
-                  renderItem={({item}) => (
+                  renderItem={({item: projectItem}) => (
                     <View style={styles.project}>
                       <ProjectCard
                         onPress={() =>
                           navigation.navigate('ProjectDetail', {
-                            url: item.url,
+                            url: projectItem.url,
                           })
                         }
-                        title={item.title}
+                        title={projectItem.title}
                         width={280}
                       />
                     </View>
