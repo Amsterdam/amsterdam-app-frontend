@@ -15,13 +15,15 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const fetchData = useCallback(
     async (params?: string) => {
       const p = options.params ?? params
-
       setLoading(true)
-      await fetch(url + '?' + p)
-        .then(response => response.json())
-        .then(json => setData(json))
-        .catch(error => console.error('useFetch', error))
-        .finally(() => setLoading(false))
+      try {
+        const response = await fetch(url + '?' + p)
+        const json = await response.json()
+        setData(json)
+      } catch (error) {
+        console.error('useFetch', error)
+      }
+      setLoading(false)
     },
     [options.params, url],
   )
