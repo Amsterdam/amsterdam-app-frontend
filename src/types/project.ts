@@ -17,6 +17,7 @@ export type ProjectOverviewItem = {
 export type ProjectDetail = {
   body: {
     contact: Section[]
+    intro: Section[]
     what: Section[]
     when: Section[]
     where: Section[]

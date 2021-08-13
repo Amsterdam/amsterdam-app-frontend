@@ -56,7 +56,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     {
       icon: <Info fill={color.font.inverse} />,
       title: 'Informatie',
-      sections: project?.body.what,
+      sections: [
+        ...(project?.body.intro ?? []),
+        ...(project?.body.what ?? []),
+        ...(project?.body.where ?? []),
+      ],
     },
     {
       icon: <Calendar fill={color.font.inverse} />,
@@ -92,28 +96,27 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Box background="lighter">
             <Title margin text={project?.title || ''} />
             <View style={styles.row}>
-              {project &&
-                iconButtons.map(iconButton =>
-                  iconButton.sections?.length ? (
-                    <IconButton
-                      icon={iconButton.icon}
-                      key={iconButton.title}
-                      label={iconButton.title.replace(
-                        'Werkzaamheden',
-                        'Werkzaam-heden',
-                      )}
-                      onPress={() =>
-                        navigation.navigate(routes.projectDetailBody.name, {
-                          body: {
-                            headerTitle,
-                            sections: iconButton.sections ?? [],
-                            title: iconButton.title,
-                          },
-                        })
-                      }
-                    />
-                  ) : null,
-                )}
+              {iconButtons?.map(iconButton =>
+                iconButton.sections?.length ? (
+                  <IconButton
+                    icon={iconButton.icon}
+                    key={iconButton.title}
+                    label={iconButton.title.replace(
+                      'Werkzaamheden',
+                      'Werkzaam-heden',
+                    )}
+                    onPress={() =>
+                      navigation.navigate(routes.projectDetailBody.name, {
+                        body: {
+                          headerTitle,
+                          sections: iconButton.sections ?? [],
+                          title: iconButton.title,
+                        },
+                      })
+                    }
+                  />
+                ) : null,
+              )}
             </View>
           </Box>
           <Box background="light">
