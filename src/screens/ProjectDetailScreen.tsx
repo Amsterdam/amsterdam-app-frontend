@@ -4,7 +4,7 @@ import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useLayoutEffect, useMemo} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
@@ -16,7 +16,6 @@ import {
   ScreenWrapper,
   Title,
 } from '../components/ui'
-import {timeline} from '../data/timeline'
 import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
 import {ProjectDetail} from '../types/project'
@@ -32,85 +31,11 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
-  const response = useFetch({
-    url: `${route.params.url}?AppIdt=app-pagetype&reload=true`,
-    options: {},
-  })
-
-  // @ts-ignore
-  const page = response.data.item?.page
-  const blok = page?.cluster?.find((c: any) => c.Nam === 'Blok')
-
-  const project: ProjectDetail = useMemo(
-    () => ({
-      body: {},
-      districtId: '',
-      id: page?.PagIdt,
-      image: {uri: ''},
-      title: page?.title,
-    }),
-    [page?.PagIdt, page?.title],
-  )
-
-  blok?.cluster?.forEach((clusterObj: any) => {
-    Array.isArray(clusterObj.cluster) &&
-      clusterObj.cluster.forEach((nestedClusterObj: any) => {
-        const veldCache: any = {}
-
-        Array.isArray(nestedClusterObj.veld) &&
-          nestedClusterObj.veld.forEach((veldObj: any) => {
-            veldCache[veldObj.Nam] = veldObj.Wrd ?? veldObj.Txt
-
-            if (veldObj.Nam === 'Afbeelding') {
-              project.image = {
-                uri:
-                  'https://www.amsterdam.nl/publish/pages/' +
-                  `${project.id}/${veldObj.FilNam}`,
-              }
-            }
-
-            if (veldObj.Nam === 'App categorie') {
-              const selAka = veldObj.SelAka.toString()
-              if (selAka === 'contact') {
-                project.body.contact = {
-                  text: veldCache.Tekst,
-                  title: veldCache.Titel,
-                }
-              }
-              if (selAka === 'what') {
-                project.body.what = {
-                  text: veldCache.Tekst,
-                  title: veldCache.Titel,
-                }
-              }
-              if (selAka === 'when') {
-                project.body.when = {
-                  text: veldCache.Tekst,
-                  title: veldCache.Titel,
-                }
-              }
-              if (project.id === '970738') {
-                project.body.when = {
-                  text: timeline.intro,
-                  timeline: timeline,
-                  title: 'Wanneer',
-                }
-              }
-              if (selAka === 'where') {
-                project.body.where = {
-                  text: veldCache.Tekst,
-                  title: veldCache.Titel,
-                }
-              }
-              if (selAka === 'work') {
-                project.body.work = {
-                  text: veldCache.Tekst,
-                  title: veldCache.Titel,
-                }
-              }
-            }
-          })
-      })
+  const {data: project, isLoading} = useFetch<ProjectDetail>({
+    url: 'http://localhost:8000/api/v1/project/details',
+    options: {
+      params: `?id=${route.params.id}`,
+    },
   })
 
   useLayoutEffect(() => {
@@ -121,19 +46,22 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   return (
     <ScreenWrapper>
-      {response.isLoading ? (
+      {isLoading ? (
         <Box>
           <ActivityIndicator />
         </Box>
       ) : (
         <ScrollView>
-          {project.image && (
-            <Image source={project.image} style={styles.image} />
+          {project?.images && project.images[0].sources.orig.url && (
+            <Image
+              source={{uri: project.images[0].sources.orig.url}}
+              style={styles.image}
+            />
           )}
           <Box background="lighter">
-            <Title margin text={project.title} />
+            <Title margin text={project?.title || ''} />
             <View style={styles.row}>
-              {project.body.what && (
+              {project?.body?.what.length && (
                 <IconButton
                   icon={<Info fill={color.font.inverse} />}
                   label="Informatie"
@@ -144,7 +72,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   }
                 />
               )}
-              {project.body.when && (
+              {project?.body?.when.length && (
                 <IconButton
                   icon={<Calendar fill={color.font.inverse} />}
                   label="Tijdlijn"
@@ -155,7 +83,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   }
                 />
               )}
-              {project.body.work && (
+              {project?.body?.work.length && (
                 <IconButton
                   icon={<LocationFields fill={color.font.inverse} />}
                   label="Werkzaam-heden"
@@ -166,7 +94,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   }
                 />
               )}
-              {project.body.contact && (
+              {project?.body?.contact.length && (
                 <IconButton
                   icon={<ChatBubble fill={color.font.inverse} />}
                   label="Contact"

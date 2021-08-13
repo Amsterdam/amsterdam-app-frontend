@@ -4,7 +4,7 @@ import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Text, Title} from '../components/ui'
+import {Box, ScreenWrapper, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
@@ -38,19 +38,17 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
           </View>
         </Box>
         <Box>
-          {project.body.what ? (
-            <>
-              <Title level={4} margin text={project.body.what.title} />
+          {project.body.what.map(section => (
+            <React.Fragment key={section.title}>
+              <Title level={4} margin text={section.title} />
               <RenderHTML
                 contentWidth={width}
-                source={{html: project.body.what.text}}
+                source={{html: section.html}}
                 systemFonts={[font.weight.regular, font.weight.demi]}
                 tagsStyles={tagsStyles}
               />
-            </>
-          ) : (
-            <Text>Geen informatie gevonden.</Text>
-          )}
+            </React.Fragment>
+          ))}
         </Box>
       </ScrollView>
     </ScreenWrapper>

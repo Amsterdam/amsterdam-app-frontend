@@ -25,7 +25,7 @@ import {NewsArticle, ProjectDetail} from './src/types'
 
 export type RootStackParamList = {
   Home: undefined
-  ProjectDetail: {url: string}
+  ProjectDetail: {id: string}
   ProjectNews: {newsArticle: NewsArticle}
   ProjectDetailContact: {project: ProjectDetail}
   ProjectDetailInformation: {project: ProjectDetail}
