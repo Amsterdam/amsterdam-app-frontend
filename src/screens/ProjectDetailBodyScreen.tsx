@@ -27,7 +27,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: body.projectTitle.substr(0, 24),
+      title: body.headerTitle,
     })
   })
 

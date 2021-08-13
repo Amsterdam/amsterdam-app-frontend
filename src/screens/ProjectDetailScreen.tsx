@@ -20,6 +20,7 @@ import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
 import {Section} from '../types'
 import {ProjectDetail} from '../types/project'
+import {clipText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -39,11 +40,13 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
+  const headerTitle = clipText(project?.title, [':', ','])
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: project?.title,
+      title: headerTitle,
     })
-  }, [navigation, project])
+  }, [headerTitle, navigation])
 
   const iconButtons: {
     icon: any
@@ -102,7 +105,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                       onPress={() =>
                         navigation.navigate(routes.projectDetailBody.name, {
                           body: {
-                            projectTitle: project.title,
+                            headerTitle,
                             sections: iconButton.sections ?? [],
                             title: iconButton.title,
                           },

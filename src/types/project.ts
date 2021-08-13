@@ -38,7 +38,7 @@ export type ProjectDetail = {
 }
 
 export type ProjectDetailBody = {
-  projectTitle: string
+  headerTitle: string
   sections: Section[]
   title: string
 }
