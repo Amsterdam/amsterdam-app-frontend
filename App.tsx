@@ -22,9 +22,10 @@ import {NewsArticle, ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
   Home: undefined
-  ProjectNews: {article: NewsArticle}
+  Onboarding: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
+  ProjectNews: {newsArticle: NewsArticle}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Waste: undefined
@@ -108,6 +109,7 @@ export const App = () => {
   const Stack = createStackNavigator()
   const {
     home,
+    onboarding,
     projectDetail,
     projectDetailBody,
     projectOverview,
