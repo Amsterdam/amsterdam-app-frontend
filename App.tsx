@@ -20,7 +20,7 @@ import {
   ReportScreen,
   WasteGuideScreen,
 } from './src/screens'
-import {size} from './src/tokens'
+import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetail} from './src/types'
 
 export type RootStackParamList = {
@@ -100,6 +100,7 @@ export const routes: Routes = {
 }
 
 const globalScreenOptions: StackNavigationOptions = {
+  cardStyle: {backgroundColor: color.background.light},
   headerStyle: {
     backgroundColor: 'white',
   },
