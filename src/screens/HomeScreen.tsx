@@ -30,6 +30,11 @@ export const HomeScreen = ({navigation}: Props) => {
           onPress={() => navigation.navigate(routes.wasteGuide.name)}
           text="Raadpleeg de afvalwijzer"
         />
+        <Gutter height={size.spacing.md} />
+        <Button
+          onPress={() => navigation.navigate(routes.onboarding.name)}
+          text="Vul uw adres in"
+        />
       </Box>
     </ScreenWrapper>
   )
