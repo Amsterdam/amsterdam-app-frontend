@@ -1,4 +1,3 @@
-import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
@@ -6,25 +5,25 @@ import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
-import {color, font, size} from '../tokens'
+import {font} from '../tokens'
 
-type ProjectDetailInformationScreenRouteProp = RouteProp<
+type ProjectDetailBodyScreenRouteProp = RouteProp<
   RootStackParamList,
-  'ProjectDetailInformation'
+  'ProjectDetailBody'
 >
 
 type Props = {
-  route: ProjectDetailInformationScreenRouteProp
+  route: ProjectDetailBodyScreenRouteProp
 }
 
-export const ProjectDetailInformationScreen = ({route}: Props) => {
-  const {project} = route.params
+export const ProjectDetailBodyScreen = ({route}: Props) => {
+  const {body} = route.params
   const navigation = useNavigation()
   const {width} = useWindowDimensions()
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: project.title,
+      title: body.projectTitle.substr(0, 24),
     })
   })
 
@@ -33,12 +32,12 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
       <ScrollView>
         <Box background="lighter">
           <View style={styles.row}>
-            <Info fill={color.font.primary} style={styles.icon} />
-            <Title primary text="Informatie" />
+            {body.icon}
+            <Title primary text={body.title} />
           </View>
         </Box>
         <Box>
-          {project.body.what.map(section => (
+          {body.sections.map(section => (
             <React.Fragment key={section.title}>
               <Title level={4} margin text={section.title} />
               <RenderHTML
@@ -56,10 +55,6 @@ export const ProjectDetailInformationScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    width: font.height.h1,
-    marginRight: size.spacing.md,
-  },
   row: {
     flexDirection: 'row',
   },

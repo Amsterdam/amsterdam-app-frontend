@@ -1,3 +1,4 @@
+import {ReactElement} from 'react'
 import {Section} from '.'
 
 export type ProjectOverviewItem = {
@@ -35,6 +36,13 @@ export type ProjectDetail = {
   rel_url: string
   title: string
   url: string
+}
+
+export type ProjectDetailBody = {
+  icon: ReactElement
+  projectTitle: string
+  sections: Section[]
+  title: string
 }
 
 export type ProjectImage = {

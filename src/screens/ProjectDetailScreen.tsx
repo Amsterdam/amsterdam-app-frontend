@@ -17,7 +17,7 @@ import {
   Title,
 } from '../components/ui'
 import {useFetch} from '../hooks/useFetch'
-import {color, image, size} from '../tokens'
+import {color, font, image, size} from '../tokens'
 import {ProjectDetail} from '../types/project'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -66,8 +66,15 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   icon={<Info fill={color.font.inverse} />}
                   label="Informatie"
                   onPress={() =>
-                    navigation.navigate(routes.projectDetailInformation.name, {
-                      project,
+                    navigation.navigate(routes.projectDetailBody.name, {
+                      body: {
+                        icon: (
+                          <Info fill={color.font.primary} style={styles.icon} />
+                        ),
+                        projectTitle: project.title,
+                        sections: project.body.what,
+                        title: 'Informatie',
+                      },
                     })
                   }
                 />
@@ -77,8 +84,18 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   icon={<Calendar fill={color.font.inverse} />}
                   label="Tijdlijn"
                   onPress={() =>
-                    navigation.navigate(routes.projectDetailTimeline.name, {
-                      project,
+                    navigation.navigate(routes.projectDetailBody.name, {
+                      body: {
+                        icon: (
+                          <Calendar
+                            fill={color.font.primary}
+                            style={styles.icon}
+                          />
+                        ),
+                        projectTitle: project.title,
+                        sections: project.body.when,
+                        title: 'Tijdlijn',
+                      },
                     })
                   }
                 />
@@ -88,8 +105,18 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   icon={<LocationFields fill={color.font.inverse} />}
                   label="Werkzaam-heden"
                   onPress={() =>
-                    navigation.navigate(routes.projectDetailWork.name, {
-                      project,
+                    navigation.navigate(routes.projectDetailBody.name, {
+                      body: {
+                        icon: (
+                          <LocationFields
+                            fill={color.font.primary}
+                            style={styles.icon}
+                          />
+                        ),
+                        projectTitle: project.title,
+                        sections: project.body.work,
+                        title: 'Werkzaamheden',
+                      },
                     })
                   }
                 />
@@ -99,8 +126,18 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   icon={<ChatBubble fill={color.font.inverse} />}
                   label="Contact"
                   onPress={() =>
-                    navigation.navigate(routes.projectDetailContact.name, {
-                      project,
+                    navigation.navigate(routes.projectDetailBody.name, {
+                      body: {
+                        icon: (
+                          <ChatBubble
+                            fill={color.font.primary}
+                            style={styles.icon}
+                          />
+                        ),
+                        projectTitle: project.title,
+                        sections: project.body.contact,
+                        title: 'Contact',
+                      },
                     })
                   }
                 />
@@ -119,6 +156,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    width: font.height.h1,
+    marginRight: size.spacing.md,
+  },
   image: {
     aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',
