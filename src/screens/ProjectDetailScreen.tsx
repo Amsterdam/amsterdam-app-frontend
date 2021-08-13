@@ -17,7 +17,8 @@ import {
   Title,
 } from '../components/ui'
 import {useFetch} from '../hooks/useFetch'
-import {color, font, image, size} from '../tokens'
+import {color, image, size} from '../tokens'
+import {Section} from '../types'
 import {ProjectDetail} from '../types/project'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -44,6 +45,33 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     })
   }, [navigation, project])
 
+  const iconButtons: {
+    icon: any
+    title: string
+    sections?: Section[]
+  }[] = [
+    {
+      icon: <Info fill={color.font.inverse} />,
+      title: 'Informatie',
+      sections: project?.body.what,
+    },
+    {
+      icon: <Calendar fill={color.font.inverse} />,
+      title: 'Tijdlijn',
+      sections: project?.body.when,
+    },
+    {
+      icon: <LocationFields fill={color.font.inverse} />,
+      title: 'Werkzaamheden',
+      sections: project?.body.work,
+    },
+    {
+      icon: <ChatBubble fill={color.font.inverse} />,
+      title: 'Contact',
+      sections: project?.body.contact,
+    },
+  ]
+
   return (
     <ScreenWrapper>
       {isLoading ? (
@@ -61,87 +89,28 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Box background="lighter">
             <Title margin text={project?.title || ''} />
             <View style={styles.row}>
-              {project?.body?.what.length && (
-                <IconButton
-                  icon={<Info fill={color.font.inverse} />}
-                  label="Informatie"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailBody.name, {
-                      body: {
-                        icon: (
-                          <Info fill={color.font.primary} style={styles.icon} />
-                        ),
-                        projectTitle: project.title,
-                        sections: project.body.what,
-                        title: 'Informatie',
-                      },
-                    })
-                  }
-                />
-              )}
-              {project?.body?.when.length && (
-                <IconButton
-                  icon={<Calendar fill={color.font.inverse} />}
-                  label="Tijdlijn"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailBody.name, {
-                      body: {
-                        icon: (
-                          <Calendar
-                            fill={color.font.primary}
-                            style={styles.icon}
-                          />
-                        ),
-                        projectTitle: project.title,
-                        sections: project.body.when,
-                        title: 'Tijdlijn',
-                      },
-                    })
-                  }
-                />
-              )}
-              {project?.body?.work.length && (
-                <IconButton
-                  icon={<LocationFields fill={color.font.inverse} />}
-                  label="Werkzaam-heden"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailBody.name, {
-                      body: {
-                        icon: (
-                          <LocationFields
-                            fill={color.font.primary}
-                            style={styles.icon}
-                          />
-                        ),
-                        projectTitle: project.title,
-                        sections: project.body.work,
-                        title: 'Werkzaamheden',
-                      },
-                    })
-                  }
-                />
-              )}
-              {project?.body?.contact.length && (
-                <IconButton
-                  icon={<ChatBubble fill={color.font.inverse} />}
-                  label="Contact"
-                  onPress={() =>
-                    navigation.navigate(routes.projectDetailBody.name, {
-                      body: {
-                        icon: (
-                          <ChatBubble
-                            fill={color.font.primary}
-                            style={styles.icon}
-                          />
-                        ),
-                        projectTitle: project.title,
-                        sections: project.body.contact,
-                        title: 'Contact',
-                      },
-                    })
-                  }
-                />
-              )}
+              {project &&
+                iconButtons.map(iconButton =>
+                  iconButton.sections?.length ? (
+                    <IconButton
+                      icon={iconButton.icon}
+                      key={iconButton.title}
+                      label={iconButton.title.replace(
+                        'Werkzaamheden',
+                        'Werkzaam-heden',
+                      )}
+                      onPress={() =>
+                        navigation.navigate(routes.projectDetailBody.name, {
+                          body: {
+                            projectTitle: project.title,
+                            sections: iconButton.sections ?? [],
+                            title: iconButton.title,
+                          },
+                        })
+                      }
+                    />
+                  ) : null,
+                )}
             </View>
           </Box>
           <Box background="light">
@@ -156,10 +125,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    width: font.height.h1,
-    marginRight: size.spacing.md,
-  },
   image: {
     aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',

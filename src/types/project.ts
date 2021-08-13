@@ -1,4 +1,3 @@
-import {ReactElement} from 'react'
 import {Section} from '.'
 
 export type ProjectOverviewItem = {
@@ -39,7 +38,6 @@ export type ProjectDetail = {
 }
 
 export type ProjectDetailBody = {
-  icon: ReactElement
   projectTitle: string
   sections: Section[]
   title: string

@@ -1,11 +1,15 @@
+import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
+import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
+import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
+import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
-import React, {useLayoutEffect} from 'react'
+import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
 import {Box, ScreenWrapper, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
-import {font} from '../tokens'
+import {color, font, size} from '../tokens'
 
 type ProjectDetailBodyScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -27,12 +31,21 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
     })
   })
 
+  const icon: Record<string, ReactNode> = {
+    Contact: <ChatBubble fill={color.font.primary} style={styles.icon} />,
+    Informatie: <Info fill={color.font.primary} style={styles.icon} />,
+    Tijdlijn: <Calendar fill={color.font.primary} style={styles.icon} />,
+    Werkzaamheden: (
+      <LocationFields fill={color.font.primary} style={styles.icon} />
+    ),
+  }
+
   return (
     <ScreenWrapper>
       <ScrollView>
         <Box background="lighter">
           <View style={styles.row}>
-            {body.icon}
+            {icon[body.title]}
             <Title primary text={body.title} />
           </View>
         </Box>
@@ -55,6 +68,10 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    width: font.height.h1,
+    marginRight: size.spacing.md,
+  },
   row: {
     flexDirection: 'row',
   },
