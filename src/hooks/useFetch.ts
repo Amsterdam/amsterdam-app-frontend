@@ -22,7 +22,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
       try {
         const response = await fetch(url + (options?.params ?? params), {
           headers: {
-            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
         })
         const json = await response.json()
