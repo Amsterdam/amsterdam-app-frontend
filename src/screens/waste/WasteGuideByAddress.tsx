@@ -19,7 +19,6 @@ export const WasteGuideByAddress = () => {
 
   const response = useFetch<BagResponse[]>({
     onLoad: false,
-    options: {},
     url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
   })
 
@@ -46,7 +45,7 @@ export const WasteGuideByAddress = () => {
             <Button
               icon={<Search fill={color.font.inverse} />}
               variant="secondary"
-              onPress={() => response.fetchData(`q=${address}`)}
+              onPress={() => response.fetchData(`?q=${address}`)}
             />
           </View>
         </View>
@@ -57,7 +56,7 @@ export const WasteGuideByAddress = () => {
         ) : (
           <>
             {response.data
-              .filter(i => i.label === 'Straatnamen')
+              ?.filter(i => i.label === 'Straatnamen')
               .map(j =>
                 j.content.map(k => <Text key={k.uri}>- {k._display}</Text>),
               )}

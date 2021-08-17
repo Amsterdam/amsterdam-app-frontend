@@ -15,19 +15,18 @@ type Props = {
 }
 
 export const ProjectNewsScreen = ({route}: Props) => {
-  const {newsArticle} = route.params
-  const {content} = newsArticle
+  const {article} = route.params
   const {width} = useWindowDimensions()
 
   return (
     <ScreenWrapper>
       <ScrollView>
-        <Image source={{uri: newsArticle.image_url}} style={styles.image} />
+        <Image source={{uri: article.image_url}} style={styles.image} />
         <Box>
-          <Title margin text={newsArticle.title} />
+          <Title margin text={article.title} />
           <RenderHTML
             contentWidth={width}
-            source={{html: content}}
+            source={{html: article.content}}
             systemFonts={[font.weight.regular, font.weight.demi]}
             tagsStyles={tagsStyles}
           />

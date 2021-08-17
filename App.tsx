@@ -9,11 +9,8 @@ import Logo from './src/assets/icons/logo.svg'
 import {OrientationProvider} from './src/providers/orientation.provider'
 import {
   HomeScreen,
-  ProjectDetailContactScreen,
-  ProjectDetailInformationScreen,
+  ProjectDetailBodyScreen,
   ProjectDetailScreen,
-  ProjectDetailTimelineScreen,
-  ProjectDetailWorkScreen,
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
@@ -21,16 +18,13 @@ import {
   WasteGuideScreen,
 } from './src/screens'
 import {color, size} from './src/tokens'
-import {NewsArticle, ProjectDetail} from './src/types'
+import {NewsArticle, ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
   Home: undefined
-  ProjectDetail: {url: string}
-  ProjectNews: {newsArticle: NewsArticle}
-  ProjectDetailContact: {project: ProjectDetail}
-  ProjectDetailInformation: {project: ProjectDetail}
-  ProjectDetailTimeline: {project: ProjectDetail}
-  ProjectDetailWork: {project: ProjectDetail}
+  ProjectDetail: {id: string}
+  ProjectNews: {article: NewsArticle}
+  ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {districtId: number}
   Report: {uri: string}
@@ -73,17 +67,8 @@ export const routes: Routes = {
       title: 'Nieuws',
     },
   },
-  projectDetailContact: {
-    name: 'ProjectDetailContact',
-  },
-  projectDetailInformation: {
-    name: 'ProjectDetailInformation',
-  },
-  projectDetailTimeline: {
-    name: 'ProjectDetailTimeline',
-  },
-  projectDetailWork: {
-    name: 'ProjectDetailWork',
+  projectDetailBody: {
+    name: 'ProjectDetailBody',
   },
   report: {
     name: 'Report',
@@ -100,7 +85,9 @@ export const routes: Routes = {
 }
 
 const globalScreenOptions: StackNavigationOptions = {
-  cardStyle: {backgroundColor: color.background.light},
+  cardStyle: {
+    backgroundColor: color.background.light,
+  },
   headerStyle: {
     backgroundColor: 'white',
   },
@@ -122,10 +109,7 @@ export const App = () => {
   const {
     home,
     projectDetail,
-    projectDetailContact,
-    projectDetailInformation,
-    projectDetailTimeline,
-    projectDetailWork,
+    projectDetailBody,
     projectOverview,
     projectOverviewByDistrict,
     projectNews,
@@ -160,24 +144,9 @@ export const App = () => {
             options={projectDetail.options}
           />
           <Stack.Screen
-            name={projectDetailContact.name}
-            component={ProjectDetailContactScreen}
-            options={projectDetailContact.options}
-          />
-          <Stack.Screen
-            name={projectDetailInformation.name}
-            component={ProjectDetailInformationScreen}
-            options={projectDetailInformation.options}
-          />
-          <Stack.Screen
-            name={projectDetailTimeline.name}
-            component={ProjectDetailTimelineScreen}
-            options={projectDetailTimeline.options}
-          />
-          <Stack.Screen
-            name={projectDetailWork.name}
-            component={ProjectDetailWorkScreen}
-            options={projectDetailWork.options}
+            name={projectDetailBody.name}
+            component={ProjectDetailBodyScreen}
+            options={projectDetailBody.options}
           />
           <Stack.Screen
             name={projectNews.name}

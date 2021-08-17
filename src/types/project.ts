@@ -1,43 +1,65 @@
-import {Section, Timeline} from '.'
+import {Section} from '.'
 
-export type Project = {
-  districtId: number
-  id: number
-  image?: {uri: string}
-  title: string
-  url: string
-}
-
-export type ProjectResponse = {
-  author: string
-  category: string
-  content: string // html
-  feedid: string
-  image_url: string // url
-  images: string[]
-  modification_date: string // date
-  photo_author: string
-  publication_date: string // date
-  related_articles: string
-  source_url: string // url
+export type ProjectOverviewItem = {
+  content_html: string
+  content_text: string
+  district_id: number
+  district_name: string
+  identifier: string
+  images: []
+  modification_date: string
+  project_type: string
+  publication_date: string
+  source_url: string
   title: string
 }
 
 export type ProjectDetail = {
   body: {
-    contact?: Section
-    what?: Section
-    when?: Section & {timeline?: Timeline}
-    where?: Section
-    work?: Section
+    contact: Section[]
+    intro: Section[]
+    what: Section[]
+    when: Section[]
+    where: Section[]
+    work: Section[]
+    'more-info': Section[]
+    coordinates: {
+      lat: number
+      lon: number
+    }
   }
-  districtId: string
-  id: string
-  image?: {uri: string}
-  news?: any
+  district_id: number
+  district_name: string
+  identifier: string
+  images: ProjectImage[]
+  page_id: number
+  rel_url: string
+  title: string
+  url: string
+}
+
+export type ProjectDetailBody = {
+  headerTitle: string
+  sections: Section[]
   title: string
 }
 
-export type ProjectDetailResponse = {
-  item: any
+export type ProjectImage = {
+  sources: ProjectImageSources
+  type: string
+}
+
+export type ProjectImageSources = {
+  orig: ProjectImageSource
+  '220px': ProjectImageSource
+  '460px': ProjectImageSource
+  '700px': ProjectImageSource
+  '80px': ProjectImageSource
+}
+
+export type ProjectImageSource = {
+  description: string
+  filename: string
+  image_id: string
+  url: string
 }
