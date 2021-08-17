@@ -20,7 +20,11 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
 
       setLoading(true)
       try {
-        const response = await fetch(url + (options?.params ?? params))
+        const response = await fetch(url + (options?.params ?? params), {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         const json = await response.json()
         !signal.aborted && setData(json.result ?? json)
       } catch (error) {
