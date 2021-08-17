@@ -14,34 +14,35 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [isLoading, setLoading] = useState(false)
 
   const fetchData = useCallback(
-    async (params: string = '') => {
-      const abortController = new AbortController()
-      const signal = abortController.signal
-
+    async (abortController, params: string = '') => {
       setLoading(true)
+
       try {
         const response = await fetch(url + (options?.params ?? params), {
           headers: {
             Accept: 'application/json',
           },
+          signal: abortController.signal,
         })
         const json = await response.json()
-        !signal.aborted && setData(json.result ?? json)
+        setData(json.result ?? json)
       } catch (error) {
-        !signal.aborted && setError(error)
+        !abortController.signal.aborted && setError(error)
       } finally {
-        !signal.aborted && setLoading(false)
-      }
-
-      return () => {
-        abortController.abort()
+        !abortController.signal.aborted && setLoading(false)
       }
     },
     [options?.params, url],
   )
 
   useEffect(() => {
-    onLoad && fetchData()
+    const abortController = new AbortController()
+
+    onLoad && fetchData(abortController)
+
+    return () => {
+      abortController.abort()
+    }
   }, [fetchData, onLoad])
 
   return {data, fetchData, isError, isLoading}
