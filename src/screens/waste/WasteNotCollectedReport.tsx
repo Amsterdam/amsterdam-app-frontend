@@ -4,14 +4,14 @@ import {RootStackParamList, routes} from '../../../App'
 import {BannerCard} from '../../components/features'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Report'>
+  navigation: StackNavigationProp<RootStackParamList, 'WebView'>
 }
 
 export const WasteNotCollectedReport = ({navigation}: Props) => (
   <BannerCard
     imageSource={require('../../assets/images/afval-niet-opgehaald.512.jpeg')}
     onPress={() =>
-      navigation.navigate(routes.report.name, {
+      navigation.navigate(routes.webView.name, {
         uri: 'https://acc.meldingen.amsterdam.nl/categorie/afval/grofvuil',
       })
     }

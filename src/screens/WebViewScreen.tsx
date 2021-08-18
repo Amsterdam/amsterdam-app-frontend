@@ -4,13 +4,14 @@ import {RootStackParamList} from '../../App'
 import {ScreenWrapper, WebView} from '../components/ui'
 
 type Props = {
-  route: RouteProp<RootStackParamList, 'Report'>
+  route: RouteProp<RootStackParamList, 'WebView'>
 }
 
 type UriProp = {uri: string}
 
-export const ReportScreen = ({route}: Props) => {
+export const WebViewScreen = ({route}: Props) => {
   const {uri}: UriProp = route.params
+
   return (
     <ScreenWrapper>
       <WebView uri={uri} />
