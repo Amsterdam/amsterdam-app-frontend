@@ -5,7 +5,7 @@ import {Box, Button, Gutter, ScreenWrapper} from '../components/ui'
 import {size} from '../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+  navigation: StackNavigationProp<RootStackParamList, 'Report'>
 }
 
 export const HomeScreen = ({navigation}: Props) => {

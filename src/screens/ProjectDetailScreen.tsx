@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {NewsItemsOverview} from '../components/features/NewsItemsOverview'
+import {NewsItemsOverview} from '../components/features'
 import {
   Box,
   Gutter,

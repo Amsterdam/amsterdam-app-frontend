@@ -50,19 +50,20 @@ export const WasteGuideByAddress = () => {
           </View>
         </View>
       </Box>
-      <Box>
-        {response.isLoading ? (
+      {response.isLoading && (
+        <Box>
           <ActivityIndicator />
-        ) : (
-          <>
-            {response.data
-              ?.filter(i => i.label === 'Straatnamen')
-              .map(j =>
-                j.content.map(k => <Text key={k.uri}>- {k._display}</Text>),
-              )}
-          </>
-        )}
-      </Box>
+        </Box>
+      )}
+      {response.data && (
+        <Box>
+          {response.data
+            .filter(i => i.label === 'Straatnamen')
+            .map(j =>
+              j.content.map(k => <Text key={k.uri}>- {k._display}</Text>),
+            )}
+        </Box>
+      )}
     </>
   )
 }
