@@ -61,5 +61,6 @@ export type ProjectImageSource = {
   description: string
   filename: string
   image_id: string
+  size: string
   url: string
 }
