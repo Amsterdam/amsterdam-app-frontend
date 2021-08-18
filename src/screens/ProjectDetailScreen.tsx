@@ -36,7 +36,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const {data: project, isLoading} = useFetch<ProjectDetail>({
     url: 'http://localhost:8000/api/v1/project/details',
     options: {
-      params: `?id=${route.params.id}`,
+      params: {
+        id: route.params.id,
+      },
     },
   })
 
@@ -81,11 +83,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   return (
     <ScreenWrapper>
-      {isLoading ? (
+      {isLoading && !project && (
         <Box>
           <ActivityIndicator />
         </Box>
-      ) : (
+      )}
+      {project && (
         <ScrollView>
           {project?.images && project.images[0].sources.orig.url && (
             <Image
