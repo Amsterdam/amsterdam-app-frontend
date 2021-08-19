@@ -15,7 +15,7 @@ export const Timeline = ({items}: Props) => {
             isFirst={index === 0}
             isLast={index === items.length - 1}
             item={item}
-            key={item.title + index}
+            key={item.title.text + index}
           />
         )
       })}

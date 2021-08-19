@@ -20,7 +20,7 @@ type Props = {
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const {width} = useWindowDimensions()
-  const isCurrent = item.status === 'current'
+  const isCurrent = item.progress === 'Huidig'
   const [expanded, setExpanded] = useState(isCurrent)
 
   const chevronProps = {fill: color.background.darker, height: 9, width: 14}
@@ -57,12 +57,12 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         onPress={toggleExpand}
         style={styles.header}>
         <View style={styles.indicator}>
-          {item.status === 'finished' && (
+          {item.progress === 'Afgelopen' && (
             <Checkmark fill={color.background.light} height={11} width={14} />
           )}
         </View>
         <View style={styles.title}>
-          <Title level={4} margin text={item.title} />
+          <Title level={4} margin text={item.title.text} />
         </View>
         {expanded ? (
           <ChevronUp {...chevronProps} />
@@ -73,7 +73,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
         <RenderHTML
           contentWidth={width}
-          source={{html: item.content}}
+          source={{html: item.content.html}}
           systemFonts={[font.weight.regular]}
           tagsStyles={tagsStyles}
         />
