@@ -3,7 +3,7 @@ import React from 'react'
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Box, Gutter, ScreenWrapper, Title} from '../components/ui'
+import {Box, Button, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {districts} from '../data/districts'
 import {useFetch} from '../hooks/useFetch'
 import {color, size} from '../tokens'
@@ -21,7 +21,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   const projectsByDistrict = districts.map(district => ({
     id: district.id,
     title: district.name,
-    data: projects?.filter(project => project.district_name === district.name),
+    data: projects?.filter(project => project.district_id === district.id),
   }))
 
   return (
@@ -44,6 +44,17 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               <React.Fragment key={districtItem.id}>
                 <View style={styles.titleRow}>
                   <Title level={2} text={districtItem.title} />
+                  <Button
+                    onPress={() =>
+                      navigation.navigate(
+                        routes.projectOverviewByDistrict.name,
+                        {
+                          id: districtItem.id,
+                        },
+                      )
+                    }
+                    text="Ga naar overzicht"
+                  />
                 </View>
                 <FlatList
                   data={districtItem.data}

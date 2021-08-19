@@ -6,7 +6,7 @@ export type ProjectOverviewItem = {
   district_id: number
   district_name: string
   identifier: string
-  images: []
+  images: ProjectImage[]
   modification_date: string
   project_type: string
   publication_date: string

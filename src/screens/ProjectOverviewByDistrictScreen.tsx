@@ -1,12 +1,14 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper} from '../components/ui'
+import {useFetch} from '../hooks/useFetch'
 import {size} from '../tokens'
-import {Project, ProjectResponse} from '../types/project'
+import {ProjectOverviewItem} from '../types/project'
+import {districts} from '../data/districts'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -18,58 +20,42 @@ type Props = {
   route: ProjectOverviewByDistrictScreenRouteProp
 }
 
-export const ProjectOverviewByDistrictScreen = ({navigation}: Props) => {
-  const [isBruggenLoading, setBruggenLoading] = useState(true)
-  const [bruggenData, setBruggenData] = useState<ProjectResponse[]>([])
-  const [isKademurenLoading, setKademurenLoading] = useState(true)
-  const [kademurenData, setKademurenData] = useState<ProjectResponse[]>([])
+export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
+  const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
+    url: 'http://localhost:8000/api/v1/projects',
+  })
 
-  useEffect(() => {
-    fetch(
-      'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/?new_json=true',
-    )
-      .then(response => response.json())
-      .then(json => setBruggenData(json))
-      .catch(error => console.error(error))
-      .finally(() => setBruggenLoading(false))
-  }, [])
+  const districtId = route.params.id
 
-  useEffect(() => {
-    fetch(
-      'https://www.amsterdam.nl/projecten/bruggen/maatregelen-vernieuwen-bruggen/?new_json=true',
-    )
-      .then(response => response.json())
-      .then(json => setKademurenData(json))
-      .catch(error => console.error(error))
-      .finally(() => setKademurenLoading(false))
-  }, [])
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: districts.find(d => d.id === districtId)?.name,
+    })
+  })
 
-  const projects: Project[] = [...bruggenData, ...kademurenData]
-    .sort((a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0))
-    .map(({feedid, image_url, title}, index) => ({
-      districtId: Math.ceil(7 * Math.random()),
-      id: index,
-      image: {uri: image_url},
-      title,
-      url: feedid,
-    }))
+  const projectsInDistrict = projects?.filter(
+    project => project.district_id === districtId,
+  )
 
   return (
     <ScreenWrapper>
       <Box>
-        {isBruggenLoading || isKademurenLoading ? (
+        {isLoading ? (
           <ActivityIndicator />
         ) : (
           <FlatList
-            data={projects}
+            data={projectsInDistrict}
             ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item.identifier.toString()}
             renderItem={({item}) => (
               <ProjectCard
-                title={item.title}
+                imageSource={{
+                  uri: item.images[0].sources['460px'].url,
+                }}
                 onPress={() =>
-                  navigation.navigate('ProjectDetail', {url: item.url})
+                  navigation.navigate('ProjectDetail', {id: item.identifier})
                 }
+                title={item.title}
               />
             )}
           />
