@@ -2,7 +2,7 @@ import React from 'react'
 import {BannerCard} from '../../components/features'
 import {openWebUrl} from '../../utils/openWebUrl'
 
-export const WasteRecyclingBanner = () => (
+export const RecyclingGuideBanner = () => (
   <BannerCard
     imageSource={require('../../assets/images/banner-illustratie-welkafvalhoortwaar.png')}
     onPress={() => openWebUrl('https://www.afvalscheidingswijzer.nl')}

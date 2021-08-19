@@ -14,7 +14,7 @@ import {
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
-  WasteGuideScreen,
+  WasteScreen,
   WebViewScreen,
 } from './src/screens'
 import {color, size} from './src/tokens'
@@ -27,7 +27,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {districtId: number}
-  WasteGuide: undefined
+  Waste: undefined
   WebView: {uri: string}
 }
 
@@ -71,7 +71,7 @@ export const routes: Routes = {
     },
   },
   wasteGuide: {
-    name: 'WasteGuide',
+    name: 'Waste',
     options: {
       title: 'Afvalinformatie op adres',
     },
@@ -154,8 +154,8 @@ export const App = () => {
             options={projectOverviewByDistrict.options}
           />
           <Stack.Screen
-            name="WasteGuide"
-            component={WasteGuideScreen}
+            name="Waste"
+            component={WasteScreen}
             options={wasteGuide.options}
           />
           <Stack.Screen

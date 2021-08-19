@@ -4,21 +4,21 @@ import {ScrollView} from 'react-native'
 import {Box, Gutter, ScreenWrapper} from '../../components/ui'
 import {size} from '../../tokens'
 import {
+  RecyclingGuideBanner,
+  ReportNotCollectedBanner,
   WasteGuideByAddress,
-  WasteNotCollectedReport,
-  WasteRecyclingBanner,
 } from './'
 
-export const WasteGuideScreen = () => {
+export const WasteScreen = () => {
   return (
     <ScreenWrapper>
       <ScrollView>
         <Box>
           <WasteGuideByAddress />
           <Gutter height={size.spacing.md} />
-          <WasteRecyclingBanner />
+          <RecyclingGuideBanner />
           <Gutter height={size.spacing.md} />
-          <WasteNotCollectedReport navigation={useNavigation()} />
+          <ReportNotCollectedBanner navigation={useNavigation()} />
         </Box>
       </ScrollView>
     </ScreenWrapper>

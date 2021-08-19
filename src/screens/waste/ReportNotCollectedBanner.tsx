@@ -7,7 +7,7 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'WebView'>
 }
 
-export const WasteNotCollectedReport = ({navigation}: Props) => (
+export const ReportNotCollectedBanner = ({navigation}: Props) => (
   <BannerCard
     imageSource={require('../../assets/images/banner-foto-afval.jpg')}
     onPress={() =>
