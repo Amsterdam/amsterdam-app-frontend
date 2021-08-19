@@ -12,8 +12,16 @@ type CardBodyProps = {
   direction?: 'column' | 'row'
 }
 
+type CardHeaderProps = {
+  children: React.ReactNode
+}
+
 export const Card = ({children}: CardProps) => (
   <View style={styles.card}>{children}</View>
+)
+
+export const CardHeader = ({children}: CardHeaderProps) => (
+  <View style={styles.cardHeader}>{children}</View>
 )
 
 export const CardBody = ({
@@ -45,7 +53,15 @@ const styles = StyleSheet.create({
   cardBody: {
     padding: size.spacing.md,
   },
+  cardHeader: {
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
+    borderBottomColor: color.background.light,
+    borderBottomWidth: 1,
+  },
   center: {
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
