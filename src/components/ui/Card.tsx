@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardBody: {
-    padding: size.spacing.md,
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
   },
   cardHeader: {
     paddingHorizontal: size.spacing.md,
