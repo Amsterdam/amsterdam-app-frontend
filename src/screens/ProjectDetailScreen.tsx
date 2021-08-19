@@ -18,7 +18,7 @@ import {
 } from '../components/ui'
 import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
-import {Section} from '../types'
+import {Section, Timeline} from '../types'
 import {ProjectDetail} from '../types/project'
 import {clipText} from '../utils'
 
@@ -54,6 +54,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     icon: any
     title: string
     sections?: Section[]
+    timeline?: Timeline
   }[] = [
     {
       icon: <Info fill={color.font.inverse} />,
@@ -67,7 +68,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     {
       icon: <Calendar fill={color.font.inverse} />,
       title: 'Tijdlijn',
-      sections: project?.body.when,
+      sections: project?.body.when ?? [],
+      timeline: project?.body.timeline,
     },
     {
       icon: <LocationFields fill={color.font.inverse} />,
@@ -100,7 +102,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             <Title margin text={project?.title || ''} />
             <View style={styles.row}>
               {iconButtons?.map(iconButton =>
-                iconButton.sections?.length ? (
+                iconButton.sections?.length || iconButton.timeline ? (
                   <IconButton
                     icon={iconButton.icon}
                     key={iconButton.title}
@@ -114,6 +116,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                           headerTitle,
                           sections: iconButton.sections ?? [],
                           title: iconButton.title,
+                          timeline: iconButton.timeline,
                         },
                       })
                     }

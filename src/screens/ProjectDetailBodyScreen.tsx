@@ -7,7 +7,7 @@ import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Title} from '../components/ui'
+import {Box, ScreenWrapper, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
@@ -61,6 +61,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
               />
             </React.Fragment>
           ))}
+          {body.timeline && <Timeline items={body.timeline.items} />}
         </Box>
       </ScrollView>
     </ScreenWrapper>
