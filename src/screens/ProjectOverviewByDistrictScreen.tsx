@@ -5,10 +5,10 @@ import {ActivityIndicator, FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper} from '../components/ui'
+import {districts} from '../data/districts'
 import {useFetch} from '../hooks/useFetch'
 import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types/project'
-import {districts} from '../data/districts'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   RootStackParamList,

@@ -9,6 +9,7 @@ import {color, font} from '../../tokens'
 type Props = {
   children: React.ReactNode
   inverse?: Boolean
+  link?: Boolean
   margin?: Boolean
   secondary?: Boolean
 } & Omit<TextRNProps, 'style'>
@@ -18,6 +19,7 @@ export const Text = ({
   inverse,
   margin,
   secondary,
+  link,
   ...otherProps
 }: Props) => {
   return (
@@ -26,6 +28,7 @@ export const Text = ({
         styles.text,
         margin && styles.margin,
         inverse && styles.inverse,
+        link && styles.link,
         secondary && styles.secondary,
       ]}
       {...otherProps}>
@@ -38,6 +41,10 @@ const styles = StyleSheet.create({
   inverse: {
     color: color.font.inverse,
     fontFamily: font.weight.demi,
+  },
+  link: {
+    color: color.touchable.primary,
+    textDecorationLine: 'underline',
   },
   margin: {
     marginBottom: font.leadingBottom.p1,

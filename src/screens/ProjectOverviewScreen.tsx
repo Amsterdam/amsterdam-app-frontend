@@ -53,6 +53,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                         },
                       )
                     }
+                    variant="text"
                     text="Ga naar overzicht"
                   />
                 </View>
