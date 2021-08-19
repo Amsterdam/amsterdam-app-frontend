@@ -1,4 +1,5 @@
 export * from './RecyclingGuideBanner'
 export * from './ReportNotCollectedBanner'
 export * from './WasteGuideByAddress'
+export * from './WasteGuideResultCards'
 export * from './WasteScreen'
