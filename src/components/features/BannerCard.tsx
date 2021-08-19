@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from 'react-native'
 import {image} from '../../tokens'
-import {Card, CardBody, Text, Title} from '../ui'
+import {Card, CardBody, Title} from '../ui'
 
 type Props = {
   imageSource?: ImageSourcePropType
@@ -20,8 +20,8 @@ export const BannerCard = ({imageSource, onPress, subtitle, title}: Props) => (
     <Card>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
-        <Title level={4} text={title} />
-        <Text>{subtitle}</Text>
+        <Title level={3} text={title} />
+        <Title level={3} subtitle text={subtitle} />
       </CardBody>
     </Card>
   </TouchableHighlight>

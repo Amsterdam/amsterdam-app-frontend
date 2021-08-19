@@ -7,10 +7,18 @@ type Props = {
   inverse?: Boolean
   margin?: Boolean
   primary?: Boolean
+  subtitle?: Boolean
   text: string
 }
 
-export const Title = ({level = 1, inverse, margin, primary, text}: Props) => {
+export const Title = ({
+  level = 1,
+  inverse,
+  margin,
+  primary,
+  subtitle,
+  text,
+}: Props) => {
   const fontStyles = [styles.h1, styles.h2, styles.h3, styles.h4][level - 1]
   const marginStyles = [styles.h1m, styles.h2m, styles.h3m, styles.h4m][
     level - 1
@@ -23,6 +31,7 @@ export const Title = ({level = 1, inverse, margin, primary, text}: Props) => {
         inverse && styles.inverse,
         margin && marginStyles,
         primary && styles.primary,
+        subtitle && styles.subtitle,
       ]}
       accessibilityRole="header">
       {text}
@@ -76,5 +85,8 @@ const styles = StyleSheet.create({
   },
   primary: {
     color: color.font.primary,
+  },
+  subtitle: {
+    fontFamily: font.weight.regular,
   },
 })
