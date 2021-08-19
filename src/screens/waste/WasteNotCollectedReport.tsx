@@ -9,7 +9,7 @@ type Props = {
 
 export const WasteNotCollectedReport = ({navigation}: Props) => (
   <BannerCard
-    imageSource={require('../../assets/images/afval-niet-opgehaald.512.jpeg')}
+    imageSource={require('../../assets/images/banner-foto-afval.jpg')}
     onPress={() =>
       navigation.navigate(routes.webView.name, {
         uri: 'https://acc.meldingen.amsterdam.nl/categorie/afval/grofvuil',
