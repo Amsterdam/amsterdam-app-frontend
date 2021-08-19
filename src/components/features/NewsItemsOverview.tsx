@@ -10,7 +10,6 @@ import {NewsArticleCard} from './NewsArticleCard'
 
 export const NewsItemsOverview = () => {
   const navigation = useNavigation()
-  console.log('render')
   const news = useFetch<NewsArticleList>({
     url: 'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/da-costakade-vernieuwing-kademuren/nieuws-da-costakade/',
     options: {
