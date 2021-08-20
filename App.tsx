@@ -109,7 +109,6 @@ export const App = () => {
   const Stack = createStackNavigator()
   const {
     home,
-    onboarding,
     projectDetail,
     projectDetailBody,
     projectOverview,
