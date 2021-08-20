@@ -49,6 +49,7 @@ export const color = {
   },
   border: {
     input: baseColor.tint.level5,
+    separator: baseColor.tint.level3,
   },
   font: {
     inverse: baseColor.tint.level1,
@@ -56,6 +57,7 @@ export const color = {
     primary: baseColor.primary.main,
     regular: baseColor.tint.level7,
     secondary: baseColor.tint.level5,
+    tertiary: baseColor.tint.level4,
     warning: baseColor.error.main,
   },
   touchable: {
