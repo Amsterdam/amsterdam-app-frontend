@@ -4,10 +4,10 @@ import {TouchableOpacity} from 'react-native'
 import {FlatList} from 'react-native-gesture-handler'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
-import {Card, Gutter, Text, TextInput, Title} from '../ui'
+import {Card, Gutter, Text, TextInput} from '../ui'
 
 type Props = {
-  onFocusInput: (focus: boolean) => void
+  onFocusInput?: (focus: boolean) => void
   onSubmit: (address: any) => void
 }
 
@@ -48,17 +48,13 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
   })
 
-  const prohibitNumbersInStreet = (text: string) => {
-    return text.replace(/[0-9]/g, '')
-  }
-
   const getNumberFromAddress = (text: string): string => {
     return text.match(/([0-9])(.*)/g)?.join('') || ''
   }
 
   const onChangeStreet = (text: string) => {
     setStreetSelected(false)
-    setStreet(prohibitNumbersInStreet(text))
+    setStreet(text)
     setNumber('')
   }
 
@@ -90,11 +86,11 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }
 
   const onStreetInputFocus = () => {
-    onFocusInput(true)
+    onFocusInput && onFocusInput(true)
   }
 
   const onNumberInputFocus = () => {
-    onFocusInput(true)
+    onFocusInput && onFocusInput(true)
     if (!streetSelected) {
       setAddressFirstError('Vul eerst uw straatnaam in a.u.b.')
       inputStreetRef.current.focus()
@@ -130,14 +126,15 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
 
   return (
     <Card>
-      <Title level={4} margin text="Vul uw adres in" />
+      <Text secondary>Vul uw postcode of straatnaam in</Text>
+      <Gutter height={size.spacing.xs} />
       <TextInput
         onChange={event => {
           onChangeStreet(event.nativeEvent.text)
         }}
         onClear={onStreetClear}
         onFocus={onStreetInputFocus}
-        placeholder="Straatnaam"
+        placeholder="Straatnaam of postcode"
         ref={inputStreetRef}
         value={street}
       />
@@ -155,7 +152,9 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
           )}
         />
       )}
-      <Gutter height={size.spacing.sm} />
+      <Gutter height={size.spacing.md} />
+      <Text secondary>Huisnummer + toevoeging</Text>
+      <Gutter height={size.spacing.xs} />
       <TextInput
         onChangeText={text => onChangeNumber(text)}
         onClear={onNumberClear}
