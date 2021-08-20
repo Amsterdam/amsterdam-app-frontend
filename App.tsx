@@ -24,8 +24,8 @@ export type RootStackParamList = {
   Home: undefined
   Onboarding: undefined
   ProjectDetail: {id: string}
+  ProjectNews: {article: NewsArticle}
   ProjectDetailBody: {body: ProjectDetailBody}
-  ProjectNews: {newsArticle: NewsArticle}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Waste: undefined
