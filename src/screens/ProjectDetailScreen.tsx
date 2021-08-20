@@ -16,6 +16,7 @@ import {
   ScreenWrapper,
   Title,
 } from '../components/ui'
+import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
 import {Section, Timeline} from '../types'
@@ -34,7 +35,7 @@ type Props = {
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const {data: project, isLoading} = useFetch<ProjectDetail>({
-    url: 'http://localhost:8000/api/v1/project/details',
+    url: getEnvironment().apiUrl + '/project/details',
     options: {
       params: {
         id: route.params.id,

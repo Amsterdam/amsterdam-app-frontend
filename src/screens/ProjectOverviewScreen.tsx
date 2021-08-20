@@ -5,6 +5,7 @@ import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Button, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {districts} from '../data/districts'
+import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
 import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
@@ -15,7 +16,7 @@ type Props = {
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
   const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
-    url: 'http://localhost:8000/api/v1/projects',
+    url: getEnvironment().apiUrl + '/projects',
   })
 
   const projectsByDistrict = districts.map(district => ({
