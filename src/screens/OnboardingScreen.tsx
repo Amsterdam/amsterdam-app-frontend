@@ -67,8 +67,7 @@ export const OnboardingScreen = () => {
     toggleLayout()
   }, [toggleLayout])
 
-  const onSubmit = (value: {_display: string; uri: string}) => {
-    console.log({value})
+  const onSubmit = () => {
     setFocusInput(false)
   }
 
