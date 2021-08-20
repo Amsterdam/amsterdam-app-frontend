@@ -61,7 +61,9 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
               />
             </React.Fragment>
           ))}
-          {body.timeline && <Timeline items={body.timeline.items} />}
+          {body.timeline?.items?.length && (
+            <Timeline items={body.timeline.items} />
+          )}
         </Box>
       </ScrollView>
     </ScreenWrapper>
