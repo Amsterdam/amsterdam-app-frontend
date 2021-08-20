@@ -46,10 +46,10 @@ export const color = {
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level2,
     lighter: baseColor.tint.level1,
-    mediumLight: baseColor.tint.level3,
   },
   border: {
     input: baseColor.tint.level5,
+    separator: baseColor.tint.level3,
   },
   font: {
     inverse: baseColor.tint.level1,
