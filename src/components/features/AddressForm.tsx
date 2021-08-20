@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import {useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {TouchableOpacity} from 'react-native'
 import {FlatList} from 'react-native-gesture-handler'
 import {useFetch} from '../../hooks/useFetch'
@@ -26,8 +25,8 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   const [address, setAddress] = useState<any>(null)
   const [street, setStreet] = useState<string>('')
   const [number, setNumber] = useState<string>('')
-  const [streetSelected, setStreetSelected] = useState(false)
-  const [numberSelected, setNumberSelected] = useState(false)
+  const [isStreetSelected, setIsStreetSelected] = useState(false)
+  const [isNumberSelected, setIsNumberSelected] = useState(false)
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
@@ -52,46 +51,46 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     return text.match(/([0-9])(.*)/g)?.join('') || ''
   }
 
-  const onChangeStreet = (text: string) => {
-    setStreetSelected(false)
+  const changeStreet = (text: string) => {
+    setIsStreetSelected(false)
     setStreet(text)
     setNumber('')
   }
 
-  const onStreetSelected = (text: string) => {
+  const selectStreet = (text: string) => {
     setStreet(text)
-    setStreetSelected(true)
+    setIsStreetSelected(true)
     inputNumberRef.current.focus()
   }
 
-  const onStreetClear = () => {
+  const clearStreet = () => {
     inputStreetRef.current.clear()
     setStreet('')
   }
 
-  const onNumberClear = () => {
+  const clearNumber = () => {
     inputNumberRef.current.clear()
     setNumber('')
   }
 
-  const onChangeNumber = (text: string) => {
-    setNumberSelected(false)
+  const changeNumber = (text: string) => {
+    setIsNumberSelected(false)
     setNumber(text)
   }
 
-  const onNumberSelected = (text: string) => {
+  const selectNumber = (text: string) => {
     setNumber(text)
-    setNumberSelected(true)
+    setIsNumberSelected(true)
     inputNumberRef.current.blur()
   }
 
-  const onStreetInputFocus = () => {
+  const handleStreetInputFocus = () => {
     onFocusInput && onFocusInput(true)
   }
 
-  const onNumberInputFocus = () => {
+  const handleNumberInputFocus = () => {
     onFocusInput && onFocusInput(true)
-    if (!streetSelected) {
+    if (!isStreetSelected) {
       setAddressFirstError('Vul eerst uw straatnaam in a.u.b.')
       inputStreetRef.current.focus()
     }
@@ -104,10 +103,10 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }, [street])
 
   useEffect(() => {
-    streetSelected && numberSelected
+    isStreetSelected && isNumberSelected
       ? apiAddress.fetchData({q: `${street} ${number}`})
       : apiBag.fetchData({q: `${street} ${number}`})
-  }, [number, numberSelected, streetSelected])
+  }, [number, isNumberSelected, isStreetSelected])
 
   useEffect(() => {
     const suggestions = apiBag.data?.find(
@@ -130,22 +129,22 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
       <Gutter height={size.spacing.xs} />
       <TextInput
         onChange={event => {
-          onChangeStreet(event.nativeEvent.text)
+          changeStreet(event.nativeEvent.text)
         }}
-        onClear={onStreetClear}
-        onFocus={onStreetInputFocus}
+        onClear={clearStreet}
+        onFocus={handleStreetInputFocus}
         placeholder="Straatnaam of postcode"
         ref={inputStreetRef}
         value={street}
       />
-      {!streetSelected && (
+      {!isStreetSelected && (
         <FlatList
           data={bagList}
           keyExtractor={item => item.uri}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                onStreetSelected(item._display)
+                selectStreet(item._display)
               }}>
               <Text>{item._display}</Text>
             </TouchableOpacity>
@@ -156,24 +155,24 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
       <Text secondary>Huisnummer + toevoeging</Text>
       <Gutter height={size.spacing.xs} />
       <TextInput
-        onChangeText={text => onChangeNumber(text)}
-        onClear={onNumberClear}
-        onFocus={onNumberInputFocus}
+        onChangeText={text => changeNumber(text)}
+        onClear={clearNumber}
+        onFocus={handleNumberInputFocus}
         placeholder="Huisnummer"
         ref={inputNumberRef}
         value={number}
       />
-      {addressFirstError && !streetSelected ? (
+      {addressFirstError && !isStreetSelected ? (
         <Text warning>{addressFirstError}</Text>
       ) : null}
-      {streetSelected && !numberSelected && (
+      {isStreetSelected && !isNumberSelected && (
         <FlatList
           data={bagList}
           keyExtractor={item => item.uri}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {
-                onNumberSelected(getNumberFromAddress(item._display))
+                selectNumber(getNumberFromAddress(item._display))
               }}>
               <Text>{getNumberFromAddress(item._display)}</Text>
             </TouchableOpacity>
