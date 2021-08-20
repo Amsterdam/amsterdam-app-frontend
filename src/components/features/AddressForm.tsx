@@ -5,7 +5,7 @@ import {FlatList} from 'react-native-gesture-handler'
 import {useFetch} from '../../hooks/useFetch'
 import {color, size} from '../../tokens'
 import {ResponseAddress} from '../../types/address'
-import {Card, CardBody, Gutter, Text, TextInput} from '../ui'
+import {Gutter, Text, TextInput} from '../ui'
 
 type Props = {
   onFocusInput?: (focus: boolean) => void
@@ -127,72 +127,70 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }, [address])
 
   return (
-    <Card>
-      <CardBody>
-        <Text secondary>Vul uw postcode of straatnaam in</Text>
-        <Gutter height={size.spacing.xs} />
-        <TextInput
-          onChange={event => {
-            changeStreet(event.nativeEvent.text)
-          }}
-          onClear={clearStreet}
-          onFocus={handleStreetInputFocus}
-          placeholder="Straatnaam of postcode"
-          ref={inputStreetRef}
-          value={street}
+    <>
+      <Text secondary>Vul uw postcode of straatnaam in</Text>
+      <Gutter height={size.spacing.xs} />
+      <TextInput
+        onChange={event => {
+          changeStreet(event.nativeEvent.text)
+        }}
+        onClear={clearStreet}
+        onFocus={handleStreetInputFocus}
+        placeholder="Straatnaam of postcode"
+        ref={inputStreetRef}
+        value={street}
+      />
+      {!isStreetSelected && (
+        <FlatList
+          data={bagList}
+          keyExtractor={item => item.uri}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                selectStreet(item._display)
+              }}
+              style={styles.suggestedItem}>
+              <Location width={20} height={20} fill={color.font.tertiary} />
+              <Gutter width={size.spacing.xs} />
+              <Text>{item._display}</Text>
+            </TouchableOpacity>
+          )}
         />
-        {!isStreetSelected && (
-          <FlatList
-            data={bagList}
-            keyExtractor={item => item.uri}
-            renderItem={({item}) => (
+      )}
+      <Gutter height={size.spacing.md} />
+      <Text secondary>Huisnummer + toevoeging</Text>
+      <Gutter height={size.spacing.xs} />
+      <TextInput
+        onChangeText={text => changeNumber(text)}
+        onClear={clearNumber}
+        onFocus={handleNumberInputFocus}
+        placeholder="Huisnummer"
+        ref={inputNumberRef}
+        value={number}
+      />
+      {addressFirstError && !isStreetSelected ? (
+        <Text warning>{addressFirstError}</Text>
+      ) : null}
+      {isStreetSelected && number ? (
+        <FlatList
+          data={bagList}
+          keyExtractor={item => item.uri}
+          renderItem={({item}) => {
+            return (
               <TouchableOpacity
                 onPress={() => {
-                  selectStreet(item._display)
+                  selectNumber(getNumberFromAddress(item._display))
                 }}
                 style={styles.suggestedItem}>
-                <Location width={20} height={20} fill={color.font.tertiary} />
+                <Location width={24} height={24} fill={color.font.tertiary} />
                 <Gutter width={size.spacing.xs} />
-                <Text>{item._display}</Text>
+                <Text>{getNumberFromAddress(item._display)}</Text>
               </TouchableOpacity>
-            )}
-          />
-        )}
-        <Gutter height={size.spacing.md} />
-        <Text secondary>Huisnummer + toevoeging</Text>
-        <Gutter height={size.spacing.xs} />
-        <TextInput
-          onChangeText={text => changeNumber(text)}
-          onClear={clearNumber}
-          onFocus={handleNumberInputFocus}
-          placeholder="Huisnummer"
-          ref={inputNumberRef}
-          value={number}
+            )
+          }}
         />
-        {addressFirstError && !isStreetSelected ? (
-          <Text warning>{addressFirstError}</Text>
-        ) : null}
-        {isStreetSelected && number ? (
-          <FlatList
-            data={bagList}
-            keyExtractor={item => item.uri}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    selectNumber(getNumberFromAddress(item._display))
-                  }}
-                  style={styles.suggestedItem}>
-                  <Location width={24} height={24} fill={color.font.tertiary} />
-                  <Gutter width={size.spacing.xs} />
-                  <Text>{getNumberFromAddress(item._display)}</Text>
-                </TouchableOpacity>
-              )
-            }}
-          />
-        ) : null}
-      </CardBody>
-    </Card>
+      ) : null}
+    </>
   )
 }
 
