@@ -11,7 +11,7 @@ import {Gutter, Text} from './'
 type Props = {
   icon?: React.ReactElement
   text?: string
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
@@ -24,7 +24,11 @@ export const Button = ({
     <TouchableOpacity style={[styles.button, styles[variant]]} {...otherProps}>
       {icon && <View style={styles.iconContainer}>{icon}</View>}
       {icon && text && <Gutter width={size.spacing.md} />}
-      {text && <Text inverse>{text}</Text>}
+      {text && (
+        <Text inverse={variant !== 'text'} link={variant === 'text'}>
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   )
 }
@@ -44,5 +48,10 @@ const styles = StyleSheet.create({
   },
   secondary: {
     backgroundColor: color.touchable.secondary,
+  },
+  text: {
+    backgroundColor: undefined,
+    color: color.touchable.primary,
+    paddingHorizontal: size.spacing.sm,
   },
 })
