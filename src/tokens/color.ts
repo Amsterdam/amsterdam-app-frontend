@@ -56,6 +56,7 @@ export const color = {
     primary: baseColor.primary.main,
     regular: baseColor.tint.level7,
     secondary: baseColor.tint.level5,
+    warning: baseColor.error.main,
   },
   touchable: {
     primary: baseColor.primary.main,
