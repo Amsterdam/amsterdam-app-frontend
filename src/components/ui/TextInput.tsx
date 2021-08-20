@@ -1,23 +1,62 @@
+import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React from 'react'
+import {useState} from 'react'
 import {
   StyleSheet,
   TextInput as TextInputRN,
   TextInputProps as TextInputRNProps,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-import {color, font} from '../../tokens'
+import {color, font, size} from '../../tokens'
 
-export const TextInput = (props: TextInputRNProps) => (
-  <TextInputRN {...props} style={styles.textInput} />
+type clearProps = {
+  onClear: () => void
+}
+
+export const TextInput = React.forwardRef(
+  (props: TextInputRNProps & clearProps, ref: any) => {
+    const [value, setValue] = useState<string>('')
+    return (
+      <View style={styles.searchSection}>
+        <TextInputRN
+          ref={ref}
+          {...props}
+          onChangeText={text => setValue(text)}
+          style={styles.textInput}
+        />
+        {value ? (
+          <TouchableOpacity onPress={props.onClear}>
+            <Close
+              style={styles.searchIcon}
+              width={20}
+              height={20}
+              fill={'black'}
+            />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    )
+  },
 )
 
 const styles = StyleSheet.create({
-  textInput: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: color.background.lighter,
+  searchSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: size.spacing.xl,
     borderColor: color.border.input,
     borderStyle: 'solid',
     borderWidth: 1,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  textInput: {
+    flex: 1,
+    padding: size.spacing.sm,
+    backgroundColor: color.background.lighter,
     color: color.font.regular,
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,

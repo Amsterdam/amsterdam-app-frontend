@@ -12,6 +12,7 @@ type Props = {
   link?: Boolean
   margin?: Boolean
   secondary?: Boolean
+  warning?: Boolean
 } & Omit<TextRNProps, 'style'>
 
 export const Text = ({
@@ -20,6 +21,7 @@ export const Text = ({
   margin,
   secondary,
   link,
+  warning,
   ...otherProps
 }: Props) => {
   return (
@@ -30,6 +32,7 @@ export const Text = ({
         inverse && styles.inverse,
         link && styles.link,
         secondary && styles.secondary,
+        warning && styles.warning,
       ]}
       {...otherProps}>
       {children}
@@ -58,5 +61,8 @@ const styles = StyleSheet.create({
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
     color: color.font.regular,
+  },
+  warning: {
+    color: color.font.warning,
   },
 })

@@ -7,6 +7,7 @@ type CardProps = {
 }
 
 type CardBodyProps = {
+  centerContent?: boolean
   children: React.ReactNode
   direction?: 'column' | 'row'
 }
@@ -15,8 +16,19 @@ export const Card = ({children}: CardProps) => (
   <View style={styles.card}>{children}</View>
 )
 
-export const CardBody = ({children, direction = 'column'}: CardBodyProps) => (
-  <View style={[styles.cardBody, styles[direction]]}>{children}</View>
+export const CardBody = ({
+  children,
+  direction = 'column',
+  centerContent,
+}: CardBodyProps) => (
+  <View
+    style={[
+      styles.cardBody,
+      styles[direction],
+      centerContent && styles.center,
+    ]}>
+    {children}
+  </View>
 )
 
 const styles = StyleSheet.create({
@@ -32,5 +44,9 @@ const styles = StyleSheet.create({
   },
   cardBody: {
     padding: size.spacing.md,
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
