@@ -102,7 +102,7 @@ export const OnboardingAddress = () => {
             <Animated.View style={{opacity: fadeAnim}}>
               <Title margin text="Uw buurt" />
               <Text margin>
-                Vul uw adres en huisnnummer in zodat we informatie uit uw buurt
+                Vul uw adres en huisnummer in zodat we informatie uit uw buurt
                 kunnen tonen.*
               </Text>
             </Animated.View>
