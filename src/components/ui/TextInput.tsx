@@ -4,25 +4,28 @@ import {
   StyleSheet,
   TextInput as TextInputRN,
   TextInputProps as TextInputRNProps,
+  TouchableOpacity,
   View,
 } from 'react-native'
 import {color, font, size} from '../../tokens'
 
+type clearProps = {
+  onClear: () => void
+}
+
 export const TextInput = React.forwardRef(
-  (props: TextInputRNProps, ref: any) => {
-    const clearInput = () => {
-      console.log('clear')
-    }
+  (props: TextInputRNProps & clearProps, ref: any) => {
     return (
       <View style={styles.searchSection}>
         <TextInputRN ref={ref} {...props} style={styles.textInput} />
-        <Close
-          onPress={clearInput}
-          style={styles.searchIcon}
-          width={20}
-          height={20}
-          fill={'black'}
-        />
+        <TouchableOpacity onPress={props.onClear}>
+          <Close
+            style={styles.searchIcon}
+            width={20}
+            height={20}
+            fill={'black'}
+          />
+        </TouchableOpacity>
       </View>
     )
   },
