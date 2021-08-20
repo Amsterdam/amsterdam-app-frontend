@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {Animated} from 'react-native'
+import {size} from '../../tokens'
 import {color} from '../../tokens/color'
 import {Address} from '../../types/address'
-import {Box, Button, Card, CardBody, Text, Title} from '../ui'
+import {Box, Button, Card, CardBody, Gutter, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
 
 export const OnboardingAddress = () => {
@@ -78,12 +79,10 @@ export const OnboardingAddress = () => {
       <Box>
         <Card>
           <CardBody centerContent>
-            <Title margin text="Uw adres is:" />
-            <Title
-              level={4}
-              margin
-              text={`${address.adres}, ${address.postcode}, ${address.woonplaats}`}
-            />
+            <Text secondary>Uw adres is:</Text>
+            <Gutter height={size.spacing.md} />
+            <Title level={4} margin text={address.adres} />
+            <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             <Button
               onPress={() => setAddress(null)}
               text="Verander adres"
