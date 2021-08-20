@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useCallback} from 'react'
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Animated} from 'react-native'
 import {color} from '../../tokens/color'
 import {Box, Button, Card, CardBody, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
@@ -85,7 +85,11 @@ export const OnboardingAddress = () => {
                 margin
                 text={`${address.adres}, ${address.postcode}, ${address.woonplaats}`}
               />
-              <Button onPress={() => setAddress(null)} text="Verander adres" />
+              <Button
+                onPress={() => setAddress(null)}
+                text="Verander adres"
+                variant="text"
+              />
             </CardBody>
           </Card>
         </Box>
