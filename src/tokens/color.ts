@@ -46,6 +46,7 @@ export const color = {
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level2,
     lighter: baseColor.tint.level1,
+    mediumLight: baseColor.tint.level3,
   },
   border: {
     input: baseColor.tint.level5,
@@ -56,6 +57,7 @@ export const color = {
     primary: baseColor.primary.main,
     regular: baseColor.tint.level7,
     secondary: baseColor.tint.level5,
+    tertiary: baseColor.tint.level4,
     warning: baseColor.error.main,
   },
   touchable: {
