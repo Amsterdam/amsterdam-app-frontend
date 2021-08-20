@@ -1,12 +1,12 @@
 export type Address = {
-  results: [
-    {
-      adres: string
-      centroid: number[]
-      huisnummer: number
-      postcode: string
-      straatnaam: string
-      woonplaats: string
-    },
-  ]
+  adres: string
+  centroid: number[]
+  huisnummer: number
+  postcode: string
+  straatnaam: string
+  woonplaats: string
+}
+
+export type ResponseAddress = {
+  results: [Address]
 }
