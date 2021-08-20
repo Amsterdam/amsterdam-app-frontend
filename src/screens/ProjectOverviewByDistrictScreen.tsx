@@ -6,6 +6,7 @@ import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper} from '../components/ui'
 import {districts} from '../data/districts'
+import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
 import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types/project'
@@ -22,7 +23,7 @@ type Props = {
 
 export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
-    url: 'http://localhost:8000/api/v1/projects',
+    url: getEnvironment().apiUrl + '/projects',
   })
 
   const districtId = route.params.id
