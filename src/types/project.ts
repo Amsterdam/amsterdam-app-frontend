@@ -1,4 +1,4 @@
-import {Section} from '.'
+import {Section, Timeline} from '.'
 
 export type ProjectOverviewItem = {
   content_html: string
@@ -18,6 +18,7 @@ export type ProjectDetail = {
   body: {
     contact: Section[]
     intro: Section[]
+    timeline: Timeline
     what: Section[]
     when: Section[]
     where: Section[]
@@ -42,6 +43,7 @@ export type ProjectDetailBody = {
   headerTitle: string
   sections: Section[]
   title: string
+  timeline?: Timeline
 }
 
 export type ProjectImage = {

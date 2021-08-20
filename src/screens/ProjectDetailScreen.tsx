@@ -18,7 +18,7 @@ import {
 } from '../components/ui'
 import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
-import {Section} from '../types'
+import {Section, Timeline} from '../types'
 import {ProjectDetail} from '../types/project'
 import {clipText} from '../utils'
 
@@ -50,34 +50,36 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     })
   }, [headerTitle, navigation])
 
-  const iconButtons: {
+  const menu: {
     icon: any
-    title: string
     sections?: Section[]
+    timeline?: Timeline
+    title: string
   }[] = [
     {
       icon: <Info fill={color.font.inverse} />,
-      title: 'Informatie',
       sections: [
         ...(project?.body.intro ?? []),
         ...(project?.body.what ?? []),
         ...(project?.body.where ?? []),
       ],
+      title: 'Informatie',
     },
     {
       icon: <Calendar fill={color.font.inverse} />,
+      sections: project?.body.when ?? [],
+      timeline: project?.body.timeline,
       title: 'Tijdlijn',
-      sections: project?.body.when,
     },
     {
       icon: <LocationFields fill={color.font.inverse} />,
-      title: 'Werkzaamheden',
       sections: project?.body.work,
+      title: 'Werkzaamheden',
     },
     {
       icon: <ChatBubble fill={color.font.inverse} />,
-      title: 'Contact',
       sections: project?.body.contact,
+      title: 'Contact',
     },
   ]
 
@@ -99,21 +101,19 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Box background="lighter">
             <Title margin text={project?.title || ''} />
             <View style={styles.row}>
-              {iconButtons?.map(iconButton =>
-                iconButton.sections?.length ? (
+              {menu?.map(({icon, sections, timeline, title}) =>
+                sections?.length || timeline ? (
                   <IconButton
-                    icon={iconButton.icon}
-                    key={iconButton.title}
-                    label={iconButton.title.replace(
-                      'Werkzaamheden',
-                      'Werkzaam-heden',
-                    )}
+                    icon={icon}
+                    key={title}
+                    label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
                     onPress={() =>
                       navigation.navigate(routes.projectDetailBody.name, {
                         body: {
                           headerTitle,
-                          sections: iconButton.sections ?? [],
-                          title: iconButton.title,
+                          sections: sections ?? [],
+                          title: title,
+                          timeline: timeline,
                         },
                       })
                     }
