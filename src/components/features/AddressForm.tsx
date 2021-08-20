@@ -23,23 +23,18 @@ export type BagResponse = {
 
 export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   const [address, setAddress] = useState<any>(null)
-  const [street, setStreet] = useState<string>('')
   const [number, setNumber] = useState<string>('')
-  const [isStreetSelected, setIsStreetSelected] = useState(false)
+  const [street, setStreet] = useState<string>('')
   const [isNumberSelected, setIsNumberSelected] = useState(false)
+  const [isStreetSelected, setIsStreetSelected] = useState(false)
+  const [addressFirstError, setAddressFirstError] = useState<string>('')
+
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
-  const [addressFirstError, setAddressFirstError] = useState<string>('')
 
   const inputNumberRef = useRef<any>()
   const inputStreetRef = useRef<any>()
-
-  const apiBag = useFetch<BagResponse[]>({
-    onLoad: false,
-    options: {},
-    url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
-  })
 
   const apiAddress = useFetch<any>({
     onLoad: false,
@@ -47,8 +42,15 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
   })
 
-  const getNumberFromAddress = (text: string): string => {
-    return text.match(/([0-9])(.*)/g)?.join('') || ''
+  const apiBag = useFetch<BagResponse[]>({
+    onLoad: false,
+    options: {},
+    url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
+  })
+
+  const changeNumber = (text: string) => {
+    setIsNumberSelected(false)
+    setNumber(text)
   }
 
   const changeStreet = (text: string) => {
@@ -57,10 +59,9 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     setNumber('')
   }
 
-  const selectStreet = (text: string) => {
-    setStreet(text)
-    setIsStreetSelected(true)
-    inputNumberRef.current.focus()
+  const clearNumber = () => {
+    inputNumberRef.current.clear()
+    setNumber('')
   }
 
   const clearStreet = () => {
@@ -68,24 +69,8 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     setStreet('')
   }
 
-  const clearNumber = () => {
-    inputNumberRef.current.clear()
-    setNumber('')
-  }
-
-  const changeNumber = (text: string) => {
-    setIsNumberSelected(false)
-    setNumber(text)
-  }
-
-  const selectNumber = (text: string) => {
-    setNumber(text)
-    setIsNumberSelected(true)
-    inputNumberRef.current.blur()
-  }
-
-  const handleStreetInputFocus = () => {
-    onFocusInput && onFocusInput(true)
+  const getNumberFromAddress = (text: string): string => {
+    return text.match(/([0-9])(.*)/g)?.join('') || ''
   }
 
   const handleNumberInputFocus = () => {
@@ -94,6 +79,22 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
       setAddressFirstError('Vul eerst uw straatnaam in a.u.b.')
       inputStreetRef.current.focus()
     }
+  }
+
+  const handleStreetInputFocus = () => {
+    onFocusInput && onFocusInput(true)
+  }
+
+  const selectNumber = (text: string) => {
+    setNumber(text)
+    setIsNumberSelected(true)
+    inputNumberRef.current.blur()
+  }
+
+  const selectStreet = (text: string) => {
+    setStreet(text)
+    setIsStreetSelected(true)
+    inputNumberRef.current.focus()
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
