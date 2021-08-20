@@ -31,7 +31,7 @@ export const TextInput = React.forwardRef(
               style={styles.searchIcon}
               width={20}
               height={20}
-              fill={'black'}
+              fill={color.background.darker}
             />
           </TouchableOpacity>
         ) : null}
