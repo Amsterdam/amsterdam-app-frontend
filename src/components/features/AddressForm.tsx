@@ -125,7 +125,7 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }, [apiAddress.data])
 
   useEffect(() => {
-    onSubmit(address.results[0])
+    onSubmit(address?.results[0])
   }, [address])
 
   return (
