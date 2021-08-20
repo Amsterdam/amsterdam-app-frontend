@@ -1,5 +1,6 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React from 'react'
+import {useState} from 'react'
 import {
   StyleSheet,
   TextInput as TextInputRN,
@@ -15,17 +16,25 @@ type clearProps = {
 
 export const TextInput = React.forwardRef(
   (props: TextInputRNProps & clearProps, ref: any) => {
+    const [value, setValue] = useState<string>('')
     return (
       <View style={styles.searchSection}>
-        <TextInputRN ref={ref} {...props} style={styles.textInput} />
-        <TouchableOpacity onPress={props.onClear}>
-          <Close
-            style={styles.searchIcon}
-            width={20}
-            height={20}
-            fill={'black'}
-          />
-        </TouchableOpacity>
+        <TextInputRN
+          ref={ref}
+          {...props}
+          onChangeText={text => setValue(text)}
+          style={styles.textInput}
+        />
+        {value ? (
+          <TouchableOpacity onPress={props.onClear}>
+            <Close
+              style={styles.searchIcon}
+              width={20}
+              height={20}
+              fill={'black'}
+            />
+          </TouchableOpacity>
+        ) : null}
       </View>
     )
   },
