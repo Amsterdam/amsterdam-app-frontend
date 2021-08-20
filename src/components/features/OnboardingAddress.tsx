@@ -1,5 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
-import {useCallback} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {Animated} from 'react-native'
 import {color} from '../../tokens/color'
 import {Box, Button, Card, CardBody, Text, Title} from '../ui'
@@ -73,51 +72,48 @@ export const OnboardingAddress = () => {
     setAddress(responseAddress)
   }
 
+  if (address) {
+    return (
+      <Box>
+        <Card>
+          <CardBody centerContent>
+            <Title margin text="Uw adres is:" />
+            <Title
+              level={4}
+              margin
+              text={`${address.adres}, ${address.postcode}, ${address.woonplaats}`}
+            />
+            <Button
+              onPress={() => setAddress(null)}
+              text="Verander adres"
+              variant="text"
+            />
+          </CardBody>
+        </Card>
+      </Box>
+    )
+  }
+
   return (
-    <>
-      {address ? (
-        <Box>
-          <Card>
-            <CardBody centerContent>
-              <Title margin text="Uw adres is:" />
-              <Title
-                level={4}
-                margin
-                text={`${address.adres}, ${address.postcode}, ${address.woonplaats}`}
-              />
-              <Button
-                onPress={() => setAddress(null)}
-                text="Verander adres"
-                variant="text"
-              />
-            </CardBody>
-          </Card>
-        </Box>
-      ) : (
-        <Animated.View style={[{backgroundColor: bgColor}]}>
-          <Box>
-            <Card>
-              <CardBody>
-                <Animated.View style={{opacity: fadeAnim}}>
-                  <Title margin text="Uw buurt" />
-                  <Text margin>
-                    Vul uw adres en huisnnummer in zodat we informatie uit uw
-                    buurt kunnen tonen.*
-                  </Text>
-                </Animated.View>
-                <Animated.View
-                  onLayout={event => setLayoutY(event.nativeEvent.layout.y)}
-                  style={{transform: [{translateY: y}]}}>
-                  <AddressForm
-                    onFocusInput={setFocusInput}
-                    onSubmit={onSubmit}
-                  />
-                </Animated.View>
-              </CardBody>
-            </Card>
-          </Box>
-        </Animated.View>
-      )}
-    </>
+    <Animated.View style={[{backgroundColor: bgColor}]}>
+      <Box>
+        <Card>
+          <CardBody>
+            <Animated.View style={{opacity: fadeAnim}}>
+              <Title margin text="Uw buurt" />
+              <Text margin>
+                Vul uw adres en huisnnummer in zodat we informatie uit uw buurt
+                kunnen tonen.*
+              </Text>
+            </Animated.View>
+            <Animated.View
+              onLayout={event => setLayoutY(event.nativeEvent.layout.y)}
+              style={{transform: [{translateY: y}]}}>
+              <AddressForm onFocusInput={setFocusInput} onSubmit={onSubmit} />
+            </Animated.View>
+          </CardBody>
+        </Card>
+      </Box>
+    </Animated.View>
   )
 }
