@@ -23,4 +23,4 @@ export const getEnvironment = () => {
   return environments[environment]
 }
 
-const environment: Environment = Environment.Development
+const environment: Environment = Environment.Acceptance
