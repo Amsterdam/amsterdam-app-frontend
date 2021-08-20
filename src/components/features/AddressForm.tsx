@@ -4,6 +4,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 import {FlatList} from 'react-native-gesture-handler'
 import {useFetch} from '../../hooks/useFetch'
 import {color, size} from '../../tokens'
+import {Address} from '../../types/address'
 import {Card, CardBody, Gutter, Text, TextInput} from '../ui'
 
 type Props = {
@@ -23,7 +24,7 @@ export type BagResponse = {
 }
 
 export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
-  const [address, setAddress] = useState<any>(null)
+  const [address, setAddress] = useState<Address | null>(null)
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
   const [isNumberSelected, setIsNumberSelected] = useState(false)

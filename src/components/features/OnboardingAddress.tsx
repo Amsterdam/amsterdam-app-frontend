@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {Animated} from 'react-native'
 import {color} from '../../tokens/color'
+import {Address} from '../../types/address'
 import {Box, Button, Card, CardBody, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
 
@@ -67,7 +68,7 @@ export const OnboardingAddress = () => {
     toggleLayout()
   }, [toggleLayout])
 
-  const onSubmit = (responseAddress: any) => {
+  const onSubmit = (responseAddress: Address) => {
     setFocusInput(false)
     setAddress(responseAddress)
   }
