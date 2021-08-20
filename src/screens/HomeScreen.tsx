@@ -5,7 +5,7 @@ import {Box, Button, Gutter, ScreenWrapper} from '../components/ui'
 import {size} from '../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+  navigation: StackNavigationProp<RootStackParamList, 'WebView'>
 }
 
 export const HomeScreen = ({navigation}: Props) => {
@@ -14,7 +14,7 @@ export const HomeScreen = ({navigation}: Props) => {
       <Box inset="xl">
         <Button
           onPress={() =>
-            navigation.navigate(routes.report.name, {
+            navigation.navigate(routes.webView.name, {
               uri: 'https://acc.meldingen.amsterdam.nl/',
             })
           }

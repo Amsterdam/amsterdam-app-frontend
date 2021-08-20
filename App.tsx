@@ -14,8 +14,8 @@ import {
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
-  ReportScreen,
-  WasteGuideScreen,
+  WasteScreen,
+  WebViewScreen,
 } from './src/screens'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
@@ -27,8 +27,8 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {districtId: number}
-  Report: {uri: string}
-  WasteGuide: undefined
+  Waste: undefined
+  WebView: {uri: string}
 }
 
 type Routes = {
@@ -46,6 +46,18 @@ export const routes: Routes = {
       headerTitle: () => <Logo width={85} />,
     },
   },
+  projectDetail: {
+    name: 'ProjectDetail',
+  },
+  projectDetailBody: {
+    name: 'ProjectDetailBody',
+  },
+  projectNews: {
+    name: 'ProjectNews',
+    options: {
+      title: 'Nieuws',
+    },
+  },
   projectOverview: {
     name: 'ProjectOverview',
     options: {
@@ -58,28 +70,16 @@ export const routes: Routes = {
       title: 'Bouwprojecten per stadsdeel',
     },
   },
-  projectDetail: {
-    name: 'ProjectDetail',
-  },
-  projectNews: {
-    name: 'ProjectNews',
-    options: {
-      title: 'Nieuws',
-    },
-  },
-  projectDetailBody: {
-    name: 'ProjectDetailBody',
-  },
-  report: {
-    name: 'Report',
-    options: {
-      title: 'Melding',
-    },
-  },
   wasteGuide: {
-    name: 'WasteGuide',
+    name: 'Waste',
     options: {
       title: 'Afvalinformatie op adres',
+    },
+  },
+  webView: {
+    name: 'WebView',
+    options: {
+      title: 'Melding',
     },
   },
 }
@@ -113,7 +113,7 @@ export const App = () => {
     projectOverview,
     projectOverviewByDistrict,
     projectNews,
-    report,
+    webView,
     wasteGuide,
   } = routes
 
@@ -127,16 +127,6 @@ export const App = () => {
             name={home.name}
             component={HomeScreen}
             options={home.options}
-          />
-          <Stack.Screen
-            name={projectOverview.name}
-            component={ProjectOverviewScreen}
-            options={projectOverview.options}
-          />
-          <Stack.Screen
-            name={projectOverviewByDistrict.name}
-            component={ProjectOverviewByDistrictScreen}
-            options={projectOverviewByDistrict.options}
           />
           <Stack.Screen
             name={projectDetail.name}
@@ -154,14 +144,24 @@ export const App = () => {
             options={projectNews.options}
           />
           <Stack.Screen
-            name="Report"
-            component={ReportScreen}
-            options={report.options}
+            name={projectOverview.name}
+            component={ProjectOverviewScreen}
+            options={projectOverview.options}
           />
           <Stack.Screen
-            name="WasteGuide"
-            component={WasteGuideScreen}
+            name={projectOverviewByDistrict.name}
+            component={ProjectOverviewByDistrictScreen}
+            options={projectOverviewByDistrict.options}
+          />
+          <Stack.Screen
+            name="Waste"
+            component={WasteScreen}
             options={wasteGuide.options}
+          />
+          <Stack.Screen
+            name="WebView"
+            component={WebViewScreen}
+            options={webView.options}
           />
         </Stack.Navigator>
       </NavigationContainer>
