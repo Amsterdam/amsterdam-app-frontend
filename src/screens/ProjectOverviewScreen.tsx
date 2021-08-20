@@ -6,7 +6,7 @@ import {ProjectCard} from '../components/features'
 import {Box, Gutter, ScreenWrapper, Title} from '../components/ui'
 import {districts} from '../data/districts'
 import {useFetch} from '../hooks/useFetch'
-import {color, size} from '../tokens'
+import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
 
 type Props = {
@@ -53,17 +53,18 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   )}
                   keyExtractor={item => item.identifier}
                   renderItem={({item: projectItem}) => (
-                    <View style={styles.project}>
-                      <ProjectCard
-                        onPress={() =>
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: projectItem.identifier,
-                          })
-                        }
-                        title={projectItem.title}
-                        width={280}
-                      />
-                    </View>
+                    <ProjectCard
+                      onPress={() =>
+                        navigation.navigate(routes.projectDetail.name, {
+                          id: projectItem.identifier,
+                        })
+                      }
+                      imageSource={{
+                        uri: projectItem.images[0].sources['460px'].url,
+                      }}
+                      title={projectItem.title}
+                      width={280}
+                    />
                   )}
                   style={styles.projects}
                 />
@@ -85,8 +86,5 @@ const styles = StyleSheet.create({
   },
   projects: {
     paddingLeft: size.spacing.md,
-  },
-  project: {
-    backgroundColor: color.background.lighter,
   },
 })
