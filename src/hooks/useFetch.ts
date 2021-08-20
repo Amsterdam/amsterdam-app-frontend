@@ -26,7 +26,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
       setLoading(true)
       const queryParams = params ?? options?.params ?? {}
       const queryString = Object.keys(queryParams)
-        .map(key => key + '=' + queryParams[key])
+        .map(key => key + '=' + encodeURIComponent(queryParams[key]))
         .join('&')
 
       try {
