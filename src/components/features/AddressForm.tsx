@@ -22,7 +22,7 @@ export type BagResponse = {
   total_results: number
 }
 
-export const AddressForm = ({onFocusInput}: Props) => {
+export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   const [address, setAddress] = useState<any>(null)
   const [street, setStreet] = useState<string>('')
   const [number, setNumber] = useState<string>('')
@@ -31,8 +31,10 @@ export const AddressForm = ({onFocusInput}: Props) => {
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
+  const [addressFirstError, setAddressFirstError] = useState<string>('')
 
   const inputNumberRef = useRef<any>()
+  const inputStreetRef = useRef<any>()
 
   const apiBag = useFetch<BagResponse[]>({
     onLoad: false,
@@ -66,10 +68,15 @@ export const AddressForm = ({onFocusInput}: Props) => {
     inputNumberRef.current.focus()
   }
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    apiBag.fetchData({q: street})
-  }, [street])
+  const onStreetClear = () => {
+    inputStreetRef.current.clear()
+    setStreet('')
+  }
+
+  const onNumberClear = () => {
+    inputNumberRef.current.clear()
+    setNumber('')
+  }
 
   const onChangeNumber = (text: string) => {
     setNumberSelected(false)
@@ -81,6 +88,24 @@ export const AddressForm = ({onFocusInput}: Props) => {
     setNumberSelected(true)
     inputNumberRef.current.blur()
   }
+
+  const onStreetInputFocus = () => {
+    onFocusInput(true)
+  }
+
+  const onNumberInputFocus = () => {
+    onFocusInput(true)
+    if (!streetSelected) {
+      setAddressFirstError('Vul eerst uw straatnaam in a.u.b.')
+      inputStreetRef.current.focus()
+    }
+  }
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    apiBag.fetchData({q: street})
+    street && addressFirstError && setAddressFirstError('')
+  }, [street])
 
   useEffect(() => {
     streetSelected && numberSelected
@@ -99,13 +124,21 @@ export const AddressForm = ({onFocusInput}: Props) => {
     setAddress(apiAddress.data)
   }, [apiAddress.data])
 
+  useEffect(() => {
+    onSubmit(address.results[0])
+  }, [address])
+
   return (
     <Card>
       <Title level={4} margin text="Vul uw adres in" />
       <TextInput
-        onChangeText={text => onChangeStreet(text)}
-        onFocus={() => onFocusInput(true)}
+        onChange={event => {
+          onChangeStreet(event.nativeEvent.text)
+        }}
+        onClear={onStreetClear}
+        onFocus={onStreetInputFocus}
         placeholder="Straatnaam"
+        ref={inputStreetRef}
         value={street}
       />
       {!streetSelected && (
@@ -125,11 +158,15 @@ export const AddressForm = ({onFocusInput}: Props) => {
       <Gutter height={size.spacing.sm} />
       <TextInput
         onChangeText={text => onChangeNumber(text)}
-        onFocus={() => onFocusInput(true)}
+        onClear={onNumberClear}
+        onFocus={onNumberInputFocus}
         placeholder="Huisnummer"
-        value={number}
         ref={inputNumberRef}
+        value={number}
       />
+      {addressFirstError && !streetSelected ? (
+        <Text warning>{addressFirstError}</Text>
+      ) : null}
       {!numberSelected && (
         <FlatList
           data={bagList}
@@ -144,7 +181,6 @@ export const AddressForm = ({onFocusInput}: Props) => {
           )}
         />
       )}
-      <Text>{address?.results[0].adres}</Text>
     </Card>
   )
 }
