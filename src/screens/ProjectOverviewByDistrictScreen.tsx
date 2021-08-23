@@ -22,21 +22,22 @@ type Props = {
 }
 
 export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
+  const districtId = route.params.id
+
   const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        district_id: districtId,
+      },
+    },
   })
-
-  const districtId = route.params.id
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: districts.find(d => d.id === districtId)?.name,
     })
   })
-
-  const projectsInDistrict = projects?.filter(
-    project => project.district_id === districtId,
-  )
 
   return (
     <ScreenWrapper>
@@ -45,7 +46,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           <ActivityIndicator />
         ) : (
           <FlatList
-            data={projectsInDistrict}
+            data={projects}
             ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
             keyExtractor={item => item.identifier.toString()}
             renderItem={({item}) => (
