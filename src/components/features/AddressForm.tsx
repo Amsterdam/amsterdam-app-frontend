@@ -71,8 +71,19 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     setStreet('')
   }
 
+  // The response puts ' (Weesp)' in the address which causes trouble
+  const removeWeespFromRequestIfPresent = (text: string) => {
+    return text.replace(/ \(Weesp\)/g, '')
+  }
+
+  const splitAddressIntoParts = (text: string): string[] | null => {
+    const regex = /^(\d*[\wäöüß\d '\/\\\-\.]+)[,\s]+(\d+)\s*([\wäöüß\d\-\/]*)$/i // match output: [full address, street, number, addition]
+    return text.match(regex)
+  }
+
   const getNumberFromAddress = (text: string): string => {
-    return text.match(/([0-9])(.*)/g)?.join('') || ''
+    const match = splitAddressIntoParts(removeWeespFromRequestIfPresent(text))
+    return (match && match[2] + match[3]) || ''
   }
 
   const handleNumberInputFocus = () => {
@@ -101,14 +112,22 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    apiBag.fetchData({q: street})
+    apiBag.fetchData({q: street, features: 2}) // features: 2 is needed as a param to include Weesp-addresses.
     street && addressFirstError && setAddressFirstError('')
   }, [street])
 
   useEffect(() => {
     isStreetSelected && isNumberSelected
-      ? apiAddress.fetchData({q: `${street} ${number}`})
-      : apiBag.fetchData({q: `${street} ${number}`})
+      ? apiAddress.fetchData({
+          q: `${removeWeespFromRequestIfPresent(
+            street,
+          )} ${removeWeespFromRequestIfPresent(number)}`,
+          features: 2,
+        })
+      : apiBag.fetchData({
+          q: `${removeWeespFromRequestIfPresent(street)} ${number}`,
+          features: 2,
+        })
   }, [number, isNumberSelected, isStreetSelected])
 
   useEffect(() => {
