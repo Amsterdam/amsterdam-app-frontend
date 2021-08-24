@@ -5,13 +5,14 @@ import {Box, Gutter, Text, Title} from '../../components/ui'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
+import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
 
-type WasteGuide = {
+export type WasteGuide = {
   features: WasteGuideFeature[]
   type: string
 }
 
-type WasteGuideFeature = {
+export type WasteGuideFeature = {
   properties: {
     aanbiedwijze: string
     dataset: string
@@ -54,6 +55,16 @@ export const WasteGuideByAddress = () => {
     setWasteGuide(api.data ?? undefined)
   }, [api.data])
 
+  const bulkyWaste = wasteGuide?.features?.length
+    ? wasteGuide.features.find(f => f.properties.dataset === 'grofvuil')
+        ?.properties
+    : null
+
+  const householdWaste = wasteGuide?.features?.length
+    ? wasteGuide.features.find(f => f.properties.dataset === 'huisvuil')
+        ?.properties
+    : null
+
   return (
     <>
       <Box background="lighter">
@@ -63,25 +74,29 @@ export const WasteGuideByAddress = () => {
         </Text>
         <Gutter height={size.spacing.md} />
         <AddressForm onSubmit={text => setAddress(text)} />
-        {api.isLoading && (
-          <Box>
-            <ActivityIndicator />
-          </Box>
-        )}
       </Box>
-      {wasteGuide?.features?.map((f: WasteGuideFeature) => (
-        <Box key={JSON.stringify(f)}>
-          {Object.entries(f.properties).map(p => {
-            return (
-              p[1] && (
-                <Text key={p[0]}>
-                  {p[0]}: {p[1]}
-                </Text>
-              )
-            )
-          })}
+      {api.isLoading ? (
+        <Box>
+          <ActivityIndicator />
         </Box>
-      ))}
+      ) : (
+        <Box>
+          {bulkyWaste && <WasteGuideForBulkyWaste properties={bulkyWaste} />}
+          {bulkyWaste && householdWaste && <Gutter height={size.spacing.md} />}
+          {householdWaste && (
+            <WasteGuideForHouseholdWaste properties={householdWaste} />
+          )}
+          {(bulkyWaste || householdWaste) && (
+            <>
+              <Gutter height={size.spacing.md} />
+              <Title
+                level={4}
+                text="&gt; Bekijk de kaart met afvalpunten in de buurt"
+              />
+            </>
+          )}
+        </Box>
+      )}
     </>
   )
 }

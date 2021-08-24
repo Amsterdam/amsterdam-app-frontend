@@ -13,9 +13,8 @@ export const WasteScreen = () => {
   return (
     <ScreenWrapper>
       <ScrollView>
+        <WasteGuideByAddress />
         <Box>
-          <WasteGuideByAddress />
-          <Gutter height={size.spacing.md} />
           <RecyclingGuideBanner />
           <Gutter height={size.spacing.md} />
           <ReportNotCollectedBanner navigation={useNavigation()} />
