@@ -183,7 +183,7 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
       {addressFirstError && !isStreetSelected ? (
         <Text warning>{addressFirstError}</Text>
       ) : null}
-      {isStreetSelected && number ? (
+      {isStreetSelected && !isNumberSelected && number ? (
         <FlatList
           data={bagList}
           keyExtractor={item => item.uri}
