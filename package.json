@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@amsterdam/asc-assets": "^0.31.0",
-    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@react-native-async-storage/async-storage": "^1.15.7",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.4",
     "@react-navigation/elements": "^1.0.0",
