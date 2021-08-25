@@ -88,7 +88,7 @@ export const OnboardingAddress = () => {
     })
   }
 
-  const retrieveAdress = useCallback(async () => {
+  const retrieveAddress = useCallback(async () => {
     setLoading(true)
     const addressFromStore = await asyncStorage.getData('address')
     setAddress(addressFromStore)
@@ -96,8 +96,8 @@ export const OnboardingAddress = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    retrieveAdress()
-  }, [retrieveAdress])
+    retrieveAddress()
+  }, [retrieveAddress])
 
   return (
     <>
