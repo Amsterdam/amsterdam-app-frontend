@@ -71,8 +71,8 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     setStreet('')
   }
 
-  const removeWeespFromRequestIfPresent = (text: string) => {
-    return text.replace(/ \(Weesp\)/g, '')
+  const RemoveWeespSuffix = (streetName: string) => {
+    return streetName.replace(/ \(Weesp\)/g, '')
   }
 
   const getNumberFromAddress = (text: string) => {
@@ -113,7 +113,7 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }, [street])
 
   useEffect(() => {
-    const streetWithoutWeesp = removeWeespFromRequestIfPresent(street)
+    const streetWithoutWeesp = RemoveWeespSuffix(street)
     isStreetSelected && isNumberSelected
       ? apiAddress.fetchData({
           q: `${streetWithoutWeesp} ${number}`,
