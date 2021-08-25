@@ -75,8 +75,17 @@ export const OnboardingAddress = () => {
 
   const storeAddress = async (responseAddress: Address) => {
     setFocusInput(false)
+    const {adres, centroid, huisnummer, postcode, straatnaam, woonplaats} =
+      responseAddress
     setAddress(responseAddress)
-    await asyncStorage.storeData('address', responseAddress)
+    await asyncStorage.storeData('address', {
+      adres,
+      centroid,
+      huisnummer,
+      postcode,
+      straatnaam,
+      woonplaats,
+    })
   }
 
   const retrieveAdress = useCallback(async () => {
