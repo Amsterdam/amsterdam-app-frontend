@@ -1,7 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {AddressForm} from '../../components/features/AddressForm'
-import {Box, Gutter, Text, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Gutter,
+  Text,
+  Title,
+} from '../../components/ui'
+import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
@@ -37,10 +46,21 @@ export type WasteGuideFeature = {
 }
 
 export const WasteGuideByAddress = () => {
-  const [address, setAddress] = useState<Address | undefined>(undefined)
+  const [address, setAddress] = useState<Address | null | undefined>(undefined)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
+
+  const asyncStorage = useAsyncStorage()
+
+  const retrieveAddress = useCallback(async () => {
+    const addressFromStore = await asyncStorage.getData('address')
+    setAddress(addressFromStore)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    retrieveAddress()
+  }, [retrieveAddress])
 
   const api = useFetch<WasteGuide>({
     onLoad: false,
@@ -60,6 +80,7 @@ export const WasteGuideByAddress = () => {
     setWasteGuide(api.data ?? undefined)
   }, [api.data])
 
+  // TODO Transform to minimal format, combining into one object
   const bulkyWaste = wasteGuide?.features?.length
     ? wasteGuide.features.find(f => f.properties.dataset === 'grofvuil')
         ?.properties
@@ -73,41 +94,60 @@ export const WasteGuideByAddress = () => {
   return (
     <>
       <Box background="lighter">
-        <Title level={2} text="Uw adres" />
-        <Text>
-          Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
-        </Text>
-        <Gutter height={size.spacing.md} />
-        <AddressForm onSubmit={text => setAddress(text)} />
-      </Box>
-      {api.isLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      ) : (
-        <Box>
-          {bulkyWaste && (
-            <>
-              <WasteGuideForBulkyWaste properties={bulkyWaste} />
+        {address ? (
+          <Card>
+            <CardBody centerContent>
+              <Text secondary>Uw adres is:</Text>
               <Gutter height={size.spacing.md} />
-              <WasteGuideCollectionPoints />
-            </>
-          )}
-          {householdWaste && (
-            <>
-              {bulkyWaste && <Gutter height={size.spacing.md} />}
-              <WasteGuideForHouseholdWaste properties={householdWaste} />
-              <Gutter height={size.spacing.md} />
-              <WasteGuideContainers />
-            </>
-          )}
-          {(bulkyWaste || householdWaste) && (
-            <>
-              <Gutter height={size.spacing.md} />
-              <Title
-                level={4}
-                text="&gt; Bekijk de kaart met afvalpunten in de buurt"
+              <Title level={4} margin text={address.adres} />
+              <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
+              <Button
+                onPress={() => setAddress(null)}
+                text="Verander adres"
+                variant="text"
               />
+            </CardBody>
+          </Card>
+        ) : (
+          <>
+            <Title level={2} text="Uw adres" />
+            <Text>
+              Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw
+              afval.
+            </Text>
+            <Gutter height={size.spacing.md} />
+            <AddressForm onSubmit={setAddress} />
+          </>
+        )}
+      </Box>
+      {(api.isLoading || bulkyWaste || householdWaste) && (
+        <Box>
+          {api.isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <>
+              {bulkyWaste && (
+                <>
+                  <WasteGuideForBulkyWaste properties={bulkyWaste} />
+                  <Gutter height={size.spacing.md} />
+                  <WasteGuideCollectionPoints />
+                </>
+              )}
+              {householdWaste && (
+                <>
+                  {bulkyWaste && <Gutter height={size.spacing.md} />}
+                  <WasteGuideForHouseholdWaste properties={householdWaste} />
+                  <Gutter height={size.spacing.md} />
+                  <WasteGuideContainers />
+                </>
+              )}
+              <>
+                <Gutter height={size.spacing.md} />
+                <Title
+                  level={4}
+                  text="&gt; Bekijk de kaart met afvalpunten in de buurt"
+                />
+              </>
             </>
           )}
         </Box>
