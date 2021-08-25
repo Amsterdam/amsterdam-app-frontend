@@ -18,7 +18,9 @@ export const WasteGuideForHouseholdWaste = ({
       <Title level={4} text="Restafval" />
     </CardHeader>
     <CardBody>
-      <Text secondary>Hoe</Text>
+      <Text secondary small>
+        Hoe
+      </Text>
       <Text>{properties.aanbiedwijze}</Text>
       <Gutter height={size.spacing.md} />
       <Title level={4} text="&gt; Bekijk de kaart met containers in de buurt" />

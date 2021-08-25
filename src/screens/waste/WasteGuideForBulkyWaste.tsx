@@ -16,10 +16,14 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
       <Title level={4} text="Grof afval" />
     </CardHeader>
     <CardBody>
-      <Text secondary>Ophaaldag</Text>
+      <Text secondary small>
+        Ophaaldag
+      </Text>
       <Text>{properties.ophaaldag}</Text>
       <Gutter height={size.spacing.md} />
-      <Text secondary>Buitenzetten</Text>
+      <Text secondary small>
+        Buitenzetten
+      </Text>
       <Text>
         {properties.tijd_vanaf} tot {properties.tijd_tot?.toLowerCase()}
       </Text>

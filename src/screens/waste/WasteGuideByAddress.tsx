@@ -1,15 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {AddressForm} from '../../components/features/AddressForm'
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Gutter,
-  Text,
-  Title,
-} from '../../components/ui'
+import {Box, Button, Gutter, Text, Title} from '../../components/ui'
 import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
@@ -95,19 +87,15 @@ export const WasteGuideByAddress = () => {
     <>
       <Box background="lighter">
         {address ? (
-          <Card>
-            <CardBody centerContent>
-              <Text secondary>Uw adres is:</Text>
-              <Gutter height={size.spacing.md} />
-              <Title level={4} margin text={address.adres} />
-              <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
-              <Button
-                onPress={() => setAddress(null)}
-                text="Verander adres"
-                variant="text"
-              />
-            </CardBody>
-          </Card>
+          <>
+            <Text>Afvalinformatie voor</Text>
+            <Title text={address.adres} />
+            <Button
+              onPress={() => setAddress(null)}
+              text="&lt; Verander adres"
+              variant="text"
+            />
+          </>
         ) : (
           <>
             <Title level={2} text="Uw adres" />
