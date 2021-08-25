@@ -48,3 +48,5 @@ We recommend installing this [React Native debugger](https://github.com/jhen0409
 - The app is getting prepared and all the testers get an e-mail about the new release which they can download in Testflight
 - Afterwards, turn build configuration back to "Debug" for further development
 
+## Tips & Tricks
+- To see what's in the async-store, type `showAsyncStorageContentInDev()` in the React Native Debugger console

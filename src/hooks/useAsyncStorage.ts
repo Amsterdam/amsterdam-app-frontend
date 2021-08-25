@@ -6,7 +6,7 @@ export const useAsyncStorage = () => {
   const storeData = async (key: string, obj: any) => {
     try {
       const jsonValue = JSON.stringify(obj)
-      await AsyncStorage.setItem(key, jsonValue) // To see storage, enter showAsyncStorageContentInDev() in RND console
+      await AsyncStorage.setItem(key, jsonValue)
     } catch (e) {
       setError(e)
     }
