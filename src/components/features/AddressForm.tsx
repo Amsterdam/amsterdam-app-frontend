@@ -1,7 +1,6 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {useEffect, useRef, useState} from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {FlatList} from 'react-native-gesture-handler'
 import {useFetch} from '../../hooks/useFetch'
 import {color, size} from '../../tokens'
 import {ResponseAddress} from '../../types/address'
@@ -76,10 +75,12 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
   }
 
   const getNumberFromAddress = (text: string) => {
-    return text
-      .split(' ')
-      .reverse()
-      .find(el => el.match(/^[0-9]/))
+    return (
+      text
+        .split(' ')
+        .reverse()
+        .find(el => el.match(/^[0-9]/)) || ''
+    )
   }
 
   const handleNumberInputFocus = () => {
@@ -152,23 +153,19 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected && (
-        <FlatList
-          data={bagList}
-          keyExtractor={item => item.uri}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => {
-                selectStreet(item._display)
-              }}
-              style={styles.suggestedItem}>
-              <Location width={20} height={20} fill={color.font.tertiary} />
-              <Gutter width={size.spacing.xs} />
-              <Text>{item._display}</Text>
-            </TouchableOpacity>
-          )}
-        />
-      )}
+      {!isStreetSelected &&
+        bagList?.map(bagItem => (
+          <TouchableOpacity
+            key={bagItem.uri}
+            onPress={() => {
+              selectStreet(bagItem._display)
+            }}
+            style={styles.suggestedItem}>
+            <Location width={20} height={20} fill={color.font.tertiary} />
+            <Gutter width={size.spacing.xs} />
+            <Text>{bagItem._display}</Text>
+          </TouchableOpacity>
+        ))}
       <Gutter height={size.spacing.md} />
       <Text secondary>Huisnummer + toevoeging</Text>
       <Gutter height={size.spacing.xs} />
@@ -183,25 +180,20 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
       {addressFirstError && !isStreetSelected ? (
         <Text warning>{addressFirstError}</Text>
       ) : null}
-      {isStreetSelected && !isNumberSelected && number ? (
-        <FlatList
-          data={bagList}
-          keyExtractor={item => item.uri}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  selectNumber(getNumberFromAddress(item._display))
-                }}
-                style={styles.suggestedItem}>
-                <Location width={24} height={24} fill={color.font.tertiary} />
-                <Gutter width={size.spacing.xs} />
-                <Text>{getNumberFromAddress(item._display)}</Text>
-              </TouchableOpacity>
-            )
-          }}
-        />
-      ) : null}
+      {isStreetSelected && !isNumberSelected && number
+        ? bagList?.map(bagItem => (
+            <TouchableOpacity
+              key={bagItem.uri}
+              onPress={() => {
+                selectNumber(getNumberFromAddress(bagItem._display))
+              }}
+              style={styles.suggestedItem}>
+              <Location width={24} height={24} fill={color.font.tertiary} />
+              <Gutter width={size.spacing.xs} />
+              <Text>{getNumberFromAddress(bagItem._display)}</Text>
+            </TouchableOpacity>
+          ))
+        : null}
     </>
   )
 }
