@@ -40,13 +40,13 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
 
   const apiAddress = useFetch<any>({
     onLoad: false,
-    options: {},
+    options: {params: {features: 2}},
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
   })
 
   const apiBag = useFetch<BagResponse[]>({
     onLoad: false,
-    options: {},
+    options: {params: {features: 2}},
     url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
   })
 
@@ -112,21 +112,18 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    apiBag.fetchData({q: street, features: 2}) // features: 2 is needed as a param to include Weesp-addresses.
+    apiBag.fetchData({q: street}) // features: 2 is needed as a param to include Weesp-addresses.
     street && addressFirstError && setAddressFirstError('')
   }, [street])
 
   useEffect(() => {
+    const streetWithoutWeesp = removeWeespFromRequestIfPresent(street)
     isStreetSelected && isNumberSelected
       ? apiAddress.fetchData({
-          q: `${removeWeespFromRequestIfPresent(
-            street,
-          )} ${removeWeespFromRequestIfPresent(number)}`,
-          features: 2,
+          q: `${streetWithoutWeesp} ${number}`,
         })
       : apiBag.fetchData({
-          q: `${removeWeespFromRequestIfPresent(street)} ${number}`,
-          features: 2,
+          q: `${streetWithoutWeesp} ${number}`,
         })
   }, [number, isNumberSelected, isStreetSelected])
 
