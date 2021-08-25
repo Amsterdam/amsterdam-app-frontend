@@ -71,19 +71,15 @@ export const AddressForm = ({onFocusInput, onSubmit}: Props) => {
     setStreet('')
   }
 
-  // The response puts ' (Weesp)' in the address which causes trouble
   const removeWeespFromRequestIfPresent = (text: string) => {
     return text.replace(/ \(Weesp\)/g, '')
   }
 
-  const splitAddressIntoParts = (text: string): string[] | null => {
-    const regex = /^(\d*[\wäöüß\d '\/\\\-\.]+)[,\s]+(\d+)\s*([\wäöüß\d\-\/]*)$/i // match output: [full address, street, number, addition]
-    return text.match(regex)
-  }
-
-  const getNumberFromAddress = (text: string): string => {
-    const match = splitAddressIntoParts(removeWeespFromRequestIfPresent(text))
-    return (match && match[2] + match[3]) || ''
+  const getNumberFromAddress = (text: string) => {
+    return text
+      .split(' ')
+      .reverse()
+      .find(el => el.match(/^[0-9]/))
   }
 
   const handleNumberInputFocus = () => {
