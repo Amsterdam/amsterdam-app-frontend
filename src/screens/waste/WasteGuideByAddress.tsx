@@ -5,7 +5,12 @@ import {Box, Gutter, Text, Title} from '../../components/ui'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
-import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
+import {
+  WasteGuideCollectionPoints,
+  WasteGuideContainers,
+  WasteGuideForBulkyWaste,
+  WasteGuideForHouseholdWaste,
+} from './'
 
 export type WasteGuide = {
   features: WasteGuideFeature[]
@@ -81,10 +86,20 @@ export const WasteGuideByAddress = () => {
         </Box>
       ) : (
         <Box>
-          {bulkyWaste && <WasteGuideForBulkyWaste properties={bulkyWaste} />}
-          {bulkyWaste && householdWaste && <Gutter height={size.spacing.md} />}
+          {bulkyWaste && (
+            <>
+              <WasteGuideForBulkyWaste properties={bulkyWaste} />
+              <Gutter height={size.spacing.md} />
+              <WasteGuideCollectionPoints />
+            </>
+          )}
           {householdWaste && (
-            <WasteGuideForHouseholdWaste properties={householdWaste} />
+            <>
+              {bulkyWaste && <Gutter height={size.spacing.md} />}
+              <WasteGuideForHouseholdWaste properties={householdWaste} />
+              <Gutter height={size.spacing.md} />
+              <WasteGuideContainers />
+            </>
           )}
           {(bulkyWaste || householdWaste) && (
             <>
