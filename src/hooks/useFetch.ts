@@ -24,11 +24,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const fetchData = useCallback(
     async (params = undefined) => {
       setLoading(true)
-      const queryParams = params
-        ? {...options?.params, ...params}
-        : options?.params
-        ? options?.params
-        : {}
+      const queryParams = {...options?.params, ...params}
       const queryString = Object.keys(queryParams)
         .map(key => key + '=' + encodeURIComponent(queryParams[key]))
         .join('&')
