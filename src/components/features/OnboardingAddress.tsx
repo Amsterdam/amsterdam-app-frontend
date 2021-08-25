@@ -73,21 +73,22 @@ export const OnboardingAddress = () => {
     toggleLayout()
   }, [toggleLayout])
 
-  const onSubmit = async (responseAddress: Address) => {
+  const storeAddress = async (responseAddress: Address) => {
     setFocusInput(false)
     setAddress(responseAddress)
     await asyncStorage.storeData('address', responseAddress)
   }
 
-  useEffect(() => {
+  const retrieveAdress = useCallback(async () => {
     setLoading(true)
-    const fn = async () => {
-      const addressFromStore = await asyncStorage.getData('address')
-      setAddress(addressFromStore)
-      setLoading(false)
-    }
-    fn()
+    const addressFromStore = await asyncStorage.getData('address')
+    setAddress(addressFromStore)
+    setLoading(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    retrieveAdress()
+  }, [retrieveAdress])
 
   return (
     <>
@@ -120,7 +121,7 @@ export const OnboardingAddress = () => {
                   <Title margin text="Uw buurt" />
                   <Text margin>
                     Vul uw adres en huisnummer in zodat we informatie uit uw
-                    buurt kunnen tonen.*
+                    buurt kunnen tonen.
                   </Text>
                 </Animated.View>
                 <Animated.View
@@ -128,7 +129,7 @@ export const OnboardingAddress = () => {
                   style={{transform: [{translateY: y}]}}>
                   <AddressForm
                     onFocusInput={setFocusInput}
-                    onSubmit={onSubmit}
+                    onSubmit={storeAddress}
                   />
                 </Animated.View>
               </CardBody>
