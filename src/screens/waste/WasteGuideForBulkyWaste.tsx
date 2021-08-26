@@ -13,7 +13,9 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => {
   const cardContent: DescriptionListItem[] = [
     {
       label: 'Ophaaldag',
-      value: properties.ophaaldag,
+      value:
+        properties.ophaaldag &&
+        [properties.ophaaldag, properties.frequentie].join(', '),
     },
     {
       label: 'Buiten zetten',

@@ -19,7 +19,16 @@ export const WasteGuideForHouseholdWaste = ({
     },
     {
       label: 'Ophaaldag',
-      value: properties.ophaaldag,
+      value:
+        properties.ophaaldag &&
+        [properties.ophaaldag, properties.frequentie].join(', '),
+    },
+    {
+      label: 'Buiten zetten',
+      value:
+        properties.tijd_vanaf &&
+        properties.tijd_tot &&
+        properties.tijd_vanaf + ' tot ' + properties.tijd_tot?.toLowerCase(),
     },
     {
       label: 'Opmerking',
