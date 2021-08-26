@@ -4,7 +4,6 @@ import {
   CardBody,
   CardHeader,
   Gutter,
-  Link,
   Text,
   Title,
 } from '../../components/ui'
@@ -23,12 +22,6 @@ export const WasteGuideForHouseholdWaste = ({
         Hoe
       </Text>
       <Text>{properties.aanbiedwijze}</Text>
-      <Gutter height={size.spacing.md} />
-      <Link
-        direction="forward"
-        emphasis
-        onPress={() => {}}
-        text="Bekijk de kaart met containers in de buurt"
       />
     </CardBody>
   </Card>
