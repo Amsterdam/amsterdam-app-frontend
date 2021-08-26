@@ -6,12 +6,7 @@ import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
-import {
-  WasteGuideCollectionPoints,
-  WasteGuideContainers,
-  WasteGuideForBulkyWaste,
-  WasteGuideForHouseholdWaste,
-} from './'
+import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
 
 export type WasteGuide = {
   features: WasteGuideFeature[]
@@ -111,28 +106,14 @@ export const WasteGuideByAddress = () => {
           ) : (
             <>
               {bulkyWaste && (
-                <>
-                  <WasteGuideForBulkyWaste properties={bulkyWaste} />
-                  <Gutter height={size.spacing.md} />
-                  <WasteGuideCollectionPoints />
-                </>
+                <WasteGuideForBulkyWaste properties={bulkyWaste} />
               )}
               {householdWaste && (
                 <>
                   {bulkyWaste && <Gutter height={size.spacing.md} />}
                   <WasteGuideForHouseholdWaste properties={householdWaste} />
-                  <Gutter height={size.spacing.md} />
-                  <WasteGuideContainers />
                 </>
               )}
-              <>
-                <Gutter height={size.spacing.md} />
-                <Link
-                  emphasis
-                  onPress={() => {}}
-                  text="&gt; Kloppen de dagen of tijden niet?"
-                />
-              </>
             </>
           )}
         </Box>
