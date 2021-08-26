@@ -1,8 +1,14 @@
 export const ophaaldag = (ophaaldag?: string, frequentie?: string) =>
-  ophaaldag && [ophaaldag, frequentie].join(', ')
+  ophaaldag && frequentie
+    ? [ophaaldag, frequentie.toLowerCase()].join(', ')
+    : ophaaldag ?? frequentie
 
 export const buitenZetten = (vanaf?: string, tot?: string) =>
-  vanaf && tot && vanaf + ' tot ' + tot?.toLowerCase()
+  vanaf &&
+  tot &&
+  vanaf.replace('.00', '.00 uur') +
+    ' tot ' +
+    tot?.replace('.00', '.00 uur').toLowerCase()
 
 // TODO Just make a button, not an inline link
 export const opmerking = (text?: string) =>
