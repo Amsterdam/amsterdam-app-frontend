@@ -4,6 +4,7 @@ import {
   CardBody,
   CardHeader,
   Gutter,
+  Link,
   Text,
   Title,
 } from '../../components/ui'
@@ -28,8 +29,9 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
         {properties.tijd_vanaf} tot {properties.tijd_tot?.toLowerCase()}
       </Text>
       <Gutter height={size.spacing.md} />
-      <Title
-        level={4}
+      <Link
+        emphasis
+        onPress={() => {}}
         text="&gt; Grof afval: Langs de weg of naar een afvalpunt?"
       />
     </CardBody>

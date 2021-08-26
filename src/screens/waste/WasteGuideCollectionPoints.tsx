@@ -4,6 +4,7 @@ import {
   CardBody,
   CardHeader,
   Gutter,
+  Link,
   Text,
   Title,
 } from '../../components/ui'
@@ -20,8 +21,9 @@ export const WasteGuideCollectionPoints = () => (
         spullen voor de kringloop kwijt.
       </Text>
       <Gutter height={size.spacing.md} />
-      <Title
-        level={4}
+      <Link
+        emphasis
+        onPress={() => {}}
         text="&gt; Bekijk de kaart met afvalpunten in de buurt"
       />
       <Gutter height={size.spacing.md} />

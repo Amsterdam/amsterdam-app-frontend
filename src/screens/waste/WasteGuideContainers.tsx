@@ -4,6 +4,7 @@ import {
   CardBody,
   CardHeader,
   Gutter,
+  Link,
   Text,
   Title,
 } from '../../components/ui'
@@ -20,7 +21,11 @@ export const WasteGuideContainers = () => (
         of restafval?
       </Text>
       <Gutter height={size.spacing.md} />
-      <Title level={4} text="&gt; Bekijk de kaart met containers in de buurt" />
+      <Link
+        emphasis
+        onPress={() => {}}
+        text="&gt; Bekijk de kaart met containers in de buurt"
+      />
       <Gutter height={size.spacing.md} />
       <Text secondary>(Kaart komt hier.)</Text>
     </CardBody>

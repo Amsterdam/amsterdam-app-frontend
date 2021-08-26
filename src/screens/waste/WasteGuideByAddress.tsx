@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {AddressForm} from '../../components/features/AddressForm'
-import {Box, Button, Gutter, Text, Title} from '../../components/ui'
+import {Box, Gutter, Link, Text, Title} from '../../components/ui'
 import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
@@ -90,11 +90,7 @@ export const WasteGuideByAddress = () => {
           <>
             <Text>Afvalinformatie voor</Text>
             <Title text={address.adres} />
-            <Button
-              onPress={() => setAddress(null)}
-              text="&lt; Verander adres"
-              variant="text"
-            />
+            <Link onPress={() => setAddress(null)} text="&lt; Verander adres" />
           </>
         ) : (
           <>
@@ -131,9 +127,10 @@ export const WasteGuideByAddress = () => {
               )}
               <>
                 <Gutter height={size.spacing.md} />
-                <Title
-                  level={4}
-                  text="&gt; Bekijk de kaart met afvalpunten in de buurt"
+                <Link
+                  emphasis
+                  onPress={() => {}}
+                  text="&gt; Kloppen de dagen of tijden niet?"
                 />
               </>
             </>
