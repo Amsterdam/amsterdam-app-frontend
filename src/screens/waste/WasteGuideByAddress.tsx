@@ -85,7 +85,11 @@ export const WasteGuideByAddress = () => {
           <>
             <Text>Afvalinformatie voor</Text>
             <Title text={address.adres} />
-            <Link onPress={() => setAddress(null)} text="&lt; Verander adres" />
+            <Link
+              direction="backward"
+              onPress={() => setAddress(null)}
+              text="Verander adres"
+            />
           </>
         ) : (
           <>
