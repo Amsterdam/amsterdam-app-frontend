@@ -22,9 +22,10 @@ export const WasteGuideContainers = () => (
       </Text>
       <Gutter height={size.spacing.md} />
       <Link
+        direction="forward"
         emphasis
         onPress={() => {}}
-        text="&gt; Bekijk de kaart met containers in de buurt"
+        text="Bekijk de kaart met containers in de buurt"
       />
       <Gutter height={size.spacing.md} />
       <Text secondary>(Kaart komt hier.)</Text>

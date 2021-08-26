@@ -30,9 +30,10 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
       </Text>
       <Gutter height={size.spacing.md} />
       <Link
+        direction="forward"
         emphasis
         onPress={() => {}}
-        text="&gt; Grof afval: Langs de weg of naar een afvalpunt?"
+        text="Grof afval: Langs de weg of naar een afvalpunt?"
       />
     </CardBody>
   </Card>
