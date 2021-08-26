@@ -10,24 +10,49 @@ import {
 import {size} from '../../tokens'
 import {WasteGuideFeature} from './WasteGuideByAddress'
 
-export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
-  <Card>
-    <CardHeader>
-      <Title level={4} text="Grof afval" />
-    </CardHeader>
-    <CardBody>
-      <Text secondary small>
-        Ophaaldag
-      </Text>
-      <Text>{properties.ophaaldag}</Text>
-      <Gutter height={size.spacing.md} />
-      <Text secondary small>
-        Buitenzetten
-      </Text>
-      <Text>
-        {properties.tijd_vanaf} tot {properties.tijd_tot?.toLowerCase()}
-      </Text>
-      />
-    </CardBody>
-  </Card>
-)
+type CardContent = {
+  label: string
+  value: string
+}
+
+export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => {
+  const cardContent: CardContent[] = [
+    {
+      label: 'Ophaaldag',
+      value: properties.ophaaldag,
+    },
+    {
+      label: 'Buiten zetten',
+      value:
+        properties.tijd_vanaf + ' tot ' + properties.tijd_tot?.toLowerCase(),
+    },
+    {
+      label: 'Opmerking',
+      value: properties.opmerking,
+    },
+  ]
+
+  return (
+    <Card>
+      <CardHeader>
+        <Title level={4} text="Grof afval" />
+      </CardHeader>
+      <CardBody>
+        {cardContent.map(
+          (item, index) =>
+            item.value && (
+              <React.Fragment key={item.label}>
+                <Text secondary small>
+                  {item.label}
+                </Text>
+                <Text>{item.value}</Text>
+                {index < cardContent.length - 1 && (
+                  <Gutter height={size.spacing.md} />
+                )}
+              </React.Fragment>
+            ),
+        )}
+      </CardBody>
+    </Card>
+  )
+}

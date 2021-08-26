@@ -10,19 +10,50 @@ import {
 import {size} from '../../tokens'
 import {WasteGuideFeature} from './WasteGuideByAddress'
 
+type CardContent = {
+  label: string
+  value: string
+}
+
 export const WasteGuideForHouseholdWaste = ({
   properties,
-}: WasteGuideFeature) => (
-  <Card>
-    <CardHeader>
-      <Title level={4} text="Restafval" />
-    </CardHeader>
-    <CardBody>
-      <Text secondary small>
-        Hoe
-      </Text>
-      <Text>{properties.aanbiedwijze}</Text>
-      />
-    </CardBody>
-  </Card>
-)
+}: WasteGuideFeature) => {
+  const cardContent: CardContent[] = [
+    {
+      label: 'Hoe',
+      value: properties.aanbiedwijze,
+    },
+    {
+      label: 'Ophaaldag',
+      value: properties.ophaaldag,
+    },
+    {
+      label: 'Opmerking',
+      value: properties.opmerking,
+    },
+  ]
+
+  return (
+    <Card>
+      <CardHeader>
+        <Title level={4} text="Restafval" />
+      </CardHeader>
+      <CardBody>
+        {cardContent.map(
+          (item, index) =>
+            item.value && (
+              <React.Fragment key={item.label}>
+                <Text secondary small>
+                  {item.label}
+                </Text>
+                <Text>{item.value}</Text>
+                {index < cardContent.length - 1 && (
+                  <Gutter height={size.spacing.md} />
+                )}
+              </React.Fragment>
+            ),
+        )}
+      </CardBody>
+    </Card>
+  )
+}
