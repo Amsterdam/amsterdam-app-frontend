@@ -3,20 +3,14 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Gutter,
-  Text,
+  DescriptionList,
+  DescriptionListItem,
   Title,
 } from '../../components/ui'
-import {size} from '../../tokens'
 import {WasteGuideFeature} from './WasteGuideByAddress'
 
-type CardContent = {
-  label: string
-  value: string
-}
-
 export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => {
-  const cardContent: CardContent[] = [
+  const cardContent: DescriptionListItem[] = [
     {
       label: 'Ophaaldag',
       value: properties.ophaaldag,
@@ -24,6 +18,8 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => {
     {
       label: 'Buiten zetten',
       value:
+        properties.tijd_vanaf &&
+        properties.tijd_tot &&
         properties.tijd_vanaf + ' tot ' + properties.tijd_tot?.toLowerCase(),
     },
     {
@@ -38,20 +34,7 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => {
         <Title level={4} text="Grof afval" />
       </CardHeader>
       <CardBody>
-        {cardContent.map(
-          (item, index) =>
-            item.value && (
-              <React.Fragment key={item.label}>
-                <Text secondary small>
-                  {item.label}
-                </Text>
-                <Text>{item.value}</Text>
-                {index < cardContent.length - 1 && (
-                  <Gutter height={size.spacing.md} />
-                )}
-              </React.Fragment>
-            ),
-        )}
+        <DescriptionList items={cardContent} />
       </CardBody>
     </Card>
   )

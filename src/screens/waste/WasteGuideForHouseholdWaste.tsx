@@ -3,22 +3,16 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Gutter,
-  Text,
+  DescriptionList,
+  DescriptionListItem,
   Title,
 } from '../../components/ui'
-import {size} from '../../tokens'
 import {WasteGuideFeature} from './WasteGuideByAddress'
-
-type CardContent = {
-  label: string
-  value: string
-}
 
 export const WasteGuideForHouseholdWaste = ({
   properties,
 }: WasteGuideFeature) => {
-  const cardContent: CardContent[] = [
+  const cardContent: DescriptionListItem[] = [
     {
       label: 'Hoe',
       value: properties.aanbiedwijze,
@@ -39,20 +33,7 @@ export const WasteGuideForHouseholdWaste = ({
         <Title level={4} text="Restafval" />
       </CardHeader>
       <CardBody>
-        {cardContent.map(
-          (item, index) =>
-            item.value && (
-              <React.Fragment key={item.label}>
-                <Text secondary small>
-                  {item.label}
-                </Text>
-                <Text>{item.value}</Text>
-                {index < cardContent.length - 1 && (
-                  <Gutter height={size.spacing.md} />
-                )}
-              </React.Fragment>
-            ),
-        )}
+        <DescriptionList items={cardContent} />
       </CardBody>
     </Card>
   )
