@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: font.weight.demi,
   },
   text: {
-    flex: 1, // Allow wrapping
+    flexShrink: 1, // Allow wrapping
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
   },
