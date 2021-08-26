@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../tokens'
 
 type CardProps = {
+  border?: Boolean
   children: React.ReactNode
 }
 
@@ -16,8 +17,8 @@ type CardHeaderProps = {
   children: React.ReactNode
 }
 
-export const Card = ({children}: CardProps) => (
-  <View style={styles.card}>{children}</View>
+export const Card = ({border = false, children}: CardProps) => (
+  <View style={[styles.card, border && styles.cardBorder]}>{children}</View>
 )
 
 export const CardHeader = ({children}: CardHeaderProps) => (
@@ -43,6 +44,10 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: color.background.lighter,
     flexGrow: 1,
+  },
+  cardBorder: {
+    borderWidth: 1,
+    borderColor: color.border.separator,
   },
   column: {
     flexDirection: 'column',

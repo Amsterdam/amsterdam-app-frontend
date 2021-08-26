@@ -9,15 +9,22 @@ import {image} from '../../tokens'
 import {Card, CardBody, Title} from '../ui'
 
 type Props = {
+  border?: Boolean
   imageSource?: ImageSourcePropType
   onPress: () => void
   title: string
   subtitle: string
 }
 
-export const BannerCard = ({imageSource, onPress, subtitle, title}: Props) => (
+export const BannerCard = ({
+  border,
+  imageSource,
+  onPress,
+  subtitle,
+  title,
+}: Props) => (
   <TouchableHighlight onPress={onPress}>
-    <Card>
+    <Card border={border}>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
         <Title level={3} text={title} />
