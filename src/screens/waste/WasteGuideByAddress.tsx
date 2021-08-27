@@ -34,6 +34,7 @@ export type WasteGuideFeature = {
 
 export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | null | undefined>(undefined)
+  const [addressIsLoading, setAddressIsLoading] = useState(false)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -41,8 +42,10 @@ export const WasteGuideByAddress = () => {
   const asyncStorage = useAsyncStorage()
 
   const retrieveAddress = useCallback(async () => {
+    setAddressIsLoading(true)
     const addressFromStore = await asyncStorage.getData('address')
     setAddress(addressFromStore)
+    setAddressIsLoading(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -77,32 +80,22 @@ export const WasteGuideByAddress = () => {
         ?.properties
     : null
 
-  return (
-    <>
-      <Box background="lighter">
-        {address ? (
-          <>
-            <Text>Afvalinformatie voor</Text>
-            <Title text={address.adres} />
-            <Link
-              direction="backward"
-              onPress={() => setAddress(null)}
-              text="Verander adres"
-            />
-          </>
-        ) : (
-          <>
-            <Title level={2} text="Uw adres" />
-            <Text>
-              Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw
-              afval.
-            </Text>
-            <Gutter height={size.spacing.md} />
-            <AddressForm onSubmit={setAddress} />
-          </>
-        )}
-      </Box>
-      {address && (
+  if (addressIsLoading) {
+    return null
+  }
+
+  if (address) {
+    return (
+      <>
+        <Box background="lighter">
+          <Text>Afvalinformatie voor</Text>
+          <Title text={address.adres} />
+          <Link
+            direction="backward"
+            onPress={() => setAddress(null)}
+            text="Verander adres"
+          />
+        </Box>
         <Box>
           {api.isLoading ? (
             <ActivityIndicator />
@@ -120,7 +113,18 @@ export const WasteGuideByAddress = () => {
             </>
           )}
         </Box>
-      )}
-    </>
+      </>
+    )
+  }
+
+  return (
+    <Box background="lighter">
+      <Title level={2} text="Uw adres" />
+      <Text>
+        Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
+      </Text>
+      <Gutter height={size.spacing.md} />
+      <AddressForm onSubmit={setAddress} />
+    </Box>
   )
 }
