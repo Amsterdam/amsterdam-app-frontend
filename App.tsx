@@ -17,12 +17,13 @@ import {
   WasteScreen,
   WebViewScreen,
 } from './src/screens'
+import {CreateAddressScreen} from './src/screens/CreateAddressScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
+  CreateAddress: {street: string} | undefined
   Home: undefined
-  Onboarding: undefined
   ProjectDetail: {id: string}
   ProjectNews: {article: NewsArticle}
   ProjectDetailBody: {body: ProjectDetailBody}
@@ -163,6 +164,11 @@ export const App = () => {
             name="WebView"
             component={WebViewScreen}
             options={webView.options}
+          />
+          <Stack.Screen
+            component={CreateAddressScreen}
+            name="CreateAddress"
+            options={{presentation: 'modal'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
