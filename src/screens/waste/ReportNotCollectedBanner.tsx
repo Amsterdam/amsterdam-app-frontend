@@ -9,6 +9,7 @@ type Props = {
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => (
   <BannerCard
+    border
     imageSource={require('../../assets/images/banner-foto-afval.jpg')}
     onPress={() =>
       navigation.navigate(routes.webView.name, {

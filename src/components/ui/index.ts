@@ -1,6 +1,7 @@
 export * from './Box'
 export * from './Button'
 export * from './Card'
+export * from './DescriptionList'
 export * from './Gutter'
 export * from './Image'
 export * from './IconButton'

@@ -3,6 +3,7 @@ import {useState} from 'react'
 
 export const useAsyncStorage = () => {
   const [error, setError] = useState()
+
   const storeData = async (key: string, obj: any) => {
     try {
       const jsonValue = JSON.stringify(obj)

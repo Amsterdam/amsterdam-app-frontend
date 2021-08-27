@@ -44,7 +44,7 @@ export const color = {
     emphasis: baseColor.primary.main,
     inactive: baseColor.tint.level5,
     invalid: baseColor.support.invalid,
-    light: baseColor.tint.level2,
+    light: baseColor.tint.level3,
     lighter: baseColor.tint.level1,
   },
   border: {

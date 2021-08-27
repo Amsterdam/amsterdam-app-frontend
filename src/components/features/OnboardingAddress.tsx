@@ -4,7 +4,7 @@ import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {size} from '../../tokens'
 import {color} from '../../tokens/color'
 import {Address} from '../../types/address'
-import {Box, Button, Card, CardBody, Gutter, Text, Title} from '../ui'
+import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
 
 export const OnboardingAddress = () => {
@@ -113,11 +113,8 @@ export const OnboardingAddress = () => {
               <Gutter height={size.spacing.md} />
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
-              <Button
-                onPress={() => setAddress(null)}
-                text="Verander adres"
-                variant="text"
-              />
+              <Gutter height={size.spacing.sm} />
+              <Link onPress={() => setAddress(null)} text="Verander adres" />
             </CardBody>
           </Card>
         </Box>

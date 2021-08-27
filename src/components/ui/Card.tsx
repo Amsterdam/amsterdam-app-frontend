@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../tokens'
 
 type CardProps = {
+  border?: Boolean
   children: React.ReactNode
 }
 
@@ -12,8 +13,16 @@ type CardBodyProps = {
   direction?: 'column' | 'row'
 }
 
-export const Card = ({children}: CardProps) => (
-  <View style={styles.card}>{children}</View>
+type CardHeaderProps = {
+  children: React.ReactNode
+}
+
+export const Card = ({border = false, children}: CardProps) => (
+  <View style={[styles.card, border && styles.cardBorder]}>{children}</View>
+)
+
+export const CardHeader = ({children}: CardHeaderProps) => (
+  <View style={styles.cardHeader}>{children}</View>
 )
 
 export const CardBody = ({
@@ -36,6 +45,10 @@ const styles = StyleSheet.create({
     backgroundColor: color.background.lighter,
     flexGrow: 1,
   },
+  cardBorder: {
+    borderWidth: 1,
+    borderColor: color.border.separator,
+  },
   column: {
     flexDirection: 'column',
   },
@@ -43,9 +56,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardBody: {
-    padding: size.spacing.md,
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
+  },
+  cardHeader: {
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
+    borderBottomColor: color.background.light,
+    borderBottomWidth: 1,
   },
   center: {
+    paddingHorizontal: size.spacing.md,
+    paddingVertical: size.spacing.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
