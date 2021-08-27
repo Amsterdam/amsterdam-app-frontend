@@ -33,19 +33,19 @@ export type WasteGuideFeature = {
 }
 
 export const WasteGuideByAddress = () => {
-  const [address, setAddress] = useState<Address | null | undefined>(undefined)
-  const [addressIsLoading, setAddressIsLoading] = useState(false)
-  const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
+  const [address, setAddress] = useState<Address|null|undefined>(undefined)
+  const [isAddressLoading, setIsAddressLoading] = useState(false)
+  const [wasteGuide, setWasteGuide] = useState<WasteGuide|undefined>(
     undefined,
   )
 
   const asyncStorage = useAsyncStorage()
 
   const retrieveAddress = useCallback(async () => {
-    setAddressIsLoading(true)
+    setIsAddressLoading(true)
     const addressFromStore = await asyncStorage.getData('address')
     setAddress(addressFromStore)
-    setAddressIsLoading(false)
+    setIsAddressLoading(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -72,15 +72,15 @@ export const WasteGuideByAddress = () => {
   // TODO Transform to minimal format, combining into one object
   const bulkyWaste = wasteGuide?.features?.length
     ? wasteGuide.features.find(f => f.properties.dataset === 'grofvuil')
-        ?.properties
+      ?.properties
     : null
 
   const householdWaste = wasteGuide?.features?.length
     ? wasteGuide.features.find(f => f.properties.dataset === 'huisvuil')
-        ?.properties
+      ?.properties
     : null
 
-  if (addressIsLoading) {
+  if (isAddressLoading) {
     return null
   }
 
