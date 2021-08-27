@@ -55,13 +55,12 @@ export const WasteGuideByAddress = () => {
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     api.fetchData({
       lon: address?.centroid[0] ?? '',
       lat: address?.centroid[1] ?? '',
     })
-  }, [address])
+  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setWasteGuide(api.data ?? undefined)
