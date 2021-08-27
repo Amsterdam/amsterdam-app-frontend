@@ -12,8 +12,8 @@ type UseFetchProps = {
 }
 
 export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
-  const [data, setData] = useState<T | null>(null)
-  const [isError, setError] = useState(null)
+  const [data, setData] = useState<T | undefined>(undefined)
+  const [isError, setError] = useState(false)
   const [isLoading, setLoading] = useState(false)
 
   const prevUrl = useRef<string>()
