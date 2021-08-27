@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
-import {AddressForm} from './src/components/features/AddressForm'
 import {OrientationProvider} from './src/providers/orientation.provider'
 import {
   HomeScreen,
