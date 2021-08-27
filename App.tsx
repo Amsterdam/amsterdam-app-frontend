@@ -17,18 +17,20 @@ import {
   WasteScreen,
   WebViewScreen,
 } from './src/screens'
-import {CreateAddressScreen} from './src/screens/CreateAddressScreen'
+import {NumberModalScreen} from './src/screens/address/NumberModalScreen'
+import {StreetModalScreen} from './src/screens/address/StreetModalScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
-  CreateAddress: {street: string} | undefined
   Home: undefined
+  NumberModal: {street: string}
   ProjectDetail: {id: string}
   ProjectNews: {article: NewsArticle}
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
+  StreetModal: undefined
   Waste: undefined
   WebView: {title: string; uri: string}
 }
@@ -125,51 +127,52 @@ export const App = () => {
         <Stack.Navigator
           initialRouteName={home.name}
           screenOptions={globalScreenOptions}>
-          <Stack.Screen
-            name={home.name}
-            component={HomeScreen}
-            options={home.options}
-          />
-          <Stack.Screen
-            name={projectDetail.name}
-            component={ProjectDetailScreen}
-            options={projectDetail.options}
-          />
-          <Stack.Screen
-            name={projectDetailBody.name}
-            component={ProjectDetailBodyScreen}
-            options={projectDetailBody.options}
-          />
-          <Stack.Screen
-            name={projectNews.name}
-            component={ProjectNewsScreen}
-            options={projectNews.options}
-          />
-          <Stack.Screen
-            name={projectOverview.name}
-            component={ProjectOverviewScreen}
-            options={projectOverview.options}
-          />
-          <Stack.Screen
-            name={projectOverviewByDistrict.name}
-            component={ProjectOverviewByDistrictScreen}
-            options={projectOverviewByDistrict.options}
-          />
-          <Stack.Screen
-            name="Waste"
-            component={WasteScreen}
-            options={wasteGuide.options}
-          />
-          <Stack.Screen
-            name="WebView"
-            component={WebViewScreen}
-            options={webView.options}
-          />
-          <Stack.Screen
-            component={CreateAddressScreen}
-            name="CreateAddress"
-            options={{presentation: 'modal'}}
-          />
+          <Stack.Group>
+            <Stack.Screen
+              name={home.name}
+              component={HomeScreen}
+              options={home.options}
+            />
+            <Stack.Screen
+              name={projectDetail.name}
+              component={ProjectDetailScreen}
+              options={projectDetail.options}
+            />
+            <Stack.Screen
+              name={projectDetailBody.name}
+              component={ProjectDetailBodyScreen}
+              options={projectDetailBody.options}
+            />
+            <Stack.Screen
+              name={projectNews.name}
+              component={ProjectNewsScreen}
+              options={projectNews.options}
+            />
+            <Stack.Screen
+              name={projectOverview.name}
+              component={ProjectOverviewScreen}
+              options={projectOverview.options}
+            />
+            <Stack.Screen
+              name={projectOverviewByDistrict.name}
+              component={ProjectOverviewByDistrictScreen}
+              options={projectOverviewByDistrict.options}
+            />
+            <Stack.Screen
+              name="Waste"
+              component={WasteScreen}
+              options={wasteGuide.options}
+            />
+            <Stack.Screen
+              name="WebView"
+              component={WebViewScreen}
+              options={webView.options}
+            />
+          </Stack.Group>
+          <Stack.Group screenOptions={{presentation: 'modal'}}>
+            <Stack.Screen component={StreetModalScreen} name="StreetModal" />
+            <Stack.Screen component={NumberModalScreen} name="NumberModal" />
+          </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
     </OrientationProvider>
