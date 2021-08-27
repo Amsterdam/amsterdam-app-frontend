@@ -7,7 +7,7 @@ import {
   Title,
 } from '../../components/ui'
 import {WasteGuideFeature} from './WasteGuideByAddress'
-import {buitenZetten, ophaaldag, opmerking} from './wasteGuideUtils'
+import {buitenZetten, ophaaldag} from './wasteGuideUtils'
 
 export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
   <Card>
@@ -27,7 +27,7 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
           },
           {
             label: 'Opmerking',
-            value: opmerking(properties.opmerking),
+            value: properties.opmerking,
           },
         ]}
       />
