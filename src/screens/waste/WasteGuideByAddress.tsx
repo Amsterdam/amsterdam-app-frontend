@@ -103,7 +103,7 @@ export const WasteGuideByAddress = () => {
           </>
         )}
       </Box>
-      {(api.isLoading || bulkyWaste || householdWaste) && (
+      {address && (
         <Box>
           {api.isLoading ? (
             <ActivityIndicator />
