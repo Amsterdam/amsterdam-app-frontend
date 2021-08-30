@@ -13,8 +13,8 @@ type UseFetchProps = {
 
 export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [data, setData] = useState<T | undefined>(undefined)
-  const [isError, setError] = useState(false)
-  const [isLoading, setLoading] = useState(false)
+  const [hasError, setHasError] = useState<Boolean>(false)
+  const [isLoading, setIsLoading] = useState<Boolean>(false)
 
   const prevUrl = useRef<string>()
 
@@ -23,7 +23,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
 
   const fetchData = useCallback(
     async (params = undefined) => {
-      setLoading(true)
+      setIsLoading(true)
       const queryParams = {...options?.params, ...params}
       const queryString = Object.keys(queryParams)
         .map(key => key + '=' + encodeURIComponent(queryParams[key]))
@@ -34,9 +34,9 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
         const json = await response.json()
         setData(json.result ?? json)
       } catch (error) {
-        setError(error)
+        setHasError(!!error)
       } finally {
-        setLoading(false)
+        setIsLoading(false)
       }
     },
     [options?.params, url],
@@ -59,5 +59,5 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
     }
   }, [currentParams, fetchData, fetchDataIfNeeded, url])
 
-  return {data, fetchData, isError, isLoading}
+  return {data, fetchData, hasError, isLoading}
 }
