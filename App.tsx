@@ -90,7 +90,7 @@ const globalScreenOptions: StackNavigationOptions = {
     backgroundColor: color.background.light,
   },
   headerStyle: {
-    backgroundColor: 'white',
+    backgroundColor: color.background.lighter,
   },
   headerBackImage: () => (
     <ChevronLeft
