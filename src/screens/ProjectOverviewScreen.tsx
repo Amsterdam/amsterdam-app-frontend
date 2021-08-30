@@ -3,7 +3,7 @@ import React from 'react'
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Box, Button, Gutter, ScreenWrapper, Title} from '../components/ui'
+import {Box, Button, Gutter, ScreenWrapper, Text, Title} from '../components/ui'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
@@ -15,7 +15,11 @@ type Props = {
 }
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
+  const {
+    data: projects,
+    hasError,
+    isLoading,
+  } = useFetch<ProjectOverviewItem[]>({
     url: getEnvironment().apiUrl + '/projects',
   })
 
@@ -24,6 +28,17 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     title: district.name,
     data: projects?.filter(project => project.district_id === district.id),
   }))
+
+  if (hasError) {
+    return (
+      <Box>
+        <Box background="invalid">
+          <Title inverse text="Er ging iets mis" />
+          <Text inverse>Heb je de backend aangezet…?</Text>
+        </Box>
+      </Box>
+    )
+  }
 
   return (
     <ScreenWrapper>
