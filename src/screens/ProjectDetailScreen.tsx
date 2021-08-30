@@ -8,14 +8,7 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features'
-import {
-  Box,
-  Gutter,
-  IconButton,
-  Image,
-  ScreenWrapper,
-  Title,
-} from '../components/ui'
+import {Box, Gutter, IconButton, Image, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
 import {color, image, size} from '../tokens'
@@ -84,53 +77,48 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   ]
 
-  return (
-    <ScreenWrapper>
-      {isLoading && !project && (
-        <Box>
-          <ActivityIndicator />
-        </Box>
+  return isLoading && !project ? (
+    <Box>
+      <ActivityIndicator />
+    </Box>
+  ) : (
+    <ScrollView>
+      {project?.images && project.images[0].sources.orig.url && (
+        <Image
+          source={{uri: project.images[0].sources.orig.url}}
+          style={styles.image}
+        />
       )}
-      {project && (
-        <ScrollView>
-          {project?.images && project.images[0].sources.orig.url && (
-            <Image
-              source={{uri: project.images[0].sources.orig.url}}
-              style={styles.image}
-            />
+      <Box background="lighter">
+        <Title margin text={project?.title || ''} />
+        <View style={styles.row}>
+          {menu?.map(({icon, sections, timeline, title}) =>
+            sections?.length || timeline ? (
+              <IconButton
+                icon={icon}
+                key={title}
+                label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
+                onPress={() =>
+                  navigation.navigate(routes.projectDetailBody.name, {
+                    body: {
+                      headerTitle,
+                      sections: sections ?? [],
+                      title: title,
+                      timeline: timeline,
+                    },
+                  })
+                }
+              />
+            ) : null,
           )}
-          <Box background="lighter">
-            <Title margin text={project?.title || ''} />
-            <View style={styles.row}>
-              {menu?.map(({icon, sections, timeline, title}) =>
-                sections?.length || timeline ? (
-                  <IconButton
-                    icon={icon}
-                    key={title}
-                    label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
-                    onPress={() =>
-                      navigation.navigate(routes.projectDetailBody.name, {
-                        body: {
-                          headerTitle,
-                          sections: sections ?? [],
-                          title: title,
-                          timeline: timeline,
-                        },
-                      })
-                    }
-                  />
-                ) : null,
-              )}
-            </View>
-          </Box>
-          <Box background="light">
-            <Title level={2} text="Nieuws" />
-            <Gutter height={size.spacing.md} />
-            <NewsItemsOverview />
-          </Box>
-        </ScrollView>
-      )}
-    </ScreenWrapper>
+        </View>
+      </Box>
+      <Box background="light">
+        <Title level={2} text="Nieuws" />
+        <Gutter height={size.spacing.md} />
+        <NewsItemsOverview />
+      </Box>
+    </ScrollView>
   )
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Box, Button, Gutter, ScreenWrapper, Text, Title} from '../components/ui'
+import {Box, Button, Gutter, Text, Title} from '../components/ui'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
@@ -41,7 +41,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScreenWrapper>
+    <>
       {isLoading ? (
         <Box>
           <ActivityIndicator />
@@ -101,7 +101,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
           }}
         />
       )}
-    </ScreenWrapper>
+    </>
   )
 }
 

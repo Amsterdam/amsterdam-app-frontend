@@ -7,7 +7,7 @@ import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, ScreenWrapper, Timeline, Title} from '../components/ui'
+import {Box, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 
@@ -41,32 +41,30 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
   }
 
   return (
-    <ScreenWrapper>
-      <ScrollView>
-        <Box background="lighter">
-          <View style={styles.row}>
-            {icon[body.title]}
-            <Title primary text={body.title} />
-          </View>
-        </Box>
-        <Box>
-          {body.sections.map(section => (
-            <React.Fragment key={section.title}>
-              <Title level={4} margin text={section.title} />
-              <RenderHTML
-                contentWidth={width}
-                source={{html: section.html}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStyles}
-              />
-            </React.Fragment>
-          ))}
-          {body.timeline?.items?.length && (
-            <Timeline items={body.timeline.items} />
-          )}
-        </Box>
-      </ScrollView>
-    </ScreenWrapper>
+    <ScrollView>
+      <Box background="lighter">
+        <View style={styles.row}>
+          {icon[body.title]}
+          <Title primary text={body.title} />
+        </View>
+      </Box>
+      <Box>
+        {body.sections.map(section => (
+          <React.Fragment key={section.title}>
+            <Title level={4} margin text={section.title} />
+            <RenderHTML
+              contentWidth={width}
+              source={{html: section.html}}
+              systemFonts={[font.weight.regular, font.weight.demi]}
+              tagsStyles={tagsStyles}
+            />
+          </React.Fragment>
+        ))}
+        {body.timeline?.items?.length && (
+          <Timeline items={body.timeline.items} />
+        )}
+      </Box>
+    </ScrollView>
   )
 }
 
