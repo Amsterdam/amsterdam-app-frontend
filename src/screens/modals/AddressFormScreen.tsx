@@ -1,10 +1,13 @@
 import React from 'react'
-import {ScreenWrapper, Text} from '../../components/ui'
+import {NumberInput} from '../../components/features/address/NumberInput'
+import {StreetInput} from '../../components/features/address/StreetInput'
+import {ScreenWrapper} from '../../components/ui'
 
 export const AddressFormScreen = () => {
   return (
     <ScreenWrapper>
-      <Text>Adres formulier</Text>
+      <StreetInput />
+      <NumberInput />
     </ScreenWrapper>
   )
 }
