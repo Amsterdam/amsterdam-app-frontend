@@ -33,9 +33,9 @@ export type WasteGuideFeature = {
 }
 
 export const WasteGuideByAddress = () => {
-  const [address, setAddress] = useState<Address|null|undefined>(undefined)
+  const [address, setAddress] = useState<Address | null | undefined>(undefined)
   const [isAddressLoading, setIsAddressLoading] = useState(false)
-  const [wasteGuide, setWasteGuide] = useState<WasteGuide|undefined>(
+  const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
 
@@ -72,12 +72,12 @@ export const WasteGuideByAddress = () => {
   // TODO Transform to minimal format, combining into one object
   const bulkyWaste = wasteGuide?.features?.length
     ? wasteGuide.features.find(f => f.properties.dataset === 'grofvuil')
-      ?.properties
+        ?.properties
     : null
 
   const householdWaste = wasteGuide?.features?.length
     ? wasteGuide.features.find(f => f.properties.dataset === 'huisvuil')
-      ?.properties
+        ?.properties
     : null
 
   if (isAddressLoading) {
