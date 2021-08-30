@@ -2,7 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList, routes} from '../../App'
 import {OnboardingAddress} from '../components/features/OnboardingAddress'
-import {Box, Button, Gutter, ScreenWrapper} from '../components/ui'
+import {Box, Button, Gutter} from '../components/ui'
 import {size} from '../tokens'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export const HomeScreen = ({navigation}: Props) => {
   return (
-    <ScreenWrapper>
+    <>
       <OnboardingAddress />
       <Box inset="xl">
         <Button
@@ -34,6 +34,6 @@ export const HomeScreen = ({navigation}: Props) => {
         />
         <Gutter height={size.spacing.md} />
       </Box>
-    </ScreenWrapper>
+    </>
   )
 }

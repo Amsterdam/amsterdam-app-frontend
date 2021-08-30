@@ -74,6 +74,9 @@ export const routes: Routes = {
   wasteGuide: {
     name: 'Waste',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
       title: 'Afvalinformatie op adres',
     },
   },
@@ -90,7 +93,7 @@ const globalScreenOptions: StackNavigationOptions = {
     backgroundColor: color.background.light,
   },
   headerStyle: {
-    backgroundColor: 'white',
+    backgroundColor: color.background.lighter,
   },
   headerBackImage: () => (
     <ChevronLeft
@@ -101,7 +104,7 @@ const globalScreenOptions: StackNavigationOptions = {
     />
   ),
   headerBackTitleVisible: false,
-  headerBackAccessibilityLabel: 'Back button',
+  headerBackAccessibilityLabel: 'Terug',
   headerTitleAlign: 'center',
 }
 

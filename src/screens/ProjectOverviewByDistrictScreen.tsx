@@ -4,7 +4,7 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features'
-import {Box, Gutter, ScreenWrapper} from '../components/ui'
+import {Box, Gutter} from '../components/ui'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks/useFetch'
@@ -40,29 +40,27 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   })
 
   return (
-    <ScreenWrapper>
-      <Box>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <FlatList
-            data={projects}
-            ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
-            keyExtractor={item => item.identifier.toString()}
-            renderItem={({item}) => (
-              <ProjectCard
-                imageSource={{
-                  uri: item.images[0].sources['460px'].url,
-                }}
-                onPress={() =>
-                  navigation.navigate('ProjectDetail', {id: item.identifier})
-                }
-                title={item.title}
-              />
-            )}
-          />
-        )}
-      </Box>
-    </ScreenWrapper>
+    <Box>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          data={projects}
+          ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
+          keyExtractor={item => item.identifier.toString()}
+          renderItem={({item}) => (
+            <ProjectCard
+              imageSource={{
+                uri: item.images[0].sources['460px'].url,
+              }}
+              onPress={() =>
+                navigation.navigate('ProjectDetail', {id: item.identifier})
+              }
+              title={item.title}
+            />
+          )}
+        />
+      )}
+    </Box>
   )
 }

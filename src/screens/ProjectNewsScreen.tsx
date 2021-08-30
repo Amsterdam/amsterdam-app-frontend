@@ -4,7 +4,7 @@ import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, Image, ScreenWrapper, Title} from '../components/ui'
+import {Box, Image, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {font, image} from '../tokens'
 
@@ -19,20 +19,18 @@ export const ProjectNewsScreen = ({route}: Props) => {
   const {width} = useWindowDimensions()
 
   return (
-    <ScreenWrapper>
-      <ScrollView>
-        <Image source={{uri: article.image_url}} style={styles.image} />
-        <Box>
-          <Title margin text={article.title} />
-          <RenderHTML
-            contentWidth={width}
-            source={{html: article.content}}
-            systemFonts={[font.weight.regular, font.weight.demi]}
-            tagsStyles={tagsStyles}
-          />
-        </Box>
-      </ScrollView>
-    </ScreenWrapper>
+    <ScrollView>
+      <Image source={{uri: article.image_url}} style={styles.image} />
+      <Box>
+        <Title margin text={article.title} />
+        <RenderHTML
+          contentWidth={width}
+          source={{html: article.content}}
+          systemFonts={[font.weight.regular, font.weight.demi]}
+          tagsStyles={tagsStyles}
+        />
+      </Box>
+    </ScrollView>
   )
 }
 
