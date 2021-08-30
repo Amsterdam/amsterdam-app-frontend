@@ -33,8 +33,8 @@ export type WasteGuideFeature = {
 }
 
 export const WasteGuideByAddress = () => {
-  const [isAddressLoading, setIsAddressLoading] = useState(false)
   const [address, setAddress] = useState<Address | undefined>(undefined)
+  const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -42,10 +42,9 @@ export const WasteGuideByAddress = () => {
   const asyncStorage = useAsyncStorage()
 
   const retrieveAddress = useCallback(async () => {
-    setIsAddressLoading(true)
-    const addressFromStore = await asyncStorage.getData('address')
-    setAddress(addressFromStore)
-    setIsAddressLoading(false)
+    const retrievedAddress = await asyncStorage.getData('address')
+    setAddress(retrievedAddress)
+    setIsAddressRetrieving(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -80,7 +79,7 @@ export const WasteGuideByAddress = () => {
         ?.properties
     : null
 
-  if (isAddressLoading) {
+  if (isAddressRetrieving) {
     return null
   }
 
