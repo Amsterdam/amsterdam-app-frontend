@@ -101,7 +101,7 @@ const globalScreenOptions: StackNavigationOptions = {
     />
   ),
   headerBackTitleVisible: false,
-  headerBackAccessibilityLabel: 'Back button',
+  headerBackAccessibilityLabel: 'Terug',
   headerTitleAlign: 'center',
 }
 
