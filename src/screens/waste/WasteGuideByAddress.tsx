@@ -1,7 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {AddressForm} from '../../components/features/AddressForm'
-import {Box, Gutter, Link, Text, Title} from '../../components/ui'
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Gutter,
+  Link,
+  Text,
+  Title,
+} from '../../components/ui'
 import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
@@ -97,7 +106,14 @@ export const WasteGuideByAddress = () => {
         </Box>
         <Box background="light">
           {api.isLoading ? (
-            <ActivityIndicator />
+            <Card>
+              <CardHeader>
+                <Title level={4} text="Gegevens ophalen…" />
+              </CardHeader>
+              <CardBody>
+                <ActivityIndicator />
+              </CardBody>
+            </Card>
           ) : (
             <>
               {bulkyWaste && (
