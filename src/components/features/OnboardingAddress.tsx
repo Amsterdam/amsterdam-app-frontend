@@ -8,7 +8,7 @@ import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
 
 export const OnboardingAddress = () => {
-  const [address, setAddress] = useState<any>(null)
+  const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isLoading, setLoading] = useState(true)
   const [isFocusInput, setFocusInput] = useState(false)
   const fadeAnim = useRef(new Animated.Value(1)).current
@@ -114,7 +114,10 @@ export const OnboardingAddress = () => {
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
               <Gutter height={size.spacing.sm} />
-              <Link onPress={() => setAddress(null)} text="Verander adres" />
+              <Link
+                onPress={() => setAddress(undefined)}
+                text="Verander adres"
+              />
             </CardBody>
           </Card>
         </Box>

@@ -33,8 +33,8 @@ export type WasteGuideFeature = {
 }
 
 export const WasteGuideByAddress = () => {
-  const [address, setAddress] = useState<Address | null | undefined>(undefined)
   const [isAddressLoading, setIsAddressLoading] = useState(false)
+  const [address, setAddress] = useState<Address | undefined>(undefined)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -92,7 +92,7 @@ export const WasteGuideByAddress = () => {
           <Title text={address.adres} />
           <Link
             direction="backward"
-            onPress={() => setAddress(null)}
+            onPress={() => setAddress(undefined)}
             text="Verander adres"
           />
         </Box>
