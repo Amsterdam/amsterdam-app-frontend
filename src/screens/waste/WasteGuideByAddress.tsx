@@ -96,7 +96,7 @@ export const WasteGuideByAddress = () => {
             text="Verander adres"
           />
         </Box>
-        <Box>
+        <Box background="light">
           {api.isLoading ? (
             <ActivityIndicator />
           ) : (

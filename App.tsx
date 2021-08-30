@@ -74,6 +74,9 @@ export const routes: Routes = {
   wasteGuide: {
     name: 'Waste',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
       title: 'Afvalinformatie op adres',
     },
   },
