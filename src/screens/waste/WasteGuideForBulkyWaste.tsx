@@ -6,8 +6,8 @@ import {
   DescriptionList,
   Title,
 } from '../../components/ui'
+import {formatDateTimes, formatSentence} from '../../utils'
 import {WasteGuideFeature} from './WasteGuideByAddress'
-import {buitenZetten, ophaaldag} from './wasteGuideUtils'
 
 export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
   <Card>
@@ -18,12 +18,22 @@ export const WasteGuideForBulkyWaste = ({properties}: WasteGuideFeature) => (
       <DescriptionList
         items={[
           {
-            label: 'Ophaaldag',
-            value: ophaaldag(properties.ophaaldag, properties.frequentie),
+            label: properties.ophaaldag.includes(' en ')
+              ? 'Ophaaldagen'
+              : 'Ophaaldag',
+            value: formatSentence(properties.ophaaldag),
           },
           {
             label: 'Buiten zetten',
-            value: buitenZetten(properties.tijd_vanaf, properties.tijd_tot),
+            value: formatSentence(
+              formatDateTimes(
+                properties.ophaaldag,
+                properties.tijd_vanaf,
+                'aanbiedtijden onbekend',
+                'ophaaldagen onbekend',
+                properties.tijd_tot,
+              ),
+            ),
           },
           {
             label: 'Opmerking',
