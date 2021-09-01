@@ -17,53 +17,13 @@ import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
 import {formatDateTimes, formatSentence} from '../../utils'
+import {
+  WasteGuide,
+  WasteGuideResponse,
+  WasteGuideResponseType,
+  WasteType,
+} from './types'
 import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
-
-export type WasteGuideResponse = {
-  features: WasteGuideResponseFeature[]
-  type: string
-}
-
-export type WasteGuideResponseFeature = {
-  properties: WasteGuideResponseProperties
-}
-
-export type WasteGuideResponseProperties = {
-  aanbiedwijze: string
-  dataset: string
-  frequentie: string
-  mutatie: string
-  ophaaldag: string
-  ophalen: string
-  opmerking: string
-  stadsdeel_code: string
-  stadsdeel_id: string
-  stadsdeel_naam: string
-  tijd_tot: string
-  tijd_vanaf: string
-  type: WasteGuideResponseType
-  website: string
-}
-
-type WasteGuideResponseType = 'grofvuil' | 'huisvuil'
-
-enum WasteType {
-  Bulky,
-  Household,
-}
-
-export type WasteGuide = {
-  [WasteType.Bulky]?: WasteGuideDetails
-  [WasteType.Household]?: WasteGuideDetails
-}
-
-export type WasteGuideDetails = {
-  appointmentUrl: string | undefined
-  collectionDays: string
-  howToOffer: string
-  remark: string
-  whenToPutOut: string
-}
 
 const appointmentUrl = (
   address: Address | undefined,

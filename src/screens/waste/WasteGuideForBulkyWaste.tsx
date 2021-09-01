@@ -11,7 +11,7 @@ import {
 } from '../../components/ui'
 import {size} from '../../tokens'
 import {formatSentence} from '../../utils'
-import {WasteGuideDetails} from './WasteGuideByAddress'
+import {WasteGuideDetails} from './types'
 
 type Props = {
   details: WasteGuideDetails
