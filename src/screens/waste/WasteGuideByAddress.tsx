@@ -11,76 +11,17 @@ import {
   Text,
   Title,
 } from '../../components/ui'
-import {getEnvironment} from '../../environment'
 import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
-import {formatDateTimes, formatSentence} from '../../utils'
-import {
-  WasteGuide,
-  WasteGuideResponse,
-  WasteGuideResponseType,
-  WasteType,
-} from './types'
+import {WasteGuide, WasteGuideResponse, WasteType} from './types'
+import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
 import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
 
-const appointmentUrl = (
-  address: Address | undefined,
-  opmerking: string,
-): string | undefined => {
-  if (!address || !opmerking.startsWith('Maak een afspraak')) {
-    return undefined
-  }
-
-  const {postcode, huisnummer, bag_huisletter, bag_toevoeging} = address
-
-  return (
-    getEnvironment().bulkyWasteFormUrl +
-    '?GUID=' +
-    [postcode, huisnummer, bag_huisletter, bag_toevoeging].join(',')
-  )
-}
-
-const transformWasteGuideResponse = (
-  wasteGuideResponse: WasteGuideResponse | undefined,
-  address: Address | undefined,
-): WasteGuide | undefined =>
-  wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
-    const {type, ophaaldag, aanbiedwijze, opmerking, tijd_tot, tijd_vanaf} =
-      feature.properties
-
-    acc[mapWasteType(type)] = {
-      collectionDays: ophaaldag ? formatSentence(ophaaldag) : '',
-      howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : '',
-      remark: opmerking ? formatSentence(opmerking) : '',
-      appointmentUrl: opmerking && appointmentUrl(address, opmerking),
-      whenToPutOut: ophaaldag
-        ? formatSentence(
-            formatDateTimes(
-              ophaaldag,
-              tijd_vanaf,
-              'aanbiedtijden onbekend',
-              'ophaaldagen onbekend',
-              tijd_tot,
-            ),
-          )
-        : '',
-    }
-
-    return acc
-  }, {})
-
-const mapWasteType = (type: WasteGuideResponseType): WasteType => {
-  if (type === 'grofvuil') {
-    return WasteType.Bulky
-  }
-  return WasteType.Household
-}
 export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
-
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )

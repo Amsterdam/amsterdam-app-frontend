@@ -43,3 +43,10 @@ export type WasteGuideDetails = {
   remark: string
   whenToPutOut: string
 }
+
+export const mapWasteType = (type: WasteGuideResponseType): WasteType => {
+  if (type === 'grofvuil') {
+    return WasteType.Bulky
+  }
+  return WasteType.Household
+}
