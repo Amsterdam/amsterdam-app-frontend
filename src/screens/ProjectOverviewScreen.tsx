@@ -23,10 +23,26 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     url: getEnvironment().apiUrl + '/projects',
   })
 
+  const renamedProjects: ProjectOverviewItem[] | undefined = projects?.map(
+    project => {
+      let [title, subtitle] = project.title.split(',')
+      if (!subtitle) {
+        ;[title, subtitle] = project.title.split(':')
+      }
+      return {
+        ...project,
+        title: title,
+        subtitle: subtitle && subtitle[1].toUpperCase() + subtitle.slice(2),
+      }
+    },
+  )
+
   const projectsByDistrict = districts.map(district => ({
     id: district.id,
     title: district.name,
-    data: projects?.filter(project => project.district_id === district.id),
+    data: renamedProjects?.filter(
+      project => project.district_id === district.id,
+    ),
   }))
 
   if (hasError) {
@@ -90,6 +106,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                       imageSource={{
                         uri: projectItem.images[0].sources['460px'].url,
                       }}
+                      subtitle={projectItem.subtitle}
                       title={projectItem.title}
                       width={280}
                     />

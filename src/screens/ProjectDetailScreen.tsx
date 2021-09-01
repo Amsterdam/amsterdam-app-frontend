@@ -8,13 +8,12 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features'
-import {Box, Gutter, IconButton, Image, Title} from '../components/ui'
+import {Box, Gutter, IconButton, Image, Text, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {color, image, size} from '../tokens'
 import {Section, Timeline} from '../types'
 import {ProjectDetail} from '../types/project'
-import {clipText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -36,13 +35,13 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
-  const headerTitle = clipText(project?.title, [':', ','])
+  let [title, subtitle] = project ? project.title.split(',') : ['', '']
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: headerTitle,
+      title: title,
     })
-  }, [headerTitle, navigation])
+  }, [title, navigation])
 
   const menu: {
     icon: any
@@ -90,7 +89,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="lighter">
-        <Title margin text={project?.title || ''} />
+        <Title text={title || ''} />
+        {subtitle ? (
+          <Text intro>{subtitle[1].toUpperCase() + subtitle.slice(2)}</Text>
+        ) : null}
+        <Gutter height={size.spacing.lg} />
         <View style={styles.row}>
           {menu?.map(({icon, sections, timeline, title}) =>
             sections?.length || timeline ? (
@@ -101,7 +104,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.projectDetailBody.name, {
                     body: {
-                      headerTitle,
+                      headerTitle: title,
                       sections: sections ?? [],
                       title: title,
                       timeline: timeline,

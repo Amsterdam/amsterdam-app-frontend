@@ -11,6 +11,7 @@ export type ProjectOverviewItem = {
   project_type: string
   publication_date: string
   source_url: string
+  subtitle: string
   title: string
 }
 
@@ -35,6 +36,7 @@ export type ProjectDetail = {
   images: ProjectImage[]
   page_id: number
   rel_url: string
+  subtitle: string
   title: string
   url: string
 }

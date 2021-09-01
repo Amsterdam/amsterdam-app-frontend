@@ -8,6 +8,7 @@ import {color, font} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
+  intro?: Boolean
   inverse?: Boolean
   link?: Boolean
   margin?: Boolean
@@ -18,6 +19,7 @@ type Props = {
 
 export const Text = ({
   children,
+  intro,
   inverse,
   margin,
   secondary,
@@ -31,6 +33,7 @@ export const Text = ({
       style={[
         styles.text,
         margin && styles.margin,
+        intro && styles.intro,
         inverse && styles.inverse,
         link && styles.link,
         secondary && styles.secondary,
@@ -44,6 +47,9 @@ export const Text = ({
 }
 
 const styles = StyleSheet.create({
+  intro: {
+    fontFamily: font.weight.demi,
+  },
   inverse: {
     color: color.font.inverse,
     fontFamily: font.weight.demi,
