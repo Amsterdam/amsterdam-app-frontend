@@ -75,15 +75,25 @@ export const OnboardingAddress = () => {
 
   const storeAddress = async (responseAddress: Address) => {
     setFocusInput(false)
-    const {adres, centroid, huisnummer, postcode, straatnaam, woonplaats} =
-      responseAddress
+    const {
+      adres,
+      centroid,
+      bag_huisletter,
+      huisnummer,
+      postcode,
+      straatnaam,
+      bag_toevoeging,
+      woonplaats,
+    } = responseAddress
     setAddress(responseAddress)
     await asyncStorage.storeData('address', {
       adres,
       centroid,
+      bag_huisletter,
       huisnummer,
       postcode,
       straatnaam,
+      bag_toevoeging,
       woonplaats,
     })
   }
