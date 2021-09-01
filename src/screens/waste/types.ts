@@ -10,18 +10,18 @@ type WasteGuideResponseFeature = {
 type WasteGuideResponseProperties = {
   aanbiedwijze: string
   dataset: string
-  frequentie: string
+  frequentie?: string | null
   mutatie: string
-  ophaaldag: string
+  ophaaldag: string | null
   ophalen: string
-  opmerking: string
+  opmerking: string | null
   stadsdeel_code: string
   stadsdeel_id: string
   stadsdeel_naam: string
-  tijd_tot: string
-  tijd_vanaf: string
+  tijd_tot: string | null
+  tijd_vanaf: string | null
   type: WasteGuideResponseType
-  website: string
+  website?: string | null
 }
 
 export type WasteGuideResponseType = 'grofvuil' | 'huisvuil'
@@ -38,7 +38,7 @@ export type WasteGuide = {
 
 export type WasteGuideDetails = {
   appointmentUrl: string | undefined
-  collectionDays: string
+  collectionDays: string | undefined
   howToOffer: string
   remark: string
   whenToPutOut: string

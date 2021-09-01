@@ -8,25 +8,42 @@ export const transformWasteGuideResponse = (
   address: Address | undefined,
 ): WasteGuide | undefined =>
   wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
-    const {type, ophaaldag, aanbiedwijze, opmerking, tijd_tot, tijd_vanaf} =
-      feature.properties
+    const {
+      aanbiedwijze,
+      frequentie,
+      ophaaldag,
+      opmerking,
+      tijd_tot,
+      tijd_vanaf,
+      type,
+    } = feature.properties
+
+    let collectionDays = ophaaldag
+    if (frequentie) {
+      collectionDays += `, ${frequentie}*`
+    }
 
     acc[mapWasteType(type)] = {
-      collectionDays: ophaaldag ? formatSentence(ophaaldag) : '',
+      collectionDays: collectionDays ?? undefined,
       howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : '',
       remark: opmerking ? formatSentence(opmerking) : '',
-      appointmentUrl: opmerking && appointmentUrl(address, opmerking),
-      whenToPutOut: ophaaldag
-        ? formatSentence(
-            formatDateTimes(
-              ophaaldag,
-              tijd_vanaf,
-              'aanbiedtijden onbekend',
-              'ophaaldagen onbekend',
-              tijd_tot,
-            ),
-          )
-        : '',
+      appointmentUrl: opmerking
+        ? appointmentUrl(address, opmerking)
+        : undefined,
+      whenToPutOut:
+        ophaaldag === 'Op afspraak'
+          ? ''
+          : ophaaldag
+          ? formatSentence(
+              formatDateTimes(
+                ophaaldag,
+                tijd_vanaf,
+                tijd_tot,
+                'aanbiedtijden onbekend',
+                'ophaaldagen onbekend',
+              ),
+            )
+          : '',
     }
 
     return acc

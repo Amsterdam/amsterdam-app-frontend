@@ -10,7 +10,6 @@ import {
   Title,
 } from '../../components/ui'
 import {size} from '../../tokens'
-import {formatSentence} from '../../utils'
 import {WasteGuideDetails} from './types'
 
 type Props = {
@@ -29,10 +28,10 @@ export const WasteGuideForBulkyWaste = ({details}: Props) => {
         <DescriptionList
           items={[
             {
-              label: collectionDays.includes(' en ')
+              label: collectionDays?.includes(' en ')
                 ? 'Ophaaldagen'
                 : 'Ophaaldag',
-              value: collectionDays && formatSentence(collectionDays),
+              value: collectionDays,
             },
             {
               label: 'Buiten zetten',
@@ -40,7 +39,7 @@ export const WasteGuideForBulkyWaste = ({details}: Props) => {
             },
             {
               label: 'Opmerking',
-              value: remark && formatSentence(remark),
+              value: remark,
             },
           ]}
         />

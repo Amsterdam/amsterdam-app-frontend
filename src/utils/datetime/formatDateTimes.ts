@@ -8,10 +8,10 @@ import {getPreviousDay, parseDays, parseTime} from '../index'
  */
 export const formatDateTimes = (
   days: string,
-  from: string,
+  from: string | null,
+  until: string | null,
   initialValue: string,
   emptyValue: string,
-  until?: string,
 ): string => {
   const daysList = parseDays(days)
 
@@ -19,7 +19,7 @@ export const formatDateTimes = (
     return emptyValue
   }
 
-  const fromTime = parseTime(from)
+  const fromTime = parseTime(from ?? '')
   const untilTime = parseTime(until ?? '')
 
   if (days.includes(' tot en met ')) {

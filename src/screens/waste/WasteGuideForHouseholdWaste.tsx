@@ -6,7 +6,6 @@ import {
   DescriptionList,
   Title,
 } from '../../components/ui'
-import {formatSentence} from '../../utils'
 import {WasteGuideDetails} from './types'
 
 type Props = {
@@ -29,10 +28,10 @@ export const WasteGuideForHouseholdWaste = ({details}: Props) => {
               value: howToOffer,
             },
             {
-              label: collectionDays.includes(' en ')
+              label: collectionDays?.includes(' en ')
                 ? 'Ophaaldagen'
                 : 'Ophaaldag',
-              value: formatSentence(collectionDays), // Check nullish
+              value: collectionDays,
             },
             {
               label: 'Buiten zetten',
@@ -40,7 +39,7 @@ export const WasteGuideForHouseholdWaste = ({details}: Props) => {
             },
             {
               label: 'Opmerking',
-              value: remark && formatSentence(remark), // Check nullish
+              value: remark,
             },
           ]}
         />
