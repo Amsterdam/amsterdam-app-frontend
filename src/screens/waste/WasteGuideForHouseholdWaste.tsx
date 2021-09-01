@@ -6,15 +6,15 @@ import {
   DescriptionList,
   Title,
 } from '../../components/ui'
-import {formatDateTimes, formatSentence} from '../../utils'
-import {WasteGuideProperties} from './WasteGuideByAddress'
+import {formatSentence} from '../../utils'
+import {WasteGuideDetails} from './WasteGuideByAddress'
 
 type Props = {
-  properties: WasteGuideProperties
+  properties: WasteGuideDetails
 }
 
 export const WasteGuideForHouseholdWaste = ({properties}: Props) => {
-  const {aanbiedwijze, ophaaldag, tijd_vanaf, tijd_tot, opmerking} = properties
+  const {collectionDays, howToOffer, remark, whenToPutOut} = properties
 
   return (
     <Card>
@@ -26,27 +26,21 @@ export const WasteGuideForHouseholdWaste = ({properties}: Props) => {
           items={[
             {
               label: 'Hoe',
-              value: aanbiedwijze,
+              value: howToOffer,
             },
             {
-              label: ophaaldag.includes(' en ') ? 'Ophaaldagen' : 'Ophaaldag',
-              value: formatSentence(ophaaldag),
+              label: collectionDays.includes(' en ')
+                ? 'Ophaaldagen'
+                : 'Ophaaldag',
+              value: formatSentence(collectionDays),
             },
             {
               label: 'Buiten zetten',
-              value: formatSentence(
-                formatDateTimes(
-                  ophaaldag,
-                  tijd_vanaf,
-                  'aanbiedtijden onbekend',
-                  'ophaaldagen onbekend',
-                  tijd_tot,
-                ),
-              ),
+              value: whenToPutOut,
             },
             {
               label: 'Opmerking',
-              value: opmerking && formatSentence(opmerking),
+              value: remark && formatSentence(remark),
             },
           ]}
         />

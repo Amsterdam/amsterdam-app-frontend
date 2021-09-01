@@ -15,18 +15,19 @@ import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
+import {formatDateTimes, formatSentence} from '../../utils'
 import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
 
-export type WasteGuide = {
-  features: WasteGuideFeature[]
+export type WasteGuideResponse = {
+  features: WasteGuideResponseFeature[]
   type: string
 }
 
-export type WasteGuideFeature = {
-  properties: WasteGuideProperties
+export type WasteGuideResponseFeature = {
+  properties: WasteGuideResponseProperties
 }
 
-export type WasteGuideProperties = {
+export type WasteGuideResponseProperties = {
   aanbiedwijze: string
   dataset: string
   frequentie: string
@@ -39,13 +40,64 @@ export type WasteGuideProperties = {
   stadsdeel_naam: string
   tijd_tot: string
   tijd_vanaf: string
-  type: string
+  type: WasteGuideResponseType
   website: string
 }
 
+type WasteGuideResponseType = 'grofvuil' | 'huisvuil'
+
+enum WasteType {
+  Bulky,
+  Household,
+}
+
+export type WasteGuide = {
+  [WasteType.Bulky]?: WasteGuideDetails
+  [WasteType.Household]?: WasteGuideDetails
+}
+
+export type WasteGuideDetails = {
+  collectionDays: string
+  howToOffer: string
+  remark: string
+  whenToPutOut: string
+}
+
+const transformWasteGuideResponse = (
+  wasteGuideResponse: WasteGuideResponse | undefined,
+): WasteGuide | undefined =>
+  wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
+    const {type, ophaaldag, aanbiedwijze, opmerking, tijd_tot, tijd_vanaf} =
+      feature.properties
+
+    acc[mapWasteType(type)] = {
+      collectionDays: ophaaldag && formatSentence(ophaaldag),
+      howToOffer: aanbiedwijze && formatSentence(aanbiedwijze),
+      remark: opmerking && formatSentence(opmerking),
+      whenToPutOut: formatSentence(
+        formatDateTimes(
+          ophaaldag,
+          tijd_vanaf,
+          'aanbiedtijden onbekend',
+          'ophaaldagen onbekend',
+          tijd_tot,
+        ),
+      ),
+    }
+
+    return acc
+  }, {})
+
+const mapWasteType = (type: WasteGuideResponseType): WasteType => {
+  if (type === 'grofvuil') {
+    return WasteType.Bulky
+  }
+  return WasteType.Household
+}
 export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
+
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -62,7 +114,7 @@ export const WasteGuideByAddress = () => {
     retrieveAddress()
   }, [retrieveAddress])
 
-  const api = useFetch<WasteGuide>({
+  const api = useFetch<WasteGuideResponse>({
     onLoad: false,
     options: {},
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
@@ -76,19 +128,8 @@ export const WasteGuideByAddress = () => {
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(api.data)
+    setWasteGuide(transformWasteGuideResponse(api.data))
   }, [api.data])
-
-  // TODO Transform to minimal format, combining into one object
-  const bulkyWaste = wasteGuide?.features?.length
-    ? wasteGuide.features.find(f => f.properties.dataset === 'grofvuil')
-        ?.properties
-    : null
-
-  const householdWaste = wasteGuide?.features?.length
-    ? wasteGuide.features.find(f => f.properties.dataset === 'huisvuil')
-        ?.properties
-    : null
 
   if (isAddressRetrieving) {
     return null
@@ -118,16 +159,20 @@ export const WasteGuideByAddress = () => {
             </Card>
           ) : (
             <>
-              {bulkyWaste && (
+              {wasteGuide?.[WasteType.Bulky] && (
                 <WasteGuideForBulkyWaste
                   address={address}
-                  properties={bulkyWaste}
+                  properties={wasteGuide[WasteType.Bulky]!}
                 />
               )}
-              {householdWaste && (
+              {wasteGuide?.[WasteType.Household] && (
                 <>
-                  {bulkyWaste && <Gutter height={size.spacing.md} />}
-                  <WasteGuideForHouseholdWaste properties={householdWaste} />
+                  {wasteGuide[WasteType.Bulky] && (
+                    <Gutter height={size.spacing.md} />
+                  )}
+                  <WasteGuideForHouseholdWaste
+                    properties={wasteGuide[WasteType.Household]!}
+                  />
                 </>
               )}
             </>

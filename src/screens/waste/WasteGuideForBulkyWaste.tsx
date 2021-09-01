@@ -12,17 +12,17 @@ import {
 import {getEnvironment} from '../../environment'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
-import {formatDateTimes, formatSentence} from '../../utils'
-import {WasteGuideProperties} from './WasteGuideByAddress'
+import {formatSentence} from '../../utils'
+import {WasteGuideDetails} from './WasteGuideByAddress'
 
 type Props = {
   address: Address
-  properties: WasteGuideProperties
+  properties: WasteGuideDetails
 }
 
 export const WasteGuideForBulkyWaste = ({address, properties}: Props) => {
   const {postcode, huisnummer, bag_huisletter, bag_toevoeging} = address
-  const {ophaaldag, tijd_vanaf, tijd_tot, opmerking} = properties
+  const {collectionDays, remark, whenToPutOut} = properties
 
   return (
     <Card>
@@ -33,24 +33,18 @@ export const WasteGuideForBulkyWaste = ({address, properties}: Props) => {
         <DescriptionList
           items={[
             {
-              label: ophaaldag.includes(' en ') ? 'Ophaaldagen' : 'Ophaaldag',
-              value: ophaaldag && formatSentence(ophaaldag),
+              label: collectionDays.includes(' en ')
+                ? 'Ophaaldagen'
+                : 'Ophaaldag',
+              value: collectionDays && formatSentence(collectionDays),
             },
             {
               label: 'Buiten zetten',
-              value: formatSentence(
-                formatDateTimes(
-                  ophaaldag,
-                  tijd_vanaf,
-                  'aanbiedtijden onbekend',
-                  'ophaaldagen onbekend',
-                  tijd_tot,
-                ),
-              ),
+              value: whenToPutOut,
             },
             {
               label: 'Opmerking',
-              value: opmerking && formatSentence(opmerking),
+              value: remark && formatSentence(remark),
             },
           ]}
         />
