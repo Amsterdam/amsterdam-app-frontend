@@ -12,18 +12,22 @@ export type DescriptionListItem = {
   value?: string
 }
 
-export const DescriptionList = ({items}: DescriptionListProps) => (
-  <>
-    {items
-      .filter(item => item.value)
-      .map(({label, value}, index) => (
+export const DescriptionList = ({items}: DescriptionListProps) => {
+  const nonEmptyItems = items.filter(item => item.value)
+
+  return (
+    <>
+      {nonEmptyItems.map(({label, value}, index) => (
         <React.Fragment key={label}>
           <Text secondary small>
             {label}
           </Text>
           <Text>{value}</Text>
-          {index < items.length - 1 && <Gutter height={size.spacing.md} />}
+          {index < nonEmptyItems.length - 1 && (
+            <Gutter height={size.spacing.md} />
+          )}
         </React.Fragment>
       ))}
-  </>
-)
+    </>
+  )
+}
