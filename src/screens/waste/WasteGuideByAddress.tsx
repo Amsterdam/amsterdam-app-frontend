@@ -23,22 +23,24 @@ export type WasteGuide = {
 }
 
 export type WasteGuideFeature = {
-  properties: {
-    aanbiedwijze: string
-    dataset: string
-    frequentie: string
-    mutatie: string
-    ophaaldag: string
-    ophalen: string
-    opmerking: string
-    stadsdeel_code: string
-    stadsdeel_id: string
-    stadsdeel_naam: string
-    tijd_tot: string
-    tijd_vanaf: string
-    type: string
-    website: string
-  }
+  properties: WasteGuideProperties
+}
+
+export type WasteGuideProperties = {
+  aanbiedwijze: string
+  dataset: string
+  frequentie: string
+  mutatie: string
+  ophaaldag: string
+  ophalen: string
+  opmerking: string
+  stadsdeel_code: string
+  stadsdeel_id: string
+  stadsdeel_naam: string
+  tijd_tot: string
+  tijd_vanaf: string
+  type: string
+  website: string
 }
 
 export const WasteGuideByAddress = () => {
@@ -74,7 +76,7 @@ export const WasteGuideByAddress = () => {
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(api.data ?? undefined)
+    setWasteGuide(api.data)
   }, [api.data])
 
   // TODO Transform to minimal format, combining into one object
@@ -117,7 +119,10 @@ export const WasteGuideByAddress = () => {
           ) : (
             <>
               {bulkyWaste && (
-                <WasteGuideForBulkyWaste properties={bulkyWaste} />
+                <WasteGuideForBulkyWaste
+                  address={address}
+                  properties={bulkyWaste}
+                />
               )}
               {householdWaste && (
                 <>
