@@ -10,11 +10,11 @@ import {formatSentence} from '../../utils'
 import {WasteGuideDetails} from './WasteGuideByAddress'
 
 type Props = {
-  properties: WasteGuideDetails
+  details: WasteGuideDetails
 }
 
-export const WasteGuideForHouseholdWaste = ({properties}: Props) => {
-  const {collectionDays, howToOffer, remark, whenToPutOut} = properties
+export const WasteGuideForHouseholdWaste = ({details}: Props) => {
+  const {collectionDays, howToOffer, remark, whenToPutOut} = details
 
   return (
     <Card>
@@ -32,7 +32,7 @@ export const WasteGuideForHouseholdWaste = ({properties}: Props) => {
               label: collectionDays.includes(' en ')
                 ? 'Ophaaldagen'
                 : 'Ophaaldag',
-              value: formatSentence(collectionDays),
+              value: formatSentence(collectionDays), // Check nullish
             },
             {
               label: 'Buiten zetten',
@@ -40,7 +40,7 @@ export const WasteGuideForHouseholdWaste = ({properties}: Props) => {
             },
             {
               label: 'Opmerking',
-              value: remark && formatSentence(remark),
+              value: remark && formatSentence(remark), // Check nullish
             },
           ]}
         />

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Linking, View} from 'react-native'
+import {Linking, StyleSheet, View} from 'react-native'
 import {
   Button,
   Card,
@@ -9,20 +9,16 @@ import {
   Gutter,
   Title,
 } from '../../components/ui'
-import {getEnvironment} from '../../environment'
 import {size} from '../../tokens'
-import {Address} from '../../types/address'
 import {formatSentence} from '../../utils'
 import {WasteGuideDetails} from './WasteGuideByAddress'
 
 type Props = {
-  address: Address
-  properties: WasteGuideDetails
+  details: WasteGuideDetails
 }
 
-export const WasteGuideForBulkyWaste = ({address, properties}: Props) => {
-  const {postcode, huisnummer, bag_huisletter, bag_toevoeging} = address
-  const {collectionDays, remark, whenToPutOut} = properties
+export const WasteGuideForBulkyWaste = ({details}: Props) => {
+  const {appointmentUrl, collectionDays, remark, whenToPutOut} = details
 
   return (
     <Card>
@@ -48,19 +44,22 @@ export const WasteGuideForBulkyWaste = ({address, properties}: Props) => {
             },
           ]}
         />
-        <View style={{alignItems: 'flex-start'}}>
-          <Gutter height={size.spacing.md} />
-          <Button
-            onPress={() =>
-              Linking.openURL(
-                getEnvironment().bulkyWasteFormUrl +
-                  `?GUID=${postcode},${huisnummer},${bag_huisletter},${bag_toevoeging}`,
-              )
-            }
-            text="Maak een afspraak"
-          />
-        </View>
+        {appointmentUrl && (
+          <View style={styles.alignLeft}>
+            <Gutter height={size.spacing.md} />
+            <Button
+              onPress={() => Linking.openURL(appointmentUrl)}
+              text="Maak een afspraak"
+            />
+          </View>
+        )}
       </CardBody>
     </Card>
   )
 }
+
+const styles = StyleSheet.create({
+  alignLeft: {
+    alignItems: 'flex-start',
+  },
+})

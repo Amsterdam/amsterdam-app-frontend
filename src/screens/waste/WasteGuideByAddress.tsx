@@ -11,6 +11,7 @@ import {
   Text,
   Title,
 } from '../../components/ui'
+import {getEnvironment} from '../../environment'
 import {useAsyncStorage} from '../../hooks/useAsyncStorage'
 import {useFetch} from '../../hooks/useFetch'
 import {size} from '../../tokens'
@@ -57,32 +58,54 @@ export type WasteGuide = {
 }
 
 export type WasteGuideDetails = {
+  appointmentUrl: string | undefined
   collectionDays: string
   howToOffer: string
   remark: string
   whenToPutOut: string
 }
 
+const appointmentUrl = (
+  address: Address | undefined,
+  opmerking: string,
+): string | undefined => {
+  if (!address || !opmerking.startsWith('Maak een afspraak')) {
+    return undefined
+  }
+
+  const {postcode, huisnummer, bag_huisletter, bag_toevoeging} = address
+
+  return (
+    getEnvironment().bulkyWasteFormUrl +
+    '?GUID=' +
+    [postcode, huisnummer, bag_huisletter, bag_toevoeging].join(',')
+  )
+}
+
 const transformWasteGuideResponse = (
   wasteGuideResponse: WasteGuideResponse | undefined,
+  address: Address | undefined,
 ): WasteGuide | undefined =>
   wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
     const {type, ophaaldag, aanbiedwijze, opmerking, tijd_tot, tijd_vanaf} =
       feature.properties
 
     acc[mapWasteType(type)] = {
-      collectionDays: ophaaldag && formatSentence(ophaaldag),
-      howToOffer: aanbiedwijze && formatSentence(aanbiedwijze),
-      remark: opmerking && formatSentence(opmerking),
-      whenToPutOut: formatSentence(
-        formatDateTimes(
-          ophaaldag,
-          tijd_vanaf,
-          'aanbiedtijden onbekend',
-          'ophaaldagen onbekend',
-          tijd_tot,
-        ),
-      ),
+      collectionDays: ophaaldag ? formatSentence(ophaaldag) : '',
+      howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : '',
+      remark: opmerking ? formatSentence(opmerking) : '',
+      appointmentUrl: opmerking && appointmentUrl(address, opmerking),
+      whenToPutOut: ophaaldag
+        ? formatSentence(
+            formatDateTimes(
+              ophaaldag,
+              tijd_vanaf,
+              'aanbiedtijden onbekend',
+              'ophaaldagen onbekend',
+              tijd_tot,
+            ),
+          )
+        : '',
     }
 
     return acc
@@ -128,8 +151,8 @@ export const WasteGuideByAddress = () => {
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(transformWasteGuideResponse(api.data))
-  }, [api.data])
+    setWasteGuide(transformWasteGuideResponse(api.data, address))
+  }, [address, api.data])
 
   if (isAddressRetrieving) {
     return null
@@ -161,8 +184,7 @@ export const WasteGuideByAddress = () => {
             <>
               {wasteGuide?.[WasteType.Bulky] && (
                 <WasteGuideForBulkyWaste
-                  address={address}
-                  properties={wasteGuide[WasteType.Bulky]!}
+                  details={wasteGuide[WasteType.Bulky]!}
                 />
               )}
               {wasteGuide?.[WasteType.Household] && (
@@ -171,7 +193,7 @@ export const WasteGuideByAddress = () => {
                     <Gutter height={size.spacing.md} />
                   )}
                   <WasteGuideForHouseholdWaste
-                    properties={wasteGuide[WasteType.Household]!}
+                    details={wasteGuide[WasteType.Household]!}
                   />
                 </>
               )}
