@@ -30,7 +30,7 @@ export const transformWasteGuideResponse = (
       collectionDays: collectionDays
         ? formatSentence(collectionDays)
         : undefined,
-      howToOffer: aanbiedwijze ?? formatSentence(aanbiedwijze),
+      howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : undefined,
       remark: opmerking ? formatSentence(opmerking) : undefined,
       whenToPutOut:
         ophaaldag === 'Op afspraak'
