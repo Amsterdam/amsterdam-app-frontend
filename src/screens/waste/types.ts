@@ -36,12 +36,13 @@ export type WasteGuide = {
   [WasteType.Household]?: WasteGuideDetails
 }
 
+// Make all optional and add one by one?
 export type WasteGuideDetails = {
   appointmentUrl: string | undefined
   collectionDays: string | undefined
-  howToOffer: string
-  remark: string
-  whenToPutOut: string
+  howToOffer: string | undefined
+  remark: string | undefined
+  whenToPutOut: string | undefined
 }
 
 export const mapWasteType = (type: WasteGuideResponseType): WasteType => {

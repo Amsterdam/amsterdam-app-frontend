@@ -24,12 +24,14 @@ export const transformWasteGuideResponse = (
     }
 
     acc[mapWasteType(type)] = {
-      collectionDays: collectionDays ?? undefined,
-      howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : '',
-      remark: opmerking ? formatSentence(opmerking) : '',
       appointmentUrl: opmerking
         ? appointmentUrl(address, opmerking)
         : undefined,
+      collectionDays: collectionDays
+        ? formatSentence(collectionDays)
+        : undefined,
+      howToOffer: aanbiedwijze ?? formatSentence(aanbiedwijze),
+      remark: opmerking ? formatSentence(opmerking) : undefined,
       whenToPutOut:
         ophaaldag === 'Op afspraak'
           ? ''
