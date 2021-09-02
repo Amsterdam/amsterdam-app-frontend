@@ -20,7 +20,7 @@ export const transformWasteGuideResponse = (
 
     let collectionDays = ophaaldag
     if (frequentie) {
-      collectionDays += `, ${frequentie}*`
+      collectionDays += `, ${frequentie}`
     }
 
     acc[mapWasteType(type)] = {

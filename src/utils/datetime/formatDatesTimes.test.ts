@@ -42,7 +42,7 @@ test('one day, both times,', () =>
       'aanbiedtijden onbekend',
       'ophaaldagen onbekend',
     ),
-  ).toBe('vanaf zondag 20.00 uur tot maandag 07.30 uur'))
+  ).toBe('zondag vanaf 20.00 uur tot maandag 07.30 uur'))
 
 test('a capitalised day, both times,', () =>
   expect(
@@ -53,7 +53,7 @@ test('a capitalised day, both times,', () =>
       'aanbiedtijden onbekend',
       'ophaaldagen onbekend',
     ),
-  ).toBe('vanaf zondag 20.00 uur tot maandag 07.30 uur'))
+  ).toBe('zondag vanaf 20.00 uur tot maandag 07.30 uur'))
 
 test('one day, both times, with single days', () =>
   expect(
@@ -64,7 +64,7 @@ test('one day, both times, with single days', () =>
       'aanbiedtijden onbekend',
       'ophaaldagen onbekend',
     ),
-  ).toBe('vanaf donderdag 21.00 uur tot vrijdag 07.30 uur'))
+  ).toBe('donderdag vanaf 21.00 uur tot vrijdag 07.30 uur'))
 
 test('two days, both times, overnight', () =>
   expect(
@@ -76,7 +76,7 @@ test('two days, both times, overnight', () =>
       'ophaaldagen onbekend',
     ),
   ).toBe(
-    'vanaf zondag 21.00 uur tot maandag 07.00 uur en vanaf donderdag 21.00 uur tot vrijdag 07.00 uur',
+    'zondag vanaf 21.00 uur tot maandag 07.00 uur en donderdag vanaf 21.00 uur tot vrijdag 07.00 uur',
   ))
 
 test('two days, both times, in the morning', () =>
