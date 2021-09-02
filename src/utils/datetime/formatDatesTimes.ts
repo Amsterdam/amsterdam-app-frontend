@@ -6,7 +6,7 @@ import {getPreviousDay, parseDays, parseTime} from '../index'
  * @param from
  * @param until
  */
-export const formatDateTimes = (
+export const formatDatesTimes = (
   days: string,
   from: string | null,
   until: string | null,

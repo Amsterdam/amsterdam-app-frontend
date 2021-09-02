@@ -1,8 +1,8 @@
-import {formatDateTimes} from '../'
+import {formatDatesTimes} from '../'
 
 test('no valid day names', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'Geen ophaaldagen te vinden',
       '06.00',
       'aanbiedtijden onbekend',
@@ -12,7 +12,7 @@ test('no valid day names', () =>
 
 test('missing ‘from’ value', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag en dinsdag',
       'ongeldige tijd',
       'aanbiedtijden onbekend',
@@ -22,7 +22,7 @@ test('missing ‘from’ value', () =>
 
 test('two days and a ‘from’ time', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag en donderdag',
       '06.00',
       'aanbiedtijden onbekend',
@@ -32,7 +32,7 @@ test('two days and a ‘from’ time', () =>
 
 test('one day, both times,', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag',
       '20.00',
       'aanbiedtijden onbekend',
@@ -43,7 +43,7 @@ test('one day, both times,', () =>
 
 test('a capitalised day, both times,', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'Maandag',
       '20.00',
       'aanbiedtijden onbekend',
@@ -54,7 +54,7 @@ test('a capitalised day, both times,', () =>
 
 test('one day, both times, with single days', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'vrijdag',
       'donderdag 21.00',
       'aanbiedtijden onbekend',
@@ -65,7 +65,7 @@ test('one day, both times, with single days', () =>
 
 test('two days, both times, overnight', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag en vrijdag',
       'zondag en donderdag 21.00',
       'aanbiedtijden onbekend',
@@ -78,7 +78,7 @@ test('two days, both times, overnight', () =>
 
 test('two days, both times, in the morning', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag en donderdag',
       'maandag en donderdag vanaf 06.00',
       'aanbiedtijden onbekend',
@@ -91,7 +91,7 @@ test('two days, both times, in the morning', () =>
 
 test('two days, both times, in the evening', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'maandag en donderdag',
       'maandag en donderdag vanaf 17.00',
       'aanbiedtijden onbekend',
@@ -104,7 +104,7 @@ test('two days, both times, in the evening', () =>
 
 test('date range', () =>
   expect(
-    formatDateTimes(
+    formatDatesTimes(
       'Maandag tot en met zaterdag',
       'Maandag tot en met zaterdag vanaf 17.30',
       'aanbiedtijden onbekend',

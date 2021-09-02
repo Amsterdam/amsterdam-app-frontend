@@ -1,5 +1,5 @@
 import {Address} from '../../../types/address'
-import {formatDateTimes, formatSentence} from '../../../utils'
+import {formatDatesTimes, formatSentence} from '../../../utils'
 import {mapWasteType, WasteGuide, WasteGuideResponse} from '../types'
 import {appointmentUrl} from './appointmentUrl'
 
@@ -37,7 +37,7 @@ export const transformWasteGuideResponse = (
           ? ''
           : ophaaldag
           ? formatSentence(
-              formatDateTimes(
+              formatDatesTimes(
                 ophaaldag,
                 tijd_vanaf,
                 tijd_tot,
