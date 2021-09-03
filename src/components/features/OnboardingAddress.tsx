@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {ActivityIndicator, Animated} from 'react-native'
-import {useAsyncStorage} from '../../hooks/useAsyncStorage'
+import {useAsyncStorage} from '../../hooks'
 import {size} from '../../tokens'
 import {color} from '../../tokens/color'
 import {Address} from '../../types/address'

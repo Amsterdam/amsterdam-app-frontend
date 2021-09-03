@@ -1,7 +1,7 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {useEffect, useRef, useState} from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {useFetch} from '../../hooks/useFetch'
+import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
 import {ResponseAddress} from '../../types/address'
 import {Gutter, Text, TextInput} from '../ui'

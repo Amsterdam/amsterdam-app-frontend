@@ -7,7 +7,7 @@ import {ProjectCard} from '../components/features'
 import {Box, Gutter} from '../components/ui'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks/useFetch'
+import {useFetch} from '../hooks'
 import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types/project'
 

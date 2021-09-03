@@ -11,8 +11,7 @@ import {
   Text,
   Title,
 } from '../../components/ui'
-import {useAsyncStorage} from '../../hooks/useAsyncStorage'
-import {useFetch} from '../../hooks/useFetch'
+import {useAsyncStorage, useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {Address} from '../../types/address'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
