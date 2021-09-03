@@ -2,8 +2,8 @@ import {getEnvironment} from '../../../environment'
 import {Address} from '../../../types/address'
 
 export const appointmentUrl = (
-  address: Address | undefined,
   opmerking: string,
+  address: Address | undefined,
 ): string | undefined => {
   if (!address || !opmerking.startsWith('Maak een afspraak')) {
     return undefined

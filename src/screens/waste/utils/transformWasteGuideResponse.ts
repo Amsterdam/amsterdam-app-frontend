@@ -25,7 +25,7 @@ export const transformWasteGuideResponse = (
 
     acc[mapWasteType(type)] = {
       appointmentUrl: opmerking
-        ? appointmentUrl(address, opmerking)
+        ? appointmentUrl(opmerking, address)
         : undefined,
       collectionDays: collectionDays
         ? formatSentence(collectionDays)
