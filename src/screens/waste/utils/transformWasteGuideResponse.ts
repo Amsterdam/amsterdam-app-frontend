@@ -18,6 +18,11 @@ export const transformWasteGuideResponse = (
       type,
     } = feature.properties
 
+    const wasteLabel: Record<string, string> = {
+      grofvuil: 'Grof afval',
+      huisvuil: 'Restafval',
+    }
+
     let collectionDays = ophaaldag
     if (frequentie) {
       collectionDays += `, ${frequentie}`
@@ -32,6 +37,7 @@ export const transformWasteGuideResponse = (
         : undefined,
       howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : undefined,
       remark: opmerking ? formatSentence(opmerking) : undefined,
+      title: wasteLabel[type],
       whenToPutOut:
         ophaaldag === 'Op afspraak'
           ? ''

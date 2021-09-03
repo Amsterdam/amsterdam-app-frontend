@@ -16,17 +16,28 @@ type Props = {
   details: WasteGuideDetails
 }
 
-export const WasteGuideForBulkyWaste = ({details}: Props) => {
-  const {appointmentUrl, collectionDays, remark, whenToPutOut} = details
+export const WasteGuideByAddressDetails = ({details}: Props) => {
+  const {
+    appointmentUrl,
+    collectionDays,
+    howToOffer,
+    remark,
+    title,
+    whenToPutOut,
+  } = details
 
   return (
     <Card>
       <CardHeader>
-        <Title level={4} text="Grof afval" />
+        <Title level={4} text={title} />
       </CardHeader>
       <CardBody>
         <DescriptionList
           items={[
+            {
+              label: 'Hoe',
+              value: howToOffer,
+            },
             {
               label: collectionDays?.includes(' en ')
                 ? 'Ophaaldagen'

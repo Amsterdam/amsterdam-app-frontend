@@ -17,7 +17,7 @@ import {size} from '../../tokens'
 import {Address} from '../../types/address'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
-import {WasteGuideForBulkyWaste, WasteGuideForHouseholdWaste} from './'
+import {WasteGuideByAddressDetails} from './'
 
 export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
@@ -84,7 +84,7 @@ export const WasteGuideByAddress = () => {
           ) : (
             <>
               {wasteGuide?.[WasteType.Bulky] && (
-                <WasteGuideForBulkyWaste
+              <WasteGuideByAddressDetails
                   details={wasteGuide[WasteType.Bulky]!}
                 />
               )}
@@ -93,7 +93,7 @@ export const WasteGuideByAddress = () => {
                   {wasteGuide[WasteType.Bulky] && (
                     <Gutter height={size.spacing.md} />
                   )}
-                  <WasteGuideForHouseholdWaste
+                <WasteGuideByAddressDetails
                     details={wasteGuide[WasteType.Household]!}
                   />
                 </>

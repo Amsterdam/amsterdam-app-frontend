@@ -42,6 +42,7 @@ export type WasteGuideDetails = {
   collectionDays: string | undefined
   howToOffer: string | undefined
   remark: string | undefined
+  title: string
   whenToPutOut: string | undefined
 }
 
