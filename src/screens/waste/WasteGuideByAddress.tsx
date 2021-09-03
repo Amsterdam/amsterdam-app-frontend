@@ -54,12 +54,13 @@ export const WasteGuideByAddress = () => {
     setWasteGuide(transformWasteGuideResponse(api.data, address))
   }, [address, api.data])
 
+  const hasWasteGuideDetails = wasteGuide && Object.keys(wasteGuide).length
+
   if (isAddressRetrieving) {
     return null
   }
 
-  if (address) {
-    return (
+  return address ? (
       <>
         <Box background="lighter">
           <Text>Afvalinformatie voor</Text>
@@ -80,7 +81,7 @@ export const WasteGuideByAddress = () => {
                 <ActivityIndicator />
               </CardBody>
             </Card>
-          ) : (
+        ) : hasWasteGuideDetails ? (
             <>
               {wasteGuide?.[WasteType.Bulky] && (
               <WasteGuideByAddressDetails
@@ -98,13 +99,17 @@ export const WasteGuideByAddress = () => {
                 </>
               )}
             </>
+        ) : (
+          <Box background="lighter">
+            <Text>
+              Geen afvalinformatie gevonden voor {address.adres},{' '}
+              {address.postcode} {address.woonplaats}.
+            </Text>
+          </Box>
           )}
         </Box>
       </>
-    )
-  }
-
-  return (
+  ) : (
     <Box background="lighter">
       <Title level={2} text="Uw adres" />
       <Text>
