@@ -118,7 +118,7 @@ export const WasteGuideByAddress = ({navigation}: Props) => {
               emphasis
               onPress={() =>
                 navigation.navigate(routes.webView.name, {
-                  title: 'Melding afvalwijzer',
+                  title: 'Melding afvalinformatie op adres',
                   uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
                 })
               }
@@ -129,7 +129,7 @@ export const WasteGuideByAddress = ({navigation}: Props) => {
               <Button
                 onPress={() =>
                   navigation.navigate(routes.webView.name, {
-                    title: 'Melding afvalwijzer',
+                    title: 'Melding afvalinformatie',
                     uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
                   })
                 }
