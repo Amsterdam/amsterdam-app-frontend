@@ -1,8 +1,11 @@
+import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
+import {ActivityIndicator, StyleSheet, View} from 'react-native'
+import {RootStackParamList, routes} from '../../../../App'
 import {AddressForm} from '../../../components/features/AddressForm'
 import {
   Box,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -18,7 +21,11 @@ import {WasteGuideByAddressDetails} from '../index'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
 
-export const WasteGuideByAddress = () => {
+type Props = {
+  navigation: StackNavigationProp<RootStackParamList, 'WebView'>
+}
+
+export const WasteGuideByAddress = ({navigation}: Props) => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
@@ -105,6 +112,31 @@ export const WasteGuideByAddress = () => {
               Geen afvalinformatie gevonden voor {address.adres},{' '}
               {address.postcode} {address.woonplaats}.
             </Text>
+            <Gutter height={size.spacing.md} />
+            <Link
+              direction="forward"
+              emphasis
+              onPress={() =>
+                navigation.navigate(routes.webView.name, {
+                  title: 'Melding afvalwijzer',
+                  uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
+                })
+              }
+              text="Hier klopt iets niet"
+            />
+            <Gutter height={size.spacing.md} />
+            <View style={styles.alignLeft}>
+              <Button
+                onPress={() =>
+                  navigation.navigate(routes.webView.name, {
+                    title: 'Melding afvalwijzer',
+                    uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
+                  })
+                }
+                text="Hier klopt iets niet"
+                variant="secondary"
+              />
+            </View>
           </Box>
         )}
       </Box>
@@ -120,3 +152,9 @@ export const WasteGuideByAddress = () => {
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  alignLeft: {
+    alignItems: 'flex-start',
+  },
+})
