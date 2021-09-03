@@ -1,5 +1,4 @@
-import React from 'react'
-import {useContext} from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {WebView as WebViewRN} from 'react-native-webview'
 import {OrientationContext} from '../../providers/orientation.provider'

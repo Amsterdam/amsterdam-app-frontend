@@ -29,7 +29,7 @@ export type RootStackParamList = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Waste: undefined
-  WebView: {uri: string}
+  WebView: {title: string; uri: string}
 }
 
 type Routes = {
@@ -82,9 +82,6 @@ export const routes: Routes = {
   },
   webView: {
     name: 'WebView',
-    options: {
-      title: 'Melding',
-    },
   },
 }
 
