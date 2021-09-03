@@ -8,8 +8,8 @@ import {
   DescriptionList,
   Gutter,
   Title,
-} from '../../components/ui'
-import {size} from '../../tokens'
+} from '../../../components/ui'
+import {size} from '../../../tokens'
 import {WasteGuideDetails} from './types'
 
 type Props = {

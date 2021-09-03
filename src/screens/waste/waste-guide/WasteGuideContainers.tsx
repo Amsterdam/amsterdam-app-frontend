@@ -7,8 +7,8 @@ import {
   Link,
   Text,
   Title,
-} from '../../components/ui'
-import {size} from '../../tokens'
+} from '../../../components/ui'
+import {size} from '../../../tokens'
 
 export const WasteGuideContainers = () => (
   <Card>

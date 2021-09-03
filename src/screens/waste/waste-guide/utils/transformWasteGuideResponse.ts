@@ -1,5 +1,5 @@
-import {Address} from '../../../types/address'
-import {formatDatesTimes, formatSentence} from '../../../utils'
+import {Address} from '../../../../types/address'
+import {formatDatesTimes, formatSentence} from '../../../../utils'
 import {mapWasteType, WasteGuide, WasteGuideResponse} from '../types'
 import {appointmentUrl} from './appointmentUrl'
 
