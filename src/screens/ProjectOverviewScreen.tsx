@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: size.spacing.md,
+    marginHorizontal: size.spacing.md,
+    marginTop: size.spacing.md,
   },
   projects: {
     paddingLeft: size.spacing.md,
