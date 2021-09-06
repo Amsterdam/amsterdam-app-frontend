@@ -5,16 +5,21 @@ enum Environment {
 
 type EnvironmentConfig = {
   apiUrl: string
+  bulkyWasteFormUrl: string
   name: string
 }
 
 const environments: Record<Environment, EnvironmentConfig> = {
   [Environment.Development]: {
     apiUrl: 'http://localhost:8000/api/v1',
+    bulkyWasteFormUrl:
+      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     name: 'development',
   },
   [Environment.Acceptance]: {
     apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
+    bulkyWasteFormUrl:
+      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     name: 'acceptance',
   },
 }

@@ -17,6 +17,7 @@ export const HomeScreen = ({navigation}: Props) => {
         <Button
           onPress={() =>
             navigation.navigate(routes.webView.name, {
+              title: 'Melding',
               uri: 'https://acc.meldingen.amsterdam.nl/',
             })
           }
@@ -30,7 +31,7 @@ export const HomeScreen = ({navigation}: Props) => {
         <Gutter height={size.spacing.md} />
         <Button
           onPress={() => navigation.navigate(routes.wasteGuide.name)}
-          text="Raadpleeg de afvalwijzer"
+          text="Raadpleeg afvalinformatie"
         />
         <Gutter height={size.spacing.md} />
       </Box>

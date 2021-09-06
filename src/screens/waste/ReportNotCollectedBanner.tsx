@@ -13,6 +13,7 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => (
     imageSource={require('../../assets/images/banner-foto-afval.jpg')}
     onPress={() =>
       navigation.navigate(routes.webView.name, {
+        title: 'Melding',
         uri: 'https://acc.meldingen.amsterdam.nl/categorie/afval/grofvuil',
       })
     }

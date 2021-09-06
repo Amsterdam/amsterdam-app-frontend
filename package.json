@@ -63,6 +63,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/App-test.tsx"
     ]
   }
 }

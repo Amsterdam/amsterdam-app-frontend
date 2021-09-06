@@ -1,5 +1,4 @@
-import React from 'react'
-import {useContext} from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {WebView as WebViewRN} from 'react-native-webview'
 import {OrientationContext} from '../../providers/orientation.provider'
@@ -9,7 +8,11 @@ const WEB_HEADER_HEIGHT = {
   LANDSCAPE: 134,
 }
 
-export const WebView = ({uri}: {uri: string}) => {
+type Props = {
+  uri: string
+}
+
+export const WebView = ({uri}: Props) => {
   const orientationContext = useContext(OrientationContext)
   return (
     <WebViewRN

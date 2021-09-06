@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {ActivityIndicator, Animated} from 'react-native'
-import {useAsyncStorage} from '../../hooks/useAsyncStorage'
+import {useAsyncStorage} from '../../hooks'
 import {size} from '../../tokens'
 import {color} from '../../tokens/color'
 import {Address} from '../../types/address'
@@ -8,7 +8,7 @@ import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../ui'
 import {AddressForm} from './AddressForm'
 
 export const OnboardingAddress = () => {
-  const [address, setAddress] = useState<any>(null)
+  const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isLoading, setLoading] = useState(true)
   const [isFocusInput, setFocusInput] = useState(false)
   const fadeAnim = useRef(new Animated.Value(1)).current
@@ -75,15 +75,25 @@ export const OnboardingAddress = () => {
 
   const storeAddress = async (responseAddress: Address) => {
     setFocusInput(false)
-    const {adres, centroid, huisnummer, postcode, straatnaam, woonplaats} =
-      responseAddress
+    const {
+      adres,
+      centroid,
+      bag_huisletter,
+      huisnummer,
+      postcode,
+      straatnaam,
+      bag_toevoeging,
+      woonplaats,
+    } = responseAddress
     setAddress(responseAddress)
     await asyncStorage.storeData('address', {
       adres,
       centroid,
+      bag_huisletter,
       huisnummer,
       postcode,
       straatnaam,
+      bag_toevoeging,
       woonplaats,
     })
   }
@@ -114,7 +124,10 @@ export const OnboardingAddress = () => {
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
               <Gutter height={size.spacing.sm} />
-              <Link onPress={() => setAddress(null)} text="Verander adres" />
+              <Link
+                onPress={() => setAddress(undefined)}
+                text="Verander adres"
+              />
             </CardBody>
           </Card>
         </Box>
