@@ -63,58 +63,64 @@ export const WasteGuideByAddress = () => {
     return null
   }
 
-  return address ? (
-    <>
+  if (!isAddressRetrieving && !address) {
+    return (
       <Box background="lighter">
-        <Text>Afvalinformatie voor</Text>
-        <Title text={address.adres} />
-        <Link
-          direction="backward"
-          onPress={() => setAddress(undefined)}
-          text="Verander adres"
-        />
+        <Title level={2} text="Uw adres" />
+        <Text>
+          Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
+        </Text>
+        <Gutter height={size.spacing.md} />
+        <AddressForm onSubmit={setAddress} />
       </Box>
-      <Box background="light">
-        {api.isLoading ? (
-          <Card>
-            <CardHeader>
-              <Title level={4} text="Gegevens ophalen…" />
-            </CardHeader>
-            <CardBody>
-              <ActivityIndicator />
-            </CardBody>
-          </Card>
-        ) : hasWasteGuideDetails ? (
-          <>
-            {wasteGuide?.[WasteType.Bulky] && (
-              <WasteGuideByAddressDetails
-                details={wasteGuide[WasteType.Bulky]!}
-              />
-            )}
-            {wasteGuide?.[WasteType.Household] && (
-              <>
-                {wasteGuide[WasteType.Bulky] && (
-                  <Gutter height={size.spacing.md} />
-                )}
+    )
+  }
+
+  return (
+    address && (
+      <>
+        <Box background="lighter">
+          <Text>Afvalinformatie voor</Text>
+          <Title text={address.adres} />
+          <Link
+            direction="backward"
+            onPress={() => setAddress(undefined)}
+            text="Verander adres"
+          />
+        </Box>
+        <Box background="light">
+          {api.isLoading ? (
+            <Card>
+              <CardHeader>
+                <Title level={4} text="Gegevens ophalen…" />
+              </CardHeader>
+              <CardBody>
+                <ActivityIndicator />
+              </CardBody>
+            </Card>
+          ) : hasWasteGuideDetails ? (
+            <>
+              {wasteGuide?.[WasteType.Bulky] && (
                 <WasteGuideByAddressDetails
-                  details={wasteGuide[WasteType.Household]!}
+                  details={wasteGuide[WasteType.Bulky]!}
                 />
-              </>
-            )}
-          </>
-        ) : (
-          <WasteGuideByAddressNoDetails address={address} />
-        )}
-      </Box>
-    </>
-  ) : (
-    <Box background="lighter">
-      <Title level={2} text="Uw adres" />
-      <Text>
-        Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
-      </Text>
-      <Gutter height={size.spacing.md} />
-      <AddressForm onSubmit={setAddress} />
-    </Box>
+              )}
+              {wasteGuide?.[WasteType.Household] && (
+                <>
+                  {wasteGuide[WasteType.Bulky] && (
+                    <Gutter height={size.spacing.md} />
+                  )}
+                  <WasteGuideByAddressDetails
+                    details={wasteGuide[WasteType.Household]!}
+                  />
+                </>
+              )}
+            </>
+          ) : (
+            <WasteGuideByAddressNoDetails address={address} />
+          )}
+        </Box>
+      </>
+    )
   )
 }
