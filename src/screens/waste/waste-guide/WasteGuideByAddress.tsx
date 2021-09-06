@@ -1,11 +1,8 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, StyleSheet, View} from 'react-native'
-import {RootStackParamList, routes} from '../../../../App'
+import {ActivityIndicator} from 'react-native'
 import {AddressForm} from '../../../components/features/AddressForm'
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -17,15 +14,14 @@ import {
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address} from '../../../types/address'
-import {WasteGuideByAddressDetails} from '../index'
+import {
+  WasteGuideByAddressDetails,
+  WasteGuideByAddressNoDetails,
+} from '../index'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'WebView'>
-}
-
-export const WasteGuideByAddress = ({navigation}: Props) => {
+export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
   const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
@@ -107,37 +103,7 @@ export const WasteGuideByAddress = ({navigation}: Props) => {
             )}
           </>
         ) : (
-          <Box background="lighter">
-            <Text>
-              Geen afvalinformatie gevonden voor {address.adres},{' '}
-              {address.postcode} {address.woonplaats}.
-            </Text>
-            <Gutter height={size.spacing.md} />
-            <Link
-              direction="forward"
-              emphasis
-              onPress={() =>
-                navigation.navigate(routes.webView.name, {
-                  title: 'Melding afvalinformatie op adres',
-                  uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
-                })
-              }
-              text="Hier klopt iets niet"
-            />
-            <Gutter height={size.spacing.md} />
-            <View style={styles.alignLeft}>
-              <Button
-                onPress={() =>
-                  navigation.navigate(routes.webView.name, {
-                    title: 'Melding afvalinformatie',
-                    uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
-                  })
-                }
-                text="Hier klopt iets niet"
-                variant="secondary"
-              />
-            </View>
-          </Box>
+          <WasteGuideByAddressNoDetails address={address} />
         )}
       </Box>
     </>
@@ -152,9 +118,3 @@ export const WasteGuideByAddress = ({navigation}: Props) => {
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  alignLeft: {
-    alignItems: 'flex-start',
-  },
-})

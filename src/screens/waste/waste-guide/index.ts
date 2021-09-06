@@ -1,4 +1,5 @@
 export * from './WasteGuideByAddress'
 export * from './WasteGuideByAddressDetails'
+export * from './WasteGuideByAddressNoDetails'
 export * from './WasteGuideCollectionPoints'
 export * from './WasteGuideContainers'
