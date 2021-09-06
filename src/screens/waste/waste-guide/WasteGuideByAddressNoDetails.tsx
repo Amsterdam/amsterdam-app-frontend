@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {routes} from '../../../../App'
+import {RootStackParamList, routes} from '../../../../App'
 import {Box, Button, Gutter, Link, Text} from '../../../components/ui'
 import {size} from '../../../tokens'
 import {Address} from '../../../types/address'
@@ -11,7 +12,8 @@ type Props = {
 }
 
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
-  const navigation = useNavigation()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
 
   return (
     <Box background="lighter">
