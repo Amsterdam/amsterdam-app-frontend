@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
-import {routes} from '../../../App'
+import {RootStackParamList, routes} from '../../../App'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
@@ -9,7 +10,8 @@ import {Gutter} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
 export const NewsItemsOverview = () => {
-  const navigation = useNavigation()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
   const news = useFetch<NewsArticleList>({
     url: 'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/da-costakade-vernieuwing-kademuren/nieuws-da-costakade/',
     options: {
