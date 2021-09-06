@@ -51,7 +51,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
       <Box>
         {body.sections.map(section => (
           <React.Fragment key={section.title}>
-            <Title level={4} margin text={section.title} />
+            <Title level={3} text={section.title} />
             <RenderHTML
               contentWidth={width}
               source={{html: section.html}}

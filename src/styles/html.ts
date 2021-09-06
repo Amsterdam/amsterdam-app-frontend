@@ -4,9 +4,11 @@ import {color, font} from '../tokens'
 const styles: Record<string, MixedStyleDeclaration> = {
   h3: {
     color: color.font.regular,
+    fontWeight: '600', // Seems to work best visually – better than 500.
     fontFamily: font.weight.demi,
     fontSize: font.size.h3,
     lineHeight: font.height.h3,
+    margin: 0,
   },
   list: {
     margin: 0,
