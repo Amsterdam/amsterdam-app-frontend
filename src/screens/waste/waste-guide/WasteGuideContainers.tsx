@@ -1,9 +1,11 @@
 import React from 'react'
+import {Linking, StyleSheet, View} from 'react-native'
 import {
   Card,
   CardBody,
   CardHeader,
   Gutter,
+  Image,
   Link,
   Text,
   Title,
@@ -24,11 +26,30 @@ export const WasteGuideContainers = () => (
       <Link
         direction="forward"
         emphasis
-        onPress={() => {}}
+        onPress={() =>
+          Linking.openURL(
+            'https://kaart.amsterdam.nl/afvalcontainers#52.3524/4.8854/52.3575/4.8964/brt/12491,12492,12493,12494,12495,12496,12497//',
+          )
+        }
         text="Bekijk de kaart met containers in de buurt"
       />
       <Gutter height={size.spacing.md} />
-      <Text secondary>(Kaart komt hier.)</Text>
+      <View style={styles.figure}>
+        <Image
+          source={require('../../../assets/images/placeholder-map-containers.jpg')}
+          style={styles.image}
+        />
+      </View>
     </CardBody>
   </Card>
 )
+
+const styles = StyleSheet.create({
+  figure: {
+    flexDirection: 'row',
+  },
+  image: {
+    aspectRatio: 632 / 220,
+    flexShrink: 1,
+  },
+})
