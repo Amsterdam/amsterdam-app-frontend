@@ -135,13 +135,13 @@ export const AddressForm = () => {
   }, [street])
 
   useEffect(() => {
-    const streetWithoutWeesp = RemoveWeespSuffix(street)
+    const streetWithoutWeespSuffix = RemoveWeespSuffix(street)
     isStreetSelected && isNumberSelected
       ? apiAddress.fetchData({
-          q: `${streetWithoutWeesp} ${number}`,
+          q: `${streetWithoutWeespSuffix} ${number}`,
         })
       : apiBag.fetchData({
-          q: `${streetWithoutWeesp} ${number}`,
+          q: `${streetWithoutWeespSuffix} ${number}`,
         })
   }, [number, isNumberSelected, isStreetSelected])
 
