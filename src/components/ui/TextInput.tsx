@@ -13,21 +13,47 @@ import {Text} from './Text'
 
 type Props = {
   label?: string
-  onChangeText: (event: string) => void
+  onChangeText?: (event: string) => void
 } & TextInputRNProps
 
 export const TextInput = React.forwardRef((props: Props, ref: any) => {
   const [value, setValue] = useState('')
+  const [hasFocus, setFocus] = useState(false)
+  const {onChangeText} = props
 
   const handleChangeText = (text: string) => {
     setValue(text)
-    props.onChangeText(text)
+    onChangeText && onChangeText(text)
   }
 
   const handleClearText = () => {
     setValue('')
-    props.onChangeText('')
+    onChangeText && onChangeText('')
   }
+
+  const styles = StyleSheet.create({
+    searchSection: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: size.spacing.xl,
+      borderColor: hasFocus ? color.border.inputFocus : color.border.input,
+      borderStyle: 'solid',
+      borderWidth: hasFocus ? 2 : 1,
+    },
+    searchIcon: {
+      marginRight: 10,
+    },
+    textInput: {
+      flex: 1,
+      padding: size.spacing.sm,
+      backgroundColor: color.background.lighter,
+      color: color.font.regular,
+      fontFamily: font.weight.regular,
+      fontSize: font.size.p1,
+      lineHeight: font.height.p1,
+    },
+  })
 
   return (
     <View>
@@ -38,8 +64,9 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
           ref={ref}
           {...props}
           onChangeText={text => handleChangeText(text)}
+          onFocus={() => setFocus(true)}
           style={styles.textInput}
-          value={value}
+          value={props.value ?? value}
         />
         {value ? (
           <TouchableOpacity onPress={handleClearText}>
@@ -54,28 +81,4 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
       </View>
     </View>
   )
-})
-
-const styles = StyleSheet.create({
-  searchSection: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: size.spacing.xl,
-    borderColor: color.border.input,
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-  searchIcon: {
-    marginRight: 10,
-  },
-  textInput: {
-    flex: 1,
-    padding: size.spacing.sm,
-    backgroundColor: color.background.lighter,
-    color: color.font.regular,
-    fontFamily: font.weight.regular,
-    fontSize: font.size.p1,
-    lineHeight: font.height.p1,
-  },
 })
