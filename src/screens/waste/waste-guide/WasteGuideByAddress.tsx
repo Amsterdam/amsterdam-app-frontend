@@ -1,6 +1,9 @@
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {AddressForm} from '../../../components/features/AddressForm'
+import {RootStackParamList} from '../../../../App'
+import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
 import {
   Box,
   Card,
@@ -30,6 +33,9 @@ export const WasteGuideByAddress = () => {
     undefined,
   )
 
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
+
   const asyncStorage = useAsyncStorage()
 
   const retrieveAddress = useCallback(async () => {
@@ -40,7 +46,12 @@ export const WasteGuideByAddress = () => {
 
   useEffect(() => {
     retrieveAddress()
-  }, [retrieveAddress])
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      retrieveAddress()
+    })
+
+    return willFocusSubscription
+  }, [navigation, retrieveAddress])
 
   const api = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -67,14 +78,10 @@ export const WasteGuideByAddress = () => {
 
   if (!isAddressRetrieving && !address) {
     return (
-      <Box background="lighter">
-        <Title level={2} text="Uw adres" />
-        <Text>
-          Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
-        </Text>
-        <Gutter height={size.spacing.md} />
-        <AddressForm onSubmit={setAddress} />
-      </Box>
+      <OnboardingAddress
+        text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
+        title="Uw adres"
+      />
     )
   }
 
@@ -88,7 +95,7 @@ export const WasteGuideByAddress = () => {
           <Gutter height={size.spacing.sm} />
           <Link
             direction="backward"
-            onPress={() => setAddress(undefined)}
+            onPress={() => navigation.navigate('AddressForm')}
             text="Verander adres"
           />
         </Box>
