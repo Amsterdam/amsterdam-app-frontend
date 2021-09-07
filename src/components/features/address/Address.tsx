@@ -56,7 +56,13 @@ export const Address = () => {
           </Card>
         </Box>
       ) : (
-        <OnboardingAddress />
+        <Box>
+          <OnboardingAddress
+            text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt
+          kunnen tonen."
+            title="Uw buurt"
+          />
+        </Box>
       )}
     </>
   )
