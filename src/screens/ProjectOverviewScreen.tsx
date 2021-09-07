@@ -52,7 +52,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
           keyExtractor={(item, index) => `${item}${index}`}
           ItemSeparatorComponent={item =>
             item.leadingItem.data && item.leadingItem.data.length > 0 ? (
-              <Gutter height={size.spacing.lg} />
+              <Gutter height={size.spacing.md} />
             ) : null
           }
           renderItem={({item: districtItem}) => {
