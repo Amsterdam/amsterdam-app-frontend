@@ -81,7 +81,9 @@ export const WasteGuideByAddress = () => {
       <>
         <Box background="lighter">
           <Text>Afvalinformatie voor</Text>
+          <Gutter height={size.spacing.xs} />
           <Title text={address.adres} />
+          <Gutter height={size.spacing.sm} />
           <Link
             direction="backward"
             onPress={() => setAddress(undefined)}
