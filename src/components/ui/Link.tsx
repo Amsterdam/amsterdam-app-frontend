@@ -29,6 +29,7 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
 
   const textJsx = (
     <Text
+      accessibilityRole="link"
       style={[styles.text, emphasis ? styles.emphasis : styles.notEmphasis]}
       onPress={onPress}>
       {text}

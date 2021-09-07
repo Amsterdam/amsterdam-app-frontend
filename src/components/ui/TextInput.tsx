@@ -71,7 +71,10 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
           value={props.value ?? value}
         />
         {value ? (
-          <TouchableOpacity onPress={handleClearText}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityHint="Verwijder uw invoertekst"
+            onPress={handleClearText}>
             <Close
               fill={'black'}
               height={20}
