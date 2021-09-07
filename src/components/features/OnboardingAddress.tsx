@@ -4,7 +4,7 @@ import React from 'react'
 import {RootStackParamList} from '../../../App'
 import {Box, Card, CardBody, Text, TextInput, Title} from '../ui'
 
-export const OnboardingAddressNew = () => {
+export const OnboardingAddress = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'AddressForm'>>()
 
