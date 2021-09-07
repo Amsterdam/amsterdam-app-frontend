@@ -14,6 +14,7 @@ import {Text} from './Text'
 type Props = {
   label?: string
   onChangeText?: (event: string) => void
+  onFocus?: () => void
 } & TextInputRNProps
 
 export const TextInput = React.forwardRef((props: Props, ref: any) => {
@@ -64,7 +65,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
           ref={ref}
           {...props}
           onChangeText={text => handleChangeText(text)}
-          onFocus={() => setFocus(true)}
+          onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
           style={styles.textInput}
           value={props.value ?? value}
         />
