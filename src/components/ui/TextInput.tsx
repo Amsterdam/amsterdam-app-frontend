@@ -18,8 +18,9 @@ type Props = {
 } & TextInputRNProps
 
 export const TextInput = React.forwardRef((props: Props, ref: any) => {
-  const [value, setValue] = useState('')
   const [hasFocus, setFocus] = useState(false)
+  const [value, setValue] = useState('')
+
   const {onChangeText} = props
 
   const handleChangeText = (text: string) => {
@@ -33,6 +34,9 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
   }
 
   const styles = StyleSheet.create({
+    searchIcon: {
+      marginRight: 10,
+    },
     searchSection: {
       flexDirection: 'row',
       justifyContent: 'center',
@@ -41,9 +45,6 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
       borderColor: hasFocus ? color.border.inputFocus : color.border.input,
       borderStyle: 'solid',
       borderWidth: hasFocus ? 2 : 1,
-    },
-    searchIcon: {
-      marginRight: 10,
     },
     textInput: {
       flex: 1,
@@ -62,20 +63,20 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
       <Gutter height={size.spacing.sm} />
       <View style={styles.searchSection}>
         <TextInputRN
-          ref={ref}
           {...props}
           onChangeText={text => handleChangeText(text)}
           onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
+          ref={ref}
           style={styles.textInput}
           value={props.value ?? value}
         />
         {value ? (
           <TouchableOpacity onPress={handleClearText}>
             <Close
+              fill={'black'}
+              height={20}
               style={styles.searchIcon}
               width={20}
-              height={20}
-              fill={'black'}
             />
           </TouchableOpacity>
         ) : null}

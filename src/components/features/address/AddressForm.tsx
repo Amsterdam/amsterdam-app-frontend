@@ -23,15 +23,16 @@ export type BagResponse = {
 
 export const AddressForm = () => {
   const [address, setAddress] = useState<ResponseAddress | null>(null)
-  const [number, setNumber] = useState<string>('')
-  const [street, setStreet] = useState<string>('')
-  const [isNumberSelected, setIsNumberSelected] = useState(false)
-  const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
-  const moveUpAnim = useRef(new Animated.Value(0)).current
+  const [isNumberSelected, setIsNumberSelected] = useState(false)
+  const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [layoutY, setLayoutY] = useState<number | null>(null)
+  const [number, setNumber] = useState<string>('')
+  const [street, setStreet] = useState<string>('')
+
+  const moveUpAnim = useRef(new Animated.Value(0)).current
 
   const inputNumberRef = useRef<any>()
   const inputStreetRef = useRef<any>()
@@ -108,22 +109,22 @@ export const AddressForm = () => {
   const storeAddress = async (responseAddress: Address) => {
     const {
       adres,
-      centroid,
       bag_huisletter,
+      bag_toevoeging,
+      centroid,
       huisnummer,
       postcode,
       straatnaam,
-      bag_toevoeging,
       woonplaats,
     } = responseAddress
     await asyncStorage.storeData('address', {
       adres,
-      centroid,
       bag_huisletter,
+      bag_toevoeging,
+      centroid,
       huisnummer,
       postcode,
       straatnaam,
-      bag_toevoeging,
       woonplaats,
     })
     navigation.goBack()
