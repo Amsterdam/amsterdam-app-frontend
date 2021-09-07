@@ -114,4 +114,4 @@ test('date range', () =>
       'aanbiedtijden onbekend',
       'ophaaldagen onbekend',
     ),
-  ).toBe('op de ophaaldagen tussen 17.30 en 20.00 uur'))
+  ).toBe('Maandag tot en met zaterdag tussen 17.30 en 20.00 uur'))

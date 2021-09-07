@@ -23,7 +23,7 @@ export const formatDatesTimes = (
   const untilTime = parseTime(until ?? '')
 
   if (days.includes(' tot en met ')) {
-    return `op de ophaaldagen tussen ${fromTime} en ${untilTime} uur`
+    return `${days} tussen ${fromTime} en ${untilTime} uur`
   }
 
   if (fromTime && untilTime) {
