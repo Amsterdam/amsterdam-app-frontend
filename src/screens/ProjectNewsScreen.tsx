@@ -4,7 +4,7 @@ import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, Image, Title} from '../components/ui'
+import {Box, Image, Text, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {font, image} from '../tokens'
 
@@ -19,6 +19,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
   const {width} = useWindowDimensions()
 
   const firstImage = article.images?.find(i => i.sources['700px'].url)
+  const publicationDate = new Date(article.publication_date)
 
   return (
     <ScrollView>
@@ -30,6 +31,14 @@ export const ProjectNewsScreen = ({route}: Props) => {
       )}
       <Box>
         <Title margin text={article.title} />
+        <Text margin secondary>
+          {new Intl.DateTimeFormat('nl-NL', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          }).format(publicationDate)}
+        </Text>
         {article.body?.preface.html && (
           <RenderHTML
             contentWidth={width}
