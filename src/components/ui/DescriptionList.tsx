@@ -1,7 +1,6 @@
 import React from 'react'
 import {size} from '../../tokens'
-import {Gutter} from './Gutter'
-import {Text} from './Text'
+import {Gutter, Text} from '.'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]

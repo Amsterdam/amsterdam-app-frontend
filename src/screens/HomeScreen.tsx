@@ -1,18 +1,18 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList, routes} from '../../App'
-import {OnboardingAddress} from '../components/features/OnboardingAddress'
-import {Box, Button, Gutter} from '../components/ui'
+import {Address} from '../components/features/address/Address'
+import {Box, Button, Gutter, ScreenWrapper} from '../components/ui'
 import {size} from '../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'WebView'>
+  navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
 export const HomeScreen = ({navigation}: Props) => {
   return (
-    <>
-      <OnboardingAddress />
+    <ScreenWrapper>
+      <Address />
       <Box inset="xl">
         <Button
           onPress={() =>
@@ -35,6 +35,6 @@ export const HomeScreen = ({navigation}: Props) => {
         />
         <Gutter height={size.spacing.md} />
       </Box>
-    </>
+    </ScreenWrapper>
   )
 }

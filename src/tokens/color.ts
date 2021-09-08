@@ -49,6 +49,7 @@ export const color = {
   },
   border: {
     input: baseColor.tint.level5,
+    inputFocus: baseColor.tint.level7,
     separator: baseColor.tint.level3,
   },
   font: {

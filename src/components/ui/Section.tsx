@@ -1,6 +1,5 @@
 import React from 'react'
-import {Text} from './Text'
-import {Title} from './Title'
+import {Text, Title} from '.'
 
 type Props = {
   text?: string

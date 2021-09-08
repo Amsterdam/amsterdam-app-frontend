@@ -1,6 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {AddressForm} from '../../../components/features/AddressForm'
+import {RootStackParamList} from '../../../../App'
+import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
 import {
   Box,
   Card,
@@ -12,6 +15,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {useAsyncStorage, useFetch} from '../../../hooks'
+import {AddressContext} from '../../../providers/address.provider'
 import {size} from '../../../tokens'
 import {Address} from '../../../types/address'
 import {
@@ -30,17 +34,25 @@ export const WasteGuideByAddress = () => {
     undefined,
   )
 
-  const asyncStorage = useAsyncStorage()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
 
-  const retrieveAddress = useCallback(async () => {
+  const asyncStorage = useAsyncStorage()
+  const addressContext = useContext(AddressContext)
+
+  const retrieveAndSetAddress = useCallback(async () => {
     const retrievedAddress = await asyncStorage.getData('address')
-    setAddress(retrievedAddress)
+    retrievedAddress && setAddress(retrievedAddress)
     setIsAddressRetrieving(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    retrieveAddress()
-  }, [retrieveAddress])
+    retrieveAndSetAddress()
+  }, [retrieveAndSetAddress])
+
+  useEffect(() => {
+    setAddress(addressContext.address)
+  }, [addressContext.address])
 
   const api = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -59,6 +71,17 @@ export const WasteGuideByAddress = () => {
     setWasteGuide(transformWasteGuideResponse(api.data, address))
   }, [address, api.data])
 
+  const onChangeAddress = () => {
+    addressContext.changeSaveInStore(false)
+    navigation.navigate('AddressForm')
+  }
+
+  useEffect(() => {
+    return () => {
+      addressContext.changeSaveInStore(true)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   const hasWasteGuideDetails = wasteGuide && Object.keys(wasteGuide).length
 
   if (isAddressRetrieving) {
@@ -67,70 +90,64 @@ export const WasteGuideByAddress = () => {
 
   if (!isAddressRetrieving && !address) {
     return (
-      <Box background="lighter">
-        <Title level={2} text="Uw adres" />
-        <Text>
-          Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval.
-        </Text>
-        <Gutter height={size.spacing.md} />
-        <AddressForm onSubmit={setAddress} />
-      </Box>
+      <OnboardingAddress
+        text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
+        title="Uw adres"
+      />
     )
   }
 
-  return (
-    address && (
-      <>
-        <Box background="lighter">
-          <Text>Afvalinformatie voor</Text>
-          <Gutter height={size.spacing.xs} />
-          <Title text={address.adres} />
-          <Gutter height={size.spacing.sm} />
-          <Link
-            direction="backward"
-            onPress={() => setAddress(undefined)}
-            text="Verander adres"
-          />
-        </Box>
-        <Box background="light">
-          {api.isLoading ? (
-            <Card>
-              <CardHeader>
-                <Title level={4} text="Gegevens ophalen…" />
-              </CardHeader>
-              <CardBody>
-                <ActivityIndicator />
-              </CardBody>
-            </Card>
-          ) : hasWasteGuideDetails ? (
-            <>
-              {wasteGuide?.[WasteType.Bulky] && (
-                <>
-                  <WasteGuideByAddressDetails
-                    details={wasteGuide[WasteType.Bulky]!}
-                  />
+  return address ? (
+    <>
+      <Box background="lighter">
+        <Text>Afvalinformatie voor</Text>
+        <Gutter height={size.spacing.xs} />
+        <Title text={address.adres} />
+        <Gutter height={size.spacing.sm} />
+        <Link
+          direction="backward"
+          onPress={onChangeAddress}
+          text="Verander adres"
+        />
+      </Box>
+      <Box background="light">
+        {api.isLoading ? (
+          <Card>
+            <CardHeader>
+              <Title level={4} text="Gegevens ophalen…" />
+            </CardHeader>
+            <CardBody>
+              <ActivityIndicator />
+            </CardBody>
+          </Card>
+        ) : hasWasteGuideDetails ? (
+          <>
+            {wasteGuide?.[WasteType.Bulky] && (
+              <>
+                <WasteGuideByAddressDetails
+                  details={wasteGuide[WasteType.Bulky]!}
+                />
+                <Gutter height={size.spacing.md} />
+                <WasteGuideCollectionPoints />
+              </>
+            )}
+            {wasteGuide?.[WasteType.Household] && (
+              <>
+                {wasteGuide[WasteType.Bulky] && (
                   <Gutter height={size.spacing.md} />
-                  <WasteGuideCollectionPoints />
-                </>
-              )}
-              {wasteGuide?.[WasteType.Household] && (
-                <>
-                  {wasteGuide[WasteType.Bulky] && (
-                    <Gutter height={size.spacing.md} />
-                  )}
-                  <WasteGuideByAddressDetails
-                    details={wasteGuide[WasteType.Household]!}
-                  />
-                  <Gutter height={size.spacing.md} />
-                  <WasteGuideContainers />
-                </>
-              )}
-            </>
-          ) : (
-            <WasteGuideByAddressNoDetails address={address} />
-          )}
-        </Box>
-      </>
-    )
-  )
+                )}
+                <WasteGuideByAddressDetails
+                  details={wasteGuide[WasteType.Household]!}
+                />
+                <Gutter height={size.spacing.md} />
+                <WasteGuideContainers />
+              </>
+            )}
+          </>
+        ) : (
+          <WasteGuideByAddressNoDetails address={address} />
+        )}
+      </Box>
+    </>
+  ) : null
 }

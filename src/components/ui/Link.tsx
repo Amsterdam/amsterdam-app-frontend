@@ -5,7 +5,7 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {SVGProps} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Gutter} from './Gutter'
+import {Gutter} from '.'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
@@ -29,6 +29,7 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
 
   const textJsx = (
     <Text
+      accessibilityRole="link"
       style={[styles.text, emphasis ? styles.emphasis : styles.notEmphasis]}
       onPress={onPress}>
       {text}
