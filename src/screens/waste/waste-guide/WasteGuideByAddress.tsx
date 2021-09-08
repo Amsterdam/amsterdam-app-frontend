@@ -17,6 +17,8 @@ import {Address} from '../../../types/address'
 import {
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
+  WasteGuideCollectionPoints,
+  WasteGuideContainers,
 } from '../index'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
@@ -81,7 +83,9 @@ export const WasteGuideByAddress = () => {
       <>
         <Box background="lighter">
           <Text>Afvalinformatie voor</Text>
+          <Gutter height={size.spacing.xs} />
           <Title text={address.adres} />
+          <Gutter height={size.spacing.sm} />
           <Link
             direction="backward"
             onPress={() => setAddress(undefined)}
@@ -101,9 +105,13 @@ export const WasteGuideByAddress = () => {
           ) : hasWasteGuideDetails ? (
             <>
               {wasteGuide?.[WasteType.Bulky] && (
-                <WasteGuideByAddressDetails
-                  details={wasteGuide[WasteType.Bulky]!}
-                />
+                <>
+                  <WasteGuideByAddressDetails
+                    details={wasteGuide[WasteType.Bulky]!}
+                  />
+                  <Gutter height={size.spacing.md} />
+                  <WasteGuideCollectionPoints />
+                </>
               )}
               {wasteGuide?.[WasteType.Household] && (
                 <>
@@ -113,6 +121,8 @@ export const WasteGuideByAddress = () => {
                   <WasteGuideByAddressDetails
                     details={wasteGuide[WasteType.Household]!}
                   />
+                  <Gutter height={size.spacing.md} />
+                  <WasteGuideContainers />
                 </>
               )}
             </>
