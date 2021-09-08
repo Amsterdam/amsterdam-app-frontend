@@ -42,7 +42,7 @@ export const WasteGuideByAddress = () => {
 
   const retrieveAndSetAddress = useCallback(async () => {
     const retrievedAddress = await asyncStorage.getData('address')
-    setAddress(retrievedAddress)
+    retrievedAddress && setAddress(retrievedAddress)
     setIsAddressRetrieving(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -89,7 +89,6 @@ export const WasteGuideByAddress = () => {
   }
 
   if (!isAddressRetrieving && !address) {
-    addressContext.changeSaveInStore(false)
     return (
       <OnboardingAddress
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
