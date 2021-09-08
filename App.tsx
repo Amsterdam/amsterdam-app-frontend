@@ -62,13 +62,13 @@ export const routes: Routes = {
   projectOverview: {
     name: 'ProjectOverview',
     options: {
-      title: 'Bouwprojecten',
+      title: 'Werkzaamheden',
     },
   },
   projectOverviewByDistrict: {
     name: 'ProjectOverviewByDistrict',
     options: {
-      title: 'Bouwprojecten per stadsdeel',
+      title: 'Werkzaamheden per stadsdeel',
     },
   },
   wasteGuide: {
