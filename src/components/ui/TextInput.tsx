@@ -41,9 +41,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     },
     searchSection: {
       flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: size.spacing.xl,
+      backgroundColor: color.background.lighter,
       borderColor: hasFocus ? color.border.inputFocus : color.border.input,
       borderStyle: 'solid',
       borderWidth: hasFocus ? 2 : 1,
@@ -51,7 +49,6 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     textInput: {
       flex: 1,
       padding: size.spacing.sm,
-      backgroundColor: color.background.lighter,
       color: color.font.regular,
       fontFamily: font.weight.regular,
       fontSize: font.size.p1,
