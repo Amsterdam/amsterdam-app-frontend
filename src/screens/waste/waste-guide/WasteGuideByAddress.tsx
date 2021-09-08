@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
@@ -15,6 +15,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {useAsyncStorage, useFetch} from '../../../hooks'
+import {AddressContext} from '../../../providers/address.provider'
 import {size} from '../../../tokens'
 import {Address} from '../../../types/address'
 import {
@@ -37,21 +38,21 @@ export const WasteGuideByAddress = () => {
     useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
 
   const asyncStorage = useAsyncStorage()
+  const addressContext = useContext(AddressContext)
 
-  const retrieveAddress = useCallback(async () => {
+  const retrieveAndSetAddress = useCallback(async () => {
     const retrievedAddress = await asyncStorage.getData('address')
     setAddress(retrievedAddress)
     setIsAddressRetrieving(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    retrieveAddress()
-    const willFocusSubscription = navigation.addListener('focus', () => {
-      retrieveAddress()
-    })
+    retrieveAndSetAddress()
+  }, [retrieveAndSetAddress])
 
-    return willFocusSubscription
-  }, [navigation, retrieveAddress])
+  useEffect(() => {
+    setAddress(addressContext.address)
+  }, [addressContext.address])
 
   const api = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -70,6 +71,17 @@ export const WasteGuideByAddress = () => {
     setWasteGuide(transformWasteGuideResponse(api.data, address))
   }, [address, api.data])
 
+  const onChangeAddress = () => {
+    addressContext.changeSaveInStore(false)
+    navigation.navigate('AddressForm')
+  }
+
+  useEffect(() => {
+    return () => {
+      addressContext.changeSaveInStore(true)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   const hasWasteGuideDetails = wasteGuide && Object.keys(wasteGuide).length
 
   if (isAddressRetrieving) {
@@ -77,6 +89,7 @@ export const WasteGuideByAddress = () => {
   }
 
   if (!isAddressRetrieving && !address) {
+    addressContext.changeSaveInStore(false)
     return (
       <OnboardingAddress
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
@@ -85,59 +98,57 @@ export const WasteGuideByAddress = () => {
     )
   }
 
-  return (
-    address && (
-      <>
-        <Box background="lighter">
-          <Text>Afvalinformatie voor</Text>
-          <Gutter height={size.spacing.xs} />
-          <Title text={address.adres} />
-          <Gutter height={size.spacing.sm} />
-          <Link
-            direction="backward"
-            onPress={() => navigation.navigate('AddressForm')}
-            text="Verander adres"
-          />
-        </Box>
-        <Box background="light">
-          {api.isLoading ? (
-            <Card>
-              <CardHeader>
-                <Title level={4} text="Gegevens ophalen…" />
-              </CardHeader>
-              <CardBody>
-                <ActivityIndicator />
-              </CardBody>
-            </Card>
-          ) : hasWasteGuideDetails ? (
-            <>
-              {wasteGuide?.[WasteType.Bulky] && (
-                <>
-                  <WasteGuideByAddressDetails
-                    details={wasteGuide[WasteType.Bulky]!}
-                  />
+  return address ? (
+    <>
+      <Box background="lighter">
+        <Text>Afvalinformatie voor</Text>
+        <Gutter height={size.spacing.xs} />
+        <Title text={address.adres} />
+        <Gutter height={size.spacing.sm} />
+        <Link
+          direction="backward"
+          onPress={onChangeAddress}
+          text="Verander adres"
+        />
+      </Box>
+      <Box background="light">
+        {api.isLoading ? (
+          <Card>
+            <CardHeader>
+              <Title level={4} text="Gegevens ophalen…" />
+            </CardHeader>
+            <CardBody>
+              <ActivityIndicator />
+            </CardBody>
+          </Card>
+        ) : hasWasteGuideDetails ? (
+          <>
+            {wasteGuide?.[WasteType.Bulky] && (
+              <>
+                <WasteGuideByAddressDetails
+                  details={wasteGuide[WasteType.Bulky]!}
+                />
+                <Gutter height={size.spacing.md} />
+                <WasteGuideCollectionPoints />
+              </>
+            )}
+            {wasteGuide?.[WasteType.Household] && (
+              <>
+                {wasteGuide[WasteType.Bulky] && (
                   <Gutter height={size.spacing.md} />
-                  <WasteGuideCollectionPoints />
-                </>
-              )}
-              {wasteGuide?.[WasteType.Household] && (
-                <>
-                  {wasteGuide[WasteType.Bulky] && (
-                    <Gutter height={size.spacing.md} />
-                  )}
-                  <WasteGuideByAddressDetails
-                    details={wasteGuide[WasteType.Household]!}
-                  />
-                  <Gutter height={size.spacing.md} />
-                  <WasteGuideContainers />
-                </>
-              )}
-            </>
-          ) : (
-            <WasteGuideByAddressNoDetails address={address} />
-          )}
-        </Box>
-      </>
-    )
-  )
+                )}
+                <WasteGuideByAddressDetails
+                  details={wasteGuide[WasteType.Household]!}
+                />
+                <Gutter height={size.spacing.md} />
+                <WasteGuideContainers />
+              </>
+            )}
+          </>
+        ) : (
+          <WasteGuideByAddressNoDetails address={address} />
+        )}
+      </Box>
+    </>
+  ) : null
 }
