@@ -19,7 +19,6 @@ export const Address = () => {
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
 
   const retrieveAddress = useCallback(async () => {
-    setLoading(true)
     const addressFromStore = await asyncStorage.getData('address')
     setAddress(addressFromStore)
     setLoading(false)
