@@ -33,20 +33,6 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     },
   })
 
-  const renamedProjects: ProjectOverviewItem[] | undefined = projects?.map(
-    project => {
-      let [title, subtitle] = project.title.split(',')
-      if (!subtitle) {
-        ;[title, subtitle] = project.title.split(':')
-      }
-      return {
-        ...project,
-        title: title,
-        subtitle: subtitle && subtitle[1].toUpperCase() + subtitle.slice(2),
-      }
-    },
-  )
-
   useLayoutEffect(() => {
     navigation.setOptions({
       title: districts.find(d => d.id === districtId)?.name,
@@ -59,7 +45,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
         <ActivityIndicator />
       ) : (
         <FlatList
-          data={renamedProjects}
+          data={projects}
           ItemSeparatorComponent={() => <Gutter height={size.spacing.md} />}
           keyExtractor={item => item.identifier.toString()}
           renderItem={({item}) => (

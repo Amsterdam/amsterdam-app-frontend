@@ -35,13 +35,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
-  let [title, subtitle] = project ? project.title.split(',') : ['', '']
-
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: title,
+      title: project?.title,
     })
-  }, [title, navigation])
+  }, [project?.title, navigation])
 
   const menu: {
     icon: any
@@ -89,10 +87,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="lighter">
-        <Title text={title || ''} />
-        {subtitle ? (
-          <Text intro>{subtitle[1].toUpperCase() + subtitle.slice(2)}</Text>
-        ) : null}
+        <Title text={project?.title || ''} />
+        {project?.subtitle && <Text intro>{project.subtitle}</Text>}
         <Gutter height={size.spacing.lg} />
         <View style={styles.row}>
           {menu?.map(({icon, sections, timeline, title}) =>
