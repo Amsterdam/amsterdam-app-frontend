@@ -1,28 +1,33 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {View} from 'react-native'
 import {RootStackParamList, routes} from '../../../App'
+import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
-import {Gutter} from '../ui'
+import {Box, Gutter, Title} from '../ui'
 import {NewsArticleCard} from './NewsArticleCard'
 
-export const NewsItemsOverview = () => {
+type Props = {
+  projectId: string
+}
+
+export const NewsItemsOverview = ({projectId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
   const news = useFetch<NewsArticleList>({
-    url: 'https://www.amsterdam.nl/projecten/kademuren/maatregelen-vernieuwing/da-costakade-vernieuwing-kademuren/nieuws-da-costakade/',
+    url: getEnvironment().apiUrl + '/project/news',
     options: {
-      params: {
-        new_json: 'true',
-      },
+      params: {'project-identifier': projectId},
     },
   })
 
-  return (
-    <View>
+  return news.data?.length ? (
+    <Box background="light">
+      <Gutter height={size.spacing.md} />
+      <Title level={2} text="Nieuws" />
+      <Gutter height={size.spacing.sm} />
       {news.data?.map((article, index) => (
         <React.Fragment key={article.title}>
           <NewsArticleCard
@@ -36,6 +41,6 @@ export const NewsItemsOverview = () => {
           )}
         </React.Fragment>
       ))}
-    </View>
-  )
+    </Box>
+  ) : null
 }

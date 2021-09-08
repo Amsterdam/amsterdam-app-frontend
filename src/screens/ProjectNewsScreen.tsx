@@ -18,17 +18,34 @@ export const ProjectNewsScreen = ({route}: Props) => {
   const {article} = route.params
   const {width} = useWindowDimensions()
 
+  const firstImage = article.images?.find(i => i.sources['700px'].url)
+
   return (
     <ScrollView>
-      <Image source={{uri: article.image_url}} style={styles.image} />
+      {firstImage && (
+        <Image
+          source={{uri: firstImage.sources['700px'].url}}
+          style={styles.image}
+        />
+      )}
       <Box>
         <Title margin text={article.title} />
-        <RenderHTML
-          contentWidth={width}
-          source={{html: article.content}}
-          systemFonts={[font.weight.regular, font.weight.demi]}
-          tagsStyles={tagsStyles}
-        />
+        {article.body?.preface.html && (
+          <RenderHTML
+            contentWidth={width}
+            source={{html: article.body?.preface.html}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
+            tagsStyles={tagsStyles}
+          />
+        )}
+        {article.body?.content.html && (
+          <RenderHTML
+            contentWidth={width}
+            source={{html: article.body?.content.html}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
+            tagsStyles={tagsStyles}
+          />
+        )}
       </Box>
     </ScrollView>
   )

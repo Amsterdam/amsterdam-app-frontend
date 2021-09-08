@@ -8,10 +8,10 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsItemsOverview} from '../components/features'
-import {Box, Gutter, IconButton, Image, Text, Title} from '../components/ui'
+import {Box, IconButton, Image, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
-import {color, image, size} from '../tokens'
+import {color, image} from '../tokens'
 import {Section, Timeline} from '../types'
 import {ProjectDetail} from '../types/project'
 
@@ -78,18 +78,16 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <Box>
       <ActivityIndicator />
     </Box>
-  ) : (
+  ) : project ? (
     <ScrollView>
-      {project?.images && project.images[0].sources.orig.url && (
+      {project.images && project.images[0].sources.orig.url && (
         <Image
           source={{uri: project.images[0].sources.orig.url}}
           style={styles.image}
         />
       )}
       <Box background="lighter">
-        <Title text={project?.title || ''} />
-        {project?.subtitle && <Text intro>{project.subtitle}</Text>}
-        <Gutter height={size.spacing.lg} />
+        <Title margin text={project.title || ''} />
         <View style={styles.row}>
           {menu?.map(({icon, sections, timeline, title}) =>
             sections?.length || timeline ? (
@@ -112,13 +110,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           )}
         </View>
       </Box>
-      <Box background="light">
-        <Title level={2} text="Nieuws" />
-        <Gutter height={size.spacing.md} />
-        <NewsItemsOverview />
-      </Box>
+      <NewsItemsOverview projectId={project.identifier} />
     </ScrollView>
-  )
+  ) : null
 }
 
 const styles = StyleSheet.create({

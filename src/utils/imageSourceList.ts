@@ -1,7 +1,7 @@
 import {ImageURISource} from 'react-native'
-import {ProjectImageSources} from '../types'
+import {ImageSources} from '../types'
 
-export const imageSourceList = (images: ProjectImageSources) =>
+export const imageSourceList = (images: ImageSources) =>
   Object.values(images).reduce<ImageURISource[]>(
     (acc, val) => [
       ...acc,

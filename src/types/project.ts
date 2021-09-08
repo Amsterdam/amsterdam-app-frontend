@@ -1,3 +1,4 @@
+import {Image} from './image'
 import {Section, Timeline} from '.'
 
 export type ProjectOverviewItem = {
@@ -6,7 +7,7 @@ export type ProjectOverviewItem = {
   district_id: number
   district_name: string
   identifier: string
-  images: ProjectImage[]
+  images: Image[]
   modification_date: string
   project_type: string
   publication_date: string
@@ -33,7 +34,7 @@ export type ProjectDetail = {
   district_id: number
   district_name: string
   identifier: string
-  images: ProjectImage[]
+  images: Image[]
   page_id: number
   rel_url: string
   subtitle: string
@@ -46,25 +47,4 @@ export type ProjectDetailBody = {
   sections: Section[]
   title: string
   timeline?: Timeline
-}
-
-export type ProjectImage = {
-  sources: ProjectImageSources
-  type: string
-}
-
-export type ProjectImageSources = {
-  orig: ProjectImageSource
-  '220px': ProjectImageSource
-  '460px': ProjectImageSource
-  '700px': ProjectImageSource
-  '80px': ProjectImageSource
-}
-
-export type ProjectImageSource = {
-  description: string
-  filename: string
-  image_id: string
-  size: string
-  url: string
 }

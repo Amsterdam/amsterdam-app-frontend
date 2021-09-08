@@ -1,16 +1,23 @@
+import {Image} from './project'
+import {RichText} from './section'
+
 export type NewsArticleList = NewsArticle[]
 
 export type NewsArticle = {
-  category: string
-  feedid: string
-  publication_date: string
-  modification_date: string
-  image_url: string
+  identifier: string
+  project_identifier: string
+  url: string
   title: string
-  content: string
-  source_url: string
-  related_articles: string
-  author: string
-  photo_author: string
-  images: string[]
+  publication_date: string
+  body?: NewsArticleBody
+  images?: Image[]
+  assets?: NewsArticleAsset[]
 }
+
+type NewsArticleBody = {
+  content: RichText
+  preface: RichText
+  summary: RichText
+}
+
+type NewsArticleAsset = any
