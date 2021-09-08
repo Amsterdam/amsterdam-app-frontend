@@ -4,7 +4,6 @@ export type Spacing = {
   md: number
   lg: number
   xl: number
-  xxl: number
 }
 
 export type Size = {
@@ -12,5 +11,5 @@ export type Size = {
 }
 
 export const size: Size = {
-  spacing: {xs: 5, sm: 10, md: 15, lg: 30, xl: 45, xxl: 60},
+  spacing: {xs: 4, sm: 8, md: 16, lg: 24, xl: 32},
 }
