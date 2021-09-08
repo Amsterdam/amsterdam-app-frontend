@@ -15,19 +15,21 @@ export const IconButton = ({icon, label, onPress}: Props) => (
   </TouchableOpacity>
 )
 
+const circleSize = 64
+
 const styles = StyleSheet.create({
   circle: {
     backgroundColor: color.touchable.primary,
-    borderRadius: size.spacing.xxl / 2,
-    height: size.spacing.xxl,
+    borderRadius: circleSize / 2,
+    height: circleSize,
     marginBottom: size.spacing.sm,
     padding: size.spacing.md,
-    width: size.spacing.xxl,
+    width: circleSize,
   },
   iconButton: {
     alignItems: 'center',
     paddingHorizontal: size.spacing.md,
-    maxWidth: size.spacing.xxl + 2 * size.spacing.md,
+    maxWidth: circleSize + 2 * size.spacing.md,
   },
   label: {
     fontFamily: font.weight.regular,
