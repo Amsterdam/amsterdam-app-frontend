@@ -34,8 +34,10 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
   }
 
   const styles = StyleSheet.create({
-    searchIcon: {
-      marginRight: 10,
+    clearButton: {
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      paddingHorizontal: size.spacing.md,
     },
     searchSection: {
       flexDirection: 'row',
@@ -74,13 +76,9 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
           <TouchableOpacity
             accessibilityRole="button"
             accessibilityHint="Verwijder uw invoertekst"
-            onPress={handleClearText}>
-            <Close
-              fill={'black'}
-              height={20}
-              style={styles.searchIcon}
-              width={20}
-            />
+            onPress={handleClearText}
+            style={styles.clearButton}>
+            <Close fill={color.font.regular} height={20} width={20} />
           </TouchableOpacity>
         ) : null}
       </View>
