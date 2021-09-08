@@ -1,3 +1,4 @@
+export * from './address'
 export * from './disctrict'
 export * from './image'
 export * from './news'
