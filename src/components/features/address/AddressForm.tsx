@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import {Animated, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage, useFetch} from '../../../hooks'
+import {AddressContext} from '../../../providers/address.provider'
 import {color, size} from '../../../tokens'
 import {Address, ResponseAddress} from '../../../types/address'
 import {Box, Gutter, Link} from '../../ui'
@@ -41,6 +42,8 @@ export const AddressForm = () => {
     inputRange: [0, 1],
     outputRange: [0, layoutY ? -layoutY + size.spacing.lg : 0],
   })
+
+  const addressContext = useContext(AddressContext)
 
   const moveUp = () => {
     Animated.timing(moveUpAnim, {
@@ -106,7 +109,7 @@ export const AddressForm = () => {
 
   const asyncStorage = useAsyncStorage()
 
-  const storeAddress = async (responseAddress: Address) => {
+  const transformAddress = (responseAddress: Address) => {
     const {
       adres,
       bag_huisletter,
@@ -117,7 +120,7 @@ export const AddressForm = () => {
       straatnaam,
       woonplaats,
     } = responseAddress
-    await asyncStorage.storeData('address', {
+    return {
       adres,
       bag_huisletter,
       bag_toevoeging,
@@ -126,8 +129,11 @@ export const AddressForm = () => {
       postcode,
       straatnaam,
       woonplaats,
-    })
-    navigation.goBack()
+    }
+  }
+
+  const storeAddress = async (transformedAddress: Address) => {
+    await asyncStorage.storeData('address', transformedAddress)
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -158,7 +164,12 @@ export const AddressForm = () => {
   }, [apiAddress.data])
 
   useEffect(() => {
-    address && storeAddress(address?.results[0])
+    if (address) {
+      const transformedAddress = transformAddress(address?.results[0])
+      addressContext.changeAddress(transformedAddress)
+      addressContext.saveInStore && storeAddress(transformedAddress)
+      navigation.goBack()
+    }
   }, [address])
 
   return (
