@@ -167,8 +167,9 @@ export const AddressForm = () => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
       addressContext.changeAddress(transformedAddress)
-      addressContext.saveInStore &&
-        storeAddress(transformedAddress).then(() => navigation.goBack())
+      addressContext.saveInStore
+        ? storeAddress(transformedAddress).then(() => navigation.goBack())
+        : navigation.goBack()
     }
   }, [address])
 
@@ -213,7 +214,9 @@ const styles = StyleSheet.create({
   backToStreet: {
     flexDirection: 'row',
   },
-  streetInputWrapper: {height: '100%'},
+  streetInputWrapper: {
+    height: '100%',
+  },
   suggestedItem: {
     flexDirection: 'row',
     alignItems: 'center',
