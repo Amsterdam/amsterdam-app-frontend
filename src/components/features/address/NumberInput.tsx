@@ -10,7 +10,6 @@ type Props = {
   changeNumber: (text: string) => void
   changeIsStreetSelected: (choice: boolean) => void
   isNumberSelected: boolean
-  isStreetSelected: boolean
   number: string
   selectNumber: (text: string) => void
   street: string
@@ -31,7 +30,6 @@ export const NumberInput = ({
   changeNumber,
   changeIsStreetSelected,
   isNumberSelected,
-  isStreetSelected,
   number,
   selectNumber,
   street,
@@ -62,13 +60,13 @@ export const NumberInput = ({
       <Gutter height={size.spacing.sm} />
 
       <TextInput
-        autoFocus={isStreetSelected}
+        autoFocus={true}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
         placeholder="Huisnummer"
         value={number}
       />
-      {isStreetSelected && !isNumberSelected && number
+      {!isNumberSelected && number
         ? bagList?.map(bagItem => (
             <TouchableOpacity
               key={bagItem.uri}

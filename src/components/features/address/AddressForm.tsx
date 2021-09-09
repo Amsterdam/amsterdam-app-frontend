@@ -160,7 +160,6 @@ export const AddressForm = () => {
           changeNumber={changeNumber}
           changeIsStreetSelected={setIsStreetSelected}
           isNumberSelected={isNumberSelected}
-          isStreetSelected={isStreetSelected}
           number={number}
           selectNumber={selectNumber}
           street={street}
