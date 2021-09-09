@@ -14,10 +14,11 @@ type Props = {
 
 export const WebView = ({uri}: Props) => {
   const orientationContext = useContext(OrientationContext)
+
   return (
     <WebViewRN
       source={{uri}}
-      style={orientationContext.portrait ? styles.portrait : styles.landscape}
+      style={orientationContext.isPortrait ? styles.portrait : styles.landscape}
     />
   )
 }
