@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {WebView as WebViewRN} from 'react-native-webview'
-import {OrientationContext} from '../../providers/orientation.provider'
+import {OrientationContext} from '../../providers'
 
 const WEB_HEADER_HEIGHT = {
   PORTRAIT: 54,
