@@ -12,11 +12,11 @@ export const AddressContext = createContext<Context>({
   address: undefined,
   changeAddress: () => {},
   changeSaveInStore: () => {},
-  saveInStore: undefined,
+  saveInStore: true,
 })
 
 export const AddressProvider = ({children}: {children: React.ReactNode}) => {
-  const [saveInStore, setSaveInStore] = useState<boolean | undefined>()
+  const [saveInStore, setSaveInStore] = useState<boolean>(true)
   const [address, setAddress] = useState<Address | undefined>()
 
   const changeSaveInStore = (state: boolean) => {
