@@ -17,6 +17,7 @@ import {
   ProjectOverviewScreen,
   WasteScreen,
   WebViewScreen,
+  WhereToPutBulkyWasteScreen,
 } from './src/screens'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
@@ -31,6 +32,7 @@ export type RootStackParamList = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Waste: undefined
+  WhereToPutBulkyWaste: undefined
   WebView: {title: string; uri: string}
 }
 
@@ -89,6 +91,10 @@ export const routes: Routes = {
       title: 'Afvalinformatie op adres',
     },
   },
+  whereToPutBulkyWaste: {
+    name: 'WhereToPutBulkyWaste',
+    options: {title: 'Grof afval'},
+  },
   webView: {
     name: 'WebView',
   },
@@ -126,6 +132,7 @@ export const App = () => {
     projectNews,
     webView,
     wasteGuide,
+    whereToPutBulkyWaste,
   } = routes
 
   return (
@@ -169,6 +176,11 @@ export const App = () => {
               name={wasteGuide.name}
               component={WasteScreen}
               options={wasteGuide.options}
+            />
+            <Stack.Screen
+              name={whereToPutBulkyWaste.name}
+              component={WhereToPutBulkyWasteScreen}
+              options={whereToPutBulkyWaste.options}
             />
             <Stack.Screen
               name={webView.name}

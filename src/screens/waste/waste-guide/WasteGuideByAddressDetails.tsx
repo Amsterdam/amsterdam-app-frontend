@@ -7,6 +7,7 @@ import {
   CardHeader,
   DescriptionList,
   Gutter,
+  Link,
   Title,
 } from '../../../components/ui'
 import {size} from '../../../tokens'
@@ -14,9 +15,13 @@ import {WasteGuideDetails} from './types'
 
 type Props = {
   details: WasteGuideDetails
+  footerLink?: {
+    text: string
+    onPress: () => void
+  }
 }
 
-export const WasteGuideByAddressDetails = ({details}: Props) => {
+export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   const {
     appointmentUrl,
     collectionDays,
@@ -62,6 +67,17 @@ export const WasteGuideByAddressDetails = ({details}: Props) => {
               text="Maak een afspraak"
             />
           </View>
+        )}
+        {footerLink && (
+          <>
+            <Gutter height={size.spacing.md} />
+            <Link
+              direction="forward"
+              emphasis
+              onPress={footerLink.onPress}
+              text={footerLink.text}
+            />
+          </>
         )}
       </CardBody>
     </Card>
