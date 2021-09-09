@@ -1,18 +1,19 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
-import React from 'react'
-import {TouchableOpacity} from 'react-native'
+import React, {useEffect, useRef} from 'react'
+import {Animated, Dimensions, TouchableOpacity} from 'react-native'
 import {color, size} from '../../../tokens'
-import {Gutter, Text, TextInput} from '../../ui'
+import {Gutter, Link, Text, TextInput} from '../../ui'
 import {BagResponseContent} from './AddressForm'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
   changeNumber: (text: string) => void
-  inputNumberRef: any
+  changeIsStreetSelected: (choice: boolean) => void
   isNumberSelected: boolean
   isStreetSelected: boolean
   number: string
   selectNumber: (text: string) => void
+  street: string
   styles: {suggestedItem: {}}
 }
 
@@ -28,21 +29,43 @@ const getNumberFromAddress = (text: string) => {
 export const NumberInput = ({
   bagList,
   changeNumber,
-  inputNumberRef,
+  changeIsStreetSelected,
   isNumberSelected,
   isStreetSelected,
   number,
   selectNumber,
+  street,
   styles,
 }: Props) => {
+  const windowHeight = Dimensions.get('window').height
+  const moveUpAnim = useRef(new Animated.Value(1)).current
+  const y = moveUpAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, windowHeight + size.spacing.lg],
+  })
+
+  useEffect(() => {
+    Animated.timing(moveUpAnim, {
+      toValue: 0,
+      useNativeDriver: false,
+    }).start()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <>
+    <Animated.View style={{marginTop: y}}>
+      <Link
+        direction="up"
+        emphasis
+        text={street}
+        onPress={() => changeIsStreetSelected(false)}
+      />
+      <Gutter height={size.spacing.sm} />
+
       <TextInput
         autoFocus={isStreetSelected}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
         placeholder="Huisnummer"
-        ref={inputNumberRef}
         value={number}
       />
       {isStreetSelected && !isNumberSelected && number
@@ -59,6 +82,6 @@ export const NumberInput = ({
             </TouchableOpacity>
           ))
         : null}
-    </>
+    </Animated.View>
   )
 }
