@@ -167,8 +167,8 @@ export const AddressForm = () => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
       addressContext.changeAddress(transformedAddress)
-      addressContext.saveInStore && storeAddress(transformedAddress)
-      navigation.goBack()
+      addressContext.saveInStore &&
+        storeAddress(transformedAddress).then(() => navigation.goBack())
     }
   }, [address])
 
