@@ -1,6 +1,7 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {Gutter, Text, TextInput} from '../../ui'
 import {BagResponseContent} from './AddressForm'
@@ -25,7 +26,7 @@ export const StreetInput = ({
   styles,
 }: Props) => {
   return (
-    <>
+    <ScrollView>
       <TextInput
         autoFocus={!isStreetSelected}
         label="Vul uw postcode of straatnaam in"
@@ -50,6 +51,6 @@ export const StreetInput = ({
             </TouchableOpacity>
           ))
         : null}
-    </>
+    </ScrollView>
   )
 }
