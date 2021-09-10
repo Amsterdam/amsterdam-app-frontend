@@ -15,7 +15,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {useAsyncStorage, useFetch} from '../../../hooks'
-import {AddressContext} from '../../../providers/address.provider'
+import {AddressContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {Address} from '../../../types/address'
 import {

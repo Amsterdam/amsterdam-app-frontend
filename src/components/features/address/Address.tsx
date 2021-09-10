@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
-import {ActivityIndicator, View} from 'react-native'
+import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
@@ -40,23 +39,21 @@ export const Address = () => {
           <ActivityIndicator />
         </Box>
       ) : address ? (
-        <Box>
-          <Card>
-            <CardBody centerContent>
-              <View accessible={true} style={styles.addressWrapper}>
-                <Text secondary>Uw adres is:</Text>
-                <Gutter height={size.spacing.md} />
-                <Title level={4} margin text={address.adres} />
-                <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
-              </View>
-              <Gutter height={size.spacing.sm} />
-              <Link
-                onPress={() => navigation.navigate('AddressForm')}
-                text="Verander adres"
-              />
-            </CardBody>
-          </Card>
-        </Box>
+        <Card>
+          <CardBody centerContent>
+            <View accessible={true} style={styles.addressWrapper}>
+              <Text secondary>Uw adres is:</Text>
+              <Gutter height={size.spacing.md} />
+              <Title level={4} margin text={address.adres} />
+              <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
+            </View>
+            <Gutter height={size.spacing.sm} />
+            <Link
+              onPress={() => navigation.navigate('AddressForm')}
+              text="Verander adres"
+            />
+          </CardBody>
+        </Card>
       ) : (
         <Box>
           <OnboardingAddress

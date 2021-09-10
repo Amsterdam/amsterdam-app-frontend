@@ -6,8 +6,7 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import Logo from './src/assets/icons/logo.svg'
-import {AddressProvider} from './src/providers/address.provider'
-import {OrientationProvider} from './src/providers/orientation.provider'
+import {AddressProvider, OrientationProvider} from './src/providers'
 import {
   HomeScreen,
   ProjectDetailBodyScreen,
