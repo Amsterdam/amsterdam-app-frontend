@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
 import {
   Box,
   Card,
@@ -12,7 +12,7 @@ import {
 import {size} from '../../tokens'
 
 export const WhereToPutBulkyWasteScreen = () => (
-  <>
+  <ScrollView>
     <Box background="lighter">
       <Title text="Buiten zetten of naar een afvalpunt?" />
       <Gutter height={size.spacing.sm} />
@@ -61,7 +61,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         </CardBody>
       </Card>
     </Box>
-  </>
+  </ScrollView>
 )
 
 const styles = StyleSheet.create({
