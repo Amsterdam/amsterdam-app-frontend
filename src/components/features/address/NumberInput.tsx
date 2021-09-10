@@ -6,6 +6,7 @@ import {
   KeyboardTypeOptions,
   TouchableOpacity,
 } from 'react-native'
+import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {Gutter, Link, Text, TextInput} from '../../ui'
 import {BagResponseContent} from './AddressForm'
@@ -57,7 +58,7 @@ export const NumberInput = ({
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.ScrollView style={{marginTop: y}}>
+    <Animated.View style={{marginTop: y}}>
       <Link
         direction="up"
         emphasis
@@ -74,8 +75,9 @@ export const NumberInput = ({
         placeholder="Huisnummer"
         value={number}
       />
-      {!isNumberSelected && number
-        ? bagList?.map(bagItem => (
+      {!isNumberSelected && number ? (
+        <ScrollView>
+          {bagList?.map(bagItem => (
             <TouchableOpacity
               key={bagItem.uri}
               onPress={() => {
@@ -86,8 +88,9 @@ export const NumberInput = ({
               <Gutter width={size.spacing.xs} />
               <Text>{getNumberFromAddress(bagItem._display)}</Text>
             </TouchableOpacity>
-          ))
-        : null}
-    </Animated.ScrollView>
+          ))}
+        </ScrollView>
+      ) : null}
+    </Animated.View>
   )
 }

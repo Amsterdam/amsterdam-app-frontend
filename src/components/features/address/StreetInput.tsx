@@ -26,7 +26,7 @@ export const StreetInput = ({
   styles,
 }: Props) => {
   return (
-    <ScrollView>
+    <>
       <TextInput
         autoFocus={!isStreetSelected}
         label="Vul uw postcode of straatnaam in"
@@ -37,8 +37,9 @@ export const StreetInput = ({
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected
-        ? bagList?.map(bagItem => (
+      {!isStreetSelected ? (
+        <ScrollView>
+          {bagList?.map(bagItem => (
             <TouchableOpacity
               key={bagItem.uri}
               onPress={() => {
@@ -49,8 +50,9 @@ export const StreetInput = ({
               <Gutter width={size.spacing.xs} />
               <Text>{bagItem._display}</Text>
             </TouchableOpacity>
-          ))
-        : null}
-    </ScrollView>
+          ))}
+        </ScrollView>
+      ) : null}
+    </>
   )
 }
