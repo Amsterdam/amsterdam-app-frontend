@@ -21,7 +21,10 @@ export const Button = ({
   ...otherProps
 }: Props) => {
   return (
-    <TouchableOpacity style={[styles.button, styles[variant]]} {...otherProps}>
+    <TouchableOpacity
+      accessibilityRole="button"
+      style={[styles.button, styles[variant]]}
+      {...otherProps}>
       {icon && <View style={styles.iconContainer}>{icon}</View>}
       {icon && text && <Gutter width={size.spacing.md} />}
       {text && (

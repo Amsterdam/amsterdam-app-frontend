@@ -9,7 +9,10 @@ type Props = {
 }
 
 export const IconButton = ({icon, label, onPress}: Props) => (
-  <TouchableOpacity onPress={onPress} style={styles.iconButton}>
+  <TouchableOpacity
+    accessibilityRole="button"
+    onPress={onPress}
+    style={styles.iconButton}>
     {icon && <View style={styles.circle}>{icon}</View>}
     <Text style={styles.label}>{label}</Text>
   </TouchableOpacity>

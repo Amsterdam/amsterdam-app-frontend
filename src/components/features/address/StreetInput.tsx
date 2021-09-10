@@ -41,6 +41,7 @@ export const StreetInput = ({
         <ScrollView>
           {bagList?.map(bagItem => (
             <TouchableOpacity
+              accessibilityRole="button"
               key={bagItem.uri}
               onPress={() => {
                 selectStreet(bagItem._display)

@@ -79,6 +79,7 @@ export const NumberInput = ({
         <ScrollView>
           {bagList?.map(bagItem => (
             <TouchableOpacity
+              accessibilityRole="button"
               key={bagItem.uri}
               onPress={() => {
                 selectNumber(getNumberFromAddress(bagItem._display))
