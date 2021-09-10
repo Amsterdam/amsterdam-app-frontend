@@ -6,21 +6,29 @@ import {
   TouchableHighlight,
 } from 'react-native'
 import {image} from '../../tokens'
-import {Card, CardBody, Title} from '../ui'
+import {Card, CardBody, Text, Title} from '../ui'
 
 type Props = {
   imageSource?: ImageSourcePropType
   onPress: () => void
+  subtitle?: string
   title: string
   width?: number
 }
 
-export const ProjectCard = ({imageSource, onPress, title, width}: Props) => (
+export const ProjectCard = ({
+  imageSource,
+  onPress,
+  subtitle,
+  title,
+  width,
+}: Props) => (
   <TouchableHighlight onPress={onPress} style={{width}}>
     <Card>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
         <Title level={4} text={title} />
+        {subtitle && <Text>{subtitle}</Text>}
       </CardBody>
     </Card>
   </TouchableHighlight>

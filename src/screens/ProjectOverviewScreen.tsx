@@ -90,6 +90,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                       imageSource={{
                         uri: projectItem.images[0].sources['460px'].url,
                       }}
+                      subtitle={projectItem.subtitle}
                       title={projectItem.title}
                       width={280}
                     />

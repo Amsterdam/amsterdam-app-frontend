@@ -56,6 +56,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
               onPress={() =>
                 navigation.navigate('ProjectDetail', {id: item.identifier})
               }
+              subtitle={item.subtitle}
               title={item.title}
             />
           )}
