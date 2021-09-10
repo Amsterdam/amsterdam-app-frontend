@@ -17,7 +17,7 @@ import {
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {Address} from '../../../types/address'
+import {Address} from '../../../types'
 import {
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,

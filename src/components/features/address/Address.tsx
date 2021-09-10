@@ -5,7 +5,7 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
-import {Address as AddressType} from '../../../types/address'
+import {Address as AddressType} from '../../../types'
 import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../../ui'
 import {OnboardingAddress} from '../OnboardingAddress'
 

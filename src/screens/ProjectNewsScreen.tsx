@@ -4,7 +4,7 @@ import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, Image, Title} from '../components/ui'
+import {Box, Image, Text, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {font, image} from '../tokens'
 
@@ -18,17 +18,43 @@ export const ProjectNewsScreen = ({route}: Props) => {
   const {article} = route.params
   const {width} = useWindowDimensions()
 
+  const firstImage = article.images?.find(i => i.sources['700px'].url)
+  const publicationDate = new Date(article.publication_date)
+
   return (
     <ScrollView>
-      <Image source={{uri: article.image_url}} style={styles.image} />
+      {firstImage && (
+        <Image
+          source={{uri: firstImage.sources['700px'].url}}
+          style={styles.image}
+        />
+      )}
       <Box>
         <Title margin text={article.title} />
-        <RenderHTML
-          contentWidth={width}
-          source={{html: article.content}}
-          systemFonts={[font.weight.regular, font.weight.demi]}
-          tagsStyles={tagsStyles}
-        />
+        <Text margin secondary>
+          {new Intl.DateTimeFormat('nl-NL', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          }).format(publicationDate)}
+        </Text>
+        {article.body?.preface.html && (
+          <RenderHTML
+            contentWidth={width}
+            source={{html: article.body?.preface.html}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
+            tagsStyles={tagsStyles}
+          />
+        )}
+        {article.body?.content.html && (
+          <RenderHTML
+            contentWidth={width}
+            source={{html: article.body?.content.html}}
+            systemFonts={[font.weight.regular, font.weight.demi]}
+            tagsStyles={tagsStyles}
+          />
+        )}
       </Box>
     </ScrollView>
   )

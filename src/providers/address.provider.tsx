@@ -1,5 +1,5 @@
-import React, {useState, createContext} from 'react'
-import {Address} from '../types/address'
+import React, {createContext, useState} from 'react'
+import {Address} from '../types'
 
 type Context = {
   address: Address | undefined

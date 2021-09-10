@@ -5,7 +5,7 @@ import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {Box, Button, Gutter, Text} from '../../../components/ui'
 import {size} from '../../../tokens'
-import {Address} from '../../../types/address'
+import {Address} from '../../../types'
 
 type Props = {
   address: Address
