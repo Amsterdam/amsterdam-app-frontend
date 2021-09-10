@@ -1,6 +1,11 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {useEffect, useRef} from 'react'
-import {Animated, Dimensions, TouchableOpacity} from 'react-native'
+import {
+  Animated,
+  Dimensions,
+  KeyboardTypeOptions,
+  TouchableOpacity,
+} from 'react-native'
 import {color, size} from '../../../tokens'
 import {Gutter, Link, Text, TextInput} from '../../ui'
 import {BagResponseContent} from './AddressForm'
@@ -10,6 +15,7 @@ type Props = {
   changeNumber: (text: string) => void
   changeIsStreetSelected: (choice: boolean) => void
   isNumberSelected: boolean
+  keyboardType: KeyboardTypeOptions | undefined
   number: string
   selectNumber: (text: string) => void
   street: string
@@ -30,6 +36,7 @@ export const NumberInput = ({
   changeNumber,
   changeIsStreetSelected,
   isNumberSelected,
+  keyboardType,
   number,
   selectNumber,
   street,
@@ -50,7 +57,7 @@ export const NumberInput = ({
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.View style={{marginTop: y}}>
+    <Animated.ScrollView style={{marginTop: y}}>
       <Link
         direction="up"
         emphasis
@@ -61,6 +68,7 @@ export const NumberInput = ({
 
       <TextInput
         autoFocus={true}
+        keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
         placeholder="Huisnummer"
@@ -80,6 +88,6 @@ export const NumberInput = ({
             </TouchableOpacity>
           ))
         : null}
-    </Animated.View>
+    </Animated.ScrollView>
   )
 }
