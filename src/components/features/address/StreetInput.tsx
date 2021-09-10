@@ -28,6 +28,7 @@ export const StreetInput = ({
   return (
     <>
       <TextInput
+        accessibilityLabel="Vul uw postcode of straatnaam in"
         autoFocus={!isStreetSelected}
         label="Vul uw postcode of straatnaam in"
         onChangeText={text => {

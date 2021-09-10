@@ -68,6 +68,7 @@ export const NumberInput = ({
       <Gutter height={size.spacing.sm} />
 
       <TextInput
+        accessibilityLabel="Vul uw huisnummer in"
         autoFocus={true}
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
