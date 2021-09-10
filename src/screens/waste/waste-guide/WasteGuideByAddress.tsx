@@ -82,6 +82,13 @@ export const WasteGuideByAddress = () => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    !isAddressRetrieving &&
+      !address &&
+      addressContext &&
+      addressContext.changeSaveInStore(false)
+  }, [isAddressRetrieving, address]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const hasWasteGuideDetails = wasteGuide && Object.keys(wasteGuide).length
 
   if (isAddressRetrieving) {

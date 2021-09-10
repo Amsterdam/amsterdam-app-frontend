@@ -1,6 +1,7 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
+import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {Gutter, Text, TextInput} from '../../ui'
 import {BagResponseContent} from './AddressForm'
@@ -36,8 +37,9 @@ export const StreetInput = ({
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected
-        ? bagList?.map(bagItem => (
+      {!isStreetSelected ? (
+        <ScrollView>
+          {bagList?.map(bagItem => (
             <TouchableOpacity
               key={bagItem.uri}
               onPress={() => {
@@ -48,8 +50,9 @@ export const StreetInput = ({
               <Gutter width={size.spacing.xs} />
               <Text>{bagItem._display}</Text>
             </TouchableOpacity>
-          ))
-        : null}
+          ))}
+        </ScrollView>
+      ) : null}
     </>
   )
 }

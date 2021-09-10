@@ -3,7 +3,7 @@ import {Address} from '../types/address'
 
 type Context = {
   address: Address | undefined
-  changeAddress: (text: Address) => void
+  changeAddress: (text: Address | undefined) => void
   changeSaveInStore: (state: boolean) => void
   saveInStore: boolean | undefined
 }
@@ -23,7 +23,7 @@ export const AddressProvider = ({children}: {children: React.ReactNode}) => {
     setSaveInStore(state)
   }
 
-  const changeAddress = (newAddress: Address) => {
+  const changeAddress = (newAddress: Address | undefined) => {
     setAddress(newAddress)
   }
 

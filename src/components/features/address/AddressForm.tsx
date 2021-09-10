@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
-import {Animated, StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {Address, ResponseAddress} from '../../../types/address'
-import {Box, Gutter, Link} from '../../ui'
+import {Box} from '../../ui'
 import {NumberInput} from './NumberInput'
 import {StreetInput} from './StreetInput'
 
@@ -29,37 +29,12 @@ export const AddressForm = () => {
   )
   const [isNumberSelected, setIsNumberSelected] = useState(false)
   const [isStreetSelected, setIsStreetSelected] = useState(false)
-  const [layoutY, setLayoutY] = useState<number | null>(null)
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
 
-  const moveUpAnim = useRef(new Animated.Value(0)).current
-
-  const inputNumberRef = useRef<any>()
   const inputStreetRef = useRef<any>()
 
-  const y = moveUpAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, layoutY ? -layoutY + size.spacing.lg : 0],
-  })
-
   const addressContext = useContext(AddressContext)
-
-  const moveUp = () => {
-    Animated.timing(moveUpAnim, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start()
-  }
-
-  const moveDown = () => {
-    clearStreet()
-    inputStreetRef.current.focus()
-    Animated.timing(moveUpAnim, {
-      toValue: 0,
-      useNativeDriver: true,
-    }).start()
-  }
 
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
@@ -87,10 +62,6 @@ export const AddressForm = () => {
     setNumber('')
   }
 
-  const clearStreet = () => {
-    setStreet('')
-  }
-
   const removeWeespSuffix = (streetName: string) => {
     return streetName.replace(/ \(Weesp\)/g, '')
   }
@@ -103,8 +74,6 @@ export const AddressForm = () => {
   const selectStreet = (text: string) => {
     setStreet(text)
     setIsStreetSelected(true)
-    moveUp()
-    inputNumberRef.current.focus()
   }
 
   const asyncStorage = useAsyncStorage()
@@ -174,39 +143,31 @@ export const AddressForm = () => {
   }, [address])
 
   return (
-    <Animated.View style={[{transform: [{translateY: y}]}]}>
-      <Box background="lighter" inset="lg">
-        <View style={styles.streetInputWrapper}>
-          <StreetInput
-            bagList={bagList}
-            changeStreet={changeStreet}
-            inputStreetRef={inputStreetRef}
-            isStreetSelected={isStreetSelected}
-            selectStreet={selectStreet}
-            street={street}
-            styles={styles}
-          />
-        </View>
-        <View onLayout={event => setLayoutY(event.nativeEvent.layout.y)}>
-          {street ? (
-            <>
-              <Link direction="up" emphasis text={street} onPress={moveDown} />
-              <Gutter height={size.spacing.sm} />
-            </>
-          ) : null}
-          <NumberInput
-            bagList={bagList}
-            changeNumber={changeNumber}
-            inputNumberRef={inputNumberRef}
-            isNumberSelected={isNumberSelected}
-            isStreetSelected={isStreetSelected}
-            number={number}
-            selectNumber={selectNumber}
-            styles={styles}
-          />
-        </View>
-      </Box>
-    </Animated.View>
+    <Box background="lighter" inset="lg">
+      {!isStreetSelected ? (
+        <StreetInput
+          bagList={bagList}
+          changeStreet={changeStreet}
+          inputStreetRef={inputStreetRef}
+          isStreetSelected={isStreetSelected}
+          selectStreet={selectStreet}
+          street={street}
+          styles={styles}
+        />
+      ) : (
+        <NumberInput
+          bagList={bagList}
+          changeNumber={changeNumber}
+          changeIsStreetSelected={setIsStreetSelected}
+          isNumberSelected={isNumberSelected}
+          keyboardType="numeric"
+          number={number}
+          selectNumber={selectNumber}
+          street={street}
+          styles={styles}
+        />
+      )}
+    </Box>
   )
 }
 
