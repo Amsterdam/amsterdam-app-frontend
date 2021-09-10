@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {RootStackParamList} from '../../../../App'
+import {RootStackParamList, routes} from '../../../../App'
 import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
 import {
   Box,
@@ -126,6 +126,11 @@ export const WasteGuideByAddress = () => {
               <>
                 <WasteGuideByAddressDetails
                   details={wasteGuide[WasteType.Bulky]!}
+                  footerLink={{
+                    onPress: () =>
+                      navigation.navigate(routes.whereToPutBulkyWaste.name),
+                    text: 'Grof afval: buiten zetten of naar een afvalpunt?',
+                  }}
                 />
                 <Gutter height={size.spacing.md} />
                 <WasteGuideCollectionPoints />
