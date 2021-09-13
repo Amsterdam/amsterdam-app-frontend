@@ -1,5 +1,8 @@
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Linking, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {RootStackParamList, routes} from '../../../../App'
 import {
   Button,
   Card,
@@ -22,6 +25,9 @@ type Props = {
 }
 
 export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
+
   const {
     appointmentUrl,
     collectionDays,
@@ -63,7 +69,12 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           <View style={styles.alignLeft}>
             <Gutter height={size.spacing.md} />
             <Button
-              onPress={() => Linking.openURL(appointmentUrl)}
+              onPress={() =>
+                navigation.navigate(routes.webView.name, {
+                  title: 'Afspraak maken voor ophalen grof afval',
+                  uri: appointmentUrl,
+                })
+              }
               text="Maak een afspraak"
             />
           </View>
