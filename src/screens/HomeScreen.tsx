@@ -1,10 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address/Address'
 import {Box, Button, Gutter} from '../components/ui'
-import {OrientationContext} from '../providers'
+import {getEnvironment} from '../environment'
+import {AddressContext, OrientationContext} from '../providers'
 import {size} from '../tokens'
 
 type Props = {
@@ -13,12 +15,22 @@ type Props = {
 
 export const HomeScreen = ({navigation}: Props) => {
   const orientationContext = useContext(OrientationContext)
+  const addressContext = useContext(AddressContext)
+
+  const clearAddress = async () => {
+    try {
+      await AsyncStorage.removeItem('address')
+      addressContext.changeAddress(undefined)
+    } catch (e) {}
+
+    console.log('Adres verwijderd.')
+  }
 
   return (
     <>
       <Box inset="lg">
         <View style={!orientationContext.isPortrait && styles.row}>
-          <Address />
+          <Address key={addressContext.address?.huisnummer} />
           <Gutter
             height={orientationContext.isPortrait ? size.spacing.xl : undefined}
             width={orientationContext.isPortrait ? undefined : size.spacing.xl}
@@ -47,6 +59,16 @@ export const HomeScreen = ({navigation}: Props) => {
               onPress={() => navigation.navigate(routes.wasteGuide.name)}
               text="Raadpleeg afvalinformatie"
             />
+            {getEnvironment().allowClearingAddress && (
+              <>
+                <Gutter height={size.spacing.md} />
+                <Button
+                  variant="secondary"
+                  onPress={clearAddress}
+                  text="Verwijder adres"
+                />
+              </>
+            )}
           </View>
         </View>
       </Box>
