@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native'
+import {ImageSourcePropType, StyleSheet, TouchableHighlight} from 'react-native'
 import {image} from '../../tokens'
-import {Card, CardBody, Title} from '../ui'
+import {Card, CardBody, Image, Title} from '../ui'
 
 type Props = {
   border?: Boolean
@@ -23,7 +18,7 @@ export const BannerCard = ({
   subtitle,
   title,
 }: Props) => (
-  <TouchableHighlight onPress={onPress}>
+  <TouchableHighlight accessibilityRole="button" onPress={onPress}>
     <Card border={border}>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>

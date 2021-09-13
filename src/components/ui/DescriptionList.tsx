@@ -1,4 +1,5 @@
 import React from 'react'
+import {View} from 'react-native'
 import {size} from '../../tokens'
 import {Gutter, Text} from '.'
 
@@ -17,7 +18,7 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
   return (
     <>
       {nonEmptyItems.map(({label, value}, index) => (
-        <React.Fragment key={label}>
+        <View accessible={true} key={label}>
           <Text secondary small>
             {label}
           </Text>
@@ -25,7 +26,7 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
           {index < nonEmptyItems.length - 1 && (
             <Gutter height={size.spacing.md} />
           )}
-        </React.Fragment>
+        </View>
       ))}
     </>
   )

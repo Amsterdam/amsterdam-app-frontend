@@ -28,6 +28,7 @@ export const StreetInput = ({
   return (
     <>
       <TextInput
+        accessibilityLabel="Vul uw postcode of straatnaam in"
         autoFocus={!isStreetSelected}
         label="Vul uw postcode of straatnaam in"
         onChangeText={text => {
@@ -41,6 +42,7 @@ export const StreetInput = ({
         <ScrollView>
           {bagList?.map(bagItem => (
             <TouchableOpacity
+              accessibilityRole="button"
               key={bagItem.uri}
               onPress={() => {
                 selectStreet(bagItem._display)

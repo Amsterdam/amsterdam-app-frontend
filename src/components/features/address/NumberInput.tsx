@@ -68,6 +68,7 @@ export const NumberInput = ({
       <Gutter height={size.spacing.sm} />
 
       <TextInput
+        accessibilityLabel="Vul uw huisnummer in"
         autoFocus={true}
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
@@ -79,6 +80,7 @@ export const NumberInput = ({
         <ScrollView>
           {bagList?.map(bagItem => (
             <TouchableOpacity
+              accessibilityRole="button"
               key={bagItem.uri}
               onPress={() => {
                 selectNumber(getNumberFromAddress(bagItem._display))

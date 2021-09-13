@@ -23,7 +23,10 @@ export const ProjectCard = ({
   title,
   width,
 }: Props) => (
-  <TouchableHighlight onPress={onPress} style={{width}}>
+  <TouchableHighlight
+    accessibilityRole="button"
+    onPress={onPress}
+    style={{width}}>
     <Card>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>

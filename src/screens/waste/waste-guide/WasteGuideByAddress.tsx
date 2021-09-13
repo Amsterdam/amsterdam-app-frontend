@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
+import {ActivityIndicator, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
 import {
@@ -107,10 +107,12 @@ export const WasteGuideByAddress = () => {
   return address ? (
     <>
       <Box background="lighter">
-        <Text>Afvalinformatie voor</Text>
-        <Gutter height={size.spacing.xs} />
-        <Title text={address.adres} />
-        <Gutter height={size.spacing.sm} />
+        <View accessible={true}>
+          <Text>Afvalinformatie voor</Text>
+          <Gutter height={size.spacing.xs} />
+          <Title text={address.adres} />
+          <Gutter height={size.spacing.sm} />
+        </View>
         <Link
           direction="backward"
           onPress={onChangeAddress}
