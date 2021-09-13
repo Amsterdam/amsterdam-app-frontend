@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
@@ -40,15 +40,16 @@ export const Address = () => {
         </Box>
       ) : address ? (
         <Card>
-          <CardBody centerContent>
-            <View accessible={true} style={styles.addressWrapper}>
-              <Text secondary>Uw adres is:</Text>
-              <Gutter height={size.spacing.md} />
+          <CardBody>
+            <View accessible={true}>
+              <Text secondary>Uw adres:</Text>
+              <Gutter height={size.spacing.sm} />
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </View>
-            <Gutter height={size.spacing.sm} />
+            <Gutter height={size.spacing.md} />
             <Link
+              direction="forward"
               onPress={() => navigation.navigate('AddressForm')}
               text="Verander adres"
             />
@@ -66,7 +67,3 @@ export const Address = () => {
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  addressWrapper: {alignItems: 'center'},
-})
