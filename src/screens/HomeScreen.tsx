@@ -28,9 +28,12 @@ export const HomeScreen = ({navigation}: Props) => {
 
   return (
     <>
-      <Box inset="lg">
-        <View style={!orientationContext.isPortrait && styles.row}>
-          <Address key={addressContext.address?.huisnummer} />
+      <Box>
+        <View
+          style={
+            !orientationContext.isPortrait && [styles.row, styles.alignStart]
+          }>
+          <Address />
           <Gutter
             height={orientationContext.isPortrait ? size.spacing.xl : undefined}
             width={orientationContext.isPortrait ? undefined : size.spacing.xl}
