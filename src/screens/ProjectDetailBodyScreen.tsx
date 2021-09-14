@@ -43,7 +43,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   return (
     <ScrollView>
-      <Box background="lighter">
+      <Box background="light">
         <View style={styles.row}>
           {icon[body.title]}
           <Title primary text={body.title} />

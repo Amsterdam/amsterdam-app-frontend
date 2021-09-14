@@ -69,6 +69,11 @@ export const routes: Routes = {
   },
   projectDetailBody: {
     name: 'ProjectDetailBody',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
+    },
   },
   projectNews: {
     name: 'ProjectNews',
