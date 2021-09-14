@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address/Address'
 import {Box, Button, Gutter} from '../components/ui'
@@ -27,7 +27,7 @@ export const HomeScreen = ({navigation}: Props) => {
   }
 
   return (
-    <>
+    <ScrollView>
       <Box>
         <View
           style={
@@ -75,7 +75,7 @@ export const HomeScreen = ({navigation}: Props) => {
           </View>
         </View>
       </Box>
-    </>
+    </ScrollView>
   )
 }
 
