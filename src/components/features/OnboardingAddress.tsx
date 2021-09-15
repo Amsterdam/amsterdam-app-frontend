@@ -21,7 +21,7 @@ export const OnboardingAddress = ({text, title}: Props) => {
         <TextInput
           label="Vul uw postcode of straatnaam in"
           onFocus={() => navigation.navigate('AddressForm')}
-          placeholder="1234AB of voorbeeldstraat"
+          accessibilityLabel="Vul uw postcode of straatnaam in"
         />
       </CardBody>
     </Card>

@@ -73,7 +73,6 @@ export const NumberInput = ({
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
-        placeholder="Huisnummer"
         value={number}
       />
       {!isNumberSelected && number ? (
