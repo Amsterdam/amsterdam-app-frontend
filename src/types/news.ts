@@ -1,4 +1,4 @@
-import {Image} from './project'
+import {Image} from './image'
 import {RichText} from './section'
 
 export type NewsArticleList = NewsArticle[]
