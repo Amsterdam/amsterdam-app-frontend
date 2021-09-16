@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
-import {EnterAddressCard} from '../../../components/features/EnterAddressCard'
+import {EnterAddressCard} from '../../../components/features/address/EnterAddressCard'
 import {
   Box,
   Card,
