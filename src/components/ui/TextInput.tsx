@@ -57,7 +57,9 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
 
   return (
     <View>
-      <Text accessible={!props.accessibilityLabel} secondary>
+      <Text
+        importantForAccessibility={props.accessibilityLabel ? 'no' : 'yes'}
+        secondary>
         {props.label}
       </Text>
       <Gutter height={size.spacing.sm} />

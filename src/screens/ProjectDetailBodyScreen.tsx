@@ -10,6 +10,7 @@ import {RootStackParamList} from '../../App'
 import {Box, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
+import {regexLibrary} from '../utils'
 
 type ProjectDetailBodyScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -54,7 +55,17 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
             <Title level={3} text={section.title} />
             <RenderHTML
               contentWidth={width}
-              source={{html: section.html}}
+              source={{
+                html: section.html
+                  .replace(
+                    regexLibrary.plainPublish.regex,
+                    regexLibrary.plainPublish.replace,
+                  )
+                  .replace(
+                    regexLibrary.quotePublish.regex,
+                    regexLibrary.quotePublish.replace,
+                  ),
+              }}
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStyles}
             />

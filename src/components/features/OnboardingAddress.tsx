@@ -10,6 +10,7 @@ type Props = {
 }
 
 export const OnboardingAddress = ({text, title}: Props) => {
+  const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
 
@@ -19,9 +20,9 @@ export const OnboardingAddress = ({text, title}: Props) => {
         <Title margin text={title} />
         <Text margin>{text}</Text>
         <TextInput
-          label="Vul uw postcode of straatnaam in"
+          label={inputLabel}
           onFocus={() => navigation.navigate('AddressForm')}
-          placeholder="1234AB of voorbeeldstraat"
+          accessibilityLabel={inputLabel}
         />
       </CardBody>
     </Card>
