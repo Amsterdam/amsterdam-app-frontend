@@ -71,7 +71,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
             <Button
               onPress={() =>
                 navigation.navigate(routes.webView.name, {
-                  title: 'Afspraak maken voor ophalen grof afval',
+                  title: 'Afspraak grof afval ophalen',
                   uri: appointmentUrl,
                 })
               }
