@@ -6,21 +6,15 @@ import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {color, size} from '../../../tokens'
-import {Address, ResponseAddress} from '../../../types'
+import {
+  Address,
+  BagResponse,
+  BagResponseContent,
+  ResponseAddress,
+} from '../../../types'
 import {Box} from '../../ui'
 import {NumberInput} from './NumberInput'
 import {StreetInput} from './StreetInput'
-
-export type BagResponseContent = {
-  _display: string
-  uri: string
-}[]
-
-export type BagResponse = {
-  label: string
-  content: BagResponseContent
-  total_results: number
-}
 
 export const AddressForm = () => {
   const [address, setAddress] = useState<ResponseAddress | null>(null)
