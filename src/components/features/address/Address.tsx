@@ -7,7 +7,7 @@ import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
 import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../../ui'
-import {EnterAddressCard} from './EnterAddressCard'
+import {EnterAddressCard} from './'
 
 export const Address = () => {
   const [address, setAddress] = useState<AddressType | undefined>(undefined)

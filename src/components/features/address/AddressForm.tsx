@@ -13,8 +13,7 @@ import {
   ResponseAddress,
 } from '../../../types'
 import {Box} from '../../ui'
-import {NumberInput} from './NumberInput'
-import {StreetInput} from './StreetInput'
+import {NumberInput, StreetInput} from './'
 
 export const AddressForm = () => {
   const [address, setAddress] = useState<ResponseAddress | null>(null)
