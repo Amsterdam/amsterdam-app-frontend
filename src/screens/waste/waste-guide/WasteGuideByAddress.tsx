@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
-import {OnboardingAddress} from '../../../components/features/OnboardingAddress'
+import {EnterAddressCard} from '../../../components/features/EnterAddressCard'
 import {
   Box,
   Card,
@@ -97,7 +97,7 @@ export const WasteGuideByAddress = () => {
 
   if (!isAddressRetrieving && !address) {
     return (
-      <OnboardingAddress
+      <EnterAddressCard
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
         title="Uw adres"
       />

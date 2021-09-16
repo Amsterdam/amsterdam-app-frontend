@@ -9,7 +9,7 @@ type Props = {
   title: string
 }
 
-export const OnboardingAddress = ({text, title}: Props) => {
+export const EnterAddressCard = ({text, title}: Props) => {
   const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
