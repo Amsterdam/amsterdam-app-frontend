@@ -1,5 +1,5 @@
 export * from './Address'
 export * from './AddressForm'
-export * from './EnterAddressCard'
+export * from './AddressFormTeaser'
 export * from './NumberInput'
 export * from './StreetInput'

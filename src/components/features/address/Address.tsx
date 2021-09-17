@@ -7,7 +7,7 @@ import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
 import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../../ui'
-import {EnterAddressCard} from './'
+import {AddressFormTeaser} from './'
 
 export const Address = () => {
   const [address, setAddress] = useState<AddressType | undefined>(undefined)
@@ -56,7 +56,7 @@ export const Address = () => {
           </CardBody>
         </Card>
       ) : (
-        <EnterAddressCard
+        <AddressFormTeaser
           text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt
           kunnen tonen."
           title="Uw buurt"
