@@ -36,7 +36,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     clearButton: {
       alignSelf: 'stretch',
       justifyContent: 'center',
-      paddingHorizontal: size.spacing.md,
+      paddingHorizontal: size.spacing.sm,
     },
     searchSection: {
       flexDirection: 'row',
