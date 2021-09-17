@@ -41,7 +41,7 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
     paddingVertical: size.spacing.sm,
