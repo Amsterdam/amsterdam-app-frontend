@@ -88,7 +88,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       )}
       <Box background="lighter">
         <Button text="Verstuur pushnotificatie" variant="inverse" />
-        <Gutter height={size.spacing.sm} />
+        <Gutter height={size.spacing.md} />
         <Title margin text={project.title || ''} />
         <View style={styles.row}>
           {menu?.map(({icon, sections, timeline, title}) =>
