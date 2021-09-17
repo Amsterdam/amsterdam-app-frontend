@@ -1,0 +1,8 @@
+{
+  "comment": "As soon as we have a warning id, we’re sending its images (if any) one by one.",
+  "image": {
+    "type": "string (header | additional)",
+    "data": "(base64 encoded binary)"
+  },
+  "project_warning_id": "string | null"
+}

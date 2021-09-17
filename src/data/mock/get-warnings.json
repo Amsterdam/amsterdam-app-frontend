@@ -1,0 +1,31 @@
+{
+  "comment": "The front-end has requested all warnings for a specific project identifier",
+  "status": "Boolean",
+  "result": [
+    {
+      "identifier": "string",
+      "title": "string",
+      "body": {
+        "preface": "string (intro)",
+        "content": "string (full body text)"
+      },
+      "images": [
+        {
+          "type": "string (header | additional)",
+          "sources": {
+            "orig": {
+              "url": "null",
+              "filename": "null",
+              "image_id": "af53bcc112bed15d233befd67077ab3a",
+              "description": ""
+            }
+          }
+        }
+      ],
+      "publication_date": "date",
+      "modified_date": "date",
+      "project_id": "string",
+      "author_email": "string"
+    }
+  ]
+}

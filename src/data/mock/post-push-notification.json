@@ -1,0 +1,6 @@
+{
+  "comment": "This is what the BE sends to the push notification service",
+  "title": "string",
+  "body": "string",
+  "target_uri": "string"
+}

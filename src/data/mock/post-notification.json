@@ -1,0 +1,7 @@
+{
+  "comment": "As soon as we have a warning id, we’re sending the notification for it.",
+  "title": "string",
+  "body": "string",
+  "project_news_id": "string | null",
+  "project_warning_id": "string | null"
+}

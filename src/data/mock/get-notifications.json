@@ -1,0 +1,15 @@
+{
+  "comment": "This is an app user, requesting the list of notifications for the projects they subscribe to.",
+  "query_parameter": "project-ids=1,2,3,4,5",
+  "status": "Boolean",
+  "result": [
+    {
+      "title": "string",
+      "body": "string",
+      "created_date": "timestamp",
+      "project_id": "string",
+      "project_news_id": null,
+      "project_warning_id": "123"
+    }
+  ]
+}

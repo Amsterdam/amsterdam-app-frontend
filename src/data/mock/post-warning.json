@@ -1,0 +1,15 @@
+{
+  "comment": "The project manager has just written this article. We’re only sending the text content to start with, to not burden the request with lots of image data. We expect an warning identifier in the response, with which we can relate the notification content and the images we’re sending next.",
+  "warning": {
+    "title": "string",
+    "body": {
+      "preface": "string (intro)",
+      "content": "string (full body text)"
+    },
+    "images": [
+      "empty array"
+    ],
+    "project_id": "string",
+    "project_manager_token": "string"
+  }
+}
