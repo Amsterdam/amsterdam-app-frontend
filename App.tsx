@@ -5,6 +5,7 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React from 'react'
+import {StatusBar} from 'react-native'
 import Logo from './src/assets/icons/logo.svg'
 import {AddressProvider, OrientationProvider} from './src/providers'
 import {
@@ -135,65 +136,68 @@ export const App = () => {
   } = routes
 
   return (
-    <OrientationProvider>
-      <AddressProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName={home.name}
-            screenOptions={globalScreenOptions}>
-            <Stack.Screen
-              name={home.name}
-              component={HomeScreen}
-              options={home.options}
-            />
-            <Stack.Screen
-              name={projectDetail.name}
-              component={ProjectDetailScreen}
-              options={projectDetail.options}
-            />
-            <Stack.Screen
-              name={projectDetailBody.name}
-              component={ProjectDetailBodyScreen}
-              options={projectDetailBody.options}
-            />
-            <Stack.Screen
-              name={projectNews.name}
-              component={ProjectNewsScreen}
-              options={projectNews.options}
-            />
-            <Stack.Screen
-              name={projectOverview.name}
-              component={ProjectOverviewScreen}
-              options={projectOverview.options}
-            />
-            <Stack.Screen
-              name={projectOverviewByDistrict.name}
-              component={ProjectOverviewByDistrictScreen}
-              options={projectOverviewByDistrict.options}
-            />
-            <Stack.Screen
-              name={wasteGuide.name}
-              component={WasteScreen}
-              options={wasteGuide.options}
-            />
-            <Stack.Screen
-              name={whereToPutBulkyWaste.name}
-              component={WhereToPutBulkyWasteScreen}
-              options={whereToPutBulkyWaste.options}
-            />
-            <Stack.Screen
-              name={webView.name}
-              component={WebViewScreen}
-              options={webView.options}
-            />
-            <Stack.Screen
-              component={AddressFormScreen}
-              name={addressForm.name}
-              options={addressForm.options}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AddressProvider>
-    </OrientationProvider>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <OrientationProvider>
+        <AddressProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={home.name}
+              screenOptions={globalScreenOptions}>
+              <Stack.Screen
+                name={home.name}
+                component={HomeScreen}
+                options={home.options}
+              />
+              <Stack.Screen
+                name={projectDetail.name}
+                component={ProjectDetailScreen}
+                options={projectDetail.options}
+              />
+              <Stack.Screen
+                name={projectDetailBody.name}
+                component={ProjectDetailBodyScreen}
+                options={projectDetailBody.options}
+              />
+              <Stack.Screen
+                name={projectNews.name}
+                component={ProjectNewsScreen}
+                options={projectNews.options}
+              />
+              <Stack.Screen
+                name={projectOverview.name}
+                component={ProjectOverviewScreen}
+                options={projectOverview.options}
+              />
+              <Stack.Screen
+                name={projectOverviewByDistrict.name}
+                component={ProjectOverviewByDistrictScreen}
+                options={projectOverviewByDistrict.options}
+              />
+              <Stack.Screen
+                name={wasteGuide.name}
+                component={WasteScreen}
+                options={wasteGuide.options}
+              />
+              <Stack.Screen
+                name={whereToPutBulkyWaste.name}
+                component={WhereToPutBulkyWasteScreen}
+                options={whereToPutBulkyWaste.options}
+              />
+              <Stack.Screen
+                name={webView.name}
+                component={WebViewScreen}
+                options={webView.options}
+              />
+              <Stack.Screen
+                component={AddressFormScreen}
+                name={addressForm.name}
+                options={addressForm.options}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AddressProvider>
+      </OrientationProvider>
+    </>
   )
 }
