@@ -3,8 +3,8 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
+import {BagResponseContent} from '../../../types'
 import {Gutter, Text, TextInput} from '../../ui'
-import {BagResponseContent} from './AddressForm'
 
 type Props = {
   bagList: BagResponseContent | null | undefined

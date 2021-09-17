@@ -1,15 +1,15 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '../../../App'
-import {Card, CardBody, Text, TextInput, Title} from '../ui'
+import {RootStackParamList} from '../../../../App'
+import {Card, CardBody, Text, TextInput, Title} from '../../ui'
 
 type Props = {
   text: string
   title: string
 }
 
-export const OnboardingAddress = ({text, title}: Props) => {
+export const AddressFormTeaser = ({text, title}: Props) => {
   const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
