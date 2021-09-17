@@ -11,7 +11,7 @@ import {Gutter, Text} from './'
 type Props = {
   icon?: React.ReactElement
   text?: string
-  variant?: 'primary' | 'secondary' | 'text'
+  variant?: 'primary' | 'secondary' | 'text' | 'inverse'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
@@ -28,7 +28,10 @@ export const Button = ({
       {icon && <View style={styles.iconContainer}>{icon}</View>}
       {icon && text && <Gutter width={size.spacing.md} />}
       {text && (
-        <Text inverse={variant !== 'text'} link={variant === 'text'}>
+        <Text
+          inverse={variant !== 'text'}
+          primary={variant === 'inverse'}
+          link={variant === 'text'}>
           {text}
         </Text>
       )}
@@ -38,6 +41,7 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
+    alignSelf: 'flex-start',
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
     paddingVertical: size.spacing.sm,
@@ -45,6 +49,12 @@ const styles = StyleSheet.create({
   iconContainer: {
     height: 20,
     width: 20,
+  },
+  inverse: {
+    backgroundColor: color.background.lighter,
+    borderColor: color.touchable.primary,
+    borderWidth: 1,
+    borderStyle: 'solid',
   },
   primary: {
     backgroundColor: color.touchable.primary,
