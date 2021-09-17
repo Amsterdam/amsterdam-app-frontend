@@ -1,15 +1,15 @@
 {
-  "comment": "This is an app user, requesting the list of notifications for the projects they subscribe to.",
-  "query_parameter": "project-ids=1,2,3,4,5",
-  "status": "Boolean",
+  "comment": "This is an app user, requesting the list of notifications for the projects they subscribe to. The example shows 1 result.",
+  "query_parameter": "project-ids=8ac7ed07fc76a0812b3afbd5f0182aeb,8ac7ed07fc76a0812b3afbd5f0182aec,8ac7ed07fc76a0812b3afbd5f0182aed",
+  "status": true,
   "result": [
     {
-      "title": "string",
-      "body": "string",
-      "created_date": "timestamp",
-      "project_id": "string",
+      "title": "Kijk uit, een ingestorte kade in je buurt",
+      "body": "De kade aan de Ritsaert ten Catebrug is ingestort. Blijf thuis! Lees hier wat je moet doen.",
+      "publication_date": 1629192353,
+      "project_id": "8ac7ed07fc76a0812b3afbd5f0182aeb",
       "project_news_id": null,
-      "project_warning_id": "123"
+      "project_warning_id": "6a0c694ce503c1b43abffd1803dac5f7"
     }
   ]
 }

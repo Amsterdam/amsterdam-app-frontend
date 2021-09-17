@@ -1,6 +1,6 @@
 {
-  "comment": "This is what the BE sends to the push notification service",
-  "title": "string",
-  "body": "string",
-  "target_uri": "string"
+  "comment": "This is what the backend sends to the push notification service – well, the most minimal variation that we can estimate now.",
+  "title": "Kijk uit, een ingestorte kade in je buurt",
+  "body": "De kade aan de Ritsaert ten Catebrug is ingestort. Blijf thuis! Lees hier wat je moet doen.",
+  "target_uri": "https://www.amsterdam.nl/projecten/oranjeloper/bruggen-oranjeloper/bruggen-oranje-loper/ritsaert-ten-catebrug/ingestort"
 }
