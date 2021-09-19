@@ -1,17 +1,19 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {RootStackParamList} from '../../App'
-import {WebView} from '../components/ui'
+import {WebView, WebViewProps} from '../components/ui'
 
 type Props = {
   route: RouteProp<RootStackParamList, 'WebView'>
 }
 
-type RouteParamsProps = {title: string; uri: string}
+export type WebViewRouteParams = WebViewProps & {
+  title: string
+}
 
 export const WebViewScreen = ({route}: Props) => {
   const navigation = useNavigation()
-  const {title, uri}: RouteParamsProps = route.params
+  const {sliceFromTop, title, uri}: WebViewRouteParams = route.params
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,5 +21,5 @@ export const WebViewScreen = ({route}: Props) => {
     })
   }, [title, navigation])
 
-  return <WebView uri={uri} />
+  return <WebView sliceFromTop={sliceFromTop} uri={uri} />
 }
