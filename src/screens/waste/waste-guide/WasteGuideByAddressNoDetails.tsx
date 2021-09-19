@@ -26,6 +26,7 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
         <Button
           onPress={() =>
             navigation.navigate(routes.webView.name, {
+              sliceFromTop: {portrait: 161, landscape: 207},
               title: 'Melding afvalinformatie',
               uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
             })
