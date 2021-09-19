@@ -12,6 +12,7 @@ type Props = {
   inverse?: Boolean
   link?: Boolean
   margin?: Boolean
+  primary?: boolean
   secondary?: Boolean
   small?: Boolean
   warning?: Boolean
@@ -22,6 +23,7 @@ export const Text = ({
   intro,
   inverse,
   margin,
+  primary,
   secondary,
   small,
   link,
@@ -36,6 +38,7 @@ export const Text = ({
         intro && styles.intro,
         inverse && styles.inverse,
         link && styles.link,
+        primary && styles.primary,
         secondary && styles.secondary,
         small && styles.small,
         warning && styles.warning,
@@ -61,6 +64,9 @@ const styles = StyleSheet.create({
   margin: {
     marginBottom: font.leadingBottom.p1,
     marginTop: font.leadingTop.p1,
+  },
+  primary: {
+    color: color.font.primary,
   },
   secondary: {
     color: color.font.secondary,
