@@ -135,7 +135,11 @@ export const PushNotificationScreen = ({route}: Props) => {
           </Text>
         )}
         <Gutter height={size.spacing.md} />
-        <Button text="Verzend" onPress={handleSubmit(onSubmit)} />
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          text="Kies een bericht"
+          variant="next"
+        />
       </Box>
     </ScreenWrapper>
   )
