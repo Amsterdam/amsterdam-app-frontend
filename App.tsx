@@ -1,127 +1,204 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
+import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {NavigationContainer} from '@react-navigation/native'
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack'
 import React from 'react'
+import {StatusBar} from 'react-native'
+import Logo from './src/assets/icons/logo.svg'
+import {AddressProvider, OrientationProvider} from './src/providers'
 import {
-    DevSettings,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-} from 'react-native'
+  HomeScreen,
+  ProjectDetailBodyScreen,
+  ProjectDetailScreen,
+  ProjectNewsScreen,
+  ProjectOverviewByDistrictScreen,
+  ProjectOverviewScreen,
+  WasteScreen,
+  WebViewRouteParams,
+  WebViewScreen,
+  WhereToPutBulkyWasteScreen,
+} from './src/screens'
+import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
+import {color, size} from './src/tokens'
+import {NewsArticle, ProjectDetailBody} from './src/types'
 
-import {
-    Colors,
-    DebugInstructions,
-    Header,
-    LearnMoreLinks,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
-
-type SectionProps = {
-    title: string
-    children: React.ReactNode
+export type RootStackParamList = {
+  Home: undefined
+  AddressForm: undefined
+  ProjectDetail: {id: string}
+  ProjectNews: {article: NewsArticle}
+  ProjectDetailBody: {body: ProjectDetailBody}
+  ProjectOverview: undefined
+  ProjectOverviewByDistrict: {id: number}
+  Waste: undefined
+  WhereToPutBulkyWaste: undefined
+  WebView: WebViewRouteParams
 }
 
-const Section = ({children, title}: SectionProps) => {
-    const isDarkMode = useColorScheme() === 'dark'
-    return (
-        <View style={styles.sectionContainer}>
-            <Text
-                style={[
-                    styles.sectionTitle,
-                    {
-                        color: isDarkMode ? Colors.white : Colors.black,
-                    },
-                ]}>
-                {title}
-            </Text>
-            <Text
-                style={[
-                    styles.sectionDescription,
-                    {
-                        color: isDarkMode ? Colors.light : Colors.dark,
-                    },
-                ]}>
-                {children}
-            </Text>
-        </View>
-    )
+type Routes = {
+  [route: string]: {
+    name: keyof RootStackParamList
+    options?: StackNavigationOptions
+    title?: string
+  }
 }
 
-const App = () => {
-    const isDarkMode = useColorScheme() === 'dark'
-
-    const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    }
-
-    return (
-        <NavigationContainer>
-            <SafeAreaView style={backgroundStyle}>
-                <StatusBar
-                    barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                />
-                <ScrollView
-                    contentInsetAdjustmentBehavior="automatic"
-                    style={backgroundStyle}>
-                    <Header />
-                    <View
-                        style={{
-                            backgroundColor: isDarkMode
-                                ? Colors.black
-                                : Colors.white,
-                        }}>
-                        <Section title="Step One">
-                            Edit <Text style={styles.highlight}>App.js</Text> to
-                            change this screen and then come back to see your
-                            edits.
-                        </Section>
-                        <Section title="See Your Changes">
-                            <ReloadInstructions />
-                        </Section>
-                        <Section title="Debug">
-                            <DebugInstructions />
-                        </Section>
-                        <Section title="Learn More">
-                            Read the docs to discover what to do next:
-                        </Section>
-                        <LearnMoreLinks />
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </NavigationContainer>
-    )
+export const routes: Routes = {
+  addressForm: {
+    name: 'AddressForm',
+    options: {
+      presentation: 'modal',
+      title: 'Uw adres',
+    },
+  },
+  home: {
+    name: 'Home',
+    options: {
+      headerTitle: () => <Logo width={85} />,
+    },
+  },
+  projectDetail: {
+    name: 'ProjectDetail',
+  },
+  projectDetailBody: {
+    name: 'ProjectDetailBody',
+  },
+  projectNews: {
+    name: 'ProjectNews',
+    options: {
+      title: 'Nieuws',
+    },
+  },
+  projectOverview: {
+    name: 'ProjectOverview',
+    options: {
+      title: 'Werkzaamheden',
+    },
+  },
+  projectOverviewByDistrict: {
+    name: 'ProjectOverviewByDistrict',
+    options: {
+      title: 'Werkzaamheden per stadsdeel',
+    },
+  },
+  wasteGuide: {
+    name: 'Waste',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
+      title: 'Afvalinformatie op adres',
+    },
+  },
+  whereToPutBulkyWaste: {
+    name: 'WhereToPutBulkyWaste',
+    options: {title: 'Grof afval'},
+  },
+  webView: {
+    name: 'WebView',
+  },
 }
 
-const styles = StyleSheet.create({
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontFamily: 'AvenirNext-DemiBold',
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontFamily: 'AvenirNext-Regular',
-    },
-    highlight: {
-        fontWeight: '700',
-    },
-})
+const globalScreenOptions: StackNavigationOptions = {
+  cardStyle: {
+    backgroundColor: color.background.light,
+  },
+  headerStyle: {
+    backgroundColor: color.background.lighter,
+  },
+  headerBackImage: () => (
+    <ChevronLeft
+      width={20}
+      height={20}
+      fill={color.font.regular}
+      style={{margin: size.spacing.sm}}
+    />
+  ),
+  headerBackTitleVisible: false,
+  headerBackAccessibilityLabel: 'Terug',
+  headerTitleAlign: 'center',
+}
 
-export default App
+export const App = () => {
+  const Stack = createStackNavigator()
+  const {
+    addressForm,
+    home,
+    projectDetail,
+    projectDetailBody,
+    projectOverview,
+    projectOverviewByDistrict,
+    projectNews,
+    webView,
+    wasteGuide,
+    whereToPutBulkyWaste,
+  } = routes
+
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <OrientationProvider>
+        <AddressProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={home.name}
+              screenOptions={globalScreenOptions}>
+              <Stack.Screen
+                name={home.name}
+                component={HomeScreen}
+                options={home.options}
+              />
+              <Stack.Screen
+                name={projectDetail.name}
+                component={ProjectDetailScreen}
+                options={projectDetail.options}
+              />
+              <Stack.Screen
+                name={projectDetailBody.name}
+                component={ProjectDetailBodyScreen}
+                options={projectDetailBody.options}
+              />
+              <Stack.Screen
+                name={projectNews.name}
+                component={ProjectNewsScreen}
+                options={projectNews.options}
+              />
+              <Stack.Screen
+                name={projectOverview.name}
+                component={ProjectOverviewScreen}
+                options={projectOverview.options}
+              />
+              <Stack.Screen
+                name={projectOverviewByDistrict.name}
+                component={ProjectOverviewByDistrictScreen}
+                options={projectOverviewByDistrict.options}
+              />
+              <Stack.Screen
+                name={wasteGuide.name}
+                component={WasteScreen}
+                options={wasteGuide.options}
+              />
+              <Stack.Screen
+                name={whereToPutBulkyWaste.name}
+                component={WhereToPutBulkyWasteScreen}
+                options={whereToPutBulkyWaste.options}
+              />
+              <Stack.Screen
+                name={webView.name}
+                component={WebViewScreen}
+                options={webView.options}
+              />
+              <Stack.Screen
+                component={AddressFormScreen}
+                name={addressForm.name}
+                options={addressForm.options}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AddressProvider>
+      </OrientationProvider>
+    </>
+  )
+}
