@@ -34,7 +34,6 @@ export const StreetInput = ({
         onChangeText={text => {
           changeStreet(text)
         }}
-        placeholder="Straatnaam of postcode"
         ref={inputStreetRef}
         value={street}
       />
