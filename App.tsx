@@ -20,6 +20,7 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from './src/screens'
+import {PushNotificationScreen} from './src/screens/PushNotificationScreen'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
+  PushNotification: undefined
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
@@ -83,6 +85,12 @@ export const routes: Routes = {
       title: 'Werkzaamheden per stadsdeel',
     },
   },
+  pushNotification: {
+    name: 'PushNotification',
+    options: {
+      title: 'Pushnotificatie versturen',
+    },
+  },
   wasteGuide: {
     name: 'Waste',
     options: {
@@ -131,6 +139,7 @@ export const App = () => {
     projectOverview,
     projectOverviewByDistrict,
     projectNews,
+    pushNotification,
     webView,
     wasteGuide,
     whereToPutBulkyWaste,
@@ -194,6 +203,11 @@ export const App = () => {
                 component={AddressFormScreen}
                 name={addressForm.name}
                 options={addressForm.options}
+              />
+              <Stack.Screen
+                component={PushNotificationScreen}
+                name={pushNotification.name}
+                options={pushNotification.options}
               />
             </Stack.Navigator>
           </NavigationContainer>
