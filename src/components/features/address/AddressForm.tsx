@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   suggestedItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: size.spacing.sm,
+    paddingVertical: size.spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: color.border.separator,
     borderStyle: 'solid',
