@@ -20,7 +20,7 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
   // CSS spec, I couldn’t find a better approach yet.
   const getIconProps: () => SVGProps<any> = () => {
     const iconSize =
-      direction && ['down', 'up'].includes(direction)
+      direction === 'down' || direction === 'up'
         ? font.size.p1 * 0.75
         : font.size.p1
     return {
