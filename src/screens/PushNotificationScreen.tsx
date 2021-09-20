@@ -1,6 +1,8 @@
+import {RouteProp} from '@react-navigation/core'
 import React, {useEffect, useState} from 'react'
 import {useForm, Controller} from 'react-hook-form'
 import {Platform} from 'react-native'
+import {RootStackParamList} from '../../App'
 import {
   Box,
   Button,
@@ -11,13 +13,29 @@ import {
   Title,
 } from '../components/ui'
 import {size} from '../tokens'
+import {NewNotification} from '../types/notification'
 
 const maxCharacters = {
   title: 54,
   message: 123,
 }
 
-export const PushNotificationScreen = () => {
+type PushNotificationScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'PushNotification'
+>
+
+type Props = {
+  route: PushNotificationScreenRouteProp
+}
+
+type FormData = {
+  title: string
+  message: string
+}
+
+export const PushNotificationScreen = ({route}: Props) => {
+  const {projectId} = route.params
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
@@ -32,7 +50,14 @@ export const PushNotificationScreen = () => {
   } = useForm()
   const watchTitle = watch('title')
   const watchMessage = watch('message')
-  const onSubmit = data => console.log(data)
+  const onSubmit = (data: FormData) => {
+    const notificationData: NewNotification = {
+      title: data.title,
+      body: data.message,
+      project_id: projectId,
+    }
+    console.log(notificationData)
+  }
 
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
