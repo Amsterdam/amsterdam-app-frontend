@@ -35,6 +35,11 @@ export type ProjectDetail = {
   district_name: string
   identifier: string
   images: Image[]
+  news: {
+    url: string
+    identifier: string
+    project_identifier: string
+  }[]
   page_id: number
   rel_url: string
   subtitle: string
