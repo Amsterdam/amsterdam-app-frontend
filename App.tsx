@@ -33,7 +33,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  PushNotification: undefined
+  PushNotification: {projectId: string}
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
@@ -88,6 +88,7 @@ export const routes: Routes = {
   pushNotification: {
     name: 'PushNotification',
     options: {
+      presentation: 'modal',
       title: 'Pushnotificatie versturen',
     },
   },
