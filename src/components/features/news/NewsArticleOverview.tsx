@@ -1,19 +1,19 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList, routes} from '../../../App'
-import {getEnvironment} from '../../environment'
-import {useFetch} from '../../hooks'
-import {size} from '../../tokens'
-import {NewsArticleList} from '../../types'
-import {Box, Gutter, Title} from '../ui'
-import {NewsArticleCard} from './NewsArticleCard'
+import {RootStackParamList, routes} from '../../../../App'
+import {getEnvironment} from '../../../environment'
+import {useFetch} from '../../../hooks'
+import {size} from '../../../tokens'
+import {NewsArticleList} from '../../../types'
+import {Box, Gutter, Title} from '../../ui'
+import {NewsArticleOverviewItem} from './'
 
 type Props = {
   projectId: string
 }
 
-export const NewsItemsOverview = ({projectId}: Props) => {
+export const NewsArticleOverview = ({projectId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
   const news = useFetch<NewsArticleList>({
@@ -30,7 +30,7 @@ export const NewsItemsOverview = ({projectId}: Props) => {
       <Gutter height={size.spacing.sm} />
       {news.data?.map((article, index) => (
         <React.Fragment key={article.title}>
-          <NewsArticleCard
+          <NewsArticleOverviewItem
             newsArticle={article}
             onPress={() =>
               navigation.navigate(routes.projectNews.name, {article})
