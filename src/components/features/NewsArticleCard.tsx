@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
   image: {
     width: 128,
     aspectRatio: image.aspectRatio.default,
+    alignSelf: 'center',
+    resizeMode: 'cover',
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   text: {
     flex: 1, // Prevents overflow
