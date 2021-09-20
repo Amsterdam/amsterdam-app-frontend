@@ -18,9 +18,9 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
   // The `top` style aims to vertically align the icon with the baseline of the text.
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
   // CSS spec, I couldn’t find a better approach yet.
-  const iconProps: () => SVGProps<any> = () => {
+  const getIconProps: () => SVGProps<any> = () => {
     const iconSize =
-      direction && ['down', 'up'].includes(direction)
+      direction === 'down' || direction === 'up'
         ? font.size.p1 * 0.75
         : font.size.p1
     return {
@@ -44,10 +44,10 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
 
   return direction ? (
     <View style={styles.row}>
-      {direction === 'backward' && <ChevronLeft {...iconProps()} />}
-      {direction === 'down' && <ChevronDown {...iconProps()} />}
-      {direction === 'forward' && <ChevronRight {...iconProps()} />}
-      {direction === 'up' && <ChevronUp {...iconProps()} />}
+      {direction === 'backward' && <ChevronLeft {...getIconProps()} />}
+      {direction === 'down' && <ChevronDown {...getIconProps()} />}
+      {direction === 'forward' && <ChevronRight {...getIconProps()} />}
+      {direction === 'up' && <ChevronUp {...getIconProps()} />}
       <Gutter width={size.spacing.sm} />
       {textJsx}
     </View>
