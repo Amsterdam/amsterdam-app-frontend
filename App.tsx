@@ -16,6 +16,7 @@ import {
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
   WasteScreen,
+  WebViewRouteParams,
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from './src/screens'
@@ -33,14 +34,14 @@ export type RootStackParamList = {
   ProjectOverviewByDistrict: {id: number}
   Waste: undefined
   WhereToPutBulkyWaste: undefined
-  WebView: {title: string; uri: string}
+  WebView: WebViewRouteParams
 }
 
 type Routes = {
   [route: string]: {
     name: keyof RootStackParamList
-    title?: string
     options?: StackNavigationOptions
+    title?: string
   }
 }
 

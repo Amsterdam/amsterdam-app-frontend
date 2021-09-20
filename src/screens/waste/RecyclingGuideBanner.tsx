@@ -14,7 +14,7 @@ export const RecyclingGuideBanner = () => {
       imageSource={require('../../assets/images/banner-illustratie-welkafvalhoortwaar.png')}
       onPress={() =>
         navigation.navigate(routes.webView.name, {
-          title: 'Welk afval hoort waar',
+          title: 'Afvalscheidingswijzer',
           uri: 'https://www.afvalscheidingswijzer.nl',
         })
       }
