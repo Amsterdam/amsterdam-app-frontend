@@ -34,15 +34,15 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
+    width: 128,
     aspectRatio: image.aspectRatio.default,
-    flex: 1,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   text: {
+    flex: 1, // Prevents overflow
     alignSelf: 'center',
-    flex: 2,
   },
 })
