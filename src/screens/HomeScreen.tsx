@@ -63,11 +63,6 @@ export const HomeScreen = ({navigation}: Props) => {
               onPress={() => navigation.navigate(routes.wasteGuide.name)}
               text="Raadpleeg afvalinformatie"
             />
-            <Gutter height={size.spacing.md} />
-            <Button
-              onPress={() => navigation.navigate(routes.pushNotification.name)}
-              text="Verstuur pushnotificatie"
-            />
             {getEnvironment().allowClearingAddress && (
               <>
                 <Gutter height={size.spacing.md} />
