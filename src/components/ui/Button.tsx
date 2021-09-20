@@ -5,13 +5,15 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native'
-import {color, size} from '../../tokens'
+import {color, font, size} from '../../tokens'
 import {Gutter, Text} from './'
+
+const arrowWidth = 18
 
 type Props = {
   icon?: React.ReactElement
   text?: string
-  variant?: 'primary' | 'secondary' | 'text' | 'inverse'
+  variant?: 'inverse' | 'next' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
@@ -35,6 +37,7 @@ export const Button = ({
           {text}
         </Text>
       )}
+      {variant === 'next' && <View style={styles.nextArrow} />}
     </TouchableOpacity>
   )
 }
@@ -55,6 +58,29 @@ const styles = StyleSheet.create({
     borderColor: color.touchable.primary,
     borderWidth: 1,
     borderStyle: 'solid',
+  },
+  next: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
+    backgroundColor: color.touchable.secondary,
+    paddingRight: arrowWidth + size.spacing.sm,
+    paddingVertical: size.spacing.md,
+  },
+  nextArrow: {
+    position: 'absolute',
+    width: 0,
+    height: 0,
+    backgroundColor: color.background.lighter,
+    borderStyle: 'solid',
+    borderTopColor: 'transparent',
+    borderTopWidth: font.height.t1 / 2 + size.spacing.md + 2, // the + 2 might be because of the demi font-family
+    borderRightColor: 'transparent',
+    borderRightWidth: 0,
+    borderBottomColor: 'transparent',
+    borderBottomWidth: font.height.t1 / 2 + size.spacing.md + 2, // the + 2 might be because of the demi font-family
+    borderLeftColor: color.touchable.secondary,
+    borderLeftWidth: arrowWidth,
   },
   primary: {
     backgroundColor: color.touchable.primary,
