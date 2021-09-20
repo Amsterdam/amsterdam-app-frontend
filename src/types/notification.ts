@@ -3,8 +3,8 @@ export type NewNotification = {
   title: string
   body: string
   project_id: string
-  project_news_id: string
-  project_warning_id: string
+  project_news_id?: string
+  project_warning_id?: string
 }
 
 // Our backend adds a field
