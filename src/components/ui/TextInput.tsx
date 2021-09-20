@@ -12,6 +12,7 @@ import {Gutter, Text} from '.'
 
 type Props = {
   label?: string
+  minHeight?: number | undefined
   onChangeText?: (event: string) => void
   onFocus?: () => void
 } & TextInputRNProps
@@ -47,6 +48,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     },
     textInput: {
       flex: 1,
+      minHeight: props.minHeight ? props.minHeight : 'auto',
       padding: size.spacing.sm,
       color: color.font.regular,
       fontFamily: font.weight.regular,
