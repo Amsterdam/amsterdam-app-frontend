@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {size} from '../../tokens'
-import {Gutter, Text} from '.'
+import {Gutter, Text} from './'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]

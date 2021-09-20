@@ -1,5 +1,5 @@
 import {Image} from './image'
-import {Section, Timeline} from '.'
+import {Section, Timeline} from './'
 
 export type ProjectOverviewItem = {
   content_html: string

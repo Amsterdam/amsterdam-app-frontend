@@ -12,8 +12,7 @@ import {Box, Button, Gutter, IconButton, Image, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {color, image, size} from '../tokens'
-import {Section, Timeline} from '../types'
-import {ProjectDetail} from '../types/project'
+import {ProjectDetail, Section, Timeline} from '../types'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
