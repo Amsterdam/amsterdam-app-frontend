@@ -4,6 +4,8 @@ We’re creating a native app for Amsterdam citizens to receive information and 
 alternative to the web presences of [amsterdam.nl](https://www.amsterdam/nl)
 and [Mijn Amsterdam](https://mijn.amsterdam.nl).
 
+------------------------------------------
+
 ## Installation
 
 The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your
@@ -22,7 +24,9 @@ development environment. To summarize:
 - We recommend installing this [React Native debugger](https://github.com/jhen0409/react-native-debugger) additionally:
   `brew install --cask react-native-debugger`.
 
-## Publication
+------------------------------------------
+
+## Test Publication
 
 Follow the steps below to release a new version of the app into the (test) stores.
 
@@ -55,6 +59,25 @@ Follow the steps below to release a new version of the app into the (test) store
 - The app is getting prepared. All the testers will receive an e-mail about the new release which they can download in
   TestFlight.
 - Afterwards, turn the build configuration back to "Debug" for further development.
+
+### Further notes on test-release
+
+#### Git:
+- Branch from develop and call it release/\[version-number\]
+- Once reviewed, pull branch into main and tag it with its version-number
+
+#### 2 types of testrelease:
+There are 2 types of testreleases. One for the Scrum-team for development and testing purposes and one for the stakeholders. The version of the Scrum-team release has a digit extra, so 4 in total.
+
+#### Stakeholders
+- Version number is 0.\[sprint\].\[n+1\] (e.g. 0.1.0)
+- Once uploaded to App Store connect, go to Testflight and add the group "Stadsapp-stakholders"
+
+#### Scrum-team
+- These are testreleases solely for the Scrum-team.
+- Version number is 0.\[sprint\].\[n(+1)\].\[n(+1)\] (e.g. 0.1.0.0)
+
+------------------------------------------
 
 ## Tips and tricks
 
