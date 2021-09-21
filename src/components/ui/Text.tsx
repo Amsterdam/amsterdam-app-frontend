@@ -83,5 +83,6 @@ const styles = StyleSheet.create({
   },
   warning: {
     color: color.font.warning,
+    fontFamily: font.weight.demi,
   },
 })
