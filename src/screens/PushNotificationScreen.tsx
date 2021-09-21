@@ -79,14 +79,14 @@ export const PushNotificationScreen = ({route}: Props) => {
           rules={{
             required: true,
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({field: {onChange, value}}) => (
             <TextInput
               label="Zet hier duidelijk het onderwerp van de push notificatie in."
               maxLength={maxCharacters.title}
               multiline={true}
-              onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              warning={errors.title}
             />
           )}
           name="title"
@@ -119,6 +119,7 @@ export const PushNotificationScreen = ({route}: Props) => {
               numberOfLines={Platform.OS === 'ios' ? undefined : 3}
               onChangeText={onChange}
               value={value}
+              warning={errors.message}
             />
           )}
           name="message"

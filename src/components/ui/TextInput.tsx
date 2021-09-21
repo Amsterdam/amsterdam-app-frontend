@@ -15,6 +15,7 @@ type Props = {
   minHeight?: number | undefined
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  warning?: boolean
 } & TextInputRNProps
 
 export const TextInput = React.forwardRef((props: Props, ref: any) => {
@@ -55,6 +56,10 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
       fontSize: font.size.p1,
       lineHeight: font.height.p1,
     },
+    warning: {
+      borderColor: color.border.warning,
+      borderWidth: 2,
+    },
   })
 
   return (
@@ -65,7 +70,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
         {props.label}
       </Text>
       <Gutter height={size.spacing.sm} />
-      <View style={styles.searchSection}>
+      <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
           {...props}
           onChangeText={text => handleChangeText(text)}

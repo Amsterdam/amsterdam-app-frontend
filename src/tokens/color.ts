@@ -51,6 +51,7 @@ export const color = {
     input: baseColor.tint.level5,
     inputFocus: baseColor.tint.level7,
     separator: baseColor.tint.level3,
+    warning: baseColor.error.main,
   },
   font: {
     inverse: baseColor.tint.level1,
