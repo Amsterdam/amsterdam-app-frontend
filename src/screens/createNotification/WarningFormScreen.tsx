@@ -10,8 +10,9 @@ import {NewNotification} from '../../types/notification'
 import {PushNotificationRouteContext} from './PushNotificationScreen'
 
 const maxCharacters = {
-  title: 54,
-  message: 123,
+  title: 50,
+  intro: 150,
+  message: 500,
 }
 
 type FormData = {
@@ -19,23 +20,31 @@ type FormData = {
   message: string
 }
 
-export const NotificationForm = () => {
+export const WarningFormScreen = () => {
   const pushNotificationRouteContext = useContext(PushNotificationRouteContext)
   const projectId = pushNotificationRouteContext.projectId
+
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
+  )
+  const [characterCountIntro, setCharacterCountIntro] = useState<number>(
+    maxCharacters.intro,
   )
   const [characterCountMessage, setCharacterCountMessage] = useState<number>(
     maxCharacters.message,
   )
+
   const {
     control,
     formState: {errors},
     handleSubmit,
     watch,
   } = useForm()
+
   const watchTitle = watch('title')
+  const watchIntro = watch('intro')
   const watchMessage = watch('message')
+
   const onSubmit = (data: FormData) => {
     const notificationData: NewNotification = {
       title: data.title,
@@ -50,14 +59,16 @@ export const NotificationForm = () => {
   }, [watchTitle])
 
   useEffect(() => {
+    setCharacterCountIntro(watchIntro?.length)
+  }, [watchIntro])
+
+  useEffect(() => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
 
   return (
     <Box>
-      <Title text="Schrijf een notificatie" />
-      <Gutter height={size.spacing.xs} />
-      <Title level={2} text="Wat is de titel van de notificatie?" />
+      <Title text="Schrijf een bericht" />
       <Gutter height={size.spacing.xs} />
       <Controller
         control={control}
@@ -66,7 +77,7 @@ export const NotificationForm = () => {
         }}
         render={({field: {onChange, value}}) => (
           <TextInput
-            label="Zet hier duidelijk het onderwerp van de notificatie in."
+            label="Titel nieuwsbericht"
             maxLength={maxCharacters.title}
             multiline={true}
             onChangeText={onChange}
@@ -83,8 +94,6 @@ export const NotificationForm = () => {
       />
       {errors.title && <ValidationWarning warning="Vul een titel in" />}
       <Gutter height={size.spacing.lg} />
-      <Title level={2} text="Wat is de tekst van de notificatie?" />
-      <Gutter height={size.spacing.xs} />
       <Controller
         control={control}
         rules={{
@@ -92,10 +101,35 @@ export const NotificationForm = () => {
         }}
         render={({field: {onChange, value}}) => (
           <TextInput
-            label="Vertel hier in een paar zinnen wat de situatie is."
-            maxLength={maxCharacters.message}
+            label="Intro nieuwsbericht"
+            maxLength={maxCharacters.intro}
             multiline={true}
             numberOfLines={3}
+            onChangeText={onChange}
+            value={value}
+            warning={errors.intro}
+          />
+        )}
+        name="intro"
+        defaultValue=""
+      />
+      <Gutter height={size.spacing.xs} />
+      <CharactersLeftDisplay
+        charactersLeft={maxCharacters.intro - characterCountIntro}
+      />
+      {errors.intro && <ValidationWarning warning="Type een introbericht" />}
+      <Gutter height={size.spacing.md} />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            label="Tekst nieuwsbericht"
+            maxLength={maxCharacters.message}
+            multiline={true}
+            numberOfLines={5}
             onChangeText={onChange}
             value={value}
             warning={errors.message}
@@ -108,11 +142,11 @@ export const NotificationForm = () => {
       <CharactersLeftDisplay
         charactersLeft={maxCharacters.message - characterCountMessage}
       />
-      {errors.message && <ValidationWarning warning="Type een bericht" />}
+      {errors.message && <ValidationWarning warning="Type een nieuwsbericht" />}
       <Gutter height={size.spacing.md} />
       <Button
         onPress={handleSubmit(onSubmit)}
-        text="Kies een bericht"
+        text="Controleer"
         variant="next"
       />
     </Box>
