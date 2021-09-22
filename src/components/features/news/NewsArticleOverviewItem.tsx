@@ -34,16 +34,16 @@ export const NewsArticleOverviewItem = ({onPress, newsArticle}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 128,
-    aspectRatio: image.aspectRatio.default,
+    flex: 1,
     alignSelf: 'center',
+    aspectRatio: image.aspectRatio.vintage,
     resizeMode: 'cover',
   },
   row: {
     flexDirection: 'row',
   },
   text: {
-    flex: 1, // Prevents overflow
+    flex: 2, // Also prevents overflow
     alignSelf: 'center',
   },
 })
