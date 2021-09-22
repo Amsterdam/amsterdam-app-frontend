@@ -76,6 +76,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
       <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
           {...props}
+          onBlur={() => setFocus(false)}
           onChangeText={text => handleChangeText(text)}
           onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
           numberOfLines={
