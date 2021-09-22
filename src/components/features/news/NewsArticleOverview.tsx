@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {Fragment} from 'react'
 import {RootStackParamList, routes} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
@@ -23,24 +23,26 @@ export const NewsArticleOverview = ({projectId}: Props) => {
     },
   })
 
-  return news.data?.length ? (
-    <Box background="light">
+  if (!news.data || !news.data?.length) {
+    return null
+  }
+
+  return (
+    <Box>
       <Gutter height={size.spacing.md} />
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
-      {news.data?.map((article, index) => (
-        <React.Fragment key={article.title}>
+      {news.data.map((article, index) => (
+        <Fragment key={article.title}>
           <NewsArticleOverviewItem
             newsArticle={article}
             onPress={() =>
               navigation.navigate(routes.projectNews.name, {article})
             }
           />
-          {index < (news.data?.length ?? 0) - 1 && (
-            <Gutter height={size.spacing.md} />
-          )}
-        </React.Fragment>
+          {index < news.data!.length - 1 && <Gutter height={size.spacing.md} />}
+        </Fragment>
       ))}
     </Box>
-  ) : null
+  )
 }

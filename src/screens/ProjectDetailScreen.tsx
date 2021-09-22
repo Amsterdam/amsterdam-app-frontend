@@ -119,7 +119,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           )}
         </View>
       </Box>
-      {project.news.length > 0 && (
+      {project.news.length && (
         <NewsArticleOverview projectId={project.identifier} />
       )}
     </ScrollView>
