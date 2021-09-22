@@ -1,9 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment} from 'react'
+import React, {useContext} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
+import {OrientationContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {NewsArticleList} from '../../../types'
 import {Box, Gutter, Title} from '../../ui'
@@ -22,6 +24,7 @@ export const NewsArticleOverview = ({projectId}: Props) => {
       params: {'project-identifier': projectId},
     },
   })
+  const orientationContext = useContext(OrientationContext)
 
   if (!news.data || !news.data?.length) {
     return null
@@ -32,17 +35,37 @@ export const NewsArticleOverview = ({projectId}: Props) => {
       <Gutter height={size.spacing.md} />
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
-      {news.data.map((article, index) => (
-        <Fragment key={article.title}>
-          <NewsArticleOverviewItem
-            newsArticle={article}
-            onPress={() =>
-              navigation.navigate(routes.projectNews.name, {article})
-            }
-          />
-          {index < news.data!.length - 1 && <Gutter height={size.spacing.md} />}
-        </Fragment>
-      ))}
+      <View style={!orientationContext.isPortrait && styles.grid}>
+        {news.data.map((article, index) => (
+          <View
+            key={`article-${index}`}
+            style={[
+              !orientationContext.isPortrait && styles.item,
+              styles.verticalGutter,
+            ]}>
+            <NewsArticleOverviewItem
+              newsArticle={article}
+              onPress={() =>
+                navigation.navigate(routes.projectNews.name, {article})
+              }
+            />
+          </View>
+        ))}
+      </View>
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  item: {
+    width: '50%',
+    paddingRight: 16,
+  },
+  verticalGutter: {
+    paddingBottom: 16,
+  },
+})
