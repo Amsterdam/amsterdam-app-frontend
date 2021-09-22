@@ -51,6 +51,9 @@ export const routes: Routes = {
   addressForm: {
     name: 'AddressForm',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
       presentation: 'modal',
       title: 'Uw adres',
     },
@@ -88,6 +91,9 @@ export const routes: Routes = {
   pushNotification: {
     name: 'PushNotification',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
       presentation: 'modal',
       title: 'Pushnotificatie versturen',
     },
