@@ -3,15 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {useForm, Controller} from 'react-hook-form'
 import {Platform} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {
-  Box,
-  Button,
-  Gutter,
-  ScreenWrapper,
-  Text,
-  TextInput,
-  Title,
-} from '../components/ui'
+import {Box, Button, Gutter, Text, TextInput, Title} from '../components/ui'
 import {size} from '../tokens'
 import {NewNotification} from '../types/notification'
 
@@ -68,80 +60,78 @@ export const PushNotificationScreen = ({route}: Props) => {
   }, [watchMessage])
 
   return (
-    <ScreenWrapper background="lighter">
-      <Box>
-        <Title text="Schrijf een pushnotificatie" />
-        <Gutter height={size.spacing.xs} />
-        <Title level={2} text="Wat is de titel van de pushnotificatie?" />
-        <Gutter height={size.spacing.xs} />
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({field: {onChange, value}}) => (
-            <TextInput
-              label="Zet hier duidelijk het onderwerp van de push notificatie in."
-              maxLength={maxCharacters.title}
-              multiline={true}
-              onChangeText={onChange}
-              value={value}
-              warning={errors.title}
-            />
-          )}
-          name="title"
-          defaultValue=""
-        />
-        <Gutter height={size.spacing.xs} />
-        <Text secondary>
-          U kunt nog {maxCharacters.title - characterCountTitle} letters of
-          tekens typen.
-        </Text>
-        {errors.title && (
-          <Text accessibilityRole="alert" warning>
-            Vul een titel in
-          </Text>
+    <Box>
+      <Title text="Schrijf een pushnotificatie" />
+      <Gutter height={size.spacing.xs} />
+      <Title level={2} text="Wat is de titel van de pushnotificatie?" />
+      <Gutter height={size.spacing.xs} />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            label="Zet hier duidelijk het onderwerp van de push notificatie in."
+            maxLength={maxCharacters.title}
+            multiline={true}
+            onChangeText={onChange}
+            value={value}
+            warning={errors.title}
+          />
         )}
-        <Gutter height={size.spacing.lg} />
-        <Title level={2} text="Wat is de tekst van de pushnotificatie?" />
-        <Gutter height={size.spacing.xs} />
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({field: {onChange, value}}) => (
-            <TextInput
-              label="Vertel hier in een paar zinnen wat de situatie is."
-              maxLength={maxCharacters.message}
-              minHeight={Platform.OS === 'ios' ? 82 : undefined}
-              multiline={true}
-              numberOfLines={Platform.OS === 'ios' ? undefined : 3}
-              onChangeText={onChange}
-              value={value}
-              warning={errors.message}
-            />
-          )}
-          name="message"
-          defaultValue=""
-        />
-        <Gutter height={size.spacing.xs} />
-        <Text secondary>
-          U kunt nog {maxCharacters.message - characterCountMessage} letters of
-          tekens typen.
+        name="title"
+        defaultValue=""
+      />
+      <Gutter height={size.spacing.xs} />
+      <Text secondary>
+        U kunt nog {maxCharacters.title - characterCountTitle} letters of tekens
+        typen.
+      </Text>
+      {errors.title && (
+        <Text accessibilityRole="alert" warning>
+          Vul een titel in
         </Text>
-        {errors.message && (
-          <Text accessibilityRole="alert" warning>
-            Type een bericht
-          </Text>
+      )}
+      <Gutter height={size.spacing.lg} />
+      <Title level={2} text="Wat is de tekst van de pushnotificatie?" />
+      <Gutter height={size.spacing.xs} />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            label="Vertel hier in een paar zinnen wat de situatie is."
+            maxLength={maxCharacters.message}
+            minHeight={Platform.OS === 'ios' ? 82 : undefined}
+            multiline={true}
+            numberOfLines={Platform.OS === 'ios' ? undefined : 3}
+            onChangeText={onChange}
+            value={value}
+            warning={errors.message}
+          />
         )}
-        <Gutter height={size.spacing.md} />
-        <Button
-          onPress={handleSubmit(onSubmit)}
-          text="Kies een bericht"
-          variant="next"
-        />
-      </Box>
-    </ScreenWrapper>
+        name="message"
+        defaultValue=""
+      />
+      <Gutter height={size.spacing.xs} />
+      <Text secondary>
+        U kunt nog {maxCharacters.message - characterCountMessage} letters of
+        tekens typen.
+      </Text>
+      {errors.message && (
+        <Text accessibilityRole="alert" warning>
+          Type een bericht
+        </Text>
+      )}
+      <Gutter height={size.spacing.md} />
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        text="Kies een bericht"
+        variant="next"
+      />
+    </Box>
   )
 }
