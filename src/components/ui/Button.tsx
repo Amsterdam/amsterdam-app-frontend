@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   next: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignSelf: 'flex-end',
     backgroundColor: color.touchable.secondary,
     paddingRight: arrowWidth + size.spacing.sm,
     paddingVertical: size.spacing.md,
