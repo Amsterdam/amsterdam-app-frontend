@@ -64,9 +64,9 @@ export const PushNotificationScreen = ({route}: Props) => {
 
   return (
     <Box>
-      <Title text="Schrijf een pushnotificatie" />
+      <Title text="Schrijf een notificatie" />
       <Gutter height={size.spacing.xs} />
-      <Title level={2} text="Wat is de titel van de pushnotificatie?" />
+      <Title level={2} text="Wat is de titel van de notificatie?" />
       <Gutter height={size.spacing.xs} />
       <Controller
         control={control}
@@ -75,7 +75,7 @@ export const PushNotificationScreen = ({route}: Props) => {
         }}
         render={({field: {onChange, value}}) => (
           <TextInput
-            label="Zet hier duidelijk het onderwerp van de push notificatie in."
+            label="Zet hier duidelijk het onderwerp van de notificatie in."
             maxLength={maxCharacters.title}
             multiline={true}
             onChangeText={onChange}
@@ -92,7 +92,7 @@ export const PushNotificationScreen = ({route}: Props) => {
       />
       {errors.title && <ValidationWarning warning="Vul een titel in" />}
       <Gutter height={size.spacing.lg} />
-      <Title level={2} text="Wat is de tekst van de pushnotificatie?" />
+      <Title level={2} text="Wat is de tekst van de notificatie?" />
       <Gutter height={size.spacing.xs} />
       <Controller
         control={control}
