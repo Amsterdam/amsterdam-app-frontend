@@ -1,6 +1,7 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useState} from 'react'
 import {
+  Platform,
   StyleSheet,
   TextInput as TextInputRN,
   TextInputProps as TextInputRNProps,
@@ -12,9 +13,14 @@ import {Gutter, Text} from '.'
 
 type Props = {
   label?: string
+  numberOfLines?: number
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  warning?: boolean
 } & TextInputRNProps
+
+const textLineHeight = font.height.p1
+const inputPadding = size.spacing.sm
 
 export const TextInput = React.forwardRef((props: Props, ref: any) => {
   const [hasFocus, setFocus] = useState(false)
@@ -36,7 +42,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     clearButton: {
       alignSelf: 'stretch',
       justifyContent: 'center',
-      paddingHorizontal: size.spacing.sm,
+      paddingHorizontal: inputPadding,
     },
     searchSection: {
       flexDirection: 'row',
@@ -47,11 +53,19 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     },
     textInput: {
       flex: 1,
-      padding: size.spacing.sm,
+      padding: inputPadding,
       color: color.font.regular,
       fontFamily: font.weight.regular,
       fontSize: font.size.p1,
-      lineHeight: font.height.p1,
+      lineHeight: textLineHeight,
+      minHeight:
+        Platform.OS === 'ios' && props.numberOfLines
+          ? props.numberOfLines * textLineHeight + 2 * inputPadding
+          : 'auto',
+    },
+    warning: {
+      borderColor: color.border.warning,
+      borderWidth: 2,
     },
   })
 
@@ -63,11 +77,14 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
         {props.label}
       </Text>
       <Gutter height={size.spacing.sm} />
-      <View style={styles.searchSection}>
+      <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
           {...props}
           onChangeText={text => handleChangeText(text)}
           onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
+          numberOfLines={
+            Platform.OS === 'ios' ? undefined : props.numberOfLines
+          }
           ref={ref}
           style={styles.textInput}
           value={props.value ?? value}

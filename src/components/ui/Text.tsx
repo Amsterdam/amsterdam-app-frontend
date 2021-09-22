@@ -32,6 +32,7 @@ export const Text = ({
 }: Props) => {
   return (
     <TextRN
+      accessibilityRole={warning ? 'alert' : 'text'}
       style={[
         styles.text,
         margin && styles.margin,
@@ -82,5 +83,6 @@ const styles = StyleSheet.create({
   },
   warning: {
     color: color.font.warning,
+    fontFamily: font.weight.demi,
   },
 })

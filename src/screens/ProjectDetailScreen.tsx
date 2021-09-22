@@ -87,7 +87,15 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="lighter">
-        <Button text="Verstuur pushnotificatie" variant="inverse" />
+        <Button
+          onPress={() =>
+            navigation.navigate(routes.pushNotification.name, {
+              projectId: project.identifier,
+            })
+          }
+          text="Verstuur pushnotificatie"
+          variant="inverse"
+        />
         <Gutter height={size.spacing.md} />
         <Title margin text={project.title || ''} />
         <View style={styles.row}>
