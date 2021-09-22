@@ -6,10 +6,13 @@ import {
 import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
-import {NotificationForm} from './NotificationForm'
+import {NewNotification} from '../../types/notification'
+import {NotificationFormScreen} from './NotificationFormScreen'
+import {WarningFormScreen} from './WarningFormScreen'
 
 export type PushNotificationStackParamList = {
   NotificationForm: {projectId: string}
+  WarningForm: {notification: NewNotification}
 }
 
 type PushNotificationScreenRouteProp = RouteProp<
@@ -46,7 +49,11 @@ export const PushNotificationScreen = ({route}: Props) => {
   return (
     <PushNotificationRouteContext.Provider value={{projectId}}>
       <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name="NotificationForm" component={NotificationForm} />
+        <Stack.Screen
+          name="NotificationForm"
+          component={NotificationFormScreen}
+        />
+        <Stack.Screen name="WarningForm" component={WarningFormScreen} />
       </Stack.Navigator>
     </PushNotificationRouteContext.Provider>
   )
