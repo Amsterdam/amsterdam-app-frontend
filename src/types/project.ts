@@ -1,6 +1,7 @@
 import {Image} from './image'
 import {Section, Timeline} from './'
 
+// An item in a project list as received from our backend
 export type ProjectOverviewItem = {
   content_html: string
   content_text: string
@@ -16,30 +17,27 @@ export type ProjectOverviewItem = {
   title: string
 }
 
+// All project details as received from our backend
 export type ProjectDetail = {
   body: {
     contact: Section[]
+    coordinates: {
+      lat: number
+      lon: number
+    }
     intro: Section[]
+    'more-info': Section[]
     timeline: Timeline
     what: Section[]
     when: Section[]
     where: Section[]
     work: Section[]
-    'more-info': Section[]
-    coordinates: {
-      lat: number
-      lon: number
-    }
   }
   district_id: number
   district_name: string
   identifier: string
   images: Image[]
-  news: {
-    url: string
-    identifier: string
-    project_identifier: string
-  }[]
+  news: ProjectDetailNewsArticle[]
   page_id: number
   rel_url: string
   subtitle: string
@@ -47,9 +45,17 @@ export type ProjectDetail = {
   url: string
 }
 
+// A summary of a news article related to a project
+type ProjectDetailNewsArticle = {
+  identifier: string
+  project_identifier: string
+  url: string
+}
+
+// A set of project body sections, used in the front-end
 export type ProjectDetailBody = {
   headerTitle: string
   sections: Section[]
-  title: string
   timeline?: Timeline
+  title: string
 }
