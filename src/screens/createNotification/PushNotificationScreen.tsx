@@ -7,12 +7,13 @@ import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
 import {NewNotification} from '../../types/notification'
+import {NewWarning} from '../../types/warning'
 import {NotificationFormScreen} from './NotificationFormScreen'
 import {WarningFormScreen} from './WarningFormScreen'
 
 export type PushNotificationStackParamList = {
-  NotificationForm: {projectId: string}
-  WarningForm: {notification: NewNotification}
+  NotificationForm: undefined
+  WarningForm: undefined
 }
 
 type PushNotificationScreenRouteProp = RouteProp<
@@ -25,11 +26,19 @@ type Props = {
 }
 
 type Context = {
+  changeNotification: (newNotification: NewNotification) => void
+  changeWarning: (newWarning: NewWarning) => void
+  notification: NewNotification | undefined
   projectId: string | undefined
+  warning: NewWarning | undefined
 }
 
-export const PushNotificationRouteContext = createContext<Context>({
+export const PushNotificationContext = createContext<Context>({
+  changeNotification: () => {},
+  changeWarning: () => {},
   projectId: undefined,
+  notification: undefined,
+  warning: undefined,
 })
 
 const globalScreenOptions: StackNavigationOptions = {
@@ -41,13 +50,31 @@ const globalScreenOptions: StackNavigationOptions = {
 
 export const PushNotificationScreen = ({route}: Props) => {
   const [projectId, setProjectId] = useState<string>()
+  const [notification, setNotification] = useState<NewNotification>()
+  const [warning, setWarning] = useState<NewWarning>()
+
   const Stack = createStackNavigator()
+
+  const changeNotification = (newNotification: NewNotification) => {
+    setNotification(newNotification)
+  }
+
+  const changeWarning = (newWarning: NewWarning) => {
+    setWarning(newWarning)
+  }
 
   useEffect(() => {
     setProjectId(route.params.projectId)
   }, [route])
   return (
-    <PushNotificationRouteContext.Provider value={{projectId}}>
+    <PushNotificationContext.Provider
+      value={{
+        changeNotification,
+        changeWarning,
+        notification,
+        projectId,
+        warning,
+      }}>
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen
           name="NotificationForm"
@@ -55,6 +82,6 @@ export const PushNotificationScreen = ({route}: Props) => {
         />
         <Stack.Screen name="WarningForm" component={WarningFormScreen} />
       </Stack.Navigator>
-    </PushNotificationRouteContext.Provider>
+    </PushNotificationContext.Provider>
   )
 }
