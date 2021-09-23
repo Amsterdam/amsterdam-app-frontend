@@ -1,13 +1,18 @@
+import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {useForm, Controller} from 'react-hook-form'
 import {
   CharactersLeftDisplay,
+  FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
+import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
 import {size} from '../../tokens'
-import {NewNotification} from '../../types/notification'
-import {PushNotificationRouteContext} from './PushNotificationScreen'
+import {NewWarning} from '../../types/warning'
+import {
+  PushNotificationContext,
+  PushNotificationStackParamList,
+} from './PushNotificationScreen'
 
 const maxCharacters = {
   title: 50,
@@ -17,12 +22,17 @@ const maxCharacters = {
 
 type FormData = {
   title: string
+  intro: string
   message: string
 }
 
-export const WarningFormScreen = () => {
-  const pushNotificationRouteContext = useContext(PushNotificationRouteContext)
-  const projectId = pushNotificationRouteContext.projectId
+type Props = {
+  navigation: StackNavigationProp<PushNotificationStackParamList, 'WarningForm'>
+}
+
+export const WarningFormScreen = ({navigation}: Props) => {
+  const pushNotificationContext = useContext(PushNotificationContext)
+  const {changeWarning} = pushNotificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -46,12 +56,15 @@ export const WarningFormScreen = () => {
   const watchMessage = watch('message')
 
   const onSubmit = (data: FormData) => {
-    const notificationData: NewNotification = {
+    const warningData: NewWarning = {
       title: data.title,
-      body: data.message,
-      project_id: projectId ?? '',
+      body: {
+        preface: data.intro,
+        content: data.message,
+      },
+      project_id: pushNotificationContext.projectId!,
     }
-    console.log(notificationData)
+    changeWarning(warningData)
   }
 
   useEffect(() => {
@@ -144,11 +157,14 @@ export const WarningFormScreen = () => {
       />
       {errors.message && <ValidationWarning warning="Type een nieuwsbericht" />}
       <Gutter height={size.spacing.md} />
-      <Button
-        onPress={handleSubmit(onSubmit)}
-        text="Controleer"
-        variant="next"
-      />
+      <FormButtons>
+        <Link direction="backward" onPress={navigation.goBack} text="Vorige" />
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          text="Controleer"
+          variant="next"
+        />
+      </FormButtons>
     </Box>
   )
 }
