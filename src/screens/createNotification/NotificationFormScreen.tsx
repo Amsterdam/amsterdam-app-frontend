@@ -10,7 +10,7 @@ import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types/notification'
 import {
-  PushNotificationRouteContext,
+  PushNotificationContext,
   PushNotificationStackParamList,
 } from './PushNotificationScreen'
 
@@ -32,29 +32,32 @@ type Props = {
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const pushNotificationRouteContext = useContext(PushNotificationRouteContext)
-  const projectId = pushNotificationRouteContext.projectId
+  const pushNotificationContext = useContext(PushNotificationContext)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
   const [characterCountMessage, setCharacterCountMessage] = useState<number>(
     maxCharacters.message,
   )
+
   const {
     control,
     formState: {errors},
     handleSubmit,
     watch,
   } = useForm()
+
   const watchTitle = watch('title')
   const watchMessage = watch('message')
+
   const onSubmit = (data: FormData) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: projectId ?? '',
+      project_id: pushNotificationContext.projectId!,
     }
-    navigation.navigate('WarningForm', {notification: notificationData})
+    pushNotificationContext.changeNotification(notificationData)
+    navigation.navigate('WarningForm')
   }
 
   useEffect(() => {
