@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, Text} from 'react-native'
+import {StyleSheet, Text, TextProps} from 'react-native'
 import {color, font} from '../../tokens'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   primary?: Boolean
   subtitle?: Boolean
   text: string
-}
+} & Omit<TextProps, 'style'>
 
 export const Title = ({
   level = 1,
