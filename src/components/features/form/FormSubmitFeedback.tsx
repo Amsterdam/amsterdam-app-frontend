@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import Checkmark from '../../../assets/icons/checkmark.svg'
-import Close from '../../../assets/icons/close.svg'
+import {Checkmark, Close} from '../../../assets/icons'
 import {size} from '../../../tokens'
 import {Button, Card, CardBody, Gutter, Text, Title} from '../../ui'
 
