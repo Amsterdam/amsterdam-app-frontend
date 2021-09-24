@@ -4,10 +4,10 @@ import {Checkmark, Close} from '../../../assets/icons'
 import {size} from '../../../tokens'
 import {Button, Card, CardBody, Gutter, Text, Title} from '../../ui'
 
-type Status = 'success' | 'failure'
+type Result = 'success' | 'failure'
 
-type StatusCollection = {
-  [K in Status]: {
+type ResultConfig = {
+  [K in Result]: {
     body: string
     button: React.ReactElement
     icon: React.ReactElement
@@ -16,10 +16,10 @@ type StatusCollection = {
 }
 
 type Props = {
-  status: Status
+  result: Result
 }
 
-const statusCollection: StatusCollection = {
+const resultConfig: ResultConfig = {
   failure: {
     body: 'Het is niet gelukt om de pushnotificatie te versturen',
     button: <Button onPress={() => {}} text="Ga naar de hel" />,
@@ -34,17 +34,17 @@ const statusCollection: StatusCollection = {
   },
 }
 
-export const FormSubmitFeedback = ({status}: Props) => {
+export const FormSubmitFeedback = ({result}: Props) => {
   return (
     <Card>
       <CardBody>
-        {statusCollection[status].icon}
+        {resultConfig[result].icon}
         <Gutter height={size.spacing.lg} />
-        <Title text={statusCollection[status].title} />
+        <Title text={resultConfig[result].title} />
         <Gutter height={size.spacing.sm} />
-        <Text>{statusCollection[status].body}</Text>
+        <Text>{resultConfig[result].body}</Text>
         <Gutter height={size.spacing.md} />
-        <View style={styles.button}>{statusCollection[status].button}</View>
+        <View style={styles.button}>{resultConfig[result].button}</View>
       </CardBody>
     </Card>
   )
