@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="50px" height="49px" viewBox="0 0 50 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Icon/32/Checkmark  </title>
-    <g id="Sprint-5-+-6:-pushnotificaties" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="pushnotificatie-/-Verzend-mislukt" transform="translate(-36.000000, -90.000000)" fill="#EC0000">
-            <g id="Icon/32/Checkmark--" transform="translate(31.000000, 84.500000)">
-                <polygon id="Path" points="54.375 10.7508389 49.2491611 5.625 30 24.8559843 10.7508389 5.625 5.625 10.7508389 24.8559843 30 5.625 49.2491611 10.7508389 54.375 30 35.1440157 49.2491611 54.375 54.375 49.2491611 35.1440157 30"></polygon>
-            </g>
-        </g>
-    </g>
+<svg width="50" height="49" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M49.375 5.251 44.249.125 25 19.356 5.751.125.625 5.251 19.856 24.5.625 43.749l5.126 5.126L25 29.644l19.249 19.231 5.126-5.126L30.144 24.5z"
+    fill="#EC0000" fill-rule="evenodd"/>
 </svg>
