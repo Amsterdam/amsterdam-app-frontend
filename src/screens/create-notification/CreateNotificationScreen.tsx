@@ -7,8 +7,11 @@ import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
 import {NewNotification, NewWarning} from '../../types'
-import {NotificationFormScreen} from './NotificationFormScreen'
-import {WarningFormScreen} from './WarningFormScreen'
+import {
+  NotificationFormScreen,
+  SelectNewsArticleScreen,
+  WarningFormScreen,
+} from '.'
 
 export type PushNotificationStackParamList = {
   NotificationForm: undefined
@@ -76,6 +79,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
           component={NotificationFormScreen}
         />
         <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+        <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
+        />
       </Stack.Navigator>
     </PushNotificationContext.Provider>
   )
