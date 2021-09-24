@@ -9,10 +9,10 @@ import {
   View,
 } from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Gutter, Text} from '.'
+import {Gutter, Label} from './'
 
 type Props = {
-  label?: string
+  label: string
   numberOfLines?: number
   onChangeText?: (event: string) => void
   onFocus?: () => void
@@ -71,11 +71,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
 
   return (
     <View>
-      <Text
-        importantForAccessibility={props.accessibilityLabel ? 'no' : 'yes'}
-        secondary>
-        {props.label}
-      </Text>
+      <Label isAccessible={!props.accessibilityLabel} text={props.label} />
       <Gutter height={size.spacing.sm} />
       <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
