@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import {StatusBar} from 'react-native'
-import Logo from './src/assets/icons/logo.svg'
+import {Logo} from './src/assets/icons'
 import {AddressProvider, OrientationProvider} from './src/providers'
 import {
   HomeScreen,
