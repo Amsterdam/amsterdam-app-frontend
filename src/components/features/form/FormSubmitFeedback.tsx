@@ -22,9 +22,9 @@ type Props = {
 const resultConfig: ResultConfig = {
   failure: {
     body: 'Het is niet gelukt om de pushnotificatie te versturen',
-    button: <Button onPress={() => {}} text="Ga naar de hel" />,
+    button: <Button onPress={() => {}} text="Probeer het nog eens" />,
     icon: <Close />,
-    title: 'Helaas...',
+    title: 'Helaas…',
   },
   success: {
     body: 'De pushnotificatie is verstuurd.',
