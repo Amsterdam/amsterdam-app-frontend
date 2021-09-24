@@ -9,8 +9,7 @@ import {
   View,
 } from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Label} from './Label'
-import {Gutter} from '.'
+import {Gutter, Label} from './'
 
 type Props = {
   label: string
