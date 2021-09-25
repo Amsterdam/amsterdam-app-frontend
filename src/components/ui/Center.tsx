@@ -1,9 +1,9 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewProps} from 'react-native'
 
 type Props = {
   children: React.ReactNode
-}
+} & ViewProps
 
 export const Center = ({children}: Props) => (
   <View style={styles.center}>{children}</View>
@@ -11,7 +11,6 @@ export const Center = ({children}: Props) => (
 
 const styles = StyleSheet.create({
   center: {
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
