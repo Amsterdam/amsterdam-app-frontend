@@ -75,14 +75,14 @@ export const CreateNotificationScreen = ({route}: Props) => {
       }}>
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
+        />
+        <Stack.Screen
           name="NotificationForm"
           component={NotificationFormScreen}
         />
         <Stack.Screen name="WarningForm" component={WarningFormScreen} />
-        <Stack.Screen
-          name="SelectNewsArticle"
-          component={SelectNewsArticleScreen}
-        />
       </Stack.Navigator>
     </PushNotificationContext.Provider>
   )
