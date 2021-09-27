@@ -107,7 +107,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.projectDetailBody.name, {
                     body: {
-                      headerTitle: title,
+                      headerTitle: project.title,
                       sections: sections ?? [],
                       title: title,
                       timeline: timeline,
