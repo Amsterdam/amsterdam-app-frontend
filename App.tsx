@@ -20,7 +20,7 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from './src/screens'
-import {PushNotificationScreen} from './src/screens/PushNotificationScreen'
+import {CreateNotificationScreen} from './src/screens/create-notification/CreateNotificationScreen'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
@@ -212,7 +212,7 @@ export const App = () => {
                 options={addressForm.options}
               />
               <Stack.Screen
-                component={PushNotificationScreen}
+                component={CreateNotificationScreen}
                 name={pushNotification.name}
                 options={pushNotification.options}
               />
