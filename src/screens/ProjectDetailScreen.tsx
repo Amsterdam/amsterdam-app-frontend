@@ -107,7 +107,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.projectDetailBody.name, {
                     body: {
-                      headerTitle: title,
+                      headerTitle: project.title,
                       sections: sections ?? [],
                       title: title,
                       timeline: timeline,
@@ -119,9 +119,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           )}
         </View>
       </Box>
-      {project.news.length && (
+      {project.news.length ? (
         <NewsArticleOverview projectId={project.identifier} />
-      )}
+      ) : null}
     </ScrollView>
   ) : null
 }

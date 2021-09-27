@@ -48,6 +48,7 @@ export const color = {
     lighter: baseColor.tint.level1,
   },
   border: {
+    boxLight: baseColor.tint.level4,
     input: baseColor.tint.level5,
     inputFocus: baseColor.tint.level7,
     separator: baseColor.tint.level3,
