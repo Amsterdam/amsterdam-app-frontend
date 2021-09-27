@@ -9,7 +9,7 @@ import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
-import {ProjectOverviewItem} from '../types/project'
+import {ProjectOverviewItem} from '../types'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   RootStackParamList,

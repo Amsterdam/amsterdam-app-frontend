@@ -1,4 +1,4 @@
-import {District} from '../types/disctrict'
+import {District} from '../types'
 
 export const districts: District[] = [
   {id: 5398, name: 'Centrum'},

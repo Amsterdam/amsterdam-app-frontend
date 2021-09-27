@@ -7,13 +7,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {NewsItemsOverview} from '../components/features'
+import {NewsArticleOverview} from '../components/features/news'
 import {Box, Button, Gutter, IconButton, Image, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {color, image, size} from '../tokens'
-import {Section, Timeline} from '../types'
-import {ProjectDetail} from '../types/project'
+import {ProjectDetail, Section, Timeline} from '../types'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -120,7 +119,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           )}
         </View>
       </Box>
-      <NewsItemsOverview projectId={project.identifier} />
+      {project.news.length && (
+        <NewsArticleOverview projectId={project.identifier} />
+      )}
     </ScrollView>
   ) : null
 }

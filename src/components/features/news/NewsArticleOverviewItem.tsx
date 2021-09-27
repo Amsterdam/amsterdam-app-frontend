@@ -1,15 +1,15 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import {image, size} from '../../tokens'
-import {NewsArticle} from '../../types'
-import {Card, CardBody, Gutter, Image, Text} from '../ui'
+import {image, size} from '../../../tokens'
+import {NewsArticle} from '../../../types'
+import {Card, CardBody, Gutter, Image, Text} from '../../ui'
 
 type Props = {
   newsArticle: NewsArticle
   onPress: () => void
 }
 
-export const NewsArticleCard = ({onPress, newsArticle}: Props) => {
+export const NewsArticleOverviewItem = ({onPress, newsArticle}: Props) => {
   const firstImage = newsArticle.images?.find(i => i.sources['220px'].url)
 
   return (
@@ -34,15 +34,16 @@ export const NewsArticleCard = ({onPress, newsArticle}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
-    aspectRatio: image.aspectRatio.default,
     flex: 1,
+    alignSelf: 'center',
+    aspectRatio: image.aspectRatio.vintage,
+    resizeMode: 'cover',
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   text: {
+    flex: 2, // Also prevents overflow
     alignSelf: 'center',
-    flex: 2,
   },
 })
