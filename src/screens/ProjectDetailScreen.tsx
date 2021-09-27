@@ -8,7 +8,15 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsArticleOverview} from '../components/features/news'
-import {Box, Button, Gutter, IconButton, Image, Title} from '../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  IconButton,
+  Image,
+  Text,
+  Title,
+} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {color, image, size} from '../tokens'
@@ -96,7 +104,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
-        <Title margin text={project.title || ''} />
+        {project.title && <Title text={project.title} />}
+        {project.subtitle && <Text intro>{project.subtitle}</Text>}
+        <Gutter height={size.spacing.lg} />
         <View style={styles.row}>
           {menu?.map(({icon, sections, timeline, title}) =>
             sections?.length || timeline ? (
