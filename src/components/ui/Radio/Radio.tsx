@@ -1,22 +1,28 @@
-import React, {useState} from 'react'
-import {Pressable, StyleSheet} from 'react-native'
+import {useRadio} from '@react-native-aria/radio'
+import React, {useContext, useRef} from 'react'
+import {Pressable, PressableProps, StyleSheet} from 'react-native'
 import {Center} from '..'
 import CircleIcon from '../../../assets/icons/circle.svg'
-import {color} from '../../../tokens'
+import {color, size} from '../../../tokens'
+import {RadioContext} from '.'
 
 type Props = {
   children: React.ReactNode
+  isChecked: boolean
   value: string
 }
 
-export const Radio = ({children, value}: Props) => {
-  console.log(value)
-  const [isChecked, setIsChecked] = useState<boolean>()
-  const handlePress = () => {
-    !isChecked && setIsChecked(true)
-  }
+export const Radio = (props: Props) => {
+  const contextState = useContext(RadioContext)
+  let inputRef = useRef(null)
+  const {inputProps} = useRadio(props, contextState, inputRef)
+  const {checked: isChecked} = inputProps
+
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable
+      {...(inputProps as PressableProps)}
+      accessibilityRole="radio"
+      style={styles.button}>
       <Center style={styles.outerCircle}>
         <CircleIcon
           fill={color.background.darker}
@@ -24,23 +30,26 @@ export const Radio = ({children, value}: Props) => {
           style={styles.innerCircle}
         />
       </Center>
-      {children}
+      {props.children}
     </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
-  outerCircle: {
+  button: {
     flexDirection: 'row',
-    width: 24,
-    height: 24,
+  },
+  outerCircle: {
+    width: 20,
+    height: 20,
+    marginRight: size.spacing.md,
     borderColor: color.border.input,
     borderRadius: 50,
     borderStyle: 'solid',
     borderWidth: 1,
   },
   innerCircle: {
-    height: 16,
-    width: 16,
+    height: 12,
+    width: 12,
   },
 })
