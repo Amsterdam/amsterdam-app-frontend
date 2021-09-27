@@ -8,7 +8,7 @@ import {
 } from '../../components/features/form'
 import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
 import {size} from '../../tokens'
-import {NewWarning} from '../../types/warning'
+import {NewWarning} from '../../types'
 import {
   PushNotificationContext,
   PushNotificationStackParamList,

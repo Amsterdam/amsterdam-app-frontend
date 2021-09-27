@@ -6,8 +6,7 @@ import {
 import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
-import {NewNotification} from '../../types/notification'
-import {NewWarning} from '../../types/warning'
+import {NewNotification, NewWarning} from '../../types'
 import {NotificationFormScreen} from './NotificationFormScreen'
 import {WarningFormScreen} from './WarningFormScreen'
 
