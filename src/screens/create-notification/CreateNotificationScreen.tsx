@@ -40,7 +40,7 @@ export const PushNotificationContext = createContext<Context>({
   warning: undefined,
 })
 
-const globalScreenOptions: StackNavigationOptions = {
+const screenOptions: StackNavigationOptions = {
   cardStyle: {
     backgroundColor: color.background.lighter,
   },
@@ -54,17 +54,13 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   const Stack = createStackNavigator()
 
-  const changeNotification = (newNotification: NewNotification) => {
-    setNotification(newNotification)
-  }
-
-  const changeWarning = (newWarning: NewWarning) => {
-    setWarning(newWarning)
-  }
+  const changeNotification = (value: NewNotification) => setNotification(value)
+  const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
     setProjectId(route.params.projectId)
   }, [route])
+
   return (
     <PushNotificationContext.Provider
       value={{
@@ -74,7 +70,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         projectId,
         warning,
       }}>
-      <Stack.Navigator screenOptions={globalScreenOptions}>
+      <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="NotificationForm"
           component={NotificationFormScreen}
