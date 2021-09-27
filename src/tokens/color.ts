@@ -46,6 +46,7 @@ export const color = {
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level3,
     lighter: baseColor.tint.level1,
+    primary: baseColor.primary.main,
   },
   border: {
     boxLight: baseColor.tint.level4,

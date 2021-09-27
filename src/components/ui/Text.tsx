@@ -22,11 +22,11 @@ export const Text = ({
   children,
   intro,
   inverse,
+  link,
   margin,
   primary,
   secondary,
   small,
-  link,
   warning,
   ...otherProps
 }: Props) => {
