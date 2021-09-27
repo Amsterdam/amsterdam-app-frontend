@@ -13,7 +13,10 @@ export const NewsArticleOverviewItem = ({onPress, newsArticle}: Props) => {
   const firstImage = newsArticle.images?.find(i => i.sources['220px'].url)
 
   return (
-    <TouchableHighlight onPress={onPress} style={styles.row}>
+    <TouchableHighlight
+      onPress={onPress}
+      style={styles.row}
+      accessibilityRole="button">
       <Card>
         <CardBody direction="row">
           {firstImage && (
