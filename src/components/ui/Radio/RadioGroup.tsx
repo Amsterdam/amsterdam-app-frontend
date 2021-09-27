@@ -12,7 +12,10 @@ export const RadioGroup = (props: IRadioGroupProps) => {
     {...props, 'aria-label': props.accessibilityLabel},
     state,
   )
+
+  //TODO remove this
   console.log(radioGroupProps)
+
   return (
     <Box {...radioGroupProps}>
       <RadioContext.Provider value={{...state}}>
