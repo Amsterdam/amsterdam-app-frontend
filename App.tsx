@@ -20,7 +20,7 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from './src/screens'
-import {CreateNotificationScreen} from './src/screens/create-notification/CreateNotificationScreen'
+import {CreateNotificationScreen} from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
