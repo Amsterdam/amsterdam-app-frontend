@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
-import {useForm, Controller} from 'react-hook-form'
+import {Controller, useForm} from 'react-hook-form'
 import {
   CharactersLeftDisplay,
   FormButtons,
@@ -12,7 +12,7 @@ import {NewWarning} from '../../types/warning'
 import {
   PushNotificationContext,
   PushNotificationStackParamList,
-} from './PushNotificationScreen'
+} from './CreateNotificationScreen'
 
 const maxCharacters = {
   title: 50,

@@ -48,7 +48,7 @@ const globalScreenOptions: StackNavigationOptions = {
   headerShown: false,
 }
 
-export const PushNotificationScreen = ({route}: Props) => {
+export const CreateNotificationScreen = ({route}: Props) => {
   const [projectId, setProjectId] = useState<string>()
   const [notification, setNotification] = useState<NewNotification>()
   const [warning, setWarning] = useState<NewWarning>()
