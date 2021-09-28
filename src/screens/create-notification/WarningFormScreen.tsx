@@ -7,6 +7,7 @@ import {
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
+import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
@@ -80,91 +81,106 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <Box>
-      <Title text="Schrijf een bericht" />
-      <Gutter height={size.spacing.xs} />
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, value}}) => (
-          <TextInput
-            label="Titel nieuwsbericht"
-            maxLength={maxCharacters.title}
-            multiline={true}
-            onChangeText={onChange}
-            value={value}
-            warning={errors.title}
+    <>
+      <FullSpaceContainer>
+        <Box>
+          <Title text="Schrijf een bericht" />
+          <Gutter height={size.spacing.xs} />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                label="Titel nieuwsbericht"
+                maxLength={maxCharacters.title}
+                multiline={true}
+                onChangeText={onChange}
+                value={value}
+                warning={errors.title}
+              />
+            )}
+            name="title"
+            defaultValue=""
           />
-        )}
-        name="title"
-        defaultValue=""
-      />
-      <Gutter height={size.spacing.xs} />
-      <CharactersLeftDisplay
-        charactersLeft={maxCharacters.title - characterCountTitle}
-      />
-      {errors.title && <ValidationWarning warning="Vul een titel in" />}
-      <Gutter height={size.spacing.lg} />
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, value}}) => (
-          <TextInput
-            label="Intro nieuwsbericht"
-            maxLength={maxCharacters.intro}
-            multiline={true}
-            numberOfLines={3}
-            onChangeText={onChange}
-            value={value}
-            warning={errors.intro}
+          <Gutter height={size.spacing.xs} />
+          <CharactersLeftDisplay
+            charactersLeft={maxCharacters.title - characterCountTitle}
           />
-        )}
-        name="intro"
-        defaultValue=""
-      />
-      <Gutter height={size.spacing.xs} />
-      <CharactersLeftDisplay
-        charactersLeft={maxCharacters.intro - characterCountIntro}
-      />
-      {errors.intro && <ValidationWarning warning="Type een introbericht" />}
-      <Gutter height={size.spacing.md} />
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, value}}) => (
-          <TextInput
-            label="Tekst nieuwsbericht"
-            maxLength={maxCharacters.message}
-            multiline={true}
-            numberOfLines={5}
-            onChangeText={onChange}
-            value={value}
-            warning={errors.message}
+          {errors.title && <ValidationWarning warning="Vul een titel in" />}
+          <Gutter height={size.spacing.lg} />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                label="Intro nieuwsbericht"
+                maxLength={maxCharacters.intro}
+                multiline={true}
+                numberOfLines={3}
+                onChangeText={onChange}
+                value={value}
+                warning={errors.intro}
+              />
+            )}
+            name="intro"
+            defaultValue=""
           />
-        )}
-        name="message"
-        defaultValue=""
-      />
-      <Gutter height={size.spacing.xs} />
-      <CharactersLeftDisplay
-        charactersLeft={maxCharacters.message - characterCountMessage}
-      />
-      {errors.message && <ValidationWarning warning="Type een nieuwsbericht" />}
-      <Gutter height={size.spacing.md} />
-      <FormButtons>
-        <Link direction="backward" onPress={navigation.goBack} text="Vorige" />
-        <Button
-          onPress={handleSubmit(onSubmit)}
-          text="Controleer"
-          variant="next"
-        />
-      </FormButtons>
-    </Box>
+          <Gutter height={size.spacing.xs} />
+          <CharactersLeftDisplay
+            charactersLeft={maxCharacters.intro - characterCountIntro}
+          />
+          {errors.intro && (
+            <ValidationWarning warning="Type een introbericht" />
+          )}
+          <Gutter height={size.spacing.md} />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                label="Tekst nieuwsbericht"
+                maxLength={maxCharacters.message}
+                multiline={true}
+                numberOfLines={5}
+                onChangeText={onChange}
+                value={value}
+                warning={errors.message}
+              />
+            )}
+            name="message"
+            defaultValue=""
+          />
+          <Gutter height={size.spacing.xs} />
+          <CharactersLeftDisplay
+            charactersLeft={maxCharacters.message - characterCountMessage}
+          />
+          {errors.message && (
+            <ValidationWarning warning="Type een nieuwsbericht" />
+          )}
+          <Gutter height={size.spacing.md} />
+        </Box>
+      </FullSpaceContainer>
+      <Box>
+        <FormButtons>
+          <Link
+            direction="backward"
+            onPress={navigation.goBack}
+            text="Vorige"
+          />
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            text="Controleer"
+            variant="next"
+          />
+        </FormButtons>
+        <Gutter height={size.spacing.xl} />
+      </Box>
+    </>
   )
 }
