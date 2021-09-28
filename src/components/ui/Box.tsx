@@ -4,17 +4,22 @@ import {color, size, Spacing} from '../../tokens'
 
 type Props = {
   background?: 'emphasis' | 'invalid' | 'light' | 'lighter'
+  bordered?: boolean
   children: React.ReactNode
   inset?: keyof Spacing
 }
 
-export const Box = ({background, children, inset = 'md'}: Props) => {
+export const Box = ({background, bordered, children, inset = 'md'}: Props) => {
   const styles = StyleSheet.create({
     box: {
       backgroundColor: background && color.background[background],
       padding: size.spacing[inset],
     },
+    border: {
+      borderWidth: 1,
+      borderColor: color.border.input,
+    },
   })
 
-  return <View style={styles.box}>{children}</View>
+  return <View style={[styles.box, bordered && styles.border]}>{children}</View>
 }
