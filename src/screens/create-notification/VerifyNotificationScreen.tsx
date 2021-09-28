@@ -72,7 +72,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             onPress={navigation.goBack}
             text="Vorige"
           />
-          <Button onPress={handleSubmit} text="Verstuur" variant="next" />
+          <Button onPress={handleSubmit} text="Verstuur" variant="submit" />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>

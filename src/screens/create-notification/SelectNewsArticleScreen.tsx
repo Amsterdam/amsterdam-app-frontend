@@ -114,7 +114,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           <Button
             onPress={handleSubmit(onSubmit)}
             text="Controleer"
-            variant="next"
+            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />

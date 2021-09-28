@@ -131,7 +131,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
           <Button
             onPress={handleSubmit(onSubmit)}
             text="Kies een bericht"
-            variant="next"
+            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
