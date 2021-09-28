@@ -33,13 +33,23 @@ type Props = {
 }
 
 type Context = {
-  changeNewsId: (id: string) => void
+  changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
-  newsId?: string
+  newsDetails?: NewsDetails
   notification: NewNotification | undefined
-  projectId?: string
+  projectDetails: ProjectDetails
   warning: NewWarning | undefined
+}
+
+type ProjectDetails = {
+  projectId: string
+  projectTitle: string
+}
+
+type NewsDetails = {
+  newsId: string
+  newsTitle: string
 }
 
 export const PushNotificationContext = createContext<Context>({} as Context)
@@ -52,30 +62,33 @@ const screenOptions: StackNavigationOptions = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
-  const [projectId, setProjectId] = useState<string>()
-  const [newsId, setNewsId] = useState<string>()
+  const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
+  const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
   const [warning, setWarning] = useState<NewWarning>()
 
   const Stack = createStackNavigator()
 
   const changeNotification = (value: NewNotification) => setNotification(value)
-  const changeNewsId = (value: string) => setNewsId(value)
+  const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
-    setProjectId(route.params.projectId)
+    setProjectDetails({
+      projectId: route.params.projectId,
+      projectTitle: route.params.projectTitle,
+    })
   }, [route])
 
   return (
     <PushNotificationContext.Provider
       value={{
-        changeNewsId,
+        changeNewsDetails,
         changeNotification,
         changeWarning,
-        newsId,
+        newsDetails,
         notification,
-        projectId,
+        projectDetails,
         warning,
       }}>
       <ScrollView
