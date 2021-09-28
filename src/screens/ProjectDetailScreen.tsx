@@ -98,6 +98,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           onPress={() =>
             navigation.navigate(routes.pushNotification.name, {
               projectId: project.identifier,
+              projectTitle: project.title,
             })
           }
           text="Verstuur pushnotificatie"
