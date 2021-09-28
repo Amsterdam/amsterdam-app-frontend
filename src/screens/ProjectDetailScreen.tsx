@@ -144,5 +144,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginHorizontal: -size.spacing.md,
   },
 })
