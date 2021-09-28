@@ -33,7 +33,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  PushNotification: {projectId: string}
+  PushNotification: {projectId: string; projectTitle: string}
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
