@@ -15,6 +15,7 @@ import {
 
 export type PushNotificationStackParamList = {
   NotificationForm: undefined
+  SelectNewsArticle: undefined
   WarningForm: undefined
 }
 
@@ -28,20 +29,16 @@ type Props = {
 }
 
 type Context = {
+  changeNewsId: (id: string) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
+  newsId?: string
   notification: NewNotification | undefined
-  projectId: string | undefined
+  projectId?: string
   warning: NewWarning | undefined
 }
 
-export const PushNotificationContext = createContext<Context>({
-  changeNotification: () => {},
-  changeWarning: () => {},
-  projectId: undefined,
-  notification: undefined,
-  warning: undefined,
-})
+export const PushNotificationContext = createContext<Context>({} as Context)
 
 const screenOptions: StackNavigationOptions = {
   cardStyle: {
@@ -52,12 +49,14 @@ const screenOptions: StackNavigationOptions = {
 
 export const CreateNotificationScreen = ({route}: Props) => {
   const [projectId, setProjectId] = useState<string>()
+  const [newsId, setNewsId] = useState<string>()
   const [notification, setNotification] = useState<NewNotification>()
   const [warning, setWarning] = useState<NewWarning>()
 
   const Stack = createStackNavigator()
 
   const changeNotification = (value: NewNotification) => setNotification(value)
+  const changeNewsId = (value: string) => setNewsId(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
@@ -67,20 +66,22 @@ export const CreateNotificationScreen = ({route}: Props) => {
   return (
     <PushNotificationContext.Provider
       value={{
+        changeNewsId,
         changeNotification,
         changeWarning,
+        newsId,
         notification,
         projectId,
         warning,
       }}>
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
-          name="SelectNewsArticle"
-          component={SelectNewsArticleScreen}
-        />
-        <Stack.Screen
           name="NotificationForm"
           component={NotificationFormScreen}
+        />
+        <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
         />
         <Stack.Screen name="WarningForm" component={WarningFormScreen} />
       </Stack.Navigator>
