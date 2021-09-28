@@ -43,14 +43,21 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   const {data: news} = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news',
     options: {
-      params: {'project-identifier': pushNotificationContext.projectId!},
+      params: {
+        'project-identifier': pushNotificationContext.projectDetails.projectId!,
+      },
     },
   })
 
   const watchRadioGroup = watch('news')
 
   const onSubmit = (data: FormData) => {
-    pushNotificationContext.changeNewsId(data.news)
+    const newsSelected = news?.find(item => item.identifier === data.news)
+    newsSelected &&
+      pushNotificationContext.changeNewsDetails({
+        newsId: newsSelected?.identifier,
+        newsTitle: newsSelected?.title,
+      })
     navigation.navigate('VerifyNotification')
   }
 

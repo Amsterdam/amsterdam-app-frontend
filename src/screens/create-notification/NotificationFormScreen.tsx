@@ -55,7 +55,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: pushNotificationContext.projectId!,
+      project_id: pushNotificationContext.projectDetails.projectId!,
     }
     pushNotificationContext.changeNotification(notificationData)
     navigation.navigate('SelectNewsArticle')
