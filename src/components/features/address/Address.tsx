@@ -6,7 +6,16 @@ import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
-import {Box, Card, CardBody, Gutter, Link, Text, Title} from '../../ui'
+import {
+  Attention,
+  Box,
+  Card,
+  CardBody,
+  Gutter,
+  Link,
+  Text,
+  Title,
+} from '../../ui'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {
@@ -56,11 +65,19 @@ export const Address = () => {
           </CardBody>
         </Card>
       ) : (
-        <AddressFormTeaser
-          text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt
-          kunnen tonen."
-          title="Uw buurt"
-        />
+        <>
+          <AddressFormTeaser
+            text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt kunnen tonen."
+            title="Uw buurt"
+          />
+          <Gutter height={size.spacing.md} />
+          <Attention>
+            <Text>
+              Uw adres wordt alleen op uw telefoon opgeslagen en gebruikt om de
+              app voor u te personaliseren
+            </Text>
+          </Attention>
+        </>
       )}
     </>
   )
