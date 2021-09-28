@@ -7,6 +7,7 @@ import {
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
+import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
 import {
@@ -57,7 +58,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
       project_id: pushNotificationContext.projectId!,
     }
     pushNotificationContext.changeNotification(notificationData)
-    navigation.navigate('WarningForm')
+    navigation.navigate('SelectNewsArticle')
   }
 
   useEffect(() => {
@@ -69,65 +70,72 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <Box>
-      <Title text="Schrijf een notificatie" />
-      <Gutter height={size.spacing.xs} />
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, value}}) => (
-          <TextInput
-            label="Wat is de titel van de notificatie?"
-            maxLength={maxCharacters.title}
-            multiline={true}
-            onChangeText={onChange}
-            value={value}
-            warning={errors.title}
+    <>
+      <FullSpaceContainer>
+        <Box>
+          <Title text="Schrijf een notificatie" />
+          <Gutter height={size.spacing.xs} />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                label="Wat is de titel van de notificatie?"
+                maxLength={maxCharacters.title}
+                multiline={true}
+                onChangeText={onChange}
+                value={value}
+                warning={errors.title}
+              />
+            )}
+            name="title"
+            defaultValue=""
           />
-        )}
-        name="title"
-        defaultValue=""
-      />
-      <Gutter height={size.spacing.xs} />
-      <CharactersLeftDisplay
-        charactersLeft={maxCharacters.title - characterCountTitle}
-      />
-      {errors.title && <ValidationWarning warning="Vul een titel in" />}
-      <Gutter height={size.spacing.lg} />
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, value}}) => (
-          <TextInput
-            label="Wat is de tekst van de notificatie?"
-            maxLength={maxCharacters.message}
-            multiline={true}
-            numberOfLines={3}
-            onChangeText={onChange}
-            value={value}
-            warning={errors.message}
+          <Gutter height={size.spacing.xs} />
+          <CharactersLeftDisplay
+            charactersLeft={maxCharacters.title - characterCountTitle}
           />
-        )}
-        name="message"
-        defaultValue=""
-      />
-      <Gutter height={size.spacing.xs} />
-      <CharactersLeftDisplay
-        charactersLeft={maxCharacters.message - characterCountMessage}
-      />
-      {errors.message && <ValidationWarning warning="Type een bericht" />}
-      <Gutter height={size.spacing.md} />
-      <FormButtons>
-        <Button
-          onPress={handleSubmit(onSubmit)}
-          text="Kies een bericht"
-          variant="next"
-        />
-      </FormButtons>
-    </Box>
+          {errors.title && <ValidationWarning warning="Vul een titel in" />}
+          <Gutter height={size.spacing.lg} />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, value}}) => (
+              <TextInput
+                label="Wat is de tekst van de notificatie?"
+                maxLength={maxCharacters.message}
+                multiline={true}
+                numberOfLines={3}
+                onChangeText={onChange}
+                value={value}
+                warning={errors.message}
+              />
+            )}
+            name="message"
+            defaultValue=""
+          />
+          <Gutter height={size.spacing.xs} />
+          <CharactersLeftDisplay
+            charactersLeft={maxCharacters.message - characterCountMessage}
+          />
+          {errors.message && <ValidationWarning warning="Type een bericht" />}
+          <Gutter height={size.spacing.md} />
+        </Box>
+      </FullSpaceContainer>
+      <Box>
+        <FormButtons>
+          <Button
+            onPress={handleSubmit(onSubmit)}
+            text="Kies een bericht"
+            variant="next"
+          />
+        </FormButtons>
+        <Gutter height={size.spacing.xl} />
+      </Box>
+    </>
   )
 }
