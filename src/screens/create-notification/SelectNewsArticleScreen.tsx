@@ -51,6 +51,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   const onSubmit = (data: FormData) => {
     pushNotificationContext.changeNewsId(data.news)
+    navigation.navigate('VerifyNotification')
   }
 
   useEffect(() => {
