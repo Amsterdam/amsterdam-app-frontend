@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingLeft: 1, // Imrpove centering
   },
   circleComplete: {
-    backgroundColor: color.background.primary,
+    backgroundColor: color.background.emphasis,
   },
   circleCurrent: {
     width: currentCircleSize,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.background.inactive,
   },
   connectorComplete: {
-    backgroundColor: color.background.primary,
+    backgroundColor: color.background.emphasis,
   },
   step: {
     flexDirection: 'row',
