@@ -9,6 +9,7 @@ import {RadioContext} from '.'
 type Props = {
   children: React.ReactNode
   isChecked: boolean
+  isFirstItem?: boolean
   value: string
 }
 
@@ -22,7 +23,10 @@ export const Radio = (props: Props) => {
     <Pressable
       {...(inputProps as PressableProps)}
       accessibilityRole="radio"
-      style={styles.button}>
+      style={[
+        styles.radioButton,
+        props.isFirstItem && styles.firstRadioButton,
+      ]}>
       <Center style={styles.outerCircle}>
         <CircleIcon
           fill={color.background.darker}
@@ -36,13 +40,21 @@ export const Radio = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  radioButton: {
     flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: color.border.input,
+    paddingVertical: size.spacing.sm,
+  },
+  firstRadioButton: {
+    borderTopWidth: 1,
+    borderTopColor: color.border.input,
   },
   outerCircle: {
     width: 20,
     height: 20,
-    marginRight: size.spacing.md,
+    marginRight: size.spacing.sm,
     borderColor: color.border.input,
     borderRadius: 50,
     borderStyle: 'solid',
