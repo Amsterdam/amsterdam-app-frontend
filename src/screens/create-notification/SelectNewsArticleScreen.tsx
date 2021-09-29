@@ -68,10 +68,6 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     return unsubscribe
   }, [navigation, notificationContext])
 
-  useEffect(() => {
-    news?.length === 0 && navigation.navigate('WarningForm')
-  }, [navigation, news])
-
   return news ? (
     <>
       <Stretch>
