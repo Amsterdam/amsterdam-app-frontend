@@ -67,5 +67,6 @@ export const color = {
   touchable: {
     primary: baseColor.primary.main,
     secondary: baseColor.secondary.main,
+    pressed: baseColor.secondary.main,
   },
 }
