@@ -17,8 +17,8 @@ type Props = {
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
   const notificationContext = useContext(NotificationContext)
-  const {projectTitle} = notificationContext.projectDetails
-  const {newsDetails, notification, warning} = notificationContext
+  const {newsDetails, notification, projectDetails, warning} =
+    notificationContext
 
   const handleSubmit = () => {
     console.log('submit')
@@ -37,7 +37,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         <Box>
           <Title margin text="Controleer" />
           <Text secondary>Project</Text>
-          <Title level={2} text={projectTitle} />
+          <Title level={2} text={projectDetails.title} />
           <Gutter height={size.spacing.md} />
           {notification && (
             <>

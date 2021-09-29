@@ -70,7 +70,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_id: notificationContext.projectDetails.projectId!,
+      project_id: notificationContext.projectDetails.id!,
     }
     changeWarning(warningData)
     navigation.navigate('VerifyNotification')

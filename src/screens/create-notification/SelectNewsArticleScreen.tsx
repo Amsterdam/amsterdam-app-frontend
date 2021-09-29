@@ -44,7 +44,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     url: getEnvironment().apiUrl + '/project/news',
     options: {
       params: {
-        'project-identifier': notificationContext.projectDetails.projectId!,
+        'project-identifier': notificationContext.projectDetails.id!,
       },
     },
   })
