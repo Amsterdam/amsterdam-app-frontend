@@ -96,12 +96,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       <Box background="lighter">
         <Button
           onPress={() =>
-            navigation.navigate(routes.pushNotification.name, {
+            navigation.navigate(routes.notification.name, {
               projectId: project.identifier,
               projectTitle: project.title,
             })
           }
-          text="Verstuur pushnotificatie"
+          text="Verstuur notificatie"
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
