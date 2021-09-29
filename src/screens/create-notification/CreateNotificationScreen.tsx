@@ -4,41 +4,52 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
+import {StyleSheet} from 'react-native'
+import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
 import {NewNotification, NewWarning} from '../../types'
+import {VerifyNotificationScreen} from './VerifyNotificationScreen'
 import {
   NotificationFormScreen,
   SelectNewsArticleScreen,
   WarningFormScreen,
 } from '.'
 
-export type PushNotificationStackParamList = {
+export type NotificationStackParamList = {
   NotificationForm: undefined
   SelectNewsArticle: undefined
+  VerifyNotification: undefined
   WarningForm: undefined
 }
 
-type PushNotificationScreenRouteProp = RouteProp<
-  RootStackParamList,
-  'PushNotification'
->
+type NotificationScreenRouteProp = RouteProp<RootStackParamList, 'Notification'>
 
 type Props = {
-  route: PushNotificationScreenRouteProp
+  route: NotificationScreenRouteProp
 }
 
 type Context = {
-  changeNewsId: (id: string) => void
+  changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
-  newsId?: string
+  newsDetails?: NewsDetails
   notification: NewNotification | undefined
-  projectId?: string
+  projectDetails: ProjectDetails
   warning: NewWarning | undefined
 }
 
-export const PushNotificationContext = createContext<Context>({} as Context)
+type ProjectDetails = {
+  projectId: string
+  projectTitle: string
+}
+
+type NewsDetails = {
+  newsId: string
+  newsTitle: string
+}
+
+export const NotificationContext = createContext<Context>({} as Context)
 
 const screenOptions: StackNavigationOptions = {
   cardStyle: {
@@ -48,43 +59,60 @@ const screenOptions: StackNavigationOptions = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
-  const [projectId, setProjectId] = useState<string>()
-  const [newsId, setNewsId] = useState<string>()
+  const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
+  const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
   const [warning, setWarning] = useState<NewWarning>()
 
   const Stack = createStackNavigator()
 
   const changeNotification = (value: NewNotification) => setNotification(value)
-  const changeNewsId = (value: string) => setNewsId(value)
+  const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
-    setProjectId(route.params.projectId)
+    setProjectDetails({
+      projectId: route.params.projectId,
+      projectTitle: route.params.projectTitle,
+    })
   }, [route])
 
   return (
-    <PushNotificationContext.Provider
+    <NotificationContext.Provider
       value={{
-        changeNewsId,
+        changeNewsDetails,
         changeNotification,
         changeWarning,
-        newsId,
+        newsDetails,
         notification,
-        projectId,
+        projectDetails,
         warning,
       }}>
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen
-          name="NotificationForm"
-          component={NotificationFormScreen}
-        />
-        <Stack.Screen
-          name="SelectNewsArticle"
-          component={SelectNewsArticleScreen}
-        />
-        <Stack.Screen name="WarningForm" component={WarningFormScreen} />
-      </Stack.Navigator>
-    </PushNotificationContext.Provider>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled">
+        <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Screen
+            name="NotificationForm"
+            component={NotificationFormScreen}
+          />
+          <Stack.Screen
+            name="SelectNewsArticle"
+            component={SelectNewsArticleScreen}
+          />
+          <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+          <Stack.Screen
+            name="VerifyNotification"
+            component={VerifyNotificationScreen}
+          />
+        </Stack.Navigator>
+      </ScrollView>
+    </NotificationContext.Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
+})

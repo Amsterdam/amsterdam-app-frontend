@@ -13,16 +13,16 @@ import {
   Text,
   Title,
 } from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
-import {PushNotificationContext, PushNotificationStackParamList} from '.'
+import {NotificationContext, NotificationStackParamList} from '.'
 
 type Props = {
   navigation: StackNavigationProp<
-    PushNotificationStackParamList,
+    NotificationStackParamList,
     'SelectNewsArticle'
   >
 }
@@ -38,19 +38,27 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     handleSubmit,
     watch,
   } = useForm()
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
 
   const {data: news} = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news',
     options: {
-      params: {'project-identifier': pushNotificationContext.projectId!},
+      params: {
+        'project-identifier': pushNotificationContext.projectDetails.projectId!,
+      },
     },
   })
 
   const watchRadioGroup = watch('news')
 
   const onSubmit = (data: FormData) => {
-    pushNotificationContext.changeNewsId(data.news)
+    const newsSelected = news?.find(item => item.identifier === data.news)
+    newsSelected &&
+      pushNotificationContext.changeNewsDetails({
+        newsId: newsSelected?.identifier,
+        newsTitle: newsSelected?.title,
+      })
+    navigation.navigate('VerifyNotification')
   }
 
   useEffect(() => {
@@ -59,7 +67,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   return news ? (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title margin text="Kies een bericht" />
           <Controller
@@ -94,7 +102,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             />
           </View>
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Link
@@ -105,7 +113,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           <Button
             onPress={handleSubmit(onSubmit)}
             text="Controleer"
-            variant="next"
+            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />

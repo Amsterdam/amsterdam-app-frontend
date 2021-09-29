@@ -7,12 +7,12 @@ import {
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
-  PushNotificationContext,
-  PushNotificationStackParamList,
+  NotificationContext,
+  NotificationStackParamList,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -28,11 +28,11 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<PushNotificationStackParamList, 'WarningForm'>
+  navigation: StackNavigationProp<NotificationStackParamList, 'WarningForm'>
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
   const {changeWarning} = pushNotificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
@@ -63,9 +63,10 @@ export const WarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_id: pushNotificationContext.projectId!,
+      project_id: pushNotificationContext.projectDetails.projectId!,
     }
     changeWarning(warningData)
+    navigation.navigate('VerifyNotification')
   }
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
 
   return (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title text="Schrijf een bericht" />
           <Gutter height={size.spacing.xs} />
@@ -165,7 +166,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           )}
           <Gutter height={size.spacing.md} />
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Link
@@ -176,7 +177,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           <Button
             onPress={handleSubmit(onSubmit)}
             text="Controleer"
-            variant="next"
+            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />

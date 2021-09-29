@@ -7,12 +7,12 @@ import {
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
 import {
-  PushNotificationContext,
-  PushNotificationStackParamList,
+  NotificationContext,
+  NotificationStackParamList,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -27,13 +27,13 @@ type FormData = {
 
 type Props = {
   navigation: StackNavigationProp<
-    PushNotificationStackParamList,
+    NotificationStackParamList,
     'NotificationForm'
   >
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
@@ -55,7 +55,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: pushNotificationContext.projectId!,
+      project_id: pushNotificationContext.projectDetails.projectId!,
     }
     pushNotificationContext.changeNotification(notificationData)
     navigation.navigate('SelectNewsArticle')
@@ -71,7 +71,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
 
   return (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title text="Schrijf een notificatie" />
           <Gutter height={size.spacing.xs} />
@@ -125,13 +125,13 @@ export const NotificationFormScreen = ({navigation}: Props) => {
           {errors.message && <ValidationWarning warning="Type een bericht" />}
           <Gutter height={size.spacing.md} />
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Button
             onPress={handleSubmit(onSubmit)}
             text="Kies een bericht"
-            variant="next"
+            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />

@@ -13,7 +13,7 @@ const arrowWidth = 18
 type Props = {
   icon?: React.ReactElement
   text?: string
-  variant?: 'inverse' | 'next' | 'primary' | 'secondary' | 'text'
+  variant?: 'inverse' | 'submit' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
 
 export const Button = ({
@@ -37,7 +37,7 @@ export const Button = ({
           {text}
         </Text>
       )}
-      {variant === 'next' && <View style={styles.nextArrow} />}
+      {variant === 'submit' && <View style={styles.pointedEnd} />}
     </TouchableOpacity>
   )
 }
@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
   },
-  next: {
+  submit: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     backgroundColor: color.touchable.secondary,
     paddingRight: arrowWidth + size.spacing.sm,
     paddingVertical: size.spacing.md,
   },
-  nextArrow: {
+  pointedEnd: {
     position: 'absolute',
     width: 0,
     height: 0,
