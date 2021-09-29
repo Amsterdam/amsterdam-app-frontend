@@ -1,2 +1,2 @@
-export * from './ScrollViewWithKeyboardDismiss'
+export * from './ScrollView'
 export * from './Stretch'
