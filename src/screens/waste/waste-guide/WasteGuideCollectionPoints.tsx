@@ -32,7 +32,6 @@ export const WasteGuideCollectionPoints = () => {
         <Gutter height={size.spacing.md} />
         <Link
           direction="forward"
-          emphasis
           onPress={() =>
             navigation.navigate(routes.webView.name, {
               sliceFromTop: {portrait: 50, landscape: 50},

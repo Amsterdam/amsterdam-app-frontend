@@ -61,7 +61,6 @@ export const NumberInput = ({
     <Animated.View style={{marginTop: y}}>
       <Link
         direction="up"
-        emphasis
         text={street}
         onPress={() => changeIsStreetSelected(false)}
       />

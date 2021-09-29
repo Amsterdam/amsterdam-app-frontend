@@ -85,7 +85,6 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
             <Gutter height={size.spacing.md} />
             <Link
               direction="forward"
-              emphasis
               onPress={footerLink.onPress}
               text={footerLink.text}
             />

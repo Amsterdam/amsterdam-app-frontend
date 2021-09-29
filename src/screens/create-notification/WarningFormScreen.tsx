@@ -171,6 +171,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         <FormButtons>
           <Link
             direction="backward"
+            emphasis
             onPress={navigation.goBack}
             text="Vorige"
           />

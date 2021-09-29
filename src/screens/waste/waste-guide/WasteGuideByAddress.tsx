@@ -115,6 +115,7 @@ export const WasteGuideByAddress = () => {
         </View>
         <Link
           direction="backward"
+          emphasis
           onPress={onChangeAddress}
           text="Verander adres"
         />

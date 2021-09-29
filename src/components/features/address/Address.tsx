@@ -58,7 +58,8 @@ export const Address = () => {
             </View>
             <Gutter height={size.spacing.md} />
             <Link
-              direction="forward"
+              direction="backward"
+              emphasis
               onPress={() => navigation.navigate('AddressForm')}
               text="Verander adres"
             />
