@@ -36,6 +36,8 @@ export const Radio = (props: Props) => {
   )
 }
 
+const outerCircleSize = 20
+
 const styles = StyleSheet.create({
   radioButton: {
     flexDirection: 'row',
@@ -49,11 +51,11 @@ const styles = StyleSheet.create({
     borderTopColor: color.border.input,
   },
   outerCircle: {
-    width: 20,
-    height: 20,
+    width: outerCircleSize,
+    height: outerCircleSize,
     marginRight: size.spacing.sm,
     borderColor: color.border.input,
-    borderRadius: 50,
+    borderRadius: outerCircleSize / 2,
     borderStyle: 'solid',
     borderWidth: 1,
   },
