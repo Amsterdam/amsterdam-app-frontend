@@ -10,8 +10,8 @@ import {
   CardBody,
   CardHeader,
   Gutter,
-  Link,
   Text,
+  TextButton,
   Title,
 } from '../../../components/ui'
 import {useAsyncStorage, useFetch} from '../../../hooks'
@@ -113,7 +113,7 @@ export const WasteGuideByAddress = () => {
           <Title text={address.adres} />
           <Gutter height={size.spacing.sm} />
         </View>
-        <Link
+        <TextButton
           direction="backward"
           emphasis
           onPress={onChangeAddress}

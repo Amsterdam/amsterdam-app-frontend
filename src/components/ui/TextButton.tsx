@@ -14,7 +14,7 @@ type Props = {
   text: string
 }
 
-export const Link = ({direction, emphasis, onPress, text}: Props) => {
+export const TextButton = ({direction, emphasis, onPress, text}: Props) => {
   // The `top` style aims to vertically align the icon with the baseline of the text.
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
   // CSS spec, I couldn’t find a better approach yet.

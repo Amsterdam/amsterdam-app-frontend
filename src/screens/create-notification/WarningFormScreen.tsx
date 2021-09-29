@@ -6,7 +6,14 @@ import {
   FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  TextButton,
+  TextInput,
+  Title,
+} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
@@ -169,7 +176,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
       </Stretch>
       <Box>
         <FormButtons>
-          <Link
+          <TextButton
             direction="backward"
             emphasis
             onPress={navigation.goBack}
