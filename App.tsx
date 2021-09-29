@@ -21,7 +21,10 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from './src/screens'
-import {CreateNotificationScreen} from './src/screens/create-notification'
+import {
+  CreateNotificationScreen,
+  ProjectDetails,
+} from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
@@ -35,7 +38,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  Notification: {projectId: string; projectTitle: string}
+  Notification: {projectDetails: ProjectDetails}
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams

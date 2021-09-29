@@ -10,6 +10,7 @@ import {
   Box,
   Button,
   Gutter,
+  ScrollView,
   TextButton,
   TextInput,
   Title,
@@ -39,8 +40,8 @@ type Props = {
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
-  const {changeWarning} = pushNotificationContext
+  const notificationContext = useContext(NotificationContext)
+  const {changeWarning} = notificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -70,11 +71,18 @@ export const WarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_id: pushNotificationContext.projectDetails.projectId!,
+      project_id: notificationContext.projectDetails.id!,
     }
     changeWarning(warningData)
     navigation.navigate('VerifyNotification')
   }
+
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(2)
+    })
+    return focusListener
+  }, [navigation, notificationContext])
 
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
@@ -89,7 +97,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title text="Schrijf een bericht" />
@@ -190,6 +198,6 @@ export const WarningFormScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }

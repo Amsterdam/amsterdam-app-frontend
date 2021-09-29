@@ -1,8 +1,16 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
-import {Box, Button, Gutter, Text, TextButton, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  ScrollView,
+  Text,
+  TextButton,
+  Title,
+} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
@@ -16,21 +24,28 @@ type Props = {
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
-  const {projectTitle} = pushNotificationContext.projectDetails
-  const {newsDetails, notification, warning} = pushNotificationContext
+  const notificationContext = useContext(NotificationContext)
+  const {newsDetails, notification, projectDetails, warning} =
+    notificationContext
 
   const handleSubmit = () => {
     console.log('submit')
   }
 
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(3)
+    })
+    return focusListener
+  }, [navigation, notificationContext])
+
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title margin text="Controleer" />
           <Text secondary>Project</Text>
-          <Title level={2} text={projectTitle} />
+          <Title level={2} text={projectDetails.title} />
           <Gutter height={size.spacing.md} />
           {notification && (
             <>
@@ -76,7 +91,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }
 

@@ -10,6 +10,7 @@ import {
   Link,
   Radio,
   RadioGroup,
+  ScrollView,
   Text,
   Title,
 } from '../../components/ui'
@@ -38,13 +39,13 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     handleSubmit,
     watch,
   } = useForm()
-  const pushNotificationContext = useContext(NotificationContext)
+  const notificationContext = useContext(NotificationContext)
 
   const {data: news} = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news',
     options: {
       params: {
-        'project-identifier': pushNotificationContext.projectDetails.projectId!,
+        'project-identifier': notificationContext.projectDetails.id!,
       },
     },
   })
@@ -54,19 +55,22 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   const onSubmit = (data: FormData) => {
     const newsSelected = news?.find(item => item.identifier === data.news)
     newsSelected &&
-      pushNotificationContext.changeNewsDetails({
-        newsId: newsSelected?.identifier,
-        newsTitle: newsSelected?.title,
+      notificationContext.changeNewsDetails({
+        id: newsSelected?.identifier,
+        title: newsSelected?.title,
       })
     navigation.navigate('VerifyNotification')
   }
 
   useEffect(() => {
-    news?.length === 0 && navigation.navigate('WarningForm')
-  }, [navigation, news])
+    const focusListener = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(2)
+    })
+    return focusListener
+  }, [navigation, notificationContext])
 
   return news ? (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title margin text="Kies een bericht" />
@@ -118,7 +122,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   ) : null
 }
 

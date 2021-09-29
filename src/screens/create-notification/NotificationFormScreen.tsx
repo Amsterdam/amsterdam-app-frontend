@@ -6,7 +6,14 @@ import {
   FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  ScrollView,
+  TextInput,
+  Title,
+} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
@@ -33,7 +40,7 @@ type Props = {
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
+  const notificationContext = useContext(NotificationContext)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
@@ -55,11 +62,23 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: pushNotificationContext.projectDetails.projectId!,
+      project_id: notificationContext.projectDetails.id!,
     }
-    pushNotificationContext.changeNotification(notificationData)
-    navigation.navigate('SelectNewsArticle')
+    const nextScreen =
+      notificationContext.projectDetails.news.length > 0
+        ? 'SelectNewsArticle'
+        : 'WarningForm'
+
+    notificationContext.changeNotification(notificationData)
+    navigation.navigate(nextScreen)
   }
+
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(1)
+    })
+    return focusListener
+  }, [navigation, notificationContext])
 
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
@@ -70,7 +89,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title text="Schrijf een notificatie" />
@@ -136,6 +155,6 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }

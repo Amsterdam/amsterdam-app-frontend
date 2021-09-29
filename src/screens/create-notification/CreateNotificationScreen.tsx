@@ -4,11 +4,14 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../../App'
+import {Box, Stepper} from '../../components/ui'
 import {color} from '../../tokens'
-import {NewNotification, NewWarning} from '../../types'
+import {
+  NewNotification,
+  NewWarning,
+  ProjectDetailNewsArticle,
+} from '../../types'
 import {VerifyNotificationScreen} from './VerifyNotificationScreen'
 import {
   NotificationFormScreen,
@@ -30,6 +33,7 @@ type Props = {
 }
 
 type Context = {
+  changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
@@ -39,14 +43,15 @@ type Context = {
   warning: NewWarning | undefined
 }
 
-type ProjectDetails = {
-  projectId: string
-  projectTitle: string
+export type ProjectDetails = {
+  id: string
+  news: ProjectDetailNewsArticle[]
+  title: string
 }
 
 type NewsDetails = {
-  newsId: string
-  newsTitle: string
+  id: string
+  title: string
 }
 
 export const NotificationContext = createContext<Context>({} as Context)
@@ -59,6 +64,7 @@ const screenOptions: StackNavigationOptions = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
+  const [currentStep, setCurrentStep] = useState(1)
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
@@ -66,20 +72,24 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   const Stack = createStackNavigator()
 
+  const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNotification = (value: NewNotification) => setNotification(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
+    const {id, news, title} = route.params.projectDetails
     setProjectDetails({
-      projectId: route.params.projectId,
-      projectTitle: route.params.projectTitle,
+      id,
+      news,
+      title,
     })
   }, [route])
 
   return (
     <NotificationContext.Provider
       value={{
+        changeCurrentStep,
         changeNewsDetails,
         changeNotification,
         changeWarning,
@@ -88,31 +98,24 @@ export const CreateNotificationScreen = ({route}: Props) => {
         projectDetails,
         warning,
       }}>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled">
-        <Stack.Navigator screenOptions={screenOptions}>
-          <Stack.Screen
-            name="NotificationForm"
-            component={NotificationFormScreen}
-          />
-          <Stack.Screen
-            name="SelectNewsArticle"
-            component={SelectNewsArticleScreen}
-          />
-          <Stack.Screen name="WarningForm" component={WarningFormScreen} />
-          <Stack.Screen
-            name="VerifyNotification"
-            component={VerifyNotificationScreen}
-          />
-        </Stack.Navigator>
-      </ScrollView>
+      <Box background="lighter-accent">
+        <Stepper current={currentStep} length={3} />
+      </Box>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="NotificationForm"
+          component={NotificationFormScreen}
+        />
+        <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
+        />
+        <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+        <Stack.Screen
+          name="VerifyNotification"
+          component={VerifyNotificationScreen}
+        />
+      </Stack.Navigator>
     </NotificationContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-})
