@@ -56,8 +56,8 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     const newsSelected = news?.find(item => item.identifier === data.news)
     newsSelected &&
       notificationContext.changeNewsDetails({
-        newsId: newsSelected?.identifier,
-        newsTitle: newsSelected?.title,
+        id: newsSelected?.identifier,
+        title: newsSelected?.title,
       })
     navigation.navigate('VerifyNotification')
   }

@@ -50,8 +50,8 @@ export type ProjectDetails = {
 }
 
 type NewsDetails = {
-  newsId: string
-  newsTitle: string
+  id: string
+  title: string
 }
 
 export const NotificationContext = createContext<Context>({} as Context)
