@@ -9,7 +9,7 @@ import {Gutter} from './'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
-  emphasis?: Boolean // Bold black text instead of regular blue
+  emphasis?: Boolean
   onPress: () => void
   text: string
 }
@@ -18,58 +18,50 @@ export const Link = ({direction, emphasis, onPress, text}: Props) => {
   // The `top` style aims to vertically align the icon with the baseline of the text.
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
   // CSS spec, I couldn’t find a better approach yet.
-  const getIconProps: () => SVGProps<any> = () => {
-    const iconSize =
-      direction === 'down' || direction === 'up'
-        ? font.size.p1 * 0.75
-        : font.size.p1
-    return {
-      width: iconSize,
-      height: iconSize,
-      fill: emphasis ? color.font.regular : color.touchable.primary,
-      style: {
-        top: (font.height.p1 - iconSize) / 2,
-      },
-    }
+  const iconProps: SVGProps<any> = {
+    width: 14,
+    height: 14,
+    fill: emphasis ? color.touchable.primary : color.font.regular,
+    style: {
+      top: 3,
+    },
   }
 
   const textJsx = (
     <Text
       accessibilityRole="link"
-      style={[styles.text, emphasis ? styles.emphasis : styles.notEmphasis]}
+      style={[styles.text, emphasis && styles.emphasis]}
       onPress={onPress}>
       {text}
     </Text>
   )
 
-  return direction ? (
+  if (!direction) {
+    return textJsx
+  }
+
+  return (
     <View style={styles.row}>
-      {direction === 'backward' && <ChevronLeft {...getIconProps()} />}
-      {direction === 'down' && <ChevronDown {...getIconProps()} />}
-      {direction === 'forward' && <ChevronRight {...getIconProps()} />}
-      {direction === 'up' && <ChevronUp {...getIconProps()} />}
-      <Gutter width={size.spacing.sm} />
+      {direction === 'backward' && <ChevronLeft {...iconProps} />}
+      {direction === 'down' && <ChevronDown {...iconProps} />}
+      {direction === 'forward' && <ChevronRight {...iconProps} />}
+      {direction === 'up' && <ChevronUp {...iconProps} />}
+      <Gutter width={size.spacing.xs} />
       {textJsx}
     </View>
-  ) : (
-    textJsx
   )
 }
 
 const styles = StyleSheet.create({
   emphasis: {
-    color: color.font.regular,
-    fontFamily: font.weight.demi,
+    color: color.touchable.primary,
   },
   text: {
     flexShrink: 1, // Allow wrapping
+    fontFamily: font.weight.demi,
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
-  },
-  notEmphasis: {
-    fontFamily: font.weight.regular,
-    color: color.touchable.primary,
-    textDecorationLine: 'underline',
+    color: color.font.regular,
   },
   row: {
     flexDirection: 'row',
