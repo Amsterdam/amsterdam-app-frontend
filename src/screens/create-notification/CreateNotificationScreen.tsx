@@ -8,7 +8,11 @@ import {StyleSheet} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
-import {NewNotification, NewWarning} from '../../types'
+import {
+  NewNotification,
+  NewWarning,
+  ProjectDetailNewsArticle,
+} from '../../types'
 import {VerifyNotificationScreen} from './VerifyNotificationScreen'
 import {
   NotificationFormScreen,
@@ -39,8 +43,9 @@ type Context = {
   warning: NewWarning | undefined
 }
 
-type ProjectDetails = {
+export type ProjectDetails = {
   projectId: string
+  projectNews: ProjectDetailNewsArticle[]
   projectTitle: string
 }
 
@@ -71,9 +76,11 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
+    const {projectDetails: projectDetailsFromParams} = route.params
     setProjectDetails({
-      projectId: route.params.projectId,
-      projectTitle: route.params.projectTitle,
+      projectId: projectDetailsFromParams.projectId,
+      projectNews: projectDetailsFromParams.projectNews,
+      projectTitle: projectDetailsFromParams.projectTitle,
     })
   }, [route])
 
