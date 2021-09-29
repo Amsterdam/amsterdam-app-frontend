@@ -7,7 +7,7 @@ import {
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, Button, Gutter, Link, TextInput, Title} from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
@@ -83,7 +83,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
 
   return (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title text="Schrijf een bericht" />
           <Gutter height={size.spacing.xs} />
@@ -166,7 +166,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           )}
           <Gutter height={size.spacing.md} />
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Link

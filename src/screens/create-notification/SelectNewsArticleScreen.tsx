@@ -13,7 +13,7 @@ import {
   Text,
   Title,
 } from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
@@ -67,7 +67,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   return news ? (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title margin text="Kies een bericht" />
           <Controller
@@ -102,7 +102,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             />
           </View>
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Link

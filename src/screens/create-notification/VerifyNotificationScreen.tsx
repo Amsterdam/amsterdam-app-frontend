@@ -3,7 +3,7 @@ import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
 import {Box, Button, Gutter, Link, Text, Title} from '../../components/ui'
-import {FullSpaceContainer} from '../../components/ui/Layout/FullSpaceContainer'
+import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
 import {PushNotificationContext, PushNotificationStackParamList} from '.'
@@ -26,7 +26,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   return (
     <>
-      <FullSpaceContainer>
+      <Stretch>
         <Box>
           <Title margin text="Controleer" />
           <Text secondary>Project</Text>
@@ -64,7 +64,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             </Preview>
           )}
         </Box>
-      </FullSpaceContainer>
+      </Stretch>
       <Box>
         <FormButtons>
           <Link
