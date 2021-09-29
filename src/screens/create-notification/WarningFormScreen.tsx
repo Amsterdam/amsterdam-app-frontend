@@ -10,6 +10,7 @@ import {
   Box,
   Button,
   Gutter,
+  ScrollView,
   TextButton,
   TextInput,
   Title,
@@ -96,7 +97,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title text="Schrijf een bericht" />
@@ -197,6 +198,6 @@ export const WarningFormScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }

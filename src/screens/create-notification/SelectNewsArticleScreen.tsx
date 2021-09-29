@@ -10,6 +10,7 @@ import {
   Link,
   Radio,
   RadioGroup,
+  ScrollView,
   Text,
   Title,
 } from '../../components/ui'
@@ -69,7 +70,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }, [navigation, notificationContext])
 
   return news ? (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title margin text="Kies een bericht" />
@@ -121,7 +122,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   ) : null
 }
 

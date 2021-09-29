@@ -2,7 +2,15 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
-import {Box, Button, Gutter, Text, TextButton, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  ScrollView,
+  Text,
+  TextButton,
+  Title,
+} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
@@ -32,7 +40,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [navigation, notificationContext])
 
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title margin text="Controleer" />
@@ -83,7 +91,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }
 

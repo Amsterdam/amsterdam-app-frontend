@@ -6,7 +6,14 @@ import {
   FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, Gutter, TextInput, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Gutter,
+  ScrollView,
+  TextInput,
+  Title,
+} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
@@ -82,7 +89,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <>
+    <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
           <Title text="Schrijf een notificatie" />
@@ -148,6 +155,6 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
-    </>
+    </ScrollView>
   )
 }
