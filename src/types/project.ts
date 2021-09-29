@@ -46,7 +46,7 @@ export type ProjectDetail = {
 }
 
 // A summary of a news article related to a project
-type ProjectDetailNewsArticle = {
+export type ProjectDetailNewsArticle = {
   identifier: string
   project_identifier: string
   url: string
