@@ -80,7 +80,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 {news.map((newsArticle, index) => (
                   <Radio
                     isChecked={newsArticle.identifier === watchRadioGroup}
-                    isFirstItem={index === 0}
+                    isFirst={index === 0}
                     key={newsArticle.identifier}
                     value={newsArticle.identifier}>
                     <Text>{newsArticle.title}</Text>
@@ -94,7 +94,6 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           {errors.news && (
             <ValidationWarning warning="Kies een nieuwsartikel" />
           )}
-          <Gutter height={size.spacing.md} />
           <Gutter height={size.spacing.md} />
           <View style={styles.button}>
             <Button
