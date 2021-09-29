@@ -67,6 +67,13 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(1)
+    })
+    return unsubscribe
+  }, [navigation, notificationContext])
+
+  useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
   }, [watchTitle])
 

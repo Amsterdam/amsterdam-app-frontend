@@ -62,6 +62,13 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(2)
+    })
+    return unsubscribe
+  }, [navigation, notificationContext])
+
+  useEffect(() => {
     news?.length === 0 && navigation.navigate('WarningForm')
   }, [navigation, news])
 

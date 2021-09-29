@@ -77,6 +77,13 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(2)
+    })
+    return unsubscribe
+  }, [navigation, notificationContext])
+
+  useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
   }, [watchTitle])
 

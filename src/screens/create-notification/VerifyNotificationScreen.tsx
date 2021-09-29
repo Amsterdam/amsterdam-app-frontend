@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
 import {Box, Button, Gutter, Text, TextButton, Title} from '../../components/ui'
@@ -23,6 +23,13 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   const handleSubmit = () => {
     console.log('submit')
   }
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(3)
+    })
+    return unsubscribe
+  }, [navigation, notificationContext])
 
   return (
     <>
