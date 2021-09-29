@@ -7,7 +7,7 @@ type EnvironmentConfig = {
   apiUrl: string
   allowClearingAddress: Boolean
   bulkyWasteFormUrl: string
-  name: string
+  name: 'development' | 'acceptance'
 }
 
 const environments: Record<Environment, EnvironmentConfig> = {

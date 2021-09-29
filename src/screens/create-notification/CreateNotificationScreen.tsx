@@ -7,11 +7,15 @@ import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {color} from '../../tokens'
 import {NewNotification, NewWarning} from '../../types'
-import {NotificationFormScreen} from './NotificationFormScreen'
-import {WarningFormScreen} from './WarningFormScreen'
+import {
+  NotificationFormScreen,
+  SelectNewsArticleScreen,
+  WarningFormScreen,
+} from '.'
 
 export type PushNotificationStackParamList = {
   NotificationForm: undefined
+  SelectNewsArticle: undefined
   WarningForm: undefined
 }
 
@@ -25,20 +29,16 @@ type Props = {
 }
 
 type Context = {
+  changeNewsId: (id: string) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
+  newsId?: string
   notification: NewNotification | undefined
-  projectId: string | undefined
+  projectId?: string
   warning: NewWarning | undefined
 }
 
-export const PushNotificationContext = createContext<Context>({
-  changeNotification: () => {},
-  changeWarning: () => {},
-  projectId: undefined,
-  notification: undefined,
-  warning: undefined,
-})
+export const PushNotificationContext = createContext<Context>({} as Context)
 
 const screenOptions: StackNavigationOptions = {
   cardStyle: {
@@ -49,12 +49,14 @@ const screenOptions: StackNavigationOptions = {
 
 export const CreateNotificationScreen = ({route}: Props) => {
   const [projectId, setProjectId] = useState<string>()
+  const [newsId, setNewsId] = useState<string>()
   const [notification, setNotification] = useState<NewNotification>()
   const [warning, setWarning] = useState<NewWarning>()
 
   const Stack = createStackNavigator()
 
   const changeNotification = (value: NewNotification) => setNotification(value)
+  const changeNewsId = (value: string) => setNewsId(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
@@ -64,8 +66,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
   return (
     <PushNotificationContext.Provider
       value={{
+        changeNewsId,
         changeNotification,
         changeWarning,
+        newsId,
         notification,
         projectId,
         warning,
@@ -74,6 +78,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
         <Stack.Screen
           name="NotificationForm"
           component={NotificationFormScreen}
+        />
+        <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
         />
         <Stack.Screen name="WarningForm" component={WarningFormScreen} />
       </Stack.Navigator>
