@@ -23,13 +23,10 @@ export type NotificationStackParamList = {
   WarningForm: undefined
 }
 
-type PushNotificationScreenRouteProp = RouteProp<
-  RootStackParamList,
-  'PushNotification'
->
+type NotificationScreenRouteProp = RouteProp<RootStackParamList, 'Notification'>
 
 type Props = {
-  route: PushNotificationScreenRouteProp
+  route: NotificationScreenRouteProp
 }
 
 type Context = {

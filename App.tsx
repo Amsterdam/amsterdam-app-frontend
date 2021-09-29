@@ -33,7 +33,7 @@ export type RootStackParamList = {
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  PushNotification: {projectId: string; projectTitle: string}
+  Notification: {projectId: string; projectTitle: string}
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
@@ -96,8 +96,8 @@ export const routes: Routes = {
       title: 'Werkzaamheden per stadsdeel',
     },
   },
-  pushNotification: {
-    name: 'PushNotification',
+  notification: {
+    name: 'Notification',
     options: {
       cardStyle: {
         backgroundColor: color.background.lighter,
@@ -154,7 +154,7 @@ export const App = () => {
     projectOverview,
     projectOverviewByDistrict,
     projectNews,
-    pushNotification,
+    notification,
     webView,
     wasteGuide,
     whereToPutBulkyWaste,
@@ -221,8 +221,8 @@ export const App = () => {
               />
               <Stack.Screen
                 component={CreateNotificationScreen}
-                name={pushNotification.name}
-                options={pushNotification.options}
+                name={notification.name}
+                options={notification.options}
               />
             </Stack.Navigator>
           </NavigationContainer>
