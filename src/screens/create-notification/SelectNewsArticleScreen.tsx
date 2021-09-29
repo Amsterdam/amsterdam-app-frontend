@@ -87,7 +87,6 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             <ValidationWarning warning="Kies een nieuwsartikel" />
           )}
           <Gutter height={size.spacing.md} />
-          <Gutter height={size.spacing.md} />
           <View style={styles.button}>
             <Button
               onPress={() => navigation.navigate('WarningForm')}
