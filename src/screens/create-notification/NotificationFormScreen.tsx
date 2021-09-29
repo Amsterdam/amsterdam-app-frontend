@@ -101,6 +101,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             }}
             render={({field: {onChange, value}}) => (
               <TextInput
+                accessibilityLabel="Wat is de titel van de notificatie?"
                 label="Wat is de titel van de notificatie?"
                 maxLength={maxCharacters.title}
                 multiline={true}
@@ -125,6 +126,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             }}
             render={({field: {onChange, value}}) => (
               <TextInput
+                accessibilityLabel="Wat is de tekst van de notificatie?"
                 label="Wat is de tekst van de notificatie?"
                 maxLength={maxCharacters.message}
                 multiline={true}

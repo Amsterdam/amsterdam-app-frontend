@@ -109,6 +109,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             }}
             render={({field: {onChange, value}}) => (
               <TextInput
+                accessibilityLabel="Titel nieuwsbericht"
                 label="Titel nieuwsbericht"
                 maxLength={maxCharacters.title}
                 multiline={true}
@@ -133,6 +134,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             }}
             render={({field: {onChange, value}}) => (
               <TextInput
+                accessibilityLabel="Intro nieuwsbericht"
                 label="Intro nieuwsbericht"
                 maxLength={maxCharacters.intro}
                 multiline={true}
@@ -160,6 +162,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             }}
             render={({field: {onChange, value}}) => (
               <TextInput
+                accessibilityLabel="Tekst nieuwsbericht"
                 label="Tekst nieuwsbericht"
                 maxLength={maxCharacters.message}
                 multiline={true}
