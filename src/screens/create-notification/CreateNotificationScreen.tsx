@@ -35,6 +35,7 @@ type Props = {
 }
 
 type Context = {
+  changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: NewNotification) => void
   changeWarning: (newWarning: NewWarning) => void
@@ -65,6 +66,7 @@ const screenOptions: StackNavigationOptions = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
+  const [currentStep, setCurrentStep] = useState(1)
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
@@ -72,6 +74,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   const Stack = createStackNavigator()
 
+  const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNotification = (value: NewNotification) => setNotification(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
@@ -88,6 +91,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   return (
     <NotificationContext.Provider
       value={{
+        changeCurrentStep,
         changeNewsDetails,
         changeNotification,
         changeWarning,
@@ -100,7 +104,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
         <Box background="lighter-accent">
-          <Stepper current={1} length={3} />
+          <Stepper current={currentStep} length={3} />
         </Box>
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
