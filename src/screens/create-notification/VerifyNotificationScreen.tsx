@@ -4,9 +4,9 @@ import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
 import {
   Box,
-  Button,
   Gutter,
   ScrollView,
+  SubmitButton,
   Text,
   TextButton,
   Title,
@@ -87,7 +87,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             onPress={navigation.goBack}
             text="Vorige"
           />
-          <Button onPress={handleSubmit} text="Verstuur" variant="submit" />
+          <SubmitButton onPress={handleSubmit} text="Verstuur" />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>
