@@ -62,10 +62,10 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const focusListener = navigation.addListener('focus', () => {
       notificationContext.changeCurrentStep(2)
     })
-    return unsubscribe
+    return focusListener
   }, [navigation, notificationContext])
 
   return news ? (

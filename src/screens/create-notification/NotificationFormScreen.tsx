@@ -67,10 +67,10 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const focusListener = navigation.addListener('focus', () => {
       notificationContext.changeCurrentStep(1)
     })
-    return unsubscribe
+    return focusListener
   }, [navigation, notificationContext])
 
   useEffect(() => {

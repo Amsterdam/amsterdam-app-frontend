@@ -25,10 +25,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const focusListener = navigation.addListener('focus', () => {
       notificationContext.changeCurrentStep(3)
     })
-    return unsubscribe
+    return focusListener
   }, [navigation, notificationContext])
 
   return (
