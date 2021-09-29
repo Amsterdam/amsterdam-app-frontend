@@ -103,7 +103,7 @@ export const routes: Routes = {
         backgroundColor: color.background.lighter,
       },
       presentation: 'modal',
-      title: 'Pushnotificatie versturen',
+      title: 'Notificatie versturen',
     },
   },
   wasteGuide: {
