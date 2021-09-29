@@ -9,8 +9,8 @@ import {
   CardHeader,
   Gutter,
   Image,
-  Link,
   Text,
+  TextButton,
   Title,
 } from '../../../components/ui'
 import {size} from '../../../tokens'
@@ -30,9 +30,8 @@ export const WasteGuideContainers = () => {
           of restafval?
         </Text>
         <Gutter height={size.spacing.md} />
-        <Link
+        <TextButton
           direction="forward"
-          emphasis
           onPress={() =>
             navigation.navigate(routes.webView.name, {
               sliceFromTop: {portrait: 50, landscape: 50},

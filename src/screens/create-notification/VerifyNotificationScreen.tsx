@@ -2,7 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {FormButtons} from '../../components/features/form'
-import {Box, Button, Gutter, Link, Text, Title} from '../../components/ui'
+import {Box, Button, Gutter, Text, TextButton, Title} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
@@ -67,7 +67,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       </Stretch>
       <Box>
         <FormButtons>
-          <Link
+          <TextButton
             direction="backward"
             onPress={navigation.goBack}
             text="Vorige"

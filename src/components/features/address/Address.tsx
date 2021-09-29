@@ -12,8 +12,8 @@ import {
   Card,
   CardBody,
   Gutter,
-  Link,
   Text,
+  TextButton,
   Title,
 } from '../../ui'
 import {AddressFormTeaser} from './'
@@ -57,8 +57,9 @@ export const Address = () => {
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </View>
             <Gutter height={size.spacing.md} />
-            <Link
-              direction="forward"
+            <TextButton
+              direction="backward"
+              emphasis
               onPress={() => navigation.navigate('AddressForm')}
               text="Verander adres"
             />
