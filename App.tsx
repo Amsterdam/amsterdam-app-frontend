@@ -10,6 +10,7 @@ import {Logo} from './src/assets/icons'
 import {AddressProvider, OrientationProvider} from './src/providers'
 import {
   HomeScreen,
+  NotificationOverviewScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
   ProjectNewsScreen,
@@ -28,6 +29,7 @@ import {NewsArticle, ProjectDetailBody} from './src/types'
 export type RootStackParamList = {
   Home: undefined
   AddressForm: undefined
+  NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectNews: {article: NewsArticle}
   ProjectDetailBody: {body: ProjectDetailBody}
@@ -62,6 +64,15 @@ export const routes: Routes = {
     name: 'Home',
     options: {
       headerTitle: () => <Logo width={85} />,
+    },
+  },
+  notificationOverview: {
+    name: 'NotificationOverview',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.lighter,
+      },
+      title: 'Notificaties',
     },
   },
   projectDetail: {
@@ -149,6 +160,7 @@ export const App = () => {
   const {
     addressForm,
     home,
+    notificationOverview,
     projectDetail,
     projectDetailBody,
     projectOverview,
@@ -173,6 +185,11 @@ export const App = () => {
                 name={home.name}
                 component={HomeScreen}
                 options={home.options}
+              />
+              <Stack.Screen
+                name={notificationOverview.name}
+                component={NotificationOverviewScreen}
+                options={notificationOverview.options}
               />
               <Stack.Screen
                 name={projectDetail.name}

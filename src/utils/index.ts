@@ -1,5 +1,6 @@
 export * from './clipText'
 export * from './datetime/days'
+export * from './datetime/formatDate'
 export * from './datetime/formatDatesTimes'
 export * from './datetime/getPreviousDay'
 export * from './datetime/parseDays'

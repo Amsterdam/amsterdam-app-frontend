@@ -1,5 +1,6 @@
 // An app user creates an initial notification
 export type NewNotification = {
+  identifier: string
   title: string
   body: string
   project_id: string
