@@ -11,7 +11,7 @@ import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
 import {
-  PushNotificationContext,
+  NotificationContext,
   PushNotificationStackParamList,
 } from './CreateNotificationScreen'
 
@@ -33,7 +33,7 @@ type Props = {
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )

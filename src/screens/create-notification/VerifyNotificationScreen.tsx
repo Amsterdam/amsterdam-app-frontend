@@ -6,7 +6,7 @@ import {Box, Button, Gutter, Link, Text, Title} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
-import {PushNotificationContext, PushNotificationStackParamList} from '.'
+import {NotificationContext, PushNotificationStackParamList} from '.'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
   const {projectTitle} = pushNotificationContext.projectDetails
   const {newsDetails, notification, warning} = pushNotificationContext
 

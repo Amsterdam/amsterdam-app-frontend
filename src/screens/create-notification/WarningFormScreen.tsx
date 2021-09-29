@@ -11,7 +11,7 @@ import {Stretch} from '../../components/ui/Layout/Stretch'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
-  PushNotificationContext,
+  NotificationContext,
   PushNotificationStackParamList,
 } from './CreateNotificationScreen'
 
@@ -32,7 +32,7 @@ type Props = {
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
   const {changeWarning} = pushNotificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(

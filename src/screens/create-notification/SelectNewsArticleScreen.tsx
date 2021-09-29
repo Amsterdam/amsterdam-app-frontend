@@ -18,7 +18,7 @@ import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
-import {PushNotificationContext, PushNotificationStackParamList} from '.'
+import {NotificationContext, PushNotificationStackParamList} from '.'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -38,7 +38,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     handleSubmit,
     watch,
   } = useForm()
-  const pushNotificationContext = useContext(PushNotificationContext)
+  const pushNotificationContext = useContext(NotificationContext)
 
   const {data: news} = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news',

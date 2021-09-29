@@ -52,7 +52,7 @@ type NewsDetails = {
   newsTitle: string
 }
 
-export const PushNotificationContext = createContext<Context>({} as Context)
+export const NotificationContext = createContext<Context>({} as Context)
 
 const screenOptions: StackNavigationOptions = {
   cardStyle: {
@@ -81,7 +81,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   }, [route])
 
   return (
-    <PushNotificationContext.Provider
+    <NotificationContext.Provider
       value={{
         changeNewsDetails,
         changeNotification,
@@ -110,7 +110,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
           />
         </Stack.Navigator>
       </ScrollView>
-    </PushNotificationContext.Provider>
+    </NotificationContext.Provider>
   )
 }
 
