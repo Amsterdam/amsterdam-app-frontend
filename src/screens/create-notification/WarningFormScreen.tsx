@@ -12,7 +12,7 @@ import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
   NotificationContext,
-  PushNotificationStackParamList,
+  NotificationStackParamList,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -28,7 +28,7 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<PushNotificationStackParamList, 'WarningForm'>
+  navigation: StackNavigationProp<NotificationStackParamList, 'WarningForm'>
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {

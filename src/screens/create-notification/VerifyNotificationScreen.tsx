@@ -6,11 +6,11 @@ import {Box, Button, Gutter, Link, Text, Title} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
 import {color, size} from '../../tokens'
-import {NotificationContext, PushNotificationStackParamList} from '.'
+import {NotificationContext, NotificationStackParamList} from '.'
 
 type Props = {
   navigation: StackNavigationProp<
-    PushNotificationStackParamList,
+    NotificationStackParamList,
     'VerifyNotification'
   >
 }

@@ -18,11 +18,11 @@ import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
-import {NotificationContext, PushNotificationStackParamList} from '.'
+import {NotificationContext, NotificationStackParamList} from '.'
 
 type Props = {
   navigation: StackNavigationProp<
-    PushNotificationStackParamList,
+    NotificationStackParamList,
     'SelectNewsArticle'
   >
 }

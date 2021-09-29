@@ -16,7 +16,7 @@ import {
   WarningFormScreen,
 } from '.'
 
-export type PushNotificationStackParamList = {
+export type NotificationStackParamList = {
   NotificationForm: undefined
   SelectNewsArticle: undefined
   VerifyNotification: undefined
