@@ -7,6 +7,7 @@ import {RootStackParamList} from '../../App'
 import {Box, Image, Text, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {font, image} from '../tokens'
+import {formatDate} from '../utils'
 
 type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
 
@@ -19,7 +20,6 @@ export const ProjectNewsScreen = ({route}: Props) => {
   const {width} = useWindowDimensions()
 
   const firstImage = article.images?.find(i => i.sources['700px'].url)
-  const publicationDate = new Date(article.publication_date)
 
   return (
     <ScrollView>
@@ -32,12 +32,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
       <Box>
         <Title margin text={article.title} />
         <Text margin secondary>
-          {new Intl.DateTimeFormat('nl-NL', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          }).format(publicationDate)}
+          {formatDate(article.publication_date)}
         </Text>
         {article.body?.preface.html && (
           <RenderHTML
