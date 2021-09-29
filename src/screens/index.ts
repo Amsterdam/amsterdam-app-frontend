@@ -1,4 +1,5 @@
 export * from './HomeScreen'
+export * from './notifications/NotificationOverviewScreen'
 export * from './ProjectDetailBodyScreen'
 export * from './ProjectDetailScreen'
 export * from './ProjectNewsScreen'
