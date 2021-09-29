@@ -97,8 +97,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Button
           onPress={() =>
             navigation.navigate(routes.notification.name, {
-              projectId: project.identifier,
-              projectTitle: project.title,
+              projectDetails: {
+                projectId: project.identifier,
+                projectNews: project.news,
+                projectTitle: project.title,
+              },
             })
           }
           text="Verstuur notificatie"
