@@ -7,6 +7,7 @@ import React, {createContext, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../../App'
+import {Box, Stepper} from '../../components/ui'
 import {color} from '../../tokens'
 import {
   NewNotification,
@@ -98,6 +99,9 @@ export const CreateNotificationScreen = ({route}: Props) => {
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
+        <Box background="lighter-accent">
+          <Stepper current={1} length={3} />
+        </Box>
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
             name="NotificationForm"
