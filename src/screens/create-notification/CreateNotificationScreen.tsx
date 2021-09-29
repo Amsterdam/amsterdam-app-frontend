@@ -4,8 +4,6 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
 import {RootStackParamList} from '../../../App'
 import {Box, Stepper} from '../../components/ui'
 import {color} from '../../tokens'
@@ -100,34 +98,24 @@ export const CreateNotificationScreen = ({route}: Props) => {
         projectDetails,
         warning,
       }}>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="handled">
-        <Box background="lighter-accent">
-          <Stepper current={currentStep} length={3} />
-        </Box>
-        <Stack.Navigator screenOptions={screenOptions}>
-          <Stack.Screen
-            name="NotificationForm"
-            component={NotificationFormScreen}
-          />
-          <Stack.Screen
-            name="SelectNewsArticle"
-            component={SelectNewsArticleScreen}
-          />
-          <Stack.Screen name="WarningForm" component={WarningFormScreen} />
-          <Stack.Screen
-            name="VerifyNotification"
-            component={VerifyNotificationScreen}
-          />
-        </Stack.Navigator>
-      </ScrollView>
+      <Box background="lighter-accent">
+        <Stepper current={currentStep} length={3} />
+      </Box>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="NotificationForm"
+          component={NotificationFormScreen}
+        />
+        <Stack.Screen
+          name="SelectNewsArticle"
+          component={SelectNewsArticleScreen}
+        />
+        <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+        <Stack.Screen
+          name="VerifyNotification"
+          component={VerifyNotificationScreen}
+        />
+      </Stack.Navigator>
     </NotificationContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-})
