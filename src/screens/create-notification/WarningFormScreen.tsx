@@ -39,8 +39,8 @@ type Props = {
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
-  const {changeWarning} = pushNotificationContext
+  const notificationContext = useContext(NotificationContext)
+  const {changeWarning} = notificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -70,7 +70,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_id: pushNotificationContext.projectDetails.projectId!,
+      project_id: notificationContext.projectDetails.projectId!,
     }
     changeWarning(warningData)
     navigation.navigate('VerifyNotification')

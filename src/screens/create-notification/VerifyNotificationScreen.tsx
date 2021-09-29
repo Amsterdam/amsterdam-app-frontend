@@ -16,9 +16,9 @@ type Props = {
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
-  const {projectTitle} = pushNotificationContext.projectDetails
-  const {newsDetails, notification, warning} = pushNotificationContext
+  const notificationContext = useContext(NotificationContext)
+  const {projectTitle} = notificationContext.projectDetails
+  const {newsDetails, notification, warning} = notificationContext
 
   const handleSubmit = () => {
     console.log('submit')

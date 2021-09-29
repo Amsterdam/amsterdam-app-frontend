@@ -38,13 +38,13 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     handleSubmit,
     watch,
   } = useForm()
-  const pushNotificationContext = useContext(NotificationContext)
+  const notificationContext = useContext(NotificationContext)
 
   const {data: news} = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news',
     options: {
       params: {
-        'project-identifier': pushNotificationContext.projectDetails.projectId!,
+        'project-identifier': notificationContext.projectDetails.projectId!,
       },
     },
   })
@@ -54,7 +54,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   const onSubmit = (data: FormData) => {
     const newsSelected = news?.find(item => item.identifier === data.news)
     newsSelected &&
-      pushNotificationContext.changeNewsDetails({
+      notificationContext.changeNewsDetails({
         newsId: newsSelected?.identifier,
         newsTitle: newsSelected?.title,
       })
