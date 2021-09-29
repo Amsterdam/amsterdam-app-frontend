@@ -72,7 +72,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 {news.map((newsArticle, index) => (
                   <Radio
                     isChecked={newsArticle.identifier === watchRadioGroup}
-                    isFirstItem={index === 0}
+                    isFirst={index === 0}
                     key={newsArticle.identifier}
                     value={newsArticle.identifier}>
                     <Text>{newsArticle.title}</Text>
