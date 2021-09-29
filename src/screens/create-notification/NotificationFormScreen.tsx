@@ -33,7 +33,7 @@ type Props = {
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const pushNotificationContext = useContext(NotificationContext)
+  const notificationContext = useContext(NotificationContext)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
@@ -55,10 +55,15 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: pushNotificationContext.projectDetails.projectId!,
+      project_id: notificationContext.projectDetails.projectId!,
     }
-    pushNotificationContext.changeNotification(notificationData)
-    navigation.navigate('SelectNewsArticle')
+    const nextScreen =
+      notificationContext.projectDetails.projectNews.length > 0
+        ? 'SelectNewsArticle'
+        : 'WarningForm'
+
+    notificationContext.changeNotification(notificationData)
+    navigation.navigate(nextScreen)
   }
 
   useEffect(() => {
