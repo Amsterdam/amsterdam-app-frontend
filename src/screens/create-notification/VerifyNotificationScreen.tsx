@@ -1,10 +1,10 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {FormButtons} from '../../components/features/form'
 import {
   Box,
   Gutter,
+  Row,
   ScrollView,
   SubmitButton,
   Text,
@@ -81,14 +81,14 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <FormButtons>
+        <Row align="end-or-between" valign="center">
           <TextButton
             direction="backward"
             onPress={navigation.goBack}
             text="Vorige"
           />
           <SubmitButton onPress={handleSubmit} text="Verstuur" />
-        </FormButtons>
+        </Row>
         <Gutter height={size.spacing.xl} />
       </Box>
     </ScrollView>

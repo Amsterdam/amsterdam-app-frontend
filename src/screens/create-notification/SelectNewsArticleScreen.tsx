@@ -2,13 +2,14 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
-import {FormButtons, ValidationWarning} from '../../components/features/form'
+import {ValidationWarning} from '../../components/features/form'
 import {
   Box,
   Button,
   Gutter,
   Radio,
   RadioGroup,
+  Row,
   ScrollView,
   Text,
   TextButton,
@@ -109,14 +110,14 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <FormButtons>
+        <Row align="end-or-between" valign="center">
           <TextButton
             direction="backward"
             onPress={navigation.goBack}
             text="Vorige"
           />
           <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
-        </FormButtons>
+        </Row>
         <Gutter height={size.spacing.xl} />
       </Box>
     </ScrollView>

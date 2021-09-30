@@ -3,12 +3,12 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {
   CharactersLeftDisplay,
-  FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
 import {
   Box,
   Gutter,
+  Row,
   ScrollView,
   SubmitButton,
   TextButton,
@@ -186,7 +186,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <FormButtons>
+        <Row align="end-or-between" valign="center">
           <TextButton
             direction="backward"
             emphasis
@@ -194,7 +194,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             text="Vorige"
           />
           <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
-        </FormButtons>
+        </Row>
         <Gutter height={size.spacing.xl} />
       </Box>
     </ScrollView>

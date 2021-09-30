@@ -3,12 +3,12 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {
   CharactersLeftDisplay,
-  FormButtons,
   ValidationWarning,
 } from '../../components/features/form'
 import {
   Box,
   Gutter,
+  Row,
   ScrollView,
   SubmitButton,
   TextInput,
@@ -148,12 +148,12 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <FormButtons>
+        <Row align="end-or-between" valign="center">
           <SubmitButton
             onPress={handleSubmit(onSubmit)}
             text="Kies een bericht"
           />
-        </FormButtons>
+        </Row>
         <Gutter height={size.spacing.xl} />
       </Box>
     </ScrollView>
