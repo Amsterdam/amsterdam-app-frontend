@@ -1,4 +1,3 @@
-import {Children, ReactNode} from 'react'
 import {FlexStyle} from 'react-native'
 
 export const mapVerticalAlignmentInRow = (value?: string) => {
@@ -15,7 +14,7 @@ export const mapVerticalAlignmentInRow = (value?: string) => {
 
 export const mapHorizontalAlignmentInRow = (
   value?: string,
-  children?: ReactNode,
+  numberOfChildren?: number,
 ) => {
   const mapping: Record<string, FlexStyle['justifyContent']> = {
     around: 'space-around',
@@ -23,7 +22,9 @@ export const mapHorizontalAlignmentInRow = (
     center: 'center',
     end: 'flex-end',
     'end-or-between':
-      Children.count(children) > 1 ? 'space-between' : 'flex-end',
+      !numberOfChildren || numberOfChildren === 1
+        ? 'flex-end'
+        : 'space-between',
     evenly: 'space-evenly',
     start: 'flex-start',
   }

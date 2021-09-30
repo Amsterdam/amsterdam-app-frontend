@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {Children, ReactNode} from 'react'
 import {View} from 'react-native'
 import {HorizontalAlignment, VerticalAlignment} from './types'
 import {mapHorizontalAlignmentInRow, mapVerticalAlignmentInRow} from './utils'
@@ -13,7 +13,10 @@ export const Row = ({align, children, valign}: Props) => (
   <View
     style={{
       flexDirection: 'row',
-      justifyContent: mapHorizontalAlignmentInRow(align, children),
+      justifyContent: mapHorizontalAlignmentInRow(
+        align,
+        align === 'end-or-between' ? Children.count(children) : undefined,
+      ),
       alignItems: mapVerticalAlignmentInRow(valign),
     }}>
     {children}
