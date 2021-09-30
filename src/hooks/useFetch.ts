@@ -4,6 +4,9 @@ import {shallowEqual} from '../utils/shallowEqual'
 type UseFetchProps = {
   onLoad?: Boolean
   options?: {
+    body?: string
+    headers?: Headers
+    method?: 'GET' | 'POST'
     params?: {
       [key: string]: string | number
     }
@@ -16,6 +19,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [hasError, setHasError] = useState<Boolean>(false)
   const [isLoading, setIsLoading] = useState<Boolean>(false)
 
+  const initialRender = useRef(true)
   const prevUrl = useRef<string>()
 
   const currentParams = useMemo(() => options?.params ?? {}, [options?.params])
@@ -23,23 +27,27 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
 
   const fetchData = useCallback(
     async (params = undefined) => {
-      setIsLoading(true)
-      const queryParams = {...options?.params, ...params}
-      const queryString = Object.keys(queryParams)
-        .map(key => key + '=' + encodeURIComponent(queryParams[key]))
-        .join('&')
+      if (!onLoad && initialRender.current) {
+        initialRender.current = false
+      } else {
+        setIsLoading(true)
+        const queryParams = {...options?.params, ...params}
+        const queryString = Object.keys(queryParams)
+          .map(key => key + '=' + encodeURIComponent(queryParams[key]))
+          .join('&')
 
-      try {
-        const response = await fetch(url + '?' + queryString, {})
-        const json = await response.json()
-        setData(json.result ?? json)
-      } catch (error) {
-        setHasError(!!error)
-      } finally {
-        setIsLoading(false)
+        try {
+          const response = await fetch(url + '?' + queryString, {...options})
+          const json = await response.json()
+          setData(json.result ?? json)
+        } catch (error) {
+          setHasError(!!error)
+        } finally {
+          setIsLoading(false)
+        }
       }
     },
-    [options?.params, url],
+    [onLoad, options, url],
   )
 
   const fetchDataIfNeeded = useCallback(() => {
