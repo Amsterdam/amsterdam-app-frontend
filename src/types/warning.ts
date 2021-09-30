@@ -19,3 +19,7 @@ export type Warning = NewWarning & {
   modified_date?: number // Unix timestamp
   author_email: string
 }
+
+export type WarningResponse = {
+  warning_identifier: string
+}
