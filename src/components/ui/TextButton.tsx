@@ -84,6 +84,5 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    alignSelf: 'flex-start', // Makes the button ‘inline-block’
   },
 })
