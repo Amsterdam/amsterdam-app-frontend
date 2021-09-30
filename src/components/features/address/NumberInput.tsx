@@ -9,7 +9,7 @@ import {
 import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Gutter, Text, TextButton, TextInput} from '../../ui'
+import {Gutter, Row, Text, TextButton, TextInput} from '../../ui'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -59,11 +59,13 @@ export const NumberInput = ({
 
   return (
     <Animated.View style={{marginTop: y}}>
-      <TextButton
-        direction="up"
-        text={street}
-        onPress={() => changeIsStreetSelected(false)}
-      />
+      <Row align="start">
+        <TextButton
+          direction="up"
+          text={street}
+          onPress={() => changeIsStreetSelected(false)}
+        />
+      </Row>
       <Gutter height={size.spacing.sm} />
 
       <TextInput

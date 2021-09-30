@@ -9,6 +9,7 @@ import {
   CardHeader,
   Gutter,
   Image,
+  Row,
   Text,
   TextButton,
   Title,
@@ -30,17 +31,19 @@ export const WasteGuideContainers = () => {
           of restafval?
         </Text>
         <Gutter height={size.spacing.md} />
-        <TextButton
-          direction="forward"
-          onPress={() =>
-            navigation.navigate(routes.webView.name, {
-              sliceFromTop: {portrait: 50, landscape: 50},
-              title: 'Containers in de buurt',
-              uri: 'https://kaart.amsterdam.nl/afvalcontainers#17/52.36306/4.90720/brt/12491,12492,12493,12494,12495,12496,12497//',
-            })
-          }
-          text="Bekijk de kaart met containers in de buurt"
-        />
+        <Row align="start">
+          <TextButton
+            direction="forward"
+            onPress={() =>
+              navigation.navigate(routes.webView.name, {
+                sliceFromTop: {portrait: 50, landscape: 50},
+                title: 'Containers in de buurt',
+                uri: 'https://kaart.amsterdam.nl/afvalcontainers#17/52.36306/4.90720/brt/12491,12492,12493,12494,12495,12496,12497//',
+              })
+            }
+            text="Bekijk de kaart met containers in de buurt"
+          />
+        </Row>
         <Gutter height={size.spacing.md} />
         <View style={styles.figure}>
           <Image

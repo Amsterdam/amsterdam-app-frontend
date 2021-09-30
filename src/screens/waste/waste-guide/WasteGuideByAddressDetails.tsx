@@ -10,6 +10,7 @@ import {
   CardHeader,
   DescriptionList,
   Gutter,
+  Row,
   TextButton,
   Title,
 } from '../../../components/ui'
@@ -83,11 +84,13 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         {footerLink && (
           <>
             <Gutter height={size.spacing.md} />
-            <TextButton
-              direction="forward"
-              onPress={footerLink.onPress}
-              text={footerLink.text}
-            />
+            <Row align="start">
+              <TextButton
+                direction="forward"
+                onPress={footerLink.onPress}
+                text={footerLink.text}
+              />
+            </Row>
           </>
         )}
       </CardBody>

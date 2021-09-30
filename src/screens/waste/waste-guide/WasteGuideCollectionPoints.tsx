@@ -9,6 +9,7 @@ import {
   CardHeader,
   Gutter,
   Image,
+  Row,
   Text,
   TextButton,
   Title,
@@ -30,17 +31,19 @@ export const WasteGuideCollectionPoints = () => {
           spullen voor de kringloop kwijt.
         </Text>
         <Gutter height={size.spacing.md} />
-        <TextButton
-          direction="forward"
-          onPress={() =>
-            navigation.navigate(routes.webView.name, {
-              sliceFromTop: {portrait: 50, landscape: 50},
-              title: 'Afvalpunten in de buurt',
-              uri: 'https://kaart.amsterdam.nl/#52.2744/4.7151/52.4355/5.0667/brt/9776/244/',
-            })
-          }
-          text="Bekijk de kaart met afvalpunten in de buurt"
-        />
+        <Row align="start">
+          <TextButton
+            direction="forward"
+            onPress={() =>
+              navigation.navigate(routes.webView.name, {
+                sliceFromTop: {portrait: 50, landscape: 50},
+                title: 'Afvalpunten in de buurt',
+                uri: 'https://kaart.amsterdam.nl/#52.2744/4.7151/52.4355/5.0667/brt/9776/244/',
+              })
+            }
+            text="Bekijk de kaart met afvalpunten in de buurt"
+          />
+        </Row>
         <Gutter height={size.spacing.md} />
         <View style={styles.figure}>
           <Image

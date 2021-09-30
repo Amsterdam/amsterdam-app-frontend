@@ -12,6 +12,7 @@ import {
   Card,
   CardBody,
   Gutter,
+  Row,
   Text,
   TextButton,
   Title,
@@ -57,12 +58,14 @@ export const Address = () => {
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </View>
             <Gutter height={size.spacing.md} />
-            <TextButton
-              direction="backward"
-              emphasis
-              onPress={() => navigation.navigate('AddressForm')}
-              text="Verander adres"
-            />
+            <Row align="start">
+              <TextButton
+                direction="backward"
+                emphasis
+                onPress={() => navigation.navigate('AddressForm')}
+                text="Verander adres"
+              />
+            </Row>
           </CardBody>
         </Card>
       ) : (
