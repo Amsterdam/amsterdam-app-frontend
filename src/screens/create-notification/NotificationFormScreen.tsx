@@ -62,7 +62,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
-      project_id: notificationContext.projectDetails.id!,
+      project_identifier: notificationContext.projectDetails.id!,
     }
     const nextScreen =
       notificationContext.projectDetails.news.length > 0
