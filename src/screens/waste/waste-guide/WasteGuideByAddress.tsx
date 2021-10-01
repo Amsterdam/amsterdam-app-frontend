@@ -77,9 +77,7 @@ export const WasteGuideByAddress = () => {
     !address && addressContext && addressContext.changeSaveInStore(false)
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const hasWasteGuideDetails = wasteGuide
-    ? Object.keys(wasteGuide).length > 0
-    : false
+  const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
     addressContext.changeSaveInStore(false)
@@ -112,7 +110,7 @@ export const WasteGuideByAddress = () => {
         />
       </Box>
       <Box background="light">
-        {wasteGuideEndpoint.isLoading ? (
+        {!wasteGuideLength ? (
           <Card>
             <CardHeader>
               <Title level={4} text="Gegevens ophalen…" />
@@ -121,7 +119,9 @@ export const WasteGuideByAddress = () => {
               <ActivityIndicator />
             </CardBody>
           </Card>
-        ) : hasWasteGuideDetails ? (
+        ) : wasteGuideLength === 0 ? (
+          <WasteGuideByAddressNoDetails address={address} />
+        ) : (
           <>
             {wasteGuide?.[WasteType.Bulky] && (
               <>
@@ -150,8 +150,6 @@ export const WasteGuideByAddress = () => {
               </>
             )}
           </>
-        ) : (
-          <WasteGuideByAddressNoDetails address={address} />
         )}
       </Box>
     </>
