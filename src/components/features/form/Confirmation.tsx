@@ -1,50 +1,47 @@
+import {useNavigation} from '@react-navigation/core'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Checkmark, Close} from '../../../assets/icons'
+import {RootStackParamList} from '../../../../App'
 import {size} from '../../../tokens'
 import {Button, Card, CardBody, Gutter, Text, Title} from '../../ui'
 
-type Result = 'success' | 'failure'
-
-type ResultConfig = {
-  [K in Result]: {
-    body: string
-    button: React.ReactElement
-    icon: React.ReactElement
-    title: string
-  }
-}
-
 type Props = {
-  result: Result
+  body: string
+  button: {
+    onPress: 'goBack' | 'popModal'
+    text: string
+  }
+  icon: React.ReactElement
+  title: string
 }
 
-const resultConfig: ResultConfig = {
-  failure: {
-    body: 'Het is niet gelukt om de pushnotificatie te versturen',
-    button: <Button onPress={() => {}} text="Probeer het nog eens" />,
-    icon: <Close />,
-    title: 'Helaas…',
-  },
-  success: {
-    body: 'De pushnotificatie is verstuurd.',
-    button: <Button onPress={() => {}} text="Naar projectpagina" />,
-    icon: <Checkmark />,
-    title: 'Gelukt!',
-  },
-}
+export const Confirmation = ({body, button, icon, title}: Props) => {
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'Notification'>>()
 
-export const FormSubmitFeedback = ({result}: Props) => {
   return (
     <Card>
       <CardBody>
-        {resultConfig[result].icon}
+        {icon}
         <Gutter height={size.spacing.lg} />
-        <Title text={resultConfig[result].title} />
+        <Title text={title} />
         <Gutter height={size.spacing.sm} />
-        <Text>{resultConfig[result].body}</Text>
+        <Text>{body}</Text>
         <Gutter height={size.spacing.md} />
-        <View style={styles.button}>{resultConfig[result].button}</View>
+        <View style={styles.button}>
+          <Button
+            onPress={() => {
+              if (button.onPress === 'goBack') {
+                navigation.goBack()
+              }
+              if (button.onPress === 'popModal') {
+                navigation.getParent()?.goBack()
+              }
+            }}
+            text={button.text}
+          />
+        </View>
       </CardBody>
     </Card>
   )
