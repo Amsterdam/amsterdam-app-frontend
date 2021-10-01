@@ -1,6 +1,7 @@
 export * from './address'
 export * from './bag'
 export * from './disctrict'
+export * from './form'
 export * from './image'
 export * from './news'
 export * from './notification'
