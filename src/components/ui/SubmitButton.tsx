@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
-import {color, size} from '../../tokens'
+import {color, font, size} from '../../tokens'
 import {Text} from '.'
 
 type Props = {
@@ -8,18 +8,20 @@ type Props = {
   text: string
 }
 
-const arrowWidth = 18
+const arrowWidth = 15
+const verticalPadding = (44 - font.height.p1) / 2 // Design system: button height must be 44
 
 export const SubmitButton = (props: Props) => {
   const [buttonHeight, setButtonHeight] = useState<number>()
+
   const styles = StyleSheet.create({
     button: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
       backgroundColor: color.touchable.secondary,
       paddingLeft: size.spacing.md,
-      paddingRight: arrowWidth + size.spacing.sm,
-      paddingVertical: size.spacing.md,
+      paddingRight: arrowWidth + size.spacing.md,
+      paddingVertical: verticalPadding,
     },
     pointedEnd: {
       position: 'absolute',
@@ -27,15 +29,16 @@ export const SubmitButton = (props: Props) => {
       height: 0,
       backgroundColor: color.background.lighter,
       borderTopColor: 'transparent',
-      borderTopWidth: buttonHeight && buttonHeight / 2, // the + 2 might be because of the demi font-family
+      borderTopWidth: buttonHeight && buttonHeight / 2,
       borderRightColor: 'transparent',
       borderRightWidth: 0,
       borderBottomColor: 'transparent',
-      borderBottomWidth: buttonHeight && buttonHeight / 2, // the + 2 might be because of the demi font-family
+      borderBottomWidth: buttonHeight && buttonHeight / 2,
       borderLeftColor: color.touchable.secondary,
       borderLeftWidth: arrowWidth,
     },
   })
+
   return (
     <Pressable
       onLayout={e => setButtonHeight(e.nativeEvent.layout.height)}

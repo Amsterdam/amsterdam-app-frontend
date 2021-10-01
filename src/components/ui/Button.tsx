@@ -5,7 +5,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native'
-import {color, size} from '../../tokens'
+import {color, font, size} from '../../tokens'
 import {Gutter, Text} from './'
 
 type Props = {
@@ -13,6 +13,8 @@ type Props = {
   text?: string
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
+
+const verticalPadding = (44 - font.height.p1) / 2 // Design system: button height must be 44
 
 export const Button = ({
   icon,
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
-    paddingVertical: size.spacing.sm,
+    paddingVertical: verticalPadding,
   },
   iconContainer: {
     height: 20,
