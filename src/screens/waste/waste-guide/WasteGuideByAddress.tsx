@@ -18,63 +18,54 @@ import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {Address} from '../../../types'
+import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
+  transformWasteGuideResponse,
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
   WasteGuideCollectionPoints,
   WasteGuideContainers,
-} from '../index'
-import {WasteGuide, WasteGuideResponse, WasteType} from './types'
-import {transformWasteGuideResponse} from './utils/transformWasteGuideResponse'
+} from './'
 
 export const WasteGuideByAddress = () => {
   const [address, setAddress] = useState<Address | undefined>(undefined)
-  const [isAddressRetrieving, setIsAddressRetrieving] = useState(true)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
-
+  const addressContext = useContext(AddressContext)
+  const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
 
-  const asyncStorage = useAsyncStorage()
-  const addressContext = useContext(AddressContext)
-
-  const retrieveAndSetAddress = useCallback(async () => {
-    const retrievedAddress = await asyncStorage.getData('address')
-    retrievedAddress && setAddress(retrievedAddress)
-    setIsAddressRetrieving(false)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    retrieveAndSetAddress()
-  }, [retrieveAndSetAddress])
-
-  useEffect(() => {
-    setAddress(addressContext.address)
-  }, [addressContext.address])
-
-  const api = useFetch<WasteGuideResponse>({
+  const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,
     options: {},
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
 
+  const retrieveAddress = useCallback(async () => {
+    const retrievedAddress = await asyncStorage.getData('address')
+    retrievedAddress && setAddress(retrievedAddress)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    api.fetchData({
+    retrieveAddress()
+  }, [retrieveAddress])
+
+  useEffect(() => {
+    setAddress(addressContext.address)
+  }, [addressContext.address])
+
+  useEffect(() => {
+    wasteGuideEndpoint.fetchData({
       lon: address?.centroid[0] ?? '',
       lat: address?.centroid[1] ?? '',
     })
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(transformWasteGuideResponse(api.data, address))
-  }, [address, api.data])
-
-  const onChangeAddress = () => {
-    addressContext.changeSaveInStore(false)
-    navigation.navigate('AddressForm')
-  }
+    setWasteGuide(transformWasteGuideResponse(wasteGuideEndpoint.data, address))
+  }, [address, wasteGuideEndpoint.data])
 
   useEffect(() => {
     return () => {
@@ -83,19 +74,19 @@ export const WasteGuideByAddress = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    !isAddressRetrieving &&
-      !address &&
-      addressContext &&
-      addressContext.changeSaveInStore(false)
-  }, [isAddressRetrieving, address]) // eslint-disable-line react-hooks/exhaustive-deps
+    !address && addressContext && addressContext.changeSaveInStore(false)
+  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const hasWasteGuideDetails = wasteGuide && Object.keys(wasteGuide).length
+  const hasWasteGuideDetails = wasteGuide
+    ? Object.keys(wasteGuide).length > 0
+    : false
 
-  if (isAddressRetrieving) {
-    return null
+  const navigateToAddressForm = () => {
+    addressContext.changeSaveInStore(false)
+    navigation.navigate('AddressForm')
   }
 
-  if (!isAddressRetrieving && !address) {
+  if (!address) {
     return (
       <AddressFormTeaser
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
@@ -104,7 +95,7 @@ export const WasteGuideByAddress = () => {
     )
   }
 
-  return address ? (
+  return (
     <>
       <Box background="lighter">
         <View accessible={true}>
@@ -116,12 +107,12 @@ export const WasteGuideByAddress = () => {
         <TextButton
           direction="backward"
           emphasis
-          onPress={onChangeAddress}
+          onPress={navigateToAddressForm}
           text="Verander adres"
         />
       </Box>
       <Box background="light">
-        {api.isLoading ? (
+        {wasteGuideEndpoint.isLoading ? (
           <Card>
             <CardHeader>
               <Title level={4} text="Gegevens ophalen…" />
@@ -164,5 +155,5 @@ export const WasteGuideByAddress = () => {
         )}
       </Box>
     </>
-  ) : null
+  )
 }
