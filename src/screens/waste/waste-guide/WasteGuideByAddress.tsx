@@ -158,6 +158,18 @@ export const WasteGuideByAddress = () => {
                 <WasteGuideContainers />
               </>
             )}
+            <Gutter height={size.spacing.md} />
+            <TextButton
+              direction="forward"
+              onPress={() =>
+                navigation.navigate(routes.webView.name, {
+                  sliceFromTop: {portrait: 161, landscape: 207},
+                  title: 'Melding afvalinformatie',
+                  uri: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
+                })
+              }
+              text="Kloppen de dagen of tijden niet?"
+            />
           </>
         ) : (
           <WasteGuideByAddressNoDetails address={address} />
