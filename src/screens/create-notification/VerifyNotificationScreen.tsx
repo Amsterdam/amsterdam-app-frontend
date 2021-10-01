@@ -1,4 +1,3 @@
-import {AUTH_TOKEN, PROJECT_MANAGER_TOKEN} from '@env'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
@@ -18,7 +17,6 @@ import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
-import {encrypter} from '../../utils/encrypter'
 import {NotificationContext, NotificationStackParamList} from '.'
 
 type Props = {
@@ -27,6 +25,9 @@ type Props = {
     'VerifyNotification'
   >
 }
+
+const dummyToken =
+  'U2FsdGVkX1/ER5tuc27jTYLYifS+Typ6hg3CTF7rkJIQ6KTnLFd0vpSHCRHB6Fjm+TbGl4CkMIhSG9IeZkruRw=='
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
   const [token, setToken] = useState<string>('')
@@ -67,15 +68,19 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     onLoad: false,
   })
 
-  const handleSubmit = async () => {
-    !token &&
-      setToken(
-        encrypter({
-          mode: 'encrypt',
-          password: AUTH_TOKEN,
-          plaintext: PROJECT_MANAGER_TOKEN,
-        }),
-      )
+  const handleSubmit = () => {
+    // TODO - use the encrypter underneath when we are going to work with real project managers:
+
+    setToken(dummyToken)
+
+    // !token &&
+    //   setToken(
+    //     encrypter({
+    //       mode: 'encrypt',
+    //       password: AUTH_TOKEN,
+    //       plaintext: PROJECT_MANAGER_TOKEN,
+    //     }),
+    //   )
   }
 
   useEffect(() => {
