@@ -45,9 +45,8 @@ export const color = {
     inactive: baseColor.tint.level5,
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level3,
-    lightish: baseColor.tint.level2,
     lighter: baseColor.tint.level1,
-    'lighter-accent': baseColor.tint.level2,
+    lightish: baseColor.tint.level2,
   },
   border: {
     boxLight: baseColor.tint.level4,

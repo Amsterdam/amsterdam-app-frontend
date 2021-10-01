@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {color, size, Spacing} from '../../tokens'
 
 type Props = {
-  background?: 'emphasis' | 'invalid' | 'light' | 'lighter' | 'lighter-accent'
+  background?: 'emphasis' | 'invalid' | 'light' | 'lighter' | 'lightish'
   bordered?: boolean
   children: React.ReactNode
   inset?: keyof Spacing

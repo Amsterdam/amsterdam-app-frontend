@@ -98,7 +98,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         projectDetails,
         warning,
       }}>
-      <Box background="lighter-accent">
+      <Box background="lightish">
         <Stepper current={currentStep} length={3} />
       </Box>
       <Stack.Navigator screenOptions={screenOptions}>
