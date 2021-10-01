@@ -8,13 +8,13 @@ import {
 import {color, font, size} from '../../tokens'
 import {Gutter, Text} from './'
 
-const arrowWidth = 18
-
 type Props = {
   icon?: React.ReactElement
   text?: string
-  variant?: 'inverse' | 'submit' | 'primary' | 'secondary' | 'text'
+  variant?: 'inverse' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
+
+const verticalPadding = (44 - font.height.p1) / 2 // Design system: button height must be 44
 
 export const Button = ({
   icon,
@@ -37,7 +37,6 @@ export const Button = ({
           {text}
         </Text>
       )}
-      {variant === 'submit' && <View style={styles.pointedEnd} />}
     </TouchableOpacity>
   )
 }
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
-    paddingVertical: size.spacing.sm,
+    paddingVertical: verticalPadding,
   },
   iconContainer: {
     height: 20,
@@ -58,28 +57,6 @@ const styles = StyleSheet.create({
     borderColor: color.touchable.primary,
     borderWidth: 1,
     borderStyle: 'solid',
-  },
-  submit: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    backgroundColor: color.touchable.secondary,
-    paddingRight: arrowWidth + size.spacing.sm,
-    paddingVertical: size.spacing.md,
-  },
-  pointedEnd: {
-    position: 'absolute',
-    width: 0,
-    height: 0,
-    backgroundColor: color.background.lighter,
-    borderStyle: 'solid',
-    borderTopColor: 'transparent',
-    borderTopWidth: font.height.t1 / 2 + size.spacing.md + 2, // the + 2 might be because of the demi font-family
-    borderRightColor: 'transparent',
-    borderRightWidth: 0,
-    borderBottomColor: 'transparent',
-    borderBottomWidth: font.height.t1 / 2 + size.spacing.md + 2, // the + 2 might be because of the demi font-family
-    borderLeftColor: color.touchable.secondary,
-    borderLeftWidth: arrowWidth,
   },
   primary: {
     backgroundColor: color.touchable.primary,

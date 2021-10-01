@@ -8,9 +8,9 @@ import {
 } from '../../components/features/form'
 import {
   Box,
-  Button,
   Gutter,
   ScrollView,
+  SubmitButton,
   TextButton,
   TextInput,
   Title,
@@ -190,11 +190,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             onPress={navigation.goBack}
             text="Vorige"
           />
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            text="Controleer"
-            variant="submit"
-          />
+          <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>

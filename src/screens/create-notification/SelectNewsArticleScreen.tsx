@@ -7,13 +7,14 @@ import {
   Box,
   Button,
   Gutter,
-  Link,
   Radio,
   RadioGroup,
   ScrollView,
   Text,
+  TextButton,
   Title,
 } from '../../components/ui'
+import {SubmitButton} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
@@ -109,16 +110,12 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
       </Stretch>
       <Box>
         <FormButtons>
-          <Link
+          <TextButton
             direction="backward"
             onPress={navigation.goBack}
             text="Vorige"
           />
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            text="Controleer"
-            variant="submit"
-          />
+          <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
       </Box>

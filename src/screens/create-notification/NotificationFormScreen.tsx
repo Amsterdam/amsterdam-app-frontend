@@ -8,9 +8,9 @@ import {
 } from '../../components/features/form'
 import {
   Box,
-  Button,
   Gutter,
   ScrollView,
+  SubmitButton,
   TextInput,
   Title,
 } from '../../components/ui'
@@ -147,10 +147,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
       </Stretch>
       <Box>
         <FormButtons>
-          <Button
+          <SubmitButton
             onPress={handleSubmit(onSubmit)}
             text="Kies een bericht"
-            variant="submit"
           />
         </FormButtons>
         <Gutter height={size.spacing.xl} />
