@@ -31,8 +31,13 @@ type Props = {
 export const VerifyNotificationScreen = ({navigation}: Props) => {
   const [token, setToken] = useState<string>('')
   const notificationContext = useContext(NotificationContext)
-  const {newsDetails, notification, projectDetails, warning} =
-    notificationContext
+  const {
+    changeResponseStatus,
+    newsDetails,
+    notification,
+    projectDetails,
+    warning,
+  } = notificationContext
   const [notificationToSend, setNotificationToSend] =
     useState<NewNotification>()
 
@@ -105,6 +110,20 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     })
     return focusListener
   }, [navigation, notificationContext])
+
+  useEffect(() => {
+    if (notificationApi.data) {
+      changeResponseStatus('success')
+      navigation.navigate('NotificationResponse')
+    }
+  }, [navigation, notificationApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (notificationApi.hasError) {
+      changeResponseStatus('failure')
+      navigation.navigate('NotificationResponse')
+    }
+  }, [navigation, notificationApi.hasError]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView keyboardDismiss>
