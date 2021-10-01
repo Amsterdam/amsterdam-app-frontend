@@ -11,7 +11,9 @@ import {
   NewNotification,
   NewWarning,
   ProjectDetailNewsArticle,
+  ResponseStatus,
 } from '../../types'
+import {NotificationResponseScreen} from './NotificationResponseScreen'
 import {VerifyNotificationScreen} from './VerifyNotificationScreen'
 import {
   NotificationFormScreen,
@@ -21,6 +23,7 @@ import {
 
 export type NotificationStackParamList = {
   NotificationForm: undefined
+  NotificationResponse: undefined
   SelectNewsArticle: undefined
   VerifyNotification: undefined
   WarningForm: undefined
@@ -36,10 +39,12 @@ type Context = {
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: NewNotification) => void
+  changeResponseStatus: (value: ResponseStatus) => void
   changeWarning: (newWarning: NewWarning) => void
   newsDetails?: NewsDetails
   notification: NewNotification | undefined
   projectDetails: ProjectDetails
+  responseStatus: ResponseStatus | undefined
   warning: NewWarning | undefined
 }
 
@@ -68,6 +73,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
+  const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
 
   const Stack = createStackNavigator()
@@ -75,6 +81,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNotification = (value: NewNotification) => setNotification(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
+  const changeResponseStatus = (value: ResponseStatus) =>
+    setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
@@ -92,10 +100,12 @@ export const CreateNotificationScreen = ({route}: Props) => {
         changeCurrentStep,
         changeNewsDetails,
         changeNotification,
+        changeResponseStatus,
         changeWarning,
         newsDetails,
         notification,
         projectDetails,
+        responseStatus,
         warning,
       }}>
       <Box background="lightish">
@@ -114,6 +124,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
         <Stack.Screen
           name="VerifyNotification"
           component={VerifyNotificationScreen}
+        />
+        <Stack.Screen
+          name="NotificationResponse"
+          component={NotificationResponseScreen}
         />
       </Stack.Navigator>
     </NotificationContext.Provider>
