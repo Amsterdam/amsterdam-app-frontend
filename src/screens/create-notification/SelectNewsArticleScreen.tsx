@@ -11,11 +11,11 @@ import {
   RadioGroup,
   Row,
   ScrollView,
+  SubmitButton,
   Text,
   TextButton,
   Title,
 } from '../../components/ui'
-import {SubmitButton} from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
@@ -110,7 +110,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <Row align="end-or-between" valign="center">
+        <Row align="between" valign="center">
           <TextButton
             direction="backward"
             onPress={navigation.goBack}

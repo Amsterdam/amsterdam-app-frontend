@@ -81,7 +81,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <Row align="end-or-between" valign="center">
+        <Row align="between" valign="center">
           <TextButton
             direction="backward"
             onPress={navigation.goBack}

@@ -148,7 +148,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <Row align="end-or-between" valign="center">
+        <Row align="end" valign="center">
           <SubmitButton
             onPress={handleSubmit(onSubmit)}
             text="Kies een bericht"

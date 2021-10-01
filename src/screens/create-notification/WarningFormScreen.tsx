@@ -186,7 +186,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         </Box>
       </Stretch>
       <Box>
-        <Row align="end-or-between" valign="center">
+        <Row align="between" valign="center">
           <TextButton
             direction="backward"
             emphasis
