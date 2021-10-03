@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {
   Button,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   DescriptionList,
   Gutter,
+  Row,
   TextButton,
   Title,
 } from '../../../components/ui'
@@ -66,7 +66,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           ]}
         />
         {appointmentUrl && (
-          <View style={styles.alignLeft}>
+          <Row align="start">
             <Gutter height={size.spacing.md} />
             <Button
               onPress={() =>
@@ -78,25 +78,21 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
               }
               text="Maak een afspraak"
             />
-          </View>
+          </Row>
         )}
         {footerLink && (
           <>
             <Gutter height={size.spacing.md} />
-            <TextButton
-              direction="forward"
-              onPress={footerLink.onPress}
-              text={footerLink.text}
-            />
+            <Row align="start">
+              <TextButton
+                direction="forward"
+                onPress={footerLink.onPress}
+                text={footerLink.text}
+              />
+            </Row>
           </>
         )}
       </CardBody>
     </Card>
   )
 }
-
-const styles = StyleSheet.create({
-  alignLeft: {
-    alignItems: 'flex-start',
-  },
-})

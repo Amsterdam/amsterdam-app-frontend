@@ -48,7 +48,7 @@ export const TextButton = ({direction, emphasis, onPress, text}: Props) => {
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      style={direction && styles.row}>
+      style={[styles.button, direction && styles.row]}>
       <>
         {direction === 'backward' && <ChevronLeft {...iconProps} />}
         {direction === 'down' && <ChevronDown {...iconProps} />}
@@ -69,6 +69,9 @@ export const TextButton = ({direction, emphasis, onPress, text}: Props) => {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    flexShrink: 1,
+  },
   emphasis: {
     color: color.touchable.primary,
   },
@@ -84,6 +87,5 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    alignSelf: 'flex-start', // Makes the button ‘inline-block’
   },
 })

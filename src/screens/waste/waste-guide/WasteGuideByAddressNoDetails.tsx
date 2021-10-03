@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Linking, StyleSheet, View} from 'react-native'
+import {Linking} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   CardBody,
   CardHeader,
   Gutter,
+  Row,
   Text,
   Title,
 } from '../../../components/ui'
@@ -66,20 +67,14 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
       <CardBody>
         <Text>{content.text}</Text>
         <Gutter height={size.spacing.md} />
-        <View style={styles.alignLeft}>
+        <Row align="start">
           <Button
             onPress={content.button.onPress}
             text={content.button.label}
             variant={content.button.secondary ? 'secondary' : undefined}
           />
-        </View>
+        </Row>
       </CardBody>
     </Card>
   )
 }
-
-const styles = StyleSheet.create({
-  alignLeft: {
-    alignItems: 'flex-start',
-  },
-})
