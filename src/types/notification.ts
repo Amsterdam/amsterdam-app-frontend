@@ -1,4 +1,3 @@
-// An app user creates an initial notification
 export type NewNotification = {
   title: string
   body: string
@@ -7,7 +6,7 @@ export type NewNotification = {
   warning_identifier?: string
 }
 
-// Our backend adds a field
 export type Notification = NewNotification & {
+  isRead?: Boolean
   publication_date: number
 }
