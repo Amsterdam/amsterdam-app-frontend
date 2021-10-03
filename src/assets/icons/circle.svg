@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="" role="img"><g><path fill="" d="M 12, 12 m -9, 0 a 9,9 0 1,0 18,0 a 9,9 0 1,0 -18,0" stroke=""></path></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="" role="img">
+  <g>
+    <path fill="" d="M 12, 12 m -9, 0 a 9,9 0 1,0 18,0 a 9,9 0 1,0 -18,0" stroke=""></path>
+  </g>
+</svg>

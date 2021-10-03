@@ -11,7 +11,7 @@ export interface IRadioProps extends ViewProps {
    */
   value: IRadioValue
   /**
-   * 	If true, the radio will be disabled
+   * If true, the radio will be disabled
    */
   isDisabled?: boolean
   /**
@@ -19,7 +19,7 @@ export interface IRadioProps extends ViewProps {
    */
   isInvalid?: boolean
   /**
-   * 	The size (width and height) of the radio.
+   * The size (width and height) of the radio.
    */
 }
 
@@ -60,10 +60,12 @@ export interface RadioGroupState {
   readonly isReadOnly: boolean
   /** The currently selected value. */
   readonly selectedValue: string | null
-  /** Sets the selected value. */
-  setSelectedValue(value: string): void
   /** The value of the last focused radio. */
   readonly lastFocusedValue: string | null
+
+  /** Sets the selected value. */
+  setSelectedValue(value: string): void
+
   /** Sets the last focused value. */
   setLastFocusedValue(value: string): void
 }
