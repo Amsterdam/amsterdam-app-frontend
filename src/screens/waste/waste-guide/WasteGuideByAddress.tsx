@@ -104,12 +104,12 @@ export const WasteGuideByAddress = () => {
           <Gutter height={size.spacing.sm} />
         </View>
         <Row align="start">
-        <TextButton
-          direction="backward"
-          emphasis
-          onPress={navigateToAddressForm}
-          text="Verander adres"
-        />
+          <TextButton
+            direction="backward"
+            emphasis
+            onPress={navigateToAddressForm}
+            text="Verander adres"
+          />
         </Row>
       </Box>
       <Box background="light">
