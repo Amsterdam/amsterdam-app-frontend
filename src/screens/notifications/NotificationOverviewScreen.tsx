@@ -2,16 +2,48 @@ import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {BellActive, BellInactive} from '../../assets/icons'
 import {Gutter, Text} from '../../components/ui'
-import {notifications} from '../../data/mock/notifications'
+import {getEnvironment} from '../../environment'
+import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
+import {Notification, ProjectOverviewItem} from '../../types'
 import {formatDate} from '../../utils'
 
 export const NotificationOverviewScreen = () => {
-  return (
+  // TEMP Get all projects to display all notifications
+  const {data: projects} = useFetch<ProjectOverviewItem[]>({
+    url: getEnvironment().apiUrl + '/projects',
+  })
+
+  const projectNames: Record<string, string> = projects
+    ? projects.reduce((obj, item) => {
+        return {
+          ...obj,
+          [item.identifier]: item.title,
+        }
+      }, {})
+    : {}
+
+  const {data: notifications} = useFetch<Notification[]>({
+    url: getEnvironment().apiUrl + '/notifications',
+    options: {
+      params: {
+        'project-ids': Object.keys(projectNames).join(','),
+      },
+    },
+  })
+
+  const notificationsWithReadStatus: Notification[] = (notifications ?? []).map(
+    (notification, index) => ({
+      ...notification,
+      isRead: index > 2, // TEMP
+    }),
+  )
+
+  return notifications ? (
     <ScrollView>
-      {notifications.map(notification => (
+      {notificationsWithReadStatus.map(notification => (
         <View
-          key={notification.identifier}
+          key={notification.publication_date}
           style={[styles.item, !notification.isRead && styles.itemIsUnread]}>
           <View style={styles.icon}>
             {notification.isRead ? <BellInactive /> : <BellActive />}
@@ -23,6 +55,7 @@ export const NotificationOverviewScreen = () => {
             <Gutter height={size.spacing.xs} />
             <Text>{notification.body}</Text>
             <Gutter height={size.spacing.xs} />
+            <Text small>{projectNames[notification.project_identifier]}</Text>
             <Text secondary small>
               {formatDate(notification.publication_date)}
             </Text>
@@ -30,6 +63,8 @@ export const NotificationOverviewScreen = () => {
         </View>
       ))}
     </ScrollView>
+  ) : (
+    <Text>Geen notificaties gevonden.</Text>
   )
 }
 

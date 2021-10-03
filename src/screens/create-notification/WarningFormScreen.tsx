@@ -1,3 +1,4 @@
+import {PROJECT_MANAGER_TOKEN} from '@env'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
@@ -71,7 +72,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_id: notificationContext.projectDetails.id!,
+      project_identifier: notificationContext.projectDetails.id!,
+      project_manager_token: PROJECT_MANAGER_TOKEN,
     }
     changeWarning(warningData)
     navigation.navigate('VerifyNotification')

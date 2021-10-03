@@ -7,7 +7,8 @@ export type NewWarning = {
     preface: string
     content: string
   }
-  project_id: string
+  project_identifier: string
+  project_manager_token: string
 }
 
 // Our backend adds a number of fields
@@ -17,4 +18,8 @@ export type Warning = NewWarning & {
   publication_date: number // Unix timestamp
   modified_date?: number // Unix timestamp
   author_email: string
+}
+
+export type WarningResponse = {
+  warning_identifier: string
 }
