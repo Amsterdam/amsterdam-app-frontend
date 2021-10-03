@@ -140,7 +140,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
           <Gutter height={size.spacing.md} />
           {notification && (
             <>
-              <Preview label="Pushbericht">
+              <Preview label="Notificatie">
                 <Title level={2} text={notification.title} />
                 <Gutter height={size.spacing.sm} />
                 <Text>{notification.body}</Text>
