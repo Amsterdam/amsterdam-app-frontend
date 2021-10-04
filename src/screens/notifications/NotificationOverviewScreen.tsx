@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {BellActive, BellInactive} from '../../assets/icons'
-import {Gutter, Text} from '../../components/ui'
+import {Box, Gutter, Text} from '../../components/ui'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
@@ -39,32 +39,36 @@ export const NotificationOverviewScreen = () => {
     }),
   )
 
-  return notifications ? (
+  return (
     <ScrollView>
-      {notificationsWithReadStatus.map(notification => (
-        <View
-          key={notification.publication_date}
-          style={[styles.item, !notification.isRead && styles.itemIsUnread]}>
-          <View style={styles.icon}>
-            {notification.isRead ? <BellInactive /> : <BellActive />}
+      {notifications?.length ? (
+        notificationsWithReadStatus.map(notification => (
+          <View
+            key={notification.publication_date}
+            style={[styles.item, !notification.isRead && styles.itemIsUnread]}>
+            <View style={styles.icon}>
+              {notification.isRead ? <BellInactive /> : <BellActive />}
+            </View>
+            <View style={styles.content}>
+              <Text intro small>
+                {notification.title}
+              </Text>
+              <Gutter height={size.spacing.xs} />
+              <Text>{notification.body}</Text>
+              <Gutter height={size.spacing.xs} />
+              <Text small>{projectNames[notification.project_identifier]}</Text>
+              <Text secondary small>
+                {formatDate(notification.publication_date)}
+              </Text>
+            </View>
           </View>
-          <View style={styles.content}>
-            <Text intro small>
-              {notification.title}
-            </Text>
-            <Gutter height={size.spacing.xs} />
-            <Text>{notification.body}</Text>
-            <Gutter height={size.spacing.xs} />
-            <Text small>{projectNames[notification.project_identifier]}</Text>
-            <Text secondary small>
-              {formatDate(notification.publication_date)}
-            </Text>
-          </View>
-        </View>
-      ))}
+        ))
+      ) : (
+        <Box>
+          <Text>Geen notificaties gevonden.</Text>
+        </Box>
+      )}
     </ScrollView>
-  ) : (
-    <Text>Geen notificaties gevonden.</Text>
   )
 }
 
