@@ -153,9 +153,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
               <Text secondary>Nieuwsbericht</Text>
               <Gutter height={size.spacing.sm} />
               <View style={styles.newsTitle}>
-                <Text>
-                  Nieuwsbericht 2 met een hele lange uitgebreide titel
-                </Text>
+                <Text>{newsDetails.title}</Text>
               </View>
               <Gutter height={size.spacing.md} />
             </>
