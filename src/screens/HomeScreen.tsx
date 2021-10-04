@@ -33,14 +33,16 @@ export const HomeScreen = ({navigation}: Props) => {
           style={
             !orientationContext.isPortrait && [styles.row, styles.alignStart]
           }>
-          <Address />
+          <View style={!orientationContext.isPortrait && styles.halfWidth}>
+            <Address />
+          </View>
           <Gutter
             height={orientationContext.isPortrait ? size.spacing.xl : undefined}
             width={orientationContext.isPortrait ? undefined : size.spacing.xl}
           />
           <View
             style={[
-              styles.grow,
+              styles.halfWidth,
               !orientationContext.isPortrait && styles.alignStart,
             ]}>
             <Button
@@ -91,8 +93,9 @@ const styles = StyleSheet.create({
   alignStart: {
     alignItems: 'flex-start',
   },
-  grow: {
-    flexGrow: 1,
+  halfWidth: {
+    flexBasis: '50%',
+    flexShrink: 1,
   },
   row: {
     flexDirection: 'row',
