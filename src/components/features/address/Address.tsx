@@ -78,7 +78,7 @@ export const Address = () => {
           <Attention>
             <Text>
               Uw adres wordt alleen op uw telefoon opgeslagen en gebruikt om de
-              app voor u te personaliseren
+              app voor u te personaliseren.
             </Text>
           </Attention>
         </>
