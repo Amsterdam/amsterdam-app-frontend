@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    backgroundColor: color.background.lightish,
+    backgroundColor: color.background.grey,
     borderBottomWidth: 2,
-    borderBottomColor: color.border.separator,
+    borderBottomColor: color.border.default,
     padding: size.spacing.md,
   },
   itemIsUnread: {
-    backgroundColor: color.background.lighter,
-    borderBottomColor: color.border.warning,
+    backgroundColor: color.background.white,
+    borderBottomColor: color.border.invalid,
   },
 })

@@ -58,7 +58,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         style={styles.header}>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (
-            <Checkmark fill={color.background.light} height={11} width={14} />
+            <Checkmark fill={color.border.default} height={11} width={14} />
           )}
         </View>
         <View style={styles.title}>

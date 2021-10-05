@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     color: color.font.regular,
   },
   warning: {
-    color: color.font.warning,
+    color: color.font.invalid,
     fontFamily: font.weight.demi,
   },
 })

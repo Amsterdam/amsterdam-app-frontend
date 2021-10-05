@@ -57,7 +57,7 @@ export const routes: Routes = {
     name: 'AddressForm',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       presentation: 'modal',
       title: 'Uw adres',
@@ -73,7 +73,7 @@ export const routes: Routes = {
     name: 'NotificationOverview',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       title: 'Notificaties',
     },
@@ -85,7 +85,7 @@ export const routes: Routes = {
     name: 'ProjectDetailBody',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
     },
   },
@@ -94,7 +94,7 @@ export const routes: Routes = {
     options: {
       title: 'Nieuws',
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
     },
   },
@@ -114,7 +114,7 @@ export const routes: Routes = {
     name: 'Notification',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       presentation: 'modal',
       title: 'Notificatie versturen',
@@ -123,15 +123,14 @@ export const routes: Routes = {
   wasteGuide: {
     name: 'Waste',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.lighter,
-      },
       title: 'Afvalinformatie op adres',
     },
   },
   whereToPutBulkyWaste: {
     name: 'WhereToPutBulkyWaste',
-    options: {title: 'Grof afval'},
+    options: {
+      title: 'Grof afval',
+    },
   },
   webView: {
     name: 'WebView',
@@ -140,10 +139,14 @@ export const routes: Routes = {
 
 const globalScreenOptions: StackNavigationOptions = {
   cardStyle: {
-    backgroundColor: color.background.light,
+    backgroundColor: color.background.app,
   },
   headerStyle: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
+    borderBottomColor: color.border.default,
+    borderBottomWidth: 1,
+    elevation: 0,
+    shadowOpacity: 0,
   },
   headerBackImage: () => (
     <ChevronLeft

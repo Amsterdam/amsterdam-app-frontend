@@ -96,7 +96,7 @@ export const WasteGuideByAddress = () => {
 
   return (
     <>
-      <Box background="lighter">
+      <Box background="white">
         <View accessible={true}>
           <Text>Afvalinformatie voor</Text>
           <Gutter height={size.spacing.xs} />
@@ -112,7 +112,7 @@ export const WasteGuideByAddress = () => {
           />
         </Row>
       </Box>
-      <Box background="light">
+      <Box>
         {!wasteGuideLength ? (
           <Card>
             <CardHeader>

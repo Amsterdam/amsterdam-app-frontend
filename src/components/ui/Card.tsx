@@ -30,12 +30,12 @@ export const CardBody = ({children, direction = 'column'}: CardBodyProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
     flexGrow: 1,
   },
   cardBorder: {
     borderWidth: 1,
-    borderColor: color.border.separator,
+    borderColor: color.border.default,
   },
   column: {
     flexDirection: 'column',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     paddingHorizontal: size.spacing.md,
     paddingVertical: size.spacing.sm,
-    borderBottomColor: color.background.light,
+    borderBottomColor: color.border.default,
     borderBottomWidth: 1,
   },
 })

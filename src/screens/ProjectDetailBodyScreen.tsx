@@ -43,10 +43,13 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   return (
     <ScrollView>
-      <View style={styles.title}>
-        {icon[body.title]}
-        <Title primary text={body.title} />
-      </View>
+      <Box background="grey">
+        <View style={styles.title}>
+          {icon[body.title]}
+          <Title primary text={body.title} />
+        </View>
+      </Box>
+      <View style={styles.divider} />
       <Box>
         {body.sections.map(section => (
           <React.Fragment key={section.title}>
@@ -84,11 +87,9 @@ const styles = StyleSheet.create({
   },
   title: {
     flexDirection: 'row',
-    padding: size.spacing.md,
-    backgroundColor: color.background.light,
-    borderBottomWidth: 1,
-    borderBottomColor: color.border.boxLight,
-    borderTopWidth: 1,
-    borderTopColor: color.border.boxLight,
+  },
+  divider: {
+    borderBottomWidth: 2,
+    borderBottomColor: color.border.default,
   },
 })
