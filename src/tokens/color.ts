@@ -33,9 +33,6 @@ const baseColor = {
   bright: {
     main: '#ffffff',
   },
-  error: {
-    main: '#ec0000',
-  },
 }
 
 export const color = {
@@ -53,7 +50,7 @@ export const color = {
     input: baseColor.tint.level5,
     inputFocus: baseColor.tint.level7,
     primary: baseColor.primary.main,
-    warning: baseColor.error.main,
+    warning: baseColor.support.invalid,
   },
   font: {
     inverse: baseColor.tint.level1,
@@ -62,7 +59,7 @@ export const color = {
     regular: baseColor.tint.level7,
     secondary: baseColor.tint.level5,
     tertiary: baseColor.tint.level4,
-    warning: baseColor.error.main,
+    warning: baseColor.support.invalid,
   },
   touchable: {
     primary: baseColor.primary.main,
