@@ -88,7 +88,5 @@ const styles = StyleSheet.create({
     backgroundColor: color.background.light,
     borderBottomWidth: 1,
     borderBottomColor: color.border.boxLight,
-    borderTopWidth: 1,
-    borderTopColor: color.border.boxLight,
   },
 })
