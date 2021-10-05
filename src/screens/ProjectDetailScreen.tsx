@@ -93,7 +93,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           style={styles.image}
         />
       )}
-      <Box background="lighter">
+      <Box background="white">
         <Button
           onPress={() =>
             navigation.navigate(routes.notification.name, {

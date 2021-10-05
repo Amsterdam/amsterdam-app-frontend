@@ -63,7 +63,7 @@ export const NotificationContext = createContext<Context>({} as Context)
 
 const screenOptions: StackNavigationOptions = {
   cardStyle: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
   },
   headerShown: false,
 }
@@ -108,7 +108,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         responseStatus,
         warning,
       }}>
-      <Box background="lightish">
+      <Box background="grey">
         <Stepper current={currentStep} length={3} />
       </Box>
       <Stack.Navigator screenOptions={screenOptions}>

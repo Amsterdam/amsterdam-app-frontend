@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     width: 20,
   },
   inverse: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
     borderColor: color.touchable.primary,
     borderWidth: 1,
     borderStyle: 'solid',

@@ -33,10 +33,10 @@ export const color = {
     app: baseColor.neutral.grey2,
     darker: baseColor.primary.black,
     emphasis: baseColor.primary.darkblue,
+    grey: baseColor.neutral.grey1,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
-    lighter: baseColor.primary.white,
-    lightish: baseColor.neutral.grey1,
+    white: baseColor.primary.white,
   },
   border: {
     default: baseColor.neutral.grey2,

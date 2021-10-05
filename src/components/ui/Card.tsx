@@ -30,7 +30,7 @@ export const CardBody = ({children, direction = 'column'}: CardBodyProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
     flexGrow: 1,
   },
   cardBorder: {

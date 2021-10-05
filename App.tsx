@@ -57,7 +57,7 @@ export const routes: Routes = {
     name: 'AddressForm',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       presentation: 'modal',
       title: 'Uw adres',
@@ -73,7 +73,7 @@ export const routes: Routes = {
     name: 'NotificationOverview',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       title: 'Notificaties',
     },
@@ -85,7 +85,7 @@ export const routes: Routes = {
     name: 'ProjectDetailBody',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
     },
   },
@@ -94,7 +94,7 @@ export const routes: Routes = {
     options: {
       title: 'Nieuws',
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
     },
   },
@@ -114,7 +114,7 @@ export const routes: Routes = {
     name: 'Notification',
     options: {
       cardStyle: {
-        backgroundColor: color.background.lighter,
+        backgroundColor: color.background.white,
       },
       presentation: 'modal',
       title: 'Notificatie versturen',
@@ -142,7 +142,7 @@ const globalScreenOptions: StackNavigationOptions = {
     backgroundColor: color.background.app,
   },
   headerStyle: {
-    backgroundColor: color.background.lighter,
+    backgroundColor: color.background.white,
     borderBottomColor: color.border.default,
     borderBottomWidth: 1,
     elevation: 0,

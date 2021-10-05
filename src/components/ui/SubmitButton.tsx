@@ -27,7 +27,7 @@ export const SubmitButton = (props: Props) => {
       position: 'absolute',
       width: 0,
       height: 0,
-      backgroundColor: color.background.lighter,
+      backgroundColor: color.background.white,
       borderTopColor: 'transparent',
       borderTopWidth: buttonHeight && buttonHeight / 2,
       borderRightColor: 'transparent',

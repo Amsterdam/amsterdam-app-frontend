@@ -46,7 +46,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     },
     searchSection: {
       flexDirection: 'row',
-      backgroundColor: color.background.lighter,
+      backgroundColor: color.background.white,
       borderColor: hasFocus ? color.border.inputFocus : color.border.input,
       borderStyle: 'solid',
       borderWidth: hasFocus ? 2 : 1,

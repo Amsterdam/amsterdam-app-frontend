@@ -21,7 +21,7 @@ export const WhereToPutBulkyWasteScreen = () => {
 
   return (
     <ScrollView>
-      <Box background="lighter">
+      <Box background="white">
         <Title text="Buiten zetten of naar een afvalpunt?" />
         <Gutter height={size.spacing.sm} />
         <Text>

@@ -96,7 +96,7 @@ export const WasteGuideByAddress = () => {
 
   return (
     <>
-      <Box background="lighter">
+      <Box background="white">
         <View accessible={true}>
           <Text>Afvalinformatie voor</Text>
           <Gutter height={size.spacing.xs} />

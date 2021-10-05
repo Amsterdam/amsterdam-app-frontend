@@ -136,7 +136,7 @@ export const AddressForm = () => {
   }, [address])
 
   return (
-    <Box background="lighter" inset="lg">
+    <Box background="white" inset="lg">
       {!isStreetSelected ? (
         <StreetInput
           bagList={bagList}
