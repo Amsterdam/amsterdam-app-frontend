@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: size.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: color.border.separator,
+    borderBottomColor: color.border.default,
     borderStyle: 'solid',
   },
 })

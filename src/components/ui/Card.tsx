@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   cardBorder: {
     borderWidth: 1,
-    borderColor: color.border.separator,
+    borderColor: color.border.default,
   },
   column: {
     flexDirection: 'column',

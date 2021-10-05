@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: color.background.lightish,
     borderBottomWidth: 2,
-    borderBottomColor: color.border.separator,
+    borderBottomColor: color.border.default,
     padding: size.spacing.md,
   },
   itemIsUnread: {

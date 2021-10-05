@@ -144,7 +144,7 @@ const globalScreenOptions: StackNavigationOptions = {
   },
   headerStyle: {
     backgroundColor: color.background.lighter,
-    borderBottomColor: color.border.separator,
+    borderBottomColor: color.border.default,
     borderBottomWidth: 1,
     elevation: 0,
     shadowOpacity: 0,

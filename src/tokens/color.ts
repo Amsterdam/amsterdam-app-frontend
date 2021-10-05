@@ -49,10 +49,10 @@ export const color = {
     lightish: baseColor.tint.level2,
   },
   border: {
+    default: baseColor.tint.level3,
     input: baseColor.tint.level5,
     inputFocus: baseColor.tint.level7,
     primary: baseColor.primary.main,
-    separator: baseColor.tint.level3,
     warning: baseColor.error.main,
   },
   font: {

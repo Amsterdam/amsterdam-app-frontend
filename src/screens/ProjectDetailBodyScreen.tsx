@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
     padding: size.spacing.md,
     backgroundColor: color.background.lightish,
     borderBottomWidth: 2,
-    borderBottomColor: color.border.separator,
+    borderBottomColor: color.border.default,
   },
 })
