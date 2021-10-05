@@ -1,9 +1,7 @@
 const baseColor = {
   primary: {
-    main: '#004699',
-  },
-  secondary: {
-    main: '#ec0000',
+    darkblue: '#004699',
+    red: '#ec0000',
   },
   tint: {
     level1: '#ffffff',
@@ -33,7 +31,7 @@ const baseColor = {
 export const color = {
   background: {
     darker: baseColor.tint.level7,
-    emphasis: baseColor.primary.main,
+    emphasis: baseColor.primary.darkblue,
     inactive: baseColor.tint.level5,
     invalid: baseColor.support.invalid,
     light: baseColor.tint.level3,
@@ -45,20 +43,20 @@ export const color = {
     input: baseColor.tint.level5,
     inputFocus: baseColor.tint.level7,
     invalid: baseColor.support.invalid,
-    primary: baseColor.primary.main,
+    primary: baseColor.primary.darkblue,
   },
   font: {
     invalid: baseColor.support.invalid,
     inverse: baseColor.tint.level1,
     light: baseColor.tint.level6,
-    primary: baseColor.primary.main,
+    primary: baseColor.primary.darkblue,
     regular: baseColor.tint.level7,
     secondary: baseColor.tint.level5,
     tertiary: baseColor.tint.level4,
   },
   touchable: {
-    primary: baseColor.primary.main,
-    secondary: baseColor.secondary.main,
-    pressed: baseColor.secondary.main,
+    primary: baseColor.primary.darkblue,
+    secondary: baseColor.primary.red,
+    pressed: baseColor.primary.red,
   },
 }
