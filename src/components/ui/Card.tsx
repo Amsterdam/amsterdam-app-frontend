@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     paddingHorizontal: size.spacing.md,
     paddingVertical: size.spacing.sm,
-    borderBottomColor: color.background.light,
+    borderBottomColor: color.border.default,
     borderBottomWidth: 1,
   },
 })
