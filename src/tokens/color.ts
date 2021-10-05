@@ -1,11 +1,9 @@
 const baseColor = {
   primary: {
     main: '#004699',
-    dark: '#00387a',
   },
   secondary: {
     main: '#ec0000',
-    dark: '#bc0000',
   },
   tint: {
     level1: '#ffffff',
@@ -29,9 +27,6 @@ const baseColor = {
     lightgreen: '#bed200',
     darkgreen: '#00a03c',
     lightblue: '#009dec',
-  },
-  bright: {
-    main: '#ffffff',
   },
 }
 
