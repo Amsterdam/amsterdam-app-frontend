@@ -19,7 +19,6 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [hasError, setHasError] = useState<Boolean>(false)
   const [isLoading, setIsLoading] = useState<Boolean>(false)
 
-  const initialRender = useRef(true)
   const prevUrl = useRef<string>()
 
   const currentParams = useMemo(() => options?.params ?? {}, [options?.params])
@@ -27,27 +26,23 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
 
   const fetchData = useCallback(
     async (params = undefined) => {
-      if (!onLoad && initialRender.current) {
-        initialRender.current = false
-      } else {
-        setIsLoading(true)
-        const queryParams = {...options?.params, ...params}
-        const queryString = Object.keys(queryParams)
-          .map(key => key + '=' + encodeURIComponent(queryParams[key]))
-          .join('&')
+      setIsLoading(true)
+      const queryParams = {...options?.params, ...params}
+      const queryString = Object.keys(queryParams)
+        .map(key => key + '=' + encodeURIComponent(queryParams[key]))
+        .join('&')
 
-        try {
-          const response = await fetch(url + '?' + queryString, {...options})
-          const json = await response.json()
-          setData(json.result ?? json)
-        } catch (error) {
-          setHasError(!!error)
-        } finally {
-          setIsLoading(false)
-        }
+      try {
+        const response = await fetch(url + '?' + queryString, {...options})
+        const json = await response.json()
+        setData(json.result ?? json)
+      } catch (error) {
+        setHasError(!!error)
+      } finally {
+        setIsLoading(false)
       }
     },
-    [onLoad, options, url],
+    [options, url],
   )
 
   const fetchDataIfNeeded = useCallback(() => {
