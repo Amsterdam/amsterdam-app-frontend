@@ -64,7 +64,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
           : 'auto',
     },
     warning: {
-      borderColor: color.border.warning,
+      borderColor: color.border.invalid,
       borderWidth: 2,
     },
   })

@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     paddingLeft: size.spacing.md - borderWidth,
   },
   warning: {
-    borderLeftColor: color.border.warning,
+    borderLeftColor: color.border.invalid,
   },
 })

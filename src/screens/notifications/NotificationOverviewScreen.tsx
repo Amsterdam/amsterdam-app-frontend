@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
   },
   itemIsUnread: {
     backgroundColor: color.background.lighter,
-    borderBottomColor: color.border.warning,
+    borderBottomColor: color.border.invalid,
   },
 })
