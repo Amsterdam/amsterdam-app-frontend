@@ -1,3 +1,5 @@
+import 'intl'
+
 export const formatDate = (date: string | number) => {
   const jsDate = new Date(date)
 
