@@ -1,5 +1,5 @@
 import React, {Children, ReactNode} from 'react'
-import {View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {HorizontalAlignment, VerticalAlignment} from './types'
 import {mapHorizontalAlignmentInRow, mapVerticalAlignmentInRow} from './utils'
 
@@ -9,16 +9,17 @@ type Props = {
   valign?: VerticalAlignment
 }
 
-export const Row = ({align, children, valign}: Props) => (
-  <View
-    style={{
+export const Row = ({align, children, valign}: Props) => {
+  const styles = StyleSheet.create({
+    row: {
       flexDirection: 'row',
       justifyContent: mapHorizontalAlignmentInRow(
         align,
         align === 'end-or-between' ? Children.count(children) : undefined,
       ),
       alignItems: mapVerticalAlignmentInRow(valign),
-    }}>
-    {children}
-  </View>
-)
+    },
+  })
+
+  return <View style={styles.row}>{children}</View>
+}

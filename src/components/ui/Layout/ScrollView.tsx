@@ -10,7 +10,7 @@ export const ScrollView = ({children, keyboardDismiss}: Props) => {
   return (
     <RNScrollView
       contentContainerStyle={keyboardDismiss && styles.container}
-      keyboardShouldPersistTaps={keyboardDismiss && 'never'}>
+      keyboardShouldPersistTaps={keyboardDismiss && 'handled'}>
       {children}
     </RNScrollView>
   )
