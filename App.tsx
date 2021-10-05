@@ -144,6 +144,10 @@ const globalScreenOptions: StackNavigationOptions = {
   },
   headerStyle: {
     backgroundColor: color.background.lighter,
+    borderBottomColor: color.border.separator,
+    borderBottomWidth: 1,
+    elevation: 0,
+    shadowOpacity: 0,
   },
   headerBackImage: () => (
     <ChevronLeft
