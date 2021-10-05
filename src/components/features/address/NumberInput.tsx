@@ -77,7 +77,7 @@ export const NumberInput = ({
         value={number}
       />
       {!isNumberSelected && number ? (
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           {bagList?.map(bagItem => (
             <TouchableOpacity
               accessibilityRole="button"

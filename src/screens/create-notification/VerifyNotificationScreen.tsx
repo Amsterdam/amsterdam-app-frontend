@@ -84,10 +84,17 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    if (warning) {
+    const focusListener = navigation.addListener('focus', () => {
+      notificationContext.changeCurrentStep(3)
+    })
+    return focusListener
+  }, [navigation, notificationContext])
+
+  useEffect(() => {
+    if (token && warning) {
       warningApi.fetchData(warning)
     }
-    if (notification && newsDetails) {
+    if (token && notification && newsDetails) {
       setNotificationToSend({
         ...notification,
         news_identifier: newsDetails.id,
@@ -96,8 +103,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [token]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (notification) {
-      const warningIdentifier = warningApi.data?.warning_identifier
+    if (notification && warningApi.data) {
+      const warningIdentifier = warningApi.data.warning_identifier
       setNotificationToSend({
         ...notification,
         warning_identifier: warningIdentifier,
@@ -108,13 +115,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   useEffect(() => {
     notificationToSend && notificationApi.fetchData(notificationToSend)
   }, [notificationToSend]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(3)
-    })
-    return focusListener
-  }, [navigation, notificationContext])
 
   useEffect(() => {
     if (notificationApi.data) {
