@@ -20,5 +20,6 @@ export const Row = ({align, children, valign}: Props) => {
       alignItems: mapVerticalAlignmentInRow(valign),
     },
   })
+
   return <View style={styles.row}>{children}</View>
 }

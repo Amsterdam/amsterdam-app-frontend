@@ -8,18 +8,16 @@ import {
 } from 'react-native'
 import {size} from '../../tokens'
 
-export const KeyboardAvoidingView = ({
-  children,
-}: {
+type Props = {
   children: React.ReactNode
-}) => {
+}
+
+export const KeyboardAvoidingView = ({children}: Props) => {
   const headerHeight = useHeaderHeight()
 
-  const getHeaderHeight = (): number => {
-    return StatusBar.currentHeight
-      ? headerHeight + StatusBar.currentHeight
-      : headerHeight
-  }
+  const getHeaderHeight = (): number =>
+    headerHeight + (StatusBar.currentHeight ?? 0)
+
   return (
     <RNKeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -31,5 +29,7 @@ export const KeyboardAvoidingView = ({
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: {
+    flex: 1,
+  },
 })
