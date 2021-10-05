@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
-import {Box, Stepper} from '../../components/ui'
+import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {color} from '../../tokens'
 import {
   NewNotification,
@@ -108,28 +108,30 @@ export const CreateNotificationScreen = ({route}: Props) => {
         responseStatus,
         warning,
       }}>
-      <Box background="grey">
-        <Stepper current={currentStep} length={3} />
-      </Box>
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen
-          name="NotificationForm"
-          component={NotificationFormScreen}
-        />
-        <Stack.Screen
-          name="SelectNewsArticle"
-          component={SelectNewsArticleScreen}
-        />
-        <Stack.Screen name="WarningForm" component={WarningFormScreen} />
-        <Stack.Screen
-          name="VerifyNotification"
-          component={VerifyNotificationScreen}
-        />
-        <Stack.Screen
-          name="NotificationResponse"
-          component={NotificationResponseScreen}
-        />
-      </Stack.Navigator>
+      <KeyboardAvoidingView>
+        <Box background="grey">
+          <Stepper current={currentStep} length={3} />
+        </Box>
+        <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Screen
+            name="NotificationForm"
+            component={NotificationFormScreen}
+          />
+          <Stack.Screen
+            name="SelectNewsArticle"
+            component={SelectNewsArticleScreen}
+          />
+          <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+          <Stack.Screen
+            name="VerifyNotification"
+            component={VerifyNotificationScreen}
+          />
+          <Stack.Screen
+            name="NotificationResponse"
+            component={NotificationResponseScreen}
+          />
+        </Stack.Navigator>
+      </KeyboardAvoidingView>
     </NotificationContext.Provider>
   )
 }
