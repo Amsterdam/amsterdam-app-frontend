@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     padding: size.spacing.md,
-    backgroundColor: color.background.light,
-    borderBottomWidth: 1,
-    borderBottomColor: color.border.boxLight,
+    backgroundColor: color.background.lightish,
+    borderBottomWidth: 2,
+    borderBottomColor: color.border.separator,
   },
 })
