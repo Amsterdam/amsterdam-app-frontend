@@ -30,11 +30,11 @@ const baseColor = {
 
 export const color = {
   background: {
+    app: baseColor.neutral.grey2,
     darker: baseColor.primary.black,
     emphasis: baseColor.primary.darkblue,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
-    light: baseColor.neutral.grey2,
     lighter: baseColor.primary.white,
     lightish: baseColor.neutral.grey1,
   },

@@ -123,15 +123,14 @@ export const routes: Routes = {
   wasteGuide: {
     name: 'Waste',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.lighter,
-      },
       title: 'Afvalinformatie op adres',
     },
   },
   whereToPutBulkyWaste: {
     name: 'WhereToPutBulkyWaste',
-    options: {title: 'Grof afval'},
+    options: {
+      title: 'Grof afval',
+    },
   },
   webView: {
     name: 'WebView',
@@ -140,7 +139,7 @@ export const routes: Routes = {
 
 const globalScreenOptions: StackNavigationOptions = {
   cardStyle: {
-    backgroundColor: color.background.light,
+    backgroundColor: color.background.app,
   },
   headerStyle: {
     backgroundColor: color.background.lighter,

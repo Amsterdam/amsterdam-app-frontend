@@ -29,7 +29,7 @@ export const WhereToPutBulkyWasteScreen = () => {
           ondergrondse afvalcontainer passen.
         </Text>
       </Box>
-      <Box background="light">
+      <Box>
         <Card>
           <CardBody>
             <View style={styles.figure}>

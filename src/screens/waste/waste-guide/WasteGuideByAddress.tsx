@@ -112,7 +112,7 @@ export const WasteGuideByAddress = () => {
           />
         </Row>
       </Box>
-      <Box background="light">
+      <Box>
         {!wasteGuideLength ? (
           <Card>
             <CardHeader>
