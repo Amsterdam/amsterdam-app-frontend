@@ -1,3 +1,6 @@
+import 'intl'
+import 'intl/locale-data/jsonp/en'
+
 export const formatDate = (date: string | number) => {
   const jsDate = new Date(date)
 
