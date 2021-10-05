@@ -13,18 +13,18 @@ const baseColor = {
     grey5: '#323232',
   },
   support: {
-    valid: '#00a03c',
-    invalid: '#ec0000',
     focus: '#fec813',
+    invalid: '#ec0000',
+    valid: '#00a03c',
   },
   supplement: {
-    purple: '#a00078',
-    pink: '#e50082',
-    orange: '#ff9100',
-    yellow: '#ffe600',
-    lightgreen: '#bed200',
     darkgreen: '#00a03c',
     lightblue: '#009dec',
+    lightgreen: '#bed200',
+    orange: '#ff9100',
+    pink: '#e50082',
+    purple: '#a00078',
+    yellow: '#ffe600',
   },
 }
 
@@ -55,8 +55,8 @@ export const color = {
     tertiary: baseColor.neutral.grey3,
   },
   touchable: {
+    pressed: baseColor.primary.red,
     primary: baseColor.primary.darkblue,
     secondary: baseColor.primary.red,
-    pressed: baseColor.primary.red,
   },
 }
