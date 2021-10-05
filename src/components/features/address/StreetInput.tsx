@@ -38,7 +38,7 @@ export const StreetInput = ({
         value={street}
       />
       {!isStreetSelected ? (
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           {bagList?.map(bagItem => (
             <TouchableOpacity
               accessibilityRole="button"
