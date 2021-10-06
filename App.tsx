@@ -117,7 +117,7 @@ export const routes: Routes = {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
-      title: 'Notificatie versturen',
+      title: 'Verstuur notificatie',
     },
   },
   wasteGuide: {
