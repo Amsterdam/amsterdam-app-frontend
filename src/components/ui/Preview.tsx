@@ -10,7 +10,7 @@ type Props = {
 export const Preview = ({children, label}: Props) => {
   return (
     <>
-      <Text secondary>{label}</Text>
+      <Text>{label}</Text>
       <Gutter height={size.spacing.sm} />
       <Box background="grey">{children}</Box>
     </>
