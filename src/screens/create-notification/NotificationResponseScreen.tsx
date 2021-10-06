@@ -1,10 +1,14 @@
-import React, {useContext} from 'react'
+import React, {useContext, useLayoutEffect} from 'react'
 import {Checkmark, Close} from '../../assets/icons'
 import {Confirmation} from '../../components/features'
 import {NotificationContext} from '.'
 
 export const NotificationResponseScreen = () => {
-  const {responseStatus} = useContext(NotificationContext)
+  const {changeCurrentStep, responseStatus} = useContext(NotificationContext)
+
+  useLayoutEffect(() => {
+    changeCurrentStep(0)
+  })
 
   return responseStatus === 'success' ? (
     <Confirmation
