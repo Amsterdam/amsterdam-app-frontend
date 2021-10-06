@@ -112,8 +112,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
         <Gutter height={size.spacing.lg} />
         <View style={styles.row}>
-          {menu?.map(({icon, sections, timeline, title}) =>
-            sections?.length || timeline ? (
+          {menu?.map(({icon, sections, timeline, title}) => {
+            const hasSections = sections?.length
+            const hasTimeline = Object.keys(timeline ?? {}).length
+
+            return hasSections || hasTimeline ? (
               <IconButton
                 icon={icon}
                 key={title}
@@ -129,8 +132,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   })
                 }
               />
-            ) : null,
-          )}
+            ) : null
+          })}
         </View>
       </Box>
       {project.news.length ? (
