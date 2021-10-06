@@ -135,8 +135,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       <Stretch>
         <Box>
           <Title margin text="Controleer" />
-          <Text secondary>Project</Text>
-          <Title level={2} text={projectDetails.title} />
+          <View accessible={true}>
+            <Text secondary>Project</Text>
+            <Title level={2} text={projectDetails.title} />
+          </View>
           <Gutter height={size.spacing.md} />
           {notification && (
             <>
