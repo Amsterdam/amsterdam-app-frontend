@@ -136,7 +136,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         <Box>
           <Title margin text="Controleer" />
           <View accessible={true}>
-            <Text secondary>Project</Text>
+            <Text>Project</Text>
             <Title level={2} text={projectDetails.title} />
           </View>
           <Gutter height={size.spacing.md} />
@@ -152,7 +152,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
           )}
           {newsDetails && (
             <>
-              <Text secondary>Nieuwsbericht</Text>
+              <Text>Nieuwsbericht</Text>
               <Gutter height={size.spacing.sm} />
               <View style={styles.newsTitle}>
                 <Text>{newsDetails.title}</Text>
