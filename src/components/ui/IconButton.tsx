@@ -18,7 +18,7 @@ export const IconButton = ({icon, label, onPress}: Props) => (
   </TouchableOpacity>
 )
 
-const circleSize = 64
+const circleSize = 58
 
 const styles = StyleSheet.create({
   circle: {
