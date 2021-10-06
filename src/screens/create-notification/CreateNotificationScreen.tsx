@@ -109,9 +109,11 @@ export const CreateNotificationScreen = ({route}: Props) => {
         warning,
       }}>
       <KeyboardAvoidingView>
-        <Box background="grey">
-          <Stepper current={currentStep} length={3} />
-        </Box>
+        {currentStep !== 0 && (
+          <Box background="grey">
+            <Stepper current={currentStep} length={3} />
+          </Box>
+        )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
             name="NotificationForm"
