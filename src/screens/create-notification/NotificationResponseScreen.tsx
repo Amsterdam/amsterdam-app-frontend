@@ -1,6 +1,6 @@
 import React, {useContext, useLayoutEffect} from 'react'
 import {Checkmark, Close} from '../../assets/icons'
-import {Confirmation} from '../../components/features'
+import {Confirmation} from '../../components/features/form'
 import {Box} from '../../components/ui'
 import {NotificationContext} from '.'
 
