@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native'
-import {image} from '../../tokens'
-import {Card, CardBody, Text, Title} from '../ui'
+import {image} from '../../../tokens'
+import {Card, CardBody, Text, Title} from '../../ui'
 
 type Props = {
   imageSource?: ImageSourcePropType
