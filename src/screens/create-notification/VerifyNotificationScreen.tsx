@@ -175,6 +175,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         <Row align="between" valign="center">
           <TextButton
             direction="backward"
+            emphasis
             onPress={navigation.goBack}
             text="Vorige"
           />
