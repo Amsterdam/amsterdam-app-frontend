@@ -12,7 +12,7 @@ export const Preview = ({children, label}: Props) => {
     <>
       <Text secondary>{label}</Text>
       <Gutter height={size.spacing.sm} />
-      <Box bordered>{children}</Box>
+      <Box background="grey">{children}</Box>
     </>
   )
 }
