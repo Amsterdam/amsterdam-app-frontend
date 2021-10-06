@@ -1,26 +1,15 @@
-import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
-import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
-import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
-import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
-import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
+import {ProjectBodyMenu} from '../components/features'
 import {NewsArticleOverview} from '../components/features/news'
-import {
-  Box,
-  Button,
-  Gutter,
-  IconButton,
-  Image,
-  Text,
-  Title,
-} from '../components/ui'
+import {Box, Button, Gutter, Image, Text, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
-import {color, image, size} from '../tokens'
-import {ProjectDetail, Section, Timeline} from '../types'
+import {image, size} from '../tokens'
+import {ProjectDetail} from '../types'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -47,39 +36,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       title: project?.title,
     })
   }, [project?.title, navigation])
-
-  const menu: {
-    icon: any
-    sections?: Section[]
-    timeline?: Timeline
-    title: string
-  }[] = [
-    {
-      icon: <Info fill={color.font.inverse} />,
-      sections: [
-        ...(project?.body.intro ?? []),
-        ...(project?.body.what ?? []),
-        ...(project?.body.where ?? []),
-      ],
-      title: 'Informatie',
-    },
-    {
-      icon: <Calendar fill={color.font.inverse} />,
-      sections: project?.body.when ?? [],
-      timeline: project?.body.timeline,
-      title: 'Tijdlijn',
-    },
-    {
-      icon: <LocationFields fill={color.font.inverse} />,
-      sections: project?.body.work,
-      title: 'Werkzaamheden',
-    },
-    {
-      icon: <ChatBubble fill={color.font.inverse} />,
-      sections: project?.body.contact,
-      title: 'Contact',
-    },
-  ]
 
   return isLoading && !project ? (
     <Box>
@@ -111,30 +67,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         {project.title && <Title text={project.title} />}
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
         <Gutter height={size.spacing.lg} />
-        <View style={styles.row}>
-          {menu?.map(({icon, sections, timeline, title}) => {
-            const hasSections = sections?.length
-            const hasTimeline = Object.keys(timeline ?? {}).length
-
-            return hasSections || hasTimeline ? (
-              <IconButton
-                icon={icon}
-                key={title}
-                label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
-                onPress={() =>
-                  navigation.navigate(routes.projectDetailBody.name, {
-                    body: {
-                      headerTitle: project.title,
-                      sections: sections ?? [],
-                      title: title,
-                      timeline: timeline,
-                    },
-                  })
-                }
-              />
-            ) : null
-          })}
-        </View>
+        <ProjectBodyMenu project={project} />
       </Box>
       {project.news.length ? (
         <NewsArticleOverview projectId={project.identifier} />
@@ -148,10 +81,5 @@ const styles = StyleSheet.create({
     aspectRatio: image.aspectRatio.wide,
     maxWidth: '100%',
     resizeMode: 'cover',
-  },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginHorizontal: -size.spacing.md,
   },
 })
