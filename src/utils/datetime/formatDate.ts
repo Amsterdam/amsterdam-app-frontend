@@ -1,4 +1,5 @@
 import 'intl'
+import 'intl/locale-data/jsonp/nl-NL'
 
 export const formatDate = (date: string | number) => {
   const jsDate = new Date(date)
