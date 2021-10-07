@@ -1,14 +1,18 @@
 import React, {createContext, useEffect, useState} from 'react'
-import {useWindowDimensions} from 'react-native'
+import {ScaledSize, useWindowDimensions} from 'react-native'
 
 type Device = {
   isLandscape: boolean | undefined
   isPortrait: boolean | undefined
-}
+} & ScaledSize
 
 const initialValue: Device = {
+  fontScale: 0,
+  height: 0,
   isLandscape: undefined,
   isPortrait: undefined,
+  scale: 0,
+  width: 0,
 }
 
 export const DeviceContext = createContext(initialValue)
@@ -25,8 +29,9 @@ export const DeviceProvider = ({children}: Props) => {
     setValue({
       isLandscape: window.height < window.width,
       isPortrait: window.height >= window.width,
+      ...window,
     })
-  }, [window.height, window.width])
+  }, [window])
 
   return (
     <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>
