@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
 import {BellActive, BellInactive} from '../../assets/icons'
 import {Box, Gutter, Text} from '../../components/ui'
 import {getEnvironment} from '../../environment'
@@ -10,7 +10,9 @@ import {formatDate} from '../../utils'
 
 export const NotificationOverviewScreen = () => {
   // TEMP Get all projects to display all notifications
-  const {data: projects} = useFetch<ProjectOverviewItem[]>({
+  const {data: projects, isLoading: isProjectsLoading} = useFetch<
+    ProjectOverviewItem[]
+  >({
     url: getEnvironment().apiUrl + '/projects',
   })
 
@@ -23,7 +25,9 @@ export const NotificationOverviewScreen = () => {
       }, {})
     : {}
 
-  const {data: notifications} = useFetch<Notification[]>({
+  const {data: notifications, isLoading: isNotificationsLoading} = useFetch<
+    Notification[]
+  >({
     url: getEnvironment().apiUrl + '/notifications',
     options: {
       params: {
@@ -31,6 +35,14 @@ export const NotificationOverviewScreen = () => {
       },
     },
   })
+
+  if (isProjectsLoading || isNotificationsLoading) {
+    return (
+      <Box>
+        <ActivityIndicator />
+      </Box>
+    )
+  }
 
   const notificationsWithReadStatus: Notification[] = (notifications ?? []).map(
     (notification, index) => ({
