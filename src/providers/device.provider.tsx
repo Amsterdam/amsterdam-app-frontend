@@ -1,36 +1,34 @@
 import React, {createContext, useEffect, useState} from 'react'
 import {useWindowDimensions} from 'react-native'
 
-type Orientation = {
+type Device = {
   isLandscape: boolean | undefined
   isPortrait: boolean | undefined
 }
 
-const initialOrientation: Orientation = {
+const initialValue: Device = {
   isLandscape: undefined,
   isPortrait: undefined,
 }
 
-export const OrientationContext = createContext(initialOrientation)
+export const DeviceContext = createContext(initialValue)
 
 type Props = {
   children: React.ReactNode
 }
 
-export const OrientationProvider = ({children}: Props) => {
-  const [orientation, setOrientation] = useState(initialOrientation)
+export const DeviceProvider = ({children}: Props) => {
+  const [value, setValue] = useState(initialValue)
   const window = useWindowDimensions()
 
   useEffect(() => {
-    setOrientation({
+    setValue({
       isLandscape: window.height < window.width,
       isPortrait: window.height >= window.width,
     })
   }, [window.height, window.width])
 
   return (
-    <OrientationContext.Provider value={orientation}>
-      {children}
-    </OrientationContext.Provider>
+    <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>
   )
 }

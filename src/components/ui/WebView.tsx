@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {WebView as WebViewRN} from 'react-native-webview'
-import {OrientationContext} from '../../providers'
+import {DeviceContext} from '../../providers'
 
 export type WebViewProps = {
   sliceFromTop?: {
@@ -11,14 +11,14 @@ export type WebViewProps = {
 }
 
 export const WebView = ({sliceFromTop, uri}: WebViewProps) => {
-  const orientationContext = useContext(OrientationContext)
+  const deviceContext = useContext(DeviceContext)
 
   return (
     <WebViewRN
       source={{uri}}
       style={
         sliceFromTop && {
-          marginTop: orientationContext.isPortrait
+          marginTop: deviceContext.isPortrait
             ? -sliceFromTop.portrait
             : -sliceFromTop.landscape,
         }

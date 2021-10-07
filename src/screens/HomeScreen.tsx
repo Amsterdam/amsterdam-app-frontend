@@ -6,7 +6,7 @@ import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address'
 import {Box, Button, Gutter} from '../components/ui'
 import {getEnvironment} from '../environment'
-import {AddressContext, OrientationContext} from '../providers'
+import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const HomeScreen = ({navigation}: Props) => {
-  const orientationContext = useContext(OrientationContext)
+  const deviceContext = useContext(DeviceContext)
   const addressContext = useContext(AddressContext)
 
   const clearAddress = async () => {
@@ -30,20 +30,18 @@ export const HomeScreen = ({navigation}: Props) => {
     <ScrollView>
       <Box>
         <View
-          style={
-            orientationContext.isLandscape && [styles.row, styles.alignStart]
-          }>
-          <View style={orientationContext.isLandscape && styles.halfWidth}>
+          style={deviceContext.isLandscape && [styles.row, styles.alignStart]}>
+          <View style={deviceContext.isLandscape && styles.halfWidth}>
             <Address />
           </View>
           <Gutter
-            height={orientationContext.isPortrait ? size.spacing.xl : undefined}
-            width={orientationContext.isPortrait ? undefined : size.spacing.xl}
+            height={deviceContext.isPortrait ? size.spacing.xl : undefined}
+            width={deviceContext.isPortrait ? undefined : size.spacing.xl}
           />
           <View
             style={[
               styles.halfWidth,
-              orientationContext.isLandscape && styles.alignStart,
+              deviceContext.isLandscape && styles.alignStart,
             ]}>
             <Button
               onPress={() =>
