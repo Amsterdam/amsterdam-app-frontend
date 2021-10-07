@@ -7,12 +7,12 @@ type Device = {
 } & ScaledSize
 
 const initialValue: Device = {
-  fontScale: 0,
-  height: 0,
-  isLandscape: undefined,
-  isPortrait: undefined,
-  scale: 0,
-  width: 0,
+  fontScale: 1,
+  height: 640,
+  isLandscape: false,
+  isPortrait: true,
+  scale: 1,
+  width: 360,
 }
 
 export const DeviceContext = createContext(initialValue)
