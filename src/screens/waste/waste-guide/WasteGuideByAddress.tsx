@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
-import {ActivityIndicator, View} from 'react-native'
+import {ActivityIndicator} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {AddressFormTeaser} from '../../../components/features/address'
 import {
@@ -15,6 +15,7 @@ import {
   TextButton,
   Title,
 } from '../../../components/ui'
+import {SingleSelectable} from '../../../components/ui/SingleSelectable'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {size} from '../../../tokens'
@@ -97,12 +98,12 @@ export const WasteGuideByAddress = () => {
   return (
     <>
       <Box background="white">
-        <View accessible={true}>
+        <SingleSelectable>
           <Text>Afvalinformatie voor</Text>
           <Gutter height={size.spacing.xs} />
           <Title text={address.adres} />
           <Gutter height={size.spacing.sm} />
-        </View>
+        </SingleSelectable>
         <Row align="start">
           <TextButton
             direction="backward"

@@ -13,6 +13,7 @@ import {
 } from '../../components/ui'
 import {Stretch} from '../../components/ui/Layout/Stretch'
 import {Preview} from '../../components/ui/Preview'
+import {SingleSelectable} from '../../components/ui/SingleSelectable'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
@@ -135,8 +136,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       <Stretch>
         <Box>
           <Title margin text="Controleer" />
-          <Text secondary>Project</Text>
-          <Title level={2} text={projectDetails.title} />
+          <SingleSelectable>
+            <Text>Project</Text>
+            <Title level={2} text={projectDetails.title} />
+          </SingleSelectable>
           <Gutter height={size.spacing.md} />
           {notification && (
             <>
@@ -150,7 +153,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
           )}
           {newsDetails && (
             <>
-              <Text secondary>Nieuwsbericht</Text>
+              <Text>Nieuwsbericht</Text>
               <Gutter height={size.spacing.sm} />
               <View style={styles.newsTitle}>
                 <Text>{newsDetails.title}</Text>
@@ -173,6 +176,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
         <Row align="between" valign="center">
           <TextButton
             direction="backward"
+            emphasis
             onPress={navigation.goBack}
             text="Vorige"
           />

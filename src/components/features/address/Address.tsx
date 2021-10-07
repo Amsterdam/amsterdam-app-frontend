@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, View} from 'react-native'
+import {ActivityIndicator} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
@@ -17,6 +17,7 @@ import {
   TextButton,
   Title,
 } from '../../ui'
+import {SingleSelectable} from '../../ui/SingleSelectable'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {
@@ -51,12 +52,12 @@ export const Address = () => {
       ) : address ? (
         <Card>
           <CardBody>
-            <View accessible={true}>
+            <SingleSelectable>
               <Text secondary>Uw adres:</Text>
               <Gutter height={size.spacing.sm} />
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
-            </View>
+            </SingleSelectable>
             <Gutter height={size.spacing.md} />
             <Row align="start">
               <TextButton

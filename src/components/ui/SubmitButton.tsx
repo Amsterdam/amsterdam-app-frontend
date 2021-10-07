@@ -43,6 +43,7 @@ export const SubmitButton = (props: Props) => {
     <Pressable
       onLayout={e => setButtonHeight(e.nativeEvent.layout.height)}
       onPress={props.onPress}
+      accessibilityRole="button"
       style={styles.button}>
       <Text inverse>{props.text}</Text>
       <View style={styles.pointedEnd} />
