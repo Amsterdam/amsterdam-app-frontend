@@ -1,6 +1,6 @@
 import React from 'react'
-import {View} from 'react-native'
 import {size} from '../../tokens'
+import {SingleSelectable} from './SingleSelectable'
 import {Gutter, Text} from './'
 
 type DescriptionListProps = {
@@ -18,7 +18,7 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
   return (
     <>
       {nonEmptyItems.map(({label, value}, index) => (
-        <View accessible={true} key={label}>
+        <SingleSelectable key={label}>
           <Text secondary small>
             {label}
           </Text>
@@ -26,7 +26,7 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
           {index < nonEmptyItems.length - 1 && (
             <Gutter height={size.spacing.md} />
           )}
-        </View>
+        </SingleSelectable>
       ))}
     </>
   )
