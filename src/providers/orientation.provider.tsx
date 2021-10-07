@@ -2,10 +2,12 @@ import React, {createContext, useEffect, useState} from 'react'
 import {useWindowDimensions} from 'react-native'
 
 type Orientation = {
+  isLandscape: boolean | undefined
   isPortrait: boolean | undefined
 }
 
 const initialOrientation: Orientation = {
+  isLandscape: undefined,
   isPortrait: undefined,
 }
 
@@ -20,7 +22,10 @@ export const OrientationProvider = ({children}: Props) => {
   const window = useWindowDimensions()
 
   useEffect(() => {
-    setOrientation({isPortrait: window.height >= window.width})
+    setOrientation({
+      isLandscape: window.height < window.width,
+      isPortrait: window.height >= window.width,
+    })
   }, [window.height, window.width])
 
   return (
