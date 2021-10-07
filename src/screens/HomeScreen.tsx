@@ -31,9 +31,9 @@ export const HomeScreen = ({navigation}: Props) => {
       <Box>
         <View
           style={
-            !orientationContext.isPortrait && [styles.row, styles.alignStart]
+            orientationContext.isLandscape && [styles.row, styles.alignStart]
           }>
-          <View style={!orientationContext.isPortrait && styles.halfWidth}>
+          <View style={orientationContext.isLandscape && styles.halfWidth}>
             <Address />
           </View>
           <Gutter
@@ -43,7 +43,7 @@ export const HomeScreen = ({navigation}: Props) => {
           <View
             style={[
               styles.halfWidth,
-              !orientationContext.isPortrait && styles.alignStart,
+              orientationContext.isLandscape && styles.alignStart,
             ]}>
             <Button
               onPress={() =>

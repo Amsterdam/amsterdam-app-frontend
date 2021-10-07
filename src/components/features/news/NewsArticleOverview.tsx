@@ -35,12 +35,12 @@ export const NewsArticleOverview = ({projectId}: Props) => {
       <Gutter height={size.spacing.md} />
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
-      <View style={!orientationContext.isPortrait && styles.grid}>
+      <View style={orientationContext.isLandscape && styles.grid}>
         {news.data.map((article, index) => (
           <View
             key={`article-${index}`}
             style={[
-              !orientationContext.isPortrait && styles.item,
+              orientationContext.isLandscape && styles.item,
               styles.verticalGutter,
             ]}>
             <NewsArticleOverviewItem
