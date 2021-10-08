@@ -12,19 +12,12 @@ export const mapCrossAxisAlignment = (value?: string) => {
   return value ? mapping[value] : undefined
 }
 
-export const mapMainAxisAlignment = (
-  value?: string,
-  numberOfChildren?: number,
-) => {
+export const mapMainAxisAlignment = (value?: string) => {
   const mapping: Record<string, FlexStyle['justifyContent']> = {
     around: 'space-around',
     between: 'space-between',
     center: 'center',
     end: 'flex-end',
-    'end-or-between':
-      !numberOfChildren || numberOfChildren === 1
-        ? 'flex-end'
-        : 'space-between',
     evenly: 'space-evenly',
     start: 'flex-start',
   }

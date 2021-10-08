@@ -1,4 +1,4 @@
-import React, {Children, ReactNode} from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Spacing} from '../../../tokens'
 import {HorizontalAlignment, VerticalAlignment} from './types'
@@ -16,10 +16,7 @@ export const Row = ({align, children, gutter, valign}: Props) => {
   const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
-      justifyContent: mapMainAxisAlignment(
-        align,
-        align === 'end-or-between' ? Children.count(children) : undefined,
-      ),
+      justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),
     },
   })

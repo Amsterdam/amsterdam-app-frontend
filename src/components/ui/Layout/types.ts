@@ -3,7 +3,6 @@ export type HorizontalAlignment =
   | 'between'
   | 'center'
   | 'end'
-  | 'end-or-between'
   | 'evenly'
   | 'start'
 
