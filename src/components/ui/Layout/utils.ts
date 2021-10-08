@@ -1,6 +1,6 @@
 import {FlexStyle} from 'react-native'
 
-export const mapVerticalAlignmentInRow = (value?: string) => {
+export const mapCrossAxisAlignment = (value?: string) => {
   const mapping: Record<string, FlexStyle['alignItems']> = {
     baseline: 'baseline',
     bottom: 'flex-end',
@@ -12,7 +12,7 @@ export const mapVerticalAlignmentInRow = (value?: string) => {
   return value ? mapping[value] : undefined
 }
 
-export const mapHorizontalAlignmentInRow = (
+export const mapMainAxisAlignment = (
   value?: string,
   numberOfChildren?: number,
 ) => {
