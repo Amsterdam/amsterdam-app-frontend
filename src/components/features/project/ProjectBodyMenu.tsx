@@ -59,15 +59,17 @@ export const ProjectBodyMenu = ({project}: Props) => {
   ]
 
   const menu: ProjectBodyMenuItem[] = menuOptions.filter(item => {
-    const amountOfSections = item.sections?.length ?? 0
-    const amountOfTimelines = Object.keys(item.timeline ?? {}).length ? 1 : 0
+    const numberOfSections = item.sections?.length ?? 0
+    const numberOfTimelines = Object.keys(item.timeline ?? {}).length ? 1 : 0
 
-    return amountOfSections + amountOfTimelines > 0
+    return numberOfSections || numberOfTimelines
   })
 
   // Reserve 25% for each icon, space between, max half width of wide screens.
-  let rowWidth = (100 / 4) * menu.length
-  if (deviceContext.width > 480) {
+  const iconButtonWidth = 80
+  const numberOfIconButtons = 4
+  let rowWidth = (100 / numberOfIconButtons) * menu.length
+  if (deviceContext.width > 2 * numberOfIconButtons * iconButtonWidth) {
     rowWidth /= 2
   }
 
@@ -76,7 +78,8 @@ export const ProjectBodyMenu = ({project}: Props) => {
       style={[
         styles.row,
         {width: rowWidth + '%'},
-        deviceContext.width < 320 && styles.wrap,
+        deviceContext.width < numberOfIconButtons * iconButtonWidth &&
+          styles.wrap,
       ]}>
       {menu.map(({icon, sections, timeline, title}) => (
         <IconButton
