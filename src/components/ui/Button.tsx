@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Gutter, Text} from './'
+import {Row, Text} from './'
 
 type Props = {
   icon?: React.ReactElement
@@ -27,16 +27,17 @@ export const Button = ({
       accessibilityRole="button"
       style={[styles.button, styles[variant]]}
       {...otherProps}>
-      {icon && <View style={styles.iconContainer}>{icon}</View>}
-      {icon && text && <Gutter width={size.spacing.md} />}
-      {text && (
-        <Text
-          inverse={variant !== 'text'}
-          primary={variant === 'inverse'}
-          link={variant === 'text'}>
-          {text}
-        </Text>
-      )}
+      <Row gutter="md">
+        {icon && <View style={styles.iconContainer}>{icon}</View>}
+        {text && (
+          <Text
+            inverse={variant !== 'text'}
+            primary={variant === 'inverse'}
+            link={variant === 'text'}>
+            {text}
+          </Text>
+        )}
+      </Row>
     </TouchableOpacity>
   )
 }
