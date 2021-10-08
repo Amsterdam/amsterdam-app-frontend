@@ -72,7 +72,12 @@ export const ProjectBodyMenu = ({project}: Props) => {
   }
 
   return (
-    <View style={[styles.row, {width: rowWidth + '%'}]}>
+    <View
+      style={[
+        styles.row,
+        {width: rowWidth + '%'},
+        deviceContext.width < 320 && styles.wrap,
+      ]}>
       {menu.map(({icon, sections, timeline, title}) => (
         <IconButton
           icon={icon}
@@ -99,5 +104,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: -size.spacing.md,
+  },
+  wrap: {
+    flexWrap: 'wrap',
   },
 })
