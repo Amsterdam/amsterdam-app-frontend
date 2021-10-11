@@ -8,7 +8,8 @@ import {useFetch} from '../../../hooks'
 import {OrientationContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {NewsArticleList} from '../../../types'
-import {Box, Gutter, Title} from '../../ui'
+import {Box, Title} from '../../ui'
+import {Gutter} from '../../ui/layout'
 import {NewsArticleOverviewItem} from './'
 
 type Props = {

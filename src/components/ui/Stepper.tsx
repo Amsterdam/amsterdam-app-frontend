@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Text, Title} from '../'
-import {color, font} from '../../../tokens'
+import {color, font} from '../../tokens'
+import {Text, Title} from './index'
 
 type Props = {
   current?: number

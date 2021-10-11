@@ -1,10 +1,10 @@
 import {useRadio} from '@react-native-aria/radio'
 import React, {useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet} from 'react-native'
-import {Center} from '..'
 import CircleIcon from '../../../assets/icons/circle.svg'
 import {color, size} from '../../../tokens'
-import {RadioContext} from '.'
+import {Center} from '../../ui/layout'
+import {RadioContext} from './'
 
 type Props = {
   children: React.ReactNode

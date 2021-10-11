@@ -3,22 +3,19 @@ import React, {useContext, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {
   Box,
-  Gutter,
-  Row,
-  ScrollView,
+  Preview,
+  SingleSelectable,
   SubmitButton,
   Text,
   TextButton,
   Title,
 } from '../../components/ui'
-import {Stretch} from '../../components/ui/Layout/Stretch'
-import {Preview} from '../../components/ui/Preview'
-import {SingleSelectable} from '../../components/ui/SingleSelectable'
+import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {color, size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
-import {NotificationContext, NotificationStackParamList} from '.'
+import {NotificationContext, NotificationStackParamList} from './'
 
 type Props = {
   navigation: StackNavigationProp<

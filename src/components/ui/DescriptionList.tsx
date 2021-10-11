@@ -1,7 +1,7 @@
 import React from 'react'
 import {size} from '../../tokens'
-import {SingleSelectable} from './SingleSelectable'
-import {Gutter, Text} from './'
+import {Gutter} from './layout'
+import {SingleSelectable, Text} from './'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]

@@ -6,7 +6,8 @@ import {
   View,
 } from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Row, Text} from './'
+import {Row} from './layout'
+import {Text} from './'
 
 type Props = {
   icon?: React.ReactElement

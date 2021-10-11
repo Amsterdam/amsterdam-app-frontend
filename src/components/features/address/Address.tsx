@@ -11,13 +11,12 @@ import {
   Box,
   Card,
   CardBody,
-  Gutter,
-  Row,
+  SingleSelectable,
   Text,
   TextButton,
   Title,
 } from '../../ui'
-import {SingleSelectable} from '../../ui/SingleSelectable'
+import {Gutter, Row} from '../../ui/layout'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {

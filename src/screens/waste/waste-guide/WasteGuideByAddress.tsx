@@ -9,13 +9,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Gutter,
-  Row,
   Text,
   TextButton,
   Title,
 } from '../../../components/ui'
 import {SingleSelectable} from '../../../components/ui/SingleSelectable'
+import {Gutter, Row} from '../../../components/ui/layout'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {size} from '../../../tokens'

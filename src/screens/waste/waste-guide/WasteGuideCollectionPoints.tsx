@@ -7,13 +7,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Gutter,
   Image,
-  Row,
   Text,
   TextButton,
   Title,
 } from '../../../components/ui'
+import {Gutter, Row} from '../../../components/ui/layout'
 import {size} from '../../../tokens'
 
 export const WasteGuideCollectionPoints = () => {

@@ -4,7 +4,8 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {size} from '../../../tokens'
-import {Button, Card, CardBody, Gutter, Text, Title} from '../../ui'
+import {Button, Card, CardBody, Text, Title} from '../../ui'
+import {Gutter} from '../../ui/layout'
 
 type Props = {
   body: string

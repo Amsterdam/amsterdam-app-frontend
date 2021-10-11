@@ -1,6 +1,6 @@
 import React from 'react'
 import {View} from 'react-native'
-import {Title} from '.'
+import {Title} from './'
 
 type Props = {
   isAccessible: boolean | undefined
