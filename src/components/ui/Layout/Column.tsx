@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {Spacing} from '../../../tokens'
 import {HorizontalAlignment, VerticalAlignment} from './types'
 import {
-  addGutterBetweenChildren,
+  ChildrenWithGutters,
   mapCrossAxisAlignment,
   mapMainAxisAlignment,
 } from './utils'
@@ -25,7 +25,13 @@ export const Column = ({align, children, gutter, halign}: Props) => {
 
   return (
     <View style={styles.column}>
-      {gutter ? addGutterBetweenChildren(children, gutter, 'height') : children}
+      {gutter ? (
+        <ChildrenWithGutters gutter={gutter} prop="height">
+          {children}
+        </ChildrenWithGutters>
+      ) : (
+        children
+      )}
     </View>
   )
 }
