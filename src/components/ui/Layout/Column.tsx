@@ -6,25 +6,24 @@ import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
 import {ChildrenWithGutters} from './'
 
 type Props = {
-  align?: HorizontalAlignment
+  align?: VerticalAlignment
   children: ReactNode
   gutter?: keyof Spacing
-  valign?: VerticalAlignment
+  halign?: HorizontalAlignment
 }
 
-export const Row = ({align, children, gutter, valign}: Props) => {
+export const Column = ({align, children, gutter, halign}: Props) => {
   const styles = StyleSheet.create({
-    row: {
-      flexDirection: 'row',
+    column: {
       justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(valign),
+      alignItems: mapCrossAxisAlignment(halign),
     },
   })
 
   return (
-    <View style={styles.row}>
+    <View style={styles.column}>
       {gutter ? (
-        <ChildrenWithGutters gutter={gutter} prop="width">
+        <ChildrenWithGutters gutter={gutter} prop="height">
           {children}
         </ChildrenWithGutters>
       ) : (

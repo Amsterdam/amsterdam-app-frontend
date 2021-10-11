@@ -1,3 +1,7 @@
+export * from './Center'
+export * from './ChildrenWithGutters'
+export * from './Column'
+export * from './Gutter'
 export * from './Row'
 export * from './ScrollView'
 export * from './Stretch'

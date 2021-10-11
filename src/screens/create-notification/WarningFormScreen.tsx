@@ -8,15 +8,12 @@ import {
 } from '../../components/features/form'
 import {
   Box,
-  Gutter,
-  Row,
-  ScrollView,
   SubmitButton,
   TextButton,
   TextInput,
   Title,
 } from '../../components/ui'
-import {Stretch} from '../../components/ui/Layout/Stretch'
+import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {

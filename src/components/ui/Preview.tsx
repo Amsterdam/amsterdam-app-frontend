@@ -1,6 +1,7 @@
 import React from 'react'
 import {size} from '../../tokens'
-import {Box, Gutter, Text} from '.'
+import {Gutter} from './layout'
+import {Box, Text} from './'
 
 type Props = {
   children: React.ReactNode

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Text} from '.'
+import {Text} from './'
 
 type Props = {
   onPress: () => void

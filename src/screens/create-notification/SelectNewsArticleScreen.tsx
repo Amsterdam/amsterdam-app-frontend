@@ -6,22 +6,18 @@ import {ValidationWarning} from '../../components/features/form'
 import {
   Box,
   Button,
-  Gutter,
-  Radio,
-  RadioGroup,
-  Row,
-  ScrollView,
   SubmitButton,
   Text,
   TextButton,
   Title,
 } from '../../components/ui'
-import {Stretch} from '../../components/ui/Layout/Stretch'
+import {Radio, RadioGroup} from '../../components/ui/forms'
+import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewsArticleList} from '../../types'
-import {NotificationContext, NotificationStackParamList} from '.'
+import {NotificationContext, NotificationStackParamList} from './'
 
 type Props = {
   navigation: StackNavigationProp<

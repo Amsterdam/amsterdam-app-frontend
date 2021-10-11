@@ -1,7 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {ScrollView} from 'react-native'
-import {Box, Gutter} from '../../components/ui'
+import {Box} from '../../components/ui'
+import {Gutter} from '../../components/ui/layout'
+
 import {size} from '../../tokens'
 import {WasteGuideByAddress} from './waste-guide'
 import {RecyclingGuideBanner, ReportNotCollectedBanner} from './'

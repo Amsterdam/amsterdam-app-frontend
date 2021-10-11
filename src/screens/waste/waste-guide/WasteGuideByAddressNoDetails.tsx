@@ -8,11 +8,10 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Gutter,
-  Row,
   Text,
   Title,
 } from '../../../components/ui'
+import {Gutter, Row} from '../../../components/ui/layout'
 import {size} from '../../../tokens'
 import {Address} from '../../../types'
 

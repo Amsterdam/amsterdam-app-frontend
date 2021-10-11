@@ -19,7 +19,7 @@ import {
   NotificationFormScreen,
   SelectNewsArticleScreen,
   WarningFormScreen,
-} from '.'
+} from './'
 
 export type NotificationStackParamList = {
   NotificationForm: undefined

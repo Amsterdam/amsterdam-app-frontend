@@ -5,16 +5,8 @@ import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {
-  Box,
-  Gutter,
-  Row,
-  ScrollView,
-  SubmitButton,
-  TextInput,
-  Title,
-} from '../../components/ui'
-import {Stretch} from '../../components/ui/Layout/Stretch'
+import {Box, SubmitButton, TextInput, Title} from '../../components/ui'
+import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
 import {

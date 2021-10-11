@@ -7,12 +7,12 @@ import {
   Box,
   Card,
   CardBody,
-  Gutter,
   Image,
   Text,
   TextButton,
   Title,
 } from '../../components/ui'
+import {Gutter} from '../../components/ui/layout'
 import {size} from '../../tokens'
 
 export const WhereToPutBulkyWasteScreen = () => {

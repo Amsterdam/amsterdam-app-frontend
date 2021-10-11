@@ -8,11 +8,10 @@ import {
   CardBody,
   CardHeader,
   DescriptionList,
-  Gutter,
-  Row,
   TextButton,
   Title,
 } from '../../../components/ui'
+import {Gutter, Row} from '../../../components/ui/layout'
 import {size} from '../../../tokens'
 import {WasteGuideDetails} from './types'
 

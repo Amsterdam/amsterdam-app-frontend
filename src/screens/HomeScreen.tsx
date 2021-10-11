@@ -4,7 +4,8 @@ import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address'
-import {Box, Button, Gutter} from '../components/ui'
+import {Box, Button} from '../components/ui'
+import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
@@ -43,43 +44,39 @@ export const HomeScreen = ({navigation}: Props) => {
               styles.halfWidth,
               deviceContext.isLandscape && styles.alignStart,
             ]}>
-            <Button
-              onPress={() =>
-                navigation.navigate(routes.webView.name, {
-                  sliceFromTop: {portrait: 53, landscape: 159},
-                  title: 'Melding',
-                  uri: 'https://acc.meldingen.amsterdam.nl/',
-                })
-              }
-              text="Maak een melding"
-            />
-            <Gutter height={size.spacing.md} />
-            <Button
-              onPress={() => navigation.navigate(routes.projectOverview.name)}
-              text="Bekijk werkzaamheden"
-            />
-            <Gutter height={size.spacing.md} />
-            <Button
-              onPress={() => navigation.navigate(routes.wasteGuide.name)}
-              text="Raadpleeg afvalinformatie"
-            />
-            <Gutter height={size.spacing.md} />
-            <Button
-              onPress={() =>
-                navigation.navigate(routes.notificationOverview.name)
-              }
-              text="Controleer notificaties"
-            />
-            {getEnvironment().allowClearingAddress && (
-              <>
-                <Gutter height={size.spacing.md} />
+            <Column gutter="md">
+              <Button
+                onPress={() =>
+                  navigation.navigate(routes.webView.name, {
+                    sliceFromTop: {portrait: 53, landscape: 159},
+                    title: 'Melding',
+                    uri: 'https://acc.meldingen.amsterdam.nl/',
+                  })
+                }
+                text="Maak een melding"
+              />
+              <Button
+                onPress={() => navigation.navigate(routes.projectOverview.name)}
+                text="Bekijk werkzaamheden"
+              />
+              <Button
+                onPress={() => navigation.navigate(routes.wasteGuide.name)}
+                text="Raadpleeg afvalinformatie"
+              />
+              <Button
+                onPress={() =>
+                  navigation.navigate(routes.notificationOverview.name)
+                }
+                text="Controleer notificaties"
+              />
+              {getEnvironment().allowClearingAddress && (
                 <Button
                   variant="secondary"
                   onPress={clearAddress}
                   text="Verwijder adres"
                 />
-              </>
-            )}
+              )}
+            </Column>
           </View>
         </View>
       </Box>

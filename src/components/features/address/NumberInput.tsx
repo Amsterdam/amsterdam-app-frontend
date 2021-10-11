@@ -9,7 +9,8 @@ import {
 import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Gutter, Row, Text, TextButton, TextInput} from '../../ui'
+import {Text, TextButton, TextInput} from '../../ui'
+import {Gutter, Row} from '../../ui/layout'
 
 type Props = {
   bagList: BagResponseContent | null | undefined

@@ -5,7 +5,7 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {SVGProps, useState} from 'react'
 import {Pressable, StyleSheet, Text} from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Gutter} from '.'
+import {Gutter} from './layout'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'

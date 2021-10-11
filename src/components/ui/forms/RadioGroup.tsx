@@ -4,8 +4,8 @@ import React from 'react'
 import {View} from 'react-native'
 import {size} from '../../../tokens'
 import {IRadioGroupProps, RadioGroupState} from '../../../types/radio'
-import {Gutter} from '../Gutter'
 import {Label} from '../Label'
+import {Gutter} from '../layout/Gutter'
 
 export const RadioContext = React.createContext({} as RadioGroupState)
 
