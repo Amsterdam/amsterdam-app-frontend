@@ -5,7 +5,7 @@ import {StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
-import {OrientationContext} from '../../../providers'
+import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {NewsArticleList} from '../../../types'
 import {Box, Gutter, Title} from '../../ui'
@@ -24,7 +24,7 @@ export const NewsArticleOverview = ({projectId}: Props) => {
       params: {'project-identifier': projectId},
     },
   })
-  const orientationContext = useContext(OrientationContext)
+  const deviceContext = useContext(DeviceContext)
 
   if (!news.data || !news.data?.length) {
     return null
@@ -35,12 +35,12 @@ export const NewsArticleOverview = ({projectId}: Props) => {
       <Gutter height={size.spacing.md} />
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
-      <View style={orientationContext.isLandscape && styles.grid}>
+      <View style={deviceContext.isLandscape && styles.grid}>
         {news.data.map((article, index) => (
           <View
             key={`article-${index}`}
             style={[
-              orientationContext.isLandscape && styles.item,
+              deviceContext.isLandscape && styles.item,
               styles.verticalGutter,
             ]}>
             <NewsArticleOverviewItem

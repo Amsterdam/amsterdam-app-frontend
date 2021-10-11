@@ -7,7 +7,7 @@ import {
 import React from 'react'
 import {StatusBar} from 'react-native'
 import {Logo} from './src/assets/icons'
-import {AddressProvider, OrientationProvider} from './src/providers'
+import {AddressProvider, DeviceProvider} from './src/providers'
 import {
   HomeScreen,
   NotificationOverviewScreen,
@@ -181,7 +181,7 @@ export const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <OrientationProvider>
+      <DeviceProvider>
         <AddressProvider>
           <NavigationContainer>
             <Stack.Navigator
@@ -250,7 +250,7 @@ export const App = () => {
             </Stack.Navigator>
           </NavigationContainer>
         </AddressProvider>
-      </OrientationProvider>
+      </DeviceProvider>
     </>
   )
 }
