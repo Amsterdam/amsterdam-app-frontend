@@ -2,8 +2,11 @@ import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Spacing} from '../../../tokens'
 import {HorizontalAlignment, VerticalAlignment} from './types'
-import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
-import {addGutterBetweenChildren} from './utils/addGutterBetweenChildren'
+import {
+  addGutterBetweenChildren,
+  mapCrossAxisAlignment,
+  mapMainAxisAlignment,
+} from './utils'
 
 type Props = {
   align?: HorizontalAlignment
