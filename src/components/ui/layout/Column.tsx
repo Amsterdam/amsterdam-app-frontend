@@ -1,15 +1,15 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Spacing} from '../../../tokens'
-import {HorizontalAlignment, VerticalAlignment} from './types'
+import {CrossAxisAlignment, MainAxisAlignment} from './types'
 import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
 import {ChildrenWithGutters} from './'
 
 type Props = {
-  align?: VerticalAlignment
+  align?: MainAxisAlignment
   children: ReactNode
   gutter?: keyof Spacing
-  halign?: HorizontalAlignment
+  halign?: CrossAxisAlignment
 }
 
 export const Column = ({align, children, gutter, halign}: Props) => {
