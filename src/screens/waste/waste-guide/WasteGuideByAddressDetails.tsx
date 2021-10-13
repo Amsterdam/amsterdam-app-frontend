@@ -11,7 +11,7 @@ import {
   TextButton,
   Title,
 } from '../../../components/ui'
-import {Gutter, Row} from '../../../components/ui/layout'
+import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {size} from '../../../tokens'
 import {WasteGuideDetails} from './types'
 
@@ -65,19 +65,21 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           ]}
         />
         {appointmentUrl && (
-          <Row align="start">
+          <>
             <Gutter height={size.spacing.md} />
-            <Button
-              onPress={() =>
-                navigation.navigate(routes.webView.name, {
-                  sliceFromTop: {portrait: 162, landscape: 208},
-                  title: 'Afspraak grof afval ophalen',
-                  uri: appointmentUrl,
-                })
-              }
-              text="Maak een afspraak"
-            />
-          </Row>
+            <Column halign="start">
+              <Button
+                onPress={() =>
+                  navigation.navigate(routes.webView.name, {
+                    sliceFromTop: {portrait: 162, landscape: 208},
+                    title: 'Afspraak grof afval ophalen',
+                    uri: appointmentUrl,
+                  })
+                }
+                text="Maak een afspraak"
+              />
+            </Column>
+          </>
         )}
         {footerLink && (
           <>
