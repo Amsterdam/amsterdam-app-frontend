@@ -1,4 +1,4 @@
-export type HorizontalAlignment =
+export type MainAxisAlignment =
   | 'around'
   | 'between'
   | 'center'
@@ -6,7 +6,7 @@ export type HorizontalAlignment =
   | 'evenly'
   | 'start'
 
-export type VerticalAlignment =
+export type CrossAxisAlignment =
   | 'baseline'
   | 'bottom'
   | 'center'
