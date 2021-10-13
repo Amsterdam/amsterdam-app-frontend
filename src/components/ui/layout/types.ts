@@ -8,7 +8,7 @@ export type MainAxisAlignment =
 
 export type CrossAxisAlignment =
   | 'baseline'
-  | 'bottom'
   | 'center'
+  | 'end'
+  | 'start'
   | 'stretch'
-  | 'top'
