@@ -48,9 +48,12 @@ export const HomeScreen = ({navigation}: Props) => {
               <Button
                 onPress={() =>
                   navigation.navigate(routes.webView.name, {
-                    sliceFromTop: {portrait: 53, landscape: 159},
                     title: 'Melding',
-                    url: 'https://acc.meldingen.amsterdam.nl/',
+                    url: 'https://app.meldingen.amsterdam.nl/incident/beschrijf',
+                    urlParams: {
+                      lat: addressContext.address?.centroid[1],
+                      lng: addressContext.address?.centroid[0],
+                    },
                   })
                 }
                 text="Maak een melding"
