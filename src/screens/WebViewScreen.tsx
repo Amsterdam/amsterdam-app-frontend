@@ -13,7 +13,7 @@ export type WebViewRouteParams = WebViewProps & {
 
 export const WebViewScreen = ({route}: Props) => {
   const navigation = useNavigation()
-  const {sliceFromTop, title, url}: WebViewRouteParams = route.params
+  const {sliceFromTop, title, url, urlParams}: WebViewRouteParams = route.params
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,5 +21,5 @@ export const WebViewScreen = ({route}: Props) => {
     })
   }, [title, navigation])
 
-  return <WebView sliceFromTop={sliceFromTop} url={url} />
+  return <WebView sliceFromTop={sliceFromTop} url={url} urlParams={urlParams} />
 }
