@@ -7,15 +7,15 @@ export type WebViewProps = {
     portrait: number
     landscape: number
   }
-  uri: string
+  url: string
 }
 
-export const WebView = ({sliceFromTop, uri}: WebViewProps) => {
+export const WebView = ({sliceFromTop, url}: WebViewProps) => {
   const deviceContext = useContext(DeviceContext)
 
   return (
     <WebViewRN
-      source={{uri}}
+      source={{uri: url}}
       style={
         sliceFromTop && {
           marginTop: deviceContext.isPortrait

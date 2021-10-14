@@ -15,7 +15,7 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => (
       navigation.navigate(routes.webView.name, {
         sliceFromTop: {portrait: 53, landscape: 159},
         title: 'Melding',
-        uri: 'https://acc.meldingen.amsterdam.nl/categorie/afval/grofvuil',
+        url: 'https://acc.meldingen.amsterdam.nl/categorie/afval/grofvuil',
       })
     }
     subtitle="Meld het, dan komen we langs!"

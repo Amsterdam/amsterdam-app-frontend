@@ -50,7 +50,7 @@ export const HomeScreen = ({navigation}: Props) => {
                   navigation.navigate(routes.webView.name, {
                     sliceFromTop: {portrait: 53, landscape: 159},
                     title: 'Melding',
-                    uri: 'https://acc.meldingen.amsterdam.nl/',
+                    url: 'https://acc.meldingen.amsterdam.nl/',
                   })
                 }
                 text="Maak een melding"
