@@ -17,3 +17,25 @@ steps:
   displayName: 'Install Node'
 - script: npm install
   displayName: 'Install dependencies'
+- script: npm run lint
+  displayName: 'Run lint'
+- task: InstallAppleCertificate@2
+  inputs:
+    certSecureFile: AppleDeveloperCertificate.p12
+    certPwd: $(P12password)
+    keychain: 'temp'
+    deleteCert: true
+  displayName: Install Apple Certificate
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'AppleProvisioningProfile.mobileprovision'
+  displayName: 'Install Apple Provisioning Profile'
+- script: |
+    cd ios
+    bundle install
+    fastlane build
+  displayName: 'Build iOS'
+  
+variables:
+- group: React Native Variables
