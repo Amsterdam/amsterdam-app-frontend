@@ -34,7 +34,7 @@ steps:
 - script: |
     cd ios
     bundle install
-    fastlane build
+    fastlane beta
   displayName: 'Build iOS'
   
 variables:
