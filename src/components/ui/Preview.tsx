@@ -1,6 +1,5 @@
 import React from 'react'
-import {size} from '../../tokens'
-import {Gutter} from './layout'
+import {Column} from './layout'
 import {Box, Text} from './'
 
 type Props = {
@@ -10,10 +9,11 @@ type Props = {
 
 export const Preview = ({children, label}: Props) => {
   return (
-    <>
+    <Column gutter="sm">
       <Text>{label}</Text>
-      <Gutter height={size.spacing.sm} />
-      <Box background="grey">{children}</Box>
-    </>
+      <Box background="grey">
+        <Column gutter="sm">{children}</Column>
+      </Box>
+    </Column>
   )
 }

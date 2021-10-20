@@ -116,6 +116,15 @@ export const CreateNotificationScreen = ({route}: Props) => {
         )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
+            name="NotificationResponse"
+            component={NotificationResponseScreen}
+            options={{
+              cardStyle: {
+                backgroundColor: color.background.app,
+              },
+            }}
+          />
+          <Stack.Screen
             name="NotificationForm"
             component={NotificationFormScreen}
           />
@@ -127,15 +136,6 @@ export const CreateNotificationScreen = ({route}: Props) => {
           <Stack.Screen
             name="VerifyNotification"
             component={VerifyNotificationScreen}
-          />
-          <Stack.Screen
-            name="NotificationResponse"
-            component={NotificationResponseScreen}
-            options={{
-              cardStyle: {
-                backgroundColor: color.background.app,
-              },
-            }}
           />
         </Stack.Navigator>
       </KeyboardAvoidingView>
