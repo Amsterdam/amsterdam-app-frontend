@@ -12,7 +12,13 @@ import {
   Title,
 } from '../../components/ui'
 import {Radio, RadioGroup} from '../../components/ui/forms'
-import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
+import {
+  Column,
+  Gutter,
+  Row,
+  ScrollView,
+  Stretch,
+} from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
@@ -71,44 +77,48 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
-          <Title margin text="Kies een bericht" />
-          <Controller
-            control={control}
-            render={({field: {onChange}}) => (
-              <RadioGroup
-                accessibilityLabel="Kies een nieuwsbericht"
+          <Column gutter="lg">
+            <Title text="Kies een bericht" />
+            <>
+              <Controller
+                control={control}
+                render={({field: {onChange}}) => (
+                  <RadioGroup
+                    accessibilityLabel="Kies een nieuwsbericht"
+                    name="news"
+                    onChange={val => onChange(val)}>
+                    {news.map((newsArticle, index) => (
+                      <Radio
+                        isChecked={newsArticle.identifier === watchRadioGroup}
+                        isFirst={index === 0}
+                        key={newsArticle.identifier}
+                        value={newsArticle.identifier}>
+                        <Text>{newsArticle.title}</Text>
+                      </Radio>
+                    ))}
+                  </RadioGroup>
+                )}
                 name="news"
-                onChange={val => onChange(val)}>
-                {news.map((newsArticle, index) => (
-                  <Radio
-                    isChecked={newsArticle.identifier === watchRadioGroup}
-                    isFirst={index === 0}
-                    key={newsArticle.identifier}
-                    value={newsArticle.identifier}>
-                    <Text>{newsArticle.title}</Text>
-                  </Radio>
-                ))}
-              </RadioGroup>
-            )}
-            name="news"
-            rules={{required: 'Kies een nieuwsartikel'}}
-          />
-          {errors.news && (
-            <ValidationWarning warning="Kies een nieuwsartikel" />
-          )}
-          <Gutter height={size.spacing.md} />
-          <View style={styles.button}>
-            <Button
-              onPress={() => navigation.navigate('WarningForm')}
-              text="Schrijf een bericht"
-            />
-          </View>
+                rules={{required: 'Kies een nieuwsartikel'}}
+              />
+              {errors.news && (
+                <ValidationWarning warning="Kies een nieuwsartikel" />
+              )}
+            </>
+            <View style={styles.button}>
+              <Button
+                onPress={() => navigation.navigate('WarningForm')}
+                text="Schrijf een bericht"
+              />
+            </View>
+          </Column>
         </Box>
       </Stretch>
       <Box>
         <Row align="between" valign="center">
           <TextButton
             direction="backward"
+            emphasis
             onPress={navigation.goBack}
             text="Vorige"
           />

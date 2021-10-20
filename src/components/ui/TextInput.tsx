@@ -42,8 +42,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
   const styles = StyleSheet.create({
     clearButton: {
       alignSelf: 'stretch',
-      justifyContent: 'center',
-      paddingHorizontal: inputPadding,
+      padding: inputPadding,
     },
     searchSection: {
       flexDirection: 'row',

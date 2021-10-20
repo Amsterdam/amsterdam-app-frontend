@@ -13,7 +13,13 @@ import {
   TextInput,
   Title,
 } from '../../components/ui'
-import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
+import {
+  Column,
+  Gutter,
+  Row,
+  ScrollView,
+  Stretch,
+} from '../../components/ui/layout'
 import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
@@ -99,89 +105,96 @@ export const WarningFormScreen = ({navigation}: Props) => {
     <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
-          <Title text="Schrijf een bericht" />
-          <Gutter height={size.spacing.xs} />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, value}}) => (
-              <TextInput
-                accessibilityLabel="Titel nieuwsbericht"
-                label="Titel nieuwsbericht"
-                maxLength={maxCharacters.title}
-                multiline={true}
-                onChangeText={onChange}
-                value={value}
-                warning={errors.title}
-              />
-            )}
-            name="title"
-            defaultValue=""
-          />
-          <Gutter height={size.spacing.xs} />
-          <CharactersLeftDisplay
-            charactersLeft={maxCharacters.title - characterCountTitle}
-          />
-          {errors.title && <ValidationWarning warning="Vul een titel in" />}
-          <Gutter height={size.spacing.lg} />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, value}}) => (
-              <TextInput
-                accessibilityLabel="Intro nieuwsbericht"
-                label="Intro nieuwsbericht"
-                maxLength={maxCharacters.intro}
-                multiline={true}
-                numberOfLines={3}
-                onChangeText={onChange}
-                value={value}
-                warning={errors.intro}
-              />
-            )}
-            name="intro"
-            defaultValue=""
-          />
-          <Gutter height={size.spacing.xs} />
-          <CharactersLeftDisplay
-            charactersLeft={maxCharacters.intro - characterCountIntro}
-          />
-          {errors.intro && (
-            <ValidationWarning warning="Type een introbericht" />
-          )}
-          <Gutter height={size.spacing.md} />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, value}}) => (
-              <TextInput
-                accessibilityLabel="Tekst nieuwsbericht"
-                label="Tekst nieuwsbericht"
-                maxLength={maxCharacters.message}
-                multiline={true}
-                numberOfLines={5}
-                onChangeText={onChange}
-                value={value}
-                warning={errors.message}
-              />
-            )}
-            name="message"
-            defaultValue=""
-          />
-          <Gutter height={size.spacing.xs} />
-          <CharactersLeftDisplay
-            charactersLeft={maxCharacters.message - characterCountMessage}
-          />
-          {errors.message && (
-            <ValidationWarning warning="Type een nieuwsbericht" />
-          )}
-          <Gutter height={size.spacing.md} />
+          <Column gutter="lg">
+            <Title text="Schrijf een bericht" />
+            <>
+              <Column gutter="xs">
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({field: {onChange, value}}) => (
+                    <TextInput
+                      accessibilityLabel="Titel nieuwsbericht"
+                      label="Titel nieuwsbericht"
+                      maxLength={maxCharacters.title}
+                      multiline={true}
+                      onChangeText={onChange}
+                      value={value}
+                      warning={errors.title}
+                    />
+                  )}
+                  name="title"
+                  defaultValue=""
+                />
+                <CharactersLeftDisplay
+                  charactersLeft={maxCharacters.title - characterCountTitle}
+                />
+              </Column>
+              {errors.title && <ValidationWarning warning="Vul een titel in" />}
+            </>
+            <>
+              <Column gutter="xs">
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({field: {onChange, value}}) => (
+                    <TextInput
+                      accessibilityLabel="Intro nieuwsbericht"
+                      label="Intro nieuwsbericht"
+                      maxLength={maxCharacters.intro}
+                      multiline={true}
+                      numberOfLines={3}
+                      onChangeText={onChange}
+                      value={value}
+                      warning={errors.intro}
+                    />
+                  )}
+                  name="intro"
+                  defaultValue=""
+                />
+                <CharactersLeftDisplay
+                  charactersLeft={maxCharacters.intro - characterCountIntro}
+                />
+              </Column>
+              {errors.intro && (
+                <ValidationWarning warning="Type een introbericht" />
+              )}
+            </>
+            <>
+              <Column gutter="xs">
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({field: {onChange, value}}) => (
+                    <TextInput
+                      accessibilityLabel="Tekst nieuwsbericht"
+                      label="Tekst nieuwsbericht"
+                      maxLength={maxCharacters.message}
+                      multiline={true}
+                      numberOfLines={5}
+                      onChangeText={onChange}
+                      value={value}
+                      warning={errors.message}
+                    />
+                  )}
+                  name="message"
+                  defaultValue=""
+                />
+                <CharactersLeftDisplay
+                  charactersLeft={maxCharacters.message - characterCountMessage}
+                />
+              </Column>
+              {errors.message && (
+                <ValidationWarning warning="Type een nieuwsbericht" />
+              )}
+            </>
+          </Column>
         </Box>
       </Stretch>
       <Box>

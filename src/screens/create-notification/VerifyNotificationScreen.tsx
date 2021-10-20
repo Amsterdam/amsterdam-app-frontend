@@ -1,6 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {
   Box,
   Preview,
@@ -10,10 +9,16 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
-import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
+import {
+  Column,
+  Gutter,
+  Row,
+  ScrollView,
+  Stretch,
+} from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
-import {color, size} from '../../tokens'
+import {size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
 import {NotificationContext, NotificationStackParamList} from './'
 
@@ -132,41 +137,33 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
-          <Title margin text="Controleer" />
-          <SingleSelectable>
-            <Text>Project</Text>
-            <Title level={2} text={projectDetails.title} />
-          </SingleSelectable>
-          <Gutter height={size.spacing.md} />
-          {notification && (
-            <>
-              <Preview label="Notificatie">
-                <Title level={2} text={notification.title} />
-                <Gutter height={size.spacing.sm} />
-                <Text>{notification.body}</Text>
-              </Preview>
-              <Gutter height={size.spacing.md} />
-            </>
-          )}
-          {newsDetails && (
-            <>
-              <Text>Nieuwsbericht</Text>
-              <Gutter height={size.spacing.sm} />
-              <View style={styles.newsTitle}>
+          <Column gutter="lg">
+            <Title text="Controleer" />
+            <SingleSelectable>
+              <Text>Project</Text>
+              <Title level={2} text={projectDetails.title} />
+            </SingleSelectable>
+            {notification && (
+              <>
+                <Preview label="Notificatie">
+                  <Title level={2} text={notification.title} />
+                  <Text>{notification.body}</Text>
+                </Preview>
+              </>
+            )}
+            {newsDetails && (
+              <Preview label="Nieuwsbericht">
                 <Text>{newsDetails.title}</Text>
-              </View>
-              <Gutter height={size.spacing.md} />
-            </>
-          )}
-          {warning && (
-            <Preview label="Nieuwsbericht">
-              <Title level={2} text={warning.title} />
-              <Gutter height={size.spacing.sm} />
-              <Text intro>{warning.body.preface}</Text>
-              <Gutter height={size.spacing.sm} />
-              <Text>{warning.body.content}</Text>
-            </Preview>
-          )}
+              </Preview>
+            )}
+            {warning && (
+              <Preview label="Nieuwsbericht">
+                <Title level={2} text={warning.title} />
+                <Text intro>{warning.body.preface}</Text>
+                <Text>{warning.body.content}</Text>
+              </Preview>
+            )}
+          </Column>
         </Box>
       </Stretch>
       <Box>
@@ -184,12 +181,3 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  newsTitle: {
-    paddingVertical: size.spacing.md,
-    borderColor: color.border.input,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-  },
-})
