@@ -1,6 +1,6 @@
 import {useRadio} from '@react-native-aria/radio'
 import React, {useContext, useRef} from 'react'
-import {Pressable, PressableProps, StyleSheet} from 'react-native'
+import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import CircleIcon from '../../../assets/icons/circle.svg'
 import {color, size} from '../../../tokens'
 import {Center} from '../../ui/layout'
@@ -31,7 +31,7 @@ export const Radio = (props: Props) => {
           style={styles.innerCircle}
         />
       </Center>
-      {props.children}
+      <View style={styles.text}>{props.children}</View>
     </Pressable>
   )
 }
@@ -62,5 +62,8 @@ const styles = StyleSheet.create({
   innerCircle: {
     height: 12,
     width: 12,
+  },
+  text: {
+    flexShrink: 1,
   },
 })
