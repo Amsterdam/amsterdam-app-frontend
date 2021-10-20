@@ -113,7 +113,7 @@ export const WasteGuideByAddress = () => {
         </Row>
       </Box>
       <Box>
-        {!wasteGuideLength ? (
+        {wasteGuideLength === undefined ? (
           <Card>
             <CardHeader>
               <Title level={4} text="Gegevens ophalen…" />
