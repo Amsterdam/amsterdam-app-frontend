@@ -1,6 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {
   Box,
   Preview,
@@ -19,7 +18,7 @@ import {
 } from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
-import {color, size} from '../../tokens'
+import {size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
 import {NotificationContext, NotificationStackParamList} from './'
 
@@ -182,12 +181,3 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  newsTitle: {
-    paddingVertical: size.spacing.md,
-    borderColor: color.border.input,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-  },
-})
