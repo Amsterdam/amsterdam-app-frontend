@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: color.border.input,
-    paddingVertical: size.spacing.sm,
+    paddingVertical: size.spacing.md,
   },
   firstRadioButton: {
     borderTopWidth: 1,
