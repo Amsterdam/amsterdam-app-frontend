@@ -153,12 +153,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
               </>
             )}
             {newsDetails && (
-              <Column gutter="sm">
-                <Text>Nieuwsbericht</Text>
-                <View style={styles.newsTitle}>
-                  <Text>{newsDetails.title}</Text>
-                </View>
-              </Column>
+              <Preview label="Nieuwsbericht">
+                <Text>{newsDetails.title}</Text>
+              </Preview>
             )}
             {warning && (
               <Preview label="Nieuwsbericht">
