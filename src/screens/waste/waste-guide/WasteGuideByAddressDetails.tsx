@@ -73,7 +73,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
                   navigation.navigate(routes.webView.name, {
                     sliceFromTop: {portrait: 162, landscape: 208},
                     title: 'Afspraak grof afval ophalen',
-                    uri: appointmentUrl,
+                    url: appointmentUrl,
                   })
                 }
                 text="Maak een afspraak"

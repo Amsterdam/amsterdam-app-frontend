@@ -7,15 +7,21 @@ export type WebViewProps = {
     portrait: number
     landscape: number
   }
-  uri: string
+  url: string
+  urlParams?: {}
 }
 
-export const WebView = ({sliceFromTop, uri}: WebViewProps) => {
+export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
   const deviceContext = useContext(DeviceContext)
+
+  const params = new URLSearchParams(urlParams)
+  const urlWithParams = Object.keys(params).length
+    ? url + '?' + params.toString()
+    : url
 
   return (
     <WebViewRN
-      source={{uri}}
+      source={{uri: urlWithParams}}
       style={
         sliceFromTop && {
           marginTop: deviceContext.isPortrait

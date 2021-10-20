@@ -15,7 +15,7 @@ export const RecyclingGuideBanner = () => {
       onPress={() =>
         navigation.navigate(routes.webView.name, {
           title: 'Afvalscheidingswijzer',
-          uri: 'https://www.afvalscheidingswijzer.nl',
+          url: 'https://www.afvalscheidingswijzer.nl',
         })
       }
       subtitle="Bekijk de afvalscheidingswijzer"

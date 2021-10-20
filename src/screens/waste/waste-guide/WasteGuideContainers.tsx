@@ -37,7 +37,7 @@ export const WasteGuideContainers = () => {
               navigation.navigate(routes.webView.name, {
                 sliceFromTop: {portrait: 50, landscape: 50},
                 title: 'Containers in de buurt',
-                uri: 'https://kaart.amsterdam.nl/afvalcontainers#17/52.36306/4.90720/brt/12491,12492,12493,12494,12495,12496,12497//',
+                url: 'https://kaart.amsterdam.nl/afvalcontainers#17/52.36306/4.90720/brt/12491,12492,12493,12494,12495,12496,12497//',
               })
             }
             text="Bekijk de kaart met containers in de buurt"
