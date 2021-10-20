@@ -15,7 +15,7 @@ type Props = {
 export const Column = ({align, children, gutter, halign}: Props) => {
   const styles = StyleSheet.create({
     column: {
-      flex: 1,
+      flexGrow: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(halign),
     },
