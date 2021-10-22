@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>deeplinkreactnavigation</string>
+			<string>com.amsterdam</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>amsterdam</string>
+				<string>https</string>
 			</array>
 		</dict>
 	</array>
