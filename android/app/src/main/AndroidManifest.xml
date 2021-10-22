@@ -13,6 +13,7 @@
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
+        android:exported="true"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:launchMode="singleTask"
@@ -21,12 +22,13 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        <intent-filter android:label="@string/filter_view_amsterdam_omgevingsmanager">
+        <intent-filter>
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="amsterdam" />
-              <data android:host="omgevingsmanager" />
+              <data android:scheme="https" />
+              <data android:host="com.amsterdam" />
+              <data android:pathPrefix="/omgevingsmanager" />
           </intent-filter>
       </activity>
     </application>
