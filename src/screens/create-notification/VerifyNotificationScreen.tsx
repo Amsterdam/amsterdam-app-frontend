@@ -127,6 +127,13 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [navigation, notificationApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (warningApi.hasError) {
+      changeResponseStatus('failure')
+      navigation.navigate('NotificationResponse')
+    }
+  }, [navigation, warningApi.hasError]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     if (notificationApi.hasError) {
       changeResponseStatus('failure')
       navigation.navigate('NotificationResponse')
