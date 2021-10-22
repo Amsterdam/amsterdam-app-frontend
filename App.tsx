@@ -34,7 +34,7 @@ import {ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
   AddressForm: undefined
-  Home: undefined
+  Home: {id?: string}
   Notification: {projectDetails: ProjectDetails}
   NotificationOverview: undefined
   ProjectDetail: {id: string}
