@@ -8,7 +8,11 @@ type Props = {
 }
 
 export const Attention = ({children, warning}: Props) => (
-  <View style={[styles.attention, warning && styles.warning]}>{children}</View>
+  <View
+    accessibilityRole="alert"
+    style={[styles.attention, warning && styles.warning]}>
+    {children}
+  </View>
 )
 
 const borderWidth = 2
