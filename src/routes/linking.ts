@@ -10,6 +10,6 @@ const config = {
 }
 
 export const linking = {
-  prefixes: ['https://com.amsterdam/omgevingsmanager'],
+  prefixes: ['amsterdam://omgevingsmanager'],
   config,
 }
