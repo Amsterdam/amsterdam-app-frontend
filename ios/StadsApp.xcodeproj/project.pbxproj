@@ -47,6 +47,7 @@
 		821E7F8ECED95084C6B6ACE3 /* Pods-StadsApp-StadsAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp-StadsAppTests.release.xcconfig"; path = "Target Support Files/Pods-StadsApp-StadsAppTests/Pods-StadsApp-StadsAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A3830F9D08EB4C084763DC88 /* Pods-StadsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp.release.xcconfig"; path = "Target Support Files/Pods-StadsApp/Pods-StadsApp.release.xcconfig"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		D76C6CCC2729820200E1460A /* StadsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = StadsApp.entitlements; path = StadsApp/StadsApp.entitlements; sourceTree = "<group>"; };
 		E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-Regular.ttf"; path = "../src/assets/fonts/AvenirNext-Regular.ttf"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StadsApp-StadsAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -92,6 +93,7 @@
 		13B07FAE1A68108700A75B9A /* StadsApp */ = {
 			isa = PBXGroup;
 			children = (
+				D76C6CCC2729820200E1460A /* StadsApp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -511,6 +513,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
@@ -526,8 +530,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.gemeente.StadsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.undefined.StadsApp;
 				PRODUCT_NAME = StadsApp;
+				PROVISIONING_PROFILE_SPECIFIER = "frank-dev-push";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -541,6 +546,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 19;
