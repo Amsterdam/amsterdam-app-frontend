@@ -17,6 +17,7 @@
 		B8B17B9267E84934AEE3EEB7 /* AvenirNext-DemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25F643228D7D45BEBD1237CA /* AvenirNext-DemiBold.ttf */; };
 		C4927713A1A784BB3B18DBC4 /* libPods-StadsApp-StadsAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */; };
 		D71BAD6826FA2FE7001B5972 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BAD6726FA2FE7001B5972 /* File.swift */; };
+		D76C6CCE2729933D00E1460A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D76C6CCD2729933D00E1460A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		A3830F9D08EB4C084763DC88 /* Pods-StadsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StadsApp.release.xcconfig"; path = "Target Support Files/Pods-StadsApp/Pods-StadsApp.release.xcconfig"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		D76C6CCC2729820200E1460A /* StadsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = StadsApp.entitlements; path = StadsApp/StadsApp.entitlements; sourceTree = "<group>"; };
+		D76C6CCD2729933D00E1460A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8960F22635E4D37AA895908 /* AvenirNext-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AvenirNext-Regular.ttf"; path = "../src/assets/fonts/AvenirNext-Regular.ttf"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-StadsApp-StadsAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StadsApp-StadsAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -145,6 +147,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D76C6CCD2729933D00E1460A /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* StadsApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* StadsAppTests */,
@@ -263,6 +266,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D76C6CCE2729933D00E1460A /* GoogleService-Info.plist in Resources */,
 				B8B17B9267E84934AEE3EEB7 /* AvenirNext-DemiBold.ttf in Resources */,
 				55380EAE8D9045DA9204B5DE /* AvenirNext-Regular.ttf in Resources */,
 			);
