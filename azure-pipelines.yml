@@ -5,6 +5,9 @@
 
 trigger:
 - feature/ci-cd
+# TODO
+# - develop
+# - main
 
 pool:
   vmImage: macOS-11
