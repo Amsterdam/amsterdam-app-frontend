@@ -16,6 +16,7 @@ import {
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
+  SettingsScreen,
   WasteScreen,
   WebViewRouteParams,
   WebViewScreen,
@@ -39,6 +40,7 @@ export type RootStackParamList = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Notification: {projectDetails: ProjectDetails}
+  Settings: undefined
   Waste: undefined
   WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
@@ -120,6 +122,12 @@ export const routes: Routes = {
       title: 'Verstuur notificatie',
     },
   },
+  settings: {
+    name: 'Settings',
+    options: {
+      title: 'Instellingen',
+    },
+  },
   wasteGuide: {
     name: 'Waste',
     options: {
@@ -173,6 +181,7 @@ export const App = () => {
     projectOverviewByDistrict,
     projectNews,
     notification,
+    settings,
     webView,
     wasteGuide,
     whereToPutBulkyWaste,
@@ -221,6 +230,11 @@ export const App = () => {
                 name={projectOverviewByDistrict.name}
                 component={ProjectOverviewByDistrictScreen}
                 options={projectOverviewByDistrict.options}
+              />
+              <Stack.Screen
+                name={settings.name}
+                component={SettingsScreen}
+                options={settings.options}
               />
               <Stack.Screen
                 name={wasteGuide.name}
