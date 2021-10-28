@@ -1,5 +1,15 @@
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useState} from 'react'
-import {Box, Button, Text, Title} from '../../components/ui'
+import {RootStackParamList} from '../../../App'
+import {
+  Attention,
+  Box,
+  Button,
+  Text,
+  TextButton,
+  Title,
+} from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
@@ -13,6 +23,8 @@ export const SettingsScreen = () => {
   >(undefined)
 
   const asyncStorage = useAsyncStorage()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
   useCallback(async () => {
     const notificationsFromStore = await asyncStorage.getData('notifications')
@@ -24,20 +36,39 @@ export const SettingsScreen = () => {
       <Box>
         <Column gutter="md">
           <Title text="Notificaties" />
-          <Text>
-            U wilt momenteel {notificationSettings?.active ? 'wel ' : 'geen '}
-            notificaties ontvangen.
-          </Text>
           <Row gutter="md">
             <Button
               onPress={() => setNotificationSettings({active: true})}
-              text="Ontvangen"
+              text="Aan"
             />
             <Button
               onPress={() => setNotificationSettings({active: false})}
-              text="Niet ontvangen"
+              text="Uit"
             />
           </Row>
+          {notificationSettings?.active ? (
+            <Column gutter="md">
+              <Attention>
+                <Text>
+                  Kies projecten van bouwwerkzaamheden bij u in de buurt waarvan
+                  u notificaties wilt ontvangen. Notificaties kunt u aanzetten
+                  op de pagina van een project.
+                </Text>
+              </Attention>
+              <TextButton
+                emphasis
+                onPress={() => navigation.navigate('ProjectOverview')}
+                text="Naar bouwwerkzaamheden"
+              />
+            </Column>
+          ) : (
+            <Attention>
+              <Text>
+                U ontvangt geen notificaties
+                {notificationSettings?.active === false && ' meer'}.
+              </Text>
+            </Attention>
+          )}
         </Column>
       </Box>
     </ScrollView>
