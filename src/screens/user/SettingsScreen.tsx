@@ -3,40 +3,38 @@ import {Box, Button, Text, Title} from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
-type PushSettings = {
+type NotificationSettings = {
   active: Boolean
 }
 
 export const SettingsScreen = () => {
-  const [pushSettings, setPushSettings] = useState<PushSettings | undefined>(
-    undefined,
-  )
+  const [notificationSettings, setNotificationSettings] = useState<
+    NotificationSettings | undefined
+  >(undefined)
 
   const asyncStorage = useAsyncStorage()
 
   useCallback(async () => {
-    const pushNotificationsFromStore = await asyncStorage.getData(
-      'pushNotifications',
-    )
-    setPushSettings(pushNotificationsFromStore)
+    const notificationsFromStore = await asyncStorage.getData('notifications')
+    setNotificationSettings(notificationsFromStore)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView>
       <Box>
         <Column gutter="md">
-          <Title text="Pushnotificaties" />
+          <Title text="Notificaties" />
           <Text>
-            U wilt momenteel {pushSettings?.active ? 'wel ' : 'geen '}
-            pushnotificaties ontvangen.
+            U wilt momenteel {notificationSettings?.active ? 'wel ' : 'geen '}
+            notificaties ontvangen.
           </Text>
           <Row gutter="md">
             <Button
-              onPress={() => setPushSettings({active: true})}
+              onPress={() => setNotificationSettings({active: true})}
               text="Ontvangen"
             />
             <Button
-              onPress={() => setPushSettings({active: false})}
+              onPress={() => setNotificationSettings({active: false})}
               text="Niet ontvangen"
             />
           </Row>
