@@ -19,6 +19,11 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     increment_build_number(xcodeproj: "StadsApp.xcodeproj")
+    app_store_connect_api_key(
+      key_id: "4B3KZ8N747",
+      issuer_id: "",
+      key_filepath: './AuthKey_4B3KZ8N747.p8'
+    )
     get_certificates( # Create or get certificate, and install it
       output_path: "./builds" # Download certificate in the build folder (you don't need to create the folder)
     )
