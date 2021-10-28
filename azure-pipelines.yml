@@ -17,6 +17,8 @@ steps:
   inputs:
     versionSpec: '14.17.1'
   displayName: 'Install Node'
+- script: npm cache verify
+  displayName: 'Verify cache'
 - script: npm install
   displayName: 'Install dependencies'
 - script: npm run lint
