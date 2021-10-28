@@ -35,8 +35,14 @@ steps:
     provisioningProfileLocation: 'secureFiles'
     provProfileSecureFile: 'AppleProvisioningProfile.mobileprovision'
   displayName: 'Install Apple Provisioning Profile'
+- task: DownloadSecureFile@1
+  displayName: 'Download App Store Connect API Key'
+  name: AppStoreConnectApiKey
+  inputs:
+    secureFile: 'AuthKey_4B3KZ8N747.p8'
 - script: |
     cd ios
+    cp $(AppStoreConnectApiKey.secureFilePath) .
     bundle install
     fastlane beta
   displayName: 'Build iOS'
