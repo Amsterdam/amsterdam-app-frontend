@@ -31,19 +31,19 @@ import {color, size} from './src/tokens'
 import {NewsArticle, ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
-  Home: undefined
   AddressForm: undefined
+  Home: undefined
+  Notification: {projectDetails: ProjectDetails}
   NotificationOverview: undefined
   ProjectDetail: {id: string}
-  ProjectNews: {article: NewsArticle}
   ProjectDetailBody: {body: ProjectDetailBody}
+  ProjectNews: {article: NewsArticle}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  Notification: {projectDetails: ProjectDetails}
   Settings: undefined
   Waste: undefined
-  WhereToPutBulkyWaste: undefined
   WebView: WebViewRouteParams
+  WhereToPutBulkyWaste: undefined
 }
 
 type Routes = {
@@ -69,6 +69,16 @@ export const routes: Routes = {
     name: 'Home',
     options: {
       headerTitle: () => <Logo width={85} />,
+    },
+  },
+  notification: {
+    name: 'Notification',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      presentation: 'modal',
+      title: 'Verstuur notificatie',
     },
   },
   notificationOverview: {
@@ -112,16 +122,6 @@ export const routes: Routes = {
       title: 'Werkzaamheden per stadsdeel',
     },
   },
-  notification: {
-    name: 'Notification',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      presentation: 'modal',
-      title: 'Verstuur notificatie',
-    },
-  },
   settings: {
     name: 'Settings',
     options: {
@@ -134,14 +134,14 @@ export const routes: Routes = {
       title: 'Afvalinformatie op adres',
     },
   },
+  webView: {
+    name: 'WebView',
+  },
   whereToPutBulkyWaste: {
     name: 'WhereToPutBulkyWaste',
     options: {
       title: 'Grof afval',
     },
-  },
-  webView: {
-    name: 'WebView',
   },
 }
 
@@ -156,6 +156,7 @@ const globalScreenOptions: StackNavigationOptions = {
     elevation: 0,
     shadowOpacity: 0,
   },
+  headerBackAccessibilityLabel: 'Terug',
   headerBackImage: () => (
     <ChevronLeft
       width={20}
@@ -165,7 +166,6 @@ const globalScreenOptions: StackNavigationOptions = {
     />
   ),
   headerBackTitleVisible: false,
-  headerBackAccessibilityLabel: 'Terug',
   headerTitleAlign: 'center',
 }
 
@@ -174,16 +174,16 @@ export const App = () => {
   const {
     addressForm,
     home,
+    notification,
     notificationOverview,
     projectDetail,
     projectDetailBody,
+    projectNews,
     projectOverview,
     projectOverviewByDistrict,
-    projectNews,
-    notification,
     settings,
-    webView,
     wasteGuide,
+    webView,
     whereToPutBulkyWaste,
   } = routes
 
@@ -197,61 +197,6 @@ export const App = () => {
               initialRouteName={home.name}
               screenOptions={globalScreenOptions}>
               <Stack.Screen
-                name={home.name}
-                component={HomeScreen}
-                options={home.options}
-              />
-              <Stack.Screen
-                name={notificationOverview.name}
-                component={NotificationOverviewScreen}
-                options={notificationOverview.options}
-              />
-              <Stack.Screen
-                name={projectDetail.name}
-                component={ProjectDetailScreen}
-                options={projectDetail.options}
-              />
-              <Stack.Screen
-                name={projectDetailBody.name}
-                component={ProjectDetailBodyScreen}
-                options={projectDetailBody.options}
-              />
-              <Stack.Screen
-                name={projectNews.name}
-                component={ProjectNewsScreen}
-                options={projectNews.options}
-              />
-              <Stack.Screen
-                name={projectOverview.name}
-                component={ProjectOverviewScreen}
-                options={projectOverview.options}
-              />
-              <Stack.Screen
-                name={projectOverviewByDistrict.name}
-                component={ProjectOverviewByDistrictScreen}
-                options={projectOverviewByDistrict.options}
-              />
-              <Stack.Screen
-                name={settings.name}
-                component={SettingsScreen}
-                options={settings.options}
-              />
-              <Stack.Screen
-                name={wasteGuide.name}
-                component={WasteScreen}
-                options={wasteGuide.options}
-              />
-              <Stack.Screen
-                name={whereToPutBulkyWaste.name}
-                component={WhereToPutBulkyWasteScreen}
-                options={whereToPutBulkyWaste.options}
-              />
-              <Stack.Screen
-                name={webView.name}
-                component={WebViewScreen}
-                options={webView.options}
-              />
-              <Stack.Screen
                 component={AddressFormScreen}
                 name={addressForm.name}
                 options={addressForm.options}
@@ -260,6 +205,61 @@ export const App = () => {
                 component={CreateNotificationScreen}
                 name={notification.name}
                 options={notification.options}
+              />
+              <Stack.Screen
+                component={HomeScreen}
+                name={home.name}
+                options={home.options}
+              />
+              <Stack.Screen
+                component={NotificationOverviewScreen}
+                name={notificationOverview.name}
+                options={notificationOverview.options}
+              />
+              <Stack.Screen
+                component={ProjectDetailScreen}
+                name={projectDetail.name}
+                options={projectDetail.options}
+              />
+              <Stack.Screen
+                component={ProjectDetailBodyScreen}
+                name={projectDetailBody.name}
+                options={projectDetailBody.options}
+              />
+              <Stack.Screen
+                component={ProjectNewsScreen}
+                name={projectNews.name}
+                options={projectNews.options}
+              />
+              <Stack.Screen
+                component={ProjectOverviewScreen}
+                name={projectOverview.name}
+                options={projectOverview.options}
+              />
+              <Stack.Screen
+                component={ProjectOverviewByDistrictScreen}
+                name={projectOverviewByDistrict.name}
+                options={projectOverviewByDistrict.options}
+              />
+              <Stack.Screen
+                component={SettingsScreen}
+                name={settings.name}
+                options={settings.options}
+              />
+              <Stack.Screen
+                component={WasteScreen}
+                name={wasteGuide.name}
+                options={wasteGuide.options}
+              />
+              <Stack.Screen
+                component={WebViewScreen}
+                name={webView.name}
+                options={webView.options}
+              />
+              <Stack.Screen
+                component={WhereToPutBulkyWasteScreen}
+                name={whereToPutBulkyWaste.name}
+                options={whereToPutBulkyWaste.options}
               />
             </Stack.Navigator>
           </NavigationContainer>
