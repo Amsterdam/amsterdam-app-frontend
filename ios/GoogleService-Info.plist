@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>346299586823-30qs0hin5jb3a56qt4nqlaq2m9chqt9c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.346299586823-30qs0hin5jb3a56qt4nqlaq2m9chqt9c</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>346299586823-3s9fnbm6vbm3b072dsojj5c76m2dikk1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAQwjowYbGY4tPC9u4fuBFskfg-pXwlhLU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>346299586823</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.undefined.StadsApp</string>
+	<key>PROJECT_ID</key>
+	<string>amsterdam-15a0a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>amsterdam-15a0a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:346299586823:ios:5e0e112e74122619f44da2</string>
+</dict>
+</plist>
