@@ -9,6 +9,7 @@ type Props = {
   primary?: Boolean
   subtitle?: Boolean
   text: string
+  visuallyHidden?: Boolean
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
@@ -18,6 +19,7 @@ export const Title = ({
   primary,
   subtitle,
   text,
+  visuallyHidden,
 }: Props) => {
   const fontStyles = [styles.h1, styles.h2, styles.h3, styles.h4][level - 1]
   const marginStyles = [styles.h1m, styles.h2m, styles.h3m, styles.h4m][
@@ -32,6 +34,7 @@ export const Title = ({
         margin && marginStyles,
         primary && styles.primary,
         subtitle && styles.subtitle,
+        visuallyHidden && styles.visuallyHidden,
       ]}
       accessibilityRole="header">
       {text}
@@ -88,5 +91,9 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: font.weight.regular,
+  },
+  visuallyHidden: {
+    height: 1,
+    marginBottom: -1,
   },
 })

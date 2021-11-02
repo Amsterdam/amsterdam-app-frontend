@@ -7,8 +7,13 @@ import {View, ViewProps} from 'react-native'
 
 type Props = {
   children: React.ReactNode
+  label?: string
 } & ViewProps
 
-export const SingleSelectable = ({children}: Props) => {
-  return <View accessible>{children}</View>
+export const SingleSelectable = ({children, label}: Props) => {
+  return (
+    <View accessible accessibilityLabel={label}>
+      {children}
+    </View>
+  )
 }
