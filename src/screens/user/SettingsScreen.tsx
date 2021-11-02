@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {
   Attention,
@@ -26,9 +26,17 @@ export const SettingsScreen = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
-  useCallback(async () => {
+  const retrieveNotificationSettings = useCallback(async () => {
     const notificationsFromStore = await asyncStorage.getData('notifications')
     setNotificationSettings(notificationsFromStore)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    asyncStorage.storeData('notifications', notificationSettings)
+  }, [asyncStorage, notificationSettings])
+
+  useEffect(() => {
+    retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
