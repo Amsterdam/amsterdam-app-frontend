@@ -5,13 +5,12 @@ import {RootStackParamList} from '../../../App'
 import {
   Attention,
   Box,
-  Button,
   Switch,
   Text,
   TextButton,
   Title,
 } from '../../components/ui'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
+import {Column, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
 type NotificationSettings = {
@@ -54,18 +53,6 @@ export const SettingsScreen = () => {
       <Box>
         <Column gutter="md">
           <Title text="Notificaties" />
-          <Row gutter="md">
-            <Button
-              disabled={notificationSettings?.permitted}
-              onPress={() => setNotificationSettings({permitted: true})}
-              text="Aan"
-            />
-            <Button
-              disabled={!notificationSettings?.permitted}
-              onPress={() => setNotificationSettings({permitted: false})}
-              text="Uit"
-            />
-          </Row>
           <Switch
             onValueChange={() =>
               setNotificationSettings({
