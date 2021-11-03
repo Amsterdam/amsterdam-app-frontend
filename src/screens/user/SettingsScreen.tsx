@@ -2,15 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
-import {
-  Attention,
-  Box,
-  Switch,
-  Text,
-  TextButton,
-  Title,
-} from '../../components/ui'
-import {Column, ScrollView} from '../../components/ui/layout'
+import {Attention, Box, Switch, Text, TextButton} from '../../components/ui'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
 type NotificationSettings = {
@@ -52,15 +45,17 @@ export const SettingsScreen = () => {
     <ScrollView>
       <Box>
         <Column gutter="md">
-          <Title text="Notificaties" />
-          <Switch
-            onValueChange={() =>
-              setNotificationSettings({
-                permitted: !notificationSettings?.permitted,
-              })
-            }
-            value={notificationSettings?.permitted}
-          />
+          <Row align="between" valign="center">
+            <Text>Notificaties</Text>
+            <Switch
+              onValueChange={() =>
+                setNotificationSettings({
+                  permitted: !notificationSettings?.permitted,
+                })
+              }
+              value={notificationSettings?.permitted}
+            />
+          </Row>
           {notificationSettings?.permitted ? (
             <Column gutter="md">
               <Attention>
