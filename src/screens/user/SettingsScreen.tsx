@@ -14,7 +14,7 @@ import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
 type NotificationSettings = {
-  active: Boolean
+  permitted: Boolean
 }
 
 export const SettingsScreen = () => {
@@ -46,15 +46,15 @@ export const SettingsScreen = () => {
           <Title text="Notificaties" />
           <Row gutter="md">
             <Button
-              onPress={() => setNotificationSettings({active: true})}
+              onPress={() => setNotificationSettings({permitted: true})}
               text="Aan"
             />
             <Button
-              onPress={() => setNotificationSettings({active: false})}
+              onPress={() => setNotificationSettings({permitted: false})}
               text="Uit"
             />
           </Row>
-          {notificationSettings?.active ? (
+          {notificationSettings?.permitted ? (
             <Column gutter="md">
               <Attention>
                 <Text>
@@ -73,7 +73,7 @@ export const SettingsScreen = () => {
             <Attention>
               <Text>
                 U ontvangt geen notificaties
-                {notificationSettings?.active === false && ' meer'}.
+                {notificationSettings?.permitted === false && ' meer'}.
               </Text>
             </Attention>
           )}
