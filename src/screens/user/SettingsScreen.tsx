@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {
   Attention,
@@ -32,14 +32,20 @@ export const SettingsScreen = () => {
   const [notificationsPermitted, setNotificationsPermitted] = useState(false)
 
   // Retrieve notification settings from async storage
-  const retrieveNotificationSettings = useCallback(async () => {
-    const notificationsFromStore = await asyncStorage.getData('notifications')
-    setNotificationSettings(notificationsFromStore)
-  }, [asyncStorage])
-
   useEffect(() => {
-    retrieveNotificationSettings()
-  }, [retrieveNotificationSettings])
+    let isMounted = true
+
+    const retrieveNotificationsFromStore = async () => {
+      const notificationsFromStore = await asyncStorage.getData('notifications')
+      isMounted && setNotificationSettings(notificationsFromStore)
+    }
+
+    retrieveNotificationsFromStore()
+
+    return () => {
+      isMounted = false
+    }
+  }, [asyncStorage])
 
   // Store notification settings into async storage if permission changes
   useEffect(() => {
