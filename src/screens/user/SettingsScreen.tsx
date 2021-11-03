@@ -21,6 +21,7 @@ export const SettingsScreen = () => {
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
+  const [notificationsPermitted, setNotificationsPermitted] = useState(false)
 
   const asyncStorage = useAsyncStorage()
   const navigation =
@@ -46,15 +47,17 @@ export const SettingsScreen = () => {
           <Title text="Notificaties" />
           <Row gutter="md">
             <Button
-              onPress={() => setNotificationSettings({permitted: true})}
+              disabled={notificationsPermitted}
+              onPress={() => setNotificationsPermitted(true)}
               text="Aan"
             />
             <Button
-              onPress={() => setNotificationSettings({permitted: false})}
+              disabled={!notificationsPermitted}
+              onPress={() => setNotificationsPermitted(false)}
               text="Uit"
             />
           </Row>
-          {notificationSettings?.permitted ? (
+          {notificationsPermitted ? (
             <Column gutter="md">
               <Attention>
                 <Text>
