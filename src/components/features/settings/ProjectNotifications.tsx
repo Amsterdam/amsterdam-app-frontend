@@ -39,6 +39,7 @@ export const ProjectNotifications = () => {
   useEffect(() => {
     if (notificationSettings?.projectWarnings.permitted !== undefined) {
       const settings: ProjectNotificationSettings = {
+        ...notificationSettings,
         projectWarnings: {
           permitted: notificationSettings.projectWarnings.permitted,
         },
