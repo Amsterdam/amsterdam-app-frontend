@@ -13,13 +13,10 @@ type ProjectNotificationSettings = {
 }
 
 export const ProjectNotifications = () => {
-  // We use the async storage and need to navigate to the project overview
   const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
-  // We have a notification settings object as state
-  // as wel as the individual setting to permit notifications, bound to the switch
   const [notificationSettings, setNotificationSettings] = useState<
     ProjectNotificationSettings | undefined
   >(undefined)
@@ -27,7 +24,6 @@ export const ProjectNotifications = () => {
   const projectWarningsPermitted =
     notificationSettings?.projectWarnings?.permitted
 
-  // Retrieve notification settings from async storage
   useEffect(() => {
     const retrieveNotificationsFromStore = async () => {
       const notificationsFromStore: ProjectNotificationSettings =
@@ -38,7 +34,6 @@ export const ProjectNotifications = () => {
     retrieveNotificationsFromStore()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Store notification settings into async storage if permission changes
   useEffect(() => {
     if (projectWarningsPermitted !== undefined) {
       const settings: ProjectNotificationSettings = {
