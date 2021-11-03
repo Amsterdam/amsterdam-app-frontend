@@ -6,6 +6,7 @@ import {
   Attention,
   Box,
   Button,
+  Switch,
   Text,
   TextButton,
   Title,
@@ -18,27 +19,34 @@ type NotificationSettings = {
 }
 
 export const SettingsScreen = () => {
+  // We use the async storage and need to navigate to the project overview
+  const asyncStorage = useAsyncStorage()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
+
+  // We have a notification settings object as state
+  // as wel as the individual setting to permit notifications, bound to the switch
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
   const [notificationsPermitted, setNotificationsPermitted] = useState(false)
 
-  const asyncStorage = useAsyncStorage()
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
-
+  // Retrieve notification settings from async storage
   const retrieveNotificationSettings = useCallback(async () => {
     const notificationsFromStore = await asyncStorage.getData('notifications')
     setNotificationSettings(notificationsFromStore)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    asyncStorage.storeData('notifications', notificationSettings)
-  }, [asyncStorage, notificationSettings])
+  }, [asyncStorage])
 
   useEffect(() => {
     retrieveNotificationSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [retrieveNotificationSettings])
+
+  // Store notification settings into async storage if permission changes
+  useEffect(() => {
+    asyncStorage.storeData('notifications', {
+      permitted: notificationsPermitted,
+    })
+  }, [asyncStorage, notificationsPermitted])
 
   return (
     <ScrollView>
@@ -57,7 +65,13 @@ export const SettingsScreen = () => {
               text="Uit"
             />
           </Row>
-          {notificationsPermitted ? (
+          <Switch
+            onValueChange={() =>
+              setNotificationsPermitted(!notificationsPermitted)
+            }
+            value={notificationsPermitted}
+          />
+          {notificationSettings?.permitted ? (
             <Column gutter="md">
               <Attention>
                 <Text>
