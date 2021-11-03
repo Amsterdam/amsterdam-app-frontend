@@ -29,9 +29,6 @@ export const SettingsScreen = () => {
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
-  const [notificationsPermitted, setNotificationsPermitted] = useState<
-    boolean | undefined
-  >()
 
   // Retrieve notification settings from async storage
   useEffect(() => {
@@ -41,7 +38,6 @@ export const SettingsScreen = () => {
       const notificationsFromStore = await asyncStorage.getData('notifications')
       console.log('Check if mounted', isMounted)
       isMounted && setNotificationSettings(notificationsFromStore)
-      isMounted && setNotificationsPermitted(notificationsFromStore.permitted)
       console.log('Retrieved notification settings', notificationsFromStore)
     }
 
@@ -54,16 +50,16 @@ export const SettingsScreen = () => {
 
   // Store notification settings into async storage if permission changes
   useEffect(() => {
-    if (notificationsPermitted !== undefined) {
+    if (notificationSettings?.permitted !== undefined) {
       console.log('Storing notification settings', {
-        permitted: notificationsPermitted,
+        permitted: notificationSettings.permitted,
       })
 
       asyncStorage.storeData('notifications', {
-        permitted: notificationsPermitted,
+        permitted: notificationSettings.permitted,
       })
     }
-  }, [asyncStorage, notificationsPermitted])
+  }, [asyncStorage, notificationSettings])
 
   return (
     <ScrollView>
@@ -72,23 +68,25 @@ export const SettingsScreen = () => {
           <Title text="Notificaties" />
           <Row gutter="md">
             <Button
-              disabled={notificationsPermitted}
-              onPress={() => setNotificationsPermitted(true)}
+              disabled={notificationSettings?.permitted}
+              onPress={() => setNotificationSettings({permitted: true})}
               text="Aan"
             />
             <Button
-              disabled={!notificationsPermitted}
-              onPress={() => setNotificationsPermitted(false)}
+              disabled={!notificationSettings?.permitted}
+              onPress={() => setNotificationSettings({permitted: false})}
               text="Uit"
             />
           </Row>
           <Switch
             onValueChange={() =>
-              setNotificationsPermitted(!notificationsPermitted)
+              setNotificationSettings({
+                permitted: !notificationSettings?.permitted,
+              })
             }
-            value={notificationsPermitted}
+            value={notificationSettings?.permitted}
           />
-          {notificationsPermitted ? (
+          {notificationSettings?.permitted ? (
             <Column gutter="md">
               <Attention>
                 <Text>
