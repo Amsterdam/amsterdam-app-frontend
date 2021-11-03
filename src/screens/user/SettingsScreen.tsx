@@ -60,9 +60,8 @@ export const SettingsScreen = () => {
             <Column gutter="md">
               <Attention>
                 <Text>
-                  Kies projecten van bouwwerkzaamheden bij u in de buurt waarvan
-                  u notificaties wilt ontvangen. Notificaties kunt u aanzetten
-                  op de pagina van een project.
+                  Zet notificaties aan op pagina’s van werkzaamheden waar u
+                  notificaties voor wilt ontvangen.
                 </Text>
               </Attention>
               <TextButton
