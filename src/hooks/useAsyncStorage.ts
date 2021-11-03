@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useState} from 'react'
 
 export const useAsyncStorage = () => {
-  const [error, setError] = useState()
+  const [error, setError] = useState<unknown | undefined>()
 
   const storeData = async (key: string, obj: any) => {
     try {
