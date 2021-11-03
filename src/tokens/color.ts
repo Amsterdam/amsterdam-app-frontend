@@ -55,6 +55,11 @@ export const color = {
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
   },
+  state: {
+    invalid: baseColor.support.invalid,
+    neutral: baseColor.neutral.grey3,
+    valid: baseColor.support.valid,
+  },
   touchable: {
     pressed: baseColor.primary.red,
     primary: baseColor.primary.darkblue,

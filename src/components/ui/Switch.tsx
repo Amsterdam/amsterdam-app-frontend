@@ -6,11 +6,11 @@ type Props = SwitchRNProps
 
 export const Switch = ({onValueChange, value, ...otherProps}: Props) => (
   <SwitchRN
-    ios_backgroundColor="#3e3e3e"
+    ios_backgroundColor={color.state.neutral}
     onValueChange={onValueChange}
     trackColor={{
-      false: color.touchable.disabled.foreground,
-      true: color.severity.valid,
+      false: color.state.neutral,
+      true: color.state.valid,
     }}
     thumbColor={color.background.white}
     value={value}
