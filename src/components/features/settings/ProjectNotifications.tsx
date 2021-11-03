@@ -7,7 +7,9 @@ import {Column, Row, ScrollView} from '../../../components/ui/layout'
 import {useAsyncStorage} from '../../../hooks'
 
 type ProjectNotificationSettings = {
-  permitted: boolean
+  projectWarnings: {
+    permitted: boolean
+  }
 }
 
 export const ProjectNotifications = () => {
@@ -25,7 +27,8 @@ export const ProjectNotifications = () => {
   // Retrieve notification settings from async storage
   useEffect(() => {
     const retrieveNotificationsFromStore = async () => {
-      const notificationsFromStore = await asyncStorage.getData('notifications')
+      const notificationsFromStore: ProjectNotificationSettings =
+        await asyncStorage.getData('notifications')
       setNotificationSettings(notificationsFromStore)
     }
 
@@ -34,12 +37,19 @@ export const ProjectNotifications = () => {
 
   // Store notification settings into async storage if permission changes
   useEffect(() => {
-    if (notificationSettings?.permitted !== undefined) {
-      asyncStorage.storeData('notifications', {
-        permitted: notificationSettings.permitted,
-      })
+    if (notificationSettings?.projectWarnings.permitted !== undefined) {
+      const settings: ProjectNotificationSettings = {
+        projectWarnings: {
+          permitted: notificationSettings.projectWarnings.permitted,
+        },
+      }
+
+      asyncStorage.storeData('notifications', settings)
     }
   }, [asyncStorage, notificationSettings])
+
+  const projectWarningsPermitted =
+    notificationSettings?.projectWarnings.permitted
 
   return (
     <ScrollView>
@@ -49,15 +59,17 @@ export const ProjectNotifications = () => {
           <Switch
             onValueChange={() =>
               setNotificationSettings({
-                permitted: !notificationSettings?.permitted,
+                projectWarnings: {
+                  permitted: !projectWarningsPermitted,
+                },
               })
             }
-            value={notificationSettings?.permitted}
+            value={projectWarningsPermitted}
           />
         </Row>
       </Box>
       <Box>
-        {notificationSettings?.permitted ? (
+        {projectWarningsPermitted ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -75,7 +87,7 @@ export const ProjectNotifications = () => {
           <Attention>
             <Text>
               U ontvangt geen notificaties
-              {notificationSettings?.permitted === false && ' meer'}.
+              {projectWarningsPermitted === false && ' meer'}.
             </Text>
           </Attention>
         )}
