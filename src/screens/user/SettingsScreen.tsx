@@ -36,9 +36,7 @@ export const SettingsScreen = () => {
 
     const retrieveNotificationsFromStore = async () => {
       const notificationsFromStore = await asyncStorage.getData('notifications')
-      console.log('Check if mounted', isMounted)
       isMounted && setNotificationSettings(notificationsFromStore)
-      console.log('Retrieved notification settings', notificationsFromStore)
     }
 
     retrieveNotificationsFromStore()
@@ -51,10 +49,6 @@ export const SettingsScreen = () => {
   // Store notification settings into async storage if permission changes
   useEffect(() => {
     if (notificationSettings?.permitted !== undefined) {
-      console.log('Storing notification settings', {
-        permitted: notificationSettings.permitted,
-      })
-
       asyncStorage.storeData('notifications', {
         permitted: notificationSettings.permitted,
       })
