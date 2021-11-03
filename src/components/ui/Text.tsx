@@ -8,7 +8,6 @@ import {color, font} from '../../tokens'
 
 type Props = {
   children: React.ReactNode
-  dimmed?: Boolean
   intro?: Boolean
   inverse?: Boolean
   link?: Boolean
@@ -21,7 +20,6 @@ type Props = {
 
 export const Text = ({
   children,
-  dimmed,
   intro,
   inverse,
   link,
@@ -45,7 +43,6 @@ export const Text = ({
         secondary && styles.secondary,
         small && styles.small,
         warning && styles.warning,
-        dimmed && styles.dimmed,
       ]}
       {...otherProps}>
       {children}
@@ -54,9 +51,6 @@ export const Text = ({
 }
 
 const styles = StyleSheet.create({
-  dimmed: {
-    color: color.touchable.disabled.foreground,
-  },
   intro: {
     fontFamily: font.weight.demi,
   },

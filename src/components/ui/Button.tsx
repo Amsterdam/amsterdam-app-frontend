@@ -18,7 +18,6 @@ type Props = {
 const verticalPadding = (44 - font.height.p1) / 2 // Design system: button height must be 44
 
 export const Button = ({
-  disabled,
   icon,
   text,
   variant = 'primary',
@@ -27,17 +26,15 @@ export const Button = ({
   return (
     <TouchableOpacity
       accessibilityRole="button"
-      disabled={disabled}
-      style={[styles.button, styles[variant], disabled && styles.disabled]}
+      style={[styles.button, styles[variant]]}
       {...otherProps}>
       <Row gutter="md">
         {icon && <View style={styles.iconContainer}>{icon}</View>}
         {text && (
           <Text
-            dimmed={disabled === true}
             inverse={variant !== 'text'}
-            link={variant === 'text'}
-            primary={variant === 'inverse'}>
+            primary={variant === 'inverse'}
+            link={variant === 'text'}>
             {text}
           </Text>
         )}
@@ -52,9 +49,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
     paddingVertical: verticalPadding,
-  },
-  disabled: {
-    backgroundColor: color.touchable.disabled.background,
   },
   iconContainer: {
     height: 20,
