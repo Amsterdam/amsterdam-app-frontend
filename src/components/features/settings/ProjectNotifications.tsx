@@ -7,9 +7,7 @@ import {Column, Row, ScrollView} from '../../../components/ui/layout'
 import {useAsyncStorage} from '../../../hooks'
 
 type ProjectNotificationSettings = {
-  projectWarnings: {
-    permitted: boolean
-  }
+  enabledForProjects: boolean
 }
 
 export const ProjectNotifications = () => {
@@ -21,8 +19,7 @@ export const ProjectNotifications = () => {
     ProjectNotificationSettings | undefined
   >(undefined)
 
-  const projectWarningsPermitted =
-    notificationSettings?.projectWarnings?.permitted
+  const enabledForProjects = notificationSettings?.enabledForProjects
 
   useEffect(() => {
     const retrieveNotificationsFromStore = async () => {
@@ -35,17 +32,15 @@ export const ProjectNotifications = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (projectWarningsPermitted !== undefined) {
+    if (enabledForProjects !== undefined) {
       const settings: ProjectNotificationSettings = {
         ...notificationSettings,
-        projectWarnings: {
-          permitted: projectWarningsPermitted,
-        },
+        enabledForProjects,
       }
 
       asyncStorage.storeData('notifications', settings)
     }
-  }, [projectWarningsPermitted]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [enabledForProjects]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView>
@@ -55,17 +50,15 @@ export const ProjectNotifications = () => {
           <Switch
             onValueChange={() =>
               setNotificationSettings({
-                projectWarnings: {
-                  permitted: !projectWarningsPermitted,
-                },
+                enabledForProjects: !enabledForProjects,
               })
             }
-            value={projectWarningsPermitted}
+            value={enabledForProjects}
           />
         </Row>
       </Box>
       <Box>
-        {projectWarningsPermitted ? (
+        {enabledForProjects ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -83,7 +76,7 @@ export const ProjectNotifications = () => {
           <Attention>
             <Text>
               U ontvangt geen notificaties
-              {projectWarningsPermitted === false && ' meer'}.
+              {enabledForProjects === false && ' meer'}.
             </Text>
           </Attention>
         )}
