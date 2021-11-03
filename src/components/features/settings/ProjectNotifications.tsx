@@ -24,6 +24,9 @@ export const ProjectNotifications = () => {
     ProjectNotificationSettings | undefined
   >(undefined)
 
+  const projectWarningsPermitted =
+    notificationSettings?.projectWarnings?.permitted
+
   // Retrieve notification settings from async storage
   useEffect(() => {
     const retrieveNotificationsFromStore = async () => {
@@ -37,20 +40,17 @@ export const ProjectNotifications = () => {
 
   // Store notification settings into async storage if permission changes
   useEffect(() => {
-    if (notificationSettings?.projectWarnings.permitted !== undefined) {
+    if (projectWarningsPermitted !== undefined) {
       const settings: ProjectNotificationSettings = {
         ...notificationSettings,
         projectWarnings: {
-          permitted: notificationSettings.projectWarnings.permitted,
+          permitted: projectWarningsPermitted,
         },
       }
 
       asyncStorage.storeData('notifications', settings)
     }
-  }, [asyncStorage, notificationSettings])
-
-  const projectWarningsPermitted =
-    notificationSettings?.projectWarnings.permitted
+  }, [projectWarningsPermitted]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView>
