@@ -43,7 +43,7 @@ export const ProjectNotifications = () => {
 
   return (
     <ScrollView>
-      <Box background="white">
+      <Box background="white" borderVertical>
         <Row align="between" valign="center">
           <Text>Notificaties</Text>
           <Switch
