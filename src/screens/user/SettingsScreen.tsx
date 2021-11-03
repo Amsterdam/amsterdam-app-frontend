@@ -15,7 +15,7 @@ import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 
 type NotificationSettings = {
-  permitted: Boolean
+  permitted: boolean
 }
 
 export const SettingsScreen = () => {
@@ -29,7 +29,9 @@ export const SettingsScreen = () => {
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
-  const [notificationsPermitted, setNotificationsPermitted] = useState(false)
+  const [notificationsPermitted, setNotificationsPermitted] = useState<
+    boolean | undefined
+  >()
 
   // Retrieve notification settings from async storage
   useEffect(() => {
@@ -37,7 +39,10 @@ export const SettingsScreen = () => {
 
     const retrieveNotificationsFromStore = async () => {
       const notificationsFromStore = await asyncStorage.getData('notifications')
+      console.log('Check if mounted', isMounted)
       isMounted && setNotificationSettings(notificationsFromStore)
+      isMounted && setNotificationsPermitted(notificationsFromStore.permitted)
+      console.log('Retrieved notification settings', notificationsFromStore)
     }
 
     retrieveNotificationsFromStore()
@@ -45,13 +50,19 @@ export const SettingsScreen = () => {
     return () => {
       isMounted = false
     }
-  }, [asyncStorage])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Store notification settings into async storage if permission changes
   useEffect(() => {
-    asyncStorage.storeData('notifications', {
-      permitted: notificationsPermitted,
-    })
+    if (notificationsPermitted !== undefined) {
+      console.log('Storing notification settings', {
+        permitted: notificationsPermitted,
+      })
+
+      asyncStorage.storeData('notifications', {
+        permitted: notificationsPermitted,
+      })
+    }
   }, [asyncStorage, notificationsPermitted])
 
   return (
@@ -77,7 +88,7 @@ export const SettingsScreen = () => {
             }
             value={notificationsPermitted}
           />
-          {notificationSettings?.permitted ? (
+          {notificationsPermitted ? (
             <Column gutter="md">
               <Attention>
                 <Text>
