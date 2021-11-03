@@ -32,18 +32,12 @@ export const SettingsScreen = () => {
 
   // Retrieve notification settings from async storage
   useEffect(() => {
-    let isMounted = true
-
     const retrieveNotificationsFromStore = async () => {
       const notificationsFromStore = await asyncStorage.getData('notifications')
-      isMounted && setNotificationSettings(notificationsFromStore)
+      setNotificationSettings(notificationsFromStore)
     }
 
     retrieveNotificationsFromStore()
-
-    return () => {
-      isMounted = false
-    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Store notification settings into async storage if permission changes
