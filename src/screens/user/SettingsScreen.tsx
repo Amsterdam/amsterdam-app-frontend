@@ -3,8 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {Attention, Box, Switch, Text, TextButton} from '../../components/ui'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
+import {size} from '../../tokens'
 
 type NotificationSettings = {
   permitted: boolean
@@ -43,42 +44,43 @@ export const SettingsScreen = () => {
 
   return (
     <ScrollView>
+      <Gutter height={size.spacing.md} />
+      <Box background="white">
+        <Row align="between" valign="center">
+          <Text>Notificaties</Text>
+          <Switch
+            onValueChange={() =>
+              setNotificationSettings({
+                permitted: !notificationSettings?.permitted,
+              })
+            }
+            value={notificationSettings?.permitted}
+          />
+        </Row>
+      </Box>
       <Box>
-        <Column gutter="md">
-          <Row align="between" valign="center">
-            <Text>Notificaties</Text>
-            <Switch
-              onValueChange={() =>
-                setNotificationSettings({
-                  permitted: !notificationSettings?.permitted,
-                })
-              }
-              value={notificationSettings?.permitted}
-            />
-          </Row>
-          {notificationSettings?.permitted ? (
-            <Column gutter="md">
-              <Attention>
-                <Text>
-                  Zet notificaties aan op pagina’s van werkzaamheden waar u
-                  notificaties voor wilt ontvangen.
-                </Text>
-              </Attention>
-              <TextButton
-                emphasis
-                onPress={() => navigation.navigate('ProjectOverview')}
-                text="Naar bouwwerkzaamheden"
-              />
-            </Column>
-          ) : (
+        {notificationSettings?.permitted ? (
+          <Column gutter="md">
             <Attention>
               <Text>
-                U ontvangt geen notificaties
-                {notificationSettings?.permitted === false && ' meer'}.
+                Zet notificaties aan op pagina’s van werkzaamheden waar u
+                notificaties voor wilt ontvangen.
               </Text>
             </Attention>
-          )}
-        </Column>
+            <TextButton
+              emphasis
+              onPress={() => navigation.navigate('ProjectOverview')}
+              text="Naar bouwwerkzaamheden"
+            />
+          </Column>
+        ) : (
+          <Attention>
+            <Text>
+              U ontvangt geen notificaties
+              {notificationSettings?.permitted === false && ' meer'}.
+            </Text>
+          </Attention>
+        )}
       </Box>
     </ScrollView>
   )
