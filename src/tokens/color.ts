@@ -57,7 +57,7 @@ export const color = {
   },
   state: {
     invalid: baseColor.support.invalid,
-    neutral: baseColor.neutral.grey3,
+    neutral: baseColor.neutral.grey4,
     valid: baseColor.support.valid,
   },
   touchable: {
