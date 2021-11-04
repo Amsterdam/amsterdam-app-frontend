@@ -5,10 +5,7 @@ import {RootStackParamList} from '../../../../App'
 import {Attention, Box, Switch, Text, TextButton} from '../../../components/ui'
 import {Column, Row, ScrollView} from '../../../components/ui/layout'
 import {useAsyncStorage} from '../../../hooks'
-
-type ProjectNotificationSettings = {
-  enabledForProjects: boolean
-}
+import {NotificationSettings} from '../../../types'
 
 export const ProjectNotifications = () => {
   const asyncStorage = useAsyncStorage()
@@ -16,14 +13,12 @@ export const ProjectNotifications = () => {
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
   const [notificationSettings, setNotificationSettings] = useState<
-    ProjectNotificationSettings | undefined
+    NotificationSettings | undefined
   >(undefined)
-
-  const enabledForProjects = notificationSettings?.enabledForProjects
 
   useEffect(() => {
     const retrieveNotificationsFromStore = async () => {
-      const notificationsFromStore: ProjectNotificationSettings =
+      const notificationsFromStore: NotificationSettings =
         await asyncStorage.getData('notifications')
       setNotificationSettings(notificationsFromStore)
     }
@@ -32,15 +27,15 @@ export const ProjectNotifications = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (enabledForProjects !== undefined) {
-      const settings: ProjectNotificationSettings = {
+    if (notificationSettings?.projectsEnabled !== undefined) {
+      const settings: NotificationSettings = {
         ...notificationSettings,
-        enabledForProjects,
+        projectsEnabled: notificationSettings?.projectsEnabled,
       }
 
       asyncStorage.storeData('notifications', settings)
     }
-  }, [enabledForProjects]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [notificationSettings?.projectsEnabled]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView>
@@ -50,15 +45,16 @@ export const ProjectNotifications = () => {
           <Switch
             onValueChange={() =>
               setNotificationSettings({
-                enabledForProjects: !enabledForProjects,
+                ...notificationSettings,
+                projectsEnabled: !notificationSettings?.projectsEnabled,
               })
             }
-            value={enabledForProjects}
+            value={notificationSettings?.projectsEnabled}
           />
         </Row>
       </Box>
       <Box>
-        {enabledForProjects ? (
+        {notificationSettings?.projectsEnabled ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -76,7 +72,7 @@ export const ProjectNotifications = () => {
           <Attention>
             <Text>
               U ontvangt geen notificaties
-              {enabledForProjects === false && ' meer'}.
+              {notificationSettings?.projectsEnabled === false && ' meer'}.
             </Text>
           </Attention>
         )}
