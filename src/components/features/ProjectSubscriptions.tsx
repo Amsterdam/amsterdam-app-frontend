@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../../environment'
 import {useAsyncStorage, useFetch} from '../../hooks'
-import {NotificationSettings, DeviceRegistration} from '../../types'
+import {DeviceRegistration, NotificationSettings} from '../../types'
 import {encryptWithAES, getFCMToken} from '../../utils'
 import {Button, Text} from '../ui'
 
@@ -80,7 +80,7 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
   }, [FCMToken, notifications?.projects])
 
   const getFCMTokenIfProjects = useCallback(async () => {
-    if (notifications && notifications.projects.length > 0) {
+    if (notifications?.projects && notifications.projects.length > 0) {
       const token = await getFCMToken()
       token && setFCMToken(token)
     }
