@@ -1,18 +1,20 @@
 import messaging from '@react-native-firebase/messaging'
 
-type PermissionStatus = 'undetermined' | 'granted' | 'denied'
+enum Permission {
+  Denied,
+  Granted,
+  Undetermined,
+}
 
-const mapPermissionStatus = (
-  fcmAuthStatus: number,
-): PermissionStatus | undefined => {
+const mapPermissionStatus = (fcmAuthStatus: number): Permission | undefined => {
   switch (fcmAuthStatus) {
     case -1:
-      return 'undetermined'
+      return Permission.Undetermined
     case 0:
-      return 'denied'
+      return Permission.Denied
     case 1:
     case 2:
-      return 'granted'
+      return Permission.Granted
     default:
       return undefined
   }
@@ -25,7 +27,7 @@ const requestPermission = async () => {
 
 export const getFCMToken = async () => {
   const permissionStatus = await requestPermission()
-  if (permissionStatus === 'granted') {
+  if (permissionStatus === Permission.Granted) {
     try {
       const token = await messaging().getToken()
       return token
