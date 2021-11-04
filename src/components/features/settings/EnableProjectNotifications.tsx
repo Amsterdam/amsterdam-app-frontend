@@ -7,7 +7,7 @@ import {Column, Row, ScrollView} from '../../../components/ui/layout'
 import {useAsyncStorage} from '../../../hooks'
 import {NotificationSettings} from '../../../types'
 
-export const ProjectNotifications = () => {
+export const EnableProjectNotifications = () => {
   const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()

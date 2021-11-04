@@ -1,1 +1,1 @@
-export * from './ProjectNotifications'
+export * from './EnableProjectNotifications'
