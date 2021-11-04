@@ -3,9 +3,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../../environment'
 import {useAsyncStorage, useFetch} from '../../hooks'
-import {Notifications, RegisterDeviceForPush} from '../../types'
-import {encrypter, getFCMToken} from '../../utils'
-import {Button} from '../ui'
+import {NotificationSettings, DeviceRegistration} from '../../types'
+import {encryptWithAES, getFCMToken} from '../../utils'
+import {Button, Text} from '../ui'
 
 type Props = {
   projectId: string
@@ -13,20 +13,19 @@ type Props = {
 
 export const ProjectSubscriptions = ({projectId}: Props) => {
   const [notifications, setNotifications] = useState<
-    Notifications | undefined
+    NotificationSettings | undefined
   >()
   const [deviceRegistration, setDeviceRegistration] = useState<
-    RegisterDeviceForPush | undefined
+    DeviceRegistration | undefined
   >()
   const [FCMToken, setFCMToken] = useState<string | undefined>()
   const asyncStorage = useAsyncStorage()
-  const authToken = encrypter({
-    mode: 'encrypt',
+  const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
     plaintext: '44755871-9ea6-4018-b1df-e4f00466c723',
   })
 
-  const api = useFetch<RegisterDeviceForPush>({
+  const api = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',
     options: {
       method: 'POST',
@@ -44,17 +43,22 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
     setNotifications(notificationsFromStorage)
   }, [asyncStorage])
 
-  const storeProject = async () => {
-    if (notifications) {
-      let notificationsProjects = notifications.projects
-      notificationsProjects?.indexOf(projectId) === -1 &&
-        notificationsProjects.push(projectId)
+  const addProjectIdToSubscriptions = async () => {
+    let notificationsProjects = notifications?.projects
+    if (notificationsProjects?.includes(projectId)) {
+      notificationsProjects.push(projectId)
       const notificationsWithProject = {
         ...notifications,
         projects: notificationsProjects,
       }
       await asyncStorage.storeData('notifications', notificationsWithProject)
       setNotifications(notificationsWithProject)
+    }
+  }
+
+  const subscribeToProject = async () => {
+    if (notifications) {
+      addProjectIdToSubscriptions()
     } else {
       await asyncStorage.storeData('notifications', {projects: [projectId]})
       setNotifications({projects: [projectId]})
@@ -74,10 +78,6 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
       })
     }
   }, [FCMToken, notifications?.projects])
-
-  const subscribeProject = async () => {
-    storeProject()
-  }
 
   const getFCMTokenIfProjects = useCallback(async () => {
     if (notifications && notifications.projects.length > 0) {
@@ -101,9 +101,10 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
   return (
     <>
       <Button
-        onPress={() => subscribeProject()}
+        onPress={subscribeToProject}
         text="Ontvang notificaties voor Brouwersgracht"
       />
+      {FCMToken && <Text>FCM-token: {FCMToken}</Text>}
     </>
   )
 }
