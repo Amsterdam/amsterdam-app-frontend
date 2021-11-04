@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
+import {ProjectSubscriptions} from '../components/features/ProjectSubscriptions'
 import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
@@ -13,6 +14,8 @@ import {size} from '../tokens'
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
+
+const testProjectId = 'ba8d667038f8efd9d5b0a4866f660d54'
 
 export const HomeScreen = ({navigation}: Props) => {
   const deviceContext = useContext(DeviceContext)
@@ -72,6 +75,7 @@ export const HomeScreen = ({navigation}: Props) => {
                 }
                 text="Controleer notificaties"
               />
+              <ProjectSubscriptions projectId={testProjectId} />
               {getEnvironment().allowClearingAddress && (
                 <Button
                   variant="secondary"
