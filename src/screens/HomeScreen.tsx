@@ -75,6 +75,10 @@ export const HomeScreen = ({navigation}: Props) => {
                 }
                 text="Controleer notificaties"
               />
+              <Button
+                onPress={() => navigation.navigate(routes.settings.name)}
+                text="Stel instellingen in"
+              />
               <ProjectSubscriptions projectId={testProjectId} />
               {getEnvironment().allowClearingAddress && (
                 <Button

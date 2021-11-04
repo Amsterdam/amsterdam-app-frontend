@@ -40,6 +40,7 @@ export const color = {
   },
   border: {
     default: baseColor.neutral.grey2,
+    onGrey: baseColor.neutral.grey3,
     input: baseColor.neutral.grey4,
     inputFocus: baseColor.primary.black,
     invalid: baseColor.support.invalid,
@@ -53,6 +54,11 @@ export const color = {
     regular: baseColor.primary.black,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
+  },
+  state: {
+    invalid: baseColor.support.invalid,
+    neutral: baseColor.neutral.grey3,
+    valid: baseColor.support.valid,
   },
   touchable: {
     pressed: baseColor.primary.red,
