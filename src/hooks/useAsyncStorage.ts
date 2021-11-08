@@ -9,6 +9,7 @@ export const useAsyncStorage = () => {
   const [error, setError] = useState<unknown | undefined>()
 
   const storeData = async (key: string, obj: any) => {
+    console.log('store', key, obj)
     try {
       const jsonValue = JSON.stringify(obj)
       await AsyncStorage.setItem(key, jsonValue)
@@ -20,7 +21,9 @@ export const useAsyncStorage = () => {
   const getData = async (key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
-      return jsonValue != null ? JSON.parse(jsonValue) : null
+      const obj = jsonValue != null ? JSON.parse(jsonValue) : null
+      console.log('get', key, obj)
+      return obj
     } catch (e) {
       setError(e)
     }

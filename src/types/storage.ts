@@ -1,4 +1,4 @@
 export type NotificationSettings = {
   projectsEnabled?: boolean
-  projects?: string[]
+  projects?: Record<string, boolean>
 }

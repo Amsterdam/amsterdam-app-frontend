@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const ProjectSubscriptions = ({projectId}: Props) => {
-  const [notifications, setNotifications] = useState<
+  const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >()
   const [deviceRegistration, setDeviceRegistration] = useState<
@@ -38,30 +38,32 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
     onLoad: false,
   })
 
-  const retrieveProjectsFromAsyncStorage = useCallback(async () => {
-    const notificationsFromStorage = await asyncStorage.getData('notifications')
-    setNotifications(notificationsFromStorage)
+  const retrieveNotificationSettings = useCallback(async () => {
+    const settingsFromStorage = await asyncStorage.getData('notifications')
+    setNotificationSettings(settingsFromStorage)
   }, [asyncStorage])
 
-  const addProjectIdToSubscriptions = async () => {
-    let notificationsProjects = notifications?.projects
-    if (notificationsProjects?.includes(projectId)) {
-      notificationsProjects.push(projectId)
-      const notificationsWithProject = {
-        ...notifications,
-        projects: notificationsProjects,
-      }
-      await asyncStorage.storeData('notifications', notificationsWithProject)
-      setNotifications(notificationsWithProject)
+  const storeUpdatedNotificationSettings = async () => {
+    const newNotificationSettings: NotificationSettings = {
+      ...notificationSettings,
+      projects: {
+        ...notificationSettings?.projects,
+        [projectId]: true,
+      },
     }
+
+    await asyncStorage.storeData('notifications', newNotificationSettings)
+    setNotificationSettings(newNotificationSettings)
   }
 
   const subscribeToProject = async () => {
-    if (notifications) {
-      addProjectIdToSubscriptions()
+    if (notificationSettings) {
+      storeUpdatedNotificationSettings()
     } else {
-      await asyncStorage.storeData('notifications', {projects: [projectId]})
-      setNotifications({projects: [projectId]})
+      await asyncStorage.storeData('notifications', {
+        projects: {[projectId]: true},
+      })
+      setNotificationSettings({projects: {[projectId]: true}})
     }
   }
 
@@ -70,28 +72,40 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
   }, [])
 
   useEffect(() => {
-    if (FCMToken && notifications?.projects) {
+    if (FCMToken && notificationSettings?.projects) {
+      // We only save subscribed projects into our backend
+      const subscribedProjects = Object.entries(
+        notificationSettings.projects,
+      ).reduce((acc, val) => {
+        // @ts-ignore
+        val[1] && acc.push(val[0])
+        return acc
+      }, [])
+
       setDeviceRegistration({
         device_token: FCMToken,
         os_type: Platform.OS,
-        projects: notifications.projects,
+        projects: subscribedProjects,
       })
     }
-  }, [FCMToken, notifications?.projects])
+  }, [FCMToken, notificationSettings?.projects])
 
   const getFCMTokenIfProjects = useCallback(async () => {
-    if (notifications?.projects && notifications.projects.length > 0) {
+    if (
+      notificationSettings?.projects &&
+      Object.keys(notificationSettings.projects).length
+    ) {
       const token = await getFCMToken()
       token && setFCMToken(token)
     }
-  }, [notifications])
+  }, [notificationSettings])
 
   useEffect(() => {
     getFCMTokenIfProjects()
   }, [getFCMTokenIfProjects])
 
   useEffect(() => {
-    retrieveProjectsFromAsyncStorage()
+    retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
