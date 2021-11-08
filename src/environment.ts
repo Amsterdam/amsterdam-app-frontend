@@ -5,8 +5,8 @@ enum Environment {
 }
 
 type EnvironmentConfig = {
+  allowClearingAsyncStorage: Boolean
   apiUrl: string
-  allowClearingAddress: Boolean
   bulkyWasteFormUrl: string
   name: 'development' | 'acceptance' | 'production'
   signalsBaseUrl: string
@@ -14,16 +14,16 @@ type EnvironmentConfig = {
 
 const environments: Record<Environment, EnvironmentConfig> = {
   [Environment.Development]: {
+    allowClearingAsyncStorage: true,
     apiUrl: 'http://localhost:8000/api/v1',
-    allowClearingAddress: true,
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     name: 'development',
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
   [Environment.Acceptance]: {
+    allowClearingAsyncStorage: false,
     apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
-    allowClearingAddress: false,
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     name: 'acceptance',

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
@@ -8,6 +7,7 @@ import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
+import {useAsyncStorage} from '../hooks'
 import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
 
@@ -18,17 +18,9 @@ type Props = {
 const testProjectId = 'ba8d667038f8efd9d5b0a4866f660d54'
 
 export const HomeScreen = ({navigation}: Props) => {
-  const deviceContext = useContext(DeviceContext)
   const addressContext = useContext(AddressContext)
-
-  const clearAddress = async () => {
-    try {
-      await AsyncStorage.removeItem('address')
-      addressContext.changeAddress(undefined)
-    } catch (e) {}
-
-    console.log('Adres verwijderd.')
-  }
+  const asyncStorage = useAsyncStorage()
+  const deviceContext = useContext(DeviceContext)
 
   return (
     <ScrollView>
@@ -82,11 +74,11 @@ export const HomeScreen = ({navigation}: Props) => {
                 text="Stel instellingen in"
               />
               <ProjectSubscriptions projectId={testProjectId} />
-              {getEnvironment().allowClearingAddress && (
+              {getEnvironment().allowClearingAsyncStorage && (
                 <Button
+                  onPress={() => asyncStorage.clear()}
+                  text="Wis alle instellingen"
                   variant="secondary"
-                  onPress={clearAddress}
-                  text="Verwijder adres"
                 />
               )}
             </Column>
