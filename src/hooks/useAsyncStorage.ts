@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useContext, useState} from 'react'
 import {Alert} from 'react-native'
+import {getEnvironment} from '../environment'
 import {AddressContext} from '../providers'
 
 export const useAsyncStorage = () => {
@@ -9,7 +10,7 @@ export const useAsyncStorage = () => {
   const [error, setError] = useState<unknown | undefined>()
 
   const storeData = async (key: string, obj: any) => {
-    console.log('store', key, obj)
+    getEnvironment().debug && console.log('store', key, obj)
     try {
       const jsonValue = JSON.stringify(obj)
       await AsyncStorage.setItem(key, jsonValue)
@@ -21,8 +22,9 @@ export const useAsyncStorage = () => {
   const getData = async (key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
-      const obj = jsonValue != null ? JSON.parse(jsonValue) : null
-      console.log('get', key, obj)
+      const obj = jsonValue != null ? JSON.parse(jsonValue) : undefined
+      getEnvironment().debug && console.log('retrieve', key, obj)
+      getEnvironment().debug && obj.projects && console.table(obj.projects)
       return obj
     } catch (e) {
       setError(e)
@@ -37,7 +39,7 @@ export const useAsyncStorage = () => {
         addressContext.changeAddress(undefined)
       } catch (e) {}
 
-      console.log('Alle instellingen gewist.')
+      getEnvironment().debug && console.info('Alle instellingen gewist.')
     }
 
     Alert.alert(

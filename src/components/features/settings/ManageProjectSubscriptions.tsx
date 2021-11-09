@@ -9,48 +9,59 @@ import {Row} from '../../ui/layout'
 
 export const ManageProjectSubscriptions = () => {
   const asyncStorage = useAsyncStorage()
-
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
 
+  // Retrieve current notification settings from device and save to component state
   useEffect(() => {
     const retrieveNotificationSettings = async () => {
-      const settings: NotificationSettings = await asyncStorage.getData(
-        'notifications',
-      )
+      const settings: NotificationSettings | undefined =
+        await asyncStorage.getData('notifications')
       setNotificationSettings(settings)
     }
     retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Retrieve all projects from backend
   const {data: allProjects, isLoading: allProjectsIsLoading} = useFetch<
     ProjectOverviewItem[]
   >({
     url: getEnvironment().apiUrl + '/projects',
   })
 
-  useEffect(() => {
-    asyncStorage.storeData('notifications', notificationSettings)
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (allProjectsIsLoading) {
-    return (
-      <Box>
-        <ActivityIndicator />
-      </Box>
-    )
+  // Toggle notification setting for a project
+  const updateNotificationSetting = (projectId: string, value: boolean) => {
+    setNotificationSettings({
+      ...notificationSettings,
+      projects: {
+        ...notificationSettings?.projects,
+        [projectId]: value,
+      },
+    })
   }
 
-  const subscribedProjects =
+  // Store notification changes in device whenever they change
+  useEffect(() => {
+    notificationSettings &&
+      asyncStorage.storeData('notifications', notificationSettings)
+  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Prepare an array of project ids from the projects listed in the device settings
+  const subscribableProjects =
     Object.keys(notificationSettings?.projects ?? {}) ?? []
 
-  return (
+  return allProjectsIsLoading ? (
+    <Box>
+      <ActivityIndicator />
+    </Box>
+  ) : (
     <Box background="white" borderVertical>
-      {subscribedProjects.length ? (
-        subscribedProjects.map((projectId, index) => {
+      {subscribableProjects.length ? (
+        subscribableProjects.map((projectId, index) => {
           const project = allProjects?.find(p => p.identifier === projectId)
-          const value = notificationSettings?.projects?.[projectId] ?? false
+          const subscribed =
+            notificationSettings?.projects?.[projectId] ?? false
 
           return (
             project && (
@@ -62,17 +73,12 @@ export const ManageProjectSubscriptions = () => {
                   </View>
                   <Switch
                     onValueChange={() =>
-                      setNotificationSettings({
-                        ...notificationSettings,
-                        projects: {
-                          [projectId]: !value,
-                        },
-                      })
+                      updateNotificationSetting(project.identifier, !subscribed)
                     }
-                    value={value}
+                    value={subscribed}
                   />
                 </Row>
-                {index < (subscribedProjects.length ?? 0) - 1 && (
+                {index < (subscribableProjects.length ?? 0) - 1 && (
                   <View style={styles.line} />
                 )}
               </Fragment>

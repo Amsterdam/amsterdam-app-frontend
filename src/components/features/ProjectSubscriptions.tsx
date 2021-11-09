@@ -1,17 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, {useCallback, useEffect, useState} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../../environment'
 import {useAsyncStorage, useFetch} from '../../hooks'
+import {size} from '../../tokens'
 import {DeviceRegistration, NotificationSettings} from '../../types'
 import {encryptWithAES, getFCMToken} from '../../utils'
 import {Button, Text} from '../ui'
+import {Gutter} from '../ui/layout'
 
 type Props = {
   projectId: string
 }
 
 export const ProjectSubscriptions = ({projectId}: Props) => {
+  const asyncStorage = useAsyncStorage()
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >()
@@ -19,12 +21,12 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
     DeviceRegistration | undefined
   >()
   const [FCMToken, setFCMToken] = useState<string | undefined>()
-  const asyncStorage = useAsyncStorage()
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
     plaintext: '44755871-9ea6-4018-b1df-e4f00466c723',
   })
 
+  // Post device registration to backend
   const api = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',
     options: {
@@ -38,11 +40,14 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
     onLoad: false,
   })
 
-  const retrieveNotificationSettings = useCallback(async () => {
-    const settingsFromStorage = await asyncStorage.getData('notifications')
-    setNotificationSettings(settingsFromStorage)
-  }, [asyncStorage])
+  // Retrieve current notification settings from device and save to component state
+  const retrieveNotificationSettings = async () => {
+    const settings: NotificationSettings | undefined =
+      await asyncStorage.getData('notifications')
+    setNotificationSettings(settings)
+  }
 
+  // Store notification changes in device and save to component state
   const storeUpdatedNotificationSettings = async () => {
     const newNotificationSettings: NotificationSettings = {
       ...notificationSettings,
@@ -66,10 +71,6 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
       setNotificationSettings({projects: {[projectId]: true}})
     }
   }
-
-  useEffect(() => {
-    AsyncStorage.removeItem('notifications')
-  }, [])
 
   useEffect(() => {
     if (FCMToken && notificationSettings?.projects) {
@@ -118,7 +119,12 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
         onPress={subscribeToProject}
         text="Ontvang notificaties voor Brouwersgracht"
       />
-      {FCMToken && <Text>FCM-token: {FCMToken}</Text>}
+      {FCMToken && (
+        <>
+          <Gutter height={size.spacing.md} />
+          <Text>{FCMToken}</Text>
+        </>
+      )}
     </>
   )
 }
