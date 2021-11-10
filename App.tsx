@@ -29,7 +29,7 @@ import {
 } from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
 import {color, size} from './src/tokens'
-import {NewsArticle, ProjectDetailBody} from './src/types'
+import {ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
   AddressForm: undefined
@@ -38,7 +38,7 @@ export type RootStackParamList = {
   NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
-  ProjectNews: {article: NewsArticle}
+  ProjectNews: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   Settings: undefined
