@@ -49,8 +49,8 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  id: string
   articles: ProjectDetailNewsArticle[]
+  id: string
   title: string
 }
 
@@ -86,10 +86,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const changeWarning = (value: NewWarning) => setWarning(value)
 
   useEffect(() => {
-    const {id, articles, title} = route.params.projectDetails
+    const {articles, id, title} = route.params.projectDetails
     setProjectDetails({
-      id,
       articles,
+      id,
       title,
     })
   }, [route])

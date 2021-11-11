@@ -55,8 +55,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           onPress={() =>
             navigation.navigate(routes.notification.name, {
               projectDetails: {
-                id: project.identifier,
                 articles: project.articles,
+                id: project.identifier,
                 title: project.title,
               },
             })
