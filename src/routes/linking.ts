@@ -1,7 +1,7 @@
 const config = {
   screens: {
     Home: {
-      path: 'home/:id',
+      path: 'omgevingsmanager/:id',
       parse: {
         id: (id: string) => `${id}`,
       },
@@ -10,6 +10,6 @@ const config = {
 }
 
 export const linking = {
-  prefixes: ['amsterdam://omgevingsmanager'],
+  prefixes: ['amsterdam://'],
   config,
 }
