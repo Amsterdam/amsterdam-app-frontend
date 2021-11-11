@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsArticleOverview} from '../components/features/news'
@@ -16,7 +16,7 @@ import {
 } from '../components/ui'
 import {Gutter, Row} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
-import {useAsyncStorage, useFetch} from '../hooks'
+import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
 import {NotificationSettings, ProjectDetail} from '../types'
 
@@ -32,9 +32,10 @@ type Props = {
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const asyncStorage = useAsyncStorage()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
+  const deviceRegistration = useDeviceRegistration()
+  const [settings, setSettings] = useState<NotificationSettings | undefined>(
+    undefined,
+  )
 
   // Retrieve project details from backend
   const {data: project, isLoading} = useFetch<ProjectDetail>({
@@ -46,6 +47,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
+  // Calculate subscription status for this project
+  const subscribed = settings?.projects?.[project?.identifier ?? ''] ?? false
+
   // Set header title
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,36 +57,40 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     })
   }, [project?.title, navigation])
 
-  // Retrieve current notification settings from device and save to component state
+  // Retrieve notification settings from device and save to component state
   useEffect(() => {
-    const retrieveNotificationSettings = async () => {
-      const settings: NotificationSettings | undefined =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(settings)
+    const retrieveSettings = async () => {
+      const s: NotificationSettings | undefined = await asyncStorage.getData(
+        'notifications',
+      )
+      setSettings(s)
     }
-    retrieveNotificationSettings()
+    retrieveSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Calculate subscription status for this project
-  const subscribed =
-    notificationSettings?.projects?.[project?.identifier ?? ''] ?? false
-
   // Toggle notification setting for this project
-  const updateNotificationSetting = (projectId: string) => {
-    setNotificationSettings({
-      ...notificationSettings,
+  // TODO Move to device registration hook
+  const toggleProjectSubscription = (projectId: string) => {
+    setSettings({
+      ...settings,
       projects: {
-        ...notificationSettings?.projects,
+        ...settings?.projects,
         [projectId]: !subscribed,
       },
     })
   }
 
-  // Store notification changes on device whenever they change
+  // Store notification changes on device and in backend
+  const storeSettings = useCallback(async () => {
+    settings && (await asyncStorage.storeData('notifications', settings))
+
+    await deviceRegistration.store(settings?.projects ?? {})
+  }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Watch changes in notification settings
   useEffect(() => {
-    notificationSettings &&
-    asyncStorage.storeData('notifications', notificationSettings)
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
+    storeSettings()
+  }, [storeSettings])
 
   return isLoading && !project ? (
     <Box>
@@ -111,13 +119,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
-        <Text>{project.identifier}</Text>
         {project.title && <Title text={project.title} />}
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
         <Gutter height={size.spacing.sm} />
         <Row gutter="sm" valign="center">
           <Switch
-            onValueChange={() => updateNotificationSetting(project.identifier)}
+            onValueChange={() => toggleProjectSubscription(project.identifier)}
             value={subscribed}
           />
           <Text small>Ontvang notificaties</Text>

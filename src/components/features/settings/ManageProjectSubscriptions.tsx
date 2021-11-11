@@ -37,6 +37,7 @@ export const ManageProjectSubscriptions = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Toggle notification settings for a project
+  // TODO Move to device registration hook
   const toggleProjectSubscription = (
     projectId: string,
     subscribed: boolean,
@@ -54,8 +55,7 @@ export const ManageProjectSubscriptions = () => {
   const storeSettings = useCallback(async () => {
     settings && (await asyncStorage.storeData('notifications', settings))
 
-    const hasError = await deviceRegistration.store(projects ?? {})
-    console.log('Fout:', hasError)
+    await deviceRegistration.store(projects ?? {})
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch changes in notification settings
