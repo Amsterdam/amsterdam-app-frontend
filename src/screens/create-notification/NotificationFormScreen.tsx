@@ -63,7 +63,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
       project_identifier: notificationContext.projectDetails.id!,
     }
     const nextScreen =
-      notificationContext.projectDetails.news.length > 0
+      notificationContext.projectDetails.articles.length > 0
         ? 'SelectNewsArticle'
         : 'WarningForm'
 
