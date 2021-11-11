@@ -1,67 +1,75 @@
-import React, {Fragment, useEffect, useState} from 'react'
+import React, {Fragment, useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import {getEnvironment} from '../../../environment'
-import {useAsyncStorage, useFetch} from '../../../hooks'
+import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
 import {Box, Switch, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
+// TODO How do we sort the subscriptions?
+// TODO Handle deleted projects correctly.
+
 export const ManageProjectSubscriptions = () => {
   const asyncStorage = useAsyncStorage()
+  const deviceRegistration = useDeviceRegistration()
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
   >(undefined)
+  const projects = notificationSettings?.projects
+  const subscribableProjectIds = Object.keys(projects ?? {})
 
-  // Retrieve current notification settings from device and save to component state
+  // Retrieve all projects from backend
+  const {data: allProjects, isLoading} = useFetch<ProjectOverviewItem[]>({
+    url: getEnvironment().apiUrl + '/projects',
+  })
+
+  // Retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveNotificationSettings = async () => {
       const settings: NotificationSettings | undefined =
         await asyncStorage.getData('notifications')
       setNotificationSettings(settings)
     }
+
     retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Retrieve all projects from backend
-  const {data: allProjects, isLoading: allProjectsIsLoading} = useFetch<
-    ProjectOverviewItem[]
-  >({
-    url: getEnvironment().apiUrl + '/projects',
-  })
-
-  // Toggle notification setting for a project
-  const updateNotificationSetting = (projectId: string, value: boolean) => {
+  // Toggle notification settings for a project
+  const updateNotificationSettings = (projectId: string, value: boolean) => {
     setNotificationSettings({
       ...notificationSettings,
       projects: {
-        ...notificationSettings?.projects,
+        ...projects,
         [projectId]: value,
       },
     })
   }
 
-  // Store notification changes in device whenever they change
-  useEffect(() => {
+  // Store notification changes in device and backend
+  const storeNotificationSettings = useCallback(async () => {
     notificationSettings &&
-      asyncStorage.storeData('notifications', notificationSettings)
+      (await asyncStorage.storeData('notifications', notificationSettings))
+
+    const hasError = await deviceRegistration.store(projects ?? {})
+    console.log('Fout:', hasError)
   }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Prepare an array of project ids from the projects listed in the device settings
-  const subscribableProjects =
-    Object.keys(notificationSettings?.projects ?? {}) ?? []
+  // Watch changes in notification settings
+  useEffect(() => {
+    storeNotificationSettings()
+  }, [storeNotificationSettings])
 
-  return allProjectsIsLoading ? (
+  return isLoading ? (
     <Box>
       <ActivityIndicator />
     </Box>
   ) : (
     <Box background="white" borderVertical>
-      {subscribableProjects.length ? (
-        subscribableProjects.map((projectId, index) => {
+      {subscribableProjectIds.length ? (
+        subscribableProjectIds.map((projectId, index) => {
           const project = allProjects?.find(p => p.identifier === projectId)
-          const subscribed =
-            notificationSettings?.projects?.[projectId] ?? false
+          const subscribed = projects?.[projectId] ?? false
 
           return (
             project && (
@@ -73,12 +81,15 @@ export const ManageProjectSubscriptions = () => {
                   </View>
                   <Switch
                     onValueChange={() =>
-                      updateNotificationSetting(project.identifier, !subscribed)
+                      updateNotificationSettings(
+                        project.identifier,
+                        !subscribed,
+                      )
                     }
                     value={subscribed}
                   />
                 </Row>
-                {index < (subscribableProjects.length ?? 0) - 1 && (
+                {index < (subscribableProjectIds.length ?? 0) - 1 && (
                   <View style={styles.line} />
                 )}
               </Fragment>
