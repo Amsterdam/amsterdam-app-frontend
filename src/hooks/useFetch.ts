@@ -25,7 +25,8 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const prevParams = useRef<any>()
 
   const fetchData = useCallback(
-    async (params = undefined) => {
+    // TODO Refactor signature to object
+    async (params = undefined, body = undefined) => {
       setIsLoading(true)
       const queryParams = {...options?.params, ...params}
       const queryString = Object.keys(queryParams)
@@ -33,7 +34,10 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
         .join('&')
 
       try {
-        const response = await fetch(url + '?' + queryString, {...options})
+        const response = await fetch(url + '?' + queryString, {
+          ...options,
+          body: body ?? options?.body ?? '',
+        })
         const json = await response.json()
         setData(json.result ?? json)
       } catch (error) {
