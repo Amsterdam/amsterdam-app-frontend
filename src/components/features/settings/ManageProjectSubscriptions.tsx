@@ -13,10 +13,10 @@ import {Row} from '../../ui/layout'
 export const ManageProjectSubscriptions = () => {
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
-  const projects = notificationSettings?.projects
+  const [settings, setSettings] = useState<NotificationSettings | undefined>(
+    undefined,
+  )
+  const projects = settings?.projects
   const subscribableProjectIds = Object.keys(projects ?? {})
 
   // Retrieve all projects from backend
@@ -26,39 +26,42 @@ export const ManageProjectSubscriptions = () => {
 
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
-    const retrieveNotificationSettings = async () => {
-      const settings: NotificationSettings | undefined =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(settings)
+    const retrieveSettings = async () => {
+      const s: NotificationSettings | undefined = await asyncStorage.getData(
+        'notifications',
+      )
+      setSettings(s)
     }
 
-    retrieveNotificationSettings()
+    retrieveSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Toggle notification settings for a project
-  const updateNotificationSettings = (projectId: string, value: boolean) => {
-    setNotificationSettings({
-      ...notificationSettings,
+  const toggleProjectSubscription = (
+    projectId: string,
+    subscribed: boolean,
+  ) => {
+    setSettings({
+      ...settings,
       projects: {
         ...projects,
-        [projectId]: value,
+        [projectId]: subscribed,
       },
     })
   }
 
-  // Store notification changes in device and backend
-  const storeNotificationSettings = useCallback(async () => {
-    notificationSettings &&
-      (await asyncStorage.storeData('notifications', notificationSettings))
+  // Store notification changes on device and in backend
+  const storeSettings = useCallback(async () => {
+    settings && (await asyncStorage.storeData('notifications', settings))
 
     const hasError = await deviceRegistration.store(projects ?? {})
     console.log('Fout:', hasError)
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch changes in notification settings
   useEffect(() => {
-    storeNotificationSettings()
-  }, [storeNotificationSettings])
+    storeSettings()
+  }, [storeSettings])
 
   return isLoading ? (
     <Box>
@@ -81,10 +84,7 @@ export const ManageProjectSubscriptions = () => {
                   </View>
                   <Switch
                     onValueChange={() =>
-                      updateNotificationSettings(
-                        project.identifier,
-                        !subscribed,
-                      )
+                      toggleProjectSubscription(project.identifier, !subscribed)
                     }
                     value={subscribed}
                   />

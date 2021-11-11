@@ -10,47 +10,48 @@ import {NotificationSettings} from '../../../types'
 export const EnableProjectNotifications = () => {
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
-  const projectsEnabled = notificationSettings?.projectsEnabled
+  const [settings, setSettings] = useState<NotificationSettings | undefined>(
+    undefined,
+  )
+  const enabled = settings?.projectsEnabled
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
-    const retrieveNotificationsFromStore = async () => {
-      const notificationsFromStore: NotificationSettings =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(notificationsFromStore)
+    const retrieveSettings = async () => {
+      const s: NotificationSettings = await asyncStorage.getData(
+        'notifications',
+      )
+      setSettings(s)
     }
 
-    retrieveNotificationsFromStore()
+    retrieveSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // TODO Extract toggle function here
+  // Toggle enabled notification settings
+  const toggleEnabledInSettings = (value: boolean) =>
+    setSettings({
+      ...settings,
+      projectsEnabled: value,
+    })
 
-  // Store notification changes in device and backend
-  const storeNotificationSettings = useCallback(async () => {
-    if (notificationSettings !== undefined) {
-      const newSettings: NotificationSettings = {
-        ...notificationSettings,
-        projectsEnabled,
-      }
+  // Store changed notification settings on device
+  // Clear projects in device registration if project notifications are disabled
+  const storeSettings = useCallback(async () => {
+    if (settings !== undefined) {
+      await asyncStorage.storeData('notifications', {
+        ...settings,
+        projectsEnabled: enabled,
+      })
 
-      await asyncStorage.storeData('notifications', newSettings)
-
-      // Clear projects in device registration if project notifications are disabled
-      const hasError = await deviceRegistration.store(
-        projectsEnabled ? notificationSettings.projects ?? {} : {},
-      )
-      console.log('Fout:', hasError)
+      await deviceRegistration.store(enabled ? settings.projects ?? {} : {})
     }
-  }, [projectsEnabled]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [enabled]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    storeNotificationSettings()
-  }, [storeNotificationSettings])
+    storeSettings()
+  }, [storeSettings])
 
   return (
     <ScrollView>
@@ -58,18 +59,13 @@ export const EnableProjectNotifications = () => {
         <Row align="between" valign="center">
           <Text>Notificaties</Text>
           <Switch
-            onValueChange={() =>
-              setNotificationSettings({
-                ...notificationSettings,
-                projectsEnabled: !projectsEnabled,
-              })
-            }
-            value={projectsEnabled}
+            onValueChange={() => toggleEnabledInSettings(!enabled)}
+            value={enabled}
           />
         </Row>
       </Box>
       <Box>
-        {projectsEnabled ? (
+        {enabled ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -87,7 +83,7 @@ export const EnableProjectNotifications = () => {
           <Attention>
             <Text>
               U ontvangt geen notificaties
-              {projectsEnabled === false && ' meer'}.
+              {enabled === false && ' meer'}.
             </Text>
           </Attention>
         )}

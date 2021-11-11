@@ -68,7 +68,7 @@ export const HomeScreen = ({navigation}: Props) => {
               />
               <Button
                 onPress={() => navigation.navigate(routes.settings.name)}
-                text="Stel instellingen in"
+                text="Beheer instellingen"
               />
               {getEnvironment().allowClearingAsyncStorage && (
                 <Button

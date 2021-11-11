@@ -78,7 +78,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     })
   }
 
-  // Store notification changes in device whenever they change
+  // Store notification changes on device whenever they change
   useEffect(() => {
     notificationSettings &&
     asyncStorage.storeData('notifications', notificationSettings)
