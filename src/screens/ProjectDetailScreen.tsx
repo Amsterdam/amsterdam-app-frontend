@@ -5,7 +5,14 @@ import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {NewsArticleOverview} from '../components/features/news'
 import {ProjectBodyMenu} from '../components/features/project'
-import {Box, Button, Image, Text, Title} from '../components/ui'
+import {
+  Box,
+  Button,
+  Image,
+  NonScalingHeaderTitle,
+  Text,
+  Title,
+} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -34,7 +41,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: project?.title,
+      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   }, [project?.title, navigation])
 
