@@ -20,6 +20,7 @@ export const Title = ({
   subtitle,
   text,
   visuallyHidden,
+  ...otherProps
 }: Props) => {
   const fontStyles = [styles.h1, styles.h2, styles.h3, styles.h4][level - 1]
   const marginStyles = [styles.h1m, styles.h2m, styles.h3m, styles.h4m][
@@ -36,7 +37,8 @@ export const Title = ({
         subtitle && styles.subtitle,
         visuallyHidden && styles.visuallyHidden,
       ]}
-      accessibilityRole="header">
+      accessibilityRole="header"
+      {...otherProps}>
       {text}
     </Text>
   )
