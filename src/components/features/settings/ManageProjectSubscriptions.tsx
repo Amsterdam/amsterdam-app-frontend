@@ -5,7 +5,7 @@ import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
 import {Box, Switch, Text} from '../../ui'
-import {Row} from '../../ui/layout'
+import {Column, Row} from '../../ui/layout'
 
 // TODO How do we sort the subscriptions?
 // TODO Handle deleted projects correctly.
@@ -82,38 +82,46 @@ export const ManageProjectSubscriptions = () => {
   }
 
   return subscribableProjectIds.length ? (
-    <Box background="white" borderVertical>
-      {subscribableProjectIds.map((projectId, index) => {
-        const project = allProjects?.find(p => p.identifier === projectId)
-        const subscribed = projects?.[projectId] ?? false
+    <Column gutter="sm">
+      <View style={styles.customInset}>
+        <Text small>Projecten</Text>
+      </View>
+      <Box background="white" borderVertical>
+        {subscribableProjectIds.map((projectId, index) => {
+          const project = allProjects?.find(p => p.identifier === projectId)
+          const subscribed = projects?.[projectId] ?? false
 
-        return (
-          project && (
-            <Fragment key={project.identifier}>
-              <Row align="between" valign="center">
-                <View>
-                  <Text>{project.title}</Text>
-                  <Text secondary>{project.subtitle}</Text>
-                </View>
-                <Switch
-                  onValueChange={() =>
-                    toggleProjectSubscription(project.identifier, !subscribed)
-                  }
-                  value={subscribed}
-                />
-              </Row>
-              {index < (subscribableProjectIds.length ?? 0) - 1 && (
-                <View style={styles.line} />
-              )}
-            </Fragment>
+          return (
+            project && (
+              <Fragment key={project.identifier}>
+                <Row align="between" valign="center">
+                  <View>
+                    <Text>{project.title}</Text>
+                    <Text secondary>{project.subtitle}</Text>
+                  </View>
+                  <Switch
+                    onValueChange={() =>
+                      toggleProjectSubscription(project.identifier, !subscribed)
+                    }
+                    value={subscribed}
+                  />
+                </Row>
+                {index < (subscribableProjectIds.length ?? 0) - 1 && (
+                  <View style={styles.line} />
+                )}
+              </Fragment>
+            )
           )
-        )
-      })}
-    </Box>
+        })}
+      </Box>
+    </Column>
   ) : null
 }
 
 const styles = StyleSheet.create({
+  customInset: {
+    paddingHorizontal: size.spacing.md,
+  },
   line: {
     borderBottomColor: color.border.default,
     borderBottomWidth: 1,

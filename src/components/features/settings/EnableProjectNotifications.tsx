@@ -82,10 +82,7 @@ export const EnableProjectNotifications = () => {
           </Column>
         ) : (
           <Attention>
-            <Text>
-              U ontvangt geen notificaties
-              {enabled === false && ' meer'}.
-            </Text>
+            <Text>U ontvangt geen notificaties.</Text>
           </Attention>
         )}
       </Box>
