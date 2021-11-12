@@ -66,11 +66,19 @@ export const ManageProjectSubscriptions = () => {
     storeSettings()
   }, [storeSettings])
 
-  return isLoading ? (
-    <Box>
-      <ActivityIndicator />
-    </Box>
-  ) : (
+  if (isLoading) {
+    return (
+      <Box>
+        <ActivityIndicator />
+      </Box>
+    )
+  }
+
+  if (!settings || settings.projectsEnabled === false) {
+    return null
+  }
+
+  return (
     <Box background="white" borderVertical>
       {subscribableProjectIds.length ? (
         subscribableProjectIds.map((projectId, index) => {
