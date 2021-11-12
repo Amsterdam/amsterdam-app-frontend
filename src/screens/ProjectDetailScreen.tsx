@@ -126,14 +126,20 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Gutter height={size.spacing.md} />
         {project.title && <Title text={project.title} />}
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
-        <Gutter height={size.spacing.sm} />
-        <Row gutter="sm" valign="center">
-          <Switch
-            onValueChange={() => toggleProjectSubscription(project.identifier)}
-            value={subscribed}
-          />
-          <Text small>Ontvang notificaties</Text>
-        </Row>
+        {settings?.projectsEnabled && (
+          <>
+            <Gutter height={size.spacing.md} />
+            <Row gutter="sm" valign="center">
+              <Switch
+                onValueChange={() =>
+                  toggleProjectSubscription(project.identifier)
+                }
+                value={subscribed}
+              />
+              <Text small>Ontvang notificaties</Text>
+            </Row>
+          </>
+        )}
         <Gutter height={size.spacing.lg} />
         <ProjectBodyMenu project={project} />
       </Box>
