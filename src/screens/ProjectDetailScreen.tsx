@@ -87,7 +87,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     }
 
     await asyncStorage.storeData('notifications', settings)
-    await deviceRegistration.store(settings?.projects ?? {})
+    await deviceRegistration.store(
+      settings.projectsEnabled ? settings.projects ?? {} : {},
+    )
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch changes in notification settings

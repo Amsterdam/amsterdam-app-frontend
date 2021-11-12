@@ -20,6 +20,7 @@ export const ManageProjectSubscriptions = () => {
   const subscribableProjectIds = Object.keys(projects ?? {})
 
   // Retrieve all projects from backend
+  // TODO Don’t fetch if notifications disabled
   const {data: allProjects, isLoading} = useFetch<ProjectOverviewItem[]>({
     url: getEnvironment().apiUrl + '/projects',
   })
@@ -58,7 +59,9 @@ export const ManageProjectSubscriptions = () => {
     }
 
     await asyncStorage.storeData('notifications', settings)
-    await deviceRegistration.store(projects ?? {})
+    await deviceRegistration.store(
+      settings.projectsEnabled ? settings.projects ?? {} : {},
+    )
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch changes in notification settings
