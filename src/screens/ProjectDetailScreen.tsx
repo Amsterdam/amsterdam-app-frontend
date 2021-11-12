@@ -55,8 +55,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           onPress={() =>
             navigation.navigate(routes.notification.name, {
               projectDetails: {
+                articles: project.articles,
                 id: project.identifier,
-                news: project.news,
                 title: project.title,
               },
             })
@@ -70,7 +70,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Gutter height={size.spacing.lg} />
         <ProjectBodyMenu project={project} />
       </Box>
-      {project.news.length ? (
+      {project.articles.length ? (
         <NewsArticleOverview projectId={project.identifier} />
       ) : null}
     </ScrollView>

@@ -20,7 +20,7 @@ export const NewsArticleOverview = ({projectId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
   const news = useFetch<NewsArticleList>({
-    url: getEnvironment().apiUrl + '/project/news',
+    url: getEnvironment().apiUrl + '/project/news_by_project_id',
     options: {
       params: {'project-identifier': projectId},
     },

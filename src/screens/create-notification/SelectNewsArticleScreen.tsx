@@ -46,7 +46,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   const notificationContext = useContext(NotificationContext)
 
   const {data: news} = useFetch<NewsArticleList>({
-    url: getEnvironment().apiUrl + '/project/news',
+    url: getEnvironment().apiUrl + '/project/news_by_project_id',
     options: {
       params: {
         'project-identifier': notificationContext.projectDetails.id!,
