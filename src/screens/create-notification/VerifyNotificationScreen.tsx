@@ -20,6 +20,7 @@ import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
+import {encryptWithAES} from '../../utils'
 import {NotificationContext, NotificationStackParamList} from './'
 
 type Props = {
@@ -29,11 +30,7 @@ type Props = {
   >
 }
 
-const dummyToken =
-  'U2FsdGVkX1/ER5tuc27jTYLYifS+Typ6hg3CTF7rkJIQ6KTnLFd0vpSHCRHB6Fjm+TbGl4CkMIhSG9IeZkruRw=='
-
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const [token, setToken] = useState<string>('')
   const notificationContext = useContext(NotificationContext)
   const {
     changeResponseStatus,
@@ -44,6 +41,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   } = notificationContext
   const [notificationToSend, setNotificationToSend] =
     useState<NewNotification>()
+  const authToken = encryptWithAES({
+    password: '6886b31dfe27e9306c3d2b553345d9e5',
+    plaintext: 'bafa4def-4105-49e4-80eb-297c4233ef60',
+  })
 
   const warningApi = useFetch<WarningResponse>({
     url: getEnvironment().apiUrl + '/project/warning',
@@ -51,7 +52,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-        UserAuthorization: token,
+        UserAuthorization: authToken,
       }),
       body: JSON.stringify(warning),
     },
@@ -64,7 +65,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-        UserAuthorization: token,
+        UserAuthorization: authToken,
       }),
       body: JSON.stringify(notificationToSend),
     },
@@ -72,18 +73,15 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   })
 
   const handleSubmit = () => {
-    // TODO - use the encrypter underneath when we are going to work with real project managers:
-
-    setToken(dummyToken)
-
-    // !token &&
-    //   setToken(
-    //     encrypter({
-    //       mode: 'encrypt',
-    //       password: AUTH_TOKEN,
-    //       plaintext: PROJECT_MANAGER_TOKEN,
-    //     }),
-    //   )
+    if (warning) {
+      warningApi.fetchData(warning)
+    }
+    if (notification && newsDetails) {
+      setNotificationToSend({
+        ...notification,
+        news_identifier: newsDetails.id,
+      })
+    }
   }
 
   useEffect(() => {
@@ -92,18 +90,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     })
     return focusListener
   }, [navigation, notificationContext])
-
-  useEffect(() => {
-    if (token && warning) {
-      warningApi.fetchData(warning)
-    }
-    if (token && notification && newsDetails) {
-      setNotificationToSend({
-        ...notification,
-        news_identifier: newsDetails.id,
-      })
-    }
-  }, [token]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (notification && warningApi.data) {
