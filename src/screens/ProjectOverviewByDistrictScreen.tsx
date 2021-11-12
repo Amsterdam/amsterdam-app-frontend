@@ -4,7 +4,7 @@ import React, {useLayoutEffect} from 'react'
 import {ActivityIndicator, FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
-import {Box} from '../components/ui'
+import {Box, NonScalingHeaderTitle} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
@@ -36,7 +36,11 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: districts.find(d => d.id === districtId)?.name,
+      headerTitle: () => (
+        <NonScalingHeaderTitle
+          text={districts.find(d => d.id === districtId)?.name ?? ''}
+        />
+      ),
     })
   })
 

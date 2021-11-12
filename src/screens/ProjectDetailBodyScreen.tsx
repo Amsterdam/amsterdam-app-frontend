@@ -7,7 +7,7 @@ import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, Timeline, Title} from '../components/ui'
+import {Box, NonScalingHeaderTitle, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 import {regexLibrary} from '../utils'
@@ -28,7 +28,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: body.headerTitle,
+      headerTitle: () => <NonScalingHeaderTitle text={body.headerTitle} />,
     })
   })
 

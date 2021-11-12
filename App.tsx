@@ -7,6 +7,7 @@ import {
 import React from 'react'
 import {StatusBar} from 'react-native'
 import {Logo} from './src/assets/icons'
+import {NonScalingHeaderTitle} from './src/components/ui'
 import {AddressProvider, DeviceProvider} from './src/providers'
 import {
   HomeScreen,
@@ -62,7 +63,7 @@ export const routes: Routes = {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
-      title: 'Uw adres',
+      headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
   home: {
@@ -78,7 +79,7 @@ export const routes: Routes = {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
-      title: 'Verstuur notificatie',
+      headerTitle: () => <NonScalingHeaderTitle text="Verstuur notificatie" />,
     },
   },
   notificationOverview: {
@@ -87,7 +88,7 @@ export const routes: Routes = {
       cardStyle: {
         backgroundColor: color.background.white,
       },
-      title: 'Notificaties',
+      headerTitle: () => <NonScalingHeaderTitle text="Notificaties" />,
     },
   },
   projectDetail: {
@@ -104,7 +105,7 @@ export const routes: Routes = {
   projectNews: {
     name: 'ProjectNews',
     options: {
-      title: 'Nieuws',
+      headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
       cardStyle: {
         backgroundColor: color.background.white,
       },
@@ -113,25 +114,29 @@ export const routes: Routes = {
   projectOverview: {
     name: 'ProjectOverview',
     options: {
-      title: 'Werkzaamheden',
+      headerTitle: () => <NonScalingHeaderTitle text="Werkzaamheden" />,
     },
   },
   projectOverviewByDistrict: {
     name: 'ProjectOverviewByDistrict',
     options: {
-      title: 'Werkzaamheden per stadsdeel',
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Werkzaamheden per stadsdeel" />
+      ),
     },
   },
   settings: {
     name: 'Settings',
     options: {
-      title: 'Instellingen',
+      headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
   wasteGuide: {
     name: 'Waste',
     options: {
-      title: 'Afvalinformatie op adres',
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Afvalinformatie op adres" />
+      ),
     },
   },
   webView: {
@@ -140,7 +145,7 @@ export const routes: Routes = {
   whereToPutBulkyWaste: {
     name: 'WhereToPutBulkyWaste',
     options: {
-      title: 'Grof afval',
+      headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
     },
   },
 }

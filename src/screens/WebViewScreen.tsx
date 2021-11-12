@@ -1,7 +1,7 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {RootStackParamList} from '../../App'
-import {WebView, WebViewProps} from '../components/ui'
+import {NonScalingHeaderTitle, WebView, WebViewProps} from '../components/ui'
 
 type Props = {
   route: RouteProp<RootStackParamList, 'WebView'>
@@ -17,7 +17,7 @@ export const WebViewScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: title,
+      headerTitle: () => <NonScalingHeaderTitle text={title} />,
     })
   }, [title, navigation])
 
