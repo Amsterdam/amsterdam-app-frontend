@@ -7,6 +7,7 @@ import {ProjectSubscriptions} from '../components/features/ProjectSubscriptions'
 import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
+import {constants} from '../constants'
 import {getEnvironment} from '../environment'
 import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
@@ -53,7 +54,7 @@ export const HomeScreen = ({navigation}: Props) => {
                   navigation.navigate(routes.webView.name, {
                     title: 'Melding',
                     //TODO for production, use same url without "acc."
-                    url: 'https://acc.app.meldingen.amsterdam.nl/incident/beschrijf',
+                    url: `${constants.baseUrlSignalsAcc}/incident/beschrijf`,
                     urlParams: {
                       lat: addressContext.address?.centroid[1],
                       lng: addressContext.address?.centroid[0],
