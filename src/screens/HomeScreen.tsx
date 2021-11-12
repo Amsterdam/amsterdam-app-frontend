@@ -52,7 +52,8 @@ export const HomeScreen = ({navigation}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.webView.name, {
                     title: 'Melding',
-                    url: 'https://app.meldingen.amsterdam.nl/incident/beschrijf',
+                    //TODO for production, use same url without "acc."
+                    url: 'https://acc.app.meldingen.amsterdam.nl/incident/beschrijf',
                     urlParams: {
                       lat: addressContext.address?.centroid[1],
                       lng: addressContext.address?.centroid[0],
