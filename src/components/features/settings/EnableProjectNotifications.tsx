@@ -39,14 +39,15 @@ export const EnableProjectNotifications = () => {
   // Store changed notification settings on device
   // Clear projects in device registration if project notifications are disabled
   const storeSettings = useCallback(async () => {
-    if (settings !== undefined) {
-      await asyncStorage.storeData('notifications', {
-        ...settings,
-        projectsEnabled: enabled,
-      })
-
-      await deviceRegistration.store(enabled ? settings.projects ?? {} : {})
+    if (settings === undefined) {
+      return
     }
+
+    await asyncStorage.storeData('notifications', {
+      ...settings,
+      projectsEnabled: enabled,
+    })
+    await deviceRegistration.store(enabled ? settings.projects ?? {} : {})
   }, [enabled]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

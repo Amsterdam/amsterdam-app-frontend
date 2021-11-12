@@ -53,8 +53,11 @@ export const ManageProjectSubscriptions = () => {
 
   // Store notification changes on device and in backend
   const storeSettings = useCallback(async () => {
-    settings && (await asyncStorage.storeData('notifications', settings))
+    if (settings === undefined) {
+      return
+    }
 
+    await asyncStorage.storeData('notifications', settings)
     await deviceRegistration.store(projects ?? {})
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
