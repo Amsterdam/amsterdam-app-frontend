@@ -81,40 +81,36 @@ export const ManageProjectSubscriptions = () => {
     return null
   }
 
-  return (
+  return subscribableProjectIds.length ? (
     <Box background="white" borderVertical>
-      {subscribableProjectIds.length ? (
-        subscribableProjectIds.map((projectId, index) => {
-          const project = allProjects?.find(p => p.identifier === projectId)
-          const subscribed = projects?.[projectId] ?? false
+      {subscribableProjectIds.map((projectId, index) => {
+        const project = allProjects?.find(p => p.identifier === projectId)
+        const subscribed = projects?.[projectId] ?? false
 
-          return (
-            project && (
-              <Fragment key={project.identifier}>
-                <Row align="between" valign="center">
-                  <View>
-                    <Text>{project.title}</Text>
-                    <Text secondary>{project.subtitle}</Text>
-                  </View>
-                  <Switch
-                    onValueChange={() =>
-                      toggleProjectSubscription(project.identifier, !subscribed)
-                    }
-                    value={subscribed}
-                  />
-                </Row>
-                {index < (subscribableProjectIds.length ?? 0) - 1 && (
-                  <View style={styles.line} />
-                )}
-              </Fragment>
-            )
+        return (
+          project && (
+            <Fragment key={project.identifier}>
+              <Row align="between" valign="center">
+                <View>
+                  <Text>{project.title}</Text>
+                  <Text secondary>{project.subtitle}</Text>
+                </View>
+                <Switch
+                  onValueChange={() =>
+                    toggleProjectSubscription(project.identifier, !subscribed)
+                  }
+                  value={subscribed}
+                />
+              </Row>
+              {index < (subscribableProjectIds.length ?? 0) - 1 && (
+                <View style={styles.line} />
+              )}
+            </Fragment>
           )
-        })
-      ) : (
-        <Text>Je hebt je nog niet op projecten geabonneerd.</Text>
-      )}
+        )
+      })}
     </Box>
-  )
+  ) : null
 }
 
 const styles = StyleSheet.create({
