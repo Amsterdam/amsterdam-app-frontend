@@ -8,6 +8,7 @@ import React from 'react'
 import {StatusBar} from 'react-native'
 import {Logo} from './src/assets/icons'
 import {NonScalingHeaderTitle} from './src/components/ui'
+import {linking} from './src/linking'
 import {AddressProvider, DeviceProvider} from './src/providers'
 import {
   HomeScreen,
@@ -197,10 +198,13 @@ export const App = () => {
       <StatusBar barStyle="dark-content" />
       <DeviceProvider>
         <AddressProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName={home.name}
-              screenOptions={globalScreenOptions}>
+          <NavigationContainer linking={linking}>
+            <Stack.Navigator screenOptions={globalScreenOptions}>
+              <Stack.Screen
+                component={HomeScreen}
+                name={home.name}
+                options={home.options}
+              />
               <Stack.Screen
                 component={AddressFormScreen}
                 name={addressForm.name}
@@ -211,11 +215,7 @@ export const App = () => {
                 name={notification.name}
                 options={notification.options}
               />
-              <Stack.Screen
-                component={HomeScreen}
-                name={home.name}
-                options={home.options}
-              />
+
               <Stack.Screen
                 component={NotificationOverviewScreen}
                 name={notificationOverview.name}
