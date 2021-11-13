@@ -80,11 +80,7 @@ export const ProjectSubscriptions = ({projectId}: Props) => {
   }, [FCMToken, notifications?.projects])
 
   const getFCMTokenIfProjects = useCallback(async () => {
-    if (
-      notifications &&
-      notifications.projects &&
-      notifications.projects.length > 0
-    ) {
+    if (notifications && notifications.projects.length > 0) {
       const token = await getFCMToken()
       token && setFCMToken(token)
     }
