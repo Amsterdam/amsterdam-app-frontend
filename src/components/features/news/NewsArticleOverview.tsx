@@ -47,7 +47,9 @@ export const NewsArticleOverview = ({projectId}: Props) => {
             <NewsArticleOverviewItem
               newsArticle={article}
               onPress={() =>
-                navigation.navigate(routes.projectNews.name, {article})
+                navigation.navigate(routes.projectNews.name, {
+                  id: article.identifier,
+                })
               }
             />
           </View>
