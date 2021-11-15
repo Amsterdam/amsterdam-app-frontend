@@ -72,7 +72,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   // TODO Move to device registration hook
   const toggleProjectSubscription = (projectId: string) => {
     setSettings({
-      ...settings,
+      projectsEnabled: settings?.projectsEnabled,
       projects: {
         ...settings?.projects,
         [projectId]: !subscribed,
