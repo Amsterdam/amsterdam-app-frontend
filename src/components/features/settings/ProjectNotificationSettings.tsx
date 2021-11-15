@@ -123,8 +123,7 @@ export const ProjectNotificationSettings = () => {
             <Text>U ontvangt geen notificaties.</Text>
           </Attention>
         )}
-        {settings?.projectsEnabled &&
-        !Object.keys((settings?.projects as object) ?? {}).length ? (
+        {settings?.projectsEnabled && !subscribableProjectIds.length ? (
           <Column gutter="md">
             <Attention>
               <Text>
