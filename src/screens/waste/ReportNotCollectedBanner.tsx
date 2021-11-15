@@ -2,6 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {RootStackParamList, routes} from '../../../App'
 import {BannerCard} from '../../components/features'
+import {getEnvironment} from '../../environment'
 import {AddressContext} from '../../providers'
 
 type Props = {
@@ -18,7 +19,7 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => {
       onPress={() =>
         navigation.navigate(routes.webView.name, {
           title: 'Melding',
-          url: 'https://app.meldingen.amsterdam.nl/categorie/afval/grofvuil',
+          url: `${getEnvironment().signalsBaseUrl}/categorie/afval/grofvuil`,
           urlParams: {
             lat: addressContext.address?.centroid[1],
             lng: addressContext.address?.centroid[0],

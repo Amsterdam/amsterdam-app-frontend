@@ -52,7 +52,9 @@ export const HomeScreen = ({navigation}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.webView.name, {
                     title: 'Melding',
-                    url: 'https://app.meldingen.amsterdam.nl/incident/beschrijf',
+                    url: `${
+                      getEnvironment().signalsBaseUrl
+                    }/incident/beschrijf`,
                     urlParams: {
                       lat: addressContext.address?.centroid[1],
                       lng: addressContext.address?.centroid[0],
