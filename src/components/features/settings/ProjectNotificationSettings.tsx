@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native'
+import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator, StyleSheet, View} from 'react-native'
@@ -26,7 +26,7 @@ export const ProjectNotificationSettings = () => {
     url: getEnvironment().apiUrl + '/projects',
   })
 
-  // Retrieve notification settings from device and save to component state
+  // Initially retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveSettings = async () => {
       const s: NotificationSettings = await asyncStorage.getData(
@@ -37,6 +37,22 @@ export const ProjectNotificationSettings = () => {
 
     retrieveSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Retrieve notification settings when navigating back to this screen (from projects)
+  useFocusEffect(
+    useCallback(() => {
+      const listener = async () => {
+        const s: NotificationSettings = await asyncStorage.getData(
+          'notifications',
+        )
+        setSettings(s)
+      }
+
+      listener()
+
+      return () => listener()
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   // Toggle enabled notification settings
   const toggleEnabledInSettings = (value: boolean) =>
