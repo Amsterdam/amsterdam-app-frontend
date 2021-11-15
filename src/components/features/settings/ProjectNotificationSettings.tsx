@@ -118,7 +118,13 @@ export const ProjectNotificationSettings = () => {
         </Row>
       </Box>
       <Box>
-        {settings?.projectsEnabled ? (
+        {!settings?.projectsEnabled && (
+          <Attention>
+            <Text>U ontvangt geen notificaties.</Text>
+          </Attention>
+        )}
+        {settings?.projectsEnabled &&
+        !Object.keys((settings?.projects as object) ?? {}).length ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -132,11 +138,7 @@ export const ProjectNotificationSettings = () => {
               text="Naar bouwwerkzaamheden"
             />
           </Column>
-        ) : (
-          <Attention>
-            <Text>U ontvangt geen notificaties.</Text>
-          </Attention>
-        )}
+        ) : null}
       </Box>
       {settings?.projectsEnabled && subscribableProjectIds.length ? (
         <Column gutter="sm">
