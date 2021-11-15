@@ -7,7 +7,7 @@ import {Column, Row, ScrollView} from '../../../components/ui/layout'
 import {useAsyncStorage, useDeviceRegistration} from '../../../hooks'
 import {NotificationSettings} from '../../../types'
 
-export const EnableProjectNotifications = () => {
+export const ToggleProjectNotifications = () => {
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration()
   const [settings, setSettings] = useState<NotificationSettings | undefined>(

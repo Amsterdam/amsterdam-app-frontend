@@ -1,2 +1,2 @@
-export * from './EnableProjectNotifications'
+export * from './ToggleProjectNotifications'
 export * from './ManageProjectSubscriptions'
