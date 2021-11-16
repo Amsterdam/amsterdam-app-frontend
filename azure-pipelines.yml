@@ -40,10 +40,6 @@ steps:
   name: AppStoreConnectApiKey
   inputs:
     secureFile: 'AuthKey_4B3KZ8N747.p8'
-- task: CocoaPods@0
-  displayName: 'Install CocoaPods'
-  inputs:
-    workingDirectory: 'ios'
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
