@@ -33,7 +33,7 @@ platform :ios do
     sync_code_signing(type: "appstore") 
     build_app(workspace: "StadsApp.xcworkspace", scheme: "StadsApp", clean: true,
     build_path: "./builds",
-    output_directory: "./builds"
+    output_directory: "./builds")
     upload_to_testflight
   end
 end
