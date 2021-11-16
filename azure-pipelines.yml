@@ -33,7 +33,7 @@ steps:
 - task: InstallAppleProvisioningProfile@1
   inputs:
     provisioningProfileLocation: 'secureFiles'
-    provProfileSecureFile: 'AppleProvisioningProfile.mobileprovision'
+    provProfileSecureFile: 'Amsterdamappprovisioningprofile.mobileprovision'
   displayName: 'Install Apple Provisioning Profile'
 - task: DownloadSecureFile@1
   displayName: 'Download App Store Connect API Key'
