@@ -16,6 +16,10 @@ export const ProjectNotificationSettings = () => {
   const [settings, setSettings] = useState<NotificationSettings | undefined>(
     undefined,
   )
+  const [
+    projectNotificationSettingHasChanged,
+    setProjectNotificationSettingHasChanged,
+  ] = useState(false)
   const subscribableProjectIds = Object.keys(settings?.projects ?? {})
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
@@ -50,17 +54,19 @@ export const ProjectNotificationSettings = () => {
 
       listener()
 
-      return () => listener()
+      return () => setProjectNotificationSettingHasChanged(false)
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   // Toggle enabled notification settings
-  const toggleEnabledInSettings = (value: boolean) =>
+  const toggleEnabledInSettings = (value: boolean) => {
     setSettings({
       ...settings,
       projectsEnabled: value,
     })
 
+    setProjectNotificationSettingHasChanged(true)
+  }
   // Toggle notification settings for a project
   // TODO Move to device registration hook
   const toggleProjectSubscription = (
@@ -74,6 +80,8 @@ export const ProjectNotificationSettings = () => {
         [projectId]: subscribed,
       },
     })
+
+    setProjectNotificationSettingHasChanged(true)
   }
 
   // Store changed notification settings on device
@@ -93,8 +101,8 @@ export const ProjectNotificationSettings = () => {
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    storeSettings()
-  }, [storeSettings])
+    projectNotificationSettingHasChanged && storeSettings()
+  }, [projectNotificationSettingHasChanged, storeSettings])
 
   if (isLoading) {
     return (

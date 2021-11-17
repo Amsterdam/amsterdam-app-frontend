@@ -36,6 +36,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const [settings, setSettings] = useState<NotificationSettings | undefined>(
     undefined,
   )
+  const [
+    projectNotificationSettingHasChanged,
+    setProjectNotificationSettingHasChanged,
+  ] = useState(false)
 
   // Retrieve project details from backend
   const {data: project, isLoading} = useFetch<ProjectDetail>({
@@ -78,6 +82,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         [projectId]: !subscribed,
       },
     })
+
+    setProjectNotificationSettingHasChanged(true)
   }
 
   // Store notification changes on device and in backend
@@ -94,8 +100,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   // Watch changes in notification settings
   useEffect(() => {
-    storeSettings()
-  }, [storeSettings])
+    projectNotificationSettingHasChanged && storeSettings()
+  }, [projectNotificationSettingHasChanged, storeSettings])
 
   return isLoading && !project ? (
     <Box>
