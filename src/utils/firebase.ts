@@ -25,7 +25,7 @@ const requestPermission = async () => {
   return mapPermissionStatus(authStatus)
 }
 
-export const getFCMToken = async () => {
+export const getFcmToken = async () => {
   const permissionStatus = await requestPermission()
   if (permissionStatus === Permission.Granted) {
     try {

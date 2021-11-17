@@ -33,6 +33,7 @@ export const Text = ({
   return (
     <TextRN
       accessibilityRole={warning ? 'alert' : 'text'}
+      selectable
       style={[
         styles.text,
         margin && styles.margin,
