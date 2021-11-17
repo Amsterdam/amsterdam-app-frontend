@@ -13,14 +13,16 @@ import {Column, Row, ScrollView} from '../../ui/layout'
 export const ProjectNotificationSettings = () => {
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration()
-  const [settings, setSettings] = useState<NotificationSettings | undefined>(
-    undefined,
-  )
+  const [notificationSettings, setNotificationSettings] = useState<
+    NotificationSettings | undefined
+  >(undefined)
   const [
     projectNotificationSettingHasChanged,
     setProjectNotificationSettingHasChanged,
   ] = useState(false)
-  const subscribableProjectIds = Object.keys(settings?.projects ?? {})
+  const subscribableProjectIds = Object.keys(
+    notificationSettings?.projects ?? {},
+  )
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
@@ -33,10 +35,10 @@ export const ProjectNotificationSettings = () => {
   // Initially retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveSettings = async () => {
-      const s: NotificationSettings = await asyncStorage.getData(
+      const settings: NotificationSettings = await asyncStorage.getData(
         'notifications',
       )
-      setSettings(s)
+      setNotificationSettings(settings)
     }
 
     retrieveSettings()
@@ -46,10 +48,10 @@ export const ProjectNotificationSettings = () => {
   useFocusEffect(
     useCallback(() => {
       const listener = async () => {
-        const s: NotificationSettings = await asyncStorage.getData(
+        const settings: NotificationSettings = await asyncStorage.getData(
           'notifications',
         )
-        setSettings(s)
+        setNotificationSettings(settings)
       }
 
       listener()
@@ -60,8 +62,8 @@ export const ProjectNotificationSettings = () => {
 
   // Toggle enabled notification settings
   const toggleEnabledInSettings = (value: boolean) => {
-    setSettings({
-      ...settings,
+    setNotificationSettings({
+      ...notificationSettings,
       projectsEnabled: value,
     })
 
@@ -73,10 +75,10 @@ export const ProjectNotificationSettings = () => {
     projectId: string,
     subscribed: boolean,
   ) => {
-    setSettings({
-      ...settings,
+    setNotificationSettings({
+      ...notificationSettings,
       projects: {
-        ...settings?.projects,
+        ...notificationSettings?.projects,
         [projectId]: subscribed,
       },
     })
@@ -87,18 +89,20 @@ export const ProjectNotificationSettings = () => {
   // Store changed notification settings on device
   // Clear projects in device registration if project notifications are disabled
   const storeSettings = useCallback(async () => {
-    if (settings === undefined) {
+    if (notificationSettings === undefined) {
       return
     }
 
     await asyncStorage.storeData('notifications', {
-      ...settings,
-      projectsEnabled: settings?.projectsEnabled,
+      ...notificationSettings,
+      projectsEnabled: notificationSettings?.projectsEnabled,
     })
     await deviceRegistration.store(
-      settings?.projectsEnabled ? settings.projects ?? {} : {},
+      notificationSettings?.projectsEnabled
+        ? notificationSettings.projects ?? {}
+        : {},
     )
-  }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     projectNotificationSettingHasChanged && storeSettings()
@@ -119,19 +123,20 @@ export const ProjectNotificationSettings = () => {
           <Text>Notificaties</Text>
           <Switch
             onValueChange={() =>
-              toggleEnabledInSettings(!settings?.projectsEnabled)
+              toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
             }
-            value={settings?.projectsEnabled}
+            value={notificationSettings?.projectsEnabled}
           />
         </Row>
       </Box>
       <Box>
-        {!settings?.projectsEnabled && (
+        {!notificationSettings?.projectsEnabled && (
           <Attention>
             <Text>U ontvangt geen notificaties.</Text>
           </Attention>
         )}
-        {settings?.projectsEnabled && !subscribableProjectIds.length ? (
+        {notificationSettings?.projectsEnabled &&
+        !subscribableProjectIds.length ? (
           <Column gutter="md">
             <Attention>
               <Text>
@@ -147,7 +152,8 @@ export const ProjectNotificationSettings = () => {
           </Column>
         ) : null}
       </Box>
-      {settings?.projectsEnabled && subscribableProjectIds.length ? (
+      {notificationSettings?.projectsEnabled &&
+      subscribableProjectIds.length ? (
         <Column gutter="sm">
           <View style={styles.customInset}>
             <Text small>Projecten</Text>
@@ -155,7 +161,8 @@ export const ProjectNotificationSettings = () => {
           <Box background="white" borderVertical>
             {subscribableProjectIds.map((projectId, index) => {
               const project = allProjects?.find(p => p.identifier === projectId)
-              const subscribed = settings?.projects?.[projectId] ?? false
+              const subscribed =
+                notificationSettings?.projects?.[projectId] ?? false
 
               return (
                 project && (

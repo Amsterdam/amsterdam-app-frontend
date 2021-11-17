@@ -33,9 +33,9 @@ type Props = {
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration()
-  const [settings, setSettings] = useState<NotificationSettings | undefined>(
-    undefined,
-  )
+  const [notificationSettings, setNotificationSettings] = useState<
+    NotificationSettings | undefined
+  >(undefined)
   const [
     projectNotificationSettingHasChanged,
     setProjectNotificationSettingHasChanged,
@@ -51,8 +51,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
-  // Calculate subscription status for this project
-  const subscribed = settings?.projects?.[project?.identifier ?? ''] ?? false
+  // Check if notifications are being subscribed to for this project.
+  // It does a lookup of the project id in the list of projects in settings.
+  const subscribed =
+    notificationSettings?.projects?.[project?.identifier ?? ''] ?? false
 
   // Set header title
   useLayoutEffect(() => {
@@ -64,10 +66,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveSettings = async () => {
-      const s: NotificationSettings | undefined = await asyncStorage.getData(
-        'notifications',
-      )
-      setSettings(s)
+      const settings: NotificationSettings | undefined =
+        await asyncStorage.getData('notifications')
+      setNotificationSettings(settings)
     }
     retrieveSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -75,10 +76,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   // Toggle notification setting for this project
   // TODO Move to device registration hook
   const toggleProjectSubscription = (projectId: string) => {
-    setSettings({
-      projectsEnabled: settings?.projectsEnabled,
+    setNotificationSettings({
+      projectsEnabled: notificationSettings?.projectsEnabled,
       projects: {
-        ...settings?.projects,
+        ...notificationSettings?.projects,
         [projectId]: !subscribed,
       },
     })
@@ -88,15 +89,17 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   // Store notification changes on device and in backend
   const storeSettings = useCallback(async () => {
-    if (settings === undefined) {
+    if (notificationSettings === undefined) {
       return
     }
 
-    await asyncStorage.storeData('notifications', settings)
+    await asyncStorage.storeData('notifications', notificationSettings)
     await deviceRegistration.store(
-      settings.projectsEnabled ? settings.projects ?? {} : {},
+      notificationSettings.projectsEnabled
+        ? notificationSettings.projects ?? {}
+        : {},
     )
-  }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch changes in notification settings
   useEffect(() => {
@@ -132,7 +135,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Gutter height={size.spacing.md} />
         {project.title && <Title text={project.title} />}
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
-        {settings?.projectsEnabled && (
+        {notificationSettings?.projectsEnabled && (
           <>
             <Gutter height={size.spacing.md} />
             <Row gutter="sm" valign="center">

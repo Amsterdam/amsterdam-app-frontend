@@ -28,7 +28,7 @@ export const useDeviceRegistration = () => {
   // but the front-end lists them until the user removes them explicitly
   // so for the device registration we remove unsubscribed projects.
   // TODO Add unit tests
-  const filterSubscribedProjects = (projects: SubscribedProjects): string[] =>
+  const onlySubscribedProjects = (projects: SubscribedProjects): string[] =>
     Object.entries(projects).reduce((acc, val) => {
       // @ts-ignore
       val[1] && acc.push(val[0])
@@ -44,7 +44,7 @@ export const useDeviceRegistration = () => {
         JSON.stringify({
           device_token: token,
           os_type: Platform.OS,
-          projects: filterSubscribedProjects(projects),
+          projects: onlySubscribedProjects(projects),
         }),
       )
 
