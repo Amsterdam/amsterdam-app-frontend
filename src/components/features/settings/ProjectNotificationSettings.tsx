@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: size.spacing.md,
   },
   line: {
-    borderBottomColor: color.border.default,
+    borderBottomColor: color.border.divider,
     borderBottomWidth: 1,
     marginVertical: size.spacing.sm,
   },

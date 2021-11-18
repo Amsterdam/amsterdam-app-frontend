@@ -40,6 +40,7 @@ export const color = {
   },
   border: {
     default: baseColor.neutral.grey2,
+    divider: baseColor.neutral.grey3,
     onGrey: baseColor.neutral.grey3,
     input: baseColor.neutral.grey4,
     inputFocus: baseColor.primary.black,
