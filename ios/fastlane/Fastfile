@@ -25,14 +25,13 @@ platform :ios do
       issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
       duration: 1200
     )
-    match()
-    # get_certificates( # Create or get certificate, and install it
-    #   output_path: "./builds", # Download certificate in the build folder (you don't need to create the folder)
-    # )
-    # get_provisioning_profile( # Create or get provisioning profile
-    #   output_path: "./builds",  # Download provisioning profile in the build folder
-    # )
-    # sync_code_signing(type: "appstore") 
+    get_certificates( # Create or get certificate, and install it
+      output_path: "./builds", # Download certificate in the build folder (you don't need to create the folder)
+    )
+    get_provisioning_profile( # Create or get provisioning profile
+      output_path: "./builds",  # Download provisioning profile in the build folder
+    )
+    sync_code_signing(type: "appstore") 
     build_app(workspace: "StadsApp.xcworkspace", scheme: "StadsApp", clean: true,
     build_path: "./builds",
     output_directory: "./builds")
