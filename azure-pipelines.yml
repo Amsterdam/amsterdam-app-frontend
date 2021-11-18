@@ -39,13 +39,7 @@ steps:
   displayName: 'Download App Store Connect API Key'
   name: AppStoreConnectApiKey
   inputs:
-    secureFile: 'AuthKey_FN8CXKVQP7.p8'
-- task: Xcode@5
-  inputs:
-    xcWorkspacePath: '**/ios/StadsApp.xcworkspace'
-    signingOption: 'manual'
-    signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
-    provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
+    secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
