@@ -40,6 +40,11 @@ steps:
   name: AppStoreConnectApiKey
   inputs:
     secureFile: 'AuthKey_FN8CXKVQP7.p8'
+- task: Xcode@5
+  inputs:
+    signingOption: 'manual'
+    signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+    provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
