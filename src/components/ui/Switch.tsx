@@ -24,7 +24,7 @@ export const Switch = ({
   const Label = () => <SkipInScreenReader>{label}</SkipInScreenReader>
 
   return (
-    <Row align="between" valign="center" gutter="md">
+    <Row align="between" valign="center" gutter="sm">
       {labelPosition === 'start' && <Label />}
       <SwitchRN
         ios_backgroundColor={color.state.neutral}
