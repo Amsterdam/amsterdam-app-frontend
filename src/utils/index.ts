@@ -1,3 +1,4 @@
+export * from './accessibleText'
 export * from './clipText'
 export * from './datetime/days'
 export * from './datetime/formatDate'

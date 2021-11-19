@@ -19,7 +19,7 @@ import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
 import {NotificationSettings, ProjectDetail} from '../types'
-import {replaceAbbreviations} from '../utils'
+import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -136,7 +136,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <Gutter height={size.spacing.md} />
         {project.title && (
           <Title
-            accessibilityLabel={replaceAbbreviations(project.title)}
+            accessibilityLabel={accessibleText(project.title)}
             text={project.title}
           />
         )}
