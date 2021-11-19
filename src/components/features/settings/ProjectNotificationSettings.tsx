@@ -170,7 +170,9 @@ export const ProjectNotificationSettings = () => {
                     <Row align="between" valign="center">
                       <View>
                         <Text>{project.title}</Text>
-                        <Text secondary>{project.subtitle}</Text>
+                        <Text secondary small>
+                          {project.subtitle}
+                        </Text>
                       </View>
                       <Switch
                         onValueChange={() =>

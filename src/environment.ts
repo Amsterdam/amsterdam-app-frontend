@@ -33,10 +33,11 @@ const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
   [Environment.Production]: {
+    allowClearingAsyncStorage: false,
     apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
-    allowClearingAddress: false,
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+    debug: false,
     name: 'production',
     signalsBaseUrl: 'https://app.meldingen.amsterdam.nl',
   },
