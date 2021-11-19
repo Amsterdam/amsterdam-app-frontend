@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
+  AccessibilityInfo,
   StyleSheet,
   Text as TextRN,
   TextProps as TextRNProps,
@@ -30,10 +31,29 @@ export const Text = ({
   warning,
   ...otherProps
 }: Props) => {
+  const [isScreenReaderEnabled, setScreenReaderEnabled] = useState<
+    boolean | undefined
+  >()
+
+  useEffect(() => {
+    AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
+      setScreenReaderEnabled(isEnabled),
+    )
+  })
+
+  useEffect(() => {
+    AccessibilityInfo.addEventListener(
+      'screenReaderChanged',
+      screenReaderEnabled => {
+        setScreenReaderEnabled(screenReaderEnabled)
+      },
+    )
+  })
+
   return (
     <TextRN
       accessibilityRole={warning ? 'alert' : 'text'}
-      selectable
+      selectable={!isScreenReaderEnabled}
       style={[
         styles.text,
         margin && styles.margin,
