@@ -15,7 +15,7 @@ import {
   Text,
   Title,
 } from '../components/ui'
-import {Gutter} from '../components/ui/layout'
+import {Gutter, Row} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
@@ -144,14 +144,17 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         {notificationSettings?.projectsEnabled && (
           <>
             <Gutter height={size.spacing.md} />
-            <Switch
-              accessibilityLabel="Ontvang notificaties"
-              label={<Text small>Ontvang notificaties</Text>}
-              onValueChange={() =>
-                toggleProjectSubscription(project.identifier)
-              }
-              value={subscribed}
-            />
+            <Row align="start">
+              <Switch
+                accessibilityLabel="Ontvang notificaties"
+                label={<Text small>Ontvang notificaties</Text>}
+                labelPosition="end"
+                onValueChange={() =>
+                  toggleProjectSubscription(project.identifier)
+                }
+                value={subscribed}
+              />
+            </Row>
           </>
         )}
         <Gutter height={size.spacing.lg} />
