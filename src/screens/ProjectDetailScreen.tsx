@@ -10,12 +10,11 @@ import {
   Button,
   Image,
   NonScalingHeaderTitle,
-  SkipInScreenReader,
   Switch,
   Text,
   Title,
 } from '../components/ui'
-import {Gutter, Row} from '../components/ui/layout'
+import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
@@ -139,18 +138,14 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         {notificationSettings?.projectsEnabled && (
           <>
             <Gutter height={size.spacing.md} />
-            <Row gutter="sm" valign="center">
-              <Switch
-                accessibilityLabel="Ontvang notificaties"
-                onValueChange={() =>
-                  toggleProjectSubscription(project.identifier)
-                }
-                value={subscribed}
-              />
-              <SkipInScreenReader>
-                <Text small>Ontvang notificaties</Text>
-              </SkipInScreenReader>
-            </Row>
+            <Switch
+              accessibilityLabel="Ontvang notificaties"
+              label={<Text small>Ontvang notificaties</Text>}
+              onValueChange={() =>
+                toggleProjectSubscription(project.identifier)
+              }
+              value={subscribed}
+            />
           </>
         )}
         <Gutter height={size.spacing.lg} />

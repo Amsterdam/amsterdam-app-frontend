@@ -7,15 +7,8 @@ import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
-import {
-  Attention,
-  Box,
-  SkipInScreenReader,
-  Switch,
-  Text,
-  TextButton,
-} from '../../ui'
-import {Column, Row, ScrollView} from '../../ui/layout'
+import {Attention, Box, Switch, Text, TextButton} from '../../ui'
+import {Column, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
   const asyncStorage = useAsyncStorage()
@@ -126,18 +119,14 @@ export const ProjectNotificationSettings = () => {
   return (
     <ScrollView>
       <Box background="white" borderVertical>
-        <Row align="between" valign="center">
-          <SkipInScreenReader>
-          <Text>Notificaties</Text>
-          </SkipInScreenReader>
-          <Switch
-            accessibilityLabel="Notificaties"
-            onValueChange={() =>
-              toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
-            }
-            value={notificationSettings?.projectsEnabled}
-          />
-        </Row>
+        <Switch
+          accessibilityLabel="Notificaties"
+          label={<Text>Notificaties</Text>}
+          onValueChange={() =>
+            toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
+          }
+          value={notificationSettings?.projectsEnabled}
+        />
       </Box>
       <Box>
         {!notificationSettings?.projectsEnabled && (
@@ -179,24 +168,22 @@ export const ProjectNotificationSettings = () => {
               return (
                 project && (
                   <Fragment key={project.identifier}>
-                    <Row align="between" valign="center">
-                      <SkipInScreenReader>
-                        <Text>{project.title}</Text>
-                        <Text secondary small>
-                          {project.subtitle}
-                        </Text>
-                      </SkipInScreenReader>
-                      <Switch
-                        accessibilityLabel={`${project.title}, ${project.subtitle}`}
-                        onValueChange={() =>
-                          toggleProjectSubscription(
-                            project.identifier,
-                            !subscribed,
-                          )
-                        }
-                        value={subscribed}
-                      />
-                    </Row>
+                    <Switch
+                      accessibilityLabel={`${project.title}, ${project.subtitle}`}
+                      label={
+                        <>
+                          <Text>{project.title}</Text>
+                          <Text secondary>{project.subtitle}</Text>
+                        </>
+                      }
+                      onValueChange={() =>
+                        toggleProjectSubscription(
+                          project.identifier,
+                          !subscribed,
+                        )
+                      }
+                      value={subscribed}
+                    />
                     {index < (subscribableProjectIds.length ?? 0) - 1 && (
                       <View style={styles.line} />
                     )}
