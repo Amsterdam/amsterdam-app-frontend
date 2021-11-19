@@ -7,7 +7,14 @@ import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
-import {Attention, Box, Switch, Text, TextButton} from '../../ui'
+import {
+  Attention,
+  Box,
+  SkipInScreenReader,
+  Switch,
+  Text,
+  TextButton,
+} from '../../ui'
 import {Column, Row, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
@@ -120,8 +127,11 @@ export const ProjectNotificationSettings = () => {
     <ScrollView>
       <Box background="white" borderVertical>
         <Row align="between" valign="center">
+          <SkipInScreenReader>
           <Text>Notificaties</Text>
+          </SkipInScreenReader>
           <Switch
+            accessibilityLabel="Notificaties"
             onValueChange={() =>
               toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
             }
@@ -156,7 +166,9 @@ export const ProjectNotificationSettings = () => {
       subscribableProjectIds.length ? (
         <Column gutter="sm">
           <View style={styles.customInset}>
-            <Text small>Projecten</Text>
+            <Text small accessibilityRole="header">
+              Projecten
+            </Text>
           </View>
           <Box background="white" borderVertical>
             {subscribableProjectIds.map((projectId, index) => {
@@ -168,13 +180,14 @@ export const ProjectNotificationSettings = () => {
                 project && (
                   <Fragment key={project.identifier}>
                     <Row align="between" valign="center">
-                      <View>
+                      <SkipInScreenReader>
                         <Text>{project.title}</Text>
                         <Text secondary small>
                           {project.subtitle}
                         </Text>
-                      </View>
+                      </SkipInScreenReader>
                       <Switch
+                        accessibilityLabel={`${project.title}, ${project.subtitle}`}
                         onValueChange={() =>
                           toggleProjectSubscription(
                             project.identifier,

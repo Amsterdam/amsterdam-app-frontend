@@ -10,6 +10,7 @@ import {
   Button,
   Image,
   NonScalingHeaderTitle,
+  SkipInScreenReader,
   Switch,
   Text,
   Title,
@@ -140,12 +141,15 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             <Gutter height={size.spacing.md} />
             <Row gutter="sm" valign="center">
               <Switch
+                accessibilityLabel="Ontvang notificaties"
                 onValueChange={() =>
                   toggleProjectSubscription(project.identifier)
                 }
                 value={subscribed}
               />
-              <Text small>Ontvang notificaties</Text>
+              <SkipInScreenReader>
+                <Text small>Ontvang notificaties</Text>
+              </SkipInScreenReader>
             </Row>
           </>
         )}
