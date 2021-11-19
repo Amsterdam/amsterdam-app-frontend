@@ -10,6 +10,7 @@ import {
   Button,
   Image,
   NonScalingHeaderTitle,
+  SingleSelectable,
   Switch,
   Text,
   Title,
@@ -134,13 +135,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
-        {project.title && (
-          <Title
-            accessibilityLabel={accessibleText(project.title)}
-            text={project.title}
-          />
-        )}
-        {project.subtitle && <Text intro>{project.subtitle}</Text>}
+        <SingleSelectable
+          accessibilityRole="header"
+          label={accessibleText(project.title, project.subtitle)}>
+          {project.title && <Title text={project.title} />}
+          {project.subtitle && <Text intro>{project.subtitle}</Text>}
+        </SingleSelectable>
         {notificationSettings?.projectsEnabled && (
           <>
             <Gutter height={size.spacing.md} />
