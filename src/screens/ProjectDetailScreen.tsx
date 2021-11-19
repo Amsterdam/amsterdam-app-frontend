@@ -19,6 +19,7 @@ import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
 import {NotificationSettings, ProjectDetail} from '../types'
+import {replaceAbbreviations} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -133,7 +134,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
-        {project.title && <Title text={project.title} />}
+        {project.title && (
+          <Title
+            accessibilityLabel={replaceAbbreviations(project.title)}
+            text={project.title}
+          />
+        )}
         {project.subtitle && <Text intro>{project.subtitle}</Text>}
         {notificationSettings?.projectsEnabled && (
           <>
