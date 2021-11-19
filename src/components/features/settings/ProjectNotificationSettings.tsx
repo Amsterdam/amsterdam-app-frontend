@@ -7,7 +7,7 @@ import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
-import {replaceAbbreviations} from '../../../utils'
+import {injectCommas, replaceAbbreviations} from '../../../utils'
 import {Attention, Box, Switch, Text, TextButton} from '../../ui'
 import {Column, ScrollView} from '../../ui/layout'
 
@@ -171,7 +171,7 @@ export const ProjectNotificationSettings = () => {
                   <Fragment key={project.identifier}>
                     <Switch
                       accessibilityLabel={replaceAbbreviations(
-                        `${project.title}, ${project.subtitle}`,
+                        injectCommas(project.title, project.subtitle),
                       )}
                       label={
                         <>

@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from 'react-native'
 import {image} from '../../../tokens'
-import {replaceAbbreviations} from '../../../utils'
+import {injectCommas, replaceAbbreviations} from '../../../utils'
 import {Card, CardBody, Text, Title} from '../../ui'
 
 type Props = {
@@ -26,7 +26,7 @@ export const ProjectCard = ({
 }: Props) => (
   <TouchableHighlight
     accessibilityRole="button"
-    accessibilityLabel={replaceAbbreviations(`${title}, ${subtitle}`)}
+    accessibilityLabel={replaceAbbreviations(injectCommas(title, subtitle))}
     onPress={onPress}
     style={{width}}>
     <Card>
