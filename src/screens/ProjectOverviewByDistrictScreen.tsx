@@ -29,7 +29,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     url: getEnvironment().apiUrl + '/projects',
     options: {
       params: {
-        district_id: districtId,
+        'district-id': districtId,
       },
     },
   })
