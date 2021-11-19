@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: color.background.grey,
     borderBottomWidth: 2,
-    borderBottomColor: color.border.default,
+    borderBottomColor: color.border.divider,
     padding: size.spacing.md,
   },
   itemIsUnread: {

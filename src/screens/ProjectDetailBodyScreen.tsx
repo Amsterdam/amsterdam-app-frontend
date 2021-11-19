@@ -90,6 +90,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     borderBottomWidth: 2,
-    borderBottomColor: color.border.default,
+    borderBottomColor: color.border.divider,
   },
 })
