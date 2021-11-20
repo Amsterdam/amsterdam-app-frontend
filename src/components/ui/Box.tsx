@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewProps} from 'react-native'
 import {color, size, Spacing} from '../../tokens'
 
 type Props = {
@@ -7,13 +7,14 @@ type Props = {
   borderVertical?: Boolean
   children: React.ReactNode
   inset?: keyof Spacing
-}
+} & ViewProps
 
 export const Box = ({
   background,
   borderVertical,
   children,
   inset = 'md',
+  ...otherProps
 }: Props) => {
   const styles = StyleSheet.create({
     box: {
@@ -29,7 +30,9 @@ export const Box = ({
   })
 
   return (
-    <View style={[styles.box, borderVertical && styles.borderVertical]}>
+    <View
+      style={[styles.box, borderVertical && styles.borderVertical]}
+      {...otherProps}>
       {children}
     </View>
   )
