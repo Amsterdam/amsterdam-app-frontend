@@ -7,7 +7,7 @@ type Props = {
   borderVertical?: Boolean
   children: React.ReactNode
   inset?: keyof Spacing
-} & ViewProps
+} & Omit<ViewProps, 'style'>
 
 export const Box = ({
   background,
