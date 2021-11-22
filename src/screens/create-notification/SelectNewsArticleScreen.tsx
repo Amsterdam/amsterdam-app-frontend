@@ -105,11 +105,19 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 <ValidationWarning warning="Selecteer een nieuwsbericht" />
               )}
             </>
-            <View style={styles.button}>
-              <Button
-                onPress={() => navigation.navigate('WarningForm')}
-                text="Schrijf een bericht"
-              />
+            <View>
+              <Title level={4} text="Schrijf een bericht" />
+              <Text>
+                Schrijf een bericht met meer informatie over uw pushnotificatie.
+              </Text>
+              <Gutter height={size.spacing.sm} />
+              <View style={styles.justifyStart}>
+                <Button
+                  onPress={() => navigation.navigate('WarningForm')}
+                  text="Schrijf een bericht"
+                  variant="inverse"
+                />
+              </View>
             </View>
           </Column>
         </Box>
@@ -131,7 +139,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  justifyStart: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
