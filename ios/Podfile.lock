@@ -398,8 +398,6 @@ PODS:
     - React-perflogger (= 0.66.3)
   - RNCAsyncStorage (1.15.9):
     - React-Core
-  - RNCMaskedView (0.1.11):
-    - React
   - RNCPicker (1.16.8):
     - React-Core
   - RNFBApp (12.9.3):
