@@ -16,6 +16,7 @@ import {
 } from '../../components/ui/layout'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
+import {formatTime} from '../../utils'
 import {
   NotificationContext,
   NotificationStackParamList,
@@ -46,6 +47,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const [characterCountMessage, setCharacterCountMessage] = useState<number>(
     maxCharacters.message,
   )
+  const now = Date.now()
 
   const {
     control,
@@ -112,7 +114,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="title"
-                  defaultValue=""
+                  defaultValue={'TEST ' + formatTime(now) + ' '}
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.title - characterCountTitle}
@@ -140,7 +142,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="message"
-                  defaultValue=""
+                  defaultValue="Lorem ipsum dolor sit amet. We testen de notificaties van de Amsterdam app."
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.message - characterCountMessage}
