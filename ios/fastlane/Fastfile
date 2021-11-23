@@ -34,7 +34,7 @@ platform :ios do
       unlock: true,
       timeout: 3600,
       lock_when_sleeps: true,
-      password: password
+      password: keychain_password
     )
     import_certificate(
       certificate_path: "./AppleDeveloperCertificate.p12",
