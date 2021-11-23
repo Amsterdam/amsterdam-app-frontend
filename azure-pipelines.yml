@@ -44,7 +44,7 @@ steps:
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
-    cp $(AppleDeveloperCertificateP12.secureFilePath) .
+    cp $(AppleDeveloperCertificateP12.certSecureFilePath) .
     bundle install
     fastlane beta
   displayName: 'Build iOS'
