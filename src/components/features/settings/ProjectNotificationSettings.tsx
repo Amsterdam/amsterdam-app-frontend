@@ -177,7 +177,9 @@ export const ProjectNotificationSettings = () => {
                       label={
                         <>
                           <Text>{project.title}</Text>
-                          <Text secondary>{project.subtitle}</Text>
+                          <Text secondary small>
+                            {project.subtitle}
+                          </Text>
                         </>
                       }
                       onValueChange={() =>
