@@ -93,7 +93,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                       }}
                       subtitle={projectItem.subtitle}
                       title={projectItem.title}
-                      width={280}
+                      width={18 * size.spacing.md}
                     />
                   )}
                   style={styles.projects}
