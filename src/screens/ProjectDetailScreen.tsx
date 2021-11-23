@@ -10,6 +10,7 @@ import {
   Button,
   Image,
   NonScalingHeaderTitle,
+  SingleSelectable,
   Switch,
   Text,
   Title,
@@ -19,6 +20,7 @@ import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
 import {NotificationSettings, ProjectDetail} from '../types'
+import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -133,19 +135,25 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           variant="inverse"
         />
         <Gutter height={size.spacing.md} />
-        {project.title && <Title text={project.title} />}
-        {project.subtitle && <Text intro>{project.subtitle}</Text>}
+        <SingleSelectable
+          accessibilityRole="header"
+          label={accessibleText(project.title, project.subtitle)}>
+          {project.title && <Title text={project.title} />}
+          {project.subtitle && <Text intro>{project.subtitle}</Text>}
+        </SingleSelectable>
         {notificationSettings?.projectsEnabled && (
           <>
             <Gutter height={size.spacing.md} />
-            <Row gutter="sm" valign="center">
+            <Row align="start">
               <Switch
+                accessibilityLabel="Ontvang notificaties"
+                label={<Text small>Ontvang notificaties</Text>}
+                labelPosition="end"
                 onValueChange={() =>
                   toggleProjectSubscription(project.identifier)
                 }
                 value={subscribed}
               />
-              <Text small>Ontvang notificaties</Text>
             </Row>
           </>
         )}

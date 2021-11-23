@@ -1,19 +1,43 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {color} from '../../tokens'
+import {SkipInScreenReader} from './SkipInScreenReader'
+import {Row} from './layout'
 
-type Props = SwitchRNProps
+type LabelPosition = 'start' | 'end'
 
-export const Switch = ({onValueChange, value, ...otherProps}: Props) => (
-  <SwitchRN
-    ios_backgroundColor={color.state.neutral}
-    onValueChange={onValueChange}
-    trackColor={{
-      false: color.state.neutral,
-      true: color.state.valid,
-    }}
-    thumbColor={color.background.white}
-    value={value}
-    {...otherProps}
-  />
-)
+type Props = {
+  label: ReactElement
+  labelPosition?: LabelPosition
+} & SwitchRNProps
+
+/**
+ * Wraps a switch with its label in a row and takes care of accessibility.
+ */
+export const Switch = ({
+  label,
+  labelPosition = 'start',
+  onValueChange,
+  value,
+  ...otherProps
+}: Props) => {
+  const Label = () => <SkipInScreenReader>{label}</SkipInScreenReader>
+
+  return (
+    <Row align="between" valign="center" gutter="sm">
+      {labelPosition === 'start' && <Label />}
+      <SwitchRN
+        ios_backgroundColor={color.state.neutral}
+        onValueChange={onValueChange}
+        trackColor={{
+          false: color.state.neutral,
+          true: color.state.valid,
+        }}
+        thumbColor={color.background.white}
+        value={value}
+        {...otherProps}
+      />
+      {labelPosition === 'end' && <Label />}
+    </Row>
+  )
+}

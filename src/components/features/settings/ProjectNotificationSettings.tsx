@@ -7,8 +7,9 @@ import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
 import {NotificationSettings, ProjectOverviewItem} from '../../../types'
+import {accessibleText} from '../../../utils'
 import {Attention, Box, Switch, Text, TextButton} from '../../ui'
-import {Column, Row, ScrollView} from '../../ui/layout'
+import {Column, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
   const asyncStorage = useAsyncStorage()
@@ -119,15 +120,14 @@ export const ProjectNotificationSettings = () => {
   return (
     <ScrollView>
       <Box background="white" borderVertical>
-        <Row align="between" valign="center">
-          <Text>Notificaties</Text>
-          <Switch
-            onValueChange={() =>
-              toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
-            }
-            value={notificationSettings?.projectsEnabled}
-          />
-        </Row>
+        <Switch
+          accessibilityLabel="Notificaties"
+          label={<Text>Notificaties</Text>}
+          onValueChange={() =>
+            toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
+          }
+          value={notificationSettings?.projectsEnabled}
+        />
       </Box>
       <Box>
         {!notificationSettings?.projectsEnabled && (
@@ -156,7 +156,9 @@ export const ProjectNotificationSettings = () => {
       subscribableProjectIds.length ? (
         <Column gutter="sm">
           <View style={styles.customInset}>
-            <Text small>Projecten</Text>
+            <Text small accessibilityRole="header">
+              Projecten
+            </Text>
           </View>
           <Box background="white" borderVertical>
             {subscribableProjectIds.map((projectId, index) => {
@@ -167,23 +169,25 @@ export const ProjectNotificationSettings = () => {
               return (
                 project && (
                   <Fragment key={project.identifier}>
-                    <Row align="between" valign="center">
-                      <View>
-                        <Text>{project.title}</Text>
-                        <Text secondary small>
-                          {project.subtitle}
-                        </Text>
-                      </View>
-                      <Switch
-                        onValueChange={() =>
-                          toggleProjectSubscription(
-                            project.identifier,
-                            !subscribed,
-                          )
-                        }
-                        value={subscribed}
-                      />
-                    </Row>
+                    <Switch
+                      accessibilityLabel={accessibleText(
+                        project.title,
+                        project.subtitle,
+                      )}
+                      label={
+                        <>
+                          <Text>{project.title}</Text>
+                          <Text secondary>{project.subtitle}</Text>
+                        </>
+                      }
+                      onValueChange={() =>
+                        toggleProjectSubscription(
+                          project.identifier,
+                          !subscribed,
+                        )
+                      }
+                      value={subscribed}
+                    />
                     {index < (subscribableProjectIds.length ?? 0) - 1 && (
                       <View style={styles.line} />
                     )}
