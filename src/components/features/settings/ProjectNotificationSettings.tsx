@@ -76,14 +76,14 @@ export const ProjectNotificationSettings = () => {
         )
       }
 
-    setNotificationSettings({
-      ...notificationSettings,
+      setNotificationSettings({
+        ...notificationSettings,
         projectsEnabled,
         projects,
-    })
+      })
 
-    setProjectNotificationSettingHasChanged(true)
-  }
+      setProjectNotificationSettingHasChanged(true)
+    }
 
     const hasProjectNotificationSubscriptions = Object.entries(
       notificationSettings?.projects ?? {},
@@ -94,7 +94,7 @@ export const ProjectNotificationSettings = () => {
     } else {
       Alert.alert(
         'Notificaties uitzetten',
-        'We schrijven je automatisch uit voor notificaties op al je projecten.',
+        'We zetten de notificaties uit voor al je projecten. Dit kunnen we niet ongedaan maken.',
         [
           {
             style: 'cancel',
@@ -164,7 +164,7 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Notificaties"
           label={<Text>Notificaties</Text>}
           onValueChange={() =>
-              toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
+            toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
           value={notificationSettings?.projectsEnabled}
         />
