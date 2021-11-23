@@ -35,6 +35,10 @@ steps:
     provisioningProfileLocation: 'secureFiles'
     provProfileSecureFile: 'Amsterdamappprovisioningprofile.mobileprovision'
   displayName: 'Install Apple Provisioning Profile'
+  - task: CocoaPods@0
+  inputs:
+    workingDirectory: './ios'
+    forceRepoUpdate: true
 - task: DownloadSecureFile@1
   displayName: 'Download App Store Connect API Key'
   name: AppStoreConnectApiKey
