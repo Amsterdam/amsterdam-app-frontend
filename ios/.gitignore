@@ -13,6 +13,3 @@ fastlane/test_output
 # fastlane builds
 builds/*
 *.xcarchive
-
-# app store connect api
-*.p8
