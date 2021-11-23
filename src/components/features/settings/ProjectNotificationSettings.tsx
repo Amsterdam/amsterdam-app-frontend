@@ -62,7 +62,7 @@ export const ProjectNotificationSettings = () => {
   )
 
   // Toggle enabled notification settings
-  const toggleEnabledInSettings = (value: boolean) => {
+  const toggleNotificationsEnabled = (value: boolean) => {
     setNotificationSettings({
       ...notificationSettings,
       projectsEnabled: value,
@@ -124,7 +124,7 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Notificaties"
           label={<Text>Notificaties</Text>}
           onValueChange={() =>
-            toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
+              toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
           value={notificationSettings?.projectsEnabled}
         />
