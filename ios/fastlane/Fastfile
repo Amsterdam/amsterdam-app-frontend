@@ -25,7 +25,17 @@ platform :ios do
       issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
       duration: 1200
     )
+    create_keychain(
+      name: "KeychainName",
+      password: ENV["KEYCHAIN_PASSWORD"],
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: true
+    )
     import_certificate(
+      keychain_name: "KeychainName",
+      keychain_password: ENV["KEYCHAIN_PASSWORD"],
       certificate_path: 'AppleDeveloperCertificate.p12',
       certificate_password: ENV["P12_PASSWORD"]
     )
