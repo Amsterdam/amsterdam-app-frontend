@@ -532,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 42;
@@ -615,7 +615,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.undefined.StadsApp;
 				PRODUCT_NAME = StadsApp;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "frank-dev-push";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -713,8 +713,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.undefined.StadsApp;
 				PRODUCT_NAME = StadsApp;
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[arch=*]" = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Amsterdam-app-provisioning-profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
