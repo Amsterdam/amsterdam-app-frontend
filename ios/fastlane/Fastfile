@@ -32,7 +32,6 @@ platform :ios do
     get_provisioning_profile( # Create or get provisioning profile
       output_path: "./builds",  # Download provisioning profile in the build folder
     )
-    sync_code_signing(type: "appstore") 
     build_app(workspace: "StadsApp.xcworkspace", scheme: "StadsApp", clean: true,
     build_path: "./builds",
     output_directory: "./builds")
