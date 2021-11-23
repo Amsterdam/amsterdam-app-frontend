@@ -141,20 +141,14 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           {project.title && <Title text={project.title} />}
           {project.subtitle && <Text intro>{project.subtitle}</Text>}
         </SingleSelectable>
-        {notificationSettings?.projectsEnabled && (
-          <>
-            <Gutter height={size.spacing.md} />
-            <Switch
-              accessibilityLabel="Ontvang notificaties"
-              label={<Text>Ontvang notificaties</Text>}
-              labelPosition="end"
-              onValueChange={() =>
-                toggleProjectSubscription(project.identifier)
-              }
-              value={subscribed}
-            />
-          </>
-        )}
+        <Gutter height={size.spacing.md} />
+        <Switch
+          accessibilityLabel="Ontvang notificaties"
+          label={<Text>Ontvang notificaties</Text>}
+          labelPosition="end"
+          onValueChange={() => toggleProjectSubscription(project.identifier)}
+          value={subscribed}
+        />
         <Gutter height={size.spacing.lg} />
         <ProjectBodyMenu project={project} />
       </Box>
