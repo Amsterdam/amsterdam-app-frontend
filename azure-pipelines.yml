@@ -28,7 +28,7 @@ steps:
   inputs:
     certSecureFile: AppleDeveloperCertificate.p12
     certPwd: $(P12_PASSWORD)
-    keychain: 'default'
+    keychain: 'temp'
     deleteCert: true
   displayName: Install Apple Certificate
 - task: InstallAppleProvisioningProfile@1
