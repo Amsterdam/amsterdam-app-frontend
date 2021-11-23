@@ -24,6 +24,7 @@ steps:
 - script: npm run lint
   displayName: 'Run lint'
 - task: InstallAppleCertificate@2
+  name: AppleDeveloperCertificateP12
   inputs:
     certSecureFile: AppleDeveloperCertificate.p12
     certPwd: $(P12password)
@@ -43,6 +44,7 @@ steps:
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
+    cp $(AppleDeveloperCertificateP12.secureFilePath) .
     bundle install
     fastlane beta
   displayName: 'Build iOS'
