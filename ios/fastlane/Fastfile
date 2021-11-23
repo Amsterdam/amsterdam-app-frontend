@@ -15,9 +15,6 @@
 
 default_platform(:ios)
 
-keychain_password = ENV["KEYCHAIN_PASSWORD"]
-p12_password = ENV["P12_PASSWORD"]
-
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
@@ -28,18 +25,8 @@ platform :ios do
       issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
       duration: 1200
     )
-    create_keychain(
-      name: "KeychainName",
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      lock_when_sleeps: true,
-      password: keychain_password
-    )
     import_certificate(
-      certificate_path: "./AppleDeveloperCertificate.p12",
-      certificate_password: p12_password,
-      keychain_password: keychain_password
+      password: "x^S2S7@&sV9Y" # TODO: get this from ENV
     )
     get_certificates( # Create or get certificate, and install it
       output_path: "./builds", # Download certificate in the build folder (you don't need to create the folder)
