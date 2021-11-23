@@ -76,10 +76,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Toggle notification setting for this project
+  // Also forces `projectsEnabled` to be true.
   // TODO Move to device registration hook
   const toggleProjectSubscription = (projectId: string) => {
     setNotificationSettings({
-      projectsEnabled: notificationSettings?.projectsEnabled,
+      projectsEnabled: true,
       projects: {
         ...notificationSettings?.projects,
         [projectId]: !subscribed,
