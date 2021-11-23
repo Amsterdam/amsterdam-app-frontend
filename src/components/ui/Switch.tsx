@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {color} from '../../tokens'
 import {SkipInScreenReader} from './SkipInScreenReader'
-import {Row} from './layout'
+import {Row, Stretch} from './layout'
 
 type LabelPosition = 'start' | 'end'
 
@@ -21,7 +21,11 @@ export const Switch = ({
   value,
   ...otherProps
 }: Props) => {
-  const Label = () => <SkipInScreenReader>{label}</SkipInScreenReader>
+  const Label = () => (
+    <Stretch>
+      <SkipInScreenReader>{label}</SkipInScreenReader>
+    </Stretch>
+  )
 
   return (
     <Row align="between" valign="center" gutter="sm">
