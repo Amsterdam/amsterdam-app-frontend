@@ -12,7 +12,7 @@ import {
   SubscribedProjects,
 } from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Attention, Box, Switch, Text, TextButton} from '../../ui'
+import {Attention, Box, Switch, Text, TextButton, Title} from '../../ui'
 import {Column, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
@@ -94,7 +94,7 @@ export const ProjectNotificationSettings = () => {
     } else {
       Alert.alert(
         'Notificaties uitzetten',
-        'We zetten de notificaties uit voor al je projecten. Dit kunnen we niet ongedaan maken.',
+        'We zetten de notificaties uit voor al uw projecten. Dit kunnen we niet ongedaan maken.',
         [
           {
             style: 'cancel',
@@ -171,9 +171,19 @@ export const ProjectNotificationSettings = () => {
       </Box>
       <Box>
         {!notificationSettings?.projectsEnabled && (
-          <Attention>
-            <Text>U ontvangt geen notificaties.</Text>
-          </Attention>
+          <Column gutter="md">
+            <Title text="U ontvangt geen notificaties" />
+            <Text intro>
+              Voor werkzaamheden kunnen we u af en toe een notificatie sturen.
+              Dit doen we alleen als er echt iets aan de hand is en zal nooit
+              meer dan één keer per week zijn.
+            </Text>
+            <Text>
+              U kunt uw notificaties altijd weer uitzetten. Op deze pagina vindt
+              u een overzicht van uw notificaties en kunt u instellingen
+              beheren.
+            </Text>
+          </Column>
         )}
         {notificationSettings?.projectsEnabled &&
         !subscribableProjectIds.length ? (
