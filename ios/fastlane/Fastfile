@@ -26,7 +26,7 @@ platform :ios do
       duration: 1200
     )
     get_certificates( # Create or get certificate, and install it
-      keychain_path: "/Users/runner/Library/Keychains/login.keychain-db"
+      keychain_path: "/Users/runner/Library/Keychains/login.keychain-db",
       output_path: "./builds", # Download certificate in the build folder (you don't need to create the folder)
     )
     get_provisioning_profile( # Create or get provisioning profile
