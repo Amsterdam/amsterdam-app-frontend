@@ -33,10 +33,12 @@ platform :ios do
       output_path: "./builds",  # Download provisioning profile in the build folder
     )
     xcversion(version: "13.1")
-    cocoapods(clean_install: true, podfile: './Podfile')
-    build_app(workspace: "StadsApp.xcworkspace", scheme: "StadsApp", clean: true,
-    build_path: "./builds",
-    output_directory: "./builds")
-    # upload_to_testflight
+    build_app(
+      workspace: "StadsApp.xcworkspace",
+      scheme: "StadsApp",
+      clean: true,
+      build_path: "./builds",
+      output_directory: "./builds")
+    upload_to_testflight
   end
 end
