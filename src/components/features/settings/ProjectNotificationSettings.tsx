@@ -1,12 +1,16 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
-import {NotificationSettings, ProjectOverviewItem} from '../../../types'
+import {
+  NotificationSettings,
+  ProjectOverviewItem,
+  SubscribedProjects,
+} from '../../../types'
 import {accessibleText} from '../../../utils'
 import {Attention, Box, Switch, Text, TextButton} from '../../ui'
 import {Column, ScrollView} from '../../ui/layout'
@@ -62,14 +66,50 @@ export const ProjectNotificationSettings = () => {
   )
 
   // Toggle enabled notification settings
-  const toggleNotificationsEnabled = (value: boolean) => {
+  const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
+    const unsubscribeAllProjectNotifications = (confirmed: boolean) => {
+      let projects: SubscribedProjects = notificationSettings?.projects ?? {}
+
+      if (confirmed) {
+        projects = Object.fromEntries(
+          Object.keys(projects).map(projectId => [projectId, false]),
+        )
+      }
+
     setNotificationSettings({
       ...notificationSettings,
-      projectsEnabled: value,
+        projectsEnabled,
+        projects,
     })
 
     setProjectNotificationSettingHasChanged(true)
   }
+
+    const hasProjectNotificationSubscriptions = Object.entries(
+      notificationSettings?.projects ?? {},
+    ).some(value => value[1])
+
+    if (projectsEnabled || !hasProjectNotificationSubscriptions) {
+      unsubscribeAllProjectNotifications(true)
+    } else {
+      Alert.alert(
+        'Notificaties uitzetten',
+        'We schrijven je automatisch uit voor notificaties op al je projecten.',
+        [
+          {
+            style: 'cancel',
+            text: 'Annuleren',
+          },
+          {
+            onPress: () => unsubscribeAllProjectNotifications(true),
+            style: 'destructive',
+            text: 'Ik begrijp het',
+          },
+        ],
+      )
+    }
+  }
+
   // Toggle notification settings for a project
   // TODO Move to device registration hook
   const toggleProjectSubscription = (
