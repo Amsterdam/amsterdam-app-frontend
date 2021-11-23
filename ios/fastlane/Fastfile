@@ -26,6 +26,8 @@ platform :ios do
       duration: 1200
     )
     import_certificate(
+      certificate_path: "./AppleDeveloperCertificate.p12",
+      certificate_password: ENV["P12_PASSWORD"],
       keychain_name: "login"
     )
     get_certificates( # Create or get certificate, and install it
