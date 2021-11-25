@@ -1,14 +1,18 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {color, size} from '../../../tokens'
-import {NotificationSettings, ProjectOverviewItem} from '../../../types'
+import {
+  NotificationSettings,
+  ProjectOverviewItem,
+  SubscribedProjects,
+} from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Attention, Box, Switch, Text, TextButton} from '../../ui'
+import {Attention, Box, Switch, Text, TextButton, Title} from '../../ui'
 import {Column, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
@@ -62,14 +66,50 @@ export const ProjectNotificationSettings = () => {
   )
 
   // Toggle enabled notification settings
-  const toggleEnabledInSettings = (value: boolean) => {
-    setNotificationSettings({
-      ...notificationSettings,
-      projectsEnabled: value,
-    })
+  const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
+    const unsubscribeAllProjectNotifications = (confirmed: boolean) => {
+      let projects: SubscribedProjects = notificationSettings?.projects ?? {}
 
-    setProjectNotificationSettingHasChanged(true)
+      if (confirmed) {
+        projects = Object.fromEntries(
+          Object.keys(projects).map(projectId => [projectId, false]),
+        )
+      }
+
+      setNotificationSettings({
+        ...notificationSettings,
+        projectsEnabled,
+        projects,
+      })
+
+      setProjectNotificationSettingHasChanged(true)
+    }
+
+    const hasProjectNotificationSubscriptions = Object.entries(
+      notificationSettings?.projects ?? {},
+    ).some(value => value[1])
+
+    if (projectsEnabled || !hasProjectNotificationSubscriptions) {
+      unsubscribeAllProjectNotifications(true)
+    } else {
+      Alert.alert(
+        'Notificaties uitzetten',
+        'We zetten de notificaties uit voor al uw projecten. Dit kunnen we niet ongedaan maken.',
+        [
+          {
+            style: 'cancel',
+            text: 'Annuleren',
+          },
+          {
+            onPress: () => unsubscribeAllProjectNotifications(true),
+            style: 'destructive',
+            text: 'Ik begrijp het',
+          },
+        ],
+      )
+    }
   }
+
   // Toggle notification settings for a project
   // TODO Move to device registration hook
   const toggleProjectSubscription = (
@@ -124,16 +164,26 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Notificaties"
           label={<Text>Notificaties</Text>}
           onValueChange={() =>
-            toggleEnabledInSettings(!notificationSettings?.projectsEnabled)
+            toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
           value={notificationSettings?.projectsEnabled}
         />
       </Box>
       <Box>
         {!notificationSettings?.projectsEnabled && (
-          <Attention>
-            <Text>U ontvangt geen notificaties.</Text>
-          </Attention>
+          <Column gutter="md">
+            <Title text="U ontvangt geen notificaties" />
+            <Text intro>
+              Voor werkzaamheden kunnen we u af en toe een notificatie sturen.
+              Dit doen we alleen als er echt iets aan de hand is en zal nooit
+              meer dan één keer per week zijn.
+            </Text>
+            <Text>
+              U kunt uw notificaties altijd weer uitzetten. Op deze pagina vindt
+              u een overzicht van uw notificaties en kunt u instellingen
+              beheren.
+            </Text>
+          </Column>
         )}
         {notificationSettings?.projectsEnabled &&
         !subscribableProjectIds.length ? (

@@ -76,10 +76,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Toggle notification setting for this project
+  // Also forces `projectsEnabled` to be true.
   // TODO Move to device registration hook
   const toggleProjectSubscription = (projectId: string) => {
     setNotificationSettings({
-      projectsEnabled: notificationSettings?.projectsEnabled,
+      projectsEnabled: true,
       projects: {
         ...notificationSettings?.projects,
         [projectId]: !subscribed,
@@ -141,20 +142,14 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           {project.title && <Title text={project.title} />}
           {project.subtitle && <Text intro>{project.subtitle}</Text>}
         </SingleSelectable>
-        {notificationSettings?.projectsEnabled && (
-          <>
-            <Gutter height={size.spacing.md} />
-            <Switch
-              accessibilityLabel="Ontvang notificaties"
-              label={<Text>Ontvang notificaties</Text>}
-              labelPosition="end"
-              onValueChange={() =>
-                toggleProjectSubscription(project.identifier)
-              }
-              value={subscribed}
-            />
-          </>
-        )}
+        <Gutter height={size.spacing.md} />
+        <Switch
+          accessibilityLabel="Ontvang notificaties"
+          label={<Text>Ontvang notificaties</Text>}
+          labelPosition="end"
+          onValueChange={() => toggleProjectSubscription(project.identifier)}
+          value={subscribed}
+        />
         <Gutter height={size.spacing.lg} />
         <ProjectBodyMenu project={project} />
       </Box>
