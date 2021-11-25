@@ -5,7 +5,7 @@ import {ActivityIndicator, FlatList} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
 import {Box, NonScalingHeaderTitle} from '../components/ui'
-import {Gutter} from '../components/ui/layout'
+import {Center, Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -60,7 +60,9 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
       {isLoading || !gridWidth ? (
-        <ActivityIndicator />
+        <Center style={{height: '100%'}}>
+          <ActivityIndicator />
+        </Center>
       ) : (
         <FlatList
           key={`re-render-${numColumns}`}
