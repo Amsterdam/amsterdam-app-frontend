@@ -1,10 +1,10 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
-import {ActivityIndicator, FlatList} from 'react-native'
+import {ActivityIndicator, FlatList, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
-import {Box, NonScalingHeaderTitle} from '../components/ui'
+import {NonScalingHeaderTitle} from '../components/ui'
 import {Center, Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
@@ -55,7 +55,11 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   )
 
   return (
-    <Box
+    <View
+      style={{
+        padding: screenInset,
+        paddingBottom: 0,
+      }}
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
@@ -65,6 +69,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
         </Center>
       ) : (
         <FlatList
+          contentContainerStyle={{paddingBottom: screenInset}}
           key={`re-render-${numColumns}`}
           data={projects}
           ItemSeparatorComponent={() => <Gutter height={gridGutter} />}
@@ -90,6 +95,6 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           )}
         />
       )}
-    </Box>
+    </View>
   )
 }
