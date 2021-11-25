@@ -534,7 +534,7 @@
 				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -600,6 +600,7 @@
 					"\"$(PODS_TARGET_SRCROOT)/include/\"",
 				);
 				INFOPLIST_FILE = StadsApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -629,7 +630,7 @@
 				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -695,6 +696,7 @@
 					"\"$(PODS_TARGET_SRCROOT)/include/\"",
 				);
 				INFOPLIST_FILE = StadsApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
