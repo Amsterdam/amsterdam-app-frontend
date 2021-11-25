@@ -46,10 +46,13 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   })
 
   // We need to calculate widths because FlatList items don’t flex as expected
+  const screenInset = size.spacing.md
+  const gridGutter = size.spacing.sm
   const projectCardMinWidth = 18 * size.spacing.md
   const numColumns = Math.floor(gridWidth / projectCardMinWidth)
-  const gutterWidth = size.spacing.sm
-  const itemWidth = (gridWidth - (numColumns + 1) * gutterWidth) / numColumns
+  const projectCardWidth = Math.floor(
+    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutter) / numColumns,
+  )
 
   return (
     <Box
@@ -62,7 +65,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
         <FlatList
           key={`re-render-${numColumns}`}
           data={projects}
-          ItemSeparatorComponent={() => <Gutter height={gutterWidth} />}
+          ItemSeparatorComponent={() => <Gutter height={gridGutter} />}
           keyExtractor={item => item.identifier.toString()}
           numColumns={numColumns}
           renderItem={({item, index}) => (
@@ -76,10 +79,10 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
                 }
                 subtitle={item.subtitle}
                 title={item.title}
-                width={itemWidth}
+                width={projectCardWidth}
               />
               {index % numColumns < numColumns - 1 && (
-                <Gutter width={gutterWidth} />
+                <Gutter width={gridGutter} />
               )}
             </>
           )}
