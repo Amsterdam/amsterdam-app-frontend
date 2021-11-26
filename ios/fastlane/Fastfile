@@ -39,6 +39,7 @@ platform :ios do
       clean: true,
       build_path: "./builds",
       output_directory: "./builds")
+    # set_changelog()
     upload_to_testflight
   end
 end
