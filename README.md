@@ -24,9 +24,34 @@ development environment. To summarize:
 - We recommend installing this [React Native debugger](https://github.com/jhen0409/react-native-debugger) additionally:
   `brew install --cask react-native-debugger`.
 
+
 ------------------------------------------
 
-## Test Publication
+## Release automation (CI/CD)
+
+With Azure DevOps and [Fastlane](https://fastlane.tools/) we created a CI/CD pipeline.
+
+### Azure DevOps
+The configuration of the pipeline is in azure-pipelines.yml. From here we run fastlane for iOS and for Android. The pipeline has access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard.
+
+### Fastlane
+Fastlane handles most importantly building, signing and releasing our app. We do this for iOS and Android separately. Both folders have a fastlane folder. Most importantly here is the Fastfile. It encompasses a pipeline that work with consecutive fastlane-actions. Sometimes they use environment variables or files, set up in de Azure pipeline.
+#### Release-notes
+To include release-notes in a release, please do the following.
+
+iOS:
+- Put the release-notes in fastlane/changelog.txt
+- Uncomment `set_changelog()` in Fastfile
+
+Android:
+- Put file \[version-number\].txt in fastlane/metadata.android/nl-NL/changelogs
+
+#### Version-name
+Manually change version-name (iOS and Android) if you need to
+
+------------------------------------------
+
+## Release manually
 
 Follow the steps below to release a new version of the app into the (test) stores.
 
@@ -60,12 +85,6 @@ Follow the steps below to release a new version of the app into the (test) store
   TestFlight.
 - Afterwards, turn the build configuration back to "Debug" for further development.
 
-### Further notes on test-release
-
-#### Git:
-- Branch from develop and call it release/\[version-number\]
-- Once reviewed, pull branch into main and tag it with its version-number
-
 #### 2 types of testrelease:
 There are 2 types of testreleases. One for the Scrum-team for development and testing purposes and one for the stakeholders. The version of the Scrum-team release has a digit extra, so 4 in total.
 
@@ -77,6 +96,14 @@ There are 2 types of testreleases. One for the Scrum-team for development and te
 - These are testreleases solely for the Scrum-team.
 - Build number gets incremented each time a new release is done
 - Version number is 0.\[sprint\]
+------------------------------------------
+
+## Git
+We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+### Release
+- Branch from develop and call it release/\[version-number\]
+- Once reviewed, pull branch into main and tag it with its version-number
 
 ------------------------------------------
 
