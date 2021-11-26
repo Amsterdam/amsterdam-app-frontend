@@ -21,10 +21,35 @@ platform :android do
     gradle(task: "test")
   end
 
+  lane :bump_version_code do
+    path = '../app/build.gradle'
+    re = /versionCode\s+(\d+)/ 
+  
+    s = File.read(path)
+    versionCode = s[re, 1].to_i
+    s[re, 1] = (versionCode + 1).to_s
+  
+    f = File.new(path, 'w')
+    f.write(s)
+    f.close
+  end
+
   desc "Submit a new Beta Build"
   lane :beta do
-    gradle(task: 'assemble', build_type: 'Release')
-    upload_to_play_store(track: 'internal')
-    slack(message: 'Successfully distributed a new beta build')
+    gradle(task: 'clean')
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      properties: {     
+        "android.injected.signing.store.file" => "upload-keystore",
+        "android.injected.signing.store.password" => "Z706UwzJzN",     
+        "android.injected.signing.key.alias" => "key0",
+        "android.injected.signing.key.password" => "Z706UwzJzN"
+    })
+    upload_to_play_store(
+      package_name: 'com.stadsapp',
+      track: 'internal',
+      apk: 'app/build/outputs/apk/release/app-release.apk',
+    )
   end
 end
