@@ -54,12 +54,12 @@ steps:
   name: Keystore
   inputs:
     secureFile: 'upload-keystore'
-- script: |
-    cd ios
-    cp $(AppStoreConnectApiKey.secureFilePath) .
-    bundle install
-    fastlane beta
-  displayName: 'Build iOS'
+# - script: |
+#     cd ios
+#     cp $(AppStoreConnectApiKey.secureFilePath) .
+#     bundle install
+#     fastlane beta
+#   displayName: 'Build iOS'
 - script: |
     cd android
     cp $(PlayStoreApiKey.secureFilePath) .
