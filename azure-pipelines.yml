@@ -44,12 +44,35 @@ steps:
   name: AppStoreConnectApiKey
   inputs:
     secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+- task: DownloadSecureFile@1
+  displayName: 'Download Play Store API Key'
+  name: PlayStoreApiKey
+  inputs:
+    secureFile: 'api-5152920179310760437-158079-8e427bb27907.json'
+- task: DownloadSecureFile@1
+  displayName: 'Download Keystore'
+  name: Keystore
+  inputs:
+    secureFile: 'upload-keystore'
 - script: |
     cd ios
     cp $(AppStoreConnectApiKey.secureFilePath) .
     bundle install
     fastlane beta
   displayName: 'Build iOS'
+- script: |
+    cd android
+    cp $(PlayStoreApiKey.secureFilePath) .
+    cp $(Keystore.secureFilePath) .
+    bundle install
+    fastlane bump_version_code
+    fastlane beta
+  displayName: 'Build Android'
   
 variables:
 - group: React Native Variables
+# environment variables 'Build Android' script needs
+- name: lc.all
+  value: 'en_US.UTF-8'
+- name: lang
+  value: 'en_US.UTF-8'
