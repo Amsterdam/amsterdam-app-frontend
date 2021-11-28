@@ -4,10 +4,8 @@
 # https://aka.ms/yaml
 
 trigger:
-- feature/ci-cd
-# TODO
-# - develop
-# - main
+- develop
+- main
 
 pool:
   vmImage: macOS-11
