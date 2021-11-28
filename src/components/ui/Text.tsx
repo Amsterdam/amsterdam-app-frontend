@@ -41,13 +41,22 @@ export const Text = ({
     )
   })
 
+  const handleScreenReaderToggled = (screenReaderEnabled: boolean) => {
+    setScreenReaderEnabled(screenReaderEnabled)
+  }
+
   useEffect(() => {
     AccessibilityInfo.addEventListener(
       'screenReaderChanged',
-      screenReaderEnabled => {
-        setScreenReaderEnabled(screenReaderEnabled)
-      },
+      handleScreenReaderToggled,
     )
+
+    return () => {
+      AccessibilityInfo.removeEventListener(
+        'screenReaderChanged',
+        handleScreenReaderToggled,
+      )
+    }
   })
 
   return (
