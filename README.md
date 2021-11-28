@@ -37,14 +37,7 @@ The configuration of the pipeline is in azure-pipelines.yml. From here we run fa
 ### Fastlane
 Fastlane handles most importantly building, signing and releasing our app. We do this for iOS and Android separately. Both folders have a fastlane folder. Most importantly here is the Fastfile. It encompasses a pipeline that work with consecutive fastlane-actions. Sometimes they use environment variables or files, set up in de Azure pipeline.
 #### Release-notes
-To include release-notes in a release, please do the following.
-
-iOS:
-- Put the release-notes in fastlane/changelog.txt
-- Uncomment `set_changelog()` in Fastfile
-
-Android:
-- Put file \[version-number\].txt in fastlane/metadata.android/nl-NL/changelogs
+Right now, it is only possible to add release-notes manually.
 
 #### Version-name
 Manually change version-name (iOS and Android) if you need to
