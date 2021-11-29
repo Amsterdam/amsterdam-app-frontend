@@ -71,6 +71,7 @@ export const Text = ({
         primary && styles.primary,
         secondary && styles.secondary,
         small && styles.small,
+        small && margin && styles.marginSmall,
         warning && styles.warning,
       ]}
       {...otherProps}>
@@ -102,6 +103,10 @@ const styles = StyleSheet.create({
   marginLarge: {
     marginBottom: font.leadingBottom.l1,
     marginTop: font.leadingTop.l1,
+  },
+  marginSmall: {
+    marginBottom: font.leadingBottom.t1,
+    marginTop: font.leadingTop.t1,
   },
   primary: {
     color: color.font.primary,
