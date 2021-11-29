@@ -1,7 +1,7 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
-import {ActivityIndicator, FlatList, View} from 'react-native'
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle} from '../components/ui'
@@ -54,22 +54,32 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutter) / numColumns,
   )
 
+  const styles = StyleSheet.create({
+    box: {
+      paddingHorizontal: screenInset,
+      paddingTop: screenInset,
+    },
+    fullHeight: {
+      height: '100%',
+    },
+    grid: {
+      paddingBottom: screenInset,
+    },
+  })
+
   return (
     <View
-      style={{
-        padding: screenInset,
-        paddingBottom: 0,
-      }}
+      style={styles.box}
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
       {isLoading || !gridWidth ? (
-        <Center style={{height: '100%'}}>
+        <Center style={styles.fullHeight}>
           <ActivityIndicator />
         </Center>
       ) : (
         <FlatList
-          contentContainerStyle={{paddingBottom: screenInset}}
+          contentContainerStyle={styles.grid}
           key={`re-render-${numColumns}`}
           data={projects}
           ItemSeparatorComponent={() => <Gutter height={gridGutter} />}
