@@ -21,7 +21,7 @@ import {
   TextButton,
   Title,
 } from '../../ui'
-import {Switch} from '../../ui/forms'
+import {Checkbox, Switch} from '../../ui/forms'
 import {Column, Row, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {
@@ -34,6 +34,7 @@ export const ProjectNotificationSettings = () => {
     projectNotificationSettingHasChanged,
     setProjectNotificationSettingHasChanged,
   ] = useState(false)
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
@@ -137,6 +138,25 @@ export const ProjectNotificationSettings = () => {
     setProjectNotificationSettingHasChanged(true)
   }
 
+  const toggleProjectListing = (projectId: string) =>
+    setSelectedProjects(
+      selectedProjects.includes(projectId)
+        ? selectedProjects.filter(id => id !== projectId)
+        : [...selectedProjects, projectId],
+    )
+
+  const deleteProjects = () => {
+    const projects = notificationSettings?.projects ?? {}
+    selectedProjects.map((id: string) => delete projects[id])
+
+    setNotificationSettings({
+      ...notificationSettings,
+      projects,
+    })
+
+    setIsEditing(!isEditing)
+  }
+
   // Store changed notification settings on device
   // Clear projects in device registration if project notifications are disabled
   const storeSettings = useCallback(async () => {
@@ -229,23 +249,52 @@ export const ProjectNotificationSettings = () => {
                 const subscribed =
                   notificationSettings?.projects?.[projectId] ?? false
 
+                const Label = ({
+                  title,
+                  subtitle,
+                }: {
+                  title: string
+                  subtitle: string
+                }) => (
+                  <>
+                    <Text>{title}</Text>
+                    <Text secondary small>
+                      {subtitle}
+                    </Text>
+                  </>
+                )
+
                 return (
                   project && (
                     <Fragment key={project.identifier}>
-                      <Row valign="center" gutter="md">
-                        {isEditing && <Text>Checkbox</Text>}
+                      {isEditing ? (
+                        <Checkbox
+                          accessibilityLabel={accessibleText(
+                            project.title,
+                            project.subtitle,
+                          )}
+                          label={
+                            <Label
+                              title={project.title}
+                              subtitle={project.subtitle}
+                            />
+                          }
+                          onValueChange={() =>
+                            toggleProjectListing(project.identifier)
+                          }
+                          value={selectedProjects.includes(project.identifier)}
+                        />
+                      ) : (
                         <Switch
                           accessibilityLabel={accessibleText(
                             project.title,
                             project.subtitle,
                           )}
                           label={
-                            <>
-                              <Text>{project.title}</Text>
-                              <Text secondary small>
-                                {project.subtitle}
-                              </Text>
-                            </>
+                            <Label
+                              title={project.title}
+                              subtitle={project.subtitle}
+                            />
                           }
                           onValueChange={() =>
                             toggleProjectSubscription(
@@ -255,7 +304,7 @@ export const ProjectNotificationSettings = () => {
                           }
                           value={subscribed}
                         />
-                      </Row>
+                      )}
                       {index < (subscribableProjectIds.length ?? 0) - 1 && (
                         <Divider />
                       )}
@@ -269,7 +318,7 @@ export const ProjectNotificationSettings = () => {
             <Row align="center">
               <Button
                 variant="secondary"
-                onPress={() => setIsEditing(!isEditing)}
+                onPress={() => deleteProjects()}
                 text="Verwijder projecten"
               />
             </Row>
