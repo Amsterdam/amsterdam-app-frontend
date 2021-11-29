@@ -93,7 +93,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                         isFirst={index === 0}
                         key={newsArticle.identifier}
                         value={newsArticle.identifier}>
-                        <Text>{newsArticle.title}</Text>
+                        <Text large>{newsArticle.title}</Text>
                       </Radio>
                     ))}
                   </RadioGroup>

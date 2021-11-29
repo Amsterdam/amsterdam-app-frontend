@@ -51,7 +51,7 @@ export const StreetInput = ({
               style={styles.suggestedItem}>
               <Location width={20} height={20} fill={color.font.tertiary} />
               <Gutter width={size.spacing.xs} />
-              <Text>{bagItem._display}</Text>
+              <Text large>{bagItem._display}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
