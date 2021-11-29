@@ -3,8 +3,9 @@
 # Then, we will make a "production" lane in both Fastfiles in which we will release to the stores
 
 trigger:
-- develop
-- main
+- feature/ci-cd
+# - develop
+# - main
 
 pool:
   vmImage: macOS-11
