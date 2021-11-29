@@ -47,6 +47,12 @@ export const color = {
     invalid: baseColor.support.invalid,
     primary: baseColor.primary.darkblue,
   },
+  checkbox: {
+    background: {
+      checked: baseColor.primary.black,
+      default: baseColor.primary.white,
+    },
+  },
   font: {
     invalid: baseColor.support.invalid,
     inverse: baseColor.primary.white,
