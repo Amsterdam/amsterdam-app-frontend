@@ -59,7 +59,7 @@ steps:
 #     fastlane beta
 #   displayName: 'Build iOS'
 - script: |
-    mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
+    mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/app
     cd android
     bundle install
     fastlane bump_version_code
