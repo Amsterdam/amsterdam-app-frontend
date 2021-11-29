@@ -1,11 +1,11 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
-import {ActivityIndicator, FlatList} from 'react-native'
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
-import {Box, NonScalingHeaderTitle} from '../components/ui'
-import {Gutter} from '../components/ui/layout'
+import {NonScalingHeaderTitle} from '../components/ui'
+import {Center, Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -46,23 +46,43 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   })
 
   // We need to calculate widths because FlatList items don’t flex as expected
+  const screenInset = size.spacing.md
+  const gridGutter = size.spacing.sm
   const projectCardMinWidth = 18 * size.spacing.md
   const numColumns = Math.floor(gridWidth / projectCardMinWidth)
-  const gutterWidth = size.spacing.sm
-  const itemWidth = (gridWidth - (numColumns + 1) * gutterWidth) / numColumns
+  const projectCardWidth = Math.floor(
+    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutter) / numColumns,
+  )
+
+  const styles = StyleSheet.create({
+    box: {
+      paddingHorizontal: screenInset,
+      paddingTop: screenInset,
+    },
+    fullHeight: {
+      height: '100%',
+    },
+    grid: {
+      paddingBottom: screenInset,
+    },
+  })
 
   return (
-    <Box
+    <View
+      style={styles.box}
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
       {isLoading || !gridWidth ? (
-        <ActivityIndicator />
+        <Center style={styles.fullHeight}>
+          <ActivityIndicator />
+        </Center>
       ) : (
         <FlatList
+          contentContainerStyle={styles.grid}
           key={`re-render-${numColumns}`}
           data={projects}
-          ItemSeparatorComponent={() => <Gutter height={gutterWidth} />}
+          ItemSeparatorComponent={() => <Gutter height={gridGutter} />}
           keyExtractor={item => item.identifier.toString()}
           numColumns={numColumns}
           renderItem={({item, index}) => (
@@ -76,15 +96,15 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
                 }
                 subtitle={item.subtitle}
                 title={item.title}
-                width={itemWidth}
+                width={projectCardWidth}
               />
               {index % numColumns < numColumns - 1 && (
-                <Gutter width={gutterWidth} />
+                <Gutter width={gridGutter} />
               )}
             </>
           )}
         />
       )}
-    </Box>
+    </View>
   )
 }
