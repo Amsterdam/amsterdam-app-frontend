@@ -1,7 +1,6 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# TODO:
+# Create separate stages when we have a production environment, see https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml
+# Then, we will make a "production" lane in both Fastfiles in which we will release to the stores
 
 trigger:
 - develop
@@ -52,12 +51,12 @@ steps:
   name: Keystore
   inputs:
     secureFile: 'upload-keystore'
-# - script: |
-#     cd ios
-#     cp $(AppStoreConnectApiKey.secureFilePath) .
-#     bundle install
-#     fastlane beta
-#   displayName: 'Build iOS'
+- script: |
+    cd ios
+    cp $(AppStoreConnectApiKey.secureFilePath) .
+    bundle install
+    fastlane beta
+  displayName: 'Build iOS'
 - script: |
     cd android
     cp $(PlayStoreApiKey.secureFilePath) .
