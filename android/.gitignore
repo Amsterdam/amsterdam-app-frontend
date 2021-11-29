@@ -13,6 +13,3 @@ fastlane/test_output
 # fastlane builds
 builds/*
 *.xcarchive
-
-api-*.json
-*-keystore

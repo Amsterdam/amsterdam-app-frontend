@@ -52,15 +52,14 @@ steps:
   inputs:
     secureFile: 'upload-keystore'
 - script: |
+    mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
     cd ios
-    cp $(AppStoreConnectApiKey.secureFilePath) .
     bundle install
     fastlane beta
   displayName: 'Build iOS'
 - script: |
+    mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
     cd android
-    cp $(PlayStoreApiKey.secureFilePath) .
-    cp $(Keystore.secureFilePath) .
     bundle install
     fastlane bump_version_code
     fastlane beta
