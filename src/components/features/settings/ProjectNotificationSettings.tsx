@@ -5,14 +5,22 @@ import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
-import {color, size} from '../../../tokens'
+import {size} from '../../../tokens'
 import {
   NotificationSettings,
   ProjectOverviewItem,
   SubscribedProjects,
 } from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Attention, Box, Button, Text, TextButton, Title} from '../../ui'
+import {
+  Attention,
+  Box,
+  Button,
+  Divider,
+  Text,
+  TextButton,
+  Title,
+} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {Column, Row, ScrollView} from '../../ui/layout'
 
@@ -249,7 +257,7 @@ export const ProjectNotificationSettings = () => {
                         />
                       </Row>
                       {index < (subscribableProjectIds.length ?? 0) - 1 && (
-                        <View style={styles.line} />
+                        <Divider />
                       )}
                     </Fragment>
                   )
@@ -283,10 +291,5 @@ export const ProjectNotificationSettings = () => {
 const styles = StyleSheet.create({
   customInset: {
     paddingHorizontal: size.spacing.md,
-  },
-  line: {
-    borderBottomColor: color.border.divider,
-    borderBottomWidth: 1,
-    marginVertical: size.spacing.sm,
   },
 })
