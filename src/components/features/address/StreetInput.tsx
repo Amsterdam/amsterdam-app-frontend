@@ -4,7 +4,8 @@ import {TouchableOpacity} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Text, TextInput} from '../../ui'
+import {Text} from '../../ui'
+import {TextInput} from '../../ui/forms'
 import {Gutter} from '../../ui/layout'
 
 type Props = {

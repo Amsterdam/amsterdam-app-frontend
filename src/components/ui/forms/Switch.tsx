@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
-import {color} from '../../tokens'
-import {SkipInScreenReader} from './SkipInScreenReader'
-import {Row, Stretch} from './layout'
+import {color} from '../../../tokens'
+import {SkipInScreenReader} from '../SkipInScreenReader'
+import {Row, Stretch} from '../layout'
 
 type LabelPosition = 'start' | 'end'
 

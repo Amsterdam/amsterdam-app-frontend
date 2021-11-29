@@ -5,7 +5,8 @@ import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, SubmitButton, TextInput, Title} from '../../components/ui'
+import {Box, SubmitButton, Title} from '../../components/ui'
+import {TextInput} from '../../components/ui/forms'
 import {
   Column,
   Gutter,

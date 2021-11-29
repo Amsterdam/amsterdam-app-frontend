@@ -12,7 +12,8 @@ import {
   SubscribedProjects,
 } from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Attention, Box, Switch, Text, TextButton, Title} from '../../ui'
+import {Attention, Box, Text, TextButton, Title} from '../../ui'
+import {Switch} from '../../ui/forms'
 import {Column, ScrollView} from '../../ui/layout'
 
 export const ProjectNotificationSettings = () => {

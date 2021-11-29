@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import {color, font, size} from '../../tokens'
-import {Gutter} from './layout'
-import {Label} from './'
+import {color, font, size} from '../../../tokens'
+import {Label} from '../index'
+import {Gutter} from '../layout'
 
 type Props = {
   label: string
