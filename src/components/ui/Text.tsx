@@ -51,7 +51,7 @@ export const Text = ({
       handleScreenReaderToggled,
     )
 
-    return () => subscription
+    return () => subscription.remove()
   })
 
   return (
