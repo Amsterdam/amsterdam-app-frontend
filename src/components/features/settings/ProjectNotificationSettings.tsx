@@ -1,16 +1,12 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native'
+import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
 import {size} from '../../../tokens'
-import {
-  NotificationSettings,
-  ProjectOverviewItem,
-  SubscribedProjects,
-} from '../../../types'
+import {NotificationSettings, ProjectOverviewItem} from '../../../types'
 import {accessibleText} from '../../../utils'
 import {
   Attention,
@@ -77,48 +73,24 @@ export const ProjectNotificationSettings = () => {
   )
 
   // Toggle enabled notification settings
+  // and unsubscribe from all projects if disabling notifications
   const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
-    const unsubscribeAllProjectNotifications = (confirmed: boolean) => {
-      let projects: SubscribedProjects = notificationSettings?.projects ?? {}
-
-      if (confirmed) {
-        projects = Object.fromEntries(
-          Object.keys(projects).map(projectId => [projectId, false]),
+    const projects = projectsEnabled
+      ? notificationSettings?.projects ?? {}
+      : Object.fromEntries(
+          Object.keys(notificationSettings?.projects ?? {}).map(projectId => [
+            projectId,
+            false,
+          ]),
         )
-      }
 
-      setNotificationSettings({
-        ...notificationSettings,
-        projectsEnabled,
-        projects,
-      })
+    setNotificationSettings({
+      ...notificationSettings,
+      projectsEnabled,
+      projects,
+    })
 
-      setProjectNotificationSettingHasChanged(true)
-    }
-
-    const hasProjectNotificationSubscriptions = Object.entries(
-      notificationSettings?.projects ?? {},
-    ).some(value => value[1])
-
-    if (projectsEnabled || !hasProjectNotificationSubscriptions) {
-      unsubscribeAllProjectNotifications(true)
-    } else {
-      Alert.alert(
-        'Notificaties uitzetten',
-        'We zetten de notificaties uit voor al uw projecten. Dit kunnen we niet ongedaan maken.',
-        [
-          {
-            style: 'cancel',
-            text: 'Annuleren',
-          },
-          {
-            onPress: () => unsubscribeAllProjectNotifications(true),
-            style: 'destructive',
-            text: 'Ik begrijp het',
-          },
-        ],
-      )
-    }
+    setProjectNotificationSettingHasChanged(true)
   }
 
   // Toggle notification settings for a project
