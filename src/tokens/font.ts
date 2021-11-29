@@ -3,6 +3,7 @@ type FontList = {
   h2: number
   h3: number
   h4: number
+  l1: number // Slightly larger paragraph text, not in design system.
   p1: number
   t1: number
 }
@@ -24,6 +25,7 @@ export const font: FontTokens = {
     h2: 28,
     h3: 28,
     h4: 25,
+    l1: 25,
     p1: 22,
     t1: 18,
   },
@@ -32,6 +34,7 @@ export const font: FontTokens = {
     h2: 28,
     h3: 28,
     h4: 3,
+    l1: 3,
     p1: 22,
     t1: 18,
   },
@@ -40,6 +43,7 @@ export const font: FontTokens = {
     h2: 0,
     h3: 0,
     h4: 0,
+    l1: 0,
     p1: 0,
     t1: 0,
   },
@@ -48,6 +52,7 @@ export const font: FontTokens = {
     h2: 20,
     h3: 20,
     h4: 18,
+    l1: 18,
     p1: 16,
     t1: 14,
   },
