@@ -41,7 +41,7 @@ platform :android do
       task: 'assemble',
       build_type: 'Release',
       properties: {     
-        "android.injected.signing.store.file" => "upload-keystore",
+        "android.injected.signing.store.file" => "certs/upload-keystore",
         "android.injected.signing.store.password" => "Z706UwzJzN",     
         "android.injected.signing.key.alias" => "key0",
         "android.injected.signing.key.password" => "Z706UwzJzN"
