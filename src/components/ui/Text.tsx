@@ -46,17 +46,12 @@ export const Text = ({
   }
 
   useEffect(() => {
-    AccessibilityInfo.addEventListener(
+    const subscription = AccessibilityInfo.addEventListener(
       'screenReaderChanged',
       handleScreenReaderToggled,
     )
 
-    return () => {
-      AccessibilityInfo.removeEventListener(
-        'screenReaderChanged',
-        handleScreenReaderToggled,
-      )
-    }
+    return () => subscription
   })
 
   return (
