@@ -243,7 +243,7 @@ export const ProjectNotificationSettings = () => {
         <Column gutter="md">
           <Column gutter="sm">
             <View style={styles.customInset}>
-              <Text small accessibilityRole="header">
+              <Text intro accessibilityRole="header">
                 Projecten
               </Text>
             </View>
