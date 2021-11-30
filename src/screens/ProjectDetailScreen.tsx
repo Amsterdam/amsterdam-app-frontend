@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react'
 import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {NewsArticleOverview} from '../components/features/news'
+import {ArticleOverview} from '../components/features/news'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
   Box,
@@ -154,7 +154,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <ProjectBodyMenu project={project} />
       </Box>
       {project.articles.length ? (
-        <NewsArticleOverview projectId={project.identifier} />
+        <ArticleOverview projectId={project.identifier} />
       ) : null}
     </ScrollView>
   ) : null

@@ -6,12 +6,12 @@ import {Card, CardBody, Image, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 
 type Props = {
-  newsArticle: NewsArticle
+  article: NewsArticle
   onPress: () => void
 }
 
-export const NewsArticleOverviewItem = ({onPress, newsArticle}: Props) => {
-  const firstImage = newsArticle.images?.find(i => i.sources['220px'].url)
+export const ArticleOverviewItem = ({onPress, article}: Props) => {
+  const firstImage = article.images?.find(i => i.sources['220px'].url)
 
   return (
     <TouchableHighlight
@@ -28,7 +28,7 @@ export const NewsArticleOverviewItem = ({onPress, newsArticle}: Props) => {
           )}
           <Gutter width={size.spacing.md} />
           <View style={styles.text}>
-            <Text>{newsArticle.title}</Text>
+            <Text>{article.title}</Text>
           </View>
         </CardBody>
       </Card>

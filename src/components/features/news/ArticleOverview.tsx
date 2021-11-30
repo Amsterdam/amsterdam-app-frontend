@@ -10,13 +10,13 @@ import {size} from '../../../tokens'
 import {NewsArticleList} from '../../../types'
 import {Box, Title} from '../../ui'
 import {Gutter} from '../../ui/layout'
-import {NewsArticleOverviewItem} from './'
+import {ArticleOverviewItem} from './'
 
 type Props = {
   projectId: string
 }
 
-export const NewsArticleOverview = ({projectId}: Props) => {
+export const ArticleOverview = ({projectId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
   const news = useFetch<NewsArticleList>({
@@ -44,8 +44,8 @@ export const NewsArticleOverview = ({projectId}: Props) => {
               deviceContext.isLandscape && styles.item,
               styles.verticalGutter,
             ]}>
-            <NewsArticleOverviewItem
-              newsArticle={article}
+            <ArticleOverviewItem
+              article={article}
               onPress={() =>
                 navigation.navigate(routes.projectNews.name, {
                   id: article.identifier,
