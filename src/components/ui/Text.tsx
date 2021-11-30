@@ -5,6 +5,7 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
+import {useAsync} from '../../hooks'
 import {color, font} from '../../tokens'
 
 type Props = {
@@ -35,15 +36,14 @@ export const Text = ({
     boolean | undefined
   >()
 
-  useEffect(() => {
-    AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
-      setScreenReaderEnabled(isEnabled),
-    )
-  })
-
   const handleScreenReaderToggled = (screenReaderEnabled: boolean) => {
     setScreenReaderEnabled(screenReaderEnabled)
   }
+
+  useAsync(
+    () => AccessibilityInfo.isScreenReaderEnabled(),
+    handleScreenReaderToggled,
+  )
 
   useEffect(() => {
     const subscription = AccessibilityInfo.addEventListener(
