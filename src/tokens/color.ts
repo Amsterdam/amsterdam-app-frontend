@@ -42,15 +42,25 @@ export const color = {
     default: baseColor.neutral.grey2,
     divider: baseColor.neutral.grey3,
     onGrey: baseColor.neutral.grey3,
-    input: baseColor.neutral.grey4,
-    inputFocus: baseColor.primary.black,
     invalid: baseColor.support.invalid,
     primary: baseColor.primary.darkblue,
   },
-  checkbox: {
-    background: {
-      checked: baseColor.primary.black,
-      default: baseColor.primary.white,
+  control: {
+    default: {
+      background: baseColor.primary.white,
+      border: baseColor.neutral.grey4,
+    },
+    checked: {
+      background: baseColor.primary.black,
+      border: baseColor.primary.black,
+    },
+    focus: {
+      border: baseColor.primary.black,
+    },
+    switch: {
+      background: baseColor.neutral.grey4,
+      off: baseColor.neutral.grey4,
+      on: baseColor.support.valid,
     },
   },
   font: {
@@ -61,11 +71,6 @@ export const color = {
     regular: baseColor.primary.black,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
-  },
-  state: {
-    invalid: baseColor.support.invalid,
-    neutral: baseColor.neutral.grey4,
-    valid: baseColor.support.valid,
   },
   touchable: {
     pressed: baseColor.primary.red,

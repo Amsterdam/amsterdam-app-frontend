@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
     height: 24,
     padding: 4,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: color.border.input,
-    backgroundColor: color.checkbox.background.default,
+    borderColor: color.control.default.border,
+    backgroundColor: color.control.default.background,
     flex: 0,
   },
   checked: {
-    backgroundColor: color.checkbox.background.checked,
-    borderColor: color.checkbox.background.checked,
+    backgroundColor: color.control.checked.background,
+    borderColor: color.control.checked.background,
   },
 })

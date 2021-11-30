@@ -24,12 +24,14 @@ export const Radio = (props: Props) => {
       {...(inputProps as PressableProps)}
       accessibilityRole="radio"
       style={[styles.radioButton, props.isFirst && styles.firstRadioButton]}>
-      <Center style={styles.outerCircle}>
-        <CircleIcon
-          fill={color.background.darker}
-          opacity={isChecked ? 1 : 0}
-          style={styles.innerCircle}
-        />
+      <Center
+        style={[styles.outerCircle, isChecked && styles.outerCircleChecked]}>
+        {isChecked && (
+          <CircleIcon
+            fill={color.control.checked.background}
+            style={styles.innerCircle}
+          />
+        )}
       </Center>
       <View style={styles.text}>{props.children}</View>
     </Pressable>
@@ -37,31 +39,36 @@ export const Radio = (props: Props) => {
 }
 
 const outerCircleSize = 20
+const innerCircleSize = 12
 
 const styles = StyleSheet.create({
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: color.border.input,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: color.control.default.border,
     paddingVertical: size.spacing.md,
   },
   firstRadioButton: {
-    borderTopWidth: 1,
-    borderTopColor: color.border.input,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: color.control.default.border,
   },
   outerCircle: {
     width: outerCircleSize,
     height: outerCircleSize,
     marginRight: size.spacing.sm,
-    borderColor: color.border.input,
+    backgroundColor: color.control.default.background,
+    borderColor: color.control.default.border,
     borderRadius: outerCircleSize / 2,
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  outerCircleChecked: {
+    borderColor: color.control.checked.border,
   },
   innerCircle: {
-    height: 12,
-    width: 12,
+    height: innerCircleSize,
+    width: innerCircleSize,
   },
   text: {
     flexShrink: 1,
