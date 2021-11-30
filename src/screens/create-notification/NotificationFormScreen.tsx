@@ -59,16 +59,21 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const watchTitle = watch('title')
   const watchMessage = watch('message')
 
+  const numberOfNewsArticles = notificationContext.projectDetails.articles
+    ? notificationContext.projectDetails.articles.filter(
+        article => article.type === 'news',
+      ).length
+    : 0
+
   const onSubmit = (data: FormData) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
       project_identifier: notificationContext.projectDetails.id!,
     }
+
     const nextScreen =
-      notificationContext.projectDetails.articles.length > 0
-        ? 'SelectNewsArticle'
-        : 'WarningForm'
+      numberOfNewsArticles > 0 ? 'SelectNewsArticle' : 'WarningForm'
 
     notificationContext.changeNotification(notificationData)
     navigation.navigate(nextScreen)
@@ -159,7 +164,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         <Row align="end" valign="center">
           <SubmitButton
             onPress={handleSubmit(onSubmit)}
-            text="Kies een bericht"
+            text={
+              numberOfNewsArticles ? 'Kies een bericht' : 'Schrijf een bericht'
+            }
           />
         </Row>
         <Gutter height={size.spacing.xl} />
