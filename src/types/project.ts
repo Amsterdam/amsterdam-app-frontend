@@ -48,8 +48,9 @@ export type ProjectDetail = {
 // A summary of a news article related to a project
 export type ProjectDetailArticlePreview = {
   identifier: string
-  title: string
+  image: string
   publication_date: string
+  title: string
   type: 'news' | 'warning'
   image: Image
 }
