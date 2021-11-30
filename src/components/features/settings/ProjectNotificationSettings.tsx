@@ -165,11 +165,7 @@ export const ProjectNotificationSettings = () => {
       return
     }
 
-    await asyncStorage.storeData('notifications', {
-      ...notificationSettings,
-      projectsEnabled: notificationSettings?.projectsEnabled,
-      projects: notificationSettings?.projects,
-    })
+    await asyncStorage.storeData('notifications', notificationSettings)
 
     await deviceRegistration.store(
       notificationSettings?.projectsEnabled
