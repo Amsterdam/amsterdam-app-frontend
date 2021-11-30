@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import {color, font, size} from '../../tokens'
-import {Gutter} from './layout'
-import {Label} from './'
+import {color, font, size} from '../../../tokens'
+import {Label} from '../index'
+import {Gutter} from '../layout'
 
 type Props = {
   label: string
@@ -47,7 +47,9 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
     searchSection: {
       flexDirection: 'row',
       backgroundColor: color.background.white,
-      borderColor: hasFocus ? color.border.inputFocus : color.border.input,
+      borderColor: hasFocus
+        ? color.control.focus.border
+        : color.control.default.border,
       borderStyle: 'solid',
       borderWidth: hasFocus ? 2 : 1,
     },

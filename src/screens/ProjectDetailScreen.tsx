@@ -11,10 +11,10 @@ import {
   Image,
   NonScalingHeaderTitle,
   SingleSelectable,
-  Switch,
   Text,
   Title,
 } from '../components/ui'
+import {Switch} from '../components/ui/forms'
 import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'

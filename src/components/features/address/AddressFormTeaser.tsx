@@ -2,7 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../../App'
-import {Card, CardBody, Text, TextInput, Title} from '../../ui'
+import {Card, CardBody, Text, Title} from '../../ui'
+import {TextInput} from '../../ui/forms'
 
 type Props = {
   text: string
