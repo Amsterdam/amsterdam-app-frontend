@@ -51,7 +51,7 @@ steps:
   displayName: 'Download Keystore'
   name: Keystore
   inputs:
-    secureFile: 'upload-keystore'
+    secureFile: 'upload.keystore'
 # - script: |
 #     mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
 #     cd ios
