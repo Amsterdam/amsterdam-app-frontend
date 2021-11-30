@@ -15,4 +15,3 @@ builds/*
 *.xcarchive
 
 **/*.keystore
-**/upload-keystore
