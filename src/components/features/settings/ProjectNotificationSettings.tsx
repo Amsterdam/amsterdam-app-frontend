@@ -200,19 +200,26 @@ export const ProjectNotificationSettings = () => {
       </Box>
       <Box>
         {!notificationSettings?.projectsEnabled && (
-          <Column gutter="md">
-            <Title text="U ontvangt geen notificaties" />
-            <Text intro>
-              Voor werkzaamheden kunnen we u af en toe een notificatie sturen.
-              Dit doen we alleen als er echt iets aan de hand is en zal nooit
-              meer dan één keer per week zijn.
-            </Text>
-            <Text>
-              U kunt uw notificaties altijd weer uitzetten. Op deze pagina vindt
-              u een overzicht van uw notificaties en kunt u instellingen
-              beheren.
-            </Text>
-          </Column>
+          <Box background="white">
+            <Column gutter="md">
+              <Title level={2} text="U ontvangt nog geen notificaties" />
+              <Text intro>
+                Voor projecten sturen we af en toe een notificatie. Dit doen we
+                alleen als er iets aan de hand is wat u écht moet weten. Zoals
+                een gesprongen waterleiding waardoor de weg is afgezet.
+              </Text>
+              <Text>
+                U kunt uw notificaties aan zetten op de pagina van een project.
+                Onder instellingen vindt u een overzicht van uw notificaties, en
+                kunt deze altijd weer uit zetten.
+              </Text>
+              <TextButton
+                emphasis
+                onPress={() => navigation.navigate('ProjectOverview')}
+                text="Naar bouwwerkzaamheden"
+              />
+            </Column>
+          </Box>
         )}
         {notificationSettings?.projectsEnabled &&
         !subscribableProjectIds.length ? (
