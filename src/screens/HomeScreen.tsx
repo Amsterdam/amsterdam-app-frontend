@@ -1,6 +1,5 @@
-import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address'
@@ -11,32 +10,14 @@ import {useAsyncStorage} from '../hooks'
 import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
 
-type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>
-
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
-  route: HomeScreenRouteProp
 }
 
-export const HomeScreen = ({navigation, route}: Props) => {
+export const HomeScreen = ({navigation}: Props) => {
+  const asyncStorage = useAsyncStorage()
   const deviceContext = useContext(DeviceContext)
   const addressContext = useContext(AddressContext)
-  const asyncStorage = useAsyncStorage()
-
-  const getManagerIdFromStorage = useCallback(async () => {
-    const manager = await asyncStorage.getData('manager')
-    return manager?.id
-  }, [asyncStorage])
-
-  useEffect(() => {
-    const asyncFn = async () => {
-      const managerId = await getManagerIdFromStorage()
-      if (route.params?.id && !managerId) {
-        asyncStorage.storeData('manager', {id: route.params.id})
-      }
-    }
-    asyncFn()
-  }, [asyncStorage, getManagerIdFromStorage, route.params?.id])
 
   return (
     <ScrollView>
