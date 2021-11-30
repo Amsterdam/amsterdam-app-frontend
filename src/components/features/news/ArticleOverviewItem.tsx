@@ -1,18 +1,17 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import {image, size} from '../../../tokens'
-import {NewsArticle} from '../../../types'
+import {Image as ImageType} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 
 type Props = {
-  article: NewsArticle
+  articleImage: ImageType | undefined // `image` already in use for tokens
   onPress: () => void
+  title: string
 }
 
-export const ArticleOverviewItem = ({onPress, article}: Props) => {
-  const firstImage = article.images?.find(i => i.sources['220px'].url)
-
+export const ArticleOverviewItem = ({articleImage, onPress, title}: Props) => {
   return (
     <TouchableHighlight
       onPress={onPress}
@@ -20,15 +19,15 @@ export const ArticleOverviewItem = ({onPress, article}: Props) => {
       accessibilityRole="button">
       <Card>
         <CardBody direction="row">
-          {firstImage && (
+          {articleImage && (
             <Image
-              source={{uri: firstImage.sources['220px'].url}}
+              source={{uri: articleImage.sources['220px'].url}}
               style={styles.image}
             />
           )}
           <Gutter width={size.spacing.md} />
           <View style={styles.text}>
-            <Text>{article.title}</Text>
+            <Text>{title}</Text>
           </View>
         </CardBody>
       </Card>

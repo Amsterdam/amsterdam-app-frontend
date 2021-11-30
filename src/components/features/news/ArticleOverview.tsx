@@ -7,7 +7,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {NewsArticleList} from '../../../types'
+import {Image, NewsArticleList} from '../../../types'
 import {Box, Title} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {ArticleOverviewItem} from './'
@@ -16,20 +16,37 @@ type Props = {
   projectId: string
 }
 
+type ArticleTeaser = {
+  identifier: string
+  image: Image | undefined
+  title: string
+}
+
 export const ArticleOverview = ({projectId}: Props) => {
+  const deviceContext = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
-  const news = useFetch<NewsArticleList>({
+
+  const newsArticles = useFetch<NewsArticleList>({
     url: getEnvironment().apiUrl + '/project/news_by_project_id',
     options: {
       params: {'project-identifier': projectId},
     },
   })
-  const deviceContext = useContext(DeviceContext)
 
-  if (!news.data || !news.data?.length) {
+  if (!newsArticles.data) {
     return null
   }
+
+  const articleTeasers: ArticleTeaser[] = []
+
+  newsArticles.data.forEach(article =>
+    articleTeasers.push({
+      identifier: article.identifier,
+      image: article.images?.[0],
+      title: article.title,
+    }),
+  )
 
   return (
     <Box>
@@ -37,7 +54,7 @@ export const ArticleOverview = ({projectId}: Props) => {
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
       <View style={deviceContext.isLandscape && styles.grid}>
-        {news.data.map((article, index) => (
+        {newsArticles.data.map((article, index) => (
           <View
             key={`article-${index}`}
             style={[
@@ -45,12 +62,13 @@ export const ArticleOverview = ({projectId}: Props) => {
               styles.verticalGutter,
             ]}>
             <ArticleOverviewItem
-              article={article}
+              articleImage={article.images?.find(i => i.sources['220px'].url)}
               onPress={() =>
                 navigation.navigate(routes.projectNews.name, {
                   id: article.identifier,
                 })
               }
+              title={article.title}
             />
           </View>
         ))}
