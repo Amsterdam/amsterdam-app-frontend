@@ -155,6 +155,7 @@ export const ProjectNotificationSettings = () => {
     })
 
     setIsEditing(!isEditing)
+    setProjectNotificationSettingHasChanged(true)
   }
 
   // Store changed notification settings on device
@@ -167,7 +168,9 @@ export const ProjectNotificationSettings = () => {
     await asyncStorage.storeData('notifications', {
       ...notificationSettings,
       projectsEnabled: notificationSettings?.projectsEnabled,
+      projects: notificationSettings?.projects,
     })
+
     await deviceRegistration.store(
       notificationSettings?.projectsEnabled
         ? notificationSettings.projects ?? {}
