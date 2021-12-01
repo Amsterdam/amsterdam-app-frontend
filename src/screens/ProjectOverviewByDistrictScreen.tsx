@@ -1,11 +1,11 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
+import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
 import {ProjectCard} from '../components/features/project'
-import {NonScalingHeaderTitle} from '../components/ui'
-import {Center, Gutter} from '../components/ui/layout'
+import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
+import {Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -74,9 +74,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
       {isLoading || !gridWidth ? (
-        <Center style={styles.fullHeight}>
-          <ActivityIndicator />
-        </Center>
+        <PleaseWait />
       ) : (
         <FlatList
           contentContainerStyle={styles.grid}

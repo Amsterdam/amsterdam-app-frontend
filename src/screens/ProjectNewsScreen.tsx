@@ -1,10 +1,10 @@
 import {RouteProp} from '@react-navigation/native'
 import React, {useEffect, useState} from 'react'
-import {ActivityIndicator, StyleSheet, useWindowDimensions} from 'react-native'
+import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {RootStackParamList} from '../../App'
-import {Box, Image, Text, Title} from '../components/ui'
+import {Box, Image, PleaseWait, Text, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {tagsStyles} from '../styles/html'
@@ -41,11 +41,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
 
   return (
     <ScrollView>
-      {api.isLoading && (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      )}
+      {api.isLoading && <PleaseWait />}
       {firstImage && (
         <Image
           source={{uri: firstImage.sources['700px'].url}}

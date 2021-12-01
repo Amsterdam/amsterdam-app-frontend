@@ -1,7 +1,7 @@
 import React from 'react'
-import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
 import {BellActive, BellInactive} from '../../assets/icons'
-import {Box, Text} from '../../components/ui'
+import {Box, PleaseWait, Text} from '../../components/ui'
 import {Gutter} from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
@@ -38,11 +38,7 @@ export const NotificationOverviewScreen = () => {
   })
 
   if (isProjectsLoading || isNotificationsLoading) {
-    return (
-      <Box>
-        <ActivityIndicator />
-      </Box>
-    )
+    return <PleaseWait />
   }
 
   const notificationsWithReadStatus: Notification[] = (notifications ?? []).map(
