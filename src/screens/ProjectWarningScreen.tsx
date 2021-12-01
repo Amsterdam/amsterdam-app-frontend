@@ -1,9 +1,10 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {RouteProp} from '@react-navigation/native'
 import React, {useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
-import {Box, Button, Image, PleaseWait, Text, Title} from '../components/ui'
+import HeroImage from '../assets/images/warning-hero.svg'
+import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -40,10 +41,9 @@ export const ProjectWarningScreen = ({route}: Props) => {
 
   return warning ? (
     <ScrollView>
-      <Image
-        source={require('../assets/images/warning-hero.png')}
-        style={styles.image}
-      />
+      <View style={styles.svg}>
+        <HeroImage />
+      </View>
       <Box background="white">
         <Text margin secondary>
           {formatDate(warning.publication_date)}
@@ -71,9 +71,7 @@ export const ProjectWarningScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  image: {
-    aspectRatio: 371 / 165,
-    width: '100%',
-    flexShrink: 1,
+  svg: {
+    aspectRatio: 378 / 167,
   },
 })
