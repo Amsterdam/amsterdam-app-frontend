@@ -154,10 +154,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <ProjectBodyMenu project={project} />
       </Box>
       {project.articles.length ? (
-        <ArticleOverview
-          articles={project.articles}
-          tempProjectId={project.identifier}
-        />
+        <ArticleOverview articles={project.articles} />
       ) : null}
     </ScrollView>
   ) : null

@@ -6,6 +6,7 @@ import {Box, Button, Image, PleaseWait, Text, Title} from '../components/ui'
 import {Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
+import {color} from '../tokens'
 import {Warning} from '../types'
 import {formatDate} from '../utils'
 
@@ -19,40 +20,24 @@ type Props = {
 }
 
 export const ProjectWarningScreen = ({route}: Props) => {
-  const [warnings, setWarnings] = useState<Warning[] | undefined>([])
+  const [warning, setWarning] = useState<Warning | undefined>()
 
-  const api = useFetch<Warning[]>({
+  const api = useFetch<Warning>({
     url: getEnvironment().apiUrl + '/project/warning',
     options: {
       params: {
-        id: route.params.tempProjectId,
+        id: route.params.id,
       },
     },
   })
 
   useEffect(() => {
     if (api.data) {
-      setWarnings(api.data)
+      setWarning(api.data)
     }
   }, [api.data])
 
-  if (!warnings) {
-    return <PleaseWait />
-  }
-
-  const warning: Warning | undefined = warnings.find(
-    ({identifier}) => identifier === route.params.id,
-  )
-
-  if (!warning) {
-    return (
-      <Text>
-        404 Waarschuwing met identifier {route.params.id} niet gevonden.
-      </Text>
-    )
-  }
-
-  return (
+  return warning ? (
     <ScrollView>
       <Image
         source={require('../assets/images/warning-hero.png')}
@@ -76,6 +61,8 @@ export const ProjectWarningScreen = ({route}: Props) => {
         </Box>
       </Box>
     </ScrollView>
+  ) : (
+    <PleaseWait />
   )
 }
 

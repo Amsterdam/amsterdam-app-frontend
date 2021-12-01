@@ -43,7 +43,7 @@ export type RootStackParamList = {
   ProjectNews: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
-  ProjectWarning: {tempProjectId: string; id: string}
+  ProjectWarning: {id: string}
   Settings: undefined
   Waste: undefined
   WebView: WebViewRouteParams
