@@ -1,10 +1,11 @@
+import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
+import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import React, {Fragment, useCallback, useEffect, useState} from 'react'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {Checkmark, Close} from '../assets/icons'
-import {Box, Button, Text, Title} from '../components/ui'
+import {Box, Button, Divider, Text, Title} from '../components/ui'
 import {Column, Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useFetch} from '../hooks'
@@ -94,49 +95,57 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     <Column align="between">
       <Box background="white" inset="md">
         {authorizedProjects ? (
-          <>
-            <ScrollView>
-              <Column gutter="md">
-                <Row valign="center">
-                  <Checkmark viewBox="8 0 60 60" />
-                  <Title text="Gelukt!" />
-                </Row>
-                <Text intro>
-                  U kunt voor de volgende projecten een pushnotificatie
-                  versturen vanaf de projectpagina:
-                </Text>
-                <Column gutter="sm">
-                  {authorizedProjects.map(authProject => (
-                    <Column gutter="sm">
-                      <TouchableOpacity
-                        style={styles.button}
-                        accessibilityRole="button"
-                        key={authProject?.identifier}
-                        onPress={() => {
-                          authProject?.identifier &&
-                            navigation.navigate(routes.projectDetail.name, {
-                              id: authProject.identifier,
-                            })
-                        }}>
-                        <Text>{authProject?.title}</Text>
-                      </TouchableOpacity>
-                    </Column>
-                  ))}
-                </Column>
-              </Column>
-            </ScrollView>
-          </>
+          <ScrollView>
+            <Column gutter="md">
+              <Row valign="center" gutter="sm">
+                <Checkmark fill={color.status.success} height={32} width={32} />
+                <Title text="Gelukt!" />
+              </Row>
+              <Text intro>
+                U kunt voor de volgende projecten een pushnotificatie versturen
+                vanaf de projectpagina:
+              </Text>
+              <View>
+                <Divider />
+                {authorizedProjects.map((authProject, index) => (
+                  <Fragment key={authProject?.identifier}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      accessibilityRole="button"
+                      key={authProject?.identifier}
+                      onPress={() => {
+                        authProject?.identifier &&
+                          navigation.navigate(routes.projectDetail.name, {
+                            id: authProject.identifier,
+                          })
+                      }}>
+                      <Text>{authProject?.title}</Text>
+                      {authProject?.subtitle && (
+                        <Text secondary small>
+                          {authProject?.subtitle}
+                        </Text>
+                      )}
+                    </TouchableOpacity>
+                    {index < authorizedProjects.length && <Divider />}
+                  </Fragment>
+                ))}
+              </View>
+            </Column>
+          </ScrollView>
         ) : (
           <>
             <Column gutter="md">
-              <Row valign="center">
-                <Close viewBox="0 0 60 60" />
-                <Title text="Er gaat iets mis..." />
+              <Row valign="center" gutter="sm">
+                <Close fill={color.status.error} height={32} width={32} />
+                <Title text="Er gaat iets mis…" />
               </Row>
               <Text intro>
-                {
-                  'Helaas lukt het niet om de projecten te laden waarvoor u notificaties mag versturen.\n\nProbeer de app nogmaals te openen met de toegestuurde link. Lukt dit niet? Neem dan contact op met deredactie.'
-                }
+                Helaas lukt het niet om de projecten te laden waarvoor u
+                notificaties mag versturen. Probeer de app nogmaals te openen
+                met de toegestuurde link.
+              </Text>
+              <Text intro>
+                Lukt dit niet? Neem dan contact op met de redactie.
               </Text>
             </Column>
           </>
@@ -154,8 +163,6 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
 
 const styles = StyleSheet.create({
   button: {
-    padding: size.spacing.md,
-    borderWidth: 1,
-    borderColor: color.border.default,
+    paddingVertical: size.spacing.sm,
   },
 })
