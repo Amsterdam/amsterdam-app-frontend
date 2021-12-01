@@ -1,9 +1,9 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import {image, size} from '../../../tokens'
+import {image} from '../../../tokens'
 import {Image as ImageType} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
-import {Gutter} from '../../ui/layout'
+import {Row} from '../../ui/layout'
 
 type Props = {
   articleImage: ImageType | undefined // `image` already in use for tokens
@@ -18,17 +18,18 @@ export const ArticleOverviewItem = ({articleImage, onPress, title}: Props) => {
       style={styles.row}
       accessibilityRole="button">
       <Card>
-        <CardBody direction="row">
-          {articleImage && (
-            <Image
-              source={{uri: articleImage.sources['220px'].url}}
-              style={styles.image}
-            />
-          )}
-          <Gutter width={size.spacing.md} />
-          <View style={styles.text}>
-            <Text>{title}</Text>
-          </View>
+        <CardBody>
+          <Row gutter="md">
+            {articleImage && (
+              <Image
+                source={{uri: articleImage.sources['220px'].url}}
+                style={styles.image}
+              />
+            )}
+            <View style={styles.text}>
+              <Text>{title}</Text>
+            </View>
+          </Row>
         </CardBody>
       </Card>
     </TouchableHighlight>
