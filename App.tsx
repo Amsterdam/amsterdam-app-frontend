@@ -226,6 +226,11 @@ export const App = () => {
                 options={home.options}
               />
               <Stack.Screen
+                component={ProjectManagerScreen}
+                name={projectManager.name}
+                options={projectManager.options}
+              />
+              <Stack.Screen
                 component={AddressFormScreen}
                 name={addressForm.name}
                 options={addressForm.options}
@@ -285,11 +290,6 @@ export const App = () => {
                 component={WhereToPutBulkyWasteScreen}
                 name={whereToPutBulkyWaste.name}
                 options={whereToPutBulkyWaste.options}
-              />
-              <Stack.Screen
-                component={ProjectManagerScreen}
-                name={projectManager.name}
-                options={projectManager.options}
               />
             </Stack.Navigator>
           </NavigationContainer>
