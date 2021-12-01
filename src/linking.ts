@@ -27,6 +27,7 @@ export const linking = {
   config: {
     screens: {
       [routes.projectNews.name]: 'news/:id',
+      [routes.projectManager.name]: 'project-manager/:id',
     },
   },
   async getInitialURL() {
