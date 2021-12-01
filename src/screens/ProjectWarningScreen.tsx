@@ -41,7 +41,7 @@ export const ProjectWarningScreen = ({route}: Props) => {
 
   return warning ? (
     <ScrollView>
-      <View style={styles.svg}>
+      <View style={styles.image}>
         <HeroImage />
       </View>
       <Box background="white">
@@ -71,7 +71,7 @@ export const ProjectWarningScreen = ({route}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  svg: {
+  image: {
     aspectRatio: 378 / 167,
   },
 })

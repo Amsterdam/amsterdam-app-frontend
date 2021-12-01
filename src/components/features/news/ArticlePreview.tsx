@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
+import HeroImage from '../../../assets/images/warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
 import {ProjectDetailArticlePreview} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
@@ -19,11 +20,16 @@ export const ArticlePreview = ({article, onPress}: Props) => {
       <Card>
         <CardBody>
           <Row gutter="md">
-            {article.image && (
+            {article.type === 'news' && article.image && (
               <Image
                 source={{uri: article.image.sources['220px'].url}}
                 style={styles.image}
               />
+            )}
+            {article.type === 'warning' && (
+              <View style={styles.image}>
+                <HeroImage />
+              </View>
             )}
             <View style={styles.text}>
               <Text>{article.title}</Text>
