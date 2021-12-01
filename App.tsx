@@ -18,6 +18,7 @@ import {
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
+  ProjectWarningScreen,
   SettingsScreen,
   WasteScreen,
   WebViewRouteParams,
@@ -42,6 +43,7 @@ export type RootStackParamList = {
   ProjectNews: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
+  ProjectWarning: {tempProjectId: string; id: string}
   Settings: undefined
   Waste: undefined
   WebView: WebViewRouteParams
@@ -133,6 +135,12 @@ export const routes: Routes = {
       ),
     },
   },
+  projectWarning: {
+    name: 'ProjectWarning',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Waarschuwing" />,
+    },
+  },
   settings: {
     name: 'Settings',
     options: {
@@ -194,6 +202,7 @@ export const App = () => {
     projectNews,
     projectOverview,
     projectOverviewByDistrict,
+    projectWarning,
     settings,
     wasteGuide,
     webView,
@@ -252,6 +261,11 @@ export const App = () => {
                 component={ProjectOverviewByDistrictScreen}
                 name={projectOverviewByDistrict.name}
                 options={projectOverviewByDistrict.options}
+              />
+              <Stack.Screen
+                component={ProjectWarningScreen}
+                name={projectWarning.name}
+                options={projectWarning.options}
               />
               <Stack.Screen
                 component={SettingsScreen}

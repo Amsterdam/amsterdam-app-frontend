@@ -50,7 +50,7 @@ export type ProjectDetailArticlePreview = {
   identifier: string
   title: string
   publication_date: string
-  type: string
+  type: 'news' | 'warning'
   image: Image
 }
 

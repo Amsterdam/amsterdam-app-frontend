@@ -12,9 +12,10 @@ import {ArticlePreview} from './'
 
 type Props = {
   articles: ProjectDetailArticlePreview[]
+  tempProjectId: string
 }
 
-export const ArticleOverview = ({articles}: Props) => {
+export const ArticleOverview = ({articles, tempProjectId}: Props) => {
   const deviceContext = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
@@ -25,6 +26,19 @@ export const ArticleOverview = ({articles}: Props) => {
 
   // TODO Remove after endpoint updated
   articles.sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
+
+  const navigateToArticle = (article: ProjectDetailArticlePreview) => {
+    if (article.type === 'news') {
+      navigation.navigate(routes.projectNews.name, {
+        id: article.identifier,
+      })
+    } else if (article.type === 'warning') {
+      navigation.navigate(routes.projectWarning.name, {
+        tempProjectId,
+        id: article.identifier,
+      })
+    }
+  }
 
   return (
     <Box>
@@ -42,11 +56,7 @@ export const ArticleOverview = ({articles}: Props) => {
             ]}>
             <ArticlePreview
               article={article}
-              onPress={() =>
-                navigation.navigate(routes.projectNews.name, {
-                  id: article.identifier,
-                })
-              }
+              onPress={() => navigateToArticle(article)}
             />
           </View>
         ))}
