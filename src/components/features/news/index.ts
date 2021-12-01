@@ -1,2 +1,2 @@
 export * from './ArticleOverview'
-export * from './ArticleOverviewItem'
+export * from './ArticlePreview'

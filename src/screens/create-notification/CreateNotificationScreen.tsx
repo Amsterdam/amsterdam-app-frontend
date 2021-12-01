@@ -10,7 +10,7 @@ import {color} from '../../tokens'
 import {
   NewNotification,
   NewWarning,
-  ProjectDetailNewsArticle,
+  ProjectDetailArticlePreview,
   ResponseStatus,
 } from '../../types'
 import {NotificationResponseScreen} from './NotificationResponseScreen'
@@ -49,7 +49,7 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  articles: ProjectDetailNewsArticle[]
+  articles: ProjectDetailArticlePreview[]
   id: string
   title: string
 }

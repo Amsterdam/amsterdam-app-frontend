@@ -1,17 +1,16 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import {image} from '../../../tokens'
-import {Image as ImageType} from '../../../types'
+import {image as imageTokens} from '../../../tokens'
+import {ProjectDetailArticlePreview} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
 type Props = {
-  articleImage: ImageType | undefined // `image` already in use for tokens
+  article: ProjectDetailArticlePreview
   onPress: () => void
-  title: string
 }
 
-export const ArticleOverviewItem = ({articleImage, onPress, title}: Props) => {
+export const ArticlePreview = ({article, onPress}: Props) => {
   return (
     <TouchableHighlight
       onPress={onPress}
@@ -20,14 +19,14 @@ export const ArticleOverviewItem = ({articleImage, onPress, title}: Props) => {
       <Card>
         <CardBody>
           <Row gutter="md">
-            {articleImage && (
+            {article.image && (
               <Image
-                source={{uri: articleImage.sources['220px'].url}}
+                source={{uri: article.image.sources['220px'].url}}
                 style={styles.image}
               />
             )}
             <View style={styles.text}>
-              <Text>{title}</Text>
+              <Text>{article.title}</Text>
             </View>
           </Row>
         </CardBody>
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     alignSelf: 'center',
-    aspectRatio: image.aspectRatio.vintage,
+    aspectRatio: imageTokens.aspectRatio.vintage,
     resizeMode: 'cover',
   },
   row: {
