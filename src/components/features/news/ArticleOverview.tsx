@@ -7,7 +7,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {Image, NewsArticle} from '../../../types'
+import {Image, NewsArticle, Warning} from '../../../types'
 import {Box, Title} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {ArticleOverviewItem} from './'
@@ -34,13 +34,23 @@ export const ArticleOverview = ({projectId}: Props) => {
     },
   })
 
-  if (!newsArticles.data) {
+  const warningArticles = useFetch<Warning[]>({
+    url: getEnvironment().apiUrl + '/project/warning',
+    options: {
+      params: {'project-identifier': projectId},
+    },
+  })
+
+  if (!newsArticles.data || !warningArticles.data) {
     return null
   }
 
+  const articles = [...newsArticles.data, ...warningArticles.data].sort(
+    (a, b) => (a.publication_date < b.publication_date ? 1 : -1),
+  )
   const articleTeasers: ArticleTeaser[] = []
 
-  newsArticles.data.forEach(article =>
+  articles.forEach(article =>
     articleTeasers.push({
       identifier: article.identifier,
       image: article.images?.[0],
@@ -54,7 +64,7 @@ export const ArticleOverview = ({projectId}: Props) => {
       <Title level={2} text="Nieuws" />
       <Gutter height={size.spacing.sm} />
       <View style={deviceContext.isLandscape && styles.grid}>
-        {newsArticles.data.map((article, index) => (
+        {articles.map((article, index) => (
           <View
             key={`article-${index}`}
             style={[
