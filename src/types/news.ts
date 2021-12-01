@@ -1,8 +1,6 @@
 import {Image} from './image'
 import {RichText} from './section'
 
-export type NewsArticleList = NewsArticle[]
-
 export type NewsArticle = {
   identifier: string
   project_identifier: string

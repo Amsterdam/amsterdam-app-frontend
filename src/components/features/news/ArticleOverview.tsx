@@ -7,7 +7,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {Image, NewsArticleList} from '../../../types'
+import {Image, NewsArticle} from '../../../types'
 import {Box, Title} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {ArticleOverviewItem} from './'
@@ -27,7 +27,7 @@ export const ArticleOverview = ({projectId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectNews'>>()
 
-  const newsArticles = useFetch<NewsArticleList>({
+  const newsArticles = useFetch<NewsArticle[]>({
     url: getEnvironment().apiUrl + '/project/news_by_project_id',
     options: {
       params: {'project-identifier': projectId},
