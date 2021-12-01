@@ -1,3 +1,4 @@
+import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {RouteProp} from '@react-navigation/native'
 import React, {useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
@@ -56,7 +57,10 @@ export const ProjectWarningScreen = ({route}: Props) => {
       <Box>
         <Box background="white">
           <Row>
-            <Button text={warning.author_email} />
+            <Button
+              icon={<Email fill={color.font.inverse} />}
+              text={warning.author_email}
+            />
           </Row>
         </Box>
       </Box>
