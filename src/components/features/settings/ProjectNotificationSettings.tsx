@@ -178,21 +178,21 @@ export const ProjectNotificationSettings = () => {
             <Column gutter="md">
               <Title level={2} text="U ontvangt geen berichten" />
               <Text intro>
-                Voor projecten sturen we af en toe een pushbericht. Dit doen we
-                alleen als er iets aan de hand is wat u écht moet weten. Zoals
-                een gesprongen waterleiding waardoor de weg is afgezet.
+                Voor werkzaamheden sturen we af en toe een pushbericht. Dit doen
+                we alleen als er iets aan de hand is wat u écht moet weten.
+                Zoals een gesprongen waterleiding waardoor de weg is afgezet.
               </Text>
               <Text>
-                U kunt pushberichten aan zetten op de pagina van een project.
-                Onder ‘Instellingen’ vindt u een overzicht van de projecten
-                waarvoor u pushberichten ontvangt. Deze kunt u altijd weer uit
-                zetten.
+                U kunt pushberichten aan zetten op de pagina van een
+                werkzaamheid. Onder ‘Instellingen’ vindt u een overzicht van de
+                werkzaamheden waarvoor u pushberichten ontvangt. Deze kunt u
+                altijd weer uit zetten.
               </Text>
               <Text>
                 U kunt uw toestemming voor pushberichten intrekken via de
                 instellingen van uw toestel. Berichten over uw geselecteerde
-                projecten verschijnen dan nog wel in de app, maar niet meer in
-                het berichtencentrum van uw toestel.
+                werkzaamheden verschijnen dan nog wel in de app, maar niet meer
+                in het berichtencentrum van uw toestel.
               </Text>
               <TextButton
                 emphasis
@@ -225,7 +225,7 @@ export const ProjectNotificationSettings = () => {
           <Column gutter="sm">
             <View style={styles.customInset}>
               <Text intro accessibilityRole="header">
-                Projecten
+                Werkzaamheden
               </Text>
             </View>
             <Box background="white" borderVertical insetHorizontal="md">
@@ -310,7 +310,7 @@ export const ProjectNotificationSettings = () => {
               <Button
                 variant="secondary"
                 onPress={() => deleteProjects()}
-                text="Verwijder projecten"
+                text="Verwijder werkzaamheden"
               />
             </Row>
           ) : (
@@ -318,7 +318,7 @@ export const ProjectNotificationSettings = () => {
               <TextButton
                 emphasis
                 onPress={() => setIsEditing(!isEditing)}
-                text="Projecten verwijderen"
+                text="Werkzaamheden verwijderen"
               />
             </Row>
           )}
