@@ -10,7 +10,7 @@ import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {color} from '../tokens'
 import {Warning} from '../types'
-import {formatDate} from '../utils'
+import {formatDate, openMailUrl} from '../utils'
 
 type ProjectWarningScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -59,6 +59,7 @@ export const ProjectWarningScreen = ({route}: Props) => {
           <Row>
             <Button
               icon={<Email fill={color.font.inverse} />}
+              onPress={() => openMailUrl(warning.author_email)}
               text={warning.author_email}
             />
           </Row>
