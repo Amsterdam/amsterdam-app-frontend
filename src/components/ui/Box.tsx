@@ -7,6 +7,8 @@ type Props = {
   borderVertical?: Boolean
   children: React.ReactNode
   inset?: keyof Spacing
+  insetHorizontal?: keyof Spacing
+  insetVertical?: keyof Spacing
 } & Omit<ViewProps, 'style'>
 
 export const Box = ({
@@ -14,12 +16,17 @@ export const Box = ({
   borderVertical,
   children,
   inset = 'md',
+  insetHorizontal,
+  insetVertical,
   ...otherProps
 }: Props) => {
   const styles = StyleSheet.create({
     box: {
       backgroundColor: background && color.background[background],
-      padding: size.spacing[inset],
+      padding:
+        inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
+      paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
+      paddingVertical: insetVertical && size.spacing[insetVertical],
     },
     borderVertical: {
       borderBottomColor: color.border.onGrey,

@@ -160,7 +160,11 @@ export const ProjectNotificationSettings = () => {
 
   return (
     <ScrollView>
-      <Box background="white" borderVertical>
+      <Box
+        background="white"
+        borderVertical
+        insetHorizontal="md"
+        insetVertical="sm">
         <Switch
           accessibilityLabel="Notificaties"
           label={<Text>Notificaties</Text>}
@@ -219,7 +223,7 @@ export const ProjectNotificationSettings = () => {
                 Projecten
               </Text>
             </View>
-            <Box background="white" borderVertical>
+            <Box background="white" borderVertical insetHorizontal="md">
               {subscribableProjectIds.map((projectId, index) => {
                 const project = allProjects?.find(
                   p => p.identifier === projectId,
@@ -245,44 +249,48 @@ export const ProjectNotificationSettings = () => {
                 return (
                   project && (
                     <Fragment key={project.identifier}>
-                      {isEditing ? (
-                        <Checkbox
-                          accessibilityLabel={accessibleText(
-                            project.title,
-                            project.subtitle,
-                          )}
-                          label={
-                            <Label
-                              title={project.title}
-                              subtitle={project.subtitle}
-                            />
-                          }
-                          onValueChange={() =>
-                            toggleProjectListing(project.identifier)
-                          }
-                          value={selectedProjects.includes(project.identifier)}
-                        />
-                      ) : (
-                        <Switch
-                          accessibilityLabel={accessibleText(
-                            project.title,
-                            project.subtitle,
-                          )}
-                          label={
-                            <Label
-                              title={project.title}
-                              subtitle={project.subtitle}
-                            />
-                          }
-                          onValueChange={() =>
-                            toggleProjectSubscription(
+                      <Box insetVertical="sm">
+                        {isEditing ? (
+                          <Checkbox
+                            accessibilityLabel={accessibleText(
+                              project.title,
+                              project.subtitle,
+                            )}
+                            label={
+                              <Label
+                                title={project.title}
+                                subtitle={project.subtitle}
+                              />
+                            }
+                            onValueChange={() =>
+                              toggleProjectListing(project.identifier)
+                            }
+                            value={selectedProjects.includes(
                               project.identifier,
-                              !subscribed,
-                            )
-                          }
-                          value={subscribed}
-                        />
-                      )}
+                            )}
+                          />
+                        ) : (
+                          <Switch
+                            accessibilityLabel={accessibleText(
+                              project.title,
+                              project.subtitle,
+                            )}
+                            label={
+                              <Label
+                                title={project.title}
+                                subtitle={project.subtitle}
+                              />
+                            }
+                            onValueChange={() =>
+                              toggleProjectSubscription(
+                                project.identifier,
+                                !subscribed,
+                              )
+                            }
+                            value={subscribed}
+                          />
+                        )}
+                      </Box>
                       {index < (subscribableProjectIds.length ?? 0) - 1 && (
                         <Divider />
                       )}
