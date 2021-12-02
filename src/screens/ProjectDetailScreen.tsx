@@ -1,15 +1,16 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react'
-import {ActivityIndicator, ScrollView, StyleSheet} from 'react-native'
+import {ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {NewsArticleOverview} from '../components/features/news'
+import {ArticleOverview} from '../components/features/news'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
   Box,
   Button,
   Image,
   NonScalingHeaderTitle,
+  PleaseWait,
   SingleSelectable,
   Text,
   Title,
@@ -110,9 +111,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, [projectNotificationSettingHasChanged, storeSettings])
 
   return isLoading && !project ? (
-    <Box>
-      <ActivityIndicator />
-    </Box>
+    <PleaseWait />
   ) : project ? (
     <ScrollView>
       {project.images && project.images[0].sources.orig.url && (
@@ -154,7 +153,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         <ProjectBodyMenu project={project} />
       </Box>
       {project.articles.length ? (
-        <NewsArticleOverview projectId={project.identifier} />
+        <ArticleOverview articles={project.articles} />
       ) : null}
     </ScrollView>
   ) : null

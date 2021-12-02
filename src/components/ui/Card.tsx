@@ -9,7 +9,6 @@ type CardProps = {
 
 type CardBodyProps = {
   children: React.ReactNode
-  direction?: 'column' | 'row'
 }
 
 type CardHeaderProps = {
@@ -24,8 +23,8 @@ export const CardHeader = ({children}: CardHeaderProps) => (
   <View style={styles.cardHeader}>{children}</View>
 )
 
-export const CardBody = ({children, direction = 'column'}: CardBodyProps) => (
-  <View style={[styles.cardBody, styles[direction]]}>{children}</View>
+export const CardBody = ({children}: CardBodyProps) => (
+  <View style={styles.cardBody}>{children}</View>
 )
 
 const styles = StyleSheet.create({
@@ -36,12 +35,6 @@ const styles = StyleSheet.create({
   cardBorder: {
     borderWidth: 1,
     borderColor: color.border.default,
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  row: {
-    flexDirection: 'row',
   },
   cardBody: {
     padding: size.spacing.md,

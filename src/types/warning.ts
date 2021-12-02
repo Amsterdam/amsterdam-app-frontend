@@ -4,8 +4,8 @@ import {Image} from './image'
 export type NewWarning = {
   title: string
   body: {
-    preface: string
     content: string
+    preface: string
   }
   project_identifier: string
   project_manager_token: string
@@ -13,11 +13,11 @@ export type NewWarning = {
 
 // Our backend adds a number of fields
 export type Warning = NewWarning & {
+  author_email: string
   identifier: string
   images?: Image[]
-  publication_date: number // Unix timestamp
-  modified_date?: number // Unix timestamp
-  author_email: string
+  modification_date?: string
+  publication_date: string
 }
 
 export type WarningResponse = {

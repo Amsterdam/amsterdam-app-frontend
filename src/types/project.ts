@@ -19,6 +19,7 @@ export type ProjectOverviewItem = {
 
 // All project details as received from our backend
 export type ProjectDetail = {
+  articles: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
     coordinates: {
@@ -37,7 +38,6 @@ export type ProjectDetail = {
   district_name: string
   identifier: string
   images: Image[]
-  articles: ProjectDetailNewsArticle[]
   page_id: number
   rel_url: string
   subtitle: string
@@ -46,10 +46,12 @@ export type ProjectDetail = {
 }
 
 // A summary of a news article related to a project
-export type ProjectDetailNewsArticle = {
+export type ProjectDetailArticlePreview = {
   identifier: string
-  project_identifier: string
-  url: string
+  title: string
+  publication_date: string
+  type: 'news' | 'warning'
+  image: Image
 }
 
 // A set of project body sections, used in the front-end

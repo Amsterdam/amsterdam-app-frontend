@@ -1,9 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native'
+import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectCard} from '../components/features/project'
-import {Box, Button, Text, Title} from '../components/ui'
+import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
 import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
@@ -44,9 +44,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
   return (
     <>
       {isLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
+        <PleaseWait />
       ) : (
         <FlatList
           data={projectsByDistrict}
