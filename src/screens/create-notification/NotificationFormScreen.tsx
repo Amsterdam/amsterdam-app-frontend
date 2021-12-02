@@ -16,6 +16,7 @@ import {
 } from '../../components/ui/layout'
 import {size} from '../../tokens'
 import {NewNotification} from '../../types'
+import {formatTime} from '../../utils'
 import {
   NotificationContext,
   NotificationStackParamList,
@@ -46,6 +47,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const [characterCountMessage, setCharacterCountMessage] = useState<number>(
     maxCharacters.message,
   )
+  const now = Date.now()
 
   const {
     control,
@@ -57,16 +59,21 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const watchTitle = watch('title')
   const watchMessage = watch('message')
 
+  const numberOfNewsArticles = notificationContext.projectDetails.articles
+    ? notificationContext.projectDetails.articles.filter(
+        article => article.type === 'news',
+      ).length
+    : 0
+
   const onSubmit = (data: FormData) => {
     const notificationData: NewNotification = {
       title: data.title,
       body: data.message,
       project_identifier: notificationContext.projectDetails.id!,
     }
+
     const nextScreen =
-      notificationContext.projectDetails.articles.length > 0
-        ? 'SelectNewsArticle'
-        : 'WarningForm'
+      numberOfNewsArticles > 0 ? 'SelectNewsArticle' : 'WarningForm'
 
     notificationContext.changeNotification(notificationData)
     navigation.navigate(nextScreen)
@@ -112,7 +119,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="title"
-                  defaultValue=""
+                  defaultValue={'TEST ' + formatTime(now) + ' '}
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.title - characterCountTitle}
@@ -140,7 +147,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="message"
-                  defaultValue=""
+                  defaultValue="Lorem ipsum dolor sit amet. We testen de notificaties van de Amsterdam app."
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.message - characterCountMessage}
@@ -157,7 +164,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         <Row align="end" valign="center">
           <SubmitButton
             onPress={handleSubmit(onSubmit)}
-            text="Kies een bericht"
+            text={
+              numberOfNewsArticles ? 'Kies een bericht' : 'Schrijf een bericht'
+            }
           />
         </Row>
         <Gutter height={size.spacing.xl} />
