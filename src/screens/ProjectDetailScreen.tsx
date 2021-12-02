@@ -16,7 +16,7 @@ import {
   Title,
 } from '../components/ui'
 import {Switch} from '../components/ui/forms'
-import {Gutter} from '../components/ui/layout'
+import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
@@ -138,36 +138,36 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="white">
-        {projectManagerSettings?.projects.includes(project.identifier) && (
-          <Button
-            onPress={() =>
-              navigation.navigate(routes.notification.name, {
-                projectDetails: {
-                  articles: project.articles,
-                  id: project.identifier,
-                  title: project.title,
-                },
-              })
-            }
-            text="Verstuur notificatie"
-            variant="inverse"
+        <Column gutter="md">
+          {projectManagerSettings?.projects.includes(project.identifier) && (
+            <Button
+              onPress={() =>
+                navigation.navigate(routes.notification.name, {
+                  projectDetails: {
+                    articles: project.articles,
+                    id: project.identifier,
+                    title: project.title,
+                  },
+                })
+              }
+              text="Verstuur notificatie"
+              variant="inverse"
+            />
+          )}
+          <SingleSelectable
+            accessibilityRole="header"
+            label={accessibleText(project.title, project.subtitle)}>
+            {project.title && <Title text={project.title} />}
+            {project.subtitle && <Text intro>{project.subtitle}</Text>}
+          </SingleSelectable>
+          <Switch
+            accessibilityLabel="Ontvang notificaties"
+            label={<Text>Ontvang notificaties</Text>}
+            labelPosition="end"
+            onValueChange={() => toggleProjectSubscription(project.identifier)}
+            value={subscribed}
           />
-        )}
-        <Gutter height={size.spacing.md} />
-        <SingleSelectable
-          accessibilityRole="header"
-          label={accessibleText(project.title, project.subtitle)}>
-          {project.title && <Title text={project.title} />}
-          {project.subtitle && <Text intro>{project.subtitle}</Text>}
-        </SingleSelectable>
-        <Gutter height={size.spacing.md} />
-        <Switch
-          accessibilityLabel="Ontvang notificaties"
-          label={<Text>Ontvang notificaties</Text>}
-          labelPosition="end"
-          onValueChange={() => toggleProjectSubscription(project.identifier)}
-          value={subscribed}
-        />
+        </Column>
         <Gutter height={size.spacing.lg} />
         <ProjectBodyMenu project={project} />
       </Box>
