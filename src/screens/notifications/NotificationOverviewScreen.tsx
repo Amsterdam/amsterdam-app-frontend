@@ -74,7 +74,7 @@ export const NotificationOverviewScreen = () => {
         ))
       ) : (
         <Box>
-          <Text>Geen notificaties gevonden.</Text>
+          <Text>Geen berichten gevonden.</Text>
         </Box>
       )}
     </ScrollView>

@@ -91,7 +91,7 @@ export const routes: Routes = {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
-      headerTitle: () => <NonScalingHeaderTitle text="Verstuur notificatie" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
     },
   },
   notificationOverview: {
@@ -100,7 +100,7 @@ export const routes: Routes = {
       cardStyle: {
         backgroundColor: color.background.white,
       },
-      headerTitle: () => <NonScalingHeaderTitle text="Notificaties" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
     },
   },
   projectDetail: {

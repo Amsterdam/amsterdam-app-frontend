@@ -99,7 +99,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
       <Stretch>
         <Box>
           <Column gutter="lg">
-            <Title text="Schrijf een notificatie" />
+            <Title text="Schrijf een pushbericht" />
             <>
               <Column gutter="xs">
                 <Controller
@@ -109,8 +109,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de titel van de notificatie?"
-                      label="Wat is de titel van de notificatie?"
+                      accessibilityLabel="Wat is de titel van het pushbericht?"
+                      label="Wat is de titel van het pushbericht?"
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
@@ -136,8 +136,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de tekst van de notificatie?"
-                      label="Wat is de tekst van de notificatie?"
+                      accessibilityLabel="Wat is de tekst van het pushbericht?"
+                      label="Wat is de tekst van het pushbericht?"
                       maxLength={maxCharacters.message}
                       multiline={true}
                       numberOfLines={3}
@@ -147,14 +147,14 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="message"
-                  defaultValue="Lorem ipsum dolor sit amet. We testen de notificaties van de Amsterdam app."
+                  defaultValue="Lorem ipsum dolor sit amet. We testen pushberichten vanuit de Amsterdam app."
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.message - characterCountMessage}
                 />
               </Column>
               {errors.message && (
-                <ValidationWarning warning="Type een bericht" />
+                <ValidationWarning warning="Type een pushbericht" />
               )}
             </>
           </Column>
@@ -165,7 +165,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
           <SubmitButton
             onPress={handleSubmit(onSubmit)}
             text={
-              numberOfNewsArticles ? 'Kies een bericht' : 'Schrijf een bericht'
+              numberOfNewsArticles
+                ? 'Kies een nieuwsartikel'
+                : 'Schrijf een nieuwsartikel'
             }
           />
         </Row>

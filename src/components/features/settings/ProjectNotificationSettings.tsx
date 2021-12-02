@@ -164,8 +164,8 @@ export const ProjectNotificationSettings = () => {
         insetHorizontal="md"
         insetVertical="sm">
         <Switch
-          accessibilityLabel="Notificaties"
-          label={<Text>Notificaties</Text>}
+          accessibilityLabel="Berichten ontvangen"
+          label={<Text>Berichten ontvangen</Text>}
           onValueChange={() =>
             toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
@@ -176,16 +176,23 @@ export const ProjectNotificationSettings = () => {
         {!notificationSettings?.projectsEnabled && (
           <Box background="white">
             <Column gutter="md">
-              <Title level={2} text="U ontvangt nog geen notificaties" />
+              <Title level={2} text="U ontvangt geen berichten" />
               <Text intro>
-                Voor projecten sturen we af en toe een notificatie. Dit doen we
+                Voor projecten sturen we af en toe een pushbericht. Dit doen we
                 alleen als er iets aan de hand is wat u écht moet weten. Zoals
                 een gesprongen waterleiding waardoor de weg is afgezet.
               </Text>
               <Text>
-                U kunt uw notificaties aan zetten op de pagina van een project.
-                Onder instellingen vindt u een overzicht van uw notificaties, en
-                kunt deze altijd weer uit zetten.
+                U kunt pushberichten aan zetten op de pagina van een project.
+                Onder ‘Instellingen’ vindt u een overzicht van de projecten
+                waarvoor u pushberichten ontvangt. Deze kunt u altijd weer uit
+                zetten.
+              </Text>
+              <Text>
+                U kunt uw toestemming voor pushberichten intrekken via de
+                instellingen van uw toestel. Berichten over uw geselecteerde
+                projecten verschijnen dan nog wel in de app, maar niet meer in
+                het berichtencentrum van uw toestel.
               </Text>
               <TextButton
                 emphasis
@@ -200,8 +207,8 @@ export const ProjectNotificationSettings = () => {
           <Column gutter="md">
             <Attention>
               <Text>
-                Zet notificaties aan op pagina’s van werkzaamheden waar u
-                notificaties voor wilt ontvangen.
+                Zet berichten aan op pagina’s van werkzaamheden waar u berichten
+                voor wilt ontvangen.
               </Text>
             </Attention>
             <TextButton

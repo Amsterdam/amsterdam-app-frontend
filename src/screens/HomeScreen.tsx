@@ -64,7 +64,7 @@ export const HomeScreen = ({navigation}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.notificationOverview.name)
                 }
-                text="Controleer notificaties"
+                text="Lees berichten"
               />
               <Button
                 onPress={() => navigation.navigate(routes.settings.name)}

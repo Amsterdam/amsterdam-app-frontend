@@ -149,7 +149,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 },
               })
             }
-            text="Verstuur notificatie"
+            text="Verstuur pushbericht"
             variant="inverse"
           />
         )}
@@ -162,8 +162,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </SingleSelectable>
         <Gutter height={size.spacing.md} />
         <Switch
-          accessibilityLabel="Ontvang notificaties"
-          label={<Text>Ontvang notificaties</Text>}
+          accessibilityLabel="Ontvang berichten"
+          label={<Text>Ontvang berichten</Text>}
           labelPosition="end"
           onValueChange={() => toggleProjectSubscription(project.identifier)}
           value={subscribed}

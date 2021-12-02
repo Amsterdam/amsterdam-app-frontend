@@ -114,7 +114,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
       <Stretch>
         <Box>
           <Column gutter="lg">
-            <Title text="Schrijf een bericht" />
+            <Title text="Schrijf een nieuwsartikel" />
             <>
               <Column gutter="xs">
                 <Controller
@@ -124,8 +124,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Titel nieuwsbericht"
-                      label="Titel nieuwsbericht"
+                      accessibilityLabel="Titel nieuwsartikel"
+                      label="Titel nieuwsartikel"
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
@@ -151,8 +151,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Intro nieuwsbericht"
-                      label="Intro nieuwsbericht"
+                      accessibilityLabel="Intro nieuwsartikel"
+                      label="Intro nieuwsartikel"
                       maxLength={maxCharacters.intro}
                       multiline={true}
                       numberOfLines={3}
@@ -168,9 +168,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   charactersLeft={maxCharacters.intro - characterCountIntro}
                 />
               </Column>
-              {errors.intro && (
-                <ValidationWarning warning="Type een introbericht" />
-              )}
+              {errors.intro && <ValidationWarning warning="Type een intro" />}
             </>
             <>
               <Column gutter="xs">
@@ -181,8 +179,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Tekst nieuwsbericht"
-                      label="Tekst nieuwsbericht"
+                      accessibilityLabel="Tekst nieuwsartikel"
+                      label="Tekst nieuwsartikel"
                       maxLength={maxCharacters.message}
                       multiline={true}
                       numberOfLines={5}
@@ -199,7 +197,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
                 />
               </Column>
               {errors.message && (
-                <ValidationWarning warning="Type een nieuwsbericht" />
+                <ValidationWarning warning="Type een nieuwsartikel" />
               )}
             </>
           </Column>
