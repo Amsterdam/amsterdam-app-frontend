@@ -76,9 +76,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   // Retrieve project manager settings from device and save to component state
   useEffect(() => {
     const retrieveProjectManagerSettings = async () => {
-      const newSettings: ProjectManagerSettings | undefined =
+      const newProjectManagerSettings: ProjectManagerSettings | undefined =
         await asyncStorage.getData('project-manager')
-      setProjectManagerSettings(newSettings)
+      setProjectManagerSettings(newProjectManagerSettings)
     }
     retrieveProjectManagerSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -86,9 +86,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveNotificationSettings = async () => {
-      const settings: NotificationSettings | undefined =
+      const newNotificationSetting: NotificationSettings | undefined =
         await asyncStorage.getData('notifications')
-      setNotificationSettings(settings)
+      setNotificationSettings(newNotificationSetting)
     }
     retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
