@@ -197,7 +197,7 @@ export const ProjectNotificationSettings = () => {
               <TextButton
                 emphasis
                 onPress={() => navigation.navigate('ProjectOverview')}
-                text="Naar bouwwerkzaamheden"
+                text="Naar werkzaamheden"
               />
             </Column>
           </Box>
@@ -214,7 +214,7 @@ export const ProjectNotificationSettings = () => {
             <TextButton
               emphasis
               onPress={() => navigation.navigate('ProjectOverview')}
-              text="Naar bouwwerkzaamheden"
+              text="Naar werkzaamheden"
             />
           </Column>
         ) : null}
