@@ -8,7 +8,7 @@ export type NewWarning = {
     preface: string
   }
   project_identifier: string
-  project_manager_token: string
+  project_manager_id: string
 }
 
 // Our backend adds a number of fields

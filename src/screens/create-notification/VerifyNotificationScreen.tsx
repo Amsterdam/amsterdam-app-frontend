@@ -41,10 +41,16 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   } = notificationContext
   const [notificationToSend, setNotificationToSend] =
     useState<NewNotification>()
-  const authToken = encryptWithAES({
-    password: '6886b31dfe27e9306c3d2b553345d9e5',
-    plaintext: 'bafa4def-4105-49e4-80eb-297c4233ef60',
-  })
+  const [authToken, setAuthToken] = useState<string>()
+
+  useEffect(() => {
+    setAuthToken(
+      encryptWithAES({
+        password: '6886b31dfe27e9306c3d2b553345d9e5',
+        plaintext: notificationContext.warning?.project_manager_id!,
+      }),
+    )
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const warningApi = useFetch<WarningResponse>({
     url: getEnvironment().apiUrl + '/project/warning',
@@ -52,9 +58,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-        UserAuthorization: authToken,
+        UserAuthorization: authToken!,
       }),
-      body: JSON.stringify(warning),
     },
     onLoad: false,
   })
@@ -65,16 +70,15 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-        UserAuthorization: authToken,
+        UserAuthorization: authToken!,
       }),
-      body: JSON.stringify(notificationToSend),
     },
     onLoad: false,
   })
 
   const handleSubmit = () => {
     if (warning) {
-      warningApi.fetchData(warning)
+      warningApi.fetchData(undefined, JSON.stringify(warning))
     }
     if (notification && newsDetails) {
       setNotificationToSend({
@@ -102,7 +106,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [warningApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    notificationToSend && notificationApi.fetchData(notificationToSend)
+    notificationToSend &&
+      notificationApi.fetchData(undefined, JSON.stringify(notificationToSend))
   }, [notificationToSend]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

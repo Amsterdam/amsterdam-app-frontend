@@ -14,8 +14,9 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
+import {useAsyncStorage} from '../../hooks'
 import {size} from '../../tokens'
-import {NewWarning} from '../../types'
+import {Manager, NewWarning} from '../../types'
 import {
   NotificationContext,
   NotificationStackParamList,
@@ -38,8 +39,10 @@ type Props = {
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
+  const asyncStorage = useAsyncStorage()
   const notificationContext = useContext(NotificationContext)
   const {changeWarning} = notificationContext
+  const [projectManagerId, setProjectManagerId] = useState<string | undefined>()
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -63,18 +66,30 @@ export const WarningFormScreen = ({navigation}: Props) => {
   const watchMessage = watch('message')
 
   const onSubmit = (data: FormData) => {
-    const warningData: NewWarning = {
-      title: data.title,
-      body: {
-        preface: data.intro,
-        content: data.message,
-      },
-      project_identifier: notificationContext.projectDetails.id!,
-      project_manager_token: 'bafa4def-4105-49e4-80eb-297c4233ef60',
+    if (projectManagerId) {
+      const warningData: NewWarning = {
+        title: data.title,
+        body: {
+          preface: data.intro,
+          content: data.message,
+        },
+        project_identifier: notificationContext.projectDetails.id!,
+        project_manager_id: projectManagerId,
+      }
+      changeWarning(warningData)
+      navigation.navigate('VerifyNotification')
     }
-    changeWarning(warningData)
-    navigation.navigate('VerifyNotification')
   }
+
+  useEffect(() => {
+    const retrieveProjectManager = async () => {
+      const manager: Manager | undefined = await asyncStorage.getData(
+        'project-manager',
+      )
+      setProjectManagerId(manager?.id)
+    }
+    retrieveProjectManager()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
