@@ -50,7 +50,7 @@ export const HomeScreen = ({navigation}: Props) => {
                     },
                   })
                 }
-                text="Maak een melding"
+                text="Doe een melding"
               />
               <Button
                 onPress={() => navigation.navigate(routes.projectOverview.name)}
