@@ -47,10 +47,9 @@ export const ProjectNotificationSettings = () => {
   // Initially retrieve notification settings from device and save to component state
   useEffect(() => {
     const retrieveSettings = async () => {
-      const settings: NotificationSettings = await asyncStorage.getData(
-        'notifications',
-      )
-      setNotificationSettings(settings)
+      const currentNotificationSettings: NotificationSettings =
+        await asyncStorage.getData('notifications')
+      setNotificationSettings(currentNotificationSettings)
     }
 
     retrieveSettings()
@@ -60,10 +59,9 @@ export const ProjectNotificationSettings = () => {
   useFocusEffect(
     useCallback(() => {
       const listener = async () => {
-        const settings: NotificationSettings = await asyncStorage.getData(
-          'notifications',
-        )
-        setNotificationSettings(settings)
+        const currentNotificationSettings: NotificationSettings =
+          await asyncStorage.getData('notifications')
+        setNotificationSettings(currentNotificationSettings)
       }
 
       listener()

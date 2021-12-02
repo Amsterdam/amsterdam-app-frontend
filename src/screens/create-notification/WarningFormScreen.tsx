@@ -16,7 +16,7 @@ import {
 } from '../../components/ui/layout'
 import {useAsyncStorage} from '../../hooks'
 import {size} from '../../tokens'
-import {Manager, NewWarning} from '../../types'
+import {NewWarning, ProjectManagerSettings} from '../../types'
 import {
   NotificationContext,
   NotificationStackParamList,
@@ -82,13 +82,12 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const retrieveProjectManager = async () => {
-      const manager: Manager | undefined = await asyncStorage.getData(
-        'project-manager',
-      )
-      setProjectManagerId(manager?.id)
+    const retrieveProjectManagerSettings = async () => {
+      const projectManagerSettings: ProjectManagerSettings | undefined =
+        await asyncStorage.getData('project-manager')
+      setProjectManagerId(projectManagerSettings?.id)
     }
-    retrieveProjectManager()
+    retrieveProjectManagerSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

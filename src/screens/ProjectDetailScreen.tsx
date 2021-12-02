@@ -20,7 +20,11 @@ import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
-import {Manager, NotificationSettings, ProjectDetail} from '../types'
+import {
+  NotificationSettings,
+  ProjectDetail,
+  ProjectManagerSettings,
+} from '../types'
 import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -43,7 +47,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     projectNotificationSettingHasChanged,
     setProjectNotificationSettingHasChanged,
   ] = useState(false)
-  const [projectManager, setProjectManager] = useState<Manager | undefined>()
+  const [projectManagerSettings, setProjectManagerSettings] = useState<
+    ProjectManagerSettings | undefined
+  >()
 
   // Retrieve project details from backend
   const {data: project, isLoading} = useFetch<ProjectDetail>({
@@ -67,24 +73,24 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     })
   }, [project?.title, navigation])
 
+  // Retrieve project manager settings from device and save to component state
   useEffect(() => {
-    const retrieveProjectManager = async () => {
-      const manager: Manager | undefined = await asyncStorage.getData(
-        'project-manager',
-      )
-      setProjectManager(manager)
+    const retrieveProjectManagerSettings = async () => {
+      const newProjectManagerSettings: ProjectManagerSettings | undefined =
+        await asyncStorage.getData('project-manager')
+      setProjectManagerSettings(newProjectManagerSettings)
     }
-    retrieveProjectManager()
+    retrieveProjectManagerSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
-    const retrieveSettings = async () => {
-      const settings: NotificationSettings | undefined =
+    const retrieveNotificationSettings = async () => {
+      const newNotificationSetting: NotificationSettings | undefined =
         await asyncStorage.getData('notifications')
-      setNotificationSettings(settings)
+      setNotificationSettings(newNotificationSetting)
     }
-    retrieveSettings()
+    retrieveNotificationSettings()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Toggle notification setting for this project
@@ -103,7 +109,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }
 
   // Store notification changes on device and in backend
-  const storeSettings = useCallback(async () => {
+  const storeNotificationSettings = useCallback(async () => {
     if (notificationSettings === undefined) {
       return
     }
@@ -118,8 +124,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   // Watch changes in notification settings
   useEffect(() => {
-    projectNotificationSettingHasChanged && storeSettings()
-  }, [projectNotificationSettingHasChanged, storeSettings])
+    projectNotificationSettingHasChanged && storeNotificationSettings()
+  }, [projectNotificationSettingHasChanged, storeNotificationSettings])
 
   return isLoading && !project ? (
     <PleaseWait />
@@ -132,7 +138,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="white">
-        {projectManager?.projects.includes(project.identifier) && (
+        {projectManagerSettings?.projects.includes(project.identifier) && (
           <Button
             onPress={() =>
               navigation.navigate(routes.notification.name, {
