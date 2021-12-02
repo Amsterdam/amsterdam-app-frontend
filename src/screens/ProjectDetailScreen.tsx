@@ -20,7 +20,7 @@ import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
 import {image, size} from '../tokens'
-import {NotificationSettings, ProjectDetail} from '../types'
+import {Manager, NotificationSettings, ProjectDetail} from '../types'
 import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -43,6 +43,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     projectNotificationSettingHasChanged,
     setProjectNotificationSettingHasChanged,
   ] = useState(false)
+  const [projectManager, setProjectManager] = useState<Manager | undefined>()
 
   // Retrieve project details from backend
   const {data: project, isLoading} = useFetch<ProjectDetail>({
@@ -65,6 +66,16 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   }, [project?.title, navigation])
+
+  useEffect(() => {
+    const retrieveProjectManager = async () => {
+      const manager: Manager | undefined = await asyncStorage.getData(
+        'project-manager',
+      )
+      setProjectManager(manager)
+    }
+    retrieveProjectManager()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Retrieve notification settings from device and save to component state
   useEffect(() => {
@@ -121,19 +132,21 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         />
       )}
       <Box background="white">
-        <Button
-          onPress={() =>
-            navigation.navigate(routes.notification.name, {
-              projectDetails: {
-                articles: project.articles,
-                id: project.identifier,
-                title: project.title,
-              },
-            })
-          }
-          text="Verstuur notificatie"
-          variant="inverse"
-        />
+        {projectManager?.projects.includes(project.identifier) && (
+          <Button
+            onPress={() =>
+              navigation.navigate(routes.notification.name, {
+                projectDetails: {
+                  articles: project.articles,
+                  id: project.identifier,
+                  title: project.title,
+                },
+              })
+            }
+            text="Verstuur notificatie"
+            variant="inverse"
+          />
+        )}
         <Gutter height={size.spacing.md} />
         <SingleSelectable
           accessibilityRole="header"
