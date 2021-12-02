@@ -5,6 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
+import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, Text, Title} from '../components/ui'
 import {Column, Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
@@ -109,28 +110,29 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
               </Text>
               <View>
                 <Divider />
-                {authorizedProjects.map((authProject, index) => (
-                  <Fragment key={authProject?.identifier}>
-                    <TouchableOpacity
-                      style={styles.button}
-                      accessibilityRole="button"
-                      key={authProject?.identifier}
-                      onPress={() => {
-                        authProject?.identifier &&
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: authProject.identifier,
-                          })
-                      }}>
-                      <Text>{authProject?.title}</Text>
-                      {authProject?.subtitle && (
-                        <Text secondary small>
-                          {authProject?.subtitle}
-                        </Text>
-                      )}
-                    </TouchableOpacity>
-                    {index < authorizedProjects.length && <Divider />}
-                  </Fragment>
-                ))}
+                {authorizedProjects.map(
+                  (authProject, index) =>
+                    authProject && (
+                      <Fragment key={authProject.identifier}>
+                        <TouchableOpacity
+                          style={styles.button}
+                          accessibilityRole="button"
+                          key={authProject.identifier}
+                          onPress={() => {
+                            authProject.identifier &&
+                              navigation.navigate(routes.projectDetail.name, {
+                                id: authProject.identifier,
+                              })
+                          }}>
+                          <ProjectTitle
+                            title={authProject.title}
+                            subtitle={authProject.subtitle}
+                          />
+                        </TouchableOpacity>
+                        {index < authorizedProjects.length && <Divider />}
+                      </Fragment>
+                    ),
+                )}
               </View>
             </Column>
           </ScrollView>

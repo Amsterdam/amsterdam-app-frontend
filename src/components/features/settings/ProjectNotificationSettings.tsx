@@ -19,6 +19,7 @@ import {
 } from '../../ui'
 import {Checkbox, Switch} from '../../ui/forms'
 import {Column, Row, ScrollView} from '../../ui/layout'
+import {ProjectTitle} from '../project'
 
 export const ProjectNotificationSettings = () => {
   const asyncStorage = useAsyncStorage()
@@ -229,21 +230,6 @@ export const ProjectNotificationSettings = () => {
                 const subscribed =
                   notificationSettings?.projects?.[projectId] ?? false
 
-                const Label = ({
-                  title,
-                  subtitle,
-                }: {
-                  title: string
-                  subtitle: string
-                }) => (
-                  <>
-                    <Text large>{title}</Text>
-                    <Text secondary small>
-                      {subtitle}
-                    </Text>
-                  </>
-                )
-
                 return (
                   project && (
                     <Fragment key={project.identifier}>
@@ -255,7 +241,7 @@ export const ProjectNotificationSettings = () => {
                               project.subtitle,
                             )}
                             label={
-                              <Label
+                              <ProjectTitle
                                 title={project.title}
                                 subtitle={project.subtitle}
                               />
@@ -274,7 +260,7 @@ export const ProjectNotificationSettings = () => {
                               project.subtitle,
                             )}
                             label={
-                              <Label
+                              <ProjectTitle
                                 title={project.title}
                                 subtitle={project.subtitle}
                               />
