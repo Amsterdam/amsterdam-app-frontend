@@ -15,9 +15,9 @@ type Props = {
 }
 
 export const HomeScreen = ({navigation}: Props) => {
-  const addressContext = useContext(AddressContext)
   const asyncStorage = useAsyncStorage()
   const deviceContext = useContext(DeviceContext)
+  const addressContext = useContext(AddressContext)
 
   return (
     <ScrollView>

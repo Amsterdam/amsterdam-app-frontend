@@ -1,6 +1,7 @@
 export * from './HomeScreen'
 export * from './ProjectDetailBodyScreen'
 export * from './ProjectDetailScreen'
+export * from './ProjectManagerScreen'
 export * from './ProjectNewsScreen'
 export * from './ProjectWarningScreen'
 export * from './ProjectOverviewByDistrictScreen'

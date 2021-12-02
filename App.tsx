@@ -15,6 +15,7 @@ import {
   NotificationOverviewScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
+  ProjectManagerScreen,
   ProjectNewsScreen,
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
@@ -40,6 +41,7 @@ export type RootStackParamList = {
   NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
+  ProjectManager: {id: string}
   ProjectNews: {id: string}
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
@@ -110,6 +112,16 @@ export const routes: Routes = {
       cardStyle: {
         backgroundColor: color.background.white,
       },
+    },
+  },
+  projectManager: {
+    name: 'ProjectManager',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
+      presentation: 'modal',
     },
   },
   projectNews: {
@@ -199,6 +211,7 @@ export const App = () => {
     notificationOverview,
     projectDetail,
     projectDetailBody,
+    projectManager,
     projectNews,
     projectOverview,
     projectOverviewByDistrict,
@@ -220,6 +233,11 @@ export const App = () => {
                 component={HomeScreen}
                 name={home.name}
                 options={home.options}
+              />
+              <Stack.Screen
+                component={ProjectManagerScreen}
+                name={projectManager.name}
+                options={projectManager.options}
               />
               <Stack.Screen
                 component={AddressFormScreen}
