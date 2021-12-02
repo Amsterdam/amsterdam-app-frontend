@@ -12,6 +12,7 @@ type Props = {
   children: React.ReactNode
   intro?: Boolean
   inverse?: Boolean
+  large?: Boolean
   link?: Boolean
   margin?: Boolean
   primary?: boolean
@@ -24,6 +25,7 @@ export const Text = ({
   children,
   intro,
   inverse,
+  large,
   link,
   margin,
   primary,
@@ -63,10 +65,13 @@ export const Text = ({
         margin && styles.margin,
         intro && styles.intro,
         inverse && styles.inverse,
+        large && styles.large,
+        large && margin && styles.marginLarge,
         link && styles.link,
         primary && styles.primary,
         secondary && styles.secondary,
         small && styles.small,
+        small && margin && styles.marginSmall,
         warning && styles.warning,
       ]}
       {...otherProps}>
@@ -83,6 +88,10 @@ const styles = StyleSheet.create({
     color: color.font.inverse,
     fontFamily: font.weight.demi,
   },
+  large: {
+    fontSize: font.size.l1,
+    lineHeight: font.size.l1,
+  },
   link: {
     color: color.touchable.primary,
     textDecorationLine: 'underline',
@@ -90,6 +99,14 @@ const styles = StyleSheet.create({
   margin: {
     marginBottom: font.leadingBottom.p1,
     marginTop: font.leadingTop.p1,
+  },
+  marginLarge: {
+    marginBottom: font.leadingBottom.l1,
+    marginTop: font.leadingTop.l1,
+  },
+  marginSmall: {
+    marginBottom: font.leadingBottom.t1,
+    marginTop: font.leadingTop.t1,
   },
   primary: {
     color: color.font.primary,

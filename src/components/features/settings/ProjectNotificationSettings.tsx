@@ -239,7 +239,7 @@ export const ProjectNotificationSettings = () => {
                   subtitle: string
                 }) => (
                   <>
-                    <Text>{title}</Text>
+                    <Text large>{title}</Text>
                     <Text secondary small>
                       {subtitle}
                     </Text>
