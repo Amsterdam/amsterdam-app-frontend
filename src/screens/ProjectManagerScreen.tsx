@@ -10,7 +10,7 @@ import {Column, Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useFetch} from '../hooks'
 import {color, size} from '../tokens'
-import {Manager, ProjectOverviewItem} from '../types'
+import {ProjectManagerSettings, ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<
@@ -24,7 +24,9 @@ type Props = {
 }
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
-  const [projectManager, setProjectManager] = useState<Manager | undefined>()
+  const [projectManagerSettings, setProjectManagerSettings] = useState<
+    ProjectManagerSettings | undefined
+  >()
   const [allProjects, setAllProjects] = useState<
     ProjectOverviewItem[] | undefined
   >()
@@ -38,7 +40,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     plaintext: idFromParams,
   })
 
-  const apiManager = useFetch<any>({
+  const apiProjectManager = useFetch<any>({
     url: getEnvironment().apiUrl + '/project/manager',
     onLoad: false,
     options: {
@@ -56,7 +58,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   })
 
   useEffect(() => {
-    idFromParams && apiManager.fetchData()
+    idFromParams && apiProjectManager.fetchData()
   }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -64,15 +66,15 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeProjectManager = useCallback(async () => {
-    if (apiManager.data) {
-      const manager = {
+    if (apiProjectManager.data) {
+      const newSettings = {
         id: idFromParams,
-        projects: apiManager.data[0].projects,
+        projects: apiProjectManager.data[0].projects,
       }
-      await asyncStorage.storeData('project-manager', projectManager)
-      setProjectManager(manager)
+      await asyncStorage.storeData('project-manager', newSettings)
+      setProjectManagerSettings(newSettings)
     }
-  }, [apiManager.data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [apiProjectManager.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManager()
@@ -83,13 +85,13 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   }, [apiProjects.data])
 
   useEffect(() => {
-    if (allProjects && projectManager?.projects) {
-      const authProjects = projectManager?.projects.map(projectId => {
+    if (allProjects && projectManagerSettings?.projects) {
+      const authProjects = projectManagerSettings?.projects.map(projectId => {
         return allProjects.find(project => project.identifier === projectId)
       })
       setAuthorizedProjects(authProjects)
     }
-  }, [allProjects, projectManager?.projects])
+  }, [allProjects, projectManagerSettings?.projects])
 
   return (
     <Column align="between">

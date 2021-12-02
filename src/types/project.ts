@@ -62,7 +62,3 @@ export type ProjectDetailBody = {
   timeline?: Timeline
   title: string
 }
-
-export type ProjectManager = {
-  id: string
-}
