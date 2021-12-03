@@ -85,25 +85,13 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     apiProjects.data && setAllProjects(apiProjects.data)
   }, [apiProjects.data])
 
-  const getAuthorizedProjects = (
-    projects: ProjectOverviewItem[],
-    projectManagerProjectIds: string[],
-  ) => {
-    let authProjects: ProjectOverviewItem[] = []
-    projectManagerProjectIds.map(id => {
-      const projectFound = projects.find(project => project.identifier === id)
-      projectFound && authProjects.push(projectFound)
-    })
-    return authProjects
-  }
-
   useEffect(() => {
     if (allProjects && projectManagerSettings?.projects) {
-      const authProjects = getAuthorizedProjects(
-        allProjects,
-        projectManagerSettings?.projects,
+      setAuthorizedProjects(
+        allProjects.filter(project =>
+          projectManagerSettings?.projects.includes(project.identifier),
+        ),
       )
-      setAuthorizedProjects(authProjects)
     }
   }, [allProjects, projectManagerSettings?.projects])
 
