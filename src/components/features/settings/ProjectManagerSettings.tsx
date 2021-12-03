@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import {View} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useFetch} from '../../../hooks'
@@ -58,12 +58,12 @@ export const ProjectManagerSettings = () => {
             <View>
               <Divider />
               {authorisedProjects.map(project => (
-                <>
+                <Fragment key={project.identifier}>
                   <Box insetVertical="sm">
                     <Text large>{project.title}</Text>
                   </Box>
                   <Divider />
-                </>
+                </Fragment>
               ))}
             </View>
             <Text small>{projectManagerSettings.id}</Text>
