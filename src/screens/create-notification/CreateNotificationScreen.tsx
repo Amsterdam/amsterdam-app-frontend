@@ -40,7 +40,6 @@ type Props = {
 type Context = {
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
-  changeProjectManager: (m: ProjectManagerSettings) => void
   changeNotification: (newNotification: NewNotification) => void
   changeResponseStatus: (value: ResponseStatus) => void
   changeWarning: (newWarning: NewWarning) => void
@@ -90,8 +89,6 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
-  const changeProjectManager = (m: ProjectManagerSettings) =>
-    setProjectManager(m)
 
   useEffect(() => {
     const {articles, id, title} = route.params.projectDetails
@@ -117,7 +114,6 @@ export const CreateNotificationScreen = ({route}: Props) => {
         changeCurrentStep,
         changeNewsDetails,
         changeNotification,
-        changeProjectManager,
         changeResponseStatus,
         changeWarning,
         newsDetails,
