@@ -164,8 +164,8 @@ export const ProjectNotificationSettings = () => {
         insetHorizontal="md"
         insetVertical="sm">
         <Switch
-          accessibilityLabel="Notificaties"
-          label={<Text>Notificaties</Text>}
+          accessibilityLabel="Berichten ontvangen"
+          label={<Text>Berichten ontvangen</Text>}
           onValueChange={() =>
             toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
@@ -176,21 +176,28 @@ export const ProjectNotificationSettings = () => {
         {!notificationSettings?.projectsEnabled && (
           <Box background="white">
             <Column gutter="md">
-              <Title level={2} text="U ontvangt nog geen notificaties" />
+              <Title level={2} text="U ontvangt geen berichten" />
               <Text intro>
-                Voor projecten sturen we af en toe een notificatie. Dit doen we
-                alleen als er iets aan de hand is wat u écht moet weten. Zoals
-                een gesprongen waterleiding waardoor de weg is afgezet.
+                Voor werkzaamheden sturen we af en toe een pushbericht. Dit doen
+                we alleen als er iets aan de hand is wat u écht moet weten.
+                Zoals een gesprongen waterleiding waardoor de weg is afgezet.
               </Text>
               <Text>
-                U kunt uw notificaties aan zetten op de pagina van een project.
-                Onder instellingen vindt u een overzicht van uw notificaties, en
-                kunt deze altijd weer uit zetten.
+                U kunt pushberichten aan zetten op de pagina van een
+                werkzaamheid. Onder ‘Instellingen’ vindt u een overzicht van de
+                werkzaamheden waarvoor u pushberichten ontvangt. Deze kunt u
+                altijd weer uit zetten.
+              </Text>
+              <Text>
+                U kunt uw toestemming voor pushberichten intrekken via de
+                instellingen van uw toestel. Berichten over uw geselecteerde
+                werkzaamheden verschijnen dan nog wel in de app, maar niet meer
+                in het berichtencentrum van uw toestel.
               </Text>
               <TextButton
                 emphasis
                 onPress={() => navigation.navigate('ProjectOverview')}
-                text="Naar bouwwerkzaamheden"
+                text="Naar werkzaamheden"
               />
             </Column>
           </Box>
@@ -200,14 +207,14 @@ export const ProjectNotificationSettings = () => {
           <Column gutter="md">
             <Attention>
               <Text>
-                Zet notificaties aan op pagina’s van werkzaamheden waar u
-                notificaties voor wilt ontvangen.
+                Zet berichten aan op pagina’s van werkzaamheden waar u berichten
+                voor wilt ontvangen.
               </Text>
             </Attention>
             <TextButton
               emphasis
               onPress={() => navigation.navigate('ProjectOverview')}
-              text="Naar bouwwerkzaamheden"
+              text="Naar werkzaamheden"
             />
           </Column>
         ) : null}
@@ -218,7 +225,7 @@ export const ProjectNotificationSettings = () => {
           <Column gutter="sm">
             <View style={styles.customInset}>
               <Text intro accessibilityRole="header">
-                Projecten
+                Werkzaamheden
               </Text>
             </View>
             <Box background="white" borderVertical insetHorizontal="md">
@@ -303,7 +310,7 @@ export const ProjectNotificationSettings = () => {
               <Button
                 variant="secondary"
                 onPress={() => deleteProjects()}
-                text="Verwijder projecten"
+                text="Verwijder werkzaamheden"
               />
             </Row>
           ) : (
@@ -311,7 +318,7 @@ export const ProjectNotificationSettings = () => {
               <TextButton
                 emphasis
                 onPress={() => setIsEditing(!isEditing)}
-                text="Projecten verwijderen"
+                text="Werkzaamheden verwijderen"
               />
             </Row>
           )}

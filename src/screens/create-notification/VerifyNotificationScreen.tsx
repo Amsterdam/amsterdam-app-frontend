@@ -143,19 +143,19 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             </SingleSelectable>
             {notification && (
               <>
-                <Preview label="Notificatie">
+                <Preview label="Pushbericht">
                   <Title level={2} text={notification.title} />
                   <Text>{notification.body}</Text>
                 </Preview>
               </>
             )}
             {newsDetails && (
-              <Preview label="Nieuwsbericht">
+              <Preview label="Nieuwsartikel">
                 <Text>{newsDetails.title}</Text>
               </Preview>
             )}
             {warning && (
-              <Preview label="Nieuwsbericht">
+              <Preview label="Nieuwsartikel">
                 <Title level={2} text={warning.title} />
                 <Text intro>{warning.body.preface}</Text>
                 <Text>{warning.body.content}</Text>
