@@ -27,7 +27,6 @@
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />
               <data android:scheme="amsterdam" />
-              <data android:host="project-manager" />
           </intent-filter>
       </activity>
     </application>
