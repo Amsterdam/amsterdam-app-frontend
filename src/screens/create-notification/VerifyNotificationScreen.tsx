@@ -19,7 +19,7 @@ import {
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {size} from '../../tokens'
-import {NewNotification, Notification, WarningResponse} from '../../types'
+import {Notification, WarningResponse} from '../../types'
 import {encryptWithAES} from '../../utils'
 import {NotificationContext, NotificationStackParamList} from './'
 
@@ -40,9 +40,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     projectManagerSettings,
     warning,
   } = notificationContext
-  const [notificationToSend, setNotificationToSend] =
-    useState<NewNotification>()
   const [authToken, setAuthToken] = useState<string>()
+  const [hasWarningSent, setHasWarningSent] = useState(false)
 
   const handleAuthToken = useCallback(() => {
     try {
@@ -88,15 +87,32 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     onLoad: false,
   })
 
-  const handleSubmit = () => {
+  const sendWarningToBackend = async () => {
+    await warningApi.fetchData(undefined, JSON.stringify(warning))
+  }
+
+  const sendNotificationToBackend = async (
+    warningId: string | undefined = undefined,
+  ) => {
+    const identifier = warningId
+      ? {warning_identifier: warningId}
+      : {news_identifier: newsDetails?.id}
+    await notificationApi.fetchData(
+      undefined,
+      JSON.stringify({
+        ...notification,
+        ...identifier,
+      }),
+    )
+  }
+
+  const handleSubmit = async () => {
     if (warning) {
-      warningApi.fetchData(undefined, JSON.stringify(warning))
+      await sendWarningToBackend()
+      setHasWarningSent(true)
     }
     if (notification && newsDetails) {
-      setNotificationToSend({
-        ...notification,
-        news_identifier: newsDetails.id,
-      })
+      sendNotificationToBackend()
     }
   }
 
@@ -108,19 +124,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [navigation, notificationContext])
 
   useEffect(() => {
-    if (notification && warningApi.data) {
-      const warningIdentifier = warningApi.data.warning_identifier
-      setNotificationToSend({
-        ...notification,
-        warning_identifier: warningIdentifier,
-      })
+    if (notification && hasWarningSent) {
+      sendNotificationToBackend(warningApi.data?.warning_identifier)
     }
-  }, [warningApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    notificationToSend &&
-      notificationApi.fetchData(undefined, JSON.stringify(notificationToSend))
-  }, [notificationToSend]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hasWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (notificationApi.data) {
