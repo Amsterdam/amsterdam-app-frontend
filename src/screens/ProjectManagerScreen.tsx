@@ -5,7 +5,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment, useCallback, useEffect, useState} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {Box, Button, Divider, Text, Title} from '../components/ui'
+import {ProjectTitle} from '../components/features/project'
+import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useAsyncStorage, useFetch} from '../hooks'
@@ -31,7 +32,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     ProjectOverviewItem[] | undefined
   >()
   const [authorizedProjects, setAuthorizedProjects] =
-    useState<(ProjectOverviewItem | undefined)[]>()
+    useState<ProjectOverviewItem[]>()
   const asyncStorage = useAsyncStorage()
   const idFromParams = route.params?.id
 
@@ -86,80 +87,95 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     if (allProjects && projectManagerSettings?.projects) {
-      const authProjects = projectManagerSettings?.projects.map(projectId => {
-        return allProjects.find(project => project.identifier === projectId)
-      })
-      setAuthorizedProjects(authProjects)
+      setAuthorizedProjects(
+        allProjects.filter(project =>
+          projectManagerSettings?.projects.includes(project.identifier),
+        ),
+      )
     }
   }, [allProjects, projectManagerSettings?.projects])
 
   return (
-    <Column align="between">
-      <Box background="white" inset="md">
-        {authorizedProjects ? (
-          <ScrollView>
-            <Column gutter="md">
-              <Row valign="center" gutter="sm">
-                <Checkmark fill={color.status.success} height={32} width={32} />
-                <Title text="Gelukt!" />
-              </Row>
-              <Text intro>
+    <>
+      {authorizedProjects === undefined ? (
+        <PleaseWait />
+      ) : (
+        <Column align="between">
+          <Box background="white" inset="md">
+            {authorizedProjects.length ? (
+              <ScrollView>
+                <Column gutter="md">
+                  <Row valign="center" gutter="sm">
+                    <Checkmark
+                      fill={color.status.success}
+                      height={32}
+                      width={32}
+                    />
+                    <Title text="Gelukt!" />
+                  </Row>
+                  <Text intro>
                 U kunt voor de volgende projecten een pushbericht versturen
                 vanaf de projectpagina:
-              </Text>
-              <View>
-                <Divider />
-                {authorizedProjects.map((authProject, index) => (
-                  <Fragment key={authProject?.identifier}>
-                    <TouchableOpacity
-                      style={styles.button}
-                      accessibilityRole="button"
-                      key={authProject?.identifier}
-                      onPress={() => {
-                        authProject?.identifier &&
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: authProject.identifier,
-                          })
-                      }}>
-                      <Text>{authProject?.title}</Text>
-                      {authProject?.subtitle && (
-                        <Text secondary small>
-                          {authProject?.subtitle}
-                        </Text>
-                      )}
-                    </TouchableOpacity>
-                    {index < authorizedProjects.length && <Divider />}
-                  </Fragment>
-                ))}
-              </View>
-            </Column>
-          </ScrollView>
-        ) : (
-          <>
-            <Column gutter="md">
-              <Row valign="center" gutter="sm">
-                <Close fill={color.status.error} height={32} width={32} />
-                <Title text="Er gaat iets mis…" />
-              </Row>
-              <Text intro>
-                Helaas lukt het niet om de projecten te laden waarvoor u
+                  </Text>
+                  <View>
+                    <Divider />
+                    {authorizedProjects.map(
+                      (authProject, index) =>
+                        authProject && (
+                          <Fragment key={authProject.identifier}>
+                            <TouchableOpacity
+                              style={styles.button}
+                              accessibilityRole="button"
+                              key={authProject.identifier}
+                              onPress={() => {
+                                authProject.identifier &&
+                                  navigation.navigate(
+                                    routes.projectDetail.name,
+                                    {
+                                      id: authProject.identifier,
+                                    },
+                                  )
+                              }}>
+                              <ProjectTitle
+                                title={authProject.title}
+                                subtitle={authProject.subtitle}
+                              />
+                            </TouchableOpacity>
+                            {index < authorizedProjects.length && <Divider />}
+                          </Fragment>
+                        ),
+                    )}
+                  </View>
+                </Column>
+              </ScrollView>
+            ) : (
+              <>
+                <Column gutter="md">
+                  <Row valign="center" gutter="sm">
+                    <Close fill={color.status.error} height={32} width={32} />
+                    <Title text="Er gaat iets mis…" />
+                  </Row>
+                  <Text intro>
+                    Helaas lukt het niet om de projecten te laden waarvoor u
                 pushberichten mag versturen. Probeer de app nogmaals te openen
                 met de toegestuurde link.
-              </Text>
-              <Text intro>
-                Lukt dit niet? Neem dan contact op met de redactie.
-              </Text>
-            </Column>
-          </>
-        )}
-      </Box>
-      <Box>
-        <Button
-          text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
-          onPress={() => navigation.navigate(routes.home.name)}
-        />
-      </Box>
-    </Column>
+                  </Text>
+                  <Text intro>
+                    Lukt dit niet? Neem dan contact op met de redactie.
+                  </Text>
+                </Column>
+              </>
+            )}
+          </Box>
+          <Box>
+            <Button
+              text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
+              onPress={() => navigation.navigate(routes.home.name)}
+            />
+          </Box>
+        </Column>
+      )}
+    </>
   )
 }
 

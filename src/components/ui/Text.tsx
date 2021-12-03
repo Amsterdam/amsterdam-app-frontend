@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   large: {
     fontSize: font.size.l1,
-    lineHeight: font.size.l1,
+    lineHeight: font.height.l1,
   },
   link: {
     color: color.touchable.primary,
