@@ -150,7 +150,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                   },
                 })
               }
-            text="Verstuur pushbericht"
+              text="Verstuur pushbericht"
               variant="inverse"
             />
           )}
@@ -161,8 +161,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             {project.subtitle && <Text intro>{project.subtitle}</Text>}
           </SingleSelectable>
           <Switch
-          accessibilityLabel="Ontvang berichten"
-          label={<Text>Ontvang berichten</Text>}
+            accessibilityLabel="Ontvang berichten"
+            label={<Text>Ontvang berichten</Text>}
             labelPosition="end"
             onValueChange={() => toggleProjectSubscription(project.identifier)}
             value={subscribed}

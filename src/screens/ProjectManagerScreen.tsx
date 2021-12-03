@@ -114,8 +114,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                     <Title text="Gelukt!" />
                   </Row>
                   <Text intro>
-                U kunt voor de volgende projecten een pushbericht versturen
-                vanaf de projectpagina:
+                    U kunt voor de volgende projecten een pushbericht versturen
+                    vanaf de projectpagina:
                   </Text>
                   <View>
                     <Divider />
@@ -157,8 +157,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                   </Row>
                   <Text intro>
                     Helaas lukt het niet om de projecten te laden waarvoor u
-                pushberichten mag versturen. Probeer de app nogmaals te openen
-                met de toegestuurde link.
+                    pushberichten mag versturen. Probeer de app nogmaals te
+                    openen met de toegestuurde link.
                   </Text>
                   <Text intro>
                     Lukt dit niet? Neem dan contact op met de redactie.
