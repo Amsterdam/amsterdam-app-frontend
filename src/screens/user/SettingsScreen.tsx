@@ -1,11 +1,17 @@
 import React from 'react'
-import {ProjectNotificationSettings} from '../../components/features/settings'
-import {Gutter, ScrollView} from '../../components/ui/layout'
+import {
+  ProjectManagerSettings,
+  ProjectNotificationSettings,
+} from '../../components/features/settings'
+import {Column, Gutter, ScrollView} from '../../components/ui/layout'
 import {size} from '../../tokens'
 
 export const SettingsScreen = () => (
   <ScrollView>
     <Gutter height={size.spacing.md} />
-    <ProjectNotificationSettings />
+    <Column gutter="md">
+      <ProjectNotificationSettings />
+      <ProjectManagerSettings />
+    </Column>
   </ScrollView>
 )
