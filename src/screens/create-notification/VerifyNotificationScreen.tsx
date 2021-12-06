@@ -37,7 +37,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     newsDetails,
     notification,
     projectDetails,
-    projectManager,
+    projectManagerSettings,
     warning,
   } = notificationContext
   const [notificationToSend, setNotificationToSend] =
@@ -46,19 +46,19 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   const handleAuthToken = useCallback(() => {
     try {
-      if (!projectManager?.id) {
+      if (!projectManagerSettings?.id) {
         throw 'Project-manager id is missing'
       }
       setAuthToken(
         encryptWithAES({
           password: '6886b31dfe27e9306c3d2b553345d9e5',
-          plaintext: projectManager?.id,
+          plaintext: projectManagerSettings?.id,
         }),
       )
     } catch (e) {
       console.log(e)
     }
-  }, [projectManager?.id])
+  }, [projectManagerSettings?.id])
 
   useEffect(() => {
     handleAuthToken()

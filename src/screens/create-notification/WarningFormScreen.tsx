@@ -39,7 +39,7 @@ type Props = {
 
 export const WarningFormScreen = ({navigation}: Props) => {
   const notificationContext = useContext(NotificationContext)
-  const {changeWarning, projectManager} = notificationContext
+  const {changeWarning, projectManagerSettings} = notificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -63,7 +63,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
   const watchMessage = watch('message')
 
   const onSubmit = (data: FormData) => {
-    if (projectManager?.id) {
+    if (projectManagerSettings?.id) {
       const warningData: NewWarning = {
         title: data.title,
         body: {
@@ -71,7 +71,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           content: data.message,
         },
         project_identifier: notificationContext.projectDetails.id!,
-        project_manager_id: projectManager.id,
+        project_manager_id: projectManagerSettings.id,
       }
       changeWarning(warningData)
       navigation.navigate('VerifyNotification')

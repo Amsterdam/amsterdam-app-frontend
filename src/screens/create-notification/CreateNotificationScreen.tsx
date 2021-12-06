@@ -46,7 +46,7 @@ type Context = {
   newsDetails?: NewsDetails
   notification?: NewNotification
   projectDetails: ProjectDetails
-  projectManager?: ProjectManagerSettings
+  projectManagerSettings?: ProjectManagerSettings
   responseStatus?: ResponseStatus
   warning?: NewWarning
 }
@@ -79,7 +79,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [notification, setNotification] = useState<NewNotification>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
-  const [projectManager, setProjectManager] = useState<ProjectManagerSettings>()
+  const [projectManagerSettings, setProjectManagerSettings] =
+    useState<ProjectManagerSettings>()
 
   const Stack = createStackNavigator()
 
@@ -101,9 +102,9 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   useEffect(() => {
     const retrieveProjectManagerSettings = async () => {
-      const projectManagerSettings: ProjectManagerSettings | undefined =
+      const currentProjectManagerSettings: ProjectManagerSettings | undefined =
         await asyncStorage.getData('project-manager')
-      setProjectManager(projectManagerSettings)
+      setProjectManagerSettings(currentProjectManagerSettings)
     }
     retrieveProjectManagerSettings()
   }, [asyncStorage])
@@ -119,7 +120,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         newsDetails,
         notification,
         projectDetails,
-        projectManager,
+        projectManagerSettings,
         responseStatus,
         warning,
       }}>
