@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {
   Box,
   Preview,
@@ -37,20 +37,32 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     newsDetails,
     notification,
     projectDetails,
+    projectManagerSettings,
     warning,
   } = notificationContext
   const [notificationToSend, setNotificationToSend] =
     useState<NewNotification>()
   const [authToken, setAuthToken] = useState<string>()
 
+  const handleAuthToken = useCallback(() => {
+    try {
+      if (!projectManagerSettings?.id) {
+        throw 'Project-manager id is missing'
+      }
+      setAuthToken(
+        encryptWithAES({
+          password: '6886b31dfe27e9306c3d2b553345d9e5',
+          plaintext: projectManagerSettings?.id,
+        }),
+      )
+    } catch (e) {
+      console.log(e)
+    }
+  }, [projectManagerSettings?.id])
+
   useEffect(() => {
-    setAuthToken(
-      encryptWithAES({
-        password: '6886b31dfe27e9306c3d2b553345d9e5',
-        plaintext: notificationContext.warning?.project_manager_id!,
-      }),
-    )
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    handleAuthToken()
+  }, [handleAuthToken])
 
   const warningApi = useFetch<WarningResponse>({
     url: getEnvironment().apiUrl + '/project/warning',

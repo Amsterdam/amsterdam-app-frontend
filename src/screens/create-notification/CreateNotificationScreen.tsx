@@ -6,11 +6,13 @@ import {
 import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
+import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
 import {
   NewNotification,
   NewWarning,
   ProjectDetailArticlePreview,
+  ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
 import {NotificationResponseScreen} from './NotificationResponseScreen'
@@ -42,10 +44,11 @@ type Context = {
   changeResponseStatus: (value: ResponseStatus) => void
   changeWarning: (newWarning: NewWarning) => void
   newsDetails?: NewsDetails
-  notification: NewNotification | undefined
+  notification?: NewNotification
   projectDetails: ProjectDetails
-  responseStatus: ResponseStatus | undefined
-  warning: NewWarning | undefined
+  projectManagerSettings?: ProjectManagerSettings
+  responseStatus?: ResponseStatus
+  warning?: NewWarning
 }
 
 export type ProjectDetails = {
@@ -69,12 +72,15 @@ const screenOptions: StackNavigationOptions = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
+  const asyncStorage = useAsyncStorage()
   const [currentStep, setCurrentStep] = useState(1)
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<NewNotification>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
+  const [projectManagerSettings, setProjectManagerSettings] =
+    useState<ProjectManagerSettings>()
 
   const Stack = createStackNavigator()
 
@@ -94,6 +100,11 @@ export const CreateNotificationScreen = ({route}: Props) => {
     })
   }, [route])
 
+  useAsync(
+    () => asyncStorage.getData('project-manager'),
+    setProjectManagerSettings,
+  )
+
   return (
     <NotificationContext.Provider
       value={{
@@ -105,6 +116,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         newsDetails,
         notification,
         projectDetails,
+        projectManagerSettings,
         responseStatus,
         warning,
       }}>

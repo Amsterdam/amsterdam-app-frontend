@@ -14,9 +14,8 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {useAsyncStorage} from '../../hooks'
 import {size} from '../../tokens'
-import {NewWarning, ProjectManagerSettings} from '../../types'
+import {NewWarning} from '../../types'
 import {
   NotificationContext,
   NotificationStackParamList,
@@ -39,10 +38,8 @@ type Props = {
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
-  const asyncStorage = useAsyncStorage()
   const notificationContext = useContext(NotificationContext)
-  const {changeWarning} = notificationContext
-  const [projectManagerId, setProjectManagerId] = useState<string | undefined>()
+  const {changeWarning, projectManagerSettings} = notificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -66,7 +63,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
   const watchMessage = watch('message')
 
   const onSubmit = (data: FormData) => {
-    if (projectManagerId) {
+    if (projectManagerSettings?.id) {
       const warningData: NewWarning = {
         title: data.title,
         body: {
@@ -74,21 +71,12 @@ export const WarningFormScreen = ({navigation}: Props) => {
           content: data.message,
         },
         project_identifier: notificationContext.projectDetails.id!,
-        project_manager_id: projectManagerId,
+        project_manager_id: projectManagerSettings.id,
       }
       changeWarning(warningData)
       navigation.navigate('VerifyNotification')
     }
   }
-
-  useEffect(() => {
-    const retrieveProjectManagerSettings = async () => {
-      const projectManagerSettings: ProjectManagerSettings | undefined =
-        await asyncStorage.getData('project-manager')
-      setProjectManagerId(projectManagerSettings?.id)
-    }
-    retrieveProjectManagerSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
