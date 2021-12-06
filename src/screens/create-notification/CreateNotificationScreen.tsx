@@ -6,7 +6,7 @@ import {
 import React, {createContext, useEffect, useState} from 'react'
 import {RootStackParamList} from '../../../App'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
-import {useAsyncStorage} from '../../hooks'
+import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
 import {
   NewNotification,
@@ -100,14 +100,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
     })
   }, [route])
 
-  useEffect(() => {
-    const retrieveProjectManagerSettings = async () => {
-      const currentProjectManagerSettings: ProjectManagerSettings | undefined =
-        await asyncStorage.getData('project-manager')
-      setProjectManagerSettings(currentProjectManagerSettings)
-    }
-    retrieveProjectManagerSettings()
-  }, [asyncStorage])
+  useAsync(
+    () => asyncStorage.getData('project-manager'),
+    setProjectManagerSettings,
+  )
 
   return (
     <NotificationContext.Provider
