@@ -41,7 +41,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     warning,
   } = notificationContext
   const [authToken, setAuthToken] = useState<string>()
-  const [hasWarningSent, setHasWarningSent] = useState(false)
 
   const handleAuthToken = useCallback(() => {
     try {
@@ -107,21 +106,24 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   const handleSubmit = async () => {
-    if (warning) {
-      await sendWarningToBackend()
-      setHasWarningSent(true)
-    } else if (notification && newsDetails?.id) {
+    if (!notification) {
+      return
+    }
+
+    if (newsDetails?.id) {
       sendNotificationToBackend({news_identifier: newsDetails.id})
     }
-  }
 
-  useEffect(() => {
-    if (notification && hasWarningSent && warningApi.data?.warning_identifier) {
+    if (warning) {
+      await sendWarningToBackend()
+    }
+
+    if (warningApi.data?.warning_identifier) {
       sendNotificationToBackend({
         warning_identifier: warningApi.data.warning_identifier,
       })
     }
-  }, [hasWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
+  }
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
