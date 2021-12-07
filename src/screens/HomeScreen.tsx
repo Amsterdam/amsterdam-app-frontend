@@ -2,6 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
+import {VersionInfo} from '../components/features'
 import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
@@ -81,6 +82,7 @@ export const HomeScreen = ({navigation}: Props) => {
           </View>
         </View>
       </Box>
+      <VersionInfo />
     </ScrollView>
   )
 }
