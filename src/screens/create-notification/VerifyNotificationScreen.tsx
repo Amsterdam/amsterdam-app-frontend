@@ -91,17 +91,22 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     await warningApi.fetchData(undefined, JSON.stringify(warning))
   }
 
-  const sendNotificationToBackend = async (
-    warningId: string | undefined = undefined,
-  ) => {
-    const identifier = warningId
-      ? {warning_identifier: warningId}
-      : {news_identifier: newsDetails?.id}
-    await notificationApi.fetchData(
+  const sendNotificationWithWarningId = (warningId: string) => {
+    notificationApi.fetchData(
       undefined,
       JSON.stringify({
         ...notification,
-        ...identifier,
+        warning_identifier: warningId,
+      }),
+    )
+  }
+
+  const sendNotificationWithNewsId = (newsId: string) => {
+    notificationApi.fetchData(
+      undefined,
+      JSON.stringify({
+        ...notification,
+        news_identifier: newsId,
       }),
     )
   }
@@ -110,11 +115,16 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     if (warning) {
       await sendWarningToBackend()
       setHasWarningSent(true)
-    }
-    if (notification && newsDetails) {
-      sendNotificationToBackend()
+    } else if (notification && newsDetails?.id) {
+      sendNotificationWithNewsId(newsDetails.id)
     }
   }
+
+  useEffect(() => {
+    if (notification && hasWarningSent && warningApi.data?.warning_identifier) {
+      sendNotificationWithWarningId(warningApi.data.warning_identifier)
+    }
+  }, [hasWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -122,12 +132,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     })
     return focusListener
   }, [navigation, notificationContext])
-
-  useEffect(() => {
-    if (notification && hasWarningSent) {
-      sendNotificationToBackend(warningApi.data?.warning_identifier)
-    }
-  }, [hasWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (notificationApi.data) {
