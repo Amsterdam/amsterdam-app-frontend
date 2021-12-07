@@ -1595,21 +1595,21 @@
   dependencies:
     "serve-static" "^1.13.1"
 
-"@react-native-community/cli-hermes@^6.2.0":
-  "integrity" "sha512-7Uqnyb/kXiX4YPSxFn+tLhmABY4QV9w/SLX2TKh5L09rxDeNzXd6zNJW+98BTgi0ujy2UQY51MoexEKRMZK7Wg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli-hermes/-/cli-hermes-6.2.0.tgz"
-  "version" "6.2.0"
+"@react-native-community/cli-hermes@^6.3.0":
+  "integrity" "sha512-Uhbm9bubyZLZ12vFCIfWbE/Qi3SBTbYIN/TC08EudTLhv/KbPomCQnmFsnJ7AXQFuOZJs73mBxoEAYSbRbwyVA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli-hermes/-/cli-hermes-6.3.0.tgz"
+  "version" "6.3.0"
   dependencies:
-    "@react-native-community/cli-platform-android" "^6.2.0"
+    "@react-native-community/cli-platform-android" "^6.3.0"
     "@react-native-community/cli-tools" "^6.2.0"
     "chalk" "^4.1.2"
     "hermes-profile-transformer" "^0.0.6"
     "ip" "^1.1.5"
 
-"@react-native-community/cli-platform-android@^6.0.0", "@react-native-community/cli-platform-android@^6.2.0":
-  "integrity" "sha512-QLxwClcbxVhuIGsQiIpqRnoJzRdpN2B+y/Yt2OGgDHXGbuOXulgt4D+8AhvZXrB4jyAcEUlFg/048v3RGQQudw=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli-platform-android/-/cli-platform-android-6.2.0.tgz"
-  "version" "6.2.0"
+"@react-native-community/cli-platform-android@^6.0.0", "@react-native-community/cli-platform-android@^6.3.0":
+  "integrity" "sha512-d5ufyYcvrZoHznYm5bjBXaiHIJv552t5gYtQpnUsxBhHSQ8QlaNmlLUyeSPRDfOw4ND9b0tPHqs4ufwx6vp/fQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli-platform-android/-/cli-platform-android-6.3.0.tgz"
+  "version" "6.3.0"
   dependencies:
     "@react-native-community/cli-tools" "^6.2.0"
     "chalk" "^4.1.2"
@@ -1689,12 +1689,12 @@
     "ora" "^3.4.0"
 
 "@react-native-community/cli@^6.0.0":
-  "integrity" "sha512-dQMkpg8wLTtUg9YIGqm7OXNw558d5Cb/ehd8Z0Sx2WSXjj/d1Tm0eK8aL4/QFEUBI10CO6VGFTTe/8dIDxWSFg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli/-/cli-6.2.0.tgz"
-  "version" "6.2.0"
+  "integrity" "sha512-rMdm/S8i5VIDQBJAU6YfNz15uwdguht0wVUOrJpEW8DCTKDfATanTlc5a1bsi0vitl9lS896VrgBiuW/VFOOXA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cli/-/cli-6.3.0.tgz"
+  "version" "6.3.0"
   dependencies:
     "@react-native-community/cli-debugger-ui" "^6.0.0-rc.0"
-    "@react-native-community/cli-hermes" "^6.2.0"
+    "@react-native-community/cli-hermes" "^6.3.0"
     "@react-native-community/cli-plugin-metro" "^6.2.0"
     "@react-native-community/cli-server-api" "^6.2.0"
     "@react-native-community/cli-tools" "^6.2.0"
@@ -3738,7 +3738,6 @@
     "estraverse" "^5.2.0"
     "esutils" "^2.0.2"
     "optionator" "^0.8.1"
-    "source-map" "~0.6.1"
   optionalDependencies:
     "source-map" "~0.6.1"
 
@@ -5212,7 +5211,6 @@
     "@types/node" "*"
     "anymatch" "^3.0.3"
     "fb-watchman" "^2.0.0"
-    "fsevents" "^2.1.2"
     "graceful-fs" "^4.2.4"
     "jest-regex-util" "^26.0.0"
     "jest-serializer" "^26.6.2"
@@ -5234,7 +5232,6 @@
     "@types/node" "*"
     "anymatch" "^3.0.3"
     "fb-watchman" "^2.0.0"
-    "fsevents" "^2.3.2"
     "graceful-fs" "^4.2.4"
     "jest-regex-util" "^27.0.6"
     "jest-serializer" "^27.0.6"
@@ -5684,8 +5681,6 @@
   "integrity" "sha1-NzaitCi4e72gzIO1P6PWM6NcKug="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz"
   "version" "2.4.0"
-  dependencies:
-    "graceful-fs" "^4.1.6"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
@@ -5693,8 +5688,6 @@
   "integrity" "sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz"
   "version" "4.0.0"
-  dependencies:
-    "graceful-fs" "^4.1.6"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
@@ -5703,7 +5696,6 @@
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz"
   "version" "6.1.0"
   dependencies:
-    "graceful-fs" "^4.1.6"
     "universalify" "^2.0.0"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
@@ -5770,8 +5762,6 @@
   "integrity" "sha1-QIhDO0azsbolnXh4XY6W9zugJDk="
   "resolved" "https://registry.npmjs.org/klaw/-/klaw-1.3.1.tgz"
   "version" "1.3.1"
-  dependencies:
-    "graceful-fs" "^4.1.9"
   optionalDependencies:
     "graceful-fs" "^4.1.9"
 
@@ -7148,12 +7138,17 @@
     "semver" "^5.6.0"
 
 "react-native-svg@^12.1.1", "react-native-svg@>=6.5.1":
-  "integrity" "sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q=="
-  "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.1.1.tgz"
-  "version" "12.1.1"
+  "integrity" "sha512-gtmdnH0XwCJk6x8lD6VvqQQI5B/fS2qG/GTpAZzSGZqEYLnY9NzWpPbzD4lJGCacVUDUxkZgwiiqqSE3JTi7WQ=="
+  "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.2.0.tgz"
+  "version" "12.2.0"
   dependencies:
     "css-select" "^2.1.0"
     "css-tree" "^1.0.0-alpha.39"
+
+"react-native-version-info@^1.1.1":
+  "integrity" "sha512-huOj2WeEtmBbGa4+5ZiaKfi1ASN73Fbz81leYDWHhFKjsRdIis3vVgSJXXhHlC5wazsu1viujnLkGXVtu4Ns9g=="
+  "resolved" "https://registry.npmjs.org/react-native-version-info/-/react-native-version-info-1.1.1.tgz"
+  "version" "1.1.1"
 
 "react-native-webview@^11.6.5":
   "integrity" "sha512-4pRLskbu98xmC8q+YY9cfshSxhywVran+tQ0ou7V6Js0ye2Zb33dDpe6d7QUWD39w5LbYSI3knpxLLVDAVm0hA=="
@@ -7163,7 +7158,7 @@
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native@*", "react-native@^*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || ^0.66.0 || 1000.0.0", "react-native@>=0.45.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@0.66.3":
+"react-native@*", "react-native@^*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || ^0.66.0 || 1000.0.0", "react-native@>= 0.60.2", "react-native@>=0.45.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@0.66.3":
   "integrity" "sha512-B/dQpuvta9YvF5MihDWefoGlTvxzUHK5X5RjdrXHAu/ihTehJXxEA+m6z/tufp1ZUMDjU+tMZK6gnehzCuYfzw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.66.3.tgz"
   "version" "0.66.3"
