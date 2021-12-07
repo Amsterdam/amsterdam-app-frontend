@@ -1,10 +1,13 @@
+import {useContext} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../environment'
+import {SettingsContext} from '../providers/settings.provider'
 import {DeviceRegistration, SubscribedProjects} from '../types'
 import {encryptWithAES, getFcmToken} from '../utils'
 import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = () => {
+  const settingsContext = useContext(SettingsContext)
   // TODO Set as environment variables in CI/CD pipeline
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
@@ -35,8 +38,15 @@ export const useDeviceRegistration = () => {
       return acc
     }, [])
 
-  const store = async (projects: SubscribedProjects) => {
+  const store = async () => {
     try {
+      if (
+        !settingsContext.notifications ||
+        !settingsContext.notifications.projectsEnabled ||
+        !Object.keys(settingsContext.notifications.projects).length
+      ) {
+        throw 'No projects for this device to register'
+      }
       const token = await getFcmToken()
 
       await api.fetchData(
@@ -44,7 +54,9 @@ export const useDeviceRegistration = () => {
         JSON.stringify({
           device_token: token,
           os_type: Platform.OS,
-          projects: onlySubscribedProjects(projects),
+          projects: onlySubscribedProjects(
+            settingsContext.notifications.projects,
+          ),
         }),
       )
 
