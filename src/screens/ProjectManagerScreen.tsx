@@ -95,92 +95,88 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     }
   }, [allProjects, projectManagerSettings?.projects])
 
-  return (
-    <>
-      {authorizedProjects === undefined ? (
-        <PleaseWait />
-      ) : (
-        <Column align="between">
-          <Box background="white" inset="md">
-            {authorizedProjects.length ? (
-              <ScrollView>
-                <Column gutter="md">
-                  <Row valign="center" gutter="sm">
-                    <Checkmark
-                      fill={color.status.success}
-                      height={32}
-                      width={32}
-                    />
-                    <Title text="Gelukt!" />
-                  </Row>
-                  <Text intro>
-                    U kunt voor de volgende projecten een pushbericht versturen
-                    vanaf de projectpagina:
-                  </Text>
-                  <View>
-                    <Divider />
-                    {authorizedProjects.map(
-                      (authProject, index) =>
-                        authProject && (
-                          <Fragment key={authProject.identifier}>
-                            <TouchableOpacity
-                              style={styles.button}
-                              accessibilityRole="button"
-                              key={authProject.identifier}
-                              onPress={() => {
-                                authProject.identifier &&
-                                  navigation.navigate(
-                                    routes.projectDetail.name,
-                                    {
-                                      id: authProject.identifier,
-                                    },
-                                  )
-                              }}>
-                              <ProjectTitle
-                                title={authProject.title}
-                                subtitle={authProject.subtitle}
-                              />
-                            </TouchableOpacity>
-                            {index < authorizedProjects.length && <Divider />}
-                          </Fragment>
-                        ),
-                    )}
-                  </View>
-                </Column>
-              </ScrollView>
-            ) : (
-              <>
-                <Column gutter="md">
-                  <Row valign="center" gutter="sm">
-                    <Close fill={color.status.error} height={32} width={32} />
-                    <Title text="Er gaat iets mis…" />
-                  </Row>
-                  <Text intro>
-                    Helaas lukt het niet om de projecten te laden waarvoor u
-                    pushberichten mag versturen. Probeer de app nogmaals te
-                    openen met de toegestuurde link.
-                  </Text>
-                  <Text intro>
-                    Lukt dit niet? Neem dan contact op met de redactie.
-                  </Text>
-                </Column>
-              </>
-            )}
-          </Box>
+  return authorizedProjects === undefined ? (
+    <PleaseWait />
+  ) : (
+    <View style={styles.container}>
+      {authorizedProjects.length ? (
+        <>
           <Box>
-            <Button
-              text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
-              onPress={() => navigation.navigate(routes.home.name)}
-            />
+            <Column gutter="sm">
+              <Row valign="center" gutter="sm">
+                <Checkmark fill={color.status.success} height={32} width={32} />
+                <Title text="Gelukt!" />
+              </Row>
+              <Text intro>
+                U kunt voor de volgende projecten een pushbericht versturen
+                vanaf de projectpagina:
+              </Text>
+            </Column>
           </Box>
-        </Column>
+          <ScrollView>
+            <Box background="white">
+              <Divider />
+              {authorizedProjects.map(
+                (authProject, index) =>
+                  authProject && (
+                    <Fragment key={authProject.identifier}>
+                      <TouchableOpacity
+                        style={styles.button}
+                        accessibilityRole="button"
+                        key={authProject.identifier}
+                        onPress={() => {
+                          authProject.identifier &&
+                            navigation.navigate(routes.projectDetail.name, {
+                              id: authProject.identifier,
+                            })
+                        }}>
+                        <ProjectTitle
+                          title={authProject.title}
+                          subtitle={authProject.subtitle}
+                        />
+                      </TouchableOpacity>
+                      {index < authorizedProjects.length && <Divider />}
+                    </Fragment>
+                  ),
+              )}
+            </Box>
+          </ScrollView>
+        </>
+      ) : (
+        <Box>
+          <Column gutter="md">
+            <Row valign="center" gutter="sm">
+              <Close fill={color.status.error} height={32} width={32} />
+              <Title text="Er gaat iets mis…" />
+            </Row>
+            <Text intro>
+              Helaas lukt het niet om de projecten te laden waarvoor u
+              pushberichten mag versturen. Probeer de app nogmaals te openen met
+              de toegestuurde link.
+            </Text>
+            <Text intro>
+              Lukt dit niet? Neem dan contact op met de redactie.
+            </Text>
+          </Column>
+        </Box>
       )}
-    </>
+      <Box>
+        <Button
+          text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
+          onPress={() => navigation.navigate(routes.home.name)}
+        />
+      </Box>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
     paddingVertical: size.spacing.sm,
+  },
+  container: {
+    height: '100%',
+    justifyContent: 'space-between',
+    paddingVertical: size.spacing.md,
   },
 })
