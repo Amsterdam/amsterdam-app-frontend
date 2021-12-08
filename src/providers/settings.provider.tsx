@@ -5,9 +5,14 @@ import {NotificationSettings, ProjectManagerSettings, Settings} from '../types'
 const initialState = {
   notifications: undefined,
   'project-manager': undefined,
+  changeNotificationSettings: () => {},
 }
 
-export const SettingsContext = createContext<Settings>(initialState)
+type Context = {
+  changeNotificationSettings: (settings: NotificationSettings) => void
+} & Settings
+
+export const SettingsContext = createContext<Context>(initialState)
 
 export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const asyncStorage = useAsyncStorage()
@@ -17,6 +22,10 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const [projectManagerSettings, setProjectManagerSettings] = useState<
     ProjectManagerSettings | undefined
   >()
+
+  const changeNotificationSettings = (settings: NotificationSettings) => {
+    setNotificationSettings(settings)
+  }
 
   const retrieveProjectManagerSettings = useCallback(async () => {
     if (projectManagerSettings === undefined) {
@@ -34,6 +43,22 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     }
   }, [asyncStorage, projectManagerSettings])
 
+  const storeNotificationSettings = useCallback(async () => {
+    if (notificationSettings === undefined) {
+      return
+    }
+
+    await asyncStorage.storeData('notifications', notificationSettings)
+  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const storeProjectManagerSettings = useCallback(async () => {
+    if (projectManagerSettings === undefined) {
+      return
+    }
+
+    await asyncStorage.storeData('project-manager', projectManagerSettings)
+  }, [projectManagerSettings]) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     retrieveProjectManagerSettings()
   }, [retrieveProjectManagerSettings])
@@ -42,9 +67,18 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     retrieveNotificationSettings()
   }, [retrieveNotificationSettings])
 
+  useEffect(() => {
+    storeNotificationSettings()
+  }, [storeNotificationSettings])
+
+  useEffect(() => {
+    storeProjectManagerSettings()
+  }, [storeProjectManagerSettings])
+
   return (
     <SettingsContext.Provider
       value={{
+        changeNotificationSettings,
         notifications: notificationSettings,
         'project-manager': projectManagerSettings,
       }}>
