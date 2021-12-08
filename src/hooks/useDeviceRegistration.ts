@@ -1,20 +1,24 @@
-import {useContext} from 'react'
+import {useCallback, useContext, useEffect, useRef} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../environment'
 import {SettingsContext} from '../providers/settings.provider'
-import {DeviceRegistration, SubscribedProjects} from '../types'
+import {
+  DeviceRegistration,
+  NotificationSettings,
+  SubscribedProjects,
+} from '../types'
 import {encryptWithAES, getFcmToken} from '../utils'
 import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = () => {
   const settingsContext = useContext(SettingsContext)
+
   // TODO Set as environment variables in CI/CD pipeline
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
     plaintext: '44755871-9ea6-4018-b1df-e4f00466c723',
   })
 
-  // Configure endpoint
   const api = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',
     options: {
@@ -27,10 +31,10 @@ export const useDeviceRegistration = () => {
     onLoad: false,
   })
 
-  // The backend isn’t interested in projects that the user has unsubscribed to
-  // but the front-end lists them until the user removes them explicitly
-  // so for the device registration we remove unsubscribed projects.
-  // TODO Add unit tests
+  const prevNotificationSettings = useRef<NotificationSettings | undefined>(
+    settingsContext.notifications,
+  )
+
   const onlySubscribedProjects = (projects: SubscribedProjects): string[] =>
     Object.entries(projects).reduce((acc, val) => {
       // @ts-ignore
@@ -38,15 +42,29 @@ export const useDeviceRegistration = () => {
       return acc
     }, [])
 
-  const store = async () => {
+  const storeDeviceIfNeeded = useCallback(() => {
+    const hasSubscribedProjects = onlySubscribedProjects(
+      settingsContext?.notifications?.projects ?? {},
+    ).length
+
+    // if no projects are subscribed to, only store if previously there were
+    if (!hasSubscribedProjects) {
+      const prevSubscribedProjects = onlySubscribedProjects(
+        prevNotificationSettings.current?.projects ?? {},
+      ).length
+      return prevSubscribedProjects
+    }
+
+    return true
+  }, [settingsContext.notifications])
+
+  // Store subscribed projects on the backend
+  const store = useCallback(async () => {
+    if (!storeDeviceIfNeeded()) {
+      return
+    }
+    const projectsInSettings = settingsContext?.notifications?.projects
     try {
-      if (
-        !settingsContext.notifications ||
-        !settingsContext.notifications.projectsEnabled ||
-        !Object.keys(settingsContext.notifications.projects).length
-      ) {
-        throw 'No projects for this device to register'
-      }
       const token = await getFcmToken()
 
       await api.fetchData(
@@ -54,9 +72,9 @@ export const useDeviceRegistration = () => {
         JSON.stringify({
           device_token: token,
           os_type: Platform.OS,
-          projects: onlySubscribedProjects(
-            settingsContext.notifications.projects,
-          ),
+          projects: projectsInSettings
+            ? onlySubscribedProjects(projectsInSettings)
+            : [],
         }),
       )
 
@@ -64,7 +82,17 @@ export const useDeviceRegistration = () => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [settingsContext.notifications, storeDeviceIfNeeded]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    // prevent calling store() on initial rendering
+    const notificationSettingsUpdated =
+      prevNotificationSettings.current !== settingsContext.notifications
+    if (notificationSettingsUpdated) {
+      store()
+      prevNotificationSettings.current = settingsContext.notifications
+    }
+  }, [settingsContext.notifications, store])
 
   return {store}
 }
