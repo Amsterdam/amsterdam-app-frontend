@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react'
+import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ArticleOverview} from '../components/features/article'
@@ -18,13 +18,10 @@ import {
 import {Switch} from '../components/ui/forms'
 import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
-import {useAsyncStorage, useDeviceRegistration, useFetch} from '../hooks'
+import {useFetch} from '../hooks'
+import {SettingsContext} from '../providers/settings.provider'
 import {image, size} from '../tokens'
-import {
-  NotificationSettings,
-  ProjectDetail,
-  ProjectManagerSettings,
-} from '../types'
+import {ProjectDetail} from '../types'
 import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
@@ -38,20 +35,12 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
-  const asyncStorage = useAsyncStorage()
-  const deviceRegistration = useDeviceRegistration()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
-  const [
-    projectNotificationSettingHasChanged,
-    setProjectNotificationSettingHasChanged,
-  ] = useState(false)
-  const [projectManagerSettings, setProjectManagerSettings] = useState<
-    ProjectManagerSettings | undefined
-  >()
+  const {
+    changeNotificationSettings,
+    notifications,
+    'project-manager': projectManager,
+  } = useContext(SettingsContext)
 
-  // Retrieve project details from backend
   const {data: project, isLoading} = useFetch<ProjectDetail>({
     url: getEnvironment().apiUrl + '/project/details',
     options: {
@@ -61,71 +50,24 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     },
   })
 
-  // Check if notifications are being subscribed to for this project.
-  // It does a lookup of the project id in the list of projects in settings.
-  const subscribed =
-    notificationSettings?.projects?.[project?.identifier ?? ''] ?? false
+  const isSubscribed =
+    notifications?.projects?.[project?.identifier ?? ''] ?? false
 
-  // Set header title
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   }, [project?.title, navigation])
 
-  // Retrieve project manager settings from device and save to component state
-  useEffect(() => {
-    const retrieveProjectManagerSettings = async () => {
-      const newProjectManagerSettings: ProjectManagerSettings | undefined =
-        await asyncStorage.getData('project-manager')
-      setProjectManagerSettings(newProjectManagerSettings)
-    }
-    retrieveProjectManagerSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Retrieve notification settings from device and save to component state
-  useEffect(() => {
-    const retrieveNotificationSettings = async () => {
-      const newNotificationSetting: NotificationSettings | undefined =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(newNotificationSetting)
-    }
-    retrieveNotificationSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Toggle notification setting for this project
-  // Also forces `projectsEnabled` to be true.
-  // TODO Move to device registration hook
   const toggleProjectSubscription = (projectId: string) => {
-    setNotificationSettings({
+    changeNotificationSettings({
       projectsEnabled: true,
       projects: {
-        ...notificationSettings?.projects,
-        [projectId]: !subscribed,
+        ...notifications?.projects,
+        [projectId]: !isSubscribed,
       },
     })
-
-    setProjectNotificationSettingHasChanged(true)
   }
-
-  // Store notification changes on device and in backend
-  const storeNotificationSettings = useCallback(async () => {
-    if (notificationSettings === undefined) {
-      return
-    }
-
-    await asyncStorage.storeData('notifications', notificationSettings)
-    await deviceRegistration.store(
-      notificationSettings.projectsEnabled
-        ? notificationSettings.projects ?? {}
-        : {},
-    )
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Watch changes in notification settings
-  useEffect(() => {
-    projectNotificationSettingHasChanged && storeNotificationSettings()
-  }, [projectNotificationSettingHasChanged, storeNotificationSettings])
 
   return isLoading && !project ? (
     <PleaseWait />
@@ -140,7 +82,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       <Column gutter="md">
         <Box background="white">
           <Column gutter="md">
-            {projectManagerSettings?.projects.includes(project.identifier) && (
+            {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
                   navigation.navigate(routes.notification.name, {
@@ -151,8 +93,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                     },
                   })
                 }
-                text="Verstuur pushbericht"
-                variant="inverse"
               />
             )}
             <SingleSelectable
@@ -168,16 +108,14 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               onValueChange={() =>
                 toggleProjectSubscription(project.identifier)
               }
-              value={subscribed}
+              value={isSubscribed}
             />
           </Column>
           <Gutter height={size.spacing.lg} />
           <ProjectBodyMenu project={project} />
         </Box>
         {project.articles.length ? (
-          <Box>
-            <ArticleOverview articles={project.articles} />
-          </Box>
+          <ArticleOverview articles={project.articles} />
         ) : null}
       </Column>
     </ScrollView>

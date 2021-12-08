@@ -1,12 +1,13 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment, useCallback, useEffect, useState} from 'react'
+import React, {Fragment, useContext, useState} from 'react'
 import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../../App'
 import {getEnvironment} from '../../../environment'
-import {useAsyncStorage, useDeviceRegistration, useFetch} from '../../../hooks'
+import {useFetch} from '../../../hooks'
+import {SettingsContext} from '../../../providers/settings.provider'
 import {size} from '../../../tokens'
-import {NotificationSettings, ProjectOverviewItem} from '../../../types'
+import {ProjectOverviewItem} from '../../../types'
 import {accessibleText} from '../../../utils'
 import {
   Attention,
@@ -22,74 +23,37 @@ import {Column, Row, ScrollView} from '../../ui/layout'
 import {ProjectTitle} from '../project'
 
 export const ProjectNotificationSettings = () => {
-  const asyncStorage = useAsyncStorage()
-  const deviceRegistration = useDeviceRegistration()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
-  const [
-    projectNotificationSettingHasChanged,
-    setProjectNotificationSettingHasChanged,
-  ] = useState(false)
+  const settingsContext = useContext(SettingsContext)
   const [selectedProjects, setSelectedProjects] = useState<string[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'ProjectOverview'>>()
 
   // Retrieve all projects from backend
-  // TODO Don’t fetch if notifications disabled – move the list into its own component
+  // TODO Don’t fetch if settingsContext.notifications disabled – move the list into its own component
   const {data: allProjects, isLoading} = useFetch<ProjectOverviewItem[]>({
     url: getEnvironment().apiUrl + '/projects',
   })
   const subscribableProjectIds = Object.keys(
-    notificationSettings?.projects ?? {},
-  )
-
-  // Initially retrieve notification settings from device and save to component state
-  useEffect(() => {
-    const retrieveSettings = async () => {
-      const currentNotificationSettings: NotificationSettings =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(currentNotificationSettings)
-    }
-
-    retrieveSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Retrieve notification settings when navigating back to this screen (from projects)
-  useFocusEffect(
-    useCallback(() => {
-      const listener = async () => {
-        const currentNotificationSettings: NotificationSettings =
-          await asyncStorage.getData('notifications')
-        setNotificationSettings(currentNotificationSettings)
-      }
-
-      listener()
-
-      return () => setProjectNotificationSettingHasChanged(false)
-    }, []), // eslint-disable-line react-hooks/exhaustive-deps
+    settingsContext.notifications?.projects ?? {},
   )
 
   // Toggle enabled notification settings
-  // and unsubscribe from all projects if disabling notifications
+  // and unsubscribe from all projects if disabling settingsContext.notifications
   const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
     const projects = projectsEnabled
-      ? notificationSettings?.projects ?? {}
+      ? settingsContext.notifications?.projects ?? {}
       : Object.fromEntries(
-          Object.keys(notificationSettings?.projects ?? {}).map(projectId => [
-            projectId,
-            false,
-          ]),
+          Object.keys(settingsContext.notifications?.projects ?? {}).map(
+            projectId => [projectId, false],
+          ),
         )
 
-    setNotificationSettings({
-      ...notificationSettings,
+    settingsContext.changeNotificationSettings({
+      ...settingsContext.notifications,
       projectsEnabled,
       projects,
     })
-
-    setProjectNotificationSettingHasChanged(true)
   }
 
   // Toggle notification settings for a project
@@ -98,15 +62,14 @@ export const ProjectNotificationSettings = () => {
     projectId: string,
     subscribed: boolean,
   ) => {
-    setNotificationSettings({
-      ...notificationSettings,
-      projects: {
-        ...notificationSettings?.projects,
-        [projectId]: subscribed,
-      },
-    })
-
-    setProjectNotificationSettingHasChanged(true)
+    settingsContext.notifications &&
+      settingsContext.changeNotificationSettings({
+        ...settingsContext.notifications,
+        projects: {
+          ...settingsContext.notifications?.projects,
+          [projectId]: subscribed,
+        },
+      })
   }
 
   const toggleProjectListing = (projectId: string) =>
@@ -117,37 +80,17 @@ export const ProjectNotificationSettings = () => {
     )
 
   const deleteProjects = () => {
-    const projects = notificationSettings?.projects ?? {}
+    const projects = settingsContext.notifications?.projects ?? {}
     selectedProjects.map((id: string) => delete projects[id])
 
-    setNotificationSettings({
-      ...notificationSettings,
-      projects,
-    })
+    settingsContext.notifications &&
+      settingsContext.changeNotificationSettings({
+        ...settingsContext.notifications,
+        projects,
+      })
 
     setIsEditing(!isEditing)
-    setProjectNotificationSettingHasChanged(true)
   }
-
-  // Store changed notification settings on device
-  // Clear projects in device registration if project notifications are disabled
-  const storeSettings = useCallback(async () => {
-    if (notificationSettings === undefined) {
-      return
-    }
-
-    await asyncStorage.storeData('notifications', notificationSettings)
-
-    await deviceRegistration.store(
-      notificationSettings?.projectsEnabled
-        ? notificationSettings.projects ?? {}
-        : {},
-    )
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    projectNotificationSettingHasChanged && storeSettings()
-  }, [projectNotificationSettingHasChanged, storeSettings])
 
   if (isLoading) {
     return (
@@ -168,13 +111,15 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Berichten ontvangen"
           label={<Text>Berichten ontvangen</Text>}
           onValueChange={() =>
-            toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
+            toggleNotificationsEnabled(
+              !settingsContext.notifications?.projectsEnabled,
+            )
           }
-          value={notificationSettings?.projectsEnabled}
+          value={settingsContext.notifications?.projectsEnabled}
         />
       </Box>
       <Box>
-        {!notificationSettings?.projectsEnabled && (
+        {!settingsContext.notifications?.projectsEnabled && (
           <Box background="white">
             <Column gutter="md">
               <Title level={2} text="U ontvangt geen berichten" />
@@ -203,7 +148,7 @@ export const ProjectNotificationSettings = () => {
             </Column>
           </Box>
         )}
-        {notificationSettings?.projectsEnabled &&
+        {settingsContext.notifications?.projectsEnabled &&
         !subscribableProjectIds.length ? (
           <Column gutter="md">
             <Attention>
@@ -220,7 +165,7 @@ export const ProjectNotificationSettings = () => {
           </Column>
         ) : null}
       </Box>
-      {notificationSettings?.projectsEnabled &&
+      {settingsContext.notifications?.projectsEnabled &&
       subscribableProjectIds.length ? (
         <Column gutter="md">
           <Column gutter="sm">
@@ -235,7 +180,7 @@ export const ProjectNotificationSettings = () => {
                   p => p.identifier === projectId,
                 )
                 const subscribed =
-                  notificationSettings?.projects?.[projectId] ?? false
+                  settingsContext.notifications?.projects?.[projectId] ?? false
 
                 return (
                   project && (
