@@ -139,8 +139,8 @@ android {
         applicationId "com.stadsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 27
-        versionName '0.8'
+        versionCode 34
+        versionName '0.10'
     }
     splits {
         abi {
