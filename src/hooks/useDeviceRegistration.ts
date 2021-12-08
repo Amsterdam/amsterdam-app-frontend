@@ -1,4 +1,5 @@
-import {useCallback, useContext, useEffect, useRef} from 'react'
+import messaging from '@react-native-firebase/messaging'
+import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../environment'
 import {SettingsContext} from '../providers/settings.provider'
@@ -12,6 +13,7 @@ import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = () => {
   const settingsContext = useContext(SettingsContext)
+  const [refreshToken, setRefreshToken] = useState<string | undefined>()
 
   // TODO Set as environment variables in CI/CD pipeline
   const authToken = encryptWithAES({
@@ -19,10 +21,22 @@ export const useDeviceRegistration = () => {
     plaintext: '44755871-9ea6-4018-b1df-e4f00466c723',
   })
 
-  const api = useFetch<DeviceRegistration>({
+  const storeApi = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',
     options: {
       method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        DeviceAuthorization: authToken,
+      }),
+    },
+    onLoad: false,
+  })
+
+  const patchApi = useFetch<DeviceRegistration>({
+    url: getEnvironment().apiUrl + '/device_registration',
+    options: {
+      method: 'PATCH',
       headers: new Headers({
         'Content-Type': 'application/json',
         DeviceAuthorization: authToken,
@@ -58,7 +72,6 @@ export const useDeviceRegistration = () => {
     return true
   }, [settingsContext.notifications])
 
-  // Store subscribed projects on the backend
   const store = useCallback(async () => {
     if (!storeDeviceIfNeeded()) {
       return
@@ -67,7 +80,7 @@ export const useDeviceRegistration = () => {
     try {
       const token = await getFcmToken()
 
-      await api.fetchData(
+      await storeApi.fetchData(
         {},
         JSON.stringify({
           device_token: token,
@@ -78,11 +91,37 @@ export const useDeviceRegistration = () => {
         }),
       )
 
-      return api.hasError
+      return storeApi.hasError
     } catch (error) {
       console.log(error)
     }
   }, [settingsContext.notifications, storeDeviceIfNeeded]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const registerWithRefreshToken = useCallback(
+    async () => {
+      const projectsInSettings = settingsContext?.notifications?.projects
+      try {
+        const token = await getFcmToken()
+
+        await patchApi.fetchData(
+          {},
+          JSON.stringify({
+            device_token: token,
+            device_refresh_token: refreshToken,
+            os_type: Platform.OS,
+            projects: projectsInSettings
+              ? onlySubscribedProjects(projectsInSettings)
+              : [],
+          }),
+        )
+
+        return patchApi.hasError
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    [refreshToken], // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   useEffect(() => {
     // prevent calling store() on initial rendering
@@ -93,6 +132,17 @@ export const useDeviceRegistration = () => {
       prevNotificationSettings.current = settingsContext.notifications
     }
   }, [settingsContext.notifications, store])
+
+  useEffect(() => {
+    // Listen to whether the token changes
+    return messaging().onTokenRefresh(token => {
+      setRefreshToken(token)
+    })
+  }, [])
+
+  useEffect(() => {
+    refreshToken && registerWithRefreshToken()
+  }, [refreshToken, registerWithRefreshToken])
 
   return {store}
 }
