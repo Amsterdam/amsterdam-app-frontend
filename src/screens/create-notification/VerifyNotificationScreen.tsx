@@ -40,9 +40,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     projectManagerSettings,
     warning,
   } = notificationContext
-  const [notificationToSend, setNotificationToSend] =
-    useState<NewNotification>()
   const [authToken, setAuthToken] = useState<string>()
+  const [isWarningSent, setWarningSent] = useState(false)
 
   const handleAuthToken = useCallback(() => {
     try {
@@ -88,17 +87,43 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     onLoad: false,
   })
 
-  const handleSubmit = () => {
-    if (warning) {
-      warningApi.fetchData(undefined, JSON.stringify(warning))
-    }
-    if (notification && newsDetails) {
-      setNotificationToSend({
+  const sendWarningToBackend = async () => {
+    await warningApi.fetchData(undefined, JSON.stringify(warning))
+    setWarningSent(true)
+  }
+
+  const sendNotificationToBackend = (
+    articleIdentifier: Pick<
+      NewNotification,
+      'news_identifier' | 'warning_identifier'
+    >,
+  ) => {
+    notificationApi.fetchData(
+      undefined,
+      JSON.stringify({
         ...notification,
-        news_identifier: newsDetails.id,
-      })
+        ...articleIdentifier,
+      }),
+    )
+  }
+
+  const handleSubmit = async () => {
+    if (newsDetails?.id) {
+      sendNotificationToBackend({news_identifier: newsDetails.id})
+    }
+
+    if (warning) {
+      await sendWarningToBackend()
     }
   }
+
+  useEffect(() => {
+    isWarningSent &&
+      warningApi.data &&
+      sendNotificationToBackend({
+        warning_identifier: warningApi.data.warning_identifier,
+      })
+  }, [isWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -106,21 +131,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     })
     return focusListener
   }, [navigation, notificationContext])
-
-  useEffect(() => {
-    if (notification && warningApi.data) {
-      const warningIdentifier = warningApi.data.warning_identifier
-      setNotificationToSend({
-        ...notification,
-        warning_identifier: warningIdentifier,
-      })
-    }
-  }, [warningApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    notificationToSend &&
-      notificationApi.fetchData(undefined, JSON.stringify(notificationToSend))
-  }, [notificationToSend]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (notificationApi.data) {
