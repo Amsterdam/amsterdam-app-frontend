@@ -38,8 +38,12 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
           ...options,
           body: body ?? options?.body ?? '',
         })
-        const json = await response.json()
-        setData(json.result ?? json)
+        if (response.ok) {
+          const json = await response.json()
+          setData(json.result ?? json)
+        } else {
+          throw 'Something went wrong'
+        }
       } catch (error) {
         setHasError(!!error)
       } finally {
