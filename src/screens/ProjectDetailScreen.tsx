@@ -137,43 +137,49 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           style={styles.image}
         />
       )}
-      <Box background="white">
-        <Column gutter="md">
-          {projectManagerSettings?.projects.includes(project.identifier) && (
-            <Button
-              onPress={() =>
-                navigation.navigate(routes.notification.name, {
-                  projectDetails: {
-                    articles: project.articles,
-                    id: project.identifier,
-                    title: project.title,
-                  },
-                })
+      <Column gutter="md">
+        <Box background="white">
+          <Column gutter="md">
+            {projectManagerSettings?.projects.includes(project.identifier) && (
+              <Button
+                onPress={() =>
+                  navigation.navigate(routes.notification.name, {
+                    projectDetails: {
+                      articles: project.articles,
+                      id: project.identifier,
+                      title: project.title,
+                    },
+                  })
+                }
+                text="Verstuur pushbericht"
+                variant="inverse"
+              />
+            )}
+            <SingleSelectable
+              accessibilityRole="header"
+              label={accessibleText(project.title, project.subtitle)}>
+              {project.title && <Title text={project.title} />}
+              {project.subtitle && <Text intro>{project.subtitle}</Text>}
+            </SingleSelectable>
+            <Switch
+              accessibilityLabel="Ontvang berichten"
+              label={<Text>Ontvang berichten</Text>}
+              labelPosition="end"
+              onValueChange={() =>
+                toggleProjectSubscription(project.identifier)
               }
-              text="Verstuur pushbericht"
-              variant="inverse"
+              value={subscribed}
             />
-          )}
-          <SingleSelectable
-            accessibilityRole="header"
-            label={accessibleText(project.title, project.subtitle)}>
-            {project.title && <Title text={project.title} />}
-            {project.subtitle && <Text intro>{project.subtitle}</Text>}
-          </SingleSelectable>
-          <Switch
-            accessibilityLabel="Ontvang berichten"
-            label={<Text>Ontvang berichten</Text>}
-            labelPosition="end"
-            onValueChange={() => toggleProjectSubscription(project.identifier)}
-            value={subscribed}
-          />
-        </Column>
-        <Gutter height={size.spacing.lg} />
-        <ProjectBodyMenu project={project} />
-      </Box>
-      {project.articles.length ? (
-        <ArticleOverview articles={project.articles} />
-      ) : null}
+          </Column>
+          <Gutter height={size.spacing.lg} />
+          <ProjectBodyMenu project={project} />
+        </Box>
+        {project.articles.length ? (
+          <Box>
+            <ArticleOverview articles={project.articles} />
+          </Box>
+        ) : null}
+      </Column>
     </ScrollView>
   ) : null
 }
