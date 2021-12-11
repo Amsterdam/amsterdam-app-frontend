@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: font.size.p1,
     lineHeight: font.height.p1,
     color: color.font.regular,
+    flexShrink: 1,
   },
   warning: {
     color: color.font.invalid,
