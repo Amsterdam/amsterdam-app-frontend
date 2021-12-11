@@ -35,11 +35,8 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
-  const {
-    changeNotificationSettings,
-    notifications,
-    'project-manager': projectManager,
-  } = useContext(SettingsContext)
+  const {changeSettings, settings} = useContext(SettingsContext)
+  const projectManager = settings && settings['project-manager']
 
   const {data: project, isLoading} = useFetch<ProjectDetail>({
     url: getEnvironment().apiUrl + '/project/details',
@@ -51,7 +48,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   })
 
   const isSubscribed =
-    notifications?.projects?.[project?.identifier ?? ''] ?? false
+    settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -60,10 +57,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, [project?.title, navigation])
 
   const toggleProjectSubscription = (projectId: string) => {
-    changeNotificationSettings({
+    changeSettings('project-manager', {
       projectsEnabled: true,
       projects: {
-        ...notifications?.projects,
+        ...settings?.notifications?.projects,
         [projectId]: !isSubscribed,
       },
     })

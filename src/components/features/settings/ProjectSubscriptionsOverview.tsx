@@ -20,8 +20,8 @@ export const ProjectSubscriptionsOverview = ({
 }: Props) => {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([])
   const [isEditing, setIsEditing] = useState(false)
-  const {notifications, changeNotificationSettings} =
-    useContext(SettingsContext)
+  const {changeSettings, settings} = useContext(SettingsContext)
+  const notifications = settings?.notifications
 
   // Retrieve all projects from backend
   // TODO Don’t fetch if notifications disabled – move the list into its own component
@@ -41,7 +41,7 @@ export const ProjectSubscriptionsOverview = ({
     selectedProjects.map((id: string) => delete projects[id])
 
     notifications &&
-      changeNotificationSettings({
+      changeSettings('notifications', {
         ...notifications,
         projects,
       })
@@ -54,7 +54,7 @@ export const ProjectSubscriptionsOverview = ({
     subscribed: boolean,
   ) => {
     notifications &&
-      changeNotificationSettings({
+      changeSettings('notifications', {
         ...notifications,
         projects: {
           ...notifications?.projects,

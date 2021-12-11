@@ -8,8 +8,8 @@ import {NoPreviousSubscriptionsMessage} from './NoPreviousSubscriptionsMessage'
 import {ProjectSubscriptionsOverview} from './ProjectSubscriptionsOverview'
 
 export const ProjectNotificationSettings = () => {
-  const {notifications, changeNotificationSettings} =
-    useContext(SettingsContext)
+  const {changeSettings, settings} = useContext(SettingsContext)
+  const notifications = settings?.notifications
 
   const subscribableProjectIds = Object.keys(notifications?.projects ?? {})
 
@@ -25,7 +25,7 @@ export const ProjectNotificationSettings = () => {
           ]),
         )
 
-    changeNotificationSettings({
+    changeSettings('notifications', {
       ...notifications,
       projectsEnabled,
       projects,
