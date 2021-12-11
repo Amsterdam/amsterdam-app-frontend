@@ -1,86 +1,55 @@
 import React, {createContext, useCallback, useEffect, useState} from 'react'
 import {useAsyncStorage} from '../hooks'
-import {NotificationSettings, ProjectManagerSettings, Settings} from '../types'
+import {Settings} from '../types'
 
 const initialState = {
-  notifications: undefined,
-  'project-manager': undefined,
-  changeNotificationSettings: () => {},
+  settings: undefined,
+  changeSettings: () => {},
 }
 
 type Context = {
-  changeNotificationSettings: (settings: NotificationSettings) => void
-} & Settings
+  changeSettings: (key: keyof Settings, value: Record<string, any>) => void
+  settings: Settings | undefined
+}
 
 export const SettingsContext = createContext<Context>(initialState)
 
 export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const asyncStorage = useAsyncStorage()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >()
-  const [projectManagerSettings, setProjectManagerSettings] = useState<
-    ProjectManagerSettings | undefined
-  >()
+  const [settings, setSettings] = useState<Settings | undefined>()
 
-  const changeNotificationSettings = (settings: NotificationSettings) => {
-    setNotificationSettings(settings)
+  const retrieveSettings = useCallback(async () => {
+    const data = await asyncStorage.getAll()
+    const settingsFromStore = Object.fromEntries(data ?? [])
+
+    let parsedSettings = {} as Record<string, string>
+    for (var x in settingsFromStore) {
+      parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
+    }
+
+    setSettings(parsedSettings)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const changeSettings = async (
+    key: keyof Settings,
+    value: Record<string, any>,
+  ) => {
+    await asyncStorage.storeData(key, value)
+    setSettings({
+      ...settings,
+      [key]: value,
+    })
   }
 
-  const retrieveProjectManagerSettings = useCallback(async () => {
-    if (projectManagerSettings === undefined) {
-      const newProjectManagerSettings: ProjectManagerSettings | undefined =
-        await asyncStorage.getData('project-manager')
-      setProjectManagerSettings(newProjectManagerSettings)
-    }
-  }, [asyncStorage, projectManagerSettings])
-
-  const retrieveNotificationSettings = useCallback(async () => {
-    if (projectManagerSettings === undefined) {
-      const newNotificationSettings: NotificationSettings | undefined =
-        await asyncStorage.getData('notifications')
-      setNotificationSettings(newNotificationSettings)
-    }
-  }, [asyncStorage, projectManagerSettings])
-
-  const storeNotificationSettings = useCallback(async () => {
-    if (notificationSettings === undefined) {
-      return
-    }
-
-    await asyncStorage.storeData('notifications', notificationSettings)
-  }, [notificationSettings]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const storeProjectManagerSettings = useCallback(async () => {
-    if (projectManagerSettings === undefined) {
-      return
-    }
-
-    await asyncStorage.storeData('project-manager', projectManagerSettings)
-  }, [projectManagerSettings]) // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
-    retrieveProjectManagerSettings()
-  }, [retrieveProjectManagerSettings])
-
-  useEffect(() => {
-    retrieveNotificationSettings()
-  }, [retrieveNotificationSettings])
-
-  useEffect(() => {
-    storeNotificationSettings()
-  }, [storeNotificationSettings])
-
-  useEffect(() => {
-    storeProjectManagerSettings()
-  }, [storeProjectManagerSettings])
+    retrieveSettings()
+  }, [retrieveSettings])
 
   return (
     <SettingsContext.Provider
       value={{
-        changeNotificationSettings,
-        notifications: notificationSettings,
-        'project-manager': projectManagerSettings,
+        changeSettings,
+        settings,
       }}>
       {children}
     </SettingsContext.Provider>
