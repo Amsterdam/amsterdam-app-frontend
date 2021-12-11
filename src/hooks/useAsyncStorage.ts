@@ -1,12 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {useContext, useState} from 'react'
+import {useState} from 'react'
 import {Alert} from 'react-native'
 import {getEnvironment} from '../environment'
-import {AddressContext} from '../providers'
 
 export const useAsyncStorage = () => {
-  const addressContext = useContext(AddressContext)
-
   const [error, setError] = useState<unknown | undefined>()
 
   const storeData = async (key: string, obj: any) => {
@@ -35,8 +32,6 @@ export const useAsyncStorage = () => {
     const clearAsyncStorage = () => {
       try {
         AsyncStorage.getAllKeys().then(keys => AsyncStorage.multiRemove(keys))
-        // Hmm, waarom moet dit nog apart?
-        addressContext.changeAddress(undefined)
       } catch (e) {}
 
       getEnvironment().debug && console.info('Alle instellingen gewist.')
@@ -59,5 +54,15 @@ export const useAsyncStorage = () => {
     )
   }
 
-  return {clear, error, getData, storeData}
+  const getAll = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys()
+      const all = await AsyncStorage.multiGet(keys)
+      return all
+    } catch (e) {
+      setError(e)
+    }
+  }
+
+  return {clear, error, getAll, getData, storeData}
 }
