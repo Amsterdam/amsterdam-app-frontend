@@ -82,9 +82,7 @@ export const NotificationOverviewScreen = () => {
               !notification.isRead && styles.notRead,
             ]}>
             <Row gutter="sm">
-              <Box insetVertical="xs">
-                {notification.isRead ? <BellInactive /> : <BellActive />}
-              </Box>
+              {notification.isRead ? <BellInactive /> : <BellActive />}
               <Text small>
                 {projectTitles[notification.project_identifier]}
               </Text>
