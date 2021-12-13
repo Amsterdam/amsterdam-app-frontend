@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {BellActive, BellInactive} from '../../../assets/icons'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useFetch} from '../../../hooks'
@@ -9,8 +9,8 @@ import {
   NotificationSettings,
   ProjectOverviewItem,
 } from '../../../types'
-import {formatDate} from '../../../utils'
-import {Box, PleaseWait, Text} from '../../ui'
+import {accessibleText, formatDate} from '../../../utils'
+import {Box, PleaseWait, SingleSelectable, Text} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 
 export const NotificationOverview = () => {
@@ -73,23 +73,37 @@ export const NotificationOverview = () => {
 
   return notifications?.length ? (
     <>
-      {notificationsWithReadStatus.map(notification => (
-        <View
-          key={notification.publication_date}
-          style={[styles.notification, !notification.isRead && styles.notRead]}>
-          <Row gutter="sm">
-            {notification.isRead ? <BellInactive /> : <BellActive />}
-            <Text small>{projectTitles[notification.project_identifier]}</Text>
-          </Row>
-          <Gutter height={size.spacing.sm} />
-          <Text intro accessibilityRole="header">
-            {notification.title}
-          </Text>
-          <Text>{notification.body}</Text>
-          <Gutter height={size.spacing.xs} />
-          <Text small>{formatDate(notification.publication_date)}</Text>
-        </View>
-      ))}
+      {notificationsWithReadStatus.map(notification => {
+        const project = projectTitles[notification.project_identifier]
+        const date = formatDate(notification.publication_date)
+
+        return (
+          <SingleSelectable
+            key={notification.publication_date}
+            style={[
+              styles.notification,
+              !notification.isRead && styles.notRead,
+            ]}
+            accessibilityLabel={accessibleText(
+              project,
+              notification.title,
+              notification.body,
+              date,
+            )}>
+            <Row gutter="sm">
+              {notification.isRead ? <BellInactive /> : <BellActive />}
+              <Text small>{project}</Text>
+            </Row>
+            <Gutter height={size.spacing.sm} />
+            <Text intro accessibilityRole="header">
+              {notification.title}
+            </Text>
+            <Text>{notification.body}</Text>
+            <Gutter height={size.spacing.xs} />
+            <Text small>{date}</Text>
+          </SingleSelectable>
+        )
+      })}
     </>
   ) : (
     <Box>
