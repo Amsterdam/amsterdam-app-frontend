@@ -12,6 +12,9 @@ type Props = {
 }
 
 export const ArticlePreview = ({article, onPress}: Props) => {
+  const imageUrl =
+    article.type === 'news' && article.image.sources?.['220px'].url
+
   return (
     <TouchableHighlight
       onPress={onPress}
@@ -20,11 +23,8 @@ export const ArticlePreview = ({article, onPress}: Props) => {
       <Card>
         <CardBody>
           <Row gutter="md">
-            {article.type === 'news' && article.image && (
-              <Image
-                source={{uri: article.image.sources['220px'].url}}
-                style={styles.image}
-              />
+            {imageUrl && (
+              <Image source={{uri: imageUrl}} style={styles.image} />
             )}
             {article.type === 'warning' && (
               <View style={styles.image}>
