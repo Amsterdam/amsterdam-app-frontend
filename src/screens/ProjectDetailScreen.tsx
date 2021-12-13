@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
-import {ArticleOverview} from '../components/features/news'
+import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
   Box,
