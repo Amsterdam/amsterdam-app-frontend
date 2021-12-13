@@ -43,16 +43,16 @@ export const ArticlePreview = ({article, onPress}: Props) => {
 
 const styles = StyleSheet.create({
   image: {
-    flex: 1,
     alignSelf: 'center',
     aspectRatio: imageTokens.aspectRatio.vintage,
+    flex: 1,
     resizeMode: 'cover',
   },
   row: {
     flexDirection: 'row',
   },
   text: {
-    flex: 2, // Also prevents overflow
     alignSelf: 'center',
+    flex: 2, // Also prevents overflow
   },
 })
