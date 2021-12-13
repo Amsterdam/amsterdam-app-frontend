@@ -23,8 +23,6 @@ export const ProjectSubscriptionsOverview = ({
   const {changeSettings, settings} = useContext(SettingsContext)
   const notifications = settings?.notifications
 
-  // Retrieve all projects from backend
-  // TODO Don’t fetch if notifications disabled – move the list into its own component
   const {data: allProjects, isLoading} = useFetch<ProjectOverviewItem[]>({
     url: getEnvironment().apiUrl + '/projects',
   })
