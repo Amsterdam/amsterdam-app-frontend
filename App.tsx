@@ -1,4 +1,5 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
+import messaging from '@react-native-firebase/messaging'
 import {NavigationContainer} from '@react-navigation/native'
 import {
   createStackNavigator,
@@ -222,6 +223,12 @@ export const App = () => {
     whereToPutBulkyWaste,
   } = routes
 
+  async function onMessageReceived(message) {
+    console.log(message)
+  }
+
+  messaging().onMessage(onMessageReceived)
+  messaging().setBackgroundMessageHandler(onMessageReceived)
   return (
     <>
       <StatusBar barStyle="dark-content" />
