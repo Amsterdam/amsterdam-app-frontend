@@ -27,13 +27,6 @@ export const ProjectSubscriptionsOverview = ({
     url: getEnvironment().apiUrl + '/projects',
   })
 
-  const toggleProjectListing = (projectId: string) =>
-    setSelectedProjects(
-      selectedProjects.includes(projectId)
-        ? selectedProjects.filter(id => id !== projectId)
-        : [...selectedProjects, projectId],
-    )
-
   const deleteProjects = () => {
     const projects = notifications?.projects ?? {}
     selectedProjects.map((id: string) => delete projects[id])
@@ -46,6 +39,13 @@ export const ProjectSubscriptionsOverview = ({
 
     setIsEditing(!isEditing)
   }
+
+  const toggleProjectSelection = (projectId: string) =>
+    setSelectedProjects(
+      selectedProjects.includes(projectId)
+        ? selectedProjects.filter(id => id !== projectId)
+        : [...selectedProjects, projectId],
+    )
 
   const toggleProjectSubscription = (
     projectId: string,
@@ -97,7 +97,7 @@ export const ProjectSubscriptionsOverview = ({
                               />
                             }
                             onValueChange={() =>
-                              toggleProjectListing(project.identifier)
+                              toggleProjectSelection(project.identifier)
                             }
                             value={selectedProjects.includes(
                               project.identifier,

@@ -3,8 +3,8 @@ import {useAsyncStorage} from '../hooks'
 import {Settings} from '../types'
 
 const initialState = {
-  settings: undefined,
   changeSettings: () => {},
+  settings: undefined,
 }
 
 type Context = {
