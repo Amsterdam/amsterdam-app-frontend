@@ -1478,6 +1478,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@notifee/react-native@^4.0.1":
+  "integrity" "sha512-vkRJnDMg7z21APm6RytD6ddHk4Og+zro/V0/Fk2a3Hvk1apDfSDXo1n4e3S+WPqsJEJSCXVGkRNWxam9Wq22sQ=="
+  "resolved" "https://registry.npmjs.org/@notifee/react-native/-/react-native-4.0.1.tgz"
+  "version" "4.0.1"
+
 "@react-aria/focus@^3.4.1":
   "integrity" "sha512-Eib75Q6QgQdn8VVVByg5Vipaaj/C//8Bs++sQY7nkomRx4sdArOnXbDppul3YHP6mRfU9VRLvAigEUlReQF/Xw=="
   "resolved" "https://registry.npmjs.org/@react-aria/focus/-/focus-3.5.0.tgz"
