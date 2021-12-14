@@ -30,7 +30,7 @@ export const NotificationOverview = () => {
   useEffect(() => {
     const retrieveNotificationSettings = async () => {
       const currentNotificationSetting: NotificationSettings | undefined =
-        await asyncStorage.getData('notifications')
+        await asyncStorage.getValue('notifications')
       setNotificationSettings(currentNotificationSetting)
     }
     retrieveNotificationSettings()
