@@ -9,30 +9,37 @@ import {ProjectSubscriptionsOverview} from './ProjectSubscriptionsOverview'
 
 export const ProjectNotificationSettings = () => {
   const {changeSettings, settings} = useContext(SettingsContext)
-  const notifications = settings?.notifications
+  const notificationSettings = settings?.notifications
 
-  const subscribableProjectIds = Object.keys(notifications?.projects ?? {})
+  if (!notificationSettings) {
+    return null
+  }
+
+  const subscribableProjectIds = Object.keys(
+    notificationSettings.projects ?? {},
+  )
 
   // Toggle enabled notification settings
   // and unsubscribe from all projects if disabling notifications
   const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
     const projects = projectsEnabled
-      ? notifications?.projects ?? {}
+      ? notificationSettings.projects ?? {}
       : Object.fromEntries(
-          Object.keys(notifications?.projects ?? {}).map(projectId => [
+          Object.keys(notificationSettings.projects ?? {}).map(projectId => [
             projectId,
             false,
           ]),
         )
 
     changeSettings('notifications', {
-      ...notifications,
+      ...notificationSettings,
       projectsEnabled,
       projects,
     })
   }
 
   return (
+    // TODO - add pleasewait
     <ScrollView>
       <Box
         background="white"
@@ -43,18 +50,19 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Berichten ontvangen"
           label={<Text>Berichten ontvangen</Text>}
           onValueChange={() =>
-            toggleNotificationsEnabled(!notifications?.projectsEnabled)
+            toggleNotificationsEnabled(!notificationSettings.projectsEnabled)
           }
-          value={notifications?.projectsEnabled}
+          value={notificationSettings.projectsEnabled}
         />
       </Box>
       <Box>
-        {!notifications?.projectsEnabled && <NoNotificationsMessage />}
-        {notifications?.projectsEnabled && !subscribableProjectIds.length ? (
+        {!notificationSettings.projectsEnabled && <NoNotificationsMessage />}
+        {notificationSettings.projectsEnabled &&
+        !subscribableProjectIds.length ? (
           <NoPreviousSubscriptionsMessage />
         ) : null}
       </Box>
-      {notifications?.projectsEnabled && subscribableProjectIds.length ? (
+      {notificationSettings.projectsEnabled && subscribableProjectIds.length ? (
         <ProjectSubscriptionsOverview
           subscribableProjectIds={subscribableProjectIds}
         />
