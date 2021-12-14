@@ -19,7 +19,7 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const [settings, setSettings] = useState<Settings | undefined>()
 
   const retrieveSettings = useCallback(async () => {
-    const data = await asyncStorage.getAll()
+    const data = await asyncStorage.getAllValues()
     const settingsFromStore = Object.fromEntries(data ?? [])
 
     let parsedSettings = {} as Record<string, string>

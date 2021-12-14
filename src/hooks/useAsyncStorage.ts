@@ -16,7 +16,6 @@ export const useAsyncStorage = () => {
     }
   }
 
-  //TODO rename: getValue
   const getValue = async (key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
@@ -55,8 +54,7 @@ export const useAsyncStorage = () => {
     )
   }
 
-  //TODO rename: getAllValues
-  const getAll = async () => {
+  const getAllValues = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys()
       const all = await AsyncStorage.multiGet(keys)
@@ -66,5 +64,5 @@ export const useAsyncStorage = () => {
     }
   }
 
-  return {clear, error, getAll, getValue, storeData}
+  return {clear, error, getAllValues, getValue, storeData}
 }
