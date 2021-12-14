@@ -90,6 +90,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                     },
                   })
                 }
+                text="Verstuur pushbericht"
+                variant="inverse"
               />
             )}
             <SingleSelectable
@@ -112,7 +114,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <ProjectBodyMenu project={project} />
         </Box>
         {project.articles.length ? (
-          <ArticleOverview articles={project.articles} />
+          <Box>
+            <ArticleOverview articles={project.articles} />
+          </Box>
         ) : null}
       </Column>
     </ScrollView>
