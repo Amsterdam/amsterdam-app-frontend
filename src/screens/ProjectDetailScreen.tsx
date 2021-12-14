@@ -57,7 +57,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, [project?.title, navigation])
 
   const toggleProjectSubscription = (projectId: string) => {
-    changeSettings('project-manager', {
+    changeSettings('notifications', {
       projectsEnabled: true,
       projects: {
         ...settings?.notifications?.projects,
