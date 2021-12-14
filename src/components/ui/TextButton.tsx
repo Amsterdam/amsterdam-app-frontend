@@ -5,7 +5,7 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {SVGProps, useState} from 'react'
 import {Pressable, StyleSheet, Text} from 'react-native'
 import {color, font, size} from '../../tokens'
-import {Gutter} from './layout'
+import {Row} from './layout'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
@@ -49,12 +49,11 @@ export const TextButton = ({direction, emphasis, onPress, text}: Props) => {
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
       style={[styles.button, direction && styles.row]}>
-      <>
+      <Row gutter="xs">
         {direction === 'backward' && <ChevronLeft {...iconProps} />}
         {direction === 'down' && <ChevronDown {...iconProps} />}
         {direction === 'forward' && <ChevronRight {...iconProps} />}
         {direction === 'up' && <ChevronUp {...iconProps} />}
-        {direction && <Gutter width={size.spacing.xs} />}
         <Text
           style={[
             styles.text,
@@ -63,7 +62,7 @@ export const TextButton = ({direction, emphasis, onPress, text}: Props) => {
           ]}>
           {text}
         </Text>
-      </>
+      </Row>
     </Pressable>
   )
 }
