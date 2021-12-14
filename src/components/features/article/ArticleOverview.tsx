@@ -6,8 +6,8 @@ import {RootStackParamList, routes} from '../../../../App'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {ProjectDetailArticlePreview} from '../../../types'
-import {Box, Title} from '../../ui'
-import {Gutter} from '../../ui/layout'
+import {Title} from '../../ui'
+import {Column} from '../../ui/layout'
 import {ArticlePreview} from './'
 
 type Props = {
@@ -36,11 +36,8 @@ export const ArticleOverview = ({articles}: Props) => {
   }
 
   return (
-    <Box>
-      {/* TODO Move gutter to project detail screen column */}
-      <Gutter height={size.spacing.md} />
+    <Column gutter="sm">
       <Title level={2} text="Nieuws" />
-      <Gutter height={size.spacing.sm} />
       <View style={deviceContext.isLandscape && styles.grid}>
         {articles.map((article, index) => (
           <View
@@ -56,7 +53,7 @@ export const ArticleOverview = ({articles}: Props) => {
           </View>
         ))}
       </View>
-    </Box>
+    </Column>
   )
 }
 
