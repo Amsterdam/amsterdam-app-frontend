@@ -85,10 +85,10 @@ export const NotificationOverview = () => {
               !notification.isRead && styles.notRead,
             ]}
             accessibilityLabel={accessibleText(
-              project,
               notification.title,
               notification.body,
-              date,
+              'over ' + project,
+              'op ' + date,
             )}>
             <Row gutter="sm">
               {notification.isRead ? <BellInactive /> : <BellActive />}
