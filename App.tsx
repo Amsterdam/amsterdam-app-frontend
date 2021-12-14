@@ -9,7 +9,7 @@ import {StatusBar, View} from 'react-native'
 import {Logo} from './src/assets/icons'
 import {NonScalingHeaderTitle} from './src/components/ui'
 import {linking} from './src/linking'
-import {AddressProvider, DeviceProvider} from './src/providers'
+import {RootProvider} from './src/providers/root.provider'
 import {
   HomeScreen,
   NotificationOverviewScreen,
@@ -225,90 +225,88 @@ export const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <DeviceProvider>
-        <AddressProvider>
-          <NavigationContainer linking={linking}>
-            <Stack.Navigator screenOptions={globalScreenOptions}>
-              <Stack.Screen
-                component={HomeScreen}
-                name={home.name}
-                options={home.options}
-              />
-              <Stack.Screen
-                component={ProjectManagerScreen}
-                name={projectManager.name}
-                options={projectManager.options}
-              />
-              <Stack.Screen
-                component={AddressFormScreen}
-                name={addressForm.name}
-                options={addressForm.options}
-              />
-              <Stack.Screen
-                component={CreateNotificationScreen}
-                name={notification.name}
-                options={notification.options}
-              />
+      <RootProvider>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator screenOptions={globalScreenOptions}>
+            <Stack.Screen
+              component={HomeScreen}
+              name={home.name}
+              options={home.options}
+            />
+            <Stack.Screen
+              component={ProjectManagerScreen}
+              name={projectManager.name}
+              options={projectManager.options}
+            />
+            <Stack.Screen
+              component={AddressFormScreen}
+              name={addressForm.name}
+              options={addressForm.options}
+            />
+            <Stack.Screen
+              component={CreateNotificationScreen}
+              name={notification.name}
+              options={notification.options}
+            />
 
-              <Stack.Screen
-                component={NotificationOverviewScreen}
-                name={notificationOverview.name}
-                options={notificationOverview.options}
-              />
-              <Stack.Screen
-                component={ProjectDetailScreen}
-                name={projectDetail.name}
-                options={projectDetail.options}
-              />
-              <Stack.Screen
-                component={ProjectDetailBodyScreen}
-                name={projectDetailBody.name}
-                options={projectDetailBody.options}
-              />
-              <Stack.Screen
-                component={ProjectNewsScreen}
-                name={projectNews.name}
-                options={projectNews.options}
-              />
-              <Stack.Screen
-                component={ProjectOverviewScreen}
-                name={projectOverview.name}
-                options={projectOverview.options}
-              />
-              <Stack.Screen
-                component={ProjectOverviewByDistrictScreen}
-                name={projectOverviewByDistrict.name}
-                options={projectOverviewByDistrict.options}
-              />
-              <Stack.Screen
-                component={ProjectWarningScreen}
-                name={projectWarning.name}
-                options={projectWarning.options}
-              />
-              <Stack.Screen
-                component={SettingsScreen}
-                name={settings.name}
-                options={settings.options}
-              />
-              <Stack.Screen
-                component={WasteScreen}
-                name={wasteGuide.name}
-                options={wasteGuide.options}
-              />
-              <Stack.Screen
-                component={WebViewScreen}
-                name={webView.name}
-                options={webView.options}
-              />
-              <Stack.Screen
-                component={WhereToPutBulkyWasteScreen}
-                name={whereToPutBulkyWaste.name}
-                options={whereToPutBulkyWaste.options}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </AddressProvider>
-      </DeviceProvider>
+            <Stack.Screen
+              component={NotificationOverviewScreen}
+              name={notificationOverview.name}
+              options={notificationOverview.options}
+            />
+            <Stack.Screen
+              component={ProjectDetailScreen}
+              name={projectDetail.name}
+              options={projectDetail.options}
+            />
+            <Stack.Screen
+              component={ProjectDetailBodyScreen}
+              name={projectDetailBody.name}
+              options={projectDetailBody.options}
+            />
+            <Stack.Screen
+              component={ProjectNewsScreen}
+              name={projectNews.name}
+              options={projectNews.options}
+            />
+            <Stack.Screen
+              component={ProjectOverviewScreen}
+              name={projectOverview.name}
+              options={projectOverview.options}
+            />
+            <Stack.Screen
+              component={ProjectOverviewByDistrictScreen}
+              name={projectOverviewByDistrict.name}
+              options={projectOverviewByDistrict.options}
+            />
+            <Stack.Screen
+              component={ProjectWarningScreen}
+              name={projectWarning.name}
+              options={projectWarning.options}
+            />
+            <Stack.Screen
+              component={SettingsScreen}
+              name={settings.name}
+              options={settings.options}
+            />
+            <Stack.Screen
+              component={WasteScreen}
+              name={wasteGuide.name}
+              options={wasteGuide.options}
+            />
+            <Stack.Screen
+              component={WebViewScreen}
+              name={webView.name}
+              options={webView.options}
+            />
+            <Stack.Screen
+              component={WhereToPutBulkyWasteScreen}
+              name={whereToPutBulkyWaste.name}
+              options={whereToPutBulkyWaste.options}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RootProvider>
     </>
   )
 }

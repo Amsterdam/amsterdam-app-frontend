@@ -6,7 +6,7 @@ type UseFetchProps = {
   options?: {
     body?: string
     headers?: Headers
-    method?: 'GET' | 'POST'
+    method?: 'GET' | 'POST' | 'PATCH'
     params?: {
       [key: string]: string | number
     }

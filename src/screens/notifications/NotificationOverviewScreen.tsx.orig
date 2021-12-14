@@ -1,19 +1,30 @@
+<<<<<<< HEAD
+import React from 'react'
+import {ScrollView} from 'react-native'
+import {NotificationOverview} from '../../components/features/notifications'
+
+export const NotificationOverviewScreen = () => (
+  <ScrollView>
+    <NotificationOverview />
+  </ScrollView>
+)
+=======
 import React, {useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
-import {BellActive, BellInactive} from '../../../assets/icons'
-import {getEnvironment} from '../../../environment'
-import {useAsyncStorage, useFetch} from '../../../hooks'
-import {color, size} from '../../../tokens'
+import {ScrollView, StyleSheet, View} from 'react-native'
+import {BellActive, BellInactive} from '../../assets/icons'
+import {Box, PleaseWait, Text} from '../../components/ui'
+import {Gutter, Row} from '../../components/ui/layout'
+import {getEnvironment} from '../../environment'
+import {useAsyncStorage, useFetch} from '../../hooks'
+import {color, size} from '../../tokens'
 import {
   Notification,
   NotificationSettings,
   ProjectOverviewItem,
-} from '../../../types'
-import {accessibleText, formatDate} from '../../../utils'
-import {Box, PleaseWait, SingleSelectable, Text} from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
+} from '../../types'
+import {formatDate} from '../../utils'
 
-export const NotificationOverview = () => {
+export const NotificationOverviewScreen = () => {
   const asyncStorage = useAsyncStorage()
   const [notificationSettings, setNotificationSettings] = useState<
     NotificationSettings | undefined
@@ -71,28 +82,21 @@ export const NotificationOverview = () => {
       isRead: true, // TEMP
     }))
 
-  return notifications?.length ? (
-    <>
-      {notificationsWithReadStatus.map(notification => {
-        const project = projectTitles[notification.project_identifier]
-        const date = formatDate(notification.publication_date)
-
-        return (
-          <SingleSelectable
+  return (
+    <ScrollView>
+      {notifications?.length ? (
+        notificationsWithReadStatus.map(notification => (
+          <View
             key={notification.publication_date}
             style={[
               styles.notification,
               !notification.isRead && styles.notRead,
-            ]}
-            accessibilityLabel={accessibleText(
-              notification.title,
-              notification.body,
-              'over ' + project,
-              'op ' + date,
-            )}>
+            ]}>
             <Row gutter="sm">
               {notification.isRead ? <BellInactive /> : <BellActive />}
-              <Text small>{project}</Text>
+              <Text small>
+                {projectTitles[notification.project_identifier]}
+              </Text>
             </Row>
             <Gutter height={size.spacing.sm} />
             <Text intro accessibilityRole="header">
@@ -100,15 +104,15 @@ export const NotificationOverview = () => {
             </Text>
             <Text>{notification.body}</Text>
             <Gutter height={size.spacing.xs} />
-            <Text small>{date}</Text>
-          </SingleSelectable>
-        )
-      })}
-    </>
-  ) : (
-    <Box>
-      <Text>Geen berichten gevonden.</Text>
-    </Box>
+            <Text small>{formatDate(notification.publication_date)}</Text>
+          </View>
+        ))
+      ) : (
+        <Box>
+          <Text>Geen berichten gevonden.</Text>
+        </Box>
+      )}
+    </ScrollView>
   )
 }
 
@@ -124,3 +128,4 @@ const styles = StyleSheet.create({
     borderBottomColor: color.border.invalid,
   },
 })
+>>>>>>> 1c576e8 (Rename function name and all occurences)

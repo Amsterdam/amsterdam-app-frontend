@@ -101,7 +101,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   }, [route])
 
   useAsync(
-    () => asyncStorage.getData('project-manager'),
+    () => asyncStorage.getValue('project-manager'),
     setProjectManagerSettings,
   )
 

@@ -45,7 +45,7 @@ export const WasteGuideByAddress = () => {
   })
 
   const retrieveAddress = useCallback(async () => {
-    const retrievedAddress = await asyncStorage.getData('address')
+    const retrievedAddress = await asyncStorage.getValue('address')
     retrievedAddress && setAddress(retrievedAddress)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

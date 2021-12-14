@@ -2,16 +2,23 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment, useCallback, useEffect, useState} from 'react'
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
-import {useAsyncStorage, useFetch} from '../hooks'
+import {useFetch} from '../hooks'
+import {SettingsContext} from '../providers/settings.provider'
 import {color, size} from '../tokens'
-import {ProjectManagerSettings, ProjectOverviewItem} from '../types'
+import {ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<
@@ -25,15 +32,13 @@ type Props = {
 }
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
-  const [projectManagerSettings, setProjectManagerSettings] = useState<
-    ProjectManagerSettings | undefined
-  >()
+  const {changeSettings, settings} = useContext(SettingsContext)
+  const projectManagerSettings = settings && settings['project-manager']
   const [allProjects, setAllProjects] = useState<
     ProjectOverviewItem[] | undefined
   >()
   const [authorizedProjects, setAuthorizedProjects] =
     useState<ProjectOverviewItem[]>()
-  const asyncStorage = useAsyncStorage()
   const idFromParams = route.params?.id
 
   const authToken = encryptWithAES({
@@ -72,8 +77,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         id: idFromParams,
         projects: apiProjectManager.data[0].projects,
       }
-      await asyncStorage.storeData('project-manager', newProjectManagerSettings)
-      setProjectManagerSettings(newProjectManagerSettings)
+      changeSettings('project-manager', newProjectManagerSettings)
     }
   }, [apiProjectManager.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
