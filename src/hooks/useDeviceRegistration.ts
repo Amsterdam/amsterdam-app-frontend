@@ -12,7 +12,7 @@ import {encryptWithAES, getFcmToken} from '../utils'
 import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = () => {
-  const settingsContext = useContext(SettingsContext)
+  const {settings} = useContext(SettingsContext)
   const [refreshToken, setRefreshToken] = useState<string | undefined>()
 
   // TODO Set as environment variables in CI/CD pipeline
@@ -46,7 +46,7 @@ export const useDeviceRegistration = () => {
   })
 
   const prevNotificationSettings = useRef<NotificationSettings | undefined>(
-    settingsContext.notifications,
+    settings?.notifications,
   )
 
   const onlySubscribedProjects = (projects: SubscribedProjects): string[] =>
@@ -58,7 +58,7 @@ export const useDeviceRegistration = () => {
 
   const storeDeviceIfNeeded = useCallback(() => {
     const hasSubscribedProjects = onlySubscribedProjects(
-      settingsContext?.notifications?.projects ?? {},
+      settings?.notifications?.projects ?? {},
     ).length
 
     // if no projects are subscribed to, only store if previously there were
@@ -70,13 +70,13 @@ export const useDeviceRegistration = () => {
     }
 
     return true
-  }, [settingsContext.notifications])
+  }, [settings?.notifications])
 
   const store = useCallback(async () => {
     if (!storeDeviceIfNeeded()) {
       return
     }
-    const projectsInSettings = settingsContext?.notifications?.projects
+    const projectsInSettings = settings?.notifications?.projects
     try {
       const token = await getFcmToken()
 
@@ -95,11 +95,11 @@ export const useDeviceRegistration = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [settingsContext.notifications, storeDeviceIfNeeded]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [settings?.notifications, storeDeviceIfNeeded]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const registerWithRefreshToken = useCallback(
     async () => {
-      const projectsInSettings = settingsContext?.notifications?.projects
+      const projectsInSettings = settings?.notifications?.projects
       try {
         const token = await getFcmToken()
 
@@ -126,12 +126,12 @@ export const useDeviceRegistration = () => {
   useEffect(() => {
     // prevent calling store() on initial rendering
     const notificationSettingsUpdated =
-      prevNotificationSettings.current !== settingsContext.notifications
+      prevNotificationSettings.current !== settings?.notifications
     if (notificationSettingsUpdated) {
       store()
-      prevNotificationSettings.current = settingsContext.notifications
+      prevNotificationSettings.current = settings?.notifications
     }
-  }, [settingsContext.notifications, store])
+  }, [settings?.notifications, store])
 
   useEffect(() => {
     // Listen to whether the token changes
