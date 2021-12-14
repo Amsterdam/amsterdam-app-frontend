@@ -135,13 +135,13 @@ export const ProjectSubscriptionsOverview = ({
             </Box>
           </Column>
           {isEditing ? (
-            <Row align="center">
+            <Box insetHorizontal="md">
               <Button
                 variant="secondary"
                 onPress={() => deleteProjects()}
                 text="Verwijder werkzaamheden"
               />
-            </Row>
+            </Box>
           ) : (
             <Row align="center">
               <TextButton
