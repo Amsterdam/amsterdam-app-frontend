@@ -18,5 +18,6 @@ export const SettingsScreen = () => (
         <VersionInfo />
       </Box>
     </Column>
+    <Gutter height={size.spacing.xl} />
   </ScrollView>
 )
