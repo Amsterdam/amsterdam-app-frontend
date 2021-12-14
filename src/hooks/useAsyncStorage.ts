@@ -17,7 +17,7 @@ export const useAsyncStorage = () => {
   }
 
   //TODO rename: getValue
-  const getData = async (key: string) => {
+  const getValue = async (key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
       const obj = jsonValue != null ? JSON.parse(jsonValue) : undefined
@@ -66,5 +66,5 @@ export const useAsyncStorage = () => {
     }
   }
 
-  return {clear, error, getAll, getData, storeData}
+  return {clear, error, getAll, getValue, storeData}
 }

@@ -28,7 +28,7 @@ export const Address = () => {
     useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
 
   const retrieveAddress = useCallback(async () => {
-    const addressFromStore = await asyncStorage.getData('address')
+    const addressFromStore = await asyncStorage.getValue('address')
     setAddress(addressFromStore)
     setLoading(false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
