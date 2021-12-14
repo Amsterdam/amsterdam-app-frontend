@@ -27,6 +27,11 @@ export const ProjectSubscriptionsOverview = ({
     url: getEnvironment().apiUrl + '/projects',
   })
 
+  const cancelEditing = () => {
+    setSelectedProjects([])
+    setIsEditing(!isEditing)
+  }
+
   const deleteProjects = () => {
     const projects = notifications?.projects ?? {}
     selectedProjects.map((id: string) => delete projects[id])
@@ -135,13 +140,25 @@ export const ProjectSubscriptionsOverview = ({
             </Box>
           </Column>
           {isEditing ? (
-            <Box insetHorizontal="md">
-              <Button
-                variant="secondary"
-                onPress={() => deleteProjects()}
-                text="Verwijder werkzaamheden"
-              />
-            </Box>
+            <>
+              <Box insetHorizontal="md">
+                <Button
+                  onPress={deleteProjects}
+                  text="Verwijder werkzaamheden"
+                  variant="secondary"
+                />
+              </Box>
+              <Box>
+                <Row align="center">
+                  <TextButton
+                    emphasis
+                    icon="cancel"
+                    onPress={cancelEditing}
+                    text="Annuleer"
+                  />
+                </Row>
+              </Box>
+            </>
           ) : (
             <Row align="center">
               <TextButton
