@@ -33,7 +33,7 @@ type Props = {
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
-  const projectManager = settings && settings['project-manager']
+  const projectManagerSettings = settings && settings['project-manager']
   const [allProjects, setAllProjects] = useState<
     ProjectOverviewItem[] | undefined
   >()
@@ -90,14 +90,14 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   }, [apiProjects.data])
 
   useEffect(() => {
-    if (allProjects && projectManager?.projects) {
+    if (allProjects && projectManagerSettings?.projects) {
       setAuthorizedProjects(
         allProjects.filter(project =>
-          projectManager?.projects.includes(project.identifier),
+          projectManagerSettings?.projects.includes(project.identifier),
         ),
       )
     }
-  }, [allProjects, projectManager?.projects])
+  }, [allProjects, projectManagerSettings?.projects])
 
   return authorizedProjects === undefined ? (
     <PleaseWait />
