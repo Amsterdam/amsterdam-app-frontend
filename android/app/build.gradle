@@ -139,7 +139,7 @@ android {
         applicationId "com.stadsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 35
+        versionCode 36
         versionName '0.10'
     }
     splits {
@@ -220,8 +220,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    implementation project(':react-native-version-info')
 }
 
 // Run this once to be able to run the application with BUCK

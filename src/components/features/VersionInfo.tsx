@@ -1,9 +1,5 @@
 import React from 'react'
-import VersionNumber from 'react-native-version-info'
+import {version} from '../../../package.json'
 import {Text} from '../ui'
 
-export const VersionInfo = () => (
-  <Text small>
-    Versie {VersionNumber.appVersion}, build {VersionNumber.buildVersion}
-  </Text>
-)
+export const VersionInfo = () => <Text small>Versie {version}</Text>
