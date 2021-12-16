@@ -1,17 +1,24 @@
-import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
+import Housing from '@amsterdam/asc-assets/static/icons/Housing.svg'
+import Menu from '@amsterdam/asc-assets/static/icons/Menu.svg'
+import Pointer from '@amsterdam/asc-assets/static/icons/Pointer.svg'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {NavigationContainer} from '@react-navigation/native'
 import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack'
-import React from 'react'
-import {StatusBar, View} from 'react-native'
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack'
+import React, {useContext} from 'react'
+import {StatusBar, StyleSheet, View} from 'react-native'
 import {Logo} from './src/assets/icons'
 import {NonScalingHeaderTitle} from './src/components/ui'
+import {getEnvironment} from './src/environment'
 import {linking} from './src/linking'
+import {AddressContext} from './src/providers'
 import {RootProvider} from './src/providers/root.provider'
 import {
+  ContactScreen,
   HomeScreen,
+  MenuScreen,
   NotificationOverviewScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
@@ -21,6 +28,7 @@ import {
   ProjectOverviewScreen,
   ProjectWarningScreen,
   SettingsScreen,
+  WasteMenuScreen,
   WasteScreen,
   WebViewRouteParams,
   WebViewScreen,
@@ -31,12 +39,14 @@ import {
   ProjectDetails,
 } from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
-import {color, size} from './src/tokens'
+import {color} from './src/tokens'
 import {ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
   AddressForm: undefined
+  Contact: undefined
   Home: undefined
+  Menu: undefined
   Notification: {projectDetails: ProjectDetails}
   NotificationOverview: undefined
   ProjectDetail: {id: string}
@@ -48,6 +58,7 @@ export type RootStackParamList = {
   ProjectWarning: {id: string}
   Settings: undefined
   Waste: undefined
+  WasteMenu: undefined
   WebView: WebViewRouteParams
   WhereToPutBulkyWaste: undefined
 }
@@ -55,7 +66,7 @@ export type RootStackParamList = {
 type Routes = {
   [route: string]: {
     name: keyof RootStackParamList
-    options?: StackNavigationOptions
+    options?: NativeStackNavigationOptions
     title?: string
   }
 }
@@ -64,11 +75,20 @@ export const routes: Routes = {
   addressForm: {
     name: 'AddressForm',
     options: {
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
+    },
+  },
+  contact: {
+    name: 'Contact',
+    options: {
+      contentStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
     },
   },
   home: {
@@ -84,10 +104,19 @@ export const routes: Routes = {
       ),
     },
   },
+  menu: {
+    name: 'Menu',
+    options: {
+      contentStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
+    },
+  },
   notification: {
     name: 'Notification',
     options: {
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
@@ -97,7 +126,7 @@ export const routes: Routes = {
   notificationOverview: {
     name: 'NotificationOverview',
     options: {
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
@@ -109,7 +138,7 @@ export const routes: Routes = {
   projectDetailBody: {
     name: 'ProjectDetailBody',
     options: {
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
     },
@@ -117,7 +146,7 @@ export const routes: Routes = {
   projectManager: {
     name: 'ProjectManager',
     options: {
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
@@ -128,7 +157,7 @@ export const routes: Routes = {
     name: 'ProjectNews',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
-      cardStyle: {
+      contentStyle: {
         backgroundColor: color.background.white,
       },
     },
@@ -167,6 +196,15 @@ export const routes: Routes = {
       ),
     },
   },
+  wasteMenu: {
+    name: 'WasteMenu',
+    options: {
+      contentStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
+    },
+  },
   webView: {
     name: 'WebView',
   },
@@ -178,35 +216,19 @@ export const routes: Routes = {
   },
 }
 
-const globalScreenOptions: StackNavigationOptions = {
-  cardStyle: {
-    backgroundColor: color.background.app,
-  },
+const globalScreenOptions: NativeStackNavigationOptions = {
   headerStyle: {
     backgroundColor: color.background.white,
-    borderBottomColor: color.border.default,
-    borderBottomWidth: 1,
-    elevation: 0,
-    shadowOpacity: 0,
   },
-  headerBackAccessibilityLabel: 'Terug',
-  headerBackImage: () => (
-    <ChevronLeft
-      width={20}
-      height={20}
-      fill={color.font.regular}
-      style={{margin: size.spacing.sm}}
-    />
-  ),
   headerBackTitleVisible: false,
-  headerTitleAlign: 'center',
 }
 
 export const App = () => {
-  const Stack = createStackNavigator()
   const {
     addressForm,
+    contact,
     home,
+    menu,
     notification,
     notificationOverview,
     projectDetail,
@@ -218,95 +240,224 @@ export const App = () => {
     projectWarning,
     settings,
     wasteGuide,
+    wasteMenu,
     webView,
     whereToPutBulkyWaste,
   } = routes
+
+  const addressContext = useContext(AddressContext)
+
+  const HomeStack = createNativeStackNavigator()
+
+  function HomeStackScreen() {
+    return (
+      <HomeStack.Navigator initialRouteName={home.name}>
+        <HomeStack.Screen
+          component={HomeScreen}
+          name="ActualHome"
+          options={home.options}
+        />
+      </HomeStack.Navigator>
+    )
+  }
+
+  const ReportStack = createNativeStackNavigator()
+
+  function ReportStackScreen() {
+    return (
+      <ReportStack.Navigator
+        initialRouteName={menu.name}
+        screenOptions={globalScreenOptions}>
+        <ReportStack.Screen
+          component={WebViewScreen}
+          name={webView.name}
+          options={webView.options}
+          initialParams={{
+            title: 'Melding',
+            url: `${getEnvironment().signalsBaseUrl}/incident/beschrijf`,
+            urlParams: {
+              lat: addressContext.address?.centroid[1],
+              lng: addressContext.address?.centroid[0],
+            },
+          }}
+        />
+      </ReportStack.Navigator>
+    )
+  }
+
+  const MenuStack = createNativeStackNavigator()
+
+  function MenuStackScreen() {
+    return (
+      <MenuStack.Navigator
+        initialRouteName={menu.name}
+        screenOptions={globalScreenOptions}>
+        <MenuStack.Screen
+          component={AddressFormScreen}
+          name={addressForm.name}
+          options={addressForm.options}
+        />
+        <MenuStack.Screen
+          component={ContactScreen}
+          name={contact.name}
+          options={contact.options}
+        />
+        <MenuStack.Screen
+          component={CreateNotificationScreen}
+          name={notification.name}
+          options={notification.options}
+        />
+        <MenuStack.Screen
+          component={MenuScreen}
+          name="Menu"
+          options={menu.options}
+        />
+        <MenuStack.Screen
+          component={NotificationOverviewScreen}
+          name={notificationOverview.name}
+          options={notificationOverview.options}
+        />
+        <MenuStack.Screen
+          component={ProjectDetailScreen}
+          name={projectDetail.name}
+          options={projectDetail.options}
+        />
+        <MenuStack.Screen
+          component={ProjectDetailBodyScreen}
+          name={projectDetailBody.name}
+          options={projectDetailBody.options}
+        />
+        <MenuStack.Screen
+          component={ProjectManagerScreen}
+          name={projectManager.name}
+          options={projectManager.options}
+        />
+        <MenuStack.Screen
+          component={ProjectNewsScreen}
+          name={projectNews.name}
+          options={projectNews.options}
+        />
+        <MenuStack.Screen
+          component={ProjectOverviewByDistrictScreen}
+          name={projectOverviewByDistrict.name}
+          options={projectOverviewByDistrict.options}
+        />
+        <MenuStack.Screen
+          component={ProjectOverviewScreen}
+          name={projectOverview.name}
+          options={projectOverview.options}
+        />
+        <MenuStack.Screen
+          component={ProjectWarningScreen}
+          name={projectWarning.name}
+          options={projectWarning.options}
+        />
+        <MenuStack.Screen
+          component={SettingsScreen}
+          name={settings.name}
+          options={settings.options}
+        />
+        <MenuStack.Screen
+          component={WasteScreen}
+          name={wasteGuide.name}
+          options={wasteGuide.options}
+        />
+        <MenuStack.Screen
+          component={WasteMenuScreen}
+          name={wasteMenu.name}
+          options={wasteMenu.options}
+        />
+        <ReportStack.Screen
+          component={WebViewScreen}
+          name={webView.name}
+          options={webView.options}
+        />
+        <MenuStack.Screen
+          component={WhereToPutBulkyWasteScreen}
+          name={whereToPutBulkyWaste.name}
+          options={whereToPutBulkyWaste.options}
+        />
+      </MenuStack.Navigator>
+    )
+  }
+
+  const Tab = createBottomTabNavigator()
 
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer linking={linking}>
         <RootProvider>
-          <Stack.Navigator screenOptions={globalScreenOptions}>
-            <Stack.Screen
-              component={HomeScreen}
-              name={home.name}
-              options={home.options}
+          <Tab.Navigator
+            screenOptions={{
+              headerShown: false,
+              tabBarActiveTintColor: color.touchable.secondary,
+              tabBarInactiveTintColor: color.touchable.primary,
+            }}>
+            <Tab.Screen
+              name="HomeTab"
+              component={HomeStackScreen}
+              options={{
+                tabBarIcon: ({focused}) => (
+                  <View style={styles.tabBarIcon}>
+                    <Housing
+                      fill={
+                        focused
+                          ? color.touchable.secondary
+                          : color.touchable.primary
+                      }
+                    />
+                  </View>
+                ),
+                tabBarLabel: 'Home',
+              }}
             />
-            <Stack.Screen
-              component={ProjectManagerScreen}
-              name={projectManager.name}
-              options={projectManager.options}
+            <Tab.Screen
+              name="ReportTab"
+              component={ReportStackScreen}
+              options={{
+                tabBarIcon: ({focused}) => (
+                  <View style={styles.tabBarIcon}>
+                    <Pointer
+                      fill={
+                        focused
+                          ? color.touchable.secondary
+                          : color.touchable.primary
+                      }
+                    />
+                  </View>
+                ),
+                tabBarLabel: 'Melden',
+              }}
             />
-            <Stack.Screen
-              component={AddressFormScreen}
-              name={addressForm.name}
-              options={addressForm.options}
+            <Tab.Screen
+              name="MenuTab"
+              component={MenuStackScreen}
+              options={{
+                tabBarIcon: ({focused}) => (
+                  <View style={styles.tabBarIcon}>
+                    <Menu
+                      fill={
+                        focused
+                          ? color.touchable.secondary
+                          : color.touchable.primary
+                      }
+                    />
+                  </View>
+                ),
+                tabBarLabel: 'Menu',
+              }}
             />
-            <Stack.Screen
-              component={CreateNotificationScreen}
-              name={notification.name}
-              options={notification.options}
-            />
-
-            <Stack.Screen
-              component={NotificationOverviewScreen}
-              name={notificationOverview.name}
-              options={notificationOverview.options}
-            />
-            <Stack.Screen
-              component={ProjectDetailScreen}
-              name={projectDetail.name}
-              options={projectDetail.options}
-            />
-            <Stack.Screen
-              component={ProjectDetailBodyScreen}
-              name={projectDetailBody.name}
-              options={projectDetailBody.options}
-            />
-            <Stack.Screen
-              component={ProjectNewsScreen}
-              name={projectNews.name}
-              options={projectNews.options}
-            />
-            <Stack.Screen
-              component={ProjectOverviewScreen}
-              name={projectOverview.name}
-              options={projectOverview.options}
-            />
-            <Stack.Screen
-              component={ProjectOverviewByDistrictScreen}
-              name={projectOverviewByDistrict.name}
-              options={projectOverviewByDistrict.options}
-            />
-            <Stack.Screen
-              component={ProjectWarningScreen}
-              name={projectWarning.name}
-              options={projectWarning.options}
-            />
-            <Stack.Screen
-              component={SettingsScreen}
-              name={settings.name}
-              options={settings.options}
-            />
-            <Stack.Screen
-              component={WasteScreen}
-              name={wasteGuide.name}
-              options={wasteGuide.options}
-            />
-            <Stack.Screen
-              component={WebViewScreen}
-              name={webView.name}
-              options={webView.options}
-            />
-            <Stack.Screen
-              component={WhereToPutBulkyWasteScreen}
-              name={whereToPutBulkyWaste.name}
-              options={whereToPutBulkyWaste.options}
-            />
-          </Stack.Navigator>
+          </Tab.Navigator>
         </RootProvider>
       </NavigationContainer>
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  tabBarIcon: {
+    width: 24,
+    height: 24,
+  },
+})

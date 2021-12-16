@@ -17,7 +17,7 @@ type Props = {
 }
 
 type ProjectBodyMenuItem = {
-  icon: any
+  icon: React.ReactElement
   sections?: Section[]
   timeline?: Timeline
   title: string
