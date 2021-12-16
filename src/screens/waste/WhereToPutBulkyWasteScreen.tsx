@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../../App'
+import {RootStackParamList, routes} from '../../../App'
 import {
   Box,
   Card,
@@ -72,7 +72,7 @@ export const WhereToPutBulkyWasteScreen = () => {
         <Gutter height={size.spacing.md} />
         <TextButton
           direction="backward"
-          onPress={navigation.goBack}
+          onPress={() => navigation.navigate(routes.wasteGuide.name)}
           text="Afvalinformatie op adres"
         />
       </Box>
