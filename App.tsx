@@ -229,6 +229,7 @@ export const App = () => {
 
   messaging().onMessage(onMessageReceived)
   messaging().setBackgroundMessageHandler(onMessageReceived)
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
