@@ -11,21 +11,17 @@ export const ProjectNotificationSettings = () => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const notificationSettings = settings?.notifications
 
-  if (!notificationSettings) {
-    return null
-  }
-
   const subscribableProjectIds = Object.keys(
-    notificationSettings.projects ?? {},
+    notificationSettings?.projects ?? {},
   )
 
   // Toggle enabled notification settings
   // and unsubscribe from all projects if disabling notifications
   const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
     const projects = projectsEnabled
-      ? notificationSettings.projects ?? {}
+      ? notificationSettings?.projects ?? {}
       : Object.fromEntries(
-          Object.keys(notificationSettings.projects ?? {}).map(projectId => [
+          Object.keys(notificationSettings?.projects ?? {}).map(projectId => [
             projectId,
             false,
           ]),
@@ -50,19 +46,20 @@ export const ProjectNotificationSettings = () => {
           accessibilityLabel="Berichten ontvangen"
           label={<Text>Berichten ontvangen</Text>}
           onValueChange={() =>
-            toggleNotificationsEnabled(!notificationSettings.projectsEnabled)
+            toggleNotificationsEnabled(!notificationSettings?.projectsEnabled)
           }
-          value={notificationSettings.projectsEnabled}
+          value={notificationSettings?.projectsEnabled}
         />
       </Box>
       <Box>
-        {!notificationSettings.projectsEnabled && <NoNotificationsMessage />}
-        {notificationSettings.projectsEnabled &&
+        {!notificationSettings?.projectsEnabled && <NoNotificationsMessage />}
+        {notificationSettings?.projectsEnabled &&
         !subscribableProjectIds.length ? (
           <NoPreviousSubscriptionsMessage />
         ) : null}
       </Box>
-      {notificationSettings.projectsEnabled && subscribableProjectIds.length ? (
+      {notificationSettings?.projectsEnabled &&
+      subscribableProjectIds.length ? (
         <ProjectSubscriptionsOverview
           subscribableProjectIds={subscribableProjectIds}
         />
