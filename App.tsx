@@ -1,12 +1,13 @@
+import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import Housing from '@amsterdam/asc-assets/static/icons/Housing.svg'
 import Menu from '@amsterdam/asc-assets/static/icons/Menu.svg'
 import Pointer from '@amsterdam/asc-assets/static/icons/Pointer.svg'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {NavigationContainer} from '@react-navigation/native'
 import {
-  createNativeStackNavigator,
-  NativeStackNavigationOptions,
-} from '@react-navigation/native-stack'
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StatusBar, StyleSheet, View} from 'react-native'
 import {Logo} from './src/assets/icons'
@@ -39,7 +40,7 @@ import {
   ProjectDetails,
 } from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
-import {color} from './src/tokens'
+import {color, size} from './src/tokens'
 import {ProjectDetailBody} from './src/types'
 
 export type RootStackParamList = {
@@ -66,7 +67,7 @@ export type RootStackParamList = {
 type Routes = {
   [route: string]: {
     name: keyof RootStackParamList
-    options?: NativeStackNavigationOptions
+    options?: StackNavigationOptions
     title?: string
   }
 }
@@ -75,7 +76,7 @@ export const routes: Routes = {
   addressForm: {
     name: 'AddressForm',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
@@ -85,7 +86,7 @@ export const routes: Routes = {
   contact: {
     name: 'Contact',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
@@ -107,7 +108,7 @@ export const routes: Routes = {
   menu: {
     name: 'Menu',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
@@ -116,7 +117,7 @@ export const routes: Routes = {
   notification: {
     name: 'Notification',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       presentation: 'modal',
@@ -126,7 +127,7 @@ export const routes: Routes = {
   notificationOverview: {
     name: 'NotificationOverview',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
@@ -138,7 +139,7 @@ export const routes: Routes = {
   projectDetailBody: {
     name: 'ProjectDetailBody',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
     },
@@ -146,7 +147,7 @@ export const routes: Routes = {
   projectManager: {
     name: 'ProjectManager',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
@@ -157,7 +158,7 @@ export const routes: Routes = {
     name: 'ProjectNews',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
     },
@@ -199,7 +200,7 @@ export const routes: Routes = {
   wasteMenu: {
     name: 'WasteMenu',
     options: {
-      contentStyle: {
+      cardStyle: {
         backgroundColor: color.background.white,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
@@ -216,11 +217,28 @@ export const routes: Routes = {
   },
 }
 
-const globalScreenOptions: NativeStackNavigationOptions = {
+const globalScreenOptions: StackNavigationOptions = {
+  cardStyle: {
+    backgroundColor: color.background.app,
+  },
   headerStyle: {
     backgroundColor: color.background.white,
+    borderBottomColor: color.border.default,
+    borderBottomWidth: 1,
+    elevation: 0,
+    shadowOpacity: 0,
   },
+  headerBackAccessibilityLabel: 'Terug',
+  headerBackImage: () => (
+    <ChevronLeft
+      width={20}
+      height={20}
+      fill={color.font.regular}
+      style={{margin: size.spacing.sm}}
+    />
+  ),
   headerBackTitleVisible: false,
+  headerTitleAlign: 'center',
 }
 
 export const App = () => {
@@ -247,11 +265,13 @@ export const App = () => {
 
   const addressContext = useContext(AddressContext)
 
-  const HomeStack = createNativeStackNavigator()
+  const HomeStack = createStackNavigator()
 
   function HomeStackScreen() {
     return (
-      <HomeStack.Navigator initialRouteName={home.name}>
+      <HomeStack.Navigator
+        initialRouteName={home.name}
+        screenOptions={globalScreenOptions}>
         <HomeStack.Screen
           component={HomeScreen}
           name="ActualHome"
@@ -261,7 +281,7 @@ export const App = () => {
     )
   }
 
-  const ReportStack = createNativeStackNavigator()
+  const ReportStack = createStackNavigator()
 
   function ReportStackScreen() {
     return (
@@ -285,7 +305,7 @@ export const App = () => {
     )
   }
 
-  const MenuStack = createNativeStackNavigator()
+  const MenuStack = createStackNavigator()
 
   function MenuStackScreen() {
     return (
