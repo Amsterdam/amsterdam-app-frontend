@@ -1,7 +1,4 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
-import Housing from '@amsterdam/asc-assets/static/icons/Housing.svg'
-import Menu from '@amsterdam/asc-assets/static/icons/Menu.svg'
-import Pointer from '@amsterdam/asc-assets/static/icons/Pointer.svg'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {NavigationContainer} from '@react-navigation/native'
 import {
@@ -9,9 +6,9 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {StatusBar, StyleSheet, View} from 'react-native'
+import {StatusBar, View} from 'react-native'
 import {Logo} from './src/assets/icons'
-import {NonScalingHeaderTitle} from './src/components/ui'
+import {NonScalingHeaderTitle, TabBarIcon} from './src/components/ui'
 import {getEnvironment} from './src/environment'
 import {linking} from './src/linking'
 import {AddressContext} from './src/providers'
@@ -419,15 +416,7 @@ export const App = () => {
               component={HomeStackScreen}
               options={{
                 tabBarIcon: ({focused}) => (
-                  <View style={styles.tabBarIcon}>
-                    <Housing
-                      fill={
-                        focused
-                          ? color.touchable.secondary
-                          : color.touchable.primary
-                      }
-                    />
-                  </View>
+                  <TabBarIcon focused={focused} name="home" />
                 ),
                 tabBarLabel: 'Home',
               }}
@@ -437,15 +426,7 @@ export const App = () => {
               component={ReportStackScreen}
               options={{
                 tabBarIcon: ({focused}) => (
-                  <View style={styles.tabBarIcon}>
-                    <Pointer
-                      fill={
-                        focused
-                          ? color.touchable.secondary
-                          : color.touchable.primary
-                      }
-                    />
-                  </View>
+                  <TabBarIcon focused={focused} name="report" />
                 ),
                 tabBarLabel: 'Melden',
               }}
@@ -455,15 +436,7 @@ export const App = () => {
               component={MenuStackScreen}
               options={{
                 tabBarIcon: ({focused}) => (
-                  <View style={styles.tabBarIcon}>
-                    <Menu
-                      fill={
-                        focused
-                          ? color.touchable.secondary
-                          : color.touchable.primary
-                      }
-                    />
-                  </View>
+                  <TabBarIcon focused={focused} name="menu" />
                 ),
                 tabBarLabel: 'Menu',
               }}
@@ -474,10 +447,3 @@ export const App = () => {
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  tabBarIcon: {
-    width: 24,
-    height: 24,
-  },
-})
