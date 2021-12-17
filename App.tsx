@@ -273,7 +273,7 @@ export const App = () => {
           name={webView.name}
           options={webView.options}
           initialParams={{
-            title: 'Melding',
+            title: 'Melden',
             url: `${getEnvironment().signalsBaseUrl}/incident/beschrijf`,
             urlParams: {
               lat: addressContext.address?.centroid[1],

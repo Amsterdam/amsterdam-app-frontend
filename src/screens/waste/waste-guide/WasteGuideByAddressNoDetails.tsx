@@ -50,7 +50,7 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
             onPress: () =>
               navigation.navigate(routes.webView.name, {
                 sliceFromTop: {portrait: 161, landscape: 207},
-                title: 'Melding afvalinformatie',
+                title: 'Melden afvalinformatie',
                 url: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
               }),
             label: 'Hier klopt iets niet',
