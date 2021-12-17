@@ -37,7 +37,7 @@ export const MenuScreen = ({navigation}: Props) => {
       label: 'Melden',
       onPress: () =>
         navigation.navigate(routes.webView.name, {
-          title: 'Melding',
+          title: 'Melden',
           url: `${getEnvironment().signalsBaseUrl}/incident/beschrijf`,
           urlParams: {
             lat: addressContext.address?.centroid[1],

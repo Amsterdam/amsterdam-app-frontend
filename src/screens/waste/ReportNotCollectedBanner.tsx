@@ -18,7 +18,7 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => {
       imageSource={require('../../assets/images/banner-afval-niet-opgehaald.jpg')}
       onPress={() =>
         navigation.navigate(routes.webView.name, {
-          title: 'Melding',
+          title: 'Melden',
           url: `${getEnvironment().signalsBaseUrl}/categorie/afval/grofvuil`,
           urlParams: {
             lat: addressContext.address?.centroid[1],

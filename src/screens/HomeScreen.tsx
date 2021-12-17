@@ -40,7 +40,7 @@ export const HomeScreen = ({navigation}: Props) => {
               <Button
                 onPress={() =>
                   navigation.navigate(routes.webView.name, {
-                    title: 'Melding',
+                    title: 'Melden',
                     url: `${
                       getEnvironment().signalsBaseUrl
                     }/incident/beschrijf`,
