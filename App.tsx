@@ -410,6 +410,7 @@ export const App = () => {
               headerShown: false,
               tabBarActiveTintColor: color.touchable.secondary,
               tabBarInactiveTintColor: color.touchable.primary,
+              tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
             }}>
             <Tab.Screen
               name="HomeTab"
