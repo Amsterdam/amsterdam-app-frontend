@@ -1,5 +1,5 @@
 import React, {createContext, useCallback, useEffect, useState} from 'react'
-import {useAsyncStorage} from '../hooks'
+import {useAsyncStorage, useDeviceRegistration} from '../hooks'
 import {Settings} from '../types'
 
 const initialState = {
@@ -15,8 +15,9 @@ type Context = {
 export const SettingsContext = createContext<Context>(initialState)
 
 export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
-  const asyncStorage = useAsyncStorage()
   const [settings, setSettings] = useState<Settings | undefined>()
+  const asyncStorage = useAsyncStorage()
+  const deviceRegistration = useDeviceRegistration(settings)
 
   const retrieveSettings = useCallback(async () => {
     const data = await asyncStorage.getAllValues()
@@ -44,6 +45,12 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   useEffect(() => {
     retrieveSettings()
   }, [retrieveSettings])
+
+  useEffect(() => {
+    if (settings) {
+      deviceRegistration.store()
+    }
+  }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <SettingsContext.Provider
