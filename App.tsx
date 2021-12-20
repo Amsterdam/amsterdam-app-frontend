@@ -5,13 +5,11 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {StatusBar, View} from 'react-native'
 import {Logo} from './src/assets/icons'
 import {NonScalingHeaderTitle, TabBarIcon} from './src/components/ui'
-import {getEnvironment} from './src/environment'
 import {linking} from './src/linking'
-import {AddressContext} from './src/providers'
 import {RootProvider} from './src/providers/root.provider'
 import {
   ContactScreen,
@@ -37,6 +35,7 @@ import {
   ProjectDetails,
 } from './src/screens/create-notification'
 import {AddressFormScreen} from './src/screens/modals/AddressFormScreen'
+import {ReportIssueScreen} from './src/screens/report'
 import {color, size} from './src/tokens'
 import {ProjectDetailBody} from './src/types'
 
@@ -54,6 +53,7 @@ export type RootStackParamList = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   ProjectWarning: {id: string}
+  ReportIssue: {title: string}
   Settings: undefined
   Waste: undefined
   WasteMenu: undefined
@@ -180,6 +180,12 @@ export const routes: Routes = {
       headerTitle: () => <NonScalingHeaderTitle text="Waarschuwing" />,
     },
   },
+  reportIssue: {
+    name: 'ReportIssue',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
+    },
+  },
   settings: {
     name: 'Settings',
     options: {
@@ -253,14 +259,13 @@ export const App = () => {
     projectOverview,
     projectOverviewByDistrict,
     projectWarning,
+    reportIssue,
     settings,
     wasteGuide,
     wasteMenu,
     webView,
     whereToPutBulkyWaste,
   } = routes
-
-  const addressContext = useContext(AddressContext)
 
   const HomeStack = createStackNavigator()
 
@@ -286,17 +291,9 @@ export const App = () => {
         initialRouteName={menu.name}
         screenOptions={globalScreenOptions}>
         <ReportStack.Screen
-          component={WebViewScreen}
-          name={webView.name}
-          options={webView.options}
-          initialParams={{
-            title: 'Melden',
-            url: `${getEnvironment().signalsBaseUrl}/incident/beschrijf`,
-            urlParams: {
-              lat: addressContext.address?.centroid[1],
-              lng: addressContext.address?.centroid[0],
-            },
-          }}
+          component={ReportIssueScreen}
+          name={reportIssue.name}
+          options={reportIssue.options}
         />
       </ReportStack.Navigator>
     )
