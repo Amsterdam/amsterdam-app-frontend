@@ -1,12 +1,12 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {RootStackParamList, routes} from '../../App'
 import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
-import {useAsyncStorage, useDeviceRegistration} from '../hooks'
+import {useAsyncStorage} from '../hooks'
 import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
 
@@ -18,11 +18,6 @@ export const HomeScreen = ({navigation}: Props) => {
   const asyncStorage = useAsyncStorage()
   const deviceContext = useContext(DeviceContext)
   const addressContext = useContext(AddressContext)
-  const deviceRegistration = useDeviceRegistration()
-
-  useEffect(() => {
-    deviceRegistration.store()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <ScrollView>
