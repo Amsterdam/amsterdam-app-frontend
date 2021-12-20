@@ -2,13 +2,11 @@ import Alert from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {RootStackParamList, routes} from '../../../App'
 import {Project} from '../../assets/icons'
 import {Box, TileButton, TileButtonProps} from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {getEnvironment} from '../../environment'
-import {AddressContext} from '../../providers'
 import {color} from '../../tokens'
 
 type Props = {
@@ -18,7 +16,6 @@ type Props = {
 type MenuItem = Pick<TileButtonProps, 'icon' | 'label' | 'onPress'>
 
 export const MenuScreen = ({navigation}: Props) => {
-  const addressContext = useContext(AddressContext)
   const iconProps = {fill: color.font.primary}
 
   const baseMenuItems: MenuItem[] = [
@@ -35,15 +32,7 @@ export const MenuScreen = ({navigation}: Props) => {
     {
       icon: <Alert {...iconProps} />,
       label: 'Melden',
-      onPress: () =>
-        navigation.navigate(routes.webView.name, {
-          title: 'Melden',
-          url: `${getEnvironment().signalsBaseUrl}/incident/beschrijf`,
-          urlParams: {
-            lat: addressContext.address?.centroid[1],
-            lng: addressContext.address?.centroid[0],
-          },
-        }),
+      onPress: () => navigation.navigate(routes.reportIssue.name),
     },
     {
       icon: <Chatting {...iconProps} />,
