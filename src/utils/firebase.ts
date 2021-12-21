@@ -1,12 +1,14 @@
 import messaging from '@react-native-firebase/messaging'
 
-enum Permission {
+export enum Permission {
   Denied,
   Granted,
   Undetermined,
 }
 
-const mapPermissionStatus = (fcmAuthStatus: number): Permission | undefined => {
+export const mapPermissionStatus = (
+  fcmAuthStatus: number,
+): Permission | undefined => {
   switch (fcmAuthStatus) {
     case -1:
       return Permission.Undetermined

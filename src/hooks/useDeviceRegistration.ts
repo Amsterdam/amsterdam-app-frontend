@@ -1,18 +1,22 @@
 import messaging from '@react-native-firebase/messaging'
-import {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {getEnvironment} from '../environment'
-import {SettingsContext} from '../providers/settings.provider'
 import {
   DeviceRegistration,
   NotificationSettings,
+  Settings,
   SubscribedProjects,
 } from '../types'
-import {encryptWithAES, getFcmToken} from '../utils'
+import {
+  encryptWithAES,
+  getFcmToken,
+  mapPermissionStatus,
+  Permission,
+} from '../utils'
 import {useFetch} from './useFetch'
 
-export const useDeviceRegistration = () => {
-  const {settings} = useContext(SettingsContext)
+export const useDeviceRegistration = (settings: Settings | undefined) => {
   const [refreshToken, setRefreshToken] = useState<string | undefined>()
 
   // TODO Set as environment variables in CI/CD pipeline
@@ -91,6 +95,8 @@ export const useDeviceRegistration = () => {
         }),
       )
 
+      prevNotificationSettings.current = settings?.notifications
+
       return storeApi.hasError
     } catch (error) {
       console.log(error)
@@ -124,20 +130,16 @@ export const useDeviceRegistration = () => {
   )
 
   useEffect(() => {
-    // prevent calling store() on initial rendering
-    const notificationSettingsUpdated =
-      prevNotificationSettings.current !== settings?.notifications
-    if (notificationSettingsUpdated) {
-      store()
-      prevNotificationSettings.current = settings?.notifications
-    }
-  }, [settings?.notifications, store])
-
-  useEffect(() => {
     // Listen to whether the token changes
-    return messaging().onTokenRefresh(token => {
-      setRefreshToken(token)
-    })
+    messaging()
+      .hasPermission()
+      .then(status => {
+        if (mapPermissionStatus(status) === Permission.Granted) {
+          return messaging().onTokenRefresh(token => {
+            setRefreshToken(token)
+          })
+        }
+      })
   }, [])
 
   useEffect(() => {
