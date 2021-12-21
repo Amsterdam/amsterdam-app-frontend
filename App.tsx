@@ -251,157 +251,157 @@ const tabScreenOptions = {
   tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
 }
 
+const {
+  addressForm,
+  contact,
+  home,
+  menu,
+  notification,
+  notificationOverview,
+  projectDetail,
+  projectDetailBody,
+  projectManager,
+  projectNews,
+  projectOverview,
+  projectOverviewByDistrict,
+  projectWarning,
+  reportIssue,
+  settings,
+  wasteGuide,
+  wasteMenu,
+  webView,
+  whereToPutBulkyWaste,
+} = routes
+
+const HomeStack = createStackNavigator()
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator
+      initialRouteName={home.name}
+      screenOptions={stackScreenOptions}>
+      <HomeStack.Screen
+        component={HomeScreen}
+        name="Home"
+        options={home.options}
+      />
+    </HomeStack.Navigator>
+  )
+}
+
+const ReportStack = createStackNavigator()
+
+function ReportStackScreen() {
+  return (
+    <ReportStack.Navigator
+      initialRouteName={menu.name}
+      screenOptions={stackScreenOptions}>
+      <ReportStack.Screen
+        component={ReportIssueScreen}
+        name={reportIssue.name}
+        options={reportIssue.options}
+      />
+    </ReportStack.Navigator>
+  )
+}
+
+const MenuStack = createStackNavigator()
+
+function MenuStackScreen() {
+  return (
+    <MenuStack.Navigator
+      initialRouteName={menu.name}
+      screenOptions={stackScreenOptions}>
+      <MenuStack.Screen
+        component={AddressFormScreen}
+        name={addressForm.name}
+        options={addressForm.options}
+      />
+      <MenuStack.Screen
+        component={ContactScreen}
+        name={contact.name}
+        options={contact.options}
+      />
+      <MenuStack.Screen
+        component={CreateNotificationScreen}
+        name={notification.name}
+        options={notification.options}
+      />
+      <MenuStack.Screen
+        component={MenuScreen}
+        name="Menu"
+        options={menu.options}
+      />
+      <MenuStack.Screen
+        component={NotificationOverviewScreen}
+        name={notificationOverview.name}
+        options={notificationOverview.options}
+      />
+      <MenuStack.Screen
+        component={ProjectDetailScreen}
+        name={projectDetail.name}
+        options={projectDetail.options}
+      />
+      <MenuStack.Screen
+        component={ProjectDetailBodyScreen}
+        name={projectDetailBody.name}
+        options={projectDetailBody.options}
+      />
+      <MenuStack.Screen
+        component={ProjectManagerScreen}
+        name={projectManager.name}
+        options={projectManager.options}
+      />
+      <MenuStack.Screen
+        component={ProjectNewsScreen}
+        name={projectNews.name}
+        options={projectNews.options}
+      />
+      <MenuStack.Screen
+        component={ProjectOverviewByDistrictScreen}
+        name={projectOverviewByDistrict.name}
+        options={projectOverviewByDistrict.options}
+      />
+      <MenuStack.Screen
+        component={ProjectOverviewScreen}
+        name={projectOverview.name}
+        options={projectOverview.options}
+      />
+      <MenuStack.Screen
+        component={ProjectWarningScreen}
+        name={projectWarning.name}
+        options={projectWarning.options}
+      />
+      <MenuStack.Screen
+        component={SettingsScreen}
+        name={settings.name}
+        options={settings.options}
+      />
+      <MenuStack.Screen
+        component={WasteScreen}
+        name={wasteGuide.name}
+        options={wasteGuide.options}
+      />
+      <MenuStack.Screen
+        component={WasteMenuScreen}
+        name={wasteMenu.name}
+        options={wasteMenu.options}
+      />
+      <ReportStack.Screen
+        component={WebViewScreen}
+        name={webView.name}
+        options={webView.options}
+      />
+      <MenuStack.Screen
+        component={WhereToPutBulkyWasteScreen}
+        name={whereToPutBulkyWaste.name}
+        options={whereToPutBulkyWaste.options}
+      />
+    </MenuStack.Navigator>
+  )
+}
+
 export const App = () => {
-  const {
-    addressForm,
-    contact,
-    home,
-    menu,
-    notification,
-    notificationOverview,
-    projectDetail,
-    projectDetailBody,
-    projectManager,
-    projectNews,
-    projectOverview,
-    projectOverviewByDistrict,
-    projectWarning,
-    reportIssue,
-    settings,
-    wasteGuide,
-    wasteMenu,
-    webView,
-    whereToPutBulkyWaste,
-  } = routes
-
-  const HomeStack = createStackNavigator()
-
-  function HomeStackScreen() {
-    return (
-      <HomeStack.Navigator
-        initialRouteName={home.name}
-        screenOptions={stackScreenOptions}>
-        <HomeStack.Screen
-          component={HomeScreen}
-          name="Home"
-          options={home.options}
-        />
-      </HomeStack.Navigator>
-    )
-  }
-
-  const ReportStack = createStackNavigator()
-
-  function ReportStackScreen() {
-    return (
-      <ReportStack.Navigator
-        initialRouteName={menu.name}
-        screenOptions={stackScreenOptions}>
-        <ReportStack.Screen
-          component={ReportIssueScreen}
-          name={reportIssue.name}
-          options={reportIssue.options}
-        />
-      </ReportStack.Navigator>
-    )
-  }
-
-  const MenuStack = createStackNavigator()
-
-  function MenuStackScreen() {
-    return (
-      <MenuStack.Navigator
-        initialRouteName={menu.name}
-        screenOptions={stackScreenOptions}>
-        <MenuStack.Screen
-          component={AddressFormScreen}
-          name={addressForm.name}
-          options={addressForm.options}
-        />
-        <MenuStack.Screen
-          component={ContactScreen}
-          name={contact.name}
-          options={contact.options}
-        />
-        <MenuStack.Screen
-          component={CreateNotificationScreen}
-          name={notification.name}
-          options={notification.options}
-        />
-        <MenuStack.Screen
-          component={MenuScreen}
-          name="Menu"
-          options={menu.options}
-        />
-        <MenuStack.Screen
-          component={NotificationOverviewScreen}
-          name={notificationOverview.name}
-          options={notificationOverview.options}
-        />
-        <MenuStack.Screen
-          component={ProjectDetailScreen}
-          name={projectDetail.name}
-          options={projectDetail.options}
-        />
-        <MenuStack.Screen
-          component={ProjectDetailBodyScreen}
-          name={projectDetailBody.name}
-          options={projectDetailBody.options}
-        />
-        <MenuStack.Screen
-          component={ProjectManagerScreen}
-          name={projectManager.name}
-          options={projectManager.options}
-        />
-        <MenuStack.Screen
-          component={ProjectNewsScreen}
-          name={projectNews.name}
-          options={projectNews.options}
-        />
-        <MenuStack.Screen
-          component={ProjectOverviewByDistrictScreen}
-          name={projectOverviewByDistrict.name}
-          options={projectOverviewByDistrict.options}
-        />
-        <MenuStack.Screen
-          component={ProjectOverviewScreen}
-          name={projectOverview.name}
-          options={projectOverview.options}
-        />
-        <MenuStack.Screen
-          component={ProjectWarningScreen}
-          name={projectWarning.name}
-          options={projectWarning.options}
-        />
-        <MenuStack.Screen
-          component={SettingsScreen}
-          name={settings.name}
-          options={settings.options}
-        />
-        <MenuStack.Screen
-          component={WasteScreen}
-          name={wasteGuide.name}
-          options={wasteGuide.options}
-        />
-        <MenuStack.Screen
-          component={WasteMenuScreen}
-          name={wasteMenu.name}
-          options={wasteMenu.options}
-        />
-        <ReportStack.Screen
-          component={WebViewScreen}
-          name={webView.name}
-          options={webView.options}
-        />
-        <MenuStack.Screen
-          component={WhereToPutBulkyWasteScreen}
-          name={whereToPutBulkyWaste.name}
-          options={whereToPutBulkyWaste.options}
-        />
-      </MenuStack.Navigator>
-    )
-  }
-
   const Tab = createBottomTabNavigator()
 
   return (
