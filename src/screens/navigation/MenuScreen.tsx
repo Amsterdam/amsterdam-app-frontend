@@ -13,12 +13,10 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
-type MenuItem = Pick<TileButtonProps, 'icon' | 'label' | 'onPress'>
-
 export const MenuScreen = ({navigation}: Props) => {
   const iconProps = {fill: color.font.primary}
 
-  const baseMenuItems: MenuItem[] = [
+  const baseMenuItems: TileButtonProps[] = [
     {
       icon: <TrashBin {...iconProps} />,
       label: 'Afval',
@@ -41,7 +39,7 @@ export const MenuScreen = ({navigation}: Props) => {
     },
   ]
 
-  const menuItems = baseMenuItems.map(tile => ({
+  const menuItems: TileButtonProps[] = baseMenuItems.map(tile => ({
     ...tile,
     iconSize: 48,
     square: true,
