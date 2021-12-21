@@ -1,6 +1,6 @@
 import notifee, {EventType} from '@notifee/react-native'
 import {useLinkTo} from '@react-navigation/native'
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {pushNotificationTypes} from '../linking'
 import {PushNotification, PushNotificationData} from '../types'
 
@@ -23,26 +23,24 @@ export const useNotifee = () => {
     }
   }
 
-  const onPressNotification = (notification: PushNotification | undefined) => {
-    if (!notification) {
-      return
-    }
-    const url = notification.data && createUrlFromDataObject(notification.data)
-    url && linkTo(url)
-  }
+  const onPressNotification = useCallback(
+    (notification: PushNotification | undefined) => {
+      if (!notification?.data) {
+        return
+      }
+      const url = createUrlFromDataObject(notification.data)
+      url && linkTo(url)
+    },
+    [linkTo],
+  )
 
   useEffect(() => {
-    const unsubscribe = notifee.onForegroundEvent(({type, detail}) => {
-      console.log('render')
+    return notifee.onForegroundEvent(({type, detail}) => {
       switch (type) {
         case EventType.PRESS:
           onPressNotification(detail.notification)
-          console.log('User pressed notification', detail.notification)
           break
       }
     })
-    unsubscribe()
-
-    return unsubscribe
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [onPressNotification])
 }
