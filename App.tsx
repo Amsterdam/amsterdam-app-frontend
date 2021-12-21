@@ -276,7 +276,7 @@ export const App = () => {
         screenOptions={globalScreenOptions}>
         <HomeStack.Screen
           component={HomeScreen}
-          name="ActualHome"
+          name="Home"
           options={home.options}
         />
       </HomeStack.Navigator>
