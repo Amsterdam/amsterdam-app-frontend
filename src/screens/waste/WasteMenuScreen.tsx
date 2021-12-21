@@ -12,12 +12,10 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
 }
 
-type MenuItem = Pick<TileButtonProps, 'icon' | 'label' | 'onPress'>
-
 export const WasteMenuScreen = ({navigation}: Props) => {
   const iconProps = {fill: color.font.primary}
 
-  const menuItems: MenuItem[] = [
+  const menuItems: TileButtonProps[] = [
     {
       icon: <Location {...iconProps} />,
       label: 'Afvalinformatie op adres',
