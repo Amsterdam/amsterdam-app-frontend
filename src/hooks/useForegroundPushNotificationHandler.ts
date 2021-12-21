@@ -7,7 +7,7 @@ import {PushNotification, PushNotificationData} from '../types'
 // Listen for foreground pushnotification with Notifee and navigate to a path derived from
 // its data-object, which is picked up by the linking configuration (linking.ts)
 // to route to a screen
-export const useNotifee = () => {
+export const useForegroundPushNotificationHandler = () => {
   const linkTo = useLinkTo()
 
   const createUrlFromDataObject = (dataObj: PushNotificationData) => {
@@ -23,7 +23,7 @@ export const useNotifee = () => {
     }
   }
 
-  const onPressNotification = useCallback(
+  const navigateToUrlFromNotification = useCallback(
     (notification: PushNotification | undefined) => {
       if (!notification?.data) {
         return
@@ -38,9 +38,9 @@ export const useNotifee = () => {
     return notifee.onForegroundEvent(({type, detail}) => {
       switch (type) {
         case EventType.PRESS:
-          onPressNotification(detail.notification)
+          navigateToUrlFromNotification(detail.notification)
           break
       }
     })
-  }, [onPressNotification])
+  }, [navigateToUrlFromNotification])
 }
