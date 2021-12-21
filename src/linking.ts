@@ -88,7 +88,7 @@ export const linking = {
     messaging().onNotificationOpenedApp(onMessageReceived)
 
     // display a notification when the app is in foreground-state
-    // will be listened for in the useNotifee hook which handles
+    // will be listened for in the useForegroundPushNotificationHandler hook which handles
     // the navigation
     const unsubscribeFg = messaging().onMessage(async message => {
       const channelId = await notifee.createChannel({
