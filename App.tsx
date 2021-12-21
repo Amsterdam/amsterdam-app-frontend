@@ -225,8 +225,8 @@ export const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <RootProvider>
-        <NavigationContainer linking={linking}>
+      <NavigationContainer linking={linking}>
+        <RootProvider>
           <Stack.Navigator screenOptions={globalScreenOptions}>
             <Stack.Screen
               component={HomeScreen}
@@ -305,8 +305,8 @@ export const App = () => {
               options={whereToPutBulkyWaste.options}
             />
           </Stack.Navigator>
-        </NavigationContainer>
-      </RootProvider>
+        </RootProvider>
+      </NavigationContainer>
     </>
   )
 }
