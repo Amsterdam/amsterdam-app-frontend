@@ -220,7 +220,7 @@ export const routes: Routes = {
   },
 }
 
-const globalScreenOptions: StackNavigationOptions = {
+const stackScreenOptions: StackNavigationOptions = {
   cardStyle: {
     backgroundColor: color.background.app,
   },
@@ -242,6 +242,13 @@ const globalScreenOptions: StackNavigationOptions = {
   ),
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
+}
+
+const tabScreenOptions = {
+  headerShown: false,
+  tabBarActiveTintColor: color.touchable.secondary,
+  tabBarInactiveTintColor: color.touchable.primary,
+  tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
 }
 
 export const App = () => {
@@ -273,7 +280,7 @@ export const App = () => {
     return (
       <HomeStack.Navigator
         initialRouteName={home.name}
-        screenOptions={globalScreenOptions}>
+        screenOptions={stackScreenOptions}>
         <HomeStack.Screen
           component={HomeScreen}
           name="Home"
@@ -289,7 +296,7 @@ export const App = () => {
     return (
       <ReportStack.Navigator
         initialRouteName={menu.name}
-        screenOptions={globalScreenOptions}>
+        screenOptions={stackScreenOptions}>
         <ReportStack.Screen
           component={ReportIssueScreen}
           name={reportIssue.name}
@@ -305,7 +312,7 @@ export const App = () => {
     return (
       <MenuStack.Navigator
         initialRouteName={menu.name}
-        screenOptions={globalScreenOptions}>
+        screenOptions={stackScreenOptions}>
         <MenuStack.Screen
           component={AddressFormScreen}
           name={addressForm.name}
@@ -402,13 +409,7 @@ export const App = () => {
       <StatusBar barStyle="dark-content" />
       <NavigationContainer linking={linking}>
         <RootProvider>
-          <Tab.Navigator
-            screenOptions={{
-              headerShown: false,
-              tabBarActiveTintColor: color.touchable.secondary,
-              tabBarInactiveTintColor: color.touchable.primary,
-              tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
-            }}>
+          <Tab.Navigator screenOptions={tabScreenOptions}>
             <Tab.Screen
               name="HomeTab"
               component={HomeStackScreen}
