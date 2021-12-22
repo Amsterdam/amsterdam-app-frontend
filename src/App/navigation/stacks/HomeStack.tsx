@@ -8,7 +8,7 @@ const Stack = createStackNavigator()
 export const HomeStack = () => {
   const {bestWishes21, home} = homeScreenOptions
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={home.name}>
       <Stack.Screen component={HomeScreen} name="Home" options={home.options} />
       <Stack.Screen
         component={BestWishes21Screen}

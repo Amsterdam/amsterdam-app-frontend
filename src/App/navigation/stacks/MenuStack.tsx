@@ -44,7 +44,9 @@ export const MenuStack = () => {
     whereToPutBulkyWaste,
   } = menuScreenOptions
   return (
-    <Stack.Navigator screenOptions={stackScreenOptions}>
+    <Stack.Navigator
+      initialRouteName={menu.name}
+      screenOptions={stackScreenOptions}>
       <Stack.Screen component={MenuScreen} name="Menu" options={menu.options} />
       <Stack.Screen
         component={AddressFormScreen}
