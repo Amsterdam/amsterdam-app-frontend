@@ -12,6 +12,7 @@ import {NonScalingHeaderTitle, TabBarIcon} from './src/components/ui'
 import {linking} from './src/linking'
 import {RootProvider} from './src/providers/root.provider'
 import {
+  BestWishes21Screen,
   ContactScreen,
   HomeScreen,
   MenuScreen,
@@ -43,6 +44,7 @@ export type RootStackParamList = {
   AddressForm: undefined
   Contact: undefined
   Home: undefined
+  BestWishes21: undefined
   Menu: undefined
   Notification: {projectDetails: ProjectDetails}
   NotificationOverview: undefined
@@ -78,6 +80,17 @@ export const routes: Routes = {
       },
       presentation: 'modal',
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
+    },
+  },
+  bestWishes21: {
+    name: 'BestWishes21',
+    options: {
+      cardStyle: {
+        backgroundColor: color.touchable.secondary,
+      },
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Terugblikken & vooruitkijken" />
+      ),
     },
   },
   contact: {
@@ -253,6 +266,7 @@ const tabScreenOptions = {
 
 const {
   addressForm,
+  bestWishes21,
   contact,
   home,
   menu,
@@ -284,6 +298,11 @@ function HomeStackScreen() {
         component={HomeScreen}
         name="Home"
         options={home.options}
+      />
+      <HomeStack.Screen
+        component={BestWishes21Screen}
+        name="BestWishes21"
+        options={bestWishes21.options}
       />
     </HomeStack.Navigator>
   )
