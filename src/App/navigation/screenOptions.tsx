@@ -3,14 +3,15 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
 import {Logo} from '../../assets/icons'
-import {NonScalingHeaderTitle} from '../../components/ui'
+import {NonScalingHeaderTitle, TabBarIcon} from '../../components/ui'
 import {color, size} from '../../tokens'
 import {
   HomeStackParamList,
   MenuStackParamList,
-  ProjectStackParamList,
   ReportStackParamList,
+  RootStackParamList,
   Routes,
+  TabNavRoutes,
 } from './types'
 
 export const homeScreenOptions: Routes<HomeStackParamList> = {
@@ -28,56 +29,27 @@ export const homeScreenOptions: Routes<HomeStackParamList> = {
     },
   },
 }
-
-export const projectScreenOptions: Routes<ProjectStackParamList> = {
-  projectDetail: {
-    name: 'ProjectDetail',
-  },
-  projectDetailBody: {
-    name: 'ProjectDetailBody',
+export const tabNavOptions: TabNavRoutes<RootStackParamList> = {
+  home: {
+    name: 'HomeStack',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="home" />,
+      tabBarLabel: 'Home',
     },
   },
-  projectManager: {
-    name: 'ProjectManager',
+  menu: {
+    name: 'MenuStack',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
-      presentation: 'modal',
+      headerShown: false,
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="menu" />,
+      tabBarLabel: 'Menu',
     },
   },
-  projectNews: {
-    name: 'ProjectNews',
+  report: {
+    name: 'ReportStack',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-    },
-  },
-  projectOverview: {
-    name: 'ProjectOverview',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Werkzaamheden" />,
-    },
-  },
-  projectOverviewByDistrict: {
-    name: 'ProjectOverviewByDistrict',
-    options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Werkzaamheden per stadsdeel" />
-      ),
-    },
-  },
-  projectWarning: {
-    name: 'ProjectWarning',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Waarschuwing" />,
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="report" />,
+      tabBarLabel: 'Melden',
     },
   },
 }
@@ -130,9 +102,55 @@ export const menuScreenOptions: Routes<MenuStackParamList> = {
       headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
     },
   },
-  projectStack: {
-    name: 'ProjectStack',
-    options: {headerShown: false},
+  projectDetail: {
+    name: 'ProjectDetail',
+  },
+  projectDetailBody: {
+    name: 'ProjectDetailBody',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+    },
+  },
+  projectManager: {
+    name: 'ProjectManager',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
+      presentation: 'modal',
+    },
+  },
+  projectNews: {
+    name: 'ProjectNews',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+    },
+  },
+  projectOverview: {
+    name: 'ProjectOverview',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Werkzaamheden" />,
+    },
+  },
+  projectOverviewByDistrict: {
+    name: 'ProjectOverviewByDistrict',
+    options: {
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Werkzaamheden per stadsdeel" />
+      ),
+    },
+  },
+  projectWarning: {
+    name: 'ProjectWarning',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Waarschuwing" />,
+    },
   },
   settings: {
     name: 'Settings',
