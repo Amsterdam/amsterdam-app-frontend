@@ -28,6 +28,17 @@ export const homeScreenOptions: Routes<HomeStackParamList> = {
       ),
     },
   },
+  bestWishes21: {
+    name: 'BestWishes21',
+    options: {
+      cardStyle: {
+        backgroundColor: color.touchable.secondary,
+      },
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Terugblikken & vooruitkijken" />
+      ),
+    },
+  },
 }
 export const tabNavOptions: TabNavRoutes<RootStackParamList> = {
   home: {
