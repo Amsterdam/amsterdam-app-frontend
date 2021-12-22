@@ -2,7 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {RootStackParamList, routes} from '../../../../App'
+import {menuScreenOptions} from '../../../App/navigation/screenOptions'
+import {MenuStackParamList} from '../../../App/navigation/types'
 import {AddressFormTeaser} from '../../../components/features/address'
 import {
   Box,
@@ -36,7 +37,7 @@ export const WasteGuideByAddress = () => {
   const addressContext = useContext(AddressContext)
   const asyncStorage = useAsyncStorage()
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -132,7 +133,9 @@ export const WasteGuideByAddress = () => {
                   details={wasteGuide[WasteType.Bulky]!}
                   footerLink={{
                     onPress: () =>
-                      navigation.navigate(routes.whereToPutBulkyWaste.name),
+                      navigation.navigate(
+                        menuScreenOptions.whereToPutBulkyWaste.name,
+                      ),
                     text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                   }}
                 />
@@ -156,9 +159,9 @@ export const WasteGuideByAddress = () => {
             <TextButton
               direction="forward"
               onPress={() =>
-                navigation.navigate(routes.webView.name, {
+                navigation.navigate(menuScreenOptions.webView.name, {
                   sliceFromTop: {portrait: 161, landscape: 207},
-                  title: 'Melding afvalinformatie',
+                  title: 'Melden afvalinformatie',
                   url: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
                 })
               }

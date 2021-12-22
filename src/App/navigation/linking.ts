@@ -3,8 +3,8 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
 import {Linking} from 'react-native'
-import {routes} from '../App'
-import {PushNotificationData} from './types'
+import {PushNotificationData} from '../../types'
+import {menuScreenOptions, tabNavOptions} from './screenOptions'
 
 const appPrefix = 'amsterdam://'
 
@@ -46,9 +46,13 @@ export const linking = {
   prefixes: [appPrefix],
   config: {
     screens: {
-      [routes.projectNews.name]: 'news/:id',
-      [routes.projectWarning.name]: 'warning/:id',
-      [routes.projectManager.name]: 'project-manager/:id',
+      [tabNavOptions.menu.name]: {
+        screens: {
+          [menuScreenOptions.projectNews.name]: 'news/:id',
+          [menuScreenOptions.projectWarning.name]: 'warning/:id',
+          [menuScreenOptions.projectManager.name]: 'project-manager/:id',
+        },
+      },
     },
   },
   async getInitialURL() {
@@ -74,7 +78,7 @@ export const linking = {
     const onReceiveURL = ({url}: {url: string}) => listener(url)
 
     // Listen to incoming links from deep linking
-    Linking.addEventListener('url', onReceiveURL)
+    const subscription = Linking.addEventListener('url', onReceiveURL)
 
     const onMessageReceived = async (
       message: FirebaseMessagingTypes.RemoteMessage,
@@ -108,7 +112,7 @@ export const linking = {
     })
 
     return () => {
-      Linking.removeEventListener('url', onReceiveURL)
+      subscription.remove()
       unsubscribeFg()
     }
   },

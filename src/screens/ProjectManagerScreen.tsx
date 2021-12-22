@@ -10,7 +10,8 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {menuScreenOptions, tabNavOptions} from '../App/navigation/screenOptions'
+import {MenuStackParamList, RootStackParamList} from '../App/navigation/types'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
@@ -22,12 +23,15 @@ import {ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectManager'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectManager'>
+  navigation: StackNavigationProp<
+    MenuStackParamList & RootStackParamList,
+    'ProjectManager'
+  >
   route: ProjectManagerScreenRouteProp
 }
 
@@ -128,9 +132,12 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                       key={authProject.identifier}
                       onPress={() => {
                         authProject.identifier &&
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: authProject.identifier,
-                          })
+                          navigation.navigate(
+                            menuScreenOptions.projectDetail.name,
+                            {
+                              id: authProject.identifier,
+                            },
+                          )
                       }}>
                       <ProjectTitle
                         title={authProject.title}
@@ -164,7 +171,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       <Box>
         <Button
           text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
-          onPress={() => navigation.navigate(routes.home.name)}
+          onPress={() => navigation.navigate(tabNavOptions.home.name)}
         />
       </Box>
     </View>

@@ -30,6 +30,7 @@ export const Title = ({
   return (
     <Text
       style={[
+        styles.title,
         fontStyles,
         inverse && styles.inverse,
         margin && marginStyles,
@@ -93,6 +94,9 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: font.weight.regular,
+  },
+  title: {
+    flexShrink: 1,
   },
   visuallyHidden: {
     height: 1,

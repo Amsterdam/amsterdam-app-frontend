@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import {WebView as WebViewRN} from 'react-native-webview'
 import {DeviceContext} from '../../providers'
+import {PleaseWait} from './PleaseWait'
 
 export type WebViewProps = {
   sliceFromTop?: {
@@ -21,7 +22,9 @@ export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
 
   return (
     <WebViewRN
+      renderLoading={() => <PleaseWait />}
       source={{uri: urlWithParams}}
+      startInLoadingState
       style={
         sliceFromTop && {
           marginTop: deviceContext.isPortrait
