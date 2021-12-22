@@ -2,7 +2,8 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {menuScreenOptions} from '../App/navigation/screenOptions'
+import {MenuStackParamList} from '../App/navigation/types'
 import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
@@ -25,12 +26,12 @@ import {ProjectDetail} from '../types'
 import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectDetail'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
   route: ProjectDetailScreenRouteProp
 }
 
@@ -82,7 +83,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.notification.name, {
+                  navigation.navigate(menuScreenOptions.notification.name, {
                     projectDetails: {
                       articles: project.articles,
                       id: project.identifier,
