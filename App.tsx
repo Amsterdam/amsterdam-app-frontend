@@ -10,6 +10,7 @@ export const App = () => {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" />
+      {/* Find out whats going on here */}
       <NavigationContainer linking={linking}>
         <RootProvider>
           <TabNavigator />
