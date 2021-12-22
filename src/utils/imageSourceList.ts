@@ -7,7 +7,7 @@ export const imageSourceList = (images: ImageSources) =>
       ...acc,
       {
         url: val.url,
-        width: val.size === 'orig' ? 940 : parseInt(val.size, 10),
+        width: val.size === 'orig' ? 940 : parseInt(val.size || '', 10),
       },
     ],
     [],
