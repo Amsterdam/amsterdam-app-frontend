@@ -1,7 +1,8 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {menuScreenOptions} from '../App/navigation/screenOptions'
+import {HomeStackParamList, MenuStackParamList} from '../App/navigation/types'
 import {Address} from '../components/features/address'
 import {Box, Button} from '../components/ui'
 import {Column, Gutter} from '../components/ui/layout'
@@ -11,7 +12,10 @@ import {AddressContext, DeviceContext} from '../providers'
 import {size} from '../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+  navigation: StackNavigationProp<
+    HomeStackParamList & MenuStackParamList,
+    'Home'
+  >
 }
 
 export const HomeScreen = ({navigation}: Props) => {
@@ -39,7 +43,7 @@ export const HomeScreen = ({navigation}: Props) => {
             <Column gutter="md">
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.webView.name, {
+                  navigation.navigate(menuScreenOptions.webView.name, {
                     title: 'Melden',
                     url: `${
                       getEnvironment().signalsBaseUrl
@@ -53,21 +57,29 @@ export const HomeScreen = ({navigation}: Props) => {
                 text="Doe een melding"
               />
               <Button
-                onPress={() => navigation.navigate(routes.projectOverview.name)}
+                onPress={() =>
+                  navigation.navigate(menuScreenOptions.projectStack.name)
+                }
                 text="Bekijk werkzaamheden"
               />
               <Button
-                onPress={() => navigation.navigate(routes.wasteGuide.name)}
+                onPress={() =>
+                  navigation.navigate(menuScreenOptions.wasteGuide.name)
+                }
                 text="Raadpleeg afvalinformatie"
               />
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.notificationOverview.name)
+                  navigation.navigate(
+                    menuScreenOptions.notificationOverview.name,
+                  )
                 }
                 text="Lees berichten"
               />
               <Button
-                onPress={() => navigation.navigate(routes.settings.name)}
+                onPress={() =>
+                  navigation.navigate(menuScreenOptions.settings.name)
+                }
                 text="Beheer instellingen"
               />
               {getEnvironment().allowClearingAsyncStorage && (
