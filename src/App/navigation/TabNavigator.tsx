@@ -1,44 +1,28 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import React from 'react'
-import {TabBarIcon} from '../../components/ui'
-import {tabScreenOptions} from './screenOptions'
+import {tabNavOptions, tabScreenOptions} from './screenOptions'
 import {HomeStack, MenuStack, ReportStack} from './stacks'
 
 const Tab = createBottomTabNavigator()
 
 export const TabNavigator = () => {
+  const {home, menu, report} = tabNavOptions
   return (
     <Tab.Navigator screenOptions={tabScreenOptions}>
       <Tab.Screen
-        name="HomeTab"
+        name={home.name}
         component={HomeStack}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon focused={focused} name="home" />
-          ),
-          tabBarLabel: 'Home',
-        }}
+        options={home.options}
       />
       <Tab.Screen
-        name="ReportTab"
+        name={report.name}
         component={ReportStack}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon focused={focused} name="report" />
-          ),
-          tabBarLabel: 'Melden',
-        }}
+        options={report.options}
       />
       <Tab.Screen
-        name="MenuTab"
+        name={menu.name}
         component={MenuStack}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon focused={focused} name="menu" />
-          ),
-          tabBarLabel: 'Menu',
-        }}
+        options={menu.options}
       />
     </Tab.Navigator>
   )
