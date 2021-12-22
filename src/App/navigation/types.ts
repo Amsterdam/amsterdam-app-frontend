@@ -21,12 +21,13 @@ export type TabNavRoutes<R> = {
 }
 
 export type RootStackParamList = {
-  HomeStack: undefined
-  MenuStack: undefined
-  ReportStack: undefined
+  HomeStack: {screen?: keyof HomeStackParamList}
+  MenuStack: {screen?: keyof MenuStackParamList}
+  ReportStack: {screen?: keyof ReportStackParamList}
 }
 
 export type HomeStackParamList = {
+  BestWishes21: undefined
   Home: undefined
 }
 
