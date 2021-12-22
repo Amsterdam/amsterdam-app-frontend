@@ -4,6 +4,13 @@ import {
   ContactScreen,
   MenuScreen,
   NotificationOverviewScreen,
+  ProjectDetailBodyScreen,
+  ProjectDetailScreen,
+  ProjectManagerScreen,
+  ProjectNewsScreen,
+  ProjectOverviewByDistrictScreen,
+  ProjectOverviewScreen,
+  ProjectWarningScreen,
   SettingsScreen,
   WasteMenuScreen,
   WasteScreen,
@@ -13,7 +20,6 @@ import {
 import {CreateNotificationScreen} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
 import {menuScreenOptions, stackScreenOptions} from '../screenOptions'
-import {ProjectStack} from '.'
 
 const Stack = createStackNavigator()
 
@@ -24,7 +30,13 @@ export const MenuStack = () => {
     menu,
     notification,
     notificationOverview,
-    projectStack,
+    projectDetail,
+    projectDetailBody,
+    projectManager,
+    projectNews,
+    projectOverview,
+    projectOverviewByDistrict,
+    projectWarning,
     settings,
     wasteGuide,
     wasteMenu,
@@ -32,9 +44,8 @@ export const MenuStack = () => {
     whereToPutBulkyWaste,
   } = menuScreenOptions
   return (
-    <Stack.Navigator
-      initialRouteName={menu.name}
-      screenOptions={stackScreenOptions}>
+    <Stack.Navigator screenOptions={stackScreenOptions}>
+      <Stack.Screen component={MenuScreen} name="Menu" options={menu.options} />
       <Stack.Screen
         component={AddressFormScreen}
         name={addressForm.name}
@@ -50,11 +61,40 @@ export const MenuStack = () => {
         name={notification.name}
         options={notification.options}
       />
-      <Stack.Screen component={MenuScreen} name="Menu" options={menu.options} />
       <Stack.Screen
-        component={ProjectStack}
-        name={projectStack.name}
-        options={projectStack.options}
+        component={ProjectOverviewScreen}
+        name={projectOverview.name}
+        options={projectOverview.options}
+      />
+      <Stack.Screen
+        component={ProjectOverviewByDistrictScreen}
+        name={projectOverviewByDistrict.name}
+        options={projectOverviewByDistrict.options}
+      />
+      <Stack.Screen
+        component={ProjectDetailScreen}
+        name={projectDetail.name}
+        options={projectDetail.options}
+      />
+      <Stack.Screen
+        component={ProjectDetailBodyScreen}
+        name={projectDetailBody.name}
+        options={projectDetailBody.options}
+      />
+      <Stack.Screen
+        component={ProjectNewsScreen}
+        name={projectNews.name}
+        options={projectNews.options}
+      />
+      <Stack.Screen
+        component={ProjectWarningScreen}
+        name={projectWarning.name}
+        options={projectWarning.options}
+      />
+      <Stack.Screen
+        component={ProjectManagerScreen}
+        name={projectManager.name}
+        options={projectManager.options}
       />
       <Stack.Screen
         component={NotificationOverviewScreen}
