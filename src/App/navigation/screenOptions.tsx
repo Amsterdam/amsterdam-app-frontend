@@ -233,6 +233,6 @@ export const stackScreenOptions: StackNavigationOptions = {
 export const tabScreenOptions = {
   headerShown: false,
   tabBarActiveTintColor: color.touchable.secondary,
-  tabBarInactiveTintColor: color.touchable.primary,
+  tabBarInactiveTintColor: color.font.regular,
   tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
 }
