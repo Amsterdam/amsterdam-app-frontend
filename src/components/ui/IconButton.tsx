@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {color, font, size} from '../../tokens'
 
 type Props = {
-  icon: React.ComponentElement<any, any>
+  icon: React.ReactNode
   label: string
   onPress: () => void
 }

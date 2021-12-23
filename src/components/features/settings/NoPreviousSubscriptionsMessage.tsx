@@ -13,14 +13,14 @@ export const NoPreviousSubscriptionsMessage = () => {
     <Column gutter="md">
       <Attention>
         <Text>
-          Zet berichten aan op pagina’s van werkzaamheden waar u berichten voor
+          Zet berichten aan op pagina’s van bouwprojecten waar u berichten voor
           wilt ontvangen.
         </Text>
       </Attention>
       <TextButton
         emphasis
         onPress={() => navigation.navigate('ProjectOverview')}
-        text="Naar werkzaamheden"
+        text="Naar bouwprojecten"
       />
     </Column>
   )

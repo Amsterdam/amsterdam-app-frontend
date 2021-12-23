@@ -6,7 +6,7 @@ import {menuScreenOptions} from '../../App/navigation/screenOptions'
 import {MenuStackParamList} from '../../App/navigation/types'
 import {BulkyWaste, Container} from '../../assets/icons'
 import {Box, TileButton, TileButtonProps} from '../../components/ui'
-import {Column} from '../../components/ui/layout'
+import {Column, ScrollView} from '../../components/ui/layout'
 import {color} from '../../tokens'
 
 type Props = {
@@ -51,12 +51,14 @@ export const WasteMenuScreen = ({navigation}: Props) => {
   ]
 
   return (
-    <Box>
-      <Column gutter="sm">
-        {menuItems.map(menuItem => (
-          <TileButton {...menuItem} key={menuItem.label} />
-        ))}
-      </Column>
-    </Box>
+    <ScrollView>
+      <Box>
+        <Column gutter="sm">
+          {menuItems.map(menuItem => (
+            <TileButton {...menuItem} key={menuItem.label} />
+          ))}
+        </Column>
+      </Box>
+    </ScrollView>
   )
 }

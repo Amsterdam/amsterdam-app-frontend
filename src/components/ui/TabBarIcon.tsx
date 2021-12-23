@@ -11,19 +11,19 @@ type Props = {
 }
 
 export const TabBarIcon = ({focused, name}: Props) => {
-  const icons = {
-    home: Housing,
-    report: Pointer,
-    menu: Menu,
+  const iconConfig = {
+    home: {component: Housing, inactiveColor: color.font.regular},
+    report: {component: Pointer, inactiveColor: color.touchable.primary},
+    menu: {component: Menu, inactiveColor: color.font.regular},
   }
-  const Icon = icons[name]
+  const Icon = iconConfig[name].component
+  const foregroundColour = focused
+    ? color.touchable.secondary
+    : iconConfig[name].inactiveColor
 
   return (
     <View style={[styles.tabBarIcon, focused && styles.focused]}>
-      <Icon
-        fill={focused ? color.touchable.secondary : color.touchable.primary}
-        style={styles.iconSize}
-      />
+      <Icon fill={foregroundColour} style={styles.iconSize} />
     </View>
   )
 }
