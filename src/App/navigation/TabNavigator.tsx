@@ -1,6 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import React from 'react'
-import {tabNavOptions, tabScreenOptions} from './screenOptions'
+import {
+  menuScreenOptions,
+  tabNavOptions,
+  tabScreenOptions,
+} from './screenOptions'
 import {HomeStack, MenuStack, ReportStack} from './stacks'
 
 const Tab = createBottomTabNavigator()
@@ -22,6 +26,14 @@ export const TabNavigator = () => {
       <Tab.Screen
         name={menu.name}
         component={MenuStack}
+        listeners={({navigation}) => ({
+          tabPress: e => {
+            e.preventDefault()
+            navigation.navigate(tabNavOptions.menu.name, {
+              screen: menuScreenOptions.menu.name,
+            })
+          },
+        })}
         options={menu.options}
       />
     </Tab.Navigator>
