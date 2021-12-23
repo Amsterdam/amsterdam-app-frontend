@@ -47,7 +47,11 @@ export const MenuStack = () => {
     <Stack.Navigator
       initialRouteName={menu.name}
       screenOptions={stackScreenOptions}>
-      <Stack.Screen component={MenuScreen} name="Menu" options={menu.options} />
+      <Stack.Screen
+        component={MenuScreen}
+        name={menu.name}
+        options={menu.options}
+      />
       <Stack.Screen
         component={AddressFormScreen}
         name={addressForm.name}
