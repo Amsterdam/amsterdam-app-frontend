@@ -50,9 +50,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
 
-  const sortedArticles = project?.articles.sort((a, b) =>
-    a.publication_date < b.publication_date ? 1 : -1,
-  )
+  const sortedArticles =
+    project?.articles.sort((a, b) =>
+      a.publication_date < b.publication_date ? 1 : -1,
+    ) ?? []
 
   useLayoutEffect(() => {
     navigation.setOptions({
