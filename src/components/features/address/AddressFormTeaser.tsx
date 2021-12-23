@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../../App'
+import {menuScreenOptions} from '../../../App/navigation/screenOptions'
 import {Card, CardBody, Text, Title} from '../../ui'
 import {TextInput} from '../../ui/forms'
 
@@ -22,7 +23,9 @@ export const AddressFormTeaser = ({text, title}: Props) => {
         <Text margin>{text}</Text>
         <TextInput
           label={inputLabel}
-          onFocus={() => navigation.navigate('AddressForm')}
+          onFocus={() =>
+            navigation.navigate(menuScreenOptions.addressForm.name)
+          }
           accessibilityLabel={inputLabel}
         />
       </CardBody>

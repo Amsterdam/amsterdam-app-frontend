@@ -83,7 +83,7 @@ export const WasteGuideByAddress = () => {
 
   const navigateToAddressForm = () => {
     addressContext.changeSaveInStore(false)
-    navigation.navigate('AddressForm')
+    navigation.navigate(menuScreenOptions.addressForm.name)
   }
 
   if (!address) {

@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../../App'
+import {menuScreenOptions} from '../../../App/navigation/screenOptions'
 import {Attention, Text, TextButton} from '../../ui'
 import {Column} from '../../ui/layout'
 
@@ -19,7 +20,9 @@ export const NoPreviousSubscriptionsMessage = () => {
       </Attention>
       <TextButton
         emphasis
-        onPress={() => navigation.navigate('ProjectOverview')}
+        onPress={() =>
+          navigation.navigate(menuScreenOptions.projectOverview.name)
+        }
         text="Naar bouwprojecten"
       />
     </Column>

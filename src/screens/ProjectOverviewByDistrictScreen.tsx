@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../App'
+import {menuScreenOptions} from '../App/navigation/screenOptions'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
@@ -90,7 +91,9 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
                   uri: item.images[0].sources['460px'].url,
                 }}
                 onPress={() =>
-                  navigation.navigate('ProjectDetail', {id: item.identifier})
+                  navigation.navigate(menuScreenOptions.projectDetail.name, {
+                    id: item.identifier,
+                  })
                 }
                 subtitle={item.subtitle}
                 title={item.title}

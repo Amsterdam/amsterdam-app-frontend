@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {RootStackParamList} from '../../../../App'
+import {menuScreenOptions} from '../../../App/navigation/screenOptions'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
@@ -62,7 +63,9 @@ export const Address = () => {
               <TextButton
                 direction="backward"
                 emphasis
-                onPress={() => navigation.navigate('AddressForm')}
+                onPress={() =>
+                  navigation.navigate(menuScreenOptions.addressForm.name)
+                }
                 text="Verander adres"
               />
             </Row>
