@@ -5,7 +5,7 @@ import {
   tabNavOptions,
   tabScreenOptions,
 } from './screenOptions'
-import {HomeStack, MenuStack, ReportStack} from './stacks'
+import {HomeStack, MenuStack, ReportStack} from './index'
 
 const Tab = createBottomTabNavigator()
 

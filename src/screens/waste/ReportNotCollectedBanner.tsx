@@ -1,7 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {menuScreenOptions} from '../../App/navigation/screenOptions'
-import {MenuStackParamList} from '../../App/navigation/types'
+import {menuScreenOptions, MenuStackParamList} from '../../App/navigation'
 import {BannerCard} from '../../components/features'
 import {getEnvironment} from '../../environment'
 import {AddressContext} from '../../providers'

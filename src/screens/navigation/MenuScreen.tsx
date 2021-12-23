@@ -7,12 +7,11 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {
   menuScreenOptions,
-  tabNavOptions,
-} from '../../App/navigation/screenOptions'
-import {
   MenuStackParamList,
+  reportScreenOptions,
   RootStackParamList,
-} from '../../App/navigation/types'
+  tabNavOptions,
+} from '../../App/navigation'
 import {Project} from '../../assets/icons'
 import {Box, TileButton, TileButtonProps} from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
@@ -43,7 +42,10 @@ export const MenuScreen = ({navigation}: Props) => {
     {
       icon: <Alert {...iconProps} />,
       label: 'Melden',
-      onPress: () => navigation.navigate(tabNavOptions.report.name),
+      onPress: () =>
+        navigation.navigate(tabNavOptions.report.name, {
+          screen: reportScreenOptions.reportIssue.name,
+        }),
     },
     {
       icon: <Chatting {...iconProps} />,

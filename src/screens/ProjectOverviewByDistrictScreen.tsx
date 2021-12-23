@@ -2,8 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../App'
-import {menuScreenOptions} from '../App/navigation/screenOptions'
+import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
@@ -14,12 +13,12 @@ import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectOverviewByDistrict'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
   route: ProjectOverviewByDistrictScreenRouteProp
 }
 

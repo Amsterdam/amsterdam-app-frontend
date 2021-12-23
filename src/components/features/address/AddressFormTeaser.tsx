@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '../../../../App'
-import {menuScreenOptions} from '../../../App/navigation/screenOptions'
+import {homeScreenOptions, HomeStackParamList} from '../../../App/navigation'
 import {Card, CardBody, Text, Title} from '../../ui'
 import {TextInput} from '../../ui/forms'
 
@@ -14,7 +13,7 @@ type Props = {
 export const AddressFormTeaser = ({text, title}: Props) => {
   const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
+    useNavigation<StackNavigationProp<HomeStackParamList, 'Home'>>()
 
   return (
     <Card>
@@ -24,7 +23,7 @@ export const AddressFormTeaser = ({text, title}: Props) => {
         <TextInput
           label={inputLabel}
           onFocus={() =>
-            navigation.navigate(menuScreenOptions.addressForm.name)
+            navigation.navigate(homeScreenOptions.addressForm.name)
           }
           accessibilityLabel={inputLabel}
         />

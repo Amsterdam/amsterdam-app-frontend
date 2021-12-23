@@ -10,8 +10,13 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {menuScreenOptions, tabNavOptions} from '../App/navigation/screenOptions'
-import {MenuStackParamList, RootStackParamList} from '../App/navigation/types'
+import {
+  homeScreenOptions,
+  menuScreenOptions,
+  MenuStackParamList,
+  RootStackParamList,
+  tabNavOptions,
+} from '../App/navigation'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
@@ -171,7 +176,11 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       <Box>
         <Button
           text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
-          onPress={() => navigation.navigate(tabNavOptions.home.name)}
+          onPress={() =>
+            navigation.navigate(tabNavOptions.home.name, {
+              screen: homeScreenOptions.home.name,
+            })
+          }
         />
       </Box>
     </View>

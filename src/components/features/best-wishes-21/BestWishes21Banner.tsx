@@ -3,12 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {
   homeScreenOptions,
-  tabNavOptions,
-} from '../../../App/navigation/screenOptions'
-import {
   HomeStackParamList,
   RootStackParamList,
-} from '../../../App/navigation/types'
+  tabNavOptions,
+} from '../../../App/navigation'
 import {BannerCard} from '../BannerCard'
 
 export const BestWishes21Banner = () => {
