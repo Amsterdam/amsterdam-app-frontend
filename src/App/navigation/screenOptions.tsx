@@ -146,14 +146,14 @@ export const menuScreenOptions: Routes<MenuStackParamList> = {
   projectOverview: {
     name: 'ProjectOverview',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Werkzaamheden" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },
   projectOverviewByDistrict: {
     name: 'ProjectOverviewByDistrict',
     options: {
       headerTitle: () => (
-        <NonScalingHeaderTitle text="Werkzaamheden per stadsdeel" />
+        <NonScalingHeaderTitle text="Bouwprojecten per stadsdeel" />
       ),
     },
   },

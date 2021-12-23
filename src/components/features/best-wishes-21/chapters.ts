@@ -25,8 +25,8 @@ export const chapters: Chapter[] = [
         },
         title: 'Bouw- en verkeersprojecten',
         body: [
-          'Als Amsterdammer heeft u wel eens hinder van bouw- en verkeersprojecten bij u in de buurt. De app houdt u op de hoogte van werkzaamheden als u dat wilt. U kunt aangeven van welke werkzaamheden u berichten wilt krijgen.',
-          'Uit gebruikersonderzoek bleek dat de benaming ‘bouwprojecten’ de associatie wekte dat het over nieuwe huur- of koopwoningen gaat. We hebben het daarom voor nu ‘werkzaamheden’ genoemd.',
+          'Als Amsterdammer heeft u wel eens hinder van bouw- en verkeersprojecten bij u in de buurt. De app houdt u op de hoogte van bouwprojecten als u dat wilt. U kunt aangeven van welke bouwprojecten u berichten wilt krijgen.',
+          'Uit gebruikersonderzoek bleek dat de benaming ‘bouwprojecten’ de associatie wekte dat het over nieuwe huur- of koopwoningen gaat. We hebben het daarom voor nu ‘bouwprojecten’ genoemd.',
         ],
       },
       {
@@ -43,7 +43,7 @@ export const chapters: Chapter[] = [
         title: 'Pushberichten',
         icon: 'pushberichten',
         body: [
-          'Een Amsterdammer kan als hij of zij dit wil, pushberichten ontvangen. In eerste instantie voor de werkzaamheden naar keuze. Dit kunnen we in de toekomst ook inzetten voor andere onderwerpen, zoals ‘Uw grofvuil wordt ivm Hemelvaart vrijdag opgehaald i.p.v. donderdag.',
+          'Een Amsterdammer kan als hij of zij dit wil, pushberichten ontvangen. In eerste instantie voor de bouwprojecten naar keuze. Dit kunnen we in de toekomst ook inzetten voor andere onderwerpen, zoals ‘Uw grofvuil wordt ivm Hemelvaart vrijdag opgehaald i.p.v. donderdag.',
         ],
       },
       {

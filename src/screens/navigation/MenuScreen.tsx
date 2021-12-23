@@ -36,7 +36,7 @@ export const MenuScreen = ({navigation}: Props) => {
     },
     {
       icon: <Project />,
-      label: 'Werkzaamheden',
+      label: 'Bouwprojecten',
       onPress: () =>
         navigation.navigate(menuScreenOptions.projectOverview.name),
     },

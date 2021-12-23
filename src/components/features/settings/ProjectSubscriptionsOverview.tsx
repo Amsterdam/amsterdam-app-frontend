@@ -75,7 +75,7 @@ export const ProjectSubscriptionsOverview = ({
           <Column gutter="sm">
             <View style={styles.customInset}>
               <Text intro accessibilityRole="header">
-                Werkzaamheden
+                Bouwprojecten
               </Text>
             </View>
             <Box background="white" borderVertical insetHorizontal="md">
@@ -144,7 +144,7 @@ export const ProjectSubscriptionsOverview = ({
               <Box insetHorizontal="md">
                 <Button
                   onPress={deleteProjects}
-                  text="Verwijder werkzaamheden"
+                  text="Verwijder bouwprojecten"
                   variant="secondary"
                 />
               </Box>
@@ -164,7 +164,7 @@ export const ProjectSubscriptionsOverview = ({
               <TextButton
                 emphasis
                 onPress={() => setIsEditing(!isEditing)}
-                text="Werkzaamheden verwijderen"
+                text="Bouwprojecten verwijderen"
               />
             </Row>
           )}

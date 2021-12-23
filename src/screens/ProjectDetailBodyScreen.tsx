@@ -33,12 +33,12 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
   })
 
   const icon: Record<string, ReactNode> = {
+    Bouwprojecten: (
+      <LocationFields fill={color.font.primary} style={styles.icon} />
+    ),
     Contact: <ChatBubble fill={color.font.primary} style={styles.icon} />,
     Informatie: <Info fill={color.font.primary} style={styles.icon} />,
     Tijdlijn: <Calendar fill={color.font.primary} style={styles.icon} />,
-    Werkzaamheden: (
-      <LocationFields fill={color.font.primary} style={styles.icon} />
-    ),
   }
 
   return (
