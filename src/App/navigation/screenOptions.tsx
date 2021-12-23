@@ -79,9 +79,6 @@ export const menuScreenOptions: Routes<MenuStackParamList> = {
   contact: {
     name: 'Contact',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
       headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
     },
   },
