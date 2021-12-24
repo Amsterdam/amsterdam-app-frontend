@@ -2,8 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
-import {menuScreenOptions} from '../../../App/navigation/screenOptions'
-import {MenuStackParamList} from '../../../App/navigation/types'
+import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
 import {
   Button,
   Card,

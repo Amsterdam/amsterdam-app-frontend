@@ -2,8 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {menuScreenOptions} from '../App/navigation/screenOptions'
-import {MenuStackParamList} from '../App/navigation/types'
+import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
 import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
@@ -50,6 +49,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
+
+  const sortedArticles =
+    project?.articles.sort((a, b) =>
+      a.publication_date < b.publication_date ? 1 : -1,
+    ) ?? []
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -116,7 +120,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
         {project.articles.length ? (
           <Box>
-            <ArticleOverview articles={project.articles} />
+            <ArticleOverview articles={sortedArticles} />
           </Box>
         ) : null}
       </Column>

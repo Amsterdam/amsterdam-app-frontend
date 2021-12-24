@@ -2,8 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {menuScreenOptions} from '../../../App/navigation/screenOptions'
-import {MenuStackParamList} from '../../../App/navigation/types'
+import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
 import {AddressFormTeaser} from '../../../components/features/address'
 import {
   Box,
@@ -83,7 +82,7 @@ export const WasteGuideByAddress = () => {
 
   const navigateToAddressForm = () => {
     addressContext.changeSaveInStore(false)
-    navigation.navigate('AddressForm')
+    navigation.navigate(menuScreenOptions.addressForm.name)
   }
 
   if (!address) {

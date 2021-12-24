@@ -27,6 +27,7 @@ export type RootStackParamList = {
 }
 
 export type HomeStackParamList = {
+  AddressForm: undefined
   BestWishes21: undefined
   Home: undefined
 }

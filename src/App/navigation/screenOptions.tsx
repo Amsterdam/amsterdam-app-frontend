@@ -15,6 +15,16 @@ import {
 } from './types'
 
 export const homeScreenOptions: Routes<HomeStackParamList> = {
+  addressForm: {
+    name: 'AddressForm',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      presentation: 'modal',
+      headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
+    },
+  },
   home: {
     name: 'Home',
     options: {
@@ -79,9 +89,6 @@ export const menuScreenOptions: Routes<MenuStackParamList> = {
   contact: {
     name: 'Contact',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
       headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
     },
   },
