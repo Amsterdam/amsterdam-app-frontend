@@ -72,3 +72,5 @@ variables:
   value: 'en_US.UTF-8'
 - name: lang
   value: 'en_US.UTF-8'
+- name: JAVA_HOME
+  value: '/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
