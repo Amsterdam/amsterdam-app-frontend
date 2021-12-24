@@ -1,0 +1,75 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  lane :bump_version_code do
+    path = '../app/build.gradle'
+    re = /versionCode\s+(\d+)/ 
+  
+    s = File.read(path)
+    versionCode = s[re, 1].to_i
+    s[re, 1] = (versionCode + 1).to_s
+  
+    f = File.new(path, 'w')
+    f.write(s)
+    f.close
+  end
+
+  desc "Submit a new Beta Build"
+  lane :beta do
+    keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
+    keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
+    keystore_alias = "key0"
+    apk_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/release/app-release.apk"
+
+
+    if File.exists?(keystore_path)
+      system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
+
+      gradle(
+        task: 'clean assembleRelease',
+        print_command: false,
+        properties: {
+          "android.injected.signing.store.file" => keystore_path,
+          "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],     
+          "android.injected.signing.key.alias" => "key0",
+          "android.injected.signing.key.password" => ENV["KEYSTORE_PASSWORD"]
+      })
+
+      system("keytool -list -printcert -jarfile #{apk_path}") # this is the debug certificate which was used to sign the apk
+
+    else
+      puts "ERROR: #{keystore_path} does not exist"
+    end
+
+    if File.exists?(apk_path)
+      upload_to_play_store(
+      package_name: 'com.stadsapp',
+      track: 'internal',
+      apk: apk_path
+    )
+    else
+      puts "ERROR: #{apk_path} does not exist"
+    end
+
+  end
+end

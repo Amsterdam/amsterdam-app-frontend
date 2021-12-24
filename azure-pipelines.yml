@@ -1,10 +1,8 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# TODO:
+# Create separate stages when we have a production environment, see https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml
+# Then, we will make a "production" lane in both Fastfiles in which we will release to the stores
 
 trigger:
-- develop
 - main
 
 pool:
@@ -13,8 +11,10 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '14.17.1'
+    versionSpec: '15.5.1'
   displayName: 'Install Node'
+- script: npm cache verify
+  displayName: 'Verify cache'
 - script: npm install
   displayName: 'Install dependencies'
 - script: npm run lint
@@ -22,20 +22,56 @@ steps:
 - task: InstallAppleCertificate@2
   inputs:
     certSecureFile: AppleDeveloperCertificate.p12
-    certPwd: $(P12password)
+    certPwd: $(P12_PASSWORD)
     keychain: 'temp'
     deleteCert: true
   displayName: Install Apple Certificate
 - task: InstallAppleProvisioningProfile@1
   inputs:
     provisioningProfileLocation: 'secureFiles'
-    provProfileSecureFile: 'AppleProvisioningProfile.mobileprovision'
+    provProfileSecureFile: 'Amsterdamappprovisioningprofile.mobileprovision'
   displayName: 'Install Apple Provisioning Profile'
+- task: CocoaPods@0
+  inputs:
+    workingDirectory: './ios'
+    forceRepoUpdate: true
+- task: DownloadSecureFile@1
+  displayName: 'Download App Store Connect API Key'
+  name: AppStoreConnectApiKey
+  inputs:
+    secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+- task: DownloadSecureFile@1
+  displayName: 'Download Play Store API Key'
+  name: PlayStoreApiKey
+  inputs:
+    secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+- task: DownloadSecureFile@1
+  displayName: 'Download Keystore'
+  name: Keystore
+  inputs:
+    secureFile: 'upload.keystore'
 - script: |
+    mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
     cd ios
     bundle install
     fastlane beta
   displayName: 'Build iOS'
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
+- script: |
+    mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
+    cd android
+    bundle install
+    fastlane bump_version_code
+    fastlane beta
+  displayName: 'Build Android'
   
 variables:
 - group: React Native Variables
+- name: lc.all
+  value: 'en_US.UTF-8'
+- name: lang
+  value: 'en_US.UTF-8'
