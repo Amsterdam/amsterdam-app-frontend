@@ -108,11 +108,12 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     }
   }, [allProjects, projectManagerSettings?.projects])
 
-  return authorizedProjects === undefined ? (
+  return authorizedProjects === undefined &&
+    projectManagerSettings?.projects ? (
     <PleaseWait />
   ) : (
     <View style={styles.screenHeight}>
-      {authorizedProjects.length ? (
+      {authorizedProjects?.length ? (
         <ScrollView>
           <Box insetVertical="lg" insetHorizontal="md">
             <Column gutter="sm">
