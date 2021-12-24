@@ -58,6 +58,11 @@ steps:
 #     bundle install
 #     fastlane beta
 #   displayName: 'Build iOS'
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 - script: |
     mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
     cd android
@@ -72,5 +77,3 @@ variables:
   value: 'en_US.UTF-8'
 - name: lang
   value: 'en_US.UTF-8'
-- name: JAVA_HOME
-  value: '/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
