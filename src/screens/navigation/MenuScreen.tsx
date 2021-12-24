@@ -5,6 +5,7 @@ import Lamp from '@amsterdam/asc-assets/static/icons/Lamp.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {FlatGrid} from 'react-native-super-grid'
 import {
   menuScreenOptions,
   MenuStackParamList,
@@ -13,9 +14,8 @@ import {
   tabNavOptions,
 } from '../../App/navigation'
 import {Project} from '../../assets/icons'
-import {Box, TileButton, TileButtonProps} from '../../components/ui'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {color} from '../../tokens'
+import {TileButton, TileButtonProps} from '../../components/ui'
+import {color, size} from '../../tokens'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -73,23 +73,13 @@ export const MenuScreen = ({navigation}: Props) => {
   }))
 
   return (
-    <ScrollView>
-      <Box>
-        <Column gutter="sm">
-          <Row gutter="sm">
-            <TileButton {...menuItems[0]} />
-            <TileButton {...menuItems[1]} />
-          </Row>
-          <Row gutter="sm">
-            <TileButton {...menuItems[2]} />
-            <TileButton {...menuItems[3]} />
-          </Row>
-          <Row gutter="sm">
-            <TileButton {...menuItems[4]} />
-            <TileButton {...menuItems[5]} />
-          </Row>
-        </Column>
-      </Box>
-    </ScrollView>
+    <FlatGrid
+      data={menuItems}
+      itemDimension={size.spacing.md * 11}
+      keyExtractor={item => item.label}
+      renderItem={({item}) => <TileButton {...item} />}
+      spacing={size.spacing.sm}
+      style={{margin: size.spacing.sm}}
+    />
   )
 }

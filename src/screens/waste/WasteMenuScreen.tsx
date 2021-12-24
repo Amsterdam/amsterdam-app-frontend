@@ -1,18 +1,20 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
+import {FlatGrid} from 'react-native-super-grid'
 import {menuScreenOptions, MenuStackParamList} from '../../App/navigation'
 import {BulkyWaste, Container} from '../../assets/icons'
-import {Box, TileButton, TileButtonProps} from '../../components/ui'
-import {Column, ScrollView} from '../../components/ui/layout'
-import {color} from '../../tokens'
+import {TileButton, TileButtonProps} from '../../components/ui'
+import {DeviceContext} from '../../providers'
+import {color, size} from '../../tokens'
 
 type Props = {
   navigation: StackNavigationProp<MenuStackParamList, 'Waste'>
 }
 
 export const WasteMenuScreen = ({navigation}: Props) => {
+  const device = useContext(DeviceContext)
   const iconProps = {fill: color.font.primary}
 
   const menuItems: TileButtonProps[] = [
@@ -50,14 +52,13 @@ export const WasteMenuScreen = ({navigation}: Props) => {
   ]
 
   return (
-    <ScrollView>
-      <Box>
-        <Column gutter="sm">
-          {menuItems.map(menuItem => (
-            <TileButton {...menuItem} key={menuItem.label} />
-          ))}
-        </Column>
-      </Box>
-    </ScrollView>
+    <FlatGrid
+      data={menuItems}
+      itemDimension={device.isPortrait ? device.width : size.spacing.md * 24}
+      keyExtractor={item => item.label}
+      renderItem={({item}) => <TileButton {...item} />}
+      spacing={size.spacing.sm}
+      style={{margin: size.spacing.sm}}
+    />
   )
 }
