@@ -15,6 +15,16 @@ import {
 } from './types'
 
 export const homeScreenOptions: Routes<HomeStackParamList> = {
+  addressForm: {
+    name: 'AddressForm',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      presentation: 'modal',
+      headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
+    },
+  },
   home: {
     name: 'Home',
     options: {
