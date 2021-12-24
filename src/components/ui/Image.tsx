@@ -8,6 +8,7 @@ export const Image = (props: ImageProps) => {
 
 const styles = StyleSheet.create({
   image: {
+    maxWidth: '100%',
     aspectRatio: image.aspectRatio.default,
     flex: 1,
   },

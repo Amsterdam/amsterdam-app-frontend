@@ -6,14 +6,14 @@ import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
-import {RootStackParamList} from '../../App'
+import {MenuStackParamList} from '../App/navigation'
 import {Box, NonScalingHeaderTitle, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 import {regexLibrary} from '../utils'
 
 type ProjectDetailBodyScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectDetailBody'
 >
 
@@ -33,12 +33,12 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
   })
 
   const icon: Record<string, ReactNode> = {
+    Bouwprojecten: (
+      <LocationFields fill={color.font.primary} style={styles.icon} />
+    ),
     Contact: <ChatBubble fill={color.font.primary} style={styles.icon} />,
     Informatie: <Info fill={color.font.primary} style={styles.icon} />,
     Tijdlijn: <Calendar fill={color.font.primary} style={styles.icon} />,
-    Werkzaamheden: (
-      <LocationFields fill={color.font.primary} style={styles.icon} />
-    ),
   }
 
   return (

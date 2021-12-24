@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
 import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
@@ -25,12 +25,12 @@ import {ProjectDetail} from '../types'
 import {accessibleText} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectDetail'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
   route: ProjectDetailScreenRouteProp
 }
 
@@ -49,6 +49,11 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
+
+  const sortedArticles =
+    project?.articles.sort((a, b) =>
+      a.publication_date < b.publication_date ? 1 : -1,
+    ) ?? []
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -82,7 +87,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.notification.name, {
+                  navigation.navigate(menuScreenOptions.notification.name, {
                     projectDetails: {
                       articles: project.articles,
                       id: project.identifier,
@@ -115,7 +120,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
         {project.articles.length ? (
           <Box>
-            <ArticleOverview articles={project.articles} />
+            <ArticleOverview articles={sortedArticles} />
           </Box>
         ) : null}
       </Column>

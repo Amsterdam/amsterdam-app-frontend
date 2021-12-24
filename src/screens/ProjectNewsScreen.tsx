@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
-import {RootStackParamList} from '../../App'
+import {MenuStackParamList} from '../App/navigation'
 import {Box, Image, PleaseWait, Text, Title} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
@@ -12,7 +12,7 @@ import {font, image} from '../tokens'
 import {NewsArticle} from '../types'
 import {formatDate} from '../utils'
 
-type ProjectNewsScreenRouteProp = RouteProp<RootStackParamList, 'ProjectNews'>
+type ProjectNewsScreenRouteProp = RouteProp<MenuStackParamList, 'ProjectNews'>
 
 type Props = {
   route: ProjectNewsScreenRouteProp

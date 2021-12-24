@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../App'
+import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
@@ -13,12 +13,12 @@ import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectOverviewByDistrict'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
   route: ProjectOverviewByDistrictScreenRouteProp
 }
 
@@ -90,7 +90,9 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
                   uri: item.images[0].sources['460px'].url,
                 }}
                 onPress={() =>
-                  navigation.navigate('ProjectDetail', {id: item.identifier})
+                  navigation.navigate(menuScreenOptions.projectDetail.name, {
+                    id: item.identifier,
+                  })
                 }
                 subtitle={item.subtitle}
                 title={item.title}

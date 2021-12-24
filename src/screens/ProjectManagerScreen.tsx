@@ -10,7 +10,13 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {
+  homeScreenOptions,
+  menuScreenOptions,
+  MenuStackParamList,
+  RootStackParamList,
+  tabNavOptions,
+} from '../App/navigation'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
@@ -22,12 +28,15 @@ import {ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<
-  RootStackParamList,
+  MenuStackParamList,
   'ProjectManager'
 >
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectManager'>
+  navigation: StackNavigationProp<
+    MenuStackParamList & RootStackParamList,
+    'ProjectManager'
+  >
   route: ProjectManagerScreenRouteProp
 }
 
@@ -99,11 +108,12 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     }
   }, [allProjects, projectManagerSettings?.projects])
 
-  return authorizedProjects === undefined ? (
+  return authorizedProjects === undefined &&
+    projectManagerSettings?.projects ? (
     <PleaseWait />
   ) : (
     <View style={styles.screenHeight}>
-      {authorizedProjects.length ? (
+      {authorizedProjects?.length ? (
         <ScrollView>
           <Box insetVertical="lg" insetHorizontal="md">
             <Column gutter="sm">
@@ -128,9 +138,12 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                       key={authProject.identifier}
                       onPress={() => {
                         authProject.identifier &&
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: authProject.identifier,
-                          })
+                          navigation.navigate(
+                            menuScreenOptions.projectDetail.name,
+                            {
+                              id: authProject.identifier,
+                            },
+                          )
                       }}>
                       <ProjectTitle
                         title={authProject.title}
@@ -164,7 +177,11 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       <Box>
         <Button
           text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
-          onPress={() => navigation.navigate(routes.home.name)}
+          onPress={() =>
+            navigation.navigate(tabNavOptions.home.name, {
+              screen: homeScreenOptions.home.name,
+            })
+          }
         />
       </Box>
     </View>

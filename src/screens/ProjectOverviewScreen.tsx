@@ -1,7 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {RootStackParamList, routes} from '../../App'
+import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
 import {ProjectCard} from '../components/features/project'
 import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
@@ -12,10 +12,11 @@ import {size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
 }
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
+  const {projectOverviewByDistrict, projectDetail} = menuScreenOptions
   const {
     data: projects,
     hasError,
@@ -61,12 +62,9 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   <Title level={2} text={districtItem.title} />
                   <Button
                     onPress={() =>
-                      navigation.navigate(
-                        routes.projectOverviewByDistrict.name,
-                        {
-                          id: districtItem.id,
-                        },
-                      )
+                      navigation.navigate(projectOverviewByDistrict.name, {
+                        id: districtItem.id,
+                      })
                     }
                     variant="text"
                     text="Ga naar overzicht"
@@ -82,7 +80,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                   renderItem={({item: projectItem}) => (
                     <ProjectCard
                       onPress={() =>
-                        navigation.navigate(routes.projectDetail.name, {
+                        navigation.navigate(projectDetail.name, {
                           id: projectItem.identifier,
                         })
                       }

@@ -37,7 +37,7 @@ export const ProjectManagerSettings = () => {
         <CardBody>
           <Column gutter="md">
             <Text>
-              Voor de volgende werkzaamheden kunt u pushberichten versturen:
+              Voor de volgende bouwprojecten kunt u pushberichten versturen:
             </Text>
             <View>
               <Divider />

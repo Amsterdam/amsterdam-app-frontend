@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {RootStackParamList} from '../../../../App'
+import {homeScreenOptions, HomeStackParamList} from '../../../App/navigation'
 import {useAsyncStorage} from '../../../hooks'
 import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
@@ -25,7 +25,7 @@ export const Address = () => {
 
   const asyncStorage = useAsyncStorage()
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>()
+    useNavigation<StackNavigationProp<HomeStackParamList, 'Home'>>()
 
   const retrieveAddress = useCallback(async () => {
     const addressFromStore = await asyncStorage.getValue('address')
@@ -62,7 +62,9 @@ export const Address = () => {
               <TextButton
                 direction="backward"
                 emphasis
-                onPress={() => navigation.navigate('AddressForm')}
+                onPress={() =>
+                  navigation.navigate(homeScreenOptions.addressForm.name)
+                }
                 text="Verander adres"
               />
             </Row>

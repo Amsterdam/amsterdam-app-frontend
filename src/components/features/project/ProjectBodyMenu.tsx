@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {RootStackParamList, routes} from '../../../../App'
+import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
 import {DeviceContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {ProjectDetail, Section, Timeline} from '../../../types'
@@ -17,7 +17,7 @@ type Props = {
 }
 
 type ProjectBodyMenuItem = {
-  icon: any
+  icon: React.ReactElement
   sections?: Section[]
   timeline?: Timeline
   title: string
@@ -27,7 +27,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
   const deviceContext = useContext(DeviceContext)
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, 'ProjectDetailBody'>
+      StackNavigationProp<MenuStackParamList, 'ProjectDetailBody'>
     >()
 
   const menuOptions: ProjectBodyMenuItem[] = [
@@ -87,7 +87,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
           key={title}
           label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
           onPress={() =>
-            navigation.navigate(routes.projectDetailBody.name, {
+            navigation.navigate(menuScreenOptions.projectDetailBody.name, {
               body: {
                 headerTitle: project.title,
                 sections: sections ?? [],
