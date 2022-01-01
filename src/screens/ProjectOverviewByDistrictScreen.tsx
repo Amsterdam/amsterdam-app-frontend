@@ -47,11 +47,13 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
 
   // We need to calculate widths because FlatList items don’t flex as expected
   const screenInset = size.spacing.md
-  const gridGutter = size.spacing.sm
+  const gridGutter = 'sm'
+  const gridGutterWidth = size.spacing[gridGutter]
   const projectCardMinWidth = 18 * size.spacing.md
   const numColumns = Math.floor(gridWidth / projectCardMinWidth)
   const projectCardWidth = Math.floor(
-    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutter) / numColumns,
+    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutterWidth) /
+      numColumns,
   )
 
   const styles = StyleSheet.create({

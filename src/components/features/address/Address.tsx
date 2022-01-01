@@ -4,7 +4,6 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {homeScreenOptions, HomeStackParamList} from '../../../App/navigation'
 import {useAsyncStorage} from '../../../hooks'
-import {size} from '../../../tokens'
 import {Address as AddressType} from '../../../types'
 import {
   Attention,
@@ -53,11 +52,11 @@ export const Address = () => {
           <CardBody>
             <SingleSelectable>
               <Text secondary>Uw adres:</Text>
-              <Gutter height={size.spacing.sm} />
+              <Gutter height="sm" />
               <Title level={4} margin text={address.adres} />
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </SingleSelectable>
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <Row align="start">
               <TextButton
                 direction="backward"
@@ -76,7 +75,7 @@ export const Address = () => {
             text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt kunnen tonen."
             title="Uw buurt"
           />
-          <Gutter height={size.spacing.md} />
+          <Gutter height="md" />
           <Attention>
             <Text>
               Uw adres wordt alleen op uw telefoon opgeslagen en gebruikt om de

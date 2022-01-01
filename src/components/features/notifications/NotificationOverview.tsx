@@ -94,12 +94,12 @@ export const NotificationOverview = () => {
               {notification.isRead ? <BellInactive /> : <BellActive />}
               <Text small>{project}</Text>
             </Row>
-            <Gutter height={size.spacing.sm} />
+            <Gutter height="sm" />
             <Text intro accessibilityRole="header">
               {notification.title}
             </Text>
             <Text>{notification.body}</Text>
-            <Gutter height={size.spacing.xs} />
+            <Gutter height="xs" />
             <Text small>{date}</Text>
           </SingleSelectable>
         )

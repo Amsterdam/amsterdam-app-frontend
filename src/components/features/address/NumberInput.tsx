@@ -68,7 +68,7 @@ export const NumberInput = ({
           onPress={() => changeIsStreetSelected(false)}
         />
       </Row>
-      <Gutter height={size.spacing.sm} />
+      <Gutter height="sm" />
 
       <TextInput
         accessibilityLabel="Vul uw huisnummer in"
@@ -89,7 +89,7 @@ export const NumberInput = ({
               }}
               style={styles.suggestedItem}>
               <Location width={24} height={24} fill={color.font.tertiary} />
-              <Gutter width={size.spacing.xs} />
+              <Gutter width="xs" />
               <Text>{getNumberFromAddress(bagItem._display)}</Text>
             </TouchableOpacity>
           ))}

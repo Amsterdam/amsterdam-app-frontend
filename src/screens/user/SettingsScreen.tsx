@@ -6,11 +6,10 @@ import {
 } from '../../components/features/settings'
 import {Box} from '../../components/ui'
 import {Column, Gutter, ScrollView} from '../../components/ui/layout'
-import {size} from '../../tokens'
 
 export const SettingsScreen = () => (
   <ScrollView>
-    <Gutter height={size.spacing.md} />
+    <Gutter height="md" />
     <Column gutter="md">
       <ProjectNotificationSettings />
       <ProjectManagerSettings />
@@ -18,6 +17,6 @@ export const SettingsScreen = () => (
         <VersionInfo />
       </Box>
     </Column>
-    <Gutter height={size.spacing.xl} />
+    <Gutter height="xl" />
   </ScrollView>
 )

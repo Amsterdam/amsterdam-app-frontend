@@ -12,7 +12,6 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {size} from '../../../tokens'
 import {WasteGuideDetails} from './types'
 
 type Props = {
@@ -66,7 +65,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         />
         {appointmentUrl && (
           <>
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <Column halign="start">
               <Button
                 onPress={() =>
@@ -83,7 +82,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         )}
         {footerLink && (
           <>
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <Row align="start">
               <TextButton
                 direction="forward"

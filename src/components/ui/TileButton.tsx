@@ -33,7 +33,7 @@ export const TileButton = ({
         {flexBasis: width},
       ]}>
       <View style={iconStyles}>{icon}</View>
-      <Gutter {...{[square ? 'height' : 'width']: size.spacing.md}} />
+      <Gutter {...{[square ? 'height' : 'width']: 'md'}} />
       <Title level={4} text={label} />
     </TouchableOpacity>
   )

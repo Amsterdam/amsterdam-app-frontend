@@ -13,7 +13,6 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {size} from '../../../tokens'
 
 export const WasteGuideContainers = () => {
   const navigation =
@@ -29,7 +28,7 @@ export const WasteGuideContainers = () => {
           Zoekt u een container voor glas, papier, textiel, plastic verpakkingen
           of restafval?
         </Text>
-        <Gutter height={size.spacing.md} />
+        <Gutter height="md" />
         <Row align="start">
           <TextButton
             direction="forward"
@@ -43,7 +42,7 @@ export const WasteGuideContainers = () => {
             text="Bekijk de kaart met containers in de buurt"
           />
         </Row>
-        <Gutter height={size.spacing.md} />
+        <Gutter height="md" />
         <View style={styles.figure}>
           <Image
             source={require('../../../assets/images/placeholder-map-containers.jpg')}
