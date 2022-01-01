@@ -74,7 +74,7 @@ export const TextInput = React.forwardRef((props: Props, ref: any) => {
   return (
     <View>
       <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <Gutter height={size.spacing.sm} />
+      <Gutter height="sm" />
       <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
           {...props}

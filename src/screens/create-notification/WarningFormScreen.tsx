@@ -14,7 +14,6 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
   NotificationContext,
@@ -201,7 +200,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           />
           <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   )

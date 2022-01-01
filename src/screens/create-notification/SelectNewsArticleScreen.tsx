@@ -21,7 +21,6 @@ import {
 } from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
-import {size} from '../../tokens'
 import {NewsArticle} from '../../types'
 import {NotificationContext, NotificationStackParamList} from './'
 
@@ -111,7 +110,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 Schrijf een nieuwsartikel met meer informatie. Uw pushbericht
                 zal dit nieuwsartikel openen in de app.
               </Text>
-              <Gutter height={size.spacing.sm} />
+              <Gutter height="sm" />
               <View style={styles.justifyStart}>
                 <Button
                   onPress={() => navigation.navigate('WarningForm')}
@@ -133,7 +132,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           />
           <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   ) : null

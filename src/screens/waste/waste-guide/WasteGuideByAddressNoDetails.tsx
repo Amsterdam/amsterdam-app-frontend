@@ -12,7 +12,6 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {size} from '../../../tokens'
 import {Address} from '../../../types'
 
 type Props = {
@@ -65,7 +64,7 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
       </CardHeader>
       <CardBody>
         <Text>{content.text}</Text>
-        <Gutter height={size.spacing.md} />
+        <Gutter height="md" />
         <Row align="start">
           <Button
             onPress={content.button.onPress}

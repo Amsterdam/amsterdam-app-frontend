@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {color, size} from '../../../tokens'
+import {color} from '../../../tokens'
 import {Box} from '../../ui'
 import {Column, Gutter} from '../../ui/layout'
 import {Chapter, chapters, HeroImage, Intro, Outro} from './index'
@@ -19,7 +19,7 @@ export const BestWishes21Article = () => (
         </Column>
       </Box>
     </View>
-    <Gutter height={size.spacing.xl} />
+    <Gutter height="xl" />
   </View>
 )
 

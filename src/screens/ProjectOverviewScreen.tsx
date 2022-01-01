@@ -52,7 +52,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
           keyExtractor={(item, index) => `${item}${index}`}
           ItemSeparatorComponent={item =>
             item.leadingItem.data && item.leadingItem.data.length > 0 ? (
-              <Gutter height={size.spacing.md} />
+              <Gutter height="md" />
             ) : null
           }
           renderItem={({item: districtItem}) => {
@@ -73,9 +73,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 <FlatList
                   data={districtItem.data}
                   horizontal
-                  ItemSeparatorComponent={() => (
-                    <Gutter width={size.spacing.sm} />
-                  )}
+                  ItemSeparatorComponent={() => <Gutter width="sm" />}
                   keyExtractor={item => item.identifier}
                   renderItem={({item: projectItem}) => (
                     <ProjectCard

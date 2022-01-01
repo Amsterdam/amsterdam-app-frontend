@@ -13,7 +13,6 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {size} from '../../../tokens'
 
 export const WasteGuideCollectionPoints = () => {
   const navigation =
@@ -29,7 +28,7 @@ export const WasteGuideCollectionPoints = () => {
           Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch afval en{' '}
           spullen voor de kringloop kwijt.
         </Text>
-        <Gutter height={size.spacing.md} />
+        <Gutter height="md" />
         <Row align="start">
           <TextButton
             direction="forward"
@@ -43,7 +42,7 @@ export const WasteGuideCollectionPoints = () => {
             text="Bekijk de kaart met afvalpunten in de buurt"
           />
         </Row>
-        <Gutter height={size.spacing.md} />
+        <Gutter height="md" />
         <View style={styles.figure}>
           <Image
             source={require('../../../assets/images/placeholder-map-collection-points.jpg')}

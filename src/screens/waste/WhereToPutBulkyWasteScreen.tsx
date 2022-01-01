@@ -2,13 +2,12 @@ import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
 import {Box, Card, CardBody, Image, Text, Title} from '../../components/ui'
 import {Gutter} from '../../components/ui/layout'
-import {size} from '../../tokens'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <ScrollView>
     <Box background="white">
       <Title text="Buiten zetten of naar een afvalpunt?" />
-      <Gutter height={size.spacing.sm} />
+      <Gutter height="sm" />
       <Text>
         Grof afval zijn grote spullen die niet in een vuilniszak of ondergrondse
         afvalcontainer passen.
@@ -23,7 +22,7 @@ export const WhereToPutBulkyWasteScreen = () => (
               style={styles.image}
             />
           </View>
-          <Gutter height={size.spacing.md} />
+          <Gutter height="md" />
           <Title level={2} text="Grof afval dat we ophalen" />
           <Text>
             Spullen uit uw woning die niet passen in een ondergrondse container.
@@ -32,7 +31,7 @@ export const WhereToPutBulkyWasteScreen = () => (
           </Text>
         </CardBody>
       </Card>
-      <Gutter height={size.spacing.md} />
+      <Gutter height="md" />
       <Card>
         <CardBody>
           <View style={styles.figure}>
@@ -41,7 +40,7 @@ export const WhereToPutBulkyWasteScreen = () => (
               style={styles.image}
             />
           </View>
-          <Gutter height={size.spacing.md} />
+          <Gutter height="md" />
           <Title
             level={2}
             text="Dit mag weggebracht worden naar een afvalpunt"

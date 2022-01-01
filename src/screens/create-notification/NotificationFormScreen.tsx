@@ -14,7 +14,6 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {size} from '../../tokens'
 import {NewNotification} from '../../types'
 import {formatTime} from '../../utils'
 import {
@@ -171,7 +170,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             }
           />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   )

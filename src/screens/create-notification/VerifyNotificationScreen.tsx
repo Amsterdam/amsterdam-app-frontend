@@ -18,7 +18,6 @@ import {
 } from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
-import {size} from '../../tokens'
 import {NewNotification, Notification, WarningResponse} from '../../types'
 import {encryptWithAES} from '../../utils'
 import {NotificationContext, NotificationStackParamList} from './'
@@ -196,7 +195,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
           />
           <SubmitButton onPress={handleSubmit} text="Verstuur" />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   )

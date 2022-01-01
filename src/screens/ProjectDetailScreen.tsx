@@ -20,7 +20,7 @@ import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
-import {image, size} from '../tokens'
+import {image} from '../tokens'
 import {ProjectDetail} from '../types'
 import {accessibleText} from '../utils'
 
@@ -115,7 +115,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               value={isSubscribed}
             />
           </Column>
-          <Gutter height={size.spacing.lg} />
+          <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
         </Box>
         {project.articles.length ? (

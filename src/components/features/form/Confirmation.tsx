@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {MenuStackParamList} from '../../../App/navigation'
-import {size} from '../../../tokens'
 import {Button, Card, CardBody, Text, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
 
@@ -24,7 +23,7 @@ export const Confirmation = ({body, button, icon, title}: Props) => {
     <Card>
       <CardBody>
         {icon}
-        <Gutter height={size.spacing.lg} />
+        <Gutter height="lg" />
         <Column gutter="md">
           <Title text={title} />
           <Text>{body}</Text>

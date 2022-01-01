@@ -126,7 +126,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                 vanaf de projectpagina:
               </Text>
             </Column>
-            <Gutter height={size.spacing.lg} />
+            <Gutter height="lg" />
             <Divider />
             {authorizedProjects.map(
               (authProject, index) =>

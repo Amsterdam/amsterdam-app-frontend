@@ -17,7 +17,6 @@ import {SingleSelectable} from '../../../components/ui/SingleSelectable'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
-import {size} from '../../../tokens'
 import {Address} from '../../../types'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
@@ -99,9 +98,9 @@ export const WasteGuideByAddress = () => {
       <Box background="white">
         <SingleSelectable>
           <Text>Afvalinformatie voor</Text>
-          <Gutter height={size.spacing.xs} />
+          <Gutter height="xs" />
           <Title text={address.adres} />
-          <Gutter height={size.spacing.sm} />
+          <Gutter height="sm" />
         </SingleSelectable>
         <Row align="start">
           <TextButton
@@ -138,23 +137,21 @@ export const WasteGuideByAddress = () => {
                     text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                   }}
                 />
-                <Gutter height={size.spacing.md} />
+                <Gutter height="md" />
                 <WasteGuideCollectionPoints />
               </>
             )}
             {wasteGuide?.[WasteType.Household] && (
               <>
-                {wasteGuide[WasteType.Bulky] && (
-                  <Gutter height={size.spacing.md} />
-                )}
+                {wasteGuide[WasteType.Bulky] && <Gutter height="md" />}
                 <WasteGuideByAddressDetails
                   details={wasteGuide[WasteType.Household]!}
                 />
-                <Gutter height={size.spacing.md} />
+                <Gutter height="md" />
                 <WasteGuideContainers />
               </>
             )}
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <TextButton
               direction="forward"
               onPress={() =>
