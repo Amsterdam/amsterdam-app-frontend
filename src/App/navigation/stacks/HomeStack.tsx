@@ -1,29 +1,44 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {stackScreenOptions} from '..'
-import {BestWishes21Screen, HomeScreen} from '../../../screens'
+import {homeRoutes, stackScreenOptions} from '..'
+import {
+  BestWishes21Screen,
+  HomeScreen,
+  ProjectOverviewScreen,
+  WasteGuideScreen,
+} from '../../../screens'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
-import {homeScreenOptions} from '../screenOptions'
 
 const Stack = createStackNavigator()
 
-export const HomeStack = () => {
-  const {addressForm, bestWishes21, home} = homeScreenOptions
-  return (
-    <Stack.Navigator
-      initialRouteName={home.name}
-      screenOptions={stackScreenOptions}>
-      <Stack.Screen component={HomeScreen} name="Home" options={home.options} />
-      <Stack.Screen
-        component={AddressFormScreen}
-        name={addressForm.name}
-        options={addressForm.options}
-      />
-      <Stack.Screen
-        component={BestWishes21Screen}
-        name="BestWishes21"
-        options={bestWishes21.options}
-      />
-    </Stack.Navigator>
-  )
-}
+export const HomeStack = () => (
+  <Stack.Navigator
+    initialRouteName={homeRoutes.home.name}
+    screenOptions={stackScreenOptions}>
+    <Stack.Screen
+      component={AddressFormScreen}
+      name={homeRoutes.addressForm.name}
+      options={homeRoutes.addressForm.options}
+    />
+    <Stack.Screen
+      component={BestWishes21Screen}
+      name={homeRoutes.bestWishes21.name}
+      options={homeRoutes.bestWishes21.options}
+    />
+    <Stack.Screen
+      component={HomeScreen}
+      name={homeRoutes.home.name}
+      options={homeRoutes.home.options}
+    />
+    <Stack.Screen
+      component={ProjectOverviewScreen}
+      name={homeRoutes.projectOverview.name}
+      options={homeRoutes.projectOverview.options}
+    />
+    <Stack.Screen
+      component={WasteGuideScreen}
+      name={homeRoutes.wasteGuide.name}
+      options={homeRoutes.wasteGuide.options}
+    />
+  </Stack.Navigator>
+)

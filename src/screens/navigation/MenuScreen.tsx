@@ -7,21 +7,18 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatGrid} from 'react-native-super-grid'
 import {
-  menuScreenOptions,
-  MenuStackParamList,
-  reportScreenOptions,
-  RootStackParamList,
-  tabNavOptions,
+  actionRoutes,
+  menuRoutes,
+  MenuStackParams,
+  TabParams,
+  tabRoutes,
 } from '../../App/navigation'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {color, size} from '../../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<
-    MenuStackParamList & RootStackParamList,
-    'Menu'
-  >
+  navigation: StackNavigationProp<MenuStackParams & TabParams, 'Menu'>
 }
 
 export const MenuScreen = ({navigation}: Props) => {
@@ -31,37 +28,35 @@ export const MenuScreen = ({navigation}: Props) => {
     {
       icon: <TrashBin {...iconProps} />,
       label: 'Afval',
-      onPress: () => navigation.navigate(menuScreenOptions.wasteMenu.name),
+      onPress: () => navigation.navigate(menuRoutes.wasteMenu.name),
     },
     {
       icon: <Project />,
       label: 'Bouwprojecten',
-      onPress: () =>
-        navigation.navigate(menuScreenOptions.projectOverview.name),
+      onPress: () => navigation.navigate(menuRoutes.projectOverview.name),
     },
     {
       icon: <Alert {...iconProps} />,
       label: 'Melden',
       onPress: () =>
-        navigation.navigate(tabNavOptions.report.name, {
-          screen: reportScreenOptions.reportIssue.name,
+        navigation.navigate(tabRoutes.action.name, {
+          screen: actionRoutes.reportIssue.name,
         }),
     },
     {
       icon: <Chatting {...iconProps} />,
       label: 'Contact',
-      onPress: () => navigation.navigate(menuScreenOptions.contact.name),
+      onPress: () => navigation.navigate(menuRoutes.contact.name),
     },
     {
       icon: <Data {...iconProps} />,
       label: 'Instellingen',
-      onPress: () => navigation.navigate(menuScreenOptions.settings.name),
+      onPress: () => navigation.navigate(menuRoutes.settings.name),
     },
     {
       icon: <Lamp {...iconProps} />,
       label: 'Berichten',
-      onPress: () =>
-        navigation.navigate(menuScreenOptions.notificationOverview.name),
+      onPress: () => navigation.navigate(menuRoutes.notificationOverview.name),
     },
   ]
 

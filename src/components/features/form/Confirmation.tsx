@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {MenuStackParamList} from '../../../App/navigation'
+import {MenuStackParams} from '../../../App/navigation'
 import {Button, Card, CardBody, Text, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
 
@@ -17,7 +17,7 @@ type Props = {
 
 export const Confirmation = ({body, button, icon, title}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Notification'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'Notification'>>()
 
   return (
     <Card>

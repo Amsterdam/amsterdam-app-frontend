@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {ProjectDetailArticlePreview} from '../../../types'
@@ -17,7 +17,7 @@ type Props = {
 export const ArticleOverview = ({articles}: Props) => {
   const deviceContext = useContext(DeviceContext)
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'ProjectNews'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'ProjectNews'>>()
 
   if (!articles.length) {
     return null
@@ -25,11 +25,11 @@ export const ArticleOverview = ({articles}: Props) => {
 
   const navigateToArticle = (article: ProjectDetailArticlePreview) => {
     if (article.type === 'news') {
-      navigation.navigate(menuScreenOptions.projectNews.name, {
+      navigation.navigate(menuRoutes.projectNews.name, {
         id: article.identifier,
       })
     } else if (article.type === 'warning') {
-      navigation.navigate(menuScreenOptions.projectWarning.name, {
+      navigation.navigate(menuRoutes.projectWarning.name, {
         id: article.identifier,
       })
     }

@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {
   Button,
   Card,
@@ -20,7 +20,7 @@ type Props = {
 
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   const content =
     address.woonplaats === 'Weesp'
@@ -47,7 +47,7 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
           text: `We konden geen afvalinformatie vinden voor het adres ${address.adres}, ${address.postcode} ${address.woonplaats}.`,
           button: {
             onPress: () =>
-              navigation.navigate(menuScreenOptions.webView.name, {
+              navigation.navigate(menuRoutes.webView.name, {
                 sliceFromTop: {portrait: 161, landscape: 207},
                 title: 'Melden afvalinformatie',
                 url: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',

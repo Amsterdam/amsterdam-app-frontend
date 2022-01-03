@@ -1,41 +1,36 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import React from 'react'
-import {
-  menuScreenOptions,
-  tabNavOptions,
-  tabScreenOptions,
-} from './screenOptions'
-import {HomeStack, MenuStack, ReportStack} from './index'
+import {menuRoutes, tabRoutes, tabScreenOptions} from './'
+import {ActionStack, HomeStack, MenuStack} from './index'
 
 const Tab = createBottomTabNavigator()
 
-export const TabNavigator = () => {
-  const {home, menu, report} = tabNavOptions
-  return (
-    <Tab.Navigator screenOptions={tabScreenOptions}>
-      <Tab.Screen
-        name={home.name}
-        component={HomeStack}
-        options={home.options}
-      />
-      <Tab.Screen
-        name={report.name}
-        component={ReportStack}
-        options={report.options}
-      />
-      <Tab.Screen
-        name={menu.name}
-        component={MenuStack}
-        listeners={({navigation}) => ({
-          tabPress: e => {
-            e.preventDefault()
-            navigation.navigate(tabNavOptions.menu.name, {
-              screen: menuScreenOptions.menu.name,
-            })
-          },
-        })}
-        options={menu.options}
-      />
-    </Tab.Navigator>
-  )
-}
+export const TabNavigator = () => (
+  <Tab.Navigator
+    initialRouteName={tabRoutes.home.name}
+    screenOptions={tabScreenOptions}>
+    <Tab.Screen
+      component={HomeStack}
+      name={tabRoutes.home.name}
+      options={tabRoutes.home.options}
+    />
+    <Tab.Screen
+      component={ActionStack}
+      name={tabRoutes.action.name}
+      options={tabRoutes.action.options}
+    />
+    <Tab.Screen
+      component={MenuStack}
+      name={tabRoutes.menu.name}
+      listeners={({navigation}) => ({
+        tabPress: e => {
+          e.preventDefault()
+          navigation.navigate(tabRoutes.menu.name, {
+            screen: menuRoutes.menu.name,
+          })
+        },
+      })}
+      options={tabRoutes.menu.options}
+    />
+  </Tab.Navigator>
+)

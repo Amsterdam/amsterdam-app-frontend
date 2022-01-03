@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {
   Card,
   CardBody,
@@ -16,7 +16,7 @@ import {Gutter, Row} from '../../../components/ui/layout'
 
 export const WasteGuideCollectionPoints = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   return (
     <Card>
@@ -33,7 +33,7 @@ export const WasteGuideCollectionPoints = () => {
           <TextButton
             direction="forward"
             onPress={() =>
-              navigation.navigate(menuScreenOptions.webView.name, {
+              navigation.navigate(menuRoutes.webView.name, {
                 sliceFromTop: {portrait: 50, landscape: 50},
                 title: 'Afvalpunten in de buurt',
                 url: 'https://kaart.amsterdam.nl/#52.2744/4.7151/52.4355/5.0667/brt/9776/244/',

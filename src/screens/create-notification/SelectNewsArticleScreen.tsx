@@ -22,13 +22,10 @@ import {
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {NewsArticle} from '../../types'
-import {NotificationContext, NotificationStackParamList} from './'
+import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
-  navigation: StackNavigationProp<
-    NotificationStackParamList,
-    'SelectNewsArticle'
-  >
+  navigation: StackNavigationProp<NotificationStackParams, 'SelectNewsArticle'>
 }
 
 type FormData = {

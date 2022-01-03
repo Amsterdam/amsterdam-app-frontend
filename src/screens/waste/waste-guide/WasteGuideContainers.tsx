@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {
   Card,
   CardBody,
@@ -16,7 +16,7 @@ import {Gutter, Row} from '../../../components/ui/layout'
 
 export const WasteGuideContainers = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   return (
     <Card>
@@ -33,7 +33,7 @@ export const WasteGuideContainers = () => {
           <TextButton
             direction="forward"
             onPress={() =>
-              navigation.navigate(menuScreenOptions.webView.name, {
+              navigation.navigate(menuRoutes.webView.name, {
                 sliceFromTop: {portrait: 50, landscape: 50},
                 title: 'Containers in de buurt',
                 url: 'https://kaart.amsterdam.nl/afvalcontainers#17/52.36306/4.90720/brt/12491,12492,12493,12494,12495,12496,12497//',

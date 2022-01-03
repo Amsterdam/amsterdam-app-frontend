@@ -4,7 +4,7 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {Linking} from 'react-native'
 import {PushNotificationData} from '../../types'
-import {menuScreenOptions, tabNavOptions} from './screenOptions'
+import {menuRoutes, tabRoutes} from './'
 
 const appPrefix = 'amsterdam://'
 
@@ -31,9 +31,11 @@ export const pushNotificationTypes: PushNotificationTypes = {
 
 const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   const notificationType = dataObj.type && pushNotificationTypes[dataObj.type]
+
   if (!notificationType) {
     return
   }
+
   if (notificationType?.routeWithPrefix) {
     const urlFromNotification = dataObj.linkSourceid
       ? `${notificationType.routeWithPrefix}/${dataObj.linkSourceid}`
@@ -46,11 +48,11 @@ export const linking = {
   prefixes: [appPrefix],
   config: {
     screens: {
-      [tabNavOptions.menu.name]: {
+      [tabRoutes.menu.name]: {
         screens: {
-          [menuScreenOptions.projectNews.name]: 'news/:id',
-          [menuScreenOptions.projectWarning.name]: 'warning/:id',
-          [menuScreenOptions.projectManager.name]: 'project-manager/:id',
+          [menuRoutes.projectNews.name]: 'news/:id',
+          [menuRoutes.projectManager.name]: 'project-manager/:id',
+          [menuRoutes.projectWarning.name]: 'warning/:id',
         },
       },
     },

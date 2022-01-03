@@ -11,11 +11,11 @@ import React, {
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {
-  homeScreenOptions,
-  menuScreenOptions,
-  MenuStackParamList,
-  RootStackParamList,
-  tabNavOptions,
+  homeRoutes,
+  menuRoutes,
+  MenuStackParams,
+  TabParams,
+  tabRoutes,
 } from '../App/navigation'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
@@ -28,15 +28,12 @@ import {ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<
-  MenuStackParamList,
+  MenuStackParams,
   'ProjectManager'
 >
 
 type Props = {
-  navigation: StackNavigationProp<
-    MenuStackParamList & RootStackParamList,
-    'ProjectManager'
-  >
+  navigation: StackNavigationProp<MenuStackParams & TabParams, 'ProjectManager'>
   route: ProjectManagerScreenRouteProp
 }
 
@@ -138,12 +135,9 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                       key={authProject.identifier}
                       onPress={() => {
                         authProject.identifier &&
-                          navigation.navigate(
-                            menuScreenOptions.projectDetail.name,
-                            {
-                              id: authProject.identifier,
-                            },
-                          )
+                          navigation.navigate(menuRoutes.projectDetail.name, {
+                            id: authProject.identifier,
+                          })
                       }}>
                       <ProjectTitle
                         title={authProject.title}
@@ -178,8 +172,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         <Button
           text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
           onPress={() =>
-            navigation.navigate(tabNavOptions.home.name, {
-              screen: homeScreenOptions.home.name,
+            navigation.navigate(tabRoutes.home.name, {
+              screen: homeRoutes.home.name,
             })
           }
         />
