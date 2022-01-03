@@ -6,7 +6,7 @@ import {Gutter} from '../../components/ui/layout'
 import {WasteGuideByAddress} from './waste-guide'
 import {RecyclingGuideBanner, ReportNotCollectedBanner} from './'
 
-export const WasteScreen = () => {
+export const WasteGuideScreen = () => {
   return (
     <ScrollView>
       <WasteGuideByAddress />

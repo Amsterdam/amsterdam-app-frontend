@@ -35,7 +35,7 @@ export type HomeStackParams = {
   BestWishes21: undefined
   Home: undefined
   ProjectOverview: undefined
-  Waste: undefined
+  WasteGuide: undefined
 }
 
 export type MenuStackParams = {
@@ -52,7 +52,7 @@ export type MenuStackParams = {
   ProjectOverviewByDistrict: {id: number}
   ProjectWarning: {id: string}
   Settings: undefined
-  Waste: undefined
+  WasteGuide: undefined
   WasteMenu: undefined
   WebView: WebViewRouteParams
   WhereToPutBulkyWaste: undefined

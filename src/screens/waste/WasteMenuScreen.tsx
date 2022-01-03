@@ -10,7 +10,7 @@ import {DeviceContext} from '../../providers'
 import {color, size} from '../../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParams, 'Waste'>
+  navigation: StackNavigationProp<MenuStackParams, 'WasteGuide'>
 }
 
 export const WasteMenuScreen = ({navigation}: Props) => {
@@ -21,7 +21,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     {
       icon: <Location {...iconProps} />,
       label: 'Afvalinformatie op adres',
-      onPress: () => navigation.navigate(menuRoutes.waste.name),
+      onPress: () => navigation.navigate(menuRoutes.wasteGuide.name),
     },
     {
       icon: <Container {...iconProps} />,

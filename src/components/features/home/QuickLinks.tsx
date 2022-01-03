@@ -14,7 +14,7 @@ export const QuickLinks = () => {
       <Title level={2} text="Direct naar" />
       <TextButton
         direction="forward"
-        onPress={() => navigation.navigate(homeRoutes.waste.name)}
+        onPress={() => navigation.navigate(homeRoutes.wasteGuide.name)}
         text="Afvalinformatie op adres"
       />
       <TextButton

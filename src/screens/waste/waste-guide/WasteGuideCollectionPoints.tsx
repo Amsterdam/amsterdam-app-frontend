@@ -16,7 +16,7 @@ import {Gutter, Row} from '../../../components/ui/layout'
 
 export const WasteGuideCollectionPoints = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   return (
     <Card>

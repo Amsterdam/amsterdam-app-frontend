@@ -104,8 +104,8 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
-  waste: {
-    name: 'Waste',
+  wasteGuide: {
+    name: 'WasteGuide',
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Afvalinformatie op adres" />

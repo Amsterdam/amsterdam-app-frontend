@@ -46,8 +46,8 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },
-  waste: {
-    name: 'Waste',
+  wasteGuide: {
+    name: 'WasteGuide',
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Afvalinformatie op adres" />

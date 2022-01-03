@@ -20,7 +20,7 @@ type Props = {
 
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   const content =
     address.woonplaats === 'Weesp'

@@ -35,7 +35,7 @@ export const WasteGuideByAddress = () => {
   const addressContext = useContext(AddressContext)
   const asyncStorage = useAsyncStorage()
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,

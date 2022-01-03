@@ -13,8 +13,8 @@ import {
   ProjectOverviewScreen,
   ProjectWarningScreen,
   SettingsScreen,
+  WasteGuideScreen,
   WasteMenuScreen,
-  WasteScreen,
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from '../../../screens'
@@ -93,9 +93,9 @@ export const MenuStack = () => (
       options={menuRoutes.settings.options}
     />
     <Stack.Screen
-      component={WasteScreen}
-      name={menuRoutes.waste.name}
-      options={menuRoutes.waste.options}
+      component={WasteGuideScreen}
+      name={menuRoutes.wasteGuide.name}
+      options={menuRoutes.wasteGuide.options}
     />
     <Stack.Screen
       component={WasteMenuScreen}

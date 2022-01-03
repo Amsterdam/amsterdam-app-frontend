@@ -5,7 +5,7 @@ import {
   BestWishes21Screen,
   HomeScreen,
   ProjectOverviewScreen,
-  WasteScreen,
+  WasteGuideScreen,
 } from '../../../screens'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
 
@@ -36,9 +36,9 @@ export const HomeStack = () => (
       options={homeRoutes.projectOverview.options}
     />
     <Stack.Screen
-      component={WasteScreen}
-      name={homeRoutes.waste.name}
-      options={homeRoutes.waste.options}
+      component={WasteGuideScreen}
+      name={homeRoutes.wasteGuide.name}
+      options={homeRoutes.wasteGuide.options}
     />
   </Stack.Navigator>
 )
