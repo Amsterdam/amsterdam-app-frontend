@@ -7,22 +7,22 @@ import {color} from '../../tokens'
 
 type Props = {
   focused: boolean
-  name: 'home' | 'report' | 'menu'
+  name: 'action' | 'home' | 'menu'
 }
 
 export const TabBarIcon = ({focused, name}: Props) => {
   const iconConfig = {
+    action: {
+      component: Melden,
+      inactiveColor: color.touchable.primary,
+      marginTop: -16,
+      size: 56,
+    },
     home: {
       component: Housing,
       inactiveColor: color.font.regular,
       marginTop: undefined,
       size: 24,
-    },
-    report: {
-      component: Melden,
-      inactiveColor: color.touchable.primary,
-      marginTop: -16,
-      size: 56,
     },
     menu: {
       component: Menu,
@@ -41,7 +41,7 @@ export const TabBarIcon = ({focused, name}: Props) => {
   const styles = StyleSheet.create({
     focused: {
       borderTopColor:
-        name === 'report' ? 'transparent' : color.touchable.secondary,
+        name === 'action' ? 'transparent' : color.touchable.secondary,
     },
     icon: {
       fill: foregroundColour,

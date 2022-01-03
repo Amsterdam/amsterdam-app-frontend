@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {
   Button,
   Card,
@@ -24,7 +24,7 @@ type Props = {
 
 export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'Waste'>>()
 
   const {
     appointmentUrl,
@@ -69,7 +69,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
             <Column halign="start">
               <Button
                 onPress={() =>
-                  navigation.navigate(menuScreenOptions.webView.name, {
+                  navigation.navigate(menuRoutes.webView.name, {
                     sliceFromTop: {portrait: 162, landscape: 208},
                     title: 'Afspraak grof afval ophalen',
                     url: appointmentUrl,

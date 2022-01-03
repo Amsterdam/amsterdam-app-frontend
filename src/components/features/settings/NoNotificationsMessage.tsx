@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {Box, Text, TextButton, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 
 export const NoNotificationsMessage = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'ProjectOverview'>>()
+    useNavigation<StackNavigationProp<MenuStackParams, 'ProjectOverview'>>()
 
   return (
     <Box background="white">
@@ -31,9 +31,7 @@ export const NoNotificationsMessage = () => {
         </Text>
         <TextButton
           emphasis
-          onPress={() =>
-            navigation.navigate(menuScreenOptions.projectOverview.name)
-          }
+          onPress={() => navigation.navigate(menuRoutes.projectOverview.name)}
           text="Naar bouwprojecten"
         />
       </Column>

@@ -18,7 +18,7 @@ import {NewNotification} from '../../types'
 import {formatTime} from '../../utils'
 import {
   NotificationContext,
-  NotificationStackParamList,
+  NotificationStackParams,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -32,10 +32,7 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<
-    NotificationStackParamList,
-    'NotificationForm'
-  >
+  navigation: StackNavigationProp<NotificationStackParams, 'NotificationForm'>
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {

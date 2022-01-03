@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {StyleSheet} from 'react-native'
-import {HomeStackParamList} from '../../../App/navigation'
+import {HomeStackParams} from '../../../App/navigation'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {color, size} from '../../../tokens'
@@ -30,7 +30,7 @@ export const AddressForm = () => {
   const addressContext = useContext(AddressContext)
 
   const navigation =
-    useNavigation<StackNavigationProp<HomeStackParamList, 'Home'>>()
+    useNavigation<StackNavigationProp<HomeStackParams, 'Home'>>()
 
   const apiAddress = useFetch<any>({
     onLoad: false,

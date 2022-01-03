@@ -4,7 +4,7 @@ import {WebViewRouteParams} from '../../screens'
 import {ProjectDetails} from '../../screens/create-notification'
 import {ProjectDetailBody} from '../../types'
 
-export type Routes<R> = {
+export type StackNavigationRoutes<R> = {
   [route: string]: {
     name: keyof R
     options?: StackNavigationOptions
@@ -12,7 +12,7 @@ export type Routes<R> = {
   }
 }
 
-export type TabNavRoutes<R> = {
+export type TabNavigationRoutes<R> = {
   [route: string]: {
     name: keyof R
     options?: BottomTabNavigationOptions
@@ -20,19 +20,23 @@ export type TabNavRoutes<R> = {
   }
 }
 
-export type RootStackParamList = {
-  HomeStack: {screen?: keyof HomeStackParamList}
-  MenuStack: {screen?: keyof MenuStackParamList}
-  ReportStack: {screen?: keyof ReportStackParamList}
+export type TabParams = {
+  ActionTab: {screen?: keyof ActionStackParams}
+  HomeTab: {screen?: keyof HomeStackParams}
+  MenuTab: {screen?: keyof MenuStackParams}
 }
 
-export type HomeStackParamList = {
+export type ActionStackParams = {
+  ReportIssue: {title: string}
+}
+
+export type HomeStackParams = {
   AddressForm: undefined
   BestWishes21: undefined
   Home: undefined
 }
 
-export type MenuStackParamList = {
+export type MenuStackParams = {
   AddressForm: undefined
   Contact: undefined
   Menu: undefined
@@ -50,8 +54,4 @@ export type MenuStackParamList = {
   WasteMenu: undefined
   WebView: WebViewRouteParams
   WhereToPutBulkyWaste: undefined
-}
-
-export type ReportStackParamList = {
-  ReportIssue: {title: string}
 }

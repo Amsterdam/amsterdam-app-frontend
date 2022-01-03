@@ -20,13 +20,10 @@ import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {NewNotification, Notification, WarningResponse} from '../../types'
 import {encryptWithAES} from '../../utils'
-import {NotificationContext, NotificationStackParamList} from './'
+import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
-  navigation: StackNavigationProp<
-    NotificationStackParamList,
-    'VerifyNotification'
-  >
+  navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {

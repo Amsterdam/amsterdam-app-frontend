@@ -2,7 +2,7 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {RouteProp} from '@react-navigation/native'
 import React, {useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {MenuStackParamList} from '../App/navigation'
+import {MenuStackParams} from '../App/navigation'
 import HeroImage from '../assets/images/warning-hero.svg'
 import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Row, ScrollView} from '../components/ui/layout'
@@ -13,7 +13,7 @@ import {Warning} from '../types'
 import {formatDate, openMailUrl} from '../utils'
 
 type ProjectWarningScreenRouteProp = RouteProp<
-  MenuStackParamList,
+  MenuStackParams,
   'ProjectWarning'
 >
 
