@@ -34,6 +34,8 @@ export type HomeStackParams = {
   AddressForm: undefined
   BestWishes21: undefined
   Home: undefined
+  ProjectOverview: undefined
+  Waste: undefined
 }
 
 export type MenuStackParams = {

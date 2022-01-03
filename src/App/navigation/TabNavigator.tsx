@@ -6,7 +6,9 @@ import {ActionStack, HomeStack, MenuStack} from './index'
 const Tab = createBottomTabNavigator()
 
 export const TabNavigator = () => (
-  <Tab.Navigator screenOptions={tabScreenOptions}>
+  <Tab.Navigator
+    initialRouteName={tabRoutes.home.name}
+    screenOptions={tabScreenOptions}>
     <Tab.Screen
       component={HomeStack}
       name={tabRoutes.home.name}

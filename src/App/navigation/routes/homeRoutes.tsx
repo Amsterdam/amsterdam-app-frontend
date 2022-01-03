@@ -40,4 +40,18 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams> = {
       ),
     },
   },
+  projectOverview: {
+    name: 'ProjectOverview',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
+    },
+  },
+  waste: {
+    name: 'Waste',
+    options: {
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Afvalinformatie op adres" />
+      ),
+    },
+  },
 }
