@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {BellActive, BellInactive} from '../../../assets/icons'
 import {color, size} from '../../../tokens'
 import {Notification as NotificationType} from '../../../types'
@@ -24,7 +24,9 @@ export const Notification = ({notification}: Props) => {
         'op ' + date,
       )}>
       <Row gutter="sm">
-        {notification.isRead ? <BellInactive /> : <BellActive />}
+        <View style={styles.icon}>
+          {notification.isRead ? <BellInactive /> : <BellActive />}
+        </View>
         <Text small>{notification.projectTitle}</Text>
       </Row>
       <Gutter height="sm" />
@@ -39,6 +41,11 @@ export const Notification = ({notification}: Props) => {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    width: 18,
+    aspectRatio: 1,
+    marginTop: 2,
+  },
   notification: {
     backgroundColor: color.background.grey,
     borderBottomWidth: 2,
