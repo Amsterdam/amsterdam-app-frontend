@@ -9,6 +9,7 @@ export type NewNotification = {
 export type Notification = NewNotification & {
   isRead?: Boolean
   publication_date: string
+  projectTitle: string
 }
 
 export type PushNotificationData = {
