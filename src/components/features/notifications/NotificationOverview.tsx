@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import {StyleSheet} from 'react-native'
-import {BellActive, BellInactive} from '../../../assets/icons'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useFetch} from '../../../hooks'
-import {color, size} from '../../../tokens'
 import {
-  Notification,
+  Notification as NotificationType,
   NotificationSettings,
   ProjectOverviewItem,
 } from '../../../types'
-import {accessibleText, formatDate} from '../../../utils'
-import {Box, PleaseWait, SingleSelectable, Text} from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
+import {Box, PleaseWait, Text} from '../../ui'
+import {Notification} from './'
 
 export const NotificationOverview = () => {
   const asyncStorage = useAsyncStorage()
@@ -37,8 +33,8 @@ export const NotificationOverview = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Retrieve notifications for subscribed projects
-  const {data: notifications, isLoading: isNotificationsLoading} = useFetch<
-    Notification[]
+  const {data: rawNotifications, isLoading: isNotificationsLoading} = useFetch<
+    NotificationType[]
   >({
     url: getEnvironment().apiUrl + '/notifications',
     options: {
@@ -54,7 +50,15 @@ export const NotificationOverview = () => {
     return <PleaseWait />
   }
 
-  // Create mapping from project id to name
+  if (!rawNotifications?.length) {
+    return (
+      <Box>
+        <Text>Geen berichten gevonden.</Text>
+      </Box>
+    )
+  }
+
+  // Create mapping from project id to titles
   const projectTitles: Record<string, string> = projects
     ? projects.reduce((acc, project) => {
         return {
@@ -64,63 +68,23 @@ export const NotificationOverview = () => {
       }, {})
     : {}
 
-  const notificationsWithReadStatus: Notification[] = (notifications ?? [])
+  // Add read state nd project titles to notification
+  const notifications: NotificationType[] = (rawNotifications ?? [])
     .sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
     .map(notification => ({
       ...notification,
       isRead: true, // TEMP
+      projectTitle: projectTitles[notification.project_identifier],
     }))
 
-  return notifications?.length ? (
+  return (
     <>
-      {notificationsWithReadStatus.map(notification => {
-        const project = projectTitles[notification.project_identifier]
-        const date = formatDate(notification.publication_date)
-
-        return (
-          <SingleSelectable
-            key={notification.publication_date}
-            style={[
-              styles.notification,
-              !notification.isRead && styles.notRead,
-            ]}
-            accessibilityLabel={accessibleText(
-              notification.title,
-              notification.body,
-              'over ' + project,
-              'op ' + date,
-            )}>
-            <Row gutter="sm">
-              {notification.isRead ? <BellInactive /> : <BellActive />}
-              <Text small>{project}</Text>
-            </Row>
-            <Gutter height="sm" />
-            <Text intro accessibilityRole="header">
-              {notification.title}
-            </Text>
-            <Text>{notification.body}</Text>
-            <Gutter height="xs" />
-            <Text small>{date}</Text>
-          </SingleSelectable>
-        )
-      })}
+      {notifications.map(notification => (
+        <Notification
+          notification={notification}
+          key={notification.publication_date}
+        />
+      ))}
     </>
-  ) : (
-    <Box>
-      <Text>Geen berichten gevonden.</Text>
-    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  notification: {
-    backgroundColor: color.background.grey,
-    borderBottomWidth: 2,
-    borderBottomColor: color.border.divider,
-    padding: size.spacing.md,
-  },
-  notRead: {
-    backgroundColor: color.background.white,
-    borderBottomColor: color.border.invalid,
-  },
-})
