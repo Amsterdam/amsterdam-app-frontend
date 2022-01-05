@@ -1,20 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
-import {useAsyncStorage, useFetch} from '../../../hooks'
+import {useFetch} from '../../../hooks'
+import {SettingsContext} from '../../../providers/settings.provider'
 import {
   Notification as NotificationType,
-  NotificationSettings,
   ProjectOverviewItem,
 } from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
 import {Notification} from './'
 
 export const NotificationOverview = () => {
-  const asyncStorage = useAsyncStorage()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
+  const {settings} = useContext(SettingsContext)
+  const notificationSettings = settings?.notifications
 
   // Get all projects as we need to display their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
@@ -22,16 +20,6 @@ export const NotificationOverview = () => {
   >({
     url: getEnvironment().apiUrl + '/projects',
   })
-
-  // Retrieve notification settings from device
-  useEffect(() => {
-    const retrieveNotificationSettings = async () => {
-      const currentNotificationSetting: NotificationSettings | undefined =
-        await asyncStorage.getValue('notifications')
-      setNotificationSettings(currentNotificationSetting)
-    }
-    retrieveNotificationSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Retrieve notifications for subscribed projects
   const {data: rawNotifications, isLoading: isNotificationsLoading} = useFetch<
@@ -69,7 +57,7 @@ export const NotificationOverview = () => {
       }, {})
     : {}
 
-  // Add read state nd project titles to notification
+  // Add read state and project titles to notification
   const notifications: NotificationType[] = (rawNotifications ?? [])
     .sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
     .map(notification => ({
@@ -81,8 +69,8 @@ export const NotificationOverview = () => {
   return (
     <FlatList
       data={notifications}
-      renderItem={({item}) => <Notification notification={item} />}
       keyExtractor={item => item.publication_date}
+      renderItem={({item}) => <Notification notification={item} />}
     />
   )
 }
