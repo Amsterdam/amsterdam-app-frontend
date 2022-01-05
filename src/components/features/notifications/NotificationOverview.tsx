@@ -8,6 +8,7 @@ import {
   ProjectOverviewItem,
 } from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
+import {joinedProjectTitles} from '../project'
 import {Notification} from './'
 
 export const NotificationOverview = () => {
@@ -48,14 +49,7 @@ export const NotificationOverview = () => {
   }
 
   // Create mapping from project id to titles
-  const projectTitles: Record<string, string> = projects
-    ? projects.reduce((acc, project) => {
-        return {
-          ...acc,
-          [project.identifier]: [project.title, project.subtitle].join(', '),
-        }
-      }, {})
-    : {}
+  const projectTitles = joinedProjectTitles(projects)
 
   // Add read state and project titles to notification
   const notifications: NotificationType[] = (rawNotifications ?? [])
