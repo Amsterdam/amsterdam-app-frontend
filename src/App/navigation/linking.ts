@@ -4,7 +4,8 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {Linking} from 'react-native'
 import {PushNotificationData} from '../../types'
-import {menuRoutes, tabRoutes} from './'
+import {menuRoutes} from './routes/menuRoutes'
+import {tabRoutes} from './routes/tabRoutes'
 
 const appPrefix = 'amsterdam://'
 
