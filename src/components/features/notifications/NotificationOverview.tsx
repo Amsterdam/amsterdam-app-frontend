@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {
@@ -78,13 +79,10 @@ export const NotificationOverview = () => {
     }))
 
   return (
-    <>
-      {notifications.map(notification => (
-        <Notification
-          notification={notification}
-          key={notification.publication_date}
-        />
-      ))}
-    </>
+    <FlatList
+      data={notifications}
+      renderItem={({item}) => <Notification notification={item} />}
+      keyExtractor={item => item.publication_date}
+    />
   )
 }
