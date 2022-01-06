@@ -13,7 +13,7 @@ export const DeviceSettings = () => {
         {Object.keys(deviceContextValues)
           .sort()
           .map(key => (
-            <Row gutter="sm">
+            <Row gutter="sm" key={key}>
               <Text secondary>{key}</Text>
               <Text>{deviceContextValues[key].toString()}</Text>
             </Row>

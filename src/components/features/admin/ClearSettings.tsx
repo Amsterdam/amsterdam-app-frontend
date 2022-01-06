@@ -29,9 +29,13 @@ export const ClearSettings = () => {
   return (
     <ClosableCard title="Berichtinstellingen wissen">
       {Object.keys(notificationSettings).map((setting, index) => (
-        <Row gutter="md" key={`setting-${index}`}>
+        <Row gutter="sm" key={`setting-${index}`}>
           <Text>{setting}</Text>
-          <TextButton onPress={() => clearSettings(setting)} text="Wissen" />
+          <TextButton
+            onPress={() => clearSettings(setting)}
+            text="Wissen"
+            emphasis
+          />
         </Row>
       ))}
     </ClosableCard>
