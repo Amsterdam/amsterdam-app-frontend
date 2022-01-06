@@ -2,6 +2,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {menuRoutes, stackScreenOptions} from '../'
 import {
+  AdminScreen,
   ContactScreen,
   MenuScreen,
   NotificationOverviewScreen,
@@ -27,6 +28,11 @@ export const MenuStack = () => (
   <Stack.Navigator
     initialRouteName={menuRoutes.menu.name}
     screenOptions={stackScreenOptions}>
+    <Stack.Screen
+      component={AdminScreen}
+      name={menuRoutes.admin.name}
+      options={menuRoutes.admin.options}
+    />
     <Stack.Screen
       component={MenuScreen}
       name={menuRoutes.menu.name}

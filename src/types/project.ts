@@ -13,7 +13,7 @@ export type ProjectOverviewItem = {
   project_type: string
   publication_date: string
   source_url: string
-  subtitle: string
+  subtitle: string | null
   title: string
 }
 

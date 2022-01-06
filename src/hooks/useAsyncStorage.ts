@@ -1,13 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useState} from 'react'
 import {Alert} from 'react-native'
-import {getEnvironment} from '../environment'
 
 export const useAsyncStorage = () => {
   const [error, setError] = useState<unknown | undefined>()
 
   const storeData = async (key: string, obj: any) => {
-    getEnvironment().debug && console.log('store', key, obj)
     try {
       const jsonValue = JSON.stringify(obj)
       await AsyncStorage.setItem(key, jsonValue)
@@ -20,8 +18,6 @@ export const useAsyncStorage = () => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
       const obj = jsonValue != null ? JSON.parse(jsonValue) : undefined
-      getEnvironment().debug && console.log('retrieve', key, obj)
-      getEnvironment().debug && obj.projects && console.table(obj.projects)
       return obj
     } catch (e) {
       setError(e)
@@ -33,8 +29,6 @@ export const useAsyncStorage = () => {
       try {
         AsyncStorage.getAllKeys().then(keys => AsyncStorage.multiRemove(keys))
       } catch (e) {}
-
-      getEnvironment().debug && console.info('Alle instellingen gewist.')
     }
 
     Alert.alert(

@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext} from 'react'
+import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
-import {useAsyncStorage, useFetch} from '../../../hooks'
+import {useFetch} from '../../../hooks'
+import {SettingsContext} from '../../../providers/settings.provider'
 import {
   Notification as NotificationType,
   NotificationSettings,
   ProjectOverviewItem,
 } from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
+import {joinedProjectTitles} from '../project'
 import {Notification} from './'
 
 export const NotificationOverview = () => {
-  const asyncStorage = useAsyncStorage()
-  const [notificationSettings, setNotificationSettings] = useState<
-    NotificationSettings | undefined
-  >(undefined)
+  const {settings} = useContext(SettingsContext)
+  const notificationSettings =
+    settings?.notifications ?? ({} as NotificationSettings)
 
   // Get all projects as we need to display their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
@@ -22,16 +24,6 @@ export const NotificationOverview = () => {
     url: getEnvironment().apiUrl + '/projects',
   })
 
-  // Retrieve notification settings from device
-  useEffect(() => {
-    const retrieveNotificationSettings = async () => {
-      const currentNotificationSetting: NotificationSettings | undefined =
-        await asyncStorage.getValue('notifications')
-      setNotificationSettings(currentNotificationSetting)
-    }
-    retrieveNotificationSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
   // Retrieve notifications for subscribed projects
   const {data: rawNotifications, isLoading: isNotificationsLoading} = useFetch<
     NotificationType[]
@@ -39,7 +31,7 @@ export const NotificationOverview = () => {
     url: getEnvironment().apiUrl + '/notifications',
     options: {
       params: {
-        'project-ids': Object.keys(notificationSettings?.projects ?? {}).join(
+        'project-ids': Object.keys(notificationSettings.projects ?? {}).join(
           ',',
         ),
       },
@@ -59,32 +51,24 @@ export const NotificationOverview = () => {
   }
 
   // Create mapping from project id to titles
-  const projectTitles: Record<string, string> = projects
-    ? projects.reduce((acc, project) => {
-        return {
-          ...acc,
-          [project.identifier]: [project.title, project.subtitle].join(', '),
-        }
-      }, {})
-    : {}
+  const projectTitles = joinedProjectTitles(projects)
 
-  // Add read state nd project titles to notification
+  // Add read state and project titles to notification
   const notifications: NotificationType[] = (rawNotifications ?? [])
     .sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
     .map(notification => ({
       ...notification,
-      isRead: true, // TEMP
+      isRead: notificationSettings.readIds?.has(
+        notification.news_identifier ?? notification.warning_identifier ?? '',
+      ),
       projectTitle: projectTitles[notification.project_identifier],
     }))
 
   return (
-    <>
-      {notifications.map(notification => (
-        <Notification
-          notification={notification}
-          key={notification.publication_date}
-        />
-      ))}
-    </>
+    <FlatList
+      data={notifications}
+      keyExtractor={item => item.publication_date}
+      renderItem={({item}) => <Notification notification={item} />}
+    />
   )
 }

@@ -14,6 +14,12 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
+  admin: {
+    name: 'Admin',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
+    },
+  },
   contact: {
     name: 'Contact',
     options: {

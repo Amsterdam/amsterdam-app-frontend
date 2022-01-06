@@ -40,6 +40,7 @@ export type HomeStackParams = {
 
 export type MenuStackParams = {
   AddressForm: undefined
+  Admin: undefined
   Contact: undefined
   Menu: undefined
   Notification: {projectDetails: ProjectDetails}

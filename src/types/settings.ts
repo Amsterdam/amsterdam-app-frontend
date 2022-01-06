@@ -6,6 +6,7 @@ export type SubscribedProjects = Record<string, boolean>
 export type NotificationSettings = {
   projectsEnabled: boolean
   projects: SubscribedProjects
+  readIds: Set<string>
 }
 
 export type ProjectManagerSettings = {
