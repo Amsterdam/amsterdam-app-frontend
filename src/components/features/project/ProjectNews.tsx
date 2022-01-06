@@ -42,10 +42,10 @@ export const ProjectNews = ({id}: Props) => {
       )}
       {article && (
         <Box>
-          <Title margin text={article.title} />
           <Text margin secondary>
             {formatDate(article.publication_date)}
           </Text>
+          <Title margin text={article.title} />
           {article.body?.preface.html && (
             <RenderHTML
               contentWidth={width}
