@@ -80,7 +80,7 @@ export const MenuScreen = ({navigation}: Props) => {
   return (
     <FlatGrid
       data={menuItems}
-      itemDimension={size.spacing.md * 11}
+      itemDimension={size.spacing.md * 10}
       keyExtractor={item => item.label}
       renderItem={({item}) => <TileButton {...item} />}
       spacing={size.spacing.sm}
