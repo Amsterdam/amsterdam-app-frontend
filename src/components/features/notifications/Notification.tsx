@@ -28,7 +28,11 @@ export const Notification = ({notification}: Props) => {
     useNavigation<StackNavigationProp<MenuStackParams, 'Notification'>>()
 
   const markAsRead = (id: string) => {
-    const readIds = (notificationSettings.readIds ?? new Set()).add(id)
+    const readIds = notificationSettings.readIds ?? []
+
+    if (!readIds.includes(id)) {
+      readIds.push(id)
+    }
 
     changeSettings('notifications', {...notificationSettings, readIds})
   }

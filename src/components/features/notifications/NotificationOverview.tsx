@@ -5,7 +5,6 @@ import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
 import {
   Notification as NotificationType,
-  NotificationSettings,
   ProjectOverviewItem,
 } from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
@@ -14,8 +13,7 @@ import {Notification} from './'
 
 export const NotificationOverview = () => {
   const {settings} = useContext(SettingsContext)
-  const notificationSettings =
-    settings?.notifications ?? ({} as NotificationSettings)
+  const notificationSettings = settings?.notifications
 
   // Get all projects as we need to display their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
@@ -31,7 +29,7 @@ export const NotificationOverview = () => {
     url: getEnvironment().apiUrl + '/notifications',
     options: {
       params: {
-        'project-ids': Object.keys(notificationSettings.projects ?? {}).join(
+        'project-ids': Object.keys(notificationSettings?.projects ?? {}).join(
           ',',
         ),
       },
@@ -42,7 +40,7 @@ export const NotificationOverview = () => {
     return <PleaseWait />
   }
 
-  if (!rawNotifications?.length) {
+  if (!rawNotifications || !rawNotifications.length) {
     return (
       <Box>
         <Text>Geen berichten gevonden.</Text>
@@ -54,13 +52,15 @@ export const NotificationOverview = () => {
   const projectTitles = joinedProjectTitles(projects)
 
   // Add read state and project titles to notification
-  const notifications: NotificationType[] = (rawNotifications ?? [])
+  const notifications: NotificationType[] = rawNotifications
     .sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
     .map(notification => ({
       ...notification,
-      isRead: notificationSettings.readIds?.has(
-        notification.news_identifier ?? notification.warning_identifier ?? '',
-      ),
+      isRead:
+        notificationSettings &&
+        notificationSettings?.readIds?.includes(
+          notification.news_identifier ?? notification.warning_identifier ?? '',
+        ),
       projectTitle: projectTitles[notification.project_identifier],
     }))
 
