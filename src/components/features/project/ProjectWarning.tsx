@@ -6,7 +6,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {color} from '../../../tokens'
 import {Warning} from '../../../types'
-import {formatDate, openMailUrl} from '../../../utils'
+import {formatDate, formatTime, openMailUrl} from '../../../utils'
 import {Box, Button, PleaseWait, Text, Title} from '../../ui'
 import {Row, ScrollView} from '../../ui/layout'
 
@@ -35,7 +35,8 @@ export const ProjectWarning = ({id}: Props) => {
       </View>
       <Box background="white">
         <Text margin secondary>
-          {formatDate(warning.publication_date)}
+          {formatDate(warning.publication_date)}{' '}
+          {formatTime(warning.publication_date)}
         </Text>
         <Title margin text={warning.title} />
         <Text intro margin>
