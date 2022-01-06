@@ -25,6 +25,7 @@ export const TileButton = ({
 
   return (
     <TouchableOpacity
+      accessibilityLabel={label}
       accessibilityRole="button"
       onPress={onPress}
       style={[
