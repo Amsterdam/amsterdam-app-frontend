@@ -1,5 +1,9 @@
 import React from 'react'
-import {ClearSettings, DisplaySettings} from '../components/features/admin'
+import {
+  ClearSettings,
+  DeviceSettings,
+  DisplaySettings,
+} from '../components/features/admin'
 import {Box} from '../components/ui'
 import {Column, ScrollView} from '../components/ui/layout'
 
@@ -9,6 +13,7 @@ export const AdminScreen = () => (
       <Column gutter="md">
         <DisplaySettings />
         <ClearSettings />
+        <DeviceSettings />
       </Column>
     </Box>
   </ScrollView>
