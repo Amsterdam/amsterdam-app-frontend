@@ -1,5 +1,5 @@
 import React from 'react'
-import {TabBarIcon} from '../../../components/ui'
+import {NonScalingTabBarLabel, TabBarIcon} from '../../../components/ui'
 import {TabNavigationRoutes, TabParams} from '../types'
 
 export const tabRoutes: TabNavigationRoutes<TabParams> = {
@@ -7,14 +7,14 @@ export const tabRoutes: TabNavigationRoutes<TabParams> = {
     name: 'ActionTab',
     options: {
       tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="action" />,
-      tabBarLabel: 'Melden',
+      tabBarLabel: () => <NonScalingTabBarLabel text="Melden" />,
     },
   },
   home: {
     name: 'HomeTab',
     options: {
       tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="home" />,
-      tabBarLabel: 'Home',
+      tabBarLabel: () => <NonScalingTabBarLabel text="Home" />,
     },
   },
   menu: {
@@ -22,7 +22,7 @@ export const tabRoutes: TabNavigationRoutes<TabParams> = {
     options: {
       headerShown: false,
       tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="menu" />,
-      tabBarLabel: 'Menu',
+      tabBarLabel: () => <NonScalingTabBarLabel text="Menu" />,
     },
   },
 }
