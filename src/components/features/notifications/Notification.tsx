@@ -57,6 +57,7 @@ export const Notification = ({notification}: Props) => {
       <SingleSelectable
         style={[styles.notification, !notification.isRead && styles.notRead]}
         accessibilityLabel={accessibleText(
+          notification.isRead ? 'Gelezen' : 'Ongelezen',
           notification.title,
           notification.body,
           'over ' + notification.projectTitle,
