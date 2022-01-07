@@ -2,6 +2,7 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
+import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {menuRoutes, MenuStackParams} from '../../App/navigation'
 import {BulkyWaste, Container} from '../../assets/icons'
@@ -50,14 +51,24 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     },
   ]
 
+  const itemDimension = device.isPortrait
+    ? device.width
+    : 24 * size.spacing.md * device.fontScale
+
   return (
     <FlatGrid
       data={menuItems}
-      itemDimension={device.isPortrait ? device.width : size.spacing.md * 24}
+      itemDimension={itemDimension}
       keyExtractor={item => item.label}
       renderItem={({item}) => <TileButton {...item} />}
       spacing={size.spacing.sm}
-      style={{margin: size.spacing.sm}}
+      style={styles.grid}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  grid: {
+    margin: size.spacing.sm,
+  },
+})

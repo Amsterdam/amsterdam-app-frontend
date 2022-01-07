@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const ArticleOverview = ({articles}: Props) => {
-  const deviceContext = useContext(DeviceContext)
+  const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<MenuStackParams, 'ProjectNews'>>()
 
@@ -38,14 +38,11 @@ export const ArticleOverview = ({articles}: Props) => {
   return (
     <Column gutter="sm">
       <Title level={2} text="Nieuws" />
-      <View style={deviceContext.isLandscape && styles.grid}>
+      <View style={device.isLandscape && styles.grid}>
         {articles.map((article, index) => (
           <View
             key={`article-${index}`}
-            style={[
-              deviceContext.isLandscape && styles.item,
-              styles.verticalGutter,
-            ]}>
+            style={[device.isLandscape && styles.item, styles.verticalGutter]}>
             <ArticlePreview
               article={article}
               onPress={() => navigateToArticle(article)}

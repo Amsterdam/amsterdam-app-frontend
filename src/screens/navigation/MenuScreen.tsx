@@ -5,7 +5,8 @@ import Energy from '@amsterdam/asc-assets/static/icons/Energy.svg'
 import Lamp from '@amsterdam/asc-assets/static/icons/Lamp.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
+import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {
   actionRoutes,
@@ -17,6 +18,7 @@ import {
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {getEnvironment} from '../../environment'
+import {DeviceContext} from '../../providers'
 import {color, size} from '../../tokens'
 
 type Props = {
@@ -24,6 +26,7 @@ type Props = {
 }
 
 export const MenuScreen = ({navigation}: Props) => {
+  const device = useContext(DeviceContext)
   const iconProps = {fill: color.font.primary}
 
   const baseMenuItems: TileButtonProps[] = [
@@ -77,14 +80,24 @@ export const MenuScreen = ({navigation}: Props) => {
     width: '50%',
   }))
 
+  const itemDimension = device.isPortrait
+    ? 8 * size.spacing.md * device.fontScale
+    : 12 * size.spacing.md * device.fontScale
+
   return (
     <FlatGrid
       data={menuItems}
-      itemDimension={size.spacing.md * 10}
+      itemDimension={itemDimension}
       keyExtractor={item => item.label}
       renderItem={({item}) => <TileButton {...item} />}
       spacing={size.spacing.sm}
-      style={{margin: size.spacing.sm}}
+      style={styles.grid}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  grid: {
+    margin: size.spacing.sm,
+  },
+})

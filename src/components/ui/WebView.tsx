@@ -13,7 +13,7 @@ export type WebViewProps = {
 }
 
 export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
-  const deviceContext = useContext(DeviceContext)
+  const device = useContext(DeviceContext)
 
   const params = new URLSearchParams(urlParams)
   const urlWithParams = Object.keys(params).length
@@ -27,7 +27,7 @@ export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
       startInLoadingState
       style={
         sliceFromTop && {
-          marginTop: deviceContext.isPortrait
+          marginTop: device.isPortrait
             ? -sliceFromTop.portrait
             : -sliceFromTop.landscape,
         }
