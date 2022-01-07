@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
-import {tagsStyles} from '../../../styles/html'
+import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
 import {font, image} from '../../../tokens'
 import {NewsArticle} from '../../../types'
 import {formatDate} from '../../../utils'
@@ -51,7 +51,7 @@ export const ProjectNews = ({id}: Props) => {
               contentWidth={width}
               source={{html: article.body?.preface.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
-              tagsStyles={tagsStyles}
+              tagsStyles={tagsStylesIntro}
             />
           )}
           {article.body?.content.html && (
