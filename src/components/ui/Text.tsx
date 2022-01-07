@@ -59,6 +59,7 @@ export const Text = ({
   return (
     <TextRN
       accessibilityRole={warning ? 'alert' : 'text'}
+      android_hyphenationFrequency="normal"
       selectable={!isScreenReaderEnabled}
       style={[
         styles.text,
