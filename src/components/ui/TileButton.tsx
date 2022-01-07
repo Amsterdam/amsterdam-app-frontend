@@ -35,7 +35,7 @@ export const TileButton = ({
       ]}>
       <View style={iconStyles}>{icon}</View>
       <Gutter {...{[square ? 'height' : 'width']: 'md'}} />
-      <Title level={4} text={label} />
+      <Title center={square} level={4} text={label} />
     </TouchableOpacity>
   )
 }

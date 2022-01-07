@@ -3,16 +3,18 @@ import {StyleSheet, Text, TextProps} from 'react-native'
 import {color, font} from '../../tokens'
 
 type Props = {
+  center?: boolean
   level?: 1 | 2 | 3 | 4
-  inverse?: Boolean
-  margin?: Boolean
-  primary?: Boolean
-  subtitle?: Boolean
+  inverse?: boolean
+  margin?: boolean
+  primary?: boolean
+  subtitle?: boolean
   text: string
-  visuallyHidden?: Boolean
+  visuallyHidden?: boolean
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
+  center,
   level = 1,
   inverse,
   margin,
@@ -32,6 +34,7 @@ export const Title = ({
       style={[
         styles.title,
         fontStyles,
+        center && styles.center,
         inverse && styles.inverse,
         margin && marginStyles,
         primary && styles.primary,
@@ -85,6 +88,9 @@ const styles = StyleSheet.create({
   h4m: {
     marginBottom: font.leadingBottom.h4,
     marginTop: font.leadingTop.h4,
+  },
+  center: {
+    textAlign: 'center',
   },
   inverse: {
     color: color.font.inverse,
