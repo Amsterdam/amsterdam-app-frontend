@@ -1,13 +1,21 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
-import React, {useEffect, useState} from 'react'
+import {useNavigation} from '@react-navigation/native'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import HeroImage from '../../../assets/images/warning-hero.svg'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {color} from '../../../tokens'
-import {Warning} from '../../../types'
+import {ProjectDetail, Warning} from '../../../types'
 import {formatDate, formatTime, openMailUrl} from '../../../utils'
-import {Box, Button, PleaseWait, Text, Title} from '../../ui'
+import {
+  Box,
+  Button,
+  NonScalingHeaderTitle,
+  PleaseWait,
+  Text,
+  Title,
+} from '../../ui'
 import {Row, ScrollView} from '../../ui/layout'
 
 type Props = {
@@ -16,19 +24,41 @@ type Props = {
 
 export const ProjectWarning = ({id}: Props) => {
   const [warning, setWarning] = useState<Warning | undefined>()
+  const navigation = useNavigation()
 
-  const api = useFetch<Warning>({
+  const warningApi = useFetch<Warning>({
     url: getEnvironment().apiUrl + '/project/warning',
     options: {params: {id}},
   })
 
   useEffect(() => {
-    if (api.data) {
-      setWarning(api.data)
+    if (warningApi.data) {
+      setWarning(warningApi.data)
     }
-  }, [api.data])
+  }, [warningApi.data])
 
-  return warning ? (
+  const projectApi = useFetch<ProjectDetail>({
+    url: getEnvironment().apiUrl + '/project/details',
+    options: {
+      params: {
+        id: warning?.project_identifier ?? '',
+      },
+    },
+  })
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <NonScalingHeaderTitle text={projectApi.data?.title ?? ''} />
+      ),
+    })
+  })
+
+  if (warningApi.isLoading || projectApi.isLoading || !warning) {
+    return <PleaseWait />
+  }
+
+  return (
     <ScrollView>
       <View style={styles.image}>
         <HeroImage />
@@ -56,8 +86,6 @@ export const ProjectWarning = ({id}: Props) => {
         </Box>
       </Box>
     </ScrollView>
-  ) : (
-    <PleaseWait />
   )
 }
 

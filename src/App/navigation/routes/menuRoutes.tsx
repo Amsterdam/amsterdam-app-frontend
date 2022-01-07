@@ -78,7 +78,6 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
   projectNews: {
     name: 'ProjectNews',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Nieuws" />,
       cardStyle: {
         backgroundColor: color.background.white,
       },
@@ -100,9 +99,6 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
   },
   projectWarning: {
     name: 'ProjectWarning',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Waarschuwing" />,
-    },
   },
   settings: {
     name: 'Settings',
