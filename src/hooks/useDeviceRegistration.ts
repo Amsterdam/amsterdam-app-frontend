@@ -15,6 +15,10 @@ import {useFetch} from './useFetch'
 export const useDeviceRegistration = (settings: Settings | undefined) => {
   const [refreshToken, setRefreshToken] = useState<string | undefined>()
 
+  const subscribedProjects = getSubscribedProjects(
+    settings?.notifications?.projects,
+  )
+
   // TODO Set as environment variables in CI/CD pipeline
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
@@ -50,26 +54,23 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
   )
 
   const storeDeviceIfNeeded = useCallback(() => {
-    const hasSubscribedProjects = getSubscribedProjects(
-      settings?.notifications?.projects ?? {},
-    ).length
-
     // if no projects are subscribed to, only store if previously there were
-    if (!hasSubscribedProjects) {
+    if (!subscribedProjects.length) {
       const prevSubscribedProjects = getSubscribedProjects(
         prevNotificationSettings.current?.projects ?? {},
       ).length
+
       return prevSubscribedProjects
     }
 
     return true
-  }, [settings?.notifications])
+  }, [subscribedProjects.length])
 
   const store = useCallback(async () => {
     if (!storeDeviceIfNeeded()) {
       return
     }
-    const projectsInSettings = settings?.notifications?.projects
+
     try {
       const token = await getFcmToken()
 
@@ -78,9 +79,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
         JSON.stringify({
           device_token: token,
           os_type: Platform.OS,
-          projects: projectsInSettings
-            ? getSubscribedProjects(projectsInSettings)
-            : [],
+          projects: subscribedProjects,
         }),
       )
 
@@ -94,7 +93,6 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
   const registerWithRefreshToken = useCallback(
     async () => {
-      const projectsInSettings = settings?.notifications?.projects
       try {
         const token = await getFcmToken()
 
@@ -104,9 +102,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
             device_token: token,
             device_refresh_token: refreshToken,
             os_type: Platform.OS,
-            projects: projectsInSettings
-              ? getSubscribedProjects(projectsInSettings)
-              : [],
+            projects: subscribedProjects,
           }),
         )
 
