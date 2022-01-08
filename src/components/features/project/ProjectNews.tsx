@@ -17,6 +17,7 @@ import {
   Text,
   Title,
 } from '../../ui'
+import {useNotificationState} from '../notifications'
 
 type Props = {
   id: string
@@ -25,6 +26,7 @@ type Props = {
 export const ProjectNews = ({id}: Props) => {
   const [article, setArticle] = useState<NewsArticle | undefined>()
   const navigation = useNavigation()
+  const notificationState = useNotificationState()
   const {width} = useWindowDimensions()
 
   const newsApi = useFetch<NewsArticle>({
@@ -60,6 +62,8 @@ export const ProjectNews = ({id}: Props) => {
   if (newsApi.isLoading || projectApi.isLoading || !article) {
     return <PleaseWait />
   }
+
+  notificationState.markAsRead(article.identifier)
 
   return (
     <ScrollView>

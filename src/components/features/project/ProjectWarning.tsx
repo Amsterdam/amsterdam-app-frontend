@@ -17,6 +17,7 @@ import {
   Title,
 } from '../../ui'
 import {Row, ScrollView} from '../../ui/layout'
+import {useNotificationState} from '../notifications'
 
 type Props = {
   id: string
@@ -25,6 +26,7 @@ type Props = {
 export const ProjectWarning = ({id}: Props) => {
   const [warning, setWarning] = useState<Warning | undefined>()
   const navigation = useNavigation()
+  const notificationState = useNotificationState()
 
   const warningApi = useFetch<Warning>({
     url: getEnvironment().apiUrl + '/project/warning',
@@ -57,6 +59,8 @@ export const ProjectWarning = ({id}: Props) => {
   if (warningApi.isLoading || projectApi.isLoading || !warning) {
     return <PleaseWait />
   }
+
+  notificationState.markAsRead(warning.identifier)
 
   return (
     <ScrollView>
