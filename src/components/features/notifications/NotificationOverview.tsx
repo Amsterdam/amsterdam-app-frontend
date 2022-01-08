@@ -9,11 +9,20 @@ import {
 } from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
 import {joinedProjectTitles} from '../project'
+import {
+  getSubscribedProjects,
+  NoNotificationsMessage,
+  NoPreviousSubscriptionsMessage,
+} from '../settings'
 import {Notification} from './'
 
 export const NotificationOverview = () => {
   const {settings} = useContext(SettingsContext)
   const notificationSettings = settings?.notifications
+
+  const subscribedProjects = getSubscribedProjects(
+    notificationSettings?.projects,
+  )
 
   // Get all projects as we need to display their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
@@ -29,12 +38,22 @@ export const NotificationOverview = () => {
     url: getEnvironment().apiUrl + '/notifications',
     options: {
       params: {
-        'project-ids': Object.keys(notificationSettings?.projects ?? {}).join(
-          ',',
-        ),
+        'project-ids': subscribedProjects.join(','),
       },
     },
   })
+
+  if (!notificationSettings?.projectsEnabled) {
+    return <NoNotificationsMessage />
+  }
+
+  if (!subscribedProjects.length) {
+    return (
+      <Box>
+        <NoPreviousSubscriptionsMessage />
+      </Box>
+    )
+  }
 
   if (isProjectsLoading || isNotificationsLoading) {
     return <PleaseWait />

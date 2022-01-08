@@ -3,9 +3,11 @@ import {SettingsContext} from '../../../providers/settings.provider'
 import {Box, Text} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {ScrollView} from '../../ui/layout'
-import {NoNotificationsMessage} from './NoNotificationsMessage'
-import {NoPreviousSubscriptionsMessage} from './NoPreviousSubscriptionsMessage'
-import {ProjectSubscriptionsOverview} from './ProjectSubscriptionsOverview'
+import {
+  NoNotificationsMessage,
+  NoPreviousSubscriptionsMessage,
+  ProjectSubscriptionsOverview,
+} from './'
 
 export const ProjectNotificationSettings = () => {
   const {changeSettings, settings} = useContext(SettingsContext)

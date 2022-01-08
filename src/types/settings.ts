@@ -1,11 +1,11 @@
 // if boolean is true, it means the user is subscribed to
 // projects with a 'false' value are held in store
 // to easily re-subscribe later
-export type SubscribedProjects = Record<string, boolean>
+export type ProjectsWithSubscriptionStatus = Record<string, boolean>
 
 export type NotificationSettings = {
   projectsEnabled: boolean
-  projects: SubscribedProjects
+  projects: ProjectsWithSubscriptionStatus
   readIds: string[]
 }
 
