@@ -45,7 +45,12 @@ export const Notification = ({notification}: Props) => {
         )}>
         <Row gutter="sm">
           <View style={styles.icon}>
-            {notification.isRead ? <BellInactive /> : <BellActive />}
+            {notification.isRead ? (
+              // TODO Improve colour token
+              <BellInactive fill={color.font.tertiary} />
+            ) : (
+              <BellActive />
+            )}
           </View>
           <Text small>{notification.projectTitle}</Text>
         </Row>
