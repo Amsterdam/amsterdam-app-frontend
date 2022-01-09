@@ -1,8 +1,6 @@
 import Alert from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
-import Data from '@amsterdam/asc-assets/static/icons/Data.svg'
 import Energy from '@amsterdam/asc-assets/static/icons/Energy.svg'
-import Lamp from '@amsterdam/asc-assets/static/icons/Lamp.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -52,16 +50,6 @@ export const MenuScreen = ({navigation}: Props) => {
       icon: <Chatting {...iconProps} />,
       label: 'Contact',
       onPress: () => navigation.navigate(menuRoutes.contact.name),
-    },
-    {
-      icon: <Data {...iconProps} />,
-      label: 'Instellingen',
-      onPress: () => navigation.navigate(menuRoutes.settings.name),
-    },
-    {
-      icon: <Lamp {...iconProps} />,
-      label: 'Berichten',
-      onPress: () => navigation.navigate(menuRoutes.notificationOverview.name),
     },
   ]
 
