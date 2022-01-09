@@ -29,7 +29,8 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams> = {
   home: {
     name: 'Home',
     options: {
-      headerTitle: () => <HeaderLogo />,
+      headerLeft: () => <HeaderLogo />,
+      headerTitle: '',
     },
   },
   projectOverview: {

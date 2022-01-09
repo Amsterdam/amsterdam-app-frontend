@@ -25,6 +25,9 @@ export const stackScreenOptions: StackNavigationOptions = {
     elevation: 0,
     shadowOpacity: 0,
   },
+  headerLeftContainerStyle: {
+    paddingStart: size.spacing.md,
+  },
   headerTitleAlign: 'center',
 }
 
