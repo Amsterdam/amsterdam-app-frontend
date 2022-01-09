@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {homeRoutes, HomeStackParams} from '../../../App/navigation'
+import {homeRoutes, HomeStackParams} from '../../../app/navigation'
 import {useAsyncStorage} from '../../../hooks'
 import {Address as AddressType} from '../../../types'
 import {

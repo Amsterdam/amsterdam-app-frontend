@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {MenuStackParams} from '../App/navigation'
+import {MenuStackParams} from '../app/navigation'
 import {ProjectWarning} from '../components/features/project'
 
 type ProjectWarningScreenRouteProp = RouteProp<

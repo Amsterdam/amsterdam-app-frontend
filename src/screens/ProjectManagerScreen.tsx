@@ -16,7 +16,7 @@ import {
   MenuStackParams,
   TabParams,
   tabRoutes,
-} from '../App/navigation'
+} from '../app/navigation'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
