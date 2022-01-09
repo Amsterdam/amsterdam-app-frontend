@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {homeRoutes, HomeStackParams} from '../../../App/navigation'
+import {homeRoutes, HomeStackParams} from '../../../app/navigation'
 import {TextButton, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 

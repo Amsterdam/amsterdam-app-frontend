@@ -14,7 +14,7 @@ import {
   MenuStackParams,
   TabParams,
   tabRoutes,
-} from '../../App/navigation'
+} from '../../app/navigation'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {getEnvironment} from '../../environment'

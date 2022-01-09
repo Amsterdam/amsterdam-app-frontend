@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {homeRoutes, HomeStackParams} from '../../../App/navigation'
+import {homeRoutes, HomeStackParams} from '../../../app/navigation'
 import {Card, CardBody, Text, Title} from '../../ui'
 import {TextInput} from '../../ui/forms'
 

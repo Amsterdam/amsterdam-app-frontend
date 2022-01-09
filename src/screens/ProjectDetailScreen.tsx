@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../App/navigation'
+import {menuRoutes, MenuStackParams} from '../app/navigation'
 import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {

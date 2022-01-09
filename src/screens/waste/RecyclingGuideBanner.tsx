@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuRoutes, MenuStackParams} from '../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../app/navigation'
 import {BannerCard} from '../../components/features'
 
 export const RecyclingGuideBanner = () => {

@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../app/navigation'
 import {AddressFormTeaser} from '../../../components/features/address'
 import {
   Box,

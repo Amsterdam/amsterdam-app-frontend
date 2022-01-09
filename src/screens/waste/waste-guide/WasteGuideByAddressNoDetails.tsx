@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../../../App/navigation'
+import {menuRoutes, MenuStackParams} from '../../../app/navigation'
 import {
   Button,
   Card,
