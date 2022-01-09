@@ -1,6 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
-import {Logo} from '../../../assets/icons'
+import {HeaderLogo} from '../'
 import {NonScalingHeaderTitle} from '../../../components/ui'
 import {color} from '../../../tokens'
 import {HomeStackParams, StackNavigationRoutes} from '../types'
@@ -30,14 +29,7 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams> = {
   home: {
     name: 'Home',
     options: {
-      headerTitle: () => (
-        <View
-          accessible
-          accessibilityRole="header"
-          accessibilityLabel="Gemeente Amsterdam">
-          <Logo width={85} />
-        </View>
-      ),
+      headerTitle: () => <HeaderLogo />,
     },
   },
   projectOverview: {
