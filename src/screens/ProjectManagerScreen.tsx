@@ -141,7 +141,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                       }}>
                       <ProjectTitle
                         title={authProject.title}
-                        subtitle={authProject.subtitle}
+                        subtitle={authProject.subtitle ?? undefined}
                       />
                     </TouchableOpacity>
                     {index < authorizedProjects.length && <Divider />}

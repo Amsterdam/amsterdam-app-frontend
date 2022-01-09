@@ -96,7 +96,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
                     id: item.identifier,
                   })
                 }
-                subtitle={item.subtitle}
+                subtitle={item.subtitle ?? undefined}
                 title={item.title}
                 width={projectCardWidth}
               />
