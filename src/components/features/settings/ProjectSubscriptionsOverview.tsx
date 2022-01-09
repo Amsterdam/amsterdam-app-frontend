@@ -93,12 +93,12 @@ export const ProjectSubscriptionsOverview = ({
                           <Checkbox
                             accessibilityLabel={accessibleText(
                               project.title,
-                              project.subtitle,
+                              project.subtitle ?? undefined,
                             )}
                             label={
                               <ProjectTitle
                                 title={project.title}
-                                subtitle={project.subtitle}
+                                subtitle={project.subtitle ?? undefined}
                               />
                             }
                             onValueChange={() =>
@@ -112,12 +112,12 @@ export const ProjectSubscriptionsOverview = ({
                           <Switch
                             accessibilityLabel={accessibleText(
                               project.title,
-                              project.subtitle,
+                              project.subtitle ?? undefined,
                             )}
                             label={
                               <ProjectTitle
                                 title={project.title}
-                                subtitle={project.subtitle}
+                                subtitle={project.subtitle ?? undefined}
                               />
                             }
                             onValueChange={() =>

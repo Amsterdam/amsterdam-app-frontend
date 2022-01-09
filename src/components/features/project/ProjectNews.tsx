@@ -1,14 +1,23 @@
-import React, {useEffect, useState} from 'react'
+import {useNavigation} from '@react-navigation/native'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
-import {tagsStyles} from '../../../styles/html'
+import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
 import {font, image} from '../../../tokens'
-import {NewsArticle} from '../../../types'
+import {NewsArticle, ProjectDetail} from '../../../types'
 import {formatDate} from '../../../utils'
-import {Box, Image, PleaseWait, Text, Title} from '../../ui'
+import {
+  Box,
+  Image,
+  NonScalingHeaderTitle,
+  PleaseWait,
+  Text,
+  Title,
+} from '../../ui'
+import {useNotificationState} from '../notifications'
 
 type Props = {
   id: string
@@ -16,9 +25,11 @@ type Props = {
 
 export const ProjectNews = ({id}: Props) => {
   const [article, setArticle] = useState<NewsArticle | undefined>()
+  const navigation = useNavigation()
+  const notificationState = useNotificationState()
   const {width} = useWindowDimensions()
 
-  const api = useFetch<NewsArticle>({
+  const newsApi = useFetch<NewsArticle>({
     url: getEnvironment().apiUrl + '/project/news',
     options: {params: {id}},
   })
@@ -26,14 +37,36 @@ export const ProjectNews = ({id}: Props) => {
   const firstImage = article?.images?.find(i => i.sources['700px'].url)
 
   useEffect(() => {
-    if (api.data) {
-      setArticle(api.data)
+    if (newsApi.data) {
+      setArticle(newsApi.data)
     }
-  }, [api.data])
+  }, [newsApi.data])
+
+  const projectApi = useFetch<ProjectDetail>({
+    url: getEnvironment().apiUrl + '/project/details',
+    options: {
+      params: {
+        id: article?.project_identifier ?? '',
+      },
+    },
+  })
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <NonScalingHeaderTitle text={projectApi.data?.title ?? ''} />
+      ),
+    })
+  })
+
+  if (newsApi.isLoading || projectApi.isLoading || !article) {
+    return <PleaseWait />
+  }
+
+  notificationState.markAsRead(article.identifier)
 
   return (
     <ScrollView>
-      {api.isLoading && <PleaseWait />}
       {firstImage && (
         <Image
           source={{uri: firstImage.sources['700px'].url}}
@@ -42,16 +75,16 @@ export const ProjectNews = ({id}: Props) => {
       )}
       {article && (
         <Box>
-          <Title margin text={article.title} />
           <Text margin secondary>
             {formatDate(article.publication_date)}
           </Text>
+          <Title margin text={article.title} />
           {article.body?.preface.html && (
             <RenderHTML
               contentWidth={width}
               source={{html: article.body?.preface.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
-              tagsStyles={tagsStyles}
+              tagsStyles={tagsStylesIntro}
             />
           )}
           {article.body?.content.html && (

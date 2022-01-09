@@ -115,7 +115,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="title"
-                  defaultValue={'TEST ' + formatTime(now) + ' '}
+                  defaultValue={'TEST ' + formatTime(now, true) + ' '}
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.title - characterCountTitle}

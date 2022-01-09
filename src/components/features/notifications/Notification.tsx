@@ -1,15 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {menuRoutes, MenuStackParams} from '../../../App/navigation'
 import {BellActive, BellInactive} from '../../../assets/icons'
-import {SettingsContext} from '../../../providers/settings.provider'
 import {color, size} from '../../../tokens'
-import {
-  Notification as NotificationType,
-  NotificationSettings,
-} from '../../../types'
+import {Notification as NotificationType} from '../../../types'
 import {accessibleText, formatDate} from '../../../utils'
 import {SingleSelectable, Text} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
@@ -19,29 +15,17 @@ type Props = {
 }
 
 export const Notification = ({notification}: Props) => {
-  const {changeSettings, settings} = useContext(SettingsContext)
-  const notificationSettings =
-    settings?.notifications ?? ({} as NotificationSettings)
-
   const date = formatDate(notification.publication_date)
   const navigation =
     useNavigation<StackNavigationProp<MenuStackParams, 'Notification'>>()
 
-  const markAsRead = (id: string) => {
-    const readIds = (notificationSettings.readIds ?? new Set()).add(id)
-
-    changeSettings('notifications', {...notificationSettings, readIds})
-  }
-
   const navigateToArticle = () => {
     if (notification.news_identifier) {
-      markAsRead(notification.news_identifier)
       navigation.navigate(menuRoutes.projectNews.name, {
         id: notification.news_identifier,
       })
     }
     if (notification.warning_identifier) {
-      markAsRead(notification.warning_identifier)
       navigation.navigate(menuRoutes.projectWarning.name, {
         id: notification.warning_identifier,
       })
@@ -53,6 +37,7 @@ export const Notification = ({notification}: Props) => {
       <SingleSelectable
         style={[styles.notification, !notification.isRead && styles.notRead]}
         accessibilityLabel={accessibleText(
+          notification.isRead ? 'Gelezen' : 'Ongelezen',
           notification.title,
           notification.body,
           'over ' + notification.projectTitle,

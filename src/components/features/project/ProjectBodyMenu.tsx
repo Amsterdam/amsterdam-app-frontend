@@ -24,7 +24,7 @@ type ProjectBodyMenuItem = {
 }
 
 export const ProjectBodyMenu = ({project}: Props) => {
-  const deviceContext = useContext(DeviceContext)
+  const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<MenuStackParams, 'ProjectDetailBody'>>()
 
@@ -67,7 +67,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
   const iconButtonWidth = 80
   const numberOfIconButtons = 4
   let rowWidth = (100 / numberOfIconButtons) * menu.length
-  if (deviceContext.width > 2 * numberOfIconButtons * iconButtonWidth) {
+  if (device.width > 2 * numberOfIconButtons * iconButtonWidth) {
     rowWidth /= 2
   }
 
@@ -76,8 +76,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
       style={[
         styles.row,
         {width: rowWidth + '%'},
-        deviceContext.width < numberOfIconButtons * iconButtonWidth &&
-          styles.wrap,
+        device.width < numberOfIconButtons * iconButtonWidth && styles.wrap,
       ]}>
       {menu.map(({icon, sections, timeline, title}) => (
         <IconButton

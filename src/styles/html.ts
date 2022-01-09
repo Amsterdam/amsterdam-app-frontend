@@ -25,6 +25,9 @@ const styles: Record<string, MixedStyleDeclaration> = {
     marginBottom: font.leadingBottom.p1,
     marginTop: font.leadingTop.p1,
   },
+  textIntro: {
+    fontFamily: font.weight.demi,
+  },
 }
 
 export const tagsStyles: Record<string, MixedStyleDeclaration> = {
@@ -32,4 +35,8 @@ export const tagsStyles: Record<string, MixedStyleDeclaration> = {
   li: {...styles.text, ...styles.listItem},
   p: styles.text,
   ul: styles.list,
+}
+
+export const tagsStylesIntro: Record<string, MixedStyleDeclaration> = {
+  p: {...styles.text, ...styles.textIntro},
 }
