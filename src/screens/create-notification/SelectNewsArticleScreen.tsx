@@ -83,10 +83,9 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                     accessibilityLabel="Selecteer een bestaand nieuwsartikel"
                     name="news"
                     onChange={val => onChange(val)}>
-                    {news.map((newsArticle, index) => (
+                    {news.map(newsArticle => (
                       <Radio
                         isChecked={newsArticle.identifier === watchRadioGroup}
-                        isFirst={index === 0}
                         key={newsArticle.identifier}
                         value={newsArticle.identifier}>
                         <Text large>{newsArticle.title}</Text>
