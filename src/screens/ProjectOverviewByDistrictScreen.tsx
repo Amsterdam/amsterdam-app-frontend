@@ -6,11 +6,10 @@ import {menuRoutes, MenuStackParams} from '../app/navigation'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
-import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
-import {ProjectOverviewItem} from '../types'
+import {District, ProjectOverviewItem} from '../types'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   MenuStackParams,
@@ -26,7 +25,15 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id
 
-  const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
+  const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
+    {
+      url: getEnvironment().apiUrl + '/districts',
+    },
+  )
+
+  const {data: projects, isLoading: isProjectsLoading} = useFetch<
+    ProjectOverviewItem[]
+  >({
     url: getEnvironment().apiUrl + '/projects',
     options: {
       params: {
@@ -39,7 +46,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     navigation.setOptions({
       headerTitle: () => (
         <NonScalingHeaderTitle
-          text={districts.find(d => d.id === districtId)?.name ?? ''}
+          text={districts?.find(d => d.id === districtId)?.name ?? ''}
         />
       ),
     })
@@ -75,7 +82,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
-      {isLoading || !gridWidth ? (
+      {isDistrictsLoading || isProjectsLoading || gridWidth === 0 ? (
         <PleaseWait />
       ) : (
         <FlatList
