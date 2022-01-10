@@ -6,7 +6,5 @@ export const CharactersLeftDisplay = ({
 }: {
   charactersLeft: number
 }) => {
-  return (
-    <Text secondary>U kunt nog {charactersLeft} letters of tekens typen.</Text>
-  )
+  return <Text secondary>Maximaal {charactersLeft} letters of tekens</Text>
 }
