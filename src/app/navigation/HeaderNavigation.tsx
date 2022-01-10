@@ -16,7 +16,9 @@ type MenuItem = {
   route: keyof MenuStackParams
 }
 
-const iconProps = {fill: color.font.regular}
+const iconProps = {
+  fill: color.font.regular,
+}
 
 const menu: MenuItem[] = [
   {
@@ -57,7 +59,5 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     aspectRatio: 1,
-    marginTop: 2,
-    fill: 'hotpink',
   },
 })
