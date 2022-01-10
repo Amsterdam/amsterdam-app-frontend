@@ -6,14 +6,13 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 import {BellInactive} from '../../assets/icons'
 import {Row} from '../../components/ui/layout'
 import {color} from '../../tokens'
-import {menuRoutes} from './routes/menuRoutes'
-import {MenuStackParams, TabParams} from './types'
-import {tabRoutes} from '.'
+import {homeRoutes} from './routes'
+import {HomeStackParams, TabParams} from './types'
 
 type MenuItem = {
   icon: React.ReactNode
   name: string
-  route: keyof MenuStackParams
+  route: keyof HomeStackParams
 }
 
 const iconProps = {
@@ -24,28 +23,24 @@ const menu: MenuItem[] = [
   {
     icon: <BellInactive {...iconProps} />,
     name: 'notifications',
-    route: menuRoutes.notificationOverview.name,
+    route: homeRoutes.notificationOverview.name,
   },
   {
     icon: <PersonalLogin {...iconProps} />,
     name: 'settings',
-    route: menuRoutes.settings.name,
+    route: homeRoutes.settings.name,
   },
 ]
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams & TabParams, 'Menu'>>()
+    useNavigation<StackNavigationProp<HomeStackParams & TabParams, 'Home'>>()
 
   return (
     <Row gutter="md">
       {menu.map(({icon, name, route}) => (
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(tabRoutes.menu.name, {
-              screen: route,
-            })
-          }
+          onPress={() => navigation.navigate(route)}
           style={styles.icon}
           key={name}>
           {icon}

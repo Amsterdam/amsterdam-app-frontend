@@ -1,6 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {menuRoutes, MenuStackParams} from '../../app/navigation'
+import {MenuStackParams} from '../../app/navigation'
+import {menuRoutes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
 import {getEnvironment} from '../../environment'
 import {AddressContext} from '../../providers'

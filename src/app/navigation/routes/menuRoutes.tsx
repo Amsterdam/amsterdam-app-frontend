@@ -45,15 +45,6 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
     },
   },
-  notificationOverview: {
-    name: 'NotificationOverview',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
-    },
-  },
   projectDetail: {
     name: 'ProjectDetail',
   },
@@ -99,12 +90,6 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
   },
   projectWarning: {
     name: 'ProjectWarning',
-  },
-  settings: {
-    name: 'Settings',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
-    },
   },
   wasteGuide: {
     name: 'WasteGuide',

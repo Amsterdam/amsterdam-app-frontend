@@ -1,7 +1,3 @@
-export * from './routes/actionRoutes'
-export * from './routes/homeRoutes'
-export * from './routes/menuRoutes'
-export * from './routes/tabRoutes'
 export * from './stacks/ActionStack'
 export * from './stacks/HomeStack'
 export * from './stacks/MenuStack'

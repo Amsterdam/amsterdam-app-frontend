@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuRoutes, MenuStackParams} from '../../../app/navigation'
+import {MenuStackParams} from '../../../app/navigation'
+import {menuRoutes} from '../../../app/navigation/routes'
 import {Box, Text, TextButton, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 

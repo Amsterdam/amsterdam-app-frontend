@@ -1,7 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {actionRoutes, stackScreenOptions} from '../'
+import {stackScreenOptions} from '../'
 import {ReportIssueScreen} from '../../../screens/report'
+import {actionRoutes} from '../routes'
 
 const Stack = createStackNavigator()
 

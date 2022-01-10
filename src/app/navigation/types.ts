@@ -34,7 +34,9 @@ export type HomeStackParams = {
   AddressForm: undefined
   BestWishes21: undefined
   Home: undefined
+  NotificationOverview: undefined
   ProjectOverview: undefined
+  Settings: undefined
   WasteGuide: undefined
 }
 
@@ -44,7 +46,6 @@ export type MenuStackParams = {
   Contact: undefined
   Menu: undefined
   Notification: {projectDetails: ProjectDetails}
-  NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectManager: {id: string}
@@ -52,7 +53,6 @@ export type MenuStackParams = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   ProjectWarning: {id: string}
-  Settings: undefined
   WasteGuide: undefined
   WasteMenu: undefined
   WebView: WebViewRouteParams

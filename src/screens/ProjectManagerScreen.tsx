@@ -10,13 +10,8 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {
-  homeRoutes,
-  menuRoutes,
-  MenuStackParams,
-  TabParams,
-  tabRoutes,
-} from '../app/navigation'
+import {MenuStackParams, TabParams} from '../app/navigation'
+import {homeRoutes, menuRoutes, tabRoutes} from '../app/navigation/routes'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'

@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuRoutes, MenuStackParams} from '../../../app/navigation'
+import {MenuStackParams} from '../../../app/navigation'
+import {menuRoutes} from '../../../app/navigation/routes'
 import {
   Button,
   Card,

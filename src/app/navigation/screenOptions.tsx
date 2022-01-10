@@ -3,7 +3,6 @@ import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {color, size} from '../../tokens'
-import {HeaderNavigation} from './HeaderNavigation'
 
 export const stackScreenOptions: StackNavigationOptions = {
   cardStyle: {
@@ -15,11 +14,10 @@ export const stackScreenOptions: StackNavigationOptions = {
       width={20}
       height={20}
       fill={color.font.regular}
-      style={{margin: size.spacing.sm}}
+      style={{marginLeft: -4}}
     />
   ),
   headerBackTitleVisible: false,
-  headerRight: () => <HeaderNavigation />,
   headerStyle: {
     backgroundColor: color.background.white,
     borderBottomColor: color.border.default,

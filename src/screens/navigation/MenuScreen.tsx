@@ -6,13 +6,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {
-  actionRoutes,
-  menuRoutes,
-  MenuStackParams,
-  TabParams,
-  tabRoutes,
-} from '../../app/navigation'
+import {MenuStackParams, TabParams} from '../../app/navigation'
+import {actionRoutes, menuRoutes, tabRoutes} from '../../app/navigation/routes'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {getEnvironment} from '../../environment'

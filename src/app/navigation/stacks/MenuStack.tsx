@@ -1,11 +1,10 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {menuRoutes, stackScreenOptions} from '../'
+import {stackScreenOptions} from '../'
 import {
   AdminScreen,
   ContactScreen,
   MenuScreen,
-  NotificationOverviewScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
   ProjectManagerScreen,
@@ -13,14 +12,13 @@ import {
   ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
   ProjectWarningScreen,
-  SettingsScreen,
   WasteGuideScreen,
   WasteMenuScreen,
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from '../../../screens'
-import {CreateNotificationScreen} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
+import {menuRoutes} from '../routes'
 
 const Stack = createStackNavigator()
 
@@ -29,19 +27,14 @@ export const MenuStack = () => (
     initialRouteName={menuRoutes.menu.name}
     screenOptions={stackScreenOptions}>
     <Stack.Screen
-      component={AdminScreen}
-      name={menuRoutes.admin.name}
-      options={menuRoutes.admin.options}
-    />
-    <Stack.Screen
-      component={MenuScreen}
-      name={menuRoutes.menu.name}
-      options={menuRoutes.menu.options}
-    />
-    <Stack.Screen
       component={AddressFormScreen}
       name={menuRoutes.addressForm.name}
       options={menuRoutes.addressForm.options}
+    />
+    <Stack.Screen
+      component={AdminScreen}
+      name={menuRoutes.admin.name}
+      options={menuRoutes.admin.options}
     />
     <Stack.Screen
       component={ContactScreen}
@@ -49,9 +42,9 @@ export const MenuStack = () => (
       options={menuRoutes.contact.options}
     />
     <Stack.Screen
-      component={CreateNotificationScreen}
-      name={menuRoutes.notification.name}
-      options={menuRoutes.notification.options}
+      component={MenuScreen}
+      name={menuRoutes.menu.name}
+      options={menuRoutes.menu.options}
     />
     <Stack.Screen
       component={ProjectOverviewScreen}
@@ -87,16 +80,6 @@ export const MenuStack = () => (
       component={ProjectManagerScreen}
       name={menuRoutes.projectManager.name}
       options={menuRoutes.projectManager.options}
-    />
-    <Stack.Screen
-      component={NotificationOverviewScreen}
-      name={menuRoutes.notificationOverview.name}
-      options={menuRoutes.notificationOverview.options}
-    />
-    <Stack.Screen
-      component={SettingsScreen}
-      name={menuRoutes.settings.name}
-      options={menuRoutes.settings.options}
     />
     <Stack.Screen
       component={WasteGuideScreen}

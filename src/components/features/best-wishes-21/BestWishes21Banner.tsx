@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {homeRoutes, HomeStackParams, TabParams} from '../../../app/navigation'
+import {HomeStackParams, TabParams} from '../../../app/navigation'
+import {homeRoutes} from '../../../app/navigation/routes'
 import {BannerCard} from '../BannerCard'
 
 export const BestWishes21Banner = () => {

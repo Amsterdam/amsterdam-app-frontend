@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import React from 'react'
-import {menuRoutes, tabRoutes, tabScreenOptions} from './'
+import {menuRoutes, tabRoutes} from './routes'
+import {tabScreenOptions} from './'
 import {ActionStack, HomeStack, MenuStack} from './index'
 
 const Tab = createBottomTabNavigator()

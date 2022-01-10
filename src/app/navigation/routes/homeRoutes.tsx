@@ -33,10 +33,25 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams> = {
       headerTitle: '',
     },
   },
+  notificationOverview: {
+    name: 'NotificationOverview',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
+    },
+  },
   projectOverview: {
     name: 'ProjectOverview',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
+    },
+  },
+  settings: {
+    name: 'Settings',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
   wasteGuide: {

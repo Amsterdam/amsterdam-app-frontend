@@ -1,13 +1,16 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuRoutes, MenuStackParams} from '../../../app/navigation'
+import {MenuStackParams, TabParams} from '../../../app/navigation'
+import {menuRoutes, tabRoutes} from '../../../app/navigation/routes'
 import {Attention, Text, TextButton} from '../../ui'
 import {Column} from '../../ui/layout'
 
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'ProjectOverview'>>()
+    useNavigation<
+      StackNavigationProp<MenuStackParams & TabParams, 'ProjectOverview'>
+    >()
 
   return (
     <Column gutter="md">
@@ -18,7 +21,11 @@ export const NoPreviousSubscriptionsMessage = () => {
       </Attention>
       <TextButton
         emphasis
-        onPress={() => navigation.navigate(menuRoutes.projectOverview.name)}
+        onPress={() =>
+          navigation.navigate(tabRoutes.menu.name, {
+            screen: menuRoutes.projectOverview.name,
+          })
+        }
         text="Naar bouwprojecten"
       />
     </Column>
