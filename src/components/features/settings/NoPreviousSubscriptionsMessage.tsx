@@ -13,8 +13,7 @@ export const NoPreviousSubscriptionsMessage = () => {
     <Column gutter="md">
       <Attention>
         <Text>
-          Zet berichten aan op pagina’s van bouwprojecten waar u berichten voor
-          wilt ontvangen.
+          U kunt nu kiezen van welke bouwprojecten u berichten wilt ontvangen.
         </Text>
       </Attention>
       <TextButton

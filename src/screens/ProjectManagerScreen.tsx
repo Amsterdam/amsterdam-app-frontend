@@ -113,13 +113,13 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       {authorizedProjects?.length ? (
         <ScrollView>
           <Box insetVertical="lg" insetHorizontal="md">
-            <Column gutter="sm">
-              <Row valign="center" gutter="sm">
-                <Checkmark fill={color.status.success} height={32} width={32} />
+            <Column gutter="md">
+              <Row gutter="sm">
+                <Checkmark fill={color.status.success} height={28} width={28} />
                 <Title text="Gelukt!" />
               </Row>
               <Text intro>
-                U kunt voor de volgende projecten een pushbericht versturen
+                Je kunt voor de volgende projecten een pushbericht versturen
                 vanaf de projectpagina:
               </Text>
             </Column>
@@ -151,26 +151,24 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
           </Box>
         </ScrollView>
       ) : (
-        <Box>
+        <Box insetVertical="lg" insetHorizontal="md">
           <Column gutter="md">
-            <Row valign="center" gutter="sm">
-              <Close fill={color.status.error} height={32} width={32} />
+            <Row gutter="sm">
+              <Close fill={color.status.error} height={28} width={28} />
               <Title text="Er gaat iets mis…" />
             </Row>
             <Text intro>
-              Helaas lukt het niet om de projecten te laden waarvoor u
+              Helaas lukt het niet om de projecten te laden waarvoor je
               pushberichten mag versturen. Probeer de app nogmaals te openen met
               de toegestuurde link.
             </Text>
-            <Text intro>
-              Lukt dit niet? Neem dan contact op met de redactie.
-            </Text>
+            <Text>Lukt dit niet? Neem dan contact op met de redactie.</Text>
           </Column>
         </Box>
       )}
       <Box>
         <Button
-          text={authorizedProjects ? 'Aan de slag!' : 'Sluit venster'}
+          text="Sluit venster"
           onPress={() =>
             navigation.navigate(tabRoutes.home.name, {
               screen: homeRoutes.home.name,

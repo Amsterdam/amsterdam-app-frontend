@@ -105,8 +105,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de titel van het pushbericht?"
-                      label="Wat is de titel van het pushbericht?"
+                      accessibilityLabel="Maak een korte en bondige titel"
+                      label="Maak een korte en bondige titel"
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
@@ -132,8 +132,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de tekst van het pushbericht?"
-                      label="Wat is de tekst van het pushbericht?"
+                      accessibilityLabel="Tekst van het pushbericht"
+                      label="Tekst van het pushbericht"
                       maxLength={maxCharacters.message}
                       multiline={true}
                       numberOfLines={3}

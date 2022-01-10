@@ -138,8 +138,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Intro nieuwsartikel"
-                      label="Intro nieuwsartikel"
+                      accessibilityLabel="Korte inleiding"
+                      label="Korte inleiding"
                       maxLength={maxCharacters.intro}
                       multiline={true}
                       numberOfLines={3}

@@ -73,14 +73,14 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
-          <Column gutter="lg">
-            <Title text="Kies een nieuwsartikel" />
+          <Column gutter="xl">
             <>
+              <Title margin text="Kies een optie" />
               <Controller
                 control={control}
                 render={({field: {onChange}}) => (
                   <RadioGroup
-                    accessibilityLabel="Selecteer een nieuwsartikel"
+                    accessibilityLabel="Selecteer een bestaand nieuwsartikel"
                     name="news"
                     onChange={val => onChange(val)}>
                     {news.map((newsArticle, index) => (
@@ -101,13 +101,14 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 <ValidationWarning warning="Selecteer een nieuwsartikel" />
               )}
             </>
-            <View>
-              <Title level={4} text="Schrijf een nieuwsartikel" />
-              <Text>
-                Schrijf een nieuwsartikel met meer informatie. Uw pushbericht
-                zal dit nieuwsartikel openen in de app.
-              </Text>
-              <Gutter height="sm" />
+            <Column gutter="md">
+              <View>
+                <Title level={4} margin text="Schrijf zelf een nieuwsartikel" />
+                <Text>
+                  Leg uit wat je de Amsterdammer via het pushbericht wilt laten
+                  weten.
+                </Text>
+              </View>
               <View style={styles.justifyStart}>
                 <Button
                   onPress={() => navigation.navigate('WarningForm')}
@@ -115,7 +116,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                   variant="inverse"
                 />
               </View>
-            </View>
+            </Column>
           </Column>
         </Box>
       </Stretch>
