@@ -47,11 +47,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
 
-  const sortedArticles =
-    project?.articles.sort((a, b) =>
-      a.publication_date < b.publication_date ? 1 : -1,
-    ) ?? []
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
@@ -117,7 +112,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
         {project.articles.length ? (
           <Box>
-            <ArticleOverview articles={sortedArticles} />
+            <ArticleOverview articles={project.articles} />
           </Box>
         ) : null}
       </Column>
