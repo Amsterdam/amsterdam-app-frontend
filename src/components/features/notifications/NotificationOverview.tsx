@@ -21,7 +21,7 @@ export const NotificationOverview = () => {
     notificationSettings?.projects,
   )
 
-  // Get all projects as we need to display their titles
+  // Retrieve all projects to allow displaying their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
     ProjectTitles[]
   >({

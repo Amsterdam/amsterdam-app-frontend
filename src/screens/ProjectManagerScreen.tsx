@@ -44,7 +44,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     plaintext: projectManagerId,
   })
 
-  const apiProjectManager = useFetch<any>({
+  const projectManagerApi = useFetch<any>({
     url: getEnvironment().apiUrl + '/project/manager',
     onLoad: false,
     options: {
@@ -56,7 +56,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     },
   })
 
-  const apiProjects = useFetch<ProjectTitles[]>({
+  const projectsApi = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
     options: {
       params: {
@@ -67,30 +67,30 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   })
 
   useEffect(() => {
-    projectManagerId && apiProjectManager.fetchData()
+    projectManagerId && projectManagerApi.fetchData()
   }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    projectManagerId && apiProjects.fetchData()
+    projectManagerId && projectsApi.fetchData()
   }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeProjectManagerSettings = useCallback(async () => {
-    if (apiProjectManager.data) {
+    if (projectManagerApi.data) {
       const newProjectManagerSettings = {
         id: projectManagerId,
-        projects: apiProjectManager.data[0].projects,
+        projects: projectManagerApi.data[0].projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
     }
-  }, [apiProjectManager.data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectManagerApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
   useEffect(() => {
-    apiProjects.data && setProjectTitles(apiProjects.data)
-  }, [apiProjects.data])
+    projectsApi.data && setProjectTitles(projectsApi.data)
+  }, [projectsApi.data])
 
   useEffect(() => {
     if (projectTitles && projectManagerSettings?.projects) {

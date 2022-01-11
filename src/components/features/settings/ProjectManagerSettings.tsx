@@ -15,8 +15,8 @@ export const ProjectManagerSettings = () => {
     ProjectTitles[] | undefined
   >()
 
-  // Retrieve all projects from backend as we need to display their titles
-  const apiProjects = useFetch<ProjectTitles[]>({
+  // Retrieve all projects to allow displaying their titles
+  const projectsApi = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
     options: {
       params: {
@@ -26,8 +26,8 @@ export const ProjectManagerSettings = () => {
   })
 
   useEffect(() => {
-    apiProjects.data && setProjectTitles(apiProjects.data)
-  }, [apiProjects.data])
+    projectsApi.data && setProjectTitles(projectsApi.data)
+  }, [projectsApi.data])
 
   const authorisedProjects = projectTitles?.filter(project =>
     projectManagerSettings?.projects.includes(project.identifier),
