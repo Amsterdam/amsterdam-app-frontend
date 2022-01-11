@@ -6,7 +6,7 @@ import {menuRoutes, MenuStackParams} from '../../../app/navigation'
 import {BellActive, BellInactive} from '../../../assets/icons'
 import {color, size} from '../../../tokens'
 import {Notification as NotificationType} from '../../../types'
-import {accessibleText, formatDate} from '../../../utils'
+import {accessibleText, formatDate, formatTime} from '../../../utils'
 import {SingleSelectable, Text} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 
@@ -55,7 +55,9 @@ export const Notification = ({notification}: Props) => {
         </Text>
         <Text>{notification.body}</Text>
         <Gutter height="xs" />
-        <Text small>{date}</Text>
+        <Text small>
+          {date} {formatTime(notification.publication_date)}
+        </Text>
       </SingleSelectable>
     </TouchableOpacity>
   )
