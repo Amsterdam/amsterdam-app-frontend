@@ -71,9 +71,8 @@ export const NotificationOverview = () => {
   const projectTitles = joinedProjectTitles(projects)
 
   // Add read state and project titles to notification
-  const notifications: NotificationType[] = rawNotifications
-    .sort((a, b) => (a.publication_date < b.publication_date ? 1 : -1))
-    .map(notification => ({
+  const notifications: NotificationType[] = rawNotifications.map(
+    notification => ({
       ...notification,
       isRead:
         notificationSettings &&
@@ -81,7 +80,8 @@ export const NotificationOverview = () => {
           notification.news_identifier ?? notification.warning_identifier ?? '',
         ),
       projectTitle: projectTitles[notification.project_identifier],
-    }))
+    }),
+  )
 
   return (
     <FlatList
