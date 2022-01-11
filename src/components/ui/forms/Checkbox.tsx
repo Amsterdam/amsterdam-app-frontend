@@ -22,12 +22,6 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
-  const Label = () => (
-    <Stretch>
-      <SkipInScreenReader>{label}</SkipInScreenReader>
-    </Stretch>
-  )
-
   return (
     <TouchableHighlight
       underlayColor={color.background.white}
@@ -37,7 +31,9 @@ export const Checkbox = ({
         <View style={[styles.checkbox, value && styles.checked]}>
           {value && <Checkmark fill={color.font.inverse} />}
         </View>
-        <Label />
+        <Stretch>
+          <SkipInScreenReader>{label}</SkipInScreenReader>
+        </Stretch>
       </Row>
     </TouchableHighlight>
   )

@@ -11,6 +11,16 @@ type Props = {
   labelPosition?: LabelPosition
 } & SwitchRNProps
 
+type LabelProps = {
+  children: ReactElement
+}
+
+const Label = ({children}: LabelProps) => (
+  <Stretch>
+    <SkipInScreenReader>{children}</SkipInScreenReader>
+  </Stretch>
+)
+
 /**
  * Wraps a switch with its label in a row and takes care of accessibility.
  */
@@ -20,28 +30,20 @@ export const Switch = ({
   onValueChange,
   value,
   ...otherProps
-}: Props) => {
-  const Label = () => (
-    <Stretch>
-      <SkipInScreenReader>{label}</SkipInScreenReader>
-    </Stretch>
-  )
-
-  return (
-    <Row align="between" valign="center" gutter="sm">
-      {labelPosition === 'start' && <Label />}
-      <SwitchRN
-        ios_backgroundColor={color.control.switch.background}
-        onValueChange={onValueChange}
-        trackColor={{
-          false: color.control.switch.off,
-          true: color.control.switch.on,
-        }}
-        thumbColor={color.control.default.background}
-        value={value}
-        {...otherProps}
-      />
-      {labelPosition === 'end' && <Label />}
-    </Row>
-  )
-}
+}: Props) => (
+  <Row align="between" valign="center" gutter="sm">
+    {labelPosition === 'start' && <Label>{label}</Label>}
+    <SwitchRN
+      ios_backgroundColor={color.control.switch.background}
+      onValueChange={onValueChange}
+      trackColor={{
+        false: color.control.switch.off,
+        true: color.control.switch.on,
+      }}
+      thumbColor={color.control.default.background}
+      value={value}
+      {...otherProps}
+    />
+    {labelPosition === 'end' && <Label>{label}</Label>}
+  </Row>
+)
