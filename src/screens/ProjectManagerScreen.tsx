@@ -32,7 +32,9 @@ type Props = {
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-  const [allProjects, setAllProjects] = useState<ProjectTitles[] | undefined>()
+  const [projectTitles, setProjectTitles] = useState<
+    ProjectTitles[] | undefined
+  >()
   const [authorizedProjects, setAuthorizedProjects] =
     useState<ProjectTitles[]>()
   const projectManagerId = route.params?.id
@@ -87,18 +89,18 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   }, [storeProjectManagerSettings])
 
   useEffect(() => {
-    apiProjects.data && setAllProjects(apiProjects.data)
+    apiProjects.data && setProjectTitles(apiProjects.data)
   }, [apiProjects.data])
 
   useEffect(() => {
-    if (allProjects && projectManagerSettings?.projects) {
+    if (projectTitles && projectManagerSettings?.projects) {
       setAuthorizedProjects(
-        allProjects.filter(project =>
+        projectTitles.filter(project =>
           projectManagerSettings?.projects.includes(project.identifier),
         ),
       )
     }
-  }, [allProjects, projectManagerSettings?.projects])
+  }, [projectTitles, projectManagerSettings?.projects])
 
   return authorizedProjects === undefined &&
     projectManagerSettings?.projects ? (

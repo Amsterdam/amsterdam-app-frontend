@@ -11,7 +11,9 @@ export const ProjectManagerSettings = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
 
-  const [allProjects, setAllProjects] = useState<ProjectTitles[] | undefined>()
+  const [projectTitles, setProjectTitles] = useState<
+    ProjectTitles[] | undefined
+  >()
 
   // Retrieve all projects from backend as we need to display their titles
   const apiProjects = useFetch<ProjectTitles[]>({
@@ -24,10 +26,10 @@ export const ProjectManagerSettings = () => {
   })
 
   useEffect(() => {
-    apiProjects.data && setAllProjects(apiProjects.data)
+    apiProjects.data && setProjectTitles(apiProjects.data)
   }, [apiProjects.data])
 
-  const authorisedProjects = allProjects?.filter(project =>
+  const authorisedProjects = projectTitles?.filter(project =>
     projectManagerSettings?.projects.includes(project.identifier),
   )
 
