@@ -36,7 +36,7 @@ export const Section = ({body, icon, image, title}: SectionProps) => {
       {icon && <Icon style={styles.figure} />}
       {title && <Title level={4} text={title} />}
       {body.map((text, index) => (
-        <Text key={index} margin={index < body.length - 1}>
+        <Text key={text.substring(0, 32)} margin={index < body.length - 1}>
           {text}
         </Text>
       ))}

@@ -39,9 +39,9 @@ export const ArticleOverview = ({articles}: Props) => {
     <Column gutter="sm">
       <Title level={2} text="Nieuws" />
       <View style={device.isLandscape && styles.grid}>
-        {articles.map((article, index) => (
+        {articles.map(article => (
           <View
-            key={`article-${index}`}
+            key={article.identifier}
             style={[device.isLandscape && styles.item, styles.verticalGutter]}>
             <ArticlePreview
               article={article}
