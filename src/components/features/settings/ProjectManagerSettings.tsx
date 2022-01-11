@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {ProjectOverviewItem} from '../../../types'
+import {ProjectTitles} from '../../../types'
 import {Box, Card, CardBody, CardHeader, Divider, Text, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 
@@ -11,13 +11,16 @@ export const ProjectManagerSettings = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
 
-  const [allProjects, setAllProjects] = useState<
-    ProjectOverviewItem[] | undefined
-  >()
+  const [allProjects, setAllProjects] = useState<ProjectTitles[] | undefined>()
 
   // Retrieve all projects from backend as we need to display their titles
-  const apiProjects = useFetch<ProjectOverviewItem[]>({
+  const apiProjects = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
   })
 
   useEffect(() => {

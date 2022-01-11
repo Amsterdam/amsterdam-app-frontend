@@ -19,7 +19,7 @@ import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
 import {color, size} from '../tokens'
-import {ProjectOverviewItem} from '../types'
+import {ProjectTitles} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
@@ -32,11 +32,9 @@ type Props = {
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-  const [allProjects, setAllProjects] = useState<
-    ProjectOverviewItem[] | undefined
-  >()
+  const [allProjects, setAllProjects] = useState<ProjectTitles[] | undefined>()
   const [authorizedProjects, setAuthorizedProjects] =
-    useState<ProjectOverviewItem[]>()
+    useState<ProjectTitles[]>()
   const idFromParams = route.params?.id
 
   const authToken = encryptWithAES({
@@ -56,8 +54,13 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     },
   })
 
-  const apiProjects = useFetch<ProjectOverviewItem[]>({
+  const apiProjects = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
     onLoad: false,
   })
 
@@ -66,8 +69,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    apiProjects.fetchData()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    idFromParams && apiProjects.fetchData()
+  }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeProjectManagerSettings = useCallback(async () => {
     if (apiProjectManager.data) {

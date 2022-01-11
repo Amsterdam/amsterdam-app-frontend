@@ -3,10 +3,7 @@ import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {
-  Notification as NotificationType,
-  ProjectOverviewItem,
-} from '../../../types'
+import {Notification as NotificationType, ProjectTitles} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
 import {joinedProjectTitles} from '../project'
 import {
@@ -26,9 +23,14 @@ export const NotificationOverview = () => {
 
   // Get all projects as we need to display their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
-    ProjectOverviewItem[]
+    ProjectTitles[]
   >({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
   })
 
   // Retrieve notifications for subscribed projects

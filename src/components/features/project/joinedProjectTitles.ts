@@ -1,6 +1,6 @@
-import {ProjectOverviewItem} from '../../../types'
+import {ProjectTitles} from '../../../types'
 
-type Type = (projects?: ProjectOverviewItem[]) => Record<string, string>
+type Type = (projects?: ProjectTitles[]) => Record<string, string>
 
 /**
  * Joins title and subtitle with a comma, with the subtitle’s first letter lowercased.

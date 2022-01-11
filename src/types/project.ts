@@ -17,6 +17,12 @@ export type ProjectOverviewItem = {
   title: string
 }
 
+// Only the titles of a project, e.g. for small lists
+export type ProjectTitles = Pick<
+  ProjectOverviewItem,
+  'identifier' | 'subtitle' | 'title'
+>
+
 // All project details as received from our backend
 export type ProjectDetail = {
   articles: ProjectDetailArticlePreview[]
