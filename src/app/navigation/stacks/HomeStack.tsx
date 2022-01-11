@@ -8,40 +8,27 @@ import {
   BestWishes21Screen,
   HomeScreen,
   NotificationOverviewScreen,
+  ProjectDetailBodyScreen,
+  ProjectDetailScreen,
+  ProjectManagerScreen,
+  ProjectNewsScreen,
   ProjectOverviewScreen,
+  ProjectWarningScreen,
   SettingsScreen,
   WasteGuideScreen,
+  WasteMenuScreen,
+  WebViewScreen,
+  WhereToPutBulkyWasteScreen,
 } from '../../../screens'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
-import {homeRoutes} from '../routes'
+import {homeRoutes, menuRoutes} from '../routes'
 
-const Stack = createStackNavigator()
-
-const homeScreenOptions: StackNavigationOptions = {
-  headerRight: () => <HeaderNavigation />,
-}
-
-export const HomeStack = () => (
-  <Stack.Navigator
-    initialRouteName={homeRoutes.home.name}
-    screenOptions={{
-      ...stackScreenOptions,
-      ...homeScreenOptions,
-    }}>
+export const getShared = (Stack: ReturnType<typeof createStackNavigator>) => (
+  <>
     <Stack.Screen
       component={AddressFormScreen}
       name={homeRoutes.addressForm.name}
       options={homeRoutes.addressForm.options}
-    />
-    <Stack.Screen
-      component={BestWishes21Screen}
-      name={homeRoutes.bestWishes21.name}
-      options={homeRoutes.bestWishes21.options}
-    />
-    <Stack.Screen
-      component={HomeScreen}
-      name={homeRoutes.home.name}
-      options={homeRoutes.home.options}
     />
     <Stack.Screen
       component={NotificationOverviewScreen}
@@ -63,5 +50,75 @@ export const HomeStack = () => (
       name={homeRoutes.wasteGuide.name}
       options={homeRoutes.wasteGuide.options}
     />
-  </Stack.Navigator>
+    <Stack.Screen
+      component={ProjectDetailScreen}
+      name={menuRoutes.projectDetail.name}
+      options={menuRoutes.projectDetail.options}
+    />
+    <Stack.Screen
+      component={ProjectDetailBodyScreen}
+      name={menuRoutes.projectDetailBody.name}
+      options={menuRoutes.projectDetailBody.options}
+    />
+    <Stack.Screen
+      component={ProjectNewsScreen}
+      name={menuRoutes.projectNews.name}
+      options={menuRoutes.projectNews.options}
+    />
+    <Stack.Screen
+      component={ProjectWarningScreen}
+      name={menuRoutes.projectWarning.name}
+      options={menuRoutes.projectWarning.options}
+    />
+    <Stack.Screen
+      component={ProjectManagerScreen}
+      name={menuRoutes.projectManager.name}
+      options={menuRoutes.projectManager.options}
+    />
+    <Stack.Screen
+      component={WasteMenuScreen}
+      name={menuRoutes.wasteMenu.name}
+      options={menuRoutes.wasteMenu.options}
+    />
+    <Stack.Screen
+      component={WebViewScreen}
+      name={menuRoutes.webView.name}
+      options={menuRoutes.webView.options}
+    />
+    <Stack.Screen
+      component={WhereToPutBulkyWasteScreen}
+      name={menuRoutes.whereToPutBulkyWaste.name}
+      options={menuRoutes.whereToPutBulkyWaste.options}
+    />
+  </>
 )
+
+const Stack = createStackNavigator()
+
+const homeScreenOptions: StackNavigationOptions = {
+  headerRight: () => <HeaderNavigation />,
+}
+
+export const HomeStack = () => {
+  const shared = getShared(Stack)
+  return (
+    <Stack.Navigator
+      initialRouteName={homeRoutes.home.name}
+      screenOptions={{
+        ...stackScreenOptions,
+        ...homeScreenOptions,
+      }}>
+      <Stack.Screen
+        component={BestWishes21Screen}
+        name={homeRoutes.bestWishes21.name}
+        options={homeRoutes.bestWishes21.options}
+      />
+      <Stack.Screen
+        component={HomeScreen}
+        name={homeRoutes.home.name}
+        options={homeRoutes.home.options}
+      />
+      {shared}
+    </Stack.Navigator>
+  )
+}
