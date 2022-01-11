@@ -35,11 +35,11 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const [allProjects, setAllProjects] = useState<ProjectTitles[] | undefined>()
   const [authorizedProjects, setAuthorizedProjects] =
     useState<ProjectTitles[]>()
-  const idFromParams = route.params?.id
+  const projectManagerId = route.params?.id
 
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
-    plaintext: idFromParams,
+    plaintext: projectManagerId,
   })
 
   const apiProjectManager = useFetch<any>({
@@ -50,7 +50,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         'Content-Type': 'application/json',
         UserAuthorization: authToken,
       }),
-      params: {id: idFromParams},
+      params: {id: projectManagerId},
     },
   })
 
@@ -65,17 +65,17 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   })
 
   useEffect(() => {
-    idFromParams && apiProjectManager.fetchData()
-  }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
+    projectManagerId && apiProjectManager.fetchData()
+  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    idFromParams && apiProjects.fetchData()
-  }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
+    projectManagerId && apiProjects.fetchData()
+  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeProjectManagerSettings = useCallback(async () => {
     if (apiProjectManager.data) {
       const newProjectManagerSettings = {
-        id: idFromParams,
+        id: projectManagerId,
         projects: apiProjectManager.data[0].projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
