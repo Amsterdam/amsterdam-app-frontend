@@ -6,7 +6,7 @@ type Type = (projects?: ProjectTitles[]) => Record<string, string>
  * Joins title and subtitle with a comma, with the subtitle’s first letter lowercased.
  * @param projects
  */
-export const joinedProjectTitles: Type = projects => {
+export const createProjectTitlesDictionary: Type = projects => {
   if (!projects?.length) {
     return {}
   }
