@@ -1,5 +1,6 @@
 import React from 'react'
 import {VersionInfo} from '../../components/features'
+import {Address} from '../../components/features/address'
 import {
   ProjectManagerSettings,
   ProjectNotificationSettings,
@@ -11,6 +12,7 @@ export const SettingsScreen = () => (
   <ScrollView>
     <Gutter height="md" />
     <Column gutter="md">
+      <Address />
       <ProjectNotificationSettings />
       <ProjectManagerSettings />
       <Box insetHorizontal="md">
