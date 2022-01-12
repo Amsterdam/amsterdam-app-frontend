@@ -9,7 +9,7 @@ import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
 import {
-  NewNotification,
+  DraftNotification,
   NewWarning,
   ProjectDetailArticlePreview,
   ProjectManagerSettings,
@@ -40,11 +40,11 @@ type Props = {
 type Context = {
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
-  changeNotification: (newNotification: NewNotification) => void
+  changeNotification: (newNotification: DraftNotification) => void
   changeResponseStatus: (value: ResponseStatus) => void
   changeWarning: (newWarning: NewWarning) => void
   newsDetails?: NewsDetails
-  notification?: NewNotification
+  notification?: DraftNotification
   projectDetails: ProjectDetails
   projectManagerSettings?: ProjectManagerSettings
   responseStatus?: ResponseStatus
@@ -76,7 +76,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
-  const [notification, setNotification] = useState<NewNotification>()
+  const [notification, setNotification] = useState<DraftNotification>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
   const [projectManagerSettings, setProjectManagerSettings] =
@@ -85,7 +85,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const Stack = createStackNavigator()
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
-  const changeNotification = (value: NewNotification) => setNotification(value)
+  const changeNotification = (value: DraftNotification) =>
+    setNotification(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)
