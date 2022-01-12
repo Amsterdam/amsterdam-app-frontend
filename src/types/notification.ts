@@ -7,8 +7,12 @@ export type NewNotification = {
 }
 
 export type Notification = NewNotification & {
-  isRead?: Boolean
+  identifier: string
   publication_date: string
+}
+
+export type FrontEndNotification = Notification & {
+  isRead?: boolean
   projectTitle: string
 }
 
