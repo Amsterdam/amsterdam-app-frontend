@@ -58,3 +58,5 @@ export type MenuStackParams = {
   WebView: WebViewRouteParams
   WhereToPutBulkyWaste: undefined
 }
+
+export type StackParams = ActionStackParams & HomeStackParams & MenuStackParams

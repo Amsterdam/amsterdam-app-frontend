@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
 import {BestWishes21Screen, HomeScreen} from '../../../screens'
-import {homeRoutes} from '../routes'
+import {routes} from '../routes'
 
 const Stack = createStackNavigator()
 
@@ -15,20 +15,20 @@ const homeScreenOptions: StackNavigationOptions = {
 
 export const HomeStack = () => (
   <Stack.Navigator
-    initialRouteName={homeRoutes.home.name}
+    initialRouteName={routes.home.name}
     screenOptions={{
       ...stackScreenOptions,
       ...homeScreenOptions,
     }}>
     <Stack.Screen
       component={BestWishes21Screen}
-      name={homeRoutes.bestWishes21.name}
-      options={homeRoutes.bestWishes21.options}
+      name={routes.bestWishes21.name}
+      options={routes.bestWishes21.options}
     />
     <Stack.Screen
       component={HomeScreen}
-      name={homeRoutes.home.name}
-      options={homeRoutes.home.options}
+      name={routes.home.name}
+      options={routes.home.options}
     />
     {getSharedScreens(Stack)}
   </Stack.Navigator>

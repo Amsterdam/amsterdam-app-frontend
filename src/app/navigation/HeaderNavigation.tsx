@@ -6,13 +6,13 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 import {BellInactive} from '../../assets/icons'
 import {Row} from '../../components/ui/layout'
 import {color} from '../../tokens'
-import {homeRoutes} from './routes'
-import {HomeStackParams, TabParams} from './types'
+import {routes} from './routes'
+import {StackParams, TabParams} from './types'
 
 type MenuItem = {
   icon: React.ReactNode
   name: string
-  route: keyof HomeStackParams
+  route: keyof StackParams
 }
 
 const iconProps = {
@@ -23,18 +23,18 @@ const menu: MenuItem[] = [
   {
     icon: <BellInactive {...iconProps} />,
     name: 'notifications',
-    route: homeRoutes.notificationOverview.name,
+    route: routes.notificationOverview.name,
   },
   {
     icon: <PersonalLogin {...iconProps} />,
     name: 'settings',
-    route: homeRoutes.settings.name,
+    route: routes.settings.name,
   },
 ]
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<HomeStackParams & TabParams, 'Home'>>()
+    useNavigation<StackNavigationProp<StackParams & TabParams, 'Home'>>()
 
   return (
     <Row gutter="md">

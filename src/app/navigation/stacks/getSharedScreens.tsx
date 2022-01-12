@@ -15,7 +15,7 @@ import {
   WhereToPutBulkyWasteScreen,
 } from '../../../screens'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
-import {homeRoutes, menuRoutes} from '../routes'
+import {routes} from '../routes'
 
 export const getSharedScreens = (
   Stack: ReturnType<typeof createStackNavigator>,
@@ -23,68 +23,68 @@ export const getSharedScreens = (
   <>
     <Stack.Screen
       component={AddressFormScreen}
-      name={homeRoutes.addressForm.name}
-      options={homeRoutes.addressForm.options}
+      name={routes.addressForm.name}
+      options={routes.addressForm.options}
     />
     <Stack.Screen
       component={NotificationOverviewScreen}
-      name={homeRoutes.notificationOverview.name}
-      options={homeRoutes.notificationOverview.options}
+      name={routes.notificationOverview.name}
+      options={routes.notificationOverview.options}
     />
     <Stack.Screen
       component={ProjectDetailBodyScreen}
-      name={menuRoutes.projectDetailBody.name}
-      options={menuRoutes.projectDetailBody.options}
+      name={routes.projectDetailBody.name}
+      options={routes.projectDetailBody.options}
     />
     <Stack.Screen
       component={ProjectDetailScreen}
-      name={menuRoutes.projectDetail.name}
-      options={menuRoutes.projectDetail.options}
+      name={routes.projectDetail.name}
+      options={routes.projectDetail.options}
     />
     <Stack.Screen
       component={ProjectManagerScreen}
-      name={menuRoutes.projectManager.name}
-      options={menuRoutes.projectManager.options}
+      name={routes.projectManager.name}
+      options={routes.projectManager.options}
     />
     <Stack.Screen
       component={ProjectNewsScreen}
-      name={menuRoutes.projectNews.name}
-      options={menuRoutes.projectNews.options}
+      name={routes.projectNews.name}
+      options={routes.projectNews.options}
     />
     <Stack.Screen
       component={ProjectOverviewScreen}
-      name={homeRoutes.projectOverview.name}
-      options={homeRoutes.projectOverview.options}
+      name={routes.projectOverview.name}
+      options={routes.projectOverview.options}
     />
     <Stack.Screen
       component={ProjectWarningScreen}
-      name={menuRoutes.projectWarning.name}
-      options={menuRoutes.projectWarning.options}
+      name={routes.projectWarning.name}
+      options={routes.projectWarning.options}
     />
     <Stack.Screen
       component={SettingsScreen}
-      name={homeRoutes.settings.name}
-      options={homeRoutes.settings.options}
+      name={routes.settings.name}
+      options={routes.settings.options}
     />
     <Stack.Screen
       component={WasteGuideScreen}
-      name={homeRoutes.wasteGuide.name}
-      options={homeRoutes.wasteGuide.options}
+      name={routes.wasteGuide.name}
+      options={routes.wasteGuide.options}
     />
     <Stack.Screen
       component={WasteMenuScreen}
-      name={menuRoutes.wasteMenu.name}
-      options={menuRoutes.wasteMenu.options}
+      name={routes.wasteMenu.name}
+      options={routes.wasteMenu.options}
     />
     <Stack.Screen
       component={WebViewScreen}
-      name={menuRoutes.webView.name}
-      options={menuRoutes.webView.options}
+      name={routes.webView.name}
+      options={routes.webView.options}
     />
     <Stack.Screen
       component={WhereToPutBulkyWasteScreen}
-      name={menuRoutes.whereToPutBulkyWaste.name}
-      options={menuRoutes.whereToPutBulkyWaste.options}
+      name={routes.whereToPutBulkyWaste.name}
+      options={routes.whereToPutBulkyWaste.options}
     />
   </>
 )

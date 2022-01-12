@@ -6,14 +6,14 @@ import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
-import {MenuStackParams} from '../app/navigation'
+import {StackParams} from '../app/navigation'
 import {Box, NonScalingHeaderTitle, Timeline, Title} from '../components/ui'
 import {tagsStyles} from '../styles/html'
 import {color, font, size} from '../tokens'
 import {regexLibrary} from '../utils'
 
 type ProjectDetailBodyScreenRouteProp = RouteProp<
-  MenuStackParams,
+  StackParams,
   'ProjectDetailBody'
 >
 
