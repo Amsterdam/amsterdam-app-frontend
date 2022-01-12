@@ -1,7 +1,8 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../app/navigation'
+import {StackParams} from '../app/navigation'
+import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
@@ -11,11 +12,11 @@ import {size} from '../tokens'
 import {District, ProjectOverviewItem} from '../types'
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParams, 'ProjectDetail'>
+  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
 }
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const {projectOverviewByDistrict, projectDetail} = menuRoutes
+  const {projectOverviewByDistrict, projectDetail} = routes
 
   const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
     {

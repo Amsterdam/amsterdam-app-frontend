@@ -10,13 +10,8 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {
-  homeRoutes,
-  menuRoutes,
-  MenuStackParams,
-  TabParams,
-  tabRoutes,
-} from '../app/navigation'
+import {StackParams, TabParams} from '../app/navigation'
+import {routes, tabs} from '../app/navigation/routes'
 import {ProjectTitle} from '../components/features/project'
 import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
@@ -27,13 +22,10 @@ import {color, size} from '../tokens'
 import {ProjectOverviewItem} from '../types'
 import {encryptWithAES} from '../utils'
 
-type ProjectManagerScreenRouteProp = RouteProp<
-  MenuStackParams,
-  'ProjectManager'
->
+type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParams & TabParams, 'ProjectManager'>
+  navigation: StackNavigationProp<StackParams & TabParams, 'ProjectManager'>
   route: ProjectManagerScreenRouteProp
 }
 
@@ -135,7 +127,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                       key={authProject.identifier}
                       onPress={() => {
                         authProject.identifier &&
-                          navigation.navigate(menuRoutes.projectDetail.name, {
+                          navigation.navigate(routes.projectDetail.name, {
                             id: authProject.identifier,
                           })
                       }}>
@@ -170,8 +162,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         <Button
           text="Sluit venster"
           onPress={() =>
-            navigation.navigate(tabRoutes.home.name, {
-              screen: homeRoutes.home.name,
+            navigation.navigate(tabs.home.name, {
+              screen: routes.home.name,
             })
           }
         />

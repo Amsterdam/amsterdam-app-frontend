@@ -4,7 +4,7 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
-import {MenuStackParams} from '../../app/navigation'
+import {StackParams} from '../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
@@ -31,7 +31,7 @@ export type NotificationStackParams = {
   WarningForm: undefined
 }
 
-type NotificationScreenRouteProp = RouteProp<MenuStackParams, 'Notification'>
+type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
 
 type Props = {
   route: NotificationScreenRouteProp

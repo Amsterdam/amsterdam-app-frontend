@@ -4,8 +4,7 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {Linking} from 'react-native'
 import {PushNotificationData} from '../../types'
-import {menuRoutes} from './routes/menuRoutes'
-import {tabRoutes} from './routes/tabRoutes'
+import {routes, tabs} from './routes'
 
 const appPrefix = 'amsterdam://'
 
@@ -49,11 +48,11 @@ export const linking = {
   prefixes: [appPrefix],
   config: {
     screens: {
-      [tabRoutes.menu.name]: {
+      [tabs.menu.name]: {
         screens: {
-          [menuRoutes.projectNews.name]: 'news/:id',
-          [menuRoutes.projectManager.name]: 'project-manager/:id',
-          [menuRoutes.projectWarning.name]: 'warning/:id',
+          [routes.projectNews.name]: 'news/:id',
+          [routes.projectManager.name]: 'project-manager/:id',
+          [routes.projectWarning.name]: 'warning/:id',
         },
       },
     },

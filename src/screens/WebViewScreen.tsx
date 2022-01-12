@@ -1,10 +1,10 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {MenuStackParams} from '../app/navigation'
+import {StackParams} from '../app/navigation'
 import {NonScalingHeaderTitle, WebView, WebViewProps} from '../components/ui'
 
 type Props = {
-  route: RouteProp<MenuStackParams, 'WebView'>
+  route: RouteProp<StackParams, 'WebView'>
 }
 
 export type WebViewRouteParams = WebViewProps & {

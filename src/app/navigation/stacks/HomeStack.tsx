@@ -1,44 +1,35 @@
-import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
-import {homeRoutes, stackScreenOptions} from '..'
 import {
-  BestWishes21Screen,
-  HomeScreen,
-  ProjectOverviewScreen,
-  WasteGuideScreen,
-} from '../../../screens'
-import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack'
+import React from 'react'
+import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
+import {BestWishes21Screen, HomeScreen} from '../../../screens'
+import {routes} from '../routes'
 
 const Stack = createStackNavigator()
 
+const homeScreenOptions: StackNavigationOptions = {
+  headerRight: () => <HeaderNavigation />,
+}
+
 export const HomeStack = () => (
   <Stack.Navigator
-    initialRouteName={homeRoutes.home.name}
-    screenOptions={stackScreenOptions}>
-    <Stack.Screen
-      component={AddressFormScreen}
-      name={homeRoutes.addressForm.name}
-      options={homeRoutes.addressForm.options}
-    />
+    initialRouteName={routes.home.name}
+    screenOptions={{
+      ...stackScreenOptions,
+      ...homeScreenOptions,
+    }}>
     <Stack.Screen
       component={BestWishes21Screen}
-      name={homeRoutes.bestWishes21.name}
-      options={homeRoutes.bestWishes21.options}
+      name={routes.bestWishes21.name}
+      options={routes.bestWishes21.options}
     />
     <Stack.Screen
       component={HomeScreen}
-      name={homeRoutes.home.name}
-      options={homeRoutes.home.options}
+      name={routes.home.name}
+      options={routes.home.options}
     />
-    <Stack.Screen
-      component={ProjectOverviewScreen}
-      name={homeRoutes.projectOverview.name}
-      options={homeRoutes.projectOverview.options}
-    />
-    <Stack.Screen
-      component={WasteGuideScreen}
-      name={homeRoutes.wasteGuide.name}
-      options={homeRoutes.wasteGuide.options}
-    />
+    {getSharedScreens(Stack)}
   </Stack.Navigator>
 )

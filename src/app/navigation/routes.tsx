@@ -1,9 +1,50 @@
 import React from 'react'
-import {NonScalingHeaderTitle} from '../../../components/ui'
-import {color} from '../../../tokens'
-import {MenuStackParams, StackNavigationRoutes} from '../types'
+import {
+  NonScalingHeaderTitle,
+  NonScalingTabBarLabel,
+  TabBarIcon,
+} from '../../components/ui'
+import {color} from '../../tokens'
+import {HeaderLogo} from './HeaderLogo'
+import {
+  StackNavigationRoutes,
+  StackParams,
+  TabNavigationRoutes,
+  TabParams,
+} from './types'
 
-export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
+export const tabs: TabNavigationRoutes<TabParams> = {
+  action: {
+    name: 'ActionTab',
+    options: {
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="action" />,
+      tabBarLabel: () => <NonScalingTabBarLabel text="Melden" />,
+    },
+  },
+  home: {
+    name: 'HomeTab',
+    options: {
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="home" />,
+      tabBarLabel: () => <NonScalingTabBarLabel text="Home" />,
+    },
+  },
+  menu: {
+    name: 'MenuTab',
+    options: {
+      headerShown: false,
+      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="menu" />,
+      tabBarLabel: () => <NonScalingTabBarLabel text="Menu" />,
+    },
+  },
+}
+
+export const routes: StackNavigationRoutes<StackParams> = {
+  admin: {
+    name: 'Admin',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
+    },
+  },
   addressForm: {
     name: 'AddressForm',
     options: {
@@ -14,16 +55,28 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
-  admin: {
-    name: 'Admin',
+  bestWishes21: {
+    name: 'BestWishes21',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
+      cardStyle: {
+        backgroundColor: color.touchable.secondary,
+      },
+      headerTitle: () => (
+        <NonScalingHeaderTitle text="Terugblikken & vooruitkijken" />
+      ),
     },
   },
   contact: {
     name: 'Contact',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
+    },
+  },
+  home: {
+    name: 'Home',
+    options: {
+      headerLeft: () => <HeaderLogo />,
+      headerTitle: '',
     },
   },
   menu: {
@@ -99,6 +152,12 @@ export const menuRoutes: StackNavigationRoutes<MenuStackParams> = {
   },
   projectWarning: {
     name: 'ProjectWarning',
+  },
+  reportIssue: {
+    name: 'ReportIssue',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
+    },
   },
   settings: {
     name: 'Settings',

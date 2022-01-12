@@ -2,7 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../../../app/navigation'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
 import {AddressFormTeaser} from '../../../components/features/address'
 import {
   Box,
@@ -35,7 +36,7 @@ export const WasteGuideByAddress = () => {
   const addressContext = useContext(AddressContext)
   const asyncStorage = useAsyncStorage()
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'WasteGuide'>>()
+    useNavigation<StackNavigationProp<StackParams, 'WasteGuide'>>()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -81,7 +82,7 @@ export const WasteGuideByAddress = () => {
 
   const navigateToAddressForm = () => {
     addressContext.changeSaveInStore(false)
-    navigation.navigate(menuRoutes.addressForm.name)
+    navigation.navigate(routes.addressForm.name)
   }
 
   if (!address) {
@@ -131,7 +132,7 @@ export const WasteGuideByAddress = () => {
                   details={wasteGuide[WasteType.Bulky]!}
                   footerLink={{
                     onPress: () =>
-                      navigation.navigate(menuRoutes.whereToPutBulkyWaste.name),
+                      navigation.navigate(routes.whereToPutBulkyWaste.name),
                     text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                   }}
                 />
@@ -153,7 +154,7 @@ export const WasteGuideByAddress = () => {
             <TextButton
               direction="forward"
               onPress={() =>
-                navigation.navigate(menuRoutes.webView.name, {
+                navigation.navigate(routes.webView.name, {
                   sliceFromTop: {portrait: 161, landscape: 207},
                   title: 'Melden afvalinformatie',
                   url: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',

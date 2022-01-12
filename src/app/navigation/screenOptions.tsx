@@ -14,7 +14,7 @@ export const stackScreenOptions: StackNavigationOptions = {
       width={20}
       height={20}
       fill={color.font.regular}
-      style={{margin: size.spacing.sm}}
+      style={{marginLeft: -4}}
     />
   ),
   headerBackTitleVisible: false,
@@ -24,6 +24,12 @@ export const stackScreenOptions: StackNavigationOptions = {
     borderBottomWidth: 1,
     elevation: 0,
     shadowOpacity: 0,
+  },
+  headerLeftContainerStyle: {
+    paddingStart: size.spacing.md,
+  },
+  headerRightContainerStyle: {
+    paddingEnd: size.spacing.md,
   },
   headerTitleAlign: 'center',
 }

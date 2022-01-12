@@ -2,7 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {menuRoutes, MenuStackParams} from '../../../app/navigation'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
 import {BellActive, BellInactive} from '../../../assets/icons'
 import {color, size} from '../../../tokens'
 import {Notification as NotificationType} from '../../../types'
@@ -17,16 +18,16 @@ type Props = {
 export const Notification = ({notification}: Props) => {
   const date = formatDate(notification.publication_date)
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParams, 'Notification'>>()
+    useNavigation<StackNavigationProp<StackParams, 'Notification'>>()
 
   const navigateToArticle = () => {
     if (notification.news_identifier) {
-      navigation.navigate(menuRoutes.projectNews.name, {
+      navigation.navigate(routes.projectNews.name, {
         id: notification.news_identifier,
       })
     }
     if (notification.warning_identifier) {
-      navigation.navigate(menuRoutes.projectWarning.name, {
+      navigation.navigate(routes.projectWarning.name, {
         id: notification.warning_identifier,
       })
     }
@@ -45,7 +46,12 @@ export const Notification = ({notification}: Props) => {
         )}>
         <Row gutter="sm">
           <View style={styles.icon}>
-            {notification.isRead ? <BellInactive /> : <BellActive />}
+            {notification.isRead ? (
+              // TODO Improve colour token
+              <BellInactive fill={color.font.tertiary} />
+            ) : (
+              <BellActive />
+            )}
           </View>
           <Text small>{notification.projectTitle}</Text>
         </Row>

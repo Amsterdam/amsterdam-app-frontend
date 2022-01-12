@@ -1,20 +1,13 @@
 import Alert from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
-import Data from '@amsterdam/asc-assets/static/icons/Data.svg'
 import Energy from '@amsterdam/asc-assets/static/icons/Energy.svg'
-import Lamp from '@amsterdam/asc-assets/static/icons/Lamp.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {
-  actionRoutes,
-  menuRoutes,
-  MenuStackParams,
-  TabParams,
-  tabRoutes,
-} from '../../app/navigation'
+import {StackParams, TabParams} from '../../app/navigation'
+import {routes, tabs} from '../../app/navigation/routes'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {getEnvironment} from '../../environment'
@@ -22,7 +15,7 @@ import {DeviceContext} from '../../providers'
 import {color, size} from '../../tokens'
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParams & TabParams, 'Menu'>
+  navigation: StackNavigationProp<StackParams & TabParams, 'Menu'>
 }
 
 export const MenuScreen = ({navigation}: Props) => {
@@ -33,35 +26,25 @@ export const MenuScreen = ({navigation}: Props) => {
     {
       icon: <TrashBin {...iconProps} />,
       label: 'Afval',
-      onPress: () => navigation.navigate(menuRoutes.wasteMenu.name),
+      onPress: () => navigation.navigate(routes.wasteMenu.name),
     },
     {
       icon: <Project />,
       label: 'Bouwprojecten',
-      onPress: () => navigation.navigate(menuRoutes.projectOverview.name),
+      onPress: () => navigation.navigate(routes.projectOverview.name),
     },
     {
       icon: <Alert {...iconProps} />,
       label: 'Melden',
       onPress: () =>
-        navigation.navigate(tabRoutes.action.name, {
-          screen: actionRoutes.reportIssue.name,
+        navigation.navigate(tabs.action.name, {
+          screen: routes.reportIssue.name,
         }),
     },
     {
       icon: <Chatting {...iconProps} />,
       label: 'Contact',
-      onPress: () => navigation.navigate(menuRoutes.contact.name),
-    },
-    {
-      icon: <Data {...iconProps} />,
-      label: 'Instellingen',
-      onPress: () => navigation.navigate(menuRoutes.settings.name),
-    },
-    {
-      icon: <Lamp {...iconProps} />,
-      label: 'Berichten',
-      onPress: () => navigation.navigate(menuRoutes.notificationOverview.name),
+      onPress: () => navigation.navigate(routes.contact.name),
     },
   ]
 
@@ -69,7 +52,7 @@ export const MenuScreen = ({navigation}: Props) => {
     baseMenuItems.push({
       icon: <Energy {...iconProps} />,
       label: 'Admin',
-      onPress: () => navigation.navigate(menuRoutes.admin.name),
+      onPress: () => navigation.navigate(routes.admin.name),
     })
   }
 
