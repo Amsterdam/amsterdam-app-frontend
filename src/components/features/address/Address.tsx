@@ -9,6 +9,7 @@ import {Address as AddressType} from '../../../types'
 import {
   Attention,
   Box,
+  Button,
   Card,
   CardBody,
   SingleSelectable,
@@ -57,12 +58,17 @@ export const Address = () => {
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </SingleSelectable>
             <Gutter height="md" />
-            <Row align="start">
-              <TextButton
-                direction="backward"
-                emphasis
+            <Row align="between" valign="center">
+              <Button
+                variant="inverse"
                 onPress={() => navigation.navigate(routes.addressForm.name)}
-                text="Verander adres"
+                text="Wijzig adres"
+              />
+              <TextButton
+                emphasis
+                icon="remove"
+                onPress={() => console.log('remove')}
+                text="Verwijder adres"
               />
             </Row>
           </CardBody>
