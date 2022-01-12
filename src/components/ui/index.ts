@@ -1,3 +1,4 @@
+export * from './AlertBar'
 export * from './Attention'
 export * from './Box'
 export * from './Button'
