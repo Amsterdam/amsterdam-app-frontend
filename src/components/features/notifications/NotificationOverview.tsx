@@ -81,8 +81,8 @@ export const NotificationOverview = () => {
     notification => ({
       ...notification,
       isRead:
-        notificationSettings &&
-        notificationSettings?.readIds?.includes(
+        notificationSettings?.readIds &&
+        notificationSettings.readIds.includes(
           notification.news_identifier ?? notification.warning_identifier ?? '',
         ),
       projectTitle: projectTitlesDictionary[notification.project_identifier],
