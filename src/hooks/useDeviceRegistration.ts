@@ -74,6 +74,10 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     try {
       const token = await getFcmToken()
 
+      if (!token) {
+        return
+      }
+
       await storeApi.fetchData(
         {},
         JSON.stringify({
