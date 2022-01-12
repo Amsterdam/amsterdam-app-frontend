@@ -3,9 +3,13 @@ import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {Notification as NotificationType, ProjectTitles} from '../../../types'
+import {
+  FrontEndNotification,
+  Notification as NotificationType,
+  ProjectTitles,
+} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
-import {joinedProjectTitles} from '../project'
+import {createProjectTitlesDictionary} from '../project'
 import {
   getSubscribedProjects,
   NoNotificationsMessage,
@@ -34,7 +38,7 @@ export const NotificationOverview = () => {
   })
 
   // Retrieve notifications for subscribed projects
-  const {data: rawNotifications, isLoading: isNotificationsLoading} = useFetch<
+  const {data: notifications, isLoading: isNotificationsLoading} = useFetch<
     NotificationType[]
   >({
     url: getEnvironment().apiUrl + '/notifications',
@@ -61,7 +65,7 @@ export const NotificationOverview = () => {
     return <PleaseWait />
   }
 
-  if (!rawNotifications || !rawNotifications.length) {
+  if (!notifications || !notifications.length) {
     return (
       <Box>
         <Text>Geen berichten gevonden.</Text>
@@ -70,10 +74,10 @@ export const NotificationOverview = () => {
   }
 
   // Create mapping from project id to titles
-  const projectTitles = joinedProjectTitles(projects)
+  const projectTitlesDictionary = createProjectTitlesDictionary(projects)
 
   // Add read state and project titles to notification
-  const notifications: NotificationType[] = rawNotifications.map(
+  const extendedNotifications: FrontEndNotification[] = notifications.map(
     notification => ({
       ...notification,
       isRead:
@@ -81,13 +85,13 @@ export const NotificationOverview = () => {
         notificationSettings?.readIds?.includes(
           notification.news_identifier ?? notification.warning_identifier ?? '',
         ),
-      projectTitle: projectTitles[notification.project_identifier],
+      projectTitle: projectTitlesDictionary[notification.project_identifier],
     }),
   )
 
   return (
     <FlatList
-      data={notifications}
+      data={extendedNotifications}
       keyExtractor={item => item.publication_date}
       renderItem={({item}) => <Notification notification={item} />}
     />
