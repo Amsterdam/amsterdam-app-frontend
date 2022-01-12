@@ -18,7 +18,7 @@ import {
 } from '../../components/ui/layout'
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
-import {NewNotification, Notification, WarningResponse} from '../../types'
+import {DraftNotification, Notification, WarningResponse} from '../../types'
 import {encryptWithAES} from '../../utils'
 import {NotificationContext, NotificationStackParams} from './'
 
@@ -90,7 +90,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   const sendNotificationToBackend = (
     articleIdentifier: Pick<
-      NewNotification,
+      DraftNotification,
       'news_identifier' | 'warning_identifier'
     >,
   ) => {

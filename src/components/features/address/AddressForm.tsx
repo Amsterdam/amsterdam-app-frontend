@@ -31,13 +31,13 @@ export const AddressForm = () => {
 
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
 
-  const apiAddress = useFetch<any>({
+  const addressApi = useFetch<any>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
   })
 
-  const apiBag = useFetch<BagResponse[]>({
+  const bagApi = useFetch<BagResponse[]>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
@@ -99,30 +99,30 @@ export const AddressForm = () => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    apiBag.fetchData({q: street})
+    bagApi.fetchData({q: street})
   }, [street])
 
   useEffect(() => {
     const streetWithoutWeespSuffix = removeWeespSuffix(street)
     isStreetSelected && isNumberSelected
-      ? apiAddress.fetchData({
+      ? addressApi.fetchData({
           q: `${streetWithoutWeespSuffix} ${number}`,
         })
-      : apiBag.fetchData({
+      : bagApi.fetchData({
           q: `${streetWithoutWeespSuffix} ${number}`,
         })
   }, [number, isNumberSelected, isStreetSelected])
 
   useEffect(() => {
-    const suggestions = apiBag.data?.find(
+    const suggestions = bagApi.data?.find(
       item => item.label === 'Straatnamen' || item.label === 'Adressen',
     )
     setBagList(suggestions?.content)
-  }, [apiBag.data])
+  }, [bagApi.data])
 
   useEffect(() => {
-    setAddress(apiAddress.data)
-  }, [apiAddress.data])
+    setAddress(addressApi.data)
+  }, [addressApi.data])
 
   useEffect(() => {
     if (address) {

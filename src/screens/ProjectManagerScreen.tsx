@@ -19,7 +19,7 @@ import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
 import {color, size} from '../tokens'
-import {ProjectOverviewItem} from '../types'
+import {ProjectTitles} from '../types'
 import {encryptWithAES} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
@@ -32,19 +32,19 @@ type Props = {
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-  const [allProjects, setAllProjects] = useState<
-    ProjectOverviewItem[] | undefined
+  const [projectTitles, setProjectTitles] = useState<
+    ProjectTitles[] | undefined
   >()
   const [authorizedProjects, setAuthorizedProjects] =
-    useState<ProjectOverviewItem[]>()
-  const idFromParams = route.params?.id
+    useState<ProjectTitles[]>()
+  const projectManagerId = route.params?.id
 
   const authToken = encryptWithAES({
     password: '6886b31dfe27e9306c3d2b553345d9e5',
-    plaintext: idFromParams,
+    plaintext: projectManagerId,
   })
 
-  const apiProjectManager = useFetch<any>({
+  const projectManagerApi = useFetch<any>({
     url: getEnvironment().apiUrl + '/project/manager',
     onLoad: false,
     options: {
@@ -52,50 +52,55 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         'Content-Type': 'application/json',
         UserAuthorization: authToken,
       }),
-      params: {id: idFromParams},
+      params: {id: projectManagerId},
     },
   })
 
-  const apiProjects = useFetch<ProjectOverviewItem[]>({
+  const projectsApi = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
     onLoad: false,
   })
 
   useEffect(() => {
-    idFromParams && apiProjectManager.fetchData()
-  }, [idFromParams]) // eslint-disable-line react-hooks/exhaustive-deps
+    projectManagerId && projectManagerApi.fetchData()
+  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    apiProjects.fetchData()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    projectManagerId && projectsApi.fetchData()
+  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const storeProjectManagerSettings = useCallback(async () => {
-    if (apiProjectManager.data) {
+    if (projectManagerApi.data) {
       const newProjectManagerSettings = {
-        id: idFromParams,
-        projects: apiProjectManager.data[0].projects,
+        id: projectManagerId,
+        projects: projectManagerApi.data[0].projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
     }
-  }, [apiProjectManager.data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectManagerApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
   useEffect(() => {
-    apiProjects.data && setAllProjects(apiProjects.data)
-  }, [apiProjects.data])
+    projectsApi.data && setProjectTitles(projectsApi.data)
+  }, [projectsApi.data])
 
   useEffect(() => {
-    if (allProjects && projectManagerSettings?.projects) {
+    if (projectTitles && projectManagerSettings?.projects) {
       setAuthorizedProjects(
-        allProjects.filter(project =>
+        projectTitles.filter(project =>
           projectManagerSettings?.projects.includes(project.identifier),
         ),
       )
     }
-  }, [allProjects, projectManagerSettings?.projects])
+  }, [projectTitles, projectManagerSettings?.projects])
 
   return authorizedProjects === undefined &&
     projectManagerSettings?.projects ? (

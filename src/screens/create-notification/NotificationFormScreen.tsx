@@ -14,7 +14,7 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {NewNotification} from '../../types'
+import {DraftNotification} from '../../types'
 import {formatTime} from '../../utils'
 import {
   NotificationContext,
@@ -62,7 +62,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     : 0
 
   const onSubmit = (data: FormData) => {
-    const notificationData: NewNotification = {
+    const notificationData: DraftNotification = {
       title: data.title,
       body: data.message,
       project_identifier: notificationContext.projectDetails.id!,
