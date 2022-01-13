@@ -1,13 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {AlertContext} from '../../providers'
 import {color} from '../../tokens'
 import {Text, Title} from '.'
 
-type Props = {
-  variant: 'success' | 'failure'
-}
-
-export const Alert = ({variant}: Props) => {
+export const Alert = () => {
+  const {content, variant} = useContext(AlertContext)
   const styles = StyleSheet.create({
     bar: {
       backgroundColor:
@@ -16,9 +14,13 @@ export const Alert = ({variant}: Props) => {
   })
 
   return (
-    <View style={styles.bar}>
-      <Title text="Gelukt" />
-      <Text>Het adres is verwijderd uit uw profiel</Text>
-    </View>
+    <>
+      {content?.title && content.text && (
+        <View style={styles.bar}>
+          <Title text={content.title} />
+          <Text>{content.text}</Text>
+        </View>
+      )}
+    </>
   )
 }
