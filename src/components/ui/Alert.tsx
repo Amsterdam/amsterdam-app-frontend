@@ -7,7 +7,7 @@ type Props = {
   variant: 'success' | 'failure'
 }
 
-export const AlertBar = ({variant}: Props) => {
+export const Alert = ({variant}: Props) => {
   const styles = StyleSheet.create({
     bar: {
       backgroundColor:
