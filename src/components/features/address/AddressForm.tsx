@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {StackParams} from '../../../app/navigation'
-import {useAsyncStorage, useFetch} from '../../../hooks'
+import {useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {
@@ -15,7 +15,11 @@ import {
 import {Box} from '../../ui'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = () => {
+export const AddressForm = ({
+  saveInAsyncStorage = true,
+}: {
+  saveInAsyncStorage?: boolean
+}) => {
   const [address, setAddress] = useState<ResponseAddress | null>(null)
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -68,8 +72,6 @@ export const AddressForm = () => {
     setIsStreetSelected(true)
   }
 
-  const asyncStorage = useAsyncStorage()
-
   const transformAddress = (responseAddress: Address) => {
     const {
       adres,
@@ -91,10 +93,6 @@ export const AddressForm = () => {
       straatnaam,
       woonplaats,
     }
-  }
-
-  const storeAddress = async (transformedAddress: Address) => {
-    await asyncStorage.storeData('address', transformedAddress)
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -127,10 +125,10 @@ export const AddressForm = () => {
   useEffect(() => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
-      addressContext.changeAddress(transformedAddress)
-      addressContext.saveInStore
-        ? storeAddress(transformedAddress).then(() => navigation.goBack())
-        : navigation.goBack()
+      saveInAsyncStorage
+        ? addressContext.saveAddress(transformedAddress)
+        : addressContext.changeTempAddress(transformedAddress)
+      navigation.goBack()
     }
   }, [address])
 
