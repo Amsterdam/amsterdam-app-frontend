@@ -66,6 +66,7 @@ export const WasteGuideByAddress = () => {
     return (
       <AddressFormTeaser
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
+        saveInAsyncStorage={false}
         title="Uw adres"
       />
     )
