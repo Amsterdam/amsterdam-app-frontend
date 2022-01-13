@@ -32,7 +32,6 @@ platform :ios do
     get_provisioning_profile( # Create or get provisioning profile
       output_path: "./builds",  # Download provisioning profile in the build folder
     )
-    xcversion(version: "~> 13.1.0")
     build_app(
       workspace: "StadsApp.xcworkspace",
       scheme: "StadsApp",
