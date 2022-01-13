@@ -29,10 +29,12 @@ export const AddressProvider = ({children}: {children: React.ReactNode}) => {
     setAddress(newAddress)
   }, [asyncStorage])
 
+  // Initially retrieve address from local storage
   useEffect(() => {
     retrieveAddress()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Also retrieve new address from local storage when new one is saved
   useEffect(() => {
     isAddressSaved && retrieveAddress()
   }, [isAddressSaved, retrieveAddress])
