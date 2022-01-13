@@ -1,14 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
+import React, {useContext} from 'react'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useAsyncStorage} from '../../../hooks'
-import {Address as AddressType} from '../../../types'
+import {AddressContext} from '../../../providers'
 import {
   Attention,
-  Box,
   Button,
   Card,
   CardBody,
@@ -21,34 +18,12 @@ import {Gutter, Row} from '../../ui/layout'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {
-  const [address, setAddress] = useState<AddressType | undefined>(undefined)
-  const [isLoading, setLoading] = useState(true)
-
-  const asyncStorage = useAsyncStorage()
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-
-  const retrieveAddress = useCallback(async () => {
-    const addressFromStore = await asyncStorage.getValue('address')
-    setAddress(addressFromStore)
-    setLoading(false)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    retrieveAddress()
-    const willFocusSubscription = navigation.addListener('focus', () => {
-      retrieveAddress()
-    })
-
-    return willFocusSubscription
-  }, [navigation, retrieveAddress])
+  const {address} = useContext(AddressContext)
 
   return (
     <>
-      {isLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      ) : address ? (
+      {address ? (
         <Card>
           <CardBody>
             <SingleSelectable>
