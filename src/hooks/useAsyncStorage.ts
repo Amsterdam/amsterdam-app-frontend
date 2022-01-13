@@ -24,6 +24,16 @@ export const useAsyncStorage = () => {
     }
   }
 
+  const removeValue = async (key: string) => {
+    try {
+      await AsyncStorage.removeItem(key)
+    } catch (e) {
+      setError(e)
+    }
+
+    console.log('Done.')
+  }
+
   const clear = async () => {
     const clearAsyncStorage = () => {
       try {
@@ -58,5 +68,5 @@ export const useAsyncStorage = () => {
     }
   }
 
-  return {clear, error, getAllValues, getValue, storeData}
+  return {clear, error, getAllValues, getValue, removeValue, storeData}
 }
