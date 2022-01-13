@@ -31,20 +31,19 @@ export type ActionStackParams = {
 }
 
 export type HomeStackParams = {
-  AddressForm: undefined
   Home: undefined
-  NotificationOverview: undefined
-  ProjectOverview: undefined
-  Settings: undefined
-  WasteGuide: undefined
 }
 
 export type MenuStackParams = {
-  AddressForm: undefined
   Admin: undefined
   Contact: undefined
   Menu: undefined
+}
+
+export type SharedStackParams = {
+  AddressForm: {saveInAsyncStorage?: boolean}
   Notification: {projectDetails: ProjectDetails}
+  NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
   ProjectManager: {id: string}
@@ -58,4 +57,7 @@ export type MenuStackParams = {
   WhereToPutBulkyWaste: undefined
 }
 
-export type StackParams = ActionStackParams & HomeStackParams & MenuStackParams
+export type StackParams = ActionStackParams &
+  HomeStackParams &
+  MenuStackParams &
+  SharedStackParams
