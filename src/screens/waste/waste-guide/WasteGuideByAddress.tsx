@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
@@ -16,9 +16,8 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {useAsyncStorage, useFetch} from '../../../hooks'
+import {useFetch} from '../../../hooks'
 import {AddressContext} from '../../../providers'
-import {Address} from '../../../types'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
   transformWasteGuideResponse,
@@ -29,12 +28,10 @@ import {
 } from './'
 
 export const WasteGuideByAddress = () => {
-  const [address, setAddress] = useState<Address | undefined>(undefined)
+  const {address, tempAddress} = useContext(AddressContext)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
-  const addressContext = useContext(AddressContext)
-  const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'WasteGuide'>>()
 
@@ -44,48 +41,28 @@ export const WasteGuideByAddress = () => {
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
 
-  const retrieveAddress = useCallback(async () => {
-    const retrievedAddress = await asyncStorage.getValue('address')
-    retrievedAddress && setAddress(retrievedAddress)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    retrieveAddress()
-  }, [retrieveAddress])
-
-  useEffect(() => {
-    setAddress(addressContext.address)
-  }, [addressContext.address])
+  const tempOrSavedAddress = tempAddress ?? address
 
   useEffect(() => {
     wasteGuideEndpoint.fetchData({
-      lon: address?.centroid[0] ?? '',
-      lat: address?.centroid[1] ?? '',
+      lon: tempOrSavedAddress?.centroid[0] ?? '',
+      lat: tempOrSavedAddress?.centroid[1] ?? '',
     })
-  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [tempOrSavedAddress]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(transformWasteGuideResponse(wasteGuideEndpoint.data, address))
-  }, [address, wasteGuideEndpoint.data])
-
-  useEffect(() => {
-    return () => {
-      addressContext.changeSaveInStore(true)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    !address && addressContext && addressContext.changeSaveInStore(false)
-  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
+    setWasteGuide(
+      transformWasteGuideResponse(wasteGuideEndpoint.data, tempOrSavedAddress),
+    )
+  }, [tempOrSavedAddress, wasteGuideEndpoint.data])
 
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    addressContext.changeSaveInStore(false)
-    navigation.navigate(routes.addressForm.name)
+    navigation.navigate(routes.addressForm.name, {saveInAsyncStorage: false})
   }
 
-  if (!address) {
+  if (!tempOrSavedAddress) {
     return (
       <AddressFormTeaser
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
@@ -100,7 +77,7 @@ export const WasteGuideByAddress = () => {
         <SingleSelectable>
           <Text>Afvalinformatie voor</Text>
           <Gutter height="xs" />
-          <Title text={address.adres} />
+          <Title text={tempOrSavedAddress.adres} />
           <Gutter height="sm" />
         </SingleSelectable>
         <Row align="start">
@@ -123,7 +100,7 @@ export const WasteGuideByAddress = () => {
             </CardBody>
           </Card>
         ) : wasteGuideLength === 0 ? (
-          <WasteGuideByAddressNoDetails address={address} />
+          <WasteGuideByAddressNoDetails address={tempOrSavedAddress} />
         ) : (
           <>
             {wasteGuide?.[WasteType.Bulky] && (
