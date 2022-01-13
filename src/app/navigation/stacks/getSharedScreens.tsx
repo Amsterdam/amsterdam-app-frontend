@@ -14,6 +14,7 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from '../../../screens'
+import {CreateNotificationScreen} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
 import {routes} from '../routes'
 
@@ -25,6 +26,11 @@ export const getSharedScreens = (
       component={AddressFormScreen}
       name={routes.addressForm.name}
       options={routes.addressForm.options}
+    />
+    <Stack.Screen
+      component={CreateNotificationScreen}
+      name={routes.notification.name}
+      options={routes.notification.options}
     />
     <Stack.Screen
       component={NotificationOverviewScreen}
