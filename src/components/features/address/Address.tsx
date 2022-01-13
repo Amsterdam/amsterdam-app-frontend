@@ -19,7 +19,7 @@ import {AddressFormTeaser} from './'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const {address} = useContext(AddressContext)
+  const {address, removeAddress} = useContext(AddressContext)
 
   return (
     <>
@@ -42,7 +42,7 @@ export const Address = () => {
               <TextButton
                 emphasis
                 icon="remove"
-                onPress={() => console.log('remove')}
+                onPress={removeAddress}
                 text="Verwijder adres"
               />
             </Row>
