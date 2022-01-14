@@ -51,6 +51,7 @@ export type SharedStackParams = {
   ProjectOverview: undefined
   ProjectOverviewByDistrict: {id: number}
   ProjectWarning: {id: string}
+  Settings: undefined
   WasteGuide: undefined
   WasteMenu: undefined
   WebView: WebViewRouteParams
