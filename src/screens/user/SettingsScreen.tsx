@@ -5,11 +5,12 @@ import {
   ProjectManagerSettings,
   ProjectNotificationSettings,
 } from '../../components/features/settings'
-import {Box} from '../../components/ui'
+import {Alert, Box} from '../../components/ui'
 import {Column, Gutter, ScrollView} from '../../components/ui/layout'
 
 export const SettingsScreen = () => (
   <ScrollView>
+    <Alert />
     <Gutter height="md" />
     <Column gutter="md">
       <Address />
