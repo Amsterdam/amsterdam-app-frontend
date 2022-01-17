@@ -1,15 +1,16 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import React from 'react'
+import {TabBar} from '../../components/ui/navigation'
 import {routes, tabs} from './routes'
-import {tabScreenOptions} from './'
-import {ActionStack, HomeStack, MenuStack} from './index'
+import {ActionStack, HomeStack, MenuStack, tabScreenOptions} from './'
 
 const Tab = createBottomTabNavigator()
 
 export const TabNavigator = () => (
   <Tab.Navigator
     initialRouteName={tabs.home.name}
-    screenOptions={tabScreenOptions}>
+    screenOptions={tabScreenOptions}
+    tabBar={props => <TabBar {...props} />}>
     <Tab.Screen
       component={HomeStack}
       name={tabs.home.name}
