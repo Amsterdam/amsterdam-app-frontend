@@ -11,7 +11,7 @@ import {Text, Title} from '.'
 export const Alert = () => {
   const {changeVisibility, content, isVisible, maxHeight, variant} =
     useContext(AlertContext)
-  const fadeAnim = useRef(new Animated.Value(0)).current
+  const maxHeightAnim = useRef(new Animated.Value(0)).current
 
   const hideAlert = () => {
     changeVisibility(false)
@@ -19,18 +19,18 @@ export const Alert = () => {
 
   useLayoutEffect(() => {
     if (isVisible) {
-      Animated.timing(fadeAnim, {
+      Animated.timing(maxHeightAnim, {
         easing: Easing.bezier(0, 1, 0, 1),
         toValue: maxHeight,
         useNativeDriver: false,
       }).start()
     } else {
-      Animated.timing(fadeAnim, {
+      Animated.timing(maxHeightAnim, {
         toValue: 0,
         useNativeDriver: false,
       }).start()
     }
-  }, [isVisible, fadeAnim, maxHeight])
+  }, [isVisible, maxHeightAnim, maxHeight])
 
   const styles = StyleSheet.create({
     alert: {
@@ -47,7 +47,7 @@ export const Alert = () => {
   })
 
   return (
-    <Animated.View style={[styles.alert, {maxHeight: fadeAnim}]}>
+    <Animated.View style={[styles.alert, {maxHeight: maxHeightAnim}]}>
       <View style={styles.inner}>
         <Row align="between">
           <Title inverse text={content?.title!} />
