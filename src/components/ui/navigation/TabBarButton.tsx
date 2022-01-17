@@ -4,10 +4,11 @@ import {
 } from '@react-navigation/bottom-tabs'
 import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types'
 import React, {useContext} from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {DeviceContext} from '../../../providers'
 import {color} from '../../../tokens'
 import {Text} from '../Text'
+import {Gutter} from '../layout'
 
 type Props = {
   isFocused: boolean
@@ -65,34 +66,43 @@ export const TabBarButton = ({
       accessibilityState={isFocused ? {selected: true} : {}}
       onPress={onPress}
       onLongPress={onLongPress}
-      style={[
-        styles.tabBarButton,
-        horizontal && styles.horizontal,
-        isFocused && dynamicStyles.focus,
-      ]}>
-      {options.tabBarIcon &&
-        options.tabBarIcon({
-          focused: isFocused,
-          color: '',
-          size: 0,
-        })}
-      <Text allowFontScaling={false} small>
-        {label}
-      </Text>
+      style={styles.tabBarButton}>
+      <View
+        style={[
+          styles.container,
+          isFocused && dynamicStyles.focus,
+          horizontal && styles.horizontal,
+        ]}>
+        {options.tabBarIcon &&
+          options.tabBarIcon({
+            focused: isFocused,
+            color: '',
+            size: 0,
+          })}
+        {horizontal && <Gutter width="sm" />}
+        <Text allowFontScaling={false} small>
+          {label}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    minWidth: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 5,
+    borderTopWidth: 3,
+    borderTopColor: 'transparent',
+  },
   horizontal: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    paddingHorizontal: 20,
   },
   tabBarButton: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    borderTopWidth: 3,
-    borderTopColor: 'transparent',
   },
 })

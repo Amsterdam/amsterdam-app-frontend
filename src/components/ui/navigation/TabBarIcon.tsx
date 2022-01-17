@@ -15,7 +15,7 @@ export const TabBarIcon = ({focused, name}: Props) => {
     action: {
       component: Melden,
       inactiveColor: color.touchable.primary,
-      marginTop: -24,
+      marginTop: -28,
       paddingBottom: 0,
       size: 56,
     },
@@ -23,14 +23,14 @@ export const TabBarIcon = ({focused, name}: Props) => {
       component: Housing,
       inactiveColor: color.font.regular,
       marginTop: 0,
-      paddingBottom: 8,
+      paddingBottom: 4,
       size: 24,
     },
     menu: {
       component: Menu,
       inactiveColor: color.font.regular,
       marginTop: 0,
-      paddingBottom: 8,
+      paddingBottom: 4,
       size: 24,
     },
   }
@@ -41,10 +41,11 @@ export const TabBarIcon = ({focused, name}: Props) => {
     ? color.touchable.secondary
     : icon.inactiveColor
 
-  const dynamicStyles = StyleSheet.create({
+  const styles = StyleSheet.create({
     icon: {
       fill: foregroundColour,
       width: icon.size,
+      aspectRatio: 1,
       marginTop: icon.marginTop,
     },
     tabBarIcon: {
@@ -55,18 +56,8 @@ export const TabBarIcon = ({focused, name}: Props) => {
   console.log('TabBarIcon', name)
 
   return (
-    <View style={[styles.tabBarIcon, dynamicStyles.tabBarIcon]}>
-      <Icon style={[styles.icon, dynamicStyles.icon]} />
+    <View style={styles.tabBarIcon}>
+      <Icon style={styles.icon} />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    aspectRatio: 1,
-  },
-  tabBarIcon: {
-    paddingHorizontal: 20,
-    paddingTop: 5,
-  },
-})
