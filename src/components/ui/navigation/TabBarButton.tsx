@@ -6,6 +6,7 @@ import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs/lib/typescript
 import React, {useContext} from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
 import {DeviceContext} from '../../../providers'
+import {color} from '../../../tokens'
 import {Text} from '../Text'
 
 type Props = {
@@ -49,6 +50,15 @@ export const TabBarButton = ({
     })
   }
 
+  const dynamicStyles = StyleSheet.create({
+    focus: {
+      borderTopColor:
+        options.tabBarLabel === 'Melden'
+          ? 'transparent'
+          : color.touchable.secondary,
+    },
+  })
+
   return (
     <TouchableOpacity
       accessibilityRole="button"
@@ -57,7 +67,8 @@ export const TabBarButton = ({
       onLongPress={onLongPress}
       style={[
         styles.tabBarButton,
-        horizontal && styles.tabBarButtonHorizontal,
+        horizontal && styles.horizontal,
+        isFocused && dynamicStyles.focus,
       ]}>
       {options.tabBarIcon &&
         options.tabBarIcon({
@@ -73,13 +84,15 @@ export const TabBarButton = ({
 }
 
 const styles = StyleSheet.create({
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   tabBarButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  tabBarButtonHorizontal: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    borderTopWidth: 3,
+    borderTopColor: 'transparent',
   },
 })

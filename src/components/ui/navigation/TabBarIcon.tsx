@@ -50,21 +50,12 @@ export const TabBarIcon = ({focused, name}: Props) => {
     tabBarIcon: {
       paddingBottom: icon.paddingBottom,
     },
-    tabBarIconFocused: {
-      borderTopColor:
-        name === 'action' ? 'transparent' : color.touchable.secondary,
-    },
   })
 
   console.log('TabBarIcon', name)
 
   return (
-    <View
-      style={[
-        styles.tabBarIcon,
-        dynamicStyles.tabBarIcon,
-        focused && dynamicStyles.tabBarIconFocused,
-      ]}>
+    <View style={[styles.tabBarIcon, dynamicStyles.tabBarIcon]}>
       <Icon style={[styles.icon, dynamicStyles.icon]} />
     </View>
   )
@@ -77,7 +68,5 @@ const styles = StyleSheet.create({
   tabBarIcon: {
     paddingHorizontal: 20,
     paddingTop: 5,
-    borderTopWidth: 3,
-    borderTopColor: 'transparent',
   },
 })
