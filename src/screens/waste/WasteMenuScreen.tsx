@@ -54,7 +54,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
 
   const itemDimension = device.isPortrait
     ? device.width
-    : 24 * size.spacing.md * device.fontScale
+    : 24 * size.spacing.md * Math.max(device.fontScale, 1)
 
   return (
     <FlatGrid
