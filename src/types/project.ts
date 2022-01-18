@@ -25,13 +25,9 @@ export type ProjectTitles = Pick<
 
 // All project details as received from our backend
 export type ProjectDetail = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
-    coordinates: {
-      lat: number
-      lon: number
-    }
     intro: Section[]
     'more-info': Section[]
     timeline: Timeline
@@ -39,6 +35,10 @@ export type ProjectDetail = {
     when: Section[]
     where: Section[]
     work: Section[]
+  }
+  coordinates: {
+    lat: number
+    lon: number
   }
   district_id: number
   district_name: string
