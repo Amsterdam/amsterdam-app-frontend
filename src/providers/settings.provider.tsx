@@ -24,7 +24,7 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     const settingsFromStore = Object.fromEntries(data ?? [])
 
     let parsedSettings = {} as Record<string, string>
-    for (var x in settingsFromStore) {
+    for (let x in settingsFromStore) {
       parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
     }
 
