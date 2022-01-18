@@ -35,7 +35,9 @@ export const Notification = ({notification}: Props) => {
   }
 
   return (
-    <TouchableOpacity onPress={() => navigateToArticle()}>
+    <TouchableOpacity
+      onPress={() => navigateToArticle()}
+      accessibilityRole="button">
       <SingleSelectable
         style={[styles.notification, !notification.isRead && styles.notRead]}
         accessibilityLabel={accessibleText(
