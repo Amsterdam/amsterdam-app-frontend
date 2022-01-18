@@ -11,6 +11,7 @@ import {StackParams, TabParams} from './types'
 
 type MenuItem = {
   icon: React.ReactNode
+  label: string
   name: string
   route: keyof StackParams
 }
@@ -22,11 +23,13 @@ const iconProps = {
 const menu: MenuItem[] = [
   {
     icon: <BellInactive {...iconProps} />,
+    label: 'Berichten',
     name: 'notifications',
     route: routes.notificationOverview.name,
   },
   {
     icon: <PersonalLogin {...iconProps} />,
+    label: 'Instellingen',
     name: 'settings',
     route: routes.settings.name,
   },
@@ -38,11 +41,13 @@ export const HeaderNavigation = () => {
 
   return (
     <Row gutter="md">
-      {menu.map(({icon, name, route}) => (
+      {menu.map(({icon, label, name, route}) => (
         <TouchableOpacity
+          accessibilityLabel={label}
+          accessibilityRole="button"
+          key={name}
           onPress={() => navigation.navigate(route)}
-          style={styles.icon}
-          key={name}>
+          style={styles.icon}>
           {icon}
         </TouchableOpacity>
       ))}
