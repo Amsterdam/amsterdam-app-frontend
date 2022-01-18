@@ -3,7 +3,7 @@ import React, {useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import CircleIcon from '../../../assets/icons/circle.svg'
 import {color, size} from '../../../tokens'
-import {Center} from '../../ui/layout'
+import {Center} from '../layout'
 import {RadioContext} from './'
 
 type Props = {
