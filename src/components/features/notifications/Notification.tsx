@@ -6,13 +6,13 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {BellActive, BellInactive} from '../../../assets/icons'
 import {color, size} from '../../../tokens'
-import {Notification as NotificationType} from '../../../types'
+import {FrontEndNotification} from '../../../types'
 import {accessibleText, formatDate, formatTime} from '../../../utils'
 import {SingleSelectable, Text} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 
 type Props = {
-  notification: NotificationType
+  notification: FrontEndNotification
 }
 
 export const Notification = ({notification}: Props) => {
