@@ -53,8 +53,6 @@ export const TabBarIcon = ({focused, name}: Props) => {
     },
   })
 
-  console.log('TabBarIcon', name)
-
   return (
     <View style={styles.tabBarIcon}>
       <Icon style={styles.icon} />
