@@ -12,7 +12,7 @@ import {Column} from '../../ui/layout'
 import {ArticlePreview} from './'
 
 type Props = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: ProjectDetailArticlePreview[]
 }
 
 export const ArticleOverview = ({articles}: Props) => {
@@ -20,7 +20,7 @@ export const ArticleOverview = ({articles}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
 
-  if (!articles.length) {
+  if (!articles?.length) {
     return null
   }
 

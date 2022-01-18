@@ -82,7 +82,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
                 onPress={() =>
                   navigation.navigate(routes.notification.name, {
                     projectDetails: {
-                      articles: project.articles,
+                      articles: project.articles ?? [],
                       id: project.identifier,
                       title: project.title,
                     },
@@ -111,7 +111,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
         </Box>
-        {project.articles.length ? (
+        {project.articles?.length ? (
           <Box>
             <ArticleOverview articles={project.articles} />
           </Box>

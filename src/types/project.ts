@@ -25,7 +25,7 @@ export type ProjectTitles = Pick<
 
 // All project details as received from our backend
 export type ProjectDetail = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
     coordinates: {

@@ -52,7 +52,7 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: ProjectDetailArticlePreview[]
   id: string
   title: string
 }
