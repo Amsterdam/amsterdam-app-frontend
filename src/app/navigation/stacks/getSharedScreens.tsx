@@ -6,6 +6,7 @@ import {
   ProjectDetailScreen,
   ProjectManagerScreen,
   ProjectNewsScreen,
+  ProjectOverviewByDistrictScreen,
   ProjectOverviewScreen,
   ProjectWarningScreen,
   SettingsScreen,
@@ -61,6 +62,11 @@ export const getSharedScreens = (
       component={ProjectOverviewScreen}
       name={routes.projectOverview.name}
       options={routes.projectOverview.options}
+    />
+    <Stack.Screen
+      component={ProjectOverviewByDistrictScreen}
+      name={routes.projectOverviewByDistrict.name}
+      options={routes.projectOverviewByDistrict.options}
     />
     <Stack.Screen
       component={ProjectWarningScreen}
