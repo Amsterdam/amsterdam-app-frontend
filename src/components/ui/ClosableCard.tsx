@@ -18,7 +18,10 @@ export const ClosableCard = ({children, title}: Props) => {
   return (
     <Card>
       <CardHeader>
-        <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityState={{expanded: isOpen}}
+          onPress={() => setIsOpen(!isOpen)}>
           <Row align="between" valign="center">
             <Title level={2} text={title} />
             <View style={styles.toggle}>
