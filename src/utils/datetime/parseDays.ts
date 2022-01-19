@@ -1,4 +1,4 @@
-import {days} from '../index'
+import {days} from './days'
 
 /**
  * Returns an array of day names found in a string.

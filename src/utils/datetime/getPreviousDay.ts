@@ -1,4 +1,4 @@
-import {days} from '../index'
+import {days} from './days'
 
 /**
  * Returns the name of the previous day.
