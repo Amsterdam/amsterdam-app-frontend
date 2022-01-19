@@ -23,6 +23,9 @@ export const stackScreenOptions: StackNavigationOptions = {
     elevation: 0,
     shadowOpacity: 0,
   },
+  headerLeftContainerStyle: {
+    paddingStart: size.spacing.md,
+  },
   headerRightContainerStyle: {
     paddingEnd: size.spacing.md,
   },
@@ -35,8 +38,9 @@ export const tabScreenOptions: BottomTabNavigationOptions = {
 
 const styles = StyleSheet.create({
   headerBackImage: {
-    paddingEnd: 24,
-    paddingStart: 16,
-    paddingVertical: 12,
+    marginLeft: -size.spacing.md,
+    paddingHorizontal: size.spacing.md + size.spacing.sm,
+    paddingStart: size.spacing.md,
+    paddingVertical: size.spacing.md - size.spacing.sm,
   },
 })
