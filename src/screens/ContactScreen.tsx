@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   CityOfficeOverview,
+  ContactOptions,
   ReferToWebsiteCard,
 } from '../components/features/contact'
 import {Box} from '../components/ui'
@@ -14,5 +15,6 @@ export const ContactScreen = () => (
         <ReferToWebsiteCard />
       </Column>
     </Box>
+    <ContactOptions />
   </ScrollView>
 )
