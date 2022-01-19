@@ -52,17 +52,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
-  bestWishes21: {
-    name: 'BestWishes21',
-    options: {
-      cardStyle: {
-        backgroundColor: color.touchable.secondary,
-      },
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Terugblikken & vooruitkijken" />
-      ),
-    },
-  },
   contact: {
     name: 'Contact',
     options: {
