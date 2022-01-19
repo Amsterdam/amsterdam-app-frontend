@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native'
 import {color} from '../../../tokens'
+import {accessibleText} from '../../../utils'
 import {SkipInScreenReader} from '../SkipInScreenReader'
 import {Row, Stretch} from '../layout'
 
@@ -24,10 +25,14 @@ export const Checkbox = ({
 }: Props) => {
   return (
     <TouchableHighlight
-      underlayColor={color.background.white}
+      accessibilityLabel={accessibleText(
+        accessibilityLabel,
+        'Keuzeknop',
+        value ? 'Geselecteerd' : 'Niet geselecteerd',
+      )}
       onPress={onValueChange}
-      accessibilityLabel={accessibilityLabel}>
-      <Row align="between" valign="center" gutter="md">
+      underlayColor={color.background.white}>
+      <Row align="between" gutter="md" valign="center">
         <View style={[styles.checkbox, value && styles.checked]}>
           {value && <Checkmark fill={color.font.inverse} />}
         </View>
