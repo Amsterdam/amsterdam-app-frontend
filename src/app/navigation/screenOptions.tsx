@@ -2,6 +2,7 @@ import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
+import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../tokens'
 
 export const stackScreenOptions: StackNavigationOptions = {
@@ -10,12 +11,9 @@ export const stackScreenOptions: StackNavigationOptions = {
   },
   headerBackAccessibilityLabel: 'Terug',
   headerBackImage: () => (
-    <ChevronLeft
-      width={20}
-      height={20}
-      fill={color.font.regular}
-      style={{marginLeft: -4}}
-    />
+    <View style={styles.headerBackImage}>
+      <ChevronLeft width={20} height={20} fill={color.font.regular} />
+    </View>
   ),
   headerBackTitleVisible: false,
   headerStyle: {
@@ -24,9 +22,6 @@ export const stackScreenOptions: StackNavigationOptions = {
     borderBottomWidth: 1,
     elevation: 0,
     shadowOpacity: 0,
-  },
-  headerLeftContainerStyle: {
-    paddingStart: size.spacing.md,
   },
   headerRightContainerStyle: {
     paddingEnd: size.spacing.md,
@@ -37,3 +32,11 @@ export const stackScreenOptions: StackNavigationOptions = {
 export const tabScreenOptions: BottomTabNavigationOptions = {
   headerShown: false,
 }
+
+const styles = StyleSheet.create({
+  headerBackImage: {
+    paddingEnd: 24,
+    paddingStart: 16,
+    paddingVertical: 12,
+  },
+})
