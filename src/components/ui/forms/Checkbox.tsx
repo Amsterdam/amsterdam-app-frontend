@@ -7,14 +7,13 @@ import {
   View,
 } from 'react-native'
 import {color} from '../../../tokens'
-import {accessibleText} from '../../../utils'
 import {SkipInScreenReader} from '../SkipInScreenReader'
 import {Row, Stretch} from '../layout'
 
 type Props = {
   label: ReactElement
   onValueChange: () => void
-  value: Boolean
+  value: boolean
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const Checkbox = ({
@@ -25,11 +24,9 @@ export const Checkbox = ({
 }: Props) => {
   return (
     <TouchableHighlight
-      accessibilityLabel={accessibleText(
-        accessibilityLabel,
-        'Keuzeknop',
-        value ? 'Geselecteerd' : 'Niet geselecteerd',
-      )}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="checkbox"
+      accessibilityState={{selected: value}}
       onPress={onValueChange}
       underlayColor={color.background.white}>
       <Row align="between" gutter="md" valign="center">
