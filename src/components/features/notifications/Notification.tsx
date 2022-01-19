@@ -17,6 +17,7 @@ type Props = {
 
 export const Notification = ({notification}: Props) => {
   const date = formatDate(notification.publication_date)
+  const time = formatTime(notification.publication_date)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Notification'>>()
 
@@ -34,15 +35,18 @@ export const Notification = ({notification}: Props) => {
   }
 
   return (
-    <TouchableOpacity onPress={() => navigateToArticle()}>
+    <TouchableOpacity
+      onPress={() => navigateToArticle()}
+      accessibilityRole="button">
       <SingleSelectable
         style={[styles.notification, !notification.isRead && styles.notRead]}
         accessibilityLabel={accessibleText(
-          notification.isRead ? 'Gelezen' : 'Ongelezen',
+          (notification.isRead ? 'Gelezen' : 'Ongelezen') + ' bericht',
           notification.title,
           notification.body,
           'over ' + notification.projectTitle,
           'op ' + date,
+          'om ' + time,
         )}>
         <Row gutter="sm">
           <View style={styles.icon}>
@@ -62,7 +66,7 @@ export const Notification = ({notification}: Props) => {
         <Text>{notification.body}</Text>
         <Gutter height="xs" />
         <Text small>
-          {date} {formatTime(notification.publication_date)}
+          {date} {time}
         </Text>
       </SingleSelectable>
     </TouchableOpacity>
