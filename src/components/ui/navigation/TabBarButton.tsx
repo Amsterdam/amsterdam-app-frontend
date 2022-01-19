@@ -7,6 +7,7 @@ import React, {useContext} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {DeviceContext} from '../../../providers'
 import {color} from '../../../tokens'
+import {accessibleText} from '../../../utils'
 import {Text} from '../Text'
 import {Gutter} from '../layout'
 
@@ -15,6 +16,10 @@ type Props = {
   navigation: BottomTabBarProps['navigation']
   options: BottomTabNavigationOptions
   route: BottomTabHeaderProps['route']
+  tabData: {
+    index: number
+    length: number
+  }
 }
 
 export const TabBarButton = ({
@@ -22,10 +27,15 @@ export const TabBarButton = ({
   navigation,
   options,
   route,
+  tabData,
 }: Props) => {
   const device = useContext(DeviceContext)
   const horizontal = device.width > 600
-  const label = options.tabBarLabel ?? options.title ?? route.name
+
+  const label =
+    typeof options.tabBarLabel === 'string'
+      ? options.tabBarLabel
+      : options.title ?? route.name
 
   const onPress = () => {
     const event = navigation.emit({
@@ -62,24 +72,27 @@ export const TabBarButton = ({
 
   return (
     <TouchableOpacity
-      accessibilityRole="button"
-      accessibilityState={isFocused ? {selected: true} : {}}
-      onPress={onPress}
+      accessibilityLabel={accessibleText(
+        label,
+        `${tabData.index + 1} van ${tabData.length}`,
+      )}
+      accessibilityRole="tab"
+      accessibilityState={{selected: isFocused}}
       onLongPress={onLongPress}
+      onPress={onPress}
       style={styles.tabBarButton}>
       <View
         style={[
           styles.container,
-          isFocused && dynamicStyles.focus,
           horizontal && styles.horizontal,
+          isFocused && dynamicStyles.focus,
         ]}>
-        {options.tabBarIcon &&
-          options.tabBarIcon({
-            focused: isFocused,
-            color: '',
-            size: 0,
-          })}
-        {horizontal && <Gutter width="sm" />}
+        {options.tabBarIcon!({
+          focused: isFocused,
+          color: '',
+          size: 0,
+        })}
+        {horizontal && label !== 'Melden' && <Gutter width="sm" />}
         <Text allowFontScaling={false} small>
           {label}
         </Text>

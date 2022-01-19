@@ -1,12 +1,12 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {color} from '../../../tokens'
+import {color, size} from '../../../tokens'
 import {TabBarButton} from './TabBarButton'
 import hairlineWidth = StyleSheet.hairlineWidth
 
 export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => (
-  <View style={styles.tabBar}>
+  <View accessibilityRole="tablist" style={styles.tabBar}>
     {state.routes.map((route, index) => {
       const {options} = descriptors[route.key]
 
@@ -17,6 +17,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => (
           navigation={navigation}
           options={options}
           route={route}
+          tabData={{index: index, length: state.routes.length}}
         />
       )
     })}
@@ -28,6 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: hairlineWidth,
     borderTopColor: color.border.default,
-    paddingBottom: 16,
+    paddingBottom: size.spacing.md,
   },
 })
