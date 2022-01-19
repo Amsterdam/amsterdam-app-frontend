@@ -27,6 +27,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => (
 const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
+    backgroundColor: color.background.white,
     borderTopWidth: hairlineWidth,
     borderTopColor: color.border.default,
     paddingBottom: size.spacing.md,
