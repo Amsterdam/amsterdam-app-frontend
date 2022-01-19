@@ -64,8 +64,8 @@ export const MenuScreen = ({navigation}: Props) => {
   }))
 
   const itemDimension = device.isPortrait
-    ? 8 * size.spacing.md * device.fontScale
-    : 12 * size.spacing.md * device.fontScale
+    ? 8 * size.spacing.md * Math.max(device.fontScale, 1)
+    : 12 * size.spacing.md * Math.max(device.fontScale, 1)
 
   return (
     <FlatGrid
