@@ -26,6 +26,7 @@ export const ContactOptions = () => {
       <Gutter height="md" />
       <Column gutter="sm">
         <TouchableOpacity
+          accessibilityRole="button"
           onPress={() =>
             navigation.navigate(routes.webView.name, {
               sliceFromTop: {portrait: 50, landscape: 50},
@@ -39,7 +40,9 @@ export const ContactOptions = () => {
             text="Reactie binnen 1 werkdag"
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => openPhoneUrl('+3114020')}>
+        <TouchableOpacity
+          accessibilityRole="button"
+          onPress={() => openPhoneUrl('+3114020')}>
           <ContactOption
             icon={<Phone fill={color.touchable.primary} />}
             title="Bel 14 020"
@@ -47,6 +50,7 @@ export const ContactOptions = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityRole="button"
           onPress={() => openWebUrl('https://wa.me/31644440655')}>
           <ContactOption
             icon={<Whatsapp fill={color.touchable.primary} />}
@@ -63,6 +67,7 @@ export const ContactOptions = () => {
       <Gutter height="md" />
       <Row gutter="lg">
         <TouchableOpacity
+          accessibilityRole="button"
           onPress={() =>
             openWebUrl('https://www.facebook.com/gemeenteamsterdam')
           }
@@ -70,11 +75,14 @@ export const ContactOptions = () => {
           <Facebook fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityRole="button"
           onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
           style={styles.icon}>
           <Twitter fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityLabel="Instagram"
+          accessibilityRole="button"
           onPress={() =>
             openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
           }

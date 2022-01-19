@@ -7,7 +7,16 @@ import {routes} from '../../../app/navigation/routes'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {CityOffice as CityOfficeType} from '../../../types/city'
-import {Button, CardBody, Image, PleaseWait, Text, Title} from '../../ui'
+import {accessibleText} from '../../../utils'
+import {
+  Button,
+  CardBody,
+  Image,
+  PleaseWait,
+  SingleSelectable,
+  Text,
+  Title,
+} from '../../ui'
 import {Column} from '../../ui/layout'
 
 type Props = {
@@ -45,8 +54,15 @@ export const CityOffice = ({id}: Props) => {
         <Column gutter="md">
           <View>
             <Title level={2} text={cityOffice.location} />
-            <Text>{addressLine1}</Text>
-            <Text>{addressLine2}</Text>
+            <SingleSelectable
+              accessibilityLabel={accessibleText(
+                'Adres',
+                addressLine1,
+                addressLine2,
+              )}>
+              <Text>{addressLine1}</Text>
+              <Text>{addressLine2}</Text>
+            </SingleSelectable>
           </View>
           <View>
             <Title level={4} text="Bezoek op afspraak" />

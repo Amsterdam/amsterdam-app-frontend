@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Box, Text, Title} from '../../ui'
+import {accessibleText} from '../../../utils'
+import {Box, SingleSelectable, Text, Title} from '../../ui'
 import {Row} from '../../ui/layout'
 
 type Props = {
@@ -13,10 +14,10 @@ export const ContactOption = ({icon, title, text}: Props) => (
   <Box background="grey">
     <Row gutter="md">
       <View style={styles.icon}>{icon}</View>
-      <View>
+      <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
         <Title level={4} text={title} />
         <Text>{text}</Text>
-      </View>
+      </SingleSelectable>
     </Row>
   </Box>
 )
