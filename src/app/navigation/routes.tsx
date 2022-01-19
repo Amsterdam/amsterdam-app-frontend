@@ -1,9 +1,6 @@
 import React from 'react'
-import {
-  NonScalingHeaderTitle,
-  NonScalingTabBarLabel,
-  TabBarIcon,
-} from '../../components/ui'
+import {NonScalingHeaderTitle} from '../../components/ui'
+import {TabBarIcon} from '../../components/ui/navigation'
 import {color} from '../../tokens'
 import {HeaderLogo} from './HeaderLogo'
 import {
@@ -17,23 +14,23 @@ export const tabs: TabNavigationRoutes<TabParams> = {
   action: {
     name: 'ActionTab',
     options: {
-      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="action" />,
-      tabBarLabel: () => <NonScalingTabBarLabel text="Melden" />,
+      tabBarIcon: props => <TabBarIcon {...props} name="action" />,
+      tabBarLabel: 'Melden',
     },
   },
   home: {
     name: 'HomeTab',
     options: {
-      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="home" />,
-      tabBarLabel: () => <NonScalingTabBarLabel text="Home" />,
+      tabBarIcon: props => <TabBarIcon {...props} name="home" />,
+      tabBarLabel: 'Home',
     },
   },
   menu: {
     name: 'MenuTab',
     options: {
       headerShown: false,
-      tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="menu" />,
-      tabBarLabel: () => <NonScalingTabBarLabel text="Menu" />,
+      tabBarIcon: props => <TabBarIcon {...props} name="menu" />,
+      tabBarLabel: 'Menu',
     },
   },
 }

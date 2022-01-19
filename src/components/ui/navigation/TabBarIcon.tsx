@@ -2,8 +2,8 @@ import Housing from '@amsterdam/asc-assets/static/icons/Housing.svg'
 import Menu from '@amsterdam/asc-assets/static/icons/Menu.svg'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import Melden from '../../assets/icons/melden.svg'
-import {color} from '../../tokens'
+import Melden from '../../../assets/icons/melden.svg'
+import {color} from '../../../tokens'
 
 type Props = {
   focused: boolean
@@ -15,19 +15,22 @@ export const TabBarIcon = ({focused, name}: Props) => {
     action: {
       component: Melden,
       inactiveColor: color.touchable.primary,
-      marginTop: -16,
+      marginTop: -28,
+      paddingBottom: 0,
       size: 56,
     },
     home: {
       component: Housing,
       inactiveColor: color.font.regular,
-      marginTop: undefined,
+      marginTop: 0,
+      paddingBottom: 4,
       size: 24,
     },
     menu: {
       component: Menu,
       inactiveColor: color.font.regular,
-      marginTop: undefined,
+      marginTop: 0,
+      paddingBottom: 4,
       size: 24,
     },
   }
@@ -39,27 +42,19 @@ export const TabBarIcon = ({focused, name}: Props) => {
     : icon.inactiveColor
 
   const styles = StyleSheet.create({
-    focused: {
-      borderTopColor:
-        name === 'action' ? 'transparent' : color.touchable.secondary,
-    },
     icon: {
       fill: foregroundColour,
       width: icon.size,
-      height: icon.size,
+      aspectRatio: 1,
       marginTop: icon.marginTop,
     },
     tabBarIcon: {
-      paddingHorizontal: 20,
-      paddingVertical: 4,
-      alignItems: 'center',
-      borderTopWidth: 3,
-      borderTopColor: 'transparent',
+      paddingBottom: icon.paddingBottom,
     },
   })
 
   return (
-    <View style={[styles.tabBarIcon, focused && styles.focused]}>
+    <View style={styles.tabBarIcon}>
       <Icon style={styles.icon} />
     </View>
   )

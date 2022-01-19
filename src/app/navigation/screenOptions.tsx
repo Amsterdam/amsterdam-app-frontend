@@ -36,7 +36,4 @@ export const stackScreenOptions: StackNavigationOptions = {
 
 export const tabScreenOptions: BottomTabNavigationOptions = {
   headerShown: false,
-  tabBarActiveTintColor: color.touchable.secondary,
-  tabBarInactiveTintColor: color.font.regular,
-  tabBarLabelStyle: {fontSize: 12, lineHeight: 16},
 }

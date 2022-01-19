@@ -17,8 +17,7 @@ export const ProjectNotificationSettings = () => {
     notificationSettings?.projects ?? {},
   )
 
-  // Toggle enabled notification settings
-  // and unsubscribe from all projects if disabling notifications
+  // Disabling notifications will unsubscribe all projects
   const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
     const projects = projectsEnabled
       ? notificationSettings?.projects ?? {}
