@@ -22,6 +22,7 @@ export const Radio = (props: Props) => {
     <Pressable
       {...(inputProps as PressableProps)}
       accessibilityRole="radio"
+      accessibilityState={{selected: isChecked}}
       style={[styles.radioButton]}>
       <Center
         style={[styles.outerCircle, isChecked && styles.outerCircleChecked]}>
