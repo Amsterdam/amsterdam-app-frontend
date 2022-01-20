@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {AddressContext, AlertContext} from '../../../providers'
+import {AlertContext, SettingsContext} from '../../../providers'
 import {
   Attention,
   Button,
@@ -19,11 +19,12 @@ import {AddressFormTeaser} from './'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const {address, removeAddress} = useContext(AddressContext)
+  const {removeSetting, settings} = useContext(SettingsContext)
+  const {address} = {...settings}
   const {changeContent, changeVariant} = useContext(AlertContext)
 
   const removeAddressAndShowAlert = () => {
-    removeAddress()
+    removeSetting('address')
     changeContent({
       title: 'Gelukt',
       text: 'Het adres is verwijderd uit uw profiel.',

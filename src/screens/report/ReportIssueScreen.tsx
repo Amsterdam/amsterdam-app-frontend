@@ -1,17 +1,18 @@
 import React, {useContext} from 'react'
 import {WebView} from '../../components/ui'
 import {getEnvironment} from '../../environment'
-import {AddressContext} from '../../providers'
+import {SettingsContext} from '../../providers'
 
 export const ReportIssueScreen = () => {
-  const addressContext = useContext(AddressContext)
+  const {settings} = useContext(SettingsContext)
+  const {address} = {...settings}
 
   return (
     <WebView
       url={`${getEnvironment().signalsBaseUrl}/incident/beschrijf`}
       urlParams={{
-        lat: addressContext.address?.centroid[1],
-        lng: addressContext.address?.centroid[0],
+        lat: address?.centroid[1],
+        lng: address?.centroid[0],
       }}
     />
   )

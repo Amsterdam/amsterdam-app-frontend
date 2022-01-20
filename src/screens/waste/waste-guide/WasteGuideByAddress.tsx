@@ -17,7 +17,7 @@ import {
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
-import {AddressContext} from '../../../providers'
+import {SettingsContext} from '../../../providers'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
   transformWasteGuideResponse,
@@ -28,7 +28,8 @@ import {
 } from './'
 
 export const WasteGuideByAddress = () => {
-  const {address, tempAddress} = useContext(AddressContext)
+  const {settings} = useContext(SettingsContext)
+  const {address, temp} = {...settings}
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -41,7 +42,7 @@ export const WasteGuideByAddress = () => {
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
 
-  const tempOrSavedAddress = tempAddress ?? address
+  const tempOrSavedAddress = temp?.address ?? address
 
   useEffect(() => {
     wasteGuideEndpoint.fetchData({

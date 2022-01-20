@@ -4,14 +4,15 @@ import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
 import {getEnvironment} from '../../environment'
-import {AddressContext} from '../../providers'
+import {SettingsContext} from '../../providers'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'WebView'>
 }
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
-  const addressContext = useContext(AddressContext)
+  const {settings} = useContext(SettingsContext)
+  const {address} = {...settings}
 
   return (
     <BannerCard
@@ -22,8 +23,8 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => {
           title: 'Melden',
           url: `${getEnvironment().signalsBaseUrl}/categorie/afval/grofvuil`,
           urlParams: {
-            lat: addressContext.address?.centroid[1],
-            lng: addressContext.address?.centroid[0],
+            lat: address?.centroid[1],
+            lng: address?.centroid[0],
           },
         })
       }
