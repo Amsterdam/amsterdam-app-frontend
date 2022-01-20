@@ -4,10 +4,11 @@ import React, {useContext, useEffect, useRef, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {useFetch} from '../../../hooks'
-import {AddressContext} from '../../../providers'
+import {SettingsContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {
   Address,
+  ApiAddress,
   BagResponse,
   BagResponseContent,
   ResponseAddress,
@@ -20,7 +21,7 @@ export const AddressForm = ({
 }: {
   saveInAsyncStorage?: boolean
 }) => {
-  const [address, setAddress] = useState<ResponseAddress | null>(null)
+  const [address, setAddress] = useState<ResponseAddress | undefined>()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
@@ -31,11 +32,11 @@ export const AddressForm = ({
 
   const inputStreetRef = useRef<any>()
 
-  const addressContext = useContext(AddressContext)
+  const {changeSettings} = useContext(SettingsContext)
 
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
 
-  const addressApi = useFetch<any>({
+  const addressApi = useFetch<ResponseAddress>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
@@ -72,7 +73,7 @@ export const AddressForm = ({
     setIsStreetSelected(true)
   }
 
-  const transformAddress = (responseAddress: Address) => {
+  const transformAddress = (responseAddress: ApiAddress): Address => {
     const {
       adres,
       bag_huisletter,
@@ -126,8 +127,8 @@ export const AddressForm = ({
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
       saveInAsyncStorage
-        ? addressContext.saveAddress(transformedAddress)
-        : addressContext.changeTempAddress(transformedAddress)
+        ? changeSettings('address', transformedAddress)
+        : changeSettings('temp', {address: transformedAddress})
       navigation.goBack()
     }
   }, [address])
