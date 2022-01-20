@@ -21,5 +21,7 @@ export type Settings = {
   address?: Address
   notifications?: NotificationSettings
   'project-manager'?: ProjectManagerSettings
-  temp?: Record<string, boolean>
+  temp?: {
+    address?: Address
+  }
 }
