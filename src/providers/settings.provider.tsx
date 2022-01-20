@@ -4,11 +4,13 @@ import {Settings} from '../types'
 
 const initialState = {
   changeSettings: () => {},
+  removeSetting: () => {},
   settings: undefined,
 }
 
 type Context = {
   changeSettings: (key: keyof Settings, value: Record<string, any>) => void
+  removeSetting: (key: keyof Settings) => void
   settings: Settings | undefined
 }
 
@@ -42,6 +44,12 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     })
   }
 
+  const removeSetting = async (key: keyof Settings) => {
+    await asyncStorage.removeValue(key)
+    settings && delete settings[key]
+    setSettings(settings)
+  }
+
   useEffect(() => {
     retrieveSettings()
   }, [retrieveSettings])
@@ -56,6 +64,7 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     <SettingsContext.Provider
       value={{
         changeSettings,
+        removeSetting,
         settings,
       }}>
       {children}
