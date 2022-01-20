@@ -46,8 +46,11 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
 
   const removeSetting = async (key: keyof Settings) => {
     await asyncStorage.removeValue(key)
-    settings && delete settings[key]
-    setSettings(settings)
+
+    let copyOfSettings = {...settings}
+    delete copyOfSettings[key]
+
+    setSettings(copyOfSettings)
   }
 
   useEffect(() => {
