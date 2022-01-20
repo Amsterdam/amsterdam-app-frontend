@@ -30,8 +30,6 @@ export const useAsyncStorage = () => {
     } catch (e) {
       setError(e)
     }
-
-    console.log('Done.')
   }
 
   const clear = async () => {
