@@ -60,14 +60,13 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(routes.addressForm.name, {saveInAsyncStorage: false})
+    navigation.navigate(routes.addressForm.name, {tempAddress: true})
   }
 
   if (!tempOrSavedAddress) {
     return (
       <AddressFormTeaser
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
-        saveInAsyncStorage={false}
         title="Uw adres"
       />
     )

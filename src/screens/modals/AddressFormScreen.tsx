@@ -10,5 +10,5 @@ type Props = {
 }
 
 export const AddressFormScreen = ({route}: Props) => {
-  return <AddressForm saveInAsyncStorage={route?.params?.saveInAsyncStorage} />
+  return <AddressForm tempAddress={route?.params?.tempAddress} />
 }

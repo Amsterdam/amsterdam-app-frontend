@@ -16,11 +16,7 @@ import {
 import {Box} from '../../ui'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = ({
-  saveInAsyncStorage = true,
-}: {
-  saveInAsyncStorage?: boolean
-}) => {
+export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
   const [address, setAddress] = useState<ResponseAddress | undefined>()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -126,9 +122,9 @@ export const AddressForm = ({
   useEffect(() => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
-      saveInAsyncStorage
-        ? changeSettings('address', transformedAddress)
-        : changeSettings('temp', {address: transformedAddress})
+      tempAddress
+        ? changeSettings('temp', {address: transformedAddress})
+        : changeSettings('address', transformedAddress)
       navigation.goBack()
     }
   }, [address])
