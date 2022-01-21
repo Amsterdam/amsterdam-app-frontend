@@ -1,6 +1,10 @@
 import React, {useContext} from 'react'
 import {ScrollView} from 'react-native'
-import {ProvideAddressBanner, QuickLinks} from '../components/features/home'
+import {
+  CenterCityOffice,
+  ProvideAddressBanner,
+  QuickLinks,
+} from '../components/features/home'
 import {Box} from '../components/ui'
 import {Column} from '../components/ui/layout'
 import {SettingsContext} from '../providers'
@@ -15,6 +19,9 @@ export const HomeScreen = () => {
           {!settingsContext.settings?.address && <ProvideAddressBanner />}
           <QuickLinks />
         </Column>
+      </Box>
+      <Box>
+        <CenterCityOffice />
       </Box>
     </ScrollView>
   )
