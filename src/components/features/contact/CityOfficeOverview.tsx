@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {CityOffices} from '../../../types/city'
-import {Card, PleaseWait} from '../../ui'
+import {PleaseWait} from '../../ui'
 import {Column} from '../../ui/layout'
 import {CityOffice} from './CityOffice'
 
@@ -19,9 +19,9 @@ export const CityOfficeOverview = () => {
   return (
     <Column gutter="md">
       {cityOffices.offices.map(cityOffice => (
-        <Card key={cityOffice.identifier}>
+        <Fragment key={cityOffice.identifier}>
           <CityOffice id={cityOffice.identifier} key={cityOffice.identifier} />
-        </Card>
+        </Fragment>
       ))}
     </Column>
   )

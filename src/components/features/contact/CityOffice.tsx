@@ -10,6 +10,7 @@ import {CityOffice as CityOfficeType} from '../../../types/city'
 import {accessibleText} from '../../../utils'
 import {
   Button,
+  Card,
   CardBody,
   Image,
   PleaseWait,
@@ -48,7 +49,7 @@ export const CityOffice = ({id}: Props) => {
     cityOffice.images.sources?.['460px'].image_id
 
   return (
-    <>
+    <Card>
       <Image source={{uri: imageUrl}} />
       <CardBody>
         <Column gutter="md">
@@ -84,6 +85,6 @@ export const CityOffice = ({id}: Props) => {
           </Column>
         </Column>
       </CardBody>
-    </>
+    </Card>
   )
 }
