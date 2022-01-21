@@ -22,16 +22,18 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const deviceRegistration = useDeviceRegistration(settings)
 
   const retrieveSettings = useCallback(async () => {
-    const data = await asyncStorage.getAllValues()
-    const settingsFromStore = Object.fromEntries(data ?? [])
+    if (!settings || asyncStorage.isStoreUpdated) {
+      const data = await asyncStorage.getAllValues()
+      const settingsFromStore = Object.fromEntries(data ?? [])
 
-    let parsedSettings = {} as Record<string, string>
-    for (let x in settingsFromStore) {
-      parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
+      let parsedSettings = {} as Record<string, string>
+      for (let x in settingsFromStore) {
+        parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
+      }
+
+      setSettings(parsedSettings)
     }
-
-    setSettings(parsedSettings)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [asyncStorage.isStoreUpdated]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeSettings = async (
     key: keyof Settings,
