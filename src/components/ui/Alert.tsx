@@ -38,7 +38,7 @@ export const Alert = () => {
         <View style={[styles.alert]}>
           <View style={styles.inner}>
             <Row align="between">
-              <Title inverse text={content?.title!} />
+              <Title level={4} inverse text={content?.title!} />
               <TouchableOpacity onPress={() => changeVisibility(false)}>
                 <Close fill="white" style={styles.icon} />
               </TouchableOpacity>
