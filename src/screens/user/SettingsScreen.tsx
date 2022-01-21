@@ -11,7 +11,6 @@ import {Column, Gutter, ScrollView} from '../../components/ui/layout'
 export const SettingsScreen = () => (
   <ScrollView>
     <Alert />
-    <Gutter height="md" />
     <Column gutter="md">
       <Address />
       <ProjectNotificationSettings />
