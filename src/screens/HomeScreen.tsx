@@ -4,24 +4,29 @@ import {
   CenterCityOffice,
   ProvideAddressBanner,
   QuickLinks,
+  RecentNews,
 } from '../components/features/home'
 import {Box} from '../components/ui'
-import {Column} from '../components/ui/layout'
+import {Column, Gutter} from '../components/ui/layout'
 import {SettingsContext} from '../providers'
 
 export const HomeScreen = () => {
-  const settingsContext = useContext(SettingsContext)
+  const {settings} = useContext(SettingsContext)
 
   return (
     <ScrollView>
       <Box background="white">
         <Column gutter="lg">
-          {!settingsContext.settings?.address && <ProvideAddressBanner />}
+          {!settings?.address && <ProvideAddressBanner />}
           <QuickLinks />
         </Column>
       </Box>
       <Box>
+        <RecentNews />
+      </Box>
+      <Box insetHorizontal="md">
         <CenterCityOffice />
+        <Gutter height="md" />
       </Box>
     </ScrollView>
   )
