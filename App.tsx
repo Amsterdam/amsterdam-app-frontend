@@ -3,6 +3,7 @@ import React from 'react'
 import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {linking, TabNavigator} from './src/app/navigation'
+import {Init} from './src/components/features/Init'
 import {RootProvider} from './src/providers/root.provider'
 
 export const App = () => {
@@ -12,6 +13,7 @@ export const App = () => {
       {/* Find out whats going on here */}
       <NavigationContainer linking={linking}>
         <RootProvider>
+          <Init />
           <TabNavigator />
         </RootProvider>
       </NavigationContainer>

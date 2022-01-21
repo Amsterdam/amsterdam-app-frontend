@@ -18,12 +18,11 @@ export const HomeStack = () => (
     initialRouteName={routes.home.name}
     screenOptions={{
       ...stackScreenOptions,
-      ...homeScreenOptions,
     }}>
     <Stack.Screen
       component={HomeScreen}
       name={routes.home.name}
-      options={routes.home.options}
+      options={{...routes.home.options, ...homeScreenOptions}}
     />
     {getSharedScreens(Stack)}
   </Stack.Navigator>

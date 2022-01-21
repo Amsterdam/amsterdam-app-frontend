@@ -1,16 +1,15 @@
 import React from 'react'
 
 import {useForegroundPushNotificationHandler} from '../hooks'
-import {SettingsProvider} from './settings.provider'
-import {AddressProvider, DeviceProvider} from '.'
+import {AlertProvider, DeviceProvider, SettingsProvider} from '.'
 
 export const RootProvider = ({children}: {children: React.ReactNode}) => {
   useForegroundPushNotificationHandler()
   return (
     <DeviceProvider>
-      <AddressProvider>
-        <SettingsProvider>{children}</SettingsProvider>
-      </AddressProvider>
+      <SettingsProvider>
+        <AlertProvider>{children}</AlertProvider>
+      </SettingsProvider>
     </DeviceProvider>
   )
 }

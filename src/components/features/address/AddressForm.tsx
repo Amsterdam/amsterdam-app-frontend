@@ -3,11 +3,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {StackParams} from '../../../app/navigation'
-import {useAsyncStorage, useFetch} from '../../../hooks'
-import {AddressContext} from '../../../providers'
+import {useFetch} from '../../../hooks'
+import {SettingsContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {
   Address,
+  ApiAddress,
   BagResponse,
   BagResponseContent,
   ResponseAddress,
@@ -15,8 +16,8 @@ import {
 import {Box} from '../../ui'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = () => {
-  const [address, setAddress] = useState<ResponseAddress | null>(null)
+export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
+  const [address, setAddress] = useState<ResponseAddress | undefined>()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
@@ -27,11 +28,11 @@ export const AddressForm = () => {
 
   const inputStreetRef = useRef<any>()
 
-  const addressContext = useContext(AddressContext)
+  const {changeSettings} = useContext(SettingsContext)
 
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
 
-  const addressApi = useFetch<any>({
+  const addressApi = useFetch<ResponseAddress>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
@@ -68,9 +69,7 @@ export const AddressForm = () => {
     setIsStreetSelected(true)
   }
 
-  const asyncStorage = useAsyncStorage()
-
-  const transformAddress = (responseAddress: Address) => {
+  const transformAddress = (responseAddress: ApiAddress): Address => {
     const {
       adres,
       bag_huisletter,
@@ -91,10 +90,6 @@ export const AddressForm = () => {
       straatnaam,
       woonplaats,
     }
-  }
-
-  const storeAddress = async (transformedAddress: Address) => {
-    await asyncStorage.storeData('address', transformedAddress)
   }
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -127,10 +122,10 @@ export const AddressForm = () => {
   useEffect(() => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
-      addressContext.changeAddress(transformedAddress)
-      addressContext.saveInStore
-        ? storeAddress(transformedAddress).then(() => navigation.goBack())
-        : navigation.goBack()
+      tempAddress
+        ? changeSettings('temp', {address: transformedAddress})
+        : changeSettings('address', transformedAddress)
+      navigation.goBack()
     }
   }, [address])
 

@@ -1,14 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
+import React, {useContext} from 'react'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useAsyncStorage} from '../../../hooks'
-import {Address as AddressType} from '../../../types'
+import {AlertContext, SettingsContext} from '../../../providers'
 import {
   Attention,
-  Box,
+  Button,
   Card,
   CardBody,
   SingleSelectable,
@@ -20,34 +18,23 @@ import {Gutter, Row} from '../../ui/layout'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {
-  const [address, setAddress] = useState<AddressType | undefined>(undefined)
-  const [isLoading, setLoading] = useState(true)
-
-  const asyncStorage = useAsyncStorage()
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
+  const {removeSetting, settings} = useContext(SettingsContext)
+  const {address} = {...settings}
+  const {changeContent, changeVariant} = useContext(AlertContext)
 
-  const retrieveAddress = useCallback(async () => {
-    const addressFromStore = await asyncStorage.getValue('address')
-    setAddress(addressFromStore)
-    setLoading(false)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    retrieveAddress()
-    const willFocusSubscription = navigation.addListener('focus', () => {
-      retrieveAddress()
+  const removeAddressAndShowAlert = () => {
+    removeSetting('address')
+    changeContent({
+      title: 'Gelukt',
+      text: 'Het adres is verwijderd uit uw profiel.',
     })
-
-    return willFocusSubscription
-  }, [navigation, retrieveAddress])
+    changeVariant('success')
+  }
 
   return (
     <>
-      {isLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      ) : address ? (
+      {address ? (
         <Card>
           <CardBody>
             <SingleSelectable>
@@ -57,12 +44,17 @@ export const Address = () => {
               <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
             </SingleSelectable>
             <Gutter height="md" />
-            <Row align="start">
-              <TextButton
-                direction="backward"
-                emphasis
+            <Row align="between" valign="center">
+              <Button
+                variant="inverse"
                 onPress={() => navigation.navigate(routes.addressForm.name)}
-                text="Verander adres"
+                text="Wijzig adres"
+              />
+              <TextButton
+                emphasis
+                icon="remove"
+                onPress={removeAddressAndShowAlert}
+                text="Verwijder adres"
               />
             </Row>
           </CardBody>

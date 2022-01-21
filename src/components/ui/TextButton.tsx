@@ -3,6 +3,7 @@ import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
+import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useState} from 'react'
 import {Pressable, StyleSheet, Text} from 'react-native'
 import {color, font, size} from '../../tokens'
@@ -10,7 +11,7 @@ import {Row} from './layout'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
-  icon?: 'cancel'
+  icon?: 'cancel' | 'remove'
   emphasis?: boolean
   onPress: () => void
   text: string
@@ -63,6 +64,7 @@ export const TextButton = ({
         {direction === 'forward' && <ChevronRight {...iconProps} />}
         {direction === 'up' && <ChevronUp {...iconProps} />}
         {icon === 'cancel' && <Cancel {...iconProps} />}
+        {icon === 'remove' && <Remove {...iconProps} />}
         <Text
           style={[
             styles.text,

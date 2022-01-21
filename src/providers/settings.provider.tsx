@@ -4,11 +4,13 @@ import {Settings} from '../types'
 
 const initialState = {
   changeSettings: () => {},
+  removeSetting: () => {},
   settings: undefined,
 }
 
 type Context = {
   changeSettings: (key: keyof Settings, value: Record<string, any>) => void
+  removeSetting: (key: keyof Settings) => void
   settings: Settings | undefined
 }
 
@@ -20,16 +22,18 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
   const deviceRegistration = useDeviceRegistration(settings)
 
   const retrieveSettings = useCallback(async () => {
-    const data = await asyncStorage.getAllValues()
-    const settingsFromStore = Object.fromEntries(data ?? [])
+    if (!settings || asyncStorage.isStoreUpdated) {
+      const data = await asyncStorage.getAllValues()
+      const settingsFromStore = Object.fromEntries(data ?? [])
 
-    let parsedSettings = {} as Record<string, string>
-    for (let x in settingsFromStore) {
-      parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
+      let parsedSettings = {} as Record<string, string>
+      for (let x in settingsFromStore) {
+        parsedSettings[x] = JSON.parse(settingsFromStore[x]!)
+      }
+
+      setSettings(parsedSettings)
     }
-
-    setSettings(parsedSettings)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [asyncStorage.isStoreUpdated]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeSettings = async (
     key: keyof Settings,
@@ -40,6 +44,15 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
       ...settings,
       [key]: value,
     })
+  }
+
+  const removeSetting = async (key: keyof Settings) => {
+    await asyncStorage.removeValue(key)
+
+    let copyOfSettings = {...settings}
+    delete copyOfSettings[key]
+
+    setSettings(copyOfSettings)
   }
 
   useEffect(() => {
@@ -56,6 +69,7 @@ export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
     <SettingsContext.Provider
       value={{
         changeSettings,
+        removeSetting,
         settings,
       }}>
       {children}
