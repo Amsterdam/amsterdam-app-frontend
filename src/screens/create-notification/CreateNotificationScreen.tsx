@@ -9,9 +9,9 @@ import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
 import {
+  Article,
   DraftNotification,
   NewWarning,
-  ProjectDetailArticlePreview,
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
@@ -52,7 +52,7 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  articles?: ProjectDetailArticlePreview[]
+  articles?: Article[]
   id: string
   title: string
 }

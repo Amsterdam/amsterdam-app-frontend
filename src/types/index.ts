@@ -1,4 +1,5 @@
 export * from './address'
+export * from './article'
 export * from './bag'
 export * from './device'
 export * from './disctrict'
