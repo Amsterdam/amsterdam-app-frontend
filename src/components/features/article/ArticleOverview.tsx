@@ -1,30 +1,53 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
+import {getEnvironment} from '../../../environment'
+import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {ProjectDetailArticlePreview} from '../../../types'
+import {Article} from '../../../types'
 import {Title} from '../../ui'
 import {Column} from '../../ui/layout'
 import {ArticlePreview} from './'
 
 type Props = {
-  articles?: ProjectDetailArticlePreview[]
+  limit?: number
+  projectIds?: string[]
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
 }
 
-export const ArticleOverview = ({articles}: Props) => {
+export const ArticleOverview = ({
+  limit,
+  projectIds,
+  sortBy,
+  sortOrder,
+}: Props) => {
+  const [articles, setArticles] = useState<Article[] | undefined>()
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
 
-  if (!articles?.length) {
-    return null
-  }
+  const articlesApi = useFetch<Article[]>({
+    url: getEnvironment().apiUrl + '/articles',
+    options: {
+      params: {
+        ...(limit && {limit}),
+        ...(projectIds && {'project-ids': projectIds.join(',')}),
+        ...(sortBy && {'sort-by': sortBy}),
+        ...(sortOrder && {'sort-order': sortOrder}),
+      },
+    },
+  })
 
-  const navigateToArticle = (article: ProjectDetailArticlePreview) => {
+  useEffect(() => {
+    articlesApi.data && setArticles(articlesApi.data)
+  }, [articlesApi.data])
+
+  const navigateToArticle = (article: Article) => {
     if (article.type === 'news') {
       navigation.navigate(routes.projectNews.name, {
         id: article.identifier,
@@ -36,7 +59,7 @@ export const ArticleOverview = ({articles}: Props) => {
     }
   }
 
-  return (
+  return articles?.length ? (
     <Column gutter="sm">
       <Title level={2} text="Nieuws" />
       <View style={device.isLandscape && styles.grid}>
@@ -52,7 +75,7 @@ export const ArticleOverview = ({articles}: Props) => {
         ))}
       </View>
     </Column>
-  )
+  ) : null
 }
 
 const styles = StyleSheet.create({
