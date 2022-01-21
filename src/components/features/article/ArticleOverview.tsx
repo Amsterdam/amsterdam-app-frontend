@@ -1,16 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
+import React, {useEffect, useState} from 'react'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
-import {DeviceContext} from '../../../providers'
-import {size} from '../../../tokens'
 import {ArticleSummary} from '../../../types'
 import {PleaseWait, Title} from '../../ui'
-import {Column} from '../../ui/layout'
+import {Column, Grid, GridCell} from '../../ui/layout'
 import {ArticlePreview} from './'
 
 type Props = {
@@ -29,7 +26,6 @@ export const ArticleOverview = ({
   title,
 }: Props) => {
   const [articles, setArticles] = useState<ArticleSummary[] | undefined>()
-  const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
 
@@ -68,32 +64,16 @@ export const ArticleOverview = ({
   return articles?.length ? (
     <Column gutter="sm">
       <Title level={2} text={title} />
-      <View style={device.isLandscape && styles.grid}>
+      <Grid>
         {articles.map(article => (
-          <View
-            key={article.identifier}
-            style={[device.isLandscape && styles.item, styles.verticalGutter]}>
+          <GridCell key={article.identifier}>
             <ArticlePreview
               article={article}
               onPress={() => navigateToArticle(article)}
             />
-          </View>
+          </GridCell>
         ))}
-      </View>
+      </Grid>
     </Column>
   ) : null
 }
-
-const styles = StyleSheet.create({
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  item: {
-    width: '50%',
-    paddingRight: size.spacing.sm,
-  },
-  verticalGutter: {
-    paddingBottom: size.spacing.sm,
-  },
-})
