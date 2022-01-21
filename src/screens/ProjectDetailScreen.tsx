@@ -112,7 +112,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
           <ProjectBodyMenu project={project} />
         </Box>
         <Box>
-          <ArticleOverview projectIds={[project.identifier]} />
+          <ArticleOverview projectIds={[project.identifier]} title="Nieuws" />
         </Box>
       </Column>
     </ScrollView>

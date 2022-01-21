@@ -18,6 +18,7 @@ type Props = {
   projectIds?: string[]
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
+  title: string
 }
 
 export const ArticleOverview = ({
@@ -25,6 +26,7 @@ export const ArticleOverview = ({
   projectIds,
   sortBy,
   sortOrder,
+  title,
 }: Props) => {
   const [articles, setArticles] = useState<Article[] | undefined>()
   const device = useContext(DeviceContext)
@@ -61,7 +63,7 @@ export const ArticleOverview = ({
 
   return articles?.length ? (
     <Column gutter="sm">
-      <Title level={2} text="Nieuws" />
+      <Title level={2} text={title} />
       <View style={device.isLandscape && styles.grid}>
         {articles.map(article => (
           <View
