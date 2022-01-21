@@ -21,9 +21,9 @@ export const AddressFormTeaser = ({text, title}: Props) => {
         <Title margin text={title} />
         <Text margin>{text}</Text>
         <TextInput
+          accessibilityLabel={inputLabel}
           label={inputLabel}
           onFocus={() => navigation.navigate(routes.addressForm.name)}
-          accessibilityLabel={inputLabel}
         />
       </CardBody>
     </Card>
