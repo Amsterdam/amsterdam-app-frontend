@@ -32,7 +32,6 @@ export type ActionStackParams = {
 
 export type HomeStackParams = {
   AddressForm: undefined
-  BestWishes21: undefined
   Home: undefined
   NotificationOverview: undefined
   ProjectOverview: undefined

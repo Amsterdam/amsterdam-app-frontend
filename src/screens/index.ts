@@ -1,5 +1,4 @@
 export * from './AdminScreen'
-export * from './BestWishes21Screen'
 export * from './ContactScreen'
 export * from './HomeScreen'
 export * from './ProjectDetailBodyScreen'

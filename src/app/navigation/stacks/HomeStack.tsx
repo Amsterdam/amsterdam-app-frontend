@@ -4,7 +4,7 @@ import {
 } from '@react-navigation/stack'
 import React from 'react'
 import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
-import {BestWishes21Screen, HomeScreen} from '../../../screens'
+import {HomeScreen} from '../../../screens'
 import {routes} from '../routes'
 
 const Stack = createStackNavigator()
@@ -20,11 +20,6 @@ export const HomeStack = () => (
       ...stackScreenOptions,
       ...homeScreenOptions,
     }}>
-    <Stack.Screen
-      component={BestWishes21Screen}
-      name={routes.bestWishes21.name}
-      options={routes.bestWishes21.options}
-    />
     <Stack.Screen
       component={HomeScreen}
       name={routes.home.name}
