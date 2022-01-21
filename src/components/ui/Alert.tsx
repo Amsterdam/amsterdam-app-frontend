@@ -1,12 +1,6 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useContext} from 'react'
-import {
-  LayoutAnimation,
-  Platform,
-  StyleSheet,
-  UIManager,
-  View,
-} from 'react-native'
+import {Platform, StyleSheet, UIManager, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {AlertContext} from '../../providers'
 import {color, size} from '../../tokens'
@@ -23,13 +17,6 @@ if (
 export const Alert = () => {
   const {changeVisibility, content, isVisible, variant} =
     useContext(AlertContext)
-
-  const hideAlert = () => {
-    LayoutAnimation.configureNext(
-      LayoutAnimation.create(300, 'easeInEaseOut', 'opacity'),
-    )
-    changeVisibility(false)
-  }
 
   const styles = StyleSheet.create({
     alert: {
@@ -52,7 +39,7 @@ export const Alert = () => {
           <View style={styles.inner}>
             <Row align="between">
               <Title inverse text={content?.title!} />
-              <TouchableOpacity onPress={hideAlert}>
+              <TouchableOpacity onPress={() => changeVisibility(false)}>
                 <Close fill="white" style={styles.icon} />
               </TouchableOpacity>
             </Row>

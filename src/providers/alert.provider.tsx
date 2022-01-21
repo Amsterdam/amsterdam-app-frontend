@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
+import {LayoutAnimation} from 'react-native'
 
 const initialState = {
   changeContent: () => {},
@@ -49,6 +50,7 @@ export const AlertProvider = ({children}: {children: React.ReactNode}) => {
   }, [])
 
   const changeVisibility = useCallback((visibility: boolean) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     setVisibility(visibility)
   }, [])
 
@@ -57,8 +59,8 @@ export const AlertProvider = ({children}: {children: React.ReactNode}) => {
   }, [changeContent])
 
   useEffect(() => {
-    content && setVisibility(true)
-  }, [content])
+    content && changeVisibility(true)
+  }, [changeVisibility, content])
 
   const contextValue = useMemo(
     () => ({
