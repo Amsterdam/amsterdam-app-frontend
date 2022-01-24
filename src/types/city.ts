@@ -1,5 +1,9 @@
 import {Image} from './image'
-import {RichTxt} from './section'
+import {RichTxt, Section} from './section'
+
+export type CityContactInfo = {
+  sections: Section[]
+}
 
 export type CityOffices = {
   offices: CityOfficeOverviewItem[]
