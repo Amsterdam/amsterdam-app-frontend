@@ -38,10 +38,11 @@ export const Address = () => {
         <Card>
           <CardBody>
             <SingleSelectable>
-              <Text secondary>Uw adres:</Text>
-              <Gutter height="sm" />
-              <Title level={4} margin text={address.adres} />
-              <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
+              <Title level={4} text="Uw adres" />
+              <Text large>{address.adres}</Text>
+              <Text large>
+                {[address.postcode, address.woonplaats].join(' ')}
+              </Text>
             </SingleSelectable>
             <Gutter height="md" />
             <Row align="between" valign="center">
