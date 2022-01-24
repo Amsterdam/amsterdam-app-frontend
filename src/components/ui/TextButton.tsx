@@ -4,8 +4,9 @@ import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
-import React, {SVGProps, useState} from 'react'
+import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
+import {DeviceContext} from '../../providers'
 import {color, font, size} from '../../tokens'
 import {Row} from './layout'
 
@@ -25,6 +26,7 @@ export const TextButton = ({
   text,
   ...otherProps
 }: Props) => {
+  const device = useContext(DeviceContext)
   const [isPressed, setIsPressed] = useState(false)
 
   const iconColor = () => {
@@ -43,8 +45,8 @@ export const TextButton = ({
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
   // CSS spec, I couldn’t find a better approach yet.
   const iconProps: SVGProps<any> = {
-    width: 14,
-    height: 14,
+    width: 14 * device.fontScale,
+    height: 14 * device.fontScale,
     fill: iconColor(),
     style: {
       top: 3,
