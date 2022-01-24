@@ -13,8 +13,6 @@ import {SettingsContext} from '../providers'
 export const HomeScreen = () => {
   const {isLoading, settings} = useContext(SettingsContext)
 
-  console.log({isLoading, settings})
-
   return (
     <ScrollView>
       <Box background="white">
