@@ -1,25 +1,26 @@
 import React, {useContext, useEffect, useState} from 'react'
+import {ActivityIndicator} from 'react-native'
 import {SettingsContext} from '../../../providers'
-import {PleaseWait} from '../../ui'
+import {Center} from '../../ui/layout'
 import {ArticleOverview} from '../article'
 import {getSubscribedProjects} from '../settings'
 
 export const RecentNews = () => {
-  const {settings} = useContext(SettingsContext)
+  const {isLoading, settings} = useContext(SettingsContext)
   const {notifications} = {...settings}
   const [subscribedProjects, setSubscribedProjects] = useState<
     string[] | undefined
   >()
-  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     setSubscribedProjects(getSubscribedProjects(notifications?.projects))
-    setLoading(false)
   }, [notifications?.projects])
   return (
     <>
       {isLoading ? (
-        <PleaseWait />
+        <Center>
+          <ActivityIndicator />
+        </Center>
       ) : subscribedProjects?.length ? (
         <ArticleOverview
           limit={3}

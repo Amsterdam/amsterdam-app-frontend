@@ -9,7 +9,7 @@ import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
 import {Article} from '../../../types'
-import {Title} from '../../ui'
+import {PleaseWait, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 import {ArticlePreview} from './'
 
@@ -61,23 +61,32 @@ export const ArticleOverview = ({
     }
   }
 
-  return articles?.length ? (
-    <Column gutter="sm">
-      <Title level={2} text={title} />
-      <View style={device.isLandscape && styles.grid}>
-        {articles.map(article => (
-          <View
-            key={article.identifier}
-            style={[device.isLandscape && styles.item, styles.verticalGutter]}>
-            <ArticlePreview
-              article={article}
-              onPress={() => navigateToArticle(article)}
-            />
+  return (
+    <>
+      {articlesApi.isLoading ? (
+        <PleaseWait />
+      ) : articles?.length ? (
+        <Column gutter="sm">
+          <Title level={2} text={title} />
+          <View style={device.isLandscape && styles.grid}>
+            {articles.map(article => (
+              <View
+                key={article.identifier}
+                style={[
+                  device.isLandscape && styles.item,
+                  styles.verticalGutter,
+                ]}>
+                <ArticlePreview
+                  article={article}
+                  onPress={() => navigateToArticle(article)}
+                />
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
-    </Column>
-  ) : null
+        </Column>
+      ) : null}
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
