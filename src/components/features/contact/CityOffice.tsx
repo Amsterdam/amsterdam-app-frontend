@@ -6,10 +6,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
-import {
-  CityContactInfo,
-  CityOffice as CityOfficeType,
-} from '../../../types/city'
+import {CityOffice as CityOfficeType} from '../../../types/city'
 import {accessibleText} from '../../../utils'
 import {
   Button,
@@ -31,11 +28,6 @@ export const CityOffice = ({id}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
 
-  const {data: contactInfo, isLoading: isContactInfoLoading} =
-    useFetch<CityContactInfo>({
-      url: getEnvironment().apiUrl + '/city/contact',
-    })
-
   const {data: cityOffice, isLoading: isCityOfficeLoading} =
     useFetch<CityOfficeType>({
       url: getEnvironment().apiUrl + '/city/office',
@@ -46,23 +38,9 @@ export const CityOffice = ({id}: Props) => {
       },
     })
 
-  if (
-    isContactInfoLoading ||
-    !contactInfo ||
-    isCityOfficeLoading ||
-    !cityOffice
-  ) {
+  if (isCityOfficeLoading || !cityOffice) {
     return <PleaseWait />
   }
-
-  // TEMP Display a particular sentence from IProx for opening times
-  const openingTimesKey = 'De Stadsloketten zijn'
-  const openingTimesText = contactInfo.sections.find(section =>
-    section.text.includes(openingTimesKey),
-  )?.text
-  const openingTimes = openingTimesText?.substring(
-    openingTimesText.indexOf(openingTimesKey),
-  )
 
   const [addressLine1, addressLine2] = cityOffice.address.txt.split('\n\n') // TEMP
   const imageUrl =
@@ -87,14 +65,15 @@ export const CityOffice = ({id}: Props) => {
               <Text>{addressLine2}</Text>
             </SingleSelectable>
           </View>
-          {openingTimes && (
-            <View>
-              <Text secondary accessibilityRole="header">
-                Openingstijden
-              </Text>
-              <Text>{openingTimes}</Text>
-            </View>
-          )}
+          <View>
+            <Text secondary accessibilityRole="header">
+              Openingstijden
+            </Text>
+            <Text>
+              De Stadsloketten zijn maandag, dinsdag, woensdag, donderdag en
+              vrijdag van 09.00 tot 17.00 uur open.
+            </Text>
+          </View>
           <View>
             <Title level={4} text="Bezoek op afspraak" />
             <Text>
