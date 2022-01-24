@@ -5,7 +5,7 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useState} from 'react'
-import {Pressable, StyleSheet, Text} from 'react-native'
+import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
 import {color, font, size} from '../../tokens'
 import {Row} from './layout'
 
@@ -13,16 +13,17 @@ type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
   icon?: 'cancel' | 'remove'
   emphasis?: boolean
-  onPress: () => void
   text: string
-}
+} & PressableProps
 
 export const TextButton = ({
+  accessibilityRole,
   direction,
   emphasis,
   icon,
   onPress,
   text,
+  ...otherProps
 }: Props) => {
   const [isPressed, setIsPressed] = useState(false)
 
@@ -52,12 +53,13 @@ export const TextButton = ({
 
   return (
     <Pressable
-      accessibilityRole="button"
+      accessibilityRole={accessibilityRole ?? 'button'}
       hitSlop={size.spacing.sm}
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      style={[styles.button, direction && styles.row]}>
+      style={[styles.button, direction && styles.row]}
+      {...otherProps}>
       <Row gutter="xs">
         {direction === 'backward' && <ChevronLeft {...iconProps} />}
         {direction === 'down' && <ChevronDown {...iconProps} />}
