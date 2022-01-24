@@ -66,6 +66,15 @@ export const CityOffice = ({id}: Props) => {
             </SingleSelectable>
           </View>
           <View>
+            <Text secondary accessibilityRole="header">
+              Openingstijden
+            </Text>
+            <Text>
+              De Stadsloketten zijn maandag, dinsdag, woensdag, donderdag en
+              vrijdag van 09.00 tot 17.00 uur open.
+            </Text>
+          </View>
+          <View>
             <Title level={4} text="Bezoek op afspraak" />
             <Text>
               U heeft een afspraak nodig om langs te komen bij een Stadsloket.
