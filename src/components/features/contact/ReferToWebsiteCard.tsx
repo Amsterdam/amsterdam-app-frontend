@@ -19,6 +19,7 @@ export const ReferToWebsiteCard = () => (
       </Text>
       <Gutter height="md" />
       <TextButton
+        accessibilityRole="link"
         direction="forward"
         onPress={() => openWebUrl('https://www.amsterdam.nl/')}
         text="Naar amsterdam.nl"

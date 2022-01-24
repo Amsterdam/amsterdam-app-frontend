@@ -41,7 +41,7 @@ export const ContactOptions = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityRole="link"
           onPress={() => openPhoneUrl('+3114020')}>
           <ContactOption
             icon={<Phone fill={color.touchable.primary} />}
@@ -50,7 +50,7 @@ export const ContactOptions = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityRole="link"
           onPress={() => openWebUrl('https://wa.me/31644440655')}>
           <ContactOption
             icon={<Whatsapp fill={color.touchable.primary} />}
