@@ -45,7 +45,7 @@ export const Address = () => {
               </Text>
             </SingleSelectable>
             <Gutter height="md" />
-            <Row align="between" valign="center">
+            <Row align="between" valign="center" gutter="md" wrap>
               <Button
                 variant="inverse"
                 onPress={() => navigation.navigate(routes.addressForm.name)}
