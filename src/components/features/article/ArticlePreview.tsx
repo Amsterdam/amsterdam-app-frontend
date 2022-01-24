@@ -2,7 +2,8 @@ import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../assets/images/warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
-import {ArticleSummary} from '../../../types'
+import {ArticleSummary, ImageSources} from '../../../types'
+import {mapImageSources} from '../../../utils'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
@@ -12,20 +13,23 @@ type Props = {
 }
 
 export const ArticlePreview = ({article, onPress}: Props) => {
-  const imageUrl =
-    article.type === 'news' && article.image?.sources?.['220px'].url
+  const imageSources = article.image?.sources ?? ({} as ImageSources)
+  const hasImage = Object.keys(imageSources).length
 
   return (
     <TouchableHighlight
+      accessibilityRole="button"
       onPress={onPress}
-      style={styles.row}
-      accessibilityRole="button">
+      style={styles.row}>
       <Card>
         <CardBody>
           <Row gutter="md">
-            {imageUrl && (
-              <Image source={{uri: imageUrl}} style={styles.image} />
-            )}
+            {hasImage ? (
+              <Image
+                source={mapImageSources(imageSources)}
+                style={styles.image}
+              />
+            ) : null}
             {article.type === 'warning' && (
               <View style={styles.image}>
                 <HeroImage />

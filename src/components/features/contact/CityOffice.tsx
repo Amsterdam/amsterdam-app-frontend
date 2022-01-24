@@ -6,8 +6,9 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
+import {ImageSources} from '../../../types'
 import {CityOffice as CityOfficeType} from '../../../types/city'
-import {accessibleText} from '../../../utils'
+import {accessibleText, mapImageSources} from '../../../utils'
 import {
   Button,
   Card,
@@ -43,14 +44,13 @@ export const CityOffice = ({id}: Props) => {
   }
 
   const [addressLine1, addressLine2] = cityOffice.address.txt.split('\n\n') // TEMP
-  const imageUrl =
-    getEnvironment().apiUrl +
-    '/image?id=' +
-    cityOffice.images.sources?.['460px'].image_id
+
+  const imageSources = cityOffice.images.sources ?? ({} as ImageSources)
+  const hasImage = Object.keys(imageSources).length
 
   return (
     <Card>
-      <Image source={{uri: imageUrl}} />
+      {hasImage && <Image source={mapImageSources(imageSources)} />}
       <CardBody>
         <Column gutter="md">
           <View>

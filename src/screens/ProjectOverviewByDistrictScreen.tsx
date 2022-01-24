@@ -11,6 +11,7 @@ import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
 import {District, ProjectOverviewItem} from '../types'
+import {mapImageSources} from '../utils'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
   StackParams,
@@ -96,9 +97,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           renderItem={({item, index}) => (
             <>
               <ProjectCard
-                imageSource={{
-                  uri: item.images[0].sources['460px'].url,
-                }}
+                imageSource={mapImageSources(item.images[0].sources)}
                 onPress={() =>
                   navigation.navigate(routes.projectDetail.name, {
                     id: item.identifier,

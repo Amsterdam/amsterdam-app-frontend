@@ -8,7 +8,7 @@ import {useFetch} from '../../../hooks'
 import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
 import {font, image} from '../../../tokens'
 import {NewsArticle, ProjectDetail} from '../../../types'
-import {formatDate} from '../../../utils'
+import {formatDate, mapImageSources} from '../../../utils'
 import {
   Box,
   Image,
@@ -33,8 +33,6 @@ export const ProjectNews = ({id}: Props) => {
     url: getEnvironment().apiUrl + '/project/news',
     options: {params: {id}},
   })
-
-  const firstImage = article?.images?.find(i => i.sources['700px'].url)
 
   useEffect(() => {
     if (newsApi.data) {
@@ -67,9 +65,9 @@ export const ProjectNews = ({id}: Props) => {
 
   return (
     <ScrollView>
-      {firstImage && (
+      {article?.images?.length && (
         <Image
-          source={{uri: firstImage.sources['700px'].url}}
+          source={mapImageSources(article.images[0].sources)}
           style={styles.image}
         />
       )}

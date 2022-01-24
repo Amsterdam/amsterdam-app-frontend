@@ -10,6 +10,7 @@ import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
 import {District, ProjectOverviewItem} from '../types'
+import {mapImageSources} from '../utils'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
@@ -89,9 +90,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                       id: projectItem.identifier,
                     })
                   }
-                  imageSource={{
-                    uri: projectItem.images[0].sources['460px'].url,
-                  }}
+                  imageSource={mapImageSources(projectItem.images[0].sources)}
                   subtitle={projectItem.subtitle ?? undefined}
                   title={projectItem.title}
                   width={18 * size.spacing.md}
