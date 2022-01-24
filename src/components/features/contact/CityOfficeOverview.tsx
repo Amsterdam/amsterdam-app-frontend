@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {CityOffices} from '../../../types/city'
 import {PleaseWait} from '../../ui'
-import {Column} from '../../ui/layout'
+import {Grid, GridCell} from '../../ui/layout'
 import {CityOffice} from './CityOffice'
 
 export const CityOfficeOverview = () => {
@@ -17,12 +17,12 @@ export const CityOfficeOverview = () => {
   }
 
   return (
-    <Column gutter="md">
+    <Grid>
       {cityOffices.offices.map(cityOffice => (
-        <Fragment key={cityOffice.identifier}>
+        <GridCell key={cityOffice.identifier}>
           <CityOffice id={cityOffice.identifier} key={cityOffice.identifier} />
-        </Fragment>
+        </GridCell>
       ))}
-    </Column>
+    </Grid>
   )
 }
