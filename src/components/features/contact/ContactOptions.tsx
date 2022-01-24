@@ -75,7 +75,8 @@ export const ContactOptions = () => {
       <Gutter height="md" />
       <Row gutter="lg">
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel="Facebook"
+          accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.facebook.com/gemeenteamsterdam')
           }
@@ -83,14 +84,15 @@ export const ContactOptions = () => {
           <Facebook fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel="Twitter"
+          accessibilityRole="link"
           onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
           style={styles.icon}>
           <Twitter fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel="Instagram"
-          accessibilityRole="button"
+          accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
           }
