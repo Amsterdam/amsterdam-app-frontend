@@ -61,32 +61,27 @@ export const ArticleOverview = ({
     }
   }
 
-  return (
-    <>
-      {articlesApi.isLoading ? (
-        <PleaseWait />
-      ) : articles?.length ? (
-        <Column gutter="sm">
-          <Title level={2} text={title} />
-          <View style={device.isLandscape && styles.grid}>
-            {articles.map(article => (
-              <View
-                key={article.identifier}
-                style={[
-                  device.isLandscape && styles.item,
-                  styles.verticalGutter,
-                ]}>
-                <ArticlePreview
-                  article={article}
-                  onPress={() => navigateToArticle(article)}
-                />
-              </View>
-            ))}
+  if (articlesApi.isLoading) {
+    return <PleaseWait />
+  }
+
+  return articles?.length ? (
+    <Column gutter="sm">
+      <Title level={2} text={title} />
+      <View style={device.isLandscape && styles.grid}>
+        {articles.map(article => (
+          <View
+            key={article.identifier}
+            style={[device.isLandscape && styles.item, styles.verticalGutter]}>
+            <ArticlePreview
+              article={article}
+              onPress={() => navigateToArticle(article)}
+            />
           </View>
-        </Column>
-      ) : null}
-    </>
-  )
+        ))}
+      </View>
+    </Column>
+  ) : null
 }
 
 const styles = StyleSheet.create({
