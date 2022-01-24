@@ -1,6 +1,6 @@
 import {Image} from '.'
 
-export type Article = {
+export type ArticleSummary = {
   identifier: string
   image: Image | null
   publication_date: string
@@ -10,7 +10,7 @@ export type Article = {
 
 export type ArticleApiResponse = {
   status: boolean
-  result: Article[]
+  result: ArticleSummary[]
 }
 
 export type ArticleApiQuery = {

@@ -2,12 +2,12 @@ import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../assets/images/warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
-import {Article} from '../../../types'
+import {ArticleSummary} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
 type Props = {
-  article: Article
+  article: ArticleSummary
   onPress: () => void
 }
 

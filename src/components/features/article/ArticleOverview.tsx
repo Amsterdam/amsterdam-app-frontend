@@ -8,7 +8,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {size} from '../../../tokens'
-import {Article} from '../../../types'
+import {ArticleSummary} from '../../../types'
 import {PleaseWait, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 import {ArticlePreview} from './'
@@ -28,12 +28,12 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
-  const [articles, setArticles] = useState<Article[] | undefined>()
+  const [articles, setArticles] = useState<ArticleSummary[] | undefined>()
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
 
-  const articlesApi = useFetch<Article[]>({
+  const articlesApi = useFetch<ArticleSummary[]>({
     url: getEnvironment().apiUrl + '/articles',
     options: {
       params: {
@@ -49,7 +49,7 @@ export const ArticleOverview = ({
     articlesApi.data && setArticles(articlesApi.data)
   }, [articlesApi.data])
 
-  const navigateToArticle = (article: Article) => {
+  const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
       navigation.navigate(routes.projectNews.name, {
         id: article.identifier,
