@@ -15,21 +15,21 @@ export const RecentNews = () => {
   useEffect(() => {
     setSubscribedProjects(getSubscribedProjects(notifications?.projects))
   }, [notifications?.projects])
-  return (
-    <>
-      {isLoading ? (
-        <Center>
-          <ActivityIndicator />
-        </Center>
-      ) : subscribedProjects?.length ? (
-        <ArticleOverview
-          limit={3}
-          projectIds={subscribedProjects}
-          title="Actueel"
-        />
-      ) : (
-        <ArticleOverview limit={3} title="Actueel" />
-      )}
-    </>
+
+  if (isLoading) {
+    return (
+      <Center>
+        <ActivityIndicator />
+      </Center>
+    )
+  }
+  return subscribedProjects?.length ? (
+    <ArticleOverview
+      limit={3}
+      projectIds={subscribedProjects}
+      title="Actueel"
+    />
+  ) : (
+    <ArticleOverview limit={3} title="Actueel" />
   )
 }
