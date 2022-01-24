@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {openWebUrl} from '../../../utils/openWebUrl'
 import {Card, CardBody, Image, Text, TextButton, Title} from '../../ui'
-import {Gutter} from '../../ui/layout'
+import {Gutter, Row} from '../../ui/layout'
 
 export const ReferToWebsiteCard = () => (
   <Card>
@@ -18,11 +18,15 @@ export const ReferToWebsiteCard = () => (
         verwerkt. Kijk ook op amsterdam.nl voor meer informatie.
       </Text>
       <Gutter height="md" />
-      <TextButton
-        direction="forward"
-        onPress={() => openWebUrl('https://www.amsterdam.nl/')}
-        text="Naar amsterdam.nl"
-      />
+      <Row align="start">
+        <TextButton
+          accessibilityLabel="Naar amsterdam punt nl"
+          accessibilityRole="link"
+          direction="forward"
+          onPress={() => openWebUrl('https://www.amsterdam.nl/')}
+          text="Naar amsterdam.nl"
+        />
+      </Row>
     </CardBody>
   </Card>
 )

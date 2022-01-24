@@ -10,7 +10,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {Instagram, Whatsapp} from '../../../assets/icons'
 import {color} from '../../../tokens'
-import {openPhoneUrl} from '../../../utils'
+import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
 import {Box, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
@@ -41,7 +41,11 @@ export const ContactOptions = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel={accessibleText(
+            'Bel veertien nul twintig',
+            'gemiddeld 5 minuten wachten',
+          )}
+          accessibilityRole="link"
           onPress={() => openPhoneUrl('+3114020')}>
           <ContactOption
             icon={<Phone fill={color.touchable.primary} />}
@@ -50,7 +54,11 @@ export const ContactOptions = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel={accessibleText(
+            'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
+            'reactie binnen twee uur',
+          )}
+          accessibilityRole="link"
           onPress={() => openWebUrl('https://wa.me/31644440655')}>
           <ContactOption
             icon={<Whatsapp fill={color.touchable.primary} />}
@@ -67,7 +75,8 @@ export const ContactOptions = () => {
       <Gutter height="md" />
       <Row gutter="lg">
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel="Facebook"
+          accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.facebook.com/gemeenteamsterdam')
           }
@@ -75,14 +84,15 @@ export const ContactOptions = () => {
           <Facebook fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityRole="button"
+          accessibilityLabel="Twitter"
+          accessibilityRole="link"
           onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
           style={styles.icon}>
           <Twitter fill={color.touchable.primary} />
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel="Instagram"
-          accessibilityRole="button"
+          accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
           }
