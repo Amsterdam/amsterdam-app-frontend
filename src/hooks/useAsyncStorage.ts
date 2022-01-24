@@ -4,14 +4,11 @@ import {Alert} from 'react-native'
 
 export const useAsyncStorage = () => {
   const [error, setError] = useState<unknown | undefined>()
-  const [isStoreUpdated, setStoreUpdated] = useState(false)
 
   const storeData = async (key: string, obj: any) => {
     try {
-      setStoreUpdated(false)
       const jsonValue = JSON.stringify(obj)
       await AsyncStorage.setItem(key, jsonValue)
-      setStoreUpdated(true)
     } catch (e) {
       setError(e)
     }
@@ -29,9 +26,7 @@ export const useAsyncStorage = () => {
 
   const removeValue = async (key: string) => {
     try {
-      setStoreUpdated(false)
       await AsyncStorage.removeItem(key)
-      setStoreUpdated(true)
     } catch (e) {
       setError(e)
     }
@@ -40,9 +35,7 @@ export const useAsyncStorage = () => {
   const clear = async () => {
     const clearAsyncStorage = () => {
       try {
-        setStoreUpdated(false)
         AsyncStorage.getAllKeys().then(keys => AsyncStorage.multiRemove(keys))
-        setStoreUpdated(true)
       } catch (e) {}
     }
 
@@ -78,7 +71,6 @@ export const useAsyncStorage = () => {
     error,
     getAllValues,
     getValue,
-    isStoreUpdated,
     removeValue,
     storeData,
   }

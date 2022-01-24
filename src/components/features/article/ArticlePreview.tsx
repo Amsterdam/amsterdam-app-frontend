@@ -2,18 +2,18 @@ import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../assets/images/warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
-import {ProjectDetailArticlePreview} from '../../../types'
+import {ArticleSummary} from '../../../types'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
 type Props = {
-  article: ProjectDetailArticlePreview
+  article: ArticleSummary
   onPress: () => void
 }
 
 export const ArticlePreview = ({article, onPress}: Props) => {
   const imageUrl =
-    article.type === 'news' && article.image.sources?.['220px'].url
+    article.type === 'news' && article.image?.sources?.['220px'].url
 
   return (
     <TouchableHighlight
