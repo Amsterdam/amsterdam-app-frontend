@@ -1,14 +1,15 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useLayoutEffect, useState} from 'react'
-import {FlatList, StyleSheet, View} from 'react-native'
+import React, {useContext, useLayoutEffect, useState} from 'react'
+import {StyleSheet, View} from 'react-native'
+import {FlatGrid} from 'react-native-super-grid'
 import {StackParams} from '../app/navigation'
 import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
-import {Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
+import {DeviceContext} from '../providers'
 import {size} from '../tokens'
 import {District, ProjectOverviewItem} from '../types'
 import {mapImageSources} from '../utils'
@@ -24,6 +25,7 @@ type Props = {
 }
 
 export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
+  const device = useContext(DeviceContext)
   const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id
 
@@ -54,66 +56,46 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     })
   })
 
-  // We need to calculate widths because FlatList items don’t flex as expected
-  const screenInset = size.spacing.md
-  const gridGutter = 'sm'
-  const gridGutterWidth = size.spacing[gridGutter]
-  const projectCardMinWidth = 18 * size.spacing.md
-  const numColumns = Math.floor(gridWidth / projectCardMinWidth)
-  const projectCardWidth = Math.floor(
-    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutterWidth) /
-      numColumns,
-  )
-
-  const styles = StyleSheet.create({
-    box: {
-      paddingHorizontal: screenInset,
-      paddingTop: screenInset,
-    },
-    fullHeight: {
-      height: '100%',
-    },
-    grid: {
-      paddingBottom: screenInset,
-    },
-  })
+  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
   return (
     <View
-      style={styles.box}
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
       {isDistrictsLoading || isProjectsLoading || gridWidth === 0 ? (
         <PleaseWait />
       ) : (
-        <FlatList
-          contentContainerStyle={styles.grid}
-          key={`re-render-${numColumns}`}
-          data={projects}
-          ItemSeparatorComponent={() => <Gutter height={gridGutter} />}
-          keyExtractor={item => item.identifier.toString()}
-          numColumns={numColumns}
-          renderItem={({item, index}) => (
-            <>
-              <ProjectCard
-                imageSource={mapImageSources(item.images[0].sources)}
-                onPress={() =>
-                  navigation.navigate(routes.projectDetail.name, {
-                    id: item.identifier,
-                  })
-                }
-                subtitle={item.subtitle ?? undefined}
-                title={item.title}
-                width={projectCardWidth}
-              />
-              {index % numColumns < numColumns - 1 && (
-                <Gutter width={gridGutter} />
-              )}
-            </>
+        <FlatGrid
+          data={projects ?? []}
+          itemContainerStyle={styles.alignment}
+          itemDimension={itemDimension}
+          keyExtractor={item => item.identifier}
+          renderItem={({item}) => (
+            <ProjectCard
+              imageSource={mapImageSources(item.images[0].sources)}
+              onPress={() =>
+                navigation.navigate(routes.projectDetail.name, {
+                  id: item.identifier,
+                })
+              }
+              subtitle={item.subtitle ?? undefined}
+              title={item.title}
+            />
           )}
+          spacing={size.spacing.sm}
+          style={styles.grid}
         />
       )}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  alignment: {
+    justifyContent: 'flex-start',
+  },
+  grid: {
+    margin: size.spacing.sm,
+  },
+})
