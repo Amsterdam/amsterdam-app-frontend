@@ -23,7 +23,7 @@ import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
 import {image} from '../tokens'
 import {ProjectDetail} from '../types'
-import {accessibleText} from '../utils'
+import {accessibleText, mapImageSources} from '../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
 
@@ -68,9 +68,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <PleaseWait />
   ) : project ? (
     <ScrollView>
-      {project.images && project.images[0].sources.orig.url && (
+      {project.images.length && (
         <Image
-          source={{uri: project.images[0].sources.orig.url}}
+          source={mapImageSources(project.images[0].sources)}
           style={styles.image}
         />
       )}
