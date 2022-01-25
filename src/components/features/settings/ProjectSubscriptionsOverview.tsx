@@ -4,7 +4,7 @@ import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
 import {size} from '../../../tokens'
-import {ProjectOverviewItem} from '../../../types'
+import {ProjectTitles} from '../../../types'
 import {accessibleText} from '../../../utils'
 import {Box, Button, Divider, PleaseWait, Text, TextButton} from '../../ui'
 import {Checkbox, Switch} from '../../ui/forms'
@@ -23,8 +23,13 @@ export const ProjectSubscriptionsOverview = ({
   const {changeSettings, settings} = useContext(SettingsContext)
   const notifications = settings?.notifications
 
-  const {data: allProjects, isLoading} = useFetch<ProjectOverviewItem[]>({
+  const {data: projectTitles, isLoading} = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
   })
 
   const cancelEditing = () => {
@@ -80,7 +85,7 @@ export const ProjectSubscriptionsOverview = ({
             </View>
             <Box background="white" borderVertical insetHorizontal="md">
               {subscribableProjectIds.map((projectId, index) => {
-                const project = allProjects?.find(
+                const project = projectTitles?.find(
                   p => p.identifier === projectId,
                 )
                 const subscribed = notifications?.projects?.[projectId] ?? false
@@ -93,12 +98,12 @@ export const ProjectSubscriptionsOverview = ({
                           <Checkbox
                             accessibilityLabel={accessibleText(
                               project.title,
-                              project.subtitle,
+                              project.subtitle ?? undefined,
                             )}
                             label={
                               <ProjectTitle
                                 title={project.title}
-                                subtitle={project.subtitle}
+                                subtitle={project.subtitle ?? undefined}
                               />
                             }
                             onValueChange={() =>
@@ -112,12 +117,12 @@ export const ProjectSubscriptionsOverview = ({
                           <Switch
                             accessibilityLabel={accessibleText(
                               project.title,
-                              project.subtitle,
+                              project.subtitle ?? undefined,
                             )}
                             label={
                               <ProjectTitle
                                 title={project.title}
-                                subtitle={project.subtitle}
+                                subtitle={project.subtitle ?? undefined}
                               />
                             }
                             onValueChange={() =>

@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
 import {
   Button,
   Card,
@@ -12,7 +13,6 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {size} from '../../../tokens'
 import {WasteGuideDetails} from './types'
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
 
 export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'Waste'>>()
+    useNavigation<StackNavigationProp<StackParams, 'WasteGuide'>>()
 
   const {
     appointmentUrl,
@@ -66,11 +66,11 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         />
         {appointmentUrl && (
           <>
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <Column halign="start">
               <Button
                 onPress={() =>
-                  navigation.navigate(menuScreenOptions.webView.name, {
+                  navigation.navigate(routes.webView.name, {
                     sliceFromTop: {portrait: 162, landscape: 208},
                     title: 'Afspraak grof afval ophalen',
                     url: appointmentUrl,
@@ -83,7 +83,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         )}
         {footerLink && (
           <>
-            <Gutter height={size.spacing.md} />
+            <Gutter height="md" />
             <Row align="start">
               <TextButton
                 direction="forward"

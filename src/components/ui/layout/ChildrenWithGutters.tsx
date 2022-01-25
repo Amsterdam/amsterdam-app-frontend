@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {size, Spacing} from '../../../tokens'
+import {Spacing} from '../../../tokens'
 import {Gutter} from './'
 
 type Props = {
@@ -16,9 +16,7 @@ export const ChildrenWithGutters = ({children, gutter, prop}: Props) => {
       {childrenArray.map((child: any, index: number) => (
         <React.Fragment key={child.key ?? `child-${index}`}>
           {child}
-          {index < childrenArray.length - 1 && (
-            <Gutter {...{[prop]: size.spacing[gutter]}} />
-          )}
+          {index < childrenArray.length - 1 && <Gutter {...{[prop]: gutter}} />}
         </React.Fragment>
       ))}
     </>

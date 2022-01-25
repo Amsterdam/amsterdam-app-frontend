@@ -1,6 +1,6 @@
 {
   "name": "stadsapp",
-  "version": "0.10.42",
+  "version": "0.11.50",
   "private": true,
   "scripts": {
     "android:phone": "react-native run-android",
@@ -41,6 +41,7 @@
     "react-native-render-html": "^6.0.5",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
+    "react-native-super-grid": "^4.2.0",
     "react-native-svg": "^12.1.1",
     "react-native-webview": "^11.6.5"
   },

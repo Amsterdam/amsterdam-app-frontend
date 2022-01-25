@@ -2,12 +2,13 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {StyleSheet} from 'react-native'
-import {HomeStackParamList} from '../../../App/navigation'
-import {useAsyncStorage, useFetch} from '../../../hooks'
-import {AddressContext} from '../../../providers'
+import {StackParams} from '../../../app/navigation'
+import {useFetch} from '../../../hooks'
+import {SettingsContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {
   Address,
+  ApiAddress,
   BagResponse,
   BagResponseContent,
   ResponseAddress,
@@ -15,8 +16,8 @@ import {
 import {Box} from '../../ui'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = () => {
-  const [address, setAddress] = useState<ResponseAddress | null>(null)
+export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
+  const [address, setAddress] = useState<ResponseAddress | undefined>()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
@@ -27,18 +28,17 @@ export const AddressForm = () => {
 
   const inputStreetRef = useRef<any>()
 
-  const addressContext = useContext(AddressContext)
+  const {changeSettings} = useContext(SettingsContext)
 
-  const navigation =
-    useNavigation<StackNavigationProp<HomeStackParamList, 'Home'>>()
+  const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
 
-  const apiAddress = useFetch<any>({
+  const addressApi = useFetch<ResponseAddress>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
   })
 
-  const apiBag = useFetch<BagResponse[]>({
+  const bagApi = useFetch<BagResponse[]>({
     onLoad: false,
     options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
     url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
@@ -69,9 +69,7 @@ export const AddressForm = () => {
     setIsStreetSelected(true)
   }
 
-  const asyncStorage = useAsyncStorage()
-
-  const transformAddress = (responseAddress: Address) => {
+  const transformAddress = (responseAddress: ApiAddress): Address => {
     const {
       adres,
       bag_huisletter,
@@ -94,44 +92,40 @@ export const AddressForm = () => {
     }
   }
 
-  const storeAddress = async (transformedAddress: Address) => {
-    await asyncStorage.storeData('address', transformedAddress)
-  }
-
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    apiBag.fetchData({q: street})
+    bagApi.fetchData({q: street})
   }, [street])
 
   useEffect(() => {
     const streetWithoutWeespSuffix = removeWeespSuffix(street)
     isStreetSelected && isNumberSelected
-      ? apiAddress.fetchData({
+      ? addressApi.fetchData({
           q: `${streetWithoutWeespSuffix} ${number}`,
         })
-      : apiBag.fetchData({
+      : bagApi.fetchData({
           q: `${streetWithoutWeespSuffix} ${number}`,
         })
   }, [number, isNumberSelected, isStreetSelected])
 
   useEffect(() => {
-    const suggestions = apiBag.data?.find(
+    const suggestions = bagApi.data?.find(
       item => item.label === 'Straatnamen' || item.label === 'Adressen',
     )
     setBagList(suggestions?.content)
-  }, [apiBag.data])
+  }, [bagApi.data])
 
   useEffect(() => {
-    setAddress(apiAddress.data)
-  }, [apiAddress.data])
+    setAddress(addressApi.data)
+  }, [addressApi.data])
 
   useEffect(() => {
     if (address) {
       const transformedAddress = transformAddress(address?.results[0])
-      addressContext.changeAddress(transformedAddress)
-      addressContext.saveInStore
-        ? storeAddress(transformedAddress).then(() => navigation.goBack())
-        : navigation.goBack()
+      tempAddress
+        ? changeSettings('temp', {address: transformedAddress})
+        : changeSettings('address', transformedAddress)
+      navigation.goBack()
     }
   }, [address])
 

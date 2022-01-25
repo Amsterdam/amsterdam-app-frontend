@@ -2,7 +2,7 @@
  * Groups its children into a single selectable component for screen readers.
  */
 import React from 'react'
-import {View, ViewProps} from 'react-native'
+import {StyleSheet, View, ViewProps} from 'react-native'
 
 type Props = {
   children: React.ReactNode
@@ -11,8 +11,18 @@ type Props = {
 
 export const SingleSelectable = ({children, label, ...otherProps}: Props) => {
   return (
-    <View accessible accessibilityLabel={label} {...otherProps}>
+    <View
+      accessible
+      accessibilityLabel={label}
+      style={styles.singleSelectable}
+      {...otherProps}>
       {children}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  singleSelectable: {
+    flexShrink: 1, // This component usually contains text, so allow shrinking
+  },
+})

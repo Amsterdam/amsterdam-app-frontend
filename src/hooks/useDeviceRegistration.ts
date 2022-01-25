@@ -1,13 +1,9 @@
 import messaging from '@react-native-firebase/messaging'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
+import {getSubscribedProjects} from '../components/features/settings/'
 import {getEnvironment} from '../environment'
-import {
-  DeviceRegistration,
-  NotificationSettings,
-  Settings,
-  SubscribedProjects,
-} from '../types'
+import {DeviceRegistration, NotificationSettings, Settings} from '../types'
 import {
   encryptWithAES,
   getFcmToken,
@@ -18,6 +14,10 @@ import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = (settings: Settings | undefined) => {
   const [refreshToken, setRefreshToken] = useState<string | undefined>()
+
+  const subscribedProjects = getSubscribedProjects(
+    settings?.notifications?.projects,
+  )
 
   // TODO Set as environment variables in CI/CD pipeline
   const authToken = encryptWithAES({
@@ -53,45 +53,37 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     settings?.notifications,
   )
 
-  const onlySubscribedProjects = (projects: SubscribedProjects): string[] =>
-    Object.entries(projects).reduce((acc, val) => {
-      // @ts-ignore
-      val[1] && acc.push(val[0])
-      return acc
-    }, [])
-
   const storeDeviceIfNeeded = useCallback(() => {
-    const hasSubscribedProjects = onlySubscribedProjects(
-      settings?.notifications?.projects ?? {},
-    ).length
-
     // if no projects are subscribed to, only store if previously there were
-    if (!hasSubscribedProjects) {
-      const prevSubscribedProjects = onlySubscribedProjects(
+    if (!subscribedProjects.length) {
+      const prevSubscribedProjects = getSubscribedProjects(
         prevNotificationSettings.current?.projects ?? {},
       ).length
+
       return prevSubscribedProjects
     }
 
     return true
-  }, [settings?.notifications])
+  }, [subscribedProjects.length])
 
   const store = useCallback(async () => {
     if (!storeDeviceIfNeeded()) {
       return
     }
-    const projectsInSettings = settings?.notifications?.projects
+
     try {
       const token = await getFcmToken()
+
+      if (!token) {
+        return
+      }
 
       await storeApi.fetchData(
         {},
         JSON.stringify({
           device_token: token,
           os_type: Platform.OS,
-          projects: projectsInSettings
-            ? onlySubscribedProjects(projectsInSettings)
-            : [],
+          projects: subscribedProjects,
         }),
       )
 
@@ -105,7 +97,6 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
   const registerWithRefreshToken = useCallback(
     async () => {
-      const projectsInSettings = settings?.notifications?.projects
       try {
         const token = await getFcmToken()
 
@@ -115,9 +106,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
             device_token: token,
             device_refresh_token: refreshToken,
             os_type: Platform.OS,
-            projects: projectsInSettings
-              ? onlySubscribedProjects(projectsInSettings)
-              : [],
+            projects: subscribedProjects,
           }),
         )
 

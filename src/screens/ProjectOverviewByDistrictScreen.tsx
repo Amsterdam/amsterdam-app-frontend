@@ -2,23 +2,24 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
+import {StackParams} from '../app/navigation'
+import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {Gutter} from '../components/ui/layout'
-import {districts} from '../data/districts'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
-import {ProjectOverviewItem} from '../types'
+import {District, ProjectOverviewItem} from '../types'
+import {mapImageSources} from '../utils'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
-  MenuStackParamList,
+  StackParams,
   'ProjectOverviewByDistrict'
 >
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
   route: ProjectOverviewByDistrictScreenRouteProp
 }
 
@@ -26,7 +27,15 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id
 
-  const {data: projects, isLoading} = useFetch<ProjectOverviewItem[]>({
+  const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
+    {
+      url: getEnvironment().apiUrl + '/districts',
+    },
+  )
+
+  const {data: projects, isLoading: isProjectsLoading} = useFetch<
+    ProjectOverviewItem[]
+  >({
     url: getEnvironment().apiUrl + '/projects',
     options: {
       params: {
@@ -39,7 +48,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
     navigation.setOptions({
       headerTitle: () => (
         <NonScalingHeaderTitle
-          text={districts.find(d => d.id === districtId)?.name ?? ''}
+          text={districts?.find(d => d.id === districtId)?.name ?? ''}
         />
       ),
     })
@@ -47,11 +56,13 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
 
   // We need to calculate widths because FlatList items don’t flex as expected
   const screenInset = size.spacing.md
-  const gridGutter = size.spacing.sm
+  const gridGutter = 'sm'
+  const gridGutterWidth = size.spacing[gridGutter]
   const projectCardMinWidth = 18 * size.spacing.md
   const numColumns = Math.floor(gridWidth / projectCardMinWidth)
   const projectCardWidth = Math.floor(
-    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutter) / numColumns,
+    (gridWidth - 2 * screenInset - (numColumns - 1) * gridGutterWidth) /
+      numColumns,
   )
 
   const styles = StyleSheet.create({
@@ -73,7 +84,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
       onLayout={event => {
         setGridWidth(event.nativeEvent.layout.width)
       }}>
-      {isLoading || !gridWidth ? (
+      {isDistrictsLoading || isProjectsLoading || gridWidth === 0 ? (
         <PleaseWait />
       ) : (
         <FlatList
@@ -86,15 +97,13 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           renderItem={({item, index}) => (
             <>
               <ProjectCard
-                imageSource={{
-                  uri: item.images[0].sources['460px'].url,
-                }}
+                imageSource={mapImageSources(item.images[0].sources)}
                 onPress={() =>
-                  navigation.navigate(menuScreenOptions.projectDetail.name, {
+                  navigation.navigate(routes.projectDetail.name, {
                     id: item.identifier,
                   })
                 }
-                subtitle={item.subtitle}
+                subtitle={item.subtitle ?? undefined}
                 title={item.title}
                 width={projectCardWidth}
               />

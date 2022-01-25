@@ -2,10 +2,9 @@ import {useRadioGroup} from '@react-native-aria/radio'
 import {useRadioGroupState} from '@react-stately/radio'
 import React from 'react'
 import {View} from 'react-native'
-import {size} from '../../../tokens'
 import {IRadioGroupProps, RadioGroupState} from '../../../types/radio'
 import {Label} from '../Label'
-import {Gutter} from '../layout/Gutter'
+import {Gutter} from '../layout'
 
 export const RadioContext = React.createContext({} as RadioGroupState)
 
@@ -21,7 +20,7 @@ export const RadioGroup = (props: IRadioGroupProps) => {
       {props.accessibilityLabel ? (
         <>
           <Label isAccessible={false} text={props.accessibilityLabel} />
-          <Gutter height={size.spacing.sm} />
+          <Gutter height="sm" />
         </>
       ) : null}
       <RadioContext.Provider value={{...state}}>

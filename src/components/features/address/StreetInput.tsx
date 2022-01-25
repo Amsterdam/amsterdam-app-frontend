@@ -2,7 +2,7 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
-import {color, size} from '../../../tokens'
+import {color} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
 import {Text} from '../../ui'
 import {TextInput} from '../../ui/forms'
@@ -50,7 +50,7 @@ export const StreetInput = ({
               }}
               style={styles.suggestedItem}>
               <Location width={20} height={20} fill={color.font.tertiary} />
-              <Gutter width={size.spacing.xs} />
+              <Gutter width="xs" />
               <Text large>{bagItem._display}</Text>
             </TouchableOpacity>
           ))}

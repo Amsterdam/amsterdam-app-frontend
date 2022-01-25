@@ -1,5 +1,4 @@
 import React from 'react'
-import {size} from '../../tokens'
 import {Gutter} from './layout'
 import {SingleSelectable, Text} from './'
 
@@ -23,9 +22,7 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
             {label}
           </Text>
           <Text>{value}</Text>
-          {index < nonEmptyItems.length - 1 && (
-            <Gutter height={size.spacing.md} />
-          )}
+          {index < nonEmptyItems.length - 1 && <Gutter height="md" />}
         </SingleSelectable>
       ))}
     </>

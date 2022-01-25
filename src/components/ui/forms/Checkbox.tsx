@@ -13,7 +13,7 @@ import {Row, Stretch} from '../layout'
 type Props = {
   label: ReactElement
   onValueChange: () => void
-  value: Boolean
+  value: boolean
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const Checkbox = ({
@@ -22,22 +22,20 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
-  const Label = () => (
-    <Stretch>
-      <SkipInScreenReader>{label}</SkipInScreenReader>
-    </Stretch>
-  )
-
   return (
     <TouchableHighlight
-      underlayColor={color.background.white}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="checkbox"
+      accessibilityState={{selected: value}}
       onPress={onValueChange}
-      accessibilityLabel={accessibilityLabel}>
-      <Row align="between" valign="center" gutter="md">
+      underlayColor={color.background.white}>
+      <Row align="between" gutter="md" valign="center">
         <View style={[styles.checkbox, value && styles.checked]}>
           {value && <Checkmark fill={color.font.inverse} />}
         </View>
-        <Label />
+        <Stretch>
+          <SkipInScreenReader>{label}</SkipInScreenReader>
+        </Stretch>
       </Row>
     </TouchableHighlight>
   )

@@ -1,14 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
-import {homeScreenOptions, HomeStackParamList} from '../../../App/navigation'
-import {useAsyncStorage} from '../../../hooks'
-import {size} from '../../../tokens'
-import {Address as AddressType} from '../../../types'
+import React, {useContext} from 'react'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {AlertContext, SettingsContext} from '../../../providers'
 import {
   Attention,
-  Box,
+  Button,
   Card,
   CardBody,
   SingleSelectable,
@@ -20,52 +18,44 @@ import {Gutter, Row} from '../../ui/layout'
 import {AddressFormTeaser} from './'
 
 export const Address = () => {
-  const [address, setAddress] = useState<AddressType | undefined>(undefined)
-  const [isLoading, setLoading] = useState(true)
+  const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
+  const {removeSetting, settings} = useContext(SettingsContext)
+  const {address} = {...settings}
+  const {changeContent, changeVariant} = useContext(AlertContext)
 
-  const asyncStorage = useAsyncStorage()
-  const navigation =
-    useNavigation<StackNavigationProp<HomeStackParamList, 'Home'>>()
-
-  const retrieveAddress = useCallback(async () => {
-    const addressFromStore = await asyncStorage.getValue('address')
-    setAddress(addressFromStore)
-    setLoading(false)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    retrieveAddress()
-    const willFocusSubscription = navigation.addListener('focus', () => {
-      retrieveAddress()
+  const removeAddressAndShowAlert = () => {
+    removeSetting('address')
+    changeContent({
+      title: 'Gelukt',
+      text: 'Het adres is verwijderd uit uw profiel.',
     })
-
-    return willFocusSubscription
-  }, [navigation, retrieveAddress])
+    changeVariant('success')
+  }
 
   return (
     <>
-      {isLoading ? (
-        <Box>
-          <ActivityIndicator />
-        </Box>
-      ) : address ? (
+      {address ? (
         <Card>
           <CardBody>
             <SingleSelectable>
-              <Text secondary>Uw adres:</Text>
-              <Gutter height={size.spacing.sm} />
-              <Title level={4} margin text={address.adres} />
-              <Text>{[address.postcode, address.woonplaats].join(' ')}</Text>
+              <Title level={4} text="Uw adres" />
+              <Text large>{address.adres}</Text>
+              <Text large>
+                {[address.postcode, address.woonplaats].join(' ')}
+              </Text>
             </SingleSelectable>
-            <Gutter height={size.spacing.md} />
-            <Row align="start">
+            <Gutter height="md" />
+            <Row align="between" valign="center" gutter="md" wrap>
+              <Button
+                variant="inverse"
+                onPress={() => navigation.navigate(routes.addressForm.name)}
+                text="Wijzig adres"
+              />
               <TextButton
-                direction="backward"
                 emphasis
-                onPress={() =>
-                  navigation.navigate(homeScreenOptions.addressForm.name)
-                }
-                text="Verander adres"
+                icon="remove"
+                onPress={removeAddressAndShowAlert}
+                text="Verwijder adres"
               />
             </Row>
           </CardBody>
@@ -76,7 +66,7 @@ export const Address = () => {
             text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt kunnen tonen."
             title="Uw buurt"
           />
-          <Gutter height={size.spacing.md} />
+          <Gutter height="md" />
           <Attention>
             <Text>
               Uw adres wordt alleen op uw telefoon opgeslagen en gebruikt om de

@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {ProjectOverviewItem} from '../../../types'
+import {ProjectTitles} from '../../../types'
 import {Box, Card, CardBody, CardHeader, Divider, Text, Title} from '../../ui'
 import {Column} from '../../ui/layout'
 
@@ -11,20 +11,25 @@ export const ProjectManagerSettings = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
 
-  const [allProjects, setAllProjects] = useState<
-    ProjectOverviewItem[] | undefined
+  const [projectTitles, setProjectTitles] = useState<
+    ProjectTitles[] | undefined
   >()
 
-  // Retrieve all projects from backend as we need to display their titles
-  const apiProjects = useFetch<ProjectOverviewItem[]>({
+  // Retrieve all projects to allow displaying their titles
+  const projectsApi = useFetch<ProjectTitles[]>({
     url: getEnvironment().apiUrl + '/projects',
+    options: {
+      params: {
+        fields: 'identifier,subtitle,title',
+      },
+    },
   })
 
   useEffect(() => {
-    apiProjects.data && setAllProjects(apiProjects.data)
-  }, [apiProjects.data])
+    projectsApi.data && setProjectTitles(projectsApi.data)
+  }, [projectsApi.data])
 
-  const authorisedProjects = allProjects?.filter(project =>
+  const authorisedProjects = projectTitles?.filter(project =>
     projectManagerSettings?.projects.includes(project.identifier),
   )
 

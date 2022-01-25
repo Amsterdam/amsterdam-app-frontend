@@ -13,19 +13,21 @@ export type ProjectOverviewItem = {
   project_type: string
   publication_date: string
   source_url: string
-  subtitle: string
+  subtitle: string | null
   title: string
 }
 
+// Only the titles of a project, e.g. for small lists
+export type ProjectTitles = Pick<
+  ProjectOverviewItem,
+  'identifier' | 'subtitle' | 'title'
+>
+
 // All project details as received from our backend
 export type ProjectDetail = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
-    coordinates: {
-      lat: number
-      lon: number
-    }
     intro: Section[]
     'more-info': Section[]
     timeline: Timeline
@@ -33,6 +35,10 @@ export type ProjectDetail = {
     when: Section[]
     where: Section[]
     work: Section[]
+  }
+  coordinates: {
+    lat: number
+    lon: number
   }
   district_id: number
   district_name: string

@@ -14,12 +14,11 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {size} from '../../tokens'
-import {NewNotification} from '../../types'
+import {DraftNotification} from '../../types'
 import {formatTime} from '../../utils'
 import {
   NotificationContext,
-  NotificationStackParamList,
+  NotificationStackParams,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -33,10 +32,7 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<
-    NotificationStackParamList,
-    'NotificationForm'
-  >
+  navigation: StackNavigationProp<NotificationStackParams, 'NotificationForm'>
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
@@ -66,7 +62,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     : 0
 
   const onSubmit = (data: FormData) => {
-    const notificationData: NewNotification = {
+    const notificationData: DraftNotification = {
       title: data.title,
       body: data.message,
       project_identifier: notificationContext.projectDetails.id!,
@@ -109,8 +105,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de titel van het pushbericht?"
-                      label="Wat is de titel van het pushbericht?"
+                      accessibilityLabel="Maak een korte en bondige titel"
+                      label="Maak een korte en bondige titel"
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
@@ -119,7 +115,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                     />
                   )}
                   name="title"
-                  defaultValue={'TEST ' + formatTime(now) + ' '}
+                  defaultValue={'TEST ' + formatTime(now, true) + ' '}
                 />
                 <CharactersLeftDisplay
                   charactersLeft={maxCharacters.title - characterCountTitle}
@@ -136,8 +132,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Wat is de tekst van het pushbericht?"
-                      label="Wat is de tekst van het pushbericht?"
+                      accessibilityLabel="Tekst van het pushbericht"
+                      label="Tekst van het pushbericht"
                       maxLength={maxCharacters.message}
                       multiline={true}
                       numberOfLines={3}
@@ -171,7 +167,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             }
           />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   )

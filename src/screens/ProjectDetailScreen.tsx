@@ -2,7 +2,8 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../App/navigation'
+import {StackParams} from '../app/navigation'
+import {routes} from '../app/navigation/routes'
 import {ArticleOverview} from '../components/features/article'
 import {ProjectBodyMenu} from '../components/features/project'
 import {
@@ -20,17 +21,14 @@ import {Column, Gutter} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
-import {image, size} from '../tokens'
+import {image} from '../tokens'
 import {ProjectDetail} from '../types'
-import {accessibleText} from '../utils'
+import {accessibleText, mapImageSources} from '../utils'
 
-type ProjectDetailScreenRouteProp = RouteProp<
-  MenuStackParamList,
-  'ProjectDetail'
->
+type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParamList, 'ProjectDetail'>
+  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
   route: ProjectDetailScreenRouteProp
 }
 
@@ -49,11 +47,6 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
-
-  const sortedArticles =
-    project?.articles.sort((a, b) =>
-      a.publication_date < b.publication_date ? 1 : -1,
-    ) ?? []
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -75,9 +68,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <PleaseWait />
   ) : project ? (
     <ScrollView>
-      {project.images && project.images[0].sources.orig.url && (
+      {project.images.length && (
         <Image
-          source={{uri: project.images[0].sources.orig.url}}
+          source={mapImageSources(project.images[0].sources)}
           style={styles.image}
         />
       )}
@@ -87,9 +80,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(menuScreenOptions.notification.name, {
+                  navigation.navigate(routes.notification.name, {
                     projectDetails: {
-                      articles: project.articles,
+                      articles: project.articles ?? [],
                       id: project.identifier,
                       title: project.title,
                     },
@@ -115,14 +108,12 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               value={isSubscribed}
             />
           </Column>
-          <Gutter height={size.spacing.lg} />
+          <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
         </Box>
-        {project.articles.length ? (
-          <Box>
-            <ArticleOverview articles={sortedArticles} />
-          </Box>
-        ) : null}
+        <Box>
+          <ArticleOverview projectIds={[project.identifier]} title="Nieuws" />
+        </Box>
       </Column>
     </ScrollView>
   ) : null

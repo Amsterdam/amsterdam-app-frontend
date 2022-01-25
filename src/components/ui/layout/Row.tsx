@@ -10,19 +10,23 @@ type Props = {
   children: ReactNode
   gutter?: keyof Spacing
   valign?: CrossAxisAlignment
+  wrap?: boolean
 }
 
-export const Row = ({align, children, gutter, valign}: Props) => {
+export const Row = ({align, children, gutter, valign, wrap}: Props) => {
   const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),
     },
+    wrap: {
+      flexWrap: 'wrap',
+    },
   })
 
   return (
-    <View style={styles.row}>
+    <View style={[styles.row, wrap && styles.wrap]}>
       {gutter ? (
         <ChildrenWithGutters gutter={gutter} prop="width">
           {children}

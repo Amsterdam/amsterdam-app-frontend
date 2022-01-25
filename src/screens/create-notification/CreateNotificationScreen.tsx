@@ -4,14 +4,14 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
-import {MenuStackParamList} from '../../App/navigation'
+import {StackParams} from '../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {useAsync, useAsyncStorage} from '../../hooks'
 import {color} from '../../tokens'
 import {
-  NewNotification,
+  Article,
+  DraftNotification,
   NewWarning,
-  ProjectDetailArticlePreview,
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
@@ -23,7 +23,7 @@ import {
   WarningFormScreen,
 } from './'
 
-export type NotificationStackParamList = {
+export type NotificationStackParams = {
   NotificationForm: undefined
   NotificationResponse: undefined
   SelectNewsArticle: undefined
@@ -31,7 +31,7 @@ export type NotificationStackParamList = {
   WarningForm: undefined
 }
 
-type NotificationScreenRouteProp = RouteProp<MenuStackParamList, 'Notification'>
+type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
 
 type Props = {
   route: NotificationScreenRouteProp
@@ -40,11 +40,11 @@ type Props = {
 type Context = {
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
-  changeNotification: (newNotification: NewNotification) => void
+  changeNotification: (newNotification: DraftNotification) => void
   changeResponseStatus: (value: ResponseStatus) => void
   changeWarning: (newWarning: NewWarning) => void
   newsDetails?: NewsDetails
-  notification?: NewNotification
+  notification?: DraftNotification
   projectDetails: ProjectDetails
   projectManagerSettings?: ProjectManagerSettings
   responseStatus?: ResponseStatus
@@ -52,7 +52,7 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  articles: ProjectDetailArticlePreview[]
+  articles?: Article[]
   id: string
   title: string
 }
@@ -76,7 +76,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
-  const [notification, setNotification] = useState<NewNotification>()
+  const [notification, setNotification] = useState<DraftNotification>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
   const [projectManagerSettings, setProjectManagerSettings] =
@@ -85,7 +85,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const Stack = createStackNavigator()
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
-  const changeNotification = (value: NewNotification) => setNotification(value)
+  const changeNotification = (value: DraftNotification) =>
+    setNotification(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)

@@ -6,7 +6,8 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {menuScreenOptions, MenuStackParamList} from '../../../App/navigation'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
 import {DeviceContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {ProjectDetail, Section, Timeline} from '../../../types'
@@ -24,11 +25,9 @@ type ProjectBodyMenuItem = {
 }
 
 export const ProjectBodyMenu = ({project}: Props) => {
-  const deviceContext = useContext(DeviceContext)
+  const device = useContext(DeviceContext)
   const navigation =
-    useNavigation<
-      StackNavigationProp<MenuStackParamList, 'ProjectDetailBody'>
-    >()
+    useNavigation<StackNavigationProp<StackParams, 'ProjectDetailBody'>>()
 
   const menuOptions: ProjectBodyMenuItem[] = [
     {
@@ -69,7 +68,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
   const iconButtonWidth = 80
   const numberOfIconButtons = 4
   let rowWidth = (100 / numberOfIconButtons) * menu.length
-  if (deviceContext.width > 2 * numberOfIconButtons * iconButtonWidth) {
+  if (device.width > 2 * numberOfIconButtons * iconButtonWidth) {
     rowWidth /= 2
   }
 
@@ -78,8 +77,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
       style={[
         styles.row,
         {width: rowWidth + '%'},
-        deviceContext.width < numberOfIconButtons * iconButtonWidth &&
-          styles.wrap,
+        device.width < numberOfIconButtons * iconButtonWidth && styles.wrap,
       ]}>
       {menu.map(({icon, sections, timeline, title}) => (
         <IconButton
@@ -87,7 +85,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
           key={title}
           label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
           onPress={() =>
-            navigation.navigate(menuScreenOptions.projectDetailBody.name, {
+            navigation.navigate(routes.projectDetailBody.name, {
               body: {
                 headerTitle: project.title,
                 sections: sections ?? [],

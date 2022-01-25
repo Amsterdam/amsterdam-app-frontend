@@ -1,28 +1,30 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {menuScreenOptions, MenuStackParamList} from '../../App/navigation'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
 import {getEnvironment} from '../../environment'
-import {AddressContext} from '../../providers'
+import {SettingsContext} from '../../providers'
 
 type Props = {
-  navigation: StackNavigationProp<MenuStackParamList, 'WebView'>
+  navigation: StackNavigationProp<StackParams, 'WebView'>
 }
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
-  const addressContext = useContext(AddressContext)
+  const {settings} = useContext(SettingsContext)
+  const {address} = {...settings}
 
   return (
     <BannerCard
       border
       imageSource={require('../../assets/images/banner-afval-niet-opgehaald.jpg')}
       onPress={() =>
-        navigation.navigate(menuScreenOptions.webView.name, {
+        navigation.navigate(routes.webView.name, {
           title: 'Melden',
           url: `${getEnvironment().signalsBaseUrl}/categorie/afval/grofvuil`,
           urlParams: {
-            lat: addressContext.address?.centroid[1],
-            lng: addressContext.address?.centroid[0],
+            lat: address?.centroid[1],
+            lng: address?.centroid[0],
           },
         })
       }

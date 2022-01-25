@@ -1,15 +1,23 @@
 import 'intl'
 import 'intl/locale-data/jsonp/nl-NL'
 
-export const formatTime = (date: string | number) => {
+type Signature = (date: string | number, displaySeconds?: boolean) => string
+
+export const formatTime: Signature = (date, displaySeconds = false) => {
   const jsDate = new Date(date)
 
-  const formattedDate = new Intl.DateTimeFormat('nl-NL', {
+  if (jsDate.toString() === 'Invalid Date') {
+    throw 'Incorrect `date` provided to `formatTime`.'
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
     hourCycle: 'h24',
     hour: '2-digit',
     minute: '2-digit',
-    second: '2-digit',
-  }).format(jsDate)
+    second: displaySeconds ? '2-digit' : undefined,
+  }
 
-  return formattedDate
+  const formattedTime = new Intl.DateTimeFormat('nl-NL', options).format(jsDate)
+
+  return formattedTime
 }

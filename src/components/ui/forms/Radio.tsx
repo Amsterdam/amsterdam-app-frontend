@@ -3,13 +3,12 @@ import React, {useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import CircleIcon from '../../../assets/icons/circle.svg'
 import {color, size} from '../../../tokens'
-import {Center} from '../../ui/layout'
+import {Center} from '../layout'
 import {RadioContext} from './'
 
 type Props = {
   children: React.ReactNode
   isChecked: boolean
-  isFirst?: boolean
   value: string
 }
 
@@ -23,7 +22,8 @@ export const Radio = (props: Props) => {
     <Pressable
       {...(inputProps as PressableProps)}
       accessibilityRole="radio"
-      style={[styles.radioButton, props.isFirst && styles.firstRadioButton]}>
+      accessibilityState={{selected: isChecked}}
+      style={[styles.radioButton]}>
       <Center
         style={[styles.outerCircle, isChecked && styles.outerCircleChecked]}>
         {isChecked && (
@@ -45,18 +45,11 @@ const styles = StyleSheet.create({
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: color.control.default.border,
-    paddingVertical: size.spacing.md,
-  },
-  firstRadioButton: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: color.control.default.border,
   },
   outerCircle: {
     width: outerCircleSize,
     height: outerCircleSize,
-    marginRight: size.spacing.sm,
+    marginRight: size.spacing.md,
     backgroundColor: color.control.default.background,
     borderColor: color.control.default.border,
     borderRadius: outerCircleSize / 2,

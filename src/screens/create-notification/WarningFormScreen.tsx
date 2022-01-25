@@ -14,11 +14,10 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {size} from '../../tokens'
 import {NewWarning} from '../../types'
 import {
   NotificationContext,
-  NotificationStackParamList,
+  NotificationStackParams,
 } from './CreateNotificationScreen'
 
 const maxCharacters = {
@@ -34,7 +33,7 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParamList, 'WarningForm'>
+  navigation: StackNavigationProp<NotificationStackParams, 'WarningForm'>
 }
 
 export const WarningFormScreen = ({navigation}: Props) => {
@@ -139,8 +138,8 @@ export const WarningFormScreen = ({navigation}: Props) => {
                   }}
                   render={({field: {onChange, value}}) => (
                     <TextInput
-                      accessibilityLabel="Intro nieuwsartikel"
-                      label="Intro nieuwsartikel"
+                      accessibilityLabel="Korte inleiding"
+                      label="Korte inleiding"
                       maxLength={maxCharacters.intro}
                       multiline={true}
                       numberOfLines={3}
@@ -201,7 +200,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
           />
           <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
         </Row>
-        <Gutter height={size.spacing.xl} />
+        <Gutter height="xl" />
       </Box>
     </ScrollView>
   )

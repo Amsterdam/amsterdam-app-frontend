@@ -1,19 +1,20 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {menuScreenOptions, MenuStackParamList} from '../../App/navigation'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
 
 export const RecyclingGuideBanner = () => {
   const navigation =
-    useNavigation<StackNavigationProp<MenuStackParamList, 'WebView'>>()
+    useNavigation<StackNavigationProp<StackParams, 'WebView'>>()
 
   return (
     <BannerCard
       border
       imageSource={require('../../assets/images/banner-illustratie-welkafvalhoortwaar.png')}
       onPress={() =>
-        navigation.navigate(menuScreenOptions.webView.name, {
+        navigation.navigate(routes.webView.name, {
           title: 'Afvalscheidingswijzer',
           url: 'https://www.afvalscheidingswijzer.nl',
         })
