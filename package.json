@@ -1,6 +1,6 @@
 {
   "name": "stadsapp",
-  "version": "0.11.50",
+  "version": "0.11.52",
   "private": true,
   "scripts": {
     "android:phone": "react-native run-android",
