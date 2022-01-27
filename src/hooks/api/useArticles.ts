@@ -1,5 +1,8 @@
 import useSWR from 'swr'
 import {getEnvironment} from '../../environment'
+import {generateRequestUrl} from '../../utils/api'
+
+type Data = Record<string, unknown>
 
 type Params = {
   limit?: number
@@ -8,31 +11,38 @@ type Params = {
   sortOrder?: 'asc' | 'desc'
 }
 
-const fetcher = (url: string, params: Params) => {
-  console.log(url, params)
-  const arrayParams = Object.entries(params)
-    .filter(([, value]) => Array.isArray(value))
-    .flatMap(([key, value]) =>
-      (value as string[]).flatMap((val: string) => `${key}=${val}`),
-    )
-
-  const scalarParams = Object.entries(params)
-    .filter(([, value]) => Boolean(value) && !Array.isArray(value))
-    .flatMap(([key, value]) => `${key}=${value}`)
-
-  const queryParams = arrayParams.concat(scalarParams).join('&')
-  const requestURL = [url, queryParams].filter(Boolean).join('?')
-  console.log({requestURL})
+type FetcherArguments = {
+  url: string
+  params: Params
+  requestOptions?: Data
 }
 
-export const useArticleSummaries = (args: Params) => {
-  const {limit, projectIds, sortBy, sortOrder} = args
-  const params = {
-    ...(limit && {limit}),
-    ...(projectIds && {'project-ids': projectIds.join(',')}),
-    ...(sortBy && {'sort-by': sortBy}),
-    ...(sortOrder && {'sort-order': sortOrder}),
+const fetcher = async ({
+  url,
+  params,
+  requestOptions = {},
+}: FetcherArguments) => {
+  const requestURL = generateRequestUrl(url, params)
+  const fetchResponse = await fetch(requestURL, {
+    headers: {'Content-Type': 'application/json', Accept: 'application/json'},
+    method: 'GET',
+  })
+
+  const responseData = (
+    requestOptions.responseType === 'blob'
+      ? await fetchResponse.blob()
+      : await fetchResponse.json()
+  ) as Data
+
+  if (!fetchResponse.ok) {
+    const error = new Error('An error occurred while fetching the data.')
+    throw error
   }
+
+  return responseData
+}
+
+export const useArticleSummaries = (params?: Params) => {
   const url = getEnvironment().apiUrl + '/articles'
   const {data, error} = useSWR({url, params}, fetcher)
 
