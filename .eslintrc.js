@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['import'],
   extends: '@react-native-community',
   rules: {
-    'import/no-default-export': 'error',
+    'import/no-default-export': 'warn',
     'import/order': [
       'error',
       {
