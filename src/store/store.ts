@@ -4,7 +4,7 @@ import {articlesReducer} from '../components/features/article/articleSlice'
 
 export const store = configureStore({
   reducer: {
-    aritcles: articlesReducer,
+    articles: articlesReducer,
   },
 })
 
