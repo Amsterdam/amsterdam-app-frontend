@@ -5,6 +5,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
+import {useArticleSummaries} from '../../../hooks/api/useArticles'
 import {ArticleSummary} from '../../../types'
 import {PleaseWait, Title} from '../../ui'
 import {Column, Grid, GridCell} from '../../ui/layout'
@@ -28,6 +29,10 @@ export const ArticleOverview = ({
   const [articles, setArticles] = useState<ArticleSummary[] | undefined>()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
+
+  const {articleSummaries, isLoading, isError} = useArticleSummaries(projectIds)
+
+  console.log({articleSummaries, isLoading, isError})
 
   const articlesApi = useFetch<ArticleSummary[]>({
     url: getEnvironment().apiUrl + '/articles',
