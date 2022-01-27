@@ -42,7 +42,7 @@ const fetcher = async ({
   return responseData
 }
 
-export const useArticleSummaries = (params?: Params) => {
+export const useArticles = (params?: Params) => {
   const url = getEnvironment().apiUrl + '/articles'
   const {data, error} = useSWR({url, params}, fetcher)
 
