@@ -30,10 +30,6 @@ export const ArticleOverview = ({
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
 
-  const {articleSummaries, isLoading, isError} = useArticleSummaries(projectIds)
-
-  console.log({articleSummaries, isLoading, isError})
-
   const articlesApi = useFetch<ArticleSummary[]>({
     url: getEnvironment().apiUrl + '/articles',
     options: {
