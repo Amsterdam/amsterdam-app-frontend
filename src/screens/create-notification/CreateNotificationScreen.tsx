@@ -6,10 +6,11 @@ import {
 import React, {createContext, useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
-import {useAsync, useAsyncStorage} from '../../hooks'
+import {getEnvironment} from '../../environment'
+import {useAsync, useAsyncStorage, useFetch} from '../../hooks'
 import {color} from '../../tokens'
 import {
-  Article,
+  ArticleSummary,
   DraftNotification,
   NewWarning,
   ProjectManagerSettings,
@@ -38,6 +39,7 @@ type Props = {
 }
 
 type Context = {
+  articles?: ArticleSummary[]
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: DraftNotification) => void
@@ -52,7 +54,6 @@ type Context = {
 }
 
 export type ProjectDetails = {
-  articles?: Article[]
   id: string
   title: string
 }
@@ -81,6 +82,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [warning, setWarning] = useState<NewWarning>()
   const [projectManagerSettings, setProjectManagerSettings] =
     useState<ProjectManagerSettings>()
+  const [articles, setArticles] = useState<ArticleSummary[]>()
 
   const Stack = createStackNavigator()
 
@@ -92,14 +94,29 @@ export const CreateNotificationScreen = ({route}: Props) => {
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
+  const articlesApi = useFetch<ArticleSummary[]>({
+    url: getEnvironment().apiUrl + '/articles',
+    options: {
+      params: {'project-ids': projectDetails.id},
+    },
+    onLoad: false,
+  })
+
   useEffect(() => {
-    const {articles, id, title} = route.params.projectDetails
+    const {id, title} = route.params.projectDetails
     setProjectDetails({
-      articles,
       id,
       title,
     })
   }, [route])
+
+  useEffect(() => {
+    projectDetails && articlesApi.fetchData()
+  }, [projectDetails]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    articlesApi.data && setArticles(articlesApi.data)
+  }, [articlesApi.data])
 
   useAsync(
     () => asyncStorage.getValue('project-manager'),
@@ -114,6 +131,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
         changeNotification,
         changeResponseStatus,
         changeWarning,
+        articles,
         newsDetails,
         notification,
         projectDetails,

@@ -19,9 +19,6 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {getEnvironment} from '../../environment'
-import {useFetch} from '../../hooks'
-import {NewsArticle} from '../../types'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -39,23 +36,16 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     handleSubmit,
     watch,
   } = useForm()
-  const notificationContext = useContext(NotificationContext)
-
-  const {data: news} = useFetch<NewsArticle[]>({
-    url: getEnvironment().apiUrl + '/project/news_by_project_id',
-    options: {
-      params: {
-        'project-identifier': notificationContext.projectDetails.id!,
-      },
-    },
-  })
+  const {articles, changeCurrentStep, changeNewsDetails} =
+    useContext(NotificationContext)
+  const newsArticles = articles?.filter(article => article.type === 'news')
 
   const watchRadioGroup = watch('news')
 
   const onSubmit = (data: FormData) => {
-    const newsSelected = news?.find(item => item.identifier === data.news)
+    const newsSelected = articles?.find(item => item.identifier === data.news)
     newsSelected &&
-      notificationContext.changeNewsDetails({
+      changeNewsDetails({
         id: newsSelected?.identifier,
         title: newsSelected?.title,
       })
@@ -64,12 +54,12 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(2)
+      changeCurrentStep(2)
     })
     return focusListener
-  }, [navigation, notificationContext])
+  }, [changeCurrentStep, navigation])
 
-  return news ? (
+  return newsArticles ? (
     <ScrollView keyboardDismiss>
       <Stretch>
         <Box>
@@ -83,14 +73,16 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                     accessibilityLabel="Selecteer een bestaand nieuwsartikel"
                     name="news"
                     onChange={val => onChange(val)}>
-                    {news.map(newsArticle => (
-                      <Radio
-                        isChecked={newsArticle.identifier === watchRadioGroup}
-                        key={newsArticle.identifier}
-                        value={newsArticle.identifier}>
-                        <Text large>{newsArticle.title}</Text>
-                      </Radio>
-                    ))}
+                    {newsArticles
+                      .filter(article => article.type === 'news')
+                      .map(newsArticle => (
+                        <Radio
+                          isChecked={newsArticle.identifier === watchRadioGroup}
+                          key={newsArticle.identifier}
+                          value={newsArticle.identifier}>
+                          <Text large>{newsArticle.title}</Text>
+                        </Radio>
+                      ))}
                   </RadioGroup>
                 )}
                 name="news"

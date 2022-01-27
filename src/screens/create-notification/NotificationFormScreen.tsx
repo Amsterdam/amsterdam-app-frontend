@@ -55,10 +55,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const watchTitle = watch('title')
   const watchMessage = watch('message')
 
-  const numberOfNewsArticles = notificationContext.projectDetails.articles
-    ? notificationContext.projectDetails.articles.filter(
-        article => article.type === 'news',
-      ).length
+  const numberOfNewsArticles = notificationContext.articles
+    ? notificationContext.articles.filter(article => article.type === 'news')
+        .length
     : 0
 
   const onSubmit = (data: FormData) => {
