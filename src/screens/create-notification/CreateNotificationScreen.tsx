@@ -21,27 +21,13 @@ import {
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
-import {NotificationResponseScreen} from './NotificationResponseScreen'
-import {VerifyNotificationScreen} from './VerifyNotificationScreen'
 import {
   NotificationFormScreen,
+  NotificationResponseScreen,
   SelectNewsArticleScreen,
+  VerifyNotificationScreen,
   WarningFormScreen,
 } from './'
-
-export type NotificationStackParams = {
-  NotificationForm: undefined
-  NotificationResponse: undefined
-  SelectNewsArticle: undefined
-  VerifyNotification: undefined
-  WarningForm: undefined
-}
-
-type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
-
-type Props = {
-  route: NotificationScreenRouteProp
-}
 
 type Context = {
   articles?: ArticleSummary[]
@@ -58,11 +44,6 @@ type Context = {
   warning?: NewWarning
 }
 
-export type ProjectDetails = {
-  id: string
-  title: string
-}
-
 type NewsDetails = {
   id: string
   title: string
@@ -70,35 +51,46 @@ type NewsDetails = {
 
 export const NotificationContext = createContext<Context>({} as Context)
 
-const screenOptions: StackNavigationOptions = {
-  cardStyle: {
-    backgroundColor: color.background.white,
-  },
-  headerShown: false,
+type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
+
+export type NotificationStackParams = {
+  NotificationForm: undefined
+  NotificationResponse: undefined
+  SelectNewsArticle: undefined
+  VerifyNotification: undefined
+  WarningForm: undefined
+}
+
+export type ProjectDetails = {
+  id: string
+  title: string
+}
+
+type Props = {
+  route: NotificationScreenRouteProp
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
   const asyncStorage = useAsyncStorage()
+
+  const [articles, setArticles] = useState<ArticleSummary[]>()
+  const [articlesFetched, setArticlesFetched] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
-  const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<DraftNotification>()
-  const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
-  const [warning, setWarning] = useState<NewWarning>()
+  const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [projectManagerSettings, setProjectManagerSettings] =
     useState<ProjectManagerSettings>()
-  const [articles, setArticles] = useState<ArticleSummary[]>()
-
-  const Stack = createStackNavigator()
+  const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
+  const [warning, setWarning] = useState<NewWarning>()
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
+  const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeNotification = (value: DraftNotification) =>
     setNotification(value)
-  const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
-  const [articlesFetched, setArticlesFetched] = useState(false)
 
   const articlesApi = useFetch<ArticleSummary[]>({
     url: getEnvironment().apiUrl + '/articles',
@@ -136,15 +128,24 @@ export const CreateNotificationScreen = ({route}: Props) => {
     return <PleaseWait />
   }
 
+  const Stack = createStackNavigator()
+
+  const screenOptions: StackNavigationOptions = {
+    cardStyle: {
+      backgroundColor: color.background.white,
+    },
+    headerShown: false,
+  }
+
   return (
     <NotificationContext.Provider
       value={{
+        articles,
         changeCurrentStep,
         changeNewsDetails,
         changeNotification,
         changeResponseStatus,
         changeWarning,
-        articles,
         newsDetails,
         notification,
         projectDetails,
@@ -160,21 +161,21 @@ export const CreateNotificationScreen = ({route}: Props) => {
         )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
-            name="NotificationForm"
             component={NotificationFormScreen}
+            name="NotificationForm"
           />
           <Stack.Screen
-            name="SelectNewsArticle"
             component={SelectNewsArticleScreen}
+            name="SelectNewsArticle"
           />
           <Stack.Screen name="WarningForm" component={WarningFormScreen} />
           <Stack.Screen
-            name="VerifyNotification"
             component={VerifyNotificationScreen}
+            name="VerifyNotification"
           />
           <Stack.Screen
-            name="NotificationResponse"
             component={NotificationResponseScreen}
+            name="NotificationResponse"
             options={{
               cardStyle: {
                 backgroundColor: color.background.app,
