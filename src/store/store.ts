@@ -1,10 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {articlesReducer} from '../components/features/article/articleSlice'
-// ...
+import {articlesApi} from '../services/articles'
 
 export const store = configureStore({
   reducer: {
-    articles: articlesReducer,
+    [articlesApi.reducerPath]: articlesApi.reducer,
   },
 })
 
