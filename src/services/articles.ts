@@ -1,8 +1,6 @@
-// Need to use the React-specific entry point to import createApi
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {getEnvironment} from '../environment'
 import {Articles} from '../types'
 import {generateRequestUrl} from '../utils'
+import {emptySplitApi} from './init'
 
 type QueryArg = {
   limit?: number
@@ -11,13 +9,26 @@ type QueryArg = {
   sortOrder?: 'asc' | 'desc'
 }
 
+const mapQueryParamsToBackendFormat = ({
+  limit,
+  projectIds,
+  sortBy,
+  sortOrder,
+}: QueryArg) => ({
+  ...(limit && {limit}),
+  ...(projectIds && {'project-ids': projectIds.join(',')}),
+  ...(sortBy && {'sort-by': sortBy}),
+  ...(sortOrder && {'sort-order': sortOrder}),
+})
+
 // Define a service using a base URL and expected endpoints
-export const articlesApi = createApi({
-  reducerPath: 'articlesApi',
-  baseQuery: fetchBaseQuery({baseUrl: getEnvironment().apiUrl}),
+export const articlesApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     getArticles: builder.query<Articles, QueryArg>({
-      query: params => generateRequestUrl('/articles', {...params}),
+      query: params => {
+        const q = mapQueryParamsToBackendFormat(params)
+        return generateRequestUrl('/articles', q)
+      },
       transformResponse: (response: {result: Articles}) => response.result,
     }),
   }),
