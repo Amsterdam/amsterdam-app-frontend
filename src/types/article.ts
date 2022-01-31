@@ -8,6 +8,8 @@ export type ArticleSummary = {
   type: 'news' | 'warning'
 }
 
+export type Articles = ArticleSummary[]
+
 export type ArticleApiResponse = {
   status: boolean
   result: ArticleSummary[]
