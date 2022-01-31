@@ -5,7 +5,12 @@ import {
 } from '@react-navigation/stack'
 import React, {createContext, useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
-import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
+import {
+  Box,
+  KeyboardAvoidingView,
+  PleaseWait,
+  Stepper,
+} from '../../components/ui'
 import {getEnvironment} from '../../environment'
 import {useAsync, useAsyncStorage, useFetch} from '../../hooks'
 import {color} from '../../tokens'
@@ -93,6 +98,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
+  const [articlesFetched, setArticlesFetched] = useState(false)
 
   const articlesApi = useFetch<ArticleSummary[]>({
     url: getEnvironment().apiUrl + '/articles',
@@ -115,13 +121,20 @@ export const CreateNotificationScreen = ({route}: Props) => {
   }, [projectDetails]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    articlesApi.data && setArticles(articlesApi.data)
+    if (articlesApi.data) {
+      setArticles(articlesApi.data)
+      setArticlesFetched(true)
+    }
   }, [articlesApi.data])
 
   useAsync(
     () => asyncStorage.getValue('project-manager'),
     setProjectManagerSettings,
   )
+
+  if (!articlesFetched) {
+    return <PleaseWait />
+  }
 
   return (
     <NotificationContext.Provider
