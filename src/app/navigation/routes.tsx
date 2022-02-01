@@ -117,9 +117,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
   projectManagerAuthorizedProjects: {
     name: 'ProjectManagerAuthorizedProjects',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
       headerTitle: () => <NonScalingHeaderTitle text="Uw bouwprojecten" />,
     },
   },
