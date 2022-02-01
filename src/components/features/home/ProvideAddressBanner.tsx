@@ -12,7 +12,7 @@ export const ProvideAddressBanner = () => {
   return (
     <BannerCard
       border
-      imageSource={require('../../../assets/images/banner-provide-address.png')}
+      imageSource={require('../../../assets/images/banner-provide-address.jpg')}
       onPress={() => navigation.navigate(routes.addressForm.name)}
       subtitle="Vul dan uw adres in."
       title="Wilt u informatie uit uw buurt?"
