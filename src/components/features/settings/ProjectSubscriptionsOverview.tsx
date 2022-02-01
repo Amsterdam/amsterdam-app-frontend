@@ -79,7 +79,7 @@ export const ProjectSubscriptionsOverview = ({
         <Column gutter="md">
           <Column gutter="sm">
             <View style={styles.customInset}>
-              <Text intro accessibilityRole="header">
+              <Text small accessibilityRole="header">
                 Bouwprojecten
               </Text>
             </View>

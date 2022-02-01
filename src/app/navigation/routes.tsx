@@ -114,6 +114,15 @@ export const routes: StackNavigationRoutes<StackParams> = {
       presentation: 'modal',
     },
   },
+  projectManagerAuthorizedProjects: {
+    name: 'ProjectManagerAuthorizedProjects',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Uw bouwprojecten" />,
+    },
+  },
   projectNews: {
     name: 'ProjectNews',
     options: {
