@@ -1,6 +1,7 @@
 export * from './accessibility/accessibleText'
 export * from './accessibility/injectCommas'
 export * from './accessibility/replaceAbbreviations'
+export * from './api'
 export * from './clipText'
 export * from './datetime/days'
 export * from './datetime/formatDate'
