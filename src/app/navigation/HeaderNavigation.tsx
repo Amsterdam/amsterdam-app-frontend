@@ -1,9 +1,8 @@
-import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Insets, StyleSheet, TouchableOpacity} from 'react-native'
-import {BellInactive} from '../../assets/icons'
+import {BellInactive, Settings} from '../../assets/icons'
 import {Row} from '../../components/ui/layout'
 import {color, size} from '../../tokens'
 import {routes} from './routes'
@@ -35,7 +34,7 @@ const menu: MenuItem[] = [
     route: routes.notificationOverview.name,
   },
   {
-    icon: <PersonalLogin {...iconProps} />,
+    icon: <Settings {...iconProps} />,
     label: 'Instellingen',
     name: 'settings',
     route: routes.settings.name,

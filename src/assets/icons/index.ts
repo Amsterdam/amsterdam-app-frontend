@@ -8,6 +8,7 @@ import Container from './container.svg'
 import Instagram from './instagram.svg'
 import Logo from './logo.svg'
 import Project from './project.svg'
+import Settings from './settings.svg'
 import Whatsapp from './whatsapp.svg'
 
 export {
@@ -21,5 +22,6 @@ export {
   Instagram,
   Logo,
   Project,
+  Settings,
   Whatsapp,
 }
