@@ -52,8 +52,8 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
-  authorizedProjectsList: {
-    name: 'AuthorizedProjectsList',
+  authorizedProjects: {
+    name: 'AuthorizedProjects',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Uw bouwprojecten" />,
     },

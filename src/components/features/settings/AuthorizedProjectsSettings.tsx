@@ -17,7 +17,7 @@ export const AuthorizedProjectsSettings = () => {
   return (
     <SettingsSection title="Omgevingsmanager">
       <TouchableOpacity
-        onPress={() => navigation.navigate(routes.authorizedProjectsList.name)}>
+        onPress={() => navigation.navigate(routes.authorizedProjects.name)}>
         <Row align="between" gutter="md" valign="center">
           <Text large>Uw bouwprojecten</Text>
           <View style={styles.icon}>

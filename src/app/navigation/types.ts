@@ -31,7 +31,7 @@ export type ActionStackParams = {
 }
 
 export type HomeStackParams = {
-  AuthorizedProjectsList: {projectManagerId: string}
+  AuthorizedProjects: {projectManagerId: string}
   Home: undefined
 }
 

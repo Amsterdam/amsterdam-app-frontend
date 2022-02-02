@@ -31,8 +31,8 @@ export const getSharedScreens = (
     />
     <Stack.Screen
       component={AuthorizedProjectsScreen}
-      name={routes.authorizedProjectsList.name}
-      options={routes.authorizedProjectsList.options}
+      name={routes.authorizedProjects.name}
+      options={routes.authorizedProjects.options}
     />
     <Stack.Screen
       component={CreateNotificationScreen}
