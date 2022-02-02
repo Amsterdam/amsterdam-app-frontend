@@ -36,6 +36,7 @@ export const Notification = ({notification}: Props) => {
 
   return (
     <TouchableOpacity
+      accessible
       onPress={() => navigateToArticle()}
       style={[styles.notification, !notification.isRead && styles.notRead]}
       accessibilityRole="button"
