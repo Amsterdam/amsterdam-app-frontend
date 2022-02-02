@@ -1,6 +1,6 @@
 import React from 'react'
 import {AuthorizedProjectsList} from '../components/features/settings/AuthorizedProjectsList'
-import {Box, Text, Title} from '../components/ui'
+import {Box, Text, TextButton, Title} from '../components/ui'
 import {Gutter, ScrollView} from '../components/ui/layout'
 
 export const AuthorizedProjectsScreen = () => (
@@ -14,5 +14,9 @@ export const AuthorizedProjectsScreen = () => (
       </Text>
     </Box>
     <AuthorizedProjectsList />
+    <Box>
+      <Text small>Ontbreekt er een bouwproject?</Text>
+      <TextButton emphasis text="Neem contact op met de redactie" />
+    </Box>
   </ScrollView>
 )
