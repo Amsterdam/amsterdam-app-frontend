@@ -1,14 +1,12 @@
 import React, {Fragment, useContext, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {getEnvironment} from '../../../environment'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {size} from '../../../tokens'
 import {ProjectTitles} from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Box, Button, Divider, PleaseWait, Text, TextButton} from '../../ui'
+import {Box, Button, Divider, PleaseWait, TextButton} from '../../ui'
 import {Checkbox, Switch} from '../../ui/forms'
-import {Column, Row} from '../../ui/layout'
+import {BlockList, Column, Row} from '../../ui/layout'
 import {ProjectTitle} from '../project'
 
 type Props = {
@@ -77,73 +75,64 @@ export const ProjectSubscriptionsOverview = ({
         <PleaseWait />
       ) : (
         <Column gutter="md">
-          <Column gutter="sm">
-            <View style={styles.customInset}>
-              <Text small accessibilityRole="header">
-                Bouwprojecten
-              </Text>
-            </View>
-            <Box background="white" borderVertical insetHorizontal="md">
-              {subscribableProjectIds.map((projectId, index) => {
-                const project = projectTitles?.find(
-                  p => p.identifier === projectId,
-                )
-                const subscribed = notifications?.projects?.[projectId] ?? false
+          <BlockList title="Bouwprojecten">
+            {subscribableProjectIds.map((projectId, index) => {
+              const project = projectTitles?.find(
+                p => p.identifier === projectId,
+              )
+              const subscribed = notifications?.projects?.[projectId] ?? false
 
-                return (
-                  project && (
-                    <Fragment key={project.identifier}>
-                      <Box insetVertical="sm">
-                        {isEditing ? (
-                          <Checkbox
-                            accessibilityLabel={accessibleText(
-                              project.title,
-                              project.subtitle ?? undefined,
-                            )}
-                            label={
-                              <ProjectTitle
-                                title={project.title}
-                                subtitle={project.subtitle ?? undefined}
-                              />
-                            }
-                            onValueChange={() =>
-                              toggleProjectSelection(project.identifier)
-                            }
-                            value={selectedProjects.includes(
+              return (
+                project && (
+                  <Fragment key={project.identifier}>
+                    <Box insetVertical="sm">
+                      {isEditing ? (
+                        <Checkbox
+                          accessibilityLabel={accessibleText(
+                            project.title,
+                            project.subtitle ?? undefined,
+                          )}
+                          label={
+                            <ProjectTitle
+                              title={project.title}
+                              subtitle={project.subtitle ?? undefined}
+                            />
+                          }
+                          onValueChange={() =>
+                            toggleProjectSelection(project.identifier)
+                          }
+                          value={selectedProjects.includes(project.identifier)}
+                        />
+                      ) : (
+                        <Switch
+                          accessibilityLabel={accessibleText(
+                            project.title,
+                            project.subtitle ?? undefined,
+                          )}
+                          label={
+                            <ProjectTitle
+                              title={project.title}
+                              subtitle={project.subtitle ?? undefined}
+                            />
+                          }
+                          onValueChange={() =>
+                            toggleProjectSubscription(
                               project.identifier,
-                            )}
-                          />
-                        ) : (
-                          <Switch
-                            accessibilityLabel={accessibleText(
-                              project.title,
-                              project.subtitle ?? undefined,
-                            )}
-                            label={
-                              <ProjectTitle
-                                title={project.title}
-                                subtitle={project.subtitle ?? undefined}
-                              />
-                            }
-                            onValueChange={() =>
-                              toggleProjectSubscription(
-                                project.identifier,
-                                !subscribed,
-                              )
-                            }
-                            value={subscribed}
-                          />
-                        )}
-                      </Box>
-                      {index < (subscribableProjectIds.length ?? 0) - 1 && (
-                        <Divider />
+                              !subscribed,
+                            )
+                          }
+                          value={subscribed}
+                        />
                       )}
-                    </Fragment>
-                  )
+                    </Box>
+                    {index < (subscribableProjectIds.length ?? 0) - 1 && (
+                      <Divider />
+                    )}
+                  </Fragment>
                 )
-              })}
-            </Box>
-          </Column>
+              )
+            })}
+          </BlockList>
           {isEditing ? (
             <>
               <Box insetHorizontal="md">
@@ -178,9 +167,3 @@ export const ProjectSubscriptionsOverview = ({
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  customInset: {
-    paddingHorizontal: size.spacing.md,
-  },
-})

@@ -52,6 +52,12 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
     },
   },
+  authorizedProjectsList: {
+    name: 'AuthorizedProjectsList',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Uw bouwprojecten" />,
+    },
+  },
   contact: {
     name: 'Contact',
     options: {
@@ -112,12 +118,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
       },
       headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
       presentation: 'modal',
-    },
-  },
-  projectManagerAuthorizedProjects: {
-    name: 'ProjectManagerAuthorizedProjects',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Uw bouwprojecten" />,
     },
   },
   projectNews: {

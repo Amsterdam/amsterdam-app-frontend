@@ -1,9 +1,9 @@
 import React from 'react'
-import {AuthorizedProjects} from '../components/features/project/AuthorizedProjects'
+import {AuthorizedProjectsList} from '../components/features/settings/AuthorizedProjectsList'
 import {Box, Text, Title} from '../components/ui'
 import {Gutter, ScrollView} from '../components/ui/layout'
 
-export const ProjectManagerAuthorizedProjectsScreen = () => (
+export const AuthorizedProjectsScreen = () => (
   <ScrollView>
     <Box background="white">
       <Title text="Berichten sturen" />
@@ -13,6 +13,6 @@ export const ProjectManagerAuthorizedProjectsScreen = () => (
         doen vanaf de pagina van een bouwproject.
       </Text>
     </Box>
-    <AuthorizedProjects />
+    <AuthorizedProjectsList />
   </ScrollView>
 )

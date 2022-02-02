@@ -14,7 +14,7 @@ import {accessibleText} from '../../../utils'
 import {Box, Divider, SingleSelectable, Text, TextButton} from '../../ui'
 import {Row} from '../../ui/layout'
 
-export const AuthorizedProjects = () => {
+export const AuthorizedProjectsList = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
 
@@ -71,7 +71,7 @@ export const AuthorizedProjects = () => {
                     </Text>
                   )}
                 </SingleSelectable>
-                <View style={{width: 16, height: 16}}>
+                <View style={styles.icon}>
                   <ChevronRight fill={color.font.regular} />
                 </View>
               </Row>
@@ -91,5 +91,9 @@ const styles = StyleSheet.create({
     marginTop: size.spacing.sm,
     marginBottom: size.spacing.md,
     marginHorizontal: -size.spacing.md,
+  },
+  icon: {
+    width: 16,
+    aspectRatio: 1,
   },
 })
