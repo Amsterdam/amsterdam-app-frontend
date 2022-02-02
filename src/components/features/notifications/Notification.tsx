@@ -8,7 +8,7 @@ import {BellActive, BellInactive} from '../../../assets/icons'
 import {color, size} from '../../../tokens'
 import {FrontEndNotification} from '../../../types'
 import {accessibleText, formatDate, formatTime} from '../../../utils'
-import {SingleSelectable, Text} from '../../ui'
+import {Text} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 
 type Props = {
@@ -36,39 +36,38 @@ export const Notification = ({notification}: Props) => {
 
   return (
     <TouchableOpacity
+      accessibilityLabel={accessibleText(
+        (notification.isRead ? 'Gelezen' : 'Ongelezen') + ' bericht',
+        notification.title,
+        notification.body,
+        'over ' + notification.projectTitle,
+        'op ' + date,
+        'om ' + time,
+      )}
+      accessibilityRole="button"
+      accessible
       onPress={() => navigateToArticle()}
-      accessibilityRole="button">
-      <SingleSelectable
-        style={[styles.notification, !notification.isRead && styles.notRead]}
-        accessibilityLabel={accessibleText(
-          (notification.isRead ? 'Gelezen' : 'Ongelezen') + ' bericht',
-          notification.title,
-          notification.body,
-          'over ' + notification.projectTitle,
-          'op ' + date,
-          'om ' + time,
-        )}>
-        <Row gutter="sm">
-          <View style={styles.icon}>
-            {notification.isRead ? (
-              // TODO Improve colour token
-              <BellInactive fill={color.font.tertiary} />
-            ) : (
-              <BellActive />
-            )}
-          </View>
-          <Text small>{notification.projectTitle}</Text>
-        </Row>
-        <Gutter height="sm" />
-        <Text intro accessibilityRole="header">
-          {notification.title}
-        </Text>
-        <Text>{notification.body}</Text>
-        <Gutter height="xs" />
-        <Text small>
-          {date} {time}
-        </Text>
-      </SingleSelectable>
+      style={[styles.notification, !notification.isRead && styles.notRead]}>
+      <Row gutter="sm">
+        <View style={styles.icon}>
+          {notification.isRead ? (
+            // TODO Improve colour token
+            <BellInactive fill={color.font.tertiary} />
+          ) : (
+            <BellActive />
+          )}
+        </View>
+        <Text small>{notification.projectTitle}</Text>
+      </Row>
+      <Gutter height="sm" />
+      <Text intro accessibilityRole="header">
+        {notification.title}
+      </Text>
+      <Text>{notification.body}</Text>
+      <Gutter height="xs" />
+      <Text small>
+        {date} {time}
+      </Text>
     </TouchableOpacity>
   )
 }
