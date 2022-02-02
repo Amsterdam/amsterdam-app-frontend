@@ -36,10 +36,6 @@ export const Notification = ({notification}: Props) => {
 
   return (
     <TouchableOpacity
-      accessible
-      onPress={() => navigateToArticle()}
-      style={[styles.notification, !notification.isRead && styles.notRead]}
-      accessibilityRole="button"
       accessibilityLabel={accessibleText(
         (notification.isRead ? 'Gelezen' : 'Ongelezen') + ' bericht',
         notification.title,
@@ -47,7 +43,11 @@ export const Notification = ({notification}: Props) => {
         'over ' + notification.projectTitle,
         'op ' + date,
         'om ' + time,
-      )}>
+      )}
+      accessibilityRole="button"
+      accessible
+      onPress={() => navigateToArticle()}
+      style={[styles.notification, !notification.isRead && styles.notRead]}>
       <Row gutter="sm">
         <View style={styles.icon}>
           {notification.isRead ? (
