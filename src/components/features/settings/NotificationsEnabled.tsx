@@ -6,7 +6,7 @@ import {SettingsSection} from './SettingsSection'
 
 export const NotificationsEnabled = () => {
   const {changeSettings, settings} = useContext(SettingsContext)
-  const notificationsEnabled = settings?.notifications?.projectsEnabled
+  const isNotificationsEnabled = !!settings?.notifications?.projectsEnabled
   const subscribableProjects = settings?.notifications?.projects ?? {}
 
   // Disabling notifications will unsubscribe all projects
@@ -32,8 +32,10 @@ export const NotificationsEnabled = () => {
       <Switch
         accessibilityLabel="Ontvang berichten"
         label={<Text large>Ontvang berichten</Text>}
-        onValueChange={() => toggleNotificationsEnabled(!notificationsEnabled)}
-        value={notificationsEnabled}
+        onValueChange={() =>
+          toggleNotificationsEnabled(!isNotificationsEnabled)
+        }
+        value={isNotificationsEnabled}
       />
     </SettingsSection>
   )

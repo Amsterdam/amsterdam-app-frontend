@@ -7,24 +7,26 @@ import {ProjectSubscriptionsOverview} from './ProjectSubscriptionsOverview'
 
 export const SubscribableProjects = () => {
   const {settings} = useContext(SettingsContext)
-  const notificationsEnabled = settings?.notifications?.projectsEnabled
+  const isNotificationsEnabled = !!settings?.notifications?.projectsEnabled
   const subscribableProjects = settings?.notifications?.projects ?? {}
   const subscribableProjectIds = Object.keys(subscribableProjects)
   const hasSubscribableProjects = subscribableProjectIds.length
 
-  return (
-    <>
+  if (!isNotificationsEnabled) {
+    return (
       <Box>
-        {!notificationsEnabled && <NoNotificationsMessage />}
-        {notificationsEnabled && !hasSubscribableProjects ? (
-          <NoPreviousSubscriptionsMessage />
-        ) : null}
+        <NoNotificationsMessage />
       </Box>
-      {notificationsEnabled && hasSubscribableProjects ? (
-        <ProjectSubscriptionsOverview
-          subscribableProjectIds={subscribableProjectIds}
-        />
-      ) : null}
-    </>
+    )
+  }
+
+  if (!hasSubscribableProjects) {
+    return <NoPreviousSubscriptionsMessage />
+  }
+
+  return (
+    <ProjectSubscriptionsOverview
+      subscribableProjectIds={subscribableProjectIds}
+    />
   )
 }
