@@ -1,3 +1,4 @@
+export * from './AddressInfoScreen'
 export * from './AdminScreen'
 export * from './AuthorizedProjectsScreen'
 export * from './ContactScreen'

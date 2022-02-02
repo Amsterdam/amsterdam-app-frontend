@@ -42,6 +42,7 @@ export type MenuStackParams = {
 }
 
 export type SharedStackParams = {
+  AddressInfo: undefined
   AddressForm: {tempAddress?: boolean}
   Notification: {projectDetails: ProjectDetails}
   NotificationOverview: undefined
