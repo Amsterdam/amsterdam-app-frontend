@@ -10,7 +10,7 @@ import {Text} from '../../ui'
 import {Row} from '../../ui/layout'
 import {SettingsSection} from './'
 
-export const AuthorizedProjectsSettings = () => {
+export const AuthorizedProjects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 

@@ -1,5 +1,5 @@
 export * from './AuthorizedProjectsList'
-export * from './AuthorizedProjectsSettings'
+export * from './AuthorizedProjects'
 export * from './getSubscribedProjects'
 export * from './NoNotificationsMessage'
 export * from './NoPreviousSubscriptionsMessage'

@@ -2,7 +2,7 @@ import React from 'react'
 import {VersionInfo} from '../../components/features'
 import {Address} from '../../components/features/address'
 import {
-  AuthorizedProjectsSettings,
+  AuthorizedProjects,
   NotificationsEnabled,
   SubscribableProjects,
 } from '../../components/features/settings'
@@ -14,7 +14,7 @@ export const SettingsScreen = () => (
     <Alert />
     <Column gutter="lg">
       <Address />
-      <AuthorizedProjectsSettings />
+      <AuthorizedProjects />
       <NotificationsEnabled />
       <SubscribableProjects />
       <Box insetHorizontal="md">
