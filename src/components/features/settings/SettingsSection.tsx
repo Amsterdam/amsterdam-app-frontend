@@ -1,15 +1,15 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../../tokens'
-import {Text} from '../Text'
-import {Column} from './Column'
+import {Text} from '../../ui/Text'
+import {Column} from '../../ui/layout/Column'
 
 type Props = {
   children: React.ReactNode
   title: string
 }
 
-export const BlockList = ({children, title}: Props) => {
+export const SettingsSection = ({children, title}: Props) => {
   return (
     <Column gutter="sm">
       <View style={styles.header}>

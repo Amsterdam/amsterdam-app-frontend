@@ -2,11 +2,11 @@ import React, {useContext} from 'react'
 import {SettingsContext} from '../../../providers'
 import {Box, Text} from '../../ui'
 import {Switch} from '../../ui/forms'
-import {BlockList} from '../../ui/layout'
 import {
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
   ProjectSubscriptionsOverview,
+  SettingsSection,
 } from './'
 
 export const ProjectNotificationSettings = () => {
@@ -38,7 +38,7 @@ export const ProjectNotificationSettings = () => {
   return (
     // TODO - add PleaseWait
     <>
-      <BlockList title="Berichten">
+      <SettingsSection title="Berichten">
         <Switch
           accessibilityLabel="Ontvang berichten"
           label={<Text large>Ontvang berichten</Text>}
@@ -47,7 +47,7 @@ export const ProjectNotificationSettings = () => {
           }
           value={notificationSettings?.projectsEnabled}
         />
-      </BlockList>
+      </SettingsSection>
       <Box>
         {!notificationSettings?.projectsEnabled && <NoNotificationsMessage />}
         {notificationSettings?.projectsEnabled &&

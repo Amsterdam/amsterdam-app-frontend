@@ -6,8 +6,9 @@ import {ProjectTitles} from '../../../types'
 import {accessibleText} from '../../../utils'
 import {Box, Button, Divider, PleaseWait, TextButton} from '../../ui'
 import {Checkbox, Switch} from '../../ui/forms'
-import {BlockList, Column, Row} from '../../ui/layout'
+import {Column, Row} from '../../ui/layout'
 import {ProjectTitle} from '../project'
+import {SettingsSection} from './'
 
 type Props = {
   subscribableProjectIds: string[]
@@ -75,7 +76,7 @@ export const ProjectSubscriptionsOverview = ({
         <PleaseWait />
       ) : (
         <Column gutter="md">
-          <BlockList title="Bouwprojecten">
+          <SettingsSection title="Bouwprojecten">
             {subscribableProjectIds.map((projectId, index) => {
               const project = projectTitles?.find(
                 p => p.identifier === projectId,
@@ -132,7 +133,7 @@ export const ProjectSubscriptionsOverview = ({
                 )
               )
             })}
-          </BlockList>
+          </SettingsSection>
           {isEditing ? (
             <>
               <Box insetHorizontal="md">

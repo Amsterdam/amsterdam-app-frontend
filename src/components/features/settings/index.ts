@@ -5,3 +5,5 @@ export * from './NoNotificationsMessage'
 export * from './NoPreviousSubscriptionsMessage'
 export * from './ProjectNotificationSettings'
 export * from './ProjectSubscriptionsOverview'
+export * from './SettingsSection'
+

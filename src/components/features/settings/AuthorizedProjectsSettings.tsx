@@ -7,14 +7,15 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {color} from '../../../tokens'
 import {Text} from '../../ui'
-import {BlockList, Row} from '../../ui/layout'
+import {Row} from '../../ui/layout'
+import {SettingsSection} from './'
 
 export const AuthorizedProjectsSettings = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 
   return (
-    <BlockList title="Omgevingsmanager">
+    <SettingsSection title="Omgevingsmanager">
       <TouchableOpacity
         onPress={() => navigation.navigate(routes.authorizedProjectsList.name)}>
         <Row align="between" gutter="md" valign="center">
@@ -24,7 +25,7 @@ export const AuthorizedProjectsSettings = () => {
           </View>
         </Row>
       </TouchableOpacity>
-    </BlockList>
+    </SettingsSection>
   )
 }
 
