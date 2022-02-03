@@ -15,9 +15,10 @@ export const AuthorizedProjects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
   const {settings} = useContext(SettingsContext)
+  const isProjectManager = !!settings?.['project-manager']?.id
 
   // Don’t render if user is not a project manager
-  if (!settings?.['project-manager']) {
+  if (!isProjectManager) {
     return null
   }
 
