@@ -5,7 +5,7 @@ export const formatQueryParams = ({
   projectIds,
   sortBy,
   sortOrder,
-}: QueryArgs) => ({
+}: Partial<QueryArgs>) => ({
   ...(limit && {limit}),
   ...(projectIds && {'project-ids': projectIds.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
