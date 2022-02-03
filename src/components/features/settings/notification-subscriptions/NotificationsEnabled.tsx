@@ -1,8 +1,8 @@
 import React, {useContext} from 'react'
-import {SettingsContext} from '../../../providers'
-import {Text} from '../../ui'
-import {Switch} from '../../ui/forms'
-import {SettingsSection} from './SettingsSection'
+import {SettingsContext} from '../../../../providers'
+import {Text} from '../../../ui'
+import {Switch} from '../../../ui/forms'
+import {SettingsSection} from '../SettingsSection'
 
 export const NotificationsEnabled = () => {
   const {changeSettings, settings} = useContext(SettingsContext)

@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {Box, Text, TextButton, Title} from '../../ui'
-import {Column} from '../../ui/layout'
+import {StackParams} from '../../../../app/navigation'
+import {routes} from '../../../../app/navigation/routes'
+import {Box, Text, TextButton, Title} from '../../../ui'
+import {Column} from '../../../ui/layout'
 
 export const NoNotificationsMessage = () => {
   const navigation =
