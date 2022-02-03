@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {color, size, Spacing} from '../../tokens'
 
 type Props = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'
   borderVertical?: Boolean
-  children: React.ReactNode
+  children: ReactNode
   inset?: keyof Spacing
   insetHorizontal?: keyof Spacing
   insetVertical?: keyof Spacing

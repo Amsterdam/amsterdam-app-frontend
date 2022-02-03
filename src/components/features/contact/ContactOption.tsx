@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {accessibleText} from '../../../utils'
 import {Box, SingleSelectable, Text, Title} from '../../ui'
 import {Row} from '../../ui/layout'
 
 type Props = {
-  icon: React.ReactNode
+  icon: ReactNode
   title: string
   text: string
 }

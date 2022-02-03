@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StackParams} from '../../../app/navigation'
 import {Button, Card, CardBody, Text, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
@@ -11,7 +11,7 @@ type Props = {
     onPress: 'goBack' | 'popModal'
     text: string
   }
-  icon: React.ReactElement
+  icon: ReactNode
   title: string
 }
 

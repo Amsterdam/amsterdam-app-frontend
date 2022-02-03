@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react'
+import React, {createContext, ReactNode, useEffect, useState} from 'react'
 import {ScaledSize, useWindowDimensions} from 'react-native'
 
 type Device = {
@@ -18,7 +18,7 @@ const initialValue: Device = {
 export const DeviceContext = createContext(initialValue)
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const DeviceProvider = ({children}: Props) => {

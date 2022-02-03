@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -36,7 +37,11 @@ type Context = {
 
 export const AlertContext = createContext<Context>(initialState)
 
-export const AlertProvider = ({children}: {children: React.ReactNode}) => {
+type Props = {
+  children: ReactNode
+}
+
+export const AlertProvider = ({children}: Props) => {
   const [content, setContent] = useState<Content | undefined>()
   const [variant, setVariant] = useState<Variant>()
   const [isVisible, setVisibility] = useState<boolean>(false)

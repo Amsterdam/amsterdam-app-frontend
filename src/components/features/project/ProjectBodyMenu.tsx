@@ -4,7 +4,7 @@ import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
@@ -18,7 +18,7 @@ type Props = {
 }
 
 type ProjectBodyMenuItem = {
-  icon: React.ReactElement
+  icon: ReactNode
   sections?: Section[]
   timeline?: Timeline
   title: string

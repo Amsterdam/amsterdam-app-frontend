@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {ScrollView as RNScrollView, StyleSheet} from 'react-native'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   keyboardDismiss?: boolean
 }
 

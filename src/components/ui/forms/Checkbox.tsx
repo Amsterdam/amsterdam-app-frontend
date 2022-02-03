@@ -1,5 +1,5 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import React, {ReactElement} from 'react'
+import React, {ReactNode} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
@@ -11,7 +11,7 @@ import {SkipInScreenReader} from '../SkipInScreenReader'
 import {Row, Stretch} from '../layout'
 
 type Props = {
-  label: ReactElement
+  label: ReactNode
   onValueChange: () => void
   value: boolean
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
