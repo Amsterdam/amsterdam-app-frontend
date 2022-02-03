@@ -19,7 +19,7 @@ import {
 import {getEnvironment} from '../../environment'
 import {useFetch} from '../../hooks'
 import {DraftNotification, Notification, WarningResponse} from '../../types'
-import {encryptWithAES} from '../../utils'
+import {getAuthToken} from '../../utils'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -44,12 +44,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       if (!projectManagerSettings?.id) {
         throw 'Project-manager id is missing'
       }
-      setAuthToken(
-        encryptWithAES({
-          password: '6886b31dfe27e9306c3d2b553345d9e5',
-          plaintext: projectManagerSettings?.id,
-        }),
-      )
+      setAuthToken(getAuthToken(projectManagerSettings.id))
     } catch (e) {
       console.log(e)
     }

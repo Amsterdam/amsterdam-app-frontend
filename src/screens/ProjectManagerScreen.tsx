@@ -20,7 +20,7 @@ import {useFetch} from '../hooks'
 import {SettingsContext} from '../providers/settings.provider'
 import {color, size} from '../tokens'
 import {ProjectTitles} from '../types'
-import {encryptWithAES} from '../utils'
+import {getAuthToken} from '../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
 
@@ -39,10 +39,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     useState<ProjectTitles[]>()
   const projectManagerId = route.params?.id
 
-  const authToken = encryptWithAES({
-    password: '6886b31dfe27e9306c3d2b553345d9e5',
-    plaintext: projectManagerId,
-  })
+  const authToken = getAuthToken(projectManagerId)
 
   const projectManagerApi = useFetch<any>({
     url: getEnvironment().apiUrl + '/project/manager',
