@@ -11,6 +11,8 @@ export type Notification = DraftNotification & {
   publication_date: string
 }
 
+export type Notifications = Notification[]
+
 export type FrontEndNotification = Notification & {
   isRead?: boolean
   projectTitle: string
