@@ -3,7 +3,7 @@ import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
 import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {RouteProp, useNavigation} from '@react-navigation/native'
-import React, {ReactNode, useLayoutEffect} from 'react'
+import React, {Fragment, ReactNode, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native'
 import {RenderHTML} from 'react-native-render-html'
 import {StackParams} from '../app/navigation'
@@ -52,7 +52,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
       <View style={styles.divider} />
       <Box>
         {body.sections.map(section => (
-          <React.Fragment key={section.title}>
+          <Fragment key={section.title}>
             <Title level={3} text={section.title} />
             <RenderHTML
               contentWidth={width}
@@ -70,7 +70,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStyles}
             />
-          </React.Fragment>
+          </Fragment>
         ))}
         {body.timeline?.items?.length && (
           <Timeline items={body.timeline.items} />

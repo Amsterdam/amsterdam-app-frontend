@@ -1,5 +1,5 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import React, {useState} from 'react'
+import React, {forwardRef, useState} from 'react'
 import {
   Platform,
   StyleSheet,
@@ -23,7 +23,7 @@ type Props = {
 const textLineHeight = font.height.p1
 const inputPadding = size.spacing.sm
 
-export const TextInput = React.forwardRef((props: Props, ref: any) => {
+export const TextInput = forwardRef((props: Props, ref: any) => {
   const [hasFocus, setFocus] = useState(false)
   const [value, setValue] = useState('')
 

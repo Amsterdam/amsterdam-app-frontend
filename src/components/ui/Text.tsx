@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {ReactNode, useEffect, useState} from 'react'
 import {
   AccessibilityInfo,
   StyleSheet,
@@ -9,7 +9,7 @@ import {useAsync} from '../../hooks'
 import {color, font} from '../../tokens'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   intro?: Boolean
   inverse?: Boolean
   large?: Boolean

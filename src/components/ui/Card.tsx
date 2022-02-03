@@ -1,18 +1,18 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../tokens'
 
 type CardProps = {
   border?: Boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 
 type CardBodyProps = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 type CardHeaderProps = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const Card = ({border = false, children}: CardProps) => (

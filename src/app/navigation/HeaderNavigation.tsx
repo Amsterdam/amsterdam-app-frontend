@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {Insets, StyleSheet, TouchableOpacity} from 'react-native'
 import {BellInactive, Settings} from '../../assets/icons'
 import {Row} from '../../components/ui/layout'
@@ -9,7 +9,7 @@ import {routes} from './routes'
 import {StackParams, TabParams} from './types'
 
 type MenuItem = {
-  icon: React.ReactNode
+  icon: ReactNode
   label: string
   name: string
   route: keyof StackParams

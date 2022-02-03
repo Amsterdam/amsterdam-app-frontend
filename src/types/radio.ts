@@ -1,4 +1,4 @@
-import React from 'react'
+import {ReactElement} from 'react'
 import {ViewProps} from 'react-native'
 
 type IRadioValue = string
@@ -40,7 +40,7 @@ export interface IRadioGroupProps extends ViewProps {
    *
    */
   // TODO: removing
-  children: React.ReactElement<IRadioProps> | React.ReactElement<IRadioProps>[]
+  children: ReactElement<IRadioProps> | ReactElement<IRadioProps>[]
   /**
    * The callback fired when any children radio is checked or unchecked.
    */

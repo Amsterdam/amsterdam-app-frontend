@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {Fragment} from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {StackParams} from '../app/navigation'
 import {routes} from '../app/navigation/routes'
@@ -65,7 +65,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
       }
       renderItem={({item: districtItem}) => {
         return districtItem.data && districtItem.data.length > 0 ? (
-          <React.Fragment key={districtItem.id}>
+          <Fragment key={districtItem.id}>
             <View style={styles.titleRow}>
               <Title level={2} text={districtItem.title} />
               <Button
@@ -98,7 +98,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               )}
               style={styles.projects}
             />
-          </React.Fragment>
+          </Fragment>
         ) : null
       }}
     />

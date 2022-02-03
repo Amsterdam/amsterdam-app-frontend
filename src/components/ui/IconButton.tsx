@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {color, font, size} from '../../tokens'
 
 type Props = {
-  icon: React.ReactNode
+  icon: ReactNode
   label: string
   onPress: () => void
 }

@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 
-export const Stretch = ({children}: {children: React.ReactNode}) => {
+type Props = {
+  children: ReactNode
+}
+
+export const Stretch = ({children}: Props) => {
   return <View style={styles.container}>{children}</View>
 }
 

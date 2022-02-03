@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {
   StyleSheet,
   TouchableOpacity,
@@ -10,7 +10,7 @@ import {Row} from './layout'
 import {Text} from './'
 
 type Props = {
-  icon?: React.ReactElement
+  icon?: ReactNode
   text?: string
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>

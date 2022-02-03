@@ -1,6 +1,6 @@
 import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
-import React, {useState} from 'react'
+import React, {ReactNode, useState} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {color} from '../../tokens'
 import {Card, CardBody, CardHeader} from './Card'
@@ -8,7 +8,7 @@ import {Title} from './Title'
 import {Row} from './layout'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   title: string
 }
 

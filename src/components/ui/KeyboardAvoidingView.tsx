@@ -1,5 +1,5 @@
 import {useHeaderHeight} from '@react-navigation/elements'
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {
   KeyboardAvoidingView as RNKeyboardAvoidingView,
   Platform,
@@ -9,7 +9,7 @@ import {
 import {size} from '../../tokens'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const KeyboardAvoidingView = ({children}: Props) => {
