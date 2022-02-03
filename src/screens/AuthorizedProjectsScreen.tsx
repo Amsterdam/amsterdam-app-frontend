@@ -14,6 +14,7 @@ export const AuthorizedProjectsScreen = () => (
         doen vanaf de pagina van een bouwproject.
       </Text>
     </Box>
+    <Gutter height="lg" />
     <AuthorizedProjectsList />
     <Box>
       <Text small>Ontbreekt er een bouwproject?</Text>

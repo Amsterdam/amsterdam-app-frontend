@@ -11,20 +11,18 @@ import {SettingsContext} from '../../../providers'
 import {color} from '../../../tokens'
 import {ProjectTitles} from '../../../types'
 import {accessibleText} from '../../../utils'
-import {Box, Divider, SingleSelectable, Text} from '../../ui'
+import {Attention, Box, Divider, SingleSelectable, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 import {SettingsSection} from './SettingsSection'
 
 export const AuthorizedProjectsList = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-
-  const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
-
   const [projectTitles, setProjectTitles] = useState<
     ProjectTitles[] | undefined
   >()
+  const navigation =
+    useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 
   // Retrieve all projects to allow displaying their titles
   const projectsApi = useFetch<ProjectTitles[]>({
@@ -40,43 +38,58 @@ export const AuthorizedProjectsList = () => {
     projectsApi.data && setProjectTitles(projectsApi.data)
   }, [projectsApi.data])
 
+  // Don’t render if user is not a project manager
+  if (!projectManagerSettings) {
+    return (
+      <Box insetHorizontal="md">
+        <Attention warning>
+          <Text>U bent niet gemachtigd om pushberichten te sturen.</Text>
+        </Attention>
+      </Box>
+    )
+  }
+
   const authorisedProjects = projectTitles?.filter(project =>
     projectManagerSettings?.projects.includes(project.identifier),
   )
 
-  return projectManagerSettings && authorisedProjects ? (
+  return authorisedProjects ? (
     <SettingsSection title="Uw bouwprojecten">
-      {authorisedProjects.map((project, index) => (
-        <TouchableOpacity
-          key={project.identifier}
-          onPress={() =>
-            navigation.navigate(routes.projectDetail.name, {
-              id: project.identifier,
-            })
-          }>
-          <Box insetVertical="sm">
-            <Row align="between" gutter="md" valign="center">
-              <SingleSelectable
-                accessibilityRole="header"
-                label={accessibleText(
-                  project.title,
-                  project.subtitle || undefined,
-                )}>
-                {project.title && <Text large>{project.title}</Text>}
-                {project.subtitle && (
-                  <Text secondary small>
-                    {project.subtitle}
-                  </Text>
-                )}
-              </SingleSelectable>
-              <View style={styles.icon}>
-                <ChevronRight fill={color.font.regular} />
-              </View>
-            </Row>
-          </Box>
-          {index < (authorisedProjects.length ?? 0) - 1 && <Divider />}
-        </TouchableOpacity>
-      ))}
+      {authorisedProjects.length ? (
+        authorisedProjects.map((project, index) => (
+          <TouchableOpacity
+            key={project.identifier}
+            onPress={() =>
+              navigation.navigate(routes.projectDetail.name, {
+                id: project.identifier,
+              })
+            }>
+            <Box insetVertical="sm">
+              <Row align="between" gutter="md" valign="center">
+                <SingleSelectable
+                  accessibilityRole="header"
+                  label={accessibleText(
+                    project.title,
+                    project.subtitle || undefined,
+                  )}>
+                  {project.title && <Text large>{project.title}</Text>}
+                  {project.subtitle && (
+                    <Text secondary small>
+                      {project.subtitle}
+                    </Text>
+                  )}
+                </SingleSelectable>
+                <View style={styles.icon}>
+                  <ChevronRight fill={color.font.regular} />
+                </View>
+              </Row>
+            </Box>
+            {index < (authorisedProjects.length ?? 0) - 1 && <Divider />}
+          </TouchableOpacity>
+        ))
+      ) : (
+        <Text>Geen bouwprojecten gevonden.</Text>
+      )}
     </SettingsSection>
   ) : null
 }
