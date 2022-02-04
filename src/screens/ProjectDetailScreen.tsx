@@ -1,4 +1,4 @@
-import {RouteProp, useFocusEffect} from '@react-navigation/native'
+import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
@@ -36,23 +36,14 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const projectManager = settings && settings['project-manager']
 
-  const projectApi = useFetch<ProjectDetail>({
+  const {data: project, isLoading} = useFetch<ProjectDetail>({
     url: getEnvironment().apiUrl + '/project/details',
     options: {
       params: {
         id: route.params.id,
       },
     },
-    onLoad: false,
   })
-
-  const {data: project, isLoading} = projectApi
-
-  useFocusEffect(
-    React.useCallback(() => {
-      projectApi.fetchData()
-    }, []), // eslint-disable-line react-hooks/exhaustive-deps
-  )
 
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
