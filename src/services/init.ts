@@ -18,4 +18,5 @@ export const emptySplitApi = createApi({
   }),
   endpoints: () => ({}),
   reducerPath: 'api',
+  tagTypes: ['Articles', 'Notifications'],
 })

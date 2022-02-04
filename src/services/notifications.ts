@@ -11,12 +11,14 @@ import {emptySplitApi} from './init'
 export const notificationsApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
     getNotifications: builder.query<Notifications, Partial<QueryArgs>>({
+      providesTags: ['Notifications'],
       query: params => {
         return generateRequestUrl('/notifications', params)
       },
       transformResponse: (response: {result: Notifications}) => response.result,
     }),
     addNotification: builder.mutation<Notification, DraftNotification>({
+      invalidatesTags: ['Notifications'],
       query(body) {
         return {
           url: '/notification',
