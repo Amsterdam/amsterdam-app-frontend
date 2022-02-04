@@ -1,11 +1,9 @@
-import React, {ReactNode, useEffect, useState} from 'react'
+import React, {ReactNode} from 'react'
 import {
-  AccessibilityInfo,
   StyleSheet,
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {useAsync} from '../../hooks'
 import {color, font} from '../../tokens'
 
 type Props = {
@@ -34,33 +32,10 @@ export const Text = ({
   warning,
   ...otherProps
 }: Props) => {
-  const [isScreenReaderEnabled, setScreenReaderEnabled] = useState<
-    boolean | undefined
-  >()
-
-  const handleScreenReaderToggled = (screenReaderEnabled: boolean) => {
-    setScreenReaderEnabled(screenReaderEnabled)
-  }
-
-  useAsync(
-    () => AccessibilityInfo.isScreenReaderEnabled(),
-    handleScreenReaderToggled,
-  )
-
-  useEffect(() => {
-    const subscription = AccessibilityInfo.addEventListener(
-      'screenReaderChanged',
-      handleScreenReaderToggled,
-    )
-
-    return () => subscription.remove()
-  })
-
   return (
     <TextRN
       accessibilityRole={warning ? 'alert' : 'text'}
       android_hyphenationFrequency="normal"
-      selectable={!isScreenReaderEnabled}
       style={[
         styles.text,
         margin && styles.margin,
