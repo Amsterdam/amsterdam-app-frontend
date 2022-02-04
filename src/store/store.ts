@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import {articlesApi} from '../services/articles'
 import {emptySplitApi} from '../services/init'
-import {authSlice} from '.'
+import {authSlice} from './authSlice'
 
 export const store = configureStore({
   reducer: {
