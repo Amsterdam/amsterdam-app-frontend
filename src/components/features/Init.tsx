@@ -7,14 +7,15 @@ import {encryptWithAES} from '../../utils'
 export const Init = () => {
   const dispatch = useDispatch()
   const {removeSetting, settings} = useContext(SettingsContext)
+  const projectManager = settings?.['project-manager']
 
   useEffect(() => {
     removeSetting('temp')
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (settings?.['project-manager']) {
-      const {id} = settings?.['project-manager']
+    if (projectManager) {
+      const {id} = projectManager
       dispatch(
         setCredentials({
           managerToken: encryptWithAES({
@@ -24,7 +25,7 @@ export const Init = () => {
         }),
       )
     }
-  }, [settings, dispatch])
+  }, [projectManager, dispatch])
 
   return null
 }
