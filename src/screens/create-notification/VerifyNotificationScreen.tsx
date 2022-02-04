@@ -2,6 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {
   Box,
+  PleaseWait,
   Preview,
   SingleSelectable,
   SubmitButton,
@@ -16,10 +17,8 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {getEnvironment} from '../../environment'
-import {useFetch} from '../../hooks'
-import {DraftNotification, Notification, WarningResponse} from '../../types'
-import {getAuthToken} from '../../utils'
+import {useAddNotificationMutation, useAddWarningMutation} from '../../services'
+import {DraftNotification} from '../../types'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -33,70 +32,48 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     newsDetails,
     notification,
     projectDetails,
-    projectManagerSettings,
     warning,
   } = notificationContext
-  const [authToken, setAuthToken] = useState<string>()
   const [isWarningSent, setWarningSent] = useState(false)
-
-  const handleAuthToken = useCallback(() => {
-    try {
-      if (!projectManagerSettings?.id) {
-        throw 'Project-manager id is missing'
-      }
-      setAuthToken(getAuthToken(projectManagerSettings.id))
-    } catch (e) {
-      console.log(e)
-    }
-  }, [projectManagerSettings?.id])
-
-  useEffect(() => {
-    handleAuthToken()
-  }, [handleAuthToken])
-
-  const warningApi = useFetch<WarningResponse>({
-    url: getEnvironment().apiUrl + '/project/warning',
-    options: {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        UserAuthorization: authToken!,
-      }),
+  const [
+    addWarning,
+    {
+      data: addWarningResponse,
+      isError: addWarningIsError,
+      isLoading: addWarningIsLoading,
     },
-    onLoad: false,
-  })
-
-  const notificationApi = useFetch<Notification>({
-    url: getEnvironment().apiUrl + '/notification',
-    options: {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        UserAuthorization: authToken!,
-      }),
+  ] = useAddWarningMutation()
+  const [
+    addNotification,
+    {
+      data: addNotificationResponse,
+      error: addNotificationIsError,
+      isLoading: addNotificationIsLoading,
     },
-    onLoad: false,
-  })
+  ] = useAddNotificationMutation()
 
   const sendWarningToBackend = async () => {
-    await warningApi.fetchData(undefined, JSON.stringify(warning))
-    setWarningSent(true)
+    if (warning) {
+      await addWarning(warning)
+      setWarningSent(true)
+    }
   }
 
-  const sendNotificationToBackend = (
-    articleIdentifier: Pick<
-      DraftNotification,
-      'news_identifier' | 'warning_identifier'
-    >,
-  ) => {
-    notificationApi.fetchData(
-      undefined,
-      JSON.stringify({
-        ...notification,
-        ...articleIdentifier,
-      }),
-    )
-  }
+  const sendNotificationToBackend = useCallback(
+    (
+      articleIdentifier: Pick<
+        DraftNotification,
+        'news_identifier' | 'warning_identifier'
+      >,
+    ) => {
+      notification &&
+        addNotification({
+          ...notification,
+          ...articleIdentifier,
+        })
+    },
+    [addNotification, notification],
+  )
 
   const handleSubmit = async () => {
     if (newsDetails?.id) {
@@ -110,11 +87,11 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     isWarningSent &&
-      warningApi.data &&
+      addWarningResponse &&
       sendNotificationToBackend({
-        warning_identifier: warningApi.data.warning_identifier,
+        warning_identifier: addWarningResponse.warning_identifier,
       })
-  }, [isWarningSent]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [addWarningResponse, isWarningSent, sendNotificationToBackend])
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -124,25 +101,29 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [navigation, notificationContext])
 
   useEffect(() => {
-    if (notificationApi.data) {
+    if (addNotificationResponse) {
       changeResponseStatus('success')
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, notificationApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [navigation, addNotificationResponse]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (warningApi.hasError) {
+    if (addWarningIsError) {
       changeResponseStatus('failure')
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, warningApi.hasError]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [navigation, addWarningIsError]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (notificationApi.hasError) {
+    if (addNotificationIsError) {
       changeResponseStatus('failure')
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, notificationApi.hasError]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [navigation, addNotificationIsError]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (addWarningIsLoading || addNotificationIsLoading) {
+    return <PleaseWait />
+  }
 
   return (
     <ScrollView keyboardDismiss>
