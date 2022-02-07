@@ -10,14 +10,6 @@ import {baseApi} from './init'
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getNotifications: builder.query<Notifications, NotificationsApiQuery>({
-      providesTags: ['Notifications'],
-      query: params => {
-        const q = formatQueryParams(params)
-        return generateRequestUrl('/notifications', q)
-      },
-      transformResponse: (response: {result: Notifications}) => response.result,
-    }),
     addNotification: builder.mutation<Notification, DraftNotification>({
       invalidatesTags: ['Notifications'],
       query(body) {
@@ -27,6 +19,14 @@ export const notificationsApi = baseApi.injectEndpoints({
           body,
         }
       },
+    }),
+    getNotifications: builder.query<Notifications, NotificationsApiQuery>({
+      providesTags: ['Notifications'],
+      query: params => {
+        const q = formatQueryParams(params)
+        return generateRequestUrl('/notifications', q)
+      },
+      transformResponse: (response: {result: Notifications}) => response.result,
     }),
   }),
 })
