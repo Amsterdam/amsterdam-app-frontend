@@ -75,3 +75,5 @@ variables:
   value: 'en_US.UTF-8'
 - name: lang
   value: 'en_US.UTF-8'
+  AUTH_PASSWORD: $(AUTH_PASSWORD)
+  AUTH_SHARED_SECRET: $(AUTH_SHARED_SECRET)
