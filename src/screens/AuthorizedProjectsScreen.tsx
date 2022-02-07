@@ -10,7 +10,7 @@ export const AuthorizedProjectsScreen = () => (
       <Title text="Berichten sturen" />
       <Gutter height="sm" />
       <Text>
-        Voor de onderstaande projecten mag u pushberichten sturen. Dit kunt u
+        Voor de onderstaande projecten mag je pushberichten sturen. Dit kun je
         doen vanaf de pagina van een bouwproject.
       </Text>
     </Box>

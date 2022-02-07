@@ -27,7 +27,7 @@ export const AuthorizedProjects = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate(routes.authorizedProjects.name)}>
         <Row align="between" gutter="md" valign="center">
-          <Text large>Uw bouwprojecten</Text>
+          <Text large>Je bouwprojecten</Text>
           <View style={styles.icon}>
             <ChevronRight fill={color.font.regular} />
           </View>

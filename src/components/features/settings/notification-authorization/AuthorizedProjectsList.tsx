@@ -54,7 +54,7 @@ export const AuthorizedProjectsList = () => {
   )
 
   return authorisedProjects ? (
-    <SettingsSection title="Uw bouwprojecten">
+    <SettingsSection title="Je bouwprojecten">
       {authorisedProjects.length ? (
         authorisedProjects.map((project, index) => (
           <TouchableOpacity
