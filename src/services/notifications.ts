@@ -6,9 +6,9 @@ import {
 } from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
-import {emptySplitApi} from './init'
+import {baseApi} from './init'
 
-export const notificationsApi = emptySplitApi.injectEndpoints({
+export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getNotifications: builder.query<Notifications, NotificationsApiQuery>({
       providesTags: ['Notifications'],

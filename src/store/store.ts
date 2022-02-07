@@ -1,11 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 import {articlesApi} from '../services/articles'
-import {emptySplitApi} from '../services/init'
+import {baseApi} from '../services/init'
 import {authSlice} from './authSlice'
 
 export const store = configureStore({
   reducer: {
-    [emptySplitApi.reducerPath]: emptySplitApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
     auth: authSlice.reducer,
   },
   middleware: getDefaultMiddleware =>

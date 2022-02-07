@@ -1,7 +1,7 @@
 import {NewWarning, WarningResponse} from '../types'
-import {emptySplitApi} from './init'
+import {baseApi} from './init'
 
-export const projectsApi = emptySplitApi.injectEndpoints({
+export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     addWarning: builder.mutation<WarningResponse, NewWarning>({
       invalidatesTags: ['Articles'],

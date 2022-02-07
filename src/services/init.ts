@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {getEnvironment} from '../environment'
 import {RootState} from '../store'
 
-export const emptySplitApi = createApi({
+export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: getEnvironment().apiUrl,
     prepareHeaders: (headers, {getState}) => {
