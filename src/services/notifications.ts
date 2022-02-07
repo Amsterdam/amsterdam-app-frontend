@@ -2,16 +2,19 @@ import {
   DraftNotification,
   Notification,
   Notifications,
-  QueryArgs,
+  ListQueryArgs,
+  ProjectIdsQueryArgs,
 } from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
 import {emptySplitApi} from './init'
 
-// Define a service using a base URL and expected endpoints
 export const notificationsApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
-    getNotifications: builder.query<Notifications, Partial<QueryArgs>>({
+    getNotifications: builder.query<
+      Notifications,
+      Partial<ProjectIdsQueryArgs & ListQueryArgs>
+    >({
       providesTags: ['Notifications'],
       query: params => {
         const q = formatQueryParams(params)
@@ -32,7 +35,5 @@ export const notificationsApi = emptySplitApi.injectEndpoints({
   }),
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {useAddNotificationMutation, useGetNotificationsQuery} =
   notificationsApi

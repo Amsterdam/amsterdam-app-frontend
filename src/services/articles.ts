@@ -1,12 +1,14 @@
-import {Articles, QueryArgs} from '../types'
+import {Articles, ProjectIdsQueryArgs, ListQueryArgs} from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
 import {emptySplitApi} from './init'
 
-// Define a service using a base URL and expected endpoints
 export const articlesApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
-    getArticles: builder.query<Articles, Partial<QueryArgs>>({
+    getArticles: builder.query<
+      Articles,
+      Partial<ProjectIdsQueryArgs & ListQueryArgs>
+    >({
       providesTags: ['Articles'],
       query: params => {
         const q = formatQueryParams(params)
@@ -18,6 +20,4 @@ export const articlesApi = emptySplitApi.injectEndpoints({
   overrideExisting: true,
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {useGetArticlesQuery} = articlesApi

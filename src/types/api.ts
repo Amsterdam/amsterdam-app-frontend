@@ -1,6 +1,9 @@
-export type QueryArgs = {
+export type ListQueryArgs = {
   limit: number
-  projectIds: string[]
   sortBy: string
   sortOrder: 'asc' | 'desc'
+}
+
+export type ProjectIdsQueryArgs = {
+  projectIds: string[]
 }
