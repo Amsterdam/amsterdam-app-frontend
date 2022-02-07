@@ -1,8 +1,8 @@
 import {encryptWithAES} from '.'
 
-export const getAuthToken = (plaintext: string = '') => {
+export const getAuthToken = (salt: string = '') => {
   return encryptWithAES({
     password: process.env.AUTH_PASSWORD ?? '',
-    plaintext,
+    salt,
   })
 }
