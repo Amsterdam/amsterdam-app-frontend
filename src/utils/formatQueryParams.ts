@@ -1,11 +1,14 @@
-import {QueryArgs} from '../types'
+import {ListQueryArgs, ProjectIdsQueryArgs} from '../types'
 
+/**
+ * Maps query parameter names from front-end to backend syntax
+ */
 export const formatQueryParams = ({
   limit,
   projectIds,
   sortBy,
   sortOrder,
-}: Partial<QueryArgs>) => ({
+}: Partial<ProjectIdsQueryArgs & ListQueryArgs>) => ({
   ...(limit && {limit}),
   ...(projectIds && {'project-ids': projectIds.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
