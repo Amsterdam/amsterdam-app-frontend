@@ -1,14 +1,11 @@
-import {Articles, ProjectIdsQueryArgs, ListQueryArgs} from '../types'
+import {Articles, ArticleApiQuery} from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
 import {emptySplitApi} from './init'
 
 export const articlesApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
-    getArticles: builder.query<
-      Articles,
-      Partial<ProjectIdsQueryArgs & ListQueryArgs>
-    >({
+    getArticles: builder.query<Articles, ArticleApiQuery>({
       providesTags: ['Articles'],
       query: params => {
         const q = formatQueryParams(params)

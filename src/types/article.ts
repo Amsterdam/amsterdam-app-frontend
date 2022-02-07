@@ -1,4 +1,4 @@
-import {Image} from '.'
+import {Image, ListQueryArgs} from '.'
 
 export type ArticleSummary = {
   identifier: string
@@ -17,7 +17,4 @@ export type ArticleApiResponse = {
 
 export type ArticleApiQuery = {
   'project-ids'?: string[]
-  limit?: number
-  'sort-by'?: string
-  'sort-order'?: 'asc' | 'desc'
-}
+} & Partial<ListQueryArgs>

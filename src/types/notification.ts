@@ -1,3 +1,5 @@
+import {ListQueryArgs} from '.'
+
 export type DraftNotification = {
   title: string
   body: string
@@ -12,6 +14,10 @@ export type Notification = DraftNotification & {
 }
 
 export type Notifications = Notification[]
+
+export type NotificationsApiQuery = {
+  'project-ids': string[]
+} & Partial<ListQueryArgs>
 
 export type FrontEndNotification = Notification & {
   isRead?: boolean

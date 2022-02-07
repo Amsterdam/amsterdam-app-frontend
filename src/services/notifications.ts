@@ -2,8 +2,7 @@ import {
   DraftNotification,
   Notification,
   Notifications,
-  ListQueryArgs,
-  ProjectIdsQueryArgs,
+  NotificationsApiQuery,
 } from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
@@ -11,10 +10,7 @@ import {emptySplitApi} from './init'
 
 export const notificationsApi = emptySplitApi.injectEndpoints({
   endpoints: builder => ({
-    getNotifications: builder.query<
-      Notifications,
-      Partial<ProjectIdsQueryArgs & ListQueryArgs>
-    >({
+    getNotifications: builder.query<Notifications, NotificationsApiQuery>({
       providesTags: ['Notifications'],
       query: params => {
         const q = formatQueryParams(params)
