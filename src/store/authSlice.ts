@@ -20,4 +20,5 @@ export const authSlice = createSlice({
 
 export const {setCredentials} = authSlice.actions
 
-export const selectAuthToken = (state: RootState) => state.auth.managerToken
+export const selectAuthManagerToken = (state: RootState) =>
+  state.auth.managerToken
