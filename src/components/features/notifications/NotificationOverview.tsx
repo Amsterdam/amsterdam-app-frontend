@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {FlatList} from 'react-native'
 import {getEnvironment} from '../../../environment'
@@ -22,10 +23,16 @@ export const NotificationOverview = () => {
     notificationSettings?.projects,
   )
 
-  const {data: notifications, isLoading: isNotificationsLoading} =
-    useGetNotificationsQuery({
-      projectIds: subscribedProjects,
-    })
+  const {
+    data: notifications = {},
+    isLoading: isNotificationsLoading = undefined,
+  } = useGetNotificationsQuery(
+    subscribedProjects.length
+      ? {
+          projectIds: subscribedProjects,
+        }
+      : skipToken,
+  )
 
   // Retrieve all projects to allow displaying their titles
   const {data: projects, isLoading: isProjectsLoading} = useFetch<
