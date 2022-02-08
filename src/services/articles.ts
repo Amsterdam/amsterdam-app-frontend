@@ -1,11 +1,11 @@
-import {Articles, ArticleApiQuery} from '../types'
+import {Articles, ArticleQueryAgrs} from '../types'
 import {generateRequestUrl} from '../utils'
 import {formatQueryParams} from '../utils/formatQueryParams'
 import {baseApi} from './init'
 
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getArticles: builder.query<Articles, ArticleApiQuery>({
+    getArticles: builder.query<Articles, ArticleQueryAgrs>({
       providesTags: ['Articles'],
       query: params => {
         const q = formatQueryParams(params)

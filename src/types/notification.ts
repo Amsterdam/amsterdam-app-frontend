@@ -15,8 +15,8 @@ export type Notification = DraftNotification & {
 
 export type Notifications = Notification[]
 
-export type NotificationsApiQuery = {
-  'project-ids': string[]
+export type NotificationsQueryArgs = {
+  projectIds: string[]
 } & Partial<ListQueryArgs>
 
 export type FrontEndNotification = Notification & {
