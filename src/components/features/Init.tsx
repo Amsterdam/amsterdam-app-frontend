@@ -20,7 +20,7 @@ export const Init = () => {
         setCredentials({
           managerToken: encryptWithAES({
             password: '6886b31dfe27e9306c3d2b553345d9e5',
-            plaintext: id,
+            salt: id,
           }),
         }),
       )
