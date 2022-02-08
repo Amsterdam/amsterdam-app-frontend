@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack'
-import React, {createContext, useEffect, useState} from 'react'
+import React, {createContext, useContext, useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
 import {
   Box,
@@ -11,7 +11,7 @@ import {
   PleaseWait,
   Stepper,
 } from '../../components/ui'
-import {useAsync, useAsyncStorage} from '../../hooks'
+import {SettingsContext} from '../../providers'
 import {useGetArticlesQuery} from '../../services/articles'
 import {color} from '../../tokens'
 import {
@@ -71,17 +71,14 @@ type Props = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
-  const asyncStorage = useAsyncStorage()
-
-  const [articles, setArticles] = useState<ArticleSummary[]>()
   const [currentStep, setCurrentStep] = useState(1)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<DraftNotification>()
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
-  const [projectManagerSettings, setProjectManagerSettings] =
-    useState<ProjectManagerSettings>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
+  const {settings} = useContext(SettingsContext)
+  const projectManagerSettings = settings?.['project-manager']
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
@@ -91,7 +88,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
-  const {data, isLoading} = useGetArticlesQuery({
+  const {data: articles, isLoading} = useGetArticlesQuery({
     projectIds: [route.params.projectDetails.id],
   })
 
@@ -102,15 +99,6 @@ export const CreateNotificationScreen = ({route}: Props) => {
       title,
     })
   }, [route])
-
-  useEffect(() => {
-    setArticles(data)
-  }, [data])
-
-  useAsync(
-    () => asyncStorage.getValue('project-manager'),
-    setProjectManagerSettings,
-  )
 
   if (isLoading) {
     return <PleaseWait />
