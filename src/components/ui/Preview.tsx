@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {Column} from './layout'
 import {Box, Text} from './'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   label: string
 }
 

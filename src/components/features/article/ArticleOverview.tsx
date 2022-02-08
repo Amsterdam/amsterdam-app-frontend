@@ -1,10 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
+import {useGetArticlesQuery} from '../../../services/articles'
 import {ArticleSummary} from '../../../types'
 import {PleaseWait, Title} from '../../ui'
 import {Column, Grid, GridCell} from '../../ui/layout'
@@ -25,25 +24,14 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
-  const [articles, setArticles] = useState<ArticleSummary[] | undefined>()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
-
-  const articlesApi = useFetch<ArticleSummary[]>({
-    url: getEnvironment().apiUrl + '/articles',
-    options: {
-      params: {
-        ...(limit && {limit}),
-        ...(projectIds && {'project-ids': projectIds.join(',')}),
-        ...(sortBy && {'sort-by': sortBy}),
-        ...(sortOrder && {'sort-order': sortOrder}),
-      },
-    },
+  const {data: articles, isLoading} = useGetArticlesQuery({
+    limit,
+    projectIds,
+    sortBy,
+    sortOrder,
   })
-
-  useEffect(() => {
-    articlesApi.data && setArticles(articlesApi.data)
-  }, [articlesApi.data])
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
@@ -57,7 +45,7 @@ export const ArticleOverview = ({
     }
   }
 
-  if (articlesApi.isLoading) {
+  if (isLoading) {
     return <PleaseWait />
   }
 

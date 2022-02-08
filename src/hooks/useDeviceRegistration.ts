@@ -4,12 +4,8 @@ import {Platform} from 'react-native'
 import {getSubscribedProjects} from '../components/features/settings/'
 import {getEnvironment} from '../environment'
 import {DeviceRegistration, NotificationSettings, Settings} from '../types'
-import {
-  encryptWithAES,
-  getFcmToken,
-  mapPermissionStatus,
-  Permission,
-} from '../utils'
+import {getFcmToken, mapPermissionStatus, Permission} from '../utils'
+import {getAuthToken} from '../utils'
 import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = (settings: Settings | undefined) => {
@@ -19,11 +15,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     settings?.notifications?.projects,
   )
 
-  // TODO Set as environment variables in CI/CD pipeline
-  const authToken = encryptWithAES({
-    password: '6886b31dfe27e9306c3d2b553345d9e5',
-    plaintext: '44755871-9ea6-4018-b1df-e4f00466c723',
-  })
+  const authToken = getAuthToken(process.env.AUTH_SHARED_SECRET)
 
   const storeApi = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',

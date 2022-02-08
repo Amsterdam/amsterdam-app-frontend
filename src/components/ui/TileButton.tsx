@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {color, size} from '../../tokens'
 import {Gutter} from './layout'
 import {Title} from './'
 
 export type TileButtonProps = {
-  icon?: React.ReactElement
+  icon?: ReactNode
   iconSize?: number
   label: string
   onPress: () => void

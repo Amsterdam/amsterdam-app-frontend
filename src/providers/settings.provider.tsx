@@ -1,4 +1,10 @@
-import React, {createContext, useCallback, useEffect, useState} from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import {useAsyncStorage, useDeviceRegistration} from '../hooks'
 import {Settings} from '../types'
 
@@ -18,7 +24,11 @@ type Context = {
 
 export const SettingsContext = createContext<Context>(initialState)
 
-export const SettingsProvider = ({children}: {children: React.ReactNode}) => {
+type Props = {
+  children: ReactNode
+}
+
+export const SettingsProvider = ({children}: Props) => {
   const [settings, setSettings] = useState<Settings | undefined>()
   const [isLoading, setLoading] = useState(true)
   const asyncStorage = useAsyncStorage()

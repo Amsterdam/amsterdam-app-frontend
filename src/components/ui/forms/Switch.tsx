@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {color} from '../../../tokens'
 import {SkipInScreenReader} from '../SkipInScreenReader'
@@ -7,12 +7,12 @@ import {Row, Stretch} from '../layout'
 type LabelPosition = 'start' | 'end'
 
 type Props = {
-  label: ReactElement
+  label: ReactNode
   labelPosition?: LabelPosition
 } & SwitchRNProps
 
 type LabelProps = {
-  children: ReactElement
+  children: ReactNode
 }
 
 const Label = ({children}: LabelProps) => (

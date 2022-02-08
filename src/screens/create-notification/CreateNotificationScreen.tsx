@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack'
-import React, {createContext, useEffect, useState} from 'react'
+import React, {createContext, useContext, useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
 import {
   Box,
@@ -11,8 +11,8 @@ import {
   PleaseWait,
   Stepper,
 } from '../../components/ui'
-import {getEnvironment} from '../../environment'
-import {useAsync, useAsyncStorage, useFetch} from '../../hooks'
+import {SettingsContext} from '../../providers'
+import {useGetArticlesQuery} from '../../services/articles'
 import {color} from '../../tokens'
 import {
   ArticleSummary,
@@ -71,18 +71,14 @@ type Props = {
 }
 
 export const CreateNotificationScreen = ({route}: Props) => {
-  const asyncStorage = useAsyncStorage()
-
-  const [articles, setArticles] = useState<ArticleSummary[]>()
-  const [articlesFetched, setArticlesFetched] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
   const [notification, setNotification] = useState<DraftNotification>()
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
-  const [projectManagerSettings, setProjectManagerSettings] =
-    useState<ProjectManagerSettings>()
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [warning, setWarning] = useState<NewWarning>()
+  const {settings} = useContext(SettingsContext)
+  const projectManagerSettings = settings?.['project-manager']
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
@@ -92,12 +88,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
     setResponseStatus(value)
   const changeWarning = (value: NewWarning) => setWarning(value)
 
-  const articlesApi = useFetch<ArticleSummary[]>({
-    url: getEnvironment().apiUrl + '/articles',
-    options: {
-      params: {'project-ids': projectDetails.id},
-    },
-    onLoad: false,
+  const {data: articles, isLoading} = useGetArticlesQuery({
+    projectIds: [route.params.projectDetails.id],
   })
 
   useEffect(() => {
@@ -108,23 +100,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
     })
   }, [route])
 
-  useEffect(() => {
-    projectDetails && articlesApi.fetchData()
-  }, [projectDetails]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (articlesApi.data) {
-      setArticles(articlesApi.data)
-      setArticlesFetched(true)
-    }
-  }, [articlesApi.data])
-
-  useAsync(
-    () => asyncStorage.getValue('project-manager'),
-    setProjectManagerSettings,
-  )
-
-  if (!articlesFetched) {
+  if (isLoading) {
     return <PleaseWait />
   }
 

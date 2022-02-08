@@ -2,16 +2,16 @@ const CryptoJS = require('react-native-crypto-js') // require because no types-d
 
 type EncryptionParams = {
   password: string
-  plaintext: string
+  salt: string
 }
 
-export const encryptWithAES = ({password, plaintext}: EncryptionParams) => {
-  let ciphertext = CryptoJS.AES.encrypt(plaintext, password).toString()
+export const encryptWithAES = ({password, salt}: EncryptionParams) => {
+  let ciphertext = CryptoJS.AES.encrypt(salt, password).toString()
   return ciphertext
 }
 
-export const decryptWithAES = ({password, plaintext}: EncryptionParams) => {
-  let bytes = CryptoJS.AES.decrypt(plaintext, password)
+export const decryptWithAES = ({password, salt}: EncryptionParams) => {
+  let bytes = CryptoJS.AES.decrypt(salt, password)
   let originalText = bytes.toString(CryptoJS.enc.Utf8)
   return originalText
 }

@@ -23,7 +23,10 @@ development environment. To summarize:
 - We recommend installing this [React Native debugger](https://github.com/jhen0409/react-native-debugger) additionally:
   `brew install --cask react-native-debugger`.
 
-
+### Environment Variables
+Currently, we use these environment variables. Store these in a file called '.env' and save in the root of the React Native codebase. Ask one of the developers to acquire them.
+- AUTH_PASSWORD
+- AUTH_SHARED_SECRET
 ***
 ## Release automation (CI/CD)
 
