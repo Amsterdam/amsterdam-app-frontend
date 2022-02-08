@@ -51,6 +51,8 @@ steps:
   inputs:
     secureFile: 'upload.keystore'
 - script: |
+    echo $(AUTH_PASSWORD)
+    echo $(AUTH_SHARED_SECRET)
     mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
     cd ios
     bundle install
@@ -62,6 +64,8 @@ steps:
     jdkArchitectureOption: 'x64'
     jdkSourceOption: 'PreInstalled'
 - script: |
+    echo $(AUTH_PASSWORD)
+    echo $(AUTH_SHARED_SECRET)
     mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
     cd android
     bundle install
@@ -75,5 +79,3 @@ variables:
   value: 'en_US.UTF-8'
 - name: lang
   value: 'en_US.UTF-8'
-  AUTH_PASSWORD: $(AUTH_PASSWORD)
-  AUTH_SHARED_SECRET: $(AUTH_SHARED_SECRET)
