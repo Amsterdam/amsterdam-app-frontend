@@ -10,6 +10,7 @@ import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {DeviceContext} from '../providers'
+import {layoutStyles} from '../styles'
 import {size} from '../tokens'
 import {District, ProjectOverviewItem} from '../types'
 import {mapImageSources} from '../utils'
@@ -73,7 +74,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           keyExtractor={item => item.identifier}
           renderItem={({item}) => (
             <ProjectCard
-              style={styles.grow}
+              style={layoutStyles.grow}
               imageSource={mapImageSources(item.images[0].sources)}
               onPress={() =>
                 navigation.navigate(routes.projectDetail.name, {
@@ -98,8 +99,5 @@ const styles = StyleSheet.create({
   },
   grid: {
     margin: size.spacing.sm,
-  },
-  grow: {
-    flexGrow: 1,
   },
 })
