@@ -73,6 +73,7 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
           keyExtractor={item => item.identifier}
           renderItem={({item}) => (
             <ProjectCard
+              style={styles.grow}
               imageSource={mapImageSources(item.images[0].sources)}
               onPress={() =>
                 navigation.navigate(routes.projectDetail.name, {
@@ -97,5 +98,8 @@ const styles = StyleSheet.create({
   },
   grid: {
     margin: size.spacing.sm,
+  },
+  grow: {
+    flexGrow: 1,
   },
 })
