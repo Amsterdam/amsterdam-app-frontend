@@ -1,11 +1,11 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment} from 'react'
+import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {StackParams} from '../app/navigation'
 import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
-import {Gutter} from '../components/ui/layout'
+import {Column, Gutter, Row} from '../components/ui/layout'
 import {getEnvironment} from '../environment'
 import {useFetch} from '../hooks'
 import {size} from '../tokens'
@@ -65,18 +65,20 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
       }
       renderItem={({item: districtItem}) => {
         return districtItem.data && districtItem.data.length > 0 ? (
-          <Fragment key={districtItem.id}>
+          <Column gutter="sm" key={districtItem.id}>
             <View style={styles.titleRow}>
-              <Title level={2} text={districtItem.title} />
-              <Button
-                onPress={() =>
-                  navigation.navigate(projectOverviewByDistrict.name, {
-                    id: districtItem.id,
-                  })
-                }
-                variant="text"
-                text="Ga naar overzicht"
-              />
+              <Row align="between" valign="baseline">
+                <Title level={2} text={districtItem.title} />
+                <Button
+                  onPress={() =>
+                    navigation.navigate(projectOverviewByDistrict.name, {
+                      id: districtItem.id,
+                    })
+                  }
+                  variant="text"
+                  text="Ga naar overzicht"
+                />
+              </Row>
             </View>
             <FlatList
               data={districtItem.data}
@@ -98,7 +100,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               )}
               style={styles.projects}
             />
-          </Fragment>
+          </Column>
         ) : null
       }}
     />
@@ -107,9 +109,6 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   titleRow: {
-    alignItems: 'baseline',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginHorizontal: size.spacing.md,
     marginTop: size.spacing.md,
   },
