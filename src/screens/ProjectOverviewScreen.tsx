@@ -67,7 +67,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
         return districtItem.data && districtItem.data.length > 0 ? (
           <Column gutter="sm" key={districtItem.id}>
             <View style={styles.titleRow}>
-              <Row align="between" valign="baseline">
+              <Row align="between" valign="center">
                 <Title level={2} text={districtItem.title} />
                 <Button
                   onPress={() =>
