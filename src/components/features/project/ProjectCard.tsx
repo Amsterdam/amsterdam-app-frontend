@@ -2,8 +2,10 @@ import React from 'react'
 import {
   Image,
   ImageSourcePropType,
+  StyleProp,
   StyleSheet,
   TouchableHighlight,
+  ViewStyle,
 } from 'react-native'
 import {image} from '../../../tokens'
 import {accessibleText} from '../../../utils'
@@ -12,6 +14,7 @@ import {Card, CardBody, Text, Title} from '../../ui'
 type Props = {
   imageSource?: ImageSourcePropType
   onPress: () => void
+  style?: StyleProp<ViewStyle>
   subtitle?: string
   title: string
   width?: number
@@ -20,6 +23,7 @@ type Props = {
 export const ProjectCard = ({
   imageSource,
   onPress,
+  style,
   subtitle,
   title,
   width,
@@ -28,7 +32,7 @@ export const ProjectCard = ({
     accessibilityRole="button"
     accessibilityLabel={accessibleText(title, subtitle)}
     onPress={onPress}
-    style={{width}}>
+    style={[style, {width}]}>
     <Card>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
