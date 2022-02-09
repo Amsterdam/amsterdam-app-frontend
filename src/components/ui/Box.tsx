@@ -4,7 +4,6 @@ import {color, size, Spacing} from '../../tokens'
 
 type Props = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'
-  borderVertical?: Boolean
   children: ReactNode
   inset?: keyof Spacing
   insetHorizontal?: keyof Spacing
@@ -13,7 +12,6 @@ type Props = {
 
 export const Box = ({
   background,
-  borderVertical,
   children,
   inset = 'md',
   insetHorizontal,
@@ -28,18 +26,10 @@ export const Box = ({
       paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
       paddingVertical: insetVertical && size.spacing[insetVertical],
     },
-    borderVertical: {
-      borderBottomColor: color.border.onGrey,
-      borderTopColor: color.border.onGrey,
-      borderBottomWidth: 1,
-      borderTopWidth: 1,
-    },
   })
 
   return (
-    <View
-      style={[styles.box, borderVertical && styles.borderVertical]}
-      {...otherProps}>
+    <View style={styles.box} {...otherProps}>
       {children}
     </View>
   )
