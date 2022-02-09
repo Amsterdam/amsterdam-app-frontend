@@ -17,7 +17,7 @@ export const SettingsScreen = () => {
   return (
     <ScrollView>
       <Alert />
-      <Column debug gutter="lg">
+      <Column gutter="lg">
         <Address />
         {isProjectManager && <AuthorizedProjects />}
         <NotificationsEnabled />
