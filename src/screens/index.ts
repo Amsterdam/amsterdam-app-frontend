@@ -1,4 +1,4 @@
-export * from './AddressInfoScreen'
+export * from './AddressPrivacyInfoScreen'
 export * from './AdminScreen'
 export * from './AuthorizedProjectsScreen'
 export * from './ContactScreen'

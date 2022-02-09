@@ -7,7 +7,7 @@ import {Box, Button, Text, Title} from '../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
 import {color} from '../tokens'
 
-export const AddressInfoScreen = ({
+export const AddressPrivacyInfoScreen = ({
   navigation,
 }: {
   navigation: StackNavigationProp<StackParams, 'Home'>

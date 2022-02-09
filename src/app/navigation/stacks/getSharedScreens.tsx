@@ -2,7 +2,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {
   AuthorizedProjectsScreen,
-  AddressInfoScreen,
+  AddressPrivacyInfoScreen,
   NotificationOverviewScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
@@ -26,7 +26,7 @@ export const getSharedScreens = (
 ) => (
   <>
     <Stack.Screen
-      component={AddressInfoScreen}
+      component={AddressPrivacyInfoScreen}
       name={routes.addressInfo.name}
       options={routes.addressInfo.options}
     />
