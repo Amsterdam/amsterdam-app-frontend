@@ -14,7 +14,7 @@ type Props = {
   subscribableProjectIds: string[]
 }
 
-export const ProjectSubscriptionsOverview = ({
+export const SubscribableProjectsSettingsSection = ({
   subscribableProjectIds,
 }: Props) => {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([])

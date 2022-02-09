@@ -4,7 +4,7 @@ import {Text} from '../../../ui'
 import {Switch} from '../../../ui/forms'
 import {SettingsSection} from '../SettingsSection'
 
-export const NotificationsEnabled = () => {
+export const NotificationsEnabledSettingsSection = () => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const isNotificationsEnabled = !!settings?.notifications?.projectsEnabled
   const subscribableProjects = settings?.notifications?.projects ?? {}

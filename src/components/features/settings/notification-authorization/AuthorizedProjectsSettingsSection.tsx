@@ -13,7 +13,7 @@ import {ProjectTitle} from '../../project'
 import {SettingsLink} from '../SettingsLink'
 import {SettingsSection} from '../SettingsSection'
 
-export const AuthorizedProjectsList = () => {
+export const AuthorizedProjectsSettingsSection = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
   const [projectTitles, setProjectTitles] = useState<

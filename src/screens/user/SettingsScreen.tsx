@@ -2,8 +2,8 @@ import React, {useContext} from 'react'
 import {VersionInfo} from '../../components/features'
 import {Address} from '../../components/features/address'
 import {
-  AuthorizedProjects,
-  NotificationsEnabled,
+  NotificationsEnabledSettingsSection,
+  ProjectManagerSettingsSection,
   SubscribableProjects,
 } from '../../components/features/settings'
 import {Alert, Box} from '../../components/ui'
@@ -19,8 +19,8 @@ export const SettingsScreen = () => {
       <Alert />
       <Column gutter="lg">
         <Address />
-        {isProjectManager && <AuthorizedProjects />}
-        <NotificationsEnabled />
+        {isProjectManager && <ProjectManagerSettingsSection />}
+        <NotificationsEnabledSettingsSection />
         <SubscribableProjects />
         <Box insetHorizontal="md">
           <VersionInfo />

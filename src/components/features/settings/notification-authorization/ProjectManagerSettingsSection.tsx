@@ -11,7 +11,7 @@ import {Text} from '../../../ui'
 import {Row} from '../../../ui/layout'
 import {SettingsSection} from '../index'
 
-export const AuthorizedProjects = () => {
+export const ProjectManagerSettingsSection = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
   const {settings} = useContext(SettingsContext)
