@@ -16,9 +16,28 @@ import {Box, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
 import {ContactOption} from './ContactOption'
 
+const optionsTextContent = {
+  chat: {
+    title: 'WhatsApp 06 44 44 06 55',
+    a11yTitle:
+      'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
+    text: 'reactie binnen twee uur',
+  },
+  email: {
+    title: 'Contactformulier',
+    text: 'Reactie binnen 1 werkdag',
+  },
+  phone: {
+    title: 'Bel 14 020',
+    a11yTitle: 'Bel veertien nul twintig',
+    text: 'Gemiddeld 5 minuten wachten',
+  },
+}
+
 export const ContactOptions = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
+  const {chat, email, phone} = optionsTextContent
 
   return (
     <Box background="white">
@@ -27,6 +46,7 @@ export const ContactOptions = () => {
       <Column gutter="sm">
         <TouchableOpacity
           accessibilityRole="button"
+          accessibilityLabel={accessibleText(email.title, email.text)}
           onPress={() =>
             navigation.navigate(routes.webView.name, {
               sliceFromTop: {portrait: 50, landscape: 50},
@@ -36,34 +56,28 @@ export const ContactOptions = () => {
           }>
           <ContactOption
             icon={<Email fill={color.touchable.primary} />}
-            title="Contactformulier"
-            text="Reactie binnen 1 werkdag"
+            title={email.title}
+            text={email.text}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityLabel={accessibleText(
-            'Bel veertien nul twintig',
-            'gemiddeld 5 minuten wachten',
-          )}
+          accessibilityLabel={accessibleText(phone.a11yTitle, phone.text)}
           accessibilityRole="link"
           onPress={() => openPhoneUrl('+3114020')}>
           <ContactOption
             icon={<Phone fill={color.touchable.primary} />}
-            title="Bel 14 020"
-            text="Gemiddeld 5 minuten wachten"
+            title={phone.title}
+            text={phone.text}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          accessibilityLabel={accessibleText(
-            'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-            'reactie binnen twee uur',
-          )}
+          accessibilityLabel={accessibleText(chat.a11yTitle, chat.text)}
           accessibilityRole="link"
           onPress={() => openWebUrl('https://wa.me/31644440655')}>
           <ContactOption
             icon={<Whatsapp fill={color.touchable.primary} />}
-            title="WhatsApp 06 44 44 06 55"
-            text="Reactie binnen 2 uur"
+            title={chat.title}
+            text={chat.text}
           />
         </TouchableOpacity>
       </Column>
