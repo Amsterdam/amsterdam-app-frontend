@@ -5,6 +5,7 @@ import {color, size, Spacing} from '../../tokens'
 type Props = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'
   children: ReactNode
+  grow?: boolean
   inset?: keyof Spacing
   insetHorizontal?: keyof Spacing
   insetVertical?: keyof Spacing
@@ -13,6 +14,7 @@ type Props = {
 export const Box = ({
   background,
   children,
+  grow,
   inset = 'md',
   insetHorizontal,
   insetVertical,
@@ -20,6 +22,7 @@ export const Box = ({
 }: Props) => {
   const styles = StyleSheet.create({
     box: {
+      ...(grow && {flexGrow: 1}),
       backgroundColor: background && color.background[background],
       padding:
         inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
