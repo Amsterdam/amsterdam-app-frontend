@@ -1,17 +1,12 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React, {useEffect} from 'react'
+import React from 'react'
 import {getSharedScreens, stackScreenOptions} from '../'
 import {AdminScreen, ContactScreen, MenuScreen} from '../../../screens'
-import {tabBarDisplayHelper} from '../../../utils/tabBarDisplayHelper'
 import {routes} from '../routes'
 
 const Stack = createStackNavigator()
 
-export const MenuStack = ({navigation, route}) => {
-  useEffect(() => {
-    // hides tab bar on modal screens
-    tabBarDisplayHelper(navigation, route)
-  }, [navigation, route])
+export const MenuStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={routes.menu.name}
