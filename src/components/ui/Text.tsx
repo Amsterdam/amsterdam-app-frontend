@@ -16,6 +16,7 @@ type Props = {
   primary?: boolean
   secondary?: boolean
   small?: boolean
+  touchable?: boolean
   warning?: boolean
 } & Omit<TextRNProps, 'style'>
 
@@ -29,6 +30,7 @@ export const Text = ({
   primary,
   secondary,
   small,
+  touchable,
   warning,
   ...otherProps
 }: Props) => {
@@ -48,6 +50,7 @@ export const Text = ({
         secondary && styles.secondary,
         small && styles.small,
         small && margin && styles.marginSmall,
+        touchable && styles.touchable,
         warning && styles.warning,
       ]}
       {...otherProps}>
@@ -99,6 +102,9 @@ const styles = StyleSheet.create({
     lineHeight: font.height.p1,
     color: color.font.regular,
     flexShrink: 1,
+  },
+  touchable: {
+    color: color.touchable.pressed,
   },
   warning: {
     color: color.font.invalid,
