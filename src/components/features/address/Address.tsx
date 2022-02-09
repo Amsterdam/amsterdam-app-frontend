@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
+import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {AlertContext, SettingsContext} from '../../../providers'
@@ -42,19 +43,24 @@ export const Address = () => {
                 {[address.postcode, address.woonplaats].join(' ')}
               </Text>
             </SingleSelectable>
-            <Gutter height="md" />
             <Row align="between" valign="center" gutter="md" wrap>
-              <Button
-                variant="inverse"
-                onPress={() => navigation.navigate(routes.addressForm.name)}
-                text="Wijzig adres"
-              />
-              <TextButton
-                emphasis
-                icon="remove"
-                onPress={removeAddressAndShowAlert}
-                text="Verwijder adres"
-              />
+              <View>
+                <Gutter height="md" />
+                <Button
+                  variant="inverse"
+                  onPress={() => navigation.navigate(routes.addressForm.name)}
+                  text="Wijzig adres"
+                />
+              </View>
+              <View>
+                <Gutter height="md" />
+                <TextButton
+                  emphasis
+                  icon="remove"
+                  onPress={removeAddressAndShowAlert}
+                  text="Verwijder adres"
+                />
+              </View>
             </Row>
           </CardBody>
         </Card>
