@@ -1,9 +1,9 @@
 import React, {useContext} from 'react'
 import {SettingsContext} from '../../../../providers'
 import {Box} from '../../../ui'
-import {NoNotificationsMessage} from '../project-subscriptions/NoNotificationsMessage'
-import {NoPreviousSubscriptionsMessage} from '../project-subscriptions/NoPreviousSubscriptionsMessage'
-import {SubscribableProjectsSettingsSection} from '../project-subscriptions/SubscribableProjectsSettingsSection'
+import {NoNotificationsMessage} from './NoNotificationsMessage'
+import {NoPreviousSubscriptionsMessage} from './NoPreviousSubscriptionsMessage'
+import {SubscribableProjectsSettingsSection} from './SubscribableProjectsSettingsSection'
 
 export const SubscribableProjects = () => {
   const {settings} = useContext(SettingsContext)
