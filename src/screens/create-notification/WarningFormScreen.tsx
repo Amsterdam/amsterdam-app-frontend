@@ -97,7 +97,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <ScrollView keyboardDismiss>
+    <ScrollView grow>
       <Stretch>
         <Box>
           <Column gutter="lg">

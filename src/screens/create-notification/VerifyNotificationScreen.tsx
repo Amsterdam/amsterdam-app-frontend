@@ -126,7 +126,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView keyboardDismiss>
+    <ScrollView grow>
       <Stretch>
         <Box>
           <Column gutter="lg">

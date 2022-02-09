@@ -6,25 +6,27 @@ import {routes} from '../routes'
 
 const Stack = createStackNavigator()
 
-export const MenuStack = () => (
-  <Stack.Navigator
-    initialRouteName={routes.menu.name}
-    screenOptions={stackScreenOptions}>
-    <Stack.Screen
-      component={AdminScreen}
-      name={routes.admin.name}
-      options={routes.admin.options}
-    />
-    <Stack.Screen
-      component={ContactScreen}
-      name={routes.contact.name}
-      options={routes.contact.options}
-    />
-    <Stack.Screen
-      component={MenuScreen}
-      name={routes.menu.name}
-      options={routes.menu.options}
-    />
-    {getSharedScreens(Stack)}
-  </Stack.Navigator>
-)
+export const MenuStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName={routes.menu.name}
+      screenOptions={stackScreenOptions}>
+      <Stack.Screen
+        component={AdminScreen}
+        name={routes.admin.name}
+        options={routes.admin.options}
+      />
+      <Stack.Screen
+        component={ContactScreen}
+        name={routes.contact.name}
+        options={routes.contact.options}
+      />
+      <Stack.Screen
+        component={MenuScreen}
+        name={routes.menu.name}
+        options={routes.menu.options}
+      />
+      {getSharedScreens(Stack)}
+    </Stack.Navigator>
+  )
+}

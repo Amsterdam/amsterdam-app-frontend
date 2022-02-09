@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
+import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {AlertContext, SettingsContext} from '../../../providers'
 import {
-  Attention,
   Button,
   Card,
   CardBody,
@@ -14,8 +14,7 @@ import {
   TextButton,
   Title,
 } from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
-import {AddressFormTeaser} from './'
+import {Column, Gutter, Row} from '../../ui/layout'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
@@ -44,36 +43,55 @@ export const Address = () => {
                 {[address.postcode, address.woonplaats].join(' ')}
               </Text>
             </SingleSelectable>
-            <Gutter height="md" />
             <Row align="between" valign="center" gutter="md" wrap>
-              <Button
-                variant="inverse"
-                onPress={() => navigation.navigate(routes.addressForm.name)}
-                text="Wijzig adres"
-              />
-              <TextButton
-                emphasis
-                icon="remove"
-                onPress={removeAddressAndShowAlert}
-                text="Verwijder adres"
-              />
+              <View>
+                <Gutter height="md" />
+                <Button
+                  variant="inverse"
+                  onPress={() => navigation.navigate(routes.addressForm.name)}
+                  text="Wijzig adres"
+                />
+              </View>
+              <View>
+                <Gutter height="md" />
+                <TextButton
+                  emphasis
+                  icon="remove"
+                  onPress={removeAddressAndShowAlert}
+                  text="Verwijder adres"
+                />
+              </View>
             </Row>
           </CardBody>
         </Card>
       ) : (
-        <>
-          <AddressFormTeaser
-            text="Vul uw adres en huisnummer in zodat we informatie uit uw buurt kunnen tonen."
-            title="Uw buurt"
-          />
-          <Gutter height="md" />
-          <Attention>
-            <Text>
-              Uw adres wordt alleen op uw telefoon opgeslagen en gebruikt om de
-              app voor u te personaliseren.
-            </Text>
-          </Attention>
-        </>
+        <Card>
+          <CardBody>
+            <Column gutter="md">
+              <>
+                <Title level={4} text="Adres" />
+                <Text>
+                  Vul een adres en huisnummer in zodat u informatie krijgt uit
+                  die buurt.
+                </Text>
+                <Row align="start">
+                  <Button
+                    onPress={() => navigation.navigate(routes.addressInfo.name)}
+                    text="Meer informatie"
+                    variant="text"
+                  />
+                </Row>
+              </>
+              <Row align="start">
+                <Button
+                  onPress={() => navigation.navigate(routes.addressForm.name)}
+                  text="Vul adres in"
+                  variant="inverse"
+                />
+              </Row>
+            </Column>
+          </CardBody>
+        </Card>
       )}
     </>
   )

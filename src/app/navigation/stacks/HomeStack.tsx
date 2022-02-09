@@ -13,17 +13,19 @@ const homeScreenOptions: StackNavigationOptions = {
   headerRight: () => <HeaderNavigation />,
 }
 
-export const HomeStack = () => (
-  <Stack.Navigator
-    initialRouteName={routes.home.name}
-    screenOptions={{
-      ...stackScreenOptions,
-    }}>
-    <Stack.Screen
-      component={HomeScreen}
-      name={routes.home.name}
-      options={{...routes.home.options, ...homeScreenOptions}}
-    />
-    {getSharedScreens(Stack)}
-  </Stack.Navigator>
-)
+export const HomeStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName={routes.home.name}
+      screenOptions={{
+        ...stackScreenOptions,
+      }}>
+      <Stack.Screen
+        component={HomeScreen}
+        name={routes.home.name}
+        options={{...routes.home.options, ...homeScreenOptions}}
+      />
+      {getSharedScreens(Stack)}
+    </Stack.Navigator>
+  )
+}

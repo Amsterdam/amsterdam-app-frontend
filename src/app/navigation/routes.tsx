@@ -42,6 +42,16 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
     },
   },
+  addressInfo: {
+    name: 'AddressInfo',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
+      presentation: 'modal',
+    },
+  },
   addressForm: {
     name: 'AddressForm',
     options: {
