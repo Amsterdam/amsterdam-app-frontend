@@ -1,15 +1,11 @@
-import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {SettingsContext} from '../../../../providers'
-import {color} from '../../../../tokens'
 import {Text} from '../../../ui'
-import {Row} from '../../../ui/layout'
-import {SettingsSection} from '../index'
 
 export const ProjectManagerSettingsSection = () => {
   const navigation =
@@ -24,22 +20,10 @@ export const ProjectManagerSettingsSection = () => {
 
   return (
     <SettingsSection title="Omgevingsmanager">
-      <TouchableOpacity
+      <SettingsLink
         onPress={() => navigation.navigate(routes.authorizedProjects.name)}>
-        <Row align="between" gutter="md" valign="center">
-          <Text large>Je bouwprojecten</Text>
-          <View style={styles.icon}>
-            <ChevronRight fill={color.font.regular} />
-          </View>
-        </Row>
-      </TouchableOpacity>
+        <Text large>Je bouwprojecten</Text>
+      </SettingsLink>
     </SettingsSection>
   )
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 16,
-    aspectRatio: 1,
-  },
-})
