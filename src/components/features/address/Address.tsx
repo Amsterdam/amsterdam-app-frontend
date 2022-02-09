@@ -61,7 +61,7 @@ export const Address = () => {
       ) : (
         <Card>
           <CardBody>
-            <Column>
+            <Column gutter="md">
               <>
                 <Title level={4} text="Adres" />
                 <Text>
