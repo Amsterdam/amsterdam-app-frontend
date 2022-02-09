@@ -13,6 +13,7 @@ import {ProjectTitles} from '../../../../types'
 import {accessibleText} from '../../../../utils'
 import {Attention, Box, Divider, SingleSelectable, Text} from '../../../ui'
 import {Row} from '../../../ui/layout'
+import {ProjectTitle} from '../../project'
 import {SettingsSection} from '../SettingsSection'
 
 export const AuthorizedProjectsList = () => {
@@ -70,14 +71,12 @@ export const AuthorizedProjectsList = () => {
                   accessibilityRole="header"
                   label={accessibleText(
                     project.title,
-                    project.subtitle || undefined,
+                    project.subtitle ?? undefined,
                   )}>
-                  {project.title && <Text large>{project.title}</Text>}
-                  {project.subtitle && (
-                    <Text secondary small>
-                      {project.subtitle}
-                    </Text>
-                  )}
+                  <ProjectTitle
+                    title={project.title}
+                    subtitle={project.subtitle ?? undefined}
+                  />
                 </SingleSelectable>
                 <View style={styles.icon}>
                   <ChevronRight fill={color.font.regular} />
