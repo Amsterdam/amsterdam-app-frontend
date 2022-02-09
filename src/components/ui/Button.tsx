@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   text: {
     backgroundColor: undefined,
     color: color.touchable.primary,
-    paddingHorizontal: size.spacing.sm,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
   },
 })
