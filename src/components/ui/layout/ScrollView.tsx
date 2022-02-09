@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react'
-import {ScrollView as RNScrollView, StyleSheet} from 'react-native'
+import {ScrollView as RNScrollView} from 'react-native'
+import {layoutStyles} from '../../../styles'
 
 type Props = {
   children: ReactNode
@@ -9,15 +10,9 @@ type Props = {
 export const ScrollView = ({children, grow}: Props) => {
   return (
     <RNScrollView
-      contentContainerStyle={grow && styles.container}
+      contentContainerStyle={grow && layoutStyles.grow}
       keyboardShouldPersistTaps={grow && 'handled'}>
       {children}
     </RNScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-})
