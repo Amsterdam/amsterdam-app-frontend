@@ -4,8 +4,8 @@ import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import Twitter from '@amsterdam/asc-assets/static/icons/Twitter.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import React, {Key, ReactNode} from 'react'
+import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {Instagram, Whatsapp} from '../../../assets/icons'
@@ -16,56 +16,82 @@ import {Box, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
 import {ContactOption} from './ContactOption'
 
+type ContactOptionType = {
+  buttonProps: TouchableOpacityProps & {key: Key}
+  contactProps: {
+    accessibilityTitle?: string
+    icon: ReactNode
+    text: string
+    title: string
+  }
+}
+
 export const ContactOptions = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
+
+  const contactOptions: ContactOptionType[] = [
+    {
+      buttonProps: {
+        accessibilityRole: 'button',
+        key: 'email',
+        onPress: () =>
+          navigation.navigate(routes.webView.name, {
+            sliceFromTop: {portrait: 50, landscape: 50},
+            title: 'Neem contact op',
+            url: 'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
+          }),
+      },
+      contactProps: {
+        accessibilityTitle:
+          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
+        icon: <Email fill={color.touchable.primary} />,
+        text: 'Reactie binnen twee uur',
+        title: 'WhatsApp 06 44 44 06 55',
+      },
+    },
+    {
+      buttonProps: {
+        accessibilityRole: 'link',
+        key: 'phone',
+        onPress: () => openPhoneUrl('+3114020'),
+      },
+      contactProps: {
+        icon: <Phone fill={color.touchable.primary} />,
+        text: 'Reactie binnen 1 werkdag',
+        title: 'Contactformulier',
+      },
+    },
+    {
+      buttonProps: {
+        accessibilityRole: 'link',
+        key: 'whatsapp',
+        onPress: () => openWebUrl('https://wa.me/31644440655'),
+      },
+      contactProps: {
+        accessibilityTitle: 'Bel veertien nul twintig',
+        icon: <Whatsapp fill={color.touchable.primary} />,
+        text: 'Gemiddeld 5 minuten wachten',
+        title: 'Bel 14 020',
+      },
+    },
+  ]
 
   return (
     <Box background="white">
       <Title level={2} text="Neem contact op" />
       <Gutter height="md" />
       <Column gutter="sm">
-        <TouchableOpacity
-          accessibilityRole="button"
-          onPress={() =>
-            navigation.navigate(routes.webView.name, {
-              sliceFromTop: {portrait: 50, landscape: 50},
-              title: 'Neem contact op',
-              url: 'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
-            })
-          }>
-          <ContactOption
-            icon={<Email fill={color.touchable.primary} />}
-            title="Contactformulier"
-            text="Reactie binnen 1 werkdag"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          accessibilityLabel={accessibleText(
-            'Bel veertien nul twintig',
-            'gemiddeld 5 minuten wachten',
-          )}
-          accessibilityRole="link"
-          onPress={() => openPhoneUrl('+3114020')}>
-          <ContactOption
-            icon={<Phone fill={color.touchable.primary} />}
-            title="Bel 14 020"
-            text="Gemiddeld 5 minuten wachten"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          accessibilityLabel={accessibleText(
-            'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-            'reactie binnen twee uur',
-          )}
-          accessibilityRole="link"
-          onPress={() => openWebUrl('https://wa.me/31644440655')}>
-          <ContactOption
-            icon={<Whatsapp fill={color.touchable.primary} />}
-            title="WhatsApp 06 44 44 06 55"
-            text="Reactie binnen 2 uur"
-          />
-        </TouchableOpacity>
+        {contactOptions.map(({buttonProps, contactProps}) => (
+          <TouchableOpacity
+            accessibilityLabel={accessibleText(
+              contactProps.accessibilityTitle ?? contactProps.title,
+              contactProps.text,
+            )}
+            {...buttonProps}>
+            <ContactOption {...contactProps} />
+          </TouchableOpacity>
+        ))}
       </Column>
       <Gutter height="lg" />
       <Title
