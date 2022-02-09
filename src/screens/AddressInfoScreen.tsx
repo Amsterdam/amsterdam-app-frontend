@@ -4,7 +4,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {StackParams} from '../app/navigation'
 import {Box, Button, Text, Title} from '../components/ui'
-import {Column, Gutter, Row, Stretch} from '../components/ui/layout'
+import {Column, Gutter, Row, ScrollView, Stretch} from '../components/ui/layout'
 import {color} from '../tokens'
 
 export const AddressInfoScreen = ({
@@ -13,7 +13,7 @@ export const AddressInfoScreen = ({
   navigation: StackNavigationProp<StackParams, 'Home'>
 }) => {
   return (
-    <>
+    <ScrollView>
       <Row align="end">
         <Box inset="sm">
           <TouchableOpacity onPress={navigation.goBack}>
@@ -46,6 +46,6 @@ export const AddressInfoScreen = ({
         <Button onPress={navigation.goBack} text="Ik begrijp het" />
       </Box>
       <Gutter height="md" />
-    </>
+    </ScrollView>
   )
 }
