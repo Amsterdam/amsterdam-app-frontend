@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
+import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {getEnvironment} from '../../../../environment'
@@ -10,8 +11,6 @@ import {ProjectTitles} from '../../../../types'
 import {accessibleText} from '../../../../utils'
 import {Attention, Box, Divider, SingleSelectable, Text} from '../../../ui'
 import {ProjectTitle} from '../../project'
-import {SettingsLink} from '../SettingsLink'
-import {SettingsSection} from '../SettingsSection'
 
 export const AuthorizedProjectsSettingsSection = () => {
   const {settings} = useContext(SettingsContext)
