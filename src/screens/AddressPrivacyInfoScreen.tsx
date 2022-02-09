@@ -4,7 +4,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {StackParams} from '../app/navigation'
 import {Box, Button, Text, Title} from '../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
+import {Column, Gutter, Row, ScrollView, Stretch} from '../components/ui/layout'
 import {color} from '../tokens'
 
 export const AddressPrivacyInfoScreen = ({
@@ -13,16 +13,14 @@ export const AddressPrivacyInfoScreen = ({
   navigation: StackNavigationProp<StackParams, 'Home'>
 }) => {
   return (
-    <ScrollView fullScreen>
-      <Row align="end">
-        <Box inset="sm">
+    <ScrollView grow>
+      <Box grow>
+        <Row align="end">
           <TouchableOpacity onPress={navigation.goBack}>
             <Close fill={color.font.regular} height={28} width={28} />
           </TouchableOpacity>
-        </Box>
-      </Row>
-      <Column align="between">
-        <Box insetHorizontal="md">
+        </Row>
+        <Stretch>
           <Column gutter="md">
             <Title text="Veilig omgaan met uw adres" />
             <Text intro>
@@ -40,11 +38,9 @@ export const AddressPrivacyInfoScreen = ({
               instellingen.
             </Text>
           </Column>
-        </Box>
-        <Box>
-          <Button onPress={navigation.goBack} text="Ik begrijp het" />
-        </Box>
-      </Column>
+        </Stretch>
+        <Button onPress={navigation.goBack} text="Ik begrijp het" />
+      </Box>
       <Gutter height="md" />
     </ScrollView>
   )
