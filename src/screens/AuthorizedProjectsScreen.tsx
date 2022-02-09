@@ -1,5 +1,5 @@
 import React from 'react'
-import {AuthorizedProjectsSettingsSection} from '../components/features/settings/notification-authorization/AuthorizedProjectsSettingsSection'
+import {AuthorizedProjectsSettingsSection} from '../components/features/settings/project-management/AuthorizedProjectsSettingsSection'
 import {Box, Text, TextButton, Title} from '../components/ui'
 import {Gutter, ScrollView} from '../components/ui/layout'
 import {openMailUrl} from '../utils'
