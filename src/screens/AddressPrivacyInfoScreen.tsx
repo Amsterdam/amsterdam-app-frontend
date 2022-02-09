@@ -17,7 +17,7 @@ export const AddressPrivacyInfoScreen = ({
       <Box grow>
         <Row align="end">
           <TouchableOpacity onPress={navigation.goBack}>
-            <Close fill={color.font.regular} height={28} width={28} />
+            <Close fill={color.font.regular} height={20} width={20} />
           </TouchableOpacity>
         </Row>
         <Stretch>
