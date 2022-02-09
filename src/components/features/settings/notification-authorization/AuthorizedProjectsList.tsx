@@ -1,19 +1,16 @@
-import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {getEnvironment} from '../../../../environment'
 import {useFetch} from '../../../../hooks'
 import {SettingsContext} from '../../../../providers'
-import {color} from '../../../../tokens'
 import {ProjectTitles} from '../../../../types'
 import {accessibleText} from '../../../../utils'
 import {Attention, Box, Divider, SingleSelectable, Text} from '../../../ui'
-import {Row} from '../../../ui/layout'
 import {ProjectTitle} from '../../project'
+import {SettingsLink} from '../SettingsLink'
 import {SettingsSection} from '../SettingsSection'
 
 export const AuthorizedProjectsList = () => {
@@ -58,33 +55,28 @@ export const AuthorizedProjectsList = () => {
     <SettingsSection title="Je bouwprojecten">
       {authorisedProjects.length ? (
         authorisedProjects.map((project, index) => (
-          <TouchableOpacity
-            key={project.identifier}
-            onPress={() =>
-              navigation.navigate(routes.projectDetail.name, {
-                id: project.identifier,
-              })
-            }>
-            <Box insetVertical="sm">
-              <Row align="between" gutter="md" valign="center">
-                <SingleSelectable
-                  accessibilityRole="header"
-                  label={accessibleText(
-                    project.title,
-                    project.subtitle ?? undefined,
-                  )}>
-                  <ProjectTitle
-                    title={project.title}
-                    subtitle={project.subtitle ?? undefined}
-                  />
-                </SingleSelectable>
-                <View style={styles.icon}>
-                  <ChevronRight fill={color.font.regular} />
-                </View>
-              </Row>
-            </Box>
+          <>
+            <SettingsLink
+              key={project.identifier}
+              onPress={() =>
+                navigation.navigate(routes.projectDetail.name, {
+                  id: project.identifier,
+                })
+              }>
+              <SingleSelectable
+                accessibilityRole="header"
+                label={accessibleText(
+                  project.title,
+                  project.subtitle ?? undefined,
+                )}>
+                <ProjectTitle
+                  title={project.title}
+                  subtitle={project.subtitle ?? undefined}
+                />
+              </SingleSelectable>
+            </SettingsLink>
             {index < (authorisedProjects.length ?? 0) - 1 && <Divider />}
-          </TouchableOpacity>
+          </>
         ))
       ) : (
         <Text>Geen bouwprojecten gevonden.</Text>
@@ -92,10 +84,3 @@ export const AuthorizedProjectsList = () => {
     </SettingsSection>
   ) : null
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 16,
-    aspectRatio: 1,
-  },
-})

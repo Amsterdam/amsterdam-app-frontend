@@ -1,4 +1,5 @@
 export * from './getSubscribedProjects'
+export * from './SettingsLink'
 export * from './SettingsSection'
 export * from './notification-authorization/AuthorizedProjects'
 export * from './notification-authorization/AuthorizedProjectsList'
