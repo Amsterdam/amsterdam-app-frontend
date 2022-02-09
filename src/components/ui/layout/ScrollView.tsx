@@ -3,14 +3,14 @@ import {ScrollView as RNScrollView, StyleSheet} from 'react-native'
 
 type Props = {
   children: ReactNode
-  keyboardDismiss?: boolean
+  fullScreen?: boolean
 }
 
-export const ScrollView = ({children, keyboardDismiss}: Props) => {
+export const ScrollView = ({children, fullScreen}: Props) => {
   return (
     <RNScrollView
-      contentContainerStyle={keyboardDismiss && styles.container}
-      keyboardShouldPersistTaps={keyboardDismiss && 'handled'}>
+      contentContainerStyle={fullScreen && styles.container}
+      keyboardShouldPersistTaps={fullScreen && 'handled'}>
       {children}
     </RNScrollView>
   )

@@ -90,7 +90,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   return (
-    <ScrollView keyboardDismiss>
+    <ScrollView fullScreen>
       <Stretch>
         <Box>
           <Column gutter="lg">

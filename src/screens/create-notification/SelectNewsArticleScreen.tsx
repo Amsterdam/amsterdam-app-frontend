@@ -60,7 +60,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }, [changeCurrentStep, navigation])
 
   return newsArticles ? (
-    <ScrollView keyboardDismiss>
+    <ScrollView fullScreen>
       <Stretch>
         <Box>
           <Column gutter="xl">
