@@ -1,4 +1,5 @@
 export * from './AdminScreen'
+export * from './AuthorizedProjectsScreen'
 export * from './ContactScreen'
 export * from './HomeScreen'
 export * from './ProjectDetailBodyScreen'
