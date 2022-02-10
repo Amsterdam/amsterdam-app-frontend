@@ -71,6 +71,10 @@ export type ProjectDetailBody = {
   title: string
 }
 
+export type ProjectDetailQueryArgs = {
+  id: string
+}
+
 export type ProjectIdsQueryArgs = {
   projectIds: string[]
 }
