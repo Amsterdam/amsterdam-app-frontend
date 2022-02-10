@@ -27,6 +27,12 @@ export type ProjectTitles = Pick<Project, 'identifier' | 'subtitle' | 'title'>
 
 export type Projects = ProjectSummary[]
 
+export type ProjectsQueryArgs = {
+  projectType: 'brug' | 'kade'
+  districtId: number
+  fields: keyof Project
+}
+
 // All project details as received from our backend
 export type ProjectDetail = {
   body: {
