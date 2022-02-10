@@ -1,8 +1,9 @@
 import {
   ListQueryArgsNoLimit,
+  NewsArticle,
   NewWarning,
   ProjectDetail,
-  ProjectDetailQueryArgs,
+  ProjectIdQueryArgs,
   Projects,
   ProjectsQueryArgs,
   WarningResponse,
@@ -25,9 +26,14 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    getProject: builder.query<ProjectDetail, ProjectDetailQueryArgs>({
+    getProject: builder.query<ProjectDetail, ProjectIdQueryArgs>({
       query: params => generateRequestUrl('/project/details', params),
       transformResponse: (response: {result: ProjectDetail}) => response.result,
+    }),
+
+    getProjectNews: builder.query<NewsArticle, ProjectIdQueryArgs>({
+      query: params => generateRequestUrl('/project/news', params),
+      transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
     getProjects: builder.query<
@@ -49,5 +55,6 @@ export const projectsApi = baseApi.injectEndpoints({
 export const {
   useAddProjectWarningMutation,
   useGetProjectQuery,
+  useGetProjectNewsQuery,
   useGetProjectsQuery,
 } = projectsApi

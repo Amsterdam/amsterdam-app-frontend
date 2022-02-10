@@ -1,13 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
+import {useGetProjectNewsQuery, useGetProjectQuery} from '../../../services'
 import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
 import {font, image} from '../../../tokens'
-import {NewsArticle, ProjectDetail} from '../../../types'
 import {formatDate, mapImageSources} from '../../../utils'
 import {
   Box,
@@ -24,71 +22,62 @@ type Props = {
 }
 
 export const ProjectNews = ({id}: Props) => {
-  const [article, setArticle] = useState<NewsArticle | undefined>()
   const navigation = useNavigation()
   const notificationState = useNotificationState()
   const {width} = useWindowDimensions()
 
-  const newsApi = useFetch<NewsArticle>({
-    url: getEnvironment().apiUrl + '/project/news',
-    options: {params: {id}},
-  })
+  const {data: newsArticle, isLoading: newsArticleIsLoading} =
+    useGetProjectNewsQuery({
+      id,
+    })
 
-  useEffect(() => {
-    if (newsApi.data) {
-      setArticle(newsApi.data)
-    }
-  }, [newsApi.data])
-
-  const projectApi = useFetch<ProjectDetail>({
-    url: getEnvironment().apiUrl + '/project/details',
-    options: {
-      params: {
-        id: article?.project_identifier ?? '',
-      },
+  const {data: projectData, isLoading: projectIsLoading} = useGetProjectQuery(
+    {
+      id: newsArticle?.project_identifier!,
     },
-  })
+    {skip: !newsArticle},
+  )
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <NonScalingHeaderTitle text={projectApi.data?.title ?? ''} />
+        <NonScalingHeaderTitle text={projectData?.title ?? ''} />
       ),
     })
   })
 
-  if (newsApi.isLoading || projectApi.isLoading || !article) {
+  if (newsArticleIsLoading || projectIsLoading || !newsArticle) {
     return <PleaseWait />
   }
 
-  notificationState.markAsRead(article.identifier)
+  notificationState.markAsRead(newsArticle.identifier)
 
   return (
     <ScrollView>
-      {article?.images?.length && (
+      {newsArticle?.images?.length && (
         <Image
-          source={mapImageSources(article.images[0].sources)}
+          source={mapImageSources(newsArticle.images[0].sources)}
           style={styles.image}
         />
       )}
-      {article && (
+      {newsArticle && (
         <Box>
           <Text margin secondary>
-            {formatDate(article.publication_date)}
+            {formatDate(newsArticle.publication_date)}
           </Text>
-          <Title margin text={article.title} />
-          {article.body?.preface.html && (
+          <Title margin text={newsArticle.title} />
+          {newsArticle.body?.preface.html && (
             <RenderHTML
               contentWidth={width}
-              source={{html: article.body?.preface.html}}
+              source={{html: newsArticle.body?.preface.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStylesIntro}
             />
           )}
-          {article.body?.content.html && (
+          {newsArticle.body?.content.html && (
             <RenderHTML
               contentWidth={width}
-              source={{html: article.body?.content.html}}
+              source={{html: newsArticle.body?.content.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStyles}
             />

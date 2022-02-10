@@ -71,7 +71,7 @@ export type ProjectDetailBody = {
   title: string
 }
 
-export type ProjectDetailQueryArgs = {
+export type ProjectIdQueryArgs = {
   id: string
 }
 
