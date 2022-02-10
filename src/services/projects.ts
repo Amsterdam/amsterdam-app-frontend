@@ -24,15 +24,18 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
     getProjects: builder.query<
       Projects,
-      Partial<ProjectsQueryArgs & ListQueryArgsNoLimit>
+      Partial<ProjectsQueryArgs & ListQueryArgsNoLimit> | void
     >({
       query: params => {
-        const q = formatQueryArgs(params)
-        return generateRequestUrl('/projects', q)
+        if (params) {
+          const q = formatQueryArgs(params)
+          return generateRequestUrl('/projects', q)
+        }
+        return '/projects'
       },
       transformResponse: (response: {result: Projects}) => response.result,
     }),
   }),
 })
 
-export const {useAddWarningMutation} = projectsApi
+export const {useAddWarningMutation, useGetProjectsQuery} = projectsApi
