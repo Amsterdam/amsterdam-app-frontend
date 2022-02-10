@@ -2,7 +2,7 @@ import {Image} from './image'
 import {Section, Timeline} from './'
 
 // An item in a project list as received from our backend
-export type Project = {
+export type ProjectResponse = {
   content_html: string
   content_text: string
   district_id: number
@@ -18,19 +18,22 @@ export type Project = {
 }
 
 export type ProjectSummary = Pick<
-  Project,
-  'identifier' | 'images' | 'subtitle' | 'title'
+  ProjectResponse,
+  'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
 >
 
 // Only the titles of a project, e.g. for small lists
-export type ProjectTitles = Pick<Project, 'identifier' | 'subtitle' | 'title'>
+export type ProjectTitles = Pick<
+  ProjectResponse,
+  'identifier' | 'subtitle' | 'title'
+>
 
 export type Projects = ProjectSummary[]
 
 export type ProjectsQueryArgs = {
   projectType: 'brug' | 'kade'
   districtId: number
-  fields: keyof Project
+  fields: keyof ProjectResponse
 }
 
 // All project details as received from our backend
