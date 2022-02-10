@@ -33,7 +33,7 @@ export type Projects = ProjectSummary[]
 export type ProjectsQueryArgs = {
   projectType: 'brug' | 'kade'
   districtId: number
-  fields: keyof ProjectResponse
+  fields: string[]
 }
 
 // All project details as received from our backend
