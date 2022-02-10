@@ -3,7 +3,3 @@ export type ListQueryArgs = {
   sortBy: string
   sortOrder: 'asc' | 'desc'
 }
-
-export type ProjectIdsQueryArgs = {
-  projectIds: string[]
-}
