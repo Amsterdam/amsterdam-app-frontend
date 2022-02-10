@@ -1,4 +1,11 @@
-import {NewWarning, WarningResponse} from '../types'
+import {
+  ListQueryArgsNoLimit,
+  NewWarning,
+  Projects,
+  ProjectsQueryArgs,
+  WarningResponse,
+} from '../types'
+import {formatQueryArgs, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -14,6 +21,16 @@ export const projectsApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: {result: WarningResponse}) =>
         response.result,
+    }),
+    getProjects: builder.query<
+      Projects,
+      Partial<ProjectsQueryArgs & ListQueryArgsNoLimit>
+    >({
+      query: params => {
+        const q = formatQueryArgs(params)
+        return generateRequestUrl('/projects', q)
+      },
+      transformResponse: (response: {result: Projects}) => response.result,
     }),
   }),
 })

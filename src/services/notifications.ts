@@ -4,8 +4,7 @@ import {
   Notifications,
   NotificationsQueryArgs,
 } from '../types'
-import {generateRequestUrl} from '../utils'
-import {formatQueryParams} from '../utils/formatQueryParams'
+import {formatQueryArgs, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
 
 export const notificationsApi = baseApi.injectEndpoints({
@@ -23,7 +22,7 @@ export const notificationsApi = baseApi.injectEndpoints({
     getNotifications: builder.query<Notifications, NotificationsQueryArgs>({
       providesTags: ['Notifications'],
       query: params => {
-        const q = formatQueryParams(params)
+        const q = formatQueryArgs(params)
         return generateRequestUrl('/notifications', q)
       },
       transformResponse: (response: {result: Notifications}) => response.result,
