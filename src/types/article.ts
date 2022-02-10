@@ -15,6 +15,6 @@ export type ArticleApiResponse = {
   result: ArticleSummary[]
 }
 
-export type ArticleQueryAgrs = {
+export type ArticleQueryArgs = {
   projectIds?: string[]
 } & Partial<ListQueryArgs>
