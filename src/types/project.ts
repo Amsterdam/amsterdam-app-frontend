@@ -17,6 +17,8 @@ export type ProjectOverviewItem = {
   title: string
 }
 
+export type Projects = ProjectOverviewItem[]
+
 // Only the titles of a project, e.g. for small lists
 export type ProjectTitles = Pick<
   ProjectOverviewItem,
