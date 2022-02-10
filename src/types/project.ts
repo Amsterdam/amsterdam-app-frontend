@@ -29,7 +29,6 @@ export type Projects = ProjectSummary[]
 
 // All project details as received from our backend
 export type ProjectDetail = {
-  articles?: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
     intro: Section[]
@@ -53,15 +52,6 @@ export type ProjectDetail = {
   subtitle: string
   title: string
   url: string
-}
-
-// A summary of a news article related to a project
-export type ProjectDetailArticlePreview = {
-  identifier: string
-  image: Image
-  publication_date: string
-  title: string
-  type: 'news' | 'warning'
 }
 
 // A set of project body sections, used in the front-end
