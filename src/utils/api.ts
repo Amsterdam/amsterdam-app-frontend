@@ -21,6 +21,7 @@ export const generateRequestUrl = (url: string, params = {}) => {
  */
 export const formatQueryArgs = ({
   districtId,
+  fields,
   projectIds,
   projectType,
   sortBy,
@@ -29,6 +30,7 @@ export const formatQueryArgs = ({
 }: Partial<ListQueryArgs & ProjectIdsQueryArgs & ProjectsQueryArgs>) => ({
   ...(districtId && {'district-id': districtId}),
   ...(projectType && {'project-type': projectType}),
+  ...(fields && {fields: fields.join(',')}),
   ...(projectIds && {'project-ids': projectIds.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
   ...(sortOrder && {'sort-order': sortOrder}),
