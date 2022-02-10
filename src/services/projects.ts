@@ -12,7 +12,7 @@ import {baseApi} from './init'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    addWarning: builder.mutation<WarningResponse, NewWarning>({
+    addProjectWarning: builder.mutation<WarningResponse, NewWarning>({
       invalidatesTags: ['Articles'],
       query(body) {
         return {
@@ -24,10 +24,12 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: WarningResponse}) =>
         response.result,
     }),
+
     getProject: builder.query<ProjectDetail, ProjectDetailQueryArgs>({
       query: params => generateRequestUrl('/project/details', params),
       transformResponse: (response: {result: ProjectDetail}) => response.result,
     }),
+
     getProjects: builder.query<
       Projects,
       Partial<ProjectsQueryArgs & ListQueryArgsNoLimit> | void
@@ -44,5 +46,8 @@ export const projectsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const {useAddWarningMutation, useGetProjectQuery, useGetProjectsQuery} =
-  projectsApi
+export const {
+  useAddProjectWarningMutation,
+  useGetProjectQuery,
+  useGetProjectsQuery,
+} = projectsApi

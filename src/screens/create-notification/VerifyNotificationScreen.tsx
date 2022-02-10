@@ -17,7 +17,10 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {useAddNotificationMutation, useAddWarningMutation} from '../../services'
+import {
+  useAddNotificationMutation,
+  useAddProjectWarningMutation,
+} from '../../services'
 import {DraftNotification} from '../../types'
 import {NotificationContext, NotificationStackParams} from './'
 
@@ -42,7 +45,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       isError: addWarningIsError,
       isLoading: addWarningIsLoading,
     },
-  ] = useAddWarningMutation()
+  ] = useAddProjectWarningMutation()
   const [
     addNotification,
     {
