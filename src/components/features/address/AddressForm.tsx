@@ -159,12 +159,6 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
 }
 
 const styles = StyleSheet.create({
-  backToStreet: {
-    flexDirection: 'row',
-  },
-  streetInputWrapper: {
-    height: '100%',
-  },
   suggestedItem: {
     flexDirection: 'row',
     alignItems: 'center',
