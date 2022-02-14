@@ -1,8 +1,8 @@
 import React from 'react'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {BagResponseContent} from '../../../types'
 import {List} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {ScrollView} from '../../ui/layout'
 import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
@@ -35,7 +35,7 @@ export const StreetInput = ({
         value={street}
       />
       {!isStreetSelected ? (
-        <ScrollView grow>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <List dividerBottom>
             {bagList?.map(bagItem => (
               <SuggestionButton
@@ -47,7 +47,7 @@ export const StreetInput = ({
               />
             ))}
           </List>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       ) : null}
     </>
   )

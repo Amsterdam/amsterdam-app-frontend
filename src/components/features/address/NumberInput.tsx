@@ -1,10 +1,11 @@
 import React, {useEffect, useRef} from 'react'
 import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
 import {List, TextButton} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {Gutter, Row, ScrollView} from '../../ui/layout'
+import {Gutter, Row} from '../../ui/layout'
 import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
@@ -70,7 +71,7 @@ export const NumberInput = ({
         value={number}
       />
       {!isNumberSelected && number ? (
-        <ScrollView grow>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
           <List dividerBottom>
             {bagList?.map(bagItem => (
               <SuggestionButton
@@ -82,7 +83,7 @@ export const NumberInput = ({
               />
             ))}
           </List>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       ) : null}
     </Animated.View>
   )
