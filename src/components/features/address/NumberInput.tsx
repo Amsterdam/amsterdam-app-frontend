@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
 import {size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {TextButton} from '../../ui'
+import {List, TextButton} from '../../ui'
 import {TextInput} from '../../ui/forms'
 import {Gutter, Row, ScrollView} from '../../ui/layout'
 import {SuggestionButton} from './SuggestionButton'
@@ -71,15 +71,17 @@ export const NumberInput = ({
       />
       {!isNumberSelected && number ? (
         <ScrollView grow>
-          {bagList?.map(bagItem => (
-            <SuggestionButton
-              key={bagItem.uri}
-              label={getNumberFromAddress(bagItem._display)}
-              onPress={() => {
-                selectNumber(getNumberFromAddress(bagItem._display))
-              }}
-            />
-          ))}
+          <List dividerBottom>
+            {bagList?.map(bagItem => (
+              <SuggestionButton
+                key={bagItem.uri}
+                label={getNumberFromAddress(bagItem._display)}
+                onPress={() => {
+                  selectNumber(getNumberFromAddress(bagItem._display))
+                }}
+              />
+            ))}
+          </List>
         </ScrollView>
       ) : null}
     </Animated.View>

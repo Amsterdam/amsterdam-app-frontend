@@ -25,8 +25,5 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     paddingVertical: size.spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: color.border.divider,
-    borderStyle: 'solid',
   },
 })

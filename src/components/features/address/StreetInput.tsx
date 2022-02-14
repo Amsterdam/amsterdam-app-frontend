@@ -1,5 +1,6 @@
 import React from 'react'
 import {BagResponseContent} from '../../../types'
+import {List} from '../../ui'
 import {TextInput} from '../../ui/forms'
 import {ScrollView} from '../../ui/layout'
 import {SuggestionButton} from './SuggestionButton'
@@ -35,15 +36,17 @@ export const StreetInput = ({
       />
       {!isStreetSelected ? (
         <ScrollView grow>
-          {bagList?.map(bagItem => (
-            <SuggestionButton
-              key={bagItem.uri}
-              label={bagItem._display}
-              onPress={() => {
-                selectStreet(bagItem._display)
-              }}
-            />
-          ))}
+          <List dividerBottom>
+            {bagList?.map(bagItem => (
+              <SuggestionButton
+                key={bagItem.uri}
+                label={bagItem._display}
+                onPress={() => {
+                  selectStreet(bagItem._display)
+                }}
+              />
+            ))}
+          </List>
         </ScrollView>
       ) : null}
     </>
