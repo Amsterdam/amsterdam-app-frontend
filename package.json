@@ -39,6 +39,7 @@
     "react-native-dotenv": "^3.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-crop-picker": "^0.37.2",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "^2.2.0",
     "react-native-render-html": "^6.0.5",
     "react-native-safe-area-context": "^3.2.0",
