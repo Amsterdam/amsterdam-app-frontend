@@ -6,12 +6,11 @@ import {
   KeyboardTypeOptions,
   TouchableOpacity,
 } from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
 import {color, size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
 import {Text, TextButton} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {Gutter, Row} from '../../ui/layout'
+import {Gutter, Row, ScrollView} from '../../ui/layout'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -79,7 +78,7 @@ export const NumberInput = ({
         value={number}
       />
       {!isNumberSelected && number ? (
-        <ScrollView keyboardShouldPersistTaps="handled">
+        <ScrollView grow>
           {bagList?.map(bagItem => (
             <TouchableOpacity
               accessibilityRole="button"

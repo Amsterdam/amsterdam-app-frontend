@@ -1,12 +1,11 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
 import {color} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
 import {Text} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {Gutter} from '../../ui/layout'
+import {Gutter, ScrollView} from '../../ui/layout'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -40,7 +39,7 @@ export const StreetInput = ({
         value={street}
       />
       {!isStreetSelected ? (
-        <ScrollView keyboardShouldPersistTaps="handled">
+        <ScrollView grow>
           {bagList?.map(bagItem => (
             <TouchableOpacity
               accessibilityRole="button"
