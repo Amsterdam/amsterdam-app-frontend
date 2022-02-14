@@ -8,15 +8,15 @@ import {color, font} from '../../tokens'
 
 type Props = {
   children: ReactNode
-  intro?: Boolean
-  inverse?: Boolean
-  large?: Boolean
-  link?: Boolean
-  margin?: Boolean
+  intro?: boolean
+  inverse?: boolean
+  large?: boolean
+  link?: boolean
+  margin?: boolean
   primary?: boolean
-  secondary?: Boolean
-  small?: Boolean
-  warning?: Boolean
+  secondary?: boolean
+  small?: boolean
+  warning?: boolean
 } & Omit<TextRNProps, 'style'>
 
 export const Text = ({
