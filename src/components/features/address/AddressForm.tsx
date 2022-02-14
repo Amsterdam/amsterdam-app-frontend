@@ -1,11 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
-import {StyleSheet} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers'
-import {color, size} from '../../../tokens'
 import {
   Address,
   ApiAddress,
@@ -139,7 +137,6 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
           isStreetSelected={isStreetSelected}
           selectStreet={selectStreet}
           street={street}
-          styles={styles}
         />
       ) : (
         <NumberInput
@@ -151,20 +148,8 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
           number={number}
           selectNumber={selectNumber}
           street={street}
-          styles={styles}
         />
       )}
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  suggestedItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: size.spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: color.border.divider,
-    borderStyle: 'solid',
-  },
-})

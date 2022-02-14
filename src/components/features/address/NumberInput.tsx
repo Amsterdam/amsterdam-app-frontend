@@ -1,16 +1,11 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {useEffect, useRef} from 'react'
-import {
-  Animated,
-  Dimensions,
-  KeyboardTypeOptions,
-  TouchableOpacity,
-} from 'react-native'
-import {color, size} from '../../../tokens'
+import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
+import {size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Text, TextButton} from '../../ui'
+import {TextButton} from '../../ui'
 import {TextInput} from '../../ui/forms'
 import {Gutter, Row, ScrollView} from '../../ui/layout'
+import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -21,7 +16,6 @@ type Props = {
   number: string
   selectNumber: (text: string) => void
   street: string
-  styles: {suggestedItem: {}}
 }
 
 const getNumberFromAddress = (text: string) => {
@@ -42,7 +36,6 @@ export const NumberInput = ({
   number,
   selectNumber,
   street,
-  styles,
 }: Props) => {
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current
@@ -68,10 +61,9 @@ export const NumberInput = ({
         />
       </Row>
       <Gutter height="sm" />
-
       <TextInput
         accessibilityLabel="Vul uw huisnummer in"
-        autoFocus={true}
+        autoFocus
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
@@ -80,17 +72,13 @@ export const NumberInput = ({
       {!isNumberSelected && number ? (
         <ScrollView grow>
           {bagList?.map(bagItem => (
-            <TouchableOpacity
-              accessibilityRole="button"
+            <SuggestionButton
               key={bagItem.uri}
+              label={getNumberFromAddress(bagItem._display)}
               onPress={() => {
                 selectNumber(getNumberFromAddress(bagItem._display))
               }}
-              style={styles.suggestedItem}>
-              <Location width={24} height={24} fill={color.font.tertiary} />
-              <Gutter width="xs" />
-              <Text>{getNumberFromAddress(bagItem._display)}</Text>
-            </TouchableOpacity>
+            />
           ))}
         </ScrollView>
       ) : null}

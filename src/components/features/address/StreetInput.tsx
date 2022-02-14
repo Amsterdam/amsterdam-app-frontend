@@ -1,11 +1,8 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
-import {color} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Text} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {Gutter, ScrollView} from '../../ui/layout'
+import {ScrollView} from '../../ui/layout'
+import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -14,7 +11,6 @@ type Props = {
   isStreetSelected: boolean
   selectStreet: (text: string) => void
   street: string
-  styles: {suggestedItem: {}}
 }
 
 export const StreetInput = ({
@@ -24,7 +20,6 @@ export const StreetInput = ({
   isStreetSelected,
   selectStreet,
   street,
-  styles,
 }: Props) => {
   return (
     <>
@@ -41,17 +36,13 @@ export const StreetInput = ({
       {!isStreetSelected ? (
         <ScrollView grow>
           {bagList?.map(bagItem => (
-            <TouchableOpacity
-              accessibilityRole="button"
+            <SuggestionButton
               key={bagItem.uri}
+              label={bagItem._display}
               onPress={() => {
                 selectStreet(bagItem._display)
               }}
-              style={styles.suggestedItem}>
-              <Location width={20} height={20} fill={color.font.tertiary} />
-              <Gutter width="xs" />
-              <Text large>{bagItem._display}</Text>
-            </TouchableOpacity>
+            />
           ))}
         </ScrollView>
       ) : null}
