@@ -2,7 +2,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {shallowEqual} from '../utils/shallowEqual'
 
 type UseFetchProps = {
-  onLoad?: Boolean
+  onLoad?: boolean
   options?: {
     body?: string
     headers?: Headers
@@ -16,8 +16,8 @@ type UseFetchProps = {
 
 export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [data, setData] = useState<T | undefined>(undefined)
-  const [hasError, setHasError] = useState<Boolean>(false)
-  const [isLoading, setIsLoading] = useState<Boolean>(false)
+  const [hasError, setHasError] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const prevUrl = useRef<string>()
 

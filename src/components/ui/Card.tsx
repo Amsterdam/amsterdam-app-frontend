@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {color, size} from '../../tokens'
 
 type CardProps = {
-  border?: Boolean
+  border?: boolean
   children: ReactNode
 }
 
