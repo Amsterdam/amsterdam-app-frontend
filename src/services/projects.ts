@@ -7,6 +7,8 @@ import {
   ProjectManagerResponse,
   Projects,
   ProjectsQueryArgs,
+  Warning,
+  WarningIdQueryArgs,
   WarningResponse,
 } from '../types'
 import {formatQueryArgs, generateRequestUrl} from '../utils'
@@ -59,6 +61,11 @@ export const projectsApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: {result: Projects}) => response.result,
     }),
+
+    getProjectWarning: builder.query<Warning, WarningIdQueryArgs>({
+      query: params => generateRequestUrl('/project/warning', params),
+      transformResponse: (response: {result: Warning}) => response.result,
+    }),
   }),
 })
 
@@ -68,4 +75,5 @@ export const {
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectsQuery,
+  useGetProjectWarningQuery,
 } = projectsApi
