@@ -4,6 +4,7 @@ import {
   NewWarning,
   ProjectDetail,
   ProjectIdQueryArgs,
+  ProjectManagerResponse,
   Projects,
   ProjectsQueryArgs,
   WarningResponse,
@@ -31,6 +32,15 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: ProjectDetail}) => response.result,
     }),
 
+    getProjectManager: builder.query<
+      ProjectManagerResponse,
+      ProjectIdQueryArgs
+    >({
+      query: params => generateRequestUrl('/project/manager', params),
+      transformResponse: (response: {result: [ProjectManagerResponse]}) =>
+        response.result[0],
+    }),
+
     getProjectNews: builder.query<NewsArticle, ProjectIdQueryArgs>({
       query: params => generateRequestUrl('/project/news', params),
       transformResponse: (response: {result: NewsArticle}) => response.result,
@@ -54,7 +64,8 @@ export const projectsApi = baseApi.injectEndpoints({
 
 export const {
   useAddProjectWarningMutation,
-  useGetProjectQuery,
+  useGetProjectManagerQuery,
   useGetProjectNewsQuery,
+  useGetProjectQuery,
   useGetProjectsQuery,
 } = projectsApi
