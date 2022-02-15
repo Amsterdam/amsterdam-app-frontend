@@ -24,7 +24,7 @@ export type ProjectSummary = Pick<
 
 // Only the titles of a project, e.g. for small lists
 export type ProjectTitles = Pick<
-  ProjectResponse,
+  ProjectSummary,
   'identifier' | 'subtitle' | 'title'
 >
 
@@ -77,4 +77,10 @@ export type ProjectIdQueryArgs = {
 
 export type ProjectIdsQueryArgs = {
   projectIds: string[]
+}
+
+export type ProjectManagerResponse = {
+  identifier: string
+  email: string
+  projects: string[]
 }
