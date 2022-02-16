@@ -73,7 +73,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         project_manager_id: projectManagerSettings.id,
       }
       changeWarning(warningData)
-      navigation.navigate('VerifyNotification')
+      navigation.navigate('SelectHeaderImage')
     }
   }
 
@@ -198,7 +198,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
             onPress={navigation.goBack}
             text="Vorige"
           />
-          <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
+          <SubmitButton onPress={handleSubmit(onSubmit)} text="Afbeelding" />
         </Row>
         <Gutter height="xl" />
       </Box>
