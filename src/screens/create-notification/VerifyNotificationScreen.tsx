@@ -95,7 +95,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(3)
+      notificationContext.changeCurrentStep(4)
     })
     return focusListener
   }, [navigation, notificationContext])
