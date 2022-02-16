@@ -1,8 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
 import {useForm} from 'react-hook-form'
+import {View} from 'react-native'
 import {Box, SubmitButton, TextButton} from '../../components/ui'
-import {Gutter, Row, ScrollView, Stretch} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {NotificationContext, NotificationStackParams} from '.'
 
 type Props = {
@@ -25,19 +26,21 @@ export const SelectHeaderImageScreen = ({navigation}: Props) => {
 
   return (
     <ScrollView grow>
-      <Stretch />
-      <Box>
-        <Row align="between" valign="center">
-          <TextButton
-            direction="backward"
-            emphasis
-            onPress={navigation.goBack}
-            text="Vorige"
-          />
-          <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+      <Column align="between">
+        <View />
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              onPress={navigation.goBack}
+              text="Vorige"
+            />
+            <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   )
 }
