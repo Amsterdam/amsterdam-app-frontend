@@ -7,13 +7,7 @@ import {
 } from '../../components/features/form'
 import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {DraftNotification} from '../../types'
 import {formatTime} from '../../utils'
 import {
@@ -91,7 +85,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
 
   return (
     <ScrollView grow>
-      <Stretch>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
             <Title text="Schrijf een pushbericht" />
@@ -154,20 +148,20 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             </>
           </Column>
         </Box>
-      </Stretch>
-      <Box>
-        <Row align="end" valign="center">
-          <SubmitButton
-            onPress={handleSubmit(onSubmit)}
-            text={
-              numberOfNewsArticles
-                ? 'Kies een nieuwsartikel'
-                : 'Schrijf een nieuwsartikel'
-            }
-          />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="end" valign="center">
+            <SubmitButton
+              onPress={handleSubmit(onSubmit)}
+              text={
+                numberOfNewsArticles
+                  ? 'Kies een nieuwsartikel'
+                  : 'Schrijf een nieuwsartikel'
+              }
+            />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   )
 }

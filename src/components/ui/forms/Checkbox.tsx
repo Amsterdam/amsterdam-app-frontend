@@ -6,9 +6,10 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native'
+import {layoutStyles} from '../../../styles'
 import {color} from '../../../tokens'
 import {SkipInScreenReader} from '../SkipInScreenReader'
-import {Row, Stretch} from '../layout'
+import {Row} from '../layout'
 
 type Props = {
   label: ReactNode
@@ -29,13 +30,13 @@ export const Checkbox = ({
       accessibilityState={{selected: value}}
       onPress={onValueChange}
       underlayColor={color.background.white}>
-      <Row align="between" gutter="md" valign="center">
+      <Row gutter="md" valign="center">
         <View style={[styles.checkbox, value && styles.checked]}>
           {value && <Checkmark fill={color.font.inverse} />}
         </View>
-        <Stretch>
-          <SkipInScreenReader>{label}</SkipInScreenReader>
-        </Stretch>
+        <SkipInScreenReader style={layoutStyles.grow}>
+          {label}
+        </SkipInScreenReader>
       </Row>
     </TouchableHighlight>
   )

@@ -12,13 +12,7 @@ import {
   Title,
 } from '../../components/ui'
 import {Radio, RadioGroup} from '../../components/ui/forms'
-import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -61,7 +55,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   return newsArticles ? (
     <ScrollView grow>
-      <Stretch>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="xl">
             <>
@@ -110,19 +104,19 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             </Column>
           </Column>
         </Box>
-      </Stretch>
-      <Box>
-        <Row align="between" valign="center">
-          <TextButton
-            direction="backward"
-            emphasis
-            onPress={navigation.goBack}
-            text="Vorige"
-          />
-          <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              onPress={navigation.goBack}
+              text="Vorige"
+            />
+            <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   ) : null
 }

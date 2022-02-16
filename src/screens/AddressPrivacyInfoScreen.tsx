@@ -1,10 +1,10 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
+import {TouchableOpacity, View} from 'react-native'
 import {StackParams} from '../app/navigation'
 import {Box, Button, Text, Title} from '../components/ui'
-import {Column, Gutter, Row, ScrollView, Stretch} from '../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
 import {color} from '../tokens'
 
 export const AddressPrivacyInfoScreen = ({
@@ -20,26 +20,26 @@ export const AddressPrivacyInfoScreen = ({
             <Close fill={color.font.regular} height={20} width={20} />
           </TouchableOpacity>
         </Row>
-        <Stretch>
-          <Column gutter="md">
-            <Title text="Veilig omgaan met uw adres" />
-            <Text intro>
+        <Column align="between" gutter="xl">
+          <View>
+            <Title margin text="Veilig omgaan met uw adres" />
+            <Text margin intro>
               Wij slaan uw adres niet op. Het staat alleen in de app op uw
               telefoon. We kunnen uw adres dus aan niemand geven.
             </Text>
-            <Text>
+            <Text margin>
               Wij gebruiken uw adres alleen om u informatie uit uw buurt te
               laten zien. De informatie gaat over wegwerkzaamheden,
               bouwprojecten, het dichtstbijzijnde Stadsloket en informatie over
               afval.
             </Text>
-            <Text>
+            <Text margin>
               U kunt uw adres wijzigen of verwijderen. Ga dan naar uw
               instellingen.
             </Text>
-          </Column>
-        </Stretch>
-        <Button onPress={navigation.goBack} text="Ik begrijp het" />
+          </View>
+          <Button onPress={navigation.goBack} text="Ik begrijp het" />
+        </Column>
       </Box>
       <Gutter height="md" />
     </ScrollView>

@@ -1,8 +1,9 @@
 import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
+import {layoutStyles} from '../../../styles'
 import {color} from '../../../tokens'
 import {SkipInScreenReader} from '../SkipInScreenReader'
-import {Row, Stretch} from '../layout'
+import {Row} from '../layout'
 
 type LabelPosition = 'start' | 'end'
 
@@ -16,9 +17,7 @@ type LabelProps = {
 }
 
 const Label = ({children}: LabelProps) => (
-  <Stretch>
-    <SkipInScreenReader>{children}</SkipInScreenReader>
-  </Stretch>
+  <SkipInScreenReader style={layoutStyles.grow}>{children}</SkipInScreenReader>
 )
 
 /**
