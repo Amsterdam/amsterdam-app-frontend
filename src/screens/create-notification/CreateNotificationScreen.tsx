@@ -21,6 +21,7 @@ import {
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
+import {SelectHeaderImageScreen} from './SelectHeaderImageScreen'
 import {
   NotificationFormScreen,
   NotificationResponseScreen,
@@ -57,6 +58,7 @@ export type NotificationStackParams = {
   NotificationForm: undefined
   NotificationResponse: undefined
   SelectNewsArticle: undefined
+  SelectHeaderImage: undefined
   VerifyNotification: undefined
   WarningForm: undefined
 }
@@ -132,13 +134,17 @@ export const CreateNotificationScreen = ({route}: Props) => {
       <KeyboardAvoidingView>
         {currentStep !== 0 && (
           <Box background="grey">
-            <Stepper current={currentStep} length={3} />
+            <Stepper current={currentStep} length={4} />
           </Box>
         )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
             component={NotificationFormScreen}
             name="NotificationForm"
+          />
+          <Stack.Screen
+            component={SelectHeaderImageScreen}
+            name="SelectHeaderImage"
           />
           <Stack.Screen
             component={SelectNewsArticleScreen}
