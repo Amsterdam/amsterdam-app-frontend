@@ -20,7 +20,7 @@ export type ImageSource = {
 }
 
 export type WarningImageQueryArg = {
-  main: boolean
-  description: string
   data: string
+  description: string
+  main: boolean
 }
