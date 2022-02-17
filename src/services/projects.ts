@@ -9,6 +9,7 @@ import {
   ProjectsQueryArg,
   Warning,
   WarningIdQueryArg,
+  WarningImageQueryArg,
   WarningResponse,
 } from '../types'
 import {formatQueryParams, generateRequestUrl} from '../utils'
@@ -27,6 +28,17 @@ export const projectsApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: {result: WarningResponse}) =>
         response.result,
+    }),
+
+    addProjectWarningImage: builder.mutation<unknown, WarningImageQueryArg>({
+      invalidatesTags: ['Articles'],
+      query(body) {
+        return {
+          url: '/project/warning/image',
+          method: 'POST',
+          body,
+        }
+      },
     }),
 
     getProject: builder.query<ProjectDetail, ProjectIdQueryArg>({
