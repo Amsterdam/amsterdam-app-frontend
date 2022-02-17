@@ -30,7 +30,7 @@ export type ProjectTitles = Pick<
 
 export type Projects = ProjectSummary[]
 
-export type ProjectsQueryArgs = {
+export type ProjectsQueryArg = {
   projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
@@ -71,11 +71,11 @@ export type ProjectDetailBody = {
   title: string
 }
 
-export type ProjectIdQueryArgs = {
+export type ProjectIdQueryArg = {
   id: string
 }
 
-export type ProjectIdsQueryArgs = {
+export type ProjectIdsQueryArg = {
   projectIds: string[]
 }
 

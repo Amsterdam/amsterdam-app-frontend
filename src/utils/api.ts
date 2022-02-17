@@ -1,4 +1,4 @@
-import {ListQueryArgs, ProjectIdsQueryArgs, ProjectsQueryArgs} from '../types'
+import {ListQueryArg, ProjectIdsQueryArg, ProjectsQueryArg} from '../types'
 
 export const generateRequestUrl = (url: string, params = {}) => {
   const arrayParams = Object.entries(params)
@@ -27,7 +27,7 @@ export const formatQueryParams = ({
   sortBy,
   sortOrder,
   ...rest
-}: Partial<ListQueryArgs & ProjectIdsQueryArgs & ProjectsQueryArgs>) => ({
+}: Partial<ListQueryArg & ProjectIdsQueryArg & ProjectsQueryArg>) => ({
   ...(districtId && {'district-id': districtId}),
   ...(projectType && {'project-type': projectType}),
   ...(fields && {fields: fields.join(',')}),

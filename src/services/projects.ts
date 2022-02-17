@@ -1,14 +1,14 @@
 import {
-  ListQueryArgsNoLimit,
+  ListQueryArgNoLimit,
   NewsArticle,
   NewWarning,
   ProjectDetail,
-  ProjectIdQueryArgs,
+  ProjectIdQueryArg,
   ProjectManagerResponse,
   Projects,
-  ProjectsQueryArgs,
+  ProjectsQueryArg,
   Warning,
-  WarningIdQueryArgs,
+  WarningIdQueryArg,
   WarningResponse,
 } from '../types'
 import {formatQueryParams, generateRequestUrl} from '../utils'
@@ -29,28 +29,27 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    getProject: builder.query<ProjectDetail, ProjectIdQueryArgs>({
+    getProject: builder.query<ProjectDetail, ProjectIdQueryArg>({
       query: params => generateRequestUrl('/project/details', params),
       transformResponse: (response: {result: ProjectDetail}) => response.result,
     }),
 
-    getProjectManager: builder.query<
-      ProjectManagerResponse,
-      ProjectIdQueryArgs
-    >({
-      query: params => generateRequestUrl('/project/manager', params),
-      transformResponse: (response: {result: [ProjectManagerResponse]}) =>
-        response.result[0],
-    }),
+    getProjectManager: builder.query<ProjectManagerResponse, ProjectIdQueryArg>(
+      {
+        query: params => generateRequestUrl('/project/manager', params),
+        transformResponse: (response: {result: [ProjectManagerResponse]}) =>
+          response.result[0],
+      },
+    ),
 
-    getProjectNews: builder.query<NewsArticle, ProjectIdQueryArgs>({
+    getProjectNews: builder.query<NewsArticle, ProjectIdQueryArg>({
       query: params => generateRequestUrl('/project/news', params),
       transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
     getProjects: builder.query<
       Projects,
-      Partial<ProjectsQueryArgs & ListQueryArgsNoLimit> | void
+      Partial<ProjectsQueryArg & ListQueryArgNoLimit> | void
     >({
       query: params => {
         if (params) {
@@ -62,7 +61,7 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Projects}) => response.result,
     }),
 
-    getProjectWarning: builder.query<Warning, WarningIdQueryArgs>({
+    getProjectWarning: builder.query<Warning, WarningIdQueryArg>({
       query: params => generateRequestUrl('/project/warning', params),
       transformResponse: (response: {result: Warning}) => response.result,
     }),

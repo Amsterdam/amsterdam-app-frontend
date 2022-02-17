@@ -2,9 +2,9 @@ export type LimitQueryArg = {
   limit: number
 }
 
-export type ListQueryArgsNoLimit = {
+export type ListQueryArgNoLimit = {
   sortBy: string
   sortOrder: 'asc' | 'desc'
 }
 
-export type ListQueryArgs = ListQueryArgsNoLimit & LimitQueryArg
+export type ListQueryArg = ListQueryArgNoLimit & LimitQueryArg
