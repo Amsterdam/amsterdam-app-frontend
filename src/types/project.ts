@@ -2,7 +2,7 @@ import {Image} from './image'
 import {Section, Timeline} from './'
 
 // An item in a project list as received from our backend
-export type ProjectResponse = {
+export type Project = {
   content_html: string
   content_text: string
   district_id: number
@@ -18,7 +18,7 @@ export type ProjectResponse = {
 }
 
 export type ProjectSummary = Pick<
-  ProjectResponse,
+  Project,
   'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
 >
 
