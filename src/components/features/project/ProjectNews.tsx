@@ -26,58 +26,55 @@ export const ProjectNews = ({id}: Props) => {
   const notificationState = useNotificationState()
   const {width} = useWindowDimensions()
 
-  const {data: newsArticle, isLoading: newsArticleIsLoading} =
-    useGetProjectNewsQuery({
-      id,
-    })
+  const {data: news, isLoading: newsIsLoading} = useGetProjectNewsQuery({
+    id,
+  })
 
-  const {data: projectData, isLoading: projectIsLoading} = useGetProjectQuery(
+  const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: newsArticle?.project_identifier!,
+      id: news?.project_identifier!,
     },
-    {skip: !newsArticle},
+    {skip: !news},
   )
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => (
-        <NonScalingHeaderTitle text={projectData?.title ?? ''} />
-      ),
+      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   })
 
-  if (newsArticleIsLoading || projectIsLoading || !newsArticle) {
+  if (newsIsLoading || projectIsLoading || !news) {
     return <PleaseWait />
   }
 
-  notificationState.markAsRead(newsArticle.identifier)
+  notificationState.markAsRead(news.identifier)
 
   return (
     <ScrollView>
-      {newsArticle?.images?.length && (
+      {news?.images?.length && (
         <Image
-          source={mapImageSources(newsArticle.images[0].sources)}
+          source={mapImageSources(news.images[0].sources)}
           style={styles.image}
         />
       )}
-      {newsArticle && (
+      {news && (
         <Box>
           <Text margin secondary>
-            {formatDate(newsArticle.publication_date)}
+            {formatDate(news.publication_date)}
           </Text>
-          <Title margin text={newsArticle.title} />
-          {newsArticle.body?.preface.html && (
+          <Title margin text={news.title} />
+          {news.body?.preface.html && (
             <RenderHTML
               contentWidth={width}
-              source={{html: newsArticle.body?.preface.html}}
+              source={{html: news.body?.preface.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStylesIntro}
             />
           )}
-          {newsArticle.body?.content.html && (
+          {news.body?.content.html && (
             <RenderHTML
               contentWidth={width}
-              source={{html: newsArticle.body?.content.html}}
+              source={{html: news.body?.content.html}}
               systemFonts={[font.weight.regular, font.weight.demi]}
               tagsStyles={tagsStyles}
             />
