@@ -49,36 +49,36 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       )
   }, [dispatch, projectManagerId])
 
-  const {data: getProjectManagerData, isLoading: getProjectManagerIsLoading} =
+  const {data: projectManager, isLoading: projectManagerIsLoading} =
     useGetProjectManagerQuery({id: projectManagerId}, {skip: !projectManagerId})
 
-  const {data: getProjectsData} = useGetProjectsQuery({
+  const {data: projects} = useGetProjectsQuery({
     fields: ['identifier', 'subtitle', 'title'],
   })
 
   const storeProjectManagerSettings = useCallback(async () => {
-    if (!getProjectManagerIsLoading && getProjectManagerData) {
+    if (!projectManagerIsLoading && projectManager) {
       const newProjectManagerSettings = {
         id: projectManagerId,
-        projects: getProjectManagerData.projects,
+        projects: projectManager.projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
     }
-  }, [getProjectManagerIsLoading]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectManagerIsLoading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
   useEffect(() => {
-    if (getProjectsData && getProjectManagerData) {
+    if (projects && projectManager) {
       setAuthorizedProjects(
-        getProjectsData.filter(project =>
-          getProjectManagerData.projects.includes(project.identifier),
+        projects.filter(project =>
+          projectManager.projects.includes(project.identifier),
         ),
       )
     }
-  }, [getProjectsData, getProjectManagerData])
+  }, [projects, projectManager])
 
   return authorizedProjects === undefined &&
     projectManagerSettings?.projects ? (
