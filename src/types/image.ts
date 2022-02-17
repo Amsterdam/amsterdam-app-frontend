@@ -18,3 +18,9 @@ export type ImageSource = {
   size?: string
   url: string
 }
+
+export type WarningImageQueryArg = {
+  main: boolean
+  description: string
+  data: string
+}
