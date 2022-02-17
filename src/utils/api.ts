@@ -19,7 +19,7 @@ export const generateRequestUrl = (url: string, params = {}) => {
 /**
  * Maps query parameter names from front-end to backend syntax
  */
-export const formatQueryArgs = ({
+export const formatQueryParams = ({
   districtId,
   fields,
   projectIds,

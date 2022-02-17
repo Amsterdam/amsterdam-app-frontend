@@ -11,7 +11,7 @@ import {
   WarningIdQueryArgs,
   WarningResponse,
 } from '../types'
-import {formatQueryArgs, generateRequestUrl} from '../utils'
+import {formatQueryParams, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -54,7 +54,7 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       query: params => {
         if (params) {
-          const q = formatQueryArgs(params)
+          const q = formatQueryParams(params)
           return generateRequestUrl('/projects', q)
         }
         return '/projects'
