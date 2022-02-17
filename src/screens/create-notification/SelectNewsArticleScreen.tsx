@@ -12,7 +12,7 @@ import {
   Title,
 } from '../../components/ui'
 import {Radio, RadioGroup} from '../../components/ui/forms'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -114,7 +114,6 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             />
             <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
           </Row>
-          <Gutter height="xl" />
         </Box>
       </Column>
     </ScrollView>

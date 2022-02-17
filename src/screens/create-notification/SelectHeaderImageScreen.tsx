@@ -12,7 +12,7 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {NotificationContext, NotificationStackParams} from '.'
 
 type Props = {
@@ -71,7 +71,6 @@ export const SelectHeaderImageScreen = ({navigation}: Props) => {
           </Row>
         </Column>
       </Box>
-      <Gutter height="xl" />
     </ScrollView>
   )
 }

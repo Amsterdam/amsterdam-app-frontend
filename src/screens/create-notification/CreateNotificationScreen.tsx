@@ -11,6 +11,7 @@ import {
   PleaseWait,
   Stepper,
 } from '../../components/ui'
+import {Gutter} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
 import {useGetArticlesQuery} from '../../services/articles'
 import {color} from '../../tokens'
@@ -140,12 +141,12 @@ export const CreateNotificationScreen = ({route}: Props) => {
         )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
-            component={NotificationFormScreen}
-            name="NotificationForm"
-          />
-          <Stack.Screen
             component={SelectHeaderImageScreen}
             name="SelectHeaderImage"
+          />
+          <Stack.Screen
+            component={NotificationFormScreen}
+            name="NotificationForm"
           />
           <Stack.Screen
             component={SelectNewsArticleScreen}
@@ -170,6 +171,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
           />
         </Stack.Navigator>
       </KeyboardAvoidingView>
+      <Gutter height="xl" />
     </NotificationContext.Provider>
   )
 }
