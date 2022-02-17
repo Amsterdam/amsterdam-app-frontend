@@ -1,4 +1,5 @@
 export * from './Checkbox'
+export * from './FormField'
 export * from './Radio'
 export * from './RadioGroup'
 export * from './Switch'
