@@ -20,6 +20,10 @@ export type Warning = NewWarning & {
   publication_date: string
 }
 
+export type WarningIdQueryArg = {
+  id: string
+}
+
 export type WarningResponse = {
   warning_identifier: string
 }

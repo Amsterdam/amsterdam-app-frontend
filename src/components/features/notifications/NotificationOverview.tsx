@@ -1,11 +1,9 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {FlatList} from 'react-native'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers/settings.provider'
-import {useGetNotificationsQuery} from '../../../services'
-import {FrontEndNotification, ProjectTitles} from '../../../types'
+import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
+import {FrontEndNotification} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
 import {createProjectTitlesDictionary} from '../project'
 import {
@@ -24,7 +22,7 @@ export const NotificationOverview = () => {
   )
 
   const {
-    data: notifications = {},
+    data: notifications = [],
     isLoading: isNotificationsLoading = undefined,
   } = useGetNotificationsQuery(
     subscribedProjects.length
@@ -34,16 +32,8 @@ export const NotificationOverview = () => {
       : skipToken,
   )
 
-  // Retrieve all projects to allow displaying their titles
-  const {data: projects, isLoading: isProjectsLoading} = useFetch<
-    ProjectTitles[]
-  >({
-    url: getEnvironment().apiUrl + '/projects',
-    options: {
-      params: {
-        fields: 'identifier,subtitle,title',
-      },
-    },
+  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
+    fields: ['identifier', 'subtitle', 'title'],
   })
 
   if (!notificationSettings?.projectsEnabled) {

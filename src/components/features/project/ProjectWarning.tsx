@@ -1,12 +1,10 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import HeroImage from '../../../assets/images/warning-hero.svg'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
+import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
 import {color} from '../../../tokens'
-import {ProjectDetail, Warning} from '../../../types'
 import {formatDate, formatTime, openMailUrl} from '../../../utils'
 import {
   Box,
@@ -24,39 +22,26 @@ type Props = {
 }
 
 export const ProjectWarning = ({id}: Props) => {
-  const [warning, setWarning] = useState<Warning | undefined>()
   const navigation = useNavigation()
   const notificationState = useNotificationState()
 
-  const warningApi = useFetch<Warning>({
-    url: getEnvironment().apiUrl + '/project/warning',
-    options: {params: {id}},
-  })
+  const {data: warning, isLoading: warningIsLoading} =
+    useGetProjectWarningQuery({id})
 
-  useEffect(() => {
-    if (warningApi.data) {
-      setWarning(warningApi.data)
-    }
-  }, [warningApi.data])
-
-  const projectApi = useFetch<ProjectDetail>({
-    url: getEnvironment().apiUrl + '/project/details',
-    options: {
-      params: {
-        id: warning?.project_identifier ?? '',
-      },
+  const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
+    {
+      id: warning?.project_identifier!,
     },
-  })
+    {skip: !warning},
+  )
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => (
-        <NonScalingHeaderTitle text={projectApi.data?.title ?? ''} />
-      ),
+      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   })
 
-  if (warningApi.isLoading || projectApi.isLoading || !warning) {
+  if (warningIsLoading || projectIsLoading || !warning) {
     return <PleaseWait />
   }
 

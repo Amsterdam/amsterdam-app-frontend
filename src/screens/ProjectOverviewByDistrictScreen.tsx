@@ -7,12 +7,10 @@ import {StackParams} from '../app/navigation'
 import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {NonScalingHeaderTitle, PleaseWait} from '../components/ui'
-import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks'
 import {DeviceContext} from '../providers'
+import {useGetDistrictsQuery, useGetProjectsQuery} from '../services'
 import {layoutStyles} from '../styles'
 import {size} from '../tokens'
-import {District, ProjectOverviewItem} from '../types'
 import {mapImageSources} from '../utils'
 
 type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
@@ -30,21 +28,12 @@ export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
   const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id
 
-  const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
-    {
-      url: getEnvironment().apiUrl + '/districts',
-    },
-  )
+  const {data: districts, isLoading: isDistrictsLoading} =
+    useGetDistrictsQuery()
 
-  const {data: projects, isLoading: isProjectsLoading} = useFetch<
-    ProjectOverviewItem[]
-  >({
-    url: getEnvironment().apiUrl + '/projects',
-    options: {
-      params: {
-        'district-id': districtId,
-      },
-    },
+  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
+    districtId,
+    fields: ['identifier', 'images', 'subtitle', 'title'],
   })
 
   useLayoutEffect(() => {

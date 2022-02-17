@@ -6,10 +6,8 @@ import {routes} from '../app/navigation/routes'
 import {ProjectCard} from '../components/features/project'
 import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
 import {Column, Gutter, Row} from '../components/ui/layout'
-import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks'
+import {useGetDistrictsQuery, useGetProjectsQuery} from '../services'
 import {size} from '../tokens'
-import {District, ProjectOverviewItem} from '../types'
 import {mapImageSources} from '../utils'
 
 type Props = {
@@ -19,18 +17,15 @@ type Props = {
 export const ProjectOverviewScreen = ({navigation}: Props) => {
   const {projectOverviewByDistrict, projectDetail} = routes
 
-  const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
-    {
-      url: getEnvironment().apiUrl + '/districts',
-    },
-  )
+  const {data: districts, isLoading: isDistrictsLoading} =
+    useGetDistrictsQuery()
 
   const {
     data: projects,
-    hasError,
+    isError: isProjectsError,
     isLoading: isProjectsLoading,
-  } = useFetch<ProjectOverviewItem[]>({
-    url: getEnvironment().apiUrl + '/projects',
+  } = useGetProjectsQuery({
+    fields: ['district_id', 'identifier', 'images', 'subtitle', 'title'],
   })
 
   const projectsByDistrict = districts?.map(district => ({
@@ -43,7 +38,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     return <PleaseWait />
   }
 
-  if (hasError) {
+  if (isProjectsError) {
     return (
       <Box>
         <Box background="invalid">

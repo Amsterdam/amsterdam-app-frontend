@@ -1,9 +1,10 @@
-export type ListQueryArgs = {
+export type LimitQueryArg = {
   limit: number
+}
+
+export type ListQueryArgNoLimit = {
   sortBy: string
   sortOrder: 'asc' | 'desc'
 }
 
-export type ProjectIdsQueryArgs = {
-  projectIds: string[]
-}
+export type ListQueryArg = ListQueryArgNoLimit & LimitQueryArg

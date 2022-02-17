@@ -1,3 +1,5 @@
+import {ListQueryArg, ProjectIdsQueryArg, ProjectsQueryArg} from '../types'
+
 export const generateRequestUrl = (url: string, params = {}) => {
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
@@ -13,3 +15,24 @@ export const generateRequestUrl = (url: string, params = {}) => {
   const requestURL = [url, queryParams].filter(Boolean).join('?')
   return requestURL
 }
+
+/**
+ * Maps query parameter names from front-end to backend syntax
+ */
+export const formatQueryParams = ({
+  districtId,
+  fields,
+  projectIds,
+  projectType,
+  sortBy,
+  sortOrder,
+  ...rest
+}: Partial<ListQueryArg & ProjectIdsQueryArg & ProjectsQueryArg>) => ({
+  ...(districtId && {'district-id': districtId}),
+  ...(projectType && {'project-type': projectType}),
+  ...(fields && {fields: fields.join(',')}),
+  ...(projectIds && {'project-ids': projectIds.join(',')}),
+  ...(sortBy && {'sort-by': sortBy}),
+  ...(sortOrder && {'sort-order': sortOrder}),
+  ...rest,
+})
