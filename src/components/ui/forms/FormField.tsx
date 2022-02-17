@@ -11,7 +11,9 @@ type Props = {
 }
 
 const Label = ({children}: {children: ReactNode}) => (
-  <SkipInScreenReader style={layoutStyles.grow}>{children}</SkipInScreenReader>
+  <SkipInScreenReader style={[layoutStyles.grow, layoutStyles.shrink]}>
+    {children}
+  </SkipInScreenReader>
 )
 
 export const FormField = ({
