@@ -35,7 +35,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     newsDetails,
     notification,
     projectDetails,
-    warning,
+    projectWarning,
   } = notificationContext
   const [isWarningSent, setWarningSent] = useState(false)
   const [
@@ -56,8 +56,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   ] = useAddNotificationMutation()
 
   const sendWarningToBackend = async () => {
-    if (warning) {
-      await addWarning(warning)
+    if (projectWarning) {
+      await addWarning(projectWarning)
       setWarningSent(true)
     }
   }
@@ -83,7 +83,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       sendNotificationToBackend({news_identifier: newsDetails.id})
     }
 
-    if (warning) {
+    if (projectWarning) {
       await sendWarningToBackend()
     }
   }
@@ -151,11 +151,11 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
                 <Text>{newsDetails.title}</Text>
               </Preview>
             )}
-            {warning && (
+            {projectWarning && (
               <Preview label="Nieuwsartikel">
-                <Title level={2} text={warning.title} />
-                <Text intro>{warning.body.preface}</Text>
-                <Text>{warning.body.content}</Text>
+                <Title level={2} text={projectWarning.title} />
+                <Text intro>{projectWarning.body.preface}</Text>
+                <Text>{projectWarning.body.content}</Text>
               </Preview>
             )}
           </Column>

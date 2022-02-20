@@ -102,7 +102,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
               </View>
               <View style={styles.justifyStart}>
                 <Button
-                  onPress={() => navigation.navigate('WarningForm')}
+                  onPress={() => navigation.navigate('ProjectWarningForm')}
                   text="Schrijf een nieuwsartikel"
                   variant="inverse"
                 />

@@ -68,7 +68,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     }
 
     const nextScreen =
-      numberOfNewsArticles > 0 ? 'SelectNewsArticle' : 'WarningForm'
+      numberOfNewsArticles > 0 ? 'SelectNewsArticle' : 'ProjectWarningForm'
 
     notificationContext.changeNotification(notificationData)
     navigation.navigate(nextScreen)

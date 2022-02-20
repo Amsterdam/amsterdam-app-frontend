@@ -14,7 +14,7 @@ import {
   ScrollView,
   Stretch,
 } from '../../components/ui/layout'
-import {NewWarning} from '../../types'
+import {NewProjectWarning} from '../../types'
 import {
   NotificationContext,
   NotificationStackParams,
@@ -33,12 +33,12 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'WarningForm'>
+  navigation: StackNavigationProp<NotificationStackParams, 'ProjectWarningForm'>
 }
 
-export const WarningFormScreen = ({navigation}: Props) => {
+export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const notificationContext = useContext(NotificationContext)
-  const {changeWarning, projectManagerSettings} = notificationContext
+  const {changeProjectWarning, projectManagerSettings} = notificationContext
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -63,7 +63,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
 
   const onSubmit = (data: FormData) => {
     if (projectManagerSettings?.id) {
-      const warningData: NewWarning = {
+      const warningData: NewProjectWarning = {
         title: data.title,
         body: {
           preface: data.intro,
@@ -72,7 +72,7 @@ export const WarningFormScreen = ({navigation}: Props) => {
         project_identifier: notificationContext.projectDetails.id!,
         project_manager_id: projectManagerSettings.id,
       }
-      changeWarning(warningData)
+      changeProjectWarning(warningData)
       navigation.navigate('SelectHeaderImage')
     }
   }

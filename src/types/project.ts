@@ -84,3 +84,31 @@ export type ProjectManagerResponse = {
   email: string
   projects: string[]
 }
+
+// An app user creates an initial warning
+export type NewProjectWarning = {
+  title: string
+  body: {
+    content: string
+    preface: string
+  }
+  project_identifier: string
+  project_manager_id: string
+}
+
+// Our backend adds a number of fields
+export type ProjectWarning = NewProjectWarning & {
+  author_email: string
+  identifier: string
+  images?: Image[]
+  modification_date?: string
+  publication_date: string
+}
+
+export type ProjectWarningIdQueryArg = {
+  id: string
+}
+
+export type ProjectWarningResponse = {
+  warning_identifier: string
+}
