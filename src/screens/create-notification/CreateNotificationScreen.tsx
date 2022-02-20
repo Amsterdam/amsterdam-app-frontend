@@ -17,7 +17,7 @@ import {color} from '../../tokens'
 import {
   ArticleSummary,
   DraftNotification,
-  NewWarning,
+  NewProjectWarning,
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
@@ -25,9 +25,9 @@ import {SelectHeaderImageScreen} from './SelectHeaderImageScreen'
 import {
   NotificationFormScreen,
   NotificationResponseScreen,
+  ProjectWarningFormScreen,
   SelectNewsArticleScreen,
   VerifyNotificationScreen,
-  WarningFormScreen,
 } from './'
 
 type Context = {
@@ -36,13 +36,13 @@ type Context = {
   changeNewsDetails: (value: NewsDetails) => void
   changeNotification: (newNotification: DraftNotification) => void
   changeResponseStatus: (value: ResponseStatus) => void
-  changeWarning: (newWarning: NewWarning) => void
+  changeProjectWarning: (newProjectWarning: NewProjectWarning) => void
   newsDetails?: NewsDetails
   notification?: DraftNotification
   projectDetails: ProjectDetails
   projectManagerSettings?: ProjectManagerSettings
   responseStatus?: ResponseStatus
-  warning?: NewWarning
+  projectWarning?: NewProjectWarning
 }
 
 type NewsDetails = {
@@ -60,7 +60,7 @@ export type NotificationStackParams = {
   SelectNewsArticle: undefined
   SelectHeaderImage: undefined
   VerifyNotification: undefined
-  WarningForm: undefined
+  ProjectWarningForm: undefined
 }
 
 export type ProjectDetails = {
@@ -78,7 +78,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
   const [notification, setNotification] = useState<DraftNotification>()
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
-  const [warning, setWarning] = useState<NewWarning>()
+  const [projectWarning, setProjectWarning] = useState<NewProjectWarning>()
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings?.['project-manager']
 
@@ -88,7 +88,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
     setNotification(value)
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)
-  const changeWarning = (value: NewWarning) => setWarning(value)
+  const changeProjectWarning = (value: NewProjectWarning) =>
+    setProjectWarning(value)
 
   const {data: articles, isLoading} = useGetArticlesQuery({
     projectIds: [route.params.projectDetails.id],
@@ -123,13 +124,13 @@ export const CreateNotificationScreen = ({route}: Props) => {
         changeNewsDetails,
         changeNotification,
         changeResponseStatus,
-        changeWarning,
+        changeProjectWarning,
         newsDetails,
         notification,
         projectDetails,
         projectManagerSettings,
         responseStatus,
-        warning,
+        projectWarning,
       }}>
       <KeyboardAvoidingView>
         {currentStep !== 0 && (
@@ -150,7 +151,10 @@ export const CreateNotificationScreen = ({route}: Props) => {
             component={SelectNewsArticleScreen}
             name="SelectNewsArticle"
           />
-          <Stack.Screen name="WarningForm" component={WarningFormScreen} />
+          <Stack.Screen
+            name="ProjectWarningForm"
+            component={ProjectWarningFormScreen}
+          />
           <Stack.Screen
             component={VerifyNotificationScreen}
             name="VerifyNotification"

@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import HeroImage from '../../../assets/images/warning-hero.svg'
+import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
 import {ArticleSummary, ImageSources} from '../../../types'
 import {mapImageSources} from '../../../utils'

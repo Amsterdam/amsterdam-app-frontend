@@ -1,23 +1,26 @@
 import {
   ListQueryArgNoLimit,
+  NewProjectWarning,
   NewsArticle,
-  NewWarning,
   ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
   Projects,
   ProjectsQueryArg,
-  Warning,
-  WarningIdQueryArg,
-  WarningImageQueryArg,
-  WarningResponse,
+  ProjectWarning,
+  ProjectWarningIdQueryArg,
+  ProjectWarningImageQueryArg,
+  ProjectWarningResponse,
 } from '../types'
 import {formatQueryParams, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    addProjectWarning: builder.mutation<WarningResponse, NewWarning>({
+    addProjectWarning: builder.mutation<
+      ProjectWarningResponse,
+      NewProjectWarning
+    >({
       invalidatesTags: ['Articles'],
       query(body) {
         return {
@@ -26,11 +29,14 @@ export const projectsApi = baseApi.injectEndpoints({
           body,
         }
       },
-      transformResponse: (response: {result: WarningResponse}) =>
+      transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
     }),
 
-    addProjectWarningImage: builder.mutation<unknown, WarningImageQueryArg>({
+    addProjectWarningImage: builder.mutation<
+      unknown,
+      ProjectWarningImageQueryArg
+    >({
       invalidatesTags: ['Articles'],
       query(body) {
         return {
@@ -73,9 +79,10 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Projects}) => response.result,
     }),
 
-    getProjectWarning: builder.query<Warning, WarningIdQueryArg>({
+    getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({
       query: params => generateRequestUrl('/project/warning', params),
-      transformResponse: (response: {result: Warning}) => response.result,
+      transformResponse: (response: {result: ProjectWarning}) =>
+        response.result,
     }),
   }),
 })

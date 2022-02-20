@@ -19,7 +19,7 @@ export type ImageSource = {
   url: string
 }
 
-export type WarningImageQueryArg = {
+export type ProjectWarningImageQueryArg = {
   data: string
   description: string
   main: boolean

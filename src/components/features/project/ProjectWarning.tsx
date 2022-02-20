@@ -2,7 +2,7 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
-import HeroImage from '../../../assets/images/warning-hero.svg'
+import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
 import {color} from '../../../tokens'
 import {formatDate, formatTime, openMailUrl} from '../../../utils'
@@ -25,14 +25,14 @@ export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
   const notificationState = useNotificationState()
 
-  const {data: warning, isLoading: warningIsLoading} =
+  const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: warning?.project_identifier!,
+      id: projectWarning?.project_identifier!,
     },
-    {skip: !warning},
+    {skip: !projectWarning},
   )
 
   useLayoutEffect(() => {
@@ -41,11 +41,11 @@ export const ProjectWarning = ({id}: Props) => {
     })
   })
 
-  if (warningIsLoading || projectIsLoading || !warning) {
+  if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
   }
 
-  notificationState.markAsRead(warning.identifier)
+  notificationState.markAsRead(projectWarning.identifier)
 
   return (
     <ScrollView>
@@ -54,22 +54,22 @@ export const ProjectWarning = ({id}: Props) => {
       </View>
       <Box background="white">
         <Text margin secondary>
-          {formatDate(warning.publication_date)}{' '}
-          {formatTime(warning.publication_date)}
+          {formatDate(projectWarning.publication_date)}{' '}
+          {formatTime(projectWarning.publication_date)}
         </Text>
-        <Title margin text={warning.title} />
+        <Title margin text={projectWarning.title} />
         <Text intro margin>
-          {warning.body.preface}
+          {projectWarning.body.preface}
         </Text>
-        <Text margin>{warning.body.content}</Text>
+        <Text margin>{projectWarning.body.content}</Text>
       </Box>
       <Box>
         <Box background="white">
           <Row>
             <Button
               icon={<Email fill={color.font.inverse} />}
-              onPress={() => openMailUrl(warning.author_email)}
-              text={warning.author_email}
+              onPress={() => openMailUrl(projectWarning.author_email)}
+              text={projectWarning.author_email}
             />
           </Row>
         </Box>
