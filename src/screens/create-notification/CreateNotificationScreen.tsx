@@ -123,14 +123,14 @@ export const CreateNotificationScreen = ({route}: Props) => {
         changeCurrentStep,
         changeNewsDetails,
         changeNotification,
-        changeResponseStatus,
         changeProjectWarning,
+        changeResponseStatus,
         newsDetails,
         notification,
         projectDetails,
         projectManagerSettings,
-        responseStatus,
         projectWarning,
+        responseStatus,
       }}>
       <KeyboardAvoidingView>
         {currentStep !== 0 && (

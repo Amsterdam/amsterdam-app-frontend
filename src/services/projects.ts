@@ -92,6 +92,6 @@ export const {
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,
-  useGetProjectsQuery,
   useGetProjectWarningQuery,
+  useGetProjectsQuery,
 } = projectsApi
