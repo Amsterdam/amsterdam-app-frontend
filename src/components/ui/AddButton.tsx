@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: color.border.divider,
+    borderColor: color.border.default,
     borderStyle: 'dashed',
     borderWidth: 1,
     width: 165,
