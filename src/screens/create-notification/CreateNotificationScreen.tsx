@@ -141,12 +141,12 @@ export const CreateNotificationScreen = ({route}: Props) => {
         )}
         <Stack.Navigator screenOptions={screenOptions}>
           <Stack.Screen
-            component={SelectHeaderImageScreen}
-            name="SelectHeaderImage"
-          />
-          <Stack.Screen
             component={NotificationFormScreen}
             name="NotificationForm"
+          />
+          <Stack.Screen
+            component={SelectHeaderImageScreen}
+            name="SelectHeaderImage"
           />
           <Stack.Screen
             component={SelectNewsArticleScreen}
