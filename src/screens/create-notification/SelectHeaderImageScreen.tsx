@@ -13,6 +13,7 @@ import {
   Title,
 } from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
+import {size} from '../../tokens'
 import {NotificationContext, NotificationStackParams} from '.'
 
 type Props = {
@@ -51,9 +52,7 @@ export const SelectHeaderImageScreen = ({navigation}: Props) => {
             <Column gutter="sm">
               <Title level={4} text="Of kies de standaardaardafbeelding" />
               <TouchableOpacity style={styles.button}>
-                <View>
-                  <HeroImage />
-                </View>
+                <HeroImage />
               </TouchableOpacity>
             </Column>
           </Column>
@@ -77,7 +76,7 @@ export const SelectHeaderImageScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   button: {
-    width: 165,
-    height: 74,
+    width: size.addButton.width,
+    height: size.addButton.height,
   },
 })
