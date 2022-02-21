@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
+    width: size.addButton.width,
+    height: size.addButton.height,
     borderColor: color.border.default,
     borderStyle: 'dashed',
     borderWidth: 1,
-    width: 165,
-    height: 74,
   },
   icon: {
     width: 24,
