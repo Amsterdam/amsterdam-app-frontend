@@ -22,11 +22,11 @@ import {
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
-import {SelectHeaderImageScreen} from './SelectHeaderImageScreen'
 import {
   NotificationFormScreen,
   NotificationResponseScreen,
   ProjectWarningFormScreen,
+  SelectMainImageScreen,
   SelectNewsArticleScreen,
   VerifyNotificationScreen,
 } from './'
@@ -59,7 +59,7 @@ export type NotificationStackParams = {
   NotificationForm: undefined
   NotificationResponse: undefined
   SelectNewsArticle: undefined
-  SelectHeaderImage: undefined
+  SelectMainImage: undefined
   VerifyNotification: undefined
   ProjectWarningForm: undefined
 }
@@ -145,8 +145,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
             name="NotificationForm"
           />
           <Stack.Screen
-            component={SelectHeaderImageScreen}
-            name="SelectHeaderImage"
+            component={SelectMainImageScreen}
+            name="SelectMainImage"
           />
           <Stack.Screen
             component={SelectNewsArticleScreen}

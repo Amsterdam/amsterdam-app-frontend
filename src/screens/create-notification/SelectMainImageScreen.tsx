@@ -17,10 +17,10 @@ import {size} from '../../tokens'
 import {NotificationContext, NotificationStackParams} from '.'
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'SelectHeaderImage'>
+  navigation: StackNavigationProp<NotificationStackParams, 'SelectMainImage'>
 }
 
-export const SelectHeaderImageScreen = ({navigation}: Props) => {
+export const SelectMainImageScreen = ({navigation}: Props) => {
   const notificationContext = useContext(NotificationContext)
   const {handleSubmit} = useForm()
   useEffect(() => {

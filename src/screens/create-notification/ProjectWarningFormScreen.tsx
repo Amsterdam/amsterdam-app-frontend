@@ -67,7 +67,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         project_manager_id: projectManagerSettings.id,
       }
       changeProjectWarning(warningData)
-      navigation.navigate('SelectHeaderImage')
+      navigation.navigate('SelectMainImage')
     }
   }
 
