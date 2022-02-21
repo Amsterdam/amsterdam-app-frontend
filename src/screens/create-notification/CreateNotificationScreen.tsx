@@ -11,6 +11,7 @@ import {
   PleaseWait,
   Stepper,
 } from '../../components/ui'
+import {Gutter} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
 import {useGetArticlesQuery} from '../../services/articles'
 import {color} from '../../tokens'
@@ -21,11 +22,11 @@ import {
   ProjectManagerSettings,
   ResponseStatus,
 } from '../../types'
-import {SelectHeaderImageScreen} from './SelectHeaderImageScreen'
 import {
   NotificationFormScreen,
   NotificationResponseScreen,
   ProjectWarningFormScreen,
+  SelectMainImageScreen,
   SelectNewsArticleScreen,
   VerifyNotificationScreen,
 } from './'
@@ -58,7 +59,7 @@ export type NotificationStackParams = {
   NotificationForm: undefined
   NotificationResponse: undefined
   SelectNewsArticle: undefined
-  SelectHeaderImage: undefined
+  SelectMainImage: undefined
   VerifyNotification: undefined
   ProjectWarningForm: undefined
 }
@@ -144,8 +145,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
             name="NotificationForm"
           />
           <Stack.Screen
-            component={SelectHeaderImageScreen}
-            name="SelectHeaderImage"
+            component={SelectMainImageScreen}
+            name="SelectMainImage"
           />
           <Stack.Screen
             component={SelectNewsArticleScreen}
@@ -170,6 +171,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
           />
         </Stack.Navigator>
       </KeyboardAvoidingView>
+      <Gutter height="xl" />
     </NotificationContext.Provider>
   )
 }

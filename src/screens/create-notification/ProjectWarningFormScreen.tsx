@@ -7,7 +7,7 @@ import {
 } from '../../components/features/form'
 import {Box, SubmitButton, TextButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {NewProjectWarning} from '../../types'
 import {
   NotificationContext,
@@ -67,7 +67,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         project_manager_id: projectManagerSettings.id,
       }
       changeProjectWarning(warningData)
-      navigation.navigate('SelectHeaderImage')
+      navigation.navigate('SelectMainImage')
     }
   }
 
@@ -183,18 +183,17 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
             </>
           </Column>
         </Box>
-      <Box>
-        <Row align="between" valign="center">
-          <TextButton
-            direction="backward"
-            emphasis
-            onPress={navigation.goBack}
-            text="Vorige"
-          />
-          <SubmitButton onPress={handleSubmit(onSubmit)} text="Afbeelding" />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              onPress={navigation.goBack}
+              text="Vorige"
+            />
+            <SubmitButton onPress={handleSubmit(onSubmit)} text="Afbeelding" />
+          </Row>
+        </Box>
       </Column>
     </ScrollView>
   )
