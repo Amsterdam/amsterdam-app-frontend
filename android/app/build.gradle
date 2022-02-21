@@ -141,6 +141,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 54
         versionName '0.11'
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
@@ -148,7 +149,6 @@ android {
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
-            vectorDrawables.useSupportLibrary = true
         }
     }
     signingConfigs {
