@@ -10,13 +10,7 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
-import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {
   useAddNotificationMutation,
   useAddProjectWarningMutation,
@@ -130,7 +124,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   return (
     <ScrollView grow>
-      <Stretch>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
             <Title text="Controleer" />
@@ -160,19 +154,19 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             )}
           </Column>
         </Box>
-      </Stretch>
-      <Box>
-        <Row align="between" valign="center">
-          <TextButton
-            direction="backward"
-            emphasis
-            onPress={navigation.goBack}
-            text="Vorige"
-          />
-          <SubmitButton onPress={handleSubmit} text="Verstuur" />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              onPress={navigation.goBack}
+              text="Vorige"
+            />
+            <SubmitButton onPress={handleSubmit} text="Verstuur" />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   )
 }

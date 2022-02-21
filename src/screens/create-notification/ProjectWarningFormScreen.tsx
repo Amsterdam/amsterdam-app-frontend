@@ -7,13 +7,7 @@ import {
 } from '../../components/features/form'
 import {Box, SubmitButton, TextButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {NewProjectWarning} from '../../types'
 import {
   NotificationContext,
@@ -98,7 +92,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
 
   return (
     <ScrollView grow>
-      <Stretch>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
             <Title text="Schrijf een nieuwsartikel" />
@@ -189,7 +183,6 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
             </>
           </Column>
         </Box>
-      </Stretch>
       <Box>
         <Row align="between" valign="center">
           <TextButton
@@ -202,6 +195,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         </Row>
         <Gutter height="xl" />
       </Box>
+      </Column>
     </ScrollView>
   )
 }
