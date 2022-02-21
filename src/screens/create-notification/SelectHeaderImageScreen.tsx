@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import {useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import HeroImage from '../../assets/images/warning-hero.svg'
+import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
   AddButton,
   Box,
