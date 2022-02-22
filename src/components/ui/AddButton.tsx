@@ -1,13 +1,15 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React from 'react'
+import React, {ComponentProps, ElementType} from 'react'
 
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {color, size} from '../../tokens'
 
-export const AddButton = () => {
+type Props<T extends ElementType> = ComponentProps<T>
+
+export const AddButton = <T extends ElementType>(props: Props<T>) => {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} {...props}>
       <View style={styles.iconWrapper}>
         <Enlarge style={styles.icon} />
       </View>
