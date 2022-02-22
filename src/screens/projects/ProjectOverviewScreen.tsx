@@ -1,14 +1,14 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {StackParams} from '../app/navigation'
-import {routes} from '../app/navigation/routes'
-import {ProjectCard} from '../components/features/project'
-import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
-import {Column, Gutter, Row} from '../components/ui/layout'
-import {useGetDistrictsQuery, useGetProjectsQuery} from '../services'
-import {size} from '../tokens'
-import {mapImageSources} from '../utils'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
+import {ProjectCard} from '../../components/features/project'
+import {Box, Button, PleaseWait, Text, Title} from '../../components/ui'
+import {Column, Gutter, Row} from '../../components/ui/layout'
+import {useGetDistrictsQuery, useGetProjectsQuery} from '../../services'
+import {size} from '../../tokens'
+import {mapImageSources} from '../../utils'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'ProjectDetail'>

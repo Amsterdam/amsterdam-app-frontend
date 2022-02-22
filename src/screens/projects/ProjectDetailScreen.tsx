@@ -2,10 +2,10 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {StackParams} from '../app/navigation'
-import {routes} from '../app/navigation/routes'
-import {ArticleOverview} from '../components/features/article'
-import {ProjectBodyMenu} from '../components/features/project'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
+import {ArticleOverview} from '../../components/features/article'
+import {ProjectBodyMenu} from '../../components/features/project'
 import {
   Box,
   Button,
@@ -15,13 +15,13 @@ import {
   SingleSelectable,
   Text,
   Title,
-} from '../components/ui'
-import {Switch} from '../components/ui/forms'
-import {Column, Gutter} from '../components/ui/layout'
-import {SettingsContext} from '../providers/settings.provider'
-import {useGetProjectQuery} from '../services'
-import {image} from '../tokens'
-import {accessibleText, mapImageSources} from '../utils'
+} from '../../components/ui'
+import {Switch} from '../../components/ui/forms'
+import {Column, Gutter} from '../../components/ui/layout'
+import {SettingsContext} from '../../providers/settings.provider'
+import {useGetProjectQuery} from '../../services'
+import {image} from '../../tokens'
+import {accessibleText, mapImageSources} from '../../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
 

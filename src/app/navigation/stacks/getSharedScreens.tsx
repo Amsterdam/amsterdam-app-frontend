@@ -1,16 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {
-  AuthorizedProjectsScreen,
   AddressPrivacyInfoScreen,
   NotificationOverviewScreen,
-  ProjectDetailBodyScreen,
-  ProjectDetailScreen,
-  ProjectManagerScreen,
-  ProjectNewsScreen,
-  ProjectOverviewByDistrictScreen,
-  ProjectOverviewScreen,
-  ProjectWarningScreen,
   SettingsScreen,
   WasteGuideScreen,
   WasteMenuScreen,
@@ -19,6 +11,16 @@ import {
 } from '../../../screens'
 import {CreateNotificationScreen} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
+import {
+  AuthorizedProjectsScreen,
+  ProjectDetailBodyScreen,
+  ProjectDetailScreen,
+  ProjectManagerScreen,
+  ProjectNewsScreen,
+  ProjectOverviewByDistrictScreen,
+  ProjectOverviewScreen,
+  ProjectWarningScreen,
+} from '../../../screens/projects'
 import {routes} from '../routes'
 
 export const getSharedScreens = (
