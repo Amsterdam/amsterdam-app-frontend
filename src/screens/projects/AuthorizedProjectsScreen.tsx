@@ -1,8 +1,8 @@
 import React from 'react'
-import {AuthorizedProjectsSettingsSection} from '../components/features/settings/project-management/AuthorizedProjectsSettingsSection'
-import {Box, Text, TextButton, Title} from '../components/ui'
-import {Gutter, ScrollView} from '../components/ui/layout'
-import {openMailUrl} from '../utils'
+import {AuthorizedProjectsSettingsSection} from '../../components/features/settings/project-management/AuthorizedProjectsSettingsSection'
+import {Box, Text, TextButton, Title} from '../../components/ui'
+import {Gutter, ScrollView} from '../../components/ui/layout'
+import {openMailUrl} from '../../utils'
 
 export const AuthorizedProjectsScreen = () => (
   <ScrollView>

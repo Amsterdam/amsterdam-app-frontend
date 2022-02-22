@@ -11,17 +11,24 @@ import React, {
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {StackParams, TabParams} from '../app/navigation'
-import {routes, tabs} from '../app/navigation/routes'
-import {ProjectTitle} from '../components/features/project'
-import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
-import {SettingsContext} from '../providers/settings.provider'
-import {useGetProjectManagerQuery, useGetProjectsQuery} from '../services'
-import {setCredentials} from '../store'
-import {color, size} from '../tokens'
-import {Projects} from '../types'
-import {encryptWithAES} from '../utils'
+import {StackParams, TabParams} from '../../app/navigation'
+import {routes, tabs} from '../../app/navigation/routes'
+import {ProjectTitle} from '../../components/features/project'
+import {
+  Box,
+  Button,
+  Divider,
+  PleaseWait,
+  Text,
+  Title,
+} from '../../components/ui'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {SettingsContext} from '../../providers/settings.provider'
+import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
+import {setCredentials} from '../../store'
+import {color, size} from '../../tokens'
+import {Projects} from '../../types'
+import {encryptWithAES} from '../../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
 
