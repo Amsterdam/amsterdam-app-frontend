@@ -17,7 +17,7 @@ import {useGetArticlesQuery} from '../../services/articles'
 import {color} from '../../tokens'
 import {
   ArticleSummary,
-  DraftNotification,
+  NotificationQueryArg,
   NewProjectWarning,
   ProjectManagerSettings,
   ResponseStatus,
@@ -35,11 +35,11 @@ type Context = {
   articles?: ArticleSummary[]
   changeCurrentStep: (value: number) => void
   changeNewsDetails: (value: NewsDetails) => void
-  changeNotification: (newNotification: DraftNotification) => void
+  changeNotification: (newNotification: NotificationQueryArg) => void
   changeResponseStatus: (value: ResponseStatus) => void
   changeProjectWarning: (newProjectWarning: NewProjectWarning) => void
   newsDetails?: NewsDetails
-  notification?: DraftNotification
+  notification?: NotificationQueryArg
   projectDetails: ProjectDetails
   projectManagerSettings?: ProjectManagerSettings
   responseStatus?: ResponseStatus
@@ -76,7 +76,7 @@ type Props = {
 export const CreateNotificationScreen = ({route}: Props) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [newsDetails, setNewsDetails] = useState<NewsDetails>()
-  const [notification, setNotification] = useState<DraftNotification>()
+  const [notification, setNotification] = useState<NotificationQueryArg>()
   const [projectDetails, setProjectDetails] = useState({} as ProjectDetails)
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>()
   const [projectWarning, setProjectWarning] = useState<NewProjectWarning>()
@@ -85,7 +85,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   const changeCurrentStep = (value: number) => setCurrentStep(value)
   const changeNewsDetails = (value: NewsDetails) => setNewsDetails(value)
-  const changeNotification = (value: DraftNotification) =>
+  const changeNotification = (value: NotificationQueryArg) =>
     setNotification(value)
   const changeResponseStatus = (value: ResponseStatus) =>
     setResponseStatus(value)

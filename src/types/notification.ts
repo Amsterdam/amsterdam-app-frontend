@@ -1,6 +1,6 @@
 import {ListQueryArg} from '.'
 
-export type DraftNotification = {
+export type NotificationQueryArg = {
   title: string
   body: string
   project_identifier: string
@@ -8,7 +8,7 @@ export type DraftNotification = {
   warning_identifier?: string
 }
 
-export type Notification = DraftNotification & {
+export type Notification = NotificationQueryArg & {
   identifier: string
   publication_date: string
 }

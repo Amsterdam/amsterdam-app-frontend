@@ -8,7 +8,7 @@ import {
 import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
-import {DraftNotification} from '../../types'
+import {NotificationQueryArg} from '../../types'
 import {formatTime} from '../../utils'
 import {
   NotificationContext,
@@ -55,7 +55,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     : 0
 
   const onSubmit = (data: FormData) => {
-    const notificationData: DraftNotification = {
+    const notificationData: NotificationQueryArg = {
       title: data.title,
       body: data.message,
       project_identifier: notificationContext.projectDetails.id!,

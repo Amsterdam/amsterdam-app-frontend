@@ -15,7 +15,7 @@ import {
   useAddNotificationMutation,
   useAddProjectWarningMutation,
 } from '../../services'
-import {DraftNotification} from '../../types'
+import {NotificationQueryArg} from '../../types'
 import {NotificationContext, NotificationStackParams} from './'
 
 type Props = {
@@ -59,7 +59,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   const sendNotificationToBackend = useCallback(
     (
       articleIdentifier: Pick<
-        DraftNotification,
+        NotificationQueryArg,
         'news_identifier' | 'warning_identifier'
       >,
     ) => {
