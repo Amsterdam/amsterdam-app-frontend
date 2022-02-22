@@ -1,12 +1,9 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
-import {color} from '../../../tokens'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {BagResponseContent} from '../../../types'
-import {Text} from '../../ui'
+import {List} from '../../ui'
 import {TextInput} from '../../ui/forms'
-import {Gutter} from '../../ui/layout'
+import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -15,7 +12,6 @@ type Props = {
   isStreetSelected: boolean
   selectStreet: (text: string) => void
   street: string
-  styles: {suggestedItem: {}}
 }
 
 export const StreetInput = ({
@@ -25,7 +21,6 @@ export const StreetInput = ({
   isStreetSelected,
   selectStreet,
   street,
-  styles,
 }: Props) => {
   return (
     <>
@@ -40,21 +35,19 @@ export const StreetInput = ({
         value={street}
       />
       {!isStreetSelected ? (
-        <ScrollView keyboardShouldPersistTaps="handled">
-          {bagList?.map(bagItem => (
-            <TouchableOpacity
-              accessibilityRole="button"
-              key={bagItem.uri}
-              onPress={() => {
-                selectStreet(bagItem._display)
-              }}
-              style={styles.suggestedItem}>
-              <Location width={20} height={20} fill={color.font.tertiary} />
-              <Gutter width="xs" />
-              <Text large>{bagItem._display}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <List dividerBottom>
+            {bagList?.map(bagItem => (
+              <SuggestionButton
+                key={bagItem.uri}
+                label={bagItem._display}
+                onPress={() => {
+                  selectStreet(bagItem._display)
+                }}
+              />
+            ))}
+          </List>
+        </KeyboardAwareScrollView>
       ) : null}
     </>
   )

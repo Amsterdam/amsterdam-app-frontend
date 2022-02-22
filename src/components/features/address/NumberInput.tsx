@@ -1,17 +1,12 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {useEffect, useRef} from 'react'
-import {
-  Animated,
-  Dimensions,
-  KeyboardTypeOptions,
-  TouchableOpacity,
-} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
-import {color, size} from '../../../tokens'
+import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {size} from '../../../tokens'
 import {BagResponseContent} from '../../../types'
-import {Text, TextButton} from '../../ui'
+import {List, TextButton} from '../../ui'
 import {TextInput} from '../../ui/forms'
 import {Gutter, Row} from '../../ui/layout'
+import {SuggestionButton} from './SuggestionButton'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -22,7 +17,6 @@ type Props = {
   number: string
   selectNumber: (text: string) => void
   street: string
-  styles: {suggestedItem: {}}
 }
 
 const getNumberFromAddress = (text: string) => {
@@ -43,7 +37,6 @@ export const NumberInput = ({
   number,
   selectNumber,
   street,
-  styles,
 }: Props) => {
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current
@@ -69,31 +62,28 @@ export const NumberInput = ({
         />
       </Row>
       <Gutter height="sm" />
-
       <TextInput
         accessibilityLabel="Vul uw huisnummer in"
-        autoFocus={true}
+        autoFocus
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
         value={number}
       />
       {!isNumberSelected && number ? (
-        <ScrollView keyboardShouldPersistTaps="handled">
-          {bagList?.map(bagItem => (
-            <TouchableOpacity
-              accessibilityRole="button"
-              key={bagItem.uri}
-              onPress={() => {
-                selectNumber(getNumberFromAddress(bagItem._display))
-              }}
-              style={styles.suggestedItem}>
-              <Location width={24} height={24} fill={color.font.tertiary} />
-              <Gutter width="xs" />
-              <Text>{getNumberFromAddress(bagItem._display)}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+          <List dividerBottom>
+            {bagList?.map(bagItem => (
+              <SuggestionButton
+                key={bagItem.uri}
+                label={getNumberFromAddress(bagItem._display)}
+                onPress={() => {
+                  selectNumber(getNumberFromAddress(bagItem._display))
+                }}
+              />
+            ))}
+          </List>
+        </KeyboardAwareScrollView>
       ) : null}
     </Animated.View>
   )
