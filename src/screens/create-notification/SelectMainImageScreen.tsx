@@ -3,6 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import {useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
+import ImagePicker from 'react-native-image-crop-picker'
 import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
   AddButton,
@@ -34,6 +35,20 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
     navigation.navigate('VerifyNotification')
   }
 
+  const pickImage = () => {
+    ImagePicker.openPicker({
+      cropperChooseText: 'Kiezen',
+      cropperCancelText: 'Annuleren',
+      cropperRotateButtonsHidden: true,
+      cropping: true,
+      mediaType: 'photo',
+      width: size.warningMainPhoto.maxWidth,
+      height: size.warningMainPhoto.maxHeight,
+    }).then(image => {
+      console.log(image)
+    })
+  }
+
   return (
     <ScrollView grow>
       <Box grow>
@@ -46,7 +61,7 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
                 <Text secondary>
                   Mensen onherkenbaar in beeld i.v.m. portretrecht.
                 </Text>
-                <AddButton />
+                <AddButton onPress={pickImage} />
               </Column>
             </View>
             <Column gutter="sm">
