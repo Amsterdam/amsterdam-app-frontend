@@ -36,6 +36,22 @@ export type ProjectsQueryArg = {
   fields: string[]
 }
 
+export type ProjectsByDistanceQueryArg = {
+  address: string
+  lat: number
+  lon: number
+  radius: number
+}
+
+export type ProjectByDistance = {
+  project_id: string
+  name: string
+  meter: number
+  strides: number
+}
+
+export type ProjectsByDistance = ProjectByDistance[]
+
 // All project details as received from our backend
 export type ProjectDetail = {
   body: {

@@ -6,6 +6,8 @@ import {
   ProjectIdQueryArg,
   ProjectManagerResponse,
   Projects,
+  ProjectsByDistance,
+  ProjectsByDistanceQueryArg,
   ProjectsQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
@@ -79,6 +81,15 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Projects}) => response.result,
     }),
 
+    getProjectsByDistance: builder.query<
+      ProjectsByDistance,
+      ProjectsByDistanceQueryArg
+    >({
+      query: params => generateRequestUrl('/projects/distance', params),
+      transformResponse: (response: {result: ProjectsByDistance}) =>
+        response.result,
+    }),
+
     getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({
       query: params => generateRequestUrl('/project/warning', params),
       transformResponse: (response: {result: ProjectWarning}) =>
@@ -93,5 +104,6 @@ export const {
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectWarningQuery,
+  useGetProjectsByDistanceQuery,
   useGetProjectsQuery,
 } = projectsApi
