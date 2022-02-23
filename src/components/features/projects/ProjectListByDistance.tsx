@@ -1,3 +1,4 @@
+import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -5,12 +6,13 @@ import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
+import {Strides} from '../../../assets/icons'
 import {DeviceContext, SettingsContext} from '../../../providers'
 import {useGetProjectsByDistanceQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
-import {size} from '../../../tokens'
-import {Box, PleaseWait, Text, Title} from '../../ui'
-import {Gutter} from '../../ui/layout'
+import {color, size} from '../../../tokens'
+import {Box, PleaseWait, Text, Title, Trait} from '../../ui'
+import {Gutter, Row} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard} from '../project'
 
@@ -64,6 +66,18 @@ export const ProjectListByDistance = () => {
         keyExtractor={project => project.project_id}
         renderItem={({item: project}) => (
           <ProjectCard
+            kicker={
+              <Row gutter="xs">
+                <Trait
+                  icon={<Location fill={color.font.primary} />}
+                  label={`${project.meter} meter,`}
+                />
+                <Trait
+                  icon={<Strides fill={color.font.primary} />}
+                  label={`${project.strides} stappen`}
+                />
+              </Row>
+            }
             onPress={() =>
               navigation.navigate(routes.projectDetail.name, {
                 id: project.project_id,
