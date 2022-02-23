@@ -13,17 +13,20 @@ import {layoutStyles} from '../../styles'
 import {size} from '../../tokens'
 import {mapImageSources} from '../../utils'
 
-type ProjectOverviewByDistrictScreenRouteProp = RouteProp<
+type ProjectOverviewForDistrictScreenRouteProp = RouteProp<
   StackParams,
-  'ProjectOverviewByDistrict'
+  'ProjectOverviewForDistrict'
 >
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
-  route: ProjectOverviewByDistrictScreenRouteProp
+  route: ProjectOverviewForDistrictScreenRouteProp
 }
 
-export const ProjectOverviewByDistrictScreen = ({navigation, route}: Props) => {
+export const ProjectOverviewForDistrictScreen = ({
+  navigation,
+  route,
+}: Props) => {
   const device = useContext(DeviceContext)
   const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id

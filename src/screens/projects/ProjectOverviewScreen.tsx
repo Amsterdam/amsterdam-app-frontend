@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const {projectOverviewByDistrict, projectDetail} = routes
+  const {projectOverviewForDistrict, projectDetail} = routes
 
   const {data: districts, isLoading: isDistrictsLoading} =
     useGetDistrictsQuery()
@@ -28,7 +28,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     fields: ['district_id', 'identifier', 'images', 'subtitle', 'title'],
   })
 
-  const projectsByDistrict = districts?.map(district => ({
+  const projectsForDistrict = districts?.map(district => ({
     id: district.id,
     title: district.name,
     data: projects?.filter(project => project.district_id === district.id),
@@ -51,7 +51,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
   return (
     <FlatList
-      data={projectsByDistrict}
+      data={projectsForDistrict}
       keyExtractor={(item, index) => `${item}${index}`}
       ItemSeparatorComponent={item =>
         item.leadingItem.data && item.leadingItem.data.length > 0 ? (
@@ -66,7 +66,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 <Title level={2} text={districtItem.title} />
                 <Button
                   onPress={() =>
-                    navigation.navigate(projectOverviewByDistrict.name, {
+                    navigation.navigate(projectOverviewForDistrict.name, {
                       id: districtItem.id,
                     })
                   }
