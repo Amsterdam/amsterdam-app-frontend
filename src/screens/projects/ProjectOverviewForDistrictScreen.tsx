@@ -1,17 +1,10 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useLayoutEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {FlatGrid} from 'react-native-super-grid'
+import React, {useLayoutEffect} from 'react'
 import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
-import {ProjectCard} from '../../components/features/project'
-import {NonScalingHeaderTitle, PleaseWait} from '../../components/ui'
-import {DeviceContext} from '../../providers'
-import {useGetDistrictsQuery, useGetProjectsQuery} from '../../services'
-import {layoutStyles} from '../../styles'
-import {size} from '../../tokens'
-import {mapImageSources} from '../../utils'
+import {ProjectListForDistrict} from '../../components/features/projects'
+import {NonScalingHeaderTitle} from '../../components/ui'
+import {useGetDistrictsQuery} from '../../services'
 
 type ProjectOverviewForDistrictScreenRouteProp = RouteProp<
   StackParams,
@@ -27,17 +20,9 @@ export const ProjectOverviewForDistrictScreen = ({
   navigation,
   route,
 }: Props) => {
-  const device = useContext(DeviceContext)
-  const [gridWidth, setGridWidth] = useState(0)
   const districtId = route.params.id
 
-  const {data: districts, isLoading: isDistrictsLoading} =
-    useGetDistrictsQuery()
-
-  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
-    districtId,
-    fields: ['identifier', 'images', 'subtitle', 'title'],
-  })
+  const {data: districts} = useGetDistrictsQuery()
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,47 +34,5 @@ export const ProjectOverviewForDistrictScreen = ({
     })
   })
 
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
-
-  return (
-    <View
-      onLayout={event => {
-        setGridWidth(event.nativeEvent.layout.width)
-      }}>
-      {isDistrictsLoading || isProjectsLoading || gridWidth === 0 ? (
-        <PleaseWait />
-      ) : (
-        <FlatGrid
-          data={projects ?? []}
-          itemContainerStyle={styles.alignment}
-          itemDimension={itemDimension}
-          keyExtractor={item => item.identifier}
-          renderItem={({item}) => (
-            <ProjectCard
-              style={layoutStyles.grow}
-              imageSource={mapImageSources(item.images[0].sources)}
-              onPress={() =>
-                navigation.navigate(routes.projectDetail.name, {
-                  id: item.identifier,
-                })
-              }
-              subtitle={item.subtitle ?? undefined}
-              title={item.title}
-            />
-          )}
-          spacing={size.spacing.sm}
-          style={styles.grid}
-        />
-      )}
-    </View>
-  )
+  return <ProjectListForDistrict districtId={districtId} />
 }
-
-const styles = StyleSheet.create({
-  alignment: {
-    justifyContent: 'flex-start',
-  },
-  grid: {
-    margin: size.spacing.sm,
-  },
-})
