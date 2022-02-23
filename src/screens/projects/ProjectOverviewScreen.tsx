@@ -1,4 +1,17 @@
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import React from 'react'
-import {ProjectListByDistrict} from '../../components/features/projects'
+import {
+  ProjectListByDistance,
+  ProjectListByDistrict,
+} from '../../components/features/projects'
 
-export const ProjectOverviewScreen = () => <ProjectListByDistrict />
+const Tab = createMaterialTopTabNavigator()
+
+export const ProjectOverviewScreen = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="In de buurt" component={ProjectListByDistance} />
+      <Tab.Screen name="Per stadsdeel" component={ProjectListByDistrict} />
+    </Tab.Navigator>
+  )
+}
