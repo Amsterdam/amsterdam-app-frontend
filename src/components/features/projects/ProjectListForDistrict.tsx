@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useState} from 'react'
-import {LayoutChangeEvent, StyleSheet, View} from 'react-native'
+import React, {useContext} from 'react'
+import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
@@ -22,12 +22,7 @@ export const ProjectListForDistrict = ({districtId}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'ProjectOverview'>>()
 
-  const [gridWidth, setGridWidth] = useState(0)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
-
-  const handleLayoutChange = (event: LayoutChangeEvent) => {
-    setGridWidth(event.nativeEvent.layout.width)
-  }
 
   const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
     districtId,
@@ -47,31 +42,27 @@ export const ProjectListForDistrict = ({districtId}: Props) => {
   }
 
   return (
-    <View onLayout={handleLayoutChange}>
-      {!!gridWidth && (
-        <FlatGrid
-          data={projects}
-          itemContainerStyle={styles.alignment}
-          itemDimension={itemDimension}
-          keyExtractor={item => item.identifier}
-          renderItem={({item}) => (
-            <ProjectCard
-              style={layoutStyles.grow}
-              imageSource={mapImageSources(item.images[0].sources)}
-              onPress={() =>
-                navigation.navigate(routes.projectDetail.name, {
-                  id: item.identifier,
-                })
-              }
-              subtitle={item.subtitle ?? undefined}
-              title={item.title}
-            />
-          )}
-          spacing={size.spacing.sm}
-          style={styles.grid}
+    <FlatGrid
+      data={projects}
+      itemContainerStyle={styles.alignment}
+      itemDimension={itemDimension}
+      keyExtractor={item => item.identifier}
+      renderItem={({item}) => (
+        <ProjectCard
+          imageSource={mapImageSources(item.images[0].sources)}
+          onPress={() =>
+            navigation.navigate(routes.projectDetail.name, {
+              id: item.identifier,
+            })
+          }
+          style={layoutStyles.grow}
+          subtitle={item.subtitle ?? undefined}
+          title={item.title}
         />
       )}
-    </View>
+      spacing={size.spacing.sm}
+      style={styles.grid}
+    />
   )
 }
 
