@@ -1,6 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
+import {useDispatch, useSelector} from 'react-redux'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
@@ -8,11 +9,14 @@ import {
 import {Box, SubmitButton, TextButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
+import {SettingsContext} from '../../providers'
 import {NewProjectWarning} from '../../types'
+import {NotificationStackParams} from './CreateNotificationScreen'
 import {
-  NotificationContext,
-  NotificationStackParams,
-} from './CreateNotificationScreen'
+  selectProjectId,
+  setProjectWarning,
+  setStep,
+} from './notificationDraftSlice'
 
 const maxCharacters = {
   title: 50,
@@ -31,8 +35,10 @@ type Props = {
 }
 
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
-  const notificationContext = useContext(NotificationContext)
-  const {changeProjectWarning, projectManagerSettings} = notificationContext
+  const dispatch = useDispatch()
+  const projectId = useSelector(selectProjectId)
+  const {settings} = useContext(SettingsContext)
+  const projectManagerSettings = settings?.['project-manager']
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -56,27 +62,25 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const watchMessage = watch('message')
 
   const onSubmit = (data: FormData) => {
-    if (projectManagerSettings?.id) {
-      const warningData: NewProjectWarning = {
-        title: data.title,
-        body: {
-          preface: data.intro,
-          content: data.message,
-        },
-        project_identifier: notificationContext.projectDetails.id!,
-        project_manager_id: projectManagerSettings.id,
-      }
-      changeProjectWarning(warningData)
-      navigation.navigate('SelectMainImage')
+    const warningData: NewProjectWarning = {
+      title: data.title,
+      body: {
+        preface: data.intro,
+        content: data.message,
+      },
+      project_identifier: projectId!,
+      project_manager_id: projectManagerSettings?.id!,
     }
+    dispatch(setProjectWarning(warningData))
+    navigation.navigate('SelectMainImage')
   }
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(2)
+      dispatch(setStep(2))
     })
     return focusListener
-  }, [navigation, notificationContext])
+  }, [dispatch, navigation])
 
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
@@ -89,6 +93,10 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   useEffect(() => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
+
+  if (!projectId || !projectManagerSettings?.id) {
+    return null
+  }
 
   return (
     <ScrollView grow>

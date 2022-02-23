@@ -1,5 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {
   Box,
   PleaseWait,
@@ -16,21 +17,26 @@ import {
   useAddProjectWarningMutation,
 } from '../../services'
 import {NotificationQueryArg} from '../../types'
-import {NotificationContext, NotificationStackParams} from './'
+import {
+  selectNewsArticle,
+  selectNotification,
+  selectProject,
+  selectProjectWarning,
+  setResponseStatus,
+  setStep,
+} from './notificationDraftSlice'
+import {NotificationStackParams} from './'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const notificationContext = useContext(NotificationContext)
-  const {
-    changeResponseStatus,
-    newsDetails,
-    notification,
-    projectDetails,
-    projectWarning,
-  } = notificationContext
+  const dispatch = useDispatch()
+  const newsArticle = useSelector(selectNewsArticle)
+  const notification = useSelector(selectNotification)
+  const project = useSelector(selectProject)
+  const projectWarning = useSelector(selectProjectWarning)
   const [isWarningSent, setWarningSent] = useState(false)
   const [
     addWarning,
@@ -73,8 +79,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 
   const handleSubmit = async () => {
-    if (newsDetails?.id) {
-      sendNotificationToBackend({news_identifier: newsDetails.id})
+    if (newsArticle?.id) {
+      sendNotificationToBackend({news_identifier: newsArticle.id})
     }
 
     if (projectWarning) {
@@ -92,28 +98,28 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(4)
+      dispatch(setStep(4))
     })
     return focusListener
-  }, [navigation, notificationContext])
+  }, [dispatch, navigation])
 
   useEffect(() => {
     if (addNotificationResponse) {
-      changeResponseStatus('success')
+      dispatch(setResponseStatus('success'))
       navigation.navigate('NotificationResponse')
     }
   }, [navigation, addNotificationResponse]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (addWarningIsError) {
-      changeResponseStatus('failure')
+      dispatch(setResponseStatus('failure'))
       navigation.navigate('NotificationResponse')
     }
   }, [navigation, addWarningIsError]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (addNotificationIsError) {
-      changeResponseStatus('failure')
+      dispatch(setResponseStatus('failure'))
       navigation.navigate('NotificationResponse')
     }
   }, [navigation, addNotificationIsError]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -130,7 +136,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             <Title text="Controleer" />
             <SingleSelectable>
               <Text>Project</Text>
-              <Title level={2} text={projectDetails.title} />
+              {project && <Title level={2} text={project.title} />}
             </SingleSelectable>
             {notification && (
               <>
@@ -140,9 +146,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
                 </Preview>
               </>
             )}
-            {newsDetails && (
+            {newsArticle && (
               <Preview label="Nieuwsartikel">
-                <Text>{newsDetails.title}</Text>
+                <Text>{newsArticle.title}</Text>
               </Preview>
             )}
             {projectWarning && (
