@@ -1,3 +1,10 @@
+export type CrossAxisAlignment =
+  | 'baseline'
+  | 'center'
+  | 'end'
+  | 'start'
+  | 'stretch'
+
 export type MainAxisAlignment =
   | 'around'
   | 'between'
@@ -6,9 +13,4 @@ export type MainAxisAlignment =
   | 'evenly'
   | 'start'
 
-export type CrossAxisAlignment =
-  | 'baseline'
-  | 'center'
-  | 'end'
-  | 'start'
-  | 'stretch'
+export type MainAxisPosition = 'start' | 'end'

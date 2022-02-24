@@ -1,24 +1,13 @@
 import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
-import {layoutStyles} from '../../../styles'
 import {color} from '../../../tokens'
-import {SkipInScreenReader} from '../SkipInScreenReader'
-import {Row} from '../layout'
-
-type LabelPosition = 'start' | 'end'
+import {FormField} from '../forms'
+import {MainAxisPosition} from '../layout/types'
 
 type Props = {
   label: ReactNode
-  labelPosition?: LabelPosition
+  labelPosition?: MainAxisPosition
 } & SwitchRNProps
-
-type LabelProps = {
-  children: ReactNode
-}
-
-const Label = ({children}: LabelProps) => (
-  <SkipInScreenReader style={layoutStyles.grow}>{children}</SkipInScreenReader>
-)
 
 /**
  * Wraps a switch with its label in a row and takes care of accessibility.
@@ -30,8 +19,7 @@ export const Switch = ({
   value,
   ...otherProps
 }: Props) => (
-  <Row align="between" valign="center" gutter="sm">
-    {labelPosition === 'start' && <Label>{label}</Label>}
+  <FormField {...{label, labelPosition}}>
     <SwitchRN
       ios_backgroundColor={color.control.switch.background}
       onValueChange={onValueChange}
@@ -43,6 +31,5 @@ export const Switch = ({
       value={value}
       {...otherProps}
     />
-    {labelPosition === 'end' && <Label>{label}</Label>}
-  </Row>
+  </FormField>
 )
