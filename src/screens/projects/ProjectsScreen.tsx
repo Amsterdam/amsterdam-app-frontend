@@ -33,7 +33,7 @@ const screenOptions: MaterialTopTabNavigationOptions = {
   },
 }
 
-export const ProjectOverviewScreen = () => {
+export const ProjectsScreen = () => {
   const device = useContext(DeviceContext)
 
   return (

@@ -20,7 +20,7 @@ type Props = {
 export const ProjectListForDistrict = ({districtId}: Props) => {
   const device = useContext(DeviceContext)
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'ProjectOverview'>>()
+    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 

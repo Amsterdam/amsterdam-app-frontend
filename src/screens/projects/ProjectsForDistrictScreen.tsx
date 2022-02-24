@@ -6,20 +6,17 @@ import {ProjectListForDistrict} from '../../components/features/projects'
 import {NonScalingHeaderTitle} from '../../components/ui'
 import {useGetDistrictsQuery} from '../../services'
 
-type ProjectOverviewForDistrictScreenRouteProp = RouteProp<
+type ProjectsForDistrictScreenRouteProp = RouteProp<
   StackParams,
-  'ProjectOverviewForDistrict'
+  'ProjectsForDistrict'
 >
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
-  route: ProjectOverviewForDistrictScreenRouteProp
+  route: ProjectsForDistrictScreenRouteProp
 }
 
-export const ProjectOverviewForDistrictScreen = ({
-  navigation,
-  route,
-}: Props) => {
+export const ProjectsForDistrictScreen = ({navigation, route}: Props) => {
   const districtId = route.params.id
 
   const {data: districts} = useGetDistrictsQuery()

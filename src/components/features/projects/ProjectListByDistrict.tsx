@@ -13,9 +13,7 @@ import {ProjectCard} from '../project'
 
 export const ProjectListByDistrict = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'ProjectOverview'>>()
-
-  const {projectOverviewForDistrict, projectDetail} = routes
+    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
   const {data: districts, isLoading: isDistrictsLoading} =
     useGetDistrictsQuery()
@@ -66,7 +64,7 @@ export const ProjectListByDistrict = () => {
                 <Title level={2} text={districtItem.title} />
                 <Button
                   onPress={() =>
-                    navigation.navigate(projectOverviewForDistrict.name, {
+                    navigation.navigate(routes.projectsForDistrict.name, {
                       id: districtItem.id,
                     })
                   }
@@ -83,7 +81,7 @@ export const ProjectListByDistrict = () => {
               renderItem={({item: projectItem}) => (
                 <ProjectCard
                   onPress={() =>
-                    navigation.navigate(projectDetail.name, {
+                    navigation.navigate(routes.projectDetail.name, {
                       id: projectItem.identifier,
                     })
                   }
