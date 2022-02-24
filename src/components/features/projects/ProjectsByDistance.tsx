@@ -17,7 +17,7 @@ import {Address} from '../address'
 import {ProjectCard} from '../project'
 import {config} from './'
 
-export const ProjectListByDistance = () => {
+export const ProjectsByDistance = () => {
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()

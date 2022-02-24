@@ -1,4 +1,4 @@
-export * from './ProjectListByDistance'
-export * from './ProjectListByDistrict'
-export * from './ProjectListForDistrict'
+export * from './ProjectsByDistance'
+export * from './Projects'
+export * from './ProjectsForDistrict'
 export * from './config'

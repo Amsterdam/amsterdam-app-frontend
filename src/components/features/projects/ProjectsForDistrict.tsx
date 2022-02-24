@@ -17,7 +17,7 @@ type Props = {
   districtId: number
 }
 
-export const ProjectListForDistrict = ({districtId}: Props) => {
+export const ProjectsForDistrict = ({districtId}: Props) => {
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()

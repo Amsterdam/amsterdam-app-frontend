@@ -11,7 +11,7 @@ import {Box, Button, PleaseWait, Text, Title} from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
 import {ProjectCard} from '../project'
 
-export const ProjectListByDistrict = () => {
+export const Projects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 

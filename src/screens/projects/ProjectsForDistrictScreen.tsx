@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
 import {StackParams} from '../../app/navigation'
-import {ProjectListForDistrict} from '../../components/features/projects'
+import {ProjectsForDistrict} from '../../components/features/projects'
 import {NonScalingHeaderTitle} from '../../components/ui'
 import {useGetDistrictsQuery} from '../../services'
 
@@ -31,5 +31,5 @@ export const ProjectsForDistrictScreen = ({navigation, route}: Props) => {
     })
   })
 
-  return <ProjectListForDistrict districtId={districtId} />
+  return <ProjectsForDistrict districtId={districtId} />
 }
