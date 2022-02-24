@@ -91,19 +91,9 @@ export const selectMainImage = createSelector(
   (notificationDraft: NotificationDraft) => notificationDraft?.mainImage,
 )
 
-export const selectProjectId = createSelector(
+export const selectNewsArticle = createSelector(
   (state: RootState) => state.notificationDraft,
-  (notificationDraft: NotificationDraft) => notificationDraft?.project?.id,
-)
-
-export const selectProject = createSelector(
-  (state: RootState) => state.notificationDraft,
-  (notificationDraft: NotificationDraft) => notificationDraft?.project,
-)
-
-export const selectProjectWarning = createSelector(
-  (state: RootState) => state.notificationDraft,
-  (notificationDraft: NotificationDraft) => notificationDraft?.projectWarning,
+  (notificationDraft: NotificationDraft) => notificationDraft?.newsArticle,
 )
 
 export const selectNotification = createSelector(
@@ -111,14 +101,24 @@ export const selectNotification = createSelector(
   (notificationDraft: NotificationDraft) => notificationDraft?.notification,
 )
 
+export const selectProject = createSelector(
+  (state: RootState) => state.notificationDraft,
+  (notificationDraft: NotificationDraft) => notificationDraft?.project,
+)
+
+export const selectProjectId = createSelector(
+  (state: RootState) => state.notificationDraft,
+  (notificationDraft: NotificationDraft) => notificationDraft?.project?.id,
+)
+
+export const selectProjectWarning = createSelector(
+  (state: RootState) => state.notificationDraft,
+  (notificationDraft: NotificationDraft) => notificationDraft?.projectWarning,
+)
+
 export const selectResponseStatus = createSelector(
   (state: RootState) => state.notificationDraft,
   (notificationDraft: NotificationDraft) => notificationDraft?.responseStatus,
-)
-
-export const selectNewsArticle = createSelector(
-  (state: RootState) => state.notificationDraft,
-  (notificationDraft: NotificationDraft) => notificationDraft?.newsArticle,
 )
 
 export const selectStep = createSelector(

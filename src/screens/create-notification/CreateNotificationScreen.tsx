@@ -28,10 +28,10 @@ type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
 export type NotificationStackParams = {
   NotificationForm: undefined
   NotificationResponse: undefined
+  ProjectWarningForm: undefined
   SelectNewsArticle: undefined
   SelectMainImage: undefined
   VerifyNotification: undefined
-  ProjectWarningForm: undefined
 }
 
 type Props = {
@@ -83,8 +83,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
           name="SelectNewsArticle"
         />
         <Stack.Screen
-          name="ProjectWarningForm"
           component={ProjectWarningFormScreen}
+          name="ProjectWarningForm"
         />
         <Stack.Screen
           component={VerifyNotificationScreen}
