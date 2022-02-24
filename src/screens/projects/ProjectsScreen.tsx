@@ -3,7 +3,7 @@ import {
   MaterialTopTabNavigationOptions,
 } from '@react-navigation/material-top-tabs'
 import React, {useContext} from 'react'
-import {Projects, ProjectsByDistance} from '../../components/features/projects'
+import {NearestProjects, Projects} from '../../components/features/projects'
 import {DeviceContext} from '../../providers'
 import {color, font} from '../../tokens'
 
@@ -37,7 +37,7 @@ export const ProjectsScreen = () => {
     <Tab.Navigator
       initialLayout={{width: device.width}}
       screenOptions={screenOptions}>
-      <Tab.Screen name="In de buurt" component={ProjectsByDistance} />
+      <Tab.Screen name="In de buurt" component={NearestProjects} />
       <Tab.Screen name="Per stadsdeel" component={Projects} />
     </Tab.Navigator>
   )

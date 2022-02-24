@@ -8,7 +8,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {Strides} from '../../../assets/icons'
 import {DeviceContext, SettingsContext} from '../../../providers'
-import {useGetProjectsByDistanceQuery} from '../../../services'
+import {useGetNearestProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {color, size} from '../../../tokens'
 import {Box, PleaseWait, Text, Title, Trait} from '../../ui'
@@ -17,7 +17,7 @@ import {Address} from '../address'
 import {ProjectCard} from '../project'
 import {config} from './'
 
-export const ProjectsByDistance = () => {
+export const NearestProjects = () => {
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
@@ -27,7 +27,7 @@ export const ProjectsByDistance = () => {
 
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
-  const {data: projects, isLoading} = useGetProjectsByDistanceQuery({
+  const {data: projects, isLoading} = useGetNearestProjectsQuery({
     address: address?.centroid[1] ? '' : address?.adres ?? '',
     lat: address?.centroid[1] ?? 0,
     lon: address?.centroid[0] ?? 0,
