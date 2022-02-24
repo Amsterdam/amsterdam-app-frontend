@@ -15,6 +15,7 @@ import {Box, PleaseWait, Text, Title, Trait} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard} from '../project'
+import {config} from './'
 
 export const ProjectListByDistance = () => {
   const device = useContext(DeviceContext)
@@ -30,7 +31,7 @@ export const ProjectListByDistance = () => {
     address: address?.centroid[1] ? '' : address?.adres ?? '',
     lat: address?.centroid[1] ?? 0,
     lon: address?.centroid[0] ?? 0,
-    radius: 1000,
+    radius: config.nearestProjectsRadius,
   })
 
   if (isLoading) {
