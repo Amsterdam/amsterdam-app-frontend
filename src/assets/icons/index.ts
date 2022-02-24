@@ -9,6 +9,7 @@ import Instagram from './instagram.svg'
 import Logo from './logo.svg'
 import Project from './project.svg'
 import Settings from './settings.svg'
+import Strides from './strides.svg'
 import Whatsapp from './whatsapp.svg'
 
 export {
@@ -23,5 +24,6 @@ export {
   Logo,
   Project,
   Settings,
+  Strides,
   Whatsapp,
 }

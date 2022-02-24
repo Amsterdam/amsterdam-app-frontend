@@ -138,14 +138,14 @@ export const routes: StackNavigationRoutes<StackParams> = {
       },
     },
   },
-  projectOverview: {
-    name: 'ProjectOverview',
+  projects: {
+    name: 'Projects',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },
-  projectOverviewByDistrict: {
-    name: 'ProjectOverviewByDistrict',
+  projectsForDistrict: {
+    name: 'ProjectsForDistrict',
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Bouwprojecten per stadsdeel" />

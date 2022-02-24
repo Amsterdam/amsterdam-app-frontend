@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {
   Image,
   ImageSourcePropType,
@@ -13,6 +13,7 @@ import {Card, CardBody, Text, Title} from '../../ui'
 
 type Props = {
   imageSource?: ImageSourcePropType
+  kicker?: ReactNode
   onPress: () => void
   style?: StyleProp<ViewStyle>
   subtitle?: string
@@ -22,6 +23,7 @@ type Props = {
 
 export const ProjectCard = ({
   imageSource,
+  kicker,
   onPress,
   style,
   subtitle,
@@ -36,6 +38,7 @@ export const ProjectCard = ({
     <Card>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
+        {kicker}
         <Title level={4} text={title} />
         {subtitle && <Text>{subtitle}</Text>}
       </CardBody>

@@ -66,7 +66,6 @@ export const color = {
   font: {
     invalid: baseColor.support.invalid,
     inverse: baseColor.primary.white,
-    light: baseColor.neutral.grey5,
     primary: baseColor.primary.darkblue,
     regular: baseColor.primary.black,
     secondary: baseColor.neutral.grey4,

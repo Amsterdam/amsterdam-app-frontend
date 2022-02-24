@@ -1,21 +1,19 @@
+import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
-import {ProjectCard} from '../../components/features/project'
-import {Box, Button, PleaseWait, Text, Title} from '../../components/ui'
-import {Column, Gutter, Row} from '../../components/ui/layout'
-import {useGetDistrictsQuery, useGetProjectsQuery} from '../../services'
-import {size} from '../../tokens'
-import {mapImageSources} from '../../utils'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {useGetDistrictsQuery, useGetProjectsQuery} from '../../../services'
+import {size} from '../../../tokens'
+import {mapImageSources} from '../../../utils'
+import {Box, Button, PleaseWait, Text, Title} from '../../ui'
+import {Column, Gutter, Row} from '../../ui/layout'
+import {ProjectCard} from '../project'
 
-type Props = {
-  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
-}
-
-export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const {projectOverviewByDistrict, projectDetail} = routes
+export const Projects = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
   const {data: districts, isLoading: isDistrictsLoading} =
     useGetDistrictsQuery()
@@ -28,7 +26,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     fields: ['district_id', 'identifier', 'images', 'subtitle', 'title'],
   })
 
-  const projectsByDistrict = districts?.map(district => ({
+  const projectsForDistrict = districts?.map(district => ({
     id: district.id,
     title: district.name,
     data: projects?.filter(project => project.district_id === district.id),
@@ -51,7 +49,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
   return (
     <FlatList
-      data={projectsByDistrict}
+      data={projectsForDistrict}
       keyExtractor={(item, index) => `${item}${index}`}
       ItemSeparatorComponent={item =>
         item.leadingItem.data && item.leadingItem.data.length > 0 ? (
@@ -66,7 +64,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
                 <Title level={2} text={districtItem.title} />
                 <Button
                   onPress={() =>
-                    navigation.navigate(projectOverviewByDistrict.name, {
+                    navigation.navigate(routes.projectsForDistrict.name, {
                       id: districtItem.id,
                     })
                   }
@@ -83,7 +81,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               renderItem={({item: projectItem}) => (
                 <ProjectCard
                   onPress={() =>
-                    navigation.navigate(projectDetail.name, {
+                    navigation.navigate(routes.projectDetail.name, {
                       id: projectItem.identifier,
                     })
                   }

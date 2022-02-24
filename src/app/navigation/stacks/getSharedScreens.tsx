@@ -17,8 +17,8 @@ import {
   ProjectDetailScreen,
   ProjectManagerScreen,
   ProjectNewsScreen,
-  ProjectOverviewByDistrictScreen,
-  ProjectOverviewScreen,
+  ProjectsForDistrictScreen,
+  ProjectsScreen,
   ProjectWarningScreen,
 } from '../../../screens/projects'
 import {routes} from '../routes'
@@ -73,14 +73,14 @@ export const getSharedScreens = (
       options={routes.projectNews.options}
     />
     <Stack.Screen
-      component={ProjectOverviewScreen}
-      name={routes.projectOverview.name}
-      options={routes.projectOverview.options}
+      component={ProjectsScreen}
+      name={routes.projects.name}
+      options={routes.projects.options}
     />
     <Stack.Screen
-      component={ProjectOverviewByDistrictScreen}
-      name={routes.projectOverviewByDistrict.name}
-      options={routes.projectOverviewByDistrict.options}
+      component={ProjectsForDistrictScreen}
+      name={routes.projectsForDistrict.name}
+      options={routes.projectsForDistrict.options}
     />
     <Stack.Screen
       component={ProjectWarningScreen}
