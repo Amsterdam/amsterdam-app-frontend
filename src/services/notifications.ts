@@ -1,5 +1,5 @@
 import {
-  DraftNotification,
+  NotificationQueryArg,
   Notification,
   Notifications,
   NotificationsQueryArg,
@@ -9,7 +9,7 @@ import {baseApi} from './init'
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    addNotification: builder.mutation<Notification, DraftNotification>({
+    addNotification: builder.mutation<Notification, NotificationQueryArg>({
       invalidatesTags: ['Notifications'],
       query(body) {
         return {

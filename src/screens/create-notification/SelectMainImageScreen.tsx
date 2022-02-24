@@ -1,39 +1,28 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect} from 'react'
-import {useForm} from 'react-hook-form'
+import React, {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import ImagePicker from 'react-native-image-crop-picker'
+import {useDispatch} from 'react-redux'
 import HeroImage from '../../assets/images/project-warning-hero.svg'
-import {
-  AddButton,
-  Box,
-  SubmitButton,
-  Text,
-  TextButton,
-  Title,
-} from '../../components/ui'
+import {AddButton, Box, Text, TextButton, Title} from '../../components/ui'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {size} from '../../tokens'
-import {NotificationContext, NotificationStackParams} from '.'
+import {setMainImage, setStep} from './notificationDraftSlice'
+import {NotificationStackParams} from '.'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'SelectMainImage'>
 }
 
 export const SelectMainImageScreen = ({navigation}: Props) => {
-  const notificationContext = useContext(NotificationContext)
-  const {handleSubmit} = useForm()
+  const dispatch = useDispatch()
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(3)
+      dispatch(setStep(3))
     })
     return focusListener
-  }, [navigation, notificationContext])
-
-  const onSubmit = () => {
-    navigation.navigate('VerifyNotification')
-  }
+  }, [dispatch, navigation])
 
   const pickImage = () => {
     ImagePicker.openPicker({
@@ -45,7 +34,7 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
       width: size.warningMainPhoto.maxWidth,
       height: size.warningMainPhoto.maxHeight,
     }).then(image => {
-      console.log(image)
+      dispatch(setMainImage(image))
     })
   }
 
@@ -65,7 +54,7 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
               </Column>
             </View>
             <Column gutter="sm">
-              <Title level={4} text="Of kies de standaardaardafbeelding" />
+              <Title level={4} text="Of kies de standaard afbeelding" />
               <TouchableOpacity style={styles.button}>
                 <HeroImage />
               </TouchableOpacity>
@@ -77,10 +66,6 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
               emphasis
               onPress={navigation.goBack}
               text="Vorige"
-            />
-            <SubmitButton
-              onPress={handleSubmit(onSubmit)}
-              text="Schrijf bericht"
             />
           </Row>
         </Column>
