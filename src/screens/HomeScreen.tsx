@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {ActivityIndicator, ScrollView} from 'react-native'
+import {ScrollView} from 'react-native'
 import {
   CenterCityOffice,
   ProvideAddressBanner,
@@ -11,17 +11,13 @@ import {Column, Gutter} from '../components/ui/layout'
 import {SettingsContext} from '../providers'
 
 export const HomeScreen = () => {
-  const {isLoading, settings} = useContext(SettingsContext)
+  const {settings} = useContext(SettingsContext)
 
   return (
     <ScrollView>
       <Box background="white">
         <Column gutter="lg">
-          {isLoading ? (
-            <ActivityIndicator />
-          ) : (
-            !settings?.address && <ProvideAddressBanner />
-          )}
+          {!settings?.address && <ProvideAddressBanner />}
           <QuickLinks />
         </Column>
       </Box>
