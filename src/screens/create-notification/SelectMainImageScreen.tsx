@@ -68,6 +68,7 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
       cropperCancelText: 'Annuleren',
       cropperRotateButtonsHidden: true,
       cropping: true,
+      includeBase64: true,
       mediaType: 'photo',
       width: size.warningMainPhoto.maxWidth,
       height: size.warningMainPhoto.maxHeight,
