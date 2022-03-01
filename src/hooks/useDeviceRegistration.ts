@@ -17,7 +17,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
   const authToken = getAuthToken(process.env.AUTH_SHARED_SECRET)
 
-  const storeApi = useFetch<DeviceRegistration>({
+  const registerDevice = useFetch<DeviceRegistration>({
     url: getEnvironment().apiUrl + '/device_registration',
     options: {
       method: 'POST',
@@ -45,8 +45,8 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     settings?.notifications,
   )
 
-  const storeDeviceIfNeeded = useCallback(() => {
-    // if no projects are subscribed to, only store if previously there were
+  const shouldRegisterDevice = useCallback(() => {
+    // if no projects are subscribed to, only register to backend if previously there were
     if (!subscribedProjects.length) {
       const prevSubscribedProjects = getSubscribedProjects(
         prevNotificationSettings.current?.projects ?? {},
@@ -58,8 +58,8 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     return true
   }, [subscribedProjects.length])
 
-  const store = useCallback(async () => {
-    if (!storeDeviceIfNeeded()) {
+  const register = useCallback(async () => {
+    if (!shouldRegisterDevice()) {
       return
     }
 
@@ -70,7 +70,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
         return
       }
 
-      await storeApi.fetchData(
+      await registerDevice.fetchData(
         {},
         JSON.stringify({
           device_token: token,
@@ -81,11 +81,11 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
       prevNotificationSettings.current = settings?.notifications
 
-      return storeApi.hasError
+      return registerDevice.hasError
     } catch (error) {
       console.log(error)
     }
-  }, [settings?.notifications, storeDeviceIfNeeded]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [settings?.notifications, shouldRegisterDevice]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const registerWithRefreshToken = useCallback(
     async () => {
@@ -127,5 +127,5 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
     refreshToken && registerWithRefreshToken()
   }, [refreshToken, registerWithRefreshToken])
 
-  return {store}
+  return {register}
 }
