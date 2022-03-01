@@ -21,7 +21,7 @@ export const Alert = () => {
   const styles = StyleSheet.create({
     alert: {
       backgroundColor:
-        variant === 'success' ? color.status.success : color.status.error,
+        variant === 'success' ? color.background.valid : color.status.error,
     },
     inner: {
       padding: size.spacing.md,
