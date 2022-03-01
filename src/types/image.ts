@@ -21,5 +21,9 @@ export type ImageSource = {
 
 export type ProjectWarningImageQueryArg = {
   project_warning_id: string
-  image: FormData
+  image: {
+    main: boolean
+    description: string
+    data: string
+  }
 }
