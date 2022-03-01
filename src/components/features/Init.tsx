@@ -6,8 +6,9 @@ import {encryptWithAES} from '../../utils'
 
 export const Init = () => {
   const dispatch = useDispatch()
-  const {removeSetting, settings} = useContext(SettingsContext)
+  const {changeSettings, removeSetting, settings} = useContext(SettingsContext)
   const projectManager = settings?.['project-manager']
+  const notificationSettings = settings?.notifications ?? {}
 
   useEffect(() => {
     removeSetting('temp')
@@ -26,6 +27,24 @@ export const Init = () => {
       )
     }
   }, [projectManager, dispatch])
+
+  useEffect(() => {
+    if (projectManager) {
+      // const obj = projectManager.projects.reduce(
+      //   (o, key) => Object.assign(o, {[key]: true}),
+      //   {},
+      // )
+
+      changeSettings('notifications', {
+        ...notificationSettings,
+        projectsEnabled: true,
+        // projects: {
+        //   ...notificationSettings.projects,
+        //   obj,
+        // },
+      })
+    }
+  }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return null
 }
