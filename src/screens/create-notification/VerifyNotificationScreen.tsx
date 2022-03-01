@@ -1,7 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
-import {Platform, StyleSheet, View} from 'react-native'
-import {Image as ImageType} from 'react-native-image-crop-picker'
+import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
@@ -70,22 +69,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     },
   ] = useAddNotificationMutation()
 
-  const prepareImageToUpload = useCallback(
-    (image: ImageType) => {
-      const upload_body = {
-        uri: Platform.OS === 'ios' ? `file:///${image.path}` : image.path,
-        type: image.mime,
-        name: image.filename || image.path.split('/').pop(),
-      }
-      let formData = new FormData()
-      formData.append('main', true)
-      formData.append('description', mainImageDescription)
-      formData.append('data', upload_body)
-      return formData
-    },
-    [mainImageDescription],
-  )
-
   const sendWarningToBackend = async () => {
     if (projectWarning) {
       await addWarning(projectWarning)
@@ -124,19 +107,24 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       addWarningData &&
       isWarningSent &&
       mainImage &&
-      mainImage !== 'placeholder'
+      mainImage !== 'placeholder' &&
+      mainImage.data
     ) {
       addProjectWarningImage({
         project_warning_id: addWarningData.warning_identifier,
-        image: prepareImageToUpload(mainImage),
+        image: {
+          main: true,
+          description: mainImageDescription,
+          data: mainImage.data,
+        },
       })
     }
   }, [
-    addProjectWarningImage,
     addWarningData,
+    addProjectWarningImage,
     isWarningSent,
     mainImage,
-    prepareImageToUpload,
+    mainImageDescription,
   ])
 
   useEffect(() => {
