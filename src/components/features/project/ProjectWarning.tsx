@@ -1,14 +1,21 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
-import React, {useLayoutEffect} from 'react'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
 import {color} from '../../../tokens'
-import {formatDate, formatTime, openMailUrl} from '../../../utils'
+import {ProjectWarningImage} from '../../../types'
+import {
+  formatDate,
+  formatTime,
+  mapWarningImageSources,
+  openMailUrl,
+} from '../../../utils'
 import {
   Box,
   Button,
+  Image,
   NonScalingHeaderTitle,
   PleaseWait,
   Text,
@@ -24,6 +31,9 @@ type Props = {
 export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
   const notificationState = useNotificationState()
+  const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
+    undefined,
+  )
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
@@ -34,6 +44,13 @@ export const ProjectWarning = ({id}: Props) => {
     },
     {skip: !projectWarning},
   )
+
+  useEffect(() => {
+    const mainImageFromProjectWarning = projectWarning?.images?.find(
+      image => image.main,
+    )
+    mainImageFromProjectWarning && setMainImage(mainImageFromProjectWarning)
+  }, [projectWarning])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,8 +66,14 @@ export const ProjectWarning = ({id}: Props) => {
 
   return (
     <ScrollView>
-      <View style={styles.image}>
-        <HeroImage />
+      <View>
+        {mainImage ? (
+          <Image source={mapWarningImageSources(mainImage.sources)} />
+        ) : (
+          <View style={styles.image}>
+            <HeroImage />
+          </View>
+        )}
       </View>
       <Box background="white">
         <Text margin secondary>
