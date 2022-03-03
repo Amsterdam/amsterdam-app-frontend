@@ -76,7 +76,7 @@ export const SettingsProvider = ({children}: Props) => {
 
   useEffect(() => {
     if (settings) {
-      deviceRegistration.store()
+      deviceRegistration.register()
     }
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 

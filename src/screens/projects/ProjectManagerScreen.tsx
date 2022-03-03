@@ -40,6 +40,7 @@ type Props = {
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const {changeSettings, settings} = useContext(SettingsContext)
+  const notificationSettings = settings?.notifications
   const projectManagerSettings = settings && settings['project-manager']
   const [authorizedProjects, setAuthorizedProjects] = useState<Projects>()
   const projectManagerId = route.params?.id
@@ -56,22 +57,38 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
       )
   }, [dispatch, projectManagerId])
 
-  const {data: projectManager, isLoading: projectManagerIsLoading} =
-    useGetProjectManagerQuery({id: projectManagerId}, {skip: !projectManagerId})
+  const {data: projectManager} = useGetProjectManagerQuery(
+    {id: projectManagerId},
+    {skip: !projectManagerId},
+  )
 
   const {data: projects} = useGetProjectsQuery({
     fields: ['identifier', 'subtitle', 'title'],
   })
 
   const storeProjectManagerSettings = useCallback(async () => {
-    if (!projectManagerIsLoading && projectManager) {
+    if (projectManager) {
       const newProjectManagerSettings = {
         id: projectManagerId,
         projects: projectManager.projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
+
+      const projectManagerAuthorizedProjects = projectManager.projects.reduce(
+        (acc, projectId) => Object.assign(acc, {[projectId]: true}),
+        {},
+      )
+
+      changeSettings('notifications', {
+        ...notificationSettings,
+        projectsEnabled: true,
+        projects: {
+          ...(notificationSettings && {...notificationSettings.projects}),
+          projectManagerAuthorizedProjects,
+        },
+      })
     }
-  }, [projectManagerIsLoading]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManagerSettings()
