@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Amsterdam-app wil toegang tot je camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Amsterdam-app wil toegang tot je foto's</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>nl</string>
 	<key>CFBundleDisplayName</key>
