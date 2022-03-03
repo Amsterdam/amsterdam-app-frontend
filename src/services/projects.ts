@@ -100,6 +100,7 @@ export const projectsApi = baseApi.injectEndpoints({
 export const {
   useAddProjectWarningMutation,
   useGetNearestProjectsQuery,
+  useAddProjectWarningImageMutation,
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,

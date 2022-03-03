@@ -14,8 +14,11 @@ type NewsArticleMinimal = {
   title: string
 }
 
+export type MainImage = Image | 'placeholder' | undefined
+
 export type NotificationDraft = {
-  mainImage: Image | undefined
+  mainImage: MainImage
+  mainImageDescription: string
   newsArticle?: NewsArticleMinimal
   notification: NotificationQueryArg | undefined
   project: ProjectMinimal | undefined
@@ -27,6 +30,7 @@ export type NotificationDraft = {
 
 const initialState: NotificationDraft = {
   mainImage: undefined,
+  mainImageDescription: '',
   newsArticle: undefined,
   notification: undefined,
   project: undefined,
@@ -40,8 +44,14 @@ export const notificationDraftSlice = createSlice({
   name: 'notificationDraft',
   initialState: initialState,
   reducers: {
-    setMainImage: (state, {payload: mainImage}: PayloadAction<Image>) => {
+    setMainImage: (state, {payload: mainImage}: PayloadAction<MainImage>) => {
       state.mainImage = mainImage
+    },
+    setMainImageDescription: (
+      state,
+      {payload: mainImageDescription}: PayloadAction<string>,
+    ) => {
+      state.mainImageDescription = mainImageDescription
     },
     setNewsArticle: (
       state,
@@ -78,6 +88,7 @@ export const notificationDraftSlice = createSlice({
 
 export const {
   setMainImage,
+  setMainImageDescription,
   setNewsArticle,
   setNotification,
   setProject,
@@ -89,6 +100,12 @@ export const {
 export const selectMainImage = createSelector(
   (state: RootState) => state.notificationDraft,
   (notificationDraft: NotificationDraft) => notificationDraft?.mainImage,
+)
+
+export const selectMainImageDescription = createSelector(
+  (state: RootState) => state.notificationDraft,
+  (notificationDraft: NotificationDraft) =>
+    notificationDraft?.mainImageDescription,
 )
 
 export const selectNewsArticle = createSelector(

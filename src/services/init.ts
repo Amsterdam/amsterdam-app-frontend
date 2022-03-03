@@ -4,7 +4,8 @@ import {RootState, selectAuthManagerToken} from '../store'
 
 const managerAuthorizedEndpoints = [
   'addNotification',
-  'addWarning',
+  'addProjectWarning',
+  'addProjectWarningImage',
   'getProjectManager',
 ]
 

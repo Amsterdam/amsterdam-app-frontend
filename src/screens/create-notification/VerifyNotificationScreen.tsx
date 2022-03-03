@@ -1,8 +1,11 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
   Box,
+  Image,
   PleaseWait,
   Preview,
   SingleSelectable,
@@ -14,10 +17,14 @@ import {
 import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {
   useAddNotificationMutation,
+  useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '../../services'
+import {image as imageToken} from '../../tokens'
 import {NotificationQueryArg} from '../../types'
 import {
+  selectMainImage,
+  selectMainImageDescription,
   selectNewsArticle,
   selectNotification,
   selectProject,
@@ -33,23 +40,30 @@ type Props = {
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
+  const mainImage = useSelector(selectMainImage)
+  const mainImageDescription = useSelector(selectMainImageDescription)
   const newsArticle = useSelector(selectNewsArticle)
   const notification = useSelector(selectNotification)
   const project = useSelector(selectProject)
   const projectWarning = useSelector(selectProjectWarning)
   const [isWarningSent, setWarningSent] = useState(false)
+
   const [
     addWarning,
     {
-      data: addWarningResponse,
+      data: addWarningData,
       isError: addWarningIsError,
       isLoading: addWarningIsLoading,
     },
   ] = useAddProjectWarningMutation()
+
+  const [addProjectWarningImage, {isError: addProjectWarningImageIsError}] =
+    useAddProjectWarningImageMutation()
+
   const [
     addNotification,
     {
-      data: addNotificationResponse,
+      data: addNotificationData,
       error: addNotificationIsError,
       isLoading: addNotificationIsLoading,
     },
@@ -89,12 +103,37 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    isWarningSent &&
-      addWarningResponse &&
-      sendNotificationToBackend({
-        warning_identifier: addWarningResponse.warning_identifier,
+    if (
+      addWarningData &&
+      isWarningSent &&
+      mainImage &&
+      mainImage !== 'placeholder' &&
+      mainImage.data
+    ) {
+      addProjectWarningImage({
+        project_warning_id: addWarningData.warning_identifier,
+        image: {
+          main: true,
+          description: mainImageDescription,
+          data: mainImage.data,
+        },
       })
-  }, [addWarningResponse, isWarningSent, sendNotificationToBackend])
+    }
+  }, [
+    addWarningData,
+    addProjectWarningImage,
+    isWarningSent,
+    mainImage,
+    mainImageDescription,
+  ])
+
+  useEffect(() => {
+    if (addWarningData && isWarningSent) {
+      sendNotificationToBackend({
+        warning_identifier: addWarningData.warning_identifier,
+      })
+    }
+  }, [addWarningData, isWarningSent, sendNotificationToBackend])
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -104,29 +143,41 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }, [dispatch, navigation])
 
   useEffect(() => {
-    if (addNotificationResponse) {
+    if (addNotificationData) {
       dispatch(setResponseStatus('success'))
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, addNotificationResponse]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, navigation, addNotificationData])
 
   useEffect(() => {
-    if (addWarningIsError) {
+    if (
+      addNotificationIsError ||
+      addProjectWarningImageIsError ||
+      addWarningIsError
+    ) {
       dispatch(setResponseStatus('failure'))
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, addWarningIsError]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (addNotificationIsError) {
-      dispatch(setResponseStatus('failure'))
-      navigation.navigate('NotificationResponse')
-    }
-  }, [navigation, addNotificationIsError]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    addNotificationIsError,
+    addProjectWarningImageIsError,
+    addWarningIsError,
+    dispatch,
+    navigation,
+  ])
 
   if (addWarningIsLoading || addNotificationIsLoading) {
     return <PleaseWait />
   }
+
+  const image =
+    mainImage === 'placeholder' ? (
+      <View style={styles.placeholder}>
+        <HeroImage />
+      </View>
+    ) : (
+      <Image source={{uri: mainImage?.path}} />
+    )
 
   return (
     <ScrollView grow>
@@ -152,7 +203,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
               </Preview>
             )}
             {projectWarning && (
-              <Preview label="Nieuwsartikel">
+              <Preview image={image} label="Nieuwsartikel">
                 <Title level={2} text={projectWarning.title} />
                 <Text intro>{projectWarning.body.preface}</Text>
                 <Text>{projectWarning.body.content}</Text>
@@ -176,3 +227,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  placeholder: {
+    aspectRatio: imageToken.aspectRatio.wide,
+  },
+})
