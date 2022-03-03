@@ -84,7 +84,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         projectsEnabled: true,
         projects: {
           ...(notificationSettings && {...notificationSettings.projects}),
-          projectManagerAuthorizedProjects,
+          ...projectManagerAuthorizedProjects,
         },
       })
     }
