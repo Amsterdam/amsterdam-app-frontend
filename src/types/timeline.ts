@@ -7,7 +7,7 @@ export type Timeline = {
 }
 
 export type TimelineItem = {
-  collapsed: Boolean
+  collapsed: boolean
   content: RichText
   progress: 'Afgelopen' | 'Huidig' | 'Toekomst'
   subitems?: TimelineSubItem[]

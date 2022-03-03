@@ -9,6 +9,6 @@ type Props = {
   route: AddressFormScreenRouteProp
 }
 
-export const AddressFormScreen = ({route}: Props) => {
-  return <AddressForm tempAddress={route?.params?.tempAddress} />
-}
+export const AddressFormScreen = ({route}: Props) => (
+  <AddressForm tempAddress={route?.params?.tempAddress} />
+)

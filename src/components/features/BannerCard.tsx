@@ -4,7 +4,7 @@ import {image} from '../../tokens'
 import {Card, CardBody, Image, SingleSelectable, Title} from '../ui'
 
 type Props = {
-  border?: Boolean
+  border?: boolean
   imageSource?: ImageSourcePropType
   onPress: () => void
   title: string

@@ -1,15 +1,17 @@
-import React, {useContext, useLayoutEffect} from 'react'
+import React, {useLayoutEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {Checkmark, Close} from '../../assets/icons'
 import {Confirmation} from '../../components/features/form'
 import {Box} from '../../components/ui'
 import {ScrollView} from '../../components/ui/layout'
-import {NotificationContext} from './'
+import {selectResponseStatus, setStep} from './notificationDraftSlice'
 
 export const NotificationResponseScreen = () => {
-  const {changeCurrentStep, responseStatus} = useContext(NotificationContext)
+  const dispatch = useDispatch()
+  const responseStatus = useSelector(selectResponseStatus)
 
   useLayoutEffect(() => {
-    changeCurrentStep(0)
+    dispatch(setStep(null))
   })
 
   return (

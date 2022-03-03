@@ -21,7 +21,7 @@ export const Alert = () => {
   const styles = StyleSheet.create({
     alert: {
       backgroundColor:
-        variant === 'success' ? color.status.success : color.status.error,
+        variant === 'success' ? color.background.valid : color.status.error,
     },
     inner: {
       padding: size.spacing.md,
@@ -39,7 +39,10 @@ export const Alert = () => {
           <View style={styles.inner}>
             <Row align="between">
               <Title level={4} inverse text={content?.title!} />
-              <TouchableOpacity onPress={() => changeVisibility(false)}>
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityHint="sluit melding"
+                onPress={() => changeVisibility(false)}>
                 <Close fill="white" style={styles.icon} />
               </TouchableOpacity>
             </Row>

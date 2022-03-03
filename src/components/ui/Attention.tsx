@@ -4,7 +4,7 @@ import {color, size} from '../../tokens'
 
 type Props = {
   children: ReactNode
-  warning?: Boolean
+  warning?: boolean
 }
 
 export const Attention = ({children, warning}: Props) => (

@@ -10,17 +10,25 @@ import React, {
   useState,
 } from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {StackParams, TabParams} from '../app/navigation'
-import {routes, tabs} from '../app/navigation/routes'
-import {ProjectTitle} from '../components/features/project'
-import {Box, Button, Divider, PleaseWait, Text, Title} from '../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../components/ui/layout'
-import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks'
-import {SettingsContext} from '../providers/settings.provider'
-import {color, size} from '../tokens'
-import {ProjectTitles} from '../types'
-import {getAuthToken} from '../utils'
+import {useDispatch} from 'react-redux'
+import {StackParams, TabParams} from '../../app/navigation'
+import {routes, tabs} from '../../app/navigation/routes'
+import {ProjectTitle} from '../../components/features/project'
+import {
+  Box,
+  Button,
+  Divider,
+  PleaseWait,
+  Text,
+  Title,
+} from '../../components/ui'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {SettingsContext} from '../../providers/settings.provider'
+import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
+import {setCredentials} from '../../store'
+import {color, size} from '../../tokens'
+import {Projects} from '../../types'
+import {encryptWithAES} from '../../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
 
@@ -30,74 +38,71 @@ type Props = {
 }
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
+  const dispatch = useDispatch()
   const {changeSettings, settings} = useContext(SettingsContext)
+  const notificationSettings = settings?.notifications
   const projectManagerSettings = settings && settings['project-manager']
-  const [projectTitles, setProjectTitles] = useState<
-    ProjectTitles[] | undefined
-  >()
-  const [authorizedProjects, setAuthorizedProjects] =
-    useState<ProjectTitles[]>()
+  const [authorizedProjects, setAuthorizedProjects] = useState<Projects>()
   const projectManagerId = route.params?.id
 
-  const authToken = getAuthToken(projectManagerId)
-
-  const projectManagerApi = useFetch<any>({
-    url: getEnvironment().apiUrl + '/project/manager',
-    onLoad: false,
-    options: {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        UserAuthorization: authToken,
-      }),
-      params: {id: projectManagerId},
-    },
-  })
-
-  const projectsApi = useFetch<ProjectTitles[]>({
-    url: getEnvironment().apiUrl + '/projects',
-    options: {
-      params: {
-        fields: 'identifier,subtitle,title',
-      },
-    },
-    onLoad: false,
-  })
-
   useEffect(() => {
-    projectManagerId && projectManagerApi.fetchData()
-  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
+    projectManagerId &&
+      dispatch(
+        setCredentials({
+          managerToken: encryptWithAES({
+            password: '6886b31dfe27e9306c3d2b553345d9e5',
+            salt: projectManagerId,
+          }),
+        }),
+      )
+  }, [dispatch, projectManagerId])
 
-  useEffect(() => {
-    projectManagerId && projectsApi.fetchData()
-  }, [projectManagerId]) // eslint-disable-line react-hooks/exhaustive-deps
+  const {data: projectManager} = useGetProjectManagerQuery(
+    {id: projectManagerId},
+    {skip: !projectManagerId},
+  )
+
+  const {data: projects} = useGetProjectsQuery({
+    fields: ['identifier', 'subtitle', 'title'],
+  })
 
   const storeProjectManagerSettings = useCallback(async () => {
-    if (projectManagerApi.data) {
+    if (projectManager) {
       const newProjectManagerSettings = {
         id: projectManagerId,
-        projects: projectManagerApi.data[0].projects,
+        projects: projectManager.projects,
       }
       changeSettings('project-manager', newProjectManagerSettings)
+
+      const projectManagerAuthorizedProjects = projectManager.projects.reduce(
+        (acc, projectId) => Object.assign(acc, {[projectId]: true}),
+        {},
+      )
+
+      changeSettings('notifications', {
+        ...notificationSettings,
+        projectsEnabled: true,
+        projects: {
+          ...(notificationSettings && {...notificationSettings.projects}),
+          ...projectManagerAuthorizedProjects,
+        },
+      })
     }
-  }, [projectManagerApi.data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
   useEffect(() => {
-    projectsApi.data && setProjectTitles(projectsApi.data)
-  }, [projectsApi.data])
-
-  useEffect(() => {
-    if (projectTitles && projectManagerSettings?.projects) {
+    if (projects && projectManager) {
       setAuthorizedProjects(
-        projectTitles.filter(project =>
-          projectManagerSettings?.projects.includes(project.identifier),
+        projects.filter(project =>
+          projectManager.projects.includes(project.identifier),
         ),
       )
     }
-  }, [projectTitles, projectManagerSettings?.projects])
+  }, [projects, projectManager])
 
   return authorizedProjects === undefined &&
     projectManagerSettings?.projects ? (

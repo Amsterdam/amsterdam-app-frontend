@@ -2,10 +2,10 @@ import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {StackParams} from '../app/navigation'
-import {routes} from '../app/navigation/routes'
-import {ArticleOverview} from '../components/features/article'
-import {ProjectBodyMenu} from '../components/features/project'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
+import {ArticleOverview} from '../../components/features/article'
+import {ProjectBodyMenu} from '../../components/features/project'
 import {
   Box,
   Button,
@@ -15,15 +15,13 @@ import {
   SingleSelectable,
   Text,
   Title,
-} from '../components/ui'
-import {Switch} from '../components/ui/forms'
-import {Column, Gutter} from '../components/ui/layout'
-import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks'
-import {SettingsContext} from '../providers/settings.provider'
-import {image} from '../tokens'
-import {ProjectDetail} from '../types'
-import {accessibleText, mapImageSources} from '../utils'
+} from '../../components/ui'
+import {Switch} from '../../components/ui/forms'
+import {Column, Gutter} from '../../components/ui/layout'
+import {SettingsContext} from '../../providers/settings.provider'
+import {useGetProjectQuery} from '../../services'
+import {image} from '../../tokens'
+import {accessibleText, mapImageSources} from '../../utils'
 
 type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
 
@@ -36,14 +34,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const projectManager = settings && settings['project-manager']
 
-  const {data: project, isLoading} = useFetch<ProjectDetail>({
-    url: getEnvironment().apiUrl + '/project/details',
-    options: {
-      params: {
-        id: route.params.id,
-      },
-    },
-  })
+  const {data: project, isLoading} = useGetProjectQuery({id: route.params.id})
 
   const isSubscribed =
     settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false

@@ -2,15 +2,20 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import HeroImage from '../../../assets/images/warning-hero.svg'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
+import HeroImage from '../../../assets/images/project-warning-hero.svg'
+import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
 import {color} from '../../../tokens'
-import {ProjectDetail, Warning} from '../../../types'
-import {formatDate, formatTime, openMailUrl} from '../../../utils'
+import {ProjectWarningImage} from '../../../types'
+import {
+  formatDate,
+  formatTime,
+  mapWarningImageSources,
+  openMailUrl,
+} from '../../../utils'
 import {
   Box,
   Button,
+  Image,
   NonScalingHeaderTitle,
   PleaseWait,
   Text,
@@ -24,67 +29,70 @@ type Props = {
 }
 
 export const ProjectWarning = ({id}: Props) => {
-  const [warning, setWarning] = useState<Warning | undefined>()
   const navigation = useNavigation()
   const notificationState = useNotificationState()
+  const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
+    undefined,
+  )
 
-  const warningApi = useFetch<Warning>({
-    url: getEnvironment().apiUrl + '/project/warning',
-    options: {params: {id}},
-  })
+  const {data: projectWarning, isLoading: projectWarningIsLoading} =
+    useGetProjectWarningQuery({id})
+
+  const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
+    {
+      id: projectWarning?.project_identifier!,
+    },
+    {skip: !projectWarning},
+  )
 
   useEffect(() => {
-    if (warningApi.data) {
-      setWarning(warningApi.data)
-    }
-  }, [warningApi.data])
-
-  const projectApi = useFetch<ProjectDetail>({
-    url: getEnvironment().apiUrl + '/project/details',
-    options: {
-      params: {
-        id: warning?.project_identifier ?? '',
-      },
-    },
-  })
+    const mainImageFromProjectWarning = projectWarning?.images?.find(
+      image => image.main,
+    )
+    mainImageFromProjectWarning && setMainImage(mainImageFromProjectWarning)
+  }, [projectWarning])
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => (
-        <NonScalingHeaderTitle text={projectApi.data?.title ?? ''} />
-      ),
+      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
     })
   })
 
-  if (warningApi.isLoading || projectApi.isLoading || !warning) {
+  if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
   }
 
-  notificationState.markAsRead(warning.identifier)
+  notificationState.markAsRead(projectWarning.identifier)
 
   return (
     <ScrollView>
-      <View style={styles.image}>
-        <HeroImage />
+      <View>
+        {mainImage ? (
+          <Image source={mapWarningImageSources(mainImage.sources)} />
+        ) : (
+          <View style={styles.image}>
+            <HeroImage />
+          </View>
+        )}
       </View>
       <Box background="white">
         <Text margin secondary>
-          {formatDate(warning.publication_date)}{' '}
-          {formatTime(warning.publication_date)}
+          {formatDate(projectWarning.publication_date)}{' '}
+          {formatTime(projectWarning.publication_date)}
         </Text>
-        <Title margin text={warning.title} />
+        <Title margin text={projectWarning.title} />
         <Text intro margin>
-          {warning.body.preface}
+          {projectWarning.body.preface}
         </Text>
-        <Text margin>{warning.body.content}</Text>
+        <Text margin>{projectWarning.body.content}</Text>
       </Box>
       <Box>
         <Box background="white">
           <Row>
             <Button
               icon={<Email fill={color.font.inverse} />}
-              onPress={() => openMailUrl(warning.author_email)}
-              text={warning.author_email}
+              onPress={() => openMailUrl(projectWarning.author_email)}
+              text={projectWarning.author_email}
             />
           </Row>
         </Box>

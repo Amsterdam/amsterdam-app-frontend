@@ -1,25 +1,23 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
+import {useDispatch, useSelector} from 'react-redux'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
 import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
-import {DraftNotification} from '../../types'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {useGetArticlesQuery} from '../../services'
+import {NotificationQueryArg} from '../../types'
 import {formatTime} from '../../utils'
+import {NotificationStackParams} from './CreateNotificationScreen'
 import {
-  NotificationContext,
-  NotificationStackParams,
-} from './CreateNotificationScreen'
+  selectProjectId,
+  setNotification,
+  setStep,
+} from './notificationDraftSlice'
 
 const maxCharacters = {
   title: 54,
@@ -36,7 +34,8 @@ type Props = {
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
-  const notificationContext = useContext(NotificationContext)
+  const dispatch = useDispatch()
+  const projectId = useSelector(selectProjectId)
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
   )
@@ -55,31 +54,41 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   const watchTitle = watch('title')
   const watchMessage = watch('message')
 
-  const numberOfNewsArticles = notificationContext.articles
-    ? notificationContext.articles.filter(article => article.type === 'news')
-        .length
-    : 0
+  const {newsArticlesCount} = useGetArticlesQuery(
+    {
+      projectIds: [projectId!],
+    },
+    {
+      selectFromResult: ({data}) => ({
+        newsArticlesCount: data?.filter(article => article.type === 'news')
+          .length,
+      }),
+      skip: !projectId,
+    },
+  )
 
   const onSubmit = (data: FormData) => {
-    const notificationData: DraftNotification = {
+    const notificationData: NotificationQueryArg = {
       title: data.title,
       body: data.message,
-      project_identifier: notificationContext.projectDetails.id!,
+      project_identifier: projectId!,
     }
 
     const nextScreen =
-      numberOfNewsArticles > 0 ? 'SelectNewsArticle' : 'WarningForm'
+      newsArticlesCount && newsArticlesCount > 0
+        ? 'SelectNewsArticle'
+        : 'ProjectWarningForm'
 
-    notificationContext.changeNotification(notificationData)
+    dispatch(setNotification(notificationData))
     navigation.navigate(nextScreen)
   }
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(1)
+      dispatch(setStep(1))
     })
     return focusListener
-  }, [navigation, notificationContext])
+  }, [dispatch, navigation])
 
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
@@ -89,9 +98,13 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
 
+  if (!projectId) {
+    return null
+  }
+
   return (
-    <ScrollView keyboardDismiss>
-      <Stretch>
+    <ScrollView grow>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
             <Title text="Schrijf een pushbericht" />
@@ -154,20 +167,20 @@ export const NotificationFormScreen = ({navigation}: Props) => {
             </>
           </Column>
         </Box>
-      </Stretch>
-      <Box>
-        <Row align="end" valign="center">
-          <SubmitButton
-            onPress={handleSubmit(onSubmit)}
-            text={
-              numberOfNewsArticles
-                ? 'Kies een nieuwsartikel'
-                : 'Schrijf een nieuwsartikel'
-            }
-          />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="end" valign="center">
+            <SubmitButton
+              onPress={handleSubmit(onSubmit)}
+              text={
+                newsArticlesCount
+                  ? 'Kies een nieuwsartikel'
+                  : 'Schrijf een nieuwsartikel'
+              }
+            />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   )
 }

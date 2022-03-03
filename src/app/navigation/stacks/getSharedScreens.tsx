@@ -1,15 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {
-  AuthorizedProjectsScreen,
+  AddressPrivacyInfoScreen,
   NotificationOverviewScreen,
-  ProjectDetailBodyScreen,
-  ProjectDetailScreen,
-  ProjectManagerScreen,
-  ProjectNewsScreen,
-  ProjectOverviewByDistrictScreen,
-  ProjectOverviewScreen,
-  ProjectWarningScreen,
   SettingsScreen,
   WasteGuideScreen,
   WasteMenuScreen,
@@ -18,12 +11,27 @@ import {
 } from '../../../screens'
 import {CreateNotificationScreen} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
+import {
+  AuthorizedProjectsScreen,
+  ProjectDetailBodyScreen,
+  ProjectDetailScreen,
+  ProjectManagerScreen,
+  ProjectNewsScreen,
+  ProjectsForDistrictScreen,
+  ProjectsScreen,
+  ProjectWarningScreen,
+} from '../../../screens/projects'
 import {routes} from '../routes'
 
 export const getSharedScreens = (
   Stack: ReturnType<typeof createStackNavigator>,
 ) => (
   <>
+    <Stack.Screen
+      component={AddressPrivacyInfoScreen}
+      name={routes.addressInfo.name}
+      options={routes.addressInfo.options}
+    />
     <Stack.Screen
       component={AddressFormScreen}
       name={routes.addressForm.name}
@@ -65,14 +73,14 @@ export const getSharedScreens = (
       options={routes.projectNews.options}
     />
     <Stack.Screen
-      component={ProjectOverviewScreen}
-      name={routes.projectOverview.name}
-      options={routes.projectOverview.options}
+      component={ProjectsScreen}
+      name={routes.projects.name}
+      options={routes.projects.options}
     />
     <Stack.Screen
-      component={ProjectOverviewByDistrictScreen}
-      name={routes.projectOverviewByDistrict.name}
-      options={routes.projectOverviewByDistrict.options}
+      component={ProjectsForDistrictScreen}
+      name={routes.projectsForDistrict.name}
+      options={routes.projectsForDistrict.options}
     />
     <Stack.Screen
       component={ProjectWarningScreen}

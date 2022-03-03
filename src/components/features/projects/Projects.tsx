@@ -1,39 +1,32 @@
+import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment} from 'react'
+import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {StackParams} from '../app/navigation'
-import {routes} from '../app/navigation/routes'
-import {ProjectCard} from '../components/features/project'
-import {Box, Button, PleaseWait, Text, Title} from '../components/ui'
-import {Gutter} from '../components/ui/layout'
-import {getEnvironment} from '../environment'
-import {useFetch} from '../hooks'
-import {size} from '../tokens'
-import {District, ProjectOverviewItem} from '../types'
-import {mapImageSources} from '../utils'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {useGetDistrictsQuery, useGetProjectsQuery} from '../../../services'
+import {size} from '../../../tokens'
+import {mapImageSources} from '../../../utils'
+import {Box, Button, PleaseWait, Text, Title} from '../../ui'
+import {Column, Gutter, Row} from '../../ui/layout'
+import {ProjectCard} from '../project'
 
-type Props = {
-  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
-}
+export const Projects = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
-export const ProjectOverviewScreen = ({navigation}: Props) => {
-  const {projectOverviewByDistrict, projectDetail} = routes
-
-  const {data: districts, isLoading: isDistrictsLoading} = useFetch<District[]>(
-    {
-      url: getEnvironment().apiUrl + '/districts',
-    },
-  )
+  const {data: districts, isLoading: isDistrictsLoading} =
+    useGetDistrictsQuery()
 
   const {
     data: projects,
-    hasError,
+    isError: isProjectsError,
     isLoading: isProjectsLoading,
-  } = useFetch<ProjectOverviewItem[]>({
-    url: getEnvironment().apiUrl + '/projects',
+  } = useGetProjectsQuery({
+    fields: ['district_id', 'identifier', 'images', 'subtitle', 'title'],
   })
 
-  const projectsByDistrict = districts?.map(district => ({
+  const projectsForDistrict = districts?.map(district => ({
     id: district.id,
     title: district.name,
     data: projects?.filter(project => project.district_id === district.id),
@@ -43,7 +36,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
     return <PleaseWait />
   }
 
-  if (hasError) {
+  if (isProjectsError) {
     return (
       <Box>
         <Box background="invalid">
@@ -56,7 +49,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
   return (
     <FlatList
-      data={projectsByDistrict}
+      data={projectsForDistrict}
       keyExtractor={(item, index) => `${item}${index}`}
       ItemSeparatorComponent={item =>
         item.leadingItem.data && item.leadingItem.data.length > 0 ? (
@@ -65,18 +58,20 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
       }
       renderItem={({item: districtItem}) => {
         return districtItem.data && districtItem.data.length > 0 ? (
-          <Fragment key={districtItem.id}>
+          <Column gutter="sm" key={districtItem.id}>
             <View style={styles.titleRow}>
-              <Title level={2} text={districtItem.title} />
-              <Button
-                onPress={() =>
-                  navigation.navigate(projectOverviewByDistrict.name, {
-                    id: districtItem.id,
-                  })
-                }
-                variant="text"
-                text="Ga naar overzicht"
-              />
+              <Row align="between" valign="center">
+                <Title level={2} text={districtItem.title} />
+                <Button
+                  onPress={() =>
+                    navigation.navigate(routes.projectsForDistrict.name, {
+                      id: districtItem.id,
+                    })
+                  }
+                  variant="text"
+                  text="Ga naar overzicht"
+                />
+              </Row>
             </View>
             <FlatList
               data={districtItem.data}
@@ -86,7 +81,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               renderItem={({item: projectItem}) => (
                 <ProjectCard
                   onPress={() =>
-                    navigation.navigate(projectDetail.name, {
+                    navigation.navigate(routes.projectDetail.name, {
                       id: projectItem.identifier,
                     })
                   }
@@ -98,7 +93,7 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
               )}
               style={styles.projects}
             />
-          </Fragment>
+          </Column>
         ) : null
       }}
     />
@@ -107,9 +102,6 @@ export const ProjectOverviewScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   titleRow: {
-    alignItems: 'baseline',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginHorizontal: size.spacing.md,
     marginTop: size.spacing.md,
   },

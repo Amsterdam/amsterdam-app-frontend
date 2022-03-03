@@ -2,7 +2,7 @@ import {Image} from './image'
 import {Section, Timeline} from './'
 
 // An item in a project list as received from our backend
-export type ProjectOverviewItem = {
+export type Project = {
   content_html: string
   content_text: string
   district_id: number
@@ -17,15 +17,43 @@ export type ProjectOverviewItem = {
   title: string
 }
 
+export type ProjectSummary = Pick<
+  Project,
+  'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
+>
+
 // Only the titles of a project, e.g. for small lists
 export type ProjectTitles = Pick<
-  ProjectOverviewItem,
+  ProjectSummary,
   'identifier' | 'subtitle' | 'title'
 >
 
+export type Projects = ProjectSummary[]
+
+export type ProjectsQueryArg = {
+  projectType: 'brug' | 'kade'
+  districtId: number
+  fields: string[]
+}
+
+export type NearestProjectsQueryArg = {
+  address: string
+  lat: number
+  lon: number
+  radius: number
+}
+
+export type NearProject = {
+  project_id: string
+  name: string
+  meter: number
+  strides: number
+}
+
+export type NearestProjects = NearProject[]
+
 // All project details as received from our backend
 export type ProjectDetail = {
-  articles?: ProjectDetailArticlePreview[]
   body: {
     contact: Section[]
     intro: Section[]
@@ -51,19 +79,71 @@ export type ProjectDetail = {
   url: string
 }
 
-// A summary of a news article related to a project
-export type ProjectDetailArticlePreview = {
-  identifier: string
-  image: Image
-  publication_date: string
-  title: string
-  type: 'news' | 'warning'
-}
-
 // A set of project body sections, used in the front-end
 export type ProjectDetailBody = {
   headerTitle: string
   sections: Section[]
   timeline?: Timeline
   title: string
+}
+
+export type ProjectIdQueryArg = {
+  id: string
+}
+
+export type ProjectIdsQueryArg = {
+  projectIds: string[]
+}
+
+export type ProjectManagerResponse = {
+  identifier: string
+  email: string
+  projects: string[]
+}
+
+// An app user creates an initial warning
+export type NewProjectWarning = {
+  title: string
+  body: {
+    content: string
+    preface: string
+  }
+  project_identifier: string
+  project_manager_id: string
+}
+
+export type ProjectWarningImageSources = {
+  image_id: string
+  mime_type: string
+  width: number
+  height: number
+}[]
+
+export type ProjectWarningImage = {
+  main: boolean
+  aspect_ratio: number
+  description: string
+  coordinates: {
+    lon: number
+    lat: number
+  }
+  landscape: boolean
+  sources: ProjectWarningImageSources
+}
+
+// Our backend adds a number of fields
+export type ProjectWarning = NewProjectWarning & {
+  author_email: string
+  identifier: string
+  images?: ProjectWarningImage[]
+  modification_date?: string
+  publication_date: string
+}
+
+export type ProjectWarningIdQueryArg = {
+  id: string
+}
+
+export type ProjectWarningResponse = {
+  warning_identifier: string
 }

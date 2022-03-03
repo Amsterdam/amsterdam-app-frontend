@@ -10,9 +10,9 @@ type Props = {
 
 type Step = {
   description: string
-  isComplete: Boolean
-  isCurrent: Boolean
-  isLast: Boolean
+  isComplete: boolean
+  isCurrent: boolean
+  isLast: boolean
   label: string
 }
 

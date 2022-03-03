@@ -18,3 +18,12 @@ export type ImageSource = {
   size?: string
   url: string
 }
+
+export type ProjectWarningImageQueryArg = {
+  project_warning_id: string
+  image: {
+    main: boolean
+    description: string
+    data: string
+  }
+}

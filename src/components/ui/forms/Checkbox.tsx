@@ -7,11 +7,12 @@ import {
   View,
 } from 'react-native'
 import {color} from '../../../tokens'
-import {SkipInScreenReader} from '../SkipInScreenReader'
-import {Row, Stretch} from '../layout'
+import {FormField} from '../forms'
+import {MainAxisPosition} from '../layout/types'
 
 type Props = {
   label: ReactNode
+  labelPosition?: MainAxisPosition
   onValueChange: () => void
   value: boolean
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
@@ -19,6 +20,7 @@ type Props = {
 export const Checkbox = ({
   accessibilityLabel,
   label,
+  labelPosition = 'end',
   onValueChange,
   value,
 }: Props) => {
@@ -29,14 +31,11 @@ export const Checkbox = ({
       accessibilityState={{selected: value}}
       onPress={onValueChange}
       underlayColor={color.background.white}>
-      <Row align="between" gutter="md" valign="center">
+      <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
           {value && <Checkmark fill={color.font.inverse} />}
         </View>
-        <Stretch>
-          <SkipInScreenReader>{label}</SkipInScreenReader>
-        </Stretch>
-      </Row>
+      </FormField>
     </TouchableHighlight>
   )
 }
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: color.control.default.border,
     backgroundColor: color.control.default.background,
-    flex: 0,
   },
   checked: {
     backgroundColor: color.control.checked.background,

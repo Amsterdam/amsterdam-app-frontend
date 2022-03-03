@@ -1,8 +1,6 @@
 import React, {Fragment, useContext, useState} from 'react'
-import {getEnvironment} from '../../../../environment'
-import {useFetch} from '../../../../hooks'
 import {SettingsContext} from '../../../../providers/settings.provider'
-import {ProjectTitles} from '../../../../types'
+import {useGetProjectsQuery} from '../../../../services'
 import {accessibleText} from '../../../../utils'
 import {Box, Button, Divider, PleaseWait, TextButton} from '../../../ui'
 import {Checkbox, Switch} from '../../../ui/forms'
@@ -22,14 +20,10 @@ export const SubscribableProjectsSettingsSection = ({
   const {changeSettings, settings} = useContext(SettingsContext)
   const notifications = settings?.notifications
 
-  const {data: projectTitles, isLoading} = useFetch<ProjectTitles[]>({
-    url: getEnvironment().apiUrl + '/projects',
-    options: {
-      params: {
-        fields: 'identifier,subtitle,title',
-      },
-    },
-  })
+  const {data: projectTitles, isLoading: isProjectsLoading} =
+    useGetProjectsQuery({
+      fields: ['identifier', 'subtitle', 'title'],
+    })
 
   const cancelEditing = () => {
     setSelectedProjects([])
@@ -70,101 +64,97 @@ export const SubscribableProjectsSettingsSection = ({
       })
   }
 
-  return (
-    <>
-      {isLoading ? (
-        <PleaseWait />
-      ) : (
-        <Column gutter="md">
-          <SettingsSection title="Bouwprojecten">
-            {subscribableProjectIds.map((projectId, index) => {
-              const project = projectTitles?.find(
-                p => p.identifier === projectId,
-              )
-              const subscribed = notifications?.projects?.[projectId] ?? false
+  if (isProjectsLoading) {
+    return <PleaseWait />
+  }
 
-              return (
-                project && (
-                  <Fragment key={project.identifier}>
-                    <Box insetVertical="sm">
-                      {isEditing ? (
-                        <Checkbox
-                          accessibilityLabel={accessibleText(
-                            project.title,
-                            project.subtitle ?? undefined,
-                          )}
-                          label={
-                            <ProjectTitle
-                              title={project.title}
-                              subtitle={project.subtitle ?? undefined}
-                            />
-                          }
-                          onValueChange={() =>
-                            toggleProjectSelection(project.identifier)
-                          }
-                          value={selectedProjects.includes(project.identifier)}
-                        />
-                      ) : (
-                        <Switch
-                          accessibilityLabel={accessibleText(
-                            project.title,
-                            project.subtitle ?? undefined,
-                          )}
-                          label={
-                            <ProjectTitle
-                              title={project.title}
-                              subtitle={project.subtitle ?? undefined}
-                            />
-                          }
-                          onValueChange={() =>
-                            toggleProjectSubscription(
-                              project.identifier,
-                              !subscribed,
-                            )
-                          }
-                          value={subscribed}
-                        />
+  return (
+    <Column gutter="md">
+      <SettingsSection title="Bouwprojecten">
+        {subscribableProjectIds.map((projectId, index) => {
+          const project = projectTitles?.find(p => p.identifier === projectId)
+          const subscribed = notifications?.projects?.[projectId] ?? false
+
+          return (
+            project && (
+              <Fragment key={project.identifier}>
+                <Box insetVertical="sm">
+                  {isEditing ? (
+                    <Checkbox
+                      accessibilityLabel={accessibleText(
+                        project.title,
+                        project.subtitle ?? undefined,
                       )}
-                    </Box>
-                    {index < (subscribableProjectIds.length ?? 0) - 1 && (
-                      <Divider />
-                    )}
-                  </Fragment>
-                )
-              )
-            })}
-          </SettingsSection>
-          {isEditing ? (
-            <>
-              <Box insetHorizontal="md">
-                <Button
-                  onPress={deleteProjects}
-                  text="Verwijder bouwprojecten"
-                  variant="secondary"
-                />
-              </Box>
-              <Box>
-                <Row align="center">
-                  <TextButton
-                    emphasis
-                    icon="cancel"
-                    onPress={cancelEditing}
-                    text="Annuleer"
-                  />
-                </Row>
-              </Box>
-            </>
-          ) : (
+                      label={
+                        <ProjectTitle
+                          title={project.title}
+                          subtitle={project.subtitle ?? undefined}
+                        />
+                      }
+                      onValueChange={() =>
+                        toggleProjectSelection(project.identifier)
+                      }
+                      value={selectedProjects.includes(project.identifier)}
+                    />
+                  ) : (
+                    <Switch
+                      accessibilityLabel={accessibleText(
+                        project.title,
+                        project.subtitle ?? undefined,
+                      )}
+                      label={
+                        <ProjectTitle
+                          title={project.title}
+                          subtitle={project.subtitle ?? undefined}
+                        />
+                      }
+                      onValueChange={() =>
+                        toggleProjectSubscription(
+                          project.identifier,
+                          !subscribed,
+                        )
+                      }
+                      value={subscribed}
+                    />
+                  )}
+                </Box>
+                {index < (subscribableProjectIds.length ?? 0) - 1 && (
+                  <Divider />
+                )}
+              </Fragment>
+            )
+          )
+        })}
+      </SettingsSection>
+      {isEditing ? (
+        <>
+          <Box insetHorizontal="md">
+            <Button
+              onPress={deleteProjects}
+              text="Verwijder bouwprojecten"
+              variant="secondary"
+            />
+          </Box>
+          <Box>
             <Row align="center">
               <TextButton
                 emphasis
-                onPress={() => setIsEditing(!isEditing)}
-                text="Bouwprojecten verwijderen"
+                icon="cancel"
+                onPress={cancelEditing}
+                text="Annuleer"
               />
             </Row>
-          )}
-        </Column>
+          </Box>
+        </>
+      ) : (
+        <Row align="center">
+          <TextButton
+            emphasis
+            onPress={() => setIsEditing(!isEditing)}
+            text="Bouwprojecten verwijderen"
+          />
+        </Row>
       )}
-    </>
+    </Column>
   )
 }

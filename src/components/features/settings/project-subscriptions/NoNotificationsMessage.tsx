@@ -8,7 +8,7 @@ import {Column} from '../../../ui/layout'
 
 export const NoNotificationsMessage = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'ProjectOverview'>>()
+    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
   return (
     <Box background="white">
@@ -32,7 +32,7 @@ export const NoNotificationsMessage = () => {
         </Text>
         <TextButton
           emphasis
-          onPress={() => navigation.navigate(routes.projectOverview.name)}
+          onPress={() => navigation.navigate(routes.projects.name)}
           text="Naar bouwprojecten"
         />
       </Column>

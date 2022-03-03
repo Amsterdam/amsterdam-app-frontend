@@ -2,7 +2,12 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {getEnvironment} from '../environment'
 import {RootState, selectAuthManagerToken} from '../store'
 
-const managerAuthorizedEndpoints = ['addNotification', 'addWarning']
+const managerAuthorizedEndpoints = [
+  'addNotification',
+  'addProjectWarning',
+  'addProjectWarningImage',
+  'getProjectManager',
+]
 
 export const baseApi = createApi({
   baseQuery: fetchBaseQuery({

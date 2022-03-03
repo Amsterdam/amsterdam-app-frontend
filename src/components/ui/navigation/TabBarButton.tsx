@@ -93,7 +93,7 @@ export const TabBarButton = ({
           size: 0,
         })}
         {horizontal && label !== 'Melden' && <Gutter width="sm" />}
-        <Text allowFontScaling={false} small>
+        <Text allowFontScaling={false} small touchable={isFocused}>
           {label}
         </Text>
       </View>

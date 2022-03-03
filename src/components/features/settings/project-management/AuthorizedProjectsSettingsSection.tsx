@@ -1,39 +1,43 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {Fragment, useContext, useEffect, useState} from 'react'
 import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {getEnvironment} from '../../../../environment'
-import {useFetch} from '../../../../hooks'
 import {SettingsContext} from '../../../../providers'
-import {ProjectTitles} from '../../../../types'
+import {useGetProjectsQuery} from '../../../../services'
+import {Projects} from '../../../../types'
 import {accessibleText} from '../../../../utils'
-import {Attention, Box, Divider, SingleSelectable, Text} from '../../../ui'
+import {
+  Attention,
+  Box,
+  Divider,
+  PleaseWait,
+  SingleSelectable,
+  Text,
+} from '../../../ui'
 import {ProjectTitle} from '../../project'
 
 export const AuthorizedProjectsSettingsSection = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-  const [projectTitles, setProjectTitles] = useState<
-    ProjectTitles[] | undefined
-  >()
+  const [authorizedProjects, setAuthorizedProjects] = useState<Projects>()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 
-  // Retrieve all projects to allow displaying their titles
-  const projectsApi = useFetch<ProjectTitles[]>({
-    url: getEnvironment().apiUrl + '/projects',
-    options: {
-      params: {
-        fields: 'identifier,subtitle,title',
-      },
-    },
+  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
+    fields: ['identifier', 'subtitle', 'title'],
   })
 
   useEffect(() => {
-    projectsApi.data && setProjectTitles(projectsApi.data)
-  }, [projectsApi.data])
+    if (projects && projectManagerSettings) {
+      setAuthorizedProjects(
+        projects.filter(project =>
+          projectManagerSettings.projects.includes(project.identifier),
+        ),
+      )
+    }
+  }, [projects, projectManagerSettings])
 
   // Don’t render if user is not a project manager
   if (!projectManagerSettings) {
@@ -46,17 +50,20 @@ export const AuthorizedProjectsSettingsSection = () => {
     )
   }
 
-  const authorisedProjects = projectTitles?.filter(project =>
-    projectManagerSettings?.projects.includes(project.identifier),
-  )
+  if (isProjectsLoading) {
+    return <PleaseWait />
+  }
 
-  return authorisedProjects ? (
+  if (!projects || !authorizedProjects) {
+    return null
+  }
+
+  return (
     <SettingsSection title="Je bouwprojecten">
-      {authorisedProjects.length ? (
-        authorisedProjects.map((project, index) => (
-          <>
+      {authorizedProjects.length ? (
+        authorizedProjects.map((project, index) => (
+          <Fragment key={project.identifier}>
             <SettingsLink
-              key={project.identifier}
               onPress={() =>
                 navigation.navigate(routes.projectDetail.name, {
                   id: project.identifier,
@@ -74,12 +81,12 @@ export const AuthorizedProjectsSettingsSection = () => {
                 />
               </SingleSelectable>
             </SettingsLink>
-            {index < (authorisedProjects.length ?? 0) - 1 && <Divider />}
-          </>
+            {index < (authorizedProjects.length ?? 0) - 1 && <Divider />}
+          </Fragment>
         ))
       ) : (
         <Text>Geen bouwprojecten gevonden.</Text>
       )}
     </SettingsSection>
-  ) : null
+  )
 }

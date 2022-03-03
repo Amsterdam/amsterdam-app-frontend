@@ -19,6 +19,7 @@ const baseColor = {
   },
   supplement: {
     darkgreen: '#00a03c',
+    darkergreen: '#0C8836',
     lightblue: '#009dec',
     lightgreen: '#bed200',
     orange: '#ff9100',
@@ -36,6 +37,7 @@ export const color = {
     grey: baseColor.neutral.grey1,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
+    valid: baseColor.supplement.darkergreen,
     white: baseColor.primary.white,
   },
   border: {
@@ -66,7 +68,6 @@ export const color = {
   font: {
     invalid: baseColor.support.invalid,
     inverse: baseColor.primary.white,
-    light: baseColor.neutral.grey5,
     primary: baseColor.primary.darkblue,
     regular: baseColor.primary.black,
     secondary: baseColor.neutral.grey4,

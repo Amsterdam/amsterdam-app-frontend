@@ -42,6 +42,16 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
     },
   },
+  addressInfo: {
+    name: 'AddressInfo',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
+      presentation: 'modal',
+    },
+  },
   addressForm: {
     name: 'AddressForm',
     options: {
@@ -128,14 +138,14 @@ export const routes: StackNavigationRoutes<StackParams> = {
       },
     },
   },
-  projectOverview: {
-    name: 'ProjectOverview',
+  projects: {
+    name: 'Projects',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },
-  projectOverviewByDistrict: {
-    name: 'ProjectOverviewByDistrict',
+  projectsForDistrict: {
+    name: 'ProjectsForDistrict',
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Bouwprojecten per stadsdeel" />

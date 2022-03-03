@@ -10,15 +10,13 @@ import {Settings} from '../types'
 
 const initialState = {
   changeSettings: () => {},
-  isLoading: true,
   removeSetting: () => {},
   settings: undefined,
 }
 
 type Context = {
   changeSettings: (key: keyof Settings, value: Record<string, any>) => void
-  isLoading: boolean
-  removeSetting: (key: keyof Settings) => void
+  removeSetting: (key: keyof Settings) => string | unknown
   settings: Settings | undefined
 }
 
@@ -30,13 +28,11 @@ type Props = {
 
 export const SettingsProvider = ({children}: Props) => {
   const [settings, setSettings] = useState<Settings | undefined>()
-  const [isLoading, setLoading] = useState(true)
   const asyncStorage = useAsyncStorage()
   const deviceRegistration = useDeviceRegistration(settings)
 
   const retrieveSettings = useCallback(async () => {
     if (!settings) {
-      setLoading(true)
       const data = await asyncStorage.getAllValues()
       const settingsFromStore = Object.fromEntries(data ?? [])
 
@@ -46,7 +42,6 @@ export const SettingsProvider = ({children}: Props) => {
       }
 
       setSettings(parsedSettings)
-      setLoading(false)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -54,24 +49,25 @@ export const SettingsProvider = ({children}: Props) => {
     key: keyof Settings,
     value: Record<string, any>,
   ) => {
-    setLoading(true)
     await asyncStorage.storeData(key, value)
     setSettings({
       ...settings,
       [key]: value,
     })
-    setLoading(false)
   }
 
   const removeSetting = async (key: keyof Settings) => {
-    setLoading(true)
-    await asyncStorage.removeValue(key)
+    try {
+      await asyncStorage.removeValue(key)
 
-    let copyOfSettings = {...settings}
-    delete copyOfSettings[key]
+      let copyOfSettings = {...settings}
+      delete copyOfSettings[key]
 
-    setSettings(copyOfSettings)
-    setLoading(false)
+      await setSettings(copyOfSettings)
+      return 'success'
+    } catch (e) {
+      return e
+    }
   }
 
   useEffect(() => {
@@ -80,7 +76,7 @@ export const SettingsProvider = ({children}: Props) => {
 
   useEffect(() => {
     if (settings) {
-      deviceRegistration.store()
+      deviceRegistration.register()
     }
   }, [settings]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -88,7 +84,6 @@ export const SettingsProvider = ({children}: Props) => {
     <SettingsContext.Provider
       value={{
         changeSettings,
-        isLoading,
         removeSetting,
         settings,
       }}>

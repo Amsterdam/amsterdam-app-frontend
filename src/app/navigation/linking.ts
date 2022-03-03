@@ -22,8 +22,8 @@ export const pushNotificationTypes: PushNotificationTypes = {
     route: '/news',
     routeWithPrefix: `${appPrefix}news`,
   },
-  WarningCreatedByProjectManager: {
-    id: 'WarningCreatedByProjectManager',
+  ProjectWarningCreatedByProjectManager: {
+    id: 'ProjectWarningCreatedByProjectManager',
     route: '/warning',
     routeWithPrefix: `${appPrefix}warning`,
   },

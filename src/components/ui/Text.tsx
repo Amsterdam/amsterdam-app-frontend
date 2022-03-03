@@ -8,15 +8,16 @@ import {color, font} from '../../tokens'
 
 type Props = {
   children: ReactNode
-  intro?: Boolean
-  inverse?: Boolean
-  large?: Boolean
-  link?: Boolean
-  margin?: Boolean
+  intro?: boolean
+  inverse?: boolean
+  large?: boolean
+  link?: boolean
+  margin?: boolean
   primary?: boolean
-  secondary?: Boolean
-  small?: Boolean
-  warning?: Boolean
+  secondary?: boolean
+  small?: boolean
+  touchable?: boolean
+  warning?: boolean
 } & Omit<TextRNProps, 'style'>
 
 export const Text = ({
@@ -29,6 +30,7 @@ export const Text = ({
   primary,
   secondary,
   small,
+  touchable,
   warning,
   ...otherProps
 }: Props) => {
@@ -48,6 +50,7 @@ export const Text = ({
         secondary && styles.secondary,
         small && styles.small,
         small && margin && styles.marginSmall,
+        touchable && styles.touchable,
         warning && styles.warning,
       ]}
       {...otherProps}>
@@ -99,6 +102,9 @@ const styles = StyleSheet.create({
     lineHeight: font.height.p1,
     color: color.font.regular,
     flexShrink: 1,
+  },
+  touchable: {
+    color: color.touchable.pressed,
   },
   warning: {
     color: color.font.invalid,

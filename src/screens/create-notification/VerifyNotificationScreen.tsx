@@ -1,7 +1,11 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {StyleSheet, View} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
+import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
   Box,
+  Image,
   PleaseWait,
   Preview,
   SingleSelectable,
@@ -10,51 +14,64 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
+import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {
-  Column,
-  Gutter,
-  Row,
-  ScrollView,
-  Stretch,
-} from '../../components/ui/layout'
-import {useAddNotificationMutation, useAddWarningMutation} from '../../services'
-import {DraftNotification} from '../../types'
-import {NotificationContext, NotificationStackParams} from './'
+  useAddNotificationMutation,
+  useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
+} from '../../services'
+import {image as imageToken} from '../../tokens'
+import {NotificationQueryArg} from '../../types'
+import {
+  selectMainImage,
+  selectMainImageDescription,
+  selectNewsArticle,
+  selectNotification,
+  selectProject,
+  selectProjectWarning,
+  setResponseStatus,
+  setStep,
+} from './notificationDraftSlice'
+import {NotificationStackParams} from './'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
-  const notificationContext = useContext(NotificationContext)
-  const {
-    changeResponseStatus,
-    newsDetails,
-    notification,
-    projectDetails,
-    warning,
-  } = notificationContext
+  const dispatch = useDispatch()
+  const mainImage = useSelector(selectMainImage)
+  const mainImageDescription = useSelector(selectMainImageDescription)
+  const newsArticle = useSelector(selectNewsArticle)
+  const notification = useSelector(selectNotification)
+  const project = useSelector(selectProject)
+  const projectWarning = useSelector(selectProjectWarning)
   const [isWarningSent, setWarningSent] = useState(false)
+
   const [
     addWarning,
     {
-      data: addWarningResponse,
+      data: addWarningData,
       isError: addWarningIsError,
       isLoading: addWarningIsLoading,
     },
-  ] = useAddWarningMutation()
+  ] = useAddProjectWarningMutation()
+
+  const [addProjectWarningImage, {isError: addProjectWarningImageIsError}] =
+    useAddProjectWarningImageMutation()
+
   const [
     addNotification,
     {
-      data: addNotificationResponse,
+      data: addNotificationData,
       error: addNotificationIsError,
       isLoading: addNotificationIsLoading,
     },
   ] = useAddNotificationMutation()
 
   const sendWarningToBackend = async () => {
-    if (warning) {
-      await addWarning(warning)
+    if (projectWarning) {
+      await addWarning(projectWarning)
       setWarningSent(true)
     }
   }
@@ -62,7 +79,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   const sendNotificationToBackend = useCallback(
     (
       articleIdentifier: Pick<
-        DraftNotification,
+        NotificationQueryArg,
         'news_identifier' | 'warning_identifier'
       >,
     ) => {
@@ -76,64 +93,101 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 
   const handleSubmit = async () => {
-    if (newsDetails?.id) {
-      sendNotificationToBackend({news_identifier: newsDetails.id})
+    if (newsArticle?.id) {
+      sendNotificationToBackend({news_identifier: newsArticle.id})
     }
 
-    if (warning) {
+    if (projectWarning) {
       await sendWarningToBackend()
     }
   }
 
   useEffect(() => {
-    isWarningSent &&
-      addWarningResponse &&
-      sendNotificationToBackend({
-        warning_identifier: addWarningResponse.warning_identifier,
+    if (
+      addWarningData &&
+      isWarningSent &&
+      mainImage &&
+      mainImage !== 'placeholder' &&
+      mainImage.data
+    ) {
+      addProjectWarningImage({
+        project_warning_id: addWarningData.warning_identifier,
+        image: {
+          main: true,
+          description: mainImageDescription,
+          data: mainImage.data,
+        },
       })
-  }, [addWarningResponse, isWarningSent, sendNotificationToBackend])
+    }
+  }, [
+    addWarningData,
+    addProjectWarningImage,
+    isWarningSent,
+    mainImage,
+    mainImageDescription,
+  ])
+
+  useEffect(() => {
+    if (addWarningData && isWarningSent) {
+      sendNotificationToBackend({
+        warning_identifier: addWarningData.warning_identifier,
+      })
+    }
+  }, [addWarningData, isWarningSent, sendNotificationToBackend])
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      notificationContext.changeCurrentStep(3)
+      dispatch(setStep(4))
     })
     return focusListener
-  }, [navigation, notificationContext])
+  }, [dispatch, navigation])
 
   useEffect(() => {
-    if (addNotificationResponse) {
-      changeResponseStatus('success')
+    if (addNotificationData) {
+      dispatch(setResponseStatus('success'))
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, addNotificationResponse]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, navigation, addNotificationData])
 
   useEffect(() => {
-    if (addWarningIsError) {
-      changeResponseStatus('failure')
+    if (
+      addNotificationIsError ||
+      addProjectWarningImageIsError ||
+      addWarningIsError
+    ) {
+      dispatch(setResponseStatus('failure'))
       navigation.navigate('NotificationResponse')
     }
-  }, [navigation, addWarningIsError]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (addNotificationIsError) {
-      changeResponseStatus('failure')
-      navigation.navigate('NotificationResponse')
-    }
-  }, [navigation, addNotificationIsError]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    addNotificationIsError,
+    addProjectWarningImageIsError,
+    addWarningIsError,
+    dispatch,
+    navigation,
+  ])
 
   if (addWarningIsLoading || addNotificationIsLoading) {
     return <PleaseWait />
   }
 
+  const image =
+    mainImage === 'placeholder' ? (
+      <View style={styles.placeholder}>
+        <HeroImage />
+      </View>
+    ) : (
+      <Image source={{uri: mainImage?.path}} />
+    )
+
   return (
-    <ScrollView keyboardDismiss>
-      <Stretch>
+    <ScrollView grow>
+      <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
             <Title text="Controleer" />
             <SingleSelectable>
               <Text>Project</Text>
-              <Title level={2} text={projectDetails.title} />
+              {project && <Title level={2} text={project.title} />}
             </SingleSelectable>
             {notification && (
               <>
@@ -143,33 +197,39 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
                 </Preview>
               </>
             )}
-            {newsDetails && (
+            {newsArticle && (
               <Preview label="Nieuwsartikel">
-                <Text>{newsDetails.title}</Text>
+                <Text>{newsArticle.title}</Text>
               </Preview>
             )}
-            {warning && (
-              <Preview label="Nieuwsartikel">
-                <Title level={2} text={warning.title} />
-                <Text intro>{warning.body.preface}</Text>
-                <Text>{warning.body.content}</Text>
+            {projectWarning && (
+              <Preview image={image} label="Nieuwsartikel">
+                <Title level={2} text={projectWarning.title} />
+                <Text intro>{projectWarning.body.preface}</Text>
+                <Text>{projectWarning.body.content}</Text>
               </Preview>
             )}
           </Column>
         </Box>
-      </Stretch>
-      <Box>
-        <Row align="between" valign="center">
-          <TextButton
-            direction="backward"
-            emphasis
-            onPress={navigation.goBack}
-            text="Vorige"
-          />
-          <SubmitButton onPress={handleSubmit} text="Verstuur" />
-        </Row>
-        <Gutter height="xl" />
-      </Box>
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              onPress={navigation.goBack}
+              text="Vorige"
+            />
+            <SubmitButton onPress={handleSubmit} text="Verstuur" />
+          </Row>
+          <Gutter height="xl" />
+        </Box>
+      </Column>
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  placeholder: {
+    aspectRatio: imageToken.aspectRatio.wide,
+  },
+})
