@@ -22,13 +22,21 @@ export const Address = () => {
   const {address} = {...settings}
   const {changeContent, changeVariant} = useContext(AlertContext)
 
-  const removeAddressAndShowAlert = () => {
-    removeSetting('address')
-    changeContent({
-      title: 'Gelukt',
-      text: 'Het adres is verwijderd uit uw profiel.',
-    })
-    changeVariant('success')
+  const removeAddressAndShowAlert = async () => {
+    const response = await removeSetting('address')
+    if (response === 'success') {
+      changeContent({
+        title: 'Gelukt',
+        text: 'Het adres is verwijderd uit uw profiel.',
+      })
+      changeVariant('success')
+    } else {
+      changeContent({
+        title: 'Niet gelukt',
+        text: 'Uw adres is niet opgeslagen',
+      })
+      changeVariant('failure')
+    }
   }
 
   return (

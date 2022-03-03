@@ -16,7 +16,7 @@ const initialState = {
 
 type Context = {
   changeSettings: (key: keyof Settings, value: Record<string, any>) => void
-  removeSetting: (key: keyof Settings) => void
+  removeSetting: (key: keyof Settings) => string | unknown
   settings: Settings | undefined
 }
 
@@ -57,12 +57,17 @@ export const SettingsProvider = ({children}: Props) => {
   }
 
   const removeSetting = async (key: keyof Settings) => {
-    await asyncStorage.removeValue(key)
+    try {
+      await asyncStorage.removeValue(key)
 
-    let copyOfSettings = {...settings}
-    delete copyOfSettings[key]
+      let copyOfSettings = {...settings}
+      delete copyOfSettings[key]
 
-    setSettings(copyOfSettings)
+      await setSettings(copyOfSettings)
+      return 'success'
+    } catch (e) {
+      return e
+    }
   }
 
   useEffect(() => {
