@@ -112,11 +112,30 @@ export type NewProjectWarning = {
   project_manager_id: string
 }
 
+export type ProjectWarningImageSources = {
+  image_id: string
+  mime_type: string
+  width: number
+  height: number
+}[]
+
+export type ProjectWarningImage = {
+  main: boolean
+  aspect_ratio: number
+  description: string
+  coordinates: {
+    lon: number
+    lat: number
+  }
+  landscape: boolean
+  sources: ProjectWarningImageSources
+}
+
 // Our backend adds a number of fields
 export type ProjectWarning = NewProjectWarning & {
   author_email: string
   identifier: string
-  images?: Image[]
+  images?: ProjectWarningImage[]
   modification_date?: string
   publication_date: string
 }
