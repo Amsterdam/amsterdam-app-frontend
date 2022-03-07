@@ -3,7 +3,7 @@ import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {image as imageTokens} from '../../../tokens'
 import {ArticleSummary, ImageSources} from '../../../types'
-import {mapImageSources} from '../../../utils'
+import {mapImageSources, mapWarningImageSources} from '../../../utils'
 import {Card, CardBody, Image, Text} from '../../ui'
 import {Row} from '../../ui/layout'
 
@@ -13,8 +13,18 @@ type Props = {
 }
 
 export const ArticlePreview = ({article, onPress}: Props) => {
-  const imageSources = article.image?.sources ?? ({} as ImageSources)
-  const hasImage = Object.keys(imageSources).length
+  const getImageSources = () => {
+    if (article.type === 'news') {
+      const imageSources = article.image?.sources ?? ({} as ImageSources)
+      return mapImageSources(imageSources)
+    }
+    const mainImageFromProjectWarning = article?.images?.find(
+      image => image.main,
+    )
+    return mapWarningImageSources(mainImageFromProjectWarning?.sources)
+  }
+
+  const imageSources = getImageSources()
 
   return (
     <TouchableHighlight
@@ -24,13 +34,9 @@ export const ArticlePreview = ({article, onPress}: Props) => {
       <Card>
         <CardBody>
           <Row gutter="md">
-            {hasImage ? (
-              <Image
-                source={mapImageSources(imageSources)}
-                style={styles.image}
-              />
-            ) : null}
-            {article.type === 'warning' && (
+            {imageSources ? (
+              <Image source={imageSources} style={styles.image} />
+            ) : (
               <View style={styles.image}>
                 <HeroImage />
               </View>
