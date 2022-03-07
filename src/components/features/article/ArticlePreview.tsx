@@ -15,7 +15,7 @@ type Props = {
 export const ArticlePreview = ({article, onPress}: Props) => {
   const getImageSources = () => {
     if (article.type === 'news') {
-      const imageSources = article.image?.sources ?? ({} as ImageSources)
+      const imageSources = article.image?.sources
       return mapImageSources(imageSources)
     }
     const mainImageFromProjectWarning = article?.images?.find(
@@ -34,7 +34,7 @@ export const ArticlePreview = ({article, onPress}: Props) => {
       <Card>
         <CardBody>
           <Row gutter="md">
-            {imageSources ? (
+            {imageSources && Object.keys(imageSources[0]).length ? (
               <Image source={imageSources} style={styles.image} />
             ) : (
               <View style={styles.image}>
