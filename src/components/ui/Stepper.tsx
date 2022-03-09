@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {color, font} from '../../tokens'
-import {Text, Title} from './index'
+import {SingleSelectable, Text, Title} from './index'
 
 type Props = {
   current?: number
@@ -30,7 +30,11 @@ export const Stepper = ({current = 1, length}: Props) => {
   })
 
   return (
-    <View style={styles.stepper}>
+    <SingleSelectable
+      accessibilityLabel=""
+      accessibilityRole="progressbar"
+      accessibilityValue={{text: steps[current - 1].description}}
+      style={styles.stepper}>
       {steps.map(step => (
         <View
           key={`step-${step.label}`}
@@ -57,7 +61,7 @@ export const Stepper = ({current = 1, length}: Props) => {
           )}
         </View>
       ))}
-    </View>
+    </SingleSelectable>
   )
 }
 
