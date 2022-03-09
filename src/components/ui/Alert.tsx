@@ -4,8 +4,9 @@ import {Platform, StyleSheet, UIManager, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {AlertContext} from '../../providers'
 import {color, size} from '../../tokens'
+import {accessibleText} from '../../utils'
 import {Row} from './layout'
-import {Text, Title} from '.'
+import {SingleSelectable, Text, Title} from '.'
 
 if (
   Platform.OS === 'android' &&
@@ -18,38 +19,42 @@ export const Alert = () => {
   const {changeVisibility, content, isVisible, variant} =
     useContext(AlertContext)
 
-  const styles = StyleSheet.create({
+  const dynamicStyles = StyleSheet.create({
     alert: {
       backgroundColor:
         variant === 'success' ? color.background.valid : color.status.error,
     },
-    inner: {
-      padding: size.spacing.md,
-    },
-    icon: {
-      width: 24,
-      aspectRatio: 1,
-    },
   })
 
+  if (!isVisible) {
+    return null
+  }
+
   return (
-    <>
-      {isVisible ? (
-        <View style={[styles.alert]}>
-          <View style={styles.inner}>
-            <Row align="between">
-              <Title level={4} inverse text={content?.title!} />
-              <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityHint="sluit melding"
-                onPress={() => changeVisibility(false)}>
-                <Close fill="white" style={styles.icon} />
-              </TouchableOpacity>
-            </Row>
-            <Text inverse>{content?.text}</Text>
-          </View>
-        </View>
-      ) : null}
-    </>
+    <View style={[styles.alert, dynamicStyles.alert]}>
+      <Row align="between">
+        <SingleSelectable
+          accessibilityLabel={accessibleText(content?.title, content?.text)}>
+          <Title inverse level={4} text={content?.title!} />
+          <Text inverse>{content?.text}</Text>
+        </SingleSelectable>
+        <TouchableOpacity
+          accessibilityHint="Sluit melding"
+          accessibilityRole="button"
+          onPress={() => changeVisibility(false)}>
+          <Close fill="white" style={styles.icon} />
+        </TouchableOpacity>
+      </Row>
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+  alert: {
+    padding: size.spacing.md,
+  },
+  icon: {
+    width: 24,
+    aspectRatio: 1,
+  },
+})
