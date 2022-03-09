@@ -1,8 +1,9 @@
-import {Image, ListQueryArg} from '.'
+import {Image, ListQueryArg, ProjectWarningImage} from '.'
 
 export type ArticleSummary = {
   identifier: string
-  image: Image | null
+  image?: Image | null
+  images?: ProjectWarningImage[]
   publication_date: string
   title: string
   type: 'news' | 'warning'
