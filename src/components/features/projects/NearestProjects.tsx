@@ -11,6 +11,7 @@ import {DeviceContext, SettingsContext} from '../../../providers'
 import {useGetNearestProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {color, size} from '../../../tokens'
+import {mapImageSources} from '../../../utils'
 import {Box, PleaseWait, Text, Title, Trait} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 import {Address} from '../address'
@@ -64,9 +65,10 @@ export const NearestProjects = () => {
         data={projects}
         itemContainerStyle={styles.alignment}
         itemDimension={itemDimension}
-        keyExtractor={project => project.project_id}
+        keyExtractor={project => project.identifier}
         renderItem={({item: project}) => (
           <ProjectCard
+            imageSource={mapImageSources(project.images[0].sources)}
             kicker={
               <Row gutter="xs">
                 <Trait
@@ -81,11 +83,12 @@ export const NearestProjects = () => {
             }
             onPress={() =>
               navigation.navigate(routes.projectDetail.name, {
-                id: project.project_id,
+                id: project.identifier,
               })
             }
             style={layoutStyles.grow}
-            title={project.name}
+            title={project.title}
+            subtitle={project.subtitle ?? undefined}
           />
         )}
         spacing={size.spacing.sm}
