@@ -137,12 +137,17 @@ export const SelectMainImageScreen = ({navigation}: Props) => {
                   <Text secondary>
                     Mensen onherkenbaar in beeld i.v.m. portretrecht.
                   </Text>
-                  <AddButton onPress={pickImage} />
+                  <AddButton
+                    accessibilityLabel="Upload een foto"
+                    onPress={pickImage}
+                  />
                 </Column>
               </View>
               <Column gutter="sm">
                 <Title level={4} text="Of kies de standaard afbeelding" />
                 <TouchableOpacity
+                  accessibilityLabel="Kies de standaard afbeelding"
+                  accessibilityRole="button"
                   onPress={selectPlaceholder}
                   style={styles.button}>
                   <HeroImage />

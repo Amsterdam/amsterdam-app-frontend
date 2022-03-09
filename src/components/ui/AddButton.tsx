@@ -9,7 +9,10 @@ type Props<T extends ElementType> = ComponentProps<T>
 
 export const AddButton = <T extends ElementType>(props: Props<T>) => {
   return (
-    <TouchableOpacity style={styles.button} {...props}>
+    <TouchableOpacity
+      accessibilityRole="button"
+      style={styles.button}
+      {...props}>
       <View style={styles.iconWrapper}>
         <Enlarge style={styles.icon} />
       </View>

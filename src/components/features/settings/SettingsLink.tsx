@@ -12,7 +12,7 @@ type Props = {
 
 export const SettingsLink = ({children, onPress}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity accessibilityRole="button" onPress={onPress}>
       <Box insetVertical="sm">
         <Row align="between" gutter="md" valign="center">
           {children}
