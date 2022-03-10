@@ -3,16 +3,20 @@ import {Section, Timeline} from './'
 
 // An item in a project list as received from our backend
 export type Project = {
+  active: boolean
   content_html: string
   content_text: string
   district_id: number
   district_name: string
   identifier: string
   images: Image[]
+  last_seen: string // date
+  meter?: number
   modification_date: string
   project_type: string
   publication_date: string
   source_url: string
+  strides?: number
   subtitle: string | null
   title: string
 }
@@ -43,14 +47,7 @@ export type NearestProjectsQueryArg = {
   radius: number
 }
 
-export type NearProject = {
-  project_id: string
-  name: string
-  meter: number
-  strides: number
-}
-
-export type NearestProjects = NearProject[]
+export type NearestProjects = Project[]
 
 // All project details as received from our backend
 export type ProjectDetail = {
