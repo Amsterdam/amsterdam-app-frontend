@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {color, font} from '../../tokens'
-import {SingleSelectable, Text, Title} from './index'
+import {Circle, SingleSelectable} from './index'
 
 type Props = {
   current?: number
@@ -39,18 +39,17 @@ export const Stepper = ({current = 1, length}: Props) => {
         <View
           key={`step-${step.label}`}
           style={[styles.step, step.isLast && styles.stepLast]}>
-          <View
-            style={[
-              styles.circle,
-              step.isComplete && styles.circleComplete,
-              step.isCurrent && styles.circleCurrent,
-            ]}>
-            {step.isCurrent ? (
-              <Title level={3} inverse text={step.label} />
-            ) : (
-              <Text inverse>{step.label}</Text>
-            )}
-          </View>
+          <Circle
+            background={
+              step.isComplete
+                ? color.background.emphasis
+                : color.background.inactive
+            }
+            fontSize={step.isCurrent ? font.size.h3 : undefined}
+            label={step.label}
+            size={step.isCurrent ? 32 : 24}
+            style={{alignSelf: 'center'}}
+          />
           {!step.isLast && (
             <View
               style={[
@@ -65,29 +64,7 @@ export const Stepper = ({current = 1, length}: Props) => {
   )
 }
 
-const circleSize = font.height.p1
-const currentCircleSize = 30
-
 const styles = StyleSheet.create({
-  circle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: circleSize,
-    height: circleSize,
-    backgroundColor: color.background.inactive,
-    borderRadius: 10,
-    paddingLeft: 1, // Imrpove centering
-  },
-  circleComplete: {
-    backgroundColor: color.background.emphasis,
-  },
-  circleCurrent: {
-    width: currentCircleSize,
-    height: currentCircleSize,
-    borderRadius: currentCircleSize / 2,
-    paddingLeft: 0,
-  },
   connector: {
     height: 4,
     flexGrow: 1,
