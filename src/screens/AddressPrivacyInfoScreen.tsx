@@ -16,7 +16,10 @@ export const AddressPrivacyInfoScreen = ({
     <ScrollView grow>
       <Box grow>
         <Row align="end">
-          <TouchableOpacity onPress={navigation.goBack}>
+          <TouchableOpacity
+            accessibilityLabel="Sluiten"
+            accessibilityRole="button"
+            onPress={navigation.goBack}>
             <Close fill={color.font.regular} height={20} width={20} />
           </TouchableOpacity>
         </Row>

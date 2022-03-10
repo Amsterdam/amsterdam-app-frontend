@@ -23,7 +23,10 @@ export const ImagePreviewTouchable = ({image, onPress}: Props) => {
         <Image source={{uri: image.path}} />
       )}
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity onPress={onPress} style={styles.button}>
+        <TouchableOpacity
+          accessibilityRole="button"
+          onPress={onPress}
+          style={styles.button}>
           <TrashBin style={styles.icon} />
         </TouchableOpacity>
       </View>
