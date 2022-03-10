@@ -6,6 +6,7 @@ import {
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {Gutter} from '../../components/ui/layout'
 import {color} from '../../tokens'
@@ -21,6 +22,7 @@ import {
   SelectMainImageScreen,
   SelectNewsArticleScreen,
   VerifyNotificationScreen,
+  WritingGuideScreen,
 } from './'
 
 type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
@@ -32,6 +34,7 @@ export type NotificationStackParams = {
   SelectNewsArticle: undefined
   SelectMainImage: undefined
   VerifyNotification: undefined
+  WritingGuide: undefined
 }
 
 type Props = {
@@ -98,6 +101,11 @@ export const CreateNotificationScreen = ({route}: Props) => {
               backgroundColor: color.background.app,
             },
           }}
+        />
+        <Stack.Screen
+          component={WritingGuideScreen}
+          name={routes.writingGuide.name}
+          options={routes.writingGuide.options}
         />
       </Stack.Navigator>
       <Gutter height="xl" />

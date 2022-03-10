@@ -2,11 +2,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
+import {routes} from '../../app/navigation/routes'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, SubmitButton, TextButton, Title} from '../../components/ui'
+import {Box, Button, SubmitButton, TextButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
@@ -104,6 +105,15 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         <Box>
           <Column gutter="lg">
             <Title text="Schrijf een nieuwsartikel" />
+            <Column gutter="sm">
+              <Title level={4} text="Schrijftips voor een nieuwsartikel" />
+              <Row align="start">
+                <Button
+                  onPress={() => navigation.navigate(routes.writingGuide.name)}
+                  text="Toon schrijftips"
+                />
+              </Row>
+            </Column>
             <>
               <Column gutter="xs">
                 <Controller
