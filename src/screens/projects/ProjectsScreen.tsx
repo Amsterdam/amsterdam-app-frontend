@@ -30,6 +30,8 @@ const screenOptions: MaterialTopTabNavigationOptions = {
   },
 }
 
+const tabLabels = {nearestProjects: 'In de buurt', projects: 'Per stadsdeel'}
+
 export const ProjectsScreen = () => {
   const device = useContext(DeviceContext)
 
@@ -37,8 +39,16 @@ export const ProjectsScreen = () => {
     <Tab.Navigator
       initialLayout={{width: device.width}}
       screenOptions={screenOptions}>
-      <Tab.Screen name="In de buurt" component={NearestProjects} />
-      <Tab.Screen name="Per stadsdeel" component={Projects} />
+      <Tab.Screen
+        component={NearestProjects}
+        name={tabLabels.nearestProjects}
+        options={{tabBarAccessibilityLabel: tabLabels.nearestProjects}}
+      />
+      <Tab.Screen
+        component={Projects}
+        name={tabLabels.projects}
+        options={{tabBarAccessibilityLabel: tabLabels.projects}}
+      />
     </Tab.Navigator>
   )
 }
