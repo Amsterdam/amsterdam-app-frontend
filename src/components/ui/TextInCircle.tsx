@@ -1,21 +1,18 @@
 import React, {useContext} from 'react'
-import {StyleProp, ViewStyle} from 'react-native'
 import {Circle as SvgCircle, Svg, Text as SvgText} from 'react-native-svg'
 import {DeviceContext} from '../../providers'
 import {color, font} from '../../tokens'
 
 type Props = {
-  background?: string
+  backgroundColor?: string
   fontSize?: number
   label: string
-  style?: StyleProp<ViewStyle>
 }
 
 export const TextInCircle = ({
-  background = color.background.emphasis,
+  backgroundColor = color.background.emphasis,
   fontSize = font.size.p1,
   label,
-  style,
 }: Props) => {
   const {fontScale} = useContext(DeviceContext)
   const scaledFontSize = fontSize * fontScale
@@ -25,13 +22,12 @@ export const TextInCircle = ({
   return (
     <Svg
       height={scaledSvgSize}
-      style={style}
       viewBox={`0 0 ${scaledSvgSize} ${scaledSvgSize}`}
       width={scaledSvgSize}>
       <SvgCircle
         cx={scaledSvgSize / 2}
         cy={scaledSvgSize / 2}
-        fill={background}
+        fill={backgroundColor}
         r={scaledSvgSize / 2}
       />
       <SvgText

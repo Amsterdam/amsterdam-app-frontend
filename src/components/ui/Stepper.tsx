@@ -40,14 +40,13 @@ export const Stepper = ({current = 1, length}: Props) => {
           key={`step-${step.label}`}
           style={[styles.step, step.isLast && styles.stepLast]}>
           <TextInCircle
-            background={
+            backgroundColor={
               step.isComplete
                 ? color.background.emphasis
                 : color.background.inactive
             }
             fontSize={step.isCurrent ? font.size.h3 : undefined}
             label={step.label}
-            style={{alignSelf: 'center'}}
           />
           {!step.isLast && (
             <View
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
   step: {
     flexDirection: 'row',
     flexGrow: 1,
+    alignItems: 'center',
   },
   stepLast: {
     flexGrow: 0,
