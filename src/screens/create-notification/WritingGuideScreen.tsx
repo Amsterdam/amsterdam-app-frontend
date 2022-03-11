@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native'
 import {
   Box,
   Button,
+  SingleSelectable,
   Text,
   TextInCircle,
   Title,
@@ -13,6 +14,7 @@ import {
 } from '../../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
 import {color, font} from '../../tokens'
+import {accessibleText} from '../../utils'
 import {NotificationStackParams} from './CreateNotificationScreen'
 
 type Props = {
@@ -31,10 +33,12 @@ const tips = [
 ]
 
 const renderTip = ({index, text}: ZebraListItemProps) => (
-  <Row gutter="md" valign="center">
-    <TextInCircle fontSize={font.size.h3} label={index.toString()} />
-    <Text>{text}</Text>
-  </Row>
+  <SingleSelectable label={accessibleText(index.toString(), text)}>
+    <Row gutter="md" valign="center">
+      <TextInCircle fontSize={font.size.h3} label={index.toString()} />
+      <Text>{text}</Text>
+    </Row>
+  </SingleSelectable>
 )
 
 export const WritingGuideScreen = ({navigation}: Props) => (
