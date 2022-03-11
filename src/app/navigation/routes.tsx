@@ -141,6 +141,9 @@ export const routes: StackNavigationRoutes<StackParams> = {
   projects: {
     name: 'Projects',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },

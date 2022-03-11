@@ -35,7 +35,7 @@ export const ProjectCard = ({
     accessibilityLabel={accessibleText(title, subtitle)}
     onPress={onPress}
     style={[style, {width}]}>
-    <Card>
+    <Card border>
       {imageSource && <Image source={imageSource} style={styles.image} />}
       <CardBody>
         {kicker}
