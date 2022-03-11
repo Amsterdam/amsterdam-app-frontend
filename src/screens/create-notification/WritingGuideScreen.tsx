@@ -5,8 +5,8 @@ import {TouchableOpacity} from 'react-native'
 import {
   Box,
   Button,
-  Circle,
   Text,
+  TextInCircle,
   Title,
   ZebraList,
   ZebraListItemProps,
@@ -32,7 +32,7 @@ const tips = [
 
 const renderTip = ({index, text}: ZebraListItemProps) => (
   <Row gutter="md">
-    <Circle fontSize={font.size.h3} label={index.toString()} />
+    <TextInCircle fontSize={font.size.h3} label={index.toString()} />
     <Text>{text}</Text>
   </Row>
 )

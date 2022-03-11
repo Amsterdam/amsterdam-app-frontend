@@ -11,7 +11,7 @@ type Props = {
   style?: StyleProp<ViewStyle>
 }
 
-export const Circle = ({
+export const TextInCircle = ({
   background = color.background.emphasis,
   fontSize = font.size.p1,
   label,

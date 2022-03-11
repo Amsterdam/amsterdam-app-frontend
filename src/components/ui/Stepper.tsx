@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {color, font} from '../../tokens'
-import {Circle, SingleSelectable} from './index'
+import {SingleSelectable, TextInCircle} from './index'
 
 type Props = {
   current?: number
@@ -39,7 +39,7 @@ export const Stepper = ({current = 1, length}: Props) => {
         <View
           key={`step-${step.label}`}
           style={[styles.step, step.isLast && styles.stepLast]}>
-          <Circle
+          <TextInCircle
             background={
               step.isComplete
                 ? color.background.emphasis
