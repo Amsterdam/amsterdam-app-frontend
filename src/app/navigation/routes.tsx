@@ -144,14 +144,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },
   },
-  projectsForDistrict: {
-    name: 'ProjectsForDistrict',
-    options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Bouwprojecten per stadsdeel" />
-      ),
-    },
-  },
   projectWarning: {
     name: 'ProjectWarning',
   },

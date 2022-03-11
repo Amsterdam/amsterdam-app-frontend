@@ -7,8 +7,8 @@ import {routes} from '../../../app/navigation/routes'
 import {useGetDistrictsQuery, useGetProjectsQuery} from '../../../services'
 import {size} from '../../../tokens'
 import {mapImageSources} from '../../../utils'
-import {Box, Button, PleaseWait, Text, Title} from '../../ui'
-import {Column, Gutter, Row} from '../../ui/layout'
+import {Box, PleaseWait, Text, Title} from '../../ui'
+import {Column, Gutter} from '../../ui/layout'
 import {ProjectCard} from '../project'
 
 export const Projects = () => {
@@ -60,18 +60,7 @@ export const Projects = () => {
         return districtItem.data && districtItem.data.length > 0 ? (
           <Column gutter="sm" key={districtItem.id}>
             <View style={styles.titleRow}>
-              <Row align="between" valign="center">
-                <Title level={2} text={districtItem.title} />
-                <Button
-                  onPress={() =>
-                    navigation.navigate(routes.projectsForDistrict.name, {
-                      id: districtItem.id,
-                    })
-                  }
-                  variant="text"
-                  text="Ga naar overzicht"
-                />
-              </Row>
+              <Title level={2} text={districtItem.title} />
             </View>
             <FlatList
               data={districtItem.data}
