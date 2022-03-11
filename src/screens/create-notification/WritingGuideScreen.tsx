@@ -32,7 +32,7 @@ const tips = [
 
 const renderTip = ({index, text}: ZebraListItemProps) => (
   <Row gutter="md">
-    <Circle fontSize={font.size.h3} size={32} label={index.toString()} />
+    <Circle fontSize={font.size.h3} label={index.toString()} />
     <Text>{text}</Text>
   </Row>
 )

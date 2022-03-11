@@ -8,7 +8,6 @@ type Props = {
   background?: string
   fontSize?: number
   label: string
-  size?: number
   style?: StyleProp<ViewStyle>
 }
 
@@ -16,20 +15,19 @@ export const Circle = ({
   background = color.background.emphasis,
   fontSize = font.size.p1,
   label,
-  size = font.size.h3 * 2,
   style,
 }: Props) => {
   const {fontScale} = useContext(DeviceContext)
-  const scaledSvgSize = size * fontScale
   const scaledFontSize = fontSize * fontScale
-  const scaledBaseline = size * 1.4 * fontScale
+  const scaledSvgSize = 1.5 * scaledFontSize // The size of the circle depends on the font size
+  const scaledBaselineOffset = (35 / 32) * scaledFontSize // Should be (5 / 4) but this magic number works better
 
   return (
     <Svg
       height={scaledSvgSize}
+      style={style}
       viewBox={`0 0 ${scaledSvgSize} ${scaledSvgSize}`}
-      width={scaledSvgSize}
-      style={style}>
+      width={scaledSvgSize}>
       <SvgCircle
         cx={scaledSvgSize / 2}
         cy={scaledSvgSize / 2}
@@ -43,7 +41,7 @@ export const Circle = ({
         fontWeight="500"
         textAnchor="middle"
         x={scaledSvgSize / 2}
-        y={scaledBaseline / 2}>
+        y={scaledBaselineOffset}>
         {label}
       </SvgText>
     </Svg>

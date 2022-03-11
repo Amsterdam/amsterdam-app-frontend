@@ -47,7 +47,6 @@ export const Stepper = ({current = 1, length}: Props) => {
             }
             fontSize={step.isCurrent ? font.size.h3 : undefined}
             label={step.label}
-            size={step.isCurrent ? 32 : 24}
             style={{alignSelf: 'center'}}
           />
           {!step.isLast && (
