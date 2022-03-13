@@ -14,10 +14,10 @@ export const useAsyncStorage = () => {
     }
   }
 
-  const getValue = async (key: string) => {
+  const getValue = async <T>(key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
-      const obj = jsonValue != null ? JSON.parse(jsonValue) : undefined
+      const obj: T = jsonValue != null ? JSON.parse(jsonValue) : undefined
       return obj
     } catch (e) {
       setError(e)
