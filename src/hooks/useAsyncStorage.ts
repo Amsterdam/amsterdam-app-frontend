@@ -27,8 +27,10 @@ export const useAsyncStorage = () => {
   const removeValue = async (key: string) => {
     try {
       await AsyncStorage.removeItem(key)
+      return 'success'
     } catch (e) {
       setError(e)
+      return 'failure'
     }
   }
 
