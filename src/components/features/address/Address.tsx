@@ -1,10 +1,12 @@
-import {useNavigation} from '@react-navigation/native'
+import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
+import {useAsyncStorage} from '../../../hooks'
 import {AlertContext, SettingsContext} from '../../../providers'
+import {Address as Addresstype} from '../../../types'
 import {
   Button,
   Card,
@@ -18,9 +20,17 @@ import {Column, Gutter, Row} from '../../ui/layout'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const {removeSetting, settings} = useContext(SettingsContext)
-  const {address} = {...settings}
+  const {removeSetting} = useContext(SettingsContext)
+  const asyncStorage = useAsyncStorage()
+  const [address, setAddress] = useState<Addresstype | undefined>()
+
   const {changeContent, changeVariant} = useContext(AlertContext)
+
+  useFocusEffect(() => {
+    asyncStorage
+      .getValue<Addresstype>('address')
+      .then(storedAddress => setAddress(storedAddress))
+  })
 
   const removeAddressAndShowAlert = async () => {
     const response = await removeSetting('address')

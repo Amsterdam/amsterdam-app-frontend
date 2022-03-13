@@ -1,18 +1,25 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
 import {getEnvironment} from '../../environment'
-import {SettingsContext} from '../../providers'
+import {useAsyncStorage} from '../../hooks'
+import {Address} from '../../types'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'WebView'>
 }
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
-  const {settings} = useContext(SettingsContext)
-  const {address} = {...settings}
+  const asyncStorage = useAsyncStorage()
+  const [address, setAddress] = useState<Address | undefined>()
+
+  useEffect(() => {
+    asyncStorage
+      .getValue<Address>('address')
+      .then(storedAddress => setAddress(storedAddress))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <BannerCard
