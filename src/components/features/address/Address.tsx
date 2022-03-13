@@ -5,7 +5,7 @@ import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {useAsyncStorage} from '../../../hooks'
-import {AlertContext, SettingsContext} from '../../../providers'
+import {AlertContext} from '../../../providers'
 import {Address as Addresstype} from '../../../types'
 import {
   Button,
@@ -20,7 +20,6 @@ import {Column, Gutter, Row} from '../../ui/layout'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const {removeSetting} = useContext(SettingsContext)
   const asyncStorage = useAsyncStorage()
   const [address, setAddress] = useState<Addresstype | undefined>()
 
@@ -32,8 +31,12 @@ export const Address = () => {
       .then(storedAddress => setAddress(storedAddress))
   })
 
+  /**
+   * TODO move to the useAsyncStorage hook
+   * For this, the Alert component has to be applied more generally
+   */
   const removeAddressAndShowAlert = async () => {
-    const response = await removeSetting('address')
+    const response = await asyncStorage.removeValue('address')
     if (response === 'success') {
       changeContent({
         title: 'Gelukt',
