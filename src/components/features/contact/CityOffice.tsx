@@ -10,6 +10,7 @@ import {ImageSources} from '../../../types'
 import {CityOffice as CityOfficeType} from '../../../types/city'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {
+  Attention,
   Button,
   Card,
   CardBody,
@@ -39,11 +40,23 @@ export const CityOffice = ({id}: Props) => {
       },
     })
 
-  if (isCityOfficeLoading || !cityOffice) {
+  if (isCityOfficeLoading) {
     return <PleaseWait />
   }
 
-  const [addressLine1, addressLine2] = cityOffice.address.txt.split('\n\n') // TEMP
+  if (!cityOffice) {
+    return (
+      <Attention warning>
+        <Text intro>Fout</Text>
+        <Text>Stadsdeelkantoor niet gevonden</Text>
+      </Attention>
+    )
+  }
+
+  // TODO Remove backwards compatibility
+  const title = cityOffice.title ?? cityOffice.location ?? ''
+  const addressText = cityOffice.address.text ?? cityOffice.address.txt
+  const [addressLine1, addressLine2] = addressText.split('\n\n') // TEMP
 
   const imageSources = cityOffice.images.sources ?? ({} as ImageSources)
   const hasImage = Object.keys(imageSources).length
@@ -54,7 +67,7 @@ export const CityOffice = ({id}: Props) => {
       <CardBody>
         <Column gutter="md">
           <View>
-            <Title level={2} text={cityOffice.location} />
+            <Title level={2} text={title} />
             <SingleSelectable
               accessibilityLabel={accessibleText(
                 'Adres',
