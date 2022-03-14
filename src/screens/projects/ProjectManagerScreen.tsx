@@ -129,7 +129,6 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                 authProject && (
                   <Fragment key={authProject.identifier}>
                     <TouchableOpacity
-                      style={styles.button}
                       accessibilityRole="button"
                       key={authProject.identifier}
                       onPress={() => {
@@ -137,7 +136,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
                           navigation.navigate(routes.projectDetail.name, {
                             id: authProject.identifier,
                           })
-                      }}>
+                      }}
+                      style={styles.button}>
                       <ProjectTitle
                         title={authProject.title}
                         subtitle={authProject.subtitle ?? undefined}

@@ -15,8 +15,12 @@ export const CenterCityOffice = () => {
     office.location.includes('Centrum'),
   )
 
-  if (isCityOfficesLoading || !centerCityOffice) {
+  if (isCityOfficesLoading) {
     return <PleaseWait />
+  }
+
+  if (!centerCityOffice) {
+    return null
   }
 
   return <CityOffice id={centerCityOffice.identifier} />
