@@ -78,10 +78,10 @@ export const NearestProjects = () => {
     <>
       <FlatGrid
         data={projects}
-        ListHeaderComponent={listHeaderComponent}
-        itemContainerStyle={styles.alignment}
+        itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
+        ListHeaderComponent={listHeaderComponent}
         renderItem={renderItem}
         spacing={size.spacing.md}
       />
@@ -90,7 +90,7 @@ export const NearestProjects = () => {
 }
 
 const styles = StyleSheet.create({
-  alignment: {
+  itemContainer: {
     justifyContent: 'flex-start',
   },
 })
