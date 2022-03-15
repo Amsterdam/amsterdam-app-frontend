@@ -196,7 +196,10 @@ export const routes: StackNavigationRoutes<StackParams> = {
   writingGuide: {
     name: 'WritingGuide',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Schrijfwijzer" />,
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
       presentation: 'modal',
     },
   },
