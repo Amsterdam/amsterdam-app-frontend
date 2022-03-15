@@ -37,7 +37,7 @@ const initialState: NotificationDraft = {
   projectWarning: undefined,
   responseStatus: undefined,
   step: 1,
-  totalSteps: 4,
+  totalSteps: 3,
 }
 
 export const notificationDraftSlice = createSlice({

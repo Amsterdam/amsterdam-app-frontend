@@ -3,11 +3,20 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {routes} from '../../app/navigation/routes'
+import {ImagePicker} from '../../components/features/create-notification/ImagePicker'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, SubmitButton, TextButton, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Label,
+  SubmitButton,
+  Text,
+  TextButton,
+  Title,
+} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
@@ -199,6 +208,18 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                 <ValidationWarning warning="Type een nieuwsartikel" />
               )}
             </>
+            <Column gutter="xs">
+              <Row>
+                <Label isAccessible text="Foto toevoegen " />
+                <Text>(niet verplicht)</Text>
+              </Row>
+              <Text>
+                Je kunt een foto toevoegen bij dit bericht. Deze komt bovenaan
+                het bericht te staan. Wanneer je geen foto toevoegd dan
+                gebruiken we een standaard afbeelding.
+              </Text>
+              <ImagePicker />
+            </Column>
           </Column>
         </Box>
         <Box>
