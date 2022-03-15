@@ -4,11 +4,13 @@ import {
   NearestProjectsQueryArg,
   NewProjectWarning,
   NewsArticle,
+  Project,
   ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
   Projects,
   ProjectsQueryArg,
+  ProjectsSearchQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
@@ -81,6 +83,16 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Projects}) => response.result,
     }),
 
+    getProjectsSearch: builder.query<
+      Project[],
+      Partial<ProjectsSearchQueryArg>
+    >({
+      query: params => {
+        return generateRequestUrl('/projects/search', formatQueryParams(params))
+      },
+      transformResponse: (response: {result: Project[]}) => response.result,
+    }),
+
     getNearestProjects: builder.query<NearestProjects, NearestProjectsQueryArg>(
       {
         query: params => generateRequestUrl('/projects/distance', params),
@@ -106,4 +118,5 @@ export const {
   useGetProjectQuery,
   useGetProjectWarningQuery,
   useGetProjectsQuery,
+  useGetProjectsSearchQuery,
 } = projectsApi

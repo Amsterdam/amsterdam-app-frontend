@@ -15,6 +15,7 @@ export type Project = {
   modification_date: string
   project_type: string
   publication_date: string
+  score: number
   source_url: string
   strides?: number
   subtitle: string | null
@@ -39,6 +40,18 @@ export type ProjectsQueryArg = {
   districtId: number
   fields: string[]
 }
+
+export type PagingQueryArg = {
+  page: number
+  page_size: number
+}
+
+export type ProjectsSearchQueryArg = {
+  fields: string[]
+  text: string
+  query_fields: string
+  threshold: number
+} & PagingQueryArg
 
 export type NearestProjectsQueryArg = {
   address: string
