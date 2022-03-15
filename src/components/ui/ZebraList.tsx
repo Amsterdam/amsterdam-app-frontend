@@ -20,7 +20,8 @@ export const ZebraList = ({data, renderItem}: Props) => (
         style={[
           styles.item,
           {
-            backgroundColor: index % 2 ? undefined : color.background.grey,
+            backgroundColor:
+              index % 2 ? color.background.white : color.background.grey,
           },
         ]}>
         {renderItem({index: index + 1, text: item})}
