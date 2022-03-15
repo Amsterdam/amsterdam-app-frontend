@@ -4,10 +4,8 @@ import React from 'react'
 import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
+import {useGetCityOfficeQuery} from '../../../services'
 import {ImageSources} from '../../../types'
-import {CityOffice as CityOfficeType} from '../../../types/city'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {
   Attention,
@@ -31,14 +29,7 @@ export const CityOffice = ({id}: Props) => {
     useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =
-    useFetch<CityOfficeType>({
-      url: getEnvironment().apiUrl + '/city/office',
-      options: {
-        params: {
-          id,
-        },
-      },
-    })
+    useGetCityOfficeQuery(id)
 
   if (isCityOfficeLoading) {
     return <PleaseWait />
