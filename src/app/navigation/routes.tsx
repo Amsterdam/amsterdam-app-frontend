@@ -193,4 +193,14 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
     },
   },
+  writingGuide: {
+    name: 'WritingGuide',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
+      presentation: 'modal',
+    },
+  },
 }

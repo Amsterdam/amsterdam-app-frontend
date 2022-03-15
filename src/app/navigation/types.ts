@@ -39,6 +39,7 @@ export type MenuStackParams = {
   Admin: undefined
   Contact: undefined
   Menu: undefined
+  WritingGuide: undefined
 }
 
 export type SharedStackParams = {
