@@ -1,4 +1,3 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -6,17 +5,16 @@ import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {Strides} from '../../../assets/icons'
 import {DeviceContext, SettingsContext} from '../../../providers'
 import {useGetNearestProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
-import {color, size} from '../../../tokens'
+import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
-import {Box, PleaseWait, Text, Trait} from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
+import {Box, PleaseWait, Text} from '../../ui'
+import {Gutter} from '../../ui/layout'
 import {Address} from '../address'
-import {ProjectCard} from '../project'
+import {ProjectCard, ProjectTraits} from '../project'
 import {config} from './'
 
 export const NearestProjects = () => {
@@ -64,26 +62,15 @@ export const NearestProjects = () => {
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources)}
-      kicker={
-        <Row gutter="xs">
-          <Trait
-            icon={<Location fill={color.font.primary} />}
-            label={`${project.meter} meter,`}
-          />
-          <Trait
-            icon={<Strides fill={color.font.primary} />}
-            label={`${project.strides} stappen`}
-          />
-        </Row>
-      }
+      kicker={<ProjectTraits meter={project.meter} strides={project.strides} />}
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {
           id: project.identifier,
         })
       }
       style={layoutStyles.grow}
-      title={project.title}
       subtitle={project.subtitle ?? undefined}
+      title={project.title}
     />
   )
 
