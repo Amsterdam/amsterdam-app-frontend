@@ -1,3 +1,4 @@
+import {getEnvironment} from '../environment'
 import {ListQueryArg, ProjectIdsQueryArg, ProjectsQueryArg} from '../types'
 
 export const generateRequestUrl = (url: string, params = {}) => {
@@ -12,7 +13,9 @@ export const generateRequestUrl = (url: string, params = {}) => {
     .flatMap(([key, value]) => `${key}=${value}`)
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
-  const requestURL = [url, queryParams].filter(Boolean).join('?')
+  const requestURL = [getEnvironment().apiUrl + url, queryParams]
+    .filter(Boolean)
+    .join('?')
   return requestURL
 }
 

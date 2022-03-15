@@ -1,4 +1,5 @@
 export * from './articles'
+export * from './city'
 export * from './generic'
 export * from './init'
 export * from './notifications'

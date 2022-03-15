@@ -1,16 +1,12 @@
 import React from 'react'
-import {getEnvironment} from '../../../environment'
-import {useFetch} from '../../../hooks'
-import {CityOffices} from '../../../types/city'
+import {useGetCityOfficesQuery} from '../../../services'
 import {PleaseWait} from '../../ui'
 import {Grid, GridCell} from '../../ui/layout'
 import {CityOffice} from './CityOffice'
 
 export const CityOfficeOverview = () => {
   const {data: cityOffices, isLoading: isCityOfficesLoading} =
-    useFetch<CityOffices>({
-      url: getEnvironment().apiUrl + '/city/offices',
-    })
+    useGetCityOfficesQuery()
 
   if (isCityOfficesLoading || !cityOffices?.offices) {
     return <PleaseWait />
