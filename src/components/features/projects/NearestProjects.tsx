@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {DeviceContext, SettingsContext} from '../../../providers'
@@ -15,12 +16,14 @@ import {Box, PleaseWait, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard, ProjectTraits} from '../project'
+import {selectIsProjectsSearching} from './search/projectsSearchSlice'
 import {config} from './'
 
 export const NearestProjects = () => {
   const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+  const isSearching = useSelector(selectIsProjectsSearching)
 
   const {settings} = useContext(SettingsContext)
   const {address} = {...settings}
@@ -33,6 +36,10 @@ export const NearestProjects = () => {
     lon: address?.centroid[0] ?? 0,
     radius: config.nearestProjectsRadius,
   })
+
+  if (isSearching) {
+    return null
+  }
 
   if (isLoading) {
     return <PleaseWait />
