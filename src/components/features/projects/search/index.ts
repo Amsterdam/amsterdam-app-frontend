@@ -1,5 +1,3 @@
-export * from './ListHeader'
 export * from './projectsSearchSlice'
-export * from './Result'
 export * from './Results'
 export * from './SearchField'

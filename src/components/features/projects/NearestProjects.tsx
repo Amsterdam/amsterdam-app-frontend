@@ -12,7 +12,7 @@ import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
-import {Box, PleaseWait, Text} from '../../ui'
+import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard, ProjectTraits} from '../project'
@@ -20,17 +20,21 @@ import {selectIsProjectsSearching} from './search/projectsSearchSlice'
 import {config} from './'
 
 export const NearestProjects = () => {
-  const device = useContext(DeviceContext)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
-  const isSearching = useSelector(selectIsProjectsSearching)
+
+  const device = useContext(DeviceContext)
+  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
   const {settings} = useContext(SettingsContext)
   const {address} = {...settings}
+  const isSearching = useSelector(selectIsProjectsSearching)
 
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
-
-  const {data: projects, isLoading} = useGetNearestProjectsQuery({
+  const {
+    data: projects = [],
+    isLoading,
+    isError,
+  } = useGetNearestProjectsQuery({
     address: address?.centroid[1] ? '' : address?.adres ?? '',
     lat: address?.centroid[1] ?? 0,
     lon: address?.centroid[0] ?? 0,
@@ -45,11 +49,15 @@ export const NearestProjects = () => {
     return <PleaseWait />
   }
 
+  if (isError) {
+    return <SomethingWentWrong />
+  }
+
   if (!address) {
     return <Address />
   }
 
-  if (!projects?.length) {
+  if (!projects.length) {
     return (
       <Box>
         <Text>Geen projecten in de buurt.</Text>
@@ -57,7 +65,7 @@ export const NearestProjects = () => {
     )
   }
 
-  const listHeaderComponent = () => (
+  const renderListHeader = () => (
     <>
       <Box insetHorizontal="md">
         <Text intro>Dichtbij {address.adres}</Text>
@@ -82,17 +90,15 @@ export const NearestProjects = () => {
   )
 
   return (
-    <>
-      <FlatGrid
-        data={projects}
-        itemContainerStyle={styles.itemContainer}
-        itemDimension={itemDimension}
-        keyExtractor={project => project.identifier}
-        ListHeaderComponent={listHeaderComponent}
-        renderItem={renderItem}
-        spacing={size.spacing.md}
-      />
-    </>
+    <FlatGrid
+      data={projects}
+      itemContainerStyle={styles.itemContainer}
+      itemDimension={itemDimension}
+      keyExtractor={project => project.identifier}
+      ListHeaderComponent={renderListHeader}
+      renderItem={renderItem}
+      spacing={size.spacing.md}
+    />
   )
 }
 
