@@ -2,9 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {View} from 'react-native'
-import {Image} from 'react-native-image-crop-picker'
-import {useDispatch} from 'react-redux'
-import {NotificationStackParams} from '.'
+import {useDispatch, useSelector} from 'react-redux'
 import {ImagePreviewTouchable} from '../../components/features/create-notification'
 import {
   CharactersLeftDisplay,
@@ -13,10 +11,14 @@ import {
 import {Box, SubmitButton, TextButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {setMainImage, setMainImageDescription} from './notificationDraftSlice'
+import {
+  selectMainImage,
+  setMainImage,
+  setMainImageDescription,
+} from './notificationDraftSlice'
+import {NotificationStackParams} from '.'
 
 type Props = {
-  image: Image
   navigation: StackNavigationProp<NotificationStackParams, 'VerifyMainImage'>
 }
 
@@ -24,8 +26,9 @@ const maxCharacters = {
   title: 54,
 }
 
-export const VerifyMainImageScreen = ({image, navigation}: Props) => {
+export const VerifyMainImageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
+  const image = useSelector(selectMainImage)
   const {
     control,
     formState: {errors},
@@ -39,7 +42,6 @@ export const VerifyMainImageScreen = ({image, navigation}: Props) => {
   useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
   }, [watchTitle])
-  console.log(image)
 
   if (!image) {
     return null
@@ -47,6 +49,7 @@ export const VerifyMainImageScreen = ({image, navigation}: Props) => {
 
   const clickIt = () => {
     dispatch(setMainImage(undefined))
+    navigation.goBack()
   }
 
   const onSubmit = (data: {title: string}) => {
