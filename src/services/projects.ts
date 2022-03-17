@@ -75,8 +75,7 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       query: params => {
         if (params) {
-          const q = formatQueryParams(params)
-          return generateRequestUrl('/projects', q)
+          return generateRequestUrl('/projects', formatQueryParams(params))
         }
         return '/projects'
       },
@@ -107,6 +106,7 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {

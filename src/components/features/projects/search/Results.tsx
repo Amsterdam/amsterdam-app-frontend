@@ -14,7 +14,6 @@ type Props = {
 
 export const Results = ({text}: Props) => {
   const device = useContext(DeviceContext)
-
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
   const {
@@ -22,9 +21,9 @@ export const Results = ({text}: Props) => {
     isLoading,
     isError,
   } = useGetProjectsSearchQuery({
-    fields: ['title', 'subtitle', 'images', 'identifier'],
+    fields: ['identifier', 'images', 'subtitle', 'title'],
     text,
-    query_fields: 'title,subtitle',
+    queryFields: ['subtitle', 'title'],
   })
 
   if (isLoading) {

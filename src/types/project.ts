@@ -48,9 +48,8 @@ export type PagingQueryArg = {
 
 export type ProjectsSearchQueryArg = {
   fields: string[]
+  queryFields: string[]
   text: string
-  query_fields: string
-  threshold: number
 } & PagingQueryArg
 
 export type NearestProjectsQueryArg = {

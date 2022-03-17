@@ -32,6 +32,7 @@ export const formatQueryParams = ({
   fields,
   projectIds,
   projectType,
+  queryFields,
   sortBy,
   sortOrder,
   ...rest
@@ -42,6 +43,7 @@ export const formatQueryParams = ({
   ...(fields && {fields: fields.join(',')}),
   ...(projectIds && {'project-ids': projectIds.join(',')}),
   ...(projectType && {'project-type': projectType}),
+  ...(queryFields && {query_fields: queryFields.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
   ...(sortOrder && {'sort-order': sortOrder}),
   ...rest,
