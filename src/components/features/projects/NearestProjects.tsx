@@ -4,6 +4,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {config} from './'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {Strides} from '../../../assets/icons'
@@ -16,7 +17,6 @@ import {Box, PleaseWait, Text, Title, Trait} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard} from '../project'
-import {config} from './'
 
 export const NearestProjects = () => {
   const device = useContext(DeviceContext)

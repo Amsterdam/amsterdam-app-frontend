@@ -1,6 +1,6 @@
 import React, {Children, Fragment, ReactNode} from 'react'
-import {Spacing} from '../../../tokens'
 import {Gutter} from './'
+import {Spacing} from '../../../tokens'
 
 type Props = {
   children: ReactNode[] | ReactNode

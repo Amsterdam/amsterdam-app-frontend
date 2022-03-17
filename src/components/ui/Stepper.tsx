@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {color, font} from '../../tokens'
 import {SingleSelectable, TextInCircle} from './index'
+import {color, font} from '../../tokens'
 
 type Props = {
   current?: number

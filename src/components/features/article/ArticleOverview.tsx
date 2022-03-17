@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {ArticlePreview} from './'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {useGetArticlesQuery} from '../../../services/articles'
 import {ArticleSummary} from '../../../types'
 import {PleaseWait, Title} from '../../ui'
 import {Column, Grid, GridCell} from '../../ui/layout'
-import {ArticlePreview} from './'
 
 type Props = {
   limit?: number

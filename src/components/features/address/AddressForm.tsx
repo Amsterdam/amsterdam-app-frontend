@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useRef, useState} from 'react'
+import {NumberInput, StreetInput} from './'
 import {StackParams} from '../../../app/navigation'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers'
@@ -12,7 +13,6 @@ import {
   ResponseAddress,
 } from '../../../types'
 import {Box} from '../../ui'
-import {NumberInput, StreetInput} from './'
 
 export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
   const [address, setAddress] = useState<ResponseAddress | undefined>()

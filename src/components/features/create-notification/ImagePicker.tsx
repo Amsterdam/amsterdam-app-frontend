@@ -35,7 +35,7 @@ export const ImagePicker = ({
       }).then(image => {
         dispatch(setMainImage(image))
       })
-  }, [isSubmitSuccessful])
+  }, [dispatch, isSubmitSuccessful])
 
   return (
     <View style={styles.container}>

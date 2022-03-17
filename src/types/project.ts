@@ -1,5 +1,5 @@
-import {Image} from './image'
 import {Section, Timeline} from './'
+import {Image} from './image'
 
 // An item in a project list as received from our backend
 export type Project = {

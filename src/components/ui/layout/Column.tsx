@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {ChildrenWithGutters} from './'
 import {Spacing} from '../../../tokens'
 import {CrossAxisAlignment, MainAxisAlignment} from './types'
 import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
-import {ChildrenWithGutters} from './'
 
 type Props = {
   align?: MainAxisAlignment

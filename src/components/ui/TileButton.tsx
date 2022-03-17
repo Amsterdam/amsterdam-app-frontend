@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Title} from './'
 import {color, size} from '../../tokens'
 import {Gutter} from './layout'
-import {Title} from './'
 
 export type TileButtonProps = {
   icon?: ReactNode
