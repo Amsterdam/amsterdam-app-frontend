@@ -197,6 +197,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             )}
             {projectWarning && (
               <Preview image={image} label="Nieuwsartikel">
+                <Text>Omschrijving: {mainImageDescription}</Text>
                 <Title level={2} text={projectWarning.title} />
                 <Text intro>{projectWarning.body.preface}</Text>
                 <Text>{projectWarning.body.content}</Text>

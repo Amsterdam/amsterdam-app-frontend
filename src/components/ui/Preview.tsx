@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {View} from 'react-native'
-import {Column} from './layout'
 import {Box, Text} from './'
+import {Column} from './layout'
 
 type Props = {
   children: ReactNode
@@ -15,7 +15,7 @@ export const Preview = ({children, image, label}: Props) => {
       <Text>{label}</Text>
       <View>
         {image}
-        <Box background="grey">
+        <Box insetHorizontal="md" insetVertical="sm" background="grey">
           <Column gutter="sm">{children}</Column>
         </Box>
       </View>
