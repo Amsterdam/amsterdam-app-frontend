@@ -2,13 +2,6 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
-import {
-  transformWasteGuideResponse,
-  WasteGuideByAddressDetails,
-  WasteGuideByAddressNoDetails,
-  WasteGuideCollectionPoints,
-  WasteGuideContainers,
-} from './'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {AddressFormTeaser} from '../../../components/features/address'
@@ -26,6 +19,13 @@ import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
 import {SettingsContext} from '../../../providers'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
+import {
+  transformWasteGuideResponse,
+  WasteGuideByAddressDetails,
+  WasteGuideByAddressNoDetails,
+  WasteGuideCollectionPoints,
+  WasteGuideContainers,
+} from './'
 
 export const WasteGuideByAddress = () => {
   const {settings} = useContext(SettingsContext)

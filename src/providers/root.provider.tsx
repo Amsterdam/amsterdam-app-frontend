@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react'
 import {Provider} from 'react-redux'
 
-import {AlertProvider, DeviceProvider, SettingsProvider} from '.'
 import {useForegroundPushNotificationHandler} from '../hooks'
 import {store} from '../store'
+import {AlertProvider, DeviceProvider, SettingsProvider} from '.'
 
 type Props = {
   children: ReactNode

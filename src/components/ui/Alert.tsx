@@ -2,11 +2,11 @@ import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useContext} from 'react'
 import {Platform, StyleSheet, UIManager, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import {SingleSelectable, Text, Title} from '.'
 import {AlertContext} from '../../providers'
 import {color, size} from '../../tokens'
 import {accessibleText} from '../../utils'
 import {Row} from './layout'
+import {SingleSelectable, Text, Title} from '.'
 
 if (
   Platform.OS === 'android' &&

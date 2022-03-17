@@ -5,9 +5,9 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native'
-import {Text} from './'
 import {color, font, size} from '../../tokens'
 import {Row} from './layout'
+import {Text} from './'
 
 type Props = {
   icon?: ReactNode

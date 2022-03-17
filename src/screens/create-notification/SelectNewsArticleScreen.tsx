@@ -3,7 +3,6 @@ import React, {useEffect} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {NotificationStackParams} from './'
 import {ValidationWarning} from '../../components/features/form'
 import {
   Box,
@@ -21,6 +20,7 @@ import {
   setNewsArticle,
   setStep,
 } from './notificationDraftSlice'
+import {NotificationStackParams} from './'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'SelectNewsArticle'>

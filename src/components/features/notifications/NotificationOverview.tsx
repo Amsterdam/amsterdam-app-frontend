@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {FlatList} from 'react-native'
-import {Notification} from './'
 import {SettingsContext} from '../../../providers/settings.provider'
 import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
 import {FrontEndNotification} from '../../../types'
@@ -12,6 +11,7 @@ import {
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
 } from '../settings'
+import {Notification} from './'
 
 export const NotificationOverview = () => {
   const {settings} = useContext(SettingsContext)
