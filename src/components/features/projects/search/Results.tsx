@@ -17,7 +17,7 @@ export const Results = ({text}: Props) => {
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
   const {
-    data: projects,
+    data: projects = [],
     isLoading,
     isError,
   } = useGetProjectsSearchQuery({
@@ -43,13 +43,11 @@ export const Results = ({text}: Props) => {
 
   return (
     <FlatGrid
-      data={projects ?? []}
+      data={projects}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListHeaderComponent={
-        <ListHeader projectsLength={projects?.length ?? 0} />
-      }
+      ListHeaderComponent={<ListHeader projectsLength={projects.length} />}
       renderItem={({item}) => <Result project={item} />}
       spacing={size.spacing.md}
     />
