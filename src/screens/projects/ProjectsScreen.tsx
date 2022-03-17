@@ -1,11 +1,11 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
+import {NearestProjects} from '../../components/features/projects'
 import {
-  NearestProjects,
   Results,
   SearchField,
-} from '../../components/features/projects'
-import {selectProjectSearchText} from '../../components/features/projects/search/projectsSearchSlice'
+  selectProjectSearchText,
+} from '../../components/features/projects/search'
 
 export const ProjectsScreen = () => {
   const searchText = useSelector(selectProjectSearchText)
