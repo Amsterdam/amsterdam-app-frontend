@@ -7,7 +7,7 @@ type Props = {
 
 export const ListHeader = ({projectsLength}: Props) => (
   <>
-    <Box background="grey">
+    <Box>
       <Text intro>{projectsLength} zoekresultaten</Text>
     </Box>
     {projectsLength === 0 ? (

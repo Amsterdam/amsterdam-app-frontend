@@ -1,6 +1,6 @@
 export * from './config'
 export * from './NearestProjects'
 export * from './search/ListHeader'
-export * from './search/Search'
+export * from './search/SearchField'
 export * from './search/Results'
 export * from './search/Result'
