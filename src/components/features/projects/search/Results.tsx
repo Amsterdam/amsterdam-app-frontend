@@ -4,7 +4,7 @@ import {FlatGrid} from 'react-native-super-grid'
 import {DeviceContext} from '../../../../providers'
 import {useGetProjectsSearchQuery} from '../../../../services'
 import {size} from '../../../../tokens'
-import {Attention, Box, PleaseWait, Text} from '../../../ui'
+import {PleaseWait, SomethingWentWrong} from '../../../ui'
 import {ListHeader} from './ListHeader'
 import {Result} from './Result'
 
@@ -31,14 +31,7 @@ export const Results = ({text}: Props) => {
   }
 
   if (isError) {
-    return (
-      <Box>
-        <Attention warning>
-          <Text intro>Sorry…</Text>
-          <Text>Er ging iets mis.</Text>
-        </Attention>
-      </Box>
-    )
+    return <SomethingWentWrong />
   }
 
   return (
