@@ -57,6 +57,10 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
     navigation.navigate('VerifyNotification')
   }
 
+  const onBackward = () => {
+    navigation.goBack()
+  }
+
   return (
     <ScrollView grow>
       <Box grow>
@@ -96,7 +100,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
             <TextButton
               direction="backward"
               emphasis
-              onPress={navigation.goBack}
+              onPress={handleSubmit(onBackward)}
               text="Vorige"
             />
             <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
