@@ -2,6 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
+import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {ImagePicker} from '../../components/features/create-notification/ImagePicker'
 import {
@@ -23,7 +24,9 @@ import {SettingsContext} from '../../providers'
 import {NewProjectWarning} from '../../types'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
+  selectMainImage,
   selectProjectId,
+  setMainImageDescription,
   setProjectWarning,
   setStep,
 } from './notificationDraftSlice'
@@ -41,11 +44,15 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'ProjectWarningForm'>
+  navigation: StackNavigationProp<
+    NotificationStackParams & StackParams,
+    'ProjectWarningForm'
+  >
 }
 
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
+  const mainImage = useSelector(selectMainImage)
   const projectId = useSelector(selectProjectId)
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings?.['project-manager']
@@ -62,7 +69,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
 
   const {
     control,
-    formState: {errors},
+    formState: {errors, isSubmitSuccessful},
     handleSubmit,
     watch,
   } = useForm()
@@ -71,7 +78,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const watchIntro = watch('intro')
   const watchMessage = watch('message')
 
-  const onSubmit = (data: FormData) => {
+  const addProjectWarningToStore = (data: FormData) => {
     const warningData: NewProjectWarning = {
       title: data.title,
       body: {
@@ -82,8 +89,24 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
       project_manager_id: projectManagerSettings?.id!,
     }
     dispatch(setProjectWarning(warningData))
-    navigation.navigate('SelectMainImage')
   }
+
+  const onSubmitForm = (data: FormData) => {
+    addProjectWarningToStore(data)
+    dispatch(setMainImageDescription('placeholder tekst'))
+    navigation.navigate('VerifyNotification')
+  }
+
+  const onSubmitFormFromImagePicker = (data: FormData) => {
+    addProjectWarningToStore(data)
+  }
+
+  useEffect(() => {
+    if (mainImage) {
+      console.log(mainImage)
+      mainImage && navigation.navigate('VerifyMainImage', {image: mainImage})
+    }
+  }, [mainImage, navigation])
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -215,10 +238,13 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               </Row>
               <Text>
                 Je kunt een foto toevoegen bij dit bericht. Deze komt bovenaan
-                het bericht te staan. Wanneer je geen foto toevoegd dan
+                het bericht te staan. Wanneer je geen foto toevoegt dan
                 gebruiken we een standaard afbeelding.
               </Text>
-              <ImagePicker />
+              <ImagePicker
+                isSubmitSuccessful={isSubmitSuccessful}
+                onSubmitForm={handleSubmit(onSubmitFormFromImagePicker)}
+              />
             </Column>
           </Column>
         </Box>
@@ -230,7 +256,10 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               onPress={navigation.goBack}
               text="Vorige"
             />
-            <SubmitButton onPress={handleSubmit(onSubmit)} text="Afbeelding" />
+            <SubmitButton
+              onPress={handleSubmit(onSubmitForm)}
+              text="Controleer"
+            />
           </Row>
         </Box>
       </Column>

@@ -84,19 +84,19 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
-      dispatch(setStep(1))
-    })
-    return focusListener
-  }, [dispatch, navigation])
-
-  useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
   }, [watchTitle])
 
   useEffect(() => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
+
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      dispatch(setStep(1))
+    })
+    return focusListener
+  }, [dispatch, navigation])
 
   if (!projectId) {
     return null

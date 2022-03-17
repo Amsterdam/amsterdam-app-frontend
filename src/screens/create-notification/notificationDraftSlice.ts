@@ -14,21 +14,21 @@ type NewsArticleMinimal = {
   title: string
 }
 
-export type MainImage = Image | 'placeholder' | undefined
-
 export type NotificationDraft = {
-  mainImage: MainImage
+  isStepperVisible: boolean
+  mainImage: Image | undefined
   mainImageDescription: string
   newsArticle?: NewsArticleMinimal
   notification: NotificationQueryArg | undefined
   project: ProjectMinimal | undefined
   projectWarning: NewProjectWarning | undefined
   responseStatus: ResponseStatus | undefined
-  step: number | null
+  step: number
   totalSteps: number
 }
 
 const initialState: NotificationDraft = {
+  isStepperVisible: true,
   mainImage: undefined,
   mainImageDescription: '',
   newsArticle: undefined,
@@ -44,7 +44,11 @@ export const notificationDraftSlice = createSlice({
   name: 'notificationDraft',
   initialState: initialState,
   reducers: {
-    setMainImage: (state, {payload: mainImage}: PayloadAction<MainImage>) => {
+    clearDraft: () => initialState,
+    setMainImage: (
+      state,
+      {payload: mainImage}: PayloadAction<Image | undefined>,
+    ) => {
       state.mainImage = mainImage
     },
     setMainImageDescription: (
@@ -80,13 +84,20 @@ export const notificationDraftSlice = createSlice({
     ) => {
       state.responseStatus = responseStatus
     },
-    setStep: (state, {payload: step}: PayloadAction<number | null>) => {
-      state.step = step
+    setStep: (state, {payload: step}: PayloadAction<number>) => {
+      state.step = step <= state.totalSteps ? step : state.totalSteps
+    },
+    setStepperVisibility: (
+      state,
+      {payload: visibility}: PayloadAction<boolean>,
+    ) => {
+      state.isStepperVisible = visibility
     },
   },
 })
 
 export const {
+  clearDraft,
   setMainImage,
   setMainImageDescription,
   setNewsArticle,
@@ -95,6 +106,7 @@ export const {
   setProjectWarning,
   setResponseStatus,
   setStep,
+  setStepperVisibility,
 } = notificationDraftSlice.actions
 
 export const selectMainImage = createSelector(
@@ -141,6 +153,11 @@ export const selectResponseStatus = createSelector(
 export const selectStep = createSelector(
   (state: RootState) => state.notificationDraft,
   (notificationDraft: NotificationDraft) => notificationDraft?.step,
+)
+
+export const selectStepperVisibility = createSelector(
+  (state: RootState) => state.notificationDraft,
+  (notificationDraft: NotificationDraft) => notificationDraft?.isStepperVisible,
 )
 
 export const selectTotalSteps = createSelector(

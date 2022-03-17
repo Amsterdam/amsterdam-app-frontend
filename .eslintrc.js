@@ -5,15 +5,15 @@ module.exports = {
   rules: {
     'import/no-default-export': 'error',
     'import/order': [
-      'error',
+      2,
       {
         groups: [
           'builtin',
           'external',
+          'index',
           'internal',
           'parent',
           'sibling',
-          'index',
           'type',
         ],
         alphabetize: {

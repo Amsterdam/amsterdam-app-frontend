@@ -4,14 +4,17 @@ import {Checkmark, Close} from '../../assets/icons'
 import {Confirmation} from '../../components/features/form'
 import {Box} from '../../components/ui'
 import {ScrollView} from '../../components/ui/layout'
-import {selectResponseStatus, setStep} from './notificationDraftSlice'
+import {
+  selectResponseStatus,
+  setStepperVisibility,
+} from './notificationDraftSlice'
 
 export const NotificationResponseScreen = () => {
   const dispatch = useDispatch()
   const responseStatus = useSelector(selectResponseStatus)
 
   useLayoutEffect(() => {
-    dispatch(setStep(null))
+    dispatch(setStepperVisibility(false))
   })
 
   return (
