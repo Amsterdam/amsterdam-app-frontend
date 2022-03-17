@@ -8,7 +8,7 @@ import {
 } from '../../components/features/form'
 import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useGetArticlesQuery} from '../../services'
 import {NotificationQueryArg} from '../../types'
 import {formatTime} from '../../utils'
@@ -178,7 +178,6 @@ export const NotificationFormScreen = ({navigation}: Props) => {
               }
             />
           </Row>
-          <Gutter height="xl" />
         </Box>
       </Column>
     </ScrollView>

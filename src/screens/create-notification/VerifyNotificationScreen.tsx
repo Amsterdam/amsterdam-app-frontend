@@ -2,7 +2,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {NotificationStackParams} from '.'
 import HeroImage from '../../assets/images/project-warning-hero.svg'
 import {
   Box,
@@ -15,7 +14,7 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {
   useAddNotificationMutation,
   useAddProjectWarningImageMutation,
@@ -33,6 +32,7 @@ import {
   setResponseStatus,
   setStep,
 } from './notificationDraftSlice'
+import {NotificationStackParams} from '.'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
@@ -215,7 +215,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             />
             <SubmitButton onPress={handleSubmit} text="Verstuur" />
           </Row>
-          <Gutter height="xl" />
         </Box>
       </Column>
     </ScrollView>
