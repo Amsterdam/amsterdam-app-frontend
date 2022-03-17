@@ -5,16 +5,7 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack'
 import React, {useEffect} from 'react'
-import {Image} from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-  NotificationFormScreen,
-  NotificationResponseScreen,
-  ProjectWarningFormScreen,
-  SelectNewsArticleScreen,
-  VerifyMainImageScreen,
-  VerifyNotificationScreen,
-} from '.'
 import {StackParams} from '../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {Gutter} from '../../components/ui/layout'
@@ -26,6 +17,14 @@ import {
   selectTotalSteps,
   setProject,
 } from './notificationDraftSlice'
+import {
+  NotificationFormScreen,
+  NotificationResponseScreen,
+  ProjectWarningFormScreen,
+  SelectNewsArticleScreen,
+  VerifyMainImageScreen,
+  VerifyNotificationScreen,
+} from '.'
 
 type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
 
@@ -34,7 +33,7 @@ export type NotificationStackParams = {
   NotificationResponse: undefined
   ProjectWarningForm: undefined
   SelectNewsArticle: undefined
-  VerifyMainImage: {image: Image}
+  VerifyMainImage: undefined
   VerifyNotification: undefined
   WritingGuide: undefined
 }
