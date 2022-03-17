@@ -1,10 +1,12 @@
+import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
+import {StyleSheet} from 'react-native'
+import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
-import {ImagePicker} from '../../components/features/create-notification/ImagePicker'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
@@ -21,11 +23,13 @@ import {
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
+import {color, size} from '../../tokens'
 import {NewProjectWarning} from '../../types'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
   selectMainImage,
   selectProjectId,
+  setMainImage,
   setMainImageDescription,
   setProjectWarning,
   setStep,
@@ -69,7 +73,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
 
   const {
     control,
-    formState: {errors, isSubmitSuccessful},
+    formState: {errors},
     handleSubmit,
     watch,
   } = useForm()
@@ -97,15 +101,24 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     navigation.navigate('VerifyNotification')
   }
 
-  const onSubmitFormFromImagePicker = (data: FormData) => {
+  const pickImage = (data: FormData) => {
     addProjectWarningToStore(data)
+    ImageCropPicker.openPicker({
+      cropperChooseText: 'Kiezen',
+      cropperCancelText: 'Annuleren',
+      cropperRotateButtonsHidden: true,
+      cropping: true,
+      includeBase64: true,
+      mediaType: 'photo',
+      width: size.warningMainPhoto.maxWidth,
+      height: size.warningMainPhoto.maxHeight,
+    }).then(image => {
+      dispatch(setMainImage(image))
+    })
   }
 
   useEffect(() => {
-    if (mainImage) {
-      console.log(mainImage)
-      mainImage && navigation.navigate('VerifyMainImage', {image: mainImage})
-    }
+    mainImage && navigation.navigate('VerifyMainImage')
   }, [mainImage, navigation])
 
   useEffect(() => {
@@ -241,9 +254,11 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                 het bericht te staan. Wanneer je geen foto toevoegt dan
                 gebruiken we een standaard afbeelding.
               </Text>
-              <ImagePicker
-                isSubmitSuccessful={isSubmitSuccessful}
-                onSubmitForm={handleSubmit(onSubmitFormFromImagePicker)}
+              <Button
+                icon={<Enlarge style={styles.icon} />}
+                onPress={handleSubmit(pickImage)}
+                text="Foto's toevoegen"
+                variant="inverse"
               />
             </Column>
           </Column>
@@ -266,3 +281,14 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'flex-start',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    fill: color.font.primary,
+  },
+})
