@@ -8,7 +8,7 @@ type ProjectsSearchState = {
 
 export const projectsSearchSlice = createSlice({
   name: 'projectsSearch',
-  initialState: {isSearching: false} as ProjectsSearchState,
+  initialState: {isSearching: false, searchText: ''} as ProjectsSearchState,
   reducers: {
     setIsSearching: (state, {payload: isSearching}: PayloadAction<boolean>) => {
       state.isSearching = isSearching
