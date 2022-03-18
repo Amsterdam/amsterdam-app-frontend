@@ -1,9 +1,11 @@
 import Pointer from '@amsterdam/asc-assets/static/icons/Pointer.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
+import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {useSelector} from 'react-redux'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {DeviceContext} from '../../../../providers'
@@ -21,27 +23,33 @@ import {
   Trait,
 } from '../../../ui'
 import {ProjectCard} from '../../project'
+import {selectProjectSearchText} from './projectsSearchSlice'
 
-type Props = {
-  text: string
-}
-
-export const Results = ({text}: Props) => {
+export const Results = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
+  const searchText = useSelector(selectProjectSearchText)
+  const params = searchText
+    ? {
+        fields: ['identifier', 'images', 'subtitle', 'title'],
+        text: searchText,
+        queryFields: ['subtitle', 'title'],
+      }
+    : undefined
+
   const {
     data: projects = [],
     isLoading,
     isError,
-  } = useGetProjectsSearchQuery({
-    fields: ['identifier', 'images', 'subtitle', 'title'],
-    text,
-    queryFields: ['subtitle', 'title'],
-  })
+  } = useGetProjectsSearchQuery(params ?? skipToken)
+
+  if (!searchText) {
+    return null
+  }
 
   if (isLoading) {
     return <PleaseWait />
