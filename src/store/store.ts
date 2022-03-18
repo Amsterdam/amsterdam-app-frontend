@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {projectsSearchSlice} from '../components/features/projects/search'
+import {projectsSearchSlice} from '../components/features/projects'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {articlesApi} from '../services/articles'
 import {baseApi} from '../services/init'

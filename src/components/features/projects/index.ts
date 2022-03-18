@@ -1,2 +1,5 @@
 export * from './config'
+export * from './projectsSearchSlice'
 export * from './Projects'
+export * from './SearchField'
+export * from './SearchResults'

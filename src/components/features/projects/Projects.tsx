@@ -16,8 +16,7 @@ import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {Address} from '../address'
 import {ProjectCard, ProjectTraits} from '../project'
-import {selectIsProjectsSearching} from './search/projectsSearchSlice'
-import {config} from './'
+import {config, selectIsProjectsSearching} from './'
 
 export const Projects = () => {
   const navigation =

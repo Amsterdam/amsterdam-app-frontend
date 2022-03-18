@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box} from '../../../ui'
-import {TextInput} from '../../../ui/forms'
+import {Box} from '../../ui'
+import {TextInput} from '../../ui/forms'
 import {
   selectProjectSearchText,
   setIsSearching,

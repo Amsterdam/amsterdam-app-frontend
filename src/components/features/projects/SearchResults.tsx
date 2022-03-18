@@ -6,23 +6,16 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
-import {DeviceContext} from '../../../../providers'
-import {useGetProjectsSearchQuery} from '../../../../services'
-import {layoutStyles} from '../../../../styles'
-import {color, size} from '../../../../tokens'
-import {Project} from '../../../../types'
-import {mapImageSources} from '../../../../utils'
-import {
-  Box,
-  PleaseWait,
-  SomethingWentWrong,
-  Text,
-  Title,
-  Trait,
-} from '../../../ui'
-import {ProjectCard} from '../../project'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {DeviceContext} from '../../../providers'
+import {useGetProjectsSearchQuery} from '../../../services'
+import {layoutStyles} from '../../../styles'
+import {color, size} from '../../../tokens'
+import {Project} from '../../../types'
+import {mapImageSources} from '../../../utils'
+import {Box, PleaseWait, SomethingWentWrong, Text, Title, Trait} from '../../ui'
+import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
 export const SearchResults = () => {

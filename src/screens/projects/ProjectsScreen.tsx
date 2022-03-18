@@ -1,9 +1,9 @@
 import React from 'react'
-import {Projects} from '../../components/features/projects'
 import {
+  Projects,
   SearchField,
   SearchResults,
-} from '../../components/features/projects/search'
+} from '../../components/features/projects'
 
 export const ProjectsScreen = () => (
   <>
