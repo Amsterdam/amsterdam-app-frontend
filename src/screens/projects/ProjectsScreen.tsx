@@ -1,11 +1,14 @@
 import React from 'react'
-import {NearestProjects} from '../../components/features/projects'
-import {Results, SearchField} from '../../components/features/projects/search'
+import {Projects} from '../../components/features/projects'
+import {
+  SearchField,
+  SearchResults,
+} from '../../components/features/projects/search'
 
 export const ProjectsScreen = () => (
   <>
     <SearchField />
-    <Results />
-    <NearestProjects />
+    <SearchResults />
+    <Projects />
   </>
 )

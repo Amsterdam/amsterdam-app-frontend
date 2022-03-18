@@ -1,3 +1,3 @@
 export * from './projectsSearchSlice'
-export * from './Results'
+export * from './SearchResults'
 export * from './SearchField'

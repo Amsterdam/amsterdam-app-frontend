@@ -25,7 +25,7 @@ import {
 import {ProjectCard} from '../../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
-export const Results = () => {
+export const SearchResults = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 

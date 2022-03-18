@@ -19,7 +19,7 @@ import {ProjectCard, ProjectTraits} from '../project'
 import {selectIsProjectsSearching} from './search/projectsSearchSlice'
 import {config} from './'
 
-export const NearestProjects = () => {
+export const Projects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
