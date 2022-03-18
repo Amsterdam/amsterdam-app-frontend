@@ -30,7 +30,7 @@ export const SearchField = () => {
         label="Zoek in alle bouwprojecten"
         onChangeText={dispatchValidSearchText}
         onFocus={() => dispatch(setIsSearching(true))}
-        onSubmitEditing={() => dispatch(setIsSearching(!!searchText.length))}
+        onSubmitEditing={() => dispatch(setIsSearching(!!searchText))}
       />
     </Box>
   )
