@@ -130,7 +130,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue={'TEST ' + formatTime(now, true) + ' '}
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.title - characterCountTitle}
+                  charactersLeft={
+                    maxCharacters.title - (characterCountTitle || 0)
+                  }
                 />
               </Column>
               {errors.title && <ValidationWarning warning="Vul een titel in" />}
@@ -158,7 +160,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue="Lorem ipsum dolor sit amet. We testen pushberichten vanuit de Amsterdam app."
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.message - characterCountMessage}
+                  charactersLeft={
+                    maxCharacters.message - (characterCountMessage || 0)
+                  }
                 />
               </Column>
               {errors.message && (

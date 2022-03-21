@@ -104,14 +104,14 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const pickImage = (data: FormData) => {
     addProjectWarningToStore(data)
     ImageCropPicker.openPicker({
-      cropperChooseText: 'Kiezen',
       cropperCancelText: 'Annuleren',
+      cropperChooseText: 'Kiezen',
       cropperRotateButtonsHidden: true,
       cropping: true,
+      height: size.warningMainPhoto.maxHeight,
       includeBase64: true,
       mediaType: 'photo',
       width: size.warningMainPhoto.maxWidth,
-      height: size.warningMainPhoto.maxHeight,
     }).then(image => {
       dispatch(setMainImage(image))
     })
@@ -181,7 +181,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.title - characterCountTitle}
+                  charactersLeft={
+                    maxCharacters.title - (characterCountTitle || 0)
+                  }
                 />
               </Column>
               {errors.title && <ValidationWarning warning="Vul een titel in" />}
@@ -209,7 +211,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.intro - characterCountIntro}
+                  charactersLeft={
+                    maxCharacters.intro - (characterCountIntro || 0)
+                  }
                 />
               </Column>
               {errors.intro && <ValidationWarning warning="Type een intro" />}
@@ -237,7 +241,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.message - characterCountMessage}
+                  charactersLeft={
+                    maxCharacters.message - (characterCountMessage || 0)
+                  }
                 />
               </Column>
               {errors.message && (
