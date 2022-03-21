@@ -245,21 +245,25 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               )}
             </>
             <Column gutter="xs">
-              <Row>
+              <Row valign="baseline">
                 <Label isAccessible text="Foto toevoegen " />
                 <Text>(niet verplicht)</Text>
               </Row>
-              <Text>
-                Je kunt een foto toevoegen bij dit bericht. Deze komt bovenaan
-                het bericht te staan. Wanneer je geen foto toevoegt dan
-                gebruiken we een standaard afbeelding.
-              </Text>
-              <Button
-                icon={<Enlarge style={styles.icon} />}
-                onPress={handleSubmit(pickImage)}
-                text="Foto's toevoegen"
-                variant="inverse"
-              />
+              <Column gutter="md">
+                <Text>
+                  Je kunt een foto toevoegen bij dit artikel. Deze komt bovenaan
+                  het artikel te staan. Wanneer je geen foto toevoegt dan
+                  gebruiken we een standaard afbeelding.
+                </Text>
+                <Row align="start">
+                  <Button
+                    icon={<Enlarge style={styles.icon} />}
+                    onPress={handleSubmit(pickImage)}
+                    text="Foto’s toevoegen"
+                    variant="inverse"
+                  />
+                </Row>
+              </Column>
             </Column>
           </Column>
         </Box>
