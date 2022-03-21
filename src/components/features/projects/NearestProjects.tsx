@@ -14,11 +14,10 @@ import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
 import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
-import {Address} from '../address'
 import {ProjectCard, ProjectTraits} from '../project'
 import {config, selectIsProjectsSearching} from './'
 
-export const Projects = () => {
+export const NearestProjects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
@@ -40,6 +39,12 @@ export const Projects = () => {
     radius: config.nearestProjectsRadius,
   })
 
+  // Without an address, we can’t find the nearest projects
+  if (!address) {
+    return null
+  }
+
+  // If we’re searching projects, don’t render the nearest projects
   if (isSearching) {
     return null
   }
@@ -50,10 +55,6 @@ export const Projects = () => {
 
   if (isError) {
     return <SomethingWentWrong />
-  }
-
-  if (!address) {
-    return <Address />
   }
 
   if (!projects.length) {

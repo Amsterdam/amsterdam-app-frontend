@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Projects,
+  NearestProjects,
   SearchField,
   SearchResults,
 } from '../../components/features/projects'
@@ -9,6 +9,6 @@ export const ProjectsScreen = () => (
   <>
     <SearchField />
     <SearchResults />
-    <Projects />
+    <NearestProjects />
   </>
 )
