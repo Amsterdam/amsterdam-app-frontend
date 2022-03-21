@@ -57,8 +57,6 @@ export type NearestProjectsQueryArg = {
   radius: number
 }
 
-export type NearestProjects = Project[]
-
 // All project details as received from our backend
 export type ProjectDetail = {
   body: {
