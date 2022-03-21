@@ -141,15 +141,10 @@ export const routes: StackNavigationRoutes<StackParams> = {
   projects: {
     name: 'Projects',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
-    },
-  },
-  projectsForDistrict: {
-    name: 'ProjectsForDistrict',
-    options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Bouwprojecten per stadsdeel" />
-      ),
     },
   },
   projectWarning: {
@@ -191,6 +186,16 @@ export const routes: StackNavigationRoutes<StackParams> = {
     name: 'WhereToPutBulkyWaste',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
+    },
+  },
+  writingGuide: {
+    name: 'WritingGuide',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
+      presentation: 'modal',
     },
   },
 }

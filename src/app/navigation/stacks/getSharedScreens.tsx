@@ -9,7 +9,10 @@ import {
   WebViewScreen,
   WhereToPutBulkyWasteScreen,
 } from '../../../screens'
-import {CreateNotificationScreen} from '../../../screens/create-notification'
+import {
+  CreateNotificationScreen,
+  WritingGuideScreen,
+} from '../../../screens/create-notification'
 import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
 import {
   AuthorizedProjectsScreen,
@@ -17,7 +20,6 @@ import {
   ProjectDetailScreen,
   ProjectManagerScreen,
   ProjectNewsScreen,
-  ProjectsForDistrictScreen,
   ProjectsScreen,
   ProjectWarningScreen,
 } from '../../../screens/projects'
@@ -78,11 +80,6 @@ export const getSharedScreens = (
       options={routes.projects.options}
     />
     <Stack.Screen
-      component={ProjectsForDistrictScreen}
-      name={routes.projectsForDistrict.name}
-      options={routes.projectsForDistrict.options}
-    />
-    <Stack.Screen
       component={ProjectWarningScreen}
       name={routes.projectWarning.name}
       options={routes.projectWarning.options}
@@ -111,6 +108,11 @@ export const getSharedScreens = (
       component={WhereToPutBulkyWasteScreen}
       name={routes.whereToPutBulkyWaste.name}
       options={routes.whereToPutBulkyWaste.options}
+    />
+    <Stack.Screen
+      component={WritingGuideScreen}
+      name={routes.writingGuide.name}
+      options={routes.writingGuide.options}
     />
   </>
 )

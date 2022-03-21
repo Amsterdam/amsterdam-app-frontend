@@ -1811,14 +1811,6 @@
   "resolved" "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.2.1.tgz"
   "version" "1.2.1"
 
-"@react-navigation/material-top-tabs@^6.1.1":
-  "integrity" "sha512-9XsLIPVJJweBRqVznnRYzCIRGMrPKfCzyMjHbBxHuKQIxGZLkUcHVaQDKZZFRkXtvWxPF8ZwFJcuSs0GZ9r4dA=="
-  "resolved" "https://registry.npmjs.org/@react-navigation/material-top-tabs/-/material-top-tabs-6.1.1.tgz"
-  "version" "6.1.1"
-  dependencies:
-    "color" "^3.1.3"
-    "warn-once" "^0.1.0"
-
 "@react-navigation/native@^6.0.0", "@react-navigation/native@^6.0.6":
   "integrity" "sha512-XzL7YPsaRRQgdCQSXbA8PJWLN2I4lhUUvSFoKQPNO4DS6y8eqZI1V8COPYlJg8+tsetGV5J8jt+jVjWL7h6ZrQ=="
   "resolved" "https://registry.npmjs.org/@react-navigation/native/-/native-6.0.6.tgz"
@@ -7103,7 +7095,7 @@
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
 
-"react-native-pager-view@*", "react-native-pager-view@^5.4.11", "react-native-pager-view@>= 4.0.0":
+"react-native-pager-view@*", "react-native-pager-view@^5.4.11":
   "integrity" "sha512-4QlBL5W8yVjeYwrw89oCdABI7sDxIGapFQvIbukfB5mAj1Zn1IQPkBqROLblNFtQ8PbAeexXRgDT1ENWygiJ7A=="
   "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.11.tgz"
   "version" "5.4.11"
@@ -7171,7 +7163,7 @@
     "css-select" "^2.1.0"
     "css-tree" "^1.0.0-alpha.39"
 
-"react-native-tab-view@^3.1.1", "react-native-tab-view@>= 3.0.0":
+"react-native-tab-view@^3.1.1":
   "integrity" "sha512-M5pRN6utQfytKWoKlKVzg5NbkYu308qNoW1khGTtEOTs1k14p2dHJ/BWOJoJYHKbPVUyZldbG9MFT7gUl4YHnw=="
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.1.1.tgz"
   "version" "3.1.1"

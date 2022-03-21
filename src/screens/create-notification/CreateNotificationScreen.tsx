@@ -32,6 +32,7 @@ export type NotificationStackParams = {
   SelectNewsArticle: undefined
   SelectMainImage: undefined
   VerifyNotification: undefined
+  WritingGuide: undefined
 }
 
 type Props = {
