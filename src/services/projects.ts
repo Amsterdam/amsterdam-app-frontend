@@ -8,9 +8,9 @@ import {
   ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
-  Projects,
   ProjectsQueryArg,
   ProjectsSearchQueryArg,
+  ProjectSummary,
   ProjectWarning,
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
@@ -70,7 +70,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     getProjects: builder.query<
-      Projects,
+      ProjectSummary[],
       Partial<ProjectsQueryArg & ListQueryArgNoLimit> | void
     >({
       query: params => {
@@ -79,7 +79,8 @@ export const projectsApi = baseApi.injectEndpoints({
         }
         return '/projects'
       },
-      transformResponse: (response: {result: Projects}) => response.result,
+      transformResponse: (response: {result: ProjectSummary[]}) =>
+        response.result,
     }),
 
     getProjectsSearch: builder.query<

@@ -33,8 +33,6 @@ export type ProjectTitles = Pick<
   'identifier' | 'subtitle' | 'title'
 >
 
-export type Projects = ProjectSummary[]
-
 export type ProjectsQueryArg = {
   projectType: 'brug' | 'kade'
   districtId: number
