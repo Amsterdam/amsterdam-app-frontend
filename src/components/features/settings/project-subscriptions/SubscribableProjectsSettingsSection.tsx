@@ -1,5 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react'
-import {SettingsContext} from '../../../../providers/settings.provider'
+import {SettingsContext} from '../../../../providers'
 import {useGetProjectsQuery} from '../../../../services'
 import {accessibleText} from '../../../../utils'
 import {Box, Button, Divider, PleaseWait, TextButton} from '../../../ui'

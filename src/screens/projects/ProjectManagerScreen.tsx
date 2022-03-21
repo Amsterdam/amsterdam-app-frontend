@@ -23,7 +23,7 @@ import {
   Title,
 } from '../../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers/settings.provider'
+import {SettingsContext} from '../../providers'
 import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
 import {setCredentials} from '../../store'
 import {color, size} from '../../tokens'
