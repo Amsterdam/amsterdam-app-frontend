@@ -8,7 +8,7 @@ import {
 } from '../../components/features/form'
 import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useGetArticlesQuery} from '../../services'
 import {NotificationQueryArg} from '../../types'
 import {formatTime} from '../../utils'
@@ -84,19 +84,19 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
-      dispatch(setStep(1))
-    })
-    return focusListener
-  }, [dispatch, navigation])
-
-  useEffect(() => {
     setCharacterCountTitle(watchTitle?.length)
   }, [watchTitle])
 
   useEffect(() => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
+
+  useEffect(() => {
+    const focusListener = navigation.addListener('focus', () => {
+      dispatch(setStep(1))
+    })
+    return focusListener
+  }, [dispatch, navigation])
 
   if (!projectId) {
     return null
@@ -130,7 +130,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue={'TEST ' + formatTime(now, true) + ' '}
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.title - characterCountTitle}
+                  charactersLeft={
+                    maxCharacters.title - (characterCountTitle || 0)
+                  }
                 />
               </Column>
               {errors.title && <ValidationWarning warning="Vul een titel in" />}
@@ -158,7 +160,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue="Lorem ipsum dolor sit amet. We testen pushberichten vanuit de Amsterdam app."
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.message - characterCountMessage}
+                  charactersLeft={
+                    maxCharacters.message - (characterCountMessage || 0)
+                  }
                 />
               </Column>
               {errors.message && (
@@ -178,7 +182,6 @@ export const NotificationFormScreen = ({navigation}: Props) => {
               }
             />
           </Row>
-          <Gutter height="xl" />
         </Box>
       </Column>
     </ScrollView>

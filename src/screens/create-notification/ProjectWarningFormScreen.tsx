@@ -1,20 +1,36 @@
+import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
+import {StyleSheet} from 'react-native'
+import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
+import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {Box, Button, SubmitButton, TextButton, Title} from '../../components/ui'
+import {
+  Box,
+  Button,
+  Label,
+  SubmitButton,
+  Text,
+  TextButton,
+  Title,
+} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {SettingsContext} from '../../providers'
+import {color, size} from '../../tokens'
 import {NewProjectWarning} from '../../types'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
+  selectMainImage,
   selectProjectId,
+  setMainImage,
+  setMainImageDescription,
   setProjectWarning,
   setStep,
 } from './notificationDraftSlice'
@@ -32,11 +48,15 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'ProjectWarningForm'>
+  navigation: StackNavigationProp<
+    NotificationStackParams & StackParams,
+    'ProjectWarningForm'
+  >
 }
 
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
+  const mainImage = useSelector(selectMainImage)
   const projectId = useSelector(selectProjectId)
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings?.['project-manager']
@@ -62,7 +82,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const watchIntro = watch('intro')
   const watchMessage = watch('message')
 
-  const onSubmit = (data: FormData) => {
+  const addProjectWarningToStore = (data: FormData) => {
     const warningData: NewProjectWarning = {
       title: data.title,
       body: {
@@ -73,8 +93,33 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
       project_manager_id: projectManagerSettings?.id!,
     }
     dispatch(setProjectWarning(warningData))
-    navigation.navigate('SelectMainImage')
   }
+
+  const onSubmitForm = (data: FormData) => {
+    addProjectWarningToStore(data)
+    dispatch(setMainImageDescription('placeholder tekst'))
+    navigation.navigate('VerifyNotification')
+  }
+
+  const pickImage = (data: FormData) => {
+    addProjectWarningToStore(data)
+    ImageCropPicker.openPicker({
+      cropperCancelText: 'Annuleren',
+      cropperChooseText: 'Kiezen',
+      cropperRotateButtonsHidden: true,
+      cropping: true,
+      height: size.warningMainPhoto.maxHeight,
+      includeBase64: true,
+      mediaType: 'photo',
+      width: size.warningMainPhoto.maxWidth,
+    }).then(image => {
+      dispatch(setMainImage(image))
+    })
+  }
+
+  useEffect(() => {
+    mainImage && navigation.navigate('VerifyMainImage')
+  }, [mainImage, navigation])
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
@@ -136,7 +181,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.title - characterCountTitle}
+                  charactersLeft={
+                    maxCharacters.title - (characterCountTitle || 0)
+                  }
                 />
               </Column>
               {errors.title && <ValidationWarning warning="Vul een titel in" />}
@@ -164,7 +211,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.intro - characterCountIntro}
+                  charactersLeft={
+                    maxCharacters.intro - (characterCountIntro || 0)
+                  }
                 />
               </Column>
               {errors.intro && <ValidationWarning warning="Type een intro" />}
@@ -192,13 +241,36 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={maxCharacters.message - characterCountMessage}
+                  charactersLeft={
+                    maxCharacters.message - (characterCountMessage || 0)
+                  }
                 />
               </Column>
               {errors.message && (
                 <ValidationWarning warning="Type een nieuwsartikel" />
               )}
             </>
+            <Column gutter="xs">
+              <Row valign="baseline">
+                <Label isAccessible text="Foto toevoegen " />
+                <Text>(niet verplicht)</Text>
+              </Row>
+              <Column gutter="md">
+                <Text>
+                  Je kunt een foto toevoegen bij dit artikel. Deze komt bovenaan
+                  het artikel te staan. Wanneer je geen foto toevoegt dan
+                  gebruiken we een standaard afbeelding.
+                </Text>
+                <Row align="start">
+                  <Button
+                    icon={<Enlarge style={styles.icon} />}
+                    onPress={handleSubmit(pickImage)}
+                    text="Foto’s toevoegen"
+                    variant="inverse"
+                  />
+                </Row>
+              </Column>
+            </Column>
           </Column>
         </Box>
         <Box>
@@ -209,10 +281,24 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               onPress={navigation.goBack}
               text="Vorige"
             />
-            <SubmitButton onPress={handleSubmit(onSubmit)} text="Afbeelding" />
+            <SubmitButton
+              onPress={handleSubmit(onSubmitForm)}
+              text="Controleer"
+            />
           </Row>
         </Box>
       </Column>
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'flex-start',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    fill: color.font.primary,
+  },
+})
