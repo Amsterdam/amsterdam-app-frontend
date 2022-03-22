@@ -15,3 +15,6 @@ builds/*
 *.xcarchive
 
 **/*.keystore
+
+# API key firebase
+app/google-services.json
