@@ -44,18 +44,18 @@ export type PagingQueryArg = {
   page_size: number
 }
 
-export type ProjectsSearchQueryArg = {
-  fields?: string[]
-  queryFields: string[]
-  text: string
-} & Partial<PagingQueryArg>
-
-export type NearestProjectsQueryArg = {
+export type ProjectsByDistanceQueryArg = {
   address: string
   lat: number
   lon: number
   radius: number
 }
+
+export type ProjectsByTextQueryArg = {
+  fields?: string[]
+  queryFields: string[]
+  text: string
+} & Partial<PagingQueryArg>
 
 // All project details as received from our backend
 export type ProjectDetail = {

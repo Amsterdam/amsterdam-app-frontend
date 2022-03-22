@@ -1,14 +1,14 @@
 import {
   ListQueryArgNoLimit,
-  NearestProjectsQueryArg,
   NewProjectWarning,
   NewsArticle,
   Project,
   ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
+  ProjectsByDistanceQueryArg,
+  ProjectsByTextQueryArg,
   ProjectsQueryArg,
-  ProjectsSearchQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
@@ -80,12 +80,14 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
-    getProjectsByDistance: builder.query<Project[], NearestProjectsQueryArg>({
-      query: params => generateRequestUrl('/projects/distance', params),
-      transformResponse: (response: {result: Project[]}) => response.result,
-    }),
+    getProjectsByDistance: builder.query<Project[], ProjectsByDistanceQueryArg>(
+      {
+        query: params => generateRequestUrl('/projects/distance', params),
+        transformResponse: (response: {result: Project[]}) => response.result,
+      },
+    ),
 
-    getProjectsByText: builder.query<Project[], ProjectsSearchQueryArg>({
+    getProjectsByText: builder.query<Project[], ProjectsByTextQueryArg>({
       query: params => {
         return generateRequestUrl('/projects/search', formatQueryParams(params))
       },

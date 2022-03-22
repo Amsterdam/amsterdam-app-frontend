@@ -2,8 +2,8 @@ import {getEnvironment} from '../environment'
 import {
   ListQueryArg,
   ProjectIdsQueryArg,
+  ProjectsByTextQueryArg,
   ProjectsQueryArg,
-  ProjectsSearchQueryArg,
 } from '../types'
 
 export const generateRequestUrl = (url: string, params = {}) => {
@@ -37,7 +37,7 @@ export const formatQueryParams = ({
   sortOrder,
   ...rest
 }: Partial<
-  ListQueryArg & ProjectIdsQueryArg & ProjectsSearchQueryArg & ProjectsQueryArg
+  ListQueryArg & ProjectIdsQueryArg & ProjectsByTextQueryArg & ProjectsQueryArg
 >) => ({
   ...(districtId && {'district-id': districtId}),
   ...(fields && {fields: fields.join(',')}),
