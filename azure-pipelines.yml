@@ -49,7 +49,7 @@ steps:
   displayName: 'google-services.json'
   name: FirebaseApiKey
   inputs:
-    secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+    secureFile: 'google-services.json'
 - task: DownloadSecureFile@1
   displayName: 'Download Keystore'
   name: Keystore
