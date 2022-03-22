@@ -1,5 +1,4 @@
 import {
-  ListQueryArgNoLimit,
   NewProjectWarning,
   NewsArticle,
   Project,
@@ -13,6 +12,7 @@ import {
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
+  SortListQueryArg,
 } from '../types'
 import {formatQueryParams, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
@@ -69,7 +69,7 @@ export const projectsApi = baseApi.injectEndpoints({
 
     getProjects: builder.query<
       Project[],
-      Partial<ProjectsQueryArg & ListQueryArgNoLimit> | void
+      Partial<ProjectsQueryArg & SortListQueryArg> | void
     >({
       query: params => {
         if (params) {

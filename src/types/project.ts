@@ -1,5 +1,5 @@
 import {Image} from './image'
-import {PagingQueryArg, Section, Timeline} from './'
+import {PageListQueryArg, Section, Timeline} from './'
 
 // An item in a project list as received from our backend
 export type Project = {
@@ -50,7 +50,7 @@ export type ProjectsByTextQueryArg = {
   fields?: string[]
   queryFields: string[]
   text: string
-} & Partial<PagingQueryArg>
+} & Partial<PageListQueryArg>
 
 // All project details as received from our backend
 export type ProjectDetail = {
