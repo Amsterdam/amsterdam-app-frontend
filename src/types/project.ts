@@ -45,10 +45,10 @@ export type PagingQueryArg = {
 }
 
 export type ProjectsSearchQueryArg = {
-  fields: string[]
+  fields?: string[]
   queryFields: string[]
   text: string
-} & PagingQueryArg
+} & Partial<PagingQueryArg>
 
 export type NearestProjectsQueryArg = {
   address: string

@@ -85,10 +85,7 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
-    getProjectsByText: builder.query<
-      Project[],
-      Partial<ProjectsSearchQueryArg>
-    >({
+    getProjectsByText: builder.query<Project[], ProjectsSearchQueryArg>({
       query: params => {
         return generateRequestUrl('/projects/search', formatQueryParams(params))
       },
