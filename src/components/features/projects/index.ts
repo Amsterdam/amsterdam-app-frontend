@@ -1,5 +1,5 @@
 export * from './config'
-export * from './projectsSearchSlice'
+export * from './projectsByTextSlice'
 export * from './ProjectsByDate'
 export * from './ProjectsByDistance'
 export * from './ProjectsByText'

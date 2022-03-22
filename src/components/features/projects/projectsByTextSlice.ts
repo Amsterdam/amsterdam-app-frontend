@@ -6,7 +6,7 @@ type ProjectsSearchState = {
   searchText: string
 }
 
-export const projectsSearchSlice = createSlice({
+export const projectsByTextSlice = createSlice({
   name: 'projectsSearch',
   initialState: {isSearching: false, searchText: ''} as ProjectsSearchState,
   reducers: {
@@ -19,7 +19,7 @@ export const projectsSearchSlice = createSlice({
   },
 })
 
-export const {setIsSearching, setSearchText} = projectsSearchSlice.actions
+export const {setIsSearching, setSearchText} = projectsByTextSlice.actions
 
 export const selectIsProjectsSearching = (state: RootState) =>
   state.projectsSearch.isSearching

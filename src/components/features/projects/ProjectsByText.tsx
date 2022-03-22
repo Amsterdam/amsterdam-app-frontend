@@ -16,7 +16,7 @@ import {mapImageSources} from '../../../utils'
 import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {ProjectCard} from '../project'
-import {selectProjectSearchText} from './projectsSearchSlice'
+import {selectProjectSearchText} from './projectsByTextSlice'
 
 export const ProjectsByText = () => {
   const navigation =

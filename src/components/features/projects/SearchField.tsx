@@ -8,7 +8,7 @@ import {
   selectProjectSearchText,
   setIsSearching,
   setSearchText,
-} from './projectsSearchSlice'
+} from './projectsByTextSlice'
 
 export const SearchField = () => {
   const dispatch = useDispatch()
