@@ -1,5 +1,5 @@
 import {Image} from './image'
-import {Section, Timeline} from './'
+import {PagingQueryArg, Section, Timeline} from './'
 
 // An item in a project list as received from our backend
 export type Project = {
@@ -37,11 +37,6 @@ export type ProjectsQueryArg = {
   projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
-}
-
-export type PagingQueryArg = {
-  page: number
-  page_size: number
 }
 
 export type ProjectsByDistanceQueryArg = {

@@ -7,4 +7,9 @@ export type ListQueryArgNoLimit = {
   sortOrder: 'asc' | 'desc'
 }
 
+export type PagingQueryArg = {
+  page: number
+  page_size: number
+}
+
 export type ListQueryArg = ListQueryArgNoLimit & LimitQueryArg
