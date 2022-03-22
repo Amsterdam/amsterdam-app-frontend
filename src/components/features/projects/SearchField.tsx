@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce'
-import React, {useMemo} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box} from '../../ui'
 import {TextInput} from '../../ui/forms'
@@ -30,6 +30,12 @@ export const SearchField = () => {
       }, config.searchBoxDebounceDuration),
     [dispatch],
   )
+
+  // Reset search data on start
+  useEffect(() => {
+    dispatch(setIsSearching(false))
+    dispatch(setSearchText(''))
+  }, [dispatch])
 
   return (
     <Box>
