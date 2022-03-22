@@ -14,6 +14,7 @@ import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
 import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '../../ui'
+import {Gutter} from '../../ui/layout'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
@@ -53,8 +54,9 @@ export const FoundProjects = () => {
 
   const renderListHeader = () => (
     <>
-      <Box>
+      <Box insetHorizontal="md">
         <Text intro>{projects.length} zoekresultaten</Text>
+        <Gutter height="md" />
       </Box>
       {projects.length === 0 ? (
         <Box insetHorizontal="md">

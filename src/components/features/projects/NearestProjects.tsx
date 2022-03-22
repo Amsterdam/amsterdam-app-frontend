@@ -69,8 +69,8 @@ export const NearestProjects = () => {
     <>
       <Box insetHorizontal="md">
         <Text intro>Dichtbij {address.adres}</Text>
+        <Gutter height="md" />
       </Box>
-      <Gutter height="md" />
     </>
   )
 
