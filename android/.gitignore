@@ -17,4 +17,4 @@ builds/*
 **/*.keystore
 
 # API key firebase
-app/google-services.json
+**/google-services.json
