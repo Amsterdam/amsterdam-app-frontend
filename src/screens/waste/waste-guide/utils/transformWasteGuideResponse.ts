@@ -48,7 +48,7 @@ export const transformWasteGuideResponse = (
                 tijd_vanaf,
                 tijd_tot,
                 'aanbiedtijden onbekend',
-                'ophaaldagen onbekend',
+                'op de afgesproken dag',
               ),
             )
           : '',
