@@ -3,25 +3,18 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Image as ImageType} from 'react-native-image-crop-picker'
-import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {color, image as imageToken} from '../../../tokens'
 import {Image} from '../../ui'
 
 type Props = {
-  image: ImageType | 'placeholder'
+  image: ImageType
   onPress: () => void
 }
 
 export const ImagePreviewTouchable = ({image, onPress}: Props) => {
   return (
     <View>
-      {image === 'placeholder' ? (
-        <View style={styles.placeholder}>
-          <HeroImage />
-        </View>
-      ) : (
-        <Image source={{uri: image.path}} />
-      )}
+      <Image source={{uri: image.path}} />
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           accessibilityRole="button"

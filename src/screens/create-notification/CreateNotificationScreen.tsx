@@ -2,6 +2,7 @@ import {RouteProp} from '@react-navigation/core'
 import {
   createStackNavigator,
   StackNavigationOptions,
+  StackNavigationProp,
 } from '@react-navigation/stack'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
@@ -10,7 +11,9 @@ import {Box, KeyboardAvoidingView, Stepper} from '../../components/ui'
 import {Gutter} from '../../components/ui/layout'
 import {color} from '../../tokens'
 import {
+  clearDraft,
   selectStep,
+  selectStepperVisibility,
   selectTotalSteps,
   setProject,
 } from './notificationDraftSlice'
@@ -18,10 +21,10 @@ import {
   NotificationFormScreen,
   NotificationResponseScreen,
   ProjectWarningFormScreen,
-  SelectMainImageScreen,
   SelectNewsArticleScreen,
+  VerifyMainImageScreen,
   VerifyNotificationScreen,
-} from './'
+} from '.'
 
 type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
 
@@ -30,17 +33,19 @@ export type NotificationStackParams = {
   NotificationResponse: undefined
   ProjectWarningForm: undefined
   SelectNewsArticle: undefined
-  SelectMainImage: undefined
+  VerifyMainImage: undefined
   VerifyNotification: undefined
   WritingGuide: undefined
 }
 
 type Props = {
+  navigation: StackNavigationProp<StackParams, 'Notification'>
   route: NotificationScreenRouteProp
 }
 
-export const CreateNotificationScreen = ({route}: Props) => {
+export const CreateNotificationScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
+  const isStepperVisible = useSelector(selectStepperVisibility)
   const step = useSelector(selectStep)
   const totalSteps = useSelector(selectTotalSteps)
 
@@ -54,6 +59,13 @@ export const CreateNotificationScreen = ({route}: Props) => {
     )
   }, [dispatch, route])
 
+  useEffect(() => {
+    const focusListener = navigation.addListener('beforeRemove', () => {
+      dispatch(clearDraft())
+    })
+    return focusListener
+  }, [dispatch, navigation])
+
   const Stack = createStackNavigator()
 
   const screenOptions: StackNavigationOptions = {
@@ -65,7 +77,7 @@ export const CreateNotificationScreen = ({route}: Props) => {
 
   return (
     <KeyboardAvoidingView>
-      {step && (
+      {isStepperVisible && (
         <Box background="grey">
           <Stepper current={step} length={totalSteps} />
         </Box>
@@ -76,8 +88,8 @@ export const CreateNotificationScreen = ({route}: Props) => {
           name="NotificationForm"
         />
         <Stack.Screen
-          component={SelectMainImageScreen}
-          name="SelectMainImage"
+          component={VerifyMainImageScreen}
+          name="VerifyMainImage"
         />
         <Stack.Screen
           component={SelectNewsArticleScreen}

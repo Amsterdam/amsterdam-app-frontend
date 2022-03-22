@@ -14,7 +14,7 @@ import {
   TextButton,
   Title,
 } from '../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
+import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {
   useAddNotificationMutation,
   useAddProjectWarningImageMutation,
@@ -32,7 +32,7 @@ import {
   setResponseStatus,
   setStep,
 } from './notificationDraftSlice'
-import {NotificationStackParams} from './'
+import {NotificationStackParams} from '.'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
@@ -103,13 +103,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    if (
-      addWarningData &&
-      isWarningSent &&
-      mainImage &&
-      mainImage !== 'placeholder' &&
-      mainImage.data
-    ) {
+    if (addWarningData && isWarningSent && mainImage && mainImage.data) {
       addProjectWarningImage({
         project_warning_id: addWarningData.warning_identifier,
         image: {
@@ -137,7 +131,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     const focusListener = navigation.addListener('focus', () => {
-      dispatch(setStep(4))
+      dispatch(setStep(3))
     })
     return focusListener
   }, [dispatch, navigation])
@@ -170,14 +164,13 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     return <PleaseWait />
   }
 
-  const image =
-    mainImage === 'placeholder' ? (
-      <View style={styles.placeholder}>
-        <HeroImage />
-      </View>
-    ) : (
-      <Image source={{uri: mainImage?.path}} />
-    )
+  const image = mainImage ? (
+    <Image source={{uri: mainImage?.path}} />
+  ) : (
+    <View style={styles.placeholder}>
+      <HeroImage />
+    </View>
+  )
 
   return (
     <ScrollView grow>
@@ -204,6 +197,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             )}
             {projectWarning && (
               <Preview image={image} label="Nieuwsartikel">
+                <Text>Omschrijving: {mainImageDescription}</Text>
                 <Title level={2} text={projectWarning.title} />
                 <Text intro>{projectWarning.body.preface}</Text>
                 <Text>{projectWarning.body.content}</Text>
@@ -221,7 +215,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             />
             <SubmitButton onPress={handleSubmit} text="Verstuur" />
           </Row>
-          <Gutter height="xl" />
         </Box>
       </Column>
     </ScrollView>

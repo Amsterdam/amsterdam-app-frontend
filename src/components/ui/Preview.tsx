@@ -15,7 +15,7 @@ export const Preview = ({children, image, label}: Props) => {
       <Text>{label}</Text>
       <View>
         {image}
-        <Box background="grey">
+        <Box insetHorizontal="md" insetVertical="sm" background="grey">
           <Column gutter="sm">{children}</Column>
         </Box>
       </View>
