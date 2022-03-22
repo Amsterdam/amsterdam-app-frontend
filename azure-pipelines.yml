@@ -46,6 +46,11 @@ steps:
   inputs:
     secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
 - task: DownloadSecureFile@1
+  displayName: 'google-services.json'
+  name: FirebaseApiKey
+  inputs:
+    secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+- task: DownloadSecureFile@1
   displayName: 'Download Keystore'
   name: Keystore
   inputs:
@@ -63,6 +68,7 @@ steps:
     jdkSourceOption: 'PreInstalled'
 - script: |
     mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
+    mkdir -p android/app && cp $(FirebaseApiKey.secureFilePath) android/app
     cd android
     bundle install
     fastlane bump_version_code
