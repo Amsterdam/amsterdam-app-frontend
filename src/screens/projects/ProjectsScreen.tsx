@@ -3,12 +3,12 @@ import {
   ProjectsByDate,
   ProjectsByDistance,
   ProjectsByText,
-  SearchField,
+  ProjectsTextSearchField,
 } from '../../components/features/projects'
 
 export const ProjectsScreen = () => (
   <>
-    <SearchField />
+    <ProjectsTextSearchField />
     <ProjectsByText />
     <ProjectsByDistance />
     <ProjectsByDate />

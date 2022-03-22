@@ -10,7 +10,7 @@ import {
   setSearchText,
 } from './projectsByTextSlice'
 
-export const SearchField = () => {
+export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()
   const searchText = useSelector(selectProjectSearchText)
 
