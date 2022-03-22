@@ -18,7 +18,7 @@ import {Box, PleaseWait, SomethingWentWrong, Text, Title, Trait} from '../../ui'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
-export const SearchResults = () => {
+export const FoundProjects = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 

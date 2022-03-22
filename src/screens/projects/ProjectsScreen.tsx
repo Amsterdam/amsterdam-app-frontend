@@ -1,15 +1,15 @@
 import React from 'react'
 import {
+  FoundProjects,
   NearestProjects,
   RecentProjects,
   SearchField,
-  SearchResults,
 } from '../../components/features/projects'
 
 export const ProjectsScreen = () => (
   <>
     <SearchField />
-    <SearchResults />
+    <FoundProjects />
     <NearestProjects />
     <RecentProjects />
   </>

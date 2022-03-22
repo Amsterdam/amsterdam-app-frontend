@@ -1,6 +1,6 @@
 export * from './config'
 export * from './projectsSearchSlice'
+export * from './FoundProjects'
 export * from './NearestProjects'
 export * from './RecentProjects'
 export * from './SearchField'
-export * from './SearchResults'
