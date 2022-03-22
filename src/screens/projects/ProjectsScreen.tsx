@@ -1,16 +1,16 @@
 import React from 'react'
 import {
-  FoundProjects,
-  NearestProjects,
-  RecentProjects,
+  ProjectsByDate,
+  ProjectsByDistance,
+  ProjectsByText,
   SearchField,
 } from '../../components/features/projects'
 
 export const ProjectsScreen = () => (
   <>
     <SearchField />
-    <FoundProjects />
-    <NearestProjects />
-    <RecentProjects />
+    <ProjectsByText />
+    <ProjectsByDistance />
+    <ProjectsByDate />
   </>
 )

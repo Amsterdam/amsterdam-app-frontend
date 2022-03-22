@@ -80,18 +80,18 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
-    getProjectsSearch: builder.query<
+    getProjectsByDistance: builder.query<Project[], NearestProjectsQueryArg>({
+      query: params => generateRequestUrl('/projects/distance', params),
+      transformResponse: (response: {result: Project[]}) => response.result,
+    }),
+
+    getProjectsByText: builder.query<
       Project[],
       Partial<ProjectsSearchQueryArg>
     >({
       query: params => {
         return generateRequestUrl('/projects/search', formatQueryParams(params))
       },
-      transformResponse: (response: {result: Project[]}) => response.result,
-    }),
-
-    getNearestProjects: builder.query<Project[], NearestProjectsQueryArg>({
-      query: params => generateRequestUrl('/projects/distance', params),
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
@@ -105,13 +105,13 @@ export const projectsApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useAddProjectWarningMutation,
-  useGetNearestProjectsQuery,
   useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectWarningQuery,
+  useGetProjectsByDistanceQuery,
+  useGetProjectsByTextQuery,
   useGetProjectsQuery,
-  useGetProjectsSearchQuery,
 } = projectsApi

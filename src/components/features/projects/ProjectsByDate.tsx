@@ -7,17 +7,16 @@ import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {DeviceContext, SettingsContext} from '../../../providers'
-import {useGetNearestProjectsQuery} from '../../../services'
+import {useGetProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
-import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
-import {Gutter} from '../../ui/layout'
-import {ProjectCard, ProjectTraits} from '../project'
-import {config, selectIsProjectsSearching} from './'
+import {PleaseWait, SomethingWentWrong} from '../../ui'
+import {ProjectCard} from '../project'
+import {selectIsProjectsSearching} from './'
 
-export const NearestProjects = () => {
+export const ProjectsByDate = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
@@ -32,19 +31,17 @@ export const NearestProjects = () => {
     data: projects = [],
     isLoading,
     isError,
-  } = useGetNearestProjectsQuery({
-    address: address?.centroid[1] ? '' : address?.adres ?? '',
-    lat: address?.centroid[1] ?? 0,
-    lon: address?.centroid[0] ?? 0,
-    radius: config.nearestProjectsRadius,
+  } = useGetProjectsQuery({
+    sortBy: 'publication_date',
+    sortOrder: 'desc',
   })
 
-  // Without an address, we can’t find the nearest projects
-  if (!address) {
+  // If we have an address, we’re showing nearest projects instead
+  if (address) {
     return null
   }
 
-  // If we’re searching projects, don’t render the nearest projects
+  // If we’re searching projects, don’t render recent projects
   if (isSearching) {
     return null
   }
@@ -58,26 +55,12 @@ export const NearestProjects = () => {
   }
 
   if (!projects.length) {
-    return (
-      <Box>
-        <Text>Geen projecten in de buurt.</Text>
-      </Box>
-    )
+    return null
   }
-
-  const renderListHeader = () => (
-    <>
-      <Box insetHorizontal="md">
-        <Text intro>Dichtbij {address.adres}</Text>
-        <Gutter height="md" />
-      </Box>
-    </>
-  )
 
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources)}
-      kicker={<ProjectTraits meter={project.meter} strides={project.strides} />}
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {
           id: project.identifier,
@@ -95,7 +78,6 @@ export const NearestProjects = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListHeaderComponent={renderListHeader}
       renderItem={renderItem}
       spacing={size.spacing.md}
     />

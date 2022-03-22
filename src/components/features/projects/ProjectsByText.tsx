@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {DeviceContext} from '../../../providers'
-import {useGetProjectsSearchQuery} from '../../../services'
+import {useGetProjectsByTextQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
@@ -18,7 +18,7 @@ import {Gutter} from '../../ui/layout'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
-export const FoundProjects = () => {
+export const ProjectsByText = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
 
@@ -38,7 +38,7 @@ export const FoundProjects = () => {
     data: projects = [],
     isLoading,
     isError,
-  } = useGetProjectsSearchQuery(params ?? skipToken)
+  } = useGetProjectsByTextQuery(params ?? skipToken)
 
   if (!searchText) {
     return null
