@@ -1,4 +1,3 @@
-import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -10,10 +9,10 @@ import {routes} from '../../../app/navigation/routes'
 import {DeviceContext, SettingsContext} from '../../../providers'
 import {useGetProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
-import {color, size} from '../../../tokens'
+import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
-import {PleaseWait, SomethingWentWrong, Trait} from '../../ui'
+import {PleaseWait, SomethingWentWrong} from '../../ui'
 import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
 
@@ -62,12 +61,6 @@ export const RecentProjects = () => {
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources)}
-      kicker={
-        <Trait
-          icon={<Calendar fill={color.touchable.primary} />}
-          label={project.publication_date}
-        />
-      }
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {
           id: project.identifier,

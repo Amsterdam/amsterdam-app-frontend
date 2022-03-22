@@ -1,4 +1,3 @@
-import Pointer from '@amsterdam/asc-assets/static/icons/Pointer.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
@@ -11,10 +10,10 @@ import {routes} from '../../../app/navigation/routes'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsSearchQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
-import {color, size} from '../../../tokens'
+import {size} from '../../../tokens'
 import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
-import {Box, PleaseWait, SomethingWentWrong, Text, Title, Trait} from '../../ui'
+import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '../../ui'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsSearchSlice'
 
@@ -70,12 +69,6 @@ export const FoundProjects = () => {
     <ProjectCard
       imageSource={
         project.images?.[0] && mapImageSources(project.images[0].sources)
-      }
-      kicker={
-        <Trait
-          icon={<Pointer fill={color.touchable.primary} />}
-          label={`Score: ${project.score}`}
-        />
       }
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {
