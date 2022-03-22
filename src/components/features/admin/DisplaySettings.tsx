@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {SettingsContext} from '../../../providers/settings.provider'
+import {SettingsContext} from '../../../providers'
 import {ClosableCard, Text} from '../../ui'
 
 export const DisplaySettings = () => {

@@ -6,7 +6,7 @@ import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {SettingsContext} from '../../../../providers'
 import {useGetProjectsQuery} from '../../../../services'
-import {Projects} from '../../../../types'
+import {ProjectSummary} from '../../../../types'
 import {accessibleText} from '../../../../utils'
 import {
   Attention,
@@ -21,7 +21,8 @@ import {ProjectTitle} from '../../project'
 export const AuthorizedProjectsSettingsSection = () => {
   const {settings} = useContext(SettingsContext)
   const projectManagerSettings = settings && settings['project-manager']
-  const [authorizedProjects, setAuthorizedProjects] = useState<Projects>()
+  const [authorizedProjects, setAuthorizedProjects] =
+    useState<ProjectSummary[]>()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 

@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {FlatList} from 'react-native'
-import {SettingsContext} from '../../../providers/settings.provider'
+import {SettingsContext} from '../../../providers'
 import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
 import {FrontEndNotification} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'

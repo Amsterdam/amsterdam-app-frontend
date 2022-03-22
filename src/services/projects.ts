@@ -1,18 +1,18 @@
 import {
-  ListQueryArgNoLimit,
-  NearestProjects,
-  NearestProjectsQueryArg,
   NewProjectWarning,
   NewsArticle,
+  Project,
   ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
-  Projects,
+  ProjectsByDistanceQueryArg,
+  ProjectsByTextQueryArg,
   ProjectsQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
+  SortListQueryArg,
 } from '../types'
 import {formatQueryParams, generateRequestUrl} from '../utils'
 import {baseApi} from './init'
@@ -68,26 +68,31 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     getProjects: builder.query<
-      Projects,
-      Partial<ProjectsQueryArg & ListQueryArgNoLimit> | void
+      Project[],
+      Partial<ProjectsQueryArg & SortListQueryArg> | void
     >({
       query: params => {
         if (params) {
-          const q = formatQueryParams(params)
-          return generateRequestUrl('/projects', q)
+          return generateRequestUrl('/projects', formatQueryParams(params))
         }
         return '/projects'
       },
-      transformResponse: (response: {result: Projects}) => response.result,
+      transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
-    getNearestProjects: builder.query<NearestProjects, NearestProjectsQueryArg>(
+    getProjectsByDistance: builder.query<Project[], ProjectsByDistanceQueryArg>(
       {
         query: params => generateRequestUrl('/projects/distance', params),
-        transformResponse: (response: {result: NearestProjects}) =>
-          response.result,
+        transformResponse: (response: {result: Project[]}) => response.result,
       },
     ),
+
+    getProjectsByText: builder.query<Project[], ProjectsByTextQueryArg>({
+      query: params => {
+        return generateRequestUrl('/projects/search', formatQueryParams(params))
+      },
+      transformResponse: (response: {result: Project[]}) => response.result,
+    }),
 
     getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({
       query: params => generateRequestUrl('/project/warning', params),
@@ -95,15 +100,17 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {
-  useAddProjectWarningMutation,
-  useGetNearestProjectsQuery,
   useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectWarningQuery,
+  useGetProjectsByDistanceQuery,
+  useGetProjectsByTextQuery,
   useGetProjectsQuery,
 } = projectsApi

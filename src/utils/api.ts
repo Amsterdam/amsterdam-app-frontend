@@ -1,5 +1,10 @@
 import {getEnvironment} from '../environment'
-import {ListQueryArg, ProjectIdsQueryArg, ProjectsQueryArg} from '../types'
+import {
+  ListQueryArg,
+  ProjectIdsQueryArg,
+  ProjectsByTextQueryArg,
+  ProjectsQueryArg,
+} from '../types'
 
 export const generateRequestUrl = (url: string, params = {}) => {
   const arrayParams = Object.entries(params)
@@ -27,14 +32,18 @@ export const formatQueryParams = ({
   fields,
   projectIds,
   projectType,
+  queryFields,
   sortBy,
   sortOrder,
   ...rest
-}: Partial<ListQueryArg & ProjectIdsQueryArg & ProjectsQueryArg>) => ({
+}: Partial<
+  ListQueryArg & ProjectIdsQueryArg & ProjectsByTextQueryArg & ProjectsQueryArg
+>) => ({
   ...(districtId && {'district-id': districtId}),
-  ...(projectType && {'project-type': projectType}),
   ...(fields && {fields: fields.join(',')}),
   ...(projectIds && {'project-ids': projectIds.join(',')}),
+  ...(projectType && {'project-type': projectType}),
+  ...(queryFields && {query_fields: queryFields.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
   ...(sortOrder && {'sort-order': sortOrder}),
   ...rest,

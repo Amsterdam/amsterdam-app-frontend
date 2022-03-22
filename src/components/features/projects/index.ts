@@ -1,2 +1,6 @@
-export * from './NearestProjects'
 export * from './config'
+export * from './projectsByTextSlice'
+export * from './ProjectsByDate'
+export * from './ProjectsByDistance'
+export * from './ProjectsByText'
+export * from './ProjectsTextSearchField'

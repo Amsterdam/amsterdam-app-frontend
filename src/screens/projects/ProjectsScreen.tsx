@@ -1,4 +1,16 @@
 import React from 'react'
-import {NearestProjects} from '../../components/features/projects'
+import {
+  ProjectsByDate,
+  ProjectsByDistance,
+  ProjectsByText,
+  ProjectsTextSearchField,
+} from '../../components/features/projects'
 
-export const ProjectsScreen = () => <NearestProjects />
+export const ProjectsScreen = () => (
+  <>
+    <ProjectsTextSearchField />
+    <ProjectsByText />
+    <ProjectsByDistance />
+    <ProjectsByDate />
+  </>
+)

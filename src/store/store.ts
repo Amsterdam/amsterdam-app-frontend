@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {notificationDraftSlice} from '../screens/create-notification/notificationDraftSlice'
+import {projectsByTextSlice} from '../components/features/projects'
+import {notificationDraftSlice} from '../screens/create-notification'
 import {articlesApi} from '../services/articles'
 import {baseApi} from '../services/init'
 import {authSlice} from './authSlice'
@@ -9,6 +10,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     auth: authSlice.reducer,
     notificationDraft: notificationDraftSlice.reducer,
+    projectsSearch: projectsByTextSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(articlesApi.middleware),

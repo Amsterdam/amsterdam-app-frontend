@@ -1,5 +1,5 @@
 import {Image} from './image'
-import {Section, Timeline} from './'
+import {PageListQueryArg, Section, Timeline} from './'
 
 // An item in a project list as received from our backend
 export type Project = {
@@ -15,6 +15,7 @@ export type Project = {
   modification_date: string
   project_type: string
   publication_date: string
+  score: number
   source_url: string
   strides?: number
   subtitle: string | null
@@ -32,22 +33,24 @@ export type ProjectTitles = Pick<
   'identifier' | 'subtitle' | 'title'
 >
 
-export type Projects = ProjectSummary[]
-
 export type ProjectsQueryArg = {
   projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
 }
 
-export type NearestProjectsQueryArg = {
+export type ProjectsByDistanceQueryArg = {
   address: string
   lat: number
   lon: number
   radius: number
 }
 
-export type NearestProjects = Project[]
+export type ProjectsByTextQueryArg = {
+  fields?: string[]
+  queryFields: string[]
+  text: string
+} & Partial<PageListQueryArg>
 
 // All project details as received from our backend
 export type ProjectDetail = {

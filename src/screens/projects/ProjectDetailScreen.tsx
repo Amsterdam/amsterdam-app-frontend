@@ -18,7 +18,7 @@ import {
 } from '../../components/ui'
 import {Switch} from '../../components/ui/forms'
 import {Column, Gutter} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers/settings.provider'
+import {SettingsContext} from '../../providers'
 import {useGetProjectQuery} from '../../services'
 import {image} from '../../tokens'
 import {accessibleText, mapImageSources} from '../../utils'

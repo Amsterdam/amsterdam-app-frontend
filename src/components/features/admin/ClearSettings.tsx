@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {Alert} from 'react-native'
-import {SettingsContext} from '../../../providers/settings.provider'
+import {SettingsContext} from '../../../providers'
 import {ClosableCard, Text, TextButton} from '../../ui'
 import {Row} from '../../ui/layout'
 

@@ -23,11 +23,11 @@ import {
   Title,
 } from '../../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers/settings.provider'
+import {SettingsContext} from '../../providers'
 import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
 import {setCredentials} from '../../store'
 import {color, size} from '../../tokens'
-import {Projects} from '../../types'
+import {ProjectSummary} from '../../types'
 import {encryptWithAES} from '../../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
@@ -42,7 +42,8 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const {changeSettings, settings} = useContext(SettingsContext)
   const notificationSettings = settings?.notifications
   const projectManagerSettings = settings && settings['project-manager']
-  const [authorizedProjects, setAuthorizedProjects] = useState<Projects>()
+  const [authorizedProjects, setAuthorizedProjects] =
+    useState<ProjectSummary[]>()
   const projectManagerId = route.params?.id
 
   useEffect(() => {
