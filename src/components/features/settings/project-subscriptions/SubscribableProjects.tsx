@@ -23,7 +23,11 @@ export const SubscribableProjects = () => {
   }
 
   if (!hasSubscribableProjects) {
-    return <NoPreviousSubscriptionsMessage />
+    return (
+      <Box insetHorizontal="md">
+        <NoPreviousSubscriptionsMessage />
+      </Box>
+    )
   }
 
   return (
