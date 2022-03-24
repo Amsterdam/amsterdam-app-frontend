@@ -1,5 +1,6 @@
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
+import {DeviceContext} from '../../providers'
 import {color, font} from '../../tokens'
 import {Row} from './layout'
 
@@ -8,16 +9,20 @@ type Props = {
   label: string
 }
 
-export const Trait = ({icon, label}: Props) => (
-  <Row gutter="xs">
-    <View style={styles.icon}>{icon}</View>
-    <Text style={styles.text}>{label}</Text>
-  </Row>
-)
+export const Trait = ({icon, label}: Props) => {
+  const device = useContext(DeviceContext)
+  const iconSize = font.size.t1 * device.fontScale
+
+  return (
+    <Row gutter="xs">
+      <View style={[styles.icon, {width: iconSize}]}>{icon}</View>
+      <Text style={styles.text}>{label}</Text>
+    </Row>
+  )
+}
 
 const styles = StyleSheet.create({
   icon: {
-    width: font.size.t1,
     aspectRatio: 1,
   },
   text: {
