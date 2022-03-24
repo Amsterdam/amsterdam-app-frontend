@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native'
 import {color, font, size} from '../../../tokens'
+import {allInsets} from '../../../utils'
 import {Label} from '../index'
 import {Column} from '../layout'
 
@@ -90,6 +91,7 @@ export const TextInput = forwardRef(
             <TouchableOpacity
               accessibilityRole="button"
               accessibilityHint="Verwijder uw invoertekst"
+              hitSlop={allInsets(size.spacing.sm)}
               onPress={handleClearText}
               style={styles.clearButton}>
               <Close fill={color.font.regular} height={20} width={20} />

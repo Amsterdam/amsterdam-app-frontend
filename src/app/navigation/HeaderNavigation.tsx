@@ -1,10 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {Insets, StyleSheet, TouchableOpacity} from 'react-native'
+import {StyleSheet, TouchableOpacity} from 'react-native'
 import {BellInactive, Settings} from '../../assets/icons'
 import {Row} from '../../components/ui/layout'
 import {color, size} from '../../tokens'
+import {allInsets} from '../../utils'
 import {routes} from './routes'
 import {StackParams, TabParams} from './types'
 
@@ -13,13 +14,6 @@ type MenuItem = {
   label: string
   name: string
   route: keyof StackParams
-}
-
-const hitSlop: Insets = {
-  top: size.spacing.sm,
-  bottom: size.spacing.sm,
-  left: size.spacing.sm,
-  right: size.spacing.sm,
 }
 
 const iconProps = {
@@ -51,7 +45,7 @@ export const HeaderNavigation = () => {
         <TouchableOpacity
           accessibilityLabel={label}
           accessibilityRole="button"
-          hitSlop={hitSlop}
+          hitSlop={allInsets(size.spacing.sm)}
           key={name}
           onPress={() => navigation.navigate(route)}
           style={styles.icon}>
