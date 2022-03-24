@@ -23,75 +23,83 @@ type Props = {
 const textLineHeight = font.height.p1
 const inputPadding = size.spacing.sm
 
-export const TextInput = forwardRef((props: Props, ref: any) => {
-  const [hasFocus, setFocus] = useState(false)
-  const [value, setValue] = useState('')
+export const TextInput = forwardRef(
+  (
+    {
+      label,
+      numberOfLines,
+      onChangeText,
+      onFocus,
+      warning,
+      ...otherProps
+    }: Props,
+    ref: any,
+  ) => {
+    const [hasFocus, setFocus] = useState(false)
+    const [value, setValue] = useState('')
 
-  const {onChangeText} = props
+    const handleBlur = () => setFocus(false)
 
-  const handleBlur = () => setFocus(false)
+    const handleChangeText = (text: string) => {
+      setValue(text)
+      onChangeText && onChangeText(text)
+    }
 
-  const handleChangeText = (text: string) => {
-    setValue(text)
-    onChangeText && onChangeText(text)
-  }
+    const handleClearText = () => {
+      setValue('')
+      onChangeText && onChangeText('')
+    }
 
-  const handleClearText = () => {
-    setValue('')
-    onChangeText && onChangeText('')
-  }
+    const handleFocus = () => {
+      setFocus(true)
+      onFocus && onFocus()
+    }
 
-  const handleFocus = () => {
-    setFocus(true)
-    props.onFocus && props.onFocus()
-  }
+    const dynamicStyles = StyleSheet.create({
+      frame: {
+        borderColor: warning
+          ? color.control.warning.border
+          : hasFocus
+          ? color.control.focus.border
+          : color.control.default.border,
+        borderWidth: hasFocus || warning ? 2 : 1,
+      },
+      textInput: {
+        minHeight:
+          Platform.OS === 'ios' && numberOfLines
+            ? numberOfLines * textLineHeight + 2 * inputPadding
+            : 'auto',
+      },
+    })
 
-  const dynamicStyles = StyleSheet.create({
-    frame: {
-      borderColor: props.warning
-        ? color.control.warning.border
-        : hasFocus
-        ? color.control.focus.border
-        : color.control.default.border,
-      borderWidth: hasFocus || props.warning ? 2 : 1,
-    },
-    textInput: {
-      minHeight:
-        Platform.OS === 'ios' && props.numberOfLines
-          ? props.numberOfLines * textLineHeight + 2 * inputPadding
-          : 'auto',
-    },
-  })
-
-  return (
-    <Column gutter="sm">
-      <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <View style={[styles.frame, dynamicStyles.frame]}>
-        <TextInputRN
-          {...props}
-          onBlur={handleBlur}
-          onChangeText={text => handleChangeText(text)}
-          onFocus={handleFocus}
-          numberOfLines={
-            Platform.OS === 'ios' ? undefined : props.numberOfLines
-          }
-          ref={ref}
-          style={[styles.textInput, dynamicStyles.textInput]}
-          value={props.value ?? value}
-        />
-        {value ? (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityHint="Verwijder uw invoertekst"
-            onPress={handleClearText}
-            style={styles.clearButton}>
-            <Close fill={color.font.regular} height={20} width={20} />
-          </TouchableOpacity>
-        ) : null}
-      </View>
-    </Column>
-  )
-})
+    return (
+      <Column gutter="sm">
+        <Label isAccessible={!otherProps.accessibilityLabel} text={label} />
+        <View style={[styles.frame, dynamicStyles.frame]}>
+          <TextInputRN
+            {...otherProps}
+            onBlur={handleBlur}
+            onChangeText={text => handleChangeText(text)}
+            onFocus={handleFocus}
+            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
+            ref={ref}
+            style={[styles.textInput, dynamicStyles.textInput]}
+            value={value}
+          />
+          {value ? (
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityHint="Verwijder uw invoertekst"
+              onPress={handleClearText}
+              style={styles.clearButton}>
+              <Close fill={color.font.regular} height={20} width={20} />
+            </TouchableOpacity>
+          ) : null}
+        </View>
+      </Column>
+    )
+  },
+)
 
 const styles = StyleSheet.create({
   clearButton: {
