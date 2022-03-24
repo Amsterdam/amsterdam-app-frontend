@@ -39,42 +39,30 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
     onChangeText && onChangeText('')
   }
 
-  const styles = StyleSheet.create({
-    clearButton: {
-      alignSelf: 'stretch',
-      padding: inputPadding,
-    },
+  const dynamicStyles = StyleSheet.create({
     searchSection: {
-      flexDirection: 'row',
-      backgroundColor: color.background.white,
       borderColor: hasFocus
         ? color.control.focus.border
         : color.control.default.border,
-      borderStyle: 'solid',
       borderWidth: hasFocus ? 2 : 1,
     },
     textInput: {
-      flex: 1,
-      padding: inputPadding,
-      color: color.font.regular,
-      fontFamily: font.weight.regular,
-      fontSize: font.size.p1,
-      lineHeight: textLineHeight,
       minHeight:
         Platform.OS === 'ios' && props.numberOfLines
           ? props.numberOfLines * textLineHeight + 2 * inputPadding
           : 'auto',
-    },
-    warning: {
-      borderColor: color.border.invalid,
-      borderWidth: 2,
     },
   })
 
   return (
     <Column gutter="sm">
       <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <View style={[styles.searchSection, props.warning && styles.warning]}>
+      <View
+        style={[
+          styles.searchSection,
+          dynamicStyles.searchSection,
+          props.warning && styles.warning,
+        ]}>
         <TextInputRN
           {...props}
           onBlur={() => setFocus(false)}
@@ -84,7 +72,7 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
             Platform.OS === 'ios' ? undefined : props.numberOfLines
           }
           ref={ref}
-          style={styles.textInput}
+          style={[styles.textInput, dynamicStyles.textInput]}
           value={props.value ?? value}
         />
         {value ? (
@@ -99,4 +87,28 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
       </View>
     </Column>
   )
+})
+
+const styles = StyleSheet.create({
+  clearButton: {
+    alignSelf: 'stretch',
+    padding: inputPadding,
+  },
+  searchSection: {
+    flexDirection: 'row',
+    backgroundColor: color.background.white,
+    borderStyle: 'solid',
+  },
+  textInput: {
+    flex: 1,
+    padding: inputPadding,
+    color: color.font.regular,
+    fontFamily: font.weight.regular,
+    fontSize: font.size.p1,
+    lineHeight: textLineHeight,
+  },
+  warning: {
+    borderColor: color.border.invalid,
+    borderWidth: 2,
+  },
 })
