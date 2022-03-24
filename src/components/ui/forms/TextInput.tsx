@@ -105,7 +105,7 @@ export const TextInput = forwardRef(
 
 const styles = StyleSheet.create({
   clearButton: {
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     marginLeft: size.spacing.sm,
   },
   frame: {
