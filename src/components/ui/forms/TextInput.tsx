@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import {color, font, size} from '../../../tokens'
 import {Label} from '../index'
-import {Gutter} from '../layout'
+import {Column} from '../layout'
 
 type Props = {
   label: string
@@ -72,9 +72,8 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
   })
 
   return (
-    <View>
+    <Column gutter="sm">
       <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <Gutter height="sm" />
       <View style={[styles.searchSection, props.warning && styles.warning]}>
         <TextInputRN
           {...props}
@@ -98,6 +97,6 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
           </TouchableOpacity>
         ) : null}
       </View>
-    </View>
+    </Column>
   )
 })
