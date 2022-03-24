@@ -68,7 +68,9 @@ export const ProjectsByDistance = () => {
   const renderListHeader = () => (
     <>
       <Box insetHorizontal="md">
-        <Text intro>Dichtbij {address.adres}</Text>
+        <Text accessibilityLabel={`Projecten dichtbij ${address.adres}`} intro>
+          Dichtbij {address.adres}
+        </Text>
         <Gutter height="md" />
       </Box>
     </>
