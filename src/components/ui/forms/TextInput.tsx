@@ -21,8 +21,8 @@ type Props = {
   warning?: boolean
 } & TextInputRNProps
 
+const frameInset = size.spacing.sm
 const textLineHeight = font.height.p1
-const inputPadding = size.spacing.sm
 
 export const TextInput = forwardRef(
   (
@@ -68,7 +68,7 @@ export const TextInput = forwardRef(
       textInput: {
         minHeight:
           Platform.OS === 'ios' && numberOfLines
-            ? numberOfLines * textLineHeight + 2 * inputPadding
+            ? numberOfLines * textLineHeight + 2 * frameInset
             : 'auto',
       },
     })
@@ -106,16 +106,16 @@ export const TextInput = forwardRef(
 const styles = StyleSheet.create({
   clearButton: {
     alignSelf: 'stretch',
-    padding: inputPadding,
+    marginLeft: size.spacing.sm,
   },
   frame: {
     flexDirection: 'row',
+    padding: frameInset,
     backgroundColor: color.background.white,
     borderStyle: 'solid',
   },
   textInput: {
     flex: 1,
-    padding: inputPadding,
     color: color.font.regular,
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,
