@@ -47,11 +47,13 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
   }
 
   const dynamicStyles = StyleSheet.create({
-    searchSection: {
-      borderColor: hasFocus
+    frame: {
+      borderColor: props.warning
+        ? color.control.warning.border
+        : hasFocus
         ? color.control.focus.border
         : color.control.default.border,
-      borderWidth: hasFocus ? 2 : 1,
+      borderWidth: hasFocus || props.warning ? 2 : 1,
     },
     textInput: {
       minHeight:
@@ -64,12 +66,7 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
   return (
     <Column gutter="sm">
       <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <View
-        style={[
-          styles.searchSection,
-          dynamicStyles.searchSection,
-          props.warning && styles.warning,
-        ]}>
+      <View style={[styles.frame, dynamicStyles.frame]}>
         <TextInputRN
           {...props}
           onBlur={handleBlur}
@@ -101,7 +98,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     padding: inputPadding,
   },
-  searchSection: {
+  frame: {
     flexDirection: 'row',
     backgroundColor: color.background.white,
     borderStyle: 'solid',
@@ -113,9 +110,5 @@ const styles = StyleSheet.create({
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,
     lineHeight: textLineHeight,
-  },
-  warning: {
-    borderColor: color.border.invalid,
-    borderWidth: 2,
   },
 })

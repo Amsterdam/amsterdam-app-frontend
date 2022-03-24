@@ -64,6 +64,9 @@ export const color = {
       off: baseColor.neutral.grey4,
       on: baseColor.support.valid,
     },
+    warning: {
+      border: baseColor.support.invalid,
+    },
   },
   font: {
     invalid: baseColor.support.invalid,
