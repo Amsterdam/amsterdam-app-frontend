@@ -41,7 +41,7 @@ export const ProjectsTextSearchField = () => {
     <Box>
       <TextInput
         blurOnSubmit={true}
-        label="Zoek in alle bouwprojecten"
+        label="Zoek in bouwprojecten"
         onChangeText={dispatchSearchData}
         onFocus={() => dispatch(setIsSearching(true))}
         onEndEditing={() => dispatch(setIsSearching(!!searchText))}
