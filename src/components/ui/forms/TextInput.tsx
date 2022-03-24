@@ -29,6 +29,8 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
 
   const {onChangeText} = props
 
+  const handleBlur = () => setFocus(false)
+
   const handleChangeText = (text: string) => {
     setValue(text)
     onChangeText && onChangeText(text)
@@ -37,6 +39,11 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
   const handleClearText = () => {
     setValue('')
     onChangeText && onChangeText('')
+  }
+
+  const handleFocus = () => {
+    setFocus(true)
+    props.onFocus && props.onFocus()
   }
 
   const dynamicStyles = StyleSheet.create({
@@ -65,9 +72,9 @@ export const TextInput = forwardRef((props: Props, ref: any) => {
         ]}>
         <TextInputRN
           {...props}
-          onBlur={() => setFocus(false)}
+          onBlur={handleBlur}
           onChangeText={text => handleChangeText(text)}
-          onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
+          onFocus={handleFocus}
           numberOfLines={
             Platform.OS === 'ios' ? undefined : props.numberOfLines
           }
