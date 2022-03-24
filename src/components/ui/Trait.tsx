@@ -14,7 +14,7 @@ export const Trait = ({icon, label}: Props) => {
   const iconSize = font.size.t1 * device.fontScale
 
   return (
-    <Row gutter="xs">
+    <Row>
       <View style={[styles.icon, {width: iconSize}]}>{icon}</View>
       <Text style={styles.text}>{label}</Text>
     </Row>
