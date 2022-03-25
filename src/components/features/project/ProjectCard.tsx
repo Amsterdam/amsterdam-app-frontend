@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {ReactElement} from 'react'
 import {
   Image,
   ImageSourcePropType,
@@ -13,7 +13,7 @@ import {Card, CardBody, Text, Title} from '../../ui'
 
 type Props = {
   imageSource?: ImageSourcePropType
-  kicker?: ReactNode
+  kicker?: ReactElement
   onPress: () => void
   style?: StyleProp<ViewStyle>
   subtitle?: string
@@ -32,7 +32,11 @@ export const ProjectCard = ({
 }: Props) => (
   <TouchableHighlight
     accessibilityRole="button"
-    accessibilityLabel={accessibleText(title, subtitle)}
+    accessibilityLabel={accessibleText(
+      title,
+      subtitle,
+      kicker?.props.accessibilityLabel,
+    )}
     onPress={onPress}
     style={[style, {width}]}>
     <Card border>
