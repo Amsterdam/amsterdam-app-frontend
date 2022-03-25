@@ -16,11 +16,11 @@ export const ProjectTraits = ({meter, strides}: Props) => {
   }
 
   return (
-    <Row gutter="xs">
+    <Row gutter="sm" wrap>
       {meter && (
         <Trait
           icon={<Location fill={color.font.primary} />}
-          label={`${meter} meter,`}
+          label={`${meter} meter`}
         />
       )}
       {strides && (
