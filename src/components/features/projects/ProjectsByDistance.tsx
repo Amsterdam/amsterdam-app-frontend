@@ -1,16 +1,18 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import {skipToken} from '@reduxjs/toolkit/dist/query'
+import React, {useContext, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {DeviceContext, SettingsContext} from '../../../providers'
+import {useAsyncStorage} from '../../../hooks'
+import {DeviceContext} from '../../../providers'
 import {useGetProjectsByDistanceQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
-import {Project} from '../../../types'
+import {Address as AddressType, Project} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
@@ -18,26 +20,35 @@ import {ProjectCard, ProjectTraits} from '../project'
 import {config, selectIsProjectsSearching} from './'
 
 export const ProjectsByDistance = () => {
+  const [address, setAddress] = useState<AddressType | undefined>()
+  const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
-
   const device = useContext(DeviceContext)
+  const isSearching = useSelector(selectIsProjectsSearching)
+
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
-  const {settings} = useContext(SettingsContext)
-  const {address} = {...settings}
-  const isSearching = useSelector(selectIsProjectsSearching)
+  const params = address
+    ? {
+        address: address.centroid[1] ? '' : address.adres ?? '',
+        lat: address.centroid[1] ?? 0,
+        lon: address.centroid[0] ?? 0,
+        radius: config.nearestProjectsRadius,
+      }
+    : undefined
 
   const {
     data: projects = [],
     isLoading,
     isError,
-  } = useGetProjectsByDistanceQuery({
-    address: address?.centroid[1] ? '' : address?.adres ?? '',
-    lat: address?.centroid[1] ?? 0,
-    lon: address?.centroid[0] ?? 0,
-    radius: config.nearestProjectsRadius,
-  })
+  } = useGetProjectsByDistanceQuery(params ?? skipToken)
+
+  useEffect(() => {
+    asyncStorage
+      .getValue<AddressType>('address')
+      .then(storedAddress => setAddress(storedAddress))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Without an address, we can’t find the nearest projects
   if (!address) {
