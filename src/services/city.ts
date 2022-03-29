@@ -6,7 +6,7 @@ export const cityApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getCityOffice: builder.query<CityOffice, string>({
       query: id => {
-        return generateRequestUrl('/city/office', {id})
+        return generateRequestUrl({path: '/city/office', params: {id}})
       },
       transformResponse: (response: {result: CityOffice}) => response.result,
     }),

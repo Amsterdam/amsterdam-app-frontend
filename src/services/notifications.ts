@@ -23,7 +23,7 @@ export const notificationsApi = baseApi.injectEndpoints({
       providesTags: ['Notifications'],
       query: params => {
         const q = formatQueryParams(params)
-        return generateRequestUrl('/notifications', q)
+        return generateRequestUrl({path: '/notifications', params: q})
       },
       transformResponse: (response: {result: Notifications}) => response.result,
     }),
