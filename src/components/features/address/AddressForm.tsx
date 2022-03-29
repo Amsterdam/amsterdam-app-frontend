@@ -28,15 +28,12 @@ export const AddressForm = () => {
       : streetName
   }
 
-  const {data: addressData} = useGetAddressQuery(
-    `${removeWeespSuffix(street)} ${number}`,
-    {
-      skip: !isNumberSelected,
-    },
-  )
-  const {data: bagData} = useGetBagQuery(
-    `${removeWeespSuffix(street)} ${number}`,
-  )
+  const address = [removeWeespSuffix(street), number].join(' ')
+
+  const {data: addressData} = useGetAddressQuery(address, {
+    skip: !isNumberSelected,
+  })
+  const {data: bagData} = useGetBagQuery(address)
 
   const changeNumber = (text: string) => {
     setIsNumberSelected(false)
