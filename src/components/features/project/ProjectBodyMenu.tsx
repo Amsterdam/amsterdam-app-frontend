@@ -11,7 +11,7 @@ import {routes} from '../../../app/navigation/routes'
 import {DeviceContext} from '../../../providers'
 import {color, size} from '../../../tokens'
 import {ProjectDetail, Section, Timeline} from '../../../types'
-import {IconButton} from '../../ui'
+import {ProjectBodyMenuItem} from './'
 
 type Props = {
   project: ProjectDetail
@@ -80,7 +80,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
         device.width < numberOfIconButtons * iconButtonWidth && styles.wrap,
       ]}>
       {menu.map(({icon, sections, timeline, title}) => (
-        <IconButton
+        <ProjectBodyMenuItem
           icon={icon}
           key={title}
           label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
