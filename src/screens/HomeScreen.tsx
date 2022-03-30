@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {ScrollView} from 'react-native'
 import {
   CenterCityOffice,
@@ -7,19 +7,14 @@ import {
   RecentNews,
 } from '../components/features/home'
 import {Box} from '../components/ui'
-import {Column, Gutter} from '../components/ui/layout'
-import {SettingsContext} from '../providers'
+import {Gutter} from '../components/ui/layout'
 
 export const HomeScreen = () => {
-  const {settings} = useContext(SettingsContext)
-
   return (
     <ScrollView>
       <Box background="white">
-        <Column gutter="lg">
-          {!settings?.address && <ProvideAddressBanner />}
-          <QuickLinks />
-        </Column>
+        <ProvideAddressBanner />
+        <QuickLinks />
       </Box>
       <Box>
         <RecentNews />
