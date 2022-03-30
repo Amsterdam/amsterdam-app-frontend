@@ -8,7 +8,11 @@ import {BagResponseContent} from '../../../types'
 import {Box} from '../../ui'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = () => {
+type Props = {
+  temp?: boolean
+}
+
+export const AddressForm = ({temp}: Props) => {
   const asyncStorage = useAsyncStorage()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -65,10 +69,14 @@ export const AddressForm = () => {
 
   useEffect(() => {
     if (addressData) {
-      asyncStorage.storeData('address', addressData)
+      if (temp) {
+        asyncStorage.storeData('temp', {address: addressData})
+      } else {
+        asyncStorage.storeData('address', addressData)
+      }
       navigation.goBack()
     }
-  }, [addressData, asyncStorage, navigation])
+  }, [addressData, asyncStorage, navigation, temp])
 
   return (
     <Box background="white" inset="lg">
