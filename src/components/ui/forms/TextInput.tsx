@@ -85,6 +85,7 @@ export const TextInput = forwardRef(
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             ref={ref}
             style={[styles.textInput, dynamicStyles.textInput]}
+            textAlignVertical="top"
             value={value}
           />
           {value ? (
