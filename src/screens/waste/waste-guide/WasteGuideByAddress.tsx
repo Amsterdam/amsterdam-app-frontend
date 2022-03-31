@@ -33,7 +33,7 @@ import {
 export const WasteGuideByAddress = () => {
   const asyncStorage = useAsyncStorage()
   const [address, setAddress] = useState<Address | undefined>()
-  const tempAddress = useSelector(selectAddress)
+  const {temp: tempAddress} = useSelector(selectAddress)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
