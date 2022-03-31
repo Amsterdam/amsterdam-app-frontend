@@ -3,13 +3,13 @@ import {RootState} from '../../../store'
 import {Address} from '../../../types'
 
 type AddressState = {
-  primary: Address
-  temp: Address
+  primary?: Address
+  temp?: Address
 }
 
 export const addressSlice = createSlice({
   name: 'address',
-  initialState: {primary: {}, temp: {}} as AddressState,
+  initialState: {} as AddressState,
   reducers: {
     addAddress: (state, {payload}: PayloadAction<Address>) => {
       state.primary = payload
@@ -17,9 +17,13 @@ export const addressSlice = createSlice({
     addTempAddress: (state, {payload}: PayloadAction<Address>) => {
       state.temp = payload
     },
+    removePrimaryAddress: state => {
+      state.primary = undefined
+    },
   },
 })
 
-export const {addAddress, addTempAddress} = addressSlice.actions
+export const {addAddress, addTempAddress, removePrimaryAddress} =
+  addressSlice.actions
 
 export const selectAddress = (state: RootState) => state.address
