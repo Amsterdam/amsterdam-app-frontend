@@ -3,7 +3,7 @@
 # Then, we will make a "production" lane in both Fastfiles in which we will release to the stores
 
 trigger:
-- main
+- develop
 
 pool:
   vmImage: macOS-11
@@ -74,7 +74,7 @@ steps:
     fastlane bump_version_code
     fastlane beta
   displayName: 'Build Android'
-  
+
 variables:
 - group: React Native Variables
 - name: lc.all
