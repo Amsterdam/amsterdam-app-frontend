@@ -7,7 +7,7 @@ import {useAsyncStorage} from '../../../hooks'
 import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
 import {BagResponseContent} from '../../../types'
 import {Box} from '../../ui'
-import {addAddress} from './addressSlice'
+import {addAddress, addTempAddress} from './addressSlice'
 import {NumberInput, StreetInput} from './'
 
 type Props = {
@@ -74,13 +74,14 @@ export const AddressForm = ({temp}: Props) => {
   useEffect(() => {
     if (addressData) {
       if (temp) {
-        dispatch(addAddress(addressData))
+        dispatch(addTempAddress(addressData))
       } else {
         asyncStorage.storeData('address', addressData)
+        dispatch(addAddress(addressData))
       }
       setIsAddressStored(true)
     }
-  }, [addressData, asyncStorage, dispatch, navigation, temp])
+  }, [addressData]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     isAddressStored && navigation.goBack()
