@@ -20,7 +20,6 @@ import {
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useAsyncStorage, useFetch} from '../../../hooks'
 import {Address} from '../../../types'
-import {isEmptyObject} from '../../../utils'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
   transformWasteGuideResponse,
@@ -47,7 +46,7 @@ export const WasteGuideByAddress = () => {
   })
 
   const setTempOrStoredAddress = useCallback(async () => {
-    if (!isEmptyObject(tempAddress)) {
+    if (tempAddress) {
       setAddress(tempAddress)
     } else {
       const addressFromStore = await asyncStorage.getValue<Address>('address')
