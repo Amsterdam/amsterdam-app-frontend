@@ -1,32 +1,31 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/dist/query'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useAsyncStorage} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsByDistanceQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
-import {Address as AddressType, Project} from '../../../types'
+import {Project} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
+import {selectAddress} from '../address/addressSlice'
 import {ProjectCard, ProjectTraits} from '../project'
 import {config, selectIsProjectsSearching} from './'
 
 export const ProjectsByDistance = () => {
+  const {primary: address} = useSelector(selectAddress)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
-  const asyncStorage = useAsyncStorage()
-  const [address, setAddress] = useState<AddressType | undefined>()
   const isSearching = useSelector(selectIsProjectsSearching)
 
   const params = address
@@ -43,12 +42,6 @@ export const ProjectsByDistance = () => {
     isLoading,
     isError,
   } = useGetProjectsByDistanceQuery(params ?? skipToken)
-
-  useEffect(() => {
-    asyncStorage
-      .getValue<AddressType>('address')
-      .then(storedAddress => setAddress(storedAddress))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isSearching || !address) {
     return null

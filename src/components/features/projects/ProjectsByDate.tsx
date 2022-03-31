@@ -1,37 +1,30 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useAsyncStorage} from '../../../hooks'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
-import {Address, Project} from '../../../types'
+import {Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
 import {PleaseWait, SomethingWentWrong} from '../../ui'
+import {selectAddress} from '../address/addressSlice'
 import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDate = () => {
+  const {primary: address} = useSelector(selectAddress)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
-  const {getValue, isLoading: isAddressLoading} = useAsyncStorage()
-  const [address, setAddress] = useState<Address | undefined>()
   const isSearching = useSelector(selectIsProjectsSearching)
-
-  useEffect(() => {
-    getValue<Address>('address').then(storedAddress =>
-      setAddress(storedAddress),
-    )
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     data: projects = [],
@@ -42,7 +35,7 @@ export const ProjectsByDate = () => {
     sortOrder: 'desc',
   })
 
-  if (projectsIsLoading || isAddressLoading) {
+  if (projectsIsLoading) {
     return <PleaseWait />
   }
 
