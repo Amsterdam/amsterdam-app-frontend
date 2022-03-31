@@ -1,24 +1,26 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
-import {useFetch} from '../../../hooks'
-import {SettingsContext} from '../../../providers'
-import {
-  Address,
-  ApiAddress,
-  BagResponse,
-  BagResponseContent,
-  ResponseAddress,
-} from '../../../types'
+import {useAsyncStorage} from '../../../hooks'
+import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
+import {BagResponseContent} from '../../../types'
 import {Box} from '../../ui'
+import {addAddress, addTempAddress} from './addressSlice'
 import {NumberInput, StreetInput} from './'
 
-export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
-  const [address, setAddress] = useState<ResponseAddress | undefined>()
+type Props = {
+  temp?: boolean
+}
+
+export const AddressForm = ({temp}: Props) => {
+  const asyncStorage = useAsyncStorage()
+  const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
+  const [isAddressStored, setIsAddressStored] = useState(false)
   const [isNumberSelected, setIsNumberSelected] = useState(false)
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [number, setNumber] = useState<string>('')
@@ -26,21 +28,20 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
 
   const inputStreetRef = useRef<any>()
 
-  const {changeSettings} = useContext(SettingsContext)
-
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
 
-  const addressApi = useFetch<ResponseAddress>({
-    onLoad: false,
-    options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
-    url: 'https://api.data.amsterdam.nl/atlas/search/adres/',
-  })
+  const removeWeespSuffix = (streetName: string) => {
+    return streetName.includes('Weesp')
+      ? streetName.replace(/ \(Weesp\)/g, '')
+      : streetName
+  }
 
-  const bagApi = useFetch<BagResponse[]>({
-    onLoad: false,
-    options: {params: {features: 2}}, // features: 2 includes addresses in Weesp.
-    url: 'https://api.data.amsterdam.nl/atlas/typeahead/bag/',
+  const address = [removeWeespSuffix(street), number].join(' ')
+
+  const {data: addressData} = useGetAddressQuery(address, {
+    skip: !isNumberSelected,
   })
+  const {data: bagData} = useGetBagQuery(address)
 
   const changeNumber = (text: string) => {
     setIsNumberSelected(false)
@@ -53,10 +54,6 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
     setNumber('')
   }
 
-  const removeWeespSuffix = (streetName: string) => {
-    return streetName.replace(/ \(Weesp\)/g, '')
-  }
-
   const selectNumber = (text: string) => {
     setNumber(text)
     setIsNumberSelected(true)
@@ -67,65 +64,28 @@ export const AddressForm = ({tempAddress = false}: {tempAddress?: boolean}) => {
     setIsStreetSelected(true)
   }
 
-  const transformAddress = (responseAddress: ApiAddress): Address => {
-    const {
-      adres,
-      bag_huisletter,
-      bag_toevoeging,
-      centroid,
-      huisnummer,
-      postcode,
-      straatnaam,
-      woonplaats,
-    } = responseAddress
-    return {
-      adres,
-      bag_huisletter,
-      bag_toevoeging,
-      centroid,
-      huisnummer,
-      postcode,
-      straatnaam,
-      woonplaats,
-    }
-  }
-
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    bagApi.fetchData({q: street})
-  }, [street])
-
-  useEffect(() => {
-    const streetWithoutWeespSuffix = removeWeespSuffix(street)
-    isStreetSelected && isNumberSelected
-      ? addressApi.fetchData({
-          q: `${streetWithoutWeespSuffix} ${number}`,
-        })
-      : bagApi.fetchData({
-          q: `${streetWithoutWeespSuffix} ${number}`,
-        })
-  }, [number, isNumberSelected, isStreetSelected])
-
-  useEffect(() => {
-    const suggestions = bagApi.data?.find(
+    const suggestions = bagData?.find(
       item => item.label === 'Straatnamen' || item.label === 'Adressen',
     )
     setBagList(suggestions?.content)
-  }, [bagApi.data])
+  }, [bagData])
 
   useEffect(() => {
-    setAddress(addressApi.data)
-  }, [addressApi.data])
-
-  useEffect(() => {
-    if (address) {
-      const transformedAddress = transformAddress(address?.results[0])
-      tempAddress
-        ? changeSettings('temp', {address: transformedAddress})
-        : changeSettings('address', transformedAddress)
-      navigation.goBack()
+    if (addressData) {
+      if (temp) {
+        dispatch(addTempAddress(addressData))
+      } else {
+        asyncStorage.storeData('address', addressData)
+        dispatch(addAddress(addressData))
+      }
+      setIsAddressStored(true)
     }
-  }, [address])
+  }, [addressData]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    isAddressStored && navigation.goBack()
+  }, [isAddressStored]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box background="white" inset="lg">

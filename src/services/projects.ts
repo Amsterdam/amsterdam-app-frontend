@@ -50,20 +50,20 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     getProject: builder.query<ProjectDetail, ProjectIdQueryArg>({
-      query: params => generateRequestUrl('/project/details', params),
+      query: params => generateRequestUrl({path: '/project/details', params}),
       transformResponse: (response: {result: ProjectDetail}) => response.result,
     }),
 
     getProjectManager: builder.query<ProjectManagerResponse, ProjectIdQueryArg>(
       {
-        query: params => generateRequestUrl('/project/manager', params),
+        query: params => generateRequestUrl({path: '/project/manager', params}),
         transformResponse: (response: {result: [ProjectManagerResponse]}) =>
           response.result[0],
       },
     ),
 
     getProjectNews: builder.query<NewsArticle, ProjectIdQueryArg>({
-      query: params => generateRequestUrl('/project/news', params),
+      query: params => generateRequestUrl({path: '/project/news', params}),
       transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
@@ -73,7 +73,10 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       query: params => {
         if (params) {
-          return generateRequestUrl('/projects', formatQueryParams(params))
+          return generateRequestUrl({
+            path: '/projects',
+            params: formatQueryParams(params),
+          })
         }
         return '/projects'
       },
@@ -82,20 +85,24 @@ export const projectsApi = baseApi.injectEndpoints({
 
     getProjectsByDistance: builder.query<Project[], ProjectsByDistanceQueryArg>(
       {
-        query: params => generateRequestUrl('/projects/distance', params),
+        query: params =>
+          generateRequestUrl({path: '/projects/distance', params}),
         transformResponse: (response: {result: Project[]}) => response.result,
       },
     ),
 
     getProjectsByText: builder.query<Project[], ProjectsByTextQueryArg>({
       query: params => {
-        return generateRequestUrl('/projects/search', formatQueryParams(params))
+        return generateRequestUrl({
+          path: '/projects/search',
+          params: formatQueryParams(params),
+        })
       },
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
 
     getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({
-      query: params => generateRequestUrl('/project/warning', params),
+      query: params => generateRequestUrl({path: '/project/warning', params}),
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,
     }),

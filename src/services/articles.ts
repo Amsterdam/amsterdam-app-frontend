@@ -8,7 +8,7 @@ export const articlesApi = baseApi.injectEndpoints({
       providesTags: ['Articles'],
       query: params => {
         const q = formatQueryParams(params)
-        return generateRequestUrl('/articles', q)
+        return generateRequestUrl({path: '/articles', params: q})
       },
       transformResponse: (response: {result: Articles}) => response.result,
     }),

@@ -1,10 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
+import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {AddressFormTeaser} from '../../../components/features/address'
+import {selectAddress} from '../../../components/features/address/addressSlice'
 import {
   Box,
   Card,
@@ -16,8 +18,8 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {useFetch} from '../../../hooks'
-import {SettingsContext} from '../../../providers'
+import {useAsyncStorage, useFetch} from '../../../hooks'
+import {Address} from '../../../types'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
   transformWasteGuideResponse,
@@ -28,8 +30,9 @@ import {
 } from './'
 
 export const WasteGuideByAddress = () => {
-  const {settings} = useContext(SettingsContext)
-  const {address, temp} = {...settings}
+  const asyncStorage = useAsyncStorage()
+  const [address, setAddress] = useState<Address | undefined>()
+  const {temp: tempAddress} = useSelector(selectAddress)
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -42,28 +45,37 @@ export const WasteGuideByAddress = () => {
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
 
-  const tempOrSavedAddress = temp?.address ?? address
+  const setTempOrStoredAddress = useCallback(async () => {
+    if (tempAddress) {
+      setAddress(tempAddress)
+    } else {
+      const addressFromStore = await asyncStorage.getValue<Address>('address')
+      setAddress(addressFromStore)
+    }
+  }, [tempAddress]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setTempOrStoredAddress()
+  }, [setTempOrStoredAddress])
 
   useEffect(() => {
     wasteGuideEndpoint.fetchData({
-      lon: tempOrSavedAddress?.centroid[0] ?? '',
-      lat: tempOrSavedAddress?.centroid[1] ?? '',
+      lon: address?.centroid[0] ?? '',
+      lat: address?.centroid[1] ?? '',
     })
-  }, [tempOrSavedAddress]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setWasteGuide(
-      transformWasteGuideResponse(wasteGuideEndpoint.data, tempOrSavedAddress),
-    )
-  }, [tempOrSavedAddress, wasteGuideEndpoint.data])
+    setWasteGuide(transformWasteGuideResponse(wasteGuideEndpoint.data, address))
+  }, [address, wasteGuideEndpoint.data])
 
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(routes.addressForm.name, {tempAddress: true})
+    navigation.navigate(routes.addressForm.name, {temp: true})
   }
 
-  if (!tempOrSavedAddress) {
+  if (!address) {
     return (
       <AddressFormTeaser
         text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
@@ -78,7 +90,7 @@ export const WasteGuideByAddress = () => {
         <SingleSelectable>
           <Text>Afvalinformatie voor</Text>
           <Gutter height="xs" />
-          <Title text={tempOrSavedAddress.adres} />
+          <Title text={address.adres} />
           <Gutter height="sm" />
         </SingleSelectable>
         <Row align="start">
@@ -101,7 +113,7 @@ export const WasteGuideByAddress = () => {
             </CardBody>
           </Card>
         ) : wasteGuideLength === 0 ? (
-          <WasteGuideByAddressNoDetails address={tempOrSavedAddress} />
+          <WasteGuideByAddressNoDetails address={address} />
         ) : (
           <>
             {wasteGuide?.[WasteType.Bulky] && (

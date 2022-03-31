@@ -1,10 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {View} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {AlertContext, SettingsContext} from '../../../providers'
+import {useAsyncStorage} from '../../../hooks'
+import {AlertContext} from '../../../providers'
+import {Address as AddressType} from '../../../types'
+import {isEmptyObject} from '../../../utils'
 import {
   Button,
   Card,
@@ -15,21 +19,40 @@ import {
   Title,
 } from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
+import {removePrimaryAddress, selectAddress} from './addressSlice'
 
 export const Address = () => {
+  const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const {removeSetting, settings} = useContext(SettingsContext)
-  const {address} = {...settings}
+  const asyncStorage = useAsyncStorage()
+  const [address, setAddress] = useState<AddressType | undefined>()
+  const {primary: primaryAddress} = useSelector(selectAddress)
+
   const {changeContent, changeVariant} = useContext(AlertContext)
 
+  useEffect(() => {
+    asyncStorage
+      .getValue<AddressType>('address')
+      .then(storedAddress => setAddress(storedAddress))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setAddress(primaryAddress)
+  }, [primaryAddress])
+
+  /**
+   * TODO move to the useAsyncStorage hook
+   * For this, the Alert component has to be applied more generally
+   */
   const removeAddressAndShowAlert = async () => {
-    const response = await removeSetting('address')
+    const response = await asyncStorage.removeValue('address')
     if (response === 'success') {
       changeContent({
         title: 'Gelukt',
         text: 'Het adres is verwijderd uit uw profiel.',
       })
       changeVariant('success')
+      dispatch(removePrimaryAddress())
     } else {
       changeContent({
         title: 'Niet gelukt',
@@ -41,7 +64,7 @@ export const Address = () => {
 
   return (
     <>
-      {address ? (
+      {address && !isEmptyObject(address) ? (
         <Card>
           <CardBody>
             <SingleSelectable>

@@ -1,4 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
+import {addressSlice} from '../components/features/address/addressSlice'
 import {projectsByTextSlice} from '../components/features/projects'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {articlesApi} from '../services/articles'
@@ -8,6 +9,7 @@ import {authSlice} from './authSlice'
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
+    address: addressSlice.reducer,
     auth: authSlice.reducer,
     notificationDraft: notificationDraftSlice.reducer,
     projectsSearch: projectsByTextSlice.reducer,

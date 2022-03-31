@@ -4,6 +4,7 @@ import {Alert} from 'react-native'
 
 export const useAsyncStorage = () => {
   const [error, setError] = useState<unknown | undefined>()
+  const [isLoading, setLoading] = useState(true)
 
   const storeData = async (key: string, obj: any) => {
     try {
@@ -11,24 +12,32 @@ export const useAsyncStorage = () => {
       await AsyncStorage.setItem(key, jsonValue)
     } catch (e) {
       setError(e)
+    } finally {
+      setLoading(false)
     }
   }
 
-  const getValue = async (key: string) => {
+  const getValue = async <T>(key: string) => {
     try {
       const jsonValue = await AsyncStorage.getItem(key)
-      const obj = jsonValue != null ? JSON.parse(jsonValue) : undefined
+      const obj: T = jsonValue != null ? JSON.parse(jsonValue) : undefined
       return obj
     } catch (e) {
       setError(e)
+    } finally {
+      setLoading(false)
     }
   }
 
   const removeValue = async (key: string) => {
     try {
       await AsyncStorage.removeItem(key)
+      return 'success'
     } catch (e) {
       setError(e)
+      return 'failure'
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -36,7 +45,10 @@ export const useAsyncStorage = () => {
     const clearAsyncStorage = () => {
       try {
         AsyncStorage.getAllKeys().then(keys => AsyncStorage.multiRemove(keys))
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        setLoading(false)
+      }
     }
 
     Alert.alert(
@@ -63,6 +75,8 @@ export const useAsyncStorage = () => {
       return all
     } catch (e) {
       setError(e)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -72,6 +86,7 @@ export const useAsyncStorage = () => {
     getAllValues,
     getValue,
     removeValue,
+    isLoading,
     storeData,
   }
 }

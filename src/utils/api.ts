@@ -6,7 +6,25 @@ import {
   ProjectsQueryArg,
 } from '../types'
 
-export const generateRequestUrl = (url: string, params = {}) => {
+type Signature = {
+  baseUrl?: string
+  path?: string
+  params: {}
+}
+
+/**
+ *
+ * @param {string} baseUrl Defaults to the url of our backend-for-frontend server
+ * @param {Object} params Defaults to empty Object
+ * @param {string} path optional
+ * @returns
+ */
+
+export const generateRequestUrl = ({
+  baseUrl = getEnvironment().apiUrl,
+  params = {},
+  path,
+}: Signature) => {
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
     .flatMap(([key, value]) =>
@@ -18,9 +36,9 @@ export const generateRequestUrl = (url: string, params = {}) => {
     .flatMap(([key, value]) => `${key}=${value}`)
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
-  const requestURL = [getEnvironment().apiUrl + url, queryParams]
-    .filter(Boolean)
-    .join('?')
+
+  const requestURL = [baseUrl + path, queryParams].join('?')
+
   return requestURL
 }
 

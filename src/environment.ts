@@ -7,6 +7,7 @@ enum Environment {
 type EnvironmentConfig = {
   apiUrl: string
   bulkyWasteFormUrl: string
+  atlasUrl: string
   name: 'development' | 'acceptance' | 'production'
   signalsBaseUrl: string
 }
@@ -16,6 +17,7 @@ const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: 'http://localhost:8000/api/v1',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
     name: 'development',
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
@@ -23,6 +25,7 @@ const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
     name: 'acceptance',
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
@@ -30,6 +33,7 @@ const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
     name: 'production',
     signalsBaseUrl: 'https://app.meldingen.amsterdam.nl',
   },

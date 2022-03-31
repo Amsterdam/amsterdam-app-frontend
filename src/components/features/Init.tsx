@@ -6,12 +6,8 @@ import {encryptWithAES} from '../../utils'
 
 export const Init = () => {
   const dispatch = useDispatch()
-  const {removeSetting, settings} = useContext(SettingsContext)
+  const {settings} = useContext(SettingsContext)
   const projectManager = settings?.['project-manager']
-
-  useEffect(() => {
-    removeSetting('temp')
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (projectManager) {

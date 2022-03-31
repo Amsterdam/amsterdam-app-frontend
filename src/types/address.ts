@@ -25,5 +25,5 @@ export type ApiAddress = Address & {
 }
 
 export type ResponseAddress = {
-  results: [ApiAddress]
+  results: ApiAddress[]
 }
