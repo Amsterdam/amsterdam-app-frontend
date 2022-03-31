@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
+    padding: 0, // Override an Android default
     color: color.font.regular,
     fontFamily: font.weight.regular,
     fontSize: font.size.p1,
