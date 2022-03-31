@@ -1,6 +1,6 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {StackParams, TabParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {useAsyncStorage} from '../../../hooks'
@@ -16,12 +16,12 @@ export const ProvideAddressBanner = () => {
   const [address, setAddress] = useState<Address | undefined>()
   const [isLoading, setIsLoading] = useState(true)
 
-  useFocusEffect(() => {
+  useEffect(() => {
     asyncStorage.getValue<Address>('address').then(storedAddress => {
       setAddress(storedAddress)
       setIsLoading(false)
     })
-  })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return <PleaseWait />
