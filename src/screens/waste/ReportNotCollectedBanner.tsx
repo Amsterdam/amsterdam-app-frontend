@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
+import {PleaseWait} from '../../components/ui'
 import {getEnvironment} from '../../environment'
 import {useAsyncStorage} from '../../hooks'
 import {Address} from '../../types'
@@ -20,6 +21,10 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => {
       .getValue<Address>('address')
       .then(storedAddress => setAddress(storedAddress))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (asyncStorage.isLoading) {
+    return <PleaseWait />
+  }
 
   return (
     <BannerCard
