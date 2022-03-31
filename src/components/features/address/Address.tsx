@@ -7,7 +7,8 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {useAsyncStorage} from '../../../hooks'
 import {AlertContext} from '../../../providers'
-import {Address as Addresstype} from '../../../types'
+import {Address as AddressType} from '../../../types'
+import {isEmptyObject} from '../../../utils'
 import {
   Button,
   Card,
@@ -24,14 +25,14 @@ export const Address = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
   const asyncStorage = useAsyncStorage()
-  const [address, setAddress] = useState<Addresstype | undefined>()
+  const [address, setAddress] = useState<AddressType | undefined>()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
   const {changeContent, changeVariant} = useContext(AlertContext)
 
   useEffect(() => {
     asyncStorage
-      .getValue<Addresstype>('address')
+      .getValue<AddressType>('address')
       .then(storedAddress => setAddress(storedAddress))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -63,7 +64,7 @@ export const Address = () => {
 
   return (
     <>
-      {address ? (
+      {address && !isEmptyObject(address) ? (
         <Card>
           <CardBody>
             <SingleSelectable>
