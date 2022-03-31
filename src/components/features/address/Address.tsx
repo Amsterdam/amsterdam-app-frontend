@@ -1,7 +1,8 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {View} from 'react-native'
+import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {useAsyncStorage} from '../../../hooks'
@@ -17,19 +18,25 @@ import {
   Title,
 } from '../../ui'
 import {Column, Gutter, Row} from '../../ui/layout'
+import {selectAddress} from './addressSlice'
 
 export const Address = () => {
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
   const asyncStorage = useAsyncStorage()
   const [address, setAddress] = useState<Addresstype | undefined>()
+  const {primary: primaryAddress} = useSelector(selectAddress)
 
   const {changeContent, changeVariant} = useContext(AlertContext)
 
-  useFocusEffect(() => {
+  useEffect(() => {
     asyncStorage
       .getValue<Addresstype>('address')
       .then(storedAddress => setAddress(storedAddress))
-  })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setAddress(primaryAddress)
+  }, [primaryAddress])
 
   /**
    * TODO move to the useAsyncStorage hook
