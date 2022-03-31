@@ -20,14 +20,14 @@ import {ProjectCard, ProjectTraits} from '../project'
 import {config, selectIsProjectsSearching} from './'
 
 export const ProjectsByDistance = () => {
-  const [address, setAddress] = useState<AddressType | undefined>()
-  const asyncStorage = useAsyncStorage()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
   const device = useContext(DeviceContext)
-  const isSearching = useSelector(selectIsProjectsSearching)
-
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
+
+  const asyncStorage = useAsyncStorage()
+  const [address, setAddress] = useState<AddressType | undefined>()
+  const isSearching = useSelector(selectIsProjectsSearching)
 
   const params = address
     ? {
@@ -50,13 +50,7 @@ export const ProjectsByDistance = () => {
       .then(storedAddress => setAddress(storedAddress))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Without an address, we can’t find the nearest projects
-  if (!address) {
-    return null
-  }
-
-  // If we’re searching projects, don’t render the nearest projects
-  if (isSearching) {
+  if (isSearching || !address) {
     return null
   }
 

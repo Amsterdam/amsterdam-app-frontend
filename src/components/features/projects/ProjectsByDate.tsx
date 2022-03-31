@@ -18,13 +18,14 @@ import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDate = () => {
-  const device = useContext(DeviceContext)
-  const isSearching = useSelector(selectIsProjectsSearching)
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+  const device = useContext(DeviceContext)
+  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
+
   const {getValue, isLoading: isAddressLoading} = useAsyncStorage()
   const [address, setAddress] = useState<Address | undefined>()
+  const isSearching = useSelector(selectIsProjectsSearching)
 
   useEffect(() => {
     getValue<Address>('address').then(storedAddress =>

@@ -21,11 +21,11 @@ import {selectProjectSearchText} from './projectsByTextSlice'
 export const ProjectsByText = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
-
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
   const searchText = useSelector(selectProjectSearchText)
+
   const params = searchText
     ? {
         fields: ['identifier', 'images', 'subtitle', 'title'],
