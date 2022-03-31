@@ -1,11 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {useAsyncStorage} from '../../../hooks'
 import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
 import {BagResponseContent} from '../../../types'
 import {Box} from '../../ui'
+import {addAddress} from './addressSlice'
 import {NumberInput, StreetInput} from './'
 
 type Props = {
@@ -14,9 +16,11 @@ type Props = {
 
 export const AddressForm = ({temp}: Props) => {
   const asyncStorage = useAsyncStorage()
+  const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
   )
+  const [isAddressStored, setIsAddressStored] = useState(false)
   const [isNumberSelected, setIsNumberSelected] = useState(false)
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [number, setNumber] = useState<string>('')
@@ -70,13 +74,17 @@ export const AddressForm = ({temp}: Props) => {
   useEffect(() => {
     if (addressData) {
       if (temp) {
-        asyncStorage.storeData('temp', {address: addressData})
+        dispatch(addAddress(addressData))
       } else {
         asyncStorage.storeData('address', addressData)
       }
-      navigation.goBack()
+      setIsAddressStored(true)
     }
-  }, [addressData, asyncStorage, navigation, temp])
+  }, [addressData, asyncStorage, dispatch, navigation, temp])
+
+  useEffect(() => {
+    isAddressStored && navigation.goBack()
+  }, [isAddressStored]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box background="white" inset="lg">
