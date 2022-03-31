@@ -1,52 +1,47 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {DeviceContext, SettingsContext} from '../../../providers'
+import {useAsyncStorage} from '../../../hooks'
+import {DeviceContext} from '../../../providers'
 import {useGetProjectsQuery} from '../../../services'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
-import {Project} from '../../../types'
+import {Address, Project} from '../../../types'
 import {mapImageSources} from '../../../utils'
 import {PleaseWait, SomethingWentWrong} from '../../ui'
 import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDate = () => {
+  const device = useContext(DeviceContext)
+  const isSearching = useSelector(selectIsProjectsSearching)
+  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+  const {getValue, isLoading: isAddressLoading} = useAsyncStorage()
+  const [address, setAddress] = useState<Address | undefined>()
 
-  const device = useContext(DeviceContext)
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
-
-  const {settings} = useContext(SettingsContext)
-  const {address} = {...settings}
-  const isSearching = useSelector(selectIsProjectsSearching)
+  useEffect(() => {
+    getValue<Address>('address').then(storedAddress =>
+      setAddress(storedAddress),
+    )
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     data: projects = [],
-    isLoading,
+    isLoading: projectsIsLoading,
     isError,
   } = useGetProjectsQuery({
     sortBy: 'publication_date',
     sortOrder: 'desc',
   })
 
-  // If we have an address, we’re showing nearest projects instead
-  if (address) {
-    return null
-  }
-
-  // If we’re searching projects, don’t render recent projects
-  if (isSearching) {
-    return null
-  }
-
-  if (isLoading) {
+  if (projectsIsLoading || isAddressLoading) {
     return <PleaseWait />
   }
 
@@ -54,7 +49,7 @@ export const ProjectsByDate = () => {
     return <SomethingWentWrong />
   }
 
-  if (!projects.length) {
+  if (address || isSearching || !projects.length) {
     return null
   }
 
