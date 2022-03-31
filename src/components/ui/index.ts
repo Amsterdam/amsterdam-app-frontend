@@ -1,6 +1,7 @@
 export * from './AddButton'
 export * from './Alert'
 export * from './Attention'
+export * from './Badge'
 export * from './Box'
 export * from './Button'
 export * from './Card'
