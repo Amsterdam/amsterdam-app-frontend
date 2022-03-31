@@ -1,30 +1,18 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+import {useSelector} from 'react-redux'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {BannerCard} from '../../components/features'
-import {PleaseWait} from '../../components/ui'
+import {selectAddress} from '../../components/features/address/addressSlice'
 import {getEnvironment} from '../../environment'
-import {useAsyncStorage} from '../../hooks'
-import {Address} from '../../types'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'WebView'>
 }
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
-  const asyncStorage = useAsyncStorage()
-  const [address, setAddress] = useState<Address | undefined>()
-
-  useEffect(() => {
-    asyncStorage
-      .getValue<Address>('address')
-      .then(storedAddress => setAddress(storedAddress))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (asyncStorage.isLoading) {
-    return <PleaseWait />
-  }
+  const {primary: address} = useSelector(selectAddress)
 
   return (
     <BannerCard
@@ -35,8 +23,8 @@ export const ReportNotCollectedBanner = ({navigation}: Props) => {
           title: 'Melden',
           url: `${getEnvironment().signalsBaseUrl}/categorie/afval/grofvuil`,
           urlParams: {
-            lat: address?.centroid[1],
-            lng: address?.centroid[0],
+            lat: address?.centroid[1] ?? 0,
+            lng: address?.centroid[0] ?? 0,
           },
         })
       }

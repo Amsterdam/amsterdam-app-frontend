@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {ActivityIndicator} from 'react-native'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
@@ -18,8 +18,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {useAsyncStorage, useFetch} from '../../../hooks'
-import {Address} from '../../../types'
+import {useFetch} from '../../../hooks'
 import {WasteGuide, WasteGuideResponse, WasteType} from './types'
 import {
   transformWasteGuideResponse,
@@ -30,9 +29,8 @@ import {
 } from './'
 
 export const WasteGuideByAddress = () => {
-  const asyncStorage = useAsyncStorage()
-  const [address, setAddress] = useState<Address | undefined>()
-  const {temp: tempAddress} = useSelector(selectAddress)
+  const {primary, temp} = useSelector(selectAddress)
+  const address = temp ?? primary
   const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
     undefined,
   )
@@ -44,19 +42,6 @@ export const WasteGuideByAddress = () => {
     options: {},
     url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   })
-
-  const setTempOrStoredAddress = useCallback(async () => {
-    if (tempAddress) {
-      setAddress(tempAddress)
-    } else {
-      const addressFromStore = await asyncStorage.getValue<Address>('address')
-      setAddress(addressFromStore)
-    }
-  }, [tempAddress]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    setTempOrStoredAddress()
-  }, [setTempOrStoredAddress])
 
   useEffect(() => {
     wasteGuideEndpoint.fetchData({

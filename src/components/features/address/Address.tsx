@@ -1,13 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useAsyncStorage} from '../../../hooks'
 import {AlertContext} from '../../../providers'
-import {Address as AddressType} from '../../../types'
 import {isEmptyObject} from '../../../utils'
 import {
   Button,
@@ -24,54 +22,29 @@ import {removePrimaryAddress, selectAddress} from './addressSlice'
 export const Address = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
-  const asyncStorage = useAsyncStorage()
-  const [address, setAddress] = useState<AddressType | undefined>()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
   const {changeContent, changeVariant} = useContext(AlertContext)
 
-  useEffect(() => {
-    asyncStorage
-      .getValue<AddressType>('address')
-      .then(storedAddress => setAddress(storedAddress))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    setAddress(primaryAddress)
-  }, [primaryAddress])
-
-  /**
-   * TODO move to the useAsyncStorage hook
-   * For this, the Alert component has to be applied more generally
-   */
   const removeAddressAndShowAlert = async () => {
-    const response = await asyncStorage.removeValue('address')
-    if (response === 'success') {
-      changeContent({
-        title: 'Gelukt',
-        text: 'Het adres is verwijderd uit uw profiel.',
-      })
-      changeVariant('success')
-      dispatch(removePrimaryAddress())
-    } else {
-      changeContent({
-        title: 'Niet gelukt',
-        text: 'Uw adres is niet opgeslagen',
-      })
-      changeVariant('failure')
-    }
+    dispatch(removePrimaryAddress())
+    changeContent({
+      title: 'Gelukt',
+      text: 'Het adres is verwijderd uit uw profiel.',
+    })
+    changeVariant('success')
   }
 
   return (
     <>
-      {address && !isEmptyObject(address) ? (
+      {primaryAddress && !isEmptyObject(primaryAddress) ? (
         <Card>
           <CardBody>
             <SingleSelectable>
               <Title level={4} text="Uw adres" />
-              <Text large>{address.adres}</Text>
+              <Text large>{primaryAddress.adres}</Text>
               <Text large>
-                {[address.postcode, address.woonplaats].join(' ')}
+                {[primaryAddress.postcode, primaryAddress.woonplaats].join(' ')}
               </Text>
             </SingleSelectable>
             <Row align="between" valign="center" gutter="md" wrap>
