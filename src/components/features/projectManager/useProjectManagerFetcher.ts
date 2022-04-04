@@ -1,11 +1,26 @@
+import {createSelector} from '@reduxjs/toolkit'
+import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../../services'
+import {Project} from '../../../types'
 import {selectProjectManager} from './projectManagerSlice'
 
 export const useProjectManagerFetcher = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const {data: projectManager, isLoading: isProjectManagerLoading} =
     useGetProjectManagerQuery({id: projectManagerId}, {skip: !projectManagerId})
+
+  // avoid unnecessary re-renders
+  const selectAuthProjects = useMemo(() => {
+    return createSelector(
+      (res: {data?: Project[]}) => res.data,
+      data =>
+        data?.filter(
+          project =>
+            projectManager?.projects.includes(project.identifier) ?? [],
+        ),
+    )
+  }, [projectManager?.projects])
 
   const {
     isSuccess: isGetProjectsSuccess,
@@ -16,12 +31,9 @@ export const useProjectManagerFetcher = () => {
       fields: ['identifier', 'subtitle', 'title'],
     },
     {
-      selectFromResult: ({data, isSuccess, isLoading}) => ({
-        authorizedProjects: data?.filter(project =>
-          projectManager?.projects.includes(project.identifier),
-        ),
-        isSuccess,
-        isLoading,
+      selectFromResult: result => ({
+        ...result,
+        authorizedProjects: selectAuthProjects(result),
       }),
       skip: !projectManager,
     },
