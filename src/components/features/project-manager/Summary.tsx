@@ -10,7 +10,7 @@ import {
   ProjectManagerHeader,
   ProjectManagerProjects,
   useProjectManagerFetcher,
-} from './'
+} from '.'
 
 type Props = {routeParamsId: string}
 
