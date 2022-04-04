@@ -13,7 +13,7 @@ export const useProjectManagerFetcher = () => {
   // avoid unnecessary re-renders
   const selectAuthProjects = useMemo(() => {
     return createSelector(
-      (res: {data?: Project[]}) => res.data,
+      (result: {data?: Project[]}) => result.data,
       data =>
         data?.filter(
           project =>
@@ -38,6 +38,7 @@ export const useProjectManagerFetcher = () => {
       skip: !projectManager,
     },
   )
+
   return {
     authorizedProjects,
     isGetProjectsSuccess,

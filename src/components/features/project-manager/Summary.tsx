@@ -45,6 +45,7 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
         id: projectManagerId,
         projects: projectManager.projects,
       }
+
       dispatch(addProjectManager(newProjectManagerSettings))
 
       const projectManagerAuthorizedProjects = projectManager.projects.reduce(

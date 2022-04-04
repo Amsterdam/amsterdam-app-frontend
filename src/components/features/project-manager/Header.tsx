@@ -9,9 +9,9 @@ type Props = {
   hasProjects: boolean
 }
 
-export const ProjectManagerHeader = ({hasProjects}: Props) => (
-  <>
-    {hasProjects ? (
+export const ProjectManagerHeader = ({hasProjects}: Props) => {
+  if (hasProjects) {
+    return (
       <Column gutter="md">
         <Row gutter="sm">
           <Checkmark fill={color.status.success} height={28} width={28} />
@@ -23,19 +23,21 @@ export const ProjectManagerHeader = ({hasProjects}: Props) => (
         </Text>
         <Divider />
       </Column>
-    ) : (
-      <Column gutter="md">
-        <Row gutter="sm">
-          <Close fill={color.status.error} height={28} width={28} />
-          <Title text="Er gaat iets mis…" />
-        </Row>
-        <Text intro>
-          Helaas lukt het niet om de projecten te laden waarvoor je
-          pushberichten mag versturen. Probeer de app nogmaals te openen met de
-          toegestuurde link.
-        </Text>
-        <Text>Lukt dit niet? Neem dan contact op met de redactie.</Text>
-      </Column>
-    )}
-  </>
-)
+    )
+  }
+
+  return (
+    <Column gutter="md">
+      <Row gutter="sm">
+        <Close fill={color.status.error} height={28} width={28} />
+        <Title text="Er gaat iets mis…" />
+      </Row>
+      <Text intro>
+        Helaas lukt het niet om de projecten te laden waarvoor je pushberichten
+        mag versturen. Probeer de app nogmaals te openen met de toegestuurde
+        link.
+      </Text>
+      <Text>Lukt dit niet? Neem dan contact op met de redactie.</Text>
+    </Column>
+  )
+}

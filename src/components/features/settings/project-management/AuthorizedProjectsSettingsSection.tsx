@@ -22,7 +22,6 @@ export const AuthorizedProjectsSettingsSection = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 
-  // Don’t render if user is not a project manager
   if (!projectManager) {
     return (
       <Box insetHorizontal="md">
