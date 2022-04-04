@@ -1,20 +1,28 @@
 import React, {useCallback, useContext, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {SettingsContext} from '../../../providers'
-import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../../services'
 import {setCredentials} from '../../../store'
 import {encryptWithAES} from '../../../utils'
 import {Box, PleaseWait} from '../../ui'
 import {ScrollView} from '../../ui/layout'
-import {ProjectManagerHeader} from './Header'
-import {ProjectManagerProjects} from './Projects'
-import {addProjectManager, selectProjectManager} from './projectManagerSlice'
+import {
+  addProjectManager,
+  ProjectManagerHeader,
+  ProjectManagerProjects,
+  useProjectManagerFetcher,
+} from './'
 
 type Props = {routeParamsId: string}
 
 export const ProjectManagerSummary = ({routeParamsId}: Props) => {
   const dispatch = useDispatch()
-  const {id: projectManagerId} = useSelector(selectProjectManager)
+  const {
+    authorizedProjects,
+    isLoadingProjects,
+    isGetProjectsSuccess,
+    projectManager,
+    projectManagerId,
+  } = useProjectManagerFetcher()
   const {changeSettings, settings} = useContext(SettingsContext)
   const notificationSettings = settings?.notifications
 
@@ -30,31 +38,6 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
   useEffect(() => {
     routeParamsId && dispatch(addProjectManager({id: routeParamsId}))
   }, [dispatch, routeParamsId])
-
-  const {data: projectManager} = useGetProjectManagerQuery(
-    {id: projectManagerId},
-    {skip: !projectManagerId},
-  )
-
-  const {
-    isSuccess: isGetProjectsSuccess,
-    isLoading: isLoadingProjects,
-    authorizedProjects,
-  } = useGetProjectsQuery(
-    {
-      fields: ['identifier', 'subtitle', 'title'],
-    },
-    {
-      selectFromResult: ({data, isSuccess, isLoading}) => ({
-        authorizedProjects: data?.filter(project =>
-          projectManager?.projects.includes(project.identifier),
-        ),
-        isSuccess,
-        isLoading,
-      }),
-      skip: !projectManager,
-    },
-  )
 
   const storeProjectManagerSettings = useCallback(async () => {
     if (projectManager) {
