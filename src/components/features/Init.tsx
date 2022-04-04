@@ -1,27 +1,25 @@
-import {useContext, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {SettingsContext} from '../../providers'
+import {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {setCredentials} from '../../store/authSlice'
 import {encryptWithAES} from '../../utils'
+import {selectProjectManager} from './projectManager'
 
 export const Init = () => {
   const dispatch = useDispatch()
-  const {settings} = useContext(SettingsContext)
-  const projectManager = settings?.['project-manager']
+  const {id: projectManagerId} = useSelector(selectProjectManager)
 
   useEffect(() => {
-    if (projectManager) {
-      const {id} = projectManager
+    if (projectManagerId) {
       dispatch(
         setCredentials({
           managerToken: encryptWithAES({
             password: process.env.AUTH_PASSWORD ?? '',
-            salt: id,
+            salt: projectManagerId,
           }),
         }),
       )
     }
-  }, [projectManager, dispatch])
+  }, [dispatch, projectManagerId])
 
   return null
 }
