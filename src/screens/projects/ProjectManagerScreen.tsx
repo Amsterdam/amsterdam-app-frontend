@@ -2,18 +2,16 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {
-  Fragment,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, {Fragment, useCallback, useContext, useEffect} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {StackParams, TabParams} from '../../app/navigation'
 import {routes, tabs} from '../../app/navigation/routes'
 import {ProjectTitle} from '../../components/features/project'
+import {
+  addProjectManager,
+  selectProjectManager,
+} from '../../components/features/projectManager'
 import {
   Box,
   Button,
@@ -27,7 +25,6 @@ import {SettingsContext} from '../../providers'
 import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
 import {setCredentials} from '../../store'
 import {color, size} from '../../tokens'
-import {ProjectSummary} from '../../types'
 import {encryptWithAES} from '../../utils'
 
 type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
@@ -39,33 +36,40 @@ type Props = {
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
+  const {id: projectManagerId} = useSelector(selectProjectManager)
   const {changeSettings, settings} = useContext(SettingsContext)
   const notificationSettings = settings?.notifications
-  const projectManagerSettings = settings && settings['project-manager']
-  const [authorizedProjects, setAuthorizedProjects] =
-    useState<ProjectSummary[]>()
-  const projectManagerId = route.params?.id
 
-  useEffect(() => {
-    projectManagerId &&
-      dispatch(
-        setCredentials({
-          managerToken: encryptWithAES({
-            password: process.env.AUTH_PASSWORD ?? '',
-            salt: projectManagerId,
-          }),
-        }),
-      )
-  }, [dispatch, projectManagerId])
+  !projectManagerId && dispatch(addProjectManager({id: route.params.id}))
+  dispatch(
+    setCredentials({
+      managerToken: encryptWithAES({
+        password: process.env.AUTH_PASSWORD ?? '',
+        salt: projectManagerId,
+      }),
+    }),
+  )
 
   const {data: projectManager} = useGetProjectManagerQuery(
     {id: projectManagerId},
     {skip: !projectManagerId},
   )
 
-  const {data: projects} = useGetProjectsQuery({
-    fields: ['identifier', 'subtitle', 'title'],
-  })
+  const {isLoading: isLoadingProjects, authorizedProjects} =
+    useGetProjectsQuery(
+      {
+        fields: ['identifier', 'subtitle', 'title'],
+      },
+      {
+        selectFromResult: ({data, isLoading}) => ({
+          authorizedProjects: data?.filter(project =>
+            projectManager?.projects.includes(project.identifier),
+          ),
+          isLoading,
+        }),
+        skip: !projectManager,
+      },
+    )
 
   const storeProjectManagerSettings = useCallback(async () => {
     if (projectManager) {
@@ -73,7 +77,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         id: projectManagerId,
         projects: projectManager.projects,
       }
-      changeSettings('project-manager', newProjectManagerSettings)
+      dispatch(addProjectManager(newProjectManagerSettings))
 
       const projectManagerAuthorizedProjects = projectManager.projects.reduce(
         (acc, projectId) => Object.assign(acc, {[projectId]: true}),
@@ -95,20 +99,11 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
-  useEffect(() => {
-    if (projects && projectManager) {
-      setAuthorizedProjects(
-        projects.filter(project =>
-          projectManager.projects.includes(project.identifier),
-        ),
-      )
-    }
-  }, [projects, projectManager])
+  if (isLoadingProjects) {
+    return <PleaseWait />
+  }
 
-  return authorizedProjects === undefined &&
-    projectManagerSettings?.projects ? (
-    <PleaseWait />
-  ) : (
+  return (
     <View style={styles.screenHeight}>
       {authorizedProjects?.length ? (
         <ScrollView>
