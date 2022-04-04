@@ -4,7 +4,7 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
-import {ProjectManagerSummary} from '../../components/features/projectManager/Summary'
+import {ProjectManagerSummary} from '../../components/features/project-manager/Summary'
 import {Box, Button} from '../../components/ui'
 import {size} from '../../tokens'
 

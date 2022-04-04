@@ -14,7 +14,7 @@ import {
   Text,
 } from '../../../ui'
 import {ProjectTitle} from '../../project'
-import {useProjectManagerFetcher} from '../../projectManager'
+import {useProjectManagerFetcher} from '../../project-manager'
 
 export const AuthorizedProjectsSettingsSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =

@@ -6,7 +6,7 @@ import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {Text} from '../../../ui'
-import {selectProjectManager} from '../../projectManager'
+import {selectProjectManager} from '../../project-manager'
 
 export const ProjectManagerSettingsSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)

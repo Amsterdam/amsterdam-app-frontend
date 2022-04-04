@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCredentials} from '../../store/authSlice'
 import {encryptWithAES} from '../../utils'
-import {selectProjectManager} from './projectManager'
+import {selectProjectManager} from './project-manager'
 
 export const Init = () => {
   const dispatch = useDispatch()

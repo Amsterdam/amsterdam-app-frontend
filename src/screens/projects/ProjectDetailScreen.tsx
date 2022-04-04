@@ -6,7 +6,7 @@ import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {ArticleOverview} from '../../components/features/article'
 import {ProjectBodyMenu} from '../../components/features/project'
-import {useProjectManagerFetcher} from '../../components/features/projectManager'
+import {useProjectManagerFetcher} from '../../components/features/project-manager'
 import {
   Box,
   Button,

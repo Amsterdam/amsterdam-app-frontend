@@ -11,7 +11,7 @@ import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
-import {selectProjectManager} from '../../components/features/projectManager'
+import {selectProjectManager} from '../../components/features/project-manager'
 import {
   Box,
   Button,

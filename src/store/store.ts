@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist'
 import {addressSlice} from '../components/features/address/addressSlice'
-import {projectManagerSlice} from '../components/features/projectManager'
+import {projectManagerSlice} from '../components/features/project-manager'
 import {projectsByTextSlice} from '../components/features/projects'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {baseApi} from '../services/init'
