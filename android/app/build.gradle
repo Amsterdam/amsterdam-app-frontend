@@ -139,7 +139,7 @@ android {
         applicationId "com.stadsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 60
+        versionCode 61
         versionName '0.11'
         vectorDrawables.useSupportLibrary = true
     }
