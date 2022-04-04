@@ -1,184 +1,41 @@
-import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment, useCallback, useContext, useEffect} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
-import {StackParams, TabParams} from '../../app/navigation'
-import {routes, tabs} from '../../app/navigation/routes'
-import {ProjectTitle} from '../../components/features/project'
-import {
-  addProjectManager,
-  selectProjectManager,
-} from '../../components/features/projectManager'
-import {
-  Box,
-  Button,
-  Divider,
-  PleaseWait,
-  Text,
-  Title,
-} from '../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers'
-import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../services'
-import {setCredentials} from '../../store'
-import {color, size} from '../../tokens'
-import {encryptWithAES} from '../../utils'
+import React from 'react'
+import {StyleSheet, View} from 'react-native'
+import {StackParams} from '../../app/navigation'
+import {routes} from '../../app/navigation/routes'
+import {ProjectManagerSummary} from '../../components/features/projectManager/Summary'
+import {Box, Button} from '../../components/ui'
+import {size} from '../../tokens'
 
-type ProjectManagerScreenRouteProp = RouteProp<StackParams, 'ProjectManager'>
+export type ProjectManagerScreenRouteProp = RouteProp<
+  StackParams,
+  'ProjectManager'
+>
+
+export type ProjectManagerScreenNavigationProps = StackNavigationProp<
+  StackParams,
+  'ProjectManager'
+>
 
 type Props = {
-  navigation: StackNavigationProp<StackParams & TabParams, 'ProjectManager'>
+  navigation: ProjectManagerScreenNavigationProps
   route: ProjectManagerScreenRouteProp
 }
 
-export const ProjectManagerScreen = ({navigation, route}: Props) => {
-  const dispatch = useDispatch()
-  const {id: projectManagerId} = useSelector(selectProjectManager)
-  const {changeSettings, settings} = useContext(SettingsContext)
-  const notificationSettings = settings?.notifications
-
-  !projectManagerId && dispatch(addProjectManager({id: route.params.id}))
-  dispatch(
-    setCredentials({
-      managerToken: encryptWithAES({
-        password: process.env.AUTH_PASSWORD ?? '',
-        salt: projectManagerId,
-      }),
-    }),
-  )
-
-  const {data: projectManager} = useGetProjectManagerQuery(
-    {id: projectManagerId},
-    {skip: !projectManagerId},
-  )
-
-  const {isLoading: isLoadingProjects, authorizedProjects} =
-    useGetProjectsQuery(
-      {
-        fields: ['identifier', 'subtitle', 'title'],
-      },
-      {
-        selectFromResult: ({data, isLoading}) => ({
-          authorizedProjects: data?.filter(project =>
-            projectManager?.projects.includes(project.identifier),
-          ),
-          isLoading,
-        }),
-        skip: !projectManager,
-      },
-    )
-
-  const storeProjectManagerSettings = useCallback(async () => {
-    if (projectManager) {
-      const newProjectManagerSettings = {
-        id: projectManagerId,
-        projects: projectManager.projects,
-      }
-      dispatch(addProjectManager(newProjectManagerSettings))
-
-      const projectManagerAuthorizedProjects = projectManager.projects.reduce(
-        (acc, projectId) => Object.assign(acc, {[projectId]: true}),
-        {},
-      )
-
-      changeSettings('notifications', {
-        ...notificationSettings,
-        projectsEnabled: true,
-        projects: {
-          ...(notificationSettings && {...notificationSettings.projects}),
-          ...projectManagerAuthorizedProjects,
-        },
-      })
-    }
-  }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    storeProjectManagerSettings()
-  }, [storeProjectManagerSettings])
-
-  if (isLoadingProjects) {
-    return <PleaseWait />
-  }
-
-  return (
-    <View style={styles.screenHeight}>
-      {authorizedProjects?.length ? (
-        <ScrollView>
-          <Box insetVertical="lg" insetHorizontal="md">
-            <Column gutter="md">
-              <Row gutter="sm">
-                <Checkmark fill={color.status.success} height={28} width={28} />
-                <Title text="Gelukt!" />
-              </Row>
-              <Text intro>
-                Je kunt voor de volgende projecten een pushbericht versturen
-                vanaf de projectpagina:
-              </Text>
-            </Column>
-            <Gutter height="lg" />
-            <Divider />
-            {authorizedProjects.map(
-              (authProject, index) =>
-                authProject && (
-                  <Fragment key={authProject.identifier}>
-                    <TouchableOpacity
-                      accessibilityRole="button"
-                      key={authProject.identifier}
-                      onPress={() => {
-                        authProject.identifier &&
-                          navigation.navigate(routes.projectDetail.name, {
-                            id: authProject.identifier,
-                          })
-                      }}
-                      style={styles.button}>
-                      <ProjectTitle
-                        title={authProject.title}
-                        subtitle={authProject.subtitle ?? undefined}
-                      />
-                    </TouchableOpacity>
-                    {index < authorizedProjects.length && <Divider />}
-                  </Fragment>
-                ),
-            )}
-          </Box>
-        </ScrollView>
-      ) : (
-        <Box insetVertical="lg" insetHorizontal="md">
-          <Column gutter="md">
-            <Row gutter="sm">
-              <Close fill={color.status.error} height={28} width={28} />
-              <Title text="Er gaat iets mis…" />
-            </Row>
-            <Text intro>
-              Helaas lukt het niet om de projecten te laden waarvoor je
-              pushberichten mag versturen. Probeer de app nogmaals te openen met
-              de toegestuurde link.
-            </Text>
-            <Text>Lukt dit niet? Neem dan contact op met de redactie.</Text>
-          </Column>
-        </Box>
-      )}
-      <Box>
-        <Button
-          text="Sluit venster"
-          onPress={() =>
-            navigation.navigate(tabs.home.name, {
-              screen: routes.home.name,
-            })
-          }
-        />
-      </Box>
-    </View>
-  )
-}
+export const ProjectManagerScreen = ({navigation, route}: Props) => (
+  <View style={styles.screenHeight}>
+    <ProjectManagerSummary routeParamsId={route.params.id} />
+    <Box>
+      <Button
+        text="Sluit venster"
+        onPress={() => navigation.navigate(routes.home.name)}
+      />
+    </Box>
+  </View>
+)
 
 const styles = StyleSheet.create({
-  button: {
-    paddingVertical: size.spacing.sm,
-  },
   screenHeight: {
     height: '100%',
     justifyContent: 'space-between',
