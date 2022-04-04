@@ -1,6 +1,6 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import ImageCropPicker from 'react-native-image-crop-picker'
@@ -11,6 +11,7 @@ import {
   CharactersLeftDisplay,
   ValidationWarning,
 } from '../../components/features/form'
+import {selectProjectManager} from '../../components/features/projectManager'
 import {
   Box,
   Button,
@@ -22,7 +23,6 @@ import {
 } from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers'
 import {color, size} from '../../tokens'
 import {NewProjectWarning} from '../../types'
 import {NotificationStackParams} from './CreateNotificationScreen'
@@ -55,11 +55,10 @@ type Props = {
 }
 
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
+  const {id: projectManagerId} = useSelector(selectProjectManager)
   const dispatch = useDispatch()
   const mainImage = useSelector(selectMainImage)
   const projectId = useSelector(selectProjectId)
-  const {settings} = useContext(SettingsContext)
-  const projectManagerSettings = settings?.['project-manager']
 
   const [characterCountTitle, setCharacterCountTitle] = useState<number>(
     maxCharacters.title,
@@ -90,7 +89,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         content: data.message,
       },
       project_identifier: projectId!,
-      project_manager_id: projectManagerSettings?.id!,
+      project_manager_id: projectManagerId,
     }
     dispatch(setProjectWarning(warningData))
   }
@@ -140,7 +139,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
 
-  if (!projectId || !projectManagerSettings?.id) {
+  if (!projectId || !projectManagerId) {
     return null
   }
 

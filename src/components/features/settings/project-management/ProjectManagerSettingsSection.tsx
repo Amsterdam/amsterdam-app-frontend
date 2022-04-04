@@ -1,20 +1,19 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
+import {useSelector} from 'react-redux'
 import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {SettingsContext} from '../../../../providers'
 import {Text} from '../../../ui'
+import {selectProjectManager} from '../../projectManager'
 
 export const ProjectManagerSettingsSection = () => {
+  const {id: projectManagerId} = useSelector(selectProjectManager)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
-  const {settings} = useContext(SettingsContext)
-  const isProjectManager = !!settings?.['project-manager']?.id
 
-  // Don’t render if user is not a project manager
-  if (!isProjectManager) {
+  if (!projectManagerId) {
     return null
   }
 
