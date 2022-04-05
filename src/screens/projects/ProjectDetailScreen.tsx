@@ -6,6 +6,7 @@ import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {ArticleOverview} from '../../components/features/article'
 import {ProjectBodyMenu} from '../../components/features/project'
+import {useProjectManagerFetcher} from '../../components/features/project-manager'
 import {
   Box,
   Button,
@@ -31,8 +32,8 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
+  const {projectManager} = useProjectManagerFetcher()
   const {changeSettings, settings} = useContext(SettingsContext)
-  const projectManager = settings && settings['project-manager']
 
   const {data: project, isLoading} = useGetProjectQuery({id: route.params.id})
 

@@ -1,12 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {Fragment, useContext, useEffect, useState} from 'react'
+import React, {Fragment} from 'react'
 import {SettingsLink, SettingsSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {SettingsContext} from '../../../../providers'
-import {useGetProjectsQuery} from '../../../../services'
-import {ProjectSummary} from '../../../../types'
 import {accessibleText} from '../../../../utils'
 import {
   Attention,
@@ -17,31 +14,15 @@ import {
   Text,
 } from '../../../ui'
 import {ProjectTitle} from '../../project'
+import {useProjectManagerFetcher} from '../../project-manager'
 
 export const AuthorizedProjectsSettingsSection = () => {
-  const {settings} = useContext(SettingsContext)
-  const projectManagerSettings = settings && settings['project-manager']
-  const [authorizedProjects, setAuthorizedProjects] =
-    useState<ProjectSummary[]>()
+  const {authorizedProjects, isLoadingProjects, projectManager} =
+    useProjectManagerFetcher()
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
 
-  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
-    fields: ['identifier', 'subtitle', 'title'],
-  })
-
-  useEffect(() => {
-    if (projects && projectManagerSettings) {
-      setAuthorizedProjects(
-        projects.filter(project =>
-          projectManagerSettings.projects.includes(project.identifier),
-        ),
-      )
-    }
-  }, [projects, projectManagerSettings])
-
-  // Don’t render if user is not a project manager
-  if (!projectManagerSettings) {
+  if (!projectManager) {
     return (
       <Box insetHorizontal="md">
         <Attention warning>
@@ -51,11 +32,11 @@ export const AuthorizedProjectsSettingsSection = () => {
     )
   }
 
-  if (isProjectsLoading) {
+  if (isLoadingProjects) {
     return <PleaseWait />
   }
 
-  if (!projects || !authorizedProjects) {
+  if (!authorizedProjects || !authorizedProjects.length) {
     return null
   }
 
