@@ -1,6 +1,5 @@
 import Alert from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
-import Energy from '@amsterdam/asc-assets/static/icons/Energy.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -10,7 +9,6 @@ import {StackParams, TabParams} from '../../app/navigation'
 import {routes, tabs} from '../../app/navigation/routes'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
-import {getEnvironment} from '../../environment'
 import {DeviceContext} from '../../providers'
 import {color, size} from '../../tokens'
 
@@ -47,14 +45,6 @@ export const MenuScreen = ({navigation}: Props) => {
       onPress: () => navigation.navigate(routes.contact.name),
     },
   ]
-
-  if (getEnvironment().name !== 'production') {
-    baseMenuItems.push({
-      icon: <Energy {...iconProps} />,
-      label: 'Admin',
-      onPress: () => navigation.navigate(routes.admin.name),
-    })
-  }
 
   const menuItems: TileButtonProps[] = baseMenuItems.map(tile => ({
     ...tile,

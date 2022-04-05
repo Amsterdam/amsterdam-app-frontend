@@ -1,5 +1,4 @@
 export * from './AddressPrivacyInfoScreen'
-export * from './AdminScreen'
 export * from './ContactScreen'
 export * from './HomeScreen'
 export * from './WebViewScreen'
