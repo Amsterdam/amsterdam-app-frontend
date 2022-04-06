@@ -1,10 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '../../../store'
-import {ProjectsWithSubscriptionStatus} from './types'
 import {NotificationSettings} from './'
 
 const initialState: NotificationSettings = {
-  projectsEnabled: false,
+  projectsEnabled: true,
   projects: {},
   readIds: [],
 }
@@ -14,14 +13,22 @@ export const notificationsSlice = createSlice({
   initialState,
   reducers: {
     resetNotifications: () => initialState,
-    setProjectsEnabled: (state, {payload}: PayloadAction<boolean>) => {
-      state.projectsEnabled = payload
+    deactivateAllProjects: state => {
+      Object.keys(state.projects).forEach(
+        projectId => (state.projects[projectId] = false),
+      )
     },
-    updateProjects: (
-      state,
-      {payload}: PayloadAction<ProjectsWithSubscriptionStatus>,
-    ) => {
-      state.projects = payload
+    toggleProject: (state, {payload: id}: PayloadAction<string>) => {
+      const isSubscribedProject = state.projects.hasOwnProperty(id)
+      if (isSubscribedProject) {
+        const isSubscriptionActive = state.projects[id]
+        state.projects[id] = isSubscriptionActive ? false : true
+      } else {
+        Object.assign(state.projects, {[id]: true})
+      }
+    },
+    toggleProjectsEnabled: state => {
+      state.projectsEnabled = !state.projectsEnabled
     },
     updateReadIds: (state, {payload}) => {
       state.readIds = payload
@@ -30,9 +37,10 @@ export const notificationsSlice = createSlice({
 })
 
 export const {
+  deactivateAllProjects,
   resetNotifications,
-  setProjectsEnabled,
-  updateProjects,
+  toggleProject,
+  toggleProjectsEnabled,
   updateReadIds,
 } = notificationsSlice.actions
 
