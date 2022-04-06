@@ -33,7 +33,7 @@ We currently use two environment variables to authorise project managers to send
 - AUTH_PASSWORD
 - AUTH_SHARED_SECRET
 
-Ask one of the developers to provide their values and tore these in a file called `/.env`.
+Ask one of the developers to provide their values and store these in a file called `/.env`.
 
 ## Release automation
 

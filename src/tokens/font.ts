@@ -3,7 +3,8 @@ type FontList = {
   h2: number
   h3: number
   h4: number
-  l1: number // Slightly larger paragraph text, not in design system.
+  // Slightly larger paragraph text, not in design system.
+  l1: number
   p1: number
   t1: number
 }
