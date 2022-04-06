@@ -1,10 +1,16 @@
-import React, {Fragment, useContext, useState} from 'react'
-import {SettingsContext} from '../../../../providers'
+import React, {Fragment, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {useGetProjectsQuery} from '../../../../services'
 import {accessibleText} from '../../../../utils'
 import {Box, Button, Divider, PleaseWait, TextButton} from '../../../ui'
 import {Checkbox, Switch} from '../../../ui/forms'
 import {Column, Row} from '../../../ui/layout'
+import {
+  deleteProjects as deleteProjectsFromSettings,
+  selectNotificationSettings,
+  toggleProject,
+  toggleProjectsEnabled,
+} from '../../notifications'
 import {ProjectTitle} from '../../project'
 import {SettingsSection} from '../index'
 
@@ -15,10 +21,10 @@ type Props = {
 export const SubscribableProjectsSettingsSection = ({
   subscribableProjectIds,
 }: Props) => {
+  const dispatch = useDispatch()
+  const notificationSettings = useSelector(selectNotificationSettings)
   const [selectedProjects, setSelectedProjects] = useState<string[]>([])
   const [isEditing, setIsEditing] = useState(false)
-  const {changeSettings, settings} = useContext(SettingsContext)
-  const notifications = settings?.notifications
 
   const {data: projectTitles, isLoading: isProjectsLoading} =
     useGetProjectsQuery({
@@ -31,15 +37,7 @@ export const SubscribableProjectsSettingsSection = ({
   }
 
   const deleteProjects = () => {
-    const projects = notifications?.projects ?? {}
-    selectedProjects.map((id: string) => delete projects[id])
-
-    notifications &&
-      changeSettings('notifications', {
-        ...notifications,
-        projects,
-      })
-
+    dispatch(deleteProjectsFromSettings(selectedProjects))
     setIsEditing(!isEditing)
   }
 
@@ -50,18 +48,11 @@ export const SubscribableProjectsSettingsSection = ({
         : [...selectedProjects, projectId],
     )
 
-  const toggleProjectSubscription = (
-    projectId: string,
-    subscribed: boolean,
-  ) => {
-    notifications &&
-      changeSettings('notifications', {
-        ...notifications,
-        projects: {
-          ...notifications?.projects,
-          [projectId]: subscribed,
-        },
-      })
+  const toggleProjectSubscription = (projectId: string) => {
+    if (!notificationSettings.projectsEnabled) {
+      dispatch(toggleProjectsEnabled())
+    }
+    dispatch(toggleProject(projectId))
   }
 
   if (isProjectsLoading) {
@@ -73,7 +64,7 @@ export const SubscribableProjectsSettingsSection = ({
       <SettingsSection title="Bouwprojecten">
         {subscribableProjectIds.map((projectId, index) => {
           const project = projectTitles?.find(p => p.identifier === projectId)
-          const subscribed = notifications?.projects?.[projectId] ?? false
+          const subscribed = notificationSettings.projects[projectId]
 
           return (
             project && (
@@ -109,10 +100,7 @@ export const SubscribableProjectsSettingsSection = ({
                         />
                       }
                       onValueChange={() =>
-                        toggleProjectSubscription(
-                          project.identifier,
-                          !subscribed,
-                        )
+                        toggleProjectSubscription(project.identifier)
                       }
                       value={subscribed}
                     />

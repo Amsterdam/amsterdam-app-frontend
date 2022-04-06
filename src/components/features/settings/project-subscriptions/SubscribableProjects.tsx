@@ -1,18 +1,17 @@
-import React, {useContext} from 'react'
+import React from 'react'
+import {useSelector} from 'react-redux'
 import {
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
   SubscribableProjectsSettingsSection,
 } from '../'
-import {SettingsContext} from '../../../../providers'
+import {isEmptyObject} from '../../../../utils'
 import {Box} from '../../../ui'
+import {selectNotificationSettings} from '../../notifications'
 
 export const SubscribableProjects = () => {
-  const {settings} = useContext(SettingsContext)
-  const isNotificationsEnabled = !!settings?.notifications?.projectsEnabled
-  const subscribableProjects = settings?.notifications?.projects ?? {}
-  const subscribableProjectIds = Object.keys(subscribableProjects)
-  const hasSubscribableProjects = subscribableProjectIds.length
+  const notificationsSettings = useSelector(selectNotificationSettings)
+  const isNotificationsEnabled = notificationsSettings.projectsEnabled
 
   if (!isNotificationsEnabled) {
     return (
@@ -22,7 +21,7 @@ export const SubscribableProjects = () => {
     )
   }
 
-  if (!hasSubscribableProjects) {
+  if (isEmptyObject(notificationsSettings.projects)) {
     return (
       <Box insetHorizontal="md">
         <NoPreviousSubscriptionsMessage />
@@ -32,7 +31,7 @@ export const SubscribableProjects = () => {
 
   return (
     <SubscribableProjectsSettingsSection
-      subscribableProjectIds={subscribableProjectIds}
+      subscribableProjectIds={Object.keys(notificationsSettings.projects)}
     />
   )
 }
