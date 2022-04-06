@@ -18,6 +18,16 @@ export const notificationsSlice = createSlice({
         projectId => (state.projects[projectId] = false),
       )
     },
+    deleteProjects: (
+      state,
+      {payload: projectsToDelete}: PayloadAction<string[]>,
+    ) => {
+      projectsToDelete.forEach(proj => {
+        if (state.projects.hasOwnProperty(proj)) {
+          delete state.projects[proj]
+        }
+      })
+    },
     toggleProject: (state, {payload: id}: PayloadAction<string>) => {
       const isSubscribedProject = state.projects.hasOwnProperty(id)
       if (isSubscribedProject) {
@@ -38,6 +48,7 @@ export const notificationsSlice = createSlice({
 
 export const {
   deactivateAllProjects,
+  deleteProjects,
   resetNotifications,
   toggleProject,
   toggleProjectsEnabled,
