@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {getSharedScreens, stackScreenOptions} from '../'
-import {AdminScreen, ContactScreen, MenuScreen} from '../../../screens'
+import {ContactScreen, MenuScreen} from '../../../screens'
 import {routes} from '../routes'
 
 const Stack = createStackNavigator()
@@ -11,11 +11,6 @@ export const MenuStack = () => {
     <Stack.Navigator
       initialRouteName={routes.menu.name}
       screenOptions={stackScreenOptions}>
-      <Stack.Screen
-        component={AdminScreen}
-        name={routes.admin.name}
-        options={routes.admin.options}
-      />
       <Stack.Screen
         component={ContactScreen}
         name={routes.contact.name}

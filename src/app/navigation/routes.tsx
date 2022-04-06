@@ -36,12 +36,6 @@ export const tabs: TabNavigationRoutes<TabParams> = {
 }
 
 export const routes: StackNavigationRoutes<StackParams> = {
-  admin: {
-    name: 'Admin',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Admin ⚡️" />,
-    },
-  },
   addressInfo: {
     name: 'AddressInfo',
     options: {
