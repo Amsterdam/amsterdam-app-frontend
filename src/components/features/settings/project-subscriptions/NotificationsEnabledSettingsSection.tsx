@@ -1,30 +1,29 @@
-import React, {useContext} from 'react'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {SettingsSection} from '../'
-import {SettingsContext} from '../../../../providers'
 import {Text} from '../../../ui'
 import {Switch} from '../../../ui/forms'
+import {
+  deactivateAllProjects,
+  selectNotificationSettings,
+  toggleProjectsEnabled,
+} from '../../notifications'
 
 export const NotificationsEnabledSettingsSection = () => {
-  const {changeSettings, settings} = useContext(SettingsContext)
-  const isNotificationsEnabled = !!settings?.notifications?.projectsEnabled
-  const subscribableProjects = settings?.notifications?.projects ?? {}
+  const dispatch = useDispatch()
+  const [isToggled, setToggled] = useState(false)
+  const notificationSettings = useSelector(selectNotificationSettings)
 
   // Disabling notifications will unsubscribe all projects
-  const toggleNotificationsEnabled = (projectsEnabled: boolean) => {
-    const projects = projectsEnabled
-      ? subscribableProjects
-      : Object.fromEntries(
-          Object.keys(subscribableProjects).map(projectId => [
-            projectId,
-            false,
-          ]),
-        )
+  useEffect(() => {
+    if (isToggled && notificationSettings.projectsEnabled === false) {
+      dispatch(deactivateAllProjects())
+    }
+  }, [dispatch, isToggled, notificationSettings.projectsEnabled])
 
-    changeSettings('notifications', {
-      ...settings?.notifications,
-      projectsEnabled,
-      projects,
-    })
+  const onToggleSwitch = () => {
+    dispatch(toggleProjectsEnabled())
+    setToggled(true)
   }
 
   return (
@@ -32,10 +31,8 @@ export const NotificationsEnabledSettingsSection = () => {
       <Switch
         accessibilityLabel="Ontvang berichten"
         label={<Text large>Ontvang berichten</Text>}
-        onValueChange={() =>
-          toggleNotificationsEnabled(!isNotificationsEnabled)
-        }
-        value={isNotificationsEnabled}
+        onValueChange={onToggleSwitch}
+        value={notificationSettings.projectsEnabled}
       />
     </SettingsSection>
   )
