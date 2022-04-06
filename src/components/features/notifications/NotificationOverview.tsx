@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
-import React, {useContext} from 'react'
+import React from 'react'
 import {FlatList} from 'react-native'
-import {SettingsContext} from '../../../providers'
+import {useSelector} from 'react-redux'
 import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
 import {FrontEndNotification} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
@@ -11,14 +11,13 @@ import {
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
 } from '../settings'
+import {selectNotificationSettings} from './notificationsSlice'
 import {Notification} from './'
 
 export const NotificationOverview = () => {
-  const {settings} = useContext(SettingsContext)
-  const notificationSettings = settings?.notifications
-
+  const notificationSettings = useSelector(selectNotificationSettings)
   const subscribedProjects = getSubscribedProjects(
-    notificationSettings?.projects,
+    notificationSettings.projects,
   )
 
   const {
