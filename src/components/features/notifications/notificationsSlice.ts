@@ -12,6 +12,11 @@ export const notificationsSlice = createSlice({
   name: 'notifications',
   initialState,
   reducers: {
+    addProjects: (state, {payload: projects}: PayloadAction<string[]>) => {
+      projects.forEach(projectToAdd =>
+        Object.assign(state.projects, {[projectToAdd]: true}),
+      )
+    },
     resetNotifications: () => initialState,
     deactivateAllProjects: state => {
       Object.keys(state.projects).forEach(
@@ -47,6 +52,7 @@ export const notificationsSlice = createSlice({
 })
 
 export const {
+  addProjects,
   deactivateAllProjects,
   deleteProjects,
   resetNotifications,
