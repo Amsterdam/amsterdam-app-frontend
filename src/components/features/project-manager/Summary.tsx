@@ -1,10 +1,14 @@
-import React, {useCallback, useContext, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {SettingsContext} from '../../../providers'
+import React, {useCallback, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import {setCredentials} from '../../../store'
 import {encryptWithAES} from '../../../utils'
 import {Box, PleaseWait} from '../../ui'
 import {ScrollView} from '../../ui/layout'
+import {
+  addProjects,
+  selectNotificationSettings,
+  toggleProjectsEnabled,
+} from '../notifications'
 import {
   addProjectManager,
   ProjectManagerHeader,
@@ -15,6 +19,7 @@ import {
 type Props = {routeParamsId: string}
 
 export const ProjectManagerSummary = ({routeParamsId}: Props) => {
+  const notificationSettings = useSelector(selectNotificationSettings)
   const dispatch = useDispatch()
   const {
     authorizedProjects,
@@ -23,8 +28,6 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     projectManager,
     projectManagerId,
   } = useProjectManagerFetcher()
-  const {changeSettings, settings} = useContext(SettingsContext)
-  const notificationSettings = settings?.notifications
 
   dispatch(
     setCredentials({
@@ -48,19 +51,10 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
 
       dispatch(addProjectManager(newProjectManagerSettings))
 
-      const projectManagerAuthorizedProjects = projectManager.projects.reduce(
-        (acc, projectId) => Object.assign(acc, {[projectId]: true}),
-        {},
-      )
-
-      changeSettings('notifications', {
-        ...notificationSettings,
-        projectsEnabled: true,
-        projects: {
-          ...(notificationSettings && {...notificationSettings.projects}),
-          ...projectManagerAuthorizedProjects,
-        },
-      })
+      if (!notificationSettings.projectsEnabled) {
+        dispatch(toggleProjectsEnabled())
+      }
+      dispatch(addProjects(projectManager.projects))
     }
   }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
 
