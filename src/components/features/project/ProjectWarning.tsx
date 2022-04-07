@@ -68,7 +68,11 @@ export const ProjectWarning = ({id}: Props) => {
     <ScrollView>
       <View>
         {mainImage ? (
-          <Image source={mapWarningImageSources(mainImage.sources)} />
+          <Image
+            accessible
+            accessibilityLabel={mainImage.description}
+            source={mapWarningImageSources(mainImage.sources)}
+          />
         ) : (
           <View style={styles.image}>
             <HeroImage />
