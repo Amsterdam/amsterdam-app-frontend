@@ -1,8 +1,13 @@
 import React, {ReactNode} from 'react'
-import {Pressable, PressableProps, StyleSheet} from 'react-native'
+import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import {size as sizeTokens} from '../../tokens'
+import {Badge, BadgeProps} from './Badge'
 
 type Props = {
+  /**
+   * The value for a badge to be displayed on top of the icon.
+   */
+  badgeValue?: BadgeProps['value']
   /**
    * The icon to be used.
    */
@@ -17,21 +22,44 @@ type Props = {
   size?: 24 | 32
 } & PressableProps
 
-export const IconButton = ({icon, label, size = 24, ...props}: Props) => (
+const hitSlopSize = sizeTokens.spacing.sm
+
+export const IconButton = ({
+  badgeValue,
+  icon,
+  label,
+  size = 24,
+  ...props
+}: Props) => (
   <Pressable
     accessibilityRole="button"
     accessibilityLabel={label}
-    hitSlop={sizeTokens.spacing.sm}
-    style={styles(size).pressable}
+    hitSlop={hitSlopSize}
+    style={dynamicStyles(size).pressable}
     {...props}>
     {icon}
+    {badgeValue ? (
+      <View style={styles.badgePosition}>
+        <Badge value={badgeValue} />
+      </View>
+    ) : null}
   </Pressable>
 )
 
-const styles = (size: number) =>
+const dynamicStyles = (size: number) =>
   StyleSheet.create({
     pressable: {
       width: size,
       height: size,
     },
   })
+
+const styles = StyleSheet.create({
+  badgePosition: {
+    position: 'absolute',
+    top: -hitSlopSize,
+    right: -hitSlopSize,
+    left: -hitSlopSize,
+    alignItems: 'flex-end',
+  },
+})

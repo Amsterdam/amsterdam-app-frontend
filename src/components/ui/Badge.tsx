@@ -4,7 +4,7 @@ import {color, font} from '../../tokens'
 import {formatNumber} from '../../utils/formatNumber'
 import {Row} from './layout'
 
-type Props = {
+export type BadgeProps = {
   value: number | string
 }
 
@@ -13,7 +13,7 @@ const fontSize = 12 // Text size of the value
 const inset = 6 // Horizontal padding
 const alignmentOffset = 1 // Adjusts vertical alignment – glyphs are not centered in the font’s line height
 
-export const Badge = ({value}: Props) => (
+export const Badge = ({value}: BadgeProps) => (
   <Row align="start">
     <View style={styles.circle}>
       <Text allowFontScaling={false} numberOfLines={1} style={styles.text}>
