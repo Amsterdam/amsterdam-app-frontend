@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {color, font} from '../../tokens'
+import {formatNumber} from '../../utils/formatNumber'
 import {Row} from './layout'
 
 type Props = {
@@ -16,7 +17,7 @@ export const Badge = ({value}: Props) => (
   <Row align="start">
     <View style={styles.circle}>
       <Text allowFontScaling={false} numberOfLines={1} style={styles.text}>
-        {value}
+        {typeof value === 'number' ? formatNumber(value) : value}
       </Text>
     </View>
   </Row>
