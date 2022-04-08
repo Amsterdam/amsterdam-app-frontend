@@ -15,10 +15,12 @@ const iconProps = {
 export const HeaderNavigation = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams & TabParams, 'Home'>>()
+  const unreadNotifications: number = 9 // TODO Fetch from state
 
   return (
     <Row gutter="md">
       <IconButton
+        badgeValue={unreadNotifications}
         icon={<BellInactive {...iconProps} />}
         label="Berichten"
         onPress={() => navigation.navigate(routes.notificationOverview.name)}
