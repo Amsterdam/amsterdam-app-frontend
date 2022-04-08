@@ -105,7 +105,6 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     ImageCropPicker.openPicker({
       cropperCancelText: 'Annuleren',
       cropperChooseText: 'Kiezen',
-      cropperRotateButtonsHidden: true,
       cropping: true,
       height: size.warningMainPhoto.maxHeight,
       includeBase64: true,
