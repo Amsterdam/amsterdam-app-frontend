@@ -42,8 +42,9 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const {projectManager} = useProjectManagerFetcher()
   const {data: project, isLoading} = useGetProjectQuery({id: route.params.id})
 
-  const isSubscribed =
-    project?.identifier && notificationSettings.projects[project.identifier]
+  const isSubscribed = project?.identifier
+    ? notificationSettings.projects[project.identifier]
+    : undefined
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -58,9 +59,15 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     dispatch(toggleProject(projectId))
   }
 
-  return isLoading && !project ? (
-    <PleaseWait />
-  ) : project ? (
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (!project) {
+    return null
+  }
+
+  return (
     <ScrollView>
       {project.images.length && (
         <Image
@@ -98,7 +105,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               onValueChange={() =>
                 toggleProjectSubscription(project.identifier)
               }
-              value={!!isSubscribed}
+              value={isSubscribed}
             />
           </Column>
           <Gutter height="lg" />
@@ -109,7 +116,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
       </Column>
     </ScrollView>
-  ) : null
+  )
 }
 
 const styles = StyleSheet.create({

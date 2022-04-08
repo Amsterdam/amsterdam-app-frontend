@@ -1,5 +1,5 @@
 export * from './Notification'
 export * from './NotificationOverview'
-export * from './useNotificationState'
 export * from './notificationsSlice'
 export * from './types'
+export * from './useNotificationState'
