@@ -5,6 +5,7 @@ import {BellInactive, Settings} from '../../assets/icons'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
 import {color} from '../../tokens'
+import {accessibleText} from '../../utils'
 import {routes} from './routes'
 import {StackParams, TabParams} from './types'
 
@@ -22,7 +23,10 @@ export const HeaderNavigation = () => {
       <IconButton
         badgeValue={unreadNotifications}
         icon={<BellInactive {...iconProps} />}
-        label="Berichten"
+        label={accessibleText(
+          'Berichten',
+          `${unreadNotifications || 'geen'} nieuwe berichten`,
+        )}
         onPress={() => navigation.navigate(routes.notificationOverview.name)}
       />
       <IconButton
