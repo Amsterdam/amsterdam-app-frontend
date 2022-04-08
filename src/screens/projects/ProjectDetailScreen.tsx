@@ -1,10 +1,16 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useLayoutEffect} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../app/navigation'
 import {routes} from '../../app/navigation/routes'
 import {ArticleOverview} from '../../components/features/article'
+import {
+  selectNotificationSettings,
+  toggleProject,
+  toggleProjectsEnabled,
+} from '../../components/features/notifications'
 import {ProjectBodyMenu} from '../../components/features/project'
 import {useProjectManagerFetcher} from '../../components/features/project-manager'
 import {
@@ -19,7 +25,6 @@ import {
 } from '../../components/ui'
 import {Switch} from '../../components/ui/forms'
 import {Column, Gutter} from '../../components/ui/layout'
-import {SettingsContext} from '../../providers'
 import {useGetProjectQuery} from '../../services'
 import {image} from '../../tokens'
 import {accessibleText, mapImageSources} from '../../utils'
@@ -32,13 +37,14 @@ type Props = {
 }
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
+  const dispatch = useDispatch()
+  const notificationSettings = useSelector(selectNotificationSettings)
   const {projectManager} = useProjectManagerFetcher()
-  const {changeSettings, settings} = useContext(SettingsContext)
-
   const {data: project, isLoading} = useGetProjectQuery({id: route.params.id})
 
-  const isSubscribed =
-    settings?.notifications?.projects?.[project?.identifier ?? ''] ?? false
+  const isSubscribed = project?.identifier
+    ? notificationSettings.projects[project.identifier]
+    : undefined
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,18 +53,21 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
   }, [project?.title, navigation])
 
   const toggleProjectSubscription = (projectId: string) => {
-    changeSettings('notifications', {
-      projectsEnabled: true,
-      projects: {
-        ...settings?.notifications?.projects,
-        [projectId]: !isSubscribed,
-      },
-    })
+    if (!notificationSettings.projectsEnabled) {
+      dispatch(toggleProjectsEnabled())
+    }
+    dispatch(toggleProject(projectId))
   }
 
-  return isLoading && !project ? (
-    <PleaseWait />
-  ) : project ? (
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (!project) {
+    return null
+  }
+
+  return (
     <ScrollView>
       {project.images.length && (
         <Image
@@ -107,7 +116,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
         </Box>
       </Column>
     </ScrollView>
-  ) : null
+  )
 }
 
 const styles = StyleSheet.create({
