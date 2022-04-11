@@ -45,8 +45,8 @@ export const notificationsSlice = createSlice({
     toggleProjectsEnabled: state => {
       state.projectsEnabled = !state.projectsEnabled
     },
-    updateReadIds: (state, {payload}) => {
-      state.readIds = payload
+    addReadId: (state, {payload: articleId}: PayloadAction<string>) => {
+      state.readIds.push(articleId)
     },
   },
 })
@@ -58,7 +58,7 @@ export const {
   resetNotifications,
   toggleProject,
   toggleProjectsEnabled,
-  updateReadIds,
+  addReadId,
 } = notificationsSlice.actions
 
 export const selectNotificationSettings = (state: RootState) =>
