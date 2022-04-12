@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useLayoutEffect} from 'react'
+import React, {useEffect, useLayoutEffect} from 'react'
 import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
@@ -15,15 +15,15 @@ import {
   Text,
   Title,
 } from '../../ui'
-import {useNotificationState} from '../notifications'
+import {useReadIdsHandler} from '../notifications/useReadIdsHandler'
 
 type Props = {
   id: string
 }
 
 export const ProjectNews = ({id}: Props) => {
+  const {markAsRead} = useReadIdsHandler()
   const navigation = useNavigation()
-  const notificationState = useNotificationState()
   const {width} = useWindowDimensions()
 
   const {data: news, isLoading: newsIsLoading} = useGetProjectNewsQuery({
@@ -37,6 +37,10 @@ export const ProjectNews = ({id}: Props) => {
     {skip: !news},
   )
 
+  useEffect(() => {
+    news?.identifier && markAsRead(news.identifier)
+  }, [markAsRead, news?.identifier])
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
@@ -46,8 +50,6 @@ export const ProjectNews = ({id}: Props) => {
   if (newsIsLoading || projectIsLoading || !news) {
     return <PleaseWait />
   }
-
-  notificationState.markAsRead(news.identifier)
 
   return (
     <ScrollView>
