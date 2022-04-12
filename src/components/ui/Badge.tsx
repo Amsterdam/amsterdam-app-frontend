@@ -10,7 +10,7 @@ export type BadgeProps = {
 
 const size = 20 // Width and height of the circle
 const fontSize = 12 // Text size of the value
-const inset = 6 // Horizontal padding
+const inset = 2 // Horizontal padding
 const alignmentOffset = 1 // Adjusts vertical alignment – glyphs are not centered in the font’s line height
 
 export const Badge = ({value}: BadgeProps) => (
