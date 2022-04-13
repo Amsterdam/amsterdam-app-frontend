@@ -22,14 +22,13 @@ import {
   Title,
 } from '../../ui'
 import {Row, ScrollView} from '../../ui/layout'
-import {useReadIdsHandler} from '../notifications/useReadIdsHandler'
+import {useMarkArticleIdAsRead} from '../notifications'
 
 type Props = {
   id: string
 }
 
 export const ProjectWarning = ({id}: Props) => {
-  const {markAsRead} = useReadIdsHandler()
   const navigation = useNavigation()
   const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
     undefined,
@@ -38,16 +37,14 @@ export const ProjectWarning = ({id}: Props) => {
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
 
+  useMarkArticleIdAsRead(projectWarning?.identifier)
+
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
       id: projectWarning?.project_identifier!,
     },
     {skip: !projectWarning},
   )
-
-  useEffect(() => {
-    projectWarning?.identifier && markAsRead(projectWarning.identifier)
-  }, [markAsRead, projectWarning?.identifier])
 
   useEffect(() => {
     const mainImageFromProjectWarning = projectWarning?.images?.find(
