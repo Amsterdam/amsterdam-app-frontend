@@ -7,8 +7,14 @@ import {selectProjectManager} from './projectManagerSlice'
 
 export const useProjectManagerFetcher = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
-  const {data: projectManager, isLoading: isProjectManagerLoading} =
-    useGetProjectManagerQuery({id: projectManagerId}, {skip: !projectManagerId})
+  const {
+    data: projectManager,
+    isError: isGetProjectManagerError,
+    isLoading: isGetProjectManagerLoading,
+  } = useGetProjectManagerQuery(
+    {id: projectManagerId},
+    {skip: !projectManagerId},
+  )
 
   // avoid unnecessary re-renders
   const selectAuthProjects = useMemo(() => {
@@ -23,6 +29,7 @@ export const useProjectManagerFetcher = () => {
   }, [projectManager?.projects])
 
   const {
+    isError: isGetProjectsError,
     isSuccess: isGetProjectsSuccess,
     isLoading: isLoadingProjects,
     authorizedProjects,
@@ -41,9 +48,11 @@ export const useProjectManagerFetcher = () => {
 
   return {
     authorizedProjects,
+    isGetProjectsError,
     isGetProjectsSuccess,
     isLoadingProjects,
-    isProjectManagerLoading,
+    isGetProjectManagerError,
+    isGetProjectManagerLoading,
     projectManager,
     projectManagerId,
   }

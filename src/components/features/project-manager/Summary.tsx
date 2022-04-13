@@ -25,6 +25,8 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     authorizedProjects,
     isLoadingProjects,
     isGetProjectsSuccess,
+    isGetProjectManagerError,
+    isGetProjectManagerLoading,
     projectManager,
     projectManagerId,
   } = useProjectManagerFetcher()
@@ -62,7 +64,10 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     storeProjectManagerSettings()
   }, [storeProjectManagerSettings])
 
-  if (isLoadingProjects) {
+  if (
+    (isGetProjectManagerLoading || isLoadingProjects) &&
+    !isGetProjectManagerError
+  ) {
     return <PleaseWait />
   }
 
@@ -70,7 +75,11 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     <ScrollView>
       <Box insetVertical="lg" insetHorizontal="md">
         <ProjectManagerHeader
-          hasProjects={isGetProjectsSuccess && !!authorizedProjects?.length}
+          hasProjects={
+            !isGetProjectManagerError &&
+            isGetProjectsSuccess &&
+            !!authorizedProjects?.length
+          }
         />
         <ProjectManagerProjects projects={authorizedProjects} />
       </Box>
