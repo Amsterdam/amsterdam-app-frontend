@@ -46,6 +46,7 @@ const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
     },
   },
 }
+
 const homeRoutes: StackNavigationRoutes<
   HomeStackParams,
   'authorizedProjects' | 'home'
@@ -64,6 +65,7 @@ const homeRoutes: StackNavigationRoutes<
     },
   },
 }
+
 const menuRoutes: StackNavigationRoutes<
   MenuStackParams,
   'contact' | 'menu' | 'writingGuide'
@@ -94,6 +96,7 @@ const menuRoutes: StackNavigationRoutes<
     },
   },
 }
+
 const sharedRoutes: StackNavigationRoutes<
   SharedStackParams,
   | 'addressInfo'
