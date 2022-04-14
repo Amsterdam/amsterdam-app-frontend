@@ -7,7 +7,7 @@ import {
   ResponseStatus,
 } from '../../types'
 
-type ProjectMinimal = {id: string; title: string}
+export type ProjectMinimal = {id: string; title: string}
 
 type NewsArticleMinimal = {
   id: string
