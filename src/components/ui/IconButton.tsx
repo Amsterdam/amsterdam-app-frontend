@@ -20,7 +20,10 @@ type Props = {
    * The width (and height) of the icon. Only square icons are currently supported.
    */
   size?: 24 | 32
-} & PressableProps
+} & Omit<
+  PressableProps,
+  'accessibilityLabel' | 'accessibilityRole' | 'hitSlop' | 'style'
+>
 
 const hitSlopSize = sizeTokens.spacing.sm
 
@@ -32,8 +35,8 @@ export const IconButton = ({
   ...props
 }: Props) => (
   <Pressable
-    accessibilityRole="button"
     accessibilityLabel={label}
+    accessibilityRole="button"
     hitSlop={hitSlopSize}
     style={dynamicStyles(size).pressable}
     {...props}>
