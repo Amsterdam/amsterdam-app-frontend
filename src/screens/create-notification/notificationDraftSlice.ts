@@ -1,11 +1,7 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
 import {RootState} from '../../store'
-import {
-  NewProjectWarning,
-  NotificationQueryArg,
-  ResponseStatus,
-} from '../../types'
+import {NewProjectWarning, Notification, ResponseStatus} from '../../types'
 
 export type ProjectMinimal = {id: string; title: string}
 
@@ -19,7 +15,7 @@ export type NotificationDraft = {
   mainImage: Image | undefined
   mainImageDescription: string
   newsArticle?: NewsArticleMinimal
-  notification: NotificationQueryArg | undefined
+  notification: Notification | undefined
   project: ProjectMinimal | undefined
   projectWarning: NewProjectWarning | undefined
   responseStatus: ResponseStatus | undefined
@@ -65,7 +61,7 @@ export const notificationDraftSlice = createSlice({
     },
     setNotification: (
       state,
-      {payload: notification}: PayloadAction<NotificationQueryArg>,
+      {payload: notification}: PayloadAction<Notification>,
     ) => {
       state.notification = notification
     },
