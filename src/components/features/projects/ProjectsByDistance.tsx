@@ -17,7 +17,7 @@ import {Box, PleaseWait, SomethingWentWrong, Text} from '../../ui'
 import {Gutter} from '../../ui/layout'
 import {selectAddress} from '../address/addressSlice'
 import {ProjectCard, ProjectTraits} from '../project'
-import {config, selectIsProjectsSearching} from './'
+import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDistance = () => {
   const {primary: address} = useSelector(selectAddress)
@@ -33,7 +33,6 @@ export const ProjectsByDistance = () => {
         address: address.centroid[1] ? '' : address.adres ?? '',
         lat: address.centroid[1] ?? 0,
         lon: address.centroid[0] ?? 0,
-        radius: config.nearestProjectsRadius,
       }
     : undefined
 
