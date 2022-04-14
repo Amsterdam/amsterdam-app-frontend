@@ -22,9 +22,9 @@ export type TabNavigationRoutes<R> = {
 }
 
 export type TabParams = {
-  ActionTab: {screen?: keyof ActionStackParams}
-  HomeTab: {screen?: keyof HomeStackParams}
-  MenuTab: {screen?: keyof MenuStackParams}
+  ActionTab: {screen?: keyof ActionStackParams | keyof SharedStackParams}
+  HomeTab: {screen?: keyof HomeStackParams | keyof SharedStackParams}
+  MenuTab: {screen?: keyof MenuStackParams | keyof SharedStackParams}
 }
 
 export type ActionStackParams = {
