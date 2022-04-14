@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {BellInactive, Settings} from '../../assets/icons'
+import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
 import {color} from '../../tokens'
@@ -16,16 +17,19 @@ const iconProps = {
 export const HeaderNavigation = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams & TabParams, 'Home'>>()
-  const unreadNotifications: number = 9 // TODO Fetch from state
+  const {richNotifications} = useNotifications()
+  const numberOfUnreadNotifications = richNotifications.filter(
+    n => !n.isRead,
+  ).length
 
   return (
     <Row gutter="md">
       <IconButton
-        badgeValue={unreadNotifications}
+        badgeValue={numberOfUnreadNotifications}
         icon={<BellInactive {...iconProps} />}
         label={accessibleText(
           'Berichten',
-          `${unreadNotifications || 'geen'} nieuwe berichten`,
+          `${numberOfUnreadNotifications || 'geen'} nieuwe berichten`,
         )}
         onPress={() => navigation.navigate(routes.notificationOverview.name)}
       />
