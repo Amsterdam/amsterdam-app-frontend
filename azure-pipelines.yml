@@ -9,10 +9,7 @@ pool:
   vmImage: macOS-11
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '15.5.1'
-  displayName: 'Install Node'
+- template: ./pipelines/templates/install-node.yml
 - script: npm cache verify
   displayName: 'Verify cache'
 - script: npm ci

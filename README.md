@@ -6,24 +6,27 @@ We’re creating a native app for citizens, entrepreneurs, and visitors of the C
 
 The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your development environment. To summarize:
 
-- Clone the repository 
+- Clone the repository
   - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
   - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`.
-- Install Node dependencies: `npm i`.
-- Install XCode dependencies: `cd amsterdam-app-frontend && pod install && cd ..`.
+- Install the used node version: Linux/MacOS: `nvm install`, Windows: `nvm install $(Get-Content .nvmrc)`
+- Select the used node version: Linux/MacOS: `nvm use`, Windows: `nvm use $(Get-Content .nvmrc)`
+- Install Node dependencies: `npm ci`.
+- For iOS development: Install XCode dependencies: `cd amsterdam-app-frontend && pod install && cd ..`.
 - Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`. Or, more
   specifically:
-    - Start the iOS phone emulator: `npm run ios:phone`.
-    - Start the iOS tablet emulator: `npm run ios:tablet`.
-    - Start the Android phone emulator: `npm run android:phone`.
-    - Start the Android tablet emulator: `npm run android:phone`.
-      - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager.
+  - Start the iOS phone emulator: `npm run ios:phone`.
+  - Start the iOS tablet emulator: `npm run ios:tablet`.
+  - Start the Android phone emulator: `npm run android:phone`.
+  - Start the Android tablet emulator: `npm run android:phone`.
+    - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager.
 - We recommend installing the [React Native debugger](https://github.com/jhen0409/react-native-debugger)
   - For Mac via Homebrew: `brew install --cask react-native-debugger`.
 
 ### Secret files
 
 Secret files included are:
+
 - android/app/google-services.json
 
 ### Environment variables
@@ -63,7 +66,6 @@ Right now, it is only possible to add release notes manually.
 Manually change version-name (iOS and Android) if you need to.
 
 **[Pipeline configuration](README-build.md)**
-
 
 ## Manual releases
 
@@ -118,6 +120,7 @@ The version of the Scrum-team release has a digit extra, so 4 in total.
 - Once uploaded to App Store connect, go to Testflight and add the group "Stadsapp-stakholders"
 
 ## Git
+
 We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
 ### Release
@@ -165,7 +168,7 @@ These are links from outside the app that will open the app and trigger somethin
 We use `detect-secrets` to scan the codebase for secrets.
 This results in a .secrets.baseline file in the root of the project:
 
-- https://github.com/Yelp/detect-secrets
+- <https://github.com/Yelp/detect-secrets>
 
 ## Tips and tricks
 

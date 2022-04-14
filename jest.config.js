@@ -19,4 +19,20 @@ module.exports = {
     'patches',
   ],
   cacheDirectory: '.jest/cache',
+  coverageReporters: ['cobertura'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!**/node_modules/**',
+    '!**/*.stories.{ts,tsx}',
+  ],
+  reporters: [
+    'default',
+    [
+      'jest-trx-results-processor',
+      {
+        outputFile: './.jest/jestTestResults.trx',
+        defaultUserName: 'user name to use if automatic detection fails',
+      },
+    ],
+  ],
 }
