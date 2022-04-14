@@ -63,4 +63,5 @@ buck-out/
 .env
 
 # Caches
+.jest/
 .eslintcache
