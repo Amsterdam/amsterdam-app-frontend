@@ -10,7 +10,7 @@ import {Box, SubmitButton, Title} from '../../components/ui'
 import {TextInput} from '../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../components/ui/layout'
 import {useGetArticlesQuery} from '../../services'
-import {Notification} from '../../types'
+import {NotificationQueryArg} from '../../types'
 import {formatTime} from '../../utils'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
@@ -68,7 +68,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   )
 
   const onSubmit = (data: FormData) => {
-    const notificationData: Notification = {
+    const notificationData: NotificationQueryArg = {
       title: data.title,
       body: data.message,
       project_identifier: projectId!,

@@ -21,7 +21,7 @@ import {
   useAddProjectWarningMutation,
 } from '../../services'
 import {image as imageToken} from '../../tokens'
-import {Notification} from '../../types'
+import {NotificationQueryArg} from '../../types'
 import {
   selectMainImage,
   selectMainImageDescription,
@@ -79,7 +79,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   const sendNotificationToBackend = useCallback(
     (
       articleIdentifier: Pick<
-        Notification,
+        NotificationQueryArg,
         'news_identifier' | 'warning_identifier'
       >,
     ) => {
