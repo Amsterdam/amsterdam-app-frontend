@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useRef, useState} from 'react'
+import {skipToken} from '@reduxjs/toolkit/query/react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {useAsyncStorage} from '../../../hooks'
@@ -36,12 +37,25 @@ export const AddressForm = ({temp}: Props) => {
       : streetName
   }
 
-  const address = [removeWeespSuffix(street), number].join(' ')
+  const getAddress = useCallback(() => {
+    if (number) {
+      return [removeWeespSuffix(street), number].join(' ')
+    }
+    if (street) {
+      return removeWeespSuffix(street)
+    }
+    return ''
+  }, [number, street])
 
-  const {data: addressData} = useGetAddressQuery(address, {
+  const address = getAddress()
+
+  const {data: addressData} = useGetAddressQuery(address ?? skipToken, {
     skip: !isNumberSelected,
   })
-  const {data: bagData} = useGetBagQuery(address)
+
+  const {data: bagData} = useGetBagQuery(address ?? skipToken, {
+    skip: address?.length < 3,
+  })
 
   const changeNumber = (text: string) => {
     setIsNumberSelected(false)

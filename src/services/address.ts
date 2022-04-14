@@ -41,10 +41,10 @@ export const addressApi = baseApi.injectEndpoints({
       },
     }),
     getBag: builder.query<BagResponse[], string>({
-      query: params => {
+      query: address => {
         return generateRequestUrl({
           baseUrl: getEnvironment().atlasUrl,
-          params: {features: 2, q: params},
+          params: {features: 2, q: address},
           path: bagPath,
         })
       },
