@@ -1,7 +1,7 @@
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {WebViewRouteParams} from '../../screens'
-import {ProjectDetails} from '../../screens/create-notification'
+import {ProjectMinimal} from '../../screens/create-notification'
 import {ProjectDetailBody} from '../../types'
 
 export type StackNavigationRoutes<R> = {
@@ -44,7 +44,7 @@ export type MenuStackParams = {
 export type SharedStackParams = {
   AddressInfo: undefined
   AddressForm: {temp?: boolean}
-  Notification: {projectDetails: ProjectDetails}
+  Notification: {projectDetails: ProjectMinimal}
   NotificationOverview: undefined
   ProjectDetail: {id: string}
   ProjectDetailBody: {body: ProjectDetailBody}
