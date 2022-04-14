@@ -2,9 +2,11 @@ import notifee from '@notifee/react-native'
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
+import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {PushNotificationData} from '../../types'
 import {routes, tabs} from './routes'
+import {SharedStackParams} from './types'
 
 const appPrefix = 'amsterdam://'
 
@@ -44,7 +46,7 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 }
 
-export const linking = {
+export const linking: LinkingOptions<SharedStackParams> = {
   prefixes: [appPrefix],
   config: {
     screens: {
