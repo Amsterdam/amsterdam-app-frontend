@@ -26,4 +26,8 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     semi: ['error', 'never'],
   },
+  env: {
+    'react-native/react-native': true,
+    'jest/globals': true,
+  },
 }
