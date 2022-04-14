@@ -1,64 +1,43 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode} from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import React from 'react'
 import {BellInactive, Settings} from '../../assets/icons'
+import {useNotifications} from '../../components/features/notifications'
+import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
-import {color, size} from '../../tokens'
-import {allInsets} from '../../utils'
+import {color} from '../../tokens'
+import {accessibleText} from '../../utils'
 import {routes} from './routes'
 import {StackParams, TabParams} from './types'
-
-type MenuItem = {
-  icon: ReactNode
-  label: string
-  name: string
-  route: keyof StackParams
-}
 
 const iconProps = {
   fill: color.font.regular,
 }
 
-const menu: MenuItem[] = [
-  {
-    icon: <BellInactive {...iconProps} />,
-    label: 'Berichten',
-    name: 'notifications',
-    route: routes.notificationOverview.name,
-  },
-  {
-    icon: <Settings {...iconProps} />,
-    label: 'Instellingen',
-    name: 'settings',
-    route: routes.settings.name,
-  },
-]
-
 export const HeaderNavigation = () => {
   const navigation =
     useNavigation<StackNavigationProp<StackParams & TabParams, 'Home'>>()
+  const {richNotifications} = useNotifications()
+  const numberOfUnreadNotifications = richNotifications.filter(
+    n => !n.isRead,
+  ).length
 
   return (
     <Row gutter="md">
-      {menu.map(({icon, label, name, route}) => (
-        <TouchableOpacity
-          accessibilityLabel={label}
-          accessibilityRole="button"
-          hitSlop={allInsets(size.spacing.sm)}
-          key={name}
-          onPress={() => navigation.navigate(route)}
-          style={styles.icon}>
-          {icon}
-        </TouchableOpacity>
-      ))}
+      <IconButton
+        badgeValue={numberOfUnreadNotifications}
+        icon={<BellInactive {...iconProps} />}
+        label={accessibleText(
+          'Berichten',
+          `${numberOfUnreadNotifications || 'geen'} nieuwe berichten`,
+        )}
+        onPress={() => navigation.navigate(routes.notificationOverview.name)}
+      />
+      <IconButton
+        icon={<Settings {...iconProps} />}
+        label="Instellingen"
+        onPress={() => navigation.navigate(routes.settings.name)}
+      />
     </Row>
   )
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    aspectRatio: 1,
-  },
-})

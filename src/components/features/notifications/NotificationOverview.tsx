@@ -1,41 +1,18 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React from 'react'
 import {FlatList} from 'react-native'
 import {useSelector} from 'react-redux'
-import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
-import {FrontEndNotification} from '../../../types'
 import {Box, PleaseWait, Text} from '../../ui'
-import {createProjectTitlesDictionary} from '../project'
 import {
-  getSubscribedProjects,
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
 } from '../settings'
-import {selectNotificationSettings} from './notificationsSlice'
-import {Notification} from './'
+import {Notification, selectNotificationSettings, useNotifications} from './'
 
 export const NotificationOverview = () => {
   const notificationSettings = useSelector(selectNotificationSettings)
-  const subscribedProjects = getSubscribedProjects(
-    notificationSettings.projects,
-  )
+  const {isLoading, richNotifications, subscribedProjects} = useNotifications()
 
-  const {
-    data: notifications = [],
-    isLoading: isNotificationsLoading = undefined,
-  } = useGetNotificationsQuery(
-    subscribedProjects.length
-      ? {
-          projectIds: subscribedProjects,
-        }
-      : skipToken,
-  )
-
-  const {data: projects, isLoading: isProjectsLoading} = useGetProjectsQuery({
-    fields: ['identifier', 'subtitle', 'title'],
-  })
-
-  if (!notificationSettings?.projectsEnabled) {
+  if (!notificationSettings.projectsEnabled) {
     return <NoNotificationsMessage />
   }
 
@@ -47,11 +24,11 @@ export const NotificationOverview = () => {
     )
   }
 
-  if (isProjectsLoading || isNotificationsLoading) {
+  if (isLoading) {
     return <PleaseWait />
   }
 
-  if (!notifications || !notifications.length) {
+  if (!richNotifications.length) {
     return (
       <Box>
         <Text>Geen berichten gevonden.</Text>
@@ -59,25 +36,9 @@ export const NotificationOverview = () => {
     )
   }
 
-  // Create mapping from project id to titles
-  const projectTitlesDictionary = createProjectTitlesDictionary(projects)
-
-  // Add read state and project titles to notification
-  const extendedNotifications: FrontEndNotification[] = notifications.map(
-    notification => ({
-      ...notification,
-      isRead:
-        notificationSettings?.readIds &&
-        notificationSettings.readIds.includes(
-          notification.news_identifier ?? notification.warning_identifier ?? '',
-        ),
-      projectTitle: projectTitlesDictionary[notification.project_identifier],
-    }),
-  )
-
   return (
     <FlatList
-      data={extendedNotifications}
+      data={richNotifications}
       keyExtractor={item => item.publication_date}
       renderItem={({item}) => <Notification notification={item} />}
     />
