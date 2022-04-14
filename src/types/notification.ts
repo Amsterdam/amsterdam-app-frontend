@@ -13,8 +13,6 @@ export type Notification = NotificationQueryArg & {
   publication_date: string
 }
 
-export type Notifications = Notification[]
-
 export type NotificationsQueryArg = {
   projectIds: string[]
 } & Partial<ListQueryArg>
