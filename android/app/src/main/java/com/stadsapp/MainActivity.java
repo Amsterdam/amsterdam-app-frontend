@@ -1,6 +1,7 @@
 package com.stadsapp;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +12,13 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "StadsApp";
+  }
+
+  /**
+   * Added as part of the react-native-screens setup, see: https://github.com/software-mansion/react-native-screens#android
+   */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(null);
   }
 }
