@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useSelector} from 'react-redux'
 import {useGetNotificationsQuery, useGetProjectsQuery} from '../../../services'
-import {RichNotification} from '../../../types'
+import {NotificationWithProjectTitleAndReadState} from '../../../types'
 import {createProjectTitlesDictionary} from '../project'
 import {getSubscribedProjects} from '../settings'
 import {selectNotificationSettings} from './notificationsSlice'
@@ -29,8 +29,8 @@ export const useNotifications = () => {
   const projectTitlesDictionary = createProjectTitlesDictionary(projects)
 
   // Add read state and project titles to notifications
-  const richNotifications: RichNotification[] = notifications.map(
-    notification => ({
+  const richNotifications: NotificationWithProjectTitleAndReadState[] =
+    notifications.map(notification => ({
       ...notification,
       isRead:
         notificationSettings?.readIds &&
@@ -38,8 +38,7 @@ export const useNotifications = () => {
           notification.news_identifier ?? notification.warning_identifier ?? '',
         ),
       projectTitle: projectTitlesDictionary[notification.project_identifier],
-    }),
-  )
+    }))
 
   return {
     isLoading: isNotificationsLoading || isProjectsLoading,
