@@ -43,7 +43,7 @@ export type ProjectsByDistanceQueryArg = {
   address: string
   lat: number
   lon: number
-  radius: number
+  radius?: number
 }
 
 export type ProjectsByTextQueryArg = {
