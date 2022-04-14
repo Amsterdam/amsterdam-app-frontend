@@ -19,7 +19,7 @@ export type NotificationsQueryArg = {
   projectIds: string[]
 } & Partial<ListQueryArg>
 
-export type FrontEndNotification = Notification & {
+export type RichNotification = Notification & {
   isRead?: boolean
   projectTitle: string
 }

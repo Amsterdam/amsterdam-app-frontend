@@ -10,8 +10,7 @@ import {Notification, selectNotificationSettings, useNotifications} from './'
 
 export const NotificationOverview = () => {
   const notificationSettings = useSelector(selectNotificationSettings)
-  const {isLoading, extendedNotifications, subscribedProjects} =
-    useNotifications()
+  const {isLoading, richNotifications, subscribedProjects} = useNotifications()
 
   if (!notificationSettings.projectsEnabled) {
     return <NoNotificationsMessage />
@@ -29,7 +28,7 @@ export const NotificationOverview = () => {
     return <PleaseWait />
   }
 
-  if (!extendedNotifications.length) {
+  if (!richNotifications.length) {
     return (
       <Box>
         <Text>Geen berichten gevonden.</Text>
@@ -39,7 +38,7 @@ export const NotificationOverview = () => {
 
   return (
     <FlatList
-      data={extendedNotifications}
+      data={richNotifications}
       keyExtractor={item => item.publication_date}
       renderItem={({item}) => <Notification notification={item} />}
     />
