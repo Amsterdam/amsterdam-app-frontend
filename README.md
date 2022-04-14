@@ -125,6 +125,35 @@ We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing
 - Branch from develop and call it release/\[version-number\].
 - Once reviewed, pull branch into main and tag it with its version number.
 
+## Push notifications
+
+To test push notifications locally, do the following:
+
+1. Log into Chrome with the Team Communicare account
+2. Go to https://developers.google.com/oauthplayground/
+3. Fill in for scope: `https://www.googleapis.com/auth/firebase.messaging`
+4. Select Team Communicare account
+5. Click button ‘Exchange authorization code for tokens’ and get the `access_token`
+6. Open your Postman app
+7. Set header: `Authorization: Bearer /[access_token/]`
+8. Enter body of this signature, where `token` is the Firebase token of your device (see code):
+
+```
+{
+  "message": {
+    "token": "alovelyfcmtoken",
+    "data": {
+      "linkSourceid": "f296eba1-189f-477e-8302-44ffc369f032",
+      "type": "WarningCreatedByProjectManager"
+    },
+    "notification": {
+      "body": "Er is nieuws over een project!",
+      "title": "Nieuws-update Bullebak"
+    }
+  }
+}
+```
+
 ## Deep links
 
 These are links from outside the app that will open the app and trigger something:
