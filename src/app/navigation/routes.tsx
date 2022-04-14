@@ -4,8 +4,11 @@ import {TabBarIcon} from '../../components/ui/navigation'
 import {color} from '../../tokens'
 import {HeaderLogo} from './HeaderLogo'
 import {
+  ActionStackParams,
+  HomeStackParams,
+  MenuStackParams,
+  SharedStackParams,
   StackNavigationRoutes,
-  StackParams,
   TabNavigationRoutes,
   TabParams,
 } from './types'
@@ -35,7 +38,80 @@ export const tabs: TabNavigationRoutes<TabParams> = {
   },
 }
 
-export const routes: StackNavigationRoutes<StackParams> = {
+const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
+  reportIssue: {
+    name: 'ReportIssue',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
+    },
+  },
+}
+const homeRoutes: StackNavigationRoutes<
+  HomeStackParams,
+  'authorizedProjects' | 'home'
+> = {
+  authorizedProjects: {
+    name: 'AuthorizedProjects',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
+    },
+  },
+  home: {
+    name: 'Home',
+    options: {
+      headerLeft: () => <HeaderLogo />,
+      headerTitle: '',
+    },
+  },
+}
+const menuRoutes: StackNavigationRoutes<
+  MenuStackParams,
+  'contact' | 'menu' | 'writingGuide'
+> = {
+  contact: {
+    name: 'Contact',
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
+    },
+  },
+  menu: {
+    name: 'Menu',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
+    },
+  },
+  writingGuide: {
+    name: 'WritingGuide',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerShown: false,
+      presentation: 'modal',
+    },
+  },
+}
+const sharedRoutes: StackNavigationRoutes<
+  SharedStackParams,
+  | 'addressInfo'
+  | 'addressForm'
+  | 'notification'
+  | 'notificationOverview'
+  | 'projectDetail'
+  | 'projectDetailBody'
+  | 'projectManager'
+  | 'projectNews'
+  | 'projects'
+  | 'projectWarning'
+  | 'settings'
+  | 'wasteGuide'
+  | 'wasteMenu'
+  | 'webView'
+  | 'whereToPutBulkyWaste'
+> = {
   addressInfo: {
     name: 'AddressInfo',
     options: {
@@ -54,34 +130,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
       },
       presentation: 'modal',
       headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
-    },
-  },
-  authorizedProjects: {
-    name: 'AuthorizedProjects',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
-    },
-  },
-  contact: {
-    name: 'Contact',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
-    },
-  },
-  home: {
-    name: 'Home',
-    options: {
-      headerLeft: () => <HeaderLogo />,
-      headerTitle: '',
-    },
-  },
-  menu: {
-    name: 'Menu',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
     },
   },
   notification: {
@@ -144,12 +192,6 @@ export const routes: StackNavigationRoutes<StackParams> = {
   projectWarning: {
     name: 'ProjectWarning',
   },
-  reportIssue: {
-    name: 'ReportIssue',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
-    },
-  },
   settings: {
     name: 'Settings',
     options: {
@@ -182,14 +224,14 @@ export const routes: StackNavigationRoutes<StackParams> = {
       headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
     },
   },
-  writingGuide: {
-    name: 'WritingGuide',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerShown: false,
-      presentation: 'modal',
-    },
-  },
+}
+
+export const routes: typeof actionRoutes &
+  typeof homeRoutes &
+  typeof menuRoutes &
+  typeof sharedRoutes = {
+  ...actionRoutes,
+  ...homeRoutes,
+  ...menuRoutes,
+  ...sharedRoutes,
 }

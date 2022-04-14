@@ -4,13 +4,14 @@ import {WebViewRouteParams} from '../../screens'
 import {ProjectMinimal} from '../../screens/create-notification'
 import {ProjectDetailBody} from '../../types'
 
-export type StackNavigationRoutes<R> = {
-  [route: string]: {
+export type StackNavigationRoutes<R, Route extends string = string> = Record<
+  Route,
+  {
     name: keyof R
     options?: StackNavigationOptions
     title?: string
   }
-}
+>
 
 export type TabNavigationRoutes<R> = {
   [route: string]: {
