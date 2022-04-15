@@ -3,8 +3,12 @@ import {StyleSheet} from 'react-native'
 import {Center} from './layout'
 import {Spinner} from './'
 
-export const PleaseWait = () => (
-  <Center style={styles.fullSize}>
+type Props = {
+  fullSize?: boolean
+}
+
+export const PleaseWait = ({fullSize = true}: Props) => (
+  <Center style={fullSize && styles.fullSize}>
     <Spinner />
   </Center>
 )
