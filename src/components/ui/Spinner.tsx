@@ -29,7 +29,10 @@ export const Spinner = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.View style={[styles.size, {transform: [{rotate}]}]}>
+    <Animated.View
+      accessible
+      accessibilityLabel="Bezig…"
+      style={[styles.size, {transform: [{rotate}]}]}>
       <SpinnerIcon fill={color.font.regular} />
     </Animated.View>
   )
