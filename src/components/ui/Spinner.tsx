@@ -2,6 +2,7 @@ import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
 import React, {useEffect, useState} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {color} from '../../tokens'
+import {Row} from './layout'
 
 const initialRotation = 0
 
@@ -29,17 +30,19 @@ export const Spinner = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.View
-      accessible
-      accessibilityLabel="Bezig…"
-      style={[styles.size, {transform: [{rotate}]}]}>
-      <SpinnerIcon fill={color.font.regular} />
-    </Animated.View>
+    <Row align="center">
+      <Animated.View
+        accessible
+        accessibilityLabel="Bezig…"
+        style={[styles.container, {transform: [{rotate}]}]}>
+        <SpinnerIcon fill={color.font.regular} />
+      </Animated.View>
+    </Row>
   )
 }
 
 const styles = StyleSheet.create({
-  size: {
+  container: {
     width: 20,
     aspectRatio: 1,
   },

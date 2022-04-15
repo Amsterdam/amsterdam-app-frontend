@@ -94,9 +94,7 @@ export const WasteGuideByAddress = () => {
               <Title level={4} text="Gegevens ophalen…" />
             </CardHeader>
             <CardBody>
-              <Row align="center">
-                <Spinner />
-              </Row>
+              <Spinner />
             </CardBody>
           </Card>
         ) : wasteGuideLength === 0 ? (
