@@ -11,8 +11,8 @@ import {
   Card,
   CardBody,
   CardHeader,
+  PleaseWait,
   SingleSelectable,
-  Spinner,
   Text,
   TextButton,
   Title,
@@ -94,7 +94,7 @@ export const WasteGuideByAddress = () => {
               <Title level={4} text="Gegevens ophalen…" />
             </CardHeader>
             <CardBody>
-              <Spinner />
+              <PleaseWait fullSize={false} />
             </CardBody>
           </Card>
         ) : wasteGuideLength === 0 ? (

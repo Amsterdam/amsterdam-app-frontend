@@ -6,6 +6,10 @@ import {Row} from './layout'
 
 const initialRotation = 0
 
+/**
+ * Indicates activity, often while performing network tasks.
+ * Best used through `PleaseWait` rather than by itself.
+ */
 export const Spinner = () => {
   const [rotation] = useState(new Animated.Value(initialRotation))
 
