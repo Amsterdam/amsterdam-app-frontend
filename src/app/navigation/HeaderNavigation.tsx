@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import simplur from 'simplur'
 import {BellInactive, Settings} from '../../assets/icons'
 import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
@@ -29,7 +30,10 @@ export const HeaderNavigation = () => {
         icon={<BellInactive {...iconProps} />}
         label={accessibleText(
           'Berichten',
-          `${numberOfUnreadNotifications || 'geen'} nieuwe berichten`,
+          simplur`${[
+            numberOfUnreadNotifications,
+            (quantity: number) => quantity || 'geen',
+          ]} nieuw[|e] bericht[|en]`,
         )}
         onPress={() => navigation.navigate(routes.notificationOverview.name)}
       />
