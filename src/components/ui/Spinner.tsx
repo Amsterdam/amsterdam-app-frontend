@@ -21,7 +21,7 @@ export const Spinner = () => {
       duration: 1000,
       easing: Easing.linear,
       useNativeDriver: true,
-    }).start(() => startAnimation())
+    }).start(startAnimation)
   }
 
   const rotate = rotation.interpolate({
