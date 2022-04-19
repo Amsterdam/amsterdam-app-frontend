@@ -35,7 +35,7 @@
     "lodash.debounce": "^4.0.8",
     "react": "17.0.2",
     "react-hook-form": "^7.15.3",
-    "react-native": "0.66.4",
+    "react-native": "0.68.1",
     "react-native-clean-project": "^3.6.4",
     "react-native-codegen": "^0.0.11",
     "react-native-crypto-js": "^1.0.0",
@@ -72,7 +72,7 @@
     "jest": "^27.5.1",
     "jest-trx-results-processor": "^2.2.0",
     "lint-staged": "^12.3.7",
-    "metro-react-native-babel-preset": "^0.66.2",
+    "metro-react-native-babel-preset": "^0.67.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "^17.0.2",
     "typescript": "^4.3.5"
