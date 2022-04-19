@@ -4,11 +4,13 @@ import {
   ProjectsByDistance,
   ProjectsByText,
   ProjectsTextSearchField,
+  ProvideAddressButton,
 } from '../../components/features/projects'
 
 export const ProjectsScreen = () => (
   <>
     <ProjectsTextSearchField />
+    <ProvideAddressButton />
     <ProjectsByText />
     <ProjectsByDistance />
     <ProjectsByDate />
