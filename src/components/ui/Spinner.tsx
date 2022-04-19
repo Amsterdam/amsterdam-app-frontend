@@ -1,5 +1,5 @@
 import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {color} from '../../tokens'
 import {Row} from './layout'
@@ -11,7 +11,7 @@ const initialRotation = 0
  * Best used through `PleaseWait` rather than by itself.
  */
 export const Spinner = () => {
-  const [rotation] = useState(new Animated.Value(initialRotation))
+  const rotation = useRef(new Animated.Value(initialRotation)).current
 
   const startAnimation = () => {
     rotation.setValue(initialRotation)
