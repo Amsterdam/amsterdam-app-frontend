@@ -31,6 +31,8 @@ export const Spinner = () => {
 
   useEffect(() => {
     startAnimation()
+
+    return rotation.stopAnimation
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
