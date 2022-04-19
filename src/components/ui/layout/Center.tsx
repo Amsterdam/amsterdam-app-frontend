@@ -5,8 +5,8 @@ type Props = {
   children: ReactNode
 } & Pick<ViewProps, 'style'>
 
-export const Center = ({children, ...props}: Props) => (
-  <View style={[styles.center, props.style]}>{children}</View>
+export const Center = ({children, style}: Props) => (
+  <View style={[styles.center, style]}>{children}</View>
 )
 
 const styles = StyleSheet.create({
