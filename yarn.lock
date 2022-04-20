@@ -7916,6 +7916,11 @@
   dependencies:
     "is-arrayish" "^0.3.1"
 
+"simplur@^3.0.1":
+  "integrity" "sha512-bBAoTn75tuKh83opmZ1VoyVoQIsvLCKzSxuasAxbnKofrT8eGyOEIaXSuNfhi/hI160+fwsR7ObcbBpOyzDvXg=="
+  "resolved" "https://registry.npmjs.org/simplur/-/simplur-3.0.1.tgz"
+  "version" "3.0.1"
+
 "sisteransi@^1.0.5":
   "integrity" "sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg=="
   "resolved" "https://registry.npmjs.org/sisteransi/-/sisteransi-1.0.5.tgz"
