@@ -7,15 +7,12 @@ import {
   ProvideAddressButton,
 } from '../../components/features/projects'
 import {Box} from '../../components/ui'
-import {Column} from '../../components/ui/layout'
 
 export const ProjectsScreen = () => (
   <>
     <Box>
-      <Column gutter="md">
-        <ProjectsTextSearchField />
-        <ProvideAddressButton />
-      </Column>
+      <ProjectsTextSearchField />
+      <ProvideAddressButton />
     </Box>
     <ProjectsByText />
     <ProjectsByDistance />

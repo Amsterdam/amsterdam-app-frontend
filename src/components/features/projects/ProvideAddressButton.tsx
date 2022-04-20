@@ -7,7 +7,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {color} from '../../../tokens'
 import {Button} from '../../ui'
-import {Row} from '../../ui/layout'
+import {Gutter, Row} from '../../ui/layout'
 import {selectAddress} from '../address/addressSlice'
 
 export const ProvideAddressButton = () => {
@@ -20,12 +20,15 @@ export const ProvideAddressButton = () => {
   }
 
   return (
-    <Row align="start">
-      <Button
-        onPress={() => navigation.navigate(routes.addressForm.name)}
-        icon={<Location fill={color.font.inverse} />}
-        text="Vul uw adres in"
-      />
-    </Row>
+    <>
+      <Gutter height="md" />
+      <Row align="start">
+        <Button
+          onPress={() => navigation.navigate(routes.addressForm.name)}
+          icon={<Location fill={color.font.inverse} />}
+          text="Vul uw adres in"
+        />
+      </Row>
+    </>
   )
 }
