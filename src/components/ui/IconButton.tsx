@@ -43,7 +43,7 @@ export const IconButton = ({
     {icon}
     {badgeValue ? (
       <View style={styles.badgePosition}>
-        <Badge value={badgeValue} />
+        <Badge accessible={false} value={badgeValue} />
       </View>
     ) : null}
   </Pressable>
