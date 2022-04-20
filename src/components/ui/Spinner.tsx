@@ -32,6 +32,7 @@ export const Spinner = () => {
 
   useEffect(() => {
     startAnimation()
+    stopAnimation = false
 
     return () => {
       stopAnimation = true
