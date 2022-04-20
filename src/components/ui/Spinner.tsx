@@ -5,6 +5,7 @@ import {color} from '../../tokens'
 import {Row} from './layout'
 
 const initialRotation = 0
+let stopAnimation = false
 
 /**
  * Indicates activity, often while performing network tasks.
@@ -21,7 +22,7 @@ export const Spinner = () => {
       duration: 1000,
       easing: Easing.linear,
       useNativeDriver: true,
-    }).start(startAnimation)
+    }).start(() => !stopAnimation && startAnimation())
   }
 
   const rotate = rotation.interpolate({
@@ -32,7 +33,9 @@ export const Spinner = () => {
   useEffect(() => {
     startAnimation()
 
-    return rotation.stopAnimation
+    return () => {
+      stopAnimation = true
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
