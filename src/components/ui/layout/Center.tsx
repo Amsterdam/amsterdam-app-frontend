@@ -1,12 +1,13 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View, ViewProps} from 'react-native'
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 
 type Props = {
   children: ReactNode
-} & ViewProps
+  style?: StyleProp<ViewStyle>
+}
 
-export const Center = ({children, ...otherProps}: Props) => (
-  <View style={[styles.center, otherProps.style]}>{children}</View>
+export const Center = ({children, style}: Props) => (
+  <View style={[styles.center, style]}>{children}</View>
 )
 
 const styles = StyleSheet.create({

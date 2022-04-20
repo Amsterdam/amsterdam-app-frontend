@@ -1,10 +1,15 @@
 import React from 'react'
-import {ActivityIndicator, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {Center} from './layout'
+import {Spinner} from './'
 
-export const PleaseWait = () => (
-  <Center style={styles.fullSize}>
-    <ActivityIndicator />
+type Props = {
+  fullSize?: boolean
+}
+
+export const PleaseWait = ({fullSize = true}: Props) => (
+  <Center style={fullSize && styles.fullSize}>
+    <Spinner />
   </Center>
 )
 

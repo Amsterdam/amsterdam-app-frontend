@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
-import {ActivityIndicator} from 'react-native'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
@@ -12,6 +11,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  PleaseWait,
   SingleSelectable,
   Text,
   TextButton,
@@ -94,7 +94,7 @@ export const WasteGuideByAddress = () => {
               <Title level={4} text="Gegevens ophalen…" />
             </CardHeader>
             <CardBody>
-              <ActivityIndicator />
+              <PleaseWait fullSize={false} />
             </CardBody>
           </Card>
         ) : wasteGuideLength === 0 ? (
