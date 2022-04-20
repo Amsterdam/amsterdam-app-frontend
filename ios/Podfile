@@ -22,6 +22,7 @@ target 'StadsApp' do
 
 
 
+
   target 'StadsAppTests' do
     inherit! :complete
     # Pods for testing
