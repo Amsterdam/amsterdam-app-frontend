@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {color} from '../../../tokens'
-import {Box, Button} from '../../ui'
+import {Button} from '../../ui'
 import {Row} from '../../ui/layout'
 import {selectAddress} from '../address/addressSlice'
 
@@ -20,14 +20,12 @@ export const ProvideAddressButton = () => {
   }
 
   return (
-    <Box>
-      <Row align="start">
-        <Button
-          onPress={() => navigation.navigate(routes.addressForm.name)}
-          icon={<Location fill={color.font.inverse} />}
-          text="Vul uw adres in"
-        />
-      </Row>
-    </Box>
+    <Row align="start">
+      <Button
+        onPress={() => navigation.navigate(routes.addressForm.name)}
+        icon={<Location fill={color.font.inverse} />}
+        text="Vul uw adres in"
+      />
+    </Row>
   )
 }
