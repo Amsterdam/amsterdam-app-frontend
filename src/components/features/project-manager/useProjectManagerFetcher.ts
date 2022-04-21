@@ -13,7 +13,7 @@ export const useProjectManagerFetcher = () => {
     isLoading: isGetProjectManagerLoading,
   } = useGetProjectManagerQuery(
     {id: projectManagerId},
-    {skip: !projectManagerId},
+    {skip: !projectManagerId, refetchOnMountOrArgChange: true},
   )
 
   // avoid unnecessary re-renders
