@@ -2,10 +2,11 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import simplur from 'simplur'
-import {BellInactive, Settings} from '../../assets/icons'
+import {BellInactive, DarkMode, LightMode, Settings} from '../../assets/icons'
 import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
+import {defaultLightTheme, useTheme} from '../../themes'
 import {color} from '../../tokens'
 import {accessibleText} from '../../utils'
 import {routes} from './routes'
@@ -23,8 +24,21 @@ export const HeaderNavigation = () => {
     n => !n.isRead,
   ).length
 
+  const {theme, toggleTheme} = useTheme()
+  const currentThemeIcon =
+    theme === defaultLightTheme ? (
+      <LightMode {...iconProps} />
+    ) : (
+      <DarkMode {...iconProps} />
+    )
+
   return (
     <Row gutter="md">
+      <IconButton
+        onPress={toggleTheme}
+        icon={currentThemeIcon}
+        label="Schakel thema"
+      />
       <IconButton
         badgeValue={numberOfUnreadNotifications}
         icon={<BellInactive {...iconProps} />}
