@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {Provider} from 'react-redux'
+import {Provider as StoreProvider} from 'react-redux'
 
 import {useForegroundPushNotificationHandler} from '../hooks'
 import {store} from '../store'
@@ -12,10 +12,10 @@ type Props = {
 export const RootProvider = ({children}: Props) => {
   useForegroundPushNotificationHandler()
   return (
-    <Provider store={store}>
+    <StoreProvider store={store}>
       <DeviceProvider>
         <AlertProvider>{children}</AlertProvider>
       </DeviceProvider>
-    </Provider>
+    </StoreProvider>
   )
 }
