@@ -1,10 +1,10 @@
 import React, {Children, Fragment, ReactNode} from 'react'
-import {Spacing} from '../../../tokens'
+import {SizeTokens} from '../../../themes/tokens'
 import {Gutter} from './'
 
 type Props = {
   children: ReactNode[] | ReactNode
-  gutter: keyof Spacing
+  gutter: keyof SizeTokens
   prop: 'height' | 'width'
 }
 
