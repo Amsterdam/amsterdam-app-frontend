@@ -6,3 +6,7 @@ export type Module = {
   title: string
   version: string
 }
+
+export type WasteGuideModuleStackParams = {
+  WasteGuideModule: undefined
+}
