@@ -56,6 +56,7 @@ export type SharedStackParams = {
   ProjectWarning: {id: string}
   Settings: undefined
   WasteGuide: undefined
+  WasteGuideModule: undefined
   WasteMenu: undefined
   WebView: WebViewRouteParams
   WhereToPutBulkyWaste: undefined
