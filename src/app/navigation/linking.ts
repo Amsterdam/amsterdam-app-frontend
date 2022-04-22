@@ -6,7 +6,7 @@ import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {PushNotificationData} from '../../types'
 import {routes, tabs} from './routes'
-import {SharedStackParams} from './types'
+import {StackParams} from './types'
 
 const appPrefix = 'amsterdam://'
 
@@ -46,7 +46,7 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 }
 
-export const linking: LinkingOptions<SharedStackParams> = {
+export const linking: LinkingOptions<StackParams> = {
   prefixes: [appPrefix],
   config: {
     screens: {
@@ -57,6 +57,7 @@ export const linking: LinkingOptions<SharedStackParams> = {
           [routes.projectWarning.name]: 'warning/:id',
         },
       },
+      [routes.wasteGuideModule.name]: 'waste-guide',
     },
   },
   async getInitialURL() {

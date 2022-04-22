@@ -1,20 +1,15 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
+import {useLinkTo} from '@react-navigation/native'
 import React from 'react'
 import {Pressable} from 'react-native'
-import {routes} from '../../../modules/waste-guide/routes'
 import {Box, Text} from '../../ui'
 import {Column} from '../../ui/layout'
 import mock from './mock.json'
-import {Module, WasteGuideModuleStackParams} from './'
+import {Module} from './'
 
 const modules: Module[] = mock.modules.filter(m => m.status === 1)
 
 export const Modules = () => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<WasteGuideModuleStackParams, 'WasteGuideModule'>
-    >()
+  const linkTo = useLinkTo()
 
   return (
     <Column gutter="md">
@@ -23,7 +18,7 @@ export const Modules = () => {
           return (
             <Pressable
               key={module.title}
-              onPress={() => navigation.navigate(routes.wasteGuideModule.name)}>
+              onPress={() => linkTo(`/${module.slug}`)}>
               <Box insetVertical="sm" key={module.title}>
                 <Text>{module.title}!</Text>
               </Box>
