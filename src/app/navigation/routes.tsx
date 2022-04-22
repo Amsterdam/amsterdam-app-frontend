@@ -49,7 +49,7 @@ const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
 
 const homeRoutes: StackNavigationRoutes<
   HomeStackParams,
-  'authorizedProjects' | 'home'
+  'authorizedProjects' | 'home' | 'modules'
 > = {
   authorizedProjects: {
     name: 'AuthorizedProjects',
@@ -62,6 +62,15 @@ const homeRoutes: StackNavigationRoutes<
     options: {
       headerLeft: () => <HeaderLogo />,
       headerTitle: '',
+    },
+  },
+  modules: {
+    name: 'Modules',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: 'Modules ✨',
     },
   },
 }
