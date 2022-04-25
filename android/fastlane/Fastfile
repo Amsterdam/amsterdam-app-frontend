@@ -15,32 +15,20 @@
 
 default_platform(:android)
 
-platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
+apk_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/release/app-release.apk"
+aab_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-release.aab"
 
-  lane :bump_version_code do
-    path = '../app/build.gradle'
-    re = /versionCode\s+(\d+)/ 
-  
-    s = File.read(path)
-    versionCode = s[re, 1].to_i
-    s[re, 1] = (versionCode + 1).to_s
-  
-    f = File.new(path, 'w')
-    f.write(s)
-    f.close
-  end
+def parseVersionNumber(fullVersionNumber)
+  return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+end
+
+platform :android do
 
   desc "Submit a new Beta Build"
   lane :beta do
     keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
     keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
     keystore_alias = "key0"
-    apk_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/release/app-release.apk"
-
 
     if File.exists?(keystore_path)
       system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
@@ -58,9 +46,24 @@ platform :android do
       system("keytool -list -printcert -jarfile #{apk_path}") # this is the debug certificate which was used to sign the apk
 
     else
-      puts "ERROR: #{keystore_path} does not exist"
+      UI.user_error!("ERROR: #{keystore_path} does not exist")
     end
 
+  end
+
+  lane :distributeInternalAab do
+    if File.exists?(apk_path)
+      upload_to_play_store(
+      package_name: 'com.stadsapp',
+      track: 'internal',
+      aab: aab_path
+    )
+    else
+      UI.user_error!("ERROR: #{apk_path} does not exist")
+    end
+  end
+
+  lane :distributeInternal do
     if File.exists?(apk_path)
       upload_to_play_store(
       package_name: 'com.stadsapp',
@@ -68,8 +71,21 @@ platform :android do
       apk: apk_path
     )
     else
-      puts "ERROR: #{apk_path} does not exist"
+      UI.user_error!("ERROR: #{apk_path} does not exist")
     end
+  end
 
+  lane :distributeStakeHolders do
+    upload_to_play_store(
+      package_name: "com.stadsapp",
+      track: "internal",
+      track_promote_to: "alpha",
+      validate_only: false,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
+    )
   end
 end
