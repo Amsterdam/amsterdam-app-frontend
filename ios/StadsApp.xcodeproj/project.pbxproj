@@ -555,7 +555,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "Automatic build numbering";
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -627,7 +627,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Automatic build numbering";
+				MARKETING_VERSION = 1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -652,7 +652,7 @@
 				CODE_SIGN_ENTITLEMENTS = StadsApp/StadsApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "Automatic build numbering";
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
 				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -724,7 +724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "Automatic build numbering";
+				MARKETING_VERSION = 1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
