@@ -1,0 +1,35 @@
+trigger: 
+  - develop
+  - main
+
+pr: none
+
+jobs:
+  - job: "Build_Android"
+    timeoutInMinutes: 90
+    pool:
+      vmImage: macOS-11
+    variables:
+      - group: React Native Variables
+      - name: lc.all
+        value: 'en_US.UTF-8'
+      - name: lang
+        value: 'en_US.UTF-8'
+    steps:
+      - template: ./templates/app-build.yml
+        parameters:
+          platform: 'android'
+  - job: "Build_iOS"
+    timeoutInMinutes: 90
+    pool:
+      vmImage: macOS-11
+    variables:
+      - group: React Native Variables
+      - name: lc.all
+        value: 'en_US.UTF-8'
+      - name: lang
+        value: 'en_US.UTF-8'
+    steps:
+      - template: ./templates/app-build.yml
+        parameters:
+          platform: 'ios'

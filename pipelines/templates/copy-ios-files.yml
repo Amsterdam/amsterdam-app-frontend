@@ -1,0 +1,29 @@
+parameters:
+  - name: condition
+    type: string
+
+steps:
+  - task: InstallAppleCertificate@2
+    inputs:
+      certSecureFile: AppleDeveloperCertificate.p12
+      certPwd: $(P12_PASSWORD)
+      keychain: 'temp'
+      deleteCert: true
+    displayName: Install Apple Certificate
+    condition: ${{ parameters.condition }}
+  - task: InstallAppleProvisioningProfile@1
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'Amsterdamappprovisioningprofile.mobileprovision'
+    displayName: 'Install Apple Provisioning Profile'
+    condition: ${{ parameters.condition }}
+  - task: DownloadSecureFile@1
+    displayName: 'Download App Store Connect API Key'
+    name: AppStoreConnectApiKey
+    inputs:
+      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+    condition: ${{ parameters.condition }}
+  - script: |
+      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+    displayName: 'Copy secure files'
+    condition: ${{ parameters.condition }}

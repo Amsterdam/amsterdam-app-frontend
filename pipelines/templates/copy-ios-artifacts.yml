@@ -1,0 +1,17 @@
+parameters:
+  - name: condition
+    type: string
+
+steps:
+  - task: CopyFiles@2
+    displayName: "iOS: copy build folders"
+    inputs:
+      contents: "ios/build/Build/Products/**/**.app/**"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: ${{ parameters.condition }}
+  - task: CopyFiles@2
+    displayName: "iOS: copy ipa"
+    inputs:
+      contents: "ios/**/**.ipa"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: ${{ parameters.condition }}
