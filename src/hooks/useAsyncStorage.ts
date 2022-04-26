@@ -71,7 +71,7 @@ export const useAsyncStorage = () => {
   const getAllValues = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys()
-      const all = await AsyncStorage.multiGet(keys)
+      const all = await AsyncStorage.multiGet(keys.slice())
       return all
     } catch (e) {
       setError(e)
