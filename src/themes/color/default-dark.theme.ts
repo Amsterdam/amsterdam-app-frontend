@@ -1,5 +1,4 @@
-import {typographyTheme} from './typography.theme'
-import {ColorTheme, Theme} from './'
+import {ColorTheme, Theme, typographyTheme} from '../'
 
 const defaultDarkColorTheme: ColorTheme = {
   screen: {
@@ -11,10 +10,10 @@ const defaultDarkColorTheme: ColorTheme = {
   },
 }
 
-export const defaultDarkSpaceId = 'default-dark'
+export const defaultDarkThemeId = 'default-dark'
 
 export const defaultDarkTheme: Theme = {
-  id: defaultDarkSpaceId,
+  id: defaultDarkThemeId,
   color: defaultDarkColorTheme,
   typography: typographyTheme,
 }

@@ -1,5 +1,4 @@
-import {typographyTheme} from './typography.theme'
-import {ColorTheme, Theme} from './'
+import {ColorTheme, Theme, typographyTheme} from '../'
 
 const defaultLightColorTheme: ColorTheme = {
   screen: {

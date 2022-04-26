@@ -7,9 +7,13 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import {defaultDarkSpaceId, defaultDarkTheme} from './default-dark.theme'
-import {defaultLightTheme, defaultLightThemeId} from './default-light.theme'
 import {Theme} from './types'
+import {
+  defaultDarkTheme,
+  defaultDarkThemeId,
+  defaultLightTheme,
+  defaultLightThemeId,
+} from './'
 
 type ProvidedValue = {
   theme: Theme
@@ -37,7 +41,7 @@ export const ThemeProvider = memo<Props>(({children, initialTheme}) => {
         return defaultDarkTheme
       }
 
-      if (currentTheme.id === defaultDarkSpaceId) {
+      if (currentTheme.id === defaultDarkThemeId) {
         return defaultLightTheme
       }
 
