@@ -61,6 +61,9 @@ const homeRoutes: StackNavigationRoutes<
   home: {
     name: 'Home',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
       headerLeft: () => <HeaderLogo />,
       headerTitle: '',
     },
