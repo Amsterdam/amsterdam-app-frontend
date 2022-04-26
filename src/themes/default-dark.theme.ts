@@ -1,3 +1,4 @@
+import {typographyTheme} from './typography.theme'
 import {ColorTheme, Theme} from './'
 
 const defaultDarkColorTheme: ColorTheme = {
@@ -15,4 +16,5 @@ export const defaultDarkSpaceId = 'default-dark'
 export const defaultDarkTheme: Theme = {
   id: defaultDarkSpaceId,
   color: defaultDarkColorTheme,
+  typography: typographyTheme,
 }

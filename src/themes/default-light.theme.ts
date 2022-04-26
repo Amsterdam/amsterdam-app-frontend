@@ -1,6 +1,6 @@
+import {typographyTheme} from './typography.theme'
 import {ColorTheme, Theme} from './'
 
-// Define our light theme colors
 const defaultLightColorTheme: ColorTheme = {
   screen: {
     background: '#ffffff',
@@ -16,4 +16,5 @@ export const defaultLightThemeId = 'default-light'
 export const defaultLightTheme: Theme = {
   id: defaultLightThemeId,
   color: defaultLightColorTheme,
+  typography: typographyTheme,
 }
