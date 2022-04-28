@@ -6,11 +6,8 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import {defaultDarkTheme, defaultDarkThemeId} from './color/default-dark.theme'
-import {
-  defaultLightTheme,
-  defaultLightThemeId,
-} from './color/default-light.theme'
+import {darkTheme, darkThemeId} from './color/dark.theme'
+import {lightTheme, lightThemeId} from './color/light.theme'
 import {Theme} from './types'
 
 type ProvidedValue = {
@@ -19,7 +16,7 @@ type ProvidedValue = {
 }
 
 export const ThemeContext = createContext<ProvidedValue>({
-  theme: defaultLightTheme,
+  theme: lightTheme,
   toggleTheme: () => {
     console.warn('Error: `ThemeProvider` is not being rendered.')
   },
@@ -35,12 +32,12 @@ export const ThemeProvider = memo<Props>(({children, initialTheme}) => {
 
   const toggleTheme = useCallback(() => {
     setTheme(currentTheme => {
-      if (currentTheme.id === defaultLightThemeId) {
-        return defaultDarkTheme
+      if (currentTheme.id === lightThemeId) {
+        return darkTheme
       }
 
-      if (currentTheme.id === defaultDarkThemeId) {
-        return defaultLightTheme
+      if (currentTheme.id === darkThemeId) {
+        return lightTheme
       }
 
       return currentTheme

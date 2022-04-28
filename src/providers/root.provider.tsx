@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {Provider as StoreProvider} from 'react-redux'
 import {useForegroundPushNotificationHandler} from '../hooks'
 import {store} from '../store'
-import {defaultLightTheme} from '../themes'
+import {lightTheme} from '../themes'
 import {ThemeProvider} from '../themes/theme.provider' // Prevent require cycle
 import {AlertProvider, DeviceProvider} from '.'
 
@@ -14,7 +14,7 @@ export const RootProvider = ({children}: Props) => {
   useForegroundPushNotificationHandler()
   return (
     <StoreProvider store={store}>
-      <ThemeProvider initialTheme={defaultLightTheme}>
+      <ThemeProvider initialTheme={lightTheme}>
         <DeviceProvider>
           <AlertProvider>{children}</AlertProvider>
         </DeviceProvider>

@@ -6,7 +6,7 @@ import {BellInactive, DarkMode, LightMode, Settings} from '../../assets/icons'
 import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
-import {defaultLightTheme, ThemeContext} from '../../themes'
+import {lightTheme, ThemeContext} from '../../themes'
 import {color} from '../../tokens'
 import {accessibleText} from '../../utils'
 import {routes} from './routes'
@@ -26,7 +26,7 @@ export const HeaderNavigation = () => {
 
   const {theme, toggleTheme} = useContext(ThemeContext)
   const currentThemeIcon =
-    theme === defaultLightTheme ? (
+    theme === lightTheme ? (
       <LightMode {...iconProps} />
     ) : (
       <DarkMode {...iconProps} />
