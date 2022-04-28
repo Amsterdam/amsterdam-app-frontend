@@ -1,4 +1,4 @@
-import {ColorTheme} from './color/types'
+import {ColorTheme} from './color/default-light.theme'
 import {TypographyTheme} from './typography/types'
 
 export type Theme = {

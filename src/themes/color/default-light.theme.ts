@@ -1,6 +1,8 @@
 import {Theme} from '../types'
 import {typographyTheme} from '../typography/typography.theme'
 
+export type ColorTheme = typeof defaultLightColorTheme
+
 export const defaultLightColorTheme = {
   screen: {
     background: '#ffffff',
