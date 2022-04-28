@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   outerCircle: {
     width: outerCircleSize,
-    height: outerCircleSize,
+    aspectRatio: 1,
     marginRight: size.spacing.md,
     backgroundColor: color.control.default.background,
     borderColor: color.control.default.border,
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     borderColor: color.control.checked.border,
   },
   innerCircle: {
-    height: innerCircleSize,
     width: innerCircleSize,
+    aspectRatio: 1,
   },
   text: {
     flexShrink: 1,

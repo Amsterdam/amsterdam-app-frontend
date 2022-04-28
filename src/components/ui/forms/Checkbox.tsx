@@ -43,7 +43,7 @@ export const Checkbox = ({
 const styles = StyleSheet.create({
   checkbox: {
     width: 24,
-    height: 24,
+    aspectRatio: 1,
     padding: 4,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: color.control.default.border,

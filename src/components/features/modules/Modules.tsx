@@ -13,7 +13,7 @@ const modules: Module[] = mock.modules.filter(m => m.status === 1)
 
 const iconProps = {
   width: 24,
-  height: 24,
+  aspectRatio: 1,
   fill: color.font.regular,
 }
 

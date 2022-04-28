@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 24,
-    height: 24,
+    aspectRatio: 1,
     fill: color.font.primary,
   },
 })
