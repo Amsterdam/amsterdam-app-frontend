@@ -7,13 +7,12 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import {Theme} from './types'
+import {defaultDarkTheme, defaultDarkThemeId} from './color/default-dark.theme'
 import {
-  defaultDarkTheme,
-  defaultDarkThemeId,
   defaultLightTheme,
   defaultLightThemeId,
-} from './'
+} from './color/default-light.theme'
+import {Theme} from './types'
 
 type ProvidedValue = {
   theme: Theme

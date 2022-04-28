@@ -1,6 +1,7 @@
-import {ColorTheme, Theme, typographyTheme} from '../'
+import {Theme} from '../types'
+import {typographyTheme} from '../typography/typography.theme'
 
-const defaultLightColorTheme: ColorTheme = {
+export const defaultLightColorTheme = {
   screen: {
     background: '#ffffff',
   },

@@ -1,4 +1,4 @@
-import {TypographyTheme} from '..'
+import {TypographyTheme} from './types'
 
 export const typographyTheme: TypographyTheme = {
   fontSize: {

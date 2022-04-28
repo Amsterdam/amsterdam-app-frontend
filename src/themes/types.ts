@@ -1,4 +1,5 @@
-import {ColorTheme, TypographyTheme} from './'
+import {ColorTheme} from './color/types'
+import {TypographyTheme} from './typography/types'
 
 export type Theme = {
   id: string
