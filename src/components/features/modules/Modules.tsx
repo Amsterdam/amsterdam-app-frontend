@@ -5,7 +5,7 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {createElement, ElementType} from 'react'
 import {Container, Project} from '../../../assets/icons'
 import {color} from '../../../tokens'
-import {Column} from '../../ui/layout'
+import {Box} from '../../ui'
 import mock from './mock.json'
 import {Module, ModuleButton} from './'
 
@@ -27,7 +27,7 @@ const icons: Record<string, ElementType> = {
 }
 
 export const Modules = () => (
-  <Column gutter="md">
+  <Box insetVertical="md">
     {modules.map(({slug, title}) => (
       <ModuleButton
         icon={createElement(icons[slug], iconProps)}
@@ -36,5 +36,5 @@ export const Modules = () => (
         slug={slug}
       />
     ))}
-  </Column>
+  </Box>
 )

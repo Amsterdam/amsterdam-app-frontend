@@ -1,7 +1,7 @@
 import {useLinkTo} from '@react-navigation/native'
 import React, {ReactNode} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
-import {size} from '../../../tokens'
+import {Theme, useThemable} from '../../../themes'
 import {Row} from '../../ui/layout'
 import {Title} from '../../ui/typography'
 
@@ -13,6 +13,7 @@ type Props = {
 
 export const ModuleButton = ({icon, label, slug}: Props) => {
   const linkTo = useLinkTo()
+  const styles = useThemable(createStyles)
 
   return (
     <Pressable onPress={() => linkTo(`/${slug}`)} style={styles.button}>
@@ -24,8 +25,10 @@ export const ModuleButton = ({icon, label, slug}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    padding: size.spacing.md,
-  },
-})
+const createStyles = (theme: Theme) =>
+  StyleSheet.create({
+    button: {
+      paddingHorizontal: theme.size.lg,
+      paddingVertical: theme.size.md,
+    },
+  })
