@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {SizeTokens} from '../../../themes/tokens'
+import {SpacingTokens} from '../../../themes/tokens'
 import {CrossAxisAlignment, MainAxisAlignment} from './types'
 import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
 import {ChildrenWithGutters} from './'
@@ -8,7 +8,7 @@ import {ChildrenWithGutters} from './'
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
-  gutter?: keyof SizeTokens
+  gutter?: keyof SpacingTokens
   valign?: CrossAxisAlignment
   wrap?: boolean
 }

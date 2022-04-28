@@ -2,16 +2,16 @@ import React, {ReactNode} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {layoutStyles} from '../../styles'
 import {Theme, useThemable} from '../../themes'
-import {SizeTokens} from '../../themes/tokens'
+import {SpacingTokens} from '../../themes/tokens'
 import {color} from '../../tokens'
 
 type Props = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'
   children: ReactNode
   grow?: boolean
-  inset?: keyof SizeTokens
-  insetHorizontal?: keyof SizeTokens
-  insetVertical?: keyof SizeTokens
+  inset?: keyof SpacingTokens
+  insetHorizontal?: keyof SpacingTokens
+  insetVertical?: keyof SpacingTokens
 } & Omit<ViewProps, 'style'>
 
 export const Box = ({
@@ -48,8 +48,11 @@ const createStyles =
     StyleSheet.create({
       box: {
         padding:
-          inset && !insetHorizontal && !insetVertical ? theme.size[inset] : 0,
-        paddingHorizontal: insetHorizontal && theme.size[insetHorizontal],
-        paddingVertical: insetVertical && theme.size[insetVertical],
+          inset && !insetHorizontal && !insetVertical
+            ? theme.size.spacing[inset]
+            : 0,
+        paddingHorizontal:
+          insetHorizontal && theme.size.spacing[insetHorizontal],
+        paddingVertical: insetVertical && theme.size.spacing[insetVertical],
       },
     })
