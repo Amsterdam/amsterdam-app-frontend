@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {Theme, useThemedStyles} from '../../../themes'
+import {Theme, useThemable} from '../../../themes'
 import {TitleTokensPerLevel} from '../../../themes/tokens'
 import {color, font} from '../../../tokens'
 
@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const Title = ({level, text}: Props) => {
-  const styles = useThemedStyles(createStyles(level))
+  const styles = useThemable(createStyles(level))
 
   return (
     <Text accessibilityRole="header" style={styles.title}>

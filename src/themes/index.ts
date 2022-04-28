@@ -1,3 +1,3 @@
 export * from './theme.provider'
 export * from './themes'
-export * from './useThemedStyles'
+export * from './useThemable'
