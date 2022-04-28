@@ -1,6 +1,6 @@
 import {useContext, useMemo} from 'react'
 import {ThemeContext} from './theme.provider'
-import {Theme} from './types'
+import {Theme} from './themes'
 
 type Generator<T extends {}> = (theme: Theme) => T
 

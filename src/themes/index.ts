@@ -1,6 +1,3 @@
-export * from './dark-color-theme'
-export * from './light-color-theme'
 export * from './theme.provider'
-export * from './types'
-export * from './typography-theme'
+export * from './themes'
 export * from './useThemedStyles'

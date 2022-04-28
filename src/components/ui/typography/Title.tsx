@@ -23,8 +23,7 @@ const createStyles = (level: keyof TitleTokensPerLevel) => (theme: Theme) =>
     title: {
       color: color.font.regular,
       fontFamily: font.weight.demi,
-      fontSize: theme.typography.fontSize[level],
-      lineHeight:
-        theme.typography.lineHeight[level] * theme.typography.fontSize[level],
+      fontSize: theme.text.fontSize[level],
+      lineHeight: theme.text.lineHeight[level] * theme.text.fontSize[level],
     },
   })

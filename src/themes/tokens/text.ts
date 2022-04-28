@@ -7,12 +7,12 @@ export type TitleTokensPerLevel = {
   h6: number
 }
 
-export type TypographyTheme = {
+export type TextTokens = {
   fontSize: TitleTokensPerLevel
   lineHeight: TitleTokensPerLevel
 }
 
-export const typographyTheme: TypographyTheme = {
+export const textTokens: TextTokens = {
   fontSize: {
     h1: 32,
     h2: 28,
