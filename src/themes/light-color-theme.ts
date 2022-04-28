@@ -1,5 +1,5 @@
-import {Theme} from '../types'
-import {typographyTheme} from '../typography/typography.theme'
+import {Theme} from './types'
+import {typographyTheme} from './typography-theme'
 
 export type ColorTheme = typeof lightColorTheme
 

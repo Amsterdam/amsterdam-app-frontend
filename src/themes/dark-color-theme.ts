@@ -1,6 +1,6 @@
-import {Theme} from '../types'
-import {typographyTheme} from '../typography/typography.theme'
-import {ColorTheme} from './light.theme'
+import {ColorTheme} from './light-color-theme'
+import {Theme} from './types'
+import {typographyTheme} from './typography-theme'
 
 const darkColorTheme: ColorTheme = {
   screen: {
