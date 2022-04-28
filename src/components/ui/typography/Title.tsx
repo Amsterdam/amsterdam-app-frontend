@@ -9,18 +9,7 @@ type Props = {
 }
 
 export const Title = ({level, text}: Props) => {
-  const createStyles = (theme: Theme) =>
-    StyleSheet.create({
-      title: {
-        color: color.font.regular,
-        fontFamily: font.weight.demi,
-        fontSize: theme.typography.fontSize[level],
-        lineHeight:
-          theme.typography.lineHeight[level] * theme.typography.fontSize[level],
-      },
-    })
-
-  const styles = useThemedStyles(createStyles)
+  const styles = useThemedStyles(createStyles(level))
 
   return (
     <Text accessibilityRole="header" style={styles.title}>
@@ -28,3 +17,14 @@ export const Title = ({level, text}: Props) => {
     </Text>
   )
 }
+
+const createStyles = (level: keyof TitleTokensPerLevel) => (theme: Theme) =>
+  StyleSheet.create({
+    title: {
+      color: color.font.regular,
+      fontFamily: font.weight.demi,
+      fontSize: theme.typography.fontSize[level],
+      lineHeight:
+        theme.typography.lineHeight[level] * theme.typography.fontSize[level],
+    },
+  })
