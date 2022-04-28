@@ -35,9 +35,9 @@ export const HeaderNavigation = () => {
   return (
     <Row gutter="md">
       <IconButton
-        onPress={toggleTheme}
         icon={currentThemeIcon}
         label="Schakel thema"
+        onPress={toggleTheme}
       />
       <IconButton
         badgeValue={numberOfUnreadNotifications}
