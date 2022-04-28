@@ -1,0 +1,45 @@
+parameters:
+- name: platform
+  type: string
+  default: "ios"
+
+steps:
+  - template: ./install-node.yml
+  - template: ./copy-android-files.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'android')
+  - template: ./copy-ios-files.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'ios')
+  - script: npm ci
+    displayName: 'Install node dependencies'
+  - script: npm run lint
+    displayName: 'Run lint'
+  - script: npm run typescript
+    displayName: 'Run typescript checks'
+  - script: npm run test
+    displayName: 'Run unit tests'
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+    condition: eq('${{ parameters.platform }}', 'android')
+  - script: |
+      bundle install
+      bundle exec fastlane beta
+    displayName: "Build ${{ parameters.platform }}"
+    workingDirectory: ${{ parameters.platform }}
+  - template: ./copy-generic-artifacts.yml
+    parameters:
+      platform: ${{ parameters.platform }}
+  - template: ./copy-android-artifacts.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'android')
+  - template: ./copy-ios-artifacts.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'ios')
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: ${{ parameters.platform }}-build

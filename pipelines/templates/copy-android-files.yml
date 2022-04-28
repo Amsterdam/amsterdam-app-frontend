@@ -1,0 +1,34 @@
+parameters:
+  - name: condition
+    type: string
+
+steps:
+  - task: DownloadSecureFile@1
+    displayName: 'Download Play Store API Key'
+    name: PlayStoreApiKey
+    inputs:
+      secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
+    condition: ${{ parameters.condition }}
+  - task: DownloadSecureFile@1
+    displayName: 'google-services.json'
+    name: FirebaseApiKey
+    inputs:
+      secureFile: 'google-services.json'
+    condition: ${{ parameters.condition }}
+  - task: DownloadSecureFile@1
+    displayName: 'Download Keystore'
+    name: Keystore
+    inputs:
+      secureFile: 'upload.keystore'
+    condition: ${{ parameters.condition }}
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+    condition: ${{ parameters.condition }}
+  - script: |
+      mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
+      mkdir -p android/app && cp $(FirebaseApiKey.secureFilePath) android/app
+    displayName: 'Copy secure files'
+    condition: ${{ parameters.condition }}

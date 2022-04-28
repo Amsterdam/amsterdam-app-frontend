@@ -1,0 +1,17 @@
+parameters:
+  - name: platform
+    type: string
+
+steps:
+  - task: CopyFiles@2
+    displayName: "Copy gemfile"
+    inputs:
+      contents: "${{ parameters.platform }}/Gemfile"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+  - task: CopyFiles@2
+    displayName: "Copy fastlane config"
+    inputs:
+      contents: "${{ parameters.platform }}/fastlane/**"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+  - script: node ./nodescripts/version-number.js > $(Build.ArtifactStagingDirectory)/version.txt
+    displayName: "Save version number"

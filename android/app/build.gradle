@@ -131,6 +131,31 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+/**
+ * Get build and versie nummers
+ */
+import groovy.json.JsonSlurper
+
+def getVersionFromPackagejson() {
+    //  Read and parse package.json file from project root
+    def inputFile = new File("$rootDir/../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+
+    // Return the version, you can get any value this way
+    return packageJson["version"]
+}
+
+def getBuildNumber() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        workingDir projectDir
+        executable 'git'
+        args 'rev-list', '--count', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim().toInteger()
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -140,8 +165,8 @@ android {
         applicationId "com.stadsapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode getBuildNumber()
+        versionName getVersionFromPackagejson()
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
