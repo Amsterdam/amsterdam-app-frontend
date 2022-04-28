@@ -2,11 +2,14 @@ import {
   ColorTokens,
   darkColorTokens,
   lightColorTokens,
+  SizeTokens,
+  sizeTokens,
   TextTokens,
+  textTokens,
 } from './tokens'
-import {textTokens} from './tokens/text'
 
 export type SharedTheme = {
+  size: SizeTokens
   text: TextTokens
 }
 
@@ -19,6 +22,7 @@ export const lightThemeId = 'light'
 export const darkThemeId = 'dark'
 
 const sharedTokens: SharedTheme = {
+  size: sizeTokens,
   text: textTokens,
 }
 
