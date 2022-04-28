@@ -1,13 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
 import simplur from 'simplur'
 import {BellInactive, DarkMode, LightMode, Settings} from '../../assets/icons'
 import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
-import {defaultLightTheme} from '../../themes'
-import {useTheme} from '../../themes/theme.provider'
+import {defaultLightTheme, ThemeContext} from '../../themes'
 import {color} from '../../tokens'
 import {accessibleText} from '../../utils'
 import {routes} from './routes'
@@ -25,7 +24,7 @@ export const HeaderNavigation = () => {
     n => !n.isRead,
   ).length
 
-  const {theme, toggleTheme} = useTheme()
+  const {theme, toggleTheme} = useContext(ThemeContext)
   const currentThemeIcon =
     theme === defaultLightTheme ? (
       <LightMode {...iconProps} />

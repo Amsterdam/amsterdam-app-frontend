@@ -3,7 +3,6 @@ import React, {
   memo,
   ReactNode,
   useCallback,
-  useContext,
   useMemo,
   useState,
 } from 'react'
@@ -19,7 +18,7 @@ type ProvidedValue = {
   toggleTheme: () => void
 }
 
-const Context = createContext<ProvidedValue>({
+export const ThemeContext = createContext<ProvidedValue>({
   theme: defaultLightTheme,
   toggleTheme: () => {
     console.warn('Error: `ThemeProvider` is not being rendered.')
@@ -54,8 +53,9 @@ export const ThemeProvider = memo<Props>(({children, initialTheme}) => {
     return value
   }, [theme, toggleTheme])
 
-  return <Context.Provider value={memoizedValue}>{children}</Context.Provider>
+  return (
+    <ThemeContext.Provider value={memoizedValue}>
+      {children}
+    </ThemeContext.Provider>
+  )
 })
-
-// Creating a custom context consumer hook for function components
-export const useTheme = () => useContext(Context)
