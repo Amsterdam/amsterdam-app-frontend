@@ -10,6 +10,7 @@ export const darkColorTokens: ColorTokens = {
     grey: baseColor.neutral.grey4,
     inactive: baseColor.neutral.grey1,
     invalid: baseColor.support.invalid,
+    tooltip: baseColor.neutral.grey1,
     valid: baseColor.supplement.darkergreen,
     white: baseColor.primary.black,
   },

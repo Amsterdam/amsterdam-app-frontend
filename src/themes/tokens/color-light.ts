@@ -2,6 +2,7 @@ import {baseColor} from '../../tokens'
 
 export type ColorTokens = typeof lightColorTokens
 
+// TODO OMG Improve background tokens
 export const lightColorTokens = {
   background: {
     app: baseColor.neutral.grey2,
@@ -10,6 +11,7 @@ export const lightColorTokens = {
     grey: baseColor.neutral.grey1,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
+    tooltip: baseColor.neutral.grey5,
     valid: baseColor.supplement.darkergreen,
     white: baseColor.primary.white,
   },
