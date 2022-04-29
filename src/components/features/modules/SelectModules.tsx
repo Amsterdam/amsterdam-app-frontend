@@ -1,5 +1,5 @@
 import React, {createElement, useState} from 'react'
-import {color} from '../../../tokens'
+import {Theme, useThemable} from '../../../themes'
 import {Box} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {Column, Row} from '../../ui/layout'
@@ -17,16 +17,14 @@ const initialSelectedModules: ModuleWithSelection[] = mock.modules.map(m => ({
   selected: !['open-waste-container', 'city-offices'].includes(m.slug),
 }))
 
-const iconProps = {
-  width: 24,
-  aspectRatio: 1,
-  fill: color.font.regular,
-}
-
 export const SelectModules = () => {
   const [selectedModules, setSelectedModules] = useState<ModuleWithSelection[]>(
     initialSelectedModules,
   )
+
+  // TODO Create `Icon` component with size and color props
+  const IconProps = (selected: boolean) =>
+    useThemable(createIconProps(selected))
 
   // TODO Save to store
   const onChangeSelection = (module: Module, selected: boolean) => {
@@ -46,7 +44,7 @@ export const SelectModules = () => {
               <Switch
                 label={
                   <Row gutter="md" valign="center">
-                    {createElement(icons[slug], iconProps)}
+                    {createElement(icons[slug], IconProps(selected))}
                     <Title
                       level="h5"
                       prominence={selected ? 1 : 2}
@@ -64,3 +62,9 @@ export const SelectModules = () => {
     </Box>
   )
 }
+
+const createIconProps = (selected: boolean) => (theme: Theme) => ({
+  width: 24,
+  aspectRatio: 1,
+  fill: selected ? theme.color.text.default : theme.color.text.secondary,
+})
