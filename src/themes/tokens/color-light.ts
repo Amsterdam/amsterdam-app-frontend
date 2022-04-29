@@ -19,5 +19,7 @@ export const lightColorTokens = {
   text: {
     default: baseColor.primary.black,
     inverted: baseColor.primary.white,
+    secondary: baseColor.neutral.grey4,
+    tertiary: baseColor.neutral.grey3,
   },
 }

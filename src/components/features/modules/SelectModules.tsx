@@ -47,7 +47,11 @@ export const SelectModules = () => {
                 label={
                   <Row gutter="md" valign="center">
                     {createElement(icons[slug], iconProps)}
-                    <Title level="h5" text={title} />
+                    <Title
+                      level="h5"
+                      prominence={selected ? 1 : 2}
+                      text={title}
+                    />
                   </Row>
                 }
                 onValueChange={value => onChangeSelection(module, value)}

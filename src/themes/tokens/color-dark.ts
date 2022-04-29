@@ -19,5 +19,7 @@ export const darkColorTokens: ColorTokens = {
   text: {
     default: baseColor.primary.white,
     inverted: baseColor.primary.black,
+    secondary: baseColor.neutral.grey1,
+    tertiary: baseColor.neutral.grey2,
   },
 }
