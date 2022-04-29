@@ -1,9 +1,11 @@
 import React, {createElement, useState} from 'react'
 import {color} from '../../../tokens'
 import {Box} from '../../ui'
-import {Column} from '../../ui/layout'
+import {Switch} from '../../ui/forms'
+import {Column, Row} from '../../ui/layout'
+import {Title} from '../../ui/typography'
 import mock from './mock.json'
-import {icons, Module, ModuleSwitch} from './'
+import {icons, Module, ModuleBox} from './'
 
 type ModuleWithSelection = Module & {
   selected: boolean
@@ -27,11 +29,9 @@ export const SelectModules = () => {
   )
 
   // TODO Save to store
-  const handleValueChange = (value: boolean, module: Module) => {
+  const onChangeSelection = (module: Module, selected: boolean) => {
     setSelectedModules(
-      selectedModules.map(m =>
-        m.slug === module.slug ? {...m, selected: value} : m,
-      ),
+      selectedModules.map(m => (m.slug === module.slug ? {...m, selected} : m)),
     )
   }
 
@@ -42,13 +42,18 @@ export const SelectModules = () => {
           const {selected, slug, title} = module
 
           return (
-            <ModuleSwitch
-              icon={createElement(icons[slug], iconProps)}
-              key={`${slug}-module-switch`}
-              label={title}
-              onValueChange={value => handleValueChange(value, module)}
-              value={selected}
-            />
+            <ModuleBox key={slug} selected={selected}>
+              <Switch
+                label={
+                  <Row gutter="md" valign="center">
+                    {createElement(icons[slug], iconProps)}
+                    <Title level="h5" text={title} />
+                  </Row>
+                }
+                onValueChange={value => onChangeSelection(module, value)}
+                value={selected}
+              />
+            </ModuleBox>
           )
         })}
       </Column>
