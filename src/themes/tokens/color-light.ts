@@ -1,11 +1,23 @@
+import {baseColor} from '../../tokens'
+
 export type ColorTokens = typeof lightColorTokens
 
 export const lightColorTokens = {
+  background: {
+    app: baseColor.neutral.grey2,
+    darker: baseColor.primary.black,
+    emphasis: baseColor.primary.darkblue,
+    grey: baseColor.neutral.grey1,
+    inactive: baseColor.neutral.grey4,
+    invalid: baseColor.support.invalid,
+    valid: baseColor.supplement.darkergreen,
+    white: baseColor.primary.white,
+  },
   screen: {
-    background: '#ffffff',
+    background: baseColor.primary.white,
   },
   text: {
-    default: '#000000',
-    inverted: '#ffffff',
+    default: baseColor.primary.black,
+    inverted: baseColor.primary.white,
   },
 }

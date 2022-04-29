@@ -4,7 +4,7 @@ import {color} from '../../../tokens'
 import {FormField} from '../forms'
 import {MainAxisPosition} from '../layout/types'
 
-type Props = {
+export type SwitchProps = {
   label: ReactNode
   labelPosition?: MainAxisPosition
 } & SwitchRNProps
@@ -18,7 +18,7 @@ export const Switch = ({
   onValueChange,
   value,
   ...otherProps
-}: Props) => (
+}: SwitchProps) => (
   <FormField {...{label, labelPosition}}>
     <SwitchRN
       ios_backgroundColor={color.control.switch.background}

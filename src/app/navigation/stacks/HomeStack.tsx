@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
 import {HomeScreen} from '../../../screens'
-import {ModulesScreen} from '../../../screens/modules/ModulesScreen'
+import {ModulesScreen, SelectModulesScreen} from '../../../screens/modules'
 import {routes} from '../routes'
 
 const Stack = createStackNavigator()
@@ -30,6 +30,11 @@ export const HomeStack = () => {
         component={ModulesScreen}
         name={routes.modules.name}
         options={routes.modules.options}
+      />
+      <Stack.Screen
+        component={SelectModulesScreen}
+        name={routes.selectModules.name}
+        options={routes.selectModules.options}
       />
       {getSharedScreens(Stack)}
     </Stack.Navigator>

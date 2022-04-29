@@ -35,6 +35,7 @@ export type HomeStackParams = {
   AuthorizedProjects: {projectManagerId: string}
   Home: undefined
   Modules: undefined
+  SelectModules: undefined
 }
 
 export type MenuStackParams = {

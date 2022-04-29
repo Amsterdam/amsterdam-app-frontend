@@ -50,7 +50,7 @@ const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
 
 const homeRoutes: StackNavigationRoutes<
   HomeStackParams,
-  'authorizedProjects' | 'home' | 'modules'
+  'authorizedProjects' | 'home' | 'modules' | 'selectModules'
 > = {
   authorizedProjects: {
     name: 'AuthorizedProjects',
@@ -75,6 +75,12 @@ const homeRoutes: StackNavigationRoutes<
         backgroundColor: color.background.white,
       },
       headerTitle: 'Modules ✨',
+    },
+  },
+  selectModules: {
+    name: 'SelectModules',
+    options: {
+      headerTitle: 'Instellingen',
     },
   },
 }
