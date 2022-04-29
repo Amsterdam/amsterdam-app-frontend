@@ -1,17 +1,25 @@
-import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import React, {ReactNode, useState} from 'react'
+import {Pressable, StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
 import {baseColor} from '../../../tokens'
 
 type Props = {
   children: ReactNode
+  expandedChildren: ReactNode
   selected: boolean
 }
 
-export const ModuleBox = ({children, selected}: Props) => {
+export const ModuleBox = ({children, expandedChildren, selected}: Props) => {
+  const [expanded, setExpanded] = useState<boolean>(false)
   const styles = useThemable(createStyles({selected}))
 
-  return <View style={styles.container}>{children}</View>
+  // TODO Transition expanded children appearance
+  return (
+    <Pressable onPress={() => setExpanded(!expanded)}>
+      <View style={styles.container}>{children}</View>
+      {expanded && expandedChildren}
+    </Pressable>
+  )
 }
 
 // TODO Transition background and border colors

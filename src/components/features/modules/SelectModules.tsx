@@ -1,6 +1,7 @@
 import React, {createElement, useState} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
-import {Box} from '../../ui'
+import {Box, Tooltip} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {Column, Row} from '../../ui/layout'
 import {Title} from '../../ui/typography'
@@ -33,14 +34,23 @@ export const SelectModules = () => {
     )
   }
 
+  const styles = useThemable(createStyles)
+
   return (
     <Box>
       <Column gutter="sm">
         {selectedModules.map(module => {
-          const {selected, slug, title} = module
+          const {description, selected, slug, title} = module
 
           return (
-            <ModuleBox key={slug} selected={selected}>
+            <ModuleBox
+              expandedChildren={
+                <View style={styles.tooltipContainer}>
+                  <Tooltip text={description} />
+                </View>
+              }
+              key={slug}
+              selected={selected}>
               <Switch
                 label={
                   <Row gutter="md" valign="center">
@@ -68,3 +78,12 @@ const createIconProps = (selected: boolean) => (theme: Theme) => ({
   aspectRatio: 1,
   fill: selected ? theme.color.text.default : theme.color.text.secondary,
 })
+
+const createStyles = (theme: Theme) =>
+  StyleSheet.create({
+    tooltipContainer: {
+      marginTop: theme.size.spacing.md,
+      marginBottom: theme.size.spacing.sm,
+      marginHorizontal: theme.size.spacing.lg,
+    },
+  })
