@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {getEnvironment} from '../environment'
-import {RootState, selectAuthManagerToken} from '../store'
+import {selectAuthManagerToken} from '../store/authSlice'
+import {RootState} from '../store/store'
 
 const managerAuthorizedEndpoints = [
   'addNotification',

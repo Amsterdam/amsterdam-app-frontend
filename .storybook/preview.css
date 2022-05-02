@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "AvenirNext-DemiBold";
+    src: url('../src/assets/fonts/AvenirNext-DemiBold.ttf');
+}
+
+@font-face {
+    font-family: "AvenirNext-Regular";
+    src: url('../src/assets/fonts/AvenirNext-Regular.ttf');
+}
