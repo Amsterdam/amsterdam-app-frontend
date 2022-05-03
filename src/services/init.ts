@@ -23,5 +23,5 @@ export const baseApi = createApi({
   }),
   endpoints: () => ({}),
   reducerPath: 'api',
-  tagTypes: ['Articles', 'Notifications'],
+  tagTypes: ['Articles', 'Modules', 'Notifications'],
 })
