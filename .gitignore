@@ -73,3 +73,6 @@ storybook-static/
 
 # Logs
 logs/
+
+# Pact
+pacts/
