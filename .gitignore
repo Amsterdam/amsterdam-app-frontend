@@ -67,3 +67,6 @@ buck-out/
 .jest/
 .eslintcache
 coverage/
+
+# Storybook build
+storybook-static/
