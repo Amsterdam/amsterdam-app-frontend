@@ -44,7 +44,7 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     routeParamsId && dispatch(addProjectManager({id: routeParamsId}))
   }, [dispatch, routeParamsId])
 
-  const storeProjectManagerSettings = useCallback(async () => {
+  const storeProjectManagerSettings = useCallback(() => {
     if (projectManager) {
       const newProjectManagerSettings = {
         id: projectManagerId,
