@@ -33,3 +33,9 @@ jobs:
       - template: ./templates/app-build.yml
         parameters:
           platform: 'ios'
+  - job: "Build_Storybook"
+    timeoutInMinutes: 30
+    pool:
+      vmImage: macOS-11
+    steps:
+      - template: ./templates/storybook-build.yml

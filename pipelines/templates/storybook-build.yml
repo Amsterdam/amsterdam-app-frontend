@@ -1,0 +1,16 @@
+steps:
+  - template: ./install-node.yml
+  - script: npm ci
+    displayName: 'Install node dependencies'
+  - script: npm run lint
+    displayName: 'Run lint'
+  - script: npm run typescript
+    displayName: 'Run typescript checks'
+  - script: npm run test
+    displayName: 'Run unit tests'
+  - script: npm run storybook:build
+    displayName: Build storybook
+  - script: node ./nodescripts/version-number.js > $(System.DefaultWorkingDirectory)/storybook-static/version.txt
+    displayName: "Save version number"
+  - publish: $(System.DefaultWorkingDirectory)/storybook-static
+    artifact: storybook-build
