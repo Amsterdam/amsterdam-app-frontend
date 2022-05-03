@@ -5,7 +5,7 @@ import fetch from 'node-fetch'
 
 const provider = new Pact({
   consumer: 'amsterdam-app-frontend',
-  provider: 'amsterdam-app-backend',
+  provider: 'amsterdam-app-modules',
   cors: true,
   dir: path.resolve(process.cwd(), 'pacts'),
   host: '127.0.0.1',
