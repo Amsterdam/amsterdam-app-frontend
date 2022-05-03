@@ -4,6 +4,7 @@ import {ProjectManager} from './types'
 
 const initialState: ProjectManager = {
   id: '',
+  projects: [],
 }
 
 export const projectManagerSlice = createSlice({
