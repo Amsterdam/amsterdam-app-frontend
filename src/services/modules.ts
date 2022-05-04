@@ -1,4 +1,4 @@
-import {Module} from '../components/features/modules'
+import {Module} from '../components/features/modules/types'
 import {baseApi} from './init'
 
 type RegisterModuleQueryArg = {
