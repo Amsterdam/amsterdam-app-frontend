@@ -4,19 +4,30 @@ import {ProjectManager} from './types'
 
 const initialState: ProjectManager = {
   id: '',
+  projects: [],
 }
 
 export const projectManagerSlice = createSlice({
   name: 'projectManager',
   initialState,
   reducers: {
-    addProjectManager: (state, {payload}: PayloadAction<ProjectManager>) =>
-      (state = payload),
+    addProjectManagerId: (state, {payload: id}: PayloadAction<string>) => {
+      state.id = id
+    },
+    addProjectManagerProjects: (
+      state,
+      {payload: projects}: PayloadAction<string[]>,
+    ) => {
+      state.projects = projects
+    },
     removeProjectManager: () => initialState,
   },
 })
 
-export const {addProjectManager, removeProjectManager} =
-  projectManagerSlice.actions
+export const {
+  addProjectManagerId,
+  addProjectManagerProjects,
+  removeProjectManager,
+} = projectManagerSlice.actions
 
 export const selectProjectManager = (state: RootState) => state.projectManager
