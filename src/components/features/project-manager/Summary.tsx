@@ -10,7 +10,8 @@ import {
   toggleProjectsEnabled,
 } from '../notifications'
 import {
-  addProjectManager,
+  addProjectManagerId,
+  addProjectManagerProjects,
   ProjectManagerHeader,
   ProjectManagerProjects,
   useProjectManagerFetcher,
@@ -41,17 +42,12 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
   )
 
   useEffect(() => {
-    routeParamsId && dispatch(addProjectManager({id: routeParamsId}))
+    routeParamsId && dispatch(addProjectManagerId(routeParamsId))
   }, [dispatch, routeParamsId])
 
   const storeProjectManagerSettings = useCallback(() => {
     if (projectManager) {
-      const newProjectManagerSettings = {
-        id: projectManagerId,
-        projects: projectManager.projects,
-      }
-
-      dispatch(addProjectManager(newProjectManagerSettings))
+      dispatch(addProjectManagerProjects(projectManager.projects))
 
       if (!notificationSettings.projectsEnabled) {
         dispatch(toggleProjectsEnabled())
