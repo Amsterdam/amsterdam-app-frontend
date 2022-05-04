@@ -70,3 +70,9 @@ coverage/
 
 # Storybook build
 storybook-static/
+
+# Logs
+logs/
+
+# Pact
+pacts/
