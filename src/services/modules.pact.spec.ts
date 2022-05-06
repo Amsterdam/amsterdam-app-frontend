@@ -73,8 +73,5 @@ describe('API Pact test', () => {
         status: true,
       })
     })
-    test('', () => {})
   })
-
-  describe('', () => {})
 })
