@@ -7,14 +7,15 @@ import {homeRoutes} from './routes'
 const Stack = createStackNavigator()
 
 export const HomeStack = () => {
+  const {home} = homeRoutes
   return (
     <Stack.Navigator
-      initialRouteName={homeRoutes.home.name}
+      initialRouteName={home.name}
       screenOptions={stackScreenOptions}>
       <Stack.Screen
         component={HomeScreen}
-        name={homeRoutes.home.name}
-        options={homeRoutes.home.options}
+        name={home.name}
+        options={home.options}
       />
     </Stack.Navigator>
   )
