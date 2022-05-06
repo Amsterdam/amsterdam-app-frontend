@@ -1,6 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {WasteGuideModuleScreen} from '../../../modules/waste-guide/WasteGuideModuleScreen'
 import {
   AddressPrivacyInfoScreen,
   NotificationOverviewScreen,
@@ -94,11 +93,6 @@ export const getSharedScreens = (
       component={WasteGuideScreen}
       name={routes.wasteGuide.name}
       options={routes.wasteGuide.options}
-    />
-    <Stack.Screen
-      component={WasteGuideModuleScreen}
-      name={routes.wasteGuideModule.name}
-      options={routes.wasteGuideModule.options}
     />
     <Stack.Screen
       component={WasteMenuScreen}
