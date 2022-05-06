@@ -1,5 +1,9 @@
 import React from 'react'
-import {HeaderLogo, StackNavigationRoutes} from '../../app/navigation'
+import {
+  HeaderLogo,
+  HeaderNavigation,
+  StackNavigationRoutes,
+} from '../../app/navigation'
 
 type HomeModuleStackParams = {
   Home: undefined
@@ -11,6 +15,7 @@ export const homeRoutes: StackNavigationRoutes<HomeModuleStackParams, 'home'> =
       name: 'Home',
       options: {
         headerLeft: () => <HeaderLogo />,
+        headerRight: () => <HeaderNavigation />,
         headerTitle: '',
       },
     },
