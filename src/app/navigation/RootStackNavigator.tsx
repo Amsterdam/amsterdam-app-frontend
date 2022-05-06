@@ -13,7 +13,11 @@ export const RootStackNavigator = () => {
         headerShown: false,
       }}>
       {modules.map(module => (
-        <Stack.Screen component={module.stack} name={module.name} />
+        <Stack.Screen
+          component={module.stack}
+          key={module.name}
+          name={module.name}
+        />
       ))}
     </Stack.Navigator>
   )
