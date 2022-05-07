@@ -19,6 +19,7 @@ const initialSelectedModules: ModuleWithSelection[] = mock.modules.map(m => ({
 }))
 
 export const SelectModules = () => {
+  // TODO Store on device
   const [selectedModules, setSelectedModules] = useState<ModuleWithSelection[]>(
     initialSelectedModules,
   )
