@@ -7,7 +7,7 @@ import {color, size} from '../../tokens'
 
 export const stackScreenOptions: StackNavigationOptions = {
   cardStyle: {
-    backgroundColor: color.background.app,
+    backgroundColor: color.background.newSettingsScreen,
   },
   headerBackAccessibilityLabel: 'Terug',
   headerBackImage: () => (
