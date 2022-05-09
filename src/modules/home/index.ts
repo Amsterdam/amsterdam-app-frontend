@@ -1,13 +1,5 @@
-import {Slice} from '@reduxjs/toolkit'
-import {ComponentType} from 'react'
+import {Module} from '../types'
 import {HomeStack} from './Stack'
-
-type Module = {
-  linking: Record<string, string>
-  name: string
-  stack: ComponentType<any>
-  state: Slice[]
-}
 
 export const module: Module = {
   linking: {},
