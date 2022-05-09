@@ -20,7 +20,7 @@ const initialSelectedModules: ModuleWithSelection[] = mock.modules.map(m => ({
 
 export const SelectModules = () => {
   // TODO Store on device
-  const [selectedModules, setSelectedModules] = useState<ModuleWithSelection[]>(
+  const [modules, setModules] = useState<ModuleWithSelection[]>(
     initialSelectedModules,
   )
 
@@ -30,8 +30,8 @@ export const SelectModules = () => {
 
   // TODO Save to store
   const onChangeSelection = (module: Module, selected: boolean) => {
-    setSelectedModules(
-      selectedModules.map(m => (m.slug === module.slug ? {...m, selected} : m)),
+    setModules(
+      modules.map(m => (m.slug === module.slug ? {...m, selected} : m)),
     )
   }
 
@@ -40,7 +40,7 @@ export const SelectModules = () => {
   return (
     <Box>
       <Column gutter="sm">
-        {selectedModules.map(module => {
+        {modules.map(module => {
           const {description, icon, selected, slug, title} = module
           const Icon = icons[icon]
 
