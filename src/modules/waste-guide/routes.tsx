@@ -1,14 +1,17 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {WasteGuideModuleStackParams} from '../../components/features/modules'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-export const wasteGuideroutes: StackNavigationRoutes<
-  WasteGuideModuleStackParams,
-  'wasteGuideModule'
+type WasteGuideStackParams = {
+  WasteGuide: undefined
+}
+
+export const wasteGuideRoutes: StackNavigationRoutes<
+  WasteGuideStackParams,
+  'wasteGuide'
 > = {
-  wasteGuideModule: {
-    name: 'WasteGuideModule',
+  wasteGuide: {
+    name: 'WasteGuide',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Module afvalwijzer" />,
     },
