@@ -1,4 +1,4 @@
-import React, {createElement, useState} from 'react'
+import React, {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
 import {Box, Tooltip} from '../../ui'
@@ -42,6 +42,7 @@ export const SelectModules = () => {
       <Column gutter="sm">
         {selectedModules.map(module => {
           const {description, selected, slug, title} = module
+          const Icon = icons[slug]
 
           return (
             <ModuleBox
@@ -55,7 +56,7 @@ export const SelectModules = () => {
               <Switch
                 label={
                   <Row gutter="md" valign="center">
-                    {createElement(icons[slug], IconProps(selected))}
+                    <Icon {...IconProps(selected)} />
                     <Title
                       level="h5"
                       prominence={selected ? 1 : 2}

@@ -1,4 +1,4 @@
-import React, {createElement} from 'react'
+import React from 'react'
 import {color} from '../../../tokens'
 import {Box} from '../../ui'
 import mock from './mock.json'
@@ -15,13 +15,17 @@ const iconProps = {
 
 export const Modules = () => (
   <Box insetVertical="md">
-    {modules.map(({slug, title}) => (
-      <ModuleButton
-        icon={createElement(icons[slug], iconProps)}
-        key={slug}
-        label={title}
-        slug={slug}
-      />
-    ))}
+    {modules.map(({slug, title}) => {
+      const Icon = icons[slug]
+
+      return (
+        <ModuleButton
+          icon={<Icon {...iconProps} />}
+          key={slug}
+          label={title}
+          slug={slug}
+        />
+      )
+    })}
   </Box>
 )
