@@ -1,34 +1,29 @@
-import {useLinkTo} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Pressable} from 'react-native'
+import {RootStackParamList} from '../../../app/navigation/RootStackNavigator'
+import {modules} from '../../../modules'
 import {Box, Text} from '../../ui'
 import {Column} from '../../ui/layout'
-import mock from './mock.json'
-import {Module} from './'
 
-const modules: Module[] = mock.modules.filter(m => m.status === 1)
+const modulesExceptHome = modules.filter(module => module.name !== 'HomeModule')
 
 export const Modules = () => {
-  const linkTo = useLinkTo()
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
 
   return (
     <Column gutter="md">
-      {modules.map(module => {
-        if (module.slug === 'waste-guide') {
-          return (
-            <Pressable
-              key={module.title}
-              onPress={() => linkTo(`/${module.slug}`)}>
-              <Box insetVertical="sm" key={module.title}>
-                <Text>{module.title}!</Text>
-              </Box>
-            </Pressable>
-          )
-        }
+      {modulesExceptHome.map(module => {
         return (
-          <Box insetVertical="sm" key={module.title}>
-            <Text>{module.title}</Text>
-          </Box>
+          <Pressable
+            key={module.name}
+            onPress={() => navigation.navigate(module.name)}>
+            <Box insetVertical="sm" key={module.name}>
+              <Text>{module.name}!</Text>
+            </Box>
+          </Pressable>
         )
       })}
     </Column>
