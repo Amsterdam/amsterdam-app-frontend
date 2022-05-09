@@ -4,48 +4,48 @@
       "slug": "waste-guide",
       "version": "1.0.0",
       "title": "Afvalwijzer",
-      "description": "Lorem ipsum dolor sit waste-guide",
-      "icon": "",
+      "description": "Bekijk waar afval naar toe kan en wat de ophaaldagen voor uw adres zijn.",
+      "icon": "waste-guide",
       "status": 1
     },
     {
       "slug": "open-waste-container",
       "version": "1.0.0",
       "title": "Open GFE container",
-      "description": "Lorem ipsum dolor sit open-waste-container",
-      "icon": "",
+      "description": "Open een GFE container met uw telefoon in plaats van met een plastic pas.",
+      "icon": "open-waste-container",
       "status": 1
     },
     {
       "slug": "construction-work",
       "version": "1.0.0",
       "title": "Werk in uitvoering",
-      "description": "Lorem ipsum dolor sit construction-work",
-      "icon": "",
+      "description": "Bekijk wat voor werk er in uitvoering is, en ontvang een melding wanneer je hinder kunt verwachten. ",
+      "icon": "construction-work",
       "status": 1
     },
     {
       "slug": "report-issue",
       "version": "1.0.0",
       "title": "Melden",
-      "description": "Lorem ipsum dolor sit report-issue",
-      "icon": "",
+      "description": "Ziet u iets op straat of in een park wat stuk is of opgeruimd moet worden? Meldt het via de app bij de gemeente.",
+      "icon": "report-issue",
       "status": 1
     },
     {
       "slug": "city-offices",
       "version": "1.0.0",
       "title": "Stadsloket",
-      "description": "Lorem ipsum dolor sit city-offices",
-      "icon": "",
+      "description": "U hebt een afspraak nodig om langs te komen bij het Stadsloket. Een afspraak maakt u gemakkelijk en gratis.",
+      "icon": "city-offices",
       "status": 1
     },
     {
       "slug": "questions",
       "version": "1.0.0",
       "title": "Vragen",
-      "description": "Lorem ipsum dolor sit questions",
-      "icon": "",
+      "description": "Gebruik het contactformulier om een vraag te stellen, of een klacht door te geven.",
+      "icon": "questions",
       "status": 1
     }
   ]

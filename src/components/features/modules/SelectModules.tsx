@@ -41,8 +41,8 @@ export const SelectModules = () => {
     <Box>
       <Column gutter="sm">
         {selectedModules.map(module => {
-          const {description, selected, slug, title} = module
-          const Icon = icons[slug]
+          const {description, icon, selected, slug, title} = module
+          const Icon = icons[icon]
 
           return (
             <ModuleBox
