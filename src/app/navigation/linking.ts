@@ -4,6 +4,7 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
+import {modules} from '../../modules'
 import {PushNotificationData} from '../../types'
 import {routes, tabs} from './routes'
 import {StackParams} from './types'
@@ -46,6 +47,11 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 }
 
+const moduleLinkings = modules.reduce(
+  (o, module) => ({...o, ...module.linking}),
+  {},
+)
+
 export const linking: LinkingOptions<StackParams> = {
   prefixes: [appPrefix],
   config: {
@@ -57,7 +63,7 @@ export const linking: LinkingOptions<StackParams> = {
           [routes.projectWarning.name]: 'warning/:id',
         },
       },
-      [routes.wasteGuideModule.name]: 'waste-guide',
+      ...moduleLinkings,
     },
   },
   async getInitialURL() {
