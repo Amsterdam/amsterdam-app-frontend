@@ -3,7 +3,14 @@ import React from 'react'
 import {modules} from '../../modules'
 import {module as homeModule} from '../../modules/home'
 
-const Stack = createStackNavigator()
+const moduleStacknames = modules.map(module => module.name)
+
+export type RootStackParamList = Record<
+  typeof moduleStacknames[number],
+  undefined
+>
+
+const Stack = createStackNavigator<RootStackParamList>()
 
 export const RootStackNavigator = () => {
   return (
