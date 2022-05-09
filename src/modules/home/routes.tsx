@@ -5,18 +5,17 @@ import {
   StackNavigationRoutes,
 } from '../../app/navigation'
 
-type HomeModuleStackParams = {
+type HomeStackParams = {
   Home: undefined
 }
 
-export const homeRoutes: StackNavigationRoutes<HomeModuleStackParams, 'home'> =
-  {
-    home: {
-      name: 'Home',
-      options: {
-        headerLeft: () => <HeaderLogo />,
-        headerRight: () => <HeaderNavigation />,
-        headerTitle: '',
-      },
+export const homeRoutes: StackNavigationRoutes<HomeStackParams, 'home'> = {
+  home: {
+    name: 'Home',
+    options: {
+      headerLeft: () => <HeaderLogo />,
+      headerRight: () => <HeaderNavigation />,
+      headerTitle: '',
     },
-  }
+  },
+}
