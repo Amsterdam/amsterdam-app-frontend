@@ -2,10 +2,11 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
 import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
 import {HomeScreen} from '../../../screens'
 import {ModulesScreen, SelectModulesScreen} from '../../../screens/modules'
+import {ThemeContext} from '../../../themes'
 import {routes} from '../routes'
 
 const Stack = createStackNavigator()
@@ -15,12 +16,12 @@ const homeScreenOptions: StackNavigationOptions = {
 }
 
 export const HomeStack = () => {
+  const {theme} = useContext(ThemeContext)
+
   return (
     <Stack.Navigator
       initialRouteName={routes.home.name}
-      screenOptions={{
-        ...stackScreenOptions,
-      }}>
+      screenOptions={stackScreenOptions(theme)}>
       <Stack.Screen
         component={HomeScreen}
         name={routes.home.name}

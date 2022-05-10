@@ -55,15 +55,15 @@ const homeRoutes: StackNavigationRoutes<
   authorizedProjects: {
     name: 'AuthorizedProjects',
     options: {
+      cardStyle: {
+        backgroundColor: color.background.app,
+      },
       headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
     },
   },
   home: {
     name: 'Home',
     options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
       headerLeft: () => <HeaderLogo />,
       headerTitle: '',
     },

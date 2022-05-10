@@ -15,7 +15,10 @@ export const darkColorTokens: ColorTokens = {
     white: baseColor.primary.black,
   },
   screen: {
-    background: baseColor.neutral.grey5,
+    background: {
+      default: baseColor.neutral.grey5,
+      settings: baseColor.neutral.grey4,
+    },
   },
   text: {
     default: baseColor.primary.white,

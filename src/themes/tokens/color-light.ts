@@ -16,7 +16,10 @@ export const lightColorTokens = {
     white: baseColor.primary.white,
   },
   screen: {
-    background: baseColor.primary.white,
+    background: {
+      default: baseColor.primary.white,
+      settings: baseColor.neutral.grey1,
+    },
   },
   text: {
     default: baseColor.primary.black,

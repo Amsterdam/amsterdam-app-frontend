@@ -37,7 +37,6 @@ export const color = {
     grey: baseColor.neutral.grey1,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
-    newSettingsScreen: baseColor.neutral.grey1,
     valid: baseColor.supplement.darkergreen,
     white: baseColor.primary.white,
   },
