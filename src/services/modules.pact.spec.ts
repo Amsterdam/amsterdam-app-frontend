@@ -30,23 +30,23 @@ describe('API Pact test', () => {
           method: 'GET',
           path: '/api/v1/modules',
           headers: {
-            // Accept: 'application/json; charset=utf-8',
+            Accept: 'application/json',
             'App-Version': like('1.0.0.0'),
           },
         },
         willRespondWith: {
           status: 200,
           headers: {
-            'Content-Type': 'application/json; charset=utf-8',
+            'Content-Type': 'application/json',
           },
           body: {
             result: eachLike({
-              slug: 'waste-guide',
-              version: '0.16.5.8439',
-              title: 'Afval module',
-              description: 'Regel al je afvalzaken',
-              icon: 'trash-bin',
-              status: 1,
+              slug: like('waste-guide'),
+              version: like('0.16.5.8439'),
+              title: like('Afval module'),
+              description: like('Regel al je afvalzaken'),
+              icon: like('trash-bin'),
+              status: like(1),
             }),
             status: like(true),
           },
@@ -55,7 +55,7 @@ describe('API Pact test', () => {
 
       const module = await (
         await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
-          headers: {'App-Version': '0.16.5.8439'},
+          headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
         })
       ).json()
 
