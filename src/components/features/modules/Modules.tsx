@@ -26,7 +26,7 @@ export const Modules = () => {
             key={module.name}
             onPress={() => navigation.navigate(module.name)}>
             <Box insetVertical="sm" key={module.name}>
-              <Text>{module.label}</Text>
+              <Text>{module.title}</Text>
             </Box>
           </Pressable>
         )
