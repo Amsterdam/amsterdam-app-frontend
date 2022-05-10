@@ -3,7 +3,6 @@ import {StyleSheet, View, ViewProps} from 'react-native'
 import {layoutStyles} from '../../styles'
 import {Theme, useThemable} from '../../themes'
 import {SpacingTokens} from '../../themes/tokens'
-import {color} from '../../tokens'
 
 type Props = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'
@@ -24,29 +23,22 @@ export const Box = ({
   ...otherProps
 }: Props) => {
   const styles = useThemable(
-    createStyles({inset, insetHorizontal, insetVertical}),
+    createStyles({background, inset, insetHorizontal, insetVertical}),
   )
 
-  const oldStyles = StyleSheet.create({
-    box: {
-      backgroundColor: background && color.background[background],
-    },
-  })
-
   return (
-    <View
-      style={[oldStyles.box, styles.box, grow && layoutStyles.grow]}
-      {...otherProps}>
+    <View style={[styles.box, grow && layoutStyles.grow]} {...otherProps}>
       {children}
     </View>
   )
 }
 
 const createStyles =
-  ({inset, insetHorizontal, insetVertical}: Partial<Props>) =>
+  ({background, inset, insetHorizontal, insetVertical}: Partial<Props>) =>
   (theme: Theme) =>
     StyleSheet.create({
       box: {
+        backgroundColor: background && theme.color.box.background[background],
         padding:
           inset && !insetHorizontal && !insetVertical
             ? theme.size.spacing[inset]

@@ -4,15 +4,16 @@ import {ColorTokens} from './color-light'
 // TODO Implement dark mode properly
 export const darkColorTokens: ColorTokens = {
   background: {
-    app: baseColor.neutral.grey5,
-    darker: baseColor.primary.black,
-    emphasis: baseColor.primary.darkblue,
-    grey: baseColor.neutral.grey4,
-    inactive: baseColor.neutral.grey1,
-    invalid: baseColor.support.invalid,
-    tooltip: baseColor.neutral.grey1,
-    valid: baseColor.supplement.darkergreen,
-    white: baseColor.primary.black,
+    deep: baseColor.primary.black,
+    inverted: baseColor.neutral.grey1,
+  },
+  box: {
+    background: {
+      emphasis: baseColor.primary.darkblue,
+      grey: baseColor.neutral.grey1,
+      invalid: baseColor.support.invalid,
+      white: baseColor.primary.white,
+    },
   },
   screen: {
     background: {

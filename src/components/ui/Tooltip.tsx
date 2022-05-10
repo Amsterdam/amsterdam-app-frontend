@@ -21,6 +21,6 @@ const createStyles = (theme: Theme) =>
   StyleSheet.create({
     tooltip: {
       padding: theme.size.spacing.md,
-      backgroundColor: theme.color.background.tooltip,
+      backgroundColor: theme.color.background.inverted,
     },
   })

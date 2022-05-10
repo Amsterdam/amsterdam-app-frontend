@@ -27,7 +27,7 @@ const createStyles =
   ({selected}: Partial<Props>) =>
   (theme: Theme) => {
     const borderWidth = 1
-    const backgroundColor = selected ? theme.color.background.white : undefined
+    const backgroundColor = selected ? theme.color.background.cutout : undefined
 
     return StyleSheet.create({
       container: {

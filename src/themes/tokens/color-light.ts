@@ -5,15 +5,16 @@ export type ColorTokens = typeof lightColorTokens
 // TODO OMG Improve background tokens
 export const lightColorTokens = {
   background: {
-    app: baseColor.neutral.grey2,
-    darker: baseColor.primary.black,
-    emphasis: baseColor.primary.darkblue,
-    grey: baseColor.neutral.grey1,
-    inactive: baseColor.neutral.grey4,
-    invalid: baseColor.support.invalid,
-    tooltip: baseColor.neutral.grey5,
-    valid: baseColor.supplement.darkergreen,
-    white: baseColor.primary.white,
+    cutout: baseColor.primary.white,
+    inverted: baseColor.neutral.grey5,
+  },
+  box: {
+    background: {
+      emphasis: baseColor.primary.darkblue,
+      grey: baseColor.neutral.grey1,
+      invalid: baseColor.support.invalid,
+      white: baseColor.primary.white,
+    },
   },
   screen: {
     background: {
