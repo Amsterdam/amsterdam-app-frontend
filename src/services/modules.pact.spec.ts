@@ -28,7 +28,7 @@ describe('API Pact test', () => {
         uponReceiving: 'get all modules',
         withRequest: {
           method: 'GET',
-          path: '/modules',
+          path: '/api/v1/modules',
           headers: {
             // Accept: 'application/json; charset=utf-8',
             'App-Version': like('1.0.0.0'),
@@ -54,7 +54,7 @@ describe('API Pact test', () => {
       })
 
       const module = await (
-        await fetch(provider.mockService.baseUrl + '/modules', {
+        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
           headers: {'App-Version': '0.16.5.8439'},
         })
       ).json()
