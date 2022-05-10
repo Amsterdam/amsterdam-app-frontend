@@ -7,7 +7,12 @@ import {modules} from '../../../modules'
 import {Box, Text} from '../../ui'
 import {Column} from '../../ui/layout'
 
-const modulesExceptHome = modules.filter(module => module.name !== 'HomeModule')
+const modulesExceptHome = modules.filter(
+  module =>
+    module.name !== 'HomeModule' &&
+    module.name !== 'UserModule' &&
+    module.name !== 'SettingsModule',
+)
 
 export const Modules = () => {
   const navigation =
@@ -21,7 +26,7 @@ export const Modules = () => {
             key={module.name}
             onPress={() => navigation.navigate(module.name)}>
             <Box insetVertical="sm" key={module.name}>
-              <Text>{module.name}!</Text>
+              <Text>{module.label}</Text>
             </Box>
           </Pressable>
         )
