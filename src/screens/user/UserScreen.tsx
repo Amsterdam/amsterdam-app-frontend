@@ -9,7 +9,7 @@ import {
 import {Alert, Box} from '../../components/ui'
 import {Column, Gutter, ScrollView} from '../../components/ui/layout'
 
-export const SettingsScreen = () => (
+export const UserScreen = () => (
   <ScrollView>
     <Alert />
     <Column gutter="lg">
