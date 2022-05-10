@@ -35,7 +35,7 @@ const createStyles =
         backgroundColor,
         borderWidth,
         borderStyle: 'dashed',
-        borderColor: selected ? backgroundColor : baseColor.neutral.grey5,
+        borderColor: selected ? backgroundColor : baseColor.primary.darkblue,
       },
     })
   }
