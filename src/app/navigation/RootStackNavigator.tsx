@@ -1,7 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {modules} from '../../modules'
-import {module as homeModule} from '../../modules/home'
+import {supportiveModules} from '../../modules/supportive'
+import {module as homeModule} from '../../modules/supportive/home'
 
 const moduleStacknames = modules.map(module => module.name)
 
@@ -19,7 +20,7 @@ export const RootStackNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      {modules.map(module => (
+      {[...supportiveModules, ...modules].map(module => (
         <Stack.Screen
           component={module.stack}
           key={module.name}
