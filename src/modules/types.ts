@@ -18,6 +18,8 @@ export type ServerModule = {
   version: string
 }
 
+export type CombinedModule = ClientModule & ServerModule
+
 export type SupportiveModule = {
   name: string
   stack: ComponentType<any>
