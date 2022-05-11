@@ -1,6 +1,7 @@
 import React from 'react'
 import {NonScalingHeaderTitle} from '../../components/ui'
 import {TabBarIcon} from '../../components/ui/navigation'
+import {wasteGuideRoutes} from '../../modules/waste-guide/routes'
 import {color} from '../../tokens'
 import {HeaderLogo} from './HeaderLogo'
 import {
@@ -49,7 +50,7 @@ const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
 
 const homeRoutes: StackNavigationRoutes<
   HomeStackParams,
-  'authorizedProjects' | 'home'
+  'authorizedProjects' | 'home' | 'modules'
 > = {
   authorizedProjects: {
     name: 'AuthorizedProjects',
@@ -62,6 +63,15 @@ const homeRoutes: StackNavigationRoutes<
     options: {
       headerLeft: () => <HeaderLogo />,
       headerTitle: '',
+    },
+  },
+  modules: {
+    name: 'Modules',
+    options: {
+      cardStyle: {
+        backgroundColor: color.background.white,
+      },
+      headerTitle: 'Modules ✨',
     },
   },
 }
@@ -232,9 +242,11 @@ const sharedRoutes: StackNavigationRoutes<
 export const routes: typeof actionRoutes &
   typeof homeRoutes &
   typeof menuRoutes &
-  typeof sharedRoutes = {
+  typeof sharedRoutes &
+  typeof wasteGuideRoutes = {
   ...actionRoutes,
   ...homeRoutes,
   ...menuRoutes,
   ...sharedRoutes,
+  ...wasteGuideRoutes,
 }

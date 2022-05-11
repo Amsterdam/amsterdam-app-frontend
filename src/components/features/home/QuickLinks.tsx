@@ -22,6 +22,11 @@ export const QuickLinks = () => {
         onPress={() => navigation.navigate(routes.projects.name)}
         text="Bouwprojecten in de buurt"
       />
+      <TextButton
+        direction="forward"
+        onPress={() => navigation.navigate(routes.modules.name)}
+        text="De nieuwe modules ✨"
+      />
     </Column>
   )
 }

@@ -4,7 +4,8 @@ import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {linking, TabNavigator} from './src/app/navigation'
+import {linking} from './src/app/navigation'
+import {RootStackNavigator} from './src/app/navigation'
 import {Init} from './src/components/features/Init'
 import {RootProvider} from './src/providers'
 import {store} from './src/store'
@@ -20,7 +21,7 @@ export const App = () => {
         <RootProvider>
           <PersistGate loading={null} persistor={persistor}>
             <Init />
-            <TabNavigator />
+            <RootStackNavigator />
           </PersistGate>
         </RootProvider>
       </NavigationContainer>
