@@ -1,11 +1,8 @@
 import React from 'react'
+import {modules} from '../../../modules'
 import {color} from '../../../tokens'
 import {Box} from '../../ui'
-import mock from './mock.json'
-import {icons, Module, ModuleButton} from './'
-
-// TODO Retrieve from store
-const modules: Module[] = mock.modules.filter(m => m.status === 1)
+import {icons, ModuleButton} from './'
 
 const iconProps = {
   width: 24,
@@ -15,15 +12,15 @@ const iconProps = {
 
 export const Modules = () => (
   <Box insetVertical="md">
-    {modules.map(({icon, slug, title}) => {
+    {modules.map(({icon, name, title}) => {
       const Icon = icons[icon]
 
       return (
         <ModuleButton
           icon={<Icon {...iconProps} />}
-          key={slug}
+          key={name}
           label={title}
-          slug={slug}
+          name={name}
         />
       )
     })}
