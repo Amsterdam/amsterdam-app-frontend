@@ -73,5 +73,77 @@ describe('API Pact test', () => {
         status: true,
       })
     })
+    test('Bad request', async () => {
+      // set up Pact interactions
+      await provider.addInteraction({
+        state: 'bad request',
+        uponReceiving: 'get all modules',
+        withRequest: {
+          method: 'GET',
+          path: '/api/v1/modules',
+          headers: {
+            Accept: 'application/json',
+            'App-Version': like('1.0.0.0'),
+          },
+        },
+        willRespondWith: {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: {
+            result: like('Error message'),
+            status: like(false),
+          },
+        },
+      })
+
+      const module = await (
+        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
+          headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
+        })
+      ).json()
+
+      expect(module).toStrictEqual({
+        result: 'Error message',
+        status: false,
+      })
+    })
+    test('server error', async () => {
+      // set up Pact interactions
+      await provider.addInteraction({
+        state: 'backend error',
+        uponReceiving: 'get all modules',
+        withRequest: {
+          method: 'GET',
+          path: '/api/v1/modules',
+          headers: {
+            Accept: 'application/json',
+            'App-Version': like('1.0.0.0'),
+          },
+        },
+        willRespondWith: {
+          status: 504,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: {
+            result: like('Error message'),
+            status: like(false),
+          },
+        },
+      })
+
+      const module = await (
+        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
+          headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
+        })
+      ).json()
+
+      expect(module).toStrictEqual({
+        result: 'Error message',
+        status: false,
+      })
+    })
   })
 })
