@@ -83,7 +83,6 @@ describe('API Pact test', () => {
           path: '/api/v1/modules',
           headers: {
             Accept: 'application/json',
-            'App-Version': like('1.0.0.0'),
           },
         },
         willRespondWith: {
@@ -100,7 +99,7 @@ describe('API Pact test', () => {
 
       const module = await (
         await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
-          headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
+          headers: {Accept: 'application/json'},
         })
       ).json()
 
