@@ -4,7 +4,7 @@ import {ColorTokens} from './color-light'
 // TODO Implement dark mode properly
 export const darkColorTokens: ColorTokens = {
   background: {
-    deep: baseColor.primary.black,
+    cutout: baseColor.primary.black,
     inverted: baseColor.neutral.grey1,
   },
   box: {
