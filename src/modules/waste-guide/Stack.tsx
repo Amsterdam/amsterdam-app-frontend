@@ -1,18 +1,20 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
 import {stackScreenOptions} from '../../app/navigation'
+import {ThemeContext} from '../../themes'
 import {WasteGuideScreen} from './Screen'
 import {wasteGuideRoutes} from './routes'
 
 const Stack = createStackNavigator()
 
 export const WasteGuideStack = () => {
+  const {theme} = useContext(ThemeContext)
   const {wasteGuide} = wasteGuideRoutes
   return (
     <Stack.Navigator
       initialRouteName={wasteGuide.name}
       screenOptions={{
-        ...stackScreenOptions,
+        ...stackScreenOptions(theme),
       }}>
       <Stack.Screen
         component={WasteGuideScreen}
