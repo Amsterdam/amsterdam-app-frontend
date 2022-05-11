@@ -1,6 +1,6 @@
 import React from 'react'
-import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
+import {StackNavigationRoutes} from '../../../app/navigation'
+import {NonScalingHeaderTitle} from '../../../components/ui'
 
 type SettingsStackParams = {
   Settings: undefined

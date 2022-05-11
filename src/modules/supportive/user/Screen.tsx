@@ -1,13 +1,13 @@
 import React from 'react'
-import {VersionInfo} from '../../components/features'
-import {Address} from '../../components/features/address'
+import {VersionInfo} from '../../../components/features'
+import {Address} from '../../../components/features/address'
 import {
   NotificationsEnabledSettingsSection,
   ProjectManagerSettingsSection,
   SubscribableProjects,
-} from '../../components/features/settings'
-import {Alert, Box} from '../../components/ui'
-import {Column, Gutter, ScrollView} from '../../components/ui/layout'
+} from '../../../components/features/settings'
+import {Alert, Box} from '../../../components/ui'
+import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 
 export const UserScreen = () => (
   <ScrollView>

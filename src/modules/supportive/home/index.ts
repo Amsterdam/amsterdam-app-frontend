@@ -1,8 +1,7 @@
-import {Module} from '../types'
+import {SupportiveModule} from '../../types'
 import {HomeStack} from './Stack'
 
-export const module: Module = {
-  linking: {},
+export const module: SupportiveModule = {
   name: 'HomeModule',
   stack: HomeStack,
   state: [],
