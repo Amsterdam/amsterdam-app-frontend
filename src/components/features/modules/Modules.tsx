@@ -20,17 +20,15 @@ export const Modules = () => {
 
   return (
     <Column gutter="md">
-      {modulesExceptHome.map(module => {
-        return (
-          <Pressable
-            key={module.name}
-            onPress={() => navigation.navigate(module.name)}>
-            <Box insetVertical="sm" key={module.name}>
-              <Text>{module.title}</Text>
-            </Box>
-          </Pressable>
-        )
-      })}
+      {modulesExceptHome.map(module => (
+        <Pressable
+          key={module.name}
+          onPress={() => navigation.navigate(module.name)}>
+          <Box insetVertical="sm" key={module.name}>
+            <Text>{module.title}</Text>
+          </Box>
+        </Pressable>
+      ))}
     </Column>
   )
 }
