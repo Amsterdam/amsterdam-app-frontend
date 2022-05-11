@@ -1,8 +1,24 @@
 import {Slice} from '@reduxjs/toolkit'
 import {ComponentType} from 'react'
 
-export type Module = {
+export type ClientModule = {
   linking: Record<string, string>
+  name: string
+  slug: string
+  stack: ComponentType<any>
+  state: Slice[]
+}
+
+export type ServerModule = {
+  description: string
+  icon: string
+  slug: string
+  status: number
+  title: string
+  version: string
+}
+
+export type SupportiveModule = {
   name: string
   stack: ComponentType<any>
   state: Slice[]
