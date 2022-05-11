@@ -1,7 +1,7 @@
 import React from 'react'
 import {NonScalingHeaderTitle} from '../../components/ui'
 import {TabBarIcon} from '../../components/ui/navigation'
-import {wasteGuideroutes} from '../../modules/waste-guide/routes'
+import {wasteGuideRoutes} from '../../modules/waste-guide/routes'
 import {color} from '../../tokens'
 import {HeaderLogo} from './HeaderLogo'
 import {
@@ -243,10 +243,10 @@ export const routes: typeof actionRoutes &
   typeof homeRoutes &
   typeof menuRoutes &
   typeof sharedRoutes &
-  typeof wasteGuideroutes = {
+  typeof wasteGuideRoutes = {
   ...actionRoutes,
   ...homeRoutes,
   ...menuRoutes,
   ...sharedRoutes,
-  ...wasteGuideroutes,
+  ...wasteGuideRoutes,
 }

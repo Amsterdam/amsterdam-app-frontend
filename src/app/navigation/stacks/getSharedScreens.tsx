@@ -3,7 +3,6 @@ import React from 'react'
 import {
   AddressPrivacyInfoScreen,
   NotificationOverviewScreen,
-  SettingsScreen,
   WasteGuideScreen,
   WasteMenuScreen,
   WebViewScreen,
@@ -83,11 +82,6 @@ export const getSharedScreens = (
       component={ProjectWarningScreen}
       name={routes.projectWarning.name}
       options={routes.projectWarning.options}
-    />
-    <Stack.Screen
-      component={SettingsScreen}
-      name={routes.settings.name}
-      options={routes.settings.options}
     />
     <Stack.Screen
       component={WasteGuideScreen}
