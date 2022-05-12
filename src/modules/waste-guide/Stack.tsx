@@ -10,6 +10,7 @@ const Stack = createStackNavigator()
 export const WasteGuideStack = () => {
   const {theme} = useContext(ThemeContext)
   const {wasteGuide} = wasteGuideRoutes
+
   return (
     <Stack.Navigator
       initialRouteName={wasteGuide.name}

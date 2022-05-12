@@ -10,6 +10,7 @@ const Stack = createStackNavigator()
 export const HomeStack = () => {
   const {theme} = useContext(ThemeContext)
   const {home} = homeRoutes
+
   return (
     <Stack.Navigator
       initialRouteName={home.name}
