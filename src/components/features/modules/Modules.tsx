@@ -19,7 +19,7 @@ const iconProps = {
 
 export const Modules = () => (
   <Box insetVertical="md">
-    {modules.map(({icon, slug, title}) => {
+    {modules.map(({icon, name, slug, title}) => {
       const Icon = icons[icon]
 
       return (
@@ -27,7 +27,7 @@ export const Modules = () => (
           icon={<Icon {...iconProps} />}
           key={slug}
           label={title}
-          slug={slug}
+          name={name}
         />
       )
     })}
