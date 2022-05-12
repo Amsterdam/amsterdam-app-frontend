@@ -4,8 +4,8 @@ import {ComponentType} from 'react'
 export type ClientModule = {
   linking: Record<string, string>
   name: string
-  stack: ComponentType<any>
   slug: string
+  stack: ComponentType<any>
   state: Slice[]
 }
 
