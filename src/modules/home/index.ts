@@ -1,4 +1,4 @@
-import {ClientModule} from '../../types'
+import {ClientModule} from '../types'
 import {HomeStack} from './Stack'
 
 export const module: ClientModule = {

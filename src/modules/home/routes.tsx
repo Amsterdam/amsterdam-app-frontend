@@ -3,7 +3,7 @@ import {
   HeaderLogo,
   HeaderNavigation,
   StackNavigationRoutes,
-} from '../../../app/navigation'
+} from '../../app/navigation'
 
 type HomeStackParams = {
   Home: undefined
