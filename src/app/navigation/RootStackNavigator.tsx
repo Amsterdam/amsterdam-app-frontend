@@ -19,7 +19,7 @@ export const RootStackNavigator = () => {
       {clientModules.map(module => (
         <Stack.Screen
           component={module.stack}
-          key={module.name}
+          key={module.slug}
           name={module.name}
         />
       ))}
