@@ -1,40 +1,38 @@
 import React, {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {modules} from '../../../modules'
-import {CombinedModule} from '../../../modules/types'
+import {ServerModule} from '../../../modules/types'
 import {Theme, useThemable} from '../../../themes'
 import {Box, Tooltip} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {Column, Row} from '../../ui/layout'
 import {Title} from '../../ui/typography'
+import mock from './mock.json'
 import {icons, ModuleBox} from './'
 
-type ModuleWithSelection = CombinedModule & {
+type ModuleWithSelection = ServerModule & {
   selected: boolean
 }
 
 // TODO Retrieve from store
-const initialSelectedModules: ModuleWithSelection[] = modules.map(m => ({
+const initialSelectedModules: ModuleWithSelection[] = mock.modules.map(m => ({
   ...m,
   selected: !['open-waste-container', 'city-offices'].includes(m.slug),
 }))
 
 export const SelectModules = () => {
   // TODO Store on device
-  const [modulesWithSelection, setModulesWithSelection] = useState<
-    ModuleWithSelection[]
-  >(initialSelectedModules)
+  const [modules, setModules] = useState<ModuleWithSelection[]>(
+    initialSelectedModules,
+  )
 
   // TODO Create `Icon` component with size and color props
   const IconProps = (selected: boolean) =>
     useThemable(createIconProps(selected))
 
   // TODO Save to store
-  const onChangeSelection = (module: CombinedModule, selected: boolean) => {
-    setModulesWithSelection(
-      modulesWithSelection.map(m =>
-        m.slug === module.slug ? {...m, selected} : m,
-      ),
+  const onChangeSelection = (module: ServerModule, selected: boolean) => {
+    setModules(
+      modules.map(m => (m.slug === module.slug ? {...m, selected} : m)),
     )
   }
 
@@ -43,7 +41,7 @@ export const SelectModules = () => {
   return (
     <Box>
       <Column gutter="sm">
-        {modulesWithSelection.map(module => {
+        {modules.map(module => {
           const {description, icon, selected, slug, title} = module
           const Icon = icons[icon]
 

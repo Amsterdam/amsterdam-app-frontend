@@ -1,8 +1,12 @@
 import React from 'react'
-import {modules} from '../../../modules'
+import {ServerModule} from '../../../modules/types'
 import {color} from '../../../tokens'
 import {Box} from '../../ui'
+import mock from './mock.json'
 import {icons, ModuleButton} from './'
+
+// TODO Retrieve from store
+const modules: ServerModule[] = mock.modules.filter(m => m.status === 1)
 
 const iconProps = {
   width: 24,
@@ -12,15 +16,15 @@ const iconProps = {
 
 export const Modules = () => (
   <Box insetVertical="md">
-    {modules.map(({icon, name, title}) => {
+    {modules.map(({icon, slug, title}) => {
       const Icon = icons[icon]
 
       return (
         <ModuleButton
           icon={<Icon {...iconProps} />}
-          key={name}
+          key={slug}
           label={title}
-          name={name}
+          slug={slug}
         />
       )
     })}

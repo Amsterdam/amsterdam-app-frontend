@@ -1,8 +1,6 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
+import {useLinkTo} from '@react-navigation/native'
 import React, {ReactNode} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
 import {Theme, useThemable} from '../../../themes'
 import {Row} from '../../ui/layout'
 import {Title} from '../../ui/typography'
@@ -10,16 +8,15 @@ import {Title} from '../../ui/typography'
 type Props = {
   icon: ReactNode
   label: string
-  name: string
+  slug: string
 }
 
-export const ModuleButton = ({icon, label, name}: Props) => {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+export const ModuleButton = ({icon, label, slug}: Props) => {
+  const linkTo = useLinkTo()
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={() => navigation.navigate(name)} style={styles.button}>
+    <Pressable onPress={() => linkTo(`/${slug}`)} style={styles.button}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h4" text={label} />
