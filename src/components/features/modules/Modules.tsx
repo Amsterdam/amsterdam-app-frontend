@@ -53,6 +53,6 @@ export const Modules = () => {
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
     list: {
-      padding: theme.size.spacing.md,
+      paddingVertical: theme.size.spacing.md,
     },
   })
