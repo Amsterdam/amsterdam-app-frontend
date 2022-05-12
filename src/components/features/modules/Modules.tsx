@@ -1,7 +1,8 @@
 import React from 'react'
+import {FlatList} from 'react-native'
 import {useSelector} from 'react-redux'
 import {clientModules} from '../../../modules'
-import {ServerModule} from '../../../modules/types'
+import {Module, ServerModule} from '../../../modules/types'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
 import {Box} from '../../ui'
@@ -18,6 +19,20 @@ const iconProps = {
   fill: color.font.regular,
 }
 
+const renderModuleButton = (module: Module) => {
+  const {icon, name, slug, title} = module
+  const Icon = icons[icon]
+
+  return (
+    <ModuleButton
+      icon={<Icon {...iconProps} />}
+      key={slug}
+      label={title}
+      name={name}
+    />
+  )
+}
+
 export const Modules = () => {
   const {modules: storedModuleSlugs} = useSelector(selectModules)
   const mockServerModules = serverModules
@@ -28,18 +43,10 @@ export const Modules = () => {
 
   return (
     <Box insetVertical="md">
-      {modules.map(({icon, name, slug, title}) => {
-        const Icon = icons[icon]
-
-        return (
-          <ModuleButton
-            icon={<Icon {...iconProps} />}
-            key={slug}
-            label={title}
-            name={name}
-          />
-        )
-      })}
+      <FlatList
+        data={modules}
+        renderItem={({item}) => renderModuleButton(item)}
+      />
     </Box>
   )
 }
