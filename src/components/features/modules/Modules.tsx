@@ -1,12 +1,15 @@
 import React from 'react'
+import {clientModules} from '../../../modules'
 import {ServerModule} from '../../../modules/types'
 import {color} from '../../../tokens'
+import {combineClientAndServerModules} from '../../../utils'
 import {Box} from '../../ui'
 import mock from './mock.json'
 import {icons, ModuleButton} from './'
 
 // TODO Retrieve from store
-const modules: ServerModule[] = mock.modules.filter(m => m.status === 1)
+const serverModules: ServerModule[] = mock.modules.filter(m => m.status === 1)
+const modules = combineClientAndServerModules(clientModules, serverModules)
 
 const iconProps = {
   width: 24,
