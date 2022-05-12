@@ -27,7 +27,7 @@ export const MenuScreen = ({navigation}: Props) => {
       onPress: () => navigation.navigate(routes.wasteMenu.name),
     },
     {
-      icon: <Project />,
+      icon: <Project {...iconProps} />,
       label: 'Bouwprojecten',
       onPress: () => navigation.navigate(routes.projects.name),
     },

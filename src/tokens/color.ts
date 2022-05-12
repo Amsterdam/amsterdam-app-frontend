@@ -1,4 +1,4 @@
-const baseColor = {
+export const baseColor = {
   primary: {
     black: '#000000',
     darkblue: '#004699',

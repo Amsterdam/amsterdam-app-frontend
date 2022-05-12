@@ -37,7 +37,7 @@ export const timelineStyles = (
     },
     indicator: {
       width: tokens.indicator.size,
-      height: tokens.indicator.size,
+      aspectRatio: 1,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: isCurrent

@@ -1,4 +1,4 @@
 import React from 'react'
-import {Title} from '../../components/ui'
+import {SelectModulesScreen} from '../../screens/modules'
 
-export const SettingsScreen = () => <Title text="Instellingen Module" />
+export const SettingsScreen = () => <SelectModulesScreen />

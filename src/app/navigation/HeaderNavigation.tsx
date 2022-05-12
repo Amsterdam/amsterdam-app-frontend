@@ -6,10 +6,11 @@ import {BellInactive, Settings} from '../../assets/icons'
 import {useNotifications} from '../../components/features/notifications'
 import {IconButton} from '../../components/ui'
 import {Row} from '../../components/ui/layout'
+import {module as settingsModule} from '../../modules/settings'
 import {color} from '../../tokens'
 import {accessibleText} from '../../utils'
+import {RootStackParamList} from './RootStackNavigator'
 import {routes} from './routes'
-import {StackParams, TabParams} from './types'
 
 const iconProps = {
   fill: color.font.regular,
@@ -17,12 +18,12 @@ const iconProps = {
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams & TabParams, 'Home'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+
   const {richNotifications} = useNotifications()
   const numberOfUnreadNotifications = richNotifications.filter(
     n => !n.isRead,
   ).length
-
   return (
     <Row gutter="md">
       <IconButton
@@ -40,7 +41,7 @@ export const HeaderNavigation = () => {
       <IconButton
         icon={<Settings {...iconProps} />}
         label="Instellingen"
-        onPress={() => navigation.navigate(routes.settings.name)}
+        onPress={() => navigation.navigate(settingsModule.name)}
       />
     </Row>
   )

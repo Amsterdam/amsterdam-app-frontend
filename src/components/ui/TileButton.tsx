@@ -21,7 +21,7 @@ export const TileButton = ({
   square,
   width,
 }: TileButtonProps) => {
-  const iconStyles = {width: iconSize, height: iconSize}
+  const iconStyles = {width: iconSize, aspectRatio: 1}
 
   return (
     <TouchableOpacity

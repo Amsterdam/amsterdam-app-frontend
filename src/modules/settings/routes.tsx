@@ -13,7 +13,7 @@ export const settingsRoutes: StackNavigationRoutes<
   settings: {
     name: 'Settings',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Instellingen Module" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
 }

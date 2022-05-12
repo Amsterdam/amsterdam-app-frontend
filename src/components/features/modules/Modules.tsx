@@ -1,34 +1,35 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Pressable} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation/RootStackNavigator'
-import {modules} from '../../../modules'
-import {Box, Text} from '../../ui'
-import {Column} from '../../ui/layout'
+import {clientModules} from '../../../modules'
+import {ServerModule} from '../../../modules/types'
+import {color} from '../../../tokens'
+import {combineClientAndServerModules} from '../../../utils'
+import {Box} from '../../ui'
+import mock from './mock.json'
+import {icons, ModuleButton} from './'
 
-const modulesExceptHome = modules.filter(
-  module =>
-    module.name !== 'HomeModule' &&
-    module.name !== 'UserModule' &&
-    module.name !== 'SettingsModule',
-)
+// TODO Retrieve from store
+const serverModules: ServerModule[] = mock.modules.filter(m => m.status === 1)
+const modules = combineClientAndServerModules(clientModules, serverModules)
 
-export const Modules = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-
-  return (
-    <Column gutter="md">
-      {modulesExceptHome.map(module => (
-        <Pressable
-          key={module.name}
-          onPress={() => navigation.navigate(module.name)}>
-          <Box insetVertical="sm" key={module.name}>
-            <Text>{module.title}</Text>
-          </Box>
-        </Pressable>
-      ))}
-    </Column>
-  )
+const iconProps = {
+  width: 24,
+  aspectRatio: 1,
+  fill: color.font.regular,
 }
+
+export const Modules = () => (
+  <Box insetVertical="md">
+    {modules.map(({icon, name, slug, title}) => {
+      const Icon = icons[icon]
+
+      return (
+        <ModuleButton
+          icon={<Icon {...iconProps} />}
+          key={slug}
+          label={title}
+          name={name}
+        />
+      )
+    })}
+  </Box>
+)

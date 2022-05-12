@@ -5,7 +5,9 @@ import Checkmark from './checkmark.svg'
 import Circle from './circle.svg'
 import Close from './close.svg'
 import Container from './container.svg'
+import DarkMode from './dark-mode.svg'
 import Instagram from './instagram.svg'
+import LightMode from './light-mode.svg'
 import Logo from './logo.svg'
 import Project from './project.svg'
 import Settings from './settings.svg'
@@ -20,7 +22,9 @@ export {
   Circle,
   Close,
   Container,
+  DarkMode,
   Instagram,
+  LightMode,
   Logo,
   Project,
   Settings,

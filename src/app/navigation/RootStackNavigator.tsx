@@ -1,14 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {modules} from '../../modules'
+import {clientModules} from '../../modules'
 import {module as homeModule} from '../../modules/home'
 
-const moduleStacknames = modules.map(module => module.name)
+const moduleNames = clientModules.map(module => module.name)
 
-export type RootStackParamList = Record<
-  typeof moduleStacknames[number],
-  undefined
->
+export type RootStackParamList = Record<typeof moduleNames[number], undefined>
 
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -19,10 +16,10 @@ export const RootStackNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      {modules.map(module => (
+      {clientModules.map(module => (
         <Stack.Screen
           component={module.stack}
-          key={module.name}
+          key={module.slug}
           name={module.name}
         />
       ))}

@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Spacing} from '../../../tokens'
+import {SpacingTokens} from '../../../themes/tokens'
 import {CrossAxisAlignment, MainAxisAlignment} from './types'
 import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
 import {ChildrenWithGutters} from './'
@@ -8,22 +8,13 @@ import {ChildrenWithGutters} from './'
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
-  gutter?: keyof Spacing
+  gutter?: keyof SpacingTokens
   valign?: CrossAxisAlignment
   wrap?: boolean
 }
 
 export const Row = ({align, children, gutter, valign, wrap}: Props) => {
-  const styles = StyleSheet.create({
-    row: {
-      flexDirection: 'row',
-      justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(valign),
-    },
-    wrap: {
-      flexWrap: 'wrap',
-    },
-  })
+  const styles = createStyles({align, valign})
 
   return (
     <View style={[styles.row, wrap && styles.wrap]}>
@@ -37,3 +28,15 @@ export const Row = ({align, children, gutter, valign, wrap}: Props) => {
     </View>
   )
 }
+
+const createStyles = ({align, valign}: Partial<Props>) =>
+  StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+      justifyContent: mapMainAxisAlignment(align),
+      alignItems: mapCrossAxisAlignment(valign),
+    },
+    wrap: {
+      flexWrap: 'wrap',
+    },
+  })

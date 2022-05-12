@@ -1,2 +1,5 @@
+export * from './icons'
+export * from './ModuleButton'
+export * from './ModuleBox'
 export * from './Modules'
-export * from './types'
+export * from './SelectModules'

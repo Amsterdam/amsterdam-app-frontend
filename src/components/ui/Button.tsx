@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     paddingVertical: verticalPadding,
   },
   iconContainer: {
-    height: 20,
     width: 20,
+    aspectRatio: 1,
   },
   inverse: {
     backgroundColor: color.background.white,

@@ -1,10 +1,11 @@
-import {Module} from '../types'
+import {ClientModule} from '../types'
 import {UserStack} from './Stack'
 
-export const module: Module = {
+export const module: ClientModule = {
+  isCore: true,
   linking: {},
   name: 'UserModule',
+  slug: 'user',
   stack: UserStack,
   state: [],
-  title: 'Mijn profiel',
 }
