@@ -33,7 +33,6 @@ export const ModuleButton = ({icon, label, name}: Props) => {
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
     button: {
-      paddingHorizontal: theme.size.spacing.lg,
-      paddingVertical: theme.size.spacing.md,
+      padding: theme.size.spacing.md,
     },
   })

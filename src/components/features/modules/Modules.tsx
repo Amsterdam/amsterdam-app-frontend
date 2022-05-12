@@ -1,11 +1,11 @@
 import React from 'react'
-import {FlatList} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
 import {useSelector} from 'react-redux'
 import {clientModules} from '../../../modules'
 import {Module, ServerModule} from '../../../modules/types'
+import {Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
-import {Box} from '../../ui'
 import mock from './mock.json'
 import {selectModules} from './modulesSlice'
 import {icons, ModuleButton} from './'
@@ -38,15 +38,21 @@ export const Modules = () => {
   const mockServerModules = serverModules
     .filter(m => m.status === 1)
     .filter(m => storedModuleSlugs.includes(m.slug))
-
   console.log({mockServerModules})
+  const styles = useThemable(createStyles)
 
   return (
-    <Box insetVertical="md">
-      <FlatList
-        data={modules}
-        renderItem={({item}) => renderModuleButton(item)}
-      />
-    </Box>
+    <FlatList
+      contentContainerStyle={styles.list}
+      data={modules}
+      renderItem={({item}) => renderModuleButton(item)}
+    />
   )
 }
+
+const createStyles = (theme: Theme) =>
+  StyleSheet.create({
+    list: {
+      padding: theme.size.spacing.md,
+    },
+  })
