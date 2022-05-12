@@ -15,8 +15,7 @@ export const SelectModules = () => {
   const {modules} = useSelector(selectModules)
 
   // TODO Create `Icon` component with size and color props
-  const IconProps = (selected: boolean) =>
-    useThemable(createIconProps(selected))
+  const iconProps = useThemable(createIconProps)
 
   const styles = useThemable(createStyles)
 
@@ -44,12 +43,8 @@ export const SelectModules = () => {
               <Switch
                 label={
                   <Row gutter="md" valign="center">
-                    <Icon {...IconProps(isSelected)} />
-                    <Title
-                      level="h5"
-                      prominence={isSelected ? 1 : 2}
-                      text={title}
-                    />
+                    <Icon {...iconProps} />
+                    <Title level="h5" text={title} />
                   </Row>
                 }
                 onChange={() => onChange(slug)}
@@ -63,10 +58,10 @@ export const SelectModules = () => {
   )
 }
 
-const createIconProps = (selected: boolean) => (theme: Theme) => ({
+const createIconProps = (theme: Theme) => ({
   width: 24,
   aspectRatio: 1,
-  fill: selected ? theme.color.text.default : theme.color.text.secondary,
+  fill: theme.color.text.default,
 })
 
 const createStyles = (theme: Theme) =>
