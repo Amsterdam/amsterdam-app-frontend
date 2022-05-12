@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {stackScreenOptions} from '../../../app/navigation'
-import {ThemeContext} from '../../../themes'
+import {stackScreenOptions} from '../../app/navigation'
+import {ThemeContext} from '../../themes'
 import {SettingsScreen} from './Screen'
 import {settingsRoutes} from './routes'
 

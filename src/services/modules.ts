@@ -1,9 +1,9 @@
-import {Module} from '../components/features/modules/types'
+import {ServerModule} from '../modules/types'
 import {baseApi} from './init'
 
 type RegisterModuleQueryArg = {
   app_version: string
-} & Module
+} & ServerModule
 
 type ModuleOrderQueryArg = {
   app_version: string
@@ -22,12 +22,13 @@ export const modulesApi = baseApi.injectEndpoints({
         }
       },
     }),
-    getModules: builder.query<Module[], void>({
+    getModules: builder.query<ServerModule[], void>({
       providesTags: ['Modules'],
       query: () => {
         return '/modules'
       },
-      transformResponse: (response: {result: Module[]}) => response.result,
+      transformResponse: (response: {result: ServerModule[]}) =>
+        response.result,
     }),
     setModulesOrder: builder.mutation<unknown, ModuleOrderQueryArg>({
       invalidatesTags: ['Modules'],
