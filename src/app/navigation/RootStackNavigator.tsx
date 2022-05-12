@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {modules as clientModules} from '../../modules'
+import {clientModules} from '../../modules'
 import {module as homeModule} from '../../modules/home'
 
 const moduleNames = clientModules.map(module => module.name)
