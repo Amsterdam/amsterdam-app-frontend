@@ -34,7 +34,6 @@ export type HomeStackParams = {
 }
 
 export type MenuStackParams = {
-  Contact: undefined
   Menu: undefined
   WritingGuide: undefined
 }

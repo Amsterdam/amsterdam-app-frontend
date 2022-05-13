@@ -1,7 +1,6 @@
 import React from 'react'
 import {ScrollView} from 'react-native'
 import {
-  CenterCityOffice,
   ProvideAddressBanner,
   QuickLinks,
   RecentNews,
@@ -20,7 +19,6 @@ export const HomeScreen = () => {
         <RecentNews />
       </Box>
       <Box insetHorizontal="md">
-        <CenterCityOffice />
         <Gutter height="md" />
       </Box>
     </ScrollView>
