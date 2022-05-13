@@ -1,9 +1,12 @@
+import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Settings} from '../../assets/icons'
 import {IconButton} from '../../components/ui'
+import {Row} from '../../components/ui/layout'
 import {module as settingsModule} from '../../modules/settings'
+import {module as userModule} from '../../modules/user'
 import {color} from '../../tokens'
 import {RootStackParamList} from './RootStackNavigator'
 
@@ -16,10 +19,17 @@ export const HeaderNavigation = () => {
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
 
   return (
-    <IconButton
-      icon={<Settings {...iconProps} />}
-      label="Instellingen"
-      onPress={() => navigation.navigate(settingsModule.name)}
-    />
+    <Row gutter="md">
+      <IconButton
+        icon={<PersonalLogin {...iconProps} />}
+        label="Mijn profiel"
+        onPress={() => navigation.navigate(userModule.name)}
+      />
+      <IconButton
+        icon={<Settings {...iconProps} />}
+        label="Instellingen"
+        onPress={() => navigation.navigate(settingsModule.name)}
+      />
+    </Row>
   )
 }
