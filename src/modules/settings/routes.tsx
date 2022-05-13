@@ -13,6 +13,9 @@ export const settingsRoutes: StackNavigationRoutes<
   settings: {
     name: 'Settings',
     options: {
+      cardStyle: {
+        backgroundColor: '#f3f5f7', // TODO Token
+      },
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
