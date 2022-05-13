@@ -2,8 +2,8 @@ import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
-import {CityOfficesScreen} from './Screen'
 import {cityOfficesRoutes as routes} from './routes'
+import {CityOfficesScreen} from './screens'
 
 const Stack = createStackNavigator()
 

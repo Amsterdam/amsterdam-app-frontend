@@ -1,11 +1,11 @@
 import React from 'react'
-import {Box} from '../../components/ui'
-import {Column, ScrollView} from '../../components/ui/layout'
+import {Box} from '../../../components/ui'
+import {Column, ScrollView} from '../../../components/ui/layout'
 import {
   CityOfficeOverview,
   ContactOptions,
   ReferToWebsiteCard,
-} from './components'
+} from '../components'
 
 export const CityOfficesScreen = () => (
   <ScrollView>
