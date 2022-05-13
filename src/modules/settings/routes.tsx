@@ -7,18 +7,23 @@ type SettingsStackParams = {
   Settings: undefined
 }
 
-export const settingsRoutes: (
-  theme: Theme,
-) => StackNavigationRoutes<SettingsStackParams, 'settings'> = theme => ({
+const BACKGROUND_COLOR = '#f3f5f7' // TODO Token
+
+export const settingsRoutes: StackNavigationRoutes<
+  SettingsStackParams,
+  'settings'
+> = {
   settings: {
     name: 'Settings',
     options: {
       cardStyle: {
-        backgroundColor: theme.color.screen.background.settings,
+        backgroundColor: BACKGROUND_COLOR,
       },
       headerStyle: {
-        backgroundColor: theme.color.screen.background.settings,
-        shadowColor: 'transparent',
+        backgroundColor: BACKGROUND_COLOR,
+        borderBottomWidth: 0,
+        elevation: 0,
+        shadowOpacity: 0,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
