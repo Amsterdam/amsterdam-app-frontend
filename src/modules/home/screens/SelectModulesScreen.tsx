@@ -1,6 +1,6 @@
 import React from 'react'
-import {SelectModules} from '../../components/features/modules'
-import {ScrollView} from '../../components/ui/layout'
+import {ScrollView} from '../../../components/ui/layout'
+import {SelectModules} from '../components'
 
 export const SelectModulesScreen = () => (
   <ScrollView>

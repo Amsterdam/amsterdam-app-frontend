@@ -3,9 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
+import {Row} from '../../../components/ui/layout'
+import {Title} from '../../../components/ui/typography'
 import {Theme, useThemable} from '../../../themes'
-import {Row} from '../../ui/layout'
-import {Title} from '../../ui/typography'
 
 type Props = {
   icon: ReactNode

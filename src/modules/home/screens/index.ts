@@ -1,2 +1,2 @@
-export * from './ModulesScreen'
+export * from './HomeScreen'
 export * from './SelectModulesScreen'

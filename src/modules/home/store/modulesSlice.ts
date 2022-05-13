@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '../../../store'
-import mock from './mock.json'
+import serverModulesMock from './server-modules.mock.json'
 
 type ModuleSlug = string
 
@@ -8,7 +8,9 @@ type State = {
   modules: ModuleSlug[]
 }
 
-const initialState: State = {modules: mock.modules.map(module => module.slug)}
+const initialState: State = {
+  modules: serverModulesMock.modules.map(m => m.slug),
+}
 
 export const modulesSlice = createSlice({
   name: 'modules',

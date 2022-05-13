@@ -1,14 +1,15 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import {Box, Tooltip} from '../../../components/ui'
+import {Switch} from '../../../components/ui/forms'
+import {Column, Row} from '../../../components/ui/layout'
+import {Title} from '../../../components/ui/typography'
 import {Theme, useThemable} from '../../../themes'
-import {Box, Tooltip} from '../../ui'
-import {Switch} from '../../ui/forms'
-import {Column, Row} from '../../ui/layout'
-import {Title} from '../../ui/typography'
-import mock from './mock.json'
-import {selectModules, toggleModule} from './modulesSlice'
-import {icons, ModuleBox} from './'
+import {icons} from '../config'
+import {selectModules, toggleModule} from '../store'
+import serverModulesMock from '../store/server-modules.mock.json'
+import {ModuleBox} from './'
 
 export const SelectModules = () => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ export const SelectModules = () => {
   return (
     <Box>
       <Column gutter="sm">
-        {mock.modules.map(module => {
+        {serverModulesMock.modules.map(module => {
           const {description, icon, slug, title} = module
           const isSelected = modules.includes(slug)
           const Icon = icons[icon]
