@@ -8,7 +8,7 @@ import {color} from '../../tokens'
 import {RootStackParamList} from './RootStackNavigator'
 
 const iconProps = {
-  fill: color.font.regular,
+  fill: color.touchable.primary,
 }
 
 export const HeaderNavigation = () => {
