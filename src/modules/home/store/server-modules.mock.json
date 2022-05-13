@@ -25,11 +25,11 @@
       "status": 1
     },
     {
-      "slug": "report-issue",
+      "slug": "report-problem",
       "version": "1.0.0",
       "title": "Melden",
       "description": "Ziet u iets op straat of in een park wat stuk is of opgeruimd moet worden? Meldt het via de app bij de gemeente.",
-      "icon": "report-issue",
+      "icon": "report-problem",
       "status": 1
     },
     {
@@ -41,11 +41,11 @@
       "status": 1
     },
     {
-      "slug": "questions",
+      "slug": "contact",
       "version": "1.0.0",
       "title": "Vragen",
       "description": "Gebruik het contactformulier om een vraag te stellen, of een klacht door te geven.",
-      "icon": "questions",
+      "icon": "contact",
       "status": 1
     }
   ]

@@ -8,8 +8,8 @@ import {Container, Project} from '../../../assets/icons'
 export const icons: Record<string, ElementType> = {
   'city-offices': Chatting,
   'construction-work': Project,
+  contact: ChatBubble,
   'open-waste-container': Container,
-  'report-issue': Alert,
+  'report-problem': Alert,
   'waste-guide': Location,
-  questions: ChatBubble,
 }
