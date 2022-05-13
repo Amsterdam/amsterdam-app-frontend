@@ -16,9 +16,9 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column} from '../../../components/ui/layout'
-import {useGetCityOfficeQuery} from '../../../services'
 import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
+import {useGetCityOfficeQuery} from '../services'
 
 type Props = {
   id: string

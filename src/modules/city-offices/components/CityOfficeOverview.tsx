@@ -1,7 +1,7 @@
 import React from 'react'
 import {PleaseWait} from '../../../components/ui'
 import {Grid, GridCell} from '../../../components/ui/layout'
-import {useGetCityOfficesQuery} from '../../../services'
+import {useGetCityOfficesQuery} from '../services'
 import {CityOffice} from './CityOffice'
 
 export const CityOfficeOverview = () => {
