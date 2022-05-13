@@ -27,7 +27,7 @@ const createStyles =
     StyleSheet.create({
       title: {
         color: theme.color.text.default,
-        fontFamily: font.weight.demi,
+        fontFamily: font.weight.bold,
         fontSize: theme.text.fontSize[level],
         lineHeight: theme.text.lineHeight[level] * theme.text.fontSize[level],
       },
