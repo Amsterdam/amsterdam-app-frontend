@@ -19,11 +19,8 @@ export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
     ),
     headerBackTitleVisible: false,
     headerStyle: {
-      backgroundColor: color.background.white,
-      borderBottomColor: color.border.default,
-      borderBottomWidth: 1,
-      elevation: 0,
-      shadowOpacity: 0,
+      backgroundColor: theme.color.screen.background.default,
+      shadowColor: 'transparent',
     },
     headerLeftContainerStyle: {
       paddingStart: size.spacing.md,

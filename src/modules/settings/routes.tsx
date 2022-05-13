@@ -18,6 +18,7 @@ export const settingsRoutes: (
       },
       headerStyle: {
         backgroundColor: theme.color.screen.background.settings,
+        shadowColor: 'transparent',
       },
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
