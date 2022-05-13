@@ -36,16 +36,16 @@ const renderModuleButton = (module: Module) => {
 
 export const Modules = () => {
   const {modules: storedModuleSlugs} = useSelector(selectModules)
-  const mockServerModules = serverModules
+  const availableModules = modules
     .filter(m => m.status === 1)
     .filter(m => storedModuleSlugs.includes(m.slug))
-  console.log({mockServerModules})
+
   const styles = useThemable(createStyles)
 
   return (
     <FlatList
       contentContainerStyle={styles.list}
-      data={modules}
+      data={availableModules}
       renderItem={({item}) => renderModuleButton(item)}
     />
   )
