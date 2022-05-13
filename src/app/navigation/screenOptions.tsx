@@ -9,7 +9,7 @@ import {color, size} from '../../tokens'
 export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
   theme => ({
     cardStyle: {
-      backgroundColor: theme.color.screen.background.settings,
+      backgroundColor: theme.color.screen.background.default,
     },
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
