@@ -1,4 +1,3 @@
-export * from './stacks/ActionStack'
 export * from './stacks/getSharedScreens'
 export * from './stacks/HomeStack'
 export * from './stacks/MenuStack'

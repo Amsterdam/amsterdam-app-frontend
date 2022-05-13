@@ -5,7 +5,6 @@ import {wasteGuideRoutes} from '../../modules/waste-guide/routes'
 import {color} from '../../tokens'
 import {HeaderLogo} from './HeaderLogo'
 import {
-  ActionStackParams,
   HomeStackParams,
   MenuStackParams,
   SharedStackParams,
@@ -15,13 +14,6 @@ import {
 } from './types'
 
 export const tabs: TabNavigationRoutes<TabParams> = {
-  action: {
-    name: 'ActionTab',
-    options: {
-      tabBarIcon: props => <TabBarIcon {...props} name="action" />,
-      tabBarLabel: 'Melden',
-    },
-  },
   home: {
     name: 'HomeTab',
     options: {
@@ -35,15 +27,6 @@ export const tabs: TabNavigationRoutes<TabParams> = {
       headerShown: false,
       tabBarIcon: props => <TabBarIcon {...props} name="menu" />,
       tabBarLabel: 'Menu',
-    },
-  },
-}
-
-const actionRoutes: StackNavigationRoutes<ActionStackParams, 'reportIssue'> = {
-  reportIssue: {
-    name: 'ReportIssue',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
     },
   },
 }
@@ -248,12 +231,10 @@ const sharedRoutes: StackNavigationRoutes<
   },
 }
 
-export const routes: typeof actionRoutes &
-  typeof homeRoutes &
+export const routes: typeof homeRoutes &
   typeof menuRoutes &
   typeof sharedRoutes &
   typeof wasteGuideRoutes = {
-  ...actionRoutes,
   ...homeRoutes,
   ...menuRoutes,
   ...sharedRoutes,
