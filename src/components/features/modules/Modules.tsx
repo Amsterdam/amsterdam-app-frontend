@@ -9,7 +9,8 @@ import mock from './mock.json'
 import {selectModules} from './modulesSlice'
 import {icons, ModuleButton} from './'
 
-const modules = combineClientAndServerModules(clientModules, mock.modules)
+const serverModules = mock.modules as ServerModule[]
+const modules = combineClientAndServerModules(clientModules, serverModules)
 
 const iconProps = {
   width: 24,
@@ -18,11 +19,13 @@ const iconProps = {
 }
 
 export const Modules = () => {
-  const {modules: storedModules} = useSelector(selectModules)
-  const serverModules: ServerModule[] = mock.modules.filter(
-    m => m.status === 1 && storedModules.includes(m.slug),
-  )
-  console.log(serverModules)
+  const {modules: storedModuleSlugs} = useSelector(selectModules)
+  const mockServerModules = serverModules
+    .filter(m => m.status === 1)
+    .filter(m => storedModuleSlugs.includes(m.slug))
+
+  console.log({mockServerModules})
+
   return (
     <Box insetVertical="md">
       {modules.map(({icon, name, slug, title}) => {
