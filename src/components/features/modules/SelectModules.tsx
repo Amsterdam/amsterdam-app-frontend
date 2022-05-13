@@ -29,8 +29,8 @@ export const SelectModules = () => {
       <Column gutter="sm">
         {mock.modules.map(module => {
           const {description, icon, slug, title} = module
+          const isSelected = modules.includes(slug)
           const Icon = icons[icon]
-          const selected = modules.includes(slug)
 
           return (
             <ModuleBox
@@ -40,20 +40,20 @@ export const SelectModules = () => {
                 </View>
               }
               key={slug}
-              selected={selected}>
+              selected={isSelected}>
               <Switch
                 label={
                   <Row gutter="md" valign="center">
-                    <Icon {...IconProps(!!selected)} />
+                    <Icon {...IconProps(isSelected)} />
                     <Title
                       level="h5"
-                      prominence={selected ? 1 : 2}
+                      prominence={isSelected ? 1 : 2}
                       text={title}
                     />
                   </Row>
                 }
                 onChange={() => onChange(slug)}
-                value={selected}
+                value={isSelected}
               />
             </ModuleBox>
           )
