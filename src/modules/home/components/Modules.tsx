@@ -1,16 +1,17 @@
 import React from 'react'
 import {FlatList, StyleSheet} from 'react-native'
 import {useSelector} from 'react-redux'
-import {clientModules} from '../../../modules'
-import {Module, ServerModule} from '../../../modules/types'
 import {Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
-import mock from './mock.json'
-import {selectModules} from './modulesSlice'
-import {icons, ModuleButton} from './'
+import {clientModules} from '../../index'
+import {Module, ServerModule} from '../../types'
+import {ModuleButton} from '../components'
+import {icons} from '../config'
+import {selectModules} from '../store'
+import serverModulesMock from '../store/server-modules.mock.json'
 
-const serverModules = mock.modules as ServerModule[]
+const serverModules = serverModulesMock.modules as ServerModule[]
 const modules = combineClientAndServerModules(clientModules, serverModules)
 
 const iconProps = {
@@ -35,16 +36,16 @@ const renderModuleButton = (module: Module) => {
 
 export const Modules = () => {
   const {modules: storedModuleSlugs} = useSelector(selectModules)
-  const mockServerModules = serverModules
+  const availableModules = modules
     .filter(m => m.status === 1)
     .filter(m => storedModuleSlugs.includes(m.slug))
-  console.log({mockServerModules})
+
   const styles = useThemable(createStyles)
 
   return (
     <FlatList
       contentContainerStyle={styles.list}
-      data={modules}
+      data={availableModules}
       renderItem={({item}) => renderModuleButton(item)}
     />
   )

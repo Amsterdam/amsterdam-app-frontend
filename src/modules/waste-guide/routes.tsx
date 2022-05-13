@@ -13,7 +13,7 @@ export const wasteGuideRoutes: StackNavigationRoutes<
   wasteGuide: {
     name: 'WasteGuide',
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Module afvalwijzer" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
     },
   },
 }

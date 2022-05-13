@@ -4,8 +4,8 @@ import {
 } from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {getSharedScreens, HeaderNavigation, stackScreenOptions} from '..'
+import {SelectModulesScreen} from '../../../modules/home/screens'
 import {HomeScreen} from '../../../screens'
-import {ModulesScreen, SelectModulesScreen} from '../../../screens/modules'
 import {ThemeContext} from '../../../themes'
 import {routes} from '../routes'
 
@@ -28,7 +28,7 @@ export const HomeStack = () => {
         options={{...routes.home.options, ...homeScreenOptions}}
       />
       <Stack.Screen
-        component={ModulesScreen}
+        component={HomeScreen}
         name={routes.modules.name}
         options={routes.modules.options}
       />

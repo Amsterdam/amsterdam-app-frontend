@@ -1,19 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from 'redux-persist'
 import {addressSlice} from '../components/features/address/addressSlice'
-import {modulesSlice} from '../components/features/modules/modulesSlice'
 import {notificationsSlice} from '../components/features/notifications'
 import {projectManagerSlice} from '../components/features/project-manager'
 import {projectsByTextSlice} from '../components/features/projects'
+import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {baseApi} from '../services/init'
 import {authSlice} from './authSlice'

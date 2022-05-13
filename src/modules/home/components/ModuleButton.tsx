@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode} from 'react'
-import {Pressable, StyleSheet} from 'react-native'
+import React, {ReactNode, useContext} from 'react'
+import {StyleSheet, TouchableHighlight} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
-import {Theme, useThemable} from '../../../themes'
-import {Row} from '../../ui/layout'
-import {Title} from '../../ui/typography'
+import {Row} from '../../../components/ui/layout'
+import {Title} from '../../../components/ui/typography'
+import {Theme, ThemeContext, useThemable} from '../../../themes'
 
 type Props = {
   icon: ReactNode
@@ -16,17 +16,20 @@ type Props = {
 export const ModuleButton = ({icon, label, name}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+  const {theme} = useContext(ThemeContext)
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable
+    <TouchableHighlight
+      activeOpacity={1}
       onPress={name ? () => navigation.navigate(name) : undefined}
-      style={styles.button}>
+      style={styles.button}
+      underlayColor={theme.color.box.background.grey}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h4" text={label} />
       </Row>
-    </Pressable>
+    </TouchableHighlight>
   )
 }
 
