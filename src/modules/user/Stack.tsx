@@ -10,6 +10,7 @@ const Stack = createStackNavigator()
 export const UserStack = () => {
   const {theme} = useContext(ThemeContext)
   const {user} = userRoutes
+
   return (
     <Stack.Navigator
       initialRouteName={user.name}

@@ -10,6 +10,7 @@ const Stack = createStackNavigator()
 export const SettingsStack = () => {
   const {theme} = useContext(ThemeContext)
   const {settings} = settingsRoutes
+
   return (
     <Stack.Navigator
       initialRouteName={settings.name}
