@@ -27,7 +27,7 @@ export const ModuleButton = ({icon, label, name}: Props) => {
       underlayColor={theme.color.box.background.grey}>
       <Row gutter="md" valign="center">
         {icon}
-        <Title level="h4" text={label} />
+        <Title level="h5" text={label} />
       </Row>
     </TouchableHighlight>
   )
