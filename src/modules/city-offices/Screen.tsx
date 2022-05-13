@@ -1,11 +1,20 @@
 import React from 'react'
-import {Box, Text} from '../../components/ui'
-import {ScrollView} from '../../components/ui/layout'
+import {Box} from '../../components/ui'
+import {Column, ScrollView} from '../../components/ui/layout'
+import {
+  CityOfficeOverview,
+  ContactOptions,
+  ReferToWebsiteCard,
+} from './components'
 
 export const CityOfficesScreen = () => (
   <ScrollView>
     <Box>
-      <Text>Hallo, ik ben een module! 🎉</Text>
+      <Column gutter="md">
+        <CityOfficeOverview />
+        <ReferToWebsiteCard />
+      </Column>
     </Box>
+    <ContactOptions />
   </ScrollView>
 )

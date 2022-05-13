@@ -1,8 +1,15 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {
+  Card,
+  CardBody,
+  Image,
+  Text,
+  TextButton,
+  Title,
+} from '../../../components/ui'
+import {Gutter, Row} from '../../../components/ui/layout'
 import {openWebUrl} from '../../../utils/openWebUrl'
-import {Card, CardBody, Image, Text, TextButton, Title} from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
 
 export const ReferToWebsiteCard = () => (
   <Card>

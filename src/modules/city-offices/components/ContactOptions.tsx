@@ -9,11 +9,11 @@ import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {Instagram, Whatsapp} from '../../../assets/icons'
+import {Box, Title} from '../../../components/ui'
+import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {color} from '../../../tokens'
 import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
-import {Box, Title} from '../../ui'
-import {Column, Gutter, Row} from '../../ui/layout'
 import {ContactOption} from './ContactOption'
 
 type ContactOptionType = {

@@ -4,9 +4,6 @@ import React from 'react'
 import {View} from 'react-native'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {useGetCityOfficeQuery} from '../../../services'
-import {ImageSources} from '../../../types'
-import {accessibleText, mapImageSources} from '../../../utils'
 import {
   Attention,
   Button,
@@ -17,8 +14,11 @@ import {
   SingleSelectable,
   Text,
   Title,
-} from '../../ui'
-import {Column} from '../../ui/layout'
+} from '../../../components/ui'
+import {Column} from '../../../components/ui/layout'
+import {useGetCityOfficeQuery} from '../../../services'
+import {ImageSources} from '../../../types'
+import {accessibleText, mapImageSources} from '../../../utils'
 
 type Props = {
   id: string
