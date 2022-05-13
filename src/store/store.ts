@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist'
 import {addressSlice} from '../components/features/address/addressSlice'
+import {modulesSlice} from '../components/features/modules/modulesSlice'
 import {notificationsSlice} from '../components/features/notifications'
 import {projectManagerSlice} from '../components/features/project-manager'
 import {projectsByTextSlice} from '../components/features/projects'
@@ -23,19 +24,25 @@ const addressPersistConfig = {
   blacklist: ['temp'],
 }
 
-const projectManagerPersistConfig = {
-  key: 'projectManager',
+const modulesPersistConfig = {
+  key: 'modules',
   storage: AsyncStorage,
 }
+
 const notificationsPersistConfig = {
   key: 'notifications',
   storage: AsyncStorage,
 }
 
+const projectManagerPersistConfig = {
+  key: 'projectManager',
+  storage: AsyncStorage,
+}
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   auth: authSlice.reducer,
+  modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
   notifications: persistReducer(
     notificationsPersistConfig,
     notificationsSlice.reducer,

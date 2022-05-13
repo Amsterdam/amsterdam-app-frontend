@@ -10,7 +10,7 @@ import {Title} from '../../ui/typography'
 type Props = {
   icon: ReactNode
   label: string
-  name: string
+  name?: keyof RootStackParamList
 }
 
 export const ModuleButton = ({icon, label, name}: Props) => {
@@ -19,7 +19,9 @@ export const ModuleButton = ({icon, label, name}: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={() => navigation.navigate(name)} style={styles.button}>
+    <Pressable
+      onPress={name ? () => navigation.navigate(name) : undefined}
+      style={styles.button}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h4" text={label} />

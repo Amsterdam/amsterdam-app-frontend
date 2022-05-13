@@ -8,6 +8,7 @@ export const combineClientAndServerModules = (
   return clientModules
     .map(clientModule => {
       const serverModule = serverModules.find(m => clientModule.slug === m.slug)
+
       if (serverModule) {
         return {...clientModule, ...serverModule}
       }

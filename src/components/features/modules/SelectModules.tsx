@@ -1,48 +1,35 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {ServerModule} from '../../../modules/types'
+import {useDispatch, useSelector} from 'react-redux'
 import {Theme, useThemable} from '../../../themes'
 import {Box, Tooltip} from '../../ui'
 import {Switch} from '../../ui/forms'
 import {Column, Row} from '../../ui/layout'
 import {Title} from '../../ui/typography'
 import mock from './mock.json'
+import {selectModules, toggleModule} from './modulesSlice'
 import {icons, ModuleBox} from './'
 
-type ModuleWithSelection = ServerModule & {
-  selected: boolean
-}
-
-// TODO Retrieve from store
-const initialSelectedModules: ModuleWithSelection[] = mock.modules.map(m => ({
-  ...m,
-  selected: !['open-waste-container', 'city-offices'].includes(m.slug),
-}))
-
 export const SelectModules = () => {
-  // TODO Store on device
-  const [modules, setModules] = useState<ModuleWithSelection[]>(
-    initialSelectedModules,
-  )
+  const dispatch = useDispatch()
+  const {modules} = useSelector(selectModules)
 
   // TODO Create `Icon` component with size and color props
   const IconProps = (selected: boolean) =>
     useThemable(createIconProps(selected))
 
-  // TODO Save to store
-  const onChangeSelection = (module: ServerModule, selected: boolean) => {
-    setModules(
-      modules.map(m => (m.slug === module.slug ? {...m, selected} : m)),
-    )
-  }
-
   const styles = useThemable(createStyles)
+
+  const onChange = (slug: string) => {
+    dispatch(toggleModule(slug))
+  }
 
   return (
     <Box>
       <Column gutter="sm">
-        {modules.map(module => {
-          const {description, icon, selected, slug, title} = module
+        {mock.modules.map(module => {
+          const {description, icon, slug, title} = module
+          const isSelected = modules.includes(slug)
           const Icon = icons[icon]
 
           return (
@@ -53,20 +40,20 @@ export const SelectModules = () => {
                 </View>
               }
               key={slug}
-              selected={selected}>
+              selected={isSelected}>
               <Switch
                 label={
                   <Row gutter="md" valign="center">
-                    <Icon {...IconProps(selected)} />
+                    <Icon {...IconProps(isSelected)} />
                     <Title
                       level="h5"
-                      prominence={selected ? 1 : 2}
+                      prominence={isSelected ? 1 : 2}
                       text={title}
                     />
                   </Row>
                 }
-                onValueChange={value => onChangeSelection(module, value)}
-                value={selected}
+                onChange={() => onChange(slug)}
+                value={isSelected}
               />
             </ModuleBox>
           )
