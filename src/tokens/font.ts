@@ -15,6 +15,7 @@ type FontTokens = {
   leadingTop: FontList
   size: FontList
   weight: {
+    bold: string
     demi: string
     regular: string
   }
@@ -58,6 +59,7 @@ export const font: FontTokens = {
     t1: 14,
   },
   weight: {
+    bold: 'AvenirNext-Bold',
     demi: 'AvenirNext-DemiBold',
     regular: 'AvenirNext-Regular',
   },
