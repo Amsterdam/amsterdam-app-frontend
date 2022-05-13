@@ -14,7 +14,7 @@ export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
       <View style={styles.headerBackImage}>
-        <ChevronLeft width={20} height={20} fill={color.font.regular} />
+        <ChevronLeft width={20} height={20} fill={color.touchable.primary} />
       </View>
     ),
     headerBackTitleVisible: false,
