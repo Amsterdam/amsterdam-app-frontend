@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {StyleSheet, Text} from 'react-native'
+import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
 import {TitleTokensPerLevel} from '../../../themes/tokens'
 import {font} from '../../../tokens'
@@ -7,7 +7,7 @@ import {font} from '../../../tokens'
 type Props = {
   level: keyof TitleTokensPerLevel
   text: string
-}
+} & Omit<TextProps, 'style'>
 
 export const Title = ({level, text}: Props) => {
   const createdStyles = useMemo(() => createStyles({level}), [level])
@@ -27,7 +27,7 @@ const createStyles =
     StyleSheet.create({
       title: {
         color: theme.color.text.default,
-        fontFamily: font.weight.demi,
+        fontFamily: font.weight.bold,
         fontSize: theme.text.fontSize[level],
         lineHeight: theme.text.lineHeight[level] * theme.text.fontSize[level],
       },

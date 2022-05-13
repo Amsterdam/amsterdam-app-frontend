@@ -9,21 +9,18 @@ import {color, size} from '../../tokens'
 export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
   theme => ({
     cardStyle: {
-      backgroundColor: theme.color.screen.background.settings,
+      backgroundColor: theme.color.screen.background.default,
     },
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
       <View style={styles.headerBackImage}>
-        <ChevronLeft width={20} height={20} fill={color.font.regular} />
+        <ChevronLeft width={20} height={20} fill={color.touchable.primary} />
       </View>
     ),
     headerBackTitleVisible: false,
     headerStyle: {
-      backgroundColor: color.background.white,
-      borderBottomColor: color.border.default,
-      borderBottomWidth: 1,
-      elevation: 0,
-      shadowOpacity: 0,
+      backgroundColor: theme.color.screen.background.default,
+      shadowColor: 'transparent',
     },
     headerLeftContainerStyle: {
       paddingStart: size.spacing.md,

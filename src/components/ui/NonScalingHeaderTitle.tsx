@@ -1,10 +1,10 @@
 import React from 'react'
-import {Title} from './Title'
+import {Title} from './typography/Title'
 
 type Props = {
   text: string
 }
 
 export const NonScalingHeaderTitle = ({text}: Props) => (
-  <Title allowFontScaling={false} level={4} text={text} />
+  <Title allowFontScaling={false} level="h5" text={text} />
 )
