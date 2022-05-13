@@ -21,6 +21,7 @@ export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
     headerStyle: {
       backgroundColor: theme.color.screen.background.default,
       shadowColor: 'transparent',
+      borderBottomWidth: 0,
     },
     headerLeftContainerStyle: {
       paddingStart: size.spacing.md,
