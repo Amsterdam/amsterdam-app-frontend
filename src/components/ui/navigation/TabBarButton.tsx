@@ -61,15 +61,6 @@ export const TabBarButton = ({
     })
   }
 
-  const dynamicStyles = StyleSheet.create({
-    focus: {
-      borderTopColor:
-        options.tabBarLabel === 'Melden'
-          ? 'transparent'
-          : color.touchable.secondary,
-    },
-  })
-
   return (
     <TouchableOpacity
       accessibilityLabel={accessibleText(
@@ -85,14 +76,14 @@ export const TabBarButton = ({
         style={[
           styles.container,
           horizontal && styles.horizontal,
-          isFocused && dynamicStyles.focus,
+          isFocused && styles.focus,
         ]}>
         {options.tabBarIcon!({
           focused: isFocused,
           color: '',
           size: 0,
         })}
-        {horizontal && label !== 'Melden' && <Gutter width="sm" />}
+        {horizontal && <Gutter width="sm" />}
         <Text allowFontScaling={false} small touchable={isFocused}>
           {label}
         </Text>
@@ -109,6 +100,9 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderTopWidth: 3,
     borderTopColor: 'transparent',
+  },
+  focus: {
+    borderTopColor: color.touchable.secondary,
   },
   horizontal: {
     flexDirection: 'row',

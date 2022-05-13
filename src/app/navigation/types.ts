@@ -22,13 +22,8 @@ export type TabNavigationRoutes<R> = {
 }
 
 export type TabParams = {
-  ActionTab: {screen?: keyof ActionStackParams | keyof SharedStackParams}
   HomeTab: {screen?: keyof HomeStackParams | keyof SharedStackParams}
   MenuTab: {screen?: keyof MenuStackParams | keyof SharedStackParams}
-}
-
-export type ActionStackParams = {
-  ReportIssue: {title: string}
 }
 
 export type HomeStackParams = {
@@ -63,7 +58,4 @@ export type SharedStackParams = {
   WhereToPutBulkyWaste: undefined
 }
 
-export type StackParams = ActionStackParams &
-  HomeStackParams &
-  MenuStackParams &
-  SharedStackParams
+export type StackParams = HomeStackParams & MenuStackParams & SharedStackParams

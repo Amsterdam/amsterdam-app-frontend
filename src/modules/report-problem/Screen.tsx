@@ -1,11 +1,19 @@
 import React from 'react'
-import {Box, Text} from '../../components/ui'
-import {ScrollView} from '../../components/ui/layout'
+import {useSelector} from 'react-redux'
+import {selectAddress} from '../../components/features/address/addressSlice'
+import {WebView} from '../../components/ui'
+import {getEnvironment} from '../../environment'
 
-export const ReportProblemScreen = () => (
-  <ScrollView>
-    <Box>
-      <Text>Hallo, ik ben een module! 🎉</Text>
-    </Box>
-  </ScrollView>
-)
+export const ReportProblemScreen = () => {
+  const {primary: address} = useSelector(selectAddress)
+
+  return (
+    <WebView
+      url={`${getEnvironment().signalsBaseUrl}/incident/beschrijf`}
+      urlParams={{
+        lat: address?.centroid[1] ?? 0,
+        lng: address?.centroid[0] ?? 0,
+      }}
+    />
+  )
+}

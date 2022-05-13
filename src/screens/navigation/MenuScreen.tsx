@@ -1,4 +1,3 @@
-import Alert from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
@@ -6,7 +5,7 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {StackParams, TabParams} from '../../app/navigation'
-import {routes, tabs} from '../../app/navigation/routes'
+import {routes} from '../../app/navigation/routes'
 import {Project} from '../../assets/icons'
 import {TileButton, TileButtonProps} from '../../components/ui'
 import {DeviceContext} from '../../providers'
@@ -30,14 +29,6 @@ export const MenuScreen = ({navigation}: Props) => {
       icon: <Project {...iconProps} />,
       label: 'Bouwprojecten',
       onPress: () => navigation.navigate(routes.projects.name),
-    },
-    {
-      icon: <Alert {...iconProps} />,
-      label: 'Melden',
-      onPress: () =>
-        navigation.navigate(tabs.action.name, {
-          screen: routes.reportIssue.name,
-        }),
     },
     {
       icon: <Chatting {...iconProps} />,
