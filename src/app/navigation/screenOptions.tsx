@@ -12,7 +12,7 @@ type Overrides = {
 
 export const stackScreenOptions: (
   theme: Theme,
-  overrides: Overrides,
+  overrides?: Overrides,
 ) => StackNavigationOptions = (theme, overrides) => ({
   cardStyle: {
     backgroundColor: theme.color.screen.background.settings,
