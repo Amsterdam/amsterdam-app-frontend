@@ -3,7 +3,6 @@ import {NonScalingHeaderTitle} from '../../components/ui'
 import {TabBarIcon} from '../../components/ui/navigation'
 import {wasteGuideRoutes} from '../../modules/waste-guide/routes'
 import {color} from '../../tokens'
-import {HeaderLogo} from './HeaderLogo'
 import {
   HomeStackParams,
   MenuStackParams,
@@ -33,7 +32,7 @@ export const tabs: TabNavigationRoutes<TabParams> = {
 
 const homeRoutes: StackNavigationRoutes<
   HomeStackParams,
-  'authorizedProjects' | 'home' | 'modules' | 'selectModules'
+  'authorizedProjects' | 'modules' | 'selectModules'
 > = {
   authorizedProjects: {
     name: 'AuthorizedProjects',
@@ -42,13 +41,6 @@ const homeRoutes: StackNavigationRoutes<
         backgroundColor: color.background.app,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
-    },
-  },
-  home: {
-    name: 'Home',
-    options: {
-      headerLeft: () => <HeaderLogo />,
-      headerTitle: '',
     },
   },
   modules: {
