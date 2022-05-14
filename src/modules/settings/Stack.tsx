@@ -9,16 +9,17 @@ const Stack = createStackNavigator()
 
 export const SettingsStack = () => {
   const {theme} = useContext(ThemeContext)
-  const routes = settingsRoutes(theme)
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.settings.name}
-      screenOptions={stackScreenOptions(theme)}>
+      initialRouteName={settingsRoutes.settings.name}
+      screenOptions={stackScreenOptions(theme, {
+        headerBackgroundColor: '#f3f5f7', // TODO Token
+      })}>
       <Stack.Screen
         component={SettingsScreen}
-        name={routes.settings.name}
-        options={routes.settings.options}
+        name={settingsRoutes.settings.name}
+        options={settingsRoutes.settings.options}
       />
     </Stack.Navigator>
   )
