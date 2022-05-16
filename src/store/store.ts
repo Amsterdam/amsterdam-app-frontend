@@ -17,11 +17,17 @@ import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {baseApi} from '../services/init'
 import {authSlice} from './authSlice'
+import {environmentSlice} from './environmentSlice'
 
 const addressPersistConfig = {
   key: 'address',
   storage: AsyncStorage,
   blacklist: ['temp'],
+}
+
+const environmentPersistConfig = {
+  key: 'environment',
+  storage: AsyncStorage,
 }
 
 const modulesPersistConfig = {
@@ -43,6 +49,10 @@ const rootReducer = combineReducers({
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   auth: authSlice.reducer,
   modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
+  environment: persistReducer(
+    environmentPersistConfig,
+    environmentSlice.reducer,
+  ),
   notifications: persistReducer(
     notificationsPersistConfig,
     notificationsSlice.reducer,
@@ -58,12 +68,18 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
 
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+  middleware: getDefaultMiddleware => {
+    const middleware = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware),
+    }).concat(baseApi.middleware)
+    if (__DEV__) {
+      const createDebugger = require('redux-flipper').default
+      middleware.push(createDebugger())
+    }
+    return middleware
+  },
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

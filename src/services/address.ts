@@ -1,4 +1,3 @@
-import {getEnvironment} from '../environment'
 import {ResponseAddress, BagResponse, Address} from '../types'
 import {generateRequestUrl} from '../utils'
 import {baseApi} from './init'
@@ -10,11 +9,13 @@ export const addressApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getAddress: builder.query<Address, string>({
       query: params => {
-        return generateRequestUrl({
-          baseUrl: getEnvironment().atlasUrl,
-          params: {features: 2, q: params},
-          path: addressPath,
-        })
+        return {
+          url: generateRequestUrl({
+            params: {features: 2, q: params},
+            path: addressPath,
+          }),
+          api: 'atlasUrl',
+        }
       },
       transformResponse: (response: ResponseAddress) => {
         const address = response.results[0]
@@ -42,11 +43,13 @@ export const addressApi = baseApi.injectEndpoints({
     }),
     getBag: builder.query<BagResponse[], string>({
       query: address => {
-        return generateRequestUrl({
-          baseUrl: getEnvironment().atlasUrl,
-          params: {features: 2, q: address},
-          path: bagPath,
-        })
+        return {
+          url: generateRequestUrl({
+            params: {features: 2, q: address},
+            path: bagPath,
+          }),
+          api: 'atlasUrl',
+        }
       },
     }),
   }),
