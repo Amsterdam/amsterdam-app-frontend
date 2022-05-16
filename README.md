@@ -46,7 +46,7 @@ A continuous integration & deployment pipeline using Azure DevOps and [Fastlane]
 
 ### Azure DevOps
 
-The configuration of the pipeline is in `azure-pipelines.yml`.
+The configuration of the pipelines is in `/pipelines/`.
 From here we run Fastlane for iOS and for Android.
 The pipeline has access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard.
 
@@ -119,7 +119,7 @@ The version of the Scrum-team release has a digit extra, so 4 in total.
 #### Stakeholders
 
 - Version number is 0.\[sprint\]
-- Once uploaded to App Store connect, go to Testflight and add the group "Stadsapp-stakholders"
+- Approve the stage Distribute to Stakeholders in the release pipelines in Azure DevOps
 
 ## Git
 
