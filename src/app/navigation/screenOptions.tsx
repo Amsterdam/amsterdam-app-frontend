@@ -7,7 +7,7 @@ import {Theme} from '../../themes'
 import {color, font, size} from '../../tokens'
 
 type Options = {
-  screenType: 'default' | 'settings' // TODO: derive these from ColorTokens type
+  screenType: keyof Theme['color']['screen']['background']
 }
 
 const defaultOptions: Options = {
