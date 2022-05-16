@@ -1,3 +1,5 @@
+export * from './HeaderLogo'
+export * from './HeaderNavigation'
 export * from './ModuleBox'
 export * from './ModuleButton'
 export * from './Modules'
