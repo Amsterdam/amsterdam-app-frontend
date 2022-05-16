@@ -56,7 +56,7 @@ export const CityOffice = ({id}: Props) => {
 
   return (
     <Card>
-      {hasImage && <Image source={mapImageSources(imageSources)} />}
+      {!!hasImage && <Image source={mapImageSources(imageSources)} />}
       <CardBody>
         <Column gutter="md">
           <View>

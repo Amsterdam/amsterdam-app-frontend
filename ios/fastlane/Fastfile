@@ -61,7 +61,7 @@ platform :ios do
       )
       upload_to_testflight(
         ipa: ipa_path,
-        groups: 'internal',
+        groups: 'StadsApp-scrumteam',
         app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
         build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build]
       )
@@ -70,7 +70,7 @@ platform :ios do
     end
   end
 
-  lane :distributeStakeHolders do
+  lane :distributeStakeholders do
     if File.exists?(ipa_path)
       app_store_connect_api_key(
         key_id: "4B3KZ8N747",
@@ -81,7 +81,7 @@ platform :ios do
       upload_to_testflight(
         ipa: ipa_path,
         distribute_only: true,
-        groups: 'stakeholders'
+        groups: 'StadsApp-stakeholders'
       )
     else
       UI.user_error!("ERROR: #{ipa_path} does not exist")

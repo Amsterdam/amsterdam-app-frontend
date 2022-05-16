@@ -13,3 +13,6 @@ fastlane/test_output
 # fastlane builds
 builds/*
 *.xcarchive
+
+# API key firebase
+GoogleService-Info.plist

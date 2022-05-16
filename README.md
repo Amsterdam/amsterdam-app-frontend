@@ -28,6 +28,8 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 Secret files included are:
 
 - android/app/google-services.json
+- android/app/src/dev/google-services.json
+- ios/GoogleService-Info.plist
 
 ### Environment variables
 
@@ -133,7 +135,7 @@ We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing
 To test push notifications locally, do the following:
 
 1. Log into Chrome with the Team Communicare account
-2. Go to https://developers.google.com/oauthplayground/
+2. Go to <https://developers.google.com/oauthplayground/>
 3. Fill in for scope: `https://www.googleapis.com/auth/firebase.messaging`
 4. Select Team Communicare account
 5. Click button ‘Exchange authorization code for tokens’ and get the `access_token`

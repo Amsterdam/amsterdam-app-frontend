@@ -15,8 +15,32 @@
 
 default_platform(:android)
 
-apk_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/release/app-release.apk"
-aab_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-release.aab"
+apps = [
+  {
+    :name => "amsterdam-test", 
+    :task => "assemble", 
+    :app_identifier => "com.stadsapp.dev", 
+    :build_type => "Release", 
+    :flavor => "dev", 
+    :distribute_to_stakeholders => false,
+    :distribute_to_production => false,
+    :firebase_app_id => "1:346299586823:android:68be9ab958539f98f44da2", 
+    :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/dev/app-dev-release.apk", 
+    :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-dev-release.aab"
+  },
+  {
+    :name => "amsterdam", 
+    :task => "assemble", 
+    :app_identifier => "com.stadsapp", 
+    :build_type => "Release", 
+    :flavor => "prod", 
+    :distribute_to_stakeholders => true,
+    :distribute_to_production => true,
+    :firebase_app_id => "1:346299586823:android:68be9ab958539f98f44da2", 
+    :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/prod/app-prod-release.apk", 
+    :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-prod-release.aab"
+  },
+]
 
 def parseVersionNumber(fullVersionNumber)
   return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
@@ -33,17 +57,19 @@ platform :android do
     if File.exists?(keystore_path)
       system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
 
-      gradle(
-        task: 'clean assembleRelease',
-        print_command: false,
-        properties: {
-          "android.injected.signing.store.file" => keystore_path,
-          "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],     
-          "android.injected.signing.key.alias" => "key0",
-          "android.injected.signing.key.password" => ENV["KEYSTORE_PASSWORD"]
-      })
-
-      system("keytool -list -printcert -jarfile #{apk_path}") # this is the debug certificate which was used to sign the apk
+      apps.each do |app|
+        gradle(
+          task: app[:task],
+          build_type: app[:build_type],
+          flavor: app[:flavor],
+          print_command: false,
+          properties: {
+            "android.injected.signing.store.file" => keystore_path,
+            "android.injected.signing.store.password" => keystore_password,     
+            "android.injected.signing.key.alias" => keystore_alias,
+            "android.injected.signing.key.password" => keystore_password
+        })
+      end
 
     else
       UI.user_error!("ERROR: #{keystore_path} does not exist")
@@ -52,40 +78,67 @@ platform :android do
   end
 
   lane :distributeInternalAab do
-    if File.exists?(apk_path)
-      upload_to_play_store(
-      package_name: 'com.stadsapp',
-      track: 'internal',
-      aab: aab_path
-    )
-    else
-      UI.user_error!("ERROR: #{apk_path} does not exist")
+    apps.each do |app|
+      if File.exists?(app[:aab_path])
+        upload_to_play_store(
+          package_name: app[:app_identifier],
+          track: 'internal',
+          aab: app[:aab_path]
+        )
+      else
+        UI.user_error!("ERROR: #{app[:aab_path]} does not exist")
+      end
     end
   end
 
   lane :distributeInternal do
-    if File.exists?(apk_path)
-      upload_to_play_store(
-      package_name: 'com.stadsapp',
-      track: 'internal',
-      apk: apk_path
-    )
-    else
-      UI.user_error!("ERROR: #{apk_path} does not exist")
+    apps.each do |app|
+      if File.exists?(app[:apk_path])
+        upload_to_play_store(
+          package_name: app[:app_identifier],
+          track: 'internal',
+          apk: app[:apk_path]
+        )
+      else
+        UI.user_error!("ERROR: #{app[:apk_path]} does not exist")
+      end
     end
   end
 
-  lane :distributeStakeHolders do
-    upload_to_play_store(
-      package_name: "com.stadsapp",
-      track: "internal",
-      track_promote_to: "alpha",
-      validate_only: false,
-      skip_upload_apk: true,
-      skip_upload_aab: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
-    )
+  lane :distributeStakeholders do
+    apps.each do |app|
+      if app[:distribute_to_stakeholders]
+        upload_to_play_store(
+          package_name: app[:app_identifier],
+          track: "internal",
+          track_promote_to: "alpha",
+          validate_only: false,
+          skip_upload_apk: true,
+          skip_upload_aab: true,
+          skip_upload_images: true,
+          skip_upload_screenshots: true,
+          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
+        )
+      end
+    end
+  end
+  
+  lane :distributeProduction do
+    apps.each do |app|
+      if app[:distribute_to_production]
+        upload_to_play_store(
+          package_name: app[:app_identifier],
+          track: "alpha",
+          track_promote_to: "production",
+          track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
+          validate_only: false,
+          skip_upload_apk: true,
+          skip_upload_aab: true,
+          skip_upload_images: true,
+          skip_upload_screenshots: true,
+          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
+        )
+      end
+    end
   end
 end

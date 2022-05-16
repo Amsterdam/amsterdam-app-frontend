@@ -286,6 +286,21 @@ android {
 
         }
     }
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            resValue "string", "app_name", "Amsterdam Test"
+            applicationIdSuffix ".dev"
+            dimension "app"
+            buildConfigField "String", "BUILD_VARIANT", '"dev"'
+        }
+        prod {
+            resValue "string", "app_name", "Amsterdam"
+            applicationIdSuffix ""
+            dimension "app"
+            buildConfigField "String", "BUILD_VARIANT", '"prod"'
+        }
+    }
 }
 
 dependencies {
