@@ -1,11 +1,13 @@
 import {Address} from '../../../types'
 import {formatDatesTimes, formatSentence} from '../../../utils'
 import {mapWasteType, WasteGuide, WasteGuideResponse} from '../types'
+import {EnvironmentConfig} from './../../../../environment'
 import {appointmentUrl} from './appointmentUrl'
 
 export const transformWasteGuideResponse = (
   wasteGuideResponse: WasteGuideResponse | undefined,
   address: Address | undefined,
+  environment: EnvironmentConfig,
 ): WasteGuide | undefined =>
   wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
     const {
@@ -30,7 +32,7 @@ export const transformWasteGuideResponse = (
 
     acc[mapWasteType(type)] = {
       appointmentUrl: opmerking
-        ? appointmentUrl(opmerking, address)
+        ? appointmentUrl(opmerking, address, environment)
         : undefined,
       collectionDays: collectionDays
         ? formatSentence(collectionDays)

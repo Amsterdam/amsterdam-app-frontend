@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../assets/images/project-warning-hero.svg'
+import {useEnvironment} from '../../../store'
 import {image as imageTokens} from '../../../tokens'
 import {ArticleSummary} from '../../../types'
 import {mapImageSources, mapWarningImageSources} from '../../../utils'
@@ -13,15 +14,20 @@ type Props = {
 }
 
 export const ArticlePreview = ({article, onPress}: Props) => {
+  const environment = useEnvironment()
+
   const getImageSources = () => {
     if (article.type === 'news') {
       const imageSources = article.image?.sources
-      return mapImageSources(imageSources)
+      return mapImageSources(imageSources, environment)
     }
     const mainImageFromProjectWarning = article?.images?.find(
       image => image.main,
     )
-    return mapWarningImageSources(mainImageFromProjectWarning?.sources)
+    return mapWarningImageSources(
+      mainImageFromProjectWarning?.sources,
+      environment,
+    )
   }
 
   const imageSources = getImageSources()

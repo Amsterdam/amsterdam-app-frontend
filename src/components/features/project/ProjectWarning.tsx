@@ -4,6 +4,7 @@ import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import HeroImage from '../../../assets/images/project-warning-hero.svg'
 import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
+import {useEnvironment} from '../../../store'
 import {color} from '../../../tokens'
 import {ProjectWarningImage} from '../../../types'
 import {
@@ -59,6 +60,8 @@ export const ProjectWarning = ({id}: Props) => {
     })
   })
 
+  const environment = useEnvironment()
+
   if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
   }
@@ -70,7 +73,7 @@ export const ProjectWarning = ({id}: Props) => {
           <Image
             accessible
             accessibilityLabel={mainImage.description}
-            source={mapWarningImageSources(mainImage.sources)}
+            source={mapWarningImageSources(mainImage.sources, environment)}
           />
         ) : (
           <View style={styles.image}>

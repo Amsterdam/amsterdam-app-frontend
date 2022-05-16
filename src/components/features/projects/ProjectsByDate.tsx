@@ -9,6 +9,7 @@ import {routes} from '../../../app/navigation/routes'
 import {selectAddress} from '../../../modules/address/addressSlice'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsQuery} from '../../../services'
+import {useEnvironment} from '../../../store'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
@@ -35,6 +36,8 @@ export const ProjectsByDate = () => {
     sortOrder: 'desc',
   })
 
+  const environment = useEnvironment()
+
   if (projectsIsLoading) {
     return <PleaseWait />
   }
@@ -49,7 +52,7 @@ export const ProjectsByDate = () => {
 
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
-      imageSource={mapImageSources(project.images[0].sources)}
+      imageSource={mapImageSources(project.images[0].sources, environment)}
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {
           id: project.identifier,

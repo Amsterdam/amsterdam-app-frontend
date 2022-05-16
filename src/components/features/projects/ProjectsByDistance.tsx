@@ -10,6 +10,7 @@ import {routes} from '../../../app/navigation/routes'
 import {selectAddress} from '../../../modules/address/addressSlice'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsByDistanceQuery} from '../../../services'
+import {useEnvironment} from '../../../store'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
@@ -41,6 +42,8 @@ export const ProjectsByDistance = () => {
     isLoading,
     isError,
   } = useGetProjectsByDistanceQuery(params ?? skipToken)
+
+  const environment = useEnvironment()
 
   if (isSearching || !address) {
     return null
@@ -75,7 +78,7 @@ export const ProjectsByDistance = () => {
 
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
-      imageSource={mapImageSources(project.images[0].sources)}
+      imageSource={mapImageSources(project.images[0].sources, environment)}
       kicker={
         <ProjectTraits
           meter={project.meter}

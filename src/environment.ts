@@ -49,7 +49,7 @@ export const environments: Record<Environment, EnvironmentConfig> = {
 }
 
 export const getEnvironment = (
-  environment = Environment.Acceptance,
+  environment: Environment,
   custom: Partial<EnvironmentConfig> = {},
 ) => {
   if (environment === Environment.Custom) {

@@ -4,6 +4,7 @@ import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
 import {useGetProjectNewsQuery, useGetProjectQuery} from '../../../services'
+import {useEnvironment} from '../../../store'
 import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
 import {font, image} from '../../../tokens'
 import {formatDate, mapImageSources} from '../../../utils'
@@ -44,6 +45,8 @@ export const ProjectNews = ({id}: Props) => {
     })
   })
 
+  const environment = useEnvironment()
+
   if (newsIsLoading || projectIsLoading || !news) {
     return <PleaseWait />
   }
@@ -52,7 +55,7 @@ export const ProjectNews = ({id}: Props) => {
     <ScrollView>
       {news?.images?.length && (
         <Image
-          source={mapImageSources(news.images[0].sources)}
+          source={mapImageSources(news.images[0].sources, environment)}
           style={styles.image}
         />
       )}
