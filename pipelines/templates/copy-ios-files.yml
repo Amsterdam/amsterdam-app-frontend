@@ -17,6 +17,12 @@ steps:
       provProfileSecureFile: 'Amsterdamappprovisioningprofile.mobileprovision'
     displayName: 'Install Apple Provisioning Profile'
     condition: ${{ parameters.condition }}
+  - task: InstallAppleProvisioningProfile@1
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'Amsterdamapptestprovisioningprofile.mobileprovision'
+    displayName: 'Install Apple Provisioning Profile'
+    condition: ${{ parameters.condition }}
   - task: DownloadSecureFile@1
     displayName: 'Download App Store Connect API Key'
     name: AppStoreConnectApiKey

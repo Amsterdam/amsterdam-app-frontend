@@ -19,7 +19,7 @@ apps = [
   {
     :name => "amsterdam-test", 
     :task => "assemble", 
-    :app_identifier => "com.stadsapp.dev", 
+    :app_identifier => "nl.amsterdam.app.dev", 
     :build_type => "Release", 
     :flavor => "dev", 
     :distribute_to_stakeholders => false,
@@ -30,7 +30,7 @@ apps = [
   {
     :name => "amsterdam", 
     :task => "assemble", 
-    :app_identifier => "com.stadsapp", 
+    :app_identifier => "nl.amsterdam.app", 
     :build_type => "Release", 
     :flavor => "prod", 
     :distribute_to_stakeholders => true,

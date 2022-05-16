@@ -27,7 +27,6 @@ export const EnvironmentSelector = () => {
           text={environments[env].name}
           key={env}
           onPress={() => {
-            console.log('click', environments[env].name, env)
             dispatch(setEnvironment(env))
             dispatch(baseApi.util.resetApiState())
           }}

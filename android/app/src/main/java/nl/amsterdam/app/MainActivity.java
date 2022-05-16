@@ -1,4 +1,4 @@
-package com.stadsapp;
+package nl.amsterdam.app;
 
 // Needed by react-navigation:
 import android.os.Bundle;
