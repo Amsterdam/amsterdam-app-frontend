@@ -15,7 +15,7 @@ export const SettingsStack = () => {
     <Stack.Navigator
       initialRouteName={routes.settings.name}
       screenOptions={stackScreenOptions(theme, {
-        headerBackgroundColor: theme.color.screen.background.settings,
+        screenType: 'settings',
       })}>
       <Stack.Screen
         component={SettingsScreen}

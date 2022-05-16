@@ -6,43 +6,52 @@ import {StyleSheet, View} from 'react-native'
 import {Theme} from '../../themes'
 import {color, font, size} from '../../tokens'
 
-type Overrides = {
-  headerBackgroundColor: string
+type Options = {
+  screenType: 'default' | 'settings' // TODO: derive these from ColorTokens type
+}
+
+const defaultOptions: Options = {
+  screenType: 'default',
 }
 
 export const stackScreenOptions: (
   theme: Theme,
-  overrides?: Overrides,
-) => StackNavigationOptions = (theme, overrides) => ({
-  cardStyle: {
-    backgroundColor: theme.color.screen.background.settings,
-  },
-  headerBackAccessibilityLabel: 'Terug',
-  headerBackImage: () => (
-    <View style={styles.headerBackImage}>
-      <ChevronLeft width={20} height={20} fill={color.font.primary} />
-    </View>
-  ),
-  headerBackTitleVisible: false,
-  headerStyle: {
-    backgroundColor: overrides?.headerBackgroundColor || color.background.white,
-    borderBottomWidth: 0,
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-  headerLeftContainerStyle: {
-    paddingStart: size.spacing.md,
-  },
-  headerRightContainerStyle: {
-    paddingEnd: size.spacing.md,
-  },
-  headerTitleAlign: 'center',
-  headerTitleStyle: {
-    color: theme.color.text.default,
-    fontFamily: font.weight.demi,
-    fontSize: theme.text.fontSize.h1,
-  },
-})
+  options?: Options,
+) => StackNavigationOptions = (theme, options) => {
+  const resolvedOptions = {...defaultOptions, ...options}
+  return {
+    cardStyle: {
+      backgroundColor:
+        theme.color.screen.background[resolvedOptions.screenType],
+    },
+    headerBackAccessibilityLabel: 'Terug',
+    headerBackImage: () => (
+      <View style={styles.headerBackImage}>
+        <ChevronLeft width={20} height={20} fill={color.font.primary} />
+      </View>
+    ),
+    headerBackTitleVisible: false,
+    headerStyle: {
+      backgroundColor:
+        theme.color.screen.background[resolvedOptions.screenType],
+      borderBottomWidth: 0,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+    headerLeftContainerStyle: {
+      paddingStart: size.spacing.md,
+    },
+    headerRightContainerStyle: {
+      paddingEnd: size.spacing.md,
+    },
+    headerTitleAlign: 'center',
+    headerTitleStyle: {
+      color: theme.color.text.default,
+      fontFamily: font.weight.demi,
+      fontSize: theme.text.fontSize.h1,
+    },
+  }
+}
 
 export const tabScreenOptions: BottomTabNavigationOptions = {
   headerShown: false,
