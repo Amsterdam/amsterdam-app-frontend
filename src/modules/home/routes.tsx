@@ -1,9 +1,6 @@
 import React from 'react'
-import {
-  HeaderLogo,
-  HeaderNavigation,
-  StackNavigationRoutes,
-} from '../../app/navigation'
+import {StackNavigationRoutes} from '../../app/navigation'
+import {HeaderLogo, HeaderNavigation} from './components'
 
 type HomeStackParams = {
   Home: undefined

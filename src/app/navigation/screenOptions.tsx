@@ -4,23 +4,39 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme} from '../../themes'
-import {color, size} from '../../tokens'
+import {color, font, size} from '../../tokens'
 
-export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
-  theme => ({
+type Options = {
+  screenType: keyof Theme['color']['screen']['background']
+}
+
+const defaultOptions: Options = {
+  screenType: 'default',
+}
+
+export const screenOptions: (
+  theme: Theme,
+  options?: Options,
+) => StackNavigationOptions = (theme, options) => {
+  const resolvedOptions = {...defaultOptions, ...options}
+  return {
     cardStyle: {
-      backgroundColor: theme.color.screen.background.default,
+      backgroundColor:
+        theme.color.screen.background[resolvedOptions.screenType],
     },
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
       <View style={styles.headerBackImage}>
-        <ChevronLeft width={20} height={20} fill={color.touchable.primary} />
+        <ChevronLeft width={20} height={20} fill={color.font.primary} />
       </View>
     ),
     headerBackTitleVisible: false,
     headerStyle: {
-      backgroundColor: theme.color.screen.background.default,
-      shadowColor: 'transparent',
+      backgroundColor:
+        theme.color.screen.background[resolvedOptions.screenType],
+      borderBottomWidth: 0,
+      elevation: 0,
+      shadowOpacity: 0,
     },
     headerLeftContainerStyle: {
       paddingStart: size.spacing.md,
@@ -29,7 +45,13 @@ export const stackScreenOptions: (theme: Theme) => StackNavigationOptions =
       paddingEnd: size.spacing.md,
     },
     headerTitleAlign: 'center',
-  })
+    headerTitleStyle: {
+      color: theme.color.text.default,
+      fontFamily: font.weight.demi,
+      fontSize: theme.text.fontSize.h1,
+    },
+  }
+}
 
 export const tabScreenOptions: BottomTabNavigationOptions = {
   headerShown: false,

@@ -16,10 +16,6 @@ export const settingsRoutes: (
       cardStyle: {
         backgroundColor: theme.color.screen.background.settings,
       },
-      headerStyle: {
-        backgroundColor: theme.color.screen.background.settings,
-        shadowColor: 'transparent',
-      },
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
