@@ -3,7 +3,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
 import {ProjectManagerSummary} from '../../components/features/project-manager'
 import {Box, Button} from '../../components/ui'
 import {size} from '../../tokens'
@@ -29,7 +28,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => (
     <Box>
       <Button
         text="Sluit venster"
-        onPress={() => navigation.navigate(routes.home.name)}
+        onPress={() => navigation.navigate('Home')}
       />
     </Box>
   </View>
