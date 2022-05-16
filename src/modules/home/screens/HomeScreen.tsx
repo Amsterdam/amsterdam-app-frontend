@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../app/navigation'
+import {EnvironmentSelector} from '../../../components/features/EnvironmentSelector'
 import {AddButton, Box} from '../../../components/ui'
 import {Column, Gutter} from '../../../components/ui/layout'
 import {module as settingsModule} from '../../settings'
@@ -14,6 +15,7 @@ export const HomeScreen = () => {
   return (
     <Column align="between">
       <Modules />
+      <EnvironmentSelector />
       <Box>
         <AddButton onPress={() => navigation.navigate(settingsModule.name)} />
         <Gutter height="lg" />

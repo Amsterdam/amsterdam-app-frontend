@@ -2,14 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Amsterdam-app wil toegang tot je camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Amsterdam-app wil toegang tot je foto's</string>
+	<key>BUILD_VARIANT</key>
+	<string>$(BUILD_VARIANT)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>nl</string>
 	<key>CFBundleDisplayName</key>
-	<string>Amsterdam</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconName</key>
@@ -60,12 +58,17 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Amsterdam-app wil toegang tot je camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Amsterdam-app wil toegang tot je foto&apos;s</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AvenirNext-DemiBold.ttf</string>
 		<string>AvenirNext-Regular.ttf</string>
+		<string>AvenirNext-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

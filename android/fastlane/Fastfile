@@ -23,8 +23,7 @@ apps = [
     :build_type => "Release", 
     :flavor => "dev", 
     :distribute_to_stakeholders => false,
-    :distribute_to_production => false,
-    :firebase_app_id => "1:346299586823:android:68be9ab958539f98f44da2", 
+    :distribute_to_production => false, 
     :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/dev/app-dev-release.apk", 
     :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-dev-release.aab"
   },
@@ -36,7 +35,6 @@ apps = [
     :flavor => "prod", 
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
-    :firebase_app_id => "1:346299586823:android:68be9ab958539f98f44da2", 
     :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/prod/app-prod-release.apk", 
     :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-prod-release.aab"
   },

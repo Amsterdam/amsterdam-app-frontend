@@ -4,7 +4,13 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'StadsApp' do
+project 'AmsterdamApp',
+        'Debug' => :debug,
+        'DevDebug' => :debug,
+        'Release' => :release,
+        'DevRelease' => :release
+
+target 'AmsterdamApp' do
   pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
   config = use_native_modules!
 
@@ -23,7 +29,7 @@ target 'StadsApp' do
 
 
 
-  target 'StadsAppTests' do
+  target 'AmsterdamAppTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -32,7 +38,7 @@ target 'StadsApp' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  use_flipper!('Flipper' => '0.125.0', configurations: ['Debug', 'DevDebug'])
 
   post_install do |installer|
     react_native_post_install(installer)
