@@ -13,7 +13,9 @@ export const UserScreen = () => (
   <ScrollView>
     <Alert />
     <Column gutter="lg">
-      <Address />
+      <Box>
+        <Address />
+      </Box>
       <ProjectManagerSettingsSection />
       <NotificationsEnabledSettingsSection />
       <SubscribableProjects />

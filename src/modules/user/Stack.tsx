@@ -14,7 +14,9 @@ export const UserStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={user.name}
-      screenOptions={screenOptions(theme)}>
+      screenOptions={screenOptions(theme, {
+        screenType: 'settings',
+      })}>
       <Stack.Screen
         component={UserScreen}
         name={user.name}
