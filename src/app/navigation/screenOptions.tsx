@@ -14,7 +14,7 @@ const defaultOptions: Options = {
   screenType: 'default',
 }
 
-export const stackScreenOptions: (
+export const screenOptions: (
   theme: Theme,
   options?: Options,
 ) => StackNavigationOptions = (theme, options) => {
