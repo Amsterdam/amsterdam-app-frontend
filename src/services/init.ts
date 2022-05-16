@@ -18,7 +18,7 @@ const managerAuthorizedEndpoints = [
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
-  string | (FetchArgs & {api: keyof EnvironmentConfig}),
+  string | (FetchArgs & {api?: keyof EnvironmentConfig}),
   unknown,
   FetchBaseQueryError
 > = async (args, baseQueryApi, extraOptions) => {
