@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {stackScreenOptions} from '../../app/navigation'
+import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
 import {WasteGuideScreen} from './Screen'
 import {wasteGuideRoutes} from './routes'
@@ -15,7 +15,7 @@ export const WasteGuideStack = () => {
     <Stack.Navigator
       initialRouteName={wasteGuide.name}
       screenOptions={{
-        ...stackScreenOptions(theme),
+        ...screenOptions(theme),
       }}>
       <Stack.Screen
         component={WasteGuideScreen}

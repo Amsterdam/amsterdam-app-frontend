@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {stackScreenOptions} from '../../app/navigation'
+import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
 import {UserScreen} from './Screen'
 import {userRoutes} from './routes'
@@ -14,7 +14,7 @@ export const UserStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={user.name}
-      screenOptions={stackScreenOptions(theme)}>
+      screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={UserScreen}
         name={user.name}

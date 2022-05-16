@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {stackScreenOptions} from '../../app/navigation'
+import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
 import {ConstructionWorkScreen} from './Screen'
 import {constructionWorkRoutes as routes} from './routes'
@@ -13,7 +13,7 @@ export const ConstructionWorkStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={routes.home.name}
-      screenOptions={stackScreenOptions(theme)}>
+      screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={ConstructionWorkScreen}
         name={routes.home.name}

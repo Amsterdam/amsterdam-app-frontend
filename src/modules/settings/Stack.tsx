@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {stackScreenOptions} from '../../app/navigation'
+import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
 import {SettingsScreen} from './Screen'
 import {settingsRoutes} from './routes'
@@ -14,7 +14,7 @@ export const SettingsStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={routes.settings.name}
-      screenOptions={stackScreenOptions(theme, {
+      screenOptions={screenOptions(theme, {
         screenType: 'settings',
       })}>
       <Stack.Screen
