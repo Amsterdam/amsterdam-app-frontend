@@ -22,7 +22,7 @@ const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
   [Environment.Acceptance]: {
-    apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
+    apiUrl: 'https://api-test-backend.luscinia-solutions.com/api/v1',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     atlasUrl: 'https://api.data.amsterdam.nl/atlas',
@@ -30,7 +30,7 @@ const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },
   [Environment.Production]: {
-    apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
+    apiUrl: 'https://api-backend.luscinia-solutions.com/api/v1',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
     atlasUrl: 'https://api.data.amsterdam.nl/atlas',
