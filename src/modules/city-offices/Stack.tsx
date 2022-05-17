@@ -17,7 +17,10 @@ export const CityOfficesStack = () => {
       <Stack.Screen
         component={CityOfficesScreen}
         name={routes.cityOffices.name}
-        options={routes.cityOffices.options}
+        options={{
+          ...screenOptions(theme, {screenType: 'settings'}),
+          ...routes.cityOffices.options,
+        }}
       />
     </Stack.Navigator>
   )
