@@ -3,7 +3,11 @@ import React, {useContext} from 'react'
 import {screenOptions} from '../../app/navigation'
 import {ThemeContext} from '../../themes'
 import {cityOfficesRoutes as routes} from './routes'
-import {CityOfficesScreen, MakeAppointmentScreen} from './screens'
+import {
+  CityOfficesScreen,
+  ContactScreen,
+  MakeAppointmentScreen,
+} from './screens'
 
 const Stack = createStackNavigator()
 
@@ -20,6 +24,14 @@ export const CityOfficesStack = () => {
         options={{
           ...screenOptions(theme, {screenType: 'settings'}),
           ...routes.cityOffices.options,
+        }}
+      />
+      <Stack.Screen
+        component={ContactScreen}
+        name={routes.contact.name}
+        options={{
+          ...screenOptions(theme, {screenType: 'settings'}),
+          ...routes.contact.options,
         }}
       />
       <Stack.Screen
