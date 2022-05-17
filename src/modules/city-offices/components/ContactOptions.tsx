@@ -40,11 +40,9 @@ export const ContactOptions = () => {
         onPress: () => navigation.navigate(cityOfficesRoutes.contact.name),
       },
       contactProps: {
-        accessibilityTitle:
-          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
         icon: <Email fill={color.touchable.primary} />,
-        text: 'Reactie binnen twee uur',
-        title: 'WhatsApp 06 44 44 06 55',
+        text: 'Reactie binnen 1 werkdag',
+        title: 'Contactformulier',
       },
     },
     {
@@ -54,9 +52,10 @@ export const ContactOptions = () => {
         onPress: () => openPhoneUrl('+3114020'),
       },
       contactProps: {
+        accessibilityTitle: 'Bel veertien nul twintig',
         icon: <Phone fill={color.touchable.primary} />,
-        text: 'Reactie binnen 1 werkdag',
-        title: 'Contactformulier',
+        text: 'Gemiddeld 5 minuten wachten',
+        title: 'Bel 14 020',
       },
     },
     {
@@ -66,10 +65,11 @@ export const ContactOptions = () => {
         onPress: () => openWebUrl('https://wa.me/31644440655'),
       },
       contactProps: {
-        accessibilityTitle: 'Bel veertien nul twintig',
+        accessibilityTitle:
+          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
         icon: <Whatsapp fill={color.touchable.primary} />,
-        text: 'Gemiddeld 5 minuten wachten',
-        title: 'Bel 14 020',
+        text: 'Reactie binnen 2 uur',
+        title: 'WhatsApp 06 44 44 06 55',
       },
     },
   ]
