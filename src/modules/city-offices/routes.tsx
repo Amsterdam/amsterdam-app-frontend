@@ -3,15 +3,15 @@ import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
 type CityOfficesStackParams = {
-  CityOfficesHome: undefined
+  CityOffices: undefined
 }
 
 export const cityOfficesRoutes: StackNavigationRoutes<
   CityOfficesStackParams,
-  'home'
+  'cityOffices'
 > = {
-  home: {
-    name: 'CityOfficesHome',
+  cityOffices: {
+    name: 'CityOffices',
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
     },

@@ -12,12 +12,12 @@ export const CityOfficesStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.home.name}
+      initialRouteName={routes.cityOffices.name}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={CityOfficesScreen}
-        name={routes.home.name}
-        options={routes.home.options}
+        name={routes.cityOffices.name}
+        options={routes.cityOffices.options}
       />
     </Stack.Navigator>
   )
