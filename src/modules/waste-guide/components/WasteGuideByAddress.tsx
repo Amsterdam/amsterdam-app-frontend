@@ -2,10 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {AddressFormTeaser} from '../../../components/features/address'
-import {selectAddress} from '../../../components/features/address/addressSlice'
+import {RootStackParamList} from '../../../app/navigation'
 import {
   Box,
   Card,
@@ -19,14 +16,19 @@ import {
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
-import {WasteGuide, WasteGuideResponse, WasteType} from './types'
+import {selectAddress} from '../../address/addressSlice'
+import {module as addressModule} from '../../address/index'
+import {addressRoutes} from '../../address/routes'
+import {wasteGuideRoutes} from '../routes'
+import {WasteGuide, WasteGuideResponse, WasteType} from '../types'
+import {transformWasteGuideResponse} from '../utils'
+import {AddressFormTeaser} from './AddressFormTeaser'
 import {
-  transformWasteGuideResponse,
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
   WasteGuideCollectionPoints,
   WasteGuideContainers,
-} from './'
+} from '.'
 
 export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)
@@ -35,7 +37,7 @@ export const WasteGuideByAddress = () => {
     undefined,
   )
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'WasteGuide'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuide'>>()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -57,7 +59,10 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(routes.addressForm.name, {temp: true})
+    navigation.navigate(addressModule.name, {
+      screen: addressRoutes.addressForm.name,
+      temp: true,
+    })
   }
 
   if (!address) {
@@ -107,7 +112,9 @@ export const WasteGuideByAddress = () => {
                   details={wasteGuide[WasteType.Bulky]!}
                   footerLink={{
                     onPress: () =>
-                      navigation.navigate(routes.whereToPutBulkyWaste.name),
+                      navigation.navigate(
+                        wasteGuideRoutes.whereToPutBulkyWaste.name,
+                      ),
                     text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                   }}
                 />
@@ -128,13 +135,7 @@ export const WasteGuideByAddress = () => {
             <Gutter height="md" />
             <TextButton
               direction="forward"
-              onPress={() =>
-                navigation.navigate(routes.webView.name, {
-                  sliceFromTop: {portrait: 161, landscape: 207},
-                  title: 'Melden afvalinformatie',
-                  url: 'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/',
-                })
-              }
+              onPress={() => navigation.navigate('WasteGuideFeedback')}
               text="Kloppen de dagen of tijden niet?"
             />
           </>

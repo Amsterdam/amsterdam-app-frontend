@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet, View} from 'react-native'
-import {Box, Card, CardBody, Image, Text, Title} from '../../components/ui'
-import {Gutter} from '../../components/ui/layout'
+import {Box, Card, CardBody, Image, Text, Title} from '../../../components/ui'
+import {Gutter} from '../../../components/ui/layout'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <ScrollView>
@@ -18,7 +18,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         <CardBody>
           <View style={styles.figure}>
             <Image
-              source={require('../../assets/images/grofafval-buiten.png')}
+              source={require('../../../assets/images/grofafval-buiten.png')}
               style={styles.image}
             />
           </View>
@@ -36,7 +36,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         <CardBody>
           <View style={styles.figure}>
             <Image
-              source={require('../../assets/images/grofafval-afvalpunt.png')}
+              source={require('../../../assets/images/grofafval-afvalpunt.png')}
               style={styles.image}
             />
           </View>

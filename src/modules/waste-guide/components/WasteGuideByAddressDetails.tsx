@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
+import {RootStackParamList} from '../../../app/navigation'
 import {
   Button,
   Card,
@@ -13,7 +12,8 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {WasteGuideDetails} from './types'
+import {wasteGuideRoutes} from '../routes'
+import {WasteGuideDetails} from '../types'
 
 type Props = {
   details: WasteGuideDetails
@@ -25,7 +25,7 @@ type Props = {
 
 export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'WasteGuide'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
 
   const {
     appointmentUrl,
@@ -70,11 +70,10 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
             <Column halign="start">
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.webView.name, {
-                    sliceFromTop: {portrait: 162, landscape: 208},
-                    title: 'Afspraak grof afval ophalen',
-                    url: appointmentUrl,
-                  })
+                  navigation.navigate(
+                    wasteGuideRoutes.bulkyWasteAppointment.name,
+                    {appointmentUrl},
+                  )
                 }
                 text="Maak een afspraak"
               />

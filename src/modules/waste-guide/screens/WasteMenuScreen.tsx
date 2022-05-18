@@ -4,12 +4,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
-import {BulkyWaste, Container} from '../../assets/icons'
-import {TileButton, TileButtonProps} from '../../components/ui'
-import {DeviceContext} from '../../providers'
-import {color, size} from '../../tokens'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {BulkyWaste, Container} from '../../../assets/icons'
+import {TileButton, TileButtonProps} from '../../../components/ui'
+import {DeviceContext} from '../../../providers'
+import {color, size} from '../../../tokens'
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'WasteGuide'>
