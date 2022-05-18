@@ -24,7 +24,7 @@ export const ModuleButton = ({icon, label, name}: Props) => {
       activeOpacity={1}
       onPress={name ? () => navigation.navigate(name) : undefined}
       style={styles.button}
-      underlayColor={theme.color.box.background.grey}>
+      underlayColor={theme.color.pressable.pressed.background}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h5" text={label} />
