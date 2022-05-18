@@ -59,17 +59,17 @@ export const SelectModules = () => {
   )
 }
 
-const createIconProps = (theme: Theme) => ({
+const createIconProps = ({color}: Theme) => ({
   width: 24,
   aspectRatio: 1,
-  fill: theme.color.text.default,
+  fill: color.text.default,
 })
 
-const createStyles = (theme: Theme) =>
+const createStyles = ({size}: Theme) =>
   StyleSheet.create({
     tooltipContainer: {
-      marginTop: theme.size.spacing.md,
-      marginBottom: theme.size.spacing.sm,
-      marginHorizontal: theme.size.spacing.lg,
+      marginTop: size.spacing.md,
+      marginBottom: size.spacing.sm,
+      marginHorizontal: size.spacing.lg,
     },
   })

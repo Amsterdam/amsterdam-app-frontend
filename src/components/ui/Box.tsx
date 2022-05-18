@@ -35,16 +35,13 @@ export const Box = ({
 
 const createStyles =
   ({background, inset, insetHorizontal, insetVertical}: Partial<Props>) =>
-  (theme: Theme) =>
+  ({color, size}: Theme) =>
     StyleSheet.create({
       box: {
-        backgroundColor: background && theme.color.box.background[background],
+        backgroundColor: background && color.box.background[background],
         padding:
-          inset && !insetHorizontal && !insetVertical
-            ? theme.size.spacing[inset]
-            : 0,
-        paddingHorizontal:
-          insetHorizontal && theme.size.spacing[insetHorizontal],
-        paddingVertical: insetVertical && theme.size.spacing[insetVertical],
+          inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
+        paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
+        paddingVertical: insetVertical && size.spacing[insetVertical],
       },
     })

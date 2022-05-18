@@ -85,11 +85,11 @@ export const Modules = () => {
   )
 }
 
-const createStyles = (theme: Theme) =>
+const createStyles = ({size}: Theme) =>
   StyleSheet.create({
     box: {
       flex: 1,
-      padding: theme.size.spacing.md,
+      padding: size.spacing.md,
       backgroundColor: '#000',
     },
     figure: {
@@ -101,6 +101,6 @@ const createStyles = (theme: Theme) =>
       flexShrink: 1,
     },
     list: {
-      paddingVertical: theme.size.spacing.md,
+      paddingVertical: size.spacing.md,
     },
   })

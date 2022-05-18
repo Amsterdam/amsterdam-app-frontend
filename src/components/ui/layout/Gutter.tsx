@@ -16,10 +16,10 @@ export const Gutter = ({width, height}: Props) => {
 
 const createStyles =
   ({width, height}: Props) =>
-  (theme: Theme) =>
+  ({size}: Theme) =>
     StyleSheet.create({
       gutter: {
-        width: width && theme.size.spacing[width],
-        height: height && theme.size.spacing[height],
+        width: width && size.spacing[width],
+        height: height && size.spacing[height],
       },
     })
