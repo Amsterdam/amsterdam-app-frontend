@@ -16,10 +16,15 @@ export const lightColorTokens = {
       white: baseColor.primary.white,
     },
   },
+  pressable: {
+    pressed: {
+      background: baseColor.custom.grey1,
+    },
+  },
   screen: {
     background: {
       default: baseColor.primary.white,
-      settings: '#f3f5f7',
+      settings: baseColor.custom.grey1,
     },
   },
   text: {

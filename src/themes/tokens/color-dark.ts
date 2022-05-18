@@ -15,6 +15,11 @@ export const darkColorTokens: ColorTokens = {
       white: baseColor.primary.white,
     },
   },
+  pressable: {
+    pressed: {
+      background: baseColor.neutral.grey5,
+    },
+  },
   screen: {
     background: {
       default: baseColor.neutral.grey5,

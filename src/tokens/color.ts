@@ -27,6 +27,9 @@ export const baseColor = {
     purple: '#a00078',
     yellow: '#ffe600',
   },
+  custom: {
+    grey1: '#f3f5f7',
+  },
 }
 
 export const color = {
