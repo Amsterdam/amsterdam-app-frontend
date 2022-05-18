@@ -33,8 +33,8 @@ export const WasteGuideStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={wasteGuide.name}
-      screenOptions={screenOptions(theme, {screenType: 'settings'})}>
+      initialRouteName={wasteMenu.name}
+      screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={BulkyWasteAppointmentScreen}
         name={bulkyWasteAppointment.name}
@@ -53,7 +53,10 @@ export const WasteGuideStack = () => {
       <Stack.Screen
         component={WasteGuideScreen}
         name={wasteGuide.name}
-        options={wasteGuide.options}
+        options={{
+          ...screenOptions(theme, {screenType: 'settings'}),
+          ...wasteGuide.options,
+        }}
       />
       <Stack.Screen
         component={WasteGuideCollectionPointsScreen}
