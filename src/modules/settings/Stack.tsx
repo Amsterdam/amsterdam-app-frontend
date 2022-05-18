@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {SettingsScreen} from './Screen'
+import {OldSettingsScreen} from './Screen'
 import {settingsRoutes} from './routes'
 
 const Stack = createStackNavigator()
@@ -19,7 +19,7 @@ export const SettingsStack = () => {
         screenType: 'settings',
       })}>
       <Stack.Screen
-        component={SettingsScreen}
+        component={OldSettingsScreen}
         name={routes.settings.name}
         options={routes.settings.options}
       />
