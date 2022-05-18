@@ -77,11 +77,12 @@ export const Modules = () => {
   }
 
   return (
-    <FlatList
-      contentContainerStyle={styles.list}
-      data={availableModules}
-      renderItem={({item}) => renderModuleButton(item)}
-    />
+    <Box>
+      <FlatList
+        data={availableModules}
+        renderItem={({item}) => renderModuleButton(item)}
+      />
+    </Box>
   )
 }
 
@@ -99,8 +100,5 @@ const createStyles = ({size}: Theme) =>
     image: {
       aspectRatio: 1080 / 1920,
       flexShrink: 1,
-    },
-    list: {
-      paddingVertical: size.spacing.md,
     },
   })
