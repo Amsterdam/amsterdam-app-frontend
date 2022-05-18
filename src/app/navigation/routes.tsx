@@ -62,14 +62,8 @@ const homeRoutes: StackNavigationRoutes<
 
 const menuRoutes: StackNavigationRoutes<
   MenuStackParams,
-  'contact' | 'menu' | 'writingGuide'
+  'menu' | 'writingGuide'
 > = {
-  contact: {
-    name: 'Contact',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Contact" />,
-    },
-  },
   menu: {
     name: 'Menu',
     options: {

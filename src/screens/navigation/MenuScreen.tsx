@@ -1,4 +1,3 @@
-import Chatting from '@amsterdam/asc-assets/static/icons/Chatting.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
@@ -29,11 +28,6 @@ export const MenuScreen = ({navigation}: Props) => {
       icon: <Project {...iconProps} />,
       label: 'Bouwprojecten',
       onPress: () => navigation.navigate(routes.projects.name),
-    },
-    {
-      icon: <Chatting {...iconProps} />,
-      label: 'Contact',
-      onPress: () => navigation.navigate(routes.contact.name),
     },
   ]
 

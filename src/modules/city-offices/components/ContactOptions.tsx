@@ -6,14 +6,14 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
+import {RootStackParamList} from '../../../app/navigation'
 import {Instagram, Whatsapp} from '../../../assets/icons'
+import {Box, Title} from '../../../components/ui'
+import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {color} from '../../../tokens'
 import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
-import {Box, Title} from '../../ui'
-import {Column, Gutter, Row} from '../../ui/layout'
+import {cityOfficesRoutes} from '../routes'
 import {ContactOption} from './ContactOption'
 
 type ContactOptionType = {
@@ -28,26 +28,21 @@ type ContactOptionType = {
 
 export const ContactOptions = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, 'CityOfficesModule'>
+    >()
 
   const contactOptions: ContactOptionType[] = [
     {
       buttonProps: {
         accessibilityRole: 'button',
         key: 'email',
-        onPress: () =>
-          navigation.navigate(routes.webView.name, {
-            sliceFromTop: {portrait: 50, landscape: 50},
-            title: 'Neem contact op',
-            url: 'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
-          }),
+        onPress: () => navigation.navigate(cityOfficesRoutes.contact.name),
       },
       contactProps: {
-        accessibilityTitle:
-          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
         icon: <Email fill={color.touchable.primary} />,
-        text: 'Reactie binnen twee uur',
-        title: 'WhatsApp 06 44 44 06 55',
+        text: 'Reactie binnen 1 werkdag',
+        title: 'Contactformulier',
       },
     },
     {
@@ -57,9 +52,10 @@ export const ContactOptions = () => {
         onPress: () => openPhoneUrl('+3114020'),
       },
       contactProps: {
+        accessibilityTitle: 'Bel veertien nul twintig',
         icon: <Phone fill={color.touchable.primary} />,
-        text: 'Reactie binnen 1 werkdag',
-        title: 'Contactformulier',
+        text: 'Gemiddeld 5 minuten wachten',
+        title: 'Bel 14 020',
       },
     },
     {
@@ -69,10 +65,11 @@ export const ContactOptions = () => {
         onPress: () => openWebUrl('https://wa.me/31644440655'),
       },
       contactProps: {
-        accessibilityTitle: 'Bel veertien nul twintig',
+        accessibilityTitle:
+          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
         icon: <Whatsapp fill={color.touchable.primary} />,
-        text: 'Gemiddeld 5 minuten wachten',
-        title: 'Bel 14 020',
+        text: 'Reactie binnen 2 uur',
+        title: 'WhatsApp 06 44 44 06 55',
       },
     },
   ]

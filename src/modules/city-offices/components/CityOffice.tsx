@@ -2,11 +2,7 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {useGetCityOfficeQuery} from '../../../services'
-import {ImageSources} from '../../../types'
-import {accessibleText, mapImageSources} from '../../../utils'
+import {RootStackParamList} from '../../../app/navigation'
 import {
   Attention,
   Button,
@@ -17,8 +13,12 @@ import {
   SingleSelectable,
   Text,
   Title,
-} from '../../ui'
-import {Column} from '../../ui/layout'
+} from '../../../components/ui'
+import {Column} from '../../../components/ui/layout'
+import {ImageSources} from '../../../types'
+import {accessibleText, mapImageSources} from '../../../utils'
+import {cityOfficesRoutes} from '../routes'
+import {useGetCityOfficeQuery} from '../services'
 
 type Props = {
   id: string
@@ -26,7 +26,9 @@ type Props = {
 
 export const CityOffice = ({id}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Contact'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, 'CityOfficesModule'>
+    >()
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =
     useGetCityOfficeQuery(id)
@@ -87,11 +89,7 @@ export const CityOffice = ({id}: Props) => {
           <Column halign="start">
             <Button
               onPress={() =>
-                navigation.navigate(routes.webView.name, {
-                  sliceFromTop: {portrait: 162, landscape: 208},
-                  title: 'Maak een afspraak',
-                  url: 'https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/',
-                })
+                navigation.navigate(cityOfficesRoutes.makeAppointment.name)
               }
               text="Maak een afspraak"
             />

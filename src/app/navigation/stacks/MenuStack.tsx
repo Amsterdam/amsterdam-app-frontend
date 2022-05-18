@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {getSharedScreens, screenOptions} from '../'
-import {ContactScreen, MenuScreen} from '../../../screens'
+import {MenuScreen} from '../../../screens'
 import {ThemeContext} from '../../../themes'
 import {routes} from '../routes'
 
@@ -14,11 +14,6 @@ export const MenuStack = () => {
     <Stack.Navigator
       initialRouteName={routes.menu.name}
       screenOptions={screenOptions(theme)}>
-      <Stack.Screen
-        component={ContactScreen}
-        name={routes.contact.name}
-        options={routes.contact.options}
-      />
       <Stack.Screen
         component={MenuScreen}
         name={routes.menu.name}

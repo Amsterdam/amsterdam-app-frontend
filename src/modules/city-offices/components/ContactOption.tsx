@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Box, Text, Title} from '../../ui'
-import {Row} from '../../ui/layout'
+import {Box, Text, Title} from '../../../components/ui'
+import {Row} from '../../../components/ui/layout'
 
 type Props = {
   icon: ReactNode
