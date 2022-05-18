@@ -1,6 +1,5 @@
 import React from 'react'
 import {VersionInfo} from '../../components/features'
-import {Address} from '../../components/features/address'
 import {
   NotificationsEnabledSettingsSection,
   ProjectManagerSettingsSection,
@@ -8,6 +7,7 @@ import {
 } from '../../components/features/settings'
 import {Alert, Box} from '../../components/ui'
 import {Column, Gutter, ScrollView} from '../../components/ui/layout'
+import {Address} from '../address/components'
 
 export const UserScreen = () => (
   <ScrollView>

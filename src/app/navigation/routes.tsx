@@ -87,8 +87,6 @@ const menuRoutes: StackNavigationRoutes<
 
 const sharedRoutes: StackNavigationRoutes<
   SharedStackParams,
-  | 'addressInfo'
-  | 'addressForm'
   | 'notification'
   | 'notificationOverview'
   | 'projectDetail'
@@ -98,31 +96,8 @@ const sharedRoutes: StackNavigationRoutes<
   | 'projects'
   | 'projectWarning'
   | 'settings'
-  | 'wasteGuide'
-  | 'wasteMenu'
   | 'webView'
-  | 'whereToPutBulkyWaste'
 > = {
-  addressInfo: {
-    name: 'AddressInfo',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerShown: false,
-      presentation: 'modal',
-    },
-  },
-  addressForm: {
-    name: 'AddressForm',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      presentation: 'modal',
-      headerTitle: () => <NonScalingHeaderTitle text="Uw adres" />,
-    },
-  },
   notification: {
     name: 'Notification',
     options: {
@@ -189,31 +164,8 @@ const sharedRoutes: StackNavigationRoutes<
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },
   },
-  wasteGuide: {
-    name: 'WasteGuide',
-    options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Afvalinformatie op adres" />
-      ),
-    },
-  },
-  wasteMenu: {
-    name: 'WasteMenu',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
-    },
-  },
   webView: {
     name: 'WebView',
-  },
-  whereToPutBulkyWaste: {
-    name: 'WhereToPutBulkyWaste',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
-    },
   },
 }
 

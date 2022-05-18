@@ -1,8 +1,8 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {selectAddress} from '../../components/features/address/addressSlice'
 import {WebView} from '../../components/ui'
 import {getEnvironment} from '../../environment'
+import {selectAddress} from '../address/addressSlice'
 
 export const ReportProblemScreen = () => {
   const {primary: address} = useSelector(selectAddress)
