@@ -5,10 +5,10 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
+import {selectAddress} from '../../../modules/address/addressSlice'
 import {color} from '../../../tokens'
 import {Button} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
-import {selectAddress} from '../address/addressSlice'
 
 export const ProvideAddressButton = () => {
   const {primary: address} = useSelector(selectAddress)

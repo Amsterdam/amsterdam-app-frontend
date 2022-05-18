@@ -9,10 +9,10 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'
-import {addressSlice} from '../components/features/address/addressSlice'
 import {notificationsSlice} from '../components/features/notifications'
 import {projectManagerSlice} from '../components/features/project-manager'
 import {projectsByTextSlice} from '../components/features/projects'
+import {addressSlice} from '../modules/address/addressSlice'
 import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {baseApi} from '../services/init'
