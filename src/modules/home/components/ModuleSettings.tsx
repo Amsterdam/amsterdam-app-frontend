@@ -11,7 +11,7 @@ import {selectModules, toggleModule} from '../store'
 import serverModulesMock from '../store/server-modules.mock.json'
 import {ModuleBox} from './'
 
-export const SelectModules = () => {
+export const ModuleSettings = () => {
   const dispatch = useDispatch()
   const {modules} = useSelector(selectModules)
 

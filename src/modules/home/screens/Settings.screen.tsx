@@ -1,9 +1,9 @@
 import React from 'react'
 import {ScrollView} from '../../../components/ui/layout'
-import {SelectModules} from '../components'
+import {ModuleSettings} from '../components'
 
-export const SelectModulesScreen = () => (
+export const SettingsScreen = () => (
   <ScrollView>
-    <SelectModules />
+    <ModuleSettings />
   </ScrollView>
 )

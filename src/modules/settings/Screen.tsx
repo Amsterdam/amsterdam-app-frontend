@@ -1,4 +1,4 @@
 import React from 'react'
-import {SelectModulesScreen} from '../home/screens'
+import {SettingsScreen} from '../home/screens'
 
-export const SettingsScreen = () => <SelectModulesScreen />
+export const SettingsScreen = () => <SettingsScreen />
