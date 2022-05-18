@@ -4,8 +4,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
 import {selectAddress} from '../../../modules/address/addressSlice'
+import {addressRoutes} from '../../../modules/address/routes'
 import {color} from '../../../tokens'
 import {Button} from '../../ui'
 import {Gutter, Row} from '../../ui/layout'
@@ -24,7 +24,7 @@ export const ProvideAddressButton = () => {
       <Gutter height="md" />
       <Row align="start">
         <Button
-          onPress={() => navigation.navigate(routes.addressForm.name)}
+          onPress={() => navigation.navigate(addressRoutes.addressForm.name)}
           icon={<Location fill={color.font.inverse} />}
           text="Vul uw adres in"
         />
