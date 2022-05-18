@@ -1,18 +1,10 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {
-  AddressPrivacyInfoScreen,
-  NotificationOverviewScreen,
-  WasteGuideScreen,
-  WasteMenuScreen,
-  WebViewScreen,
-  WhereToPutBulkyWasteScreen,
-} from '../../../screens'
+import {NotificationOverviewScreen, WebViewScreen} from '../../../screens'
 import {
   CreateNotificationScreen,
   WritingGuideScreen,
 } from '../../../screens/create-notification'
-import {AddressFormScreen} from '../../../screens/modals/AddressFormScreen'
 import {
   AuthorizedProjectsScreen,
   ProjectDetailBodyScreen,
@@ -28,16 +20,6 @@ export const getSharedScreens = (
   Stack: ReturnType<typeof createStackNavigator>,
 ) => (
   <>
-    <Stack.Screen
-      component={AddressPrivacyInfoScreen}
-      name={routes.addressInfo.name}
-      options={routes.addressInfo.options}
-    />
-    <Stack.Screen
-      component={AddressFormScreen}
-      name={routes.addressForm.name}
-      options={routes.addressForm.options}
-    />
     <Stack.Screen
       component={AuthorizedProjectsScreen}
       name={routes.authorizedProjects.name}
@@ -84,24 +66,9 @@ export const getSharedScreens = (
       options={routes.projectWarning.options}
     />
     <Stack.Screen
-      component={WasteGuideScreen}
-      name={routes.wasteGuide.name}
-      options={routes.wasteGuide.options}
-    />
-    <Stack.Screen
-      component={WasteMenuScreen}
-      name={routes.wasteMenu.name}
-      options={routes.wasteMenu.options}
-    />
-    <Stack.Screen
       component={WebViewScreen}
       name={routes.webView.name}
       options={routes.webView.options}
-    />
-    <Stack.Screen
-      component={WhereToPutBulkyWasteScreen}
-      name={routes.whereToPutBulkyWaste.name}
-      options={routes.whereToPutBulkyWaste.options}
     />
     <Stack.Screen
       component={WritingGuideScreen}
