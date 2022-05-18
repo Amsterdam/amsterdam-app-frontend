@@ -1,8 +1,8 @@
 import React from 'react'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {List} from '../../../components/ui'
+import {TextInput} from '../../../components/ui/forms'
 import {BagResponseContent} from '../../../types'
-import {List} from '../../ui'
-import {TextInput} from '../../ui/forms'
 import {SuggestionButton} from './SuggestionButton'
 
 type Props = {

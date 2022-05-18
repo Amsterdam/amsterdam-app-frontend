@@ -4,12 +4,12 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
+import {Box} from '../../../components/ui'
 import {useAsyncStorage} from '../../../hooks'
 import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
 import {BagResponseContent} from '../../../types'
-import {Box} from '../../ui'
-import {addAddress, addTempAddress} from './addressSlice'
-import {NumberInput, StreetInput} from './'
+import {addAddress, addTempAddress} from '../addressSlice'
+import {NumberInput, StreetInput} from '.'
 
 type Props = {
   temp?: boolean

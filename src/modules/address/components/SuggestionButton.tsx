@@ -1,9 +1,9 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
+import {Text} from '../../../components/ui'
+import {Row} from '../../../components/ui/layout'
 import {color, size} from '../../../tokens'
-import {Text} from '../../ui'
-import {Row} from '../../ui/layout'
 
 type Props = {
   label: string
