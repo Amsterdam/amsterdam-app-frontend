@@ -1,6 +1,3 @@
-export * from './AddressPrivacyInfoScreen'
-export * from './HomeScreen'
 export * from './WebViewScreen'
 export * from './navigation/MenuScreen'
 export * from './notifications/NotificationOverviewScreen'
-export * from './waste/'
