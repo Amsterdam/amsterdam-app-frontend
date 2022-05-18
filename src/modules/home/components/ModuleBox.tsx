@@ -25,13 +25,13 @@ export const ModuleBox = ({children, expandedChildren, selected}: Props) => {
 // TODO Transition background and border colors
 const createStyles =
   ({selected}: Partial<Props>) =>
-  (theme: Theme) => {
+  ({color, size}: Theme) => {
     const borderWidth = 1
-    const backgroundColor = selected ? theme.color.background.cutout : undefined
+    const backgroundColor = selected ? color.background.cutout : undefined
 
     return StyleSheet.create({
       container: {
-        padding: theme.size.spacing.md - borderWidth,
+        padding: size.spacing.md - borderWidth,
         backgroundColor,
         borderWidth,
         borderStyle: 'dashed',

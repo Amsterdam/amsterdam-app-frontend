@@ -23,12 +23,12 @@ export const Title = ({level, text}: Props) => {
 // TODO Transition text color
 const createStyles =
   ({level}: Required<Pick<Props, 'level'>>) =>
-  (theme: Theme) =>
+  ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
-        color: theme.color.text.default,
+        color: color.text.default,
         fontFamily: font.weight.bold,
-        fontSize: theme.text.fontSize[level],
-        lineHeight: theme.text.lineHeight[level] * theme.text.fontSize[level],
+        fontSize: text.fontSize[level],
+        lineHeight: text.lineHeight[level] * text.fontSize[level],
       },
     })

@@ -9,12 +9,12 @@ type SettingsStackParams = {
 
 export const settingsRoutes: (
   theme: Theme,
-) => StackNavigationRoutes<SettingsStackParams, 'settings'> = theme => ({
+) => StackNavigationRoutes<SettingsStackParams, 'settings'> = ({color}) => ({
   settings: {
     name: 'Settings',
     options: {
       cardStyle: {
-        backgroundColor: theme.color.screen.background.settings,
+        backgroundColor: color.screen.background.settings,
       },
       headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
     },

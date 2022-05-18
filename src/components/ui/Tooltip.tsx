@@ -17,10 +17,10 @@ export const Tooltip = ({text}: Props) => {
   )
 }
 
-const createStyles = (theme: Theme) =>
+const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
     tooltip: {
-      padding: theme.size.spacing.md,
-      backgroundColor: theme.color.background.inverted,
+      padding: size.spacing.md,
+      backgroundColor: color.background.inverted,
     },
   })
