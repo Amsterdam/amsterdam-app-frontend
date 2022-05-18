@@ -5,7 +5,7 @@ import {module as homeModule} from '../../modules/home'
 
 const moduleNames = clientModules.map(module => module.name)
 
-export type RootStackParamList = Record<typeof moduleNames[number], undefined>
+export type RootStackParamList = Record<typeof moduleNames[number], any>
 
 const Stack = createStackNavigator<RootStackParamList>()
 
