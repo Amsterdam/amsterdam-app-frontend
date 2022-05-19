@@ -22,7 +22,7 @@ apps = [
     :scheme => "AmsterdamApp Test",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
-    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/AmsterdamApp Test.ipa"
+    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/AmsterdamApp_Test.ipa"
   },
   {
     :name => "amsterdam",
@@ -79,7 +79,7 @@ platform :ios do
           duration: 1200
         )
         upload_to_testflight(
-          ipa: ipa_path,
+          ipa: app[:ipa_path],
           groups: 'AmsterdamApp-scrumteam',
           app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build]
