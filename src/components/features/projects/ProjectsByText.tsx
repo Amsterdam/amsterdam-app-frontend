@@ -9,6 +9,7 @@ import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
 import {DeviceContext} from '../../../providers'
 import {useGetProjectsByTextQuery} from '../../../services'
+import {useEnvironment} from '../../../store'
 import {layoutStyles} from '../../../styles'
 import {size} from '../../../tokens'
 import {Project} from '../../../types'
@@ -40,6 +41,8 @@ export const ProjectsByText = () => {
     isError,
   } = useGetProjectsByTextQuery(params ?? skipToken)
 
+  const environment = useEnvironment()
+
   if (!searchText) {
     return null
   }
@@ -70,7 +73,8 @@ export const ProjectsByText = () => {
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
       imageSource={
-        project.images?.[0] && mapImageSources(project.images[0].sources)
+        project.images?.[0] &&
+        mapImageSources(project.images[0].sources, environment)
       }
       onPress={() =>
         navigation.navigate(routes.projectDetail.name, {

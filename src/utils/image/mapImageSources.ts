@@ -1,11 +1,12 @@
 import {ImageURISource} from 'react-native'
-import {getEnvironment} from '../../environment'
 import {image} from '../../tokens'
 import {ImageSources, ProjectWarningImageSources} from '../../types'
+import {EnvironmentConfig} from './../../environment'
 
-type Signature = (sources: ImageSources | undefined) => ImageURISource[]
-
-export const mapImageSources: Signature = sources => {
+export const mapImageSources = (
+  sources: ImageSources | undefined,
+  environment: EnvironmentConfig,
+): ImageURISource[] => {
   if (sources === undefined) {
     return [{} as ImageURISource]
   }
@@ -14,7 +15,7 @@ export const mapImageSources: Signature = sources => {
     const width: number = size === 'orig' ? 940 : parseInt(size, 10)
 
     const imageSource: ImageURISource = {
-      uri: getEnvironment().apiUrl + '/image?id=' + source.image_id,
+      uri: environment.apiUrl + '/image?id=' + source.image_id,
       width,
       height: Math.floor(width / image.aspectRatio.wide),
     }
@@ -23,11 +24,10 @@ export const mapImageSources: Signature = sources => {
   })
 }
 
-type MapWarningImageSources = (
+export const mapWarningImageSources = (
   sources: ProjectWarningImageSources | undefined,
-) => ImageURISource[]
-
-export const mapWarningImageSources: MapWarningImageSources = sources => {
+  environment: EnvironmentConfig,
+): ImageURISource[] => {
   if (sources === undefined) {
     return [{} as ImageURISource]
   }
@@ -36,7 +36,7 @@ export const mapWarningImageSources: MapWarningImageSources = sources => {
     const width: number = size === 'orig' ? 940 : parseInt(size, 10)
 
     const imageSource: ImageURISource = {
-      uri: getEnvironment().apiUrl + '/image?id=' + source.image_id,
+      uri: environment.apiUrl + '/image?id=' + source.image_id,
       width,
       height: Math.floor(width / image.aspectRatio.wide),
     }

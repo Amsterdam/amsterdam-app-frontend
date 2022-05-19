@@ -15,6 +15,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column} from '../../../components/ui/layout'
+import {useEnvironment} from '../../../store'
 import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {cityOfficesRoutes} from '../routes'
@@ -32,6 +33,8 @@ export const CityOffice = ({id}: Props) => {
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =
     useGetCityOfficeQuery(id)
+
+  const environment = useEnvironment()
 
   if (isCityOfficeLoading) {
     return <PleaseWait />
@@ -56,7 +59,9 @@ export const CityOffice = ({id}: Props) => {
 
   return (
     <Card>
-      {hasImage && <Image source={mapImageSources(imageSources)} />}
+      {!!hasImage && (
+        <Image source={mapImageSources(imageSources, environment)} />
+      )}
       <CardBody>
         <Column gutter="md">
           <View>

@@ -1,2 +1,2 @@
 json_key_file("./certs/api-5152920179310760437-158079-bad988ebb867.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name("com.stadsapp") # e.g. com.krausefx.app
+package_name("nl.amsterdam.app") # e.g. com.krausefx.app

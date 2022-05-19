@@ -5,6 +5,12 @@ parameters:
 
 steps:
   - template: ./install-node.yml
+  - script: echo "##vso[task.setvariable variable=VERSION;]$(node ./nodescripts/version-number.js)"
+    displayName: "Get version number"
+  - script: echo "$(VERSION)" > $(Build.ArtifactStagingDirectory)/version.txt
+    displayName: "Save version number"
+  - script: echo "##vso[build.updatebuildnumber]$(VERSION)"
+    displayName: "Update Azure Buildnumber"
   - template: ./copy-android-files.yml
     parameters: 
       condition: eq('${{ parameters.platform }}', 'android')

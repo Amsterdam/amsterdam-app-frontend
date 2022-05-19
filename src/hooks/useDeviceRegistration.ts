@@ -2,7 +2,7 @@ import messaging from '@react-native-firebase/messaging'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {getSubscribedProjects} from '../components/features/settings/'
-import {getEnvironment} from '../environment'
+import {useEnvironment} from '../store'
 import {DeviceRegistration, NotificationSettings, Settings} from '../types'
 import {getFcmToken, mapPermissionStatus, Permission} from '../utils'
 import {getAuthToken} from '../utils'
@@ -17,8 +17,10 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
   const authToken = getAuthToken(process.env.AUTH_SHARED_SECRET)
 
+  const environment = useEnvironment()
+
   const registerDevice = useFetch<DeviceRegistration>({
-    url: getEnvironment().apiUrl + '/device_registration',
+    url: environment.apiUrl + '/device_registration',
     options: {
       method: 'POST',
       headers: new Headers({
@@ -30,7 +32,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
   })
 
   const patchApi = useFetch<DeviceRegistration>({
-    url: getEnvironment().apiUrl + '/device_registration',
+    url: environment.apiUrl + '/device_registration',
     options: {
       method: 'PATCH',
       headers: new Headers({

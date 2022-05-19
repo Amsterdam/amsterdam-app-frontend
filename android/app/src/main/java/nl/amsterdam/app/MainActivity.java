@@ -1,4 +1,4 @@
-package com.stadsapp;
+package nl.amsterdam.app;
 
 // Needed by react-navigation:
 import android.os.Bundle;
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "StadsApp";
+    return "AmsterdamApp";
   }
 
   /**

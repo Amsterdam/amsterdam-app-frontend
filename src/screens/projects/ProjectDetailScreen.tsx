@@ -26,6 +26,7 @@ import {
 import {Switch} from '../../components/ui/forms'
 import {Column, Gutter} from '../../components/ui/layout'
 import {useGetProjectQuery} from '../../services'
+import {useEnvironment} from '../../store'
 import {image} from '../../tokens'
 import {accessibleText, mapImageSources} from '../../utils'
 
@@ -59,6 +60,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     dispatch(toggleProject(projectId))
   }
 
+  const environment = useEnvironment()
+
   if (isLoading) {
     return <PleaseWait />
   }
@@ -71,7 +74,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <ScrollView>
       {project.images.length && (
         <Image
-          source={mapImageSources(project.images[0].sources)}
+          source={mapImageSources(project.images[0].sources, environment)}
           style={styles.image}
         />
       )}

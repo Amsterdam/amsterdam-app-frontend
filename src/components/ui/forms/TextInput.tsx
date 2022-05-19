@@ -1,5 +1,5 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import React, {forwardRef, useState} from 'react'
+import React, {forwardRef, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
@@ -32,12 +32,17 @@ export const TextInput = forwardRef(
       onChangeText,
       onFocus,
       warning,
+      value: valueProp = '',
       ...otherProps
     }: Props,
     ref: any,
   ) => {
     const [hasFocus, setFocus] = useState(false)
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState(valueProp)
+
+    useEffect(() => {
+      setValue(valueProp)
+    }, [valueProp])
 
     const handleBlur = () => setFocus(false)
 

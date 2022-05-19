@@ -28,6 +28,8 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 Secret files included are:
 
 - android/app/google-services.json
+- android/app/src/dev/google-services.json
+- ios/GoogleService-Info.plist
 
 ### Environment variables
 
@@ -44,7 +46,7 @@ A continuous integration & deployment pipeline using Azure DevOps and [Fastlane]
 
 ### Azure DevOps
 
-The configuration of the pipeline is in `azure-pipelines.yml`.
+The configuration of the pipelines is in `/pipelines/`.
 From here we run Fastlane for iOS and for Android.
 The pipeline has access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard.
 
@@ -117,7 +119,7 @@ The version of the Scrum-team release has a digit extra, so 4 in total.
 #### Stakeholders
 
 - Version number is 0.\[sprint\]
-- Once uploaded to App Store connect, go to Testflight and add the group "Stadsapp-stakholders"
+- Approve the stage Distribute to Stakeholders in the release pipelines in Azure DevOps
 
 ## Git
 
@@ -133,7 +135,7 @@ We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing
 To test push notifications locally, do the following:
 
 1. Log into Chrome with the Team Communicare account
-2. Go to https://developers.google.com/oauthplayground/
+2. Go to <https://developers.google.com/oauthplayground/>
 3. Fill in for scope: `https://www.googleapis.com/auth/firebase.messaging`
 4. Select Team Communicare account
 5. Click button ‘Exchange authorization code for tokens’ and get the `access_token`

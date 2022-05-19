@@ -13,5 +13,3 @@ steps:
     inputs:
       contents: "${{ parameters.platform }}/fastlane/**"
       targetFolder: $(Build.ArtifactStagingDirectory)
-  - script: node ./nodescripts/version-number.js > $(Build.ArtifactStagingDirectory)/version.txt
-    displayName: "Save version number"

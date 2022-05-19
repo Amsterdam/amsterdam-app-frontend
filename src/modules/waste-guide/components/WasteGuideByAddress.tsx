@@ -16,6 +16,7 @@ import {
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
+import {useEnvironment} from '../../../store'
 import {selectAddress} from '../../address/addressSlice'
 import {module as addressModule} from '../../address/index'
 import {addressRoutes} from '../../address/routes'
@@ -52,9 +53,16 @@ export const WasteGuideByAddress = () => {
     })
   }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const environment = useEnvironment()
   useEffect(() => {
-    setWasteGuide(transformWasteGuideResponse(wasteGuideEndpoint.data, address))
-  }, [address, wasteGuideEndpoint.data])
+    setWasteGuide(
+      transformWasteGuideResponse(
+        wasteGuideEndpoint.data,
+        address,
+        environment,
+      ),
+    )
+  }, [address, wasteGuideEndpoint.data, environment])
 
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 

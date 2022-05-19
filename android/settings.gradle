@@ -1,4 +1,4 @@
-rootProject.name = 'StadsApp'
+rootProject.name = 'AmsterdamApp'
 
 include ':react-native-webview'
 project(':react-native-webview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview/android')
