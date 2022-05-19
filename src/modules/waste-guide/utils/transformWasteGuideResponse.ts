@@ -1,7 +1,7 @@
 import {Address} from '../../../types'
 import {formatDatesTimes, formatSentence} from '../../../utils'
 import {mapWasteType, WasteGuide, WasteGuideResponse} from '../types'
-import {EnvironmentConfig} from './../../../../environment'
+import {EnvironmentConfig} from './../../../environment'
 import {appointmentUrl} from './appointmentUrl'
 
 export const transformWasteGuideResponse = (
