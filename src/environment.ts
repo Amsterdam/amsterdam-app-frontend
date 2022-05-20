@@ -60,6 +60,6 @@ export const getEnvironment = (
   if (environment === Environment.Custom) {
     return {...environments[environment], ...custom}
   }
-  console.log({environment})
+
   return environments[environment]
 }
