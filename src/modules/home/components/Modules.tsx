@@ -8,15 +8,12 @@ import {Box, Button, Image, PleaseWait, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
 import {selectTheme, Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
-import {combineClientAndServerModules} from '../../../utils'
 import {module as homeModule} from '../../home'
-import {clientModules} from '../../index'
 import {Module} from '../../types'
-import {ModuleButton} from '../components'
 import {icons} from '../config'
+import {useModules} from '../hooks'
 import {homeRoutes} from '../routes'
-import {useGetModulesQuery} from '../services'
-import {selectModules} from '../store'
+import {ModuleButton} from './ModuleButton'
 
 const iconProps = {
   width: 24,
@@ -41,20 +38,13 @@ const renderModuleButton = (module: Module) => {
 export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-  const {data: serverModules, isLoading} = useGetModulesQuery()
-  const {modules: storedModuleSlugs} = useSelector(selectModules)
   const {theme} = useSelector(selectTheme)
+  const {modules, isLoading} = useModules()
   const styles = useThemable(createStyles)
 
   if (isLoading) {
     return <PleaseWait />
   }
-
-  const modules = combineClientAndServerModules(
-    clientModules,
-    serverModules,
-  ).filter(m => storedModuleSlugs.includes(m.slug))
-  // .filter(m => m.status === 1)
 
   if (!modules.length) {
     return (
