@@ -13,7 +13,7 @@ import {ModuleBox} from './'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, isLoading} = useModules({})
+  const {modules, isLoading} = useModules()
 
   // TODO Create `Icon` component with size and color props
   const iconProps = useThemable(createIconProps)
