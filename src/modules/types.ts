@@ -3,6 +3,7 @@ import {ComponentType} from 'react'
 
 export type ClientModule = {
   isCore?: boolean
+  isSelected: boolean
   linking: Record<string, string>
   name: string
   slug: string

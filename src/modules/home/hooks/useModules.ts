@@ -8,11 +8,10 @@ export const useModules = () => {
   const {data: serverModules, isLoading} = useGetModulesQuery()
   const {modules: selectedModules} = useSelector(selectModules)
 
-  const modules = combineClientAndServerModules(
-    clientModules,
-    serverModules,
-  ).filter(m => selectedModules.includes(m.slug))
-  // .filter(m => m.status === 1)
+  const modules = combineClientAndServerModules(clientModules, serverModules)
+    .filter(m => selectedModules.includes(m.slug))
+    // .filter(m => m.status === 1)
+    .map(m => ({...m, isSelected: selectedModules.includes(m.slug)}))
 
   return {modules, isLoading}
 }
