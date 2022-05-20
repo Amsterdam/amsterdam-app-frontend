@@ -4,22 +4,19 @@ import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
-import {Box, Button, Image, Text} from '../../../components/ui'
+import {Box, Button, Image, PleaseWait, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
 import {selectTheme, Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
 import {module as homeModule} from '../../home'
 import {clientModules} from '../../index'
-import {Module, ServerModule} from '../../types'
+import {Module} from '../../types'
 import {ModuleButton} from '../components'
 import {icons} from '../config'
 import {homeRoutes} from '../routes'
+import {useGetModulesQuery} from '../services'
 import {selectModules} from '../store'
-import serverModulesMock from '../store/server-modules.mock.json'
-
-const serverModules = serverModulesMock.modules as ServerModule[]
-const modules = combineClientAndServerModules(clientModules, serverModules)
 
 const iconProps = {
   width: 24,
@@ -44,16 +41,22 @@ const renderModuleButton = (module: Module) => {
 export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-
+  const {data: serverModules, isLoading} = useGetModulesQuery()
+  const {modules: storedModuleSlugs} = useSelector(selectModules)
   const {theme} = useSelector(selectTheme)
   const styles = useThemable(createStyles)
 
-  const {modules: storedModuleSlugs} = useSelector(selectModules)
-  const availableModules = modules
-    .filter(m => m.status === 1)
-    .filter(m => storedModuleSlugs.includes(m.slug))
+  if (isLoading) {
+    return <PleaseWait />
+  }
 
-  if (!availableModules.length) {
+  const modules = combineClientAndServerModules(
+    clientModules,
+    serverModules,
+  ).filter(m => storedModuleSlugs.includes(m.slug))
+  // .filter(m => m.status === 1)
+
+  if (!modules.length) {
     return (
       <ScrollView>
         <View style={styles.figure}>
@@ -85,7 +88,7 @@ export const Modules = () => {
   return (
     <Box>
       <FlatList
-        data={availableModules}
+        data={modules}
         renderItem={({item}) => renderModuleButton(item)}
       />
     </Box>
