@@ -3,8 +3,12 @@ import {nonNullable} from './nonNullable'
 
 export const combineClientAndServerModules = (
   clientModules: ClientModule[],
-  serverModules: ServerModule[],
+  serverModules?: ServerModule[],
 ): Module[] => {
+  if (!serverModules) {
+    return [] as Module[]
+  }
+
   return clientModules
     .map(clientModule => {
       const serverModule = serverModules.find(m => clientModule.slug === m.slug)
