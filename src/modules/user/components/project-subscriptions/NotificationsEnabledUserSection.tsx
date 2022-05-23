@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {UserSection} from '../'
+import {UserSection} from '..'
 import {
   selectNotificationSettings,
   deactivateAllProjects,
@@ -9,7 +9,7 @@ import {
 import {Text} from '../../../../components/ui'
 import {Switch} from '../../../../components/ui/forms'
 
-export const NotificationsEnabledSettingsSection = () => {
+export const NotificationsEnabledUserSection = () => {
   const dispatch = useDispatch()
   const [isToggled, setToggled] = useState(false)
   const notificationSettings = useSelector(selectNotificationSettings)

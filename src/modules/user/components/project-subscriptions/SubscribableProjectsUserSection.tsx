@@ -24,7 +24,7 @@ type Props = {
   subscribableProjectIds: string[]
 }
 
-export const SubscribableProjectsSettingsSection = ({
+export const SubscribableProjectsUserSection = ({
   subscribableProjectIds,
 }: Props) => {
   const dispatch = useDispatch()
