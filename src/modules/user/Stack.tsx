@@ -2,9 +2,9 @@ import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
-import {selectTheme} from '../../themes/themeSlice'
-import {UserScreen} from './Screen'
+import {selectTheme} from '../../themes'
 import {userRoutes} from './routes'
+import {UserScreen} from './screens'
 
 const Stack = createStackNavigator()
 
