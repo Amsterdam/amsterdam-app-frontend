@@ -1,11 +1,15 @@
 import messaging from '@react-native-firebase/messaging'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
-import {getSubscribedProjects} from '../components/features/settings/'
+import {getSubscribedProjects} from '../modules/user/utils'
 import {useEnvironment} from '../store'
 import {DeviceRegistration, NotificationSettings, Settings} from '../types'
-import {getFcmToken, mapPermissionStatus, Permission} from '../utils'
-import {getAuthToken} from '../utils'
+import {
+  getAuthToken,
+  getFcmToken,
+  mapPermissionStatus,
+  Permission,
+} from '../utils'
 import {useFetch} from './useFetch'
 
 export const useDeviceRegistration = (settings: Settings | undefined) => {
