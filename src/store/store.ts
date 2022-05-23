@@ -16,6 +16,7 @@ import {addressSlice} from '../modules/address/addressSlice'
 import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {notificationDraftSlice} from '../screens/create-notification'
 import {baseApi} from '../services/init'
+import {themeSlice} from '../themes/themeSlice'
 import {authSlice} from './authSlice'
 import {environmentSlice} from './environmentSlice'
 
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
     projectManagerSlice.reducer,
   ),
   projectsSearch: projectsByTextSlice.reducer,
+  theme: themeSlice.reducer,
 })
 
 export const store = configureStore({
