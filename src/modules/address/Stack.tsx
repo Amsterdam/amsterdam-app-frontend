@@ -1,14 +1,15 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
+import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
-import {ThemeContext} from '../../themes'
+import {selectTheme} from '../../themes/themeSlice'
 import {addressRoutes as routes} from './routes'
 import {AddressFormScreen, AddressPrivacyInfoScreen} from './screens'
 
 const Stack = createStackNavigator()
 
 export const AddressStack = () => {
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
 
   return (
     <Stack.Navigator
