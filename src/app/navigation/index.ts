@@ -1,4 +1,3 @@
-export * from './stacks/getSharedScreens'
 export * from './linking'
 export * from './RootStackNavigator'
 export * from './screenOptions'
