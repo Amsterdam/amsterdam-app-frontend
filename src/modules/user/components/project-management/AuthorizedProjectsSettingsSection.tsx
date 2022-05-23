@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
-import {SettingsLink, SettingsSection} from '../'
+import {SettingsLink, UserSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {ProjectTitle} from '../../../../components/features/project'
@@ -41,7 +41,7 @@ export const AuthorizedProjectsSettingsSection = () => {
   }
 
   return (
-    <SettingsSection title="Je bouwprojecten">
+    <UserSection title="Je bouwprojecten">
       {authorizedProjects.length ? (
         authorizedProjects.map((project, index) => (
           <Fragment key={project.identifier}>
@@ -69,6 +69,6 @@ export const AuthorizedProjectsSettingsSection = () => {
       ) : (
         <Text>Geen bouwprojecten gevonden.</Text>
       )}
-    </SettingsSection>
+    </UserSection>
   )
 }

@@ -18,7 +18,7 @@ import {Checkbox, Switch} from '../../../../components/ui/forms'
 import {Column, Row} from '../../../../components/ui/layout'
 import {useGetProjectsQuery} from '../../../../services'
 import {accessibleText} from '../../../../utils'
-import {SettingsSection} from '../index'
+import {UserSection} from '../index'
 
 type Props = {
   subscribableProjectIds: string[]
@@ -67,7 +67,7 @@ export const SubscribableProjectsSettingsSection = ({
 
   return (
     <Column gutter="md">
-      <SettingsSection title="Bouwprojecten">
+      <UserSection title="Bouwprojecten">
         {subscribableProjectIds.map((projectId, index) => {
           const project = projectTitles?.find(p => p.identifier === projectId)
           const subscribed = notificationSettings.projects[projectId]
@@ -119,7 +119,7 @@ export const SubscribableProjectsSettingsSection = ({
             )
           )
         })}
-      </SettingsSection>
+      </UserSection>
       {isEditing ? (
         <>
           <Box insetHorizontal="md">

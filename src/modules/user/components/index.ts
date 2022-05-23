@@ -1,5 +1,5 @@
 export * from './SettingsLink'
-export * from './SettingsSection'
+export * from './UserSection'
 export * from './project-management/AuthorizedProjectsSettingsSection'
 export * from './project-management/ProjectManagerSettingsSection'
 export * from './project-subscriptions/NoNotificationsMessage'

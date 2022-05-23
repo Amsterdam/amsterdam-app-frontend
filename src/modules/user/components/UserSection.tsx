@@ -9,7 +9,7 @@ type Props = {
   title: string
 }
 
-export const SettingsSection = ({children, title}: Props) => {
+export const UserSection = ({children, title}: Props) => {
   return (
     <Column gutter="sm">
       <View style={styles.header}>
