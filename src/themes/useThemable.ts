@@ -1,5 +1,6 @@
-import {useContext, useMemo} from 'react'
-import {ThemeContext} from './theme.provider'
+import {useMemo} from 'react'
+import {useSelector} from 'react-redux'
+import {selectTheme} from './themeSlice'
 import {Theme} from './themes'
 
 type Generator<T extends {}> = (theme: Theme) => T
@@ -9,7 +10,7 @@ type Generator<T extends {}> = (theme: Theme) => T
  * @param fn The function in which the theme is used.
  */
 const useThemable = <T extends {}>(fn: Generator<T>) => {
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
 
   return useMemo(() => fn(theme), [fn, theme])
 }
