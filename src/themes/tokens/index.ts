@@ -1,3 +1,4 @@
+export * from './border'
 export * from './color-light'
 export * from './color-dark'
 export * from './media'
