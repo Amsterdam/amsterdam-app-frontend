@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
-import {LinkToUserSection, UserSection} from '../'
+import {LinkToUserSection, UserSection} from '..'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {ProjectTitle} from '../../../../components/features/project'
@@ -16,7 +16,7 @@ import {
 } from '../../../../components/ui'
 import {accessibleText} from '../../../../utils'
 
-export const AuthorizedProjectsSettingsSection = () => {
+export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
     useProjectManagerFetcher()
   const navigation =

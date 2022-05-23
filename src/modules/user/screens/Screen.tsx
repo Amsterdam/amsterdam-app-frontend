@@ -5,7 +5,7 @@ import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {Address} from '../../address/components'
 import {
   NotificationsEnabledSettingsSection,
-  ProjectManagerSettingsSection,
+  ProjectManagerUserSection,
   SubscribableProjects,
 } from '../components'
 
@@ -16,7 +16,7 @@ export const UserScreen = () => (
       <Box>
         <Address />
       </Box>
-      <ProjectManagerSettingsSection />
+      <ProjectManagerUserSection />
       <NotificationsEnabledSettingsSection />
       <SubscribableProjects />
       <Box insetHorizontal="md">

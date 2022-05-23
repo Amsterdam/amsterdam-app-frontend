@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Text, TextButton, Title} from '../../components/ui'
 import {Gutter, ScrollView} from '../../components/ui/layout'
-import {AuthorizedProjectsSettingsSection} from '../../modules/user/components'
+import {AuthorizedProjectsUserSection} from '../../modules/user/components'
 import {openMailUrl} from '../../utils'
 
 export const AuthorizedProjectsScreen = () => (
@@ -15,7 +15,7 @@ export const AuthorizedProjectsScreen = () => (
       </Text>
     </Box>
     <Gutter height="lg" />
-    <AuthorizedProjectsSettingsSection />
+    <AuthorizedProjectsUserSection />
     <Box>
       <Text small>Ontbreekt er een bouwproject?</Text>
       <TextButton
