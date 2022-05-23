@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
-import {SettingsLink, UserSection} from '../'
+import {LinkToUserSection, UserSection} from '../'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {ProjectTitle} from '../../../../components/features/project'
@@ -45,7 +45,7 @@ export const AuthorizedProjectsSettingsSection = () => {
       {authorizedProjects.length ? (
         authorizedProjects.map((project, index) => (
           <Fragment key={project.identifier}>
-            <SettingsLink
+            <LinkToUserSection
               onPress={() =>
                 navigation.navigate(routes.projectDetail.name, {
                   id: project.identifier,
@@ -62,7 +62,7 @@ export const AuthorizedProjectsSettingsSection = () => {
                   subtitle={project.subtitle ?? undefined}
                 />
               </SingleSelectable>
-            </SettingsLink>
+            </LinkToUserSection>
             {index < (authorizedProjects.length ?? 0) - 1 && <Divider />}
           </Fragment>
         ))

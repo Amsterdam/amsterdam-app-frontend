@@ -10,7 +10,7 @@ type Props = {
   onPress: () => void
 }
 
-export const SettingsLink = ({children, onPress}: Props) => {
+export const LinkToUserSection = ({children, onPress}: Props) => {
   return (
     <TouchableOpacity accessibilityRole="button" onPress={onPress}>
       <Box insetVertical="sm">

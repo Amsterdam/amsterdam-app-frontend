@@ -1,4 +1,4 @@
-export * from './SettingsLink'
+export * from './LinkToUserSection'
 export * from './UserSection'
 export * from './project-management/AuthorizedProjectsSettingsSection'
 export * from './project-management/ProjectManagerSettingsSection'
