@@ -88,7 +88,6 @@ const menuRoutes: StackNavigationRoutes<
 const sharedRoutes: StackNavigationRoutes<
   SharedStackParams,
   | 'notification'
-  | 'notificationOverview'
   | 'projectDetail'
   | 'projectDetailBody'
   | 'projectManager'
@@ -106,15 +105,6 @@ const sharedRoutes: StackNavigationRoutes<
       },
       presentation: 'modal',
       headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
-    },
-  },
-  notificationOverview: {
-    name: 'NotificationOverview',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Berichten" />,
     },
   },
   projectDetail: {
