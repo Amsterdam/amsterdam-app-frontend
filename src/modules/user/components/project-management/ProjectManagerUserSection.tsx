@@ -2,13 +2,13 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {SettingsLink, SettingsSection} from '../'
+import {LinkToUserSection, UserSection} from '..'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {Text} from '../../../ui'
-import {selectProjectManager} from '../../project-manager'
+import {selectProjectManager} from '../../../../components/features/project-manager'
+import {Text} from '../../../../components/ui'
 
-export const ProjectManagerSettingsSection = () => {
+export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const navigation =
     useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
@@ -18,11 +18,11 @@ export const ProjectManagerSettingsSection = () => {
   }
 
   return (
-    <SettingsSection title="Omgevingsmanager">
-      <SettingsLink
+    <UserSection title="Omgevingsmanager">
+      <LinkToUserSection
         onPress={() => navigation.navigate(routes.authorizedProjects.name)}>
         <Text large>Je bouwprojecten</Text>
-      </SettingsLink>
-    </SettingsSection>
+      </LinkToUserSection>
+    </UserSection>
   )
 }

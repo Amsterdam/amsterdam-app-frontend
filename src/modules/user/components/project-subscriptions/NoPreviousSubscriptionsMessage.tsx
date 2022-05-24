@@ -3,8 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StackParams, TabParams} from '../../../../app/navigation'
 import {routes, tabs} from '../../../../app/navigation/routes'
-import {Attention, Text, TextButton} from '../../../ui'
-import {Column} from '../../../ui/layout'
+import {Attention, Text, TextButton} from '../../../../components/ui'
+import {Column} from '../../../../components/ui/layout'
 
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =

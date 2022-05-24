@@ -3,11 +3,11 @@ import {useSelector} from 'react-redux'
 import {
   NoNotificationsMessage,
   NoPreviousSubscriptionsMessage,
-  SubscribableProjectsSettingsSection,
+  SubscribableProjectsUserSection,
 } from '../'
+import {selectNotificationSettings} from '../../../../components/features/notifications'
+import {Box} from '../../../../components/ui'
 import {isEmptyObject} from '../../../../utils'
-import {Box} from '../../../ui'
-import {selectNotificationSettings} from '../../notifications'
 
 export const SubscribableProjects = () => {
   const notificationsSettings = useSelector(selectNotificationSettings)
@@ -30,7 +30,7 @@ export const SubscribableProjects = () => {
   }
 
   return (
-    <SubscribableProjectsSettingsSection
+    <SubscribableProjectsUserSection
       subscribableProjectIds={Object.keys(notificationsSettings.projects)}
     />
   )

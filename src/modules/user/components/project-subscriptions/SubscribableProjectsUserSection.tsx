@@ -1,24 +1,30 @@
 import React, {Fragment, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useGetProjectsQuery} from '../../../../services'
-import {accessibleText} from '../../../../utils'
-import {Box, Button, Divider, PleaseWait, TextButton} from '../../../ui'
-import {Checkbox, Switch} from '../../../ui/forms'
-import {Column, Row} from '../../../ui/layout'
 import {
-  deleteProjects as deleteProjectsFromSettings,
+  deleteProjects,
   selectNotificationSettings,
   toggleProject,
   toggleProjectsEnabled,
-} from '../../notifications'
-import {ProjectTitle} from '../../project'
-import {SettingsSection} from '../index'
+} from '../../../../components/features/notifications'
+import {ProjectTitle} from '../../../../components/features/project'
+import {
+  Box,
+  Button,
+  Divider,
+  PleaseWait,
+  TextButton,
+} from '../../../../components/ui'
+import {Checkbox, Switch} from '../../../../components/ui/forms'
+import {Column, Row} from '../../../../components/ui/layout'
+import {useGetProjectsQuery} from '../../../../services'
+import {accessibleText} from '../../../../utils'
+import {UserSection} from '../index'
 
 type Props = {
   subscribableProjectIds: string[]
 }
 
-export const SubscribableProjectsSettingsSection = ({
+export const SubscribableProjectsUserSection = ({
   subscribableProjectIds,
 }: Props) => {
   const dispatch = useDispatch()
@@ -36,8 +42,8 @@ export const SubscribableProjectsSettingsSection = ({
     setIsEditing(!isEditing)
   }
 
-  const deleteProjects = () => {
-    dispatch(deleteProjectsFromSettings(selectedProjects))
+  const deleteProjectsFromStore = () => {
+    dispatch(deleteProjects(selectedProjects))
     setIsEditing(!isEditing)
   }
 
@@ -61,7 +67,7 @@ export const SubscribableProjectsSettingsSection = ({
 
   return (
     <Column gutter="md">
-      <SettingsSection title="Bouwprojecten">
+      <UserSection title="Bouwprojecten">
         {subscribableProjectIds.map((projectId, index) => {
           const project = projectTitles?.find(p => p.identifier === projectId)
           const subscribed = notificationSettings.projects[projectId]
@@ -113,12 +119,12 @@ export const SubscribableProjectsSettingsSection = ({
             )
           )
         })}
-      </SettingsSection>
+      </UserSection>
       {isEditing ? (
         <>
           <Box insetHorizontal="md">
             <Button
-              onPress={deleteProjects}
+              onPress={deleteProjectsFromStore}
               text="Verwijder bouwprojecten"
               variant="secondary"
             />

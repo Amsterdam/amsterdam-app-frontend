@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {SettingsSection} from '../'
-import {Text} from '../../../ui'
-import {Switch} from '../../../ui/forms'
+import {UserSection} from '..'
 import {
-  deactivateAllProjects,
   selectNotificationSettings,
+  deactivateAllProjects,
   toggleProjectsEnabled,
-} from '../../notifications'
+} from '../../../../components/features/notifications'
+import {Text} from '../../../../components/ui'
+import {Switch} from '../../../../components/ui/forms'
 
-export const NotificationsEnabledSettingsSection = () => {
+export const NotificationsEnabledUserSection = () => {
   const dispatch = useDispatch()
   const [isToggled, setToggled] = useState(false)
   const notificationSettings = useSelector(selectNotificationSettings)
@@ -27,13 +27,13 @@ export const NotificationsEnabledSettingsSection = () => {
   }
 
   return (
-    <SettingsSection title="Berichten">
+    <UserSection title="Berichten">
       <Switch
         accessibilityLabel="Ontvang berichten"
         label={<Text large>Ontvang berichten</Text>}
         onValueChange={onToggleSwitch}
         value={notificationSettings.projectsEnabled}
       />
-    </SettingsSection>
+    </UserSection>
   )
 }

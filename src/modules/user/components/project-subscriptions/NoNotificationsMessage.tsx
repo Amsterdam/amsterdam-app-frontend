@@ -3,8 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {Box, Text, TextButton, Title} from '../../../ui'
-import {Column} from '../../../ui/layout'
+import {Box, Title, TextButton, Text} from '../../../../components/ui'
+import {Column} from '../../../../components/ui/layout'
 
 export const NoNotificationsMessage = () => {
   const navigation =
