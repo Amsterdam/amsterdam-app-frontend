@@ -22,7 +22,7 @@ apps = [
     :scheme => "AmsterdamApp Test",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
-    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/AmsterdamApp_Test.ipa"
+    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
   },
   {
     :name => "amsterdam",
@@ -30,10 +30,10 @@ apps = [
     :scheme => "AmsterdamApp", 
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
-    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/AmsterdamApp.ipa"
+    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
   },
 ]
-ipa_path = "#{File.expand_path(File.dirname(__FILE__))}/../builds/AmsterdamApp.ipa"
+ipa_path = "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
 
 def parseVersionNumber(fullVersionNumber)
   return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
