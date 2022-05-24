@@ -11,8 +11,13 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`.
 - Install the used node version: Linux/MacOS: `nvm install`, Windows: `nvm install $(Get-Content .nvmrc)`
 - Select the used node version: Linux/MacOS: `nvm use`, Windows: `nvm use $(Get-Content .nvmrc)`
-- Install Node dependencies: `npm ci`.
-- For iOS development: Install XCode dependencies: `cd amsterdam-app-frontend && pod install && cd ..`.
+- Install Node dependencies: `npm i`.
+- For iOS development, install other dependencies:
+  - Check if you have Ruby Gems (`gem -v`), if not, install (https://rubygems.org/)
+  - Go to `/ios`
+  - Install bundler (ruby gem manager): `gem install bundler:2.2.33`
+  - Update gems with bundler: `bundle update`
+  - Install pods: `pod install --repo-update`
 - Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`. Or, more
   specifically:
   - Start the iOS phone emulator: `npm run ios:phone`.
