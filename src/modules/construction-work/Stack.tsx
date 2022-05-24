@@ -1,14 +1,15 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
+import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
-import {ThemeContext} from '../../themes'
+import {selectTheme} from '../../themes/themeSlice'
 import {ConstructionWorkScreen} from './Screen'
 import {constructionWorkRoutes as routes} from './routes'
 
 const Stack = createStackNavigator()
 
 export const ConstructionWorkStack = () => {
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
 
   return (
     <Stack.Navigator

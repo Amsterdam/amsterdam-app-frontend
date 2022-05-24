@@ -1,11 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode, useContext} from 'react'
+import React, {ReactNode} from 'react'
 import {StyleSheet, TouchableHighlight} from 'react-native'
+import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
 import {Row} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
-import {Theme, ThemeContext, useThemable} from '../../../themes'
+import {Theme, useThemable} from '../../../themes'
+import {selectTheme} from '../../../themes/themeSlice'
 
 type Props = {
   icon: ReactNode
@@ -16,7 +18,7 @@ type Props = {
 export const ModuleButton = ({icon, label, name}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
   const styles = useThemable(createStyles)
 
   return (

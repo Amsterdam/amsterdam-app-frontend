@@ -1,14 +1,15 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React, {ComponentProps, ElementType, useContext} from 'react'
+import React, {ComponentProps, ElementType} from 'react'
 
 import {StyleSheet, TouchableHighlight} from 'react-native'
-import {ThemeContext} from '../../themes'
+import {useSelector} from 'react-redux'
+import {selectTheme} from '../../themes/themeSlice'
 import {color, size} from '../../tokens'
 
 type Props<T extends ElementType> = ComponentProps<T>
 
 export const AddButton = <T extends ElementType>(props: Props<T>) => {
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
 
   return (
     <TouchableHighlight
