@@ -1,12 +1,12 @@
 import React from 'react'
+import {Box} from '../../../components/ui'
 import {
   ProjectsByDate,
   ProjectsByDistance,
   ProjectsByText,
   ProjectsTextSearchField,
   ProvideAddressButton,
-} from '../../components/features/projects'
-import {Box} from '../../components/ui'
+} from '../components/projects'
 
 export const ProjectsScreen = () => (
   <>

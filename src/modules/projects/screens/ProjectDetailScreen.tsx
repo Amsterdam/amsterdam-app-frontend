@@ -1,34 +1,34 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
-import {ArticleOverview} from '../../components/features/article'
+import {StackParams} from '../../../app/navigation'
+import {routes} from '../../../app/navigation/routes'
+import {ArticleOverview} from '../../../components/features/article'
 import {
   selectNotificationSettings,
-  toggleProject,
   toggleProjectsEnabled,
-} from '../../components/features/notifications'
-import {ProjectBodyMenu} from '../../components/features/project'
-import {useProjectManagerFetcher} from '../../components/features/project-manager'
+  toggleProject,
+} from '../../../components/features/notifications'
 import {
-  Box,
-  Button,
-  Image,
   NonScalingHeaderTitle,
   PleaseWait,
+  Box,
   SingleSelectable,
-  Text,
   Title,
-} from '../../components/ui'
-import {Switch} from '../../components/ui/forms'
-import {Column, Gutter} from '../../components/ui/layout'
-import {useGetProjectQuery} from '../../services'
-import {useEnvironment} from '../../store'
-import {image} from '../../tokens'
-import {accessibleText, mapImageSources} from '../../utils'
+  Button,
+  Image,
+  Text,
+} from '../../../components/ui'
+import {Switch} from '../../../components/ui/forms'
+import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
+import {useEnvironment} from '../../../store'
+import {image} from '../../../tokens'
+import {mapImageSources, accessibleText} from '../../../utils'
+import {ProjectBodyMenu} from '../components/project'
+import {useProjectManagerFetcher} from '../components/project-manager'
+import {useGetProjectQuery} from '../projects.service'
 
 type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
 

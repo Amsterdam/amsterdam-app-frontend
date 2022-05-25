@@ -2,10 +2,10 @@ import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {StackParams} from '../../app/navigation'
-import {ProjectManagerSummary} from '../../components/features/project-manager'
-import {Box, Button} from '../../components/ui'
-import {size} from '../../tokens'
+import {StackParams} from '../../../app/navigation'
+import {Box, Button} from '../../../components/ui'
+import {size} from '../../../tokens'
+import {ProjectManagerSummary} from '../components/project-manager'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
   StackParams,
