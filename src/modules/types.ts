@@ -7,7 +7,7 @@ export type ClientModule = {
   name: string
   slug: string
   stack: ComponentType<any>
-  state: Slice | []
+  state: Slice[]
 }
 
 export type ServerModule = {
