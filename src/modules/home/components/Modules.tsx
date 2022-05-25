@@ -39,7 +39,7 @@ export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
   const {theme} = useSelector(selectTheme)
-  const {modules, isLoading} = useModules()
+  const {modules, isLoading} = useModules({includeDeselected: false})
   const styles = useThemable(createStyles)
 
   if (isLoading) {
