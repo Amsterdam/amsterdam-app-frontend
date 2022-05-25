@@ -1,5 +1,6 @@
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
+import React from 'react'
 import {WebViewRouteParams} from '../../screens'
 import {ProjectMinimal} from '../../screens/create-notification'
 import {ProjectDetailBody} from '../../types'
@@ -7,6 +8,7 @@ import {ProjectDetailBody} from '../../types'
 export type StackNavigationRoutes<R, Route extends string = string> = Record<
   Route,
   {
+    component?: React.ComponentType<any> //TODO This shouldn't be optional, wait until route definitions are updated
     name: keyof R
     options?: StackNavigationOptions
     title?: string
