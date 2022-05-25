@@ -1,6 +1,14 @@
 {
   "modules": [
     {
+      "slug": "template",
+      "version": "1.0.0",
+      "title": "Template",
+      "description": "Template",
+      "icon": "alert",
+      "status": 1
+    },
+    {
       "slug": "waste-guide",
       "version": "1.0.0",
       "title": "Afvalwijzer",
