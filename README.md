@@ -18,6 +18,8 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Install bundler (ruby gem manager): `gem install bundler:2.2.33`
   - Update gems with bundler: `bundle update`
   - Install pods: `pod install --repo-update`
+- Add `GoogleService-info.plist` to `/ios` folder
+- Add `google-services.json` to `/android/app` folder
 - Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`. Or, more
   specifically:
   - Start the iOS phone emulator: `npm run ios:phone`.
