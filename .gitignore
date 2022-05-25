@@ -55,6 +55,7 @@ buck-out/
 ios/builds/
 ios/fastlane/.env
 ios/certs
+android/certs
 
 # Bundle artifact
 *.jsbundle

@@ -17,22 +17,22 @@ default_platform(:android)
 
 apps = [
   {
-    :name => "amsterdam-test", 
-    :task => "assemble", 
-    :app_identifier => "nl.amsterdam.app.dev", 
-    :build_type => "Release", 
-    :flavor => "dev", 
+    :name => "amsterdam-test",
+    :task => "assemble",
+    :app_identifier => "nl.amsterdam.app.dev",
+    :build_type => "Release",
+    :flavor => "dev",
     :distribute_to_stakeholders => false,
-    :distribute_to_production => false, 
+    :distribute_to_production => false,
     :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/dev/release/app-dev-release.apk", 
     :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-dev-release.aab"
   },
   {
-    :name => "amsterdam", 
-    :task => "assemble", 
-    :app_identifier => "nl.amsterdam.app", 
-    :build_type => "Release", 
-    :flavor => "prod", 
+    :name => "amsterdam",
+    :task => "bundle",
+    :app_identifier => "nl.amsterdam.app",
+    :build_type => "Release",
+    :flavor => "prod",
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
     :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/prod/release/app-prod-release.apk", 
