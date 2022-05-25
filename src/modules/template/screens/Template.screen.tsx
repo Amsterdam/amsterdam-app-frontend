@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {Text} from '../../../components/ui'
+import {Box, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
 
 export const TemplateScreen: FC = () => {
@@ -8,7 +8,9 @@ export const TemplateScreen: FC = () => {
 
   return (
     <ScrollView>
-      <Text>Template</Text>
+      <Box>
+        <Text>Template</Text>
+      </Box>
     </ScrollView>
   )
 }
