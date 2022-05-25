@@ -11,10 +11,10 @@ import {
   Title,
   ZebraList,
   ZebraListItemProps,
-} from '../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../components/ui/layout'
-import {color, font} from '../../tokens'
-import {accessibleText} from '../../utils'
+} from '../../../../components/ui'
+import {Column, Gutter, Row, ScrollView} from '../../../../components/ui/layout'
+import {color, font} from '../../../../tokens'
+import {accessibleText} from '../../../../utils'
 import {NotificationStackParams} from './CreateNotificationScreen'
 
 type Props = {

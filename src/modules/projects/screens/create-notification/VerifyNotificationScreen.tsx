@@ -2,7 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import HeroImage from '../../assets/images/project-warning-hero.svg'
+import HeroImage from '../../../../assets/images/project-warning-hero.svg'
 import {
   Box,
   Image,
@@ -13,15 +13,15 @@ import {
   Text,
   TextButton,
   Title,
-} from '../../components/ui'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
+} from '../../../../components/ui'
+import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+import {useAddNotificationMutation} from '../../../../services'
+import {image as imageToken} from '../../../../tokens'
+import {NotificationQueryArg} from '../../../../types'
 import {
-  useAddNotificationMutation,
-  useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
-} from '../../services'
-import {image as imageToken} from '../../tokens'
-import {NotificationQueryArg} from '../../types'
+  useAddProjectWarningImageMutation,
+} from '../../projects.service'
 import {
   selectMainImage,
   selectMainImageDescription,

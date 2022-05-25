@@ -5,13 +5,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
-} from '../../components/features/form'
-import {Box, SubmitButton, Title} from '../../components/ui'
-import {TextInput} from '../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {useGetArticlesQuery} from '../../services'
-import {NotificationQueryArg} from '../../types'
-import {formatTime} from '../../utils'
+} from '../../../../components/features/form'
+import {Box, SubmitButton, Title} from '../../../../components/ui'
+import {TextInput} from '../../../../components/ui/forms'
+import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+import {useGetArticlesQuery} from '../../../../services'
+import {NotificationQueryArg} from '../../../../types'
+import {formatTime} from '../../../../utils'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
   selectProjectId,

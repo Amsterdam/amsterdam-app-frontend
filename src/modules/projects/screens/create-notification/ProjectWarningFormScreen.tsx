@@ -5,13 +5,12 @@ import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {StackParams} from '../../app/navigation'
-import {routes} from '../../app/navigation/routes'
+import {StackParams} from '../../../../app/navigation'
+import {routes} from '../../../../app/navigation/routes'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
-} from '../../components/features/form'
-import {selectProjectManager} from '../../components/features/project-manager'
+} from '../../../../components/features/form'
 import {
   Box,
   Button,
@@ -20,11 +19,12 @@ import {
   Text,
   TextButton,
   Title,
-} from '../../components/ui'
-import {TextInput} from '../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../components/ui/layout'
-import {color, size} from '../../tokens'
-import {NewProjectWarning} from '../../types'
+} from '../../../../components/ui'
+import {TextInput} from '../../../../components/ui/forms'
+import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+import {color, size} from '../../../../tokens'
+import {NewProjectWarning} from '../../../../types'
+import {selectProjectManager} from '../../components/project-manager'
 import {NotificationStackParams} from './CreateNotificationScreen'
 import {
   selectMainImage,
