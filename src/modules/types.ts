@@ -15,6 +15,14 @@ export type ClientModule = {
 }
 
 /**
+ * The user preferences part of module configuration.
+ * @todo Rename to e.g.`ModuleUserData`
+ */
+export type ModulePreferences = {
+  isSelected: boolean
+}
+
+/**
  * The server part of module configuration.
  * @todo Rename to e.g. `ModuleServerData`
  */
@@ -27,12 +35,6 @@ export type ServerModule = {
   version: string
 }
 
-/**
- * The user preferences part of module configuration.
- * @todo Rename to e.g.`ModuleUserData`
- */
-export type ModulePreferences = {
-  isSelected: boolean
-}
+export type PersonalisedClientModule = ClientModule & ModulePreferences
 
-export type Module = ClientModule & ServerModule & ModulePreferences
+export type Module = PersonalisedClientModule & ServerModule

@@ -1,8 +1,8 @@
-import {ClientModule, Module, ServerModule} from '../modules/types'
+import {Module, PersonalisedClientModule, ServerModule} from '../modules/types'
 import {nonNullable} from './nonNullable'
 
 export const combineClientAndServerModules = (
-  clientModules: ClientModule[],
+  clientModules: PersonalisedClientModule[],
   serverModules?: ServerModule[],
 ): Module[] => {
   if (!serverModules) {
