@@ -15,6 +15,14 @@
 
 default_platform(:ios)
 
+puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
+puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
+puts "#{File.expand_path(ENV["ARTIFACT_FOLDER"])}/Amsterdam.ipa"
+
+ipa_path = "#{File.expand_path(ENV["ARTIFACT_FOLDER"])}/Amsterdam.ipa"
+# ipa_path = "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
+
+
 apps = [
   {
     :name => "amsterdam-test",
@@ -22,7 +30,7 @@ apps = [
     :scheme => "AmsterdamApp Test",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
-    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
+    :ipa_path => ipa_path
   },
   {
     :name => "amsterdam",
@@ -30,10 +38,9 @@ apps = [
     :scheme => "AmsterdamApp", 
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
-    :ipa_path => "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
+    :ipa_path => ipa_path
   },
 ]
-ipa_path = "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
 
 def parseVersionNumber(fullVersionNumber)
   return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
@@ -50,7 +57,7 @@ platform :ios do
       key_id: "4B3KZ8N747",
       key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
       issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
-      duration: 1200
+      duration: 600
     )
     get_certificates( # Create or get certificate, and install it
       keychain_path: "/Users/runner/work/_temp/ios_signing_temp.keychain",
@@ -76,13 +83,14 @@ platform :ios do
           key_id: "4B3KZ8N747",
           key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
           issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
-          duration: 1200
+          duration: 600
         )
         upload_to_testflight(
           ipa: app[:ipa_path],
           groups: 'AmsterdamApp-scrumteam',
           app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
-          build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build]
+          build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
+          app_identifier: app[:app_identifier]
         )
       else
         UI.user_error!("ERROR: #{ipa_path} does not exist")
@@ -99,12 +107,13 @@ platform :ios do
             key_id: "4B3KZ8N747",
             key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
             issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
-            duration: 1200
+            duration: 600
           )
           upload_to_testflight(
             ipa: app[:ipa_path],
             distribute_only: true,
-            groups: 'AmsterdamApp-stakeholders'
+            groups: 'AmsterdamApp-stakeholders',
+            app_identifier: app[:app_identifier]
           )
         else
           UI.user_error!("ERROR: #{ipa_path} does not exist")
