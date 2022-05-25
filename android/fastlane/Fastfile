@@ -46,8 +46,8 @@ end
 
 platform :android do
 
-  desc "Submit a new Beta Build"
-  lane :beta do
+  desc "Build dev and prod version of the app"
+  lane :buildApps do
     keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
     keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
     keystore_alias = "key0"
