@@ -1,9 +1,9 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React from 'react'
-import {color} from '../../../tokens'
-import {Divider, Text, Title} from '../../ui'
-import {Column, Row} from '../../ui/layout'
+import {Divider, Text, Title} from '../../../../components/ui'
+import {Column, Row} from '../../../../components/ui/layout'
+import {color} from '../../../../tokens'
 
 type Props = {
   hasProjects: boolean

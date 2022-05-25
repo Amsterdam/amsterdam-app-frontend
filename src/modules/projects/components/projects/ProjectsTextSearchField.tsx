@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce'
 import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {TextInput} from '../../ui/forms'
+import {TextInput} from '../../../../components/ui/forms'
 import {config} from './config'
 import {
   selectProjectSearchText,

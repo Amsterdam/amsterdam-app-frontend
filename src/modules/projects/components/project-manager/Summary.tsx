@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from 'react'
+import {ScrollView} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCredentials} from '../../../store'
-import {encryptWithAES} from '../../../utils'
-import {Box, PleaseWait} from '../../ui'
-import {ScrollView} from '../../ui/layout'
 import {
-  addProjects,
   selectNotificationSettings,
   toggleProjectsEnabled,
-} from '../notifications'
+  addProjects,
+} from '../../../../components/features/notifications'
+import {PleaseWait, Box} from '../../../../components/ui'
+import {setCredentials} from '../../../../store'
+import {encryptWithAES} from '../../../../utils'
 import {
   addProjectManagerId,
   addProjectManagerProjects,

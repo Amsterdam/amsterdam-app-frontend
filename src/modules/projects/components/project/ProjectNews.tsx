@@ -3,11 +3,7 @@ import React, {useLayoutEffect} from 'react'
 import {StyleSheet, useWindowDimensions} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import RenderHTML from 'react-native-render-html'
-import {useGetProjectNewsQuery, useGetProjectQuery} from '../../../services'
-import {useEnvironment} from '../../../store'
-import {tagsStyles, tagsStylesIntro} from '../../../styles/html'
-import {font, image} from '../../../tokens'
-import {formatDate, mapImageSources} from '../../../utils'
+import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
 import {
   Box,
   Image,
@@ -15,8 +11,12 @@ import {
   PleaseWait,
   Text,
   Title,
-} from '../../ui'
-import {useMarkArticleIdAsRead} from '../notifications'
+} from '../../../../components/ui'
+import {useGetProjectNewsQuery, useGetProjectQuery} from '../../../../services'
+import {useEnvironment} from '../../../../store'
+import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
+import {font, image} from '../../../../tokens'
+import {formatDate, mapImageSources} from '../../../../utils'
 
 type Props = {
   id: string

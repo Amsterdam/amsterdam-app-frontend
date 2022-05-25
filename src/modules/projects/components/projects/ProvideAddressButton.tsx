@@ -3,12 +3,12 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../app/navigation'
-import {selectAddress} from '../../../modules/address/addressSlice'
-import {addressRoutes} from '../../../modules/address/routes'
-import {color} from '../../../tokens'
-import {Button} from '../../ui'
-import {Gutter, Row} from '../../ui/layout'
+import {StackParams} from '../../../../app/navigation'
+import {Button} from '../../../../components/ui'
+import {Gutter, Row} from '../../../../components/ui/layout'
+import {color} from '../../../../tokens'
+import {selectAddress} from '../../../address/addressSlice'
+import {addressRoutes} from '../../../address/routes'
 
 export const ProvideAddressButton = () => {
   const {primary: address} = useSelector(selectAddress)

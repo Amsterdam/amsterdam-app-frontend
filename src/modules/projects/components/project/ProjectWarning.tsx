@@ -2,17 +2,8 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import HeroImage from '../../../assets/images/project-warning-hero.svg'
-import {useGetProjectQuery, useGetProjectWarningQuery} from '../../../services'
-import {useEnvironment} from '../../../store'
-import {color} from '../../../tokens'
-import {ProjectWarningImage} from '../../../types'
-import {
-  formatDate,
-  formatTime,
-  mapWarningImageSources,
-  openMailUrl,
-} from '../../../utils'
+import HeroImage from '../../../../assets/images/project-warning-hero.svg'
+import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
 import {
   Box,
   Button,
@@ -21,9 +12,21 @@ import {
   PleaseWait,
   Text,
   Title,
-} from '../../ui'
-import {Row, ScrollView} from '../../ui/layout'
-import {useMarkArticleIdAsRead} from '../notifications'
+} from '../../../../components/ui'
+import {Row, ScrollView} from '../../../../components/ui/layout'
+import {useEnvironment} from '../../../../store'
+import {color} from '../../../../tokens'
+import {ProjectWarningImage} from '../../../../types'
+import {
+  formatDate,
+  formatTime,
+  mapWarningImageSources,
+  openMailUrl,
+} from '../../../../utils'
+import {
+  useGetProjectWarningQuery,
+  useGetProjectQuery,
+} from '../../projects.service'
 
 type Props = {
   id: string

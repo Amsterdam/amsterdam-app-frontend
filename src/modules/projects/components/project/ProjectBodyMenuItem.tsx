@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {color, font, size} from '../../../tokens'
+import {color, font, size} from '../../../../tokens'
 
 type Props = {
   icon: ReactNode

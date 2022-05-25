@@ -7,9 +7,9 @@ import {
   TouchableHighlight,
   ViewStyle,
 } from 'react-native'
-import {image} from '../../../tokens'
-import {accessibleText} from '../../../utils'
-import {Card, CardBody, Text, Title} from '../../ui'
+import {Card, CardBody, Text, Title} from '../../../../components/ui'
+import {image} from '../../../../tokens'
+import {accessibleText} from '../../../../utils'
 
 type Props = {
   imageSource?: ImageSourcePropType

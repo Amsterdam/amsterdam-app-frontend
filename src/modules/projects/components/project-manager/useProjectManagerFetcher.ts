@@ -1,8 +1,11 @@
 import {createSelector} from '@reduxjs/toolkit'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {useGetProjectManagerQuery, useGetProjectsQuery} from '../../../services'
-import {Project} from '../../../types'
+import {Project} from '../../../../types'
+import {
+  useGetProjectManagerQuery,
+  useGetProjectsQuery,
+} from '../../projects.service'
 import {selectProjectManager} from './projectManagerSlice'
 
 export const useProjectManagerFetcher = () => {

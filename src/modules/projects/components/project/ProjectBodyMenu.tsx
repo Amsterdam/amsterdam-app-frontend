@@ -6,12 +6,12 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {DeviceContext} from '../../../providers'
-import {color, size} from '../../../tokens'
-import {ProjectDetail, Section, Timeline} from '../../../types'
-import {ProjectBodyMenuItem} from './'
+import {StackParams} from '../../../../app/navigation'
+import {routes} from '../../../../app/navigation/routes'
+import {DeviceContext} from '../../../../providers'
+import {color, size} from '../../../../tokens'
+import {ProjectDetail, Section, Timeline} from '../../../../types'
+import {ProjectBodyMenuItem} from '.'
 
 type Props = {
   project: ProjectDetail

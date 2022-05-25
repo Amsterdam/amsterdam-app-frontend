@@ -1,11 +1,11 @@
+import {List} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {routes} from '../../../app/navigation/routes'
-import {ProjectManagerScreenNavigationProps} from '../../../screens/projects'
-import {size} from '../../../tokens'
-import {Project} from '../../../types'
-import {List} from '../../ui'
+import {routes} from '../../../../app/navigation/routes'
+import {size} from '../../../../tokens'
+import {Project} from '../../../../types'
+import {ProjectManagerScreenNavigationProps} from '../../screens'
 import {ProjectTitle} from '../project'
 
 type Props = {

@@ -5,17 +5,23 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {DeviceContext} from '../../../providers'
-import {useGetProjectsByTextQuery} from '../../../services'
-import {useEnvironment} from '../../../store'
-import {layoutStyles} from '../../../styles'
-import {size} from '../../../tokens'
-import {Project} from '../../../types'
-import {mapImageSources} from '../../../utils'
-import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '../../ui'
-import {Gutter} from '../../ui/layout'
+import {StackParams} from '../../../../app/navigation'
+import {routes} from '../../../../app/navigation/routes'
+import {
+  Box,
+  PleaseWait,
+  SomethingWentWrong,
+  Text,
+  Title,
+} from '../../../../components/ui'
+import {Gutter} from '../../../../components/ui/layout'
+import {DeviceContext} from '../../../../providers'
+import {useEnvironment} from '../../../../store'
+import {layoutStyles} from '../../../../styles'
+import {size} from '../../../../tokens'
+import {Project} from '../../../../types'
+import {mapImageSources} from '../../../../utils'
+import {useGetProjectsByTextQuery} from '../../projects.service'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsByTextSlice'
 

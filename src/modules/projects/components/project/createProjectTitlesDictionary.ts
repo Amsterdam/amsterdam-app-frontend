@@ -1,4 +1,4 @@
-import {ProjectTitles} from '../../../types'
+import {ProjectTitles} from '../../../../types'
 
 type Type = (projects?: ProjectTitles[]) => Record<string, string>
 
