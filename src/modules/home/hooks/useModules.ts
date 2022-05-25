@@ -14,19 +14,25 @@ export const useModules = ({
   includeInactive = true,
 }: Props) => {
   const {data: serverModules, isLoading} = useGetModulesQuery()
-  const {modules: selectedModules} = useSelector(selectModules)
+  const {modules: selectedModuleSlugs} = useSelector(selectModules)
 
-  let modules = combineClientAndServerModules(clientModules, serverModules)
+  const selectedClientModules = clientModules.map(m => ({
+    ...m,
+    isSelected: selectedModuleSlugs.includes(m.slug),
+  }))
+
+  let modules = combineClientAndServerModules(
+    selectedClientModules,
+    serverModules,
+  )
 
   if (!includeInactive) {
     modules = modules.filter(m => m.status === 1)
   }
 
   if (!includeDeselected) {
-    modules = modules.filter(m => selectedModules.includes(m.slug))
+    modules = modules.filter(m => selectedModuleSlugs.includes(m.slug))
   }
-
-  modules.map(m => ({...m, isSelected: selectedModules.includes(m.slug)}))
 
   return {modules, isLoading}
 }
