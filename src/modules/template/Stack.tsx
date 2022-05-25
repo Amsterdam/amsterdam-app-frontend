@@ -14,12 +14,12 @@ export const TemplateStack = () => {
     <Stack.Navigator
       initialRouteName={routes.template.name}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(routes).map(([key, {name, options, component}]) => (
+      {Object.entries(routes).map(([key, {component, name, options}]) => (
         <Stack.Screen
+          component={component!} // TODO Remove "!" when component is no longer optional
           key={key}
           name={name}
           options={options}
-          component={component!} //TODO "!" should be removed when component is no longer optional
         />
       ))}
     </Stack.Navigator>
