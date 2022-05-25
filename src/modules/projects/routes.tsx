@@ -29,7 +29,7 @@ type ProjectsStackParams = {
   [ProjectsRouteName.projectWarning]: {id: string}
 }
 
-export const projectRoutes: StackNavigationRoutes<
+export const projectsRoutes: StackNavigationRoutes<
   ProjectsStackParams,
   ProjectsRouteName
 > = {

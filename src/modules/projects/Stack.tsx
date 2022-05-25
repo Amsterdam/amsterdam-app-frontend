@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {ProjectsRouteName, projectRoutes as routes} from './routes'
+import {ProjectsRouteName, projectsRoutes as routes} from './routes'
 
 const Stack = createStackNavigator()
 
