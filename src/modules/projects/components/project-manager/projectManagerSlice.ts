@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '../../../store'
+import {RootState} from '../../../../store'
 import {ProjectManager} from './types'
 
 const initialState: ProjectManager = {

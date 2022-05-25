@@ -1,8 +1,8 @@
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
+import {ProjectMinimal} from '../../modules/projects/screens/create-notification'
 import {WebViewRouteParams} from '../../screens'
-import {ProjectMinimal} from '../../screens/create-notification'
 import {ProjectDetailBody} from '../../types'
 
 export type StackNavigationRoutes<R, Route extends string = string> = Record<

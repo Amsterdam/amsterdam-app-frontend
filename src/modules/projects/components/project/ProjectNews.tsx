@@ -12,11 +12,14 @@ import {
   Text,
   Title,
 } from '../../../../components/ui'
-import {useGetProjectNewsQuery, useGetProjectQuery} from '../../../../services'
 import {useEnvironment} from '../../../../store'
 import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
 import {font, image} from '../../../../tokens'
 import {formatDate, mapImageSources} from '../../../../utils'
+import {
+  useGetProjectNewsQuery,
+  useGetProjectQuery,
+} from '../../projects.service'
 
 type Props = {
   id: string
