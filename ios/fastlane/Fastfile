@@ -17,11 +17,12 @@ default_platform(:ios)
 
 puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
 puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
-puts "#{File.expand_path(ENV["ARTIFACT_FOLDER"])}/Amsterdam.ipa"
 
-ipa_path = "#{File.expand_path(ENV["ARTIFACT_FOLDER"])}/Amsterdam.ipa"
-# ipa_path = "#{File.expand_path(File.dirname(__FILE__))}/../builds/Amsterdam.ipa"
+ipa_path = ""
 
+if ENV["ARTIFACT_FOLDER"]
+  ipa_path = "#{File.expand_path(ENV["ARTIFACT_FOLDER"])}/Amsterdam.ipa"
+end
 
 apps = [
   {
@@ -43,7 +44,11 @@ apps = [
 ]
 
 def parseVersionNumber(fullVersionNumber)
-  return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+  if fullVersionNumber
+    return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+  else
+    UI.user_error!("ERROR: parseVersionNumber failed")
+  end
 end
 
 platform :ios do
