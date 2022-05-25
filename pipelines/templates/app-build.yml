@@ -33,7 +33,7 @@ steps:
     condition: eq('${{ parameters.platform }}', 'android')
   - script: |
       bundle install
-      bundle exec fastlane beta
+      bundle exec fastlane buildApps
     displayName: "Build ${{ parameters.platform }}"
     workingDirectory: ${{ parameters.platform }}
   - template: ./copy-generic-artifacts.yml

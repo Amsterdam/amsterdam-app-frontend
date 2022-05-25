@@ -53,8 +53,38 @@ def parseVersionNumber(fullVersionNumber)
 end
 
 platform :ios do
-  desc "Create the app builds"
-  lane :beta do
+
+  # we use private lanes to switch app identifier, which we can only set for a lane (see Appfile)
+
+  desc "Create single app build - cannot be used directly"
+  private_lane :build do |app|
+    puts "Build #{app[:app_identifier]}"
+    get_provisioning_profile( # Create or get provisioning profile
+      output_path: "./builds",  # Download provisioning profile in the build folder
+      app_identifier: app[:app_identifier],
+    )
+    build_app(
+      workspace: "AmsterdamApp.xcworkspace",
+      scheme: app[:scheme],
+      clean: true,
+      build_path: "./builds",
+      output_directory: "./builds",
+      output_name: app[:output_name],
+    )
+  end
+
+  desc "Production build - cannot be used directly"
+  private_lane :prod do |app|
+    build(app)
+  end
+
+  desc "Dev build - cannot be used directly"
+  private_lane :dev do |app|
+    build(app)
+  end
+
+  desc "Build prod and dev version of the app"
+  lane :buildApps do
     cocoapods(
       clean_install: true,
       podfile: "./Podfile",
@@ -70,31 +100,26 @@ platform :ios do
       output_path: "./builds", # Download certificate in the build folder (you don't need to create the folder)
     )
     apps.each do |app|
-      get_provisioning_profile( # Create or get provisioning profile
-        output_path: "./builds",  # Download provisioning profile in the build folder
-        app_identifier: app[:app_identifier],
-      )
-      build_app(
-        workspace: "AmsterdamApp.xcworkspace",
-        scheme: app[:scheme],
-        clean: true,
-        build_path: "./builds",
-        output_directory: "./builds",
-        output_name: app[:output_name],
-      )
+      if app[:name] == "amsterdam-test"
+        dev(app)
+      else
+        prod(app)
+      end
     end
     # set_changelog()
   end
+
   lane :distributeInternal do
+    app_store_connect_api_key(
+      key_id: "4B3KZ8N747",
+      key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
+      issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
+      duration: 600,
+    )
     apps.each do |app|
       full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
+      puts "Upload to testflight for #{full_ipa_path}"
       if File.exists?(full_ipa_path)
-        app_store_connect_api_key(
-          key_id: "4B3KZ8N747",
-          key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
-          issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
-          duration: 600,
-        )
         upload_to_testflight(
           ipa: full_ipa_path,
           groups: 'AmsterdamApp-scrumteam',
@@ -109,17 +134,17 @@ platform :ios do
   end
 
   lane :distributeStakeholders do
-
-    apps.each do |app|
-      if app[:distribute_to_stakeholders]
+    if app[:distribute_to_stakeholders]
+      app_store_connect_api_key(
+        key_id: "4B3KZ8N747",
+        key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
+        issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
+        duration: 600,
+      )
+      apps.each do |app|
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
+        puts "Upload to testflight for #{full_ipa_path}"
         if File.exists?(full_ipa_path)
-          app_store_connect_api_key(
-            key_id: "4B3KZ8N747",
-            key_filepath: './certs/App_Store_Connect_API_Key_4B3KZ8N747.p8',
-            issuer_id: "69a6de97-c5e4-47e3-e053-5b8c7c11a4d1",
-            duration: 600,
-          )
           upload_to_testflight(
             ipa: full_ipa_path,
             distribute_only: true,
@@ -132,4 +157,5 @@ platform :ios do
       end
     end
   end
+
 end
