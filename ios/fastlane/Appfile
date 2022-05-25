@@ -1,3 +1,4 @@
+app_identifier("nl.amsterdam.app.dev") # The bundle identifier of your app
 apple_id("frank.filius@gmail.com") # Your Apple email address
 
 itc_team_id("118991325") # App Store Connect Team ID

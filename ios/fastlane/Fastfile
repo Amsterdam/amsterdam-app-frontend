@@ -77,7 +77,8 @@ platform :ios do
         scheme: app[:scheme],
         clean: true,
         build_path: "./builds",
-        output_directory: "./builds")
+        output_directory: "./builds"
+      )
     end
     # set_changelog()
   end
