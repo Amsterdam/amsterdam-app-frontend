@@ -6,14 +6,15 @@ import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button, Image, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
-import {Theme, useThemable} from '../../../themes'
+import {selectTheme, Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
+import {module as homeModule} from '../../home'
 import {clientModules} from '../../index'
-import {module as settingsModule} from '../../settings'
 import {Module, ServerModule} from '../../types'
 import {ModuleButton} from '../components'
 import {icons} from '../config'
+import {homeRoutes} from '../routes'
 import {selectModules} from '../store'
 import serverModulesMock from '../store/server-modules.mock.json'
 
@@ -44,12 +45,13 @@ export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
 
+  const {theme} = useSelector(selectTheme)
+  const styles = useThemable(createStyles)
+
   const {modules: storedModuleSlugs} = useSelector(selectModules)
   const availableModules = modules
     .filter(m => m.status === 1)
     .filter(m => storedModuleSlugs.includes(m.slug))
-
-  const styles = useThemable(createStyles)
 
   if (!availableModules.length) {
     return (
@@ -67,7 +69,11 @@ export const Modules = () => {
           <Text inverse>Tik op ‘Terug’ om verder te gaan.</Text>
           <Box insetVertical="lg">
             <Button
-              onPress={() => navigation.navigate(settingsModule.name)}
+              onPress={() =>
+                navigation.navigate(homeModule.name, {
+                  screen: homeRoutes(theme).settings.name,
+                })
+              }
               text="Terug"
             />
           </Box>
