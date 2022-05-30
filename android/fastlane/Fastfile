@@ -34,8 +34,8 @@ apps = [
     :flavor => "dev",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
-    :apk_path => "/build/outputs/apk/dev/release/app-dev-release.apk", 
-    :aab_path => "/release/app-dev-release.aab"
+    :apk_path => "/apk/dev/release/app-dev-release.apk", 
+    :aab_path => "/bundle/devRelease/app-dev-release.aab"
   },
   {
     :name => "amsterdam",
@@ -45,8 +45,8 @@ apps = [
     :flavor => "prod",
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
-    :apk_path => "/build/outputs/apk/prod/release/app-prod-release.apk", 
-    :aab_path => "/release/app-release.aab"
+    :apk_path => "/apk/prod/release/app-prod-release.apk", 
+    :aab_path => "/bundle/prodRelease/app-prod-release.aab"
   },
 ]
 
