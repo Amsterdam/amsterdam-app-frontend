@@ -39,6 +39,14 @@ Build prod and dev version of the app
 
 
 
+### ios distributeProduction
+
+```sh
+[bundle exec] fastlane ios distributeProduction
+```
+
+
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

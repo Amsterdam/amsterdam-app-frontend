@@ -15,17 +15,27 @@
 
 default_platform(:android)
 
+puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
+puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
+
+# we only set this in the release pipelines, this is a default to prevent errors during the build task
+app_build_path = ""
+
+if ENV["ARTIFACT_FOLDER"]
+  app_build_path = ENV["ARTIFACT_FOLDER"]
+end
+
 apps = [
   {
     :name => "amsterdam-test",
-    :task => "assemble",
+    :task => "bundle",
     :app_identifier => "nl.amsterdam.app.dev",
     :build_type => "Release",
     :flavor => "dev",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
-    :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/dev/release/app-dev-release.apk", 
-    :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-dev-release.aab"
+    :apk_path => "/build/outputs/apk/dev/release/app-dev-release.apk", 
+    :aab_path => "/release/app-dev-release.aab"
   },
   {
     :name => "amsterdam",
@@ -35,8 +45,8 @@ apps = [
     :flavor => "prod",
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
-    :apk_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/prod/release/app-prod-release.apk", 
-    :aab_path => "#{File.expand_path(File.dirname(__FILE__))}/../app/release/app-prod-release.aab"
+    :apk_path => "/build/outputs/apk/prod/release/app-prod-release.apk", 
+    :aab_path => "/release/app-release.aab"
   },
 ]
 
@@ -75,30 +85,23 @@ platform :android do
 
   end
 
-  lane :distributeInternalAab do
-    apps.each do |app|
-      if File.exists?(app[:aab_path])
-        upload_to_play_store(
-          package_name: app[:app_identifier],
-          track: 'internal',
-          aab: app[:aab_path]
-        )
-      else
-        UI.user_error!("ERROR: #{app[:aab_path]} does not exist")
-      end
-    end
-  end
-
   lane :distributeInternal do
     apps.each do |app|
-      if File.exists?(app[:apk_path])
+      isAab = app[:task] == "bundle"
+      full_apk_path = "#{app_build_path}#{app[:apk_path]}"
+      full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+      final_path = isAab ? full_aab_path : full_apk_path
+      puts "Upload to Play Store for #{final_path}"
+      if File.exists?(final_path)
         upload_to_play_store(
           package_name: app[:app_identifier],
           track: 'internal',
-          apk: app[:apk_path]
+          aab: isAab ? full_aab_path : nil,
+          apk: !isAab ? full_apk_path : nil,
+          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
         )
       else
-        UI.user_error!("ERROR: #{app[:apk_path]} does not exist")
+        UI.user_error!("ERROR: #{final_path} does not exist")
       end
     end
   end
@@ -106,17 +109,26 @@ platform :android do
   lane :distributeStakeholders do
     apps.each do |app|
       if app[:distribute_to_stakeholders]
-        upload_to_play_store(
-          package_name: app[:app_identifier],
-          track: "internal",
-          track_promote_to: "alpha",
-          validate_only: false,
-          skip_upload_apk: true,
-          skip_upload_aab: true,
-          skip_upload_images: true,
-          skip_upload_screenshots: true,
-          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
-        )
+        isAab = app[:task] == "bundle"
+        full_apk_path = "#{app_build_path}#{app[:apk_path]}"
+        full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+        final_path = isAab ? full_aab_path : full_apk_path
+        puts "Upload to Play Store for #{final_path}"
+        if File.exists?(final_path)
+          upload_to_play_store(
+            package_name: app[:app_identifier],
+            track: "internal",
+            track_promote_to: "alpha",
+            aab: isAab ? full_aab_path : nil,
+            apk: !isAab ? full_apk_path : nil,
+            validate_only: false,
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
+            version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          )
+        else
+          UI.user_error!("ERROR: #{final_path} does not exist")
+        end
       end
     end
   end
@@ -124,18 +136,26 @@ platform :android do
   lane :distributeProduction do
     apps.each do |app|
       if app[:distribute_to_production]
-        upload_to_play_store(
-          package_name: app[:app_identifier],
-          track: "alpha",
-          track_promote_to: "production",
-          track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
-          validate_only: false,
-          skip_upload_apk: true,
-          skip_upload_aab: true,
-          skip_upload_images: true,
-          skip_upload_screenshots: true,
-          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
-        )
+        # note: we only submit AABs for release
+        full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+        puts "Upload to Play Store for #{full_aab_path}"
+        if File.exists?(full_aab_path)
+          upload_to_play_store(
+            package_name: app[:app_identifier],
+            track: "alpha",
+            track_promote_to: "production",
+            track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
+            aab: full_aab_path,
+            skip_upload_apk: true,
+            skip_upload_aab: false,
+            validate_only: false,
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
+            version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          )
+        else
+          UI.user_error!("ERROR: #{full_aab_path} does not exist")
+        end
       end
     end
   end
