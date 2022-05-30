@@ -27,20 +27,20 @@ end
 
 apps = [
   {
-    :name => "amsterdam",
-    :app_identifier => "nl.amsterdam.app",
-    :scheme => "AmsterdamApp", 
-    :distribute_to_stakeholders => true,
-    :distribute_to_production => true,
-    :output_name => "Amsterdam.ipa",
-  },
-  {
     :name => "amsterdam-test",
     :app_identifier => "nl.amsterdam.app.dev",
     :scheme => "AmsterdamApp Test",
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
     :output_name => "AmsterdamTest.ipa",
+  },
+  {
+    :name => "amsterdam",
+    :app_identifier => "nl.amsterdam.app",
+    :scheme => "AmsterdamApp", 
+    :distribute_to_stakeholders => true,
+    :distribute_to_production => true,
+    :output_name => "Amsterdam.ipa",
   },
 ]
 
