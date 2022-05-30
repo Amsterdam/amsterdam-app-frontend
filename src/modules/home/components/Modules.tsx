@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button, Image, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
-import {Theme, ThemeContext, useThemable} from '../../../themes'
+import {selectTheme, Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {combineClientAndServerModules} from '../../../utils'
 import {module as homeModule} from '../../home'
@@ -45,7 +45,7 @@ export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
 
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useSelector(selectTheme)
   const styles = useThemable(createStyles)
 
   const {modules: storedModuleSlugs} = useSelector(selectModules)
