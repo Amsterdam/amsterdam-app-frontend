@@ -1,5 +1,5 @@
 import {ClientModule} from '../types'
-import {ProjectsStack} from './Stack'
+import {ConstructionWorkStack} from './Stack'
 import {projectManagerSlice} from './components/project-manager'
 import {projectsByTextSlice} from './components/projects'
 import {ProjectsRouteName} from './routes'
@@ -10,8 +10,8 @@ export const module: ClientModule = {
     [ProjectsRouteName.projectManager]: 'project-manager/:id',
     [ProjectsRouteName.projectWarning]: 'warning/:id',
   },
-  name: 'ProjectsModule',
+  name: 'ConstructionWorkModule',
   slug: 'construction-work',
-  stack: ProjectsStack,
+  stack: ConstructionWorkStack,
   state: [projectsByTextSlice, projectManagerSlice],
 }

@@ -7,7 +7,7 @@ import {ProjectsRouteName, projectsRoutes as routes} from './routes'
 
 const Stack = createStackNavigator()
 
-export const ProjectsStack = () => {
+export const ConstructionWorkStack = () => {
   const {theme} = useSelector(selectTheme)
 
   return (
