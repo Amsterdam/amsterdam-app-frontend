@@ -4,8 +4,8 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
+import {moduleLinkings} from '../../modules/utils'
 import {PushNotificationData} from '../../types'
-import {routes, tabs} from './routes'
 import {StackParams} from './types'
 
 const appPrefix = 'amsterdam://'
@@ -49,15 +49,7 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
 export const linking: LinkingOptions<StackParams> = {
   prefixes: [appPrefix],
   config: {
-    screens: {
-      [tabs.menu.name]: {
-        screens: {
-          [routes.projectNews.name]: 'news/:id',
-          [routes.projectManager.name]: 'project-manager/:id',
-          [routes.projectWarning.name]: 'warning/:id',
-        },
-      },
-    },
+    screens: moduleLinkings,
   },
   async getInitialURL() {
     try {

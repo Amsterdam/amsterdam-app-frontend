@@ -5,8 +5,8 @@ import {useSelector} from 'react-redux'
 import {LinkToUserSection, UserSection} from '..'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {selectProjectManager} from '../../../../components/features/project-manager'
 import {Text} from '../../../../components/ui'
+import {selectProjectManager} from '../../../projects/components/project-manager'
 
 export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)

@@ -6,7 +6,6 @@ import {
   toggleProject,
   toggleProjectsEnabled,
 } from '../../../../components/features/notifications'
-import {ProjectTitle} from '../../../../components/features/project'
 import {
   Box,
   Button,
@@ -16,8 +15,9 @@ import {
 } from '../../../../components/ui'
 import {Checkbox, Switch} from '../../../../components/ui/forms'
 import {Column, Row} from '../../../../components/ui/layout'
-import {useGetProjectsQuery} from '../../../../services'
 import {accessibleText} from '../../../../utils'
+import {ProjectTitle} from '../../../projects/components/project'
+import {useGetProjectsQuery} from '../../../projects/projects.service'
 import {UserSection} from '../index'
 
 type Props = {
