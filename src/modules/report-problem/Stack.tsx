@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
 import {ReportProblemScreen} from './Screen'
-import {reportProblemRoutes as routes} from './routes'
+import {ReportProblemRouteName, reportProblemRoutes} from './routes'
 
 const Stack = createStackNavigator()
 
@@ -13,12 +13,12 @@ export const ReportProblemStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.home.name}
+      initialRouteName={ReportProblemRouteName.home}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={ReportProblemScreen}
-        name={routes.home.name}
-        options={routes.home.options}
+        name={ReportProblemRouteName.home}
+        options={reportProblemRoutes.Home.options}
       />
     </Stack.Navigator>
   )

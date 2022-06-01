@@ -11,8 +11,8 @@ export enum HomeRouteName {
 }
 
 export type HomeStackParams = {
-  Home: undefined
-  Settings: undefined
+  [HomeRouteName.home]: undefined
+  [HomeRouteName.settings]: undefined
 }
 
 export const homeRoutes: (

@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {HomeRouteName, homeRoutes as routes} from './routes'
+import {HomeRouteName, homeRoutes} from './routes'
 
 const Stack = createStackNavigator()
 
@@ -14,13 +14,13 @@ export const HomeStack = () => {
     <Stack.Navigator
       initialRouteName={HomeRouteName.home}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(routes(theme)).map(
+      {Object.entries(homeRoutes(theme)).map(
         ([key, {name, options, component}]) => (
           <Stack.Screen
+            component={component!} //TODO "!" should be removed when component is no longer optional
             key={key}
             name={name}
             options={options}
-            component={component!} //TODO "!" should be removed when component is no longer optional
           />
         ),
       )}

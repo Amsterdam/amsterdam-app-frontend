@@ -13,7 +13,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {wasteGuideRoutes} from '../routes'
+import {WasteGuideRouteName} from '../routes'
 
 export const WasteGuideContainers = () => {
   const navigation =
@@ -34,7 +34,7 @@ export const WasteGuideContainers = () => {
           <TextButton
             direction="forward"
             onPress={() =>
-              navigation.navigate(wasteGuideRoutes.wasteGuideContainers.name)
+              navigation.navigate(WasteGuideRouteName.wasteGuideContainers)
             }
             text="Bekijk de kaart met containers in de buurt"
           />

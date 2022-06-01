@@ -2,16 +2,20 @@ import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-type OpenWasteContainerStackParams = {
-  OpenWasteContainerHome: undefined
+export enum OpenWasteContainerRouteName {
+  home = 'Home',
+}
+
+export type OpenWasteContainerStackParams = {
+  [OpenWasteContainerRouteName.home]: undefined
 }
 
 export const openWasteContainerRoutes: StackNavigationRoutes<
   OpenWasteContainerStackParams,
-  'home'
+  OpenWasteContainerRouteName
 > = {
-  home: {
-    name: 'OpenWasteContainerHome',
+  [OpenWasteContainerRouteName.home]: {
+    name: OpenWasteContainerRouteName.home,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Open GFE container" />,
     },

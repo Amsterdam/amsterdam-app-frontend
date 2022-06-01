@@ -12,7 +12,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {wasteGuideRoutes} from '../routes'
+import {WasteGuideRouteName} from '../routes'
 import {WasteGuideDetails} from '../types'
 
 type Props = {
@@ -71,7 +71,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
               <Button
                 onPress={() =>
                   navigation.navigate(
-                    wasteGuideRoutes.bulkyWasteAppointment.name,
+                    WasteGuideRouteName.bulkyWasteAppointment,
                     {appointmentUrl},
                   )
                 }

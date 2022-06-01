@@ -20,10 +20,7 @@ export const NoPreviousSubscriptionsMessage = () => {
       <TextButton
         emphasis
         onPress={() =>
-          navigation.navigate(
-            'ConstructionWorkModule',
-            ProjectsRouteName.projects,
-          )
+          navigation.navigate('ConstructionWorkModule', ProjectsRouteName.home)
         }
         text="Naar bouwprojecten"
       />

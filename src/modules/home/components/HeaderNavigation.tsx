@@ -6,7 +6,6 @@ import {RootStackParamList} from '../../../app/navigation/RootStackNavigator'
 import {Settings} from '../../../assets/icons'
 import {IconButton} from '../../../components/ui'
 import {Row} from '../../../components/ui/layout'
-import {module as homeModule} from '../../../modules/home'
 import {module as userModule} from '../../../modules/user'
 import {color} from '../../../tokens'
 import {HomeRouteName} from '../routes'
@@ -29,11 +28,7 @@ export const HeaderNavigation = () => {
       <IconButton
         icon={<Settings {...iconProps} />}
         label="Instellingen"
-        onPress={() =>
-          navigation.navigate(homeModule.name, {
-            screen: HomeRouteName.settings,
-          })
-        }
+        onPress={() => navigation.navigate(HomeRouteName.settings)}
       />
     </Row>
   )

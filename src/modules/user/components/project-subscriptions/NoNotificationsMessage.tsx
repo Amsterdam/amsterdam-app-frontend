@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../../app/navigation'
-import {Box, Title, TextButton, Text} from '../../../../components/ui'
+import {Box, Text, TextButton, Title} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {ProjectsRouteName} from '../../../projects/routes'
 
@@ -35,7 +35,7 @@ export const NoNotificationsMessage = () => {
           onPress={() =>
             navigation.navigate(
               'ConstructionWorkModule',
-              ProjectsRouteName.projects,
+              ProjectsRouteName.home,
             )
           }
           text="Naar bouwprojecten"

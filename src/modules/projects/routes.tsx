@@ -18,25 +18,25 @@ import {
 
 export enum ProjectsRouteName {
   authorizedProjects = 'AuthorizedProjects',
+  home = 'Home',
   createNotification = 'CreateNotification',
   projectDetail = 'ProjectDetail',
   projectDetailBody = 'ProjectDetailBody',
   projectManager = 'ProjectManager',
   projectNews = 'ProjectNews',
-  projects = 'Projects',
   projectWarning = 'ProjectWarning',
 }
 
 export type ProjectsStackParams = {
   [ProjectsRouteName.authorizedProjects]: {projectManagerId: string}
   [ProjectsRouteName.createNotification]: {projectDetails: ProjectMinimal}
+  [ProjectsRouteName.home]: undefined
   [ProjectsRouteName.projectDetail]: {id: string}
   [ProjectsRouteName.projectDetailBody]: {
     body: ProjectDetailBody
   }
   [ProjectsRouteName.projectManager]: {id: string}
   [ProjectsRouteName.projectNews]: {id: string}
-  [ProjectsRouteName.projects]: undefined
   [ProjectsRouteName.projectWarning]: {id: string}
 }
 
@@ -59,6 +59,13 @@ export const projectsRoutes: StackNavigationRoutes<
       headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
     },
   },
+  [ProjectsRouteName.home]: {
+    component: ProjectsScreen,
+    name: ProjectsRouteName.home,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
+    },
+  },
   [ProjectsRouteName.projectDetail]: {
     component: ProjectDetailScreen,
     name: ProjectsRouteName.projectDetail,
@@ -78,13 +85,6 @@ export const projectsRoutes: StackNavigationRoutes<
   [ProjectsRouteName.projectNews]: {
     component: ProjectNewsScreen,
     name: ProjectsRouteName.projectNews,
-  },
-  [ProjectsRouteName.projects]: {
-    component: ProjectsScreen,
-    name: ProjectsRouteName.projects,
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
-    },
   },
   [ProjectsRouteName.projectWarning]: {
     component: ProjectWarningScreen,

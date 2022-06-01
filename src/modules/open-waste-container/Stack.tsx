@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
 import {OpenWasteContainerScreen} from './Screen'
-import {openWasteContainerRoutes as routes} from './routes'
+import {OpenWasteContainerRouteName, openWasteContainerRoutes} from './routes'
 
 const Stack = createStackNavigator()
 
@@ -13,12 +13,12 @@ export const OpenWasteContainerStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.home.name}
+      initialRouteName={OpenWasteContainerRouteName.home}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={OpenWasteContainerScreen}
-        name={routes.home.name}
-        options={routes.home.options}
+        name={OpenWasteContainerRouteName.home}
+        options={openWasteContainerRoutes.Home.options}
       />
     </Stack.Navigator>
   )
