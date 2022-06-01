@@ -1,5 +1,11 @@
 import {StackNavigationRoutes} from '../../../../app/navigation'
 import {NotificationFormScreen} from './NotificationForm.screen'
+import {NotificationResponseScreen} from './NotificationResponse.screen'
+import {ProjectWarningFormScreen} from './ProjectWarningForm.screen'
+import {SelectNewsArticleScreen} from './SelectNewsArticle.screen'
+import {VerifyMainImageScreen} from './VerifyMainImage.screen'
+import {VerifyNotificationScreen} from './VerifyNotification.screen'
+import {WritingGuideScreen} from './WritingGuide.screen'
 
 export enum CreateNotificationRouteName {
   notificationForm = 'NotificationForm',
@@ -30,27 +36,27 @@ export const createNotificationRoutes: StackNavigationRoutes<
     name: CreateNotificationRouteName.notificationForm,
   },
   [CreateNotificationRouteName.notificationResponse]: {
-    component: NotificationFormScreen,
+    component: NotificationResponseScreen,
     name: CreateNotificationRouteName.notificationResponse,
   },
   [CreateNotificationRouteName.projectWarningForm]: {
-    component: NotificationFormScreen,
+    component: ProjectWarningFormScreen,
     name: CreateNotificationRouteName.projectWarningForm,
   },
   [CreateNotificationRouteName.selectNewsArticle]: {
-    component: NotificationFormScreen,
+    component: SelectNewsArticleScreen,
     name: CreateNotificationRouteName.selectNewsArticle,
   },
   [CreateNotificationRouteName.verifyMainImage]: {
-    component: NotificationFormScreen,
+    component: VerifyMainImageScreen,
     name: CreateNotificationRouteName.verifyMainImage,
   },
   [CreateNotificationRouteName.verifyNotification]: {
-    component: NotificationFormScreen,
+    component: VerifyNotificationScreen,
     name: CreateNotificationRouteName.verifyNotification,
   },
   [CreateNotificationRouteName.writingGuide]: {
-    component: NotificationFormScreen,
+    component: WritingGuideScreen,
     name: CreateNotificationRouteName.writingGuide,
   },
 }
