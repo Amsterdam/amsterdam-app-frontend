@@ -87,7 +87,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           onPress={() =>
             navigation.navigate(routes.projectDetailBody.name, {
               body: {
-                headerTitle: project.title,
                 sections: sections ?? [],
                 title: title,
                 timeline: timeline,
