@@ -52,6 +52,13 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+ios/builds/
+ios/fastlane/.env
+ios/certs
+android/certs
+.aab
+.apk
+.ipa
 
 # Bundle artifact
 *.jsbundle
