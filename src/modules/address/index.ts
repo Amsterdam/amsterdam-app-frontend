@@ -8,5 +8,5 @@ export const module: ClientModule = {
   name: 'AddressModule',
   slug: 'address',
   stack: AddressStack,
-  state: addressSlice,
+  state: [addressSlice],
 }

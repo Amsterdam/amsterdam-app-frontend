@@ -9,7 +9,7 @@ export const TemplateScreen: FC = () => {
   return (
     <ScrollView>
       <Box>
-        <Text>Template</Text>
+        <Text>Hallo, ik ben een module! 🎉</Text>
       </Box>
     </ScrollView>
   )

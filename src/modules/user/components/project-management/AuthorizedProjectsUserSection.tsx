@@ -4,8 +4,6 @@ import React, {Fragment} from 'react'
 import {LinkToUserSection, UserSection} from '..'
 import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
-import {ProjectTitle} from '../../../../components/features/project'
-import {useProjectManagerFetcher} from '../../../../components/features/project-manager'
 import {
   Attention,
   Box,
@@ -15,6 +13,8 @@ import {
   Text,
 } from '../../../../components/ui'
 import {accessibleText} from '../../../../utils'
+import {ProjectTitle} from '../../../projects/components/project'
+import {useProjectManagerFetcher} from '../../../projects/components/project-manager'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =

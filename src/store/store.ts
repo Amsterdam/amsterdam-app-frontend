@@ -10,11 +10,11 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 import {notificationsSlice} from '../components/features/notifications'
-import {projectManagerSlice} from '../components/features/project-manager'
-import {projectsByTextSlice} from '../components/features/projects'
 import {addressSlice} from '../modules/address/addressSlice'
 import {modulesSlice} from '../modules/home/store/modulesSlice'
-import {notificationDraftSlice} from '../screens/create-notification'
+import {projectManagerSlice} from '../modules/projects/components/project-manager'
+import {projectsByTextSlice} from '../modules/projects/components/projects'
+import {notificationDraftSlice} from '../modules/projects/screens/create-notification'
 import {baseApi} from '../services/init'
 import {themeSlice} from '../themes/themeSlice'
 import {authSlice} from './authSlice'
@@ -49,11 +49,11 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   auth: authSlice.reducer,
-  modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
   environment: persistReducer(
     environmentPersistConfig,
     environmentSlice.reducer,
   ),
+  modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
   notifications: persistReducer(
     notificationsPersistConfig,
     notificationsSlice.reducer,
