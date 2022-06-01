@@ -1,12 +1,12 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
+import {Card, CardBody, Image, Text} from '../../../../components/ui'
+import {Row} from '../../../../components/ui/layout'
+import {useEnvironment} from '../../../../store'
+import {image as imageTokens} from '../../../../tokens'
+import {ArticleSummary} from '../../../../types'
+import {mapImageSources, mapWarningImageSources} from '../../../../utils'
 import HeroImage from '../../../assets/images/project-warning-hero.svg'
-import {useEnvironment} from '../../../store'
-import {image as imageTokens} from '../../../tokens'
-import {ArticleSummary} from '../../../types'
-import {mapImageSources, mapWarningImageSources} from '../../../utils'
-import {Card, CardBody, Image, Text} from '../../ui'
-import {Row} from '../../ui/layout'
 
 type Props = {
   article: ArticleSummary
