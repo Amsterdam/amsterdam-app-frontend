@@ -58,6 +58,33 @@ platform :ios do
 
   lane :buildApps do
 
+    # we use private lanes to switch app identifier, which we can only set for a lane (see Appfile)
+    desc "Create single app build"
+    private_lane :buildLane do |app|
+      get_provisioning_profile( # Create or get provisioning profile
+          output_path: "./builds",  # Download provisioning profile in the build folder
+          app_identifier: app[:app_identifier],
+        )
+        build_app(
+          workspace: "AmsterdamApp.xcworkspace",
+          scheme: app[:scheme],
+          clean: true,
+          build_path: "./builds",
+          output_directory: "./builds",
+          output_name: app[:output_name],
+        )
+    end
+
+    desc "Production build"
+    private_lane :prodLane do |app|
+      buildLane(app)
+    end
+
+    desc "Dev build"
+    private_lane :devLane do |app|
+      buildLane(app)
+    end
+
     cocoapods(
       clean_install: true,
       podfile: "./Podfile",
@@ -77,18 +104,11 @@ platform :ios do
 
     apps.each do |app|
       puts "Build #{app[:app_identifier]}"
-      get_provisioning_profile( # Create or get provisioning profile
-        output_path: "./builds",  # Download provisioning profile in the build folder
-        app_identifier: app[:app_identifier],
-      )
-      build_app(
-        workspace: "AmsterdamApp.xcworkspace",
-        scheme: app[:scheme],
-        clean: true,
-        build_path: "./builds",
-        output_directory: "./builds",
-        output_name: app[:output_name],
-      )
+      if app[:name] == "amsterdam-test"
+        devLane(app)
+      else
+        prodLane(app)
+      end
     end
 
     # set_changelog()
