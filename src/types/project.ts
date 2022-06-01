@@ -81,7 +81,6 @@ export type ProjectDetail = {
 
 // A set of project body sections, used in the front-end
 export type ProjectDetailBody = {
-  headerTitle: string
   sections: Section[]
   timeline?: Timeline
   title: string

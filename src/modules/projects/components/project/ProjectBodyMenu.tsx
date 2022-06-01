@@ -43,7 +43,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
       icon: <Calendar fill={color.font.inverse} />,
       sections: project.body.when ?? [],
       timeline: project.body.timeline,
-      title: 'Tijdlijn',
+      title: 'Planning',
     },
     {
       icon: <LocationFields fill={color.font.inverse} />,
@@ -87,7 +87,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           onPress={() =>
             navigation.navigate(routes.projectDetailBody.name, {
               body: {
-                headerTitle: project.title,
                 sections: sections ?? [],
                 title: title,
                 timeline: timeline,

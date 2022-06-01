@@ -20,9 +20,11 @@ export enum ProjectsRouteName {
   projectWarning = 'ProjectWarning',
 }
 
-type ProjectsStackParams = {
+export type ProjectsStackParams = {
   [ProjectsRouteName.projectDetail]: {id: string}
-  [ProjectsRouteName.projectDetailBody]: {body: ProjectDetailBody}
+  [ProjectsRouteName.projectDetailBody]: {
+    body: ProjectDetailBody
+  }
   [ProjectsRouteName.projectManager]: {id: string}
   [ProjectsRouteName.projectNews]: {id: string}
   [ProjectsRouteName.projects]: undefined
