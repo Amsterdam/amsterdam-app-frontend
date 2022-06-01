@@ -2,7 +2,7 @@ import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-type UserStackParams = {
+export type UserStackParams = {
   User: undefined
 }
 
