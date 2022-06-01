@@ -10,7 +10,7 @@ export enum HomeRouteName {
   settings = 'Settings',
 }
 
-type HomeStackParams = {
+export type HomeStackParams = {
   Home: undefined
   Settings: undefined
 }
