@@ -30,49 +30,20 @@ export const tabs: TabNavigationRoutes<TabParams> = {
   },
 }
 
-const homeRoutes: StackNavigationRoutes<
-  HomeStackParams,
-  'authorizedProjects' | 'modules' | 'selectModules'
-> = {
-  authorizedProjects: {
-    name: 'AuthorizedProjects',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.app,
+const homeRoutes: StackNavigationRoutes<HomeStackParams, 'authorizedProjects'> =
+  {
+    authorizedProjects: {
+      name: 'AuthorizedProjects',
+      options: {
+        cardStyle: {
+          backgroundColor: color.background.app,
+        },
+        headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
       },
-      headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
     },
-  },
-  modules: {
-    name: 'Modules',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: 'Modules ✨',
-    },
-  },
-  selectModules: {
-    name: 'SelectModules',
-    options: {
-      headerTitle: 'Instellingen',
-    },
-  },
-}
+  }
 
-const menuRoutes: StackNavigationRoutes<
-  MenuStackParams,
-  'menu' | 'writingGuide'
-> = {
-  menu: {
-    name: 'Menu',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
-    },
-  },
+const menuRoutes: StackNavigationRoutes<MenuStackParams, 'writingGuide'> = {
   writingGuide: {
     name: 'WritingGuide',
     options: {
@@ -90,12 +61,9 @@ const sharedRoutes: StackNavigationRoutes<
   | 'notification'
   | 'projectDetail'
   | 'projectDetailBody'
-  | 'projectManager'
   | 'projectNews'
   | 'projects'
   | 'projectWarning'
-  | 'settings'
-  | 'webView'
 > = {
   notification: {
     name: 'Notification',
@@ -118,16 +86,6 @@ const sharedRoutes: StackNavigationRoutes<
       },
     },
   },
-  projectManager: {
-    name: 'ProjectManager',
-    options: {
-      cardStyle: {
-        backgroundColor: color.background.white,
-      },
-      headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
-      presentation: 'modal',
-    },
-  },
   projectNews: {
     name: 'ProjectNews',
     options: {
@@ -142,20 +100,11 @@ const sharedRoutes: StackNavigationRoutes<
       cardStyle: {
         backgroundColor: color.background.white,
       },
-      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Werk in uitvoering" />,
     },
   },
   projectWarning: {
     name: 'ProjectWarning',
-  },
-  settings: {
-    name: 'Settings',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
-    },
-  },
-  webView: {
-    name: 'WebView',
   },
 }
 
