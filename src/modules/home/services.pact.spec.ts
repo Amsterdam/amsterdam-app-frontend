@@ -3,6 +3,8 @@ import {Pact} from '@pact-foundation/pact'
 import {eachLike, like} from '@pact-foundation/pact/src/dsl/matchers'
 import fetch from 'node-fetch'
 
+const PATH = '/api/v1/modules_for_app'
+
 const provider = new Pact({
   consumer: 'amsterdam-app-frontend',
   provider: 'amsterdam-app-modules',
@@ -28,7 +30,7 @@ describe('API Pact test', () => {
         uponReceiving: 'get all modules',
         withRequest: {
           method: 'GET',
-          path: '/api/v1/modules',
+          path: PATH,
           headers: {
             Accept: 'application/json',
             'App-Version': like('1.0.0.0'),
@@ -54,7 +56,7 @@ describe('API Pact test', () => {
       })
 
       const module = await (
-        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
+        await fetch(provider.mockService.baseUrl + PATH, {
           headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
         })
       ).json()
@@ -80,7 +82,7 @@ describe('API Pact test', () => {
         uponReceiving: 'get all modules',
         withRequest: {
           method: 'GET',
-          path: '/api/v1/modules',
+          path: PATH,
           headers: {
             Accept: 'application/json',
           },
@@ -98,7 +100,7 @@ describe('API Pact test', () => {
       })
 
       const module = await (
-        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
+        await fetch(provider.mockService.baseUrl + PATH, {
           headers: {Accept: 'application/json'},
         })
       ).json()
@@ -115,7 +117,7 @@ describe('API Pact test', () => {
         uponReceiving: 'get all modules',
         withRequest: {
           method: 'GET',
-          path: '/api/v1/modules',
+          path: PATH,
           headers: {
             Accept: 'application/json',
             'App-Version': like('1.0.0.0'),
@@ -134,7 +136,7 @@ describe('API Pact test', () => {
       })
 
       const module = await (
-        await fetch(provider.mockService.baseUrl + '/api/v1/modules', {
+        await fetch(provider.mockService.baseUrl + PATH, {
           headers: {'App-Version': '0.16.5.8439', Accept: 'application/json'},
         })
       ).json()

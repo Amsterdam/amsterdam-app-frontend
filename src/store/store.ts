@@ -49,11 +49,11 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   auth: authSlice.reducer,
-  modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
   environment: persistReducer(
     environmentPersistConfig,
     environmentSlice.reducer,
   ),
+  modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
   notifications: persistReducer(
     notificationsPersistConfig,
     notificationsSlice.reducer,

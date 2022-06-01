@@ -1,19 +1,19 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
-import {Box, Tooltip} from '../../../components/ui'
+import {useDispatch} from 'react-redux'
+import {Box, PleaseWait, Tooltip} from '../../../components/ui'
 import {Switch} from '../../../components/ui/forms'
 import {Column, Row} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
 import {Theme, useThemable} from '../../../themes'
 import {icons} from '../config'
-import {selectModules, toggleModule} from '../store'
-import serverModulesMock from '../store/server-modules.mock.json'
+import {useModules} from '../hooks'
+import {toggleModule} from '../store'
 import {ModuleBox} from './'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules} = useSelector(selectModules)
+  const {modules, isLoading} = useModules({})
 
   // TODO Create `Icon` component with size and color props
   const iconProps = useThemable(createIconProps)
@@ -24,12 +24,15 @@ export const ModuleSettings = () => {
     dispatch(toggleModule(slug))
   }
 
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
   return (
     <Box>
       <Column gutter="sm">
-        {serverModulesMock.modules.map(module => {
-          const {description, icon, slug, title} = module
-          const isSelected = modules.includes(slug)
+        {modules.map(module => {
+          const {description, icon, isSelected, slug, title} = module
           const Icon = icons[icon]
 
           return (

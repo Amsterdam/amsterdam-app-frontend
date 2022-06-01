@@ -22,21 +22,17 @@ const dynamicBaseQuery: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, baseQueryApi, extraOptions) => {
-  console.log(
-    'reload config',
-    selectEnvironment(baseQueryApi.getState() as RootState).apiUrl,
-    args,
-    baseQueryApi,
-    extraOptions,
-  )
   const api = typeof args !== 'string' && args.api ? args.api : 'apiUrl'
+
   return fetchBaseQuery({
     baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
     prepareHeaders: (headers, {endpoint, getState}) => {
       const token = selectAuthManagerToken(getState() as RootState)
+
       if (token && managerAuthorizedEndpoints.includes(endpoint)) {
         headers.set('userauthorization', token)
       }
+
       return headers
     },
   })(args, baseQueryApi, extraOptions)
