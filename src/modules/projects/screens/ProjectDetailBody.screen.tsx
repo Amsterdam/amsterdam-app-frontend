@@ -32,35 +32,38 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   return (
     <ScrollView>
-      <Box>
-        <Column gutter="md">
-          <Title text={body.title} />
-          {body.sections.map(section => (
-            <Column gutter="sm" key={section.title}>
-              <Title level="h2" text={section.title} />
-              <RenderHTML
-                contentWidth={width}
-                source={{
-                  html: section.html
-                    .replace(
-                      regexLibrary.plainPublish.regex,
-                      regexLibrary.plainPublish.replace,
-                    )
-                    .replace(
-                      regexLibrary.quotePublish.regex,
-                      regexLibrary.quotePublish.replace,
-                    ),
-                }}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStyles}
-              />
-            </Column>
-          ))}
-          {body.timeline?.items?.length && (
-            <Timeline items={body.timeline.items} />
-          )}
-        </Column>
-      </Box>
+      <Column gutter="md">
+        <></>
+        <Box>
+          <Column gutter="md">
+            <Title text={body.title} />
+            {body.sections.map(section => (
+              <Column gutter="sm" key={section.title}>
+                <Title level="h2" text={section.title} />
+                <RenderHTML
+                  contentWidth={width}
+                  source={{
+                    html: section.html
+                      .replace(
+                        regexLibrary.plainPublish.regex,
+                        regexLibrary.plainPublish.replace,
+                      )
+                      .replace(
+                        regexLibrary.quotePublish.regex,
+                        regexLibrary.quotePublish.replace,
+                      ),
+                  }}
+                  systemFonts={[font.weight.regular, font.weight.demi]}
+                  tagsStyles={tagsStyles}
+                />
+              </Column>
+            ))}
+            {body.timeline?.items?.length && (
+              <Timeline items={body.timeline.items} />
+            )}
+          </Column>
+        </Box>
+      </Column>
     </ScrollView>
   )
 }
