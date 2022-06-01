@@ -7,7 +7,7 @@ import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {DeviceContext} from '../../../../providers'
 import {color, size} from '../../../../tokens'
-import {ProjectDetail, Section, Timeline} from '../../../../types'
+import {ContactInfo, ProjectDetail, Section, Timeline} from '../../../../types'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectBodyMenuItem} from '.'
 
@@ -16,6 +16,8 @@ type Props = {
 }
 
 type ProjectBodyMenuItem = {
+  contact?: []
+  contactInfo?: ContactInfo[]
   icon: ReactNode
   sections?: Section[]
   timeline?: Timeline
@@ -44,6 +46,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
     {
       icon: <ChatBubble fill={color.font.inverse} />,
       sections: project.body.contact,
+      contactInfo: project.contact,
       title: 'Contact',
     },
   ]
