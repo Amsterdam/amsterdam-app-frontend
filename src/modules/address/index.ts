@@ -1,8 +1,8 @@
-import {ClientModule} from '../types'
+import {ModuleClientConfig} from '../types'
 import {AddressStack} from './Stack'
 import {addressSlice} from './addressSlice'
 
-export const module: ClientModule = {
+export const module: ModuleClientConfig = {
   isCore: true,
   linking: {},
   name: 'AddressModule',

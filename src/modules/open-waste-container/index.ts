@@ -1,7 +1,7 @@
-import {ClientModule} from '../types'
+import {ModuleClientConfig} from '../types'
 import {OpenWasteContainerStack} from './Stack'
 
-export const module: ClientModule = {
+export const module: ModuleClientConfig = {
   linking: {},
   name: 'OpenWasteContainerModule',
   slug: 'open-waste-container',
