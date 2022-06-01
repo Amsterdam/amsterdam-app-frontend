@@ -12,7 +12,7 @@ import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services'
 import {NotificationQueryArg} from '../../../../types'
 import {formatTime} from '../../../../utils'
-import {NotificationStackParams} from './CreateNotificationScreen'
+import {NotificationStackParams} from './CreateNotification.screen'
 import {
   selectProjectId,
   setNotification,
