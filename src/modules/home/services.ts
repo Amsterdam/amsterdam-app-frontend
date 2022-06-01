@@ -1,10 +1,10 @@
 import {version as appVersion} from '../../../package.json'
 import {baseApi} from '../../services/init'
-import {ServerModule} from '../types'
+import {ModuleServerConfig} from '../types'
 
 type RegisterModuleQueryArg = {
   app_version: string
-} & ServerModule
+} & ModuleServerConfig
 
 type ModuleOrderQueryArg = {
   app_version: string
@@ -24,7 +24,7 @@ export const modulesApi = baseApi.injectEndpoints({
         }
       },
     }),
-    getModules: builder.query<ServerModule[], void>({
+    getModules: builder.query<ModuleServerConfig[], void>({
       providesTags: ['Modules'],
       query: () => {
         return {
@@ -35,7 +35,7 @@ export const modulesApi = baseApi.injectEndpoints({
           url: '/modules_for_app',
         }
       },
-      transformResponse: (response: {result: ServerModule[]}) =>
+      transformResponse: (response: {result: ModuleServerConfig[]}) =>
         response.result,
     }),
     setModulesOrder: builder.mutation<unknown, ModuleOrderQueryArg>({

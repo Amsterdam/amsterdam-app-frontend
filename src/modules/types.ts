@@ -2,10 +2,9 @@ import {Slice} from '@reduxjs/toolkit'
 import {ComponentType} from 'react'
 
 /**
- * The client part of module configuration.
- * @todo Rename to e.g.`ModuleClientData`
+ * The client part of a module’s configuration.
  */
-export type ClientModule = {
+export type ModuleClientConfig = {
   isCore?: boolean
   linking: Record<string, string>
   name: string
@@ -15,18 +14,16 @@ export type ClientModule = {
 }
 
 /**
- * The user preferences part of module configuration.
- * @todo Rename to e.g.`ModuleUserData`
+ * The user preferences part of a module’s configuration.
  */
-export type ModulePreferences = {
+export type ModuleUserConfig = {
   isSelected: boolean
 }
 
 /**
- * The server part of module configuration.
- * @todo Rename to e.g. `ModuleServerData`
+ * The server part of a module’s configuration.
  */
-export type ServerModule = {
+export type ModuleServerConfig = {
   description: string
   icon: string
   slug: string
@@ -35,6 +32,6 @@ export type ServerModule = {
   version: string
 }
 
-export type PersonalisedClientModule = ClientModule & ModulePreferences
+export type ModuleClientAndUserConfig = ModuleClientConfig & ModuleUserConfig
 
-export type Module = PersonalisedClientModule & ServerModule
+export type Module = ModuleServerConfig & ModuleClientAndUserConfig

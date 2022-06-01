@@ -1,7 +1,7 @@
-import {ClientModule} from '../types'
+import {ModuleClientConfig} from '../types'
 import {HomeStack} from './Stack'
 
-export const module: ClientModule = {
+export const module: ModuleClientConfig = {
   isCore: true,
   linking: {},
   name: 'HomeModule',

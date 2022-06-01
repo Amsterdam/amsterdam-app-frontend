@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux'
 import {combineClientAndServerModules} from '../../../utils'
 import {clientModules} from '../../index'
-import {PersonalisedClientModule} from '../../types'
+import {ModuleClientAndUserConfig} from '../../types'
 import {useGetModulesQuery} from '../services'
 import {selectModules} from '../store'
 
@@ -17,7 +17,7 @@ export const useModules = ({
   const {data: serverModules, isLoading} = useGetModulesQuery()
   const {modules: selectedModuleSlugs} = useSelector(selectModules)
 
-  const selectedClientModules: PersonalisedClientModule[] = clientModules.map(
+  const selectedClientModules: ModuleClientAndUserConfig[] = clientModules.map(
     m => ({
       ...m,
       isSelected: selectedModuleSlugs.includes(m.slug),
