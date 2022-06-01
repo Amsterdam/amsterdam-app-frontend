@@ -1,14 +1,14 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
+import {RootStackParamList} from '../../../../app/navigation'
 import {Box, Title, TextButton, Text} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
+import {ProjectsRouteName} from '../../../projects/routes'
 
 export const NoNotificationsMessage = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, 'UserModule'>>()
 
   return (
     <Box background="white">
@@ -32,7 +32,12 @@ export const NoNotificationsMessage = () => {
         </Text>
         <TextButton
           emphasis
-          onPress={() => navigation.navigate(routes.projects.name)}
+          onPress={() =>
+            navigation.navigate(
+              'ConstructionWorkModule',
+              ProjectsRouteName.projects,
+            )
+          }
           text="Naar bouwprojecten"
         />
       </Column>

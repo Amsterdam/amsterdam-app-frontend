@@ -6,7 +6,6 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {routes} from '../../../../app/navigation/routes'
 import {DeviceContext} from '../../../../providers'
 import {color, size} from '../../../../tokens'
 import {ProjectDetail, Section, Timeline} from '../../../../types'
@@ -87,7 +86,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
           key={title}
           label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
           onPress={() =>
-            navigation.navigate(routes.projectDetailBody.name, {
+            navigation.navigate(ProjectsRouteName.projectDetailBody, {
               body: {
                 sections: sections ?? [],
                 title: title,

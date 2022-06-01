@@ -5,8 +5,6 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
 import {
   Box,
   PleaseWait,
@@ -22,12 +20,13 @@ import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {useGetProjectsByTextQuery} from '../../projects.service'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsByTextSlice'
 
 export const ProjectsByText = () => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
@@ -83,7 +82,7 @@ export const ProjectsByText = () => {
         mapImageSources(project.images[0].sources, environment)
       }
       onPress={() =>
-        navigation.navigate(routes.projectDetail.name, {
+        navigation.navigate(ProjectsRouteName.projectDetail, {
           id: project.identifier,
         })
       }

@@ -2,8 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
 import {LinkToUserSection, UserSection} from '..'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
+import {RootStackParamList} from '../../../../app/navigation'
 import {
   Attention,
   Box,
@@ -15,12 +14,13 @@ import {
 import {accessibleText} from '../../../../utils'
 import {ProjectTitle} from '../../../projects/components/project'
 import {useProjectManagerFetcher} from '../../../projects/components/project-manager'
+import {ProjectsRouteName} from '../../../projects/routes'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
     useProjectManagerFetcher()
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Settings'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, 'UserModule'>>()
 
   if (!projectManager) {
     return (
@@ -47,8 +47,11 @@ export const AuthorizedProjectsUserSection = () => {
           <Fragment key={project.identifier}>
             <LinkToUserSection
               onPress={() =>
-                navigation.navigate(routes.projectDetail.name, {
-                  id: project.identifier,
+                navigation.navigate('ConstructionWorkModule', {
+                  screen: ProjectsRouteName.projectDetail,
+                  params: {
+                    id: project.identifier,
+                  },
                 })
               }>
               <SingleSelectable

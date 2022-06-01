@@ -5,8 +5,6 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
 import {
   Box,
   PleaseWait,
@@ -22,13 +20,14 @@ import {Project} from '../../../../types'
 import {accessibleText, mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
 import {useGetProjectsByDistanceQuery} from '../../projects.service'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard, ProjectTraits} from '../project'
 import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDistance = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
@@ -99,7 +98,7 @@ export const ProjectsByDistance = () => {
         />
       }
       onPress={() =>
-        navigation.navigate(routes.projectDetail.name, {
+        navigation.navigate(ProjectsRouteName.projectDetail, {
           id: project.identifier,
         })
       }
