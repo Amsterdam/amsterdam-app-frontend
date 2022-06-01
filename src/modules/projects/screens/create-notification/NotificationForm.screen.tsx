@@ -12,12 +12,15 @@ import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services'
 import {NotificationQueryArg} from '../../../../types'
 import {formatTime} from '../../../../utils'
-import {NotificationStackParams} from './CreateNotification.screen'
 import {
   selectProjectId,
   setNotification,
   setStep,
 } from './notificationDraftSlice'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from './routes'
 
 const maxCharacters = {
   title: 54,
@@ -30,7 +33,10 @@ type FormData = {
 }
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'NotificationForm'>
+  navigation: StackNavigationProp<
+    CreateNotificationStackParams,
+    CreateNotificationRouteName
+  >
 }
 
 export const NotificationFormScreen = ({navigation}: Props) => {
@@ -76,8 +82,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
 
     const nextScreen =
       newsArticlesCount && newsArticlesCount > 0
-        ? 'SelectNewsArticle'
-        : 'ProjectWarningForm'
+        ? CreateNotificationRouteName.selectNewsArticle
+        : CreateNotificationRouteName.projectWarningForm
 
     dispatch(setNotification(notificationData))
     navigation.navigate(nextScreen)

@@ -2,19 +2,21 @@ import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {StackParams} from '../../../app/navigation'
+import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button} from '../../../components/ui'
 import {size} from '../../../tokens'
+import {HomeRouteName} from '../../home/routes'
 import {ProjectManagerSummary} from '../components/project-manager'
+import {ProjectsRouteName, ProjectsStackParams} from '../routes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
-  StackParams,
-  'ProjectManager'
+  ProjectsStackParams,
+  ProjectsRouteName.projectManager
 >
 
 export type ProjectManagerScreenNavigationProps = StackNavigationProp<
-  StackParams,
-  'ProjectManager'
+  RootStackParamList & ProjectsStackParams,
+  ProjectsRouteName.projectManager
 >
 
 type Props = {
@@ -28,7 +30,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => (
     <Box>
       <Button
         text="Sluit venster"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('HomeModule', HomeRouteName.home)}
       />
     </Box>
   </View>
