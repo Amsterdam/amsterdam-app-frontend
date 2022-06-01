@@ -5,7 +5,6 @@ import {StyleSheet} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {StackParams} from '../../../app/navigation'
 import {routes} from '../../../app/navigation/routes'
-import {ArticleOverview} from '../../../components/features/article'
 import {
   selectNotificationSettings,
   toggleProjectsEnabled,
@@ -26,6 +25,7 @@ import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {useEnvironment} from '../../../store'
 import {image} from '../../../tokens'
 import {mapImageSources, accessibleText} from '../../../utils'
+import {ArticleOverview} from '../components/article'
 import {ProjectBodyMenu} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {useGetProjectQuery} from '../projects.service'
