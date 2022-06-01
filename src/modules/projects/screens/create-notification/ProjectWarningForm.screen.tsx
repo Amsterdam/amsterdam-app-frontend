@@ -25,7 +25,7 @@ import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {color, size} from '../../../../tokens'
 import {NewProjectWarning} from '../../../../types'
 import {selectProjectManager} from '../../components/project-manager'
-import {NotificationStackParams} from './CreateNotificationScreen'
+import {NotificationStackParams} from './CreateNotification.screen'
 import {
   selectMainImage,
   selectProjectId,

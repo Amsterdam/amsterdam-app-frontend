@@ -15,7 +15,7 @@ import {
 import {Column, Gutter, Row, ScrollView} from '../../../../components/ui/layout'
 import {color, font} from '../../../../tokens'
 import {accessibleText} from '../../../../utils'
-import {NotificationStackParams} from './CreateNotificationScreen'
+import {NotificationStackParams} from './CreateNotification.screen'
 
 type Props = {
   navigation: StackNavigationProp<NotificationStackParams, 'WritingGuide'>
