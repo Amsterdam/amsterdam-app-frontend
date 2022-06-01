@@ -18,8 +18,8 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Install bundler (ruby gem manager): `gem install bundler:2.2.33`
   - Update gems with bundler: `bundle update`
   - Install pods: `pod install --repo-update`
-- Add `GoogleService-info.plist` to `/ios` folder
-- Add `google-services.json` to `/android/app` folder
+- Get `GoogleService-info.plist` from a team member and save it into your `/ios` directory
+- Get `google-services.json` from a team member and save it into your `/android/app` directory
 - Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`. Or, more
   specifically:
   - Start the iOS phone emulator: `npm run ios:phone`.
@@ -34,16 +34,16 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 
 Secret files included are:
 
-- android/app/google-services.json
-- android/app/src/dev/google-services.json
-- ios/GoogleService-Info.plist
+- `android/app/google-services.json`
+- `android/app/src/dev/google-services.json`
+- `ios/GoogleService-Info.plist`
 
 ### Environment variables
 
 We currently use two environment variables to authorise project managers to send push notifications:
 
-- AUTH_PASSWORD
-- AUTH_SHARED_SECRET
+- `AUTH_PASSWORD`
+- `AUTH_SHARED_SECRET`
 
 Ask one of the developers to provide their values and store these in a file called `/.env`.
 
@@ -53,7 +53,7 @@ A continuous integration & deployment pipeline using Azure DevOps and [Fastlane]
 
 ### Azure DevOps
 
-The configuration of the pipelines is in `/pipelines/`.
+The configuration of the pipelines is in `/pipelines`.
 From here we run Fastlane for iOS and for Android.
 The pipeline has access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard.
 
@@ -130,7 +130,8 @@ The version of the Scrum-team release has a digit extra, so 4 in total.
 
 ## Git
 
-We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- We rebase feature branches – don’t merge `main` or `develop` back into them. 
+- We largely work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
 
 ### Release
 
