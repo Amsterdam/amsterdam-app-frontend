@@ -3,6 +3,7 @@ import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 import {ProjectDetailBody} from '../../types'
 import {
+  AuthorizedProjectsScreen,
   ProjectDetailBodyScreen,
   ProjectDetailScreen,
   ProjectManagerScreen,
@@ -16,6 +17,7 @@ import {
 } from './screens/create-notification'
 
 export enum ProjectsRouteName {
+  authorizedProjects = 'AuthorizedProjects',
   createNotification = 'CreateNotification',
   projectDetail = 'ProjectDetail',
   projectDetailBody = 'ProjectDetailBody',
@@ -26,6 +28,7 @@ export enum ProjectsRouteName {
 }
 
 export type ProjectsStackParams = {
+  [ProjectsRouteName.authorizedProjects]: {projectManagerId: string}
   [ProjectsRouteName.createNotification]: {projectDetails: ProjectMinimal}
   [ProjectsRouteName.projectDetail]: {id: string}
   [ProjectsRouteName.projectDetailBody]: {
@@ -41,6 +44,13 @@ export const projectsRoutes: StackNavigationRoutes<
   ProjectsStackParams,
   ProjectsRouteName
 > = {
+  [ProjectsRouteName.authorizedProjects]: {
+    component: AuthorizedProjectsScreen,
+    name: ProjectsRouteName.authorizedProjects,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
+    },
+  },
   [ProjectsRouteName.createNotification]: {
     component: CreateNotificationScreen,
     name: ProjectsRouteName.createNotification,
