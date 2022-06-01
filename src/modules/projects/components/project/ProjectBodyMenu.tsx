@@ -6,11 +6,11 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {StackParams} from '../../../../app/navigation'
 import {routes} from '../../../../app/navigation/routes'
 import {DeviceContext} from '../../../../providers'
 import {color, size} from '../../../../tokens'
 import {ProjectDetail, Section, Timeline} from '../../../../types'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectBodyMenuItem} from '.'
 
 type Props = {
@@ -27,7 +27,9 @@ type ProjectBodyMenuItem = {
 export const ProjectBodyMenu = ({project}: Props) => {
   const device = useContext(DeviceContext)
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'ProjectDetailBody'>>()
+    useNavigation<
+      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectDetail>
+    >()
 
   const menuOptions: ProjectBodyMenuItem[] = [
     {
