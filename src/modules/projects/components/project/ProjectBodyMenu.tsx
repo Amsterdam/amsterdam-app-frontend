@@ -1,6 +1,5 @@
 import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
 import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
-import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
@@ -31,15 +30,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
     >()
 
   const menuOptions: ProjectBodyMenuItem[] = [
-    {
-      icon: <Info fill={color.font.inverse} />,
-      sections: [
-        ...(project.body.intro ?? []),
-        ...(project.body.what ?? []),
-        ...(project.body.where ?? []),
-      ],
-      title: 'Informatie',
-    },
     {
       icon: <Calendar fill={color.font.inverse} />,
       sections: project.body.when ?? [],
