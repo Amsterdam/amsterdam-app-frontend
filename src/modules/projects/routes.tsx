@@ -10,8 +10,13 @@ import {
   ProjectsScreen,
   ProjectWarningScreen,
 } from './screens'
+import {
+  CreateNotificationScreen,
+  ProjectMinimal,
+} from './screens/create-notification'
 
 export enum ProjectsRouteName {
+  createNotification = 'CreateNotification',
   projectDetail = 'ProjectDetail',
   projectDetailBody = 'ProjectDetailBody',
   projectManager = 'ProjectManager',
@@ -21,6 +26,7 @@ export enum ProjectsRouteName {
 }
 
 export type ProjectsStackParams = {
+  [ProjectsRouteName.createNotification]: {projectDetails: ProjectMinimal}
   [ProjectsRouteName.projectDetail]: {id: string}
   [ProjectsRouteName.projectDetailBody]: {
     body: ProjectDetailBody
@@ -35,6 +41,14 @@ export const projectsRoutes: StackNavigationRoutes<
   ProjectsStackParams,
   ProjectsRouteName
 > = {
+  [ProjectsRouteName.createNotification]: {
+    component: CreateNotificationScreen,
+    name: ProjectsRouteName.createNotification,
+    options: {
+      presentation: 'modal',
+      headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
+    },
+  },
   [ProjectsRouteName.projectDetail]: {
     component: ProjectDetailScreen,
     name: ProjectsRouteName.projectDetail,
