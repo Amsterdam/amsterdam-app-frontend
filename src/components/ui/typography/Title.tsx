@@ -5,11 +5,11 @@ import {TitleTokensPerLevel} from '../../../themes/tokens'
 import {font} from '../../../tokens'
 
 type Props = {
-  level: keyof TitleTokensPerLevel
+  level?: keyof TitleTokensPerLevel
   text: string
 } & Omit<TextProps, 'style'>
 
-export const Title = ({level, text}: Props) => {
+export const Title = ({level = 'h1', text}: Props) => {
   const createdStyles = useMemo(() => createStyles({level}), [level])
   const styles = useThemable(createdStyles)
 
