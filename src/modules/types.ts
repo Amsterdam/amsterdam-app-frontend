@@ -14,13 +14,6 @@ export type ModuleClientConfig = {
 }
 
 /**
- * The user preferences part of a module’s configuration.
- */
-export type ModuleUserConfig = {
-  isSelected: boolean
-}
-
-/**
  * The server part of a module’s configuration.
  */
 export type ModuleServerConfig = {
@@ -30,6 +23,13 @@ export type ModuleServerConfig = {
   status: number
   title: string
   version: string
+}
+
+/**
+ * The user preferences part of a module’s configuration.
+ */
+export type ModuleUserConfig = {
+  isSelected: boolean
 }
 
 export type ModuleClientAndUserConfig = ModuleClientConfig & ModuleUserConfig
