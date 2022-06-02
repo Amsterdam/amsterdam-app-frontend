@@ -60,7 +60,7 @@ platform :android do
   lane :buildApps do
     keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
     keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
-    keystore_alias = "key0"
+    keystore_alias = ENV["KEY_ALIAS"]
 
     if File.exists?(keystore_path)
       system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
