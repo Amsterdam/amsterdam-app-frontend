@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import BuildConfig from 'react-native-build-config'
 import {useDispatch, useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, environments} from '../../environment'
 import {baseApi} from '../../services'
+import {isDevApp} from '../../services/development'
 import {
   selectEnvironmentConfig,
   setEnvironment,
@@ -25,7 +25,7 @@ export const EnvironmentSelector = () => {
     dispatch(baseApi.util.resetApiState())
   }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
-  if ((BuildConfig?.BUILD_VARIANT ?? '') !== 'dev') {
+  if (!isDevApp) {
     return null
   }
 
