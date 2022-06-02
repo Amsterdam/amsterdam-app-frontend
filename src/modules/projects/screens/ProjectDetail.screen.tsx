@@ -86,7 +86,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       <Column gutter="md">
         <Box background="white">
           <Column gutter="md">
-            {!projectManager?.projects.includes(project.identifier) && (
+            {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
                   navigation.navigate(ProjectsRouteName.createNotification, {
