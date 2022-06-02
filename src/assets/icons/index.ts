@@ -6,6 +6,7 @@ import Circle from './circle.svg'
 import Close from './close.svg'
 import Container from './container.svg'
 import DarkMode from './dark-mode.svg'
+import Edit from './edit.svg'
 import Instagram from './instagram.svg'
 import LightMode from './light-mode.svg'
 import Logo from './logo.svg'
@@ -23,6 +24,7 @@ export {
   Close,
   Container,
   DarkMode,
+  Edit,
   Instagram,
   LightMode,
   Logo,
