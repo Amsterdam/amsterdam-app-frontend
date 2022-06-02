@@ -32,11 +32,11 @@ export const EnvironmentSelector = () => {
   return (
     <Box>
       <Text>Environment: {environments[environment].name}</Text>
-      {Object.entries(environments).map(([envKey, envData]) => {
+      {Object.entries(environments).map(([envKey, {name}]) => {
         const env: Environment = Number(envKey)
         return (
           <Button
-            text={envData.name}
+            text={name}
             key={envKey}
             onPress={() => {
               dispatch(setEnvironment(env))
