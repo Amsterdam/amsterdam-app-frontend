@@ -7,7 +7,7 @@ import {ProjectDetailBody} from '../../types'
 export type StackNavigationRoutes<R, Route extends string = string> = Record<
   Route,
   {
-    component?: React.ComponentType<any> //TODO This shouldn't be optional, wait until route definitions are updated
+    component: React.ComponentType<any>
     name: keyof R
     options?: StackNavigationOptions
     title?: string
