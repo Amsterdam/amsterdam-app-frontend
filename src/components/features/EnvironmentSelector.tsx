@@ -14,10 +14,16 @@ import {TextInput} from '../ui/forms'
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironmentConfig)
-  const [customUrls, setCustomUrls] = useState<Partial<EnvironmentConfig>>({
-    apiUrl: custom?.apiUrl,
-    modulesApiUrl: custom?.modulesApiUrl,
-  })
+  const [customUrls, setCustomUrls] = useState<Partial<EnvironmentConfig>>({})
+
+  useEffect(() => {
+    setCustomUrls({
+      apiUrl: custom?.apiUrl ?? environments[Environment.Custom].apiUrl,
+      modulesApiUrl:
+        custom?.modulesApiUrl ?? environments[Environment.Custom].modulesApiUrl,
+    })
+    dispatch(baseApi.util.resetApiState())
+  }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
   useEffect(() => {
     setCustomUrls({
