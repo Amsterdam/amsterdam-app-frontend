@@ -10,6 +10,7 @@ import {StackParams} from '../../../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../../../components/ui'
 import {Gutter} from '../../../../components/ui/layout'
 import {color} from '../../../../tokens'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {
   clearDraft,
   selectStep,
@@ -17,26 +18,12 @@ import {
   selectTotalSteps,
   setProject,
 } from './notificationDraftSlice'
-import {
-  NotificationFormScreen,
-  NotificationResponseScreen,
-  ProjectWarningFormScreen,
-  SelectNewsArticleScreen,
-  VerifyMainImageScreen,
-  VerifyNotificationScreen,
-} from '.'
+import {createNotificationRoutes as routes} from './routes'
 
-type NotificationScreenRouteProp = RouteProp<StackParams, 'Notification'>
-
-export type NotificationStackParams = {
-  NotificationForm: undefined
-  NotificationResponse: undefined
-  ProjectWarningForm: undefined
-  SelectNewsArticle: undefined
-  VerifyMainImage: undefined
-  VerifyNotification: undefined
-  WritingGuide: undefined
-}
+type NotificationScreenRouteProp = RouteProp<
+  ProjectsStackParams,
+  ProjectsRouteName.createNotification
+>
 
 type Props = {
   navigation: StackNavigationProp<StackParams, 'Notification'>
@@ -83,35 +70,14 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
         </Box>
       )}
       <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen
-          component={NotificationFormScreen}
-          name="NotificationForm"
-        />
-        <Stack.Screen
-          component={VerifyMainImageScreen}
-          name="VerifyMainImage"
-        />
-        <Stack.Screen
-          component={SelectNewsArticleScreen}
-          name="SelectNewsArticle"
-        />
-        <Stack.Screen
-          component={ProjectWarningFormScreen}
-          name="ProjectWarningForm"
-        />
-        <Stack.Screen
-          component={VerifyNotificationScreen}
-          name="VerifyNotification"
-        />
-        <Stack.Screen
-          component={NotificationResponseScreen}
-          name="NotificationResponse"
-          options={{
-            cardStyle: {
-              backgroundColor: color.background.app,
-            },
-          }}
-        />
+        {Object.entries(routes).map(([key, {name, options, component}]) => (
+          <Stack.Screen
+            key={key}
+            name={name}
+            options={options}
+            component={component!} //TODO "!" should be removed when component is no longer optional
+          />
+        ))}
       </Stack.Navigator>
       <Gutter height="xl" />
     </KeyboardAvoidingView>

@@ -2,20 +2,20 @@ import {StackNavigationRoutes} from '../../app/navigation'
 import {TemplateScreen} from './screens'
 
 export enum TemplateRouteName {
-  template = 'template',
+  home = 'Home',
 }
 
-type TemplateStackParams = {
-  [TemplateRouteName.template]: undefined
+export type TemplateStackParams = {
+  [TemplateRouteName.home]: undefined
 }
 
 export const templateRoutes: StackNavigationRoutes<
   TemplateStackParams,
-  TemplateRouteName.template
+  TemplateRouteName
 > = {
-  [TemplateRouteName.template]: {
+  [TemplateRouteName.home]: {
     component: TemplateScreen,
-    name: TemplateRouteName.template,
+    name: TemplateRouteName.home,
     options: {
       headerTitle: 'Template',
     },

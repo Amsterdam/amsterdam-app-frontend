@@ -4,8 +4,6 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
 import {PleaseWait, SomethingWentWrong} from '../../../../components/ui'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
@@ -15,13 +13,14 @@ import {Project} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
 import {useGetProjectsQuery} from '../../projects.service'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
 
 export const ProjectsByDate = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Projects'>>()
+    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
@@ -54,7 +53,7 @@ export const ProjectsByDate = () => {
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(routes.projectDetail.name, {
+        navigation.navigate(ProjectsRouteName.projectDetail, {
           id: project.identifier,
         })
       }

@@ -3,9 +3,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
 import {StyleSheet} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {ArticleOverview} from '../../../components/features/article'
 import {
   selectNotificationSettings,
   toggleProjectsEnabled,
@@ -26,14 +23,22 @@ import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {useEnvironment} from '../../../store'
 import {image} from '../../../tokens'
 import {mapImageSources, accessibleText} from '../../../utils'
+import {ArticleOverview} from '../components/article'
 import {ProjectBodyMenu} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {useGetProjectQuery} from '../projects.service'
+import {ProjectsRouteName, ProjectsStackParams} from '../routes'
 
-type ProjectDetailScreenRouteProp = RouteProp<StackParams, 'ProjectDetail'>
+type ProjectDetailScreenRouteProp = RouteProp<
+  ProjectsStackParams,
+  ProjectsRouteName.projectDetail
+>
 
 type Props = {
-  navigation: StackNavigationProp<StackParams, 'ProjectDetail'>
+  navigation: StackNavigationProp<
+    ProjectsStackParams,
+    ProjectsRouteName.projectDetail
+  >
   route: ProjectDetailScreenRouteProp
 }
 
@@ -81,10 +86,10 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
       <Column gutter="md">
         <Box background="white">
           <Column gutter="md">
-            {projectManager?.projects.includes(project.identifier) && (
+            {!projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(routes.notification.name, {
+                  navigation.navigate(ProjectsRouteName.createNotification, {
                     projectDetails: {
                       id: project.identifier,
                       title: project.title,

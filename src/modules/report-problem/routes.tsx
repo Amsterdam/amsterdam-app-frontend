@@ -2,16 +2,20 @@ import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-type ReportProblemStackParams = {
-  ReportProblemHome: undefined
+export enum ReportProblemRouteName {
+  home = 'Home',
+}
+
+export type ReportProblemStackParams = {
+  [ReportProblemRouteName.home]: undefined
 }
 
 export const reportProblemRoutes: StackNavigationRoutes<
   ReportProblemStackParams,
-  'home'
+  ReportProblemRouteName
 > = {
-  home: {
-    name: 'ReportProblemHome',
+  [ReportProblemRouteName.home]: {
+    name: ReportProblemRouteName.home,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
     },

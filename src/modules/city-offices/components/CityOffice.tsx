@@ -18,7 +18,7 @@ import {Column} from '../../../components/ui/layout'
 import {useEnvironment} from '../../../store'
 import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
-import {cityOfficesRoutes} from '../routes'
+import {CityOfficesRouteName} from '../routes'
 import {useGetCityOfficeQuery} from '../services'
 
 type Props = {
@@ -94,7 +94,7 @@ export const CityOffice = ({id}: Props) => {
           <Column halign="start">
             <Button
               onPress={() =>
-                navigation.navigate(cityOfficesRoutes.makeAppointment.name)
+                navigation.navigate(CityOfficesRouteName.makeAppointment)
               }
               text="Maak een afspraak"
             />

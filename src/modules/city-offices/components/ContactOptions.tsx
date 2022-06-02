@@ -13,7 +13,7 @@ import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {color} from '../../../tokens'
 import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
-import {cityOfficesRoutes} from '../routes'
+import {CityOfficesRouteName} from '../routes'
 import {ContactOption} from './ContactOption'
 
 type ContactOptionType = {
@@ -37,7 +37,7 @@ export const ContactOptions = () => {
       buttonProps: {
         accessibilityRole: 'button',
         key: 'email',
-        onPress: () => navigation.navigate(cityOfficesRoutes.contact.name),
+        onPress: () => navigation.navigate(CityOfficesRouteName.contact),
       },
       contactProps: {
         icon: <Email fill={color.touchable.primary} />,

@@ -2,30 +2,36 @@ import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-type CityOfficesStackParams = {
-  CityOffices: undefined
-  Contact: undefined
-  MakeAppointment: undefined
+export enum CityOfficesRouteName {
+  contact = 'Contact',
+  home = 'Home',
+  makeAppointment = 'MakeAppointment',
+}
+
+export type CityOfficesStackParams = {
+  [CityOfficesRouteName.contact]: undefined
+  [CityOfficesRouteName.home]: undefined
+  [CityOfficesRouteName.makeAppointment]: undefined
 }
 
 export const cityOfficesRoutes: StackNavigationRoutes<
   CityOfficesStackParams,
-  'cityOffices' | 'contact' | 'makeAppointment'
+  CityOfficesRouteName
 > = {
-  cityOffices: {
-    name: 'CityOffices',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
-    },
-  },
-  contact: {
-    name: 'Contact',
+  [CityOfficesRouteName.contact]: {
+    name: CityOfficesRouteName.contact,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Neem contact op" />,
     },
   },
-  makeAppointment: {
-    name: 'MakeAppointment',
+  [CityOfficesRouteName.home]: {
+    name: CityOfficesRouteName.home,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
+    },
+  },
+  [CityOfficesRouteName.makeAppointment]: {
+    name: CityOfficesRouteName.makeAppointment,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Maak een afspraak" />,
     },

@@ -13,7 +13,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {wasteGuideRoutes} from '../routes'
+import {WasteGuideRouteName} from '../routes'
 
 export const WasteGuideCollectionPoints = () => {
   const navigation =
@@ -35,7 +35,7 @@ export const WasteGuideCollectionPoints = () => {
             direction="forward"
             onPress={() =>
               navigation.navigate(
-                wasteGuideRoutes.wasteGuideCollectionPoints.name,
+                WasteGuideRouteName.wasteGuideCollectionPoints,
               )
             }
             text="Bekijk de kaart met afvalpunten in de buurt"

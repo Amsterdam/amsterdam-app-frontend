@@ -2,17 +2,14 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {useSelector} from 'react-redux'
-import {module as homeModule} from '../'
-import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button, Image, PleaseWait, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
-import {selectTheme, Theme, useThemable} from '../../../themes'
+import {Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {Module} from '../../types'
 import {icons} from '../config'
 import {useModules} from '../hooks'
-import {homeRoutes} from '../routes'
+import {HomeRouteName, HomeStackParams} from '../routes'
 import {ModuleButton} from './ModuleButton'
 
 const iconProps = {
@@ -37,8 +34,7 @@ const renderModuleButton = (module: Module) => {
 
 export const Modules = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-  const {theme} = useSelector(selectTheme)
+    useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
   const {modules, isLoading} = useModules({includeDeselected: false})
   const styles = useThemable(createStyles)
 
@@ -62,11 +58,7 @@ export const Modules = () => {
           <Text inverse>Tik op ‘Terug’ om verder te gaan.</Text>
           <Box insetVertical="lg">
             <Button
-              onPress={() =>
-                navigation.navigate(homeModule.name, {
-                  screen: homeRoutes(theme).settings.name,
-                })
-              }
+              onPress={() => navigation.navigate(HomeRouteName.settings)}
               text="Terug"
             />
           </Box>

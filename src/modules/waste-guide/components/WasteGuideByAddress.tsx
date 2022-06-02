@@ -18,9 +18,8 @@ import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
 import {useEnvironment} from '../../../store'
 import {selectAddress} from '../../address/addressSlice'
-import {module as addressModule} from '../../address/index'
-import {addressRoutes} from '../../address/routes'
-import {wasteGuideRoutes} from '../routes'
+import {AddressRouteName} from '../../address/routes'
+import {WasteGuideRouteName} from '../routes'
 import {WasteGuide, WasteGuideResponse, WasteType} from '../types'
 import {transformWasteGuideResponse} from '../utils'
 import {AddressFormTeaser} from './AddressFormTeaser'
@@ -67,8 +66,7 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(addressModule.name, {
-      screen: addressRoutes.addressForm.name,
+    navigation.navigate(AddressRouteName.addressForm, {
       temp: true,
     })
   }
@@ -121,7 +119,7 @@ export const WasteGuideByAddress = () => {
                   footerLink={{
                     onPress: () =>
                       navigation.navigate(
-                        wasteGuideRoutes.whereToPutBulkyWaste.name,
+                        WasteGuideRouteName.whereToPutBulkyWaste,
                       ),
                     text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                   }}
