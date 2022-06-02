@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {addressRoutes as routes} from './routes'
+import {AddressRouteName, addressRoutes} from './routes'
 import {AddressFormScreen, AddressPrivacyInfoScreen} from './screens'
 
 const Stack = createStackNavigator()
@@ -13,17 +13,17 @@ export const AddressStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.addressForm.name}
+      initialRouteName={AddressRouteName.addressForm}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={AddressFormScreen}
-        name={routes.addressForm.name}
-        options={routes.addressForm.options}
+        name={AddressRouteName.addressForm}
+        options={addressRoutes.AddressForm.options}
       />
       <Stack.Screen
         component={AddressPrivacyInfoScreen}
-        name={routes.addressInfo.name}
-        options={routes.addressInfo.options}
+        name={AddressRouteName.addressInfo}
+        options={addressRoutes.AddressInfo.options}
       />
     </Stack.Navigator>
   )

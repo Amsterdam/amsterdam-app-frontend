@@ -32,10 +32,16 @@ import {
   setResponseStatus,
   setStep,
 } from './notificationDraftSlice'
-import {NotificationStackParams} from '.'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from './routes'
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'VerifyNotification'>
+  navigation: StackNavigationProp<
+    CreateNotificationStackParams,
+    CreateNotificationRouteName
+  >
 }
 
 export const VerifyNotificationScreen = ({navigation}: Props) => {
@@ -139,7 +145,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   useEffect(() => {
     if (addNotificationData) {
       dispatch(setResponseStatus('success'))
-      navigation.navigate('NotificationResponse')
+      navigation.navigate(CreateNotificationRouteName.notificationResponse)
     }
   }, [dispatch, navigation, addNotificationData])
 
@@ -150,7 +156,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
       addWarningIsError
     ) {
       dispatch(setResponseStatus('failure'))
-      navigation.navigate('NotificationResponse')
+      navigation.navigate(CreateNotificationRouteName.notificationResponse)
     }
   }, [
     addNotificationIsError,

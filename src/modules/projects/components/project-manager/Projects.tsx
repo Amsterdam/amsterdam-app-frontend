@@ -2,9 +2,9 @@ import {List} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {routes} from '../../../../app/navigation/routes'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
+import {ProjectsRouteName} from '../../routes'
 import {ProjectManagerScreenNavigationProps} from '../../screens'
 import {ProjectTitle} from '../project'
 
@@ -26,7 +26,7 @@ export const ProjectManagerProjects = ({projects}: Props) => {
           accessibilityRole="button"
           key={project.identifier}
           onPress={() => {
-            navigation.navigate(routes.projectDetail.name, {
+            navigation.navigate(ProjectsRouteName.projectDetail, {
               id: project.identifier,
             })
           }}

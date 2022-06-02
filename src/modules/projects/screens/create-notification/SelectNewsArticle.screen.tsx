@@ -20,10 +20,16 @@ import {
   setNewsArticle,
   setStep,
 } from './notificationDraftSlice'
-import {NotificationStackParams} from '.'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from './routes'
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'SelectNewsArticle'>
+  navigation: StackNavigationProp<
+    CreateNotificationStackParams,
+    CreateNotificationRouteName
+  >
 }
 
 type FormData = {
@@ -65,7 +71,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           title: newsSelected?.title,
         }),
       )
-    navigation.navigate('VerifyNotification')
+    navigation.navigate(CreateNotificationRouteName.verifyNotification)
   }
 
   useEffect(() => {
@@ -118,7 +124,11 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
               </View>
               <View style={styles.justifyStart}>
                 <Button
-                  onPress={() => navigation.navigate('ProjectWarningForm')}
+                  onPress={() =>
+                    navigation.navigate(
+                      CreateNotificationRouteName.projectWarningForm,
+                    )
+                  }
                   text="Schrijf een nieuwsartikel"
                   variant="inverse"
                 />

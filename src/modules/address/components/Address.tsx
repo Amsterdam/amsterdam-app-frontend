@@ -17,8 +17,7 @@ import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {AlertContext} from '../../../providers'
 import {isEmptyObject} from '../../../utils'
 import {removePrimaryAddress, selectAddress} from '../addressSlice'
-import {module as addressModule} from '../index'
-import {addressRoutes} from '../routes'
+import {AddressRouteName} from '../routes'
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -55,9 +54,7 @@ export const Address = () => {
                 <Button
                   variant="inverse"
                   onPress={() =>
-                    navigation.navigate(addressModule.name, {
-                      screen: addressRoutes.addressForm.name,
-                    })
+                    navigation.navigate(AddressRouteName.addressForm)
                   }
                   text="Wijzig adres"
                 />
@@ -87,9 +84,7 @@ export const Address = () => {
                 <Row align="start">
                   <Button
                     onPress={() =>
-                      navigation.navigate(addressModule.name, {
-                        screen: addressRoutes.addressInfo.name,
-                      })
+                      navigation.navigate(AddressRouteName.addressInfo)
                     }
                     text="Meer informatie"
                     variant="text"
@@ -99,9 +94,7 @@ export const Address = () => {
               <Row align="start">
                 <Button
                   onPress={() =>
-                    navigation.navigate(addressModule.name, {
-                      screen: addressRoutes.addressForm.name,
-                    })
+                    navigation.navigate(AddressRouteName.addressForm)
                   }
                   text="Vul adres in"
                   variant="inverse"

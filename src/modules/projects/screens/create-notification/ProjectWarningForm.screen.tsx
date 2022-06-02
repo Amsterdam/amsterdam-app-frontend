@@ -5,8 +5,6 @@ import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
-import {routes} from '../../../../app/navigation/routes'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
@@ -25,7 +23,6 @@ import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {color, size} from '../../../../tokens'
 import {NewProjectWarning} from '../../../../types'
 import {selectProjectManager} from '../../components/project-manager'
-import {NotificationStackParams} from './CreateNotificationScreen'
 import {
   selectMainImage,
   selectProjectId,
@@ -34,6 +31,10 @@ import {
   setProjectWarning,
   setStep,
 } from './notificationDraftSlice'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from './routes'
 
 const maxCharacters = {
   title: 50,
@@ -49,8 +50,8 @@ type FormData = {
 
 type Props = {
   navigation: StackNavigationProp<
-    NotificationStackParams & StackParams,
-    'ProjectWarningForm'
+    CreateNotificationStackParams,
+    CreateNotificationRouteName
   >
 }
 
@@ -97,7 +98,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const onSubmitForm = (data: FormData) => {
     addProjectWarningToStore(data)
     dispatch(setMainImageDescription('placeholder tekst'))
-    navigation.navigate('VerifyNotification')
+    navigation.navigate(CreateNotificationRouteName.verifyNotification)
   }
 
   const pickImage = (data: FormData) => {
@@ -116,7 +117,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }
 
   useEffect(() => {
-    mainImage && navigation.navigate('VerifyMainImage')
+    mainImage &&
+      navigation.navigate(CreateNotificationRouteName.verifyMainImage)
   }, [mainImage, navigation])
 
   useEffect(() => {
@@ -152,7 +154,11 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               <Title level={4} text="Schrijftips voor een nieuwsartikel" />
               <Row align="start">
                 <Button
-                  onPress={() => navigation.navigate(routes.writingGuide.name)}
+                  onPress={() =>
+                    navigation.navigate(
+                      CreateNotificationRouteName.writingGuide,
+                    )
+                  }
                   text="Toon schrijftips"
                 />
               </Row>

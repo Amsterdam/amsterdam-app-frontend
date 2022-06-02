@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '../../../app/navigation'
 import {BannerCard} from '../../../components/features'
-import {wasteGuideRoutes} from '../routes'
+import {WasteGuideRouteName} from '../routes'
 
 export const RecyclingGuideBanner = () => {
   const navigation =
@@ -13,7 +13,7 @@ export const RecyclingGuideBanner = () => {
     <BannerCard
       border
       imageSource={require('../../../assets/images/banner-illustratie-welkafvalhoortwaar.png')}
-      onPress={() => navigation.navigate(wasteGuideRoutes.recyclingGuide.name)}
+      onPress={() => navigation.navigate(WasteGuideRouteName.recyclingGuide)}
       subtitle="Bekijk de afvalscheidingswijzer"
       title="Welk afval hoort waar?"
     />

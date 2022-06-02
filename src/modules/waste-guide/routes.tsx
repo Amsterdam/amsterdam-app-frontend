@@ -2,88 +2,92 @@ import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
 
-type WasteGuideStackParams = {
-  BulkyWasteAppointment: {appointmentUrl: string}
-  RecyclingGuide: undefined
-  ReportNotCollected: undefined
-  WasteGuide: undefined
-  WasteGuideCollectionPoints: undefined
-  WasteGuideContainers: undefined
-  WasteGuideFeedback: undefined
-  WasteMenu: undefined
-  WhereToPutBulkyWaste: undefined
+export enum WasteGuideRouteName {
+  bulkyWasteAppointment = 'BulkyWasteAppointment',
+  home = 'Home',
+  recyclingGuide = 'RecyclingGuide',
+  reportNotCollected = 'ReportNotCollected',
+  wasteGuideCollectionPoints = 'WasteGuideCollectionPoints',
+  wasteGuideContainers = 'WasteGuideContainers',
+  wasteGuideFeedback = 'WasteGuideFeedback',
+  wasteMenu = 'WasteMenu',
+  whereToPutBulkyWaste = 'WhereToPutBulkyWaste',
+}
+
+export type WasteGuideStackParams = {
+  [WasteGuideRouteName.bulkyWasteAppointment]: {appointmentUrl: string}
+  [WasteGuideRouteName.home]: undefined
+  [WasteGuideRouteName.recyclingGuide]: undefined
+  [WasteGuideRouteName.reportNotCollected]: undefined
+  [WasteGuideRouteName.wasteGuideCollectionPoints]: undefined
+  [WasteGuideRouteName.wasteGuideContainers]: undefined
+  [WasteGuideRouteName.wasteGuideFeedback]: undefined
+  [WasteGuideRouteName.wasteMenu]: undefined
+  [WasteGuideRouteName.whereToPutBulkyWaste]: undefined
 }
 
 export const wasteGuideRoutes: StackNavigationRoutes<
   WasteGuideStackParams,
-  | 'bulkyWasteAppointment'
-  | 'recyclingGuide'
-  | 'reportNotCollected'
-  | 'wasteGuide'
-  | 'wasteGuideCollectionPoints'
-  | 'wasteGuideContainers'
-  | 'wasteGuideFeedback'
-  | 'wasteMenu'
-  | 'whereToPutBulkyWaste'
+  WasteGuideRouteName
 > = {
-  bulkyWasteAppointment: {
-    name: 'BulkyWasteAppointment',
+  [WasteGuideRouteName.bulkyWasteAppointment]: {
+    name: WasteGuideRouteName.bulkyWasteAppointment,
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Afspraak grof afval ophalen" />
       ),
     },
   },
-  recyclingGuide: {
-    name: 'RecyclingGuide',
+  [WasteGuideRouteName.home]: {
+    name: WasteGuideRouteName.home,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
+    },
+  },
+  [WasteGuideRouteName.recyclingGuide]: {
+    name: WasteGuideRouteName.recyclingGuide,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Afvalscheidingswijzer" />,
     },
   },
-  reportNotCollected: {
-    name: 'ReportNotCollected',
+  [WasteGuideRouteName.reportNotCollected]: {
+    name: WasteGuideRouteName.reportNotCollected,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
     },
   },
-  wasteGuideFeedback: {
-    name: 'WasteGuideFeedback',
+  [WasteGuideRouteName.wasteGuideFeedback]: {
+    name: WasteGuideRouteName.wasteGuideFeedback,
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Melden afvalinformatie" />
       ),
     },
   },
-  wasteGuide: {
-    name: 'WasteGuide',
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
-    },
-  },
-  wasteGuideCollectionPoints: {
-    name: 'WasteGuideCollectionPoints',
+  [WasteGuideRouteName.wasteGuideCollectionPoints]: {
+    name: WasteGuideRouteName.wasteGuideCollectionPoints,
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Afvalpunten in de buurt" />
       ),
     },
   },
-  wasteGuideContainers: {
-    name: 'WasteGuideContainers',
+  [WasteGuideRouteName.wasteGuideContainers]: {
+    name: WasteGuideRouteName.wasteGuideContainers,
     options: {
       headerTitle: () => (
         <NonScalingHeaderTitle text="Containers in de buurt" />
       ),
     },
   },
-  wasteMenu: {
-    name: 'WasteMenu',
+  [WasteGuideRouteName.wasteMenu]: {
+    name: WasteGuideRouteName.wasteMenu,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
     },
   },
-  whereToPutBulkyWaste: {
-    name: 'WhereToPutBulkyWaste',
+  [WasteGuideRouteName.whereToPutBulkyWaste]: {
+    name: WasteGuideRouteName.whereToPutBulkyWaste,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
     },

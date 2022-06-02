@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {cityOfficesRoutes as routes} from './routes'
+import {CityOfficesRouteName, cityOfficesRoutes as routes} from './routes'
 import {
   CityOfficesScreen,
   ContactScreen,
@@ -17,30 +17,30 @@ export const CityOfficesStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={routes.cityOffices.name}
+      initialRouteName={CityOfficesRouteName.home}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={CityOfficesScreen}
-        name={routes.cityOffices.name}
+        name={CityOfficesRouteName.home}
         options={{
           ...screenOptions(theme, {screenType: 'settings'}),
-          ...routes.cityOffices.options,
+          ...routes.Home.options,
         }}
       />
       <Stack.Screen
         component={ContactScreen}
-        name={routes.contact.name}
+        name={CityOfficesRouteName.contact}
         options={{
           ...screenOptions(theme, {screenType: 'settings'}),
-          ...routes.contact.options,
+          ...routes.Contact.options,
         }}
       />
       <Stack.Screen
         component={MakeAppointmentScreen}
-        name={routes.makeAppointment.name}
+        name={CityOfficesRouteName.makeAppointment}
         options={{
           ...screenOptions(theme, {screenType: 'settings'}),
-          ...routes.makeAppointment.options,
+          ...routes.MakeAppointment.options,
         }}
       />
     </Stack.Navigator>

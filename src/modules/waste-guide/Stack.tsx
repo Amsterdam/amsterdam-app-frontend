@@ -3,7 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {wasteGuideRoutes} from './routes'
+import {WasteGuideRouteName, wasteGuideRoutes} from './routes'
 import {
   BulkyWasteAppointmentScreen,
   RecyclingGuideScreen,
@@ -20,69 +20,58 @@ const Stack = createStackNavigator()
 
 export const WasteGuideStack = () => {
   const {theme} = useSelector(selectTheme)
-  const {
-    bulkyWasteAppointment,
-    recyclingGuide,
-    reportNotCollected,
-    wasteGuide,
-    wasteGuideCollectionPoints,
-    wasteGuideContainers,
-    wasteGuideFeedback,
-    wasteMenu,
-    whereToPutBulkyWaste,
-  } = wasteGuideRoutes
 
   return (
     <Stack.Navigator
-      initialRouteName={wasteMenu.name}
+      initialRouteName={WasteGuideRouteName.wasteMenu}
       screenOptions={screenOptions(theme)}>
       <Stack.Screen
         component={BulkyWasteAppointmentScreen}
-        name={bulkyWasteAppointment.name}
-        options={bulkyWasteAppointment.options}
+        name={WasteGuideRouteName.bulkyWasteAppointment}
+        options={wasteGuideRoutes.BulkyWasteAppointment.options}
       />
       <Stack.Screen
         component={RecyclingGuideScreen}
-        name={recyclingGuide.name}
-        options={recyclingGuide.options}
+        name={WasteGuideRouteName.recyclingGuide}
+        options={wasteGuideRoutes.RecyclingGuide.options}
       />
       <Stack.Screen
         component={ReportNotCollectedScreen}
-        name={reportNotCollected.name}
-        options={reportNotCollected.options}
+        name={WasteGuideRouteName.reportNotCollected}
+        options={wasteGuideRoutes.ReportNotCollected.options}
       />
       <Stack.Screen
         component={WasteGuideScreen}
-        name={wasteGuide.name}
+        name={WasteGuideRouteName.home}
         options={{
           ...screenOptions(theme, {screenType: 'settings'}),
-          ...wasteGuide.options,
+          ...wasteGuideRoutes.Home.options,
         }}
       />
       <Stack.Screen
         component={WasteGuideCollectionPointsScreen}
-        name={wasteGuideCollectionPoints.name}
-        options={wasteGuideCollectionPoints.options}
+        name={WasteGuideRouteName.wasteGuideCollectionPoints}
+        options={wasteGuideRoutes.WasteGuideCollectionPoints.options}
       />
       <Stack.Screen
         component={WasteGuideContainersScreen}
-        name={wasteGuideContainers.name}
-        options={wasteGuideContainers.options}
+        name={WasteGuideRouteName.wasteGuideContainers}
+        options={wasteGuideRoutes.WasteGuideContainers.options}
       />
       <Stack.Screen
         component={WasteGuideFeedbackScreen}
-        name={wasteGuideFeedback.name}
-        options={wasteGuideFeedback.options}
+        name={WasteGuideRouteName.wasteGuideFeedback}
+        options={wasteGuideRoutes.WasteGuideFeedback.options}
       />
       <Stack.Screen
         component={WasteMenuScreen}
-        name={wasteMenu.name}
-        options={wasteMenu.options}
+        name={WasteGuideRouteName.wasteMenu}
+        options={wasteGuideRoutes.WasteMenu.options}
       />
       <Stack.Screen
         component={WhereToPutBulkyWasteScreen}
-        name={whereToPutBulkyWaste.name}
-        options={whereToPutBulkyWaste.options}
+        name={WasteGuideRouteName.whereToPutBulkyWaste}
+        options={wasteGuideRoutes.WhereToPutBulkyWaste.options}
       />
     </Stack.Navigator>
   )

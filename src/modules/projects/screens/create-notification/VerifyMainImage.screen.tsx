@@ -16,10 +16,16 @@ import {
   setMainImage,
   setMainImageDescription,
 } from './notificationDraftSlice'
-import {NotificationStackParams} from '.'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from './routes'
 
 type Props = {
-  navigation: StackNavigationProp<NotificationStackParams, 'VerifyMainImage'>
+  navigation: StackNavigationProp<
+    CreateNotificationStackParams,
+    CreateNotificationRouteName
+  >
 }
 
 const maxCharacters = {
@@ -54,7 +60,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
 
   const onSubmit = (data: {title: string}) => {
     dispatch(setMainImageDescription(data.title))
-    navigation.navigate('VerifyNotification')
+    navigation.navigate(CreateNotificationRouteName.verifyNotification)
   }
 
   const onBackward = () => {

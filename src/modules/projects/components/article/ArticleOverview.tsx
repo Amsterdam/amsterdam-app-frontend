@@ -1,13 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StackParams} from '../../../app/navigation'
-import {routes} from '../../../app/navigation/routes'
-import {useGetArticlesQuery} from '../../../services/articles'
-import {ArticleSummary} from '../../../types'
-import {PleaseWait, Title} from '../../ui'
-import {Column, Grid, GridCell} from '../../ui/layout'
-import {ArticlePreview} from './'
+import {PleaseWait, Title} from '../../../../components/ui'
+import {Column, Grid, GridCell} from '../../../../components/ui/layout'
+import {useGetArticlesQuery} from '../../../../services/articles'
+import {ArticleSummary} from '../../../../types'
+import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
+import {ArticlePreview} from '.'
 
 type Props = {
   limit?: number
@@ -25,7 +24,9 @@ export const ArticleOverview = ({
   title,
 }: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'ProjectNews'>>()
+    useNavigation<
+      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectNews>
+    >()
   const {data: articles, isLoading} = useGetArticlesQuery({
     limit,
     projectIds,
@@ -35,11 +36,11 @@ export const ArticleOverview = ({
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
-      navigation.navigate(routes.projectNews.name, {
+      navigation.navigate(ProjectsRouteName.projectNews, {
         id: article.identifier,
       })
     } else if (article.type === 'warning') {
-      navigation.navigate(routes.projectWarning.name, {
+      navigation.navigate(ProjectsRouteName.projectWarning, {
         id: article.identifier,
       })
     }

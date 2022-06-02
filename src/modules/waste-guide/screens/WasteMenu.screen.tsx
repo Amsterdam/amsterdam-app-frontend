@@ -9,7 +9,7 @@ import {BulkyWaste, Container} from '../../../assets/icons'
 import {TileButton, TileButtonProps} from '../../../components/ui'
 import {DeviceContext} from '../../../providers'
 import {color, size} from '../../../tokens'
-import {wasteGuideRoutes} from '../routes'
+import {WasteGuideRouteName} from '../routes'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'WasteGuideModule'>
@@ -23,25 +23,25 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     {
       icon: <Location {...iconProps} />,
       label: 'Afvalinformatie op adres',
-      onPress: () => navigation.navigate(wasteGuideRoutes.wasteGuide.name),
+      onPress: () => navigation.navigate(WasteGuideRouteName.home),
     },
     {
       icon: <Container {...iconProps} />,
       label: 'Containers in de buurt',
       onPress: () =>
-        navigation.navigate(wasteGuideRoutes.wasteGuideContainers.name),
+        navigation.navigate(WasteGuideRouteName.wasteGuideContainers),
     },
     {
       icon: <LocationFields {...iconProps} />,
       label: 'Afvalpunten',
       onPress: () =>
-        navigation.navigate(wasteGuideRoutes.wasteGuideCollectionPoints.name),
+        navigation.navigate(WasteGuideRouteName.wasteGuideCollectionPoints),
     },
     {
       icon: <BulkyWaste {...iconProps} />,
       label: 'Waar kan grof afval naar toe',
       onPress: () =>
-        navigation.navigate(wasteGuideRoutes.whereToPutBulkyWaste.name),
+        navigation.navigate(WasteGuideRouteName.whereToPutBulkyWaste),
     },
   ]
 
