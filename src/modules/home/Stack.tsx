@@ -14,16 +14,20 @@ export const HomeStack = () => {
     <Stack.Navigator
       initialRouteName={HomeRouteName.home}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(homeRoutes(theme)).map(
-        ([key, {name, options, component}]) => (
-          <Stack.Screen
-            component={component!} //TODO "!" should be removed when component is no longer optional
-            key={key}
-            name={name}
-            options={options}
-          />
-        ),
-      )}
+      {Object.entries(homeRoutes).map(([key, route]) => (
+        <Stack.Screen
+          key={key}
+          {...route}
+          options={
+            route.name === HomeRouteName.settings
+              ? {
+                  ...screenOptions(theme, {screenType: 'settings'}),
+                  ...route.options,
+                }
+              : route.options
+          }
+        />
+      ))}
     </Stack.Navigator>
   )
 }
