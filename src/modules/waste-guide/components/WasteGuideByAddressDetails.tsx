@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '../../../app/navigation'
 import {
   Button,
   Card,
@@ -12,7 +11,7 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {WasteGuideRouteName} from '../routes'
+import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 import {WasteGuideDetails} from '../types'
 
 type Props = {
@@ -25,7 +24,9 @@ type Props = {
 
 export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
+    useNavigation<
+      StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
+    >()
 
   const {
     appointmentUrl,

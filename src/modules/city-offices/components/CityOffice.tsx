@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
 import {
   Attention,
   Button,
@@ -18,7 +17,7 @@ import {Column} from '../../../components/ui/layout'
 import {useEnvironment} from '../../../store'
 import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
-import {CityOfficesRouteName} from '../routes'
+import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
 import {useGetCityOfficeQuery} from '../services'
 
 type Props = {
@@ -28,7 +27,10 @@ type Props = {
 export const CityOffice = ({id}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, 'CityOfficesModule'>
+      StackNavigationProp<
+        CityOfficesStackParams,
+        CityOfficesRouteName.cityOffices
+      >
     >()
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =

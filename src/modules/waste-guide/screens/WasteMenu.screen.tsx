@@ -4,15 +4,17 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParamList} from '../../../app/navigation'
 import {BulkyWaste, Container} from '../../../assets/icons'
 import {TileButton, TileButtonProps} from '../../../components/ui'
 import {DeviceContext} from '../../../providers'
 import {color, size} from '../../../tokens'
-import {WasteGuideRouteName} from '../routes'
+import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'WasteGuideModule'>
+  navigation: StackNavigationProp<
+    WasteGuideStackParams,
+    WasteGuideRouteName.wasteMenu
+  >
 }
 
 export const WasteMenuScreen = ({navigation}: Props) => {
@@ -23,7 +25,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     {
       icon: <Location {...iconProps} />,
       label: 'Afvalinformatie op adres',
-      onPress: () => navigation.navigate(WasteGuideRouteName.home),
+      onPress: () => navigation.navigate(WasteGuideRouteName.wasteGuide),
     },
     {
       icon: <Container {...iconProps} />,

@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
 import {
   Card,
   CardBody,
@@ -13,11 +12,13 @@ import {
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
-import {WasteGuideRouteName} from '../routes'
+import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 
 export const WasteGuideContainers = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
+    useNavigation<
+      StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
+    >()
 
   return (
     <Card>

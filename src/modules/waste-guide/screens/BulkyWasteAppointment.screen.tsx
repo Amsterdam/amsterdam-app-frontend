@@ -1,10 +1,13 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {RootStackParamList} from '../../../app/navigation'
 import {WebView} from '../../../components/ui'
+import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 
 type Props = {
-  route: RouteProp<RootStackParamList, 'WasteGuideModule'>
+  route: RouteProp<
+    WasteGuideStackParams,
+    WasteGuideRouteName.bulkyWasteAppointment
+  >
 }
 
 export const BulkyWasteAppointmentScreen = ({route}: Props) => {

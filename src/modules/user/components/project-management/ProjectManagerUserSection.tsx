@@ -3,16 +3,19 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {LinkToUserSection, UserSection} from '..'
+import {module as userModule} from '../..'
 import {RootStackParamList} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
-import {HomeRouteName} from '../../../home/routes'
+import {module as projectsModule} from '../../../projects'
 import {selectProjectManager} from '../../../projects/components/project-manager'
 import {ProjectsRouteName} from '../../../projects/routes'
 
 export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, HomeRouteName>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, typeof userModule.name>
+    >()
 
   if (!projectManagerId) {
     return null
@@ -23,7 +26,7 @@ export const ProjectManagerUserSection = () => {
       <LinkToUserSection
         onPress={() =>
           navigation.navigate(
-            'ConstructionWorkModule',
+            projectsModule.name,
             ProjectsRouteName.authorizedProjects,
           )
         }>

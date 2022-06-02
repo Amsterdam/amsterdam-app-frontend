@@ -6,14 +6,13 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
 import {Instagram, Whatsapp} from '../../../assets/icons'
 import {Box, Title} from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {color} from '../../../tokens'
 import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
-import {CityOfficesRouteName} from '../routes'
+import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
 import {ContactOption} from './ContactOption'
 
 type ContactOptionType = {
@@ -29,7 +28,10 @@ type ContactOptionType = {
 export const ContactOptions = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, 'CityOfficesModule'>
+      StackNavigationProp<
+        CityOfficesStackParams,
+        CityOfficesRouteName.cityOffices
+      >
     >()
 
   const contactOptions: ContactOptionType[] = [

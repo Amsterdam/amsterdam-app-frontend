@@ -5,6 +5,7 @@ import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button} from '../../../components/ui'
 import {size} from '../../../tokens'
+import {module as homeModule} from '../../home'
 import {HomeRouteName} from '../../home/routes'
 import {ProjectManagerSummary} from '../components/project-manager'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
@@ -15,7 +16,7 @@ export type ProjectManagerScreenRouteProp = RouteProp<
 >
 
 export type ProjectManagerScreenNavigationProps = StackNavigationProp<
-  RootStackParamList & ProjectsStackParams,
+  RootStackParamList,
   ProjectsRouteName.projectManager
 >
 
@@ -30,7 +31,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => (
     <Box>
       <Button
         text="Sluit venster"
-        onPress={() => navigation.navigate('HomeModule', HomeRouteName.home)}
+        onPress={() => navigation.navigate(homeModule.name, HomeRouteName.home)}
       />
     </Box>
   </View>
