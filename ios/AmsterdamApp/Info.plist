@@ -53,8 +53,21 @@
 		<dict>
 			<key>localhost</key>
 			<dict>
+				<key>NSIncludesSubdomains</key>
+      			<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+            	<false/>
+			</dict>
+			<key>luscinia-solutions.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+      			<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+            	<false/>
 			</dict>
 		</dict>
 	</dict>

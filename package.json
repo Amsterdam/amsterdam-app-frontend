@@ -48,7 +48,7 @@
     "react-native-image-crop-picker": "^0.37.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-render-html": "^6.3.4",
-    "react-native-safe-area-context": "^3.2.0",
+    "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.13.1",
     "react-native-super-grid": "^4.2.0",
     "react-native-svg": "^12.1.1",
