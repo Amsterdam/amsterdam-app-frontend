@@ -1,19 +1,21 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
+import {UserScreen} from './screens'
 
 export enum UserRouteName {
-  home = 'Home',
+  user = 'User',
 }
 
 export type UserStackParams = {
-  [UserRouteName.home]: undefined
+  [UserRouteName.user]: undefined
 }
 
 export const userRoutes: StackNavigationRoutes<UserStackParams, UserRouteName> =
   {
-    [UserRouteName.home]: {
-      name: UserRouteName.home,
+    [UserRouteName.user]: {
+      component: UserScreen,
+      name: UserRouteName.user,
       options: {
         headerTitle: () => <NonScalingHeaderTitle text="Mijn Profiel" />,
       },

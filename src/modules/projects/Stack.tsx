@@ -14,13 +14,8 @@ export const ConstructionWorkStack = () => {
     <Stack.Navigator
       initialRouteName={ProjectsRouteName.home}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(routes).map(([key, {name, options, component}]) => (
-        <Stack.Screen
-          key={key}
-          name={name}
-          options={options}
-          component={component!} //TODO "!" should be removed when component is no longer optional
-        />
+      {Object.entries(routes).map(([key, route]) => (
+        <Stack.Screen key={key} {...route} />
       ))}
     </Stack.Navigator>
   )

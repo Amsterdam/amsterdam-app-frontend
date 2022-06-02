@@ -1,9 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {module as wasteGuideModule} from '../'
 import {RootStackParamList} from '../../../app/navigation'
 import {Card, CardBody, Text, Title} from '../../../components/ui'
 import {TextInput} from '../../../components/ui/forms'
+import {module as addressModule} from '../../address'
 import {AddressRouteName} from '../../address/routes'
 
 type Props = {
@@ -14,7 +16,9 @@ type Props = {
 export const AddressFormTeaser = ({text, title}: Props) => {
   const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.name>
+    >()
 
   return (
     <Card>
@@ -24,7 +28,12 @@ export const AddressFormTeaser = ({text, title}: Props) => {
         <TextInput
           accessibilityLabel={inputLabel}
           label={inputLabel}
-          onFocus={() => navigation.navigate(AddressRouteName.addressForm)}
+          onFocus={() =>
+            navigation.navigate(
+              addressModule.name,
+              AddressRouteName.addressForm,
+            )
+          }
         />
       </CardBody>
     </Card>

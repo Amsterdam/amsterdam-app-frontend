@@ -1,16 +1,18 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
+import {ContactScreen} from '../contact/Screen'
+import {CityOfficesScreen, MakeAppointmentScreen} from './screens'
 
 export enum CityOfficesRouteName {
+  cityOffices = 'CityOffices',
   contact = 'Contact',
-  home = 'Home',
   makeAppointment = 'MakeAppointment',
 }
 
 export type CityOfficesStackParams = {
+  [CityOfficesRouteName.cityOffices]: undefined
   [CityOfficesRouteName.contact]: undefined
-  [CityOfficesRouteName.home]: undefined
   [CityOfficesRouteName.makeAppointment]: undefined
 }
 
@@ -18,19 +20,22 @@ export const cityOfficesRoutes: StackNavigationRoutes<
   CityOfficesStackParams,
   CityOfficesRouteName
 > = {
+  [CityOfficesRouteName.cityOffices]: {
+    component: CityOfficesScreen,
+    name: CityOfficesRouteName.cityOffices,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
+    },
+  },
   [CityOfficesRouteName.contact]: {
+    component: ContactScreen,
     name: CityOfficesRouteName.contact,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Neem contact op" />,
     },
   },
-  [CityOfficesRouteName.home]: {
-    name: CityOfficesRouteName.home,
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
-    },
-  },
   [CityOfficesRouteName.makeAppointment]: {
+    component: MakeAppointmentScreen,
     name: CityOfficesRouteName.makeAppointment,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Maak een afspraak" />,

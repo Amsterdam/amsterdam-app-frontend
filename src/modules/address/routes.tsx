@@ -1,6 +1,7 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
+import {AddressFormScreen, AddressPrivacyInfoScreen} from './screens'
 
 export enum AddressRouteName {
   addressForm = 'AddressForm',
@@ -17,6 +18,7 @@ export const addressRoutes: StackNavigationRoutes<
   AddressRouteName
 > = {
   [AddressRouteName.addressForm]: {
+    component: AddressFormScreen,
     name: AddressRouteName.addressForm,
     options: {
       presentation: 'modal',
@@ -24,6 +26,7 @@ export const addressRoutes: StackNavigationRoutes<
     },
   },
   [AddressRouteName.addressInfo]: {
+    component: AddressPrivacyInfoScreen,
     name: AddressRouteName.addressInfo,
     options: {
       headerShown: false,

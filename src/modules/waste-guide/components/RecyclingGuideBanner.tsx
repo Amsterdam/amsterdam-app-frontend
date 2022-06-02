@@ -1,13 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '../../../app/navigation'
 import {BannerCard} from '../../../components/features'
-import {WasteGuideRouteName} from '../routes'
+import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 
 export const RecyclingGuideBanner = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
+    useNavigation<
+      StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
+    >()
 
   return (
     <BannerCard

@@ -3,8 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes/themeSlice'
-import {ReportProblemScreen} from './Screen'
-import {ReportProblemRouteName, reportProblemRoutes} from './routes'
+import {ReportProblemRouteName, reportProblemRoutes as routes} from './routes'
 
 const Stack = createStackNavigator()
 
@@ -13,13 +12,11 @@ export const ReportProblemStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ReportProblemRouteName.home}
+      initialRouteName={ReportProblemRouteName.reportProblem}
       screenOptions={screenOptions(theme)}>
-      <Stack.Screen
-        component={ReportProblemScreen}
-        name={ReportProblemRouteName.home}
-        options={reportProblemRoutes.Home.options}
-      />
+      {Object.entries(routes).map(([key, route]) => (
+        <Stack.Screen key={key} {...route} />
+      ))}
     </Stack.Navigator>
   )
 }

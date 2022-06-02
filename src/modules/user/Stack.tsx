@@ -3,8 +3,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
 import {selectTheme} from '../../themes'
-import {UserRouteName, userRoutes} from './routes'
-import {UserScreen} from './screens'
+import {UserRouteName, userRoutes as routes} from './routes'
 
 const Stack = createStackNavigator()
 
@@ -13,15 +12,13 @@ export const UserStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={UserRouteName.home}
+      initialRouteName={UserRouteName.user}
       screenOptions={screenOptions(theme, {
         screenType: 'settings',
       })}>
-      <Stack.Screen
-        component={UserScreen}
-        name={UserRouteName.home}
-        options={userRoutes.Home}
-      />
+      {Object.entries(routes).map(([key, route]) => (
+        <Stack.Screen key={key} {...route} />
+      ))}
     </Stack.Navigator>
   )
 }

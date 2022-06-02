@@ -1,5 +1,4 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
-import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
@@ -51,10 +50,6 @@ export const screenOptions: (
       fontSize: theme.text.fontSize.h1,
     },
   }
-}
-
-export const tabScreenOptions: BottomTabNavigationOptions = {
-  headerShown: false,
 }
 
 const styles = StyleSheet.create({

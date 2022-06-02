@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
+import {module as wasteGuideModule} from '../'
 import {RootStackParamList} from '../../../app/navigation'
 import {
   Box,
@@ -17,6 +18,7 @@ import {
 import {Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
 import {useEnvironment} from '../../../store'
+import {module as addressModule} from '../../address'
 import {selectAddress} from '../../address/addressSlice'
 import {AddressRouteName} from '../../address/routes'
 import {WasteGuideRouteName} from '../routes'
@@ -37,7 +39,9 @@ export const WasteGuideByAddress = () => {
     undefined,
   )
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuide'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.name>
+    >()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
     onLoad: false,
@@ -66,8 +70,11 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(AddressRouteName.addressForm, {
-      temp: true,
+    navigation.navigate(addressModule.name, {
+      screen: AddressRouteName.addressForm,
+      params: {
+        temp: true,
+      },
     })
   }
 
@@ -141,7 +148,9 @@ export const WasteGuideByAddress = () => {
             <Gutter height="md" />
             <TextButton
               direction="forward"
-              onPress={() => navigation.navigate('WasteGuideFeedback')}
+              onPress={() =>
+                navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
+              }
               text="Kloppen de dagen of tijden niet?"
             />
           </>

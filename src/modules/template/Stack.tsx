@@ -14,16 +14,9 @@ export const TemplateStack = () => {
     <Stack.Navigator
       initialRouteName={templateRoutes.Home.name}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(templateRoutes).map(
-        ([key, {component, name, options}]) => (
-          <Stack.Screen
-            component={component!} // TODO Remove "!" when component is no longer optional
-            key={key}
-            name={name}
-            options={options}
-          />
-        ),
-      )}
+      {Object.entries(templateRoutes).map(([key, route]) => (
+        <Stack.Screen key={key} {...route} />
+      ))}
     </Stack.Navigator>
   )
 }

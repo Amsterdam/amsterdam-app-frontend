@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import {module as addressModule} from '../'
 import {RootStackParamList} from '../../../app/navigation'
 import {
   Button,
@@ -16,13 +17,16 @@ import {
 import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {AlertContext} from '../../../providers'
 import {isEmptyObject} from '../../../utils'
+import {module as userModule} from '../../user'
 import {removePrimaryAddress, selectAddress} from '../addressSlice'
 import {AddressRouteName} from '../routes'
 
 export const Address = () => {
   const dispatch = useDispatch()
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'UserModule'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, typeof userModule.name>
+    >()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
   const {changeContent, changeVariant} = useContext(AlertContext)
@@ -54,7 +58,10 @@ export const Address = () => {
                 <Button
                   variant="inverse"
                   onPress={() =>
-                    navigation.navigate(AddressRouteName.addressForm)
+                    navigation.navigate(
+                      addressModule.name,
+                      AddressRouteName.addressForm,
+                    )
                   }
                   text="Wijzig adres"
                 />
@@ -84,7 +91,10 @@ export const Address = () => {
                 <Row align="start">
                   <Button
                     onPress={() =>
-                      navigation.navigate(AddressRouteName.addressInfo)
+                      navigation.navigate(
+                        addressModule.name,
+                        AddressRouteName.addressInfo,
+                      )
                     }
                     text="Meer informatie"
                     variant="text"
@@ -94,7 +104,10 @@ export const Address = () => {
               <Row align="start">
                 <Button
                   onPress={() =>
-                    navigation.navigate(AddressRouteName.addressForm)
+                    navigation.navigate(
+                      addressModule.name,
+                      AddressRouteName.addressForm,
+                    )
                   }
                   text="Vul adres in"
                   variant="inverse"

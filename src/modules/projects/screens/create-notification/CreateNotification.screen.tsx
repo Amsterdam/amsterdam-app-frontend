@@ -18,7 +18,7 @@ import {
   selectTotalSteps,
   setProject,
 } from './notificationDraftSlice'
-import {createNotificationRoutes as routes} from './routes'
+import {createNotificationRoutes} from './routes'
 
 type NotificationScreenRouteProp = RouteProp<
   ProjectsStackParams,
@@ -70,14 +70,11 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
         </Box>
       )}
       <Stack.Navigator screenOptions={screenOptions}>
-        {Object.entries(routes).map(([key, {name, options, component}]) => (
-          <Stack.Screen
-            key={key}
-            name={name}
-            options={options}
-            component={component!} //TODO "!" should be removed when component is no longer optional
-          />
-        ))}
+        {Object.entries(createNotificationRoutes).map(
+          ([key, createNotificationRoute]) => (
+            <Stack.Screen key={key} {...createNotificationRoute} />
+          ),
+        )}
       </Stack.Navigator>
       <Gutter height="xl" />
     </KeyboardAvoidingView>
