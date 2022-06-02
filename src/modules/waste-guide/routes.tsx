@@ -1,12 +1,23 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
+import {
+  BulkyWasteAppointmentScreen,
+  RecyclingGuideScreen,
+  ReportNotCollectedScreen,
+  WasteGuideCollectionPointsScreen,
+  WasteGuideContainersScreen,
+  WasteGuideFeedbackScreen,
+  WasteGuideScreen,
+  WasteMenuScreen,
+  WhereToPutBulkyWasteScreen,
+} from './screens'
 
 export enum WasteGuideRouteName {
   bulkyWasteAppointment = 'BulkyWasteAppointment',
-  home = 'Home',
   recyclingGuide = 'RecyclingGuide',
   reportNotCollected = 'ReportNotCollected',
+  wasteGuide = 'WasteGuide',
   wasteGuideCollectionPoints = 'WasteGuideCollectionPoints',
   wasteGuideContainers = 'WasteGuideContainers',
   wasteGuideFeedback = 'WasteGuideFeedback',
@@ -16,9 +27,9 @@ export enum WasteGuideRouteName {
 
 export type WasteGuideStackParams = {
   [WasteGuideRouteName.bulkyWasteAppointment]: {appointmentUrl: string}
-  [WasteGuideRouteName.home]: undefined
   [WasteGuideRouteName.recyclingGuide]: undefined
   [WasteGuideRouteName.reportNotCollected]: undefined
+  [WasteGuideRouteName.wasteGuide]: undefined
   [WasteGuideRouteName.wasteGuideCollectionPoints]: undefined
   [WasteGuideRouteName.wasteGuideContainers]: undefined
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
@@ -31,6 +42,7 @@ export const wasteGuideRoutes: StackNavigationRoutes<
   WasteGuideRouteName
 > = {
   [WasteGuideRouteName.bulkyWasteAppointment]: {
+    component: BulkyWasteAppointmentScreen,
     name: WasteGuideRouteName.bulkyWasteAppointment,
     options: {
       headerTitle: () => (
@@ -38,25 +50,29 @@ export const wasteGuideRoutes: StackNavigationRoutes<
       ),
     },
   },
-  [WasteGuideRouteName.home]: {
-    name: WasteGuideRouteName.home,
-    options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
-    },
-  },
   [WasteGuideRouteName.recyclingGuide]: {
+    component: RecyclingGuideScreen,
     name: WasteGuideRouteName.recyclingGuide,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Afvalscheidingswijzer" />,
     },
   },
   [WasteGuideRouteName.reportNotCollected]: {
+    component: ReportNotCollectedScreen,
     name: WasteGuideRouteName.reportNotCollected,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
     },
   },
+  [WasteGuideRouteName.wasteGuide]: {
+    component: WasteGuideScreen,
+    name: WasteGuideRouteName.wasteGuide,
+    options: {
+      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
+    },
+  },
   [WasteGuideRouteName.wasteGuideFeedback]: {
+    component: WasteGuideFeedbackScreen,
     name: WasteGuideRouteName.wasteGuideFeedback,
     options: {
       headerTitle: () => (
@@ -65,6 +81,7 @@ export const wasteGuideRoutes: StackNavigationRoutes<
     },
   },
   [WasteGuideRouteName.wasteGuideCollectionPoints]: {
+    component: WasteGuideCollectionPointsScreen,
     name: WasteGuideRouteName.wasteGuideCollectionPoints,
     options: {
       headerTitle: () => (
@@ -73,6 +90,7 @@ export const wasteGuideRoutes: StackNavigationRoutes<
     },
   },
   [WasteGuideRouteName.wasteGuideContainers]: {
+    component: WasteGuideContainersScreen,
     name: WasteGuideRouteName.wasteGuideContainers,
     options: {
       headerTitle: () => (
@@ -81,12 +99,14 @@ export const wasteGuideRoutes: StackNavigationRoutes<
     },
   },
   [WasteGuideRouteName.wasteMenu]: {
+    component: WasteMenuScreen,
     name: WasteGuideRouteName.wasteMenu,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
     },
   },
   [WasteGuideRouteName.whereToPutBulkyWaste]: {
+    component: WhereToPutBulkyWasteScreen,
     name: WasteGuideRouteName.whereToPutBulkyWaste,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
