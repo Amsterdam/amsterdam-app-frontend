@@ -28,6 +28,7 @@ export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 
 export const selectEnvironment = (state: RootState) =>
   getEnvironment(state.environment.environment, state.environment.custom)
+
 export const selectEnvironmentConfig = (state: RootState) => state.environment
 
 export const useEnvironment = (): EnvironmentConfig => {
