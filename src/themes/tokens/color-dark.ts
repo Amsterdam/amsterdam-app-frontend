@@ -16,6 +16,9 @@ export const darkColorTokens: ColorTokens = {
     },
   },
   pressable: {
+    default: {
+      background: baseColor.primary.darkblue,
+    },
     pressed: {
       background: baseColor.neutral.grey5,
     },

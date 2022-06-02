@@ -2,23 +2,23 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
-import {StyleSheet} from 'react-native'
+import {Pressable, StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {
-  Box,
-  PleaseWait,
-  SomethingWentWrong,
-  Text,
-} from '../../../../components/ui'
-import {Gutter} from '../../../../components/ui/layout'
+import {RootStackParamList} from '../../../../app/navigation'
+import {Edit} from '../../../../assets/icons'
+import {Box, PleaseWait, SomethingWentWrong} from '../../../../components/ui'
+import {Gutter, Row} from '../../../../components/ui/layout'
+import {Paragraph} from '../../../../components/ui/typography'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
 import {layoutStyles} from '../../../../styles'
+import {selectTheme} from '../../../../themes'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
-import {accessibleText, mapImageSources} from '../../../../utils'
+import {accessibleText, allInsets, mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
+import {AddressRouteName} from '../../../address/routes'
 import {useGetProjectsByDistanceQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard, ProjectTraits} from '../project'
@@ -27,7 +27,13 @@ import {selectIsProjectsSearching} from './'
 export const ProjectsByDistance = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
-    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+    useNavigation<
+      StackNavigationProp<
+        RootStackParamList & ProjectsStackParams,
+        ProjectsRouteName.home
+      >
+    >()
+  const {theme} = useSelector(selectTheme)
   const device = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
 
@@ -64,20 +70,30 @@ export const ProjectsByDistance = () => {
   if (!projects.length) {
     return (
       <Box>
-        <Text>Geen projecten in de buurt.</Text>
+        <Paragraph>Geen projecten in de buurt.</Paragraph>
       </Box>
     )
   }
 
   const renderListHeader = () => (
-    <>
-      <Box insetHorizontal="md">
-        <Text accessibilityLabel={`Projecten dichtbij ${address.adres}`} intro>
+    <Box insetHorizontal="md">
+      <Row gutter="sm" valign="center">
+        <Paragraph accessibilityLabel={`Projecten dichtbij ${address.adres}`}>
           Dichtbij {address.adres}
-        </Text>
-        <Gutter height="md" />
-      </Box>
-    </>
+        </Paragraph>
+        <Pressable
+          hitSlop={allInsets(10)}
+          onPress={
+            // TODO Open as modal
+            () =>
+              navigation.navigate('AddressModule', AddressRouteName.addressForm)
+          }
+          style={styles.iconButton}>
+          <Edit fill={theme.color.pressable.default.background} />
+        </Pressable>
+      </Row>
+      <Gutter height="md" />
+    </Box>
   )
 
   const renderItem = ({item: project}: {item: Project}) => (
@@ -122,6 +138,10 @@ export const ProjectsByDistance = () => {
 }
 
 const styles = StyleSheet.create({
+  iconButton: {
+    width: 24,
+    aspectRatio: 1,
+  },
   itemContainer: {
     justifyContent: 'flex-start',
   },
