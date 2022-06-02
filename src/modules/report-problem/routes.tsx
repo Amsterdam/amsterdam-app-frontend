@@ -1,21 +1,23 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
 import {NonScalingHeaderTitle} from '../../components/ui'
+import {ReportProblemScreen} from './Screen'
 
 export enum ReportProblemRouteName {
-  home = 'Home',
+  reportProblem = 'ReportProblem',
 }
 
 export type ReportProblemStackParams = {
-  [ReportProblemRouteName.home]: undefined
+  [ReportProblemRouteName.reportProblem]: undefined
 }
 
 export const reportProblemRoutes: StackNavigationRoutes<
   ReportProblemStackParams,
   ReportProblemRouteName
 > = {
-  [ReportProblemRouteName.home]: {
-    name: ReportProblemRouteName.home,
+  [ReportProblemRouteName.reportProblem]: {
+    component: ReportProblemScreen,
+    name: ReportProblemRouteName.reportProblem,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
     },
