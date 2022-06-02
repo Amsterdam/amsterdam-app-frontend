@@ -1,8 +1,8 @@
 export enum Environment {
-  Development,
-  Acceptance,
-  Production,
-  Custom,
+  Development = 0,
+  Acceptance = 1,
+  Production = 2,
+  Custom = 3,
 }
 
 export type EnvironmentConfig = {
@@ -43,11 +43,11 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: 'https://app.meldingen.amsterdam.nl',
   },
   [Environment.Custom]: {
-    apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
+    apiUrl: 'https://api-test-backend.luscinia-solutions.com/api/v1',
     atlasUrl: 'https://api.data.amsterdam.nl/atlas',
     bulkyWasteFormUrl:
       'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-    modulesApiUrl: 'https://api-modules.luscinia-solutions.com/api/v1',
+    modulesApiUrl: 'https://api-test-modules.luscinia-solutions.com/api/v1',
     name: 'custom',
     signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
   },

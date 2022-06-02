@@ -5,7 +5,7 @@ import {RootState} from '.'
 
 type EnvironmentState = {
   environment: Environment
-  custom: Partial<EnvironmentConfig>
+  custom?: Partial<EnvironmentConfig>
 }
 
 export const environmentSlice = createSlice({
@@ -13,7 +13,7 @@ export const environmentSlice = createSlice({
   initialState: {environment: Environment.Production} as EnvironmentState,
   reducers: {
     setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
-      state.environment = +payload
+      state.environment = payload
     },
     setCustomEnvironment: (
       state,
@@ -28,6 +28,7 @@ export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 
 export const selectEnvironment = (state: RootState) =>
   getEnvironment(state.environment.environment, state.environment.custom)
+
 export const selectEnvironmentConfig = (state: RootState) => state.environment
 
 export const useEnvironment = (): EnvironmentConfig => {
