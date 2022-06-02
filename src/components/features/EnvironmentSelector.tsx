@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import BuildConfig from 'react-native-build-config'
 import {useDispatch, useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, environments} from '../../environment'
 import {baseApi} from '../../services'
+import {isDevApp} from '../../services/development'
 import {
   selectEnvironmentConfig,
   setEnvironment,
@@ -25,18 +25,18 @@ export const EnvironmentSelector = () => {
     dispatch(baseApi.util.resetApiState())
   }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
-  if ((BuildConfig?.BUILD_VARIANT ?? '') !== 'dev') {
+  if (!isDevApp) {
     return null
   }
 
   return (
     <Box>
       <Text>Environment: {environments[environment].name}</Text>
-      {Object.entries(environments).map(([envKey, envData]) => {
+      {Object.entries(environments).map(([envKey, {name}]) => {
         const env: Environment = Number(envKey)
         return (
           <Button
-            text={envData.name}
+            text={name}
             key={envKey}
             onPress={() => {
               dispatch(setEnvironment(env))
