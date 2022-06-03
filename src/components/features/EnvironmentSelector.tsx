@@ -5,11 +5,13 @@ import {baseApi} from '../../services'
 import {isDevApp} from '../../services/development'
 import {
   selectEnvironmentConfig,
-  setEnvironment,
   setCustomEnvironment,
+  setEnvironment,
 } from '../../store'
-import {Box, Text, Button} from '../ui'
+import {Attention, Box, Button, Text} from '../ui'
 import {TextInput} from '../ui/forms'
+import {Column, Grid, GridCell} from '../ui/layout'
+import {Title} from '../ui/typography'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
@@ -25,49 +27,67 @@ export const EnvironmentSelector = () => {
     dispatch(baseApi.util.resetApiState())
   }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
-  if (!isDevApp) {
-    return null
+  if (isDevApp) {
+    return (
+      <Box>
+        <Grid>
+          {Object.entries(environments).map(([envKey, {name}]) => {
+            const env: Environment = Number(envKey)
+
+            return (
+              <GridCell key={envKey}>
+                <Button
+                  text={name}
+                  onPress={() => {
+                    dispatch(setEnvironment(env))
+                    dispatch(baseApi.util.resetApiState())
+                  }}
+                  variant={environment === env ? 'inverse' : 'primary'}
+                />
+              </GridCell>
+            )
+          })}
+        </Grid>
+
+        {environment === Environment.Custom && (
+          <Box>
+            <Column gutter="md">
+              <TextInput
+                label="apiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, apiUrl: text}))
+                }
+                value={customUrls?.apiUrl ?? ''}
+              />
+              <TextInput
+                label="modulesApiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, modulesApiUrl: text}))
+                }
+                value={customUrls?.modulesApiUrl ?? ''}
+              />
+              <Button
+                text="Go!"
+                onPress={() => {
+                  dispatch(setCustomEnvironment(customUrls))
+                }}
+              />
+            </Column>
+          </Box>
+        )}
+      </Box>
+    )
   }
 
   return (
     <Box>
-      <Text>Environment: {environments[environment].name}</Text>
-      {Object.entries(environments).map(([envKey, {name}]) => {
-        const env: Environment = Number(envKey)
-        return (
-          <Button
-            text={name}
-            key={envKey}
-            onPress={() => {
-              dispatch(setEnvironment(env))
-              dispatch(baseApi.util.resetApiState())
-            }}
-            variant={environment === env ? 'inverse' : 'primary'}
-          />
-        )
-      })}
-      {environment === Environment.Custom && (
-        <>
-          <TextInput
-            label="apiUrl"
-            onChangeText={text => setCustomUrls(v => ({...v, apiUrl: text}))}
-            value={customUrls?.apiUrl ?? ''}
-          />
-          <TextInput
-            label="modulesApiUrl"
-            onChangeText={text =>
-              setCustomUrls(v => ({...v, modulesApiUrl: text}))
-            }
-            value={customUrls?.modulesApiUrl ?? ''}
-          />
-          <Button
-            text="Go!"
-            onPress={() => {
-              dispatch(setCustomEnvironment(customUrls))
-            }}
-          />
-        </>
-      )}
+      <Attention warning>
+        <Title level="h6" text="Fout" />
+        <Text>
+          De applicatie moet in ‘development’ mode zijn om een omgeving te
+          kunnen selecteren.
+        </Text>
+      </Attention>
     </Box>
   )
 }
