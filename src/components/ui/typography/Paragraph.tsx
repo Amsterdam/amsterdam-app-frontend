@@ -1,14 +1,21 @@
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
+import {ParagraphVariants} from '../../../themes/tokens'
 import {font} from '../../../tokens'
 
 type Props = {
   children: ReactNode
+  variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
 
-export const Paragraph = ({children, ...otherProps}: Props) => {
-  const styles = useThemable(createStyles)
+export const Paragraph = ({
+  children,
+  variant = 'body',
+  ...otherProps
+}: Props) => {
+  const createdStyles = useMemo(() => createStyles({variant}), [variant])
+  const styles = useThemable(createdStyles)
 
   return (
     <Text style={styles.text} {...otherProps}>
@@ -17,12 +24,14 @@ export const Paragraph = ({children, ...otherProps}: Props) => {
   )
 }
 
-const createStyles = ({color, text}: Theme) =>
-  StyleSheet.create({
-    text: {
-      color: color.text.default,
-      fontFamily: font.weight.regular,
-      fontSize: text.fontSize.body,
-      lineHeight: text.lineHeight.body * text.fontSize.body,
-    },
-  })
+const createStyles =
+  ({variant}: Required<Pick<Props, 'variant'>>) =>
+  ({color, text}: Theme) =>
+    StyleSheet.create({
+      text: {
+        color: color.text.default,
+        fontFamily: font.weight.regular,
+        fontSize: text.fontSize[variant],
+        lineHeight: text.lineHeight[variant] * text.fontSize[variant],
+      },
+    })
