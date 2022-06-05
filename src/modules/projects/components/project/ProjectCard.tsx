@@ -1,21 +1,15 @@
-import React, {ReactElement} from 'react'
-import {
-  Image,
-  ImageSourcePropType,
-  StyleProp,
-  StyleSheet,
-  TouchableHighlight,
-  ViewStyle,
-} from 'react-native'
-import {Card, CardBody, Text, Title} from '../../../../components/ui'
-import {image} from '../../../../tokens'
+import React, {ReactElement, useMemo} from 'react'
+import {ImageSourcePropType, Pressable, StyleSheet, View} from 'react-native'
+import {Gutter} from '../../../../components/ui/layout'
+import {Image} from '../../../../components/ui/media'
+import {Paragraph, Title} from '../../../../components/ui/typography'
+import {Theme, useThemable} from '../../../../themes'
 import {accessibleText} from '../../../../utils'
 
 type Props = {
   imageSource?: ImageSourcePropType
   kicker?: ReactElement
   onPress: () => void
-  style?: StyleProp<ViewStyle>
   subtitle?: string
   title: string
   width?: number
@@ -25,35 +19,56 @@ export const ProjectCard = ({
   imageSource,
   kicker,
   onPress,
-  style,
   subtitle,
   title,
   width,
-}: Props) => (
-  <TouchableHighlight
-    accessibilityRole="button"
-    accessibilityLabel={accessibleText(
-      title,
-      subtitle,
-      kicker?.props.accessibilityLabel,
-    )}
-    onPress={onPress}
-    style={[style, {width}]}>
-    <Card border>
-      {imageSource && <Image source={imageSource} style={styles.image} />}
-      <CardBody>
-        {kicker}
-        <Title level={4} text={title} />
-        {subtitle && <Text>{subtitle}</Text>}
-      </CardBody>
-    </Card>
-  </TouchableHighlight>
-)
+}: Props) => {
+  const createdStyles = useMemo(() => createStyles({width: width}), [width])
+  const styles = useThemable(createdStyles)
 
-const styles = StyleSheet.create({
-  image: {
-    aspectRatio: image.aspectRatio.wide,
-    maxWidth: '100%',
-    resizeMode: 'cover',
-  },
-})
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={accessibleText(
+        title,
+        subtitle,
+        kicker?.props.accessibilityLabel,
+      )}
+      onPress={onPress}
+      style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
+      <View>
+        {imageSource && (
+          <>
+            <Image aspectRatio="wide" source={imageSource} />
+            <Gutter height="md" />
+          </>
+        )}
+        <View>
+          {kicker && (
+            <>
+              {kicker}
+              <Gutter height="sm" />
+            </>
+          )}
+          <Title level="h3" text={title} />
+          {subtitle && <Paragraph>{subtitle}</Paragraph>}
+        </View>
+        {/*TODO Replace with better `Grid` gutters */}
+        <Gutter height="md" />
+      </View>
+    </Pressable>
+  )
+}
+
+const createStyles =
+  ({width}: Partial<Props>) =>
+  (theme: Theme) =>
+    StyleSheet.create({
+      pressable: {
+        width,
+        flexGrow: 1,
+      },
+      pressed: {
+        backgroundColor: theme.color.pressable.pressed.background,
+      },
+    })

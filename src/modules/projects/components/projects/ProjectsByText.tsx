@@ -15,7 +15,6 @@ import {
 import {Gutter} from '../../../../components/ui/layout'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
-import {layoutStyles} from '../../../../styles'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
@@ -86,7 +85,6 @@ export const ProjectsByText = () => {
           id: project.identifier,
         })
       }
-      style={layoutStyles.grow}
       subtitle={project.subtitle ?? undefined}
       title={project.title}
     />
