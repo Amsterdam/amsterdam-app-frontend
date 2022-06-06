@@ -1,39 +1,19 @@
-import React, {ReactNode} from 'react'
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import React from 'react'
+import {StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {color, font, size} from '../../../../tokens'
 
 type Props = {
-  icon: ReactNode
   label: string
   onPress: () => void
 }
 
-export const ProjectBodyMenuItem = ({icon, label, onPress}: Props) => (
-  <TouchableOpacity
-    accessibilityRole="button"
-    onPress={onPress}
-    style={styles.iconButton}>
-    {icon && <View style={styles.circle}>{icon}</View>}
+export const ProjectBodyMenuItem = ({label, onPress}: Props) => (
+  <TouchableOpacity accessibilityRole="button" onPress={onPress}>
     <Text style={styles.label}>{label}</Text>
   </TouchableOpacity>
 )
 
-const circleSize = 64
-
 const styles = StyleSheet.create({
-  circle: {
-    backgroundColor: color.touchable.primary,
-    borderRadius: circleSize / 2,
-    height: circleSize,
-    marginBottom: size.spacing.sm,
-    padding: size.spacing.md,
-    width: circleSize,
-  },
-  iconButton: {
-    alignItems: 'center',
-    paddingHorizontal: size.spacing.md,
-    maxWidth: circleSize + 2 * size.spacing.md,
-  },
   label: {
     fontFamily: font.weight.regular,
     fontSize: font.size.t1,
