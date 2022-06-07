@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, environments} from '../../environment'
-import {baseApi} from '../../services'
-import {isDevApp} from '../../services/development'
+import {baseApi, isDevApp} from '../../services'
 import {
   selectEnvironmentConfig,
-  setEnvironment,
   setCustomEnvironment,
+  setEnvironment,
 } from '../../store'
-import {Box, Text, Button} from '../ui'
+import {Box, Button} from '../ui'
 import {TextInput} from '../ui/forms'
+import {Grid, GridCell} from '../ui/layout'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
@@ -25,49 +25,59 @@ export const EnvironmentSelector = () => {
     dispatch(baseApi.util.resetApiState())
   }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
-  if (!isDevApp) {
-    return null
-  }
-
-  return (
-    <Box>
-      <Text>Environment: {environments[environment].name}</Text>
-      {Object.entries(environments).map(([envKey, {name}]) => {
-        const env: Environment = Number(envKey)
-        return (
-          <Button
-            text={name}
-            key={envKey}
-            onPress={() => {
-              dispatch(setEnvironment(env))
-              dispatch(baseApi.util.resetApiState())
-            }}
-            variant={environment === env ? 'inverse' : 'primary'}
-          />
-        )
-      })}
+  return isDevApp ? (
+    <>
+      <Box>
+        <Grid>
+          {Object.entries(environments).map(([envKey, {name}]) => {
+            const env: Environment = Number(envKey)
+            return (
+              <GridCell key={envKey}>
+                <Button
+                  text={name}
+                  onPress={() => {
+                    dispatch(setEnvironment(env))
+                    dispatch(baseApi.util.resetApiState())
+                  }}
+                  variant={environment === env ? 'inverse' : 'primary'}
+                />
+              </GridCell>
+            )
+          })}
+        </Grid>
+      </Box>
       {environment === Environment.Custom && (
-        <>
-          <TextInput
-            label="apiUrl"
-            onChangeText={text => setCustomUrls(v => ({...v, apiUrl: text}))}
-            value={customUrls?.apiUrl ?? ''}
-          />
-          <TextInput
-            label="modulesApiUrl"
-            onChangeText={text =>
-              setCustomUrls(v => ({...v, modulesApiUrl: text}))
-            }
-            value={customUrls?.modulesApiUrl ?? ''}
-          />
-          <Button
-            text="Go!"
-            onPress={() => {
-              dispatch(setCustomEnvironment(customUrls))
-            }}
-          />
-        </>
+        <Box>
+          <Grid>
+            <GridCell>
+              <TextInput
+                label="apiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, apiUrl: text}))
+                }
+                value={customUrls?.apiUrl ?? ''}
+              />
+            </GridCell>
+            <GridCell>
+              <TextInput
+                label="modulesApiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, modulesApiUrl: text}))
+                }
+                value={customUrls?.modulesApiUrl ?? ''}
+              />
+            </GridCell>
+            <GridCell>
+              <Button
+                text="Go!"
+                onPress={() => {
+                  dispatch(setCustomEnvironment(customUrls))
+                }}
+              />
+            </GridCell>
+          </Grid>
+        </Box>
       )}
-    </Box>
-  )
+    </>
+  ) : null
 }

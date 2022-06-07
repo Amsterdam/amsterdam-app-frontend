@@ -1,3 +1,4 @@
+import Api from '@amsterdam/asc-assets/static/icons/Api.svg'
 import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
@@ -7,6 +8,7 @@ import {Settings} from '../../../assets/icons'
 import {IconButton} from '../../../components/ui'
 import {Row} from '../../../components/ui/layout'
 import {module as userModule} from '../../../modules/user'
+import {isDevApp} from '../../../services/development'
 import {color} from '../../../tokens'
 import {HomeRouteName} from '../routes'
 
@@ -20,6 +22,13 @@ export const HeaderNavigation = () => {
 
   return (
     <Row gutter="md">
+      {!!isDevApp && (
+        <IconButton
+          icon={<Api {...iconProps} />}
+          label="Omgeving selecteren"
+          onPress={() => navigation.navigate(HomeRouteName.admin)}
+        />
+      )}
       <IconButton
         icon={<PersonalLogin {...iconProps} />}
         label="Mijn profiel"
