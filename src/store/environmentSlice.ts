@@ -10,7 +10,7 @@ type EnvironmentState = {
 
 export const environmentSlice = createSlice({
   name: 'environment',
-  initialState: {environment: Environment.Production} as EnvironmentState,
+  initialState: {environment: Environment.production} as EnvironmentState,
   reducers: {
     setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
       state.environment = payload

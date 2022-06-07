@@ -18,9 +18,9 @@ export const EnvironmentSelector = () => {
 
   useEffect(() => {
     setCustomUrls({
-      apiUrl: custom?.apiUrl ?? environments[Environment.Custom].apiUrl,
+      apiUrl: custom?.apiUrl ?? environments[Environment.custom].apiUrl,
       modulesApiUrl:
-        custom?.modulesApiUrl ?? environments[Environment.Custom].modulesApiUrl,
+        custom?.modulesApiUrl ?? environments[Environment.custom].modulesApiUrl,
     })
     dispatch(baseApi.util.resetApiState())
   }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
@@ -45,7 +45,7 @@ export const EnvironmentSelector = () => {
           })}
         </Grid>
       </Box>
-      {environment === Environment.Custom && (
+      {environment === Environment.custom && (
         <Box>
           <Grid>
             <GridCell>

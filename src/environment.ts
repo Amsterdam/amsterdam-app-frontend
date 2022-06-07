@@ -1,8 +1,8 @@
 export enum Environment {
-  Development = 'Development',
-  Acceptance = 'Acceptance',
-  Production = 'Production',
-  Custom = 'Custom',
+  development = 'Development',
+  acceptance = 'Acceptance',
+  production = 'Production',
+  custom = 'Custom',
 }
 
 export type EnvironmentConfig = {
@@ -30,28 +30,28 @@ enum ExternalApiUrls {
 }
 
 export const environments: Record<Environment, EnvironmentConfig> = {
-  [Environment.Development]: {
+  [Environment.development]: {
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiLocal,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
-  [Environment.Acceptance]: {
+  [Environment.acceptance]: {
     apiUrl: ApiUrls.apiAcc,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiAcc,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
-  [Environment.Production]: {
+  [Environment.production]: {
     apiUrl: ApiUrls.apiProd,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiProd,
     signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
   },
-  [Environment.Custom]: {
+  [Environment.custom]: {
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
@@ -64,7 +64,7 @@ export const getEnvironment = (
   environment: Environment,
   custom: Partial<EnvironmentConfig> = {},
 ) => {
-  if (environment === Environment.Custom) {
+  if (environment === Environment.custom) {
     return {...environments[environment], ...custom}
   }
 
