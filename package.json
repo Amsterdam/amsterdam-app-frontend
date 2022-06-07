@@ -9,7 +9,7 @@
     "ios:phone:prod": "react-native run-ios --simulator='iPhone 11'",
     "ios:phone:dev": "react-native run-ios --simulator='iPhone 11' --scheme='AmsterdamApp Test'",
     "ios:tablet:prod": "react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)'",
-    "ios:tablet:dev": "react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)' scheme='AmsterdamApp Test'",
+    "ios:tablet:dev": "react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)' --scheme='AmsterdamApp Test'",
     "start": "react-native start",
     "storybook": "start-storybook -p 7007",
     "storybook:build": "build-storybook",
