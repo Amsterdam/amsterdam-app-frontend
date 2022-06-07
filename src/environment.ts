@@ -1,8 +1,8 @@
 export enum Environment {
-  Development = 0,
-  Acceptance = 1,
-  Production = 2,
-  Custom = 3,
+  Development = 'Development',
+  Acceptance = 'Acceptance',
+  Production = 'Production',
+  Custom = 'Custom',
 }
 
 export type EnvironmentConfig = {
@@ -10,7 +10,6 @@ export type EnvironmentConfig = {
   atlasUrl: string
   bulkyWasteFormUrl: string
   modulesApiUrl: string
-  name: 'Development' | 'Acceptance' | 'Production' | 'Custom'
   signalsBaseUrl: string
 }
 
@@ -32,7 +31,6 @@ enum ExternalApiUrls {
 
 export const environments: Record<Environment, EnvironmentConfig> = {
   [Environment.Development]: {
-    name: 'Development',
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
@@ -40,7 +38,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
   [Environment.Acceptance]: {
-    name: 'Acceptance',
     apiUrl: ApiUrls.apiAcc,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
@@ -48,7 +45,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
   [Environment.Production]: {
-    name: 'Production',
     apiUrl: ApiUrls.apiProd,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
@@ -56,7 +52,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
   },
   [Environment.Custom]: {
-    name: 'Custom',
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,

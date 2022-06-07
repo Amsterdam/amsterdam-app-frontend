@@ -29,14 +29,13 @@ export const EnvironmentSelector = () => {
     <>
       <Box>
         <Grid>
-          {Object.entries(environments).map(([envKey, {name}]) => {
-            const env: Environment = Number(envKey)
+          {Object.keys(environments).map(env => {
             return (
-              <GridCell key={envKey}>
+              <GridCell key={env}>
                 <Button
-                  text={name}
+                  text={env}
                   onPress={() => {
-                    dispatch(setEnvironment(env))
+                    dispatch(setEnvironment(env as Environment))
                     dispatch(baseApi.util.resetApiState())
                   }}
                   variant={environment === env ? 'inverse' : 'primary'}
