@@ -29,6 +29,8 @@ target 'AmsterdamApp' do
 
 
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
   target 'AmsterdamAppTests' do
     inherit! :complete
     # Pods for testing
