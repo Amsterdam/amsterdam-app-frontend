@@ -53,6 +53,23 @@
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+    "baseUrl": "./",
+    "traceResolution": true,
+    "paths": {
+      "_app/*": ["src/app/index.ts", "src/app/*"],
+      "_assets/*": ["src/assets/*"],
+      "_components/*": ["src/components/*"],
+      "_hooks/*": ["src/_hooks/*"],
+      "_modules/*": ["src/modules/*"],
+      "_providers/*": ["src/providers/*"],
+      "_services/*": ["src/services/*"],
+      "_store/*": ["src/store/*"],
+      "_styles/*": ["src/styles/*"],
+      "_themes/*": ["src/themes/*"],
+      "_tokens/*": ["src/tokens/*"],
+      "_types/*": ["src/types/*"],
+      "_utils/*": ["src/utils/*"]
+    },
   },
   "typeRoots": [
     "./types"
