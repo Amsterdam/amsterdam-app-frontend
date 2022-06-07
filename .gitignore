@@ -83,3 +83,6 @@ logs/
 
 # Pact
 pacts/
+
+# Sentry
+sentry.properties
