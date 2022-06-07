@@ -1,49 +1,82 @@
-import React from 'react'
-import BuildConfig from 'react-native-build-config'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Environment, environments} from '../../environment'
-import {baseApi} from '../../services'
+import {Environment, EnvironmentConfig, environments} from '../../environment'
+import {baseApi, isDevApp} from '../../services'
 import {
   selectEnvironmentConfig,
-  setEnvironment,
   setCustomEnvironment,
+  setEnvironment,
 } from '../../store'
-import {Box, Text, Button} from '../ui'
+import {Box, Button} from '../ui'
 import {TextInput} from '../ui/forms'
+import {Grid, GridCell} from '../ui/layout'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironmentConfig)
+  const [customUrls, setCustomUrls] = useState<Partial<EnvironmentConfig>>({})
 
-  if ((BuildConfig?.BUILD_VARIANT ?? '') !== 'dev') {
-    return null
-  }
+  useEffect(() => {
+    setCustomUrls({
+      apiUrl: custom?.apiUrl ?? environments[Environment.custom].apiUrl,
+      modulesApiUrl:
+        custom?.modulesApiUrl ?? environments[Environment.custom].modulesApiUrl,
+    })
+    dispatch(baseApi.util.resetApiState())
+  }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
 
-  return (
-    <Box>
-      <Text>Environment: {environments[environment].name}</Text>
-      {(Object.keys(environments) as unknown as Environment[]).map(env => (
-        <Button
-          text={environments[env].name}
-          key={env}
-          onPress={() => {
-            dispatch(setEnvironment(env))
-            dispatch(baseApi.util.resetApiState())
-          }}
-          variant={environment === env ? 'inverse' : 'primary'}
-        />
-      ))}
-      {environment === Environment.Custom && (
-        <>
-          <TextInput
-            label="apiUrl"
-            onChangeText={text =>
-              dispatch(setCustomEnvironment({apiUrl: text}))
-            }
-            value={custom?.apiUrl ?? 'http://localhost:8000/api/v1'}
-          />
-        </>
+  return isDevApp ? (
+    <>
+      <Box>
+        <Grid>
+          {Object.keys(environments).map(env => {
+            return (
+              <GridCell key={env}>
+                <Button
+                  text={env}
+                  onPress={() => {
+                    dispatch(setEnvironment(env as Environment))
+                    dispatch(baseApi.util.resetApiState())
+                  }}
+                  variant={environment === env ? 'inverse' : 'primary'}
+                />
+              </GridCell>
+            )
+          })}
+        </Grid>
+      </Box>
+      {environment === Environment.custom && (
+        <Box>
+          <Grid>
+            <GridCell>
+              <TextInput
+                label="apiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, apiUrl: text}))
+                }
+                value={customUrls?.apiUrl ?? ''}
+              />
+            </GridCell>
+            <GridCell>
+              <TextInput
+                label="modulesApiUrl"
+                onChangeText={text =>
+                  setCustomUrls(v => ({...v, modulesApiUrl: text}))
+                }
+                value={customUrls?.modulesApiUrl ?? ''}
+              />
+            </GridCell>
+            <GridCell>
+              <Button
+                text="Go!"
+                onPress={() => {
+                  dispatch(setCustomEnvironment(customUrls))
+                }}
+              />
+            </GridCell>
+          </Grid>
+        </Box>
       )}
-    </Box>
-  )
+    </>
+  ) : null
 }

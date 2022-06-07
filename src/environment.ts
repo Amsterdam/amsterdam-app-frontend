@@ -1,8 +1,8 @@
 export enum Environment {
-  Development,
-  Acceptance,
-  Production,
-  Custom,
+  development = 'Development',
+  acceptance = 'Acceptance',
+  production = 'Production',
+  custom = 'Custom',
 }
 
 export type EnvironmentConfig = {
@@ -10,46 +10,53 @@ export type EnvironmentConfig = {
   atlasUrl: string
   bulkyWasteFormUrl: string
   modulesApiUrl: string
-  name: 'development' | 'acceptance' | 'production' | 'custom'
   signalsBaseUrl: string
 }
 
+enum ApiUrls {
+  apiLocal = 'http://localhost:8000/api/v1',
+  apiAcc = 'https://api-test-backend.luscinia-solutions.com/api/v1',
+  apiProd = 'https://api-backend.luscinia-solutions.com/api/v1',
+  modulesApiLocal = 'http://localhost:9000/api/v1',
+  modulesApiAcc = 'https://api-test-modules.luscinia-solutions.com/api/v1',
+  modulesApiProd = 'https://api-modules.luscinia-solutions.com/api/v1',
+}
+
+enum ExternalApiUrls {
+  atlasProd = 'https://api.data.amsterdam.nl/atlas',
+  bulkyWasteFormProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+  signalsBaseAcc = 'https://acc.app.meldingen.amsterdam.nl',
+  signalsBaseProd = 'https://app.meldingen.amsterdam.nl',
+}
+
 export const environments: Record<Environment, EnvironmentConfig> = {
-  [Environment.Development]: {
-    apiUrl: 'http://localhost:8000/api/v1',
-    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
-    bulkyWasteFormUrl:
-      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-    modulesApiUrl: 'https://api-test-modules.luscinia-solutions.com/api/v1',
-    name: 'development',
-    signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
+  [Environment.development]: {
+    apiUrl: ApiUrls.apiLocal,
+    atlasUrl: ExternalApiUrls.atlasProd,
+    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
+    modulesApiUrl: ApiUrls.modulesApiLocal,
+    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
-  [Environment.Acceptance]: {
-    apiUrl: 'https://api-test-backend.luscinia-solutions.com/api/v1',
-    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
-    bulkyWasteFormUrl:
-      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-    modulesApiUrl: 'https://api-test-modules.luscinia-solutions.com/api/v1',
-    name: 'acceptance',
-    signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
+  [Environment.acceptance]: {
+    apiUrl: ApiUrls.apiAcc,
+    atlasUrl: ExternalApiUrls.atlasProd,
+    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
+    modulesApiUrl: ApiUrls.modulesApiAcc,
+    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
-  [Environment.Production]: {
-    apiUrl: 'https://api-backend.luscinia-solutions.com/api/v1',
-    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
-    bulkyWasteFormUrl:
-      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-    modulesApiUrl: 'https://api-test-modules.luscinia-solutions.com/api/v1',
-    name: 'production',
-    signalsBaseUrl: 'https://app.meldingen.amsterdam.nl',
+  [Environment.production]: {
+    apiUrl: ApiUrls.apiProd,
+    atlasUrl: ExternalApiUrls.atlasProd,
+    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
+    modulesApiUrl: ApiUrls.modulesApiProd,
+    signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
   },
-  [Environment.Custom]: {
-    apiUrl: 'https://api.backend.luscinia-solutions.com/api/v1',
-    atlasUrl: 'https://api.data.amsterdam.nl/atlas',
-    bulkyWasteFormUrl:
-      'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-    modulesApiUrl: 'https://api-modules.luscinia-solutions.com/api/v1',
-    name: 'custom',
-    signalsBaseUrl: 'https://acc.app.meldingen.amsterdam.nl',
+  [Environment.custom]: {
+    apiUrl: ApiUrls.apiLocal,
+    atlasUrl: ExternalApiUrls.atlasProd,
+    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
+    modulesApiUrl: ApiUrls.modulesApiLocal,
+    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
 }
 
@@ -57,7 +64,7 @@ export const getEnvironment = (
   environment: Environment,
   custom: Partial<EnvironmentConfig> = {},
 ) => {
-  if (environment === Environment.Custom) {
+  if (environment === Environment.custom) {
     return {...environments[environment], ...custom}
   }
 
