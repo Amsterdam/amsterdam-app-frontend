@@ -183,3 +183,4 @@ This results in a .secrets.baseline file in the root of the project:
 ## Tips and tricks
 
 1. To see what's in the async store, type `showAsyncStorageContentInDev()` in the React Native Debugger console.
+..
