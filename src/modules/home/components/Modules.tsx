@@ -1,16 +1,11 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {FlatList, StyleSheet, View} from 'react-native'
-import {Box, Button, PleaseWait, Text} from '../../../components/ui'
-import {ScrollView} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {Theme, useThemable} from '../../../themes'
+import {FlatList} from 'react-native'
+import {Box, PleaseWait} from '../../../components/ui'
+import {Paragraph} from '../../../components/ui/typography'
 import {color} from '../../../tokens'
 import {Module} from '../../types'
 import {icons} from '../config'
 import {useModules} from '../hooks'
-import {HomeRouteName, HomeStackParams} from '../routes'
 import {ModuleButton} from './ModuleButton'
 
 const iconProps = {
@@ -34,38 +29,21 @@ const renderModuleButton = (module: Module) => {
 }
 
 export const Modules = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
   const {getSelectedModules, isLoadingModules} = useModules()
-  const styles = useThemable(createStyles)
   const modules = getSelectedModules()
 
   if (isLoadingModules) {
     return <PleaseWait />
   }
 
-  if (!modules) {
+  if (!modules?.length) {
     return (
-      <ScrollView>
-        <View style={styles.figure}>
-          <Image
-            customAspectRatio={1080 / 1920}
-            source={require('../../../assets/images/sagittarius-a.jpg')}
-          />
-        </View>
-        <View style={styles.box}>
-          <Text intro inverse>
-            Je hebt het einde van het internet bereikt!
-          </Text>
-          <Text inverse>Tik op ‘Terug’ om verder te gaan.</Text>
-          <Box insetVertical="lg">
-            <Button
-              onPress={() => navigation.navigate(HomeRouteName.settings)}
-              text="Terug"
-            />
-          </Box>
-        </View>
-      </ScrollView>
+      <Box insetHorizontal="md" insetVertical="xxxl">
+        <Paragraph>
+          Alle modules staan uit. Daardoor is hier niet veel te doen. Zet er
+          snel één of meer weer aan via de instellingen rechtsboven.
+        </Paragraph>
+      </Box>
     )
   }
 
@@ -78,16 +56,3 @@ export const Modules = () => {
     </Box>
   )
 }
-
-const createStyles = ({size}: Theme) =>
-  StyleSheet.create({
-    box: {
-      flex: 1,
-      padding: size.spacing.md,
-      backgroundColor: '#000',
-    },
-    figure: {
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  })
