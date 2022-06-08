@@ -35,9 +35,9 @@ const renderModuleButton = (module: Module) => {
 export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
-  const {getModulesWithoutDeselected, isLoadingServerModules} = useModules()
+  const {getSelectedModules, isLoadingServerModules} = useModules()
   const styles = useThemable(createStyles)
-  const modules = getModulesWithoutDeselected()
+  const modules = getSelectedModules()
 
   if (isLoadingServerModules) {
     return <PleaseWait />

@@ -11,7 +11,7 @@ export const useModules = () => {
   const {
     serverModules,
     serverModulesBySlug,
-    isLoading: isLoadingServerModules,
+    isLoading: isLoadingModules,
   } = useGetModulesQuery(undefined, {
     selectFromResult: ({data, isLoading}) => ({
       isLoading,
@@ -33,12 +33,12 @@ export const useModules = () => {
       setModules(combineClientAndServerModules(clientModules, serverModules))
   }, [serverModules])
 
-  const getModulesWithoutInactive = useCallback(
+  const getActiveModules = useCallback(
     () => modules && modules.filter(m => m.status === 1),
     [modules],
   )
 
-  const getModulesWithoutDeselected = useCallback(
+  const getSelectedModules = useCallback(
     () =>
       modules &&
       modules.filter(m => userSelectedModulesBySlug?.includes(m.slug)),
@@ -46,10 +46,10 @@ export const useModules = () => {
   )
 
   return {
-    isLoadingServerModules,
+    isLoadingModules,
     modules,
-    getModulesWithoutInactive,
-    getModulesWithoutDeselected,
+    getActiveModules,
+    getSelectedModules,
     serverModules,
     userSelectedModulesBySlug,
   }
