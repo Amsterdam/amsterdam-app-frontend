@@ -1,6 +1,14 @@
 import {Image} from './image'
 import {PageListQueryArg, Section, Timeline} from './'
 
+export type ProjectContact = {
+  address: string
+  email: string
+  name: string
+  phone: string
+  position: string
+}
+
 // An item in a project list as received from our backend
 export type Project = {
   active: boolean
@@ -64,6 +72,7 @@ export type ProjectDetail = {
     where: Section[]
     work: Section[]
   }
+  contacts: ProjectContact[]
   coordinates: {
     lat: number
     lon: number
@@ -79,9 +88,9 @@ export type ProjectDetail = {
   url: string
 }
 
-// A set of project body sections, used in the front-end
 export type ProjectDetailBody = {
-  sections: Section[]
+  contacts?: ProjectContact[]
+  sections?: Section[]
   timeline?: Timeline
   title: string
 }

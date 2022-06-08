@@ -1,14 +1,9 @@
-import Calendar from '@amsterdam/asc-assets/static/icons/Calendar.svg'
-import ChatBubble from '@amsterdam/asc-assets/static/icons/ChatBubble.svg'
-import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
-import LocationFields from '@amsterdam/asc-assets/static/icons/LocationFields.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode, useContext} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {DeviceContext} from '../../../../providers'
-import {color, size} from '../../../../tokens'
-import {ProjectDetail, Section, Timeline} from '../../../../types'
+import React from 'react'
+import {View} from 'react-native'
+import {ProjectDetail, ProjectDetailBody} from '../../../../types'
+import {isEmptyObject} from '../../../../utils'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectBodyMenuItem} from '.'
 
@@ -16,97 +11,72 @@ type Props = {
   project: ProjectDetail
 }
 
-type ProjectBodyMenuItem = {
-  icon: ReactNode
-  sections?: Section[]
-  timeline?: Timeline
-  title: string
+enum ProjectDetailBodyTitles {
+  about = 'Over dit project',
+  contact = 'Contact',
+  planning = 'Planning',
+  work = 'Werkzaamheden',
 }
 
 export const ProjectBodyMenu = ({project}: Props) => {
-  const device = useContext(DeviceContext)
   const navigation =
     useNavigation<
       StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectDetail>
     >()
 
-  const menuOptions: ProjectBodyMenuItem[] = [
+  const menuOptions: ProjectDetailBody[] = [
     {
-      icon: <Info fill={color.font.inverse} />,
       sections: [
         ...(project.body.intro ?? []),
         ...(project.body.what ?? []),
         ...(project.body.where ?? []),
       ],
-      title: 'Informatie',
+      title: ProjectDetailBodyTitles.about,
     },
     {
-      icon: <Calendar fill={color.font.inverse} />,
       sections: project.body.when ?? [],
       timeline: project.body.timeline,
-      title: 'Planning',
+      title: ProjectDetailBodyTitles.planning,
     },
     {
-      icon: <LocationFields fill={color.font.inverse} />,
       sections: project.body.work,
-      title: 'Werkzaamheden',
+      title: ProjectDetailBodyTitles.work,
     },
     {
-      icon: <ChatBubble fill={color.font.inverse} />,
       sections: project.body.contact,
-      title: 'Contact',
+      contacts: project.contacts,
+      title: ProjectDetailBodyTitles.contact,
     },
   ]
 
-  const menu: ProjectBodyMenuItem[] = menuOptions.filter(item => {
-    const numberOfSections = item.sections?.length ?? 0
-    const numberOfTimelines = Object.keys(item.timeline ?? {}).length ? 1 : 0
-
-    return numberOfSections || numberOfTimelines
-  })
-
-  // Reserve 25% for each icon, space between, max half width of wide screens.
-  const iconButtonWidth = 80
-  const numberOfIconButtons = 4
-  let rowWidth = (100 / numberOfIconButtons) * menu.length
-  if (device.width > 2 * numberOfIconButtons * iconButtonWidth) {
-    rowWidth /= 2
-  }
+  const hasContentToShow = (o: ProjectDetailBody) =>
+    o.contacts?.length ||
+    o.sections?.length ||
+    (o.timeline && !isEmptyObject(o.timeline))
 
   return (
-    <View
-      style={[
-        styles.row,
-        {width: rowWidth + '%'},
-        device.width < numberOfIconButtons * iconButtonWidth && styles.wrap,
-      ]}>
-      {menu.map(({icon, sections, timeline, title}) => (
-        <ProjectBodyMenuItem
-          icon={icon}
-          key={title}
-          label={title.replace('Werkzaamheden', 'Werkzaam-heden')}
-          onPress={() =>
-            navigation.navigate(ProjectsRouteName.projectDetailBody, {
-              body: {
-                sections: sections ?? [],
-                title: title,
-                timeline: timeline,
-              },
-            })
-          }
-        />
-      ))}
+    <View>
+      {menuOptions.map(option => {
+        if (!hasContentToShow(option)) {
+          return null
+        }
+
+        const {title} = option
+
+        return (
+          <ProjectBodyMenuItem
+            key={title}
+            label={title}
+            onPress={() =>
+              navigation.navigate(ProjectsRouteName.projectDetailBody, {
+                body: {
+                  ...option,
+                },
+              })
+            }
+          />
+        )
+      })}
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: -size.spacing.md,
-  },
-  wrap: {
-    flexWrap: 'wrap',
-  },
-})
