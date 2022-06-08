@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {combineClientAndServerModulesConfig} from '../../../utils'
+import {mergeModulesConfig} from '../../../utils'
 import {clientModules} from '../../index'
 import {Module} from '../../types'
 import {useGetModulesQuery} from '../services'
@@ -30,9 +30,7 @@ export const useModules = () => {
 
   useEffect(() => {
     moduleServerConfig &&
-      setModules(
-        combineClientAndServerModulesConfig(clientModules, moduleServerConfig),
-      )
+      setModules(mergeModulesConfig(clientModules, moduleServerConfig))
   }, [moduleServerConfig])
 
   const getActiveModules = useCallback(

@@ -1,7 +1,7 @@
 import {Module, ModuleClientConfig, ModuleServerConfig} from '../modules/types'
 import {nonNullable} from './nonNullable'
 
-export const combineClientAndServerModulesConfig = (
+export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],
   serverConfig?: ModuleServerConfig[],
 ): Module[] => {
