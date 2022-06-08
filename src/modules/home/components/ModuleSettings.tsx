@@ -13,7 +13,7 @@ import {ModuleBox} from './'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, userSelectedModulesBySlug} = useModules()
+  const {modules, selectedModulesBySlug} = useModules()
 
   // TODO Create `Icon` component with size and color props
   const iconProps = useThemable(createIconProps)
@@ -33,7 +33,7 @@ export const ModuleSettings = () => {
       <Column gutter="sm">
         {modules.map(module => {
           const isSelected =
-            userSelectedModulesBySlug?.includes(module.slug) ?? false
+            selectedModulesBySlug?.includes(module.slug) ?? false
           const {description, icon, slug, title} = module
           const Icon = icons[icon]
 

@@ -1,17 +1,17 @@
 import {Module, ModuleClientConfig, ModuleServerConfig} from '../modules/types'
 import {nonNullable} from './nonNullable'
 
-export const combineClientAndServerModules = (
-  clientModules: ModuleClientConfig[],
-  serverModules?: ModuleServerConfig[],
+export const combineClientAndServerModulesConfig = (
+  clientConfig: ModuleClientConfig[],
+  serverConfig?: ModuleServerConfig[],
 ): Module[] => {
-  if (!serverModules) {
+  if (!serverConfig) {
     return [] as Module[]
   }
 
-  return clientModules
+  return clientConfig
     .map(clientModule => {
-      const serverModule = serverModules.find(m => clientModule.slug === m.slug)
+      const serverModule = serverConfig.find(m => clientModule.slug === m.slug)
 
       if (serverModule) {
         return {...clientModule, ...serverModule}

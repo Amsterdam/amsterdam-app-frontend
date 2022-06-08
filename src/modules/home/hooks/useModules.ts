@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {combineClientAndServerModules} from '../../../utils'
+import {combineClientAndServerModulesConfig} from '../../../utils'
 import {clientModules} from '../../index'
 import {Module} from '../../types'
 import {useGetModulesQuery} from '../services'
@@ -9,29 +9,31 @@ import {initializeModules, selectModules} from '../store'
 export const useModules = () => {
   const dispatch = useDispatch()
   const {
-    serverModules,
-    serverModulesBySlug,
+    moduleServerConfig,
+    modulesSlug,
     isLoading: isLoadingModules,
   } = useGetModulesQuery(undefined, {
     selectFromResult: ({data, isLoading}) => ({
       isLoading,
-      serverModules: data,
-      serverModulesBySlug: data?.map(s => s.slug),
+      moduleServerConfig: data,
+      modulesSlug: data?.map(s => s.slug),
     }),
   })
   const {modules: selectedModulesBySlug} = useSelector(selectModules)
   const [modules, setModules] = useState<Module[]>()
 
   useEffect(() => {
-    if (serverModulesBySlug && selectedModulesBySlug === undefined) {
-      dispatch(initializeModules(serverModulesBySlug))
+    if (modulesSlug && selectedModulesBySlug === undefined) {
+      dispatch(initializeModules(modulesSlug))
     }
-  }, [dispatch, serverModulesBySlug, selectedModulesBySlug])
+  }, [dispatch, modulesSlug, selectedModulesBySlug])
 
   useEffect(() => {
-    serverModules &&
-      setModules(combineClientAndServerModules(clientModules, serverModules))
-  }, [serverModules])
+    moduleServerConfig &&
+      setModules(
+        combineClientAndServerModulesConfig(clientModules, moduleServerConfig),
+      )
+  }, [moduleServerConfig])
 
   const getActiveModules = useCallback(
     () => modules && modules.filter(m => m.status === 1),
@@ -49,7 +51,7 @@ export const useModules = () => {
     modules,
     getActiveModules,
     getSelectedModules,
-    serverModules,
+    moduleServerConfig,
     selectedModulesBySlug,
   }
 }
