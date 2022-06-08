@@ -63,7 +63,7 @@ export const projectsRoutes: StackNavigationRoutes<
     component: ProjectsScreen,
     name: ProjectsRouteName.projects,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
+      headerTitle: () => <NonScalingHeaderTitle text="Werk in uitvoering" />,
     },
   },
   [ProjectsRouteName.projectDetail]: {

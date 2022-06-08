@@ -12,7 +12,6 @@ import {Gutter, Row} from '../../../../components/ui/layout'
 import {Paragraph} from '../../../../components/ui/typography'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
-import {layoutStyles} from '../../../../styles'
 import {selectTheme} from '../../../../themes'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
@@ -118,7 +117,6 @@ export const ProjectsByDistance = () => {
           id: project.identifier,
         })
       }
-      style={layoutStyles.grow}
       subtitle={project.subtitle ?? undefined}
       title={project.title}
     />

@@ -7,7 +7,6 @@ import {useSelector} from 'react-redux'
 import {PleaseWait, SomethingWentWrong} from '../../../../components/ui'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
-import {layoutStyles} from '../../../../styles'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
@@ -57,7 +56,6 @@ export const ProjectsByDate = () => {
           id: project.identifier,
         })
       }
-      style={layoutStyles.grow}
       subtitle={project.subtitle ?? undefined}
       title={project.title}
     />
