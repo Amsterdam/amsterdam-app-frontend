@@ -19,14 +19,14 @@ export const useModules = () => {
       serverModulesBySlug: data?.map(s => s.slug),
     }),
   })
-  const {modules: userSelectedModulesBySlug} = useSelector(selectModules)
+  const {modules: selectedModulesBySlug} = useSelector(selectModules)
   const [modules, setModules] = useState<Module[]>()
 
   useEffect(() => {
-    if (serverModulesBySlug && userSelectedModulesBySlug === undefined) {
+    if (serverModulesBySlug && selectedModulesBySlug === undefined) {
       dispatch(initializeModules(serverModulesBySlug))
     }
-  }, [dispatch, serverModulesBySlug, userSelectedModulesBySlug])
+  }, [dispatch, serverModulesBySlug, selectedModulesBySlug])
 
   useEffect(() => {
     serverModules &&
@@ -40,9 +40,8 @@ export const useModules = () => {
 
   const getSelectedModules = useCallback(
     () =>
-      modules &&
-      modules.filter(m => userSelectedModulesBySlug?.includes(m.slug)),
-    [modules, userSelectedModulesBySlug],
+      modules && modules.filter(m => selectedModulesBySlug?.includes(m.slug)),
+    [modules, selectedModulesBySlug],
   )
 
   return {
@@ -51,6 +50,6 @@ export const useModules = () => {
     getActiveModules,
     getSelectedModules,
     serverModules,
-    userSelectedModulesBySlug,
+    selectedModulesBySlug,
   }
 }
