@@ -18,7 +18,7 @@ import {
 
 export enum ProjectsRouteName {
   authorizedProjects = 'AuthorizedProjects',
-  home = 'Home',
+  projects = 'Projects',
   createNotification = 'CreateNotification',
   projectDetail = 'ProjectDetail',
   projectDetailBody = 'ProjectDetailBody',
@@ -30,7 +30,7 @@ export enum ProjectsRouteName {
 export type ProjectsStackParams = {
   [ProjectsRouteName.authorizedProjects]: {projectManagerId: string}
   [ProjectsRouteName.createNotification]: {projectDetails: ProjectMinimal}
-  [ProjectsRouteName.home]: undefined
+  [ProjectsRouteName.projects]: undefined
   [ProjectsRouteName.projectDetail]: {id: string}
   [ProjectsRouteName.projectDetailBody]: {
     body: ProjectDetailBody
@@ -59,9 +59,9 @@ export const projectsRoutes: StackNavigationRoutes<
       headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
     },
   },
-  [ProjectsRouteName.home]: {
+  [ProjectsRouteName.projects]: {
     component: ProjectsScreen,
-    name: ProjectsRouteName.home,
+    name: ProjectsRouteName.projects,
     options: {
       headerTitle: () => <NonScalingHeaderTitle text="Bouwprojecten" />,
     },

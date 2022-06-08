@@ -12,7 +12,7 @@ export const ConstructionWorkStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ProjectsRouteName.home}
+      initialRouteName={ProjectsRouteName.projects}
       screenOptions={screenOptions(theme)}>
       {Object.entries(routes).map(([key, route]) => (
         <Stack.Screen key={key} {...route} />
