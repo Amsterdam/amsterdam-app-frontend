@@ -56,24 +56,27 @@ export const ProjectBodyMenu = ({project}: Props) => {
 
   return (
     <View>
-      {menuOptions
-        .filter(option => hasContentToShow(option))
-        .map(options => {
-          const {title} = options
-          return (
-            <ProjectBodyMenuItem
-              key={title}
-              label={title}
-              onPress={() =>
-                navigation.navigate(ProjectsRouteName.projectDetailBody, {
-                  body: {
-                    ...options,
-                  },
-                })
-              }
-            />
-          )
-        })}
+      {menuOptions.map(option => {
+        if (!hasContentToShow(option)) {
+          return null
+        }
+
+        const {title} = option
+
+        return (
+          <ProjectBodyMenuItem
+            key={title}
+            label={title}
+            onPress={() =>
+              navigation.navigate(ProjectsRouteName.projectDetailBody, {
+                body: {
+                  ...option,
+                },
+              })
+            }
+          />
+        )
+      })}
     </View>
   )
 }
