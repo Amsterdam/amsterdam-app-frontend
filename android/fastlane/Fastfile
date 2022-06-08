@@ -99,6 +99,7 @@ platform :android do
           aab: isAab ? full_aab_path : nil,
           apk: !isAab ? full_apk_path : nil,
           version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          release_status: 'draft',
         )
       else
         UI.user_error!("ERROR: #{final_path} does not exist")
