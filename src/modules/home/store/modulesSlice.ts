@@ -25,11 +25,12 @@ export const modulesSlice = createSlice({
 
       if (modules?.includes(slug)) {
         return {
+          ...state,
           modules: modules.filter(moduleSlug => moduleSlug !== slug),
         }
       }
 
-      modules?.push(slug)
+      state.modules = [...(state.modules ?? []), slug]
     },
   },
 })
