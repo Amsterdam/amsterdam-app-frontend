@@ -35,8 +35,7 @@ export const ModuleButton = ({icon, label, name, slug}: Props) => {
   }
 
   const DeleteButton = (progress: any, dragX: any) => {
-    console.log(dragX)
-    // const val1 = new Animated.ValueXY();
+    console.log(progress, dragX)
     return (
       <Animated.View style={styles.rightActionContainer}>
         <View style={styles.rightAction}>
