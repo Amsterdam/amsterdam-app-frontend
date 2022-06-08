@@ -1,12 +1,8 @@
-import {
-  Module,
-  ModuleClientAndUserConfig,
-  ModuleServerConfig,
-} from '../modules/types'
+import {Module, ModuleClientConfig, ModuleServerConfig} from '../modules/types'
 import {nonNullable} from './nonNullable'
 
 export const combineClientAndServerModules = (
-  clientModules: ModuleClientAndUserConfig[],
+  clientModules: ModuleClientConfig[],
   serverModules?: ModuleServerConfig[],
 ): Module[] => {
   if (!serverModules) {
