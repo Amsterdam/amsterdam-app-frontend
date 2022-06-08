@@ -1,7 +1,8 @@
 import React from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
-import {Box, Card, CardBody, Image, Text, Title} from '../../../components/ui'
-import {Gutter} from '../../../components/ui/layout'
+import {ScrollView} from 'react-native'
+import {Box, Card, CardBody, Text, Title} from '../../../components/ui'
+import {Gutter, Row} from '../../../components/ui/layout'
+import {Image} from '../../../components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <ScrollView>
@@ -16,12 +17,12 @@ export const WhereToPutBulkyWasteScreen = () => (
     <Box>
       <Card>
         <CardBody>
-          <View style={styles.figure}>
+          <Row>
             <Image
+              customAspectRatio={632 / 196}
               source={require('../../../assets/images/grofafval-buiten.png')}
-              style={styles.image}
             />
-          </View>
+          </Row>
           <Gutter height="md" />
           <Title level={2} text="Grof afval dat we ophalen" />
           <Text>
@@ -34,12 +35,12 @@ export const WhereToPutBulkyWasteScreen = () => (
       <Gutter height="md" />
       <Card>
         <CardBody>
-          <View style={styles.figure}>
+          <Row>
             <Image
+              customAspectRatio={632 / 196}
               source={require('../../../assets/images/grofafval-afvalpunt.png')}
-              style={styles.image}
             />
-          </View>
+          </Row>
           <Gutter height="md" />
           <Title
             level={2}
@@ -55,13 +56,3 @@ export const WhereToPutBulkyWasteScreen = () => (
     </Box>
   </ScrollView>
 )
-
-const styles = StyleSheet.create({
-  figure: {
-    flexDirection: 'row',
-  },
-  image: {
-    aspectRatio: 632 / 196,
-    flexShrink: 1,
-  },
-})

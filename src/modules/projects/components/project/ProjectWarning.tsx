@@ -7,13 +7,13 @@ import {useMarkArticleIdAsRead} from '../../../../components/features/notificati
 import {
   Box,
   Button,
-  Image,
   NonScalingHeaderTitle,
   PleaseWait,
   Text,
   Title,
 } from '../../../../components/ui'
 import {Row, ScrollView} from '../../../../components/ui/layout'
+import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
 import {color} from '../../../../tokens'
 import {ProjectWarningImage} from '../../../../types'
@@ -24,8 +24,8 @@ import {
   openMailUrl,
 } from '../../../../utils'
 import {
-  useGetProjectWarningQuery,
   useGetProjectQuery,
+  useGetProjectWarningQuery,
 } from '../../projects.service'
 
 type Props = {
@@ -79,7 +79,7 @@ export const ProjectWarning = ({id}: Props) => {
             source={mapWarningImageSources(mainImage.sources, environment)}
           />
         ) : (
-          <View style={styles.image}>
+          <View style={styles.customAspectRatio}>
             <HeroImage />
           </View>
         )}
@@ -111,7 +111,7 @@ export const ProjectWarning = ({id}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  image: {
+  customAspectRatio: {
     aspectRatio: 378 / 167,
   },
 })

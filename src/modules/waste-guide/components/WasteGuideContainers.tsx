@@ -1,17 +1,16 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
 import {
   Card,
   CardBody,
   CardHeader,
-  Image,
   Text,
   TextButton,
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
+import {Image} from '../../../components/ui/media'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 
 export const WasteGuideContainers = () => {
@@ -41,23 +40,13 @@ export const WasteGuideContainers = () => {
           />
         </Row>
         <Gutter height="md" />
-        <View style={styles.figure}>
+        <Row>
           <Image
+            customAspectRatio={632 / 220}
             source={require('../../../assets/images/placeholder-map-containers.jpg')}
-            style={styles.image}
           />
-        </View>
+        </Row>
       </CardBody>
     </Card>
   )
 }
-
-const styles = StyleSheet.create({
-  figure: {
-    flexDirection: 'row',
-  },
-  image: {
-    aspectRatio: 632 / 220,
-    flexShrink: 1,
-  },
-})

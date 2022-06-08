@@ -1,28 +1,26 @@
 import {RouteProp} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
-import {StyleSheet} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {
   selectNotificationSettings,
-  toggleProjectsEnabled,
   toggleProject,
+  toggleProjectsEnabled,
 } from '../../../components/features/notifications'
 import {
+  Box,
+  Button,
   NonScalingHeaderTitle,
   PleaseWait,
-  Box,
   SingleSelectable,
-  Title,
-  Button,
-  Image,
   Text,
+  Title,
 } from '../../../components/ui'
 import {Switch} from '../../../components/ui/forms'
 import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
+import {Image} from '../../../components/ui/media'
 import {useEnvironment} from '../../../store'
-import {image} from '../../../tokens'
-import {mapImageSources, accessibleText} from '../../../utils'
+import {accessibleText, mapImageSources} from '../../../utils'
 import {ArticleOverview} from '../components/article'
 import {ProjectBodyMenu} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
@@ -79,8 +77,8 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     <ScrollView>
       {project.images.length && (
         <Image
+          aspectRatio="wide"
           source={mapImageSources(project.images[0].sources, environment)}
-          style={styles.image}
         />
       )}
       <Column gutter="md">
@@ -126,11 +124,3 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  image: {
-    aspectRatio: image.aspectRatio.wide,
-    maxWidth: '100%',
-    resizeMode: 'cover',
-  },
-})

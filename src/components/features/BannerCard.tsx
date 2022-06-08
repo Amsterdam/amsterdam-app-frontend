@@ -1,7 +1,7 @@
 import React from 'react'
-import {ImageSourcePropType, StyleSheet, TouchableHighlight} from 'react-native'
-import {image} from '../../tokens'
-import {Card, CardBody, Image, SingleSelectable, Title} from '../ui'
+import {ImageSourcePropType, TouchableHighlight} from 'react-native'
+import {Card, CardBody, SingleSelectable, Title} from '../ui'
+import {Image} from '../ui/media'
 
 type Props = {
   border?: boolean
@@ -23,7 +23,7 @@ export const BannerCard = ({
     <Title text={title} visuallyHidden />
     <TouchableHighlight accessibilityRole="button" onPress={onPress}>
       <Card border={border}>
-        {imageSource && <Image source={imageSource} style={styles.image} />}
+        {imageSource && <Image source={imageSource} />}
         <CardBody>
           {/* Skip re-reading main title */}
           <SingleSelectable label={subtitle}>
@@ -35,13 +35,3 @@ export const BannerCard = ({
     </TouchableHighlight>
   </>
 )
-
-const styles = StyleSheet.create({
-  image: {
-    aspectRatio: image.aspectRatio.default,
-    height: undefined,
-    maxWidth: '100%',
-    resizeMode: 'cover',
-    width: undefined,
-  },
-})
