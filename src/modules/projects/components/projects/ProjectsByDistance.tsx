@@ -30,7 +30,7 @@ export const ProjectsByDistance = () => {
     useNavigation<
       StackNavigationProp<
         RootStackParamList & ProjectsStackParams,
-        ProjectsRouteName.home
+        ProjectsRouteName.projects
       >
     >()
   const {theme} = useSelector(selectTheme)
