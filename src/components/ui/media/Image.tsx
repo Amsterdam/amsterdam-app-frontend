@@ -31,7 +31,10 @@ const createStyles =
   ({image}: Theme) =>
     StyleSheet.create({
       image: {
+        width: undefined,
         maxWidth: '100%',
+        height: undefined,
+        flex: 1,
         aspectRatio:
           customAspectRatio ?? image.aspectRatio[aspectRatio ?? 'default'],
         resizeMode: 'cover',
