@@ -35,14 +35,15 @@ const renderModuleButton = (module: Module) => {
 export const Modules = () => {
   const navigation =
     useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
-  const {modules, isLoading} = useModules({includeDeselected: false})
+  const {getModulesWithoutDeselected, isLoadingServerModules} = useModules()
   const styles = useThemable(createStyles)
+  const modules = getModulesWithoutDeselected()
 
-  if (isLoading) {
+  if (isLoadingServerModules) {
     return <PleaseWait />
   }
 
-  if (!modules.length) {
+  if (!modules) {
     return (
       <ScrollView>
         <View style={styles.figure}>

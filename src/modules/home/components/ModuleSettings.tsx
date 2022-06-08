@@ -13,7 +13,7 @@ import {ModuleBox} from './'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, isLoading} = useModules({})
+  const {modules, userSelectedModulesBySlug} = useModules()
 
   // TODO Create `Icon` component with size and color props
   const iconProps = useThemable(createIconProps)
@@ -24,7 +24,7 @@ export const ModuleSettings = () => {
     dispatch(toggleModule(slug))
   }
 
-  if (isLoading) {
+  if (!modules) {
     return <PleaseWait />
   }
 
@@ -32,7 +32,9 @@ export const ModuleSettings = () => {
     <Box>
       <Column gutter="sm">
         {modules.map(module => {
-          const {description, icon, isSelected, slug, title} = module
+          const isSelected =
+            userSelectedModulesBySlug?.includes(module.slug) ?? false
+          const {description, icon, slug, title} = module
           const Icon = icons[icon]
 
           return (
