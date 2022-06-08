@@ -1,6 +1,5 @@
 import React from 'react'
-import {useWindowDimensions} from 'react-native'
-import RenderHTML from 'react-native-render-html'
+import {RenderHTML} from '../../../../components/ui/RenderHTML'
 import {Column} from '../../../../components/ui/layout'
 import {Title} from '../../../../components/ui/typography'
 import {tagsStyles} from '../../../../styles/html'
@@ -13,14 +12,12 @@ type Props = {
 }
 
 export const ProjectContentSections = ({sections}: Props) => {
-  const {width} = useWindowDimensions()
   return (
     <>
       {sections.map(section => (
         <Column gutter="sm" key={section.title}>
           <Title level="h2" text={section.title} />
           <RenderHTML
-            contentWidth={width}
             source={{
               html: section.html
                 .replace(
