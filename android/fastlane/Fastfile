@@ -125,6 +125,7 @@ platform :android do
             skip_upload_images: true,
             skip_upload_screenshots: true,
             version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+            release_status: 'draft',
           )
         else
           UI.user_error!("ERROR: #{final_path} does not exist")
