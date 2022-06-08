@@ -5,7 +5,7 @@ import {Card, CardBody, Text} from '../../../../components/ui'
 import {Row} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
-import {image as imageTokens} from '../../../../tokens'
+import {imageTokens} from '../../../../themes/tokens'
 import {ArticleSummary} from '../../../../types'
 import {mapImageSources, mapWarningImageSources} from '../../../../utils'
 

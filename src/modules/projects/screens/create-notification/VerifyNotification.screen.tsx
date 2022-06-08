@@ -16,7 +16,7 @@ import {
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useAddNotificationMutation} from '../../../../services'
-import {image as imageToken} from '../../../../tokens'
+import {imageTokens} from '../../../../themes/tokens'
 import {NotificationQueryArg} from '../../../../types'
 import {
   useAddProjectWarningImageMutation,
@@ -229,6 +229,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   placeholder: {
-    aspectRatio: imageToken.aspectRatio.wide,
+    aspectRatio: imageTokens.aspectRatio.wide,
   },
 })
