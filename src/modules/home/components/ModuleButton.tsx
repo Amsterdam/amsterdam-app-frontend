@@ -1,16 +1,22 @@
+import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode, useCallback} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {useDispatch} from 'react-redux'
-import {SwipeToDelete} from '../../../../src/components/ui/SwipeToDelete'
-import {Theme, useThemable} from '../../../themes'
-import {HomeRouteName} from '../routes'
+import React, {ReactNode} from 'react'
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Text,
+  Animated,
+} from 'react-native'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import {useSelector, useDispatch} from 'react-redux'
+import {RootStackParamList} from '../../../app/navigation'
+import {Row} from '../../../components/ui/layout'
+import {Title} from '../../../components/ui/typography'
+import {selectTheme} from '../../../themes'
+import {font, size, color} from '../../../tokens'
 import {toggleModule} from '../store'
-import {RootStackParamList} from '@/app/navigation'
-import {Pressable} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {Title} from '@/components/ui/text'
 
 type Props = {
   icon: ReactNode
@@ -22,35 +28,66 @@ type Props = {
 export const ModuleButton = ({icon, label, name, slug}: Props) => {
   const dispatch = useDispatch()
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, HomeRouteName>>()
-  const styles = useThemable(createStyles)
-  const onDelete = useCallback(() => {
-    dispatch(toggleModule(slug))
-  }, [slug, dispatch])
-  return (
-    <View style={styles.container}>
-      <SwipeToDelete onPress={onDelete} onSwipe={onDelete} label="Verwijderen">
-        <View style={styles.buttonContainer}>
-          <Pressable
-            onPress={name ? () => navigation.navigate(name) : undefined}
-            inset="md">
-            <Row gutter="md" valign="center">
-              {icon}
-              <Title level="h5" text={label} />
-            </Row>
-          </Pressable>
+    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+  const {theme} = useSelector(selectTheme)
+  const onChange = (key: string) => {
+    dispatch(toggleModule(key))
+  }
+
+  const DeleteButton = (progress: any, dragX: any) => {
+    console.log(dragX)
+    // const val1 = new Animated.ValueXY();
+    return (
+      <Animated.View style={styles.rightActionContainer}>
+        <View style={styles.rightAction}>
+          <Text style={styles.actionText}>Verwijderen</Text>
+          <TrashBin style={styles.actionIcon} />
         </View>
-      </SwipeToDelete>
-    </View>
+      </Animated.View>
+    )
+  }
+  return (
+    <Swipeable
+      renderRightActions={DeleteButton}
+      onSwipeableRightOpen={() => onChange(slug)}>
+      <TouchableHighlight
+        activeOpacity={1}
+        onPress={name ? () => navigation.navigate(name) : undefined}
+        style={styles.button}
+        underlayColor={theme.color.pressable.pressed.background}>
+        <Row gutter="md" valign="center">
+          {icon}
+          <Title level="h5" text={`${label}`} />
+        </Row>
+      </TouchableHighlight>
+    </Swipeable>
   )
 }
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.box.background.invalid,
-    },
-    buttonContainer: {
-      backgroundColor: 'white',
-    },
-  })
+const styles = StyleSheet.create({
+  button: {
+    padding: size.spacing.md,
+    backgroundColor: 'white',
+  },
+  rightActionContainer: {
+    backgroundColor: color.touchable.secondary,
+  },
+  rightAction: {
+    color: color.background.white,
+    padding: size.spacing.md,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  actionText: {
+    color: 'white',
+    fontFamily: font.weight.bold,
+    marginRight: 16,
+  },
+  actionIcon: {
+    width: 25,
+    height: 25,
+    fill: color.background.white,
+  },
+})
