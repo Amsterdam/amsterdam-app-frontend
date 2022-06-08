@@ -17,12 +17,12 @@ type Props = {
 }
 
 export const ProjectDetailBodyScreen = ({route}: Props) => {
-  const {body} = route.params
+  const {body, headerTitle} = route.params
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text={body.title} />,
+      headerTitle: () => <NonScalingHeaderTitle text={headerTitle} />,
     })
   })
 

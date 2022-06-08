@@ -72,6 +72,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
                 body: {
                   ...option,
                 },
+                headerTitle: project.title,
               })
             }
           />

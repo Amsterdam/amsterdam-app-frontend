@@ -34,6 +34,7 @@ export type ProjectsStackParams = {
   [ProjectsRouteName.projectDetail]: {id: string}
   [ProjectsRouteName.projectDetailBody]: {
     body: ProjectDetailBody
+    headerTitle: string
   }
   [ProjectsRouteName.projectManager]: {id: string}
   [ProjectsRouteName.projectNews]: {id: string}
