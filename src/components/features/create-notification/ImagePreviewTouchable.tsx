@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Image as ImageType} from 'react-native-image-crop-picker'
 import {color, image as imageToken} from '../../../tokens'
 import {Image} from '../../ui'
+import {Icon} from '../../ui/media'
 
 type Props = {
   image: ImageType
@@ -20,7 +21,9 @@ export const ImagePreviewTouchable = ({image, onPress}: Props) => {
           accessibilityRole="button"
           onPress={onPress}
           style={styles.button}>
-          <TrashBin style={styles.icon} />
+          <Icon size={24}>
+            <TrashBin fill={color.font.inverse} />
+          </Icon>
         </TouchableOpacity>
       </View>
     </View>
@@ -40,11 +43,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 62,
     backgroundColor: 'rgba(0,0,0,.4)',
-  },
-  icon: {
-    width: 26,
-    height: 32,
-    fill: color.font.inverse,
   },
   placeholder: {
     aspectRatio: imageToken.aspectRatio.wide,

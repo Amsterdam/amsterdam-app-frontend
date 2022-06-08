@@ -2,7 +2,6 @@ import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {StyleSheet} from 'react-native'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {
@@ -20,6 +19,7 @@ import {
 } from '../../../../components/ui'
 import {TextInput} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+import {Icon} from '../../../../components/ui/media'
 import {color, size} from '../../../../tokens'
 import {NewProjectWarning} from '../../../../types'
 import {selectProjectManager} from '../../components/project-manager'
@@ -267,7 +267,11 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                 </Text>
                 <Row align="start">
                   <Button
-                    icon={<Enlarge style={styles.icon} />}
+                    icon={
+                      <Icon size={24}>
+                        <Enlarge fill={color.font.primary} />
+                      </Icon>
+                    }
                     onPress={handleSubmit(pickImage)}
                     text="Foto’s toevoegen"
                     variant="inverse"
@@ -295,14 +299,3 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'flex-start',
-  },
-  icon: {
-    width: 24,
-    aspectRatio: 1,
-    fill: color.font.primary,
-  },
-})

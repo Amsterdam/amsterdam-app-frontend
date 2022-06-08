@@ -5,6 +5,7 @@ import {StyleSheet, TouchableHighlight} from 'react-native'
 import {useSelector} from 'react-redux'
 import {selectTheme} from '../../themes/themeSlice'
 import {color, size} from '../../tokens'
+import {Icon} from './media'
 
 type Props<T extends ElementType> = ComponentProps<T>
 
@@ -17,7 +18,9 @@ export const AddButton = <T extends ElementType>(props: Props<T>) => {
       style={styles.button}
       underlayColor={theme.color.pressable.pressed.background}
       {...props}>
-      <Enlarge style={styles.icon} />
+      <Icon size={24}>
+        <Enlarge fill={color.font.primary} />
+      </Icon>
     </TouchableHighlight>
   )
 }
@@ -29,10 +32,5 @@ const styles = StyleSheet.create({
     borderColor: color.border.primary,
     borderStyle: 'dashed',
     borderWidth: 1,
-  },
-  icon: {
-    width: 24,
-    aspectRatio: 1,
-    fill: color.font.primary,
   },
 })

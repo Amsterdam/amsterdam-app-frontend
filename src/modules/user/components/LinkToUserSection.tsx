@@ -1,8 +1,9 @@
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React, {ReactNode} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 import {Box} from '../../../components/ui'
 import {Row} from '../../../components/ui/layout'
+import {Icon} from '../../../components/ui/media'
 import {color} from '../../../tokens'
 
 type Props = {
@@ -16,18 +17,11 @@ export const LinkToUserSection = ({children, onPress}: Props) => {
       <Box insetVertical="sm">
         <Row align="between" gutter="md" valign="center">
           {children}
-          <View style={styles.icon}>
+          <Icon size={16}>
             <ChevronRight fill={color.font.regular} />
-          </View>
+          </Icon>
         </Row>
       </Box>
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 16,
-    aspectRatio: 1,
-  },
-})
