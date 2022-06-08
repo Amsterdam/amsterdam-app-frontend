@@ -18,7 +18,7 @@ export const ProjectContacts = ({contacts}: Props) => {
   const {theme} = useSelector(selectTheme)
 
   return (
-    <>
+    <Column gutter="md">
       {contacts.map(({address, email, name, phone, position}) => (
         <Column gutter="sm" key={name + email}>
           <View>
@@ -50,6 +50,6 @@ export const ProjectContacts = ({contacts}: Props) => {
           {address && <Paragraph>{address}</Paragraph>}
         </Column>
       ))}
-    </>
+    </Column>
   )
 }
