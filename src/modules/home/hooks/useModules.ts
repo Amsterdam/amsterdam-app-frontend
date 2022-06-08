@@ -1,41 +1,55 @@
-import {useSelector} from 'react-redux'
-import {combineClientAndServerModules} from '../../../utils'
+import {useCallback, useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {mergeModulesConfig} from '../../../utils'
 import {clientModules} from '../../index'
-import {ModuleClientAndUserConfig} from '../../types'
+import {Module} from '../../types'
 import {useGetModulesQuery} from '../services'
-import {selectModules} from '../store'
+import {initializeModules, selectModules} from '../store'
 
-type Props = {
-  includeDeselected?: boolean
-  includeInactive?: boolean
-}
-
-export const useModules = ({
-  includeDeselected = true,
-  includeInactive = true,
-}: Props) => {
-  const {data: serverModules, isLoading} = useGetModulesQuery()
-  const {modules: selectedModuleSlugs} = useSelector(selectModules)
-
-  const selectedClientModules: ModuleClientAndUserConfig[] = clientModules.map(
-    m => ({
-      ...m,
-      isSelected: selectedModuleSlugs.includes(m.slug),
+export const useModules = () => {
+  const dispatch = useDispatch()
+  const {
+    moduleServerConfig,
+    modulesSlug,
+    isLoading: isLoadingModules,
+  } = useGetModulesQuery(undefined, {
+    selectFromResult: ({data, isLoading}) => ({
+      isLoading,
+      moduleServerConfig: data,
+      modulesSlug: data?.map(s => s.slug),
     }),
+  })
+  const {modules: selectedModulesBySlug} = useSelector(selectModules)
+  const [modules, setModules] = useState<Module[]>()
+
+  useEffect(() => {
+    if (modulesSlug && selectedModulesBySlug === undefined) {
+      dispatch(initializeModules(modulesSlug))
+    }
+  }, [dispatch, modulesSlug, selectedModulesBySlug])
+
+  useEffect(() => {
+    moduleServerConfig &&
+      setModules(mergeModulesConfig(clientModules, moduleServerConfig))
+  }, [moduleServerConfig])
+
+  const getActiveModules = useCallback(
+    () => modules && modules.filter(m => m.status === 1),
+    [modules],
   )
 
-  let modules = combineClientAndServerModules(
-    selectedClientModules,
-    serverModules,
+  const getSelectedModules = useCallback(
+    () =>
+      modules && modules.filter(m => selectedModulesBySlug?.includes(m.slug)),
+    [modules, selectedModulesBySlug],
   )
 
-  if (!includeInactive) {
-    modules = modules.filter(m => m.status === 1)
+  return {
+    isLoadingModules,
+    modules,
+    getActiveModules,
+    getSelectedModules,
+    moduleServerConfig,
+    selectedModulesBySlug,
   }
-
-  if (!includeDeselected) {
-    modules = modules.filter(m => selectedModuleSlugs.includes(m.slug))
-  }
-
-  return {modules, isLoading}
 }

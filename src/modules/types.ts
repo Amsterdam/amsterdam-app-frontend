@@ -25,13 +25,4 @@ export type ModuleServerConfig = {
   version: string
 }
 
-/**
- * The user preferences part of a module’s configuration.
- */
-export type ModuleUserConfig = {
-  isSelected: boolean
-}
-
-export type ModuleClientAndUserConfig = ModuleClientConfig & ModuleUserConfig
-
-export type Module = ModuleServerConfig & ModuleClientAndUserConfig
+export type Module = ModuleServerConfig & ModuleClientConfig
