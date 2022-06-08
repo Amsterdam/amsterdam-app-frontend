@@ -59,7 +59,6 @@
     "react-native-screens": "^3.13.1",
     "react-native-super-grid": "^4.2.0",
     "react-native-svg": "^12.1.1",
-    "react-native-swipe-list-view": "^3.2.9",
     "react-native-tab-view": "^3.1.1",
     "react-native-webview": "^11.6.5",
     "react-redux": "^7.2.6",
