@@ -48,7 +48,7 @@ export const Modules = () => {
   }
 
   return (
-    <Box>
+    <Box grow>
       <FlatList
         data={modules}
         renderItem={({item}) => renderModuleButton(item)}
