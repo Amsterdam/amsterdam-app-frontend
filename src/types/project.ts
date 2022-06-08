@@ -1,7 +1,7 @@
 import {Image} from './image'
 import {PageListQueryArg, Section, Timeline} from './'
 
-export type ContactInfo = {
+export type ProjectContact = {
   address: string
   email: string
   name: string
@@ -72,7 +72,7 @@ export type ProjectDetail = {
     where: Section[]
     work: Section[]
   }
-  contacts: ContactInfo[]
+  contacts: ProjectContact[]
   coordinates: {
     lat: number
     lon: number
@@ -89,7 +89,7 @@ export type ProjectDetail = {
 }
 
 export type ProjectDetailBody = {
-  contacts?: ContactInfo[]
+  contacts?: ProjectContact[]
   sections?: Section[]
   timeline?: Timeline
   title: string

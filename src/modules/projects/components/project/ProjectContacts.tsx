@@ -7,11 +7,11 @@ import {Button} from '../../../../components/ui'
 import {Column, Row} from '../../../../components/ui/layout'
 import {Paragraph, Title} from '../../../../components/ui/typography'
 import {selectTheme} from '../../../../themes'
-import {ContactInfo} from '../../../../types'
+import {ProjectContact} from '../../../../types'
 import {capitalizeString} from '../../../../utils'
 
 type Props = {
-  contacts: ContactInfo[]
+  contacts: ProjectContact[]
 }
 
 export const ProjectContacts = ({contacts}: Props) => {
