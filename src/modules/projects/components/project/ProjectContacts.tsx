@@ -1,7 +1,7 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import React from 'react'
-import {View, Linking} from 'react-native'
+import {Linking, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Button} from '../../../../components/ui'
 import {Column, Row} from '../../../../components/ui/layout'
@@ -18,11 +18,11 @@ export const ProjectContacts = ({contacts}: Props) => {
   const {theme} = useSelector(selectTheme)
 
   return (
-    <Column gutter="md">
+    <Column gutter="xl">
       {contacts.map(({address, email, name, phone, position}) => (
-        <Column gutter="sm" key={name + email}>
+        <Column gutter="md" key={name + email}>
           <View>
-            {name && <Title level="h2" text={name} />}
+            {name && <Title level="h3" text={name} />}
             {position && <Paragraph>{capitalizeString(position)}</Paragraph>}
           </View>
           {phone && (
