@@ -1,0 +1,12 @@
+parameters:
+  - name: platform
+    type: string
+
+steps:
+  - task: DownloadSecureFile@1
+    displayName: 'Download sentry.properties'
+    name: SentryProperties
+    inputs:
+      secureFile: 'sentry.properties'
+  - script: mv $(SentryProperties.secureFilePath) $(Build.SourcesDirectory)/${{ parameters.platform }}
+    displayName: 'Move sentry.properties'

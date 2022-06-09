@@ -5,11 +5,15 @@ import {EdgeInsets} from 'react-native-safe-area-context/src/SafeArea.types'
 
 type Props = {
   children: ReactNode
+  withoutNavigationHeader?: boolean
 }
 
-export const Screen = ({children}: Props) => {
-  const {bottom = 0, left = 0, right = 0} = useSafeAreaInsets()
-  const styles = createStyles({bottom, left, right})
+export const Screen = ({children, withoutNavigationHeader = false}: Props) => {
+  const {top, ...otherInsets} = useSafeAreaInsets()
+  const styles = createStyles({
+    ...otherInsets,
+    top: withoutNavigationHeader ? top : 0,
+  })
 
   return <View style={styles.screen}>{children}</View>
 }
@@ -21,5 +25,6 @@ const createStyles = (insets: Partial<EdgeInsets>) =>
       paddingBottom: insets.bottom,
       paddingLeft: insets.left,
       paddingRight: insets.right,
+      paddingTop: insets.top,
     },
   })
