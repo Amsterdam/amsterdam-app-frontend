@@ -2,13 +2,7 @@ import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {
-  StyleSheet,
-  TouchableHighlight,
-  View,
-  Text,
-  Animated,
-} from 'react-native'
+import {StyleSheet, TouchableHighlight, View, Text} from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import {useSelector, useDispatch} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
@@ -34,15 +28,14 @@ export const ModuleButton = ({icon, label, name, slug}: Props) => {
     dispatch(toggleModule(key))
   }
 
-  const DeleteButton = (progress: any, dragX: any) => {
-    console.log(progress, dragX)
+  const DeleteButton = () => {
     return (
-      <Animated.View style={styles.rightActionContainer}>
+      <View style={styles.rightActionContainer}>
         <View style={styles.rightAction}>
           <Text style={styles.actionText}>Verwijderen</Text>
           <TrashBin style={styles.actionIcon} />
         </View>
-      </Animated.View>
+      </View>
     )
   }
   return (
