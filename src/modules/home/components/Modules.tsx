@@ -2,8 +2,9 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {FlatList, StyleSheet, View} from 'react-native'
-import {Box, Button, Image, PleaseWait, Text} from '../../../components/ui'
+import {Box, Button, PleaseWait, Text} from '../../../components/ui'
 import {ScrollView} from '../../../components/ui/layout'
+import {Image} from '../../../components/ui/media'
 import {Theme, useThemable} from '../../../themes'
 import {color} from '../../../tokens'
 import {Module} from '../../types'
@@ -48,8 +49,8 @@ export const Modules = () => {
       <ScrollView>
         <View style={styles.figure}>
           <Image
+            customAspectRatio={1080 / 1920}
             source={require('../../../assets/images/sagittarius-a.jpg')}
-            style={styles.image}
           />
         </View>
         <View style={styles.box}>
@@ -88,9 +89,5 @@ const createStyles = ({size}: Theme) =>
     figure: {
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    image: {
-      aspectRatio: 1080 / 1920,
-      flexShrink: 1,
     },
   })

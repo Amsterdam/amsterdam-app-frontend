@@ -7,24 +7,40 @@ import {
 import {Theme, useThemable} from '../../../themes'
 import {ImageAspectRatioTokens} from '../../../themes/tokens'
 
-type Props = {
+type ImageProps = {
   aspectRatio?: keyof ImageAspectRatioTokens
-} & Omit<ImageRNProps, 'style'>
+  customAspectRatio?: number
+}
 
-export const Image = ({aspectRatio, ...otherProps}: Props) => {
-  const createdStyles = useMemo(() => createStyles(aspectRatio), [aspectRatio])
+type Props = ImageProps & Omit<ImageRNProps, 'style'>
+
+export const Image = ({
+  aspectRatio = 'default',
+  customAspectRatio,
+  ...otherProps
+}: Props) => {
+  const createdStyles = useMemo(
+    () => createStyles({aspectRatio, customAspectRatio}),
+    [aspectRatio, customAspectRatio],
+  )
   const styles = useThemable(createdStyles)
 
   return <ImageRN style={styles.image} {...otherProps} />
 }
 
 const createStyles =
-  (ratio?: keyof ImageAspectRatioTokens) =>
+  ({
+    aspectRatio,
+    customAspectRatio,
+  }: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>) =>
   ({image}: Theme) =>
     StyleSheet.create({
       image: {
+        width: undefined,
         maxWidth: '100%',
-        aspectRatio: image.aspectRatio[ratio ?? 'default'],
+        height: undefined,
+        flex: 1,
+        aspectRatio: customAspectRatio ?? image.aspectRatio[aspectRatio],
         resizeMode: 'cover',
       },
     })

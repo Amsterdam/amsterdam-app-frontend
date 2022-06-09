@@ -3,9 +3,8 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Image as ImageType} from 'react-native-image-crop-picker'
-import {color, image as imageToken} from '../../../tokens'
-import {Image} from '../../ui'
-import {Icon} from '../../ui/media'
+import {color} from '../../../tokens'
+import {Icon, Image} from '../../ui/media'
 
 type Props = {
   image: ImageType
@@ -43,8 +42,5 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 62,
     backgroundColor: 'rgba(0,0,0,.4)',
-  },
-  placeholder: {
-    aspectRatio: imageToken.aspectRatio.wide,
   },
 })

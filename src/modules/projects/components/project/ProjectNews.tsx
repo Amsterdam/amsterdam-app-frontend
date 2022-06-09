@@ -1,20 +1,19 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {StyleSheet} from 'react-native'
 import {ScrollView} from 'react-native-gesture-handler'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
 import {
   Box,
-  Image,
   NonScalingHeaderTitle,
   PleaseWait,
   Text,
   Title,
 } from '../../../../components/ui'
 import {RenderHTML} from '../../../../components/ui/RenderHTML'
+import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
 import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
-import {font, image} from '../../../../tokens'
+import {font} from '../../../../tokens'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
   useGetProjectNewsQuery,
@@ -57,8 +56,8 @@ export const ProjectNews = ({id}: Props) => {
     <ScrollView>
       {news?.images?.length && (
         <Image
+          aspectRatio="wide"
           source={mapImageSources(news.images[0].sources, environment)}
-          style={styles.image}
         />
       )}
       {news && (
@@ -86,9 +85,3 @@ export const ProjectNews = ({id}: Props) => {
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  image: {
-    aspectRatio: image.aspectRatio.wide,
-  },
-})

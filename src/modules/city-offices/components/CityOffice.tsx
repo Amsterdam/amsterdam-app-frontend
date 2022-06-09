@@ -7,13 +7,13 @@ import {
   Button,
   Card,
   CardBody,
-  Image,
   PleaseWait,
   SingleSelectable,
   Text,
   Title,
 } from '../../../components/ui'
 import {Column} from '../../../components/ui/layout'
+import {Image} from '../../../components/ui/media'
 import {useEnvironment} from '../../../store'
 import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
