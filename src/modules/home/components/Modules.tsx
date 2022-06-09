@@ -28,8 +28,7 @@ export const Modules = () => {
 
   return (
     <Box grow>
-      {modules.map(module => {
-        const {icon, name, slug, title} = module
+      {modules.map(({icon, name, slug, title}) => {
         const ModuleIcon = icons[icon]
 
         return (
