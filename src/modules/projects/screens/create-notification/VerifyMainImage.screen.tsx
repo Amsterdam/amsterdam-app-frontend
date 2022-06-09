@@ -7,9 +7,9 @@ import {ImagePreviewTouchable} from '../../../../components/features/create-noti
 import {Box, SubmitButton, TextButton, Title} from '../../../../components/ui'
 import {
   CharactersLeftDisplay,
+  TextInput,
   ValidationWarning,
-} from '../../../../components/ui/form'
-import {TextInput} from '../../../../components/ui/forms'
+} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {
   selectMainImage,

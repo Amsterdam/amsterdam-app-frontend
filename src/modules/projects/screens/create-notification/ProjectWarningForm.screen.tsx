@@ -15,9 +15,9 @@ import {
 } from '../../../../components/ui'
 import {
   CharactersLeftDisplay,
+  TextInput,
   ValidationWarning,
-} from '../../../../components/ui/form'
-import {TextInput} from '../../../../components/ui/forms'
+} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {Icon} from '../../../../components/ui/media'
 import {color, size} from '../../../../tokens'

@@ -5,9 +5,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Box, SubmitButton, Title} from '../../../../components/ui'
 import {
   CharactersLeftDisplay,
+  TextInput,
   ValidationWarning,
-} from '../../../../components/ui/form'
-import {TextInput} from '../../../../components/ui/forms'
+} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services'
 import {NotificationQueryArg} from '../../../../types'
