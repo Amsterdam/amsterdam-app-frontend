@@ -7,13 +7,15 @@ import {
 import {Theme, useThemable} from '../../../themes'
 import {ImageAspectRatioTokens} from '../../../themes/tokens'
 
-type Props = {
+type ImageProps = {
   aspectRatio?: keyof ImageAspectRatioTokens
   customAspectRatio?: number
-} & Omit<ImageRNProps, 'style'>
+}
+
+type Props = ImageProps & Omit<ImageRNProps, 'style'>
 
 export const Image = ({
-  aspectRatio,
+  aspectRatio = 'default',
   customAspectRatio,
   ...otherProps
 }: Props) => {
@@ -27,7 +29,10 @@ export const Image = ({
 }
 
 const createStyles =
-  ({aspectRatio, customAspectRatio}: Partial<Props>) =>
+  ({
+    aspectRatio,
+    customAspectRatio,
+  }: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>) =>
   ({image}: Theme) =>
     StyleSheet.create({
       image: {
@@ -35,8 +40,7 @@ const createStyles =
         maxWidth: '100%',
         height: undefined,
         flex: 1,
-        aspectRatio:
-          customAspectRatio ?? image.aspectRatio[aspectRatio ?? 'default'],
+        aspectRatio: customAspectRatio ?? image.aspectRatio[aspectRatio],
         resizeMode: 'cover',
       },
     })
