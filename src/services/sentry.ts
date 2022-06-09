@@ -71,6 +71,51 @@ export const initSentry = () => {
       }),
     ],
   })
+  return Promise.resolve()
+}
+
+/**
+ * Set/update the back end enviroment so in the case of a development app, we know which one was used
+ */
+export const setSentryBackEndEnvironment = (environment: Environment): void => {
+  setTag('backEndEnvironment', environment)
+}
+
+/**
+ * Get the function to: add a breadcrumb to the stack trace in the error report
+ */
+export const getCaptureSentryBreadcrumb =
+  (logData: boolean): CaptureBreadcrumb =>
+  (message, data, category = BreadcrumbCategory.default): void => {
+    const breadcrumb = {
+      message,
+      category,
+      data: logData ? data : undefined,
+    }
+    devLog('Capture Sentry breadcrumb', breadcrumb)
+    addBreadcrumb(breadcrumb)
+  }
+
+/**
+ * Get the function to: manually send an error to Sentry; to be used in catch statements and other error handling
+ */
+export const getSendSentryErrorLog =
+  (logData: boolean): SendErrorLog =>
+  (message, filename, data) => {
+    const extraData = logData ? data : undefined
+    Object.entries({filename, ...extraData}).forEach(([key, value]) => {
+      setExtra(key, value)
+    })
+    devLog('Send Sentry error log', message, extraData)
+    captureException(new Error(message))
+  }
+
+/**
+ * Set the user ID to be sent to Sentry; if enabled is false we do not send anything
+ */
+export const setSentryUserData = (enabled: boolean) => {
+  // we explicitly cast user ID to string, since non-string type will cause issues
+  setUser(enabled ? {id: getUniqueId().toString()} : null)
 }
 
 /**
