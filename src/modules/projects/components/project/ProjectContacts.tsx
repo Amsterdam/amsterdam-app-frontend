@@ -12,9 +12,10 @@ import {capitalizeString, openMailUrl, openPhoneUrl} from '../../../../utils'
 
 type Props = {
   contacts: ProjectContact[]
+  emailSubject?: string
 }
 
-export const ProjectContacts = ({contacts}: Props) => {
+export const ProjectContacts = ({contacts, emailSubject}: Props) => {
   const {theme} = useSelector(selectTheme)
 
   return (
@@ -41,7 +42,7 @@ export const ProjectContacts = ({contacts}: Props) => {
               <Button
                 icon={<Email fill={theme.color.text.inverted} />}
                 onPress={() => {
-                  openMailUrl(email)
+                  openMailUrl(email, emailSubject && emailSubject)
                 }}
                 text={email}
               />
