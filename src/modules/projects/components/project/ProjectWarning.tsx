@@ -26,8 +26,6 @@ export const ProjectWarning = ({id}: Props) => {
     undefined,
   )
 
-  console.log(mainImage)
-
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
 
@@ -72,7 +70,7 @@ export const ProjectWarning = ({id}: Props) => {
           <Hero />
         )}
       </View>
-      <Box background="white">
+      <Box>
         <Column gutter="md">
           <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
           <Title text={projectWarning.title} />
@@ -82,7 +80,10 @@ export const ProjectWarning = ({id}: Props) => {
       </Box>
       {project?.contacts && (
         <Box>
-          <ProjectContacts contacts={project.contacts} />
+          <ProjectContacts
+            contacts={project.contacts}
+            emailSubject={project.title}
+          />
         </Box>
       )}
     </ScrollView>
