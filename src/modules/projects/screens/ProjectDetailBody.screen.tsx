@@ -33,7 +33,12 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
         <Box>
           <Column gutter="md">
             <Title text={body.title} />
-            {body.contacts && <ProjectContacts contacts={body.contacts} />}
+            {body.contacts && (
+              <ProjectContacts
+                contacts={body.contacts}
+                emailSubject={headerTitle}
+              />
+            )}
             {body.sections && (
               <ProjectContentSections sections={body.sections} />
             )}
