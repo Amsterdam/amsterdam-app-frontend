@@ -1,4 +1,3 @@
-import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {ProjectMinimal} from '../../modules/projects/screens/create-notification'
@@ -13,19 +12,6 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
     title?: string
   }
 >
-
-export type TabNavigationRoutes<R> = {
-  [route: string]: {
-    name: keyof R
-    options?: BottomTabNavigationOptions
-    title?: string
-  }
-}
-
-export type TabParams = {
-  HomeTab: {screen?: keyof HomeStackParams | keyof SharedStackParams}
-  MenuTab: {screen?: keyof MenuStackParams | keyof SharedStackParams}
-}
 
 export type HomeStackParams = {
   AuthorizedProjects: {projectManagerId: string}
