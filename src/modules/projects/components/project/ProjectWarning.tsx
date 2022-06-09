@@ -80,10 +80,7 @@ export const ProjectWarning = ({id}: Props) => {
       </Box>
       {project?.contacts && (
         <Box>
-          <ProjectContacts
-            contacts={project.contacts}
-            emailSubject={project.title}
-          />
+          <ProjectContacts contacts={project.contacts} />
         </Box>
       )}
     </ScrollView>
