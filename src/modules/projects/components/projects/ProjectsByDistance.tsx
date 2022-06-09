@@ -86,7 +86,9 @@ export const ProjectsByDistance = () => {
           onPress={
             // TODO Open as modal
             () =>
-              navigation.navigate('AddressModule', AddressRouteName.addressForm)
+              navigation.navigate('AddressModule', {
+                screen: AddressRouteName.addressForm,
+              })
           }>
           <Icon size={32}>
             <Edit fill={theme.color.pressable.default.background} />

@@ -58,10 +58,9 @@ export const Address = () => {
                 <Button
                   variant="inverse"
                   onPress={() =>
-                    navigation.navigate(
-                      addressModule.name,
-                      AddressRouteName.addressForm,
-                    )
+                    navigation.navigate(addressModule.name, {
+                      screen: AddressRouteName.addressForm,
+                    })
                   }
                   text="Wijzig adres"
                 />
@@ -91,10 +90,9 @@ export const Address = () => {
                 <Row align="start">
                   <Button
                     onPress={() =>
-                      navigation.navigate(
-                        addressModule.name,
-                        AddressRouteName.addressInfo,
-                      )
+                      navigation.navigate(addressModule.name, {
+                        screen: AddressRouteName.addressInfo,
+                      })
                     }
                     text="Meer informatie"
                     variant="text"
@@ -104,10 +102,9 @@ export const Address = () => {
               <Row align="start">
                 <Button
                   onPress={() =>
-                    navigation.navigate(
-                      addressModule.name,
-                      AddressRouteName.addressForm,
-                    )
+                    navigation.navigate(addressModule.name, {
+                      screen: AddressRouteName.addressForm,
+                    })
                   }
                   text="Vul adres in"
                   variant="inverse"

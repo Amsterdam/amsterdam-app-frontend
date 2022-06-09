@@ -3,7 +3,6 @@ import React, {useEffect} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {ValidationWarning} from '../../../../components/features/form'
 import {
   Box,
   Button,
@@ -12,7 +11,11 @@ import {
   TextButton,
   Title,
 } from '../../../../components/ui'
-import {Radio, RadioGroup} from '../../../../components/ui/forms'
+import {
+  RadioGroup,
+  Radio,
+  ValidationWarning,
+} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services'
 import {

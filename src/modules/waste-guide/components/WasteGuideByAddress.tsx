@@ -73,7 +73,7 @@ export const WasteGuideByAddress = () => {
     navigation.navigate(addressModule.name, {
       screen: AddressRouteName.addressForm,
       params: {
-        temp: true,
+        addressIsTemporary: true,
       },
     })
   }

@@ -5,10 +5,6 @@ import {Controller, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {
-  CharactersLeftDisplay,
-  ValidationWarning,
-} from '../../../../components/features/form'
-import {
   Box,
   Button,
   Label,
@@ -17,7 +13,11 @@ import {
   TextButton,
   Title,
 } from '../../../../components/ui'
-import {TextInput} from '../../../../components/ui/forms'
+import {
+  CharactersLeftDisplay,
+  TextInput,
+  ValidationWarning,
+} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {Icon} from '../../../../components/ui/media'
 import {color, size} from '../../../../tokens'

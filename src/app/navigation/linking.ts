@@ -6,7 +6,7 @@ import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {moduleLinkings} from '../../modules/utils'
 import {PushNotificationData} from '../../types'
-import {StackParams} from './types'
+import {RootStackParamList} from './RootStackNavigator'
 
 const appPrefix = 'amsterdam://'
 
@@ -46,7 +46,7 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 }
 
-export const linking: LinkingOptions<StackParams> = {
+export const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [appPrefix],
   config: {
     screens: moduleLinkings,

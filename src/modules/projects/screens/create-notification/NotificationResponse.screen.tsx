@@ -1,9 +1,9 @@
 import React, {useLayoutEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Checkmark, Close} from '../../../../assets/icons'
-import {Confirmation} from '../../../../components/features/form'
 import {Box} from '../../../../components/ui'
 import {ScrollView} from '../../../../components/ui/layout'
+import {Confirmation} from '../../components/create-notification/Confirmation'
 import {
   selectResponseStatus,
   setStepperVisibility,
