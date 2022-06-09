@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from '../../ui'
+import {Text} from '..'
 
 export const ValidationWarning = ({warning}: {warning: string}) => {
   return (

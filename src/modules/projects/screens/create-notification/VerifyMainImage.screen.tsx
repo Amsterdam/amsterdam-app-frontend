@@ -4,11 +4,11 @@ import {Controller, useForm} from 'react-hook-form'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {ImagePreviewTouchable} from '../../../../components/features/create-notification'
+import {Box, SubmitButton, TextButton, Title} from '../../../../components/ui'
 import {
   CharactersLeftDisplay,
   ValidationWarning,
-} from '../../../../components/features/form'
-import {Box, SubmitButton, TextButton, Title} from '../../../../components/ui'
+} from '../../../../components/ui/form'
 import {TextInput} from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {

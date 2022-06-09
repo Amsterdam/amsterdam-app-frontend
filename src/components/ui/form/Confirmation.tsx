@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
+import {Button, Card, CardBody, Text, Title} from '..'
 import {StackParams} from '../../../app/navigation'
-import {Button, Card, CardBody, Text, Title} from '../../ui'
-import {Column, Gutter, Row} from '../../ui/layout'
+import {Column, Gutter, Row} from '../layout'
 
 type Props = {
   body: string
