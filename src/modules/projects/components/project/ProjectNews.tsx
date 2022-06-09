@@ -2,15 +2,11 @@ import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {ScrollView} from 'react-native-gesture-handler'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
-import {
-  Box,
-  NonScalingHeaderTitle,
-  PleaseWait,
-  Text,
-  Title,
-} from '../../../../components/ui'
+import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
 import {RenderHTML} from '../../../../components/ui/RenderHTML'
+import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
+import {Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
 import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
 import {font} from '../../../../tokens'
@@ -62,24 +58,24 @@ export const ProjectNews = ({id}: Props) => {
       )}
       {news && (
         <Box>
-          <Text margin secondary>
-            {formatDate(news.publication_date)}
-          </Text>
-          <Title margin text={news.title} />
-          {news.body?.preface.html && (
-            <RenderHTML
-              source={{html: news.body?.preface.html}}
-              systemFonts={[font.weight.regular, font.weight.demi]}
-              tagsStyles={tagsStylesIntro}
-            />
-          )}
-          {news.body?.content.html && (
-            <RenderHTML
-              source={{html: news.body?.content.html}}
-              systemFonts={[font.weight.regular, font.weight.demi]}
-              tagsStyles={tagsStyles}
-            />
-          )}
+          <Column gutter="md">
+            <Paragraph>{formatDate(news.publication_date)}</Paragraph>
+            <Title text={news.title} />
+            {news.body?.preface.html && (
+              <RenderHTML
+                source={{html: news.body?.preface.html}}
+                systemFonts={[font.weight.regular, font.weight.demi]}
+                tagsStyles={tagsStylesIntro}
+              />
+            )}
+            {news.body?.content.html && (
+              <RenderHTML
+                source={{html: news.body?.content.html}}
+                systemFonts={[font.weight.regular, font.weight.demi]}
+                tagsStyles={tagsStyles}
+              />
+            )}
+          </Column>
         </Box>
       )}
     </ScrollView>
