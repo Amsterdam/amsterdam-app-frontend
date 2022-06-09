@@ -29,10 +29,9 @@ export const AddressFormTeaser = ({text, title}: Props) => {
           accessibilityLabel={inputLabel}
           label={inputLabel}
           onFocus={() =>
-            navigation.navigate(
-              addressModule.name,
-              AddressRouteName.addressForm,
-            )
+            navigation.navigate(addressModule.name, {
+              screen: AddressRouteName.addressForm,
+            })
           }
         />
       </CardBody>

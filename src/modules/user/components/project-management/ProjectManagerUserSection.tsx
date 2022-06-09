@@ -25,10 +25,9 @@ export const ProjectManagerUserSection = () => {
     <UserSection title="Omgevingsmanager">
       <LinkToUserSection
         onPress={() =>
-          navigation.navigate(
-            projectsModule.name,
-            ProjectsRouteName.authorizedProjects,
-          )
+          navigation.navigate(projectsModule.name, {
+            screen: ProjectsRouteName.authorizedProjects,
+          })
         }>
         <Text large>Je bouwprojecten</Text>
       </LinkToUserSection>

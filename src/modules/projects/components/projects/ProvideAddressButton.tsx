@@ -30,10 +30,9 @@ export const ProvideAddressButton = () => {
       <Row align="start">
         <Button
           onPress={() =>
-            navigation.navigate(
-              addressModule.name,
-              AddressRouteName.addressForm,
-            )
+            navigation.navigate(addressModule.name, {
+              screen: AddressRouteName.addressForm,
+            })
           }
           icon={<Location fill={color.font.inverse} />}
           text="Vul uw adres in"
