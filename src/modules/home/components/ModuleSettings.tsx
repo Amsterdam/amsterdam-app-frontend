@@ -6,6 +6,7 @@ import {Switch} from '../../../components/ui/forms'
 import {Column, Row} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
 import {Theme, useThemable} from '../../../themes'
+import {accessibleText} from '../../../utils'
 import {icons} from '../config'
 import {useModules} from '../hooks'
 import {toggleModule} from '../store'
@@ -47,6 +48,7 @@ export const ModuleSettings = () => {
               key={slug}
               selected={isSelected}>
               <Switch
+                accessibilityLabel={accessibleText(title, description)}
                 label={
                   <Row gutter="md" valign="center">
                     <Icon {...iconProps} />

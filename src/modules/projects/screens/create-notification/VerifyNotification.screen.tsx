@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import HeroImage from '../../../../assets/images/project-warning-hero.svg'
 import {
   Box,
-  Image,
   PleaseWait,
   Preview,
   SingleSelectable,
@@ -15,12 +14,13 @@ import {
   Title,
 } from '../../../../components/ui'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+import {Image} from '../../../../components/ui/media'
 import {useAddNotificationMutation} from '../../../../services'
-import {image as imageToken} from '../../../../tokens'
+import {imageTokens} from '../../../../themes/tokens'
 import {NotificationQueryArg} from '../../../../types'
 import {
-  useAddProjectWarningMutation,
   useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
 } from '../../projects.service'
 import {
   selectMainImage,
@@ -229,6 +229,6 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
 
 const styles = StyleSheet.create({
   placeholder: {
-    aspectRatio: imageToken.aspectRatio.wide,
+    aspectRatio: imageTokens.aspectRatio.wide,
   },
 })

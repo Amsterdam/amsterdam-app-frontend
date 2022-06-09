@@ -23,6 +23,7 @@ export const ModuleButton = ({icon, label, name}: Props) => {
 
   return (
     <TouchableHighlight
+      accessibilityRole="button"
       activeOpacity={1}
       onPress={name ? () => navigation.navigate(name) : undefined}
       style={styles.button}

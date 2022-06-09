@@ -1,10 +1,11 @@
 import React from 'react'
 import {StyleSheet, TouchableHighlight, View} from 'react-native'
 import HeroImage from '../../../../assets/images/project-warning-hero.svg'
-import {Card, CardBody, Image, Text} from '../../../../components/ui'
+import {Card, CardBody, Text} from '../../../../components/ui'
 import {Row} from '../../../../components/ui/layout'
+import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
-import {image as imageTokens} from '../../../../tokens'
+import {imageTokens} from '../../../../themes/tokens'
 import {ArticleSummary} from '../../../../types'
 import {mapImageSources, mapWarningImageSources} from '../../../../utils'
 
@@ -39,9 +40,9 @@ export const ArticlePreview = ({article, onPress}: Props) => {
       style={styles.row}>
       <Card>
         <CardBody>
-          <Row gutter="md">
+          <Row gutter="md" valign="center">
             {imageSources && Object.keys(imageSources[0]).length ? (
-              <Image source={imageSources} style={styles.image} />
+              <Image aspectRatio="vintage" source={imageSources} />
             ) : (
               <View style={styles.image}>
                 <HeroImage />
