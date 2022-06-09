@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/stack'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {StackParams} from '../../../../app/navigation'
 import {Box, KeyboardAvoidingView, Stepper} from '../../../../components/ui'
 import {Gutter} from '../../../../components/ui/layout'
 import {color} from '../../../../tokens'
@@ -26,7 +25,10 @@ type NotificationScreenRouteProp = RouteProp<
 >
 
 type Props = {
-  navigation: StackNavigationProp<StackParams, 'Notification'>
+  navigation: StackNavigationProp<
+    ProjectsStackParams,
+    ProjectsRouteName.createNotification
+  >
   route: NotificationScreenRouteProp
 }
 

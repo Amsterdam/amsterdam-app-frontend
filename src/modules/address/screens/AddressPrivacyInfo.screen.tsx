@@ -2,15 +2,18 @@ import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {TouchableOpacity, View} from 'react-native'
-import {StackParams} from '../../../app/navigation'
 import {Box, Button, Text, Title} from '../../../components/ui'
 import {Column, Gutter, Row, ScrollView} from '../../../components/ui/layout'
 import {color} from '../../../tokens'
+import {AddressRouteName, AddressStackParams} from '../routes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
 }: {
-  navigation: StackNavigationProp<StackParams, 'Home'>
+  navigation: StackNavigationProp<
+    AddressStackParams,
+    AddressRouteName.addressInfo
+  >
 }) => {
   return (
     <ScrollView grow>

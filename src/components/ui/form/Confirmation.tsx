@@ -2,7 +2,10 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
 import {Button, Card, CardBody, Text, Title} from '..'
-import {StackParams} from '../../../app/navigation'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from '../../../modules/projects/screens/create-notification/routes'
 import {Column, Gutter, Row} from '../layout'
 
 type Props = {
@@ -17,7 +20,12 @@ type Props = {
 
 export const Confirmation = ({body, button, icon, title}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<StackParams, 'Notification'>>()
+    useNavigation<
+      StackNavigationProp<
+        CreateNotificationStackParams,
+        CreateNotificationRouteName.notificationResponse
+      >
+    >()
 
   return (
     <Card>

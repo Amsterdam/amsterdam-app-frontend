@@ -3,12 +3,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import {StackParams} from '../../../app/navigation'
 import {Box} from '../../../components/ui'
 import {useAsyncStorage} from '../../../hooks'
 import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
 import {BagResponseContent} from '../../../types'
 import {addAddress, addTempAddress} from '../addressSlice'
+import {AddressRouteName, AddressStackParams} from '../routes'
 import {NumberInput, StreetInput} from '.'
 
 type Props = {
@@ -29,7 +29,10 @@ export const AddressForm = ({temp}: Props) => {
 
   const inputStreetRef = useRef<any>()
 
-  const navigation = useNavigation<StackNavigationProp<StackParams, 'Home'>>()
+  const navigation =
+    useNavigation<
+      StackNavigationProp<AddressStackParams, AddressRouteName.addressForm>
+    >()
 
   const removeWeespSuffix = (streetName: string) => {
     return streetName.includes('Weesp')

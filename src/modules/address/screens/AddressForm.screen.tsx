@@ -1,9 +1,12 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {StackParams} from '../../../app/navigation'
 import {AddressForm} from '../components'
+import {AddressRouteName, AddressStackParams} from '../routes'
 
-type AddressFormScreenRouteProp = RouteProp<StackParams, 'AddressForm'>
+type AddressFormScreenRouteProp = RouteProp<
+  AddressStackParams,
+  AddressRouteName.addressForm
+>
 
 type Props = {
   route: AddressFormScreenRouteProp
