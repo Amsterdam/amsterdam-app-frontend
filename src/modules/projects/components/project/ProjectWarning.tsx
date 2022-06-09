@@ -1,32 +1,20 @@
-import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
-import HeroImage from '../../../../assets/images/project-warning-hero.svg'
+import {View} from 'react-native'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
-import {
-  Box,
-  Button,
-  NonScalingHeaderTitle,
-  PleaseWait,
-  Text,
-  Title,
-} from '../../../../components/ui'
-import {Row, ScrollView} from '../../../../components/ui/layout'
+import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
+import {Hero} from '../../../../components/ui/Hero'
+import {Column, ScrollView} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
+import {Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
-import {color} from '../../../../tokens'
 import {ProjectWarningImage} from '../../../../types'
-import {
-  formatDate,
-  formatTime,
-  mapWarningImageSources,
-  openMailUrl,
-} from '../../../../utils'
+import {formatDate, mapWarningImageSources} from '../../../../utils'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '../../projects.service'
+import {ProjectContacts} from './ProjectContacts'
 
 type Props = {
   id: string
@@ -37,6 +25,8 @@ export const ProjectWarning = ({id}: Props) => {
   const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
     undefined,
   )
+
+  console.log(mainImage)
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
@@ -79,39 +69,22 @@ export const ProjectWarning = ({id}: Props) => {
             source={mapWarningImageSources(mainImage.sources, environment)}
           />
         ) : (
-          <View style={styles.customAspectRatio}>
-            <HeroImage />
-          </View>
+          <Hero />
         )}
       </View>
       <Box background="white">
-        <Text margin secondary>
-          {formatDate(projectWarning.publication_date)}{' '}
-          {formatTime(projectWarning.publication_date)}
-        </Text>
-        <Title margin text={projectWarning.title} />
-        <Text intro margin>
-          {projectWarning.body.preface}
-        </Text>
-        <Text margin>{projectWarning.body.content}</Text>
+        <Column gutter="md">
+          <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
+          <Title text={projectWarning.title} />
+          <Paragraph variant="intro">{projectWarning.body.preface}</Paragraph>
+          <Paragraph>{projectWarning.body.content}</Paragraph>
+        </Column>
       </Box>
-      <Box>
-        <Box background="white">
-          <Row>
-            <Button
-              icon={<Email fill={color.font.inverse} />}
-              onPress={() => openMailUrl(projectWarning.author_email)}
-              text={projectWarning.author_email}
-            />
-          </Row>
+      {project?.contacts && (
+        <Box>
+          <ProjectContacts contacts={project.contacts} />
         </Box>
-      </Box>
+      )}
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  customAspectRatio: {
-    aspectRatio: 378 / 167,
-  },
-})
