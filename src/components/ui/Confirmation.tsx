@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {Button, Card, CardBody, Text, Title} from '..'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from '../../../modules/projects/screens/create-notification/routes'
-import {Column, Gutter, Row} from '../layout'
+} from '../../modules/projects/screens/create-notification/routes'
+import {Column, Gutter, Row} from './layout'
+import {Button, Card, CardBody, Text, Title} from '.'
 
 type Props = {
   body: string
