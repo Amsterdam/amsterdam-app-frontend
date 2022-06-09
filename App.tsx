@@ -2,7 +2,7 @@ import {
   NavigationContainer,
   NavigationContainerRef,
 } from '@react-navigation/native'
-import {wrap as SentryWrap} from '@sentry/react-native'
+import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
 import React, {useRef} from 'react'
 import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
@@ -14,13 +14,12 @@ import {
   RootStackNavigator,
 } from './src/app/navigation'
 import {Init} from './src/components/features/Init'
+import {ErrorWithRestart} from './src/components/ui/ErrorWithRestart'
 import {RootProvider} from './src/providers'
-import {initSentry, registerNavigationContainer} from './src/services'
+import {registerNavigationContainer} from './src/services'
 import {store} from './src/store'
 
 const persistor = persistStore(store)
-
-initSentry()
 
 const AppComponent = () => {
   const navigation = useRef<NavigationContainerRef<RootStackParamList>>(null)
@@ -35,8 +34,11 @@ const AppComponent = () => {
         }}>
         <RootProvider>
           <PersistGate loading={null} persistor={persistor}>
-            <Init />
-            <RootStackNavigator />
+            <Init>
+              <ErrorBoundary fallback={<ErrorWithRestart />}>
+                <RootStackNavigator />
+              </ErrorBoundary>
+            </Init>
           </PersistGate>
         </RootProvider>
       </NavigationContainer>

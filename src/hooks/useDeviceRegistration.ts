@@ -2,6 +2,7 @@ import messaging from '@react-native-firebase/messaging'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {getSubscribedProjects} from '../modules/user/utils'
+import {devLog} from '../services'
 import {useEnvironment} from '../store'
 import {DeviceRegistration, NotificationSettings, Settings} from '../types'
 import {
@@ -89,7 +90,7 @@ export const useDeviceRegistration = (settings: Settings | undefined) => {
 
       return registerDevice.hasError
     } catch (error) {
-      console.log(error)
+      devLog(error)
     }
   }, [settings?.notifications, shouldRegisterDevice]) // eslint-disable-line react-hooks/exhaustive-deps
 
