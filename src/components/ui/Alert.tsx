@@ -6,6 +6,7 @@ import {AlertContext} from '../../providers'
 import {color, size} from '../../tokens'
 import {accessibleText} from '../../utils'
 import {Row} from './layout'
+import {Icon} from './media'
 import {SingleSelectable, Text, Title} from '.'
 
 if (
@@ -42,7 +43,9 @@ export const Alert = () => {
           accessibilityHint="Sluit melding"
           accessibilityRole="button"
           onPress={() => changeVisibility(false)}>
-          <Close fill="white" style={styles.icon} />
+          <Icon size={24}>
+            <Close fill={color.font.inverse} />
+          </Icon>
         </TouchableOpacity>
       </Row>
     </View>
@@ -52,9 +55,5 @@ export const Alert = () => {
 const styles = StyleSheet.create({
   alert: {
     padding: size.spacing.md,
-  },
-  icon: {
-    width: 24,
-    aspectRatio: 1,
   },
 })

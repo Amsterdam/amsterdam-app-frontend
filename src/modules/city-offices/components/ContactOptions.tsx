@@ -5,10 +5,11 @@ import Twitter from '@amsterdam/asc-assets/static/icons/Twitter.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
-import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {Instagram, Whatsapp} from '../../../assets/icons'
 import {Box, Title} from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
+import {Icon} from '../../../components/ui/media'
 import {color} from '../../../tokens'
 import {accessibleText, openPhoneUrl} from '../../../utils'
 import {openWebUrl} from '../../../utils/openWebUrl'
@@ -104,35 +105,31 @@ export const ContactOptions = () => {
           accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.facebook.com/gemeenteamsterdam')
-          }
-          style={styles.icon}>
-          <Facebook fill={color.touchable.primary} />
+          }>
+          <Icon size={32}>
+            <Facebook fill={color.touchable.primary} />
+          </Icon>
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel="Twitter"
           accessibilityRole="link"
-          onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
-          style={styles.icon}>
-          <Twitter fill={color.touchable.primary} />
+          onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}>
+          <Icon size={32}>
+            <Twitter fill={color.touchable.primary} />
+          </Icon>
         </TouchableOpacity>
         <TouchableOpacity
           accessibilityLabel="Instagram"
           accessibilityRole="link"
           onPress={() =>
             openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
-          }
-          style={styles.icon}>
-          <Instagram fill={color.touchable.primary} />
+          }>
+          <Icon size={32}>
+            <Instagram fill={color.touchable.primary} />
+          </Icon>
         </TouchableOpacity>
       </Row>
       <Gutter height="xl" />
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 32,
-    aspectRatio: 1,
-  },
-})

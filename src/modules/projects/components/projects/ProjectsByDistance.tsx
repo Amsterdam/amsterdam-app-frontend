@@ -9,6 +9,7 @@ import {RootStackParamList} from '../../../../app/navigation'
 import {Edit} from '../../../../assets/icons'
 import {Box, PleaseWait, SomethingWentWrong} from '../../../../components/ui'
 import {Gutter, Row} from '../../../../components/ui/layout'
+import {Icon} from '../../../../components/ui/media'
 import {Paragraph} from '../../../../components/ui/typography'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
@@ -86,9 +87,10 @@ export const ProjectsByDistance = () => {
             // TODO Open as modal
             () =>
               navigation.navigate('AddressModule', AddressRouteName.addressForm)
-          }
-          style={styles.iconButton}>
-          <Edit fill={theme.color.pressable.default.background} />
+          }>
+          <Icon size={32}>
+            <Edit fill={theme.color.pressable.default.background} />
+          </Icon>
         </Pressable>
       </Row>
       <Gutter height="md" />

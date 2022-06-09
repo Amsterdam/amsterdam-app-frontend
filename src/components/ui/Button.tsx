@@ -1,12 +1,8 @@
 import React, {ReactNode} from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-} from 'react-native'
+import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {color, font, size} from '../../tokens'
 import {Row} from './layout'
+import {Icon} from './media'
 import {Text} from './'
 
 type Props = {
@@ -29,7 +25,7 @@ export const Button = ({
       style={[styles.button, styles[variant]]}
       {...otherProps}>
       <Row gutter="md">
-        {icon && <View style={styles.iconContainer}>{icon}</View>}
+        {icon && <Icon size={24}>{icon}</Icon>}
         {text && (
           <Text
             inverse={variant !== 'text'}
@@ -49,10 +45,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: size.spacing.md,
     paddingVertical: verticalPadding,
-  },
-  iconContainer: {
-    width: 20,
-    aspectRatio: 1,
   },
   inverse: {
     backgroundColor: color.background.white,

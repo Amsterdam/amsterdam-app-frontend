@@ -1,7 +1,8 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {View} from 'react-native'
 import {Box, Text, Title} from '../../../components/ui'
 import {Row} from '../../../components/ui/layout'
+import {Icon} from '../../../components/ui/media'
 
 type Props = {
   icon: ReactNode
@@ -12,7 +13,7 @@ type Props = {
 export const ContactOption = ({icon, title, text}: Props) => (
   <Box background="grey">
     <Row gutter="md">
-      <View style={styles.icon}>{icon}</View>
+      <Icon size={32}>{icon}</Icon>
       <View>
         <Title level={4} text={title} />
         <Text>{text}</Text>
@@ -20,10 +21,3 @@ export const ContactOption = ({icon, title, text}: Props) => (
     </Row>
   </Box>
 )
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 36,
-    aspectRatio: 1,
-  },
-})
