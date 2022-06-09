@@ -145,6 +145,7 @@ platform :android do
           upload_to_play_store(
             package_name: app[:app_identifier],
             track: "alpha",
+            release_status: 'draft',
             track_promote_to: "production",
             track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
             aab: full_aab_path,
