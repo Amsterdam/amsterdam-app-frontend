@@ -9,7 +9,7 @@ export enum AddressRouteName {
 }
 
 export type AddressStackParams = {
-  [AddressRouteName.addressForm]: {temp?: boolean}
+  [AddressRouteName.addressForm]: {addressIsTemporary?: boolean}
   [AddressRouteName.addressInfo]: undefined
 }
 
