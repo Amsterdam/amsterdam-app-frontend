@@ -42,7 +42,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
               <Button
                 icon={<Email fill={theme.color.text.inverted} />}
                 onPress={() => {
-                  openMailUrl(email, emailSubject && emailSubject)
+                  openMailUrl(email, emailSubject)
                 }}
                 text={email}
               />
