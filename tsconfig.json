@@ -55,6 +55,7 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "baseUrl": "./",
     "paths": {
+      "@/*": ["src/*"],
       "_app/*": ["src/app/*"],
       "_assets/*": ["src/assets/*"],
       "_components/*": ["src/components/*"],

@@ -11,9 +11,11 @@ module.exports = {
     [
       'module-resolver',
       {
+        // note: setting the root to ./src does not work; for now we prepend src to all paths
         root: ['.'],
         extensions: ['.tsx', '.ts', '.html'],
         alias: {
+          '@': './src',
           _app: './src/app',
           _assets: './src/assets',
           _components: './src/components',
