@@ -7,8 +7,8 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {tagsStyles} from '../../../styles/html'
 import {color, font} from '../../../tokens'
 import {TimelineItem as TimelineItemType} from '../../../types'
-import {RenderHTML} from '../RenderHTML'
 import {Title} from '../Title'
+import {RenderHTML} from '../typography/RenderHTML'
 import {maxHeight, timelineStyles} from './timelineStyles'
 
 type Props = {
