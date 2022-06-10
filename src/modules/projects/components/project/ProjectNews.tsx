@@ -8,8 +8,6 @@ import {Image} from '../../../../components/ui/media'
 import {Paragraph, Title} from '../../../../components/ui/typography'
 import {Article} from '../../../../components/ui/typography/Article'
 import {useEnvironment} from '../../../../store'
-import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
-import {font} from '../../../../tokens'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
   useGetProjectNewsQuery,
@@ -62,18 +60,10 @@ export const ProjectNews = ({id}: Props) => {
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>
             <Title text={news.title} />
             {news.body?.preface.html && (
-              <Article
-                source={{html: news.body?.preface.html}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStylesIntro}
-              />
+              <Article source={{html: news.body?.preface.html}} />
             )}
             {news.body?.content.html && (
-              <Article
-                source={{html: news.body?.content.html}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStyles}
-              />
+              <Article source={{html: news.body?.content.html}} />
             )}
           </Column>
         </Box>

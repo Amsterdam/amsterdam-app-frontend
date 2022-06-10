@@ -2,8 +2,6 @@ import React from 'react'
 import {Column} from '../../../../components/ui/layout'
 import {Title} from '../../../../components/ui/typography'
 import {Article} from '../../../../components/ui/typography/Article'
-import {tagsStyles} from '../../../../styles/html'
-import {font} from '../../../../tokens'
 import {Section} from '../../../../types'
 import {regexLibrary} from '../../../../utils'
 
@@ -29,8 +27,6 @@ export const ProjectContentSections = ({sections}: Props) => {
                   regexLibrary.quotePublish.replace,
                 ),
             }}
-            systemFonts={[font.weight.regular, font.weight.demi]}
-            tagsStyles={tagsStyles}
           />
         </Column>
       ))}

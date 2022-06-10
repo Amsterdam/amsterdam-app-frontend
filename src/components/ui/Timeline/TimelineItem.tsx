@@ -2,10 +2,9 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {useLayoutEffect, useRef, useState} from 'react'
-import {Animated, Easing, useWindowDimensions, View} from 'react-native'
+import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
-import {tagsStyles} from '../../../styles/html'
-import {color, font} from '../../../tokens'
+import {color} from '../../../tokens'
 import {TimelineItem as TimelineItemType} from '../../../types'
 import {Title} from '../Title'
 import {Article} from '../typography/Article'
@@ -18,7 +17,6 @@ type Props = {
 }
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
-  const {width} = useWindowDimensions()
   const isCurrent = item.progress === 'Huidig'
   const [expanded, setExpanded] = useState(isCurrent)
 
@@ -70,12 +68,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         )}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
-        <Article
-          contentWidth={width}
-          source={{html: item.content.html}}
-          systemFonts={[font.weight.regular]}
-          tagsStyles={tagsStyles}
-        />
+        <Article source={{html: item.content.html}} />
       </Animated.View>
       <View style={styles.line} />
     </View>
