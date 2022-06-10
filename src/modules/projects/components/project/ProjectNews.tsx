@@ -6,7 +6,7 @@ import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {Paragraph, Title} from '../../../../components/ui/typography'
-import {RenderHTML} from '../../../../components/ui/typography/RenderHTML'
+import {Article} from '../../../../components/ui/typography/Article'
 import {useEnvironment} from '../../../../store'
 import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
 import {font} from '../../../../tokens'
@@ -62,14 +62,14 @@ export const ProjectNews = ({id}: Props) => {
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>
             <Title text={news.title} />
             {news.body?.preface.html && (
-              <RenderHTML
+              <Article
                 source={{html: news.body?.preface.html}}
                 systemFonts={[font.weight.regular, font.weight.demi]}
                 tagsStyles={tagsStylesIntro}
               />
             )}
             {news.body?.content.html && (
-              <RenderHTML
+              <Article
                 source={{html: news.body?.content.html}}
                 systemFonts={[font.weight.regular, font.weight.demi]}
                 tagsStyles={tagsStyles}

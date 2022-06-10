@@ -1,7 +1,7 @@
 import React from 'react'
 import {Column} from '../../../../components/ui/layout'
 import {Title} from '../../../../components/ui/typography'
-import {RenderHTML} from '../../../../components/ui/typography/RenderHTML'
+import {Article} from '../../../../components/ui/typography/Article'
 import {tagsStyles} from '../../../../styles/html'
 import {font} from '../../../../tokens'
 import {Section} from '../../../../types'
@@ -17,7 +17,7 @@ export const ProjectContentSections = ({sections}: Props) => {
       {sections.map(section => (
         <Column gutter="sm" key={section.title}>
           <Title level="h2" text={section.title} />
-          <RenderHTML
+          <Article
             source={{
               html: section.html
                 .replace(

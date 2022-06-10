@@ -8,7 +8,7 @@ import {tagsStyles} from '../../../styles/html'
 import {color, font} from '../../../tokens'
 import {TimelineItem as TimelineItemType} from '../../../types'
 import {Title} from '../Title'
-import {RenderHTML} from '../typography/RenderHTML'
+import {Article} from '../typography/Article'
 import {maxHeight, timelineStyles} from './timelineStyles'
 
 type Props = {
@@ -70,7 +70,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         )}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
-        <RenderHTML
+        <Article
           contentWidth={width}
           source={{html: item.content.html}}
           systemFonts={[font.weight.regular]}
