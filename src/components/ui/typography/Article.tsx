@@ -7,13 +7,32 @@ type Props = {
   content: string
 }
 
+const regexLibrary = {
+  // href="/publish… → href="https//amsterdam.nl/publish…
+  plainPublish: {
+    regex: /"\/publish/g,
+    replace: '"https://www.amsterdam.nl/publish',
+  },
+
+  // &quot;/publish…, → &quot;https://www.amsterdam.nl/publish…
+  quotePublish: {
+    regex: /&quot;\/publish/g,
+    replace: '&quot;https://www.amsterdam.nl/publish',
+  },
+}
+
+const applyRegexes = (value: string) =>
+  value
+    .replace(regexLibrary.plainPublish.regex, regexLibrary.plainPublish.replace)
+    .replace(regexLibrary.quotePublish.regex, regexLibrary.quotePublish.replace)
+
 export const Article = ({content}: Props) => {
   const {width} = useWindowDimensions()
 
   return (
     <RenderHTML
       contentWidth={width}
-      source={{html: content}}
+      source={{html: applyRegexes(content)}}
       systemFonts={[font.weight.demi, font.weight.regular]}
       tagsStyles={styles}
     />
