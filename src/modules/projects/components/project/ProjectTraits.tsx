@@ -1,32 +1,54 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
-import {ViewProps} from 'react-native'
+import {View} from 'react-native'
 import {Strides} from '../../../../assets/icons'
-import {Trait} from '../../../../components/ui'
+import {PleaseWait, Trait} from '../../../../components/ui'
 import {Row} from '../../../../components/ui/layout'
 import {Theme, useThemable} from '../../../../themes'
+import {accessibleText} from '../../../../utils'
+import {useProjects} from '../../useProjects'
 
 type Props = {
-  meter: number | undefined
-  strides: number | undefined
-} & Pick<ViewProps, 'accessibilityLabel'>
+  projectId: string
+}
 
-export const ProjectTraits = ({meter, strides}: Props) => {
+export const ProjectTraits = ({projectId}: Props) => {
   const iconProps = useThemable(createIconProps)
+  const {isLoadingProjectByDistance, projectByDistance} = useProjects({
+    projectId,
+  })
 
-  if (!meter && !strides) {
-    return null
+  if (isLoadingProjectByDistance) {
+    return <PleaseWait />
   }
 
+  if (!projectByDistance) {
+    return null
+  }
+  const {meter, strides} = projectByDistance
+
   return (
-    <Row gutter="md" wrap>
-      {meter && (
-        <Trait icon={<Location {...iconProps} />} label={`${meter} meter`} />
-      )}
-      {strides && (
-        <Trait icon={<Strides {...iconProps} />} label={`${strides} stappen`} />
-      )}
-    </Row>
+    <View
+      accessibilityLabel={accessibleText(
+        [
+          meter && `${meter} meter`,
+          meter && strides && 'of',
+          strides && `${strides} stappen`,
+          'vanaf uw adres',
+        ].join(' '),
+      )}>
+      <Row gutter="md" wrap>
+        {meter && (
+          <Trait icon={<Location {...iconProps} />} label={`${meter} meter`} />
+        )}
+        {strides && (
+          <Trait
+            icon={<Strides {...iconProps} />}
+            label={`${strides} stappen`}
+          />
+        )}
+      </Row>
+    </View>
   )
 }
 
