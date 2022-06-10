@@ -14,15 +14,15 @@ import {
   PleaseWait,
   SingleSelectable,
   Text,
-  Title,
 } from '../../../components/ui'
 import {Switch} from '../../../components/ui/forms'
 import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {Image} from '../../../components/ui/media'
+import {Title} from '../../../components/ui/typography'
 import {useEnvironment} from '../../../store'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {ArticleOverview} from '../components/article'
-import {ProjectBodyMenu} from '../components/project'
+import {ProjectBodyMenu, ProjectTraits} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {useGetProjectQuery} from '../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
@@ -42,6 +42,7 @@ type Props = {
 
 export const ProjectDetailScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
+
   const notificationSettings = useSelector(selectNotificationSettings)
   const {projectManager} = useProjectManagerFetcher()
   const {data: project, isLoading} = useGetProjectQuery({id: route.params.id})
@@ -101,8 +102,13 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
             <SingleSelectable
               accessibilityRole="header"
               label={accessibleText(project.title, project.subtitle)}>
-              {project.title && <Title text={project.title} />}
-              {project.subtitle && <Text intro>{project.subtitle}</Text>}
+              <Column gutter="sm">
+                <ProjectTraits projectId={project.identifier} />
+                {project.title && <Title text={project.title} />}
+                {project.subtitle && (
+                  <Title level="h4" text={project.subtitle} />
+                )}
+              </Column>
             </SingleSelectable>
             <Switch
               accessibilityLabel="Ontvang berichten"
