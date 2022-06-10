@@ -60,10 +60,10 @@ export const ProjectNews = ({id}: Props) => {
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>
             <Title text={news.title} />
             {news.body?.preface.html && (
-              <Article source={{html: news.body?.preface.html}} />
+              <Article content={news.body?.preface.html} />
             )}
             {news.body?.content.html && (
-              <Article source={{html: news.body?.content.html}} />
+              <Article content={news.body?.content.html} />
             )}
           </Column>
         </Box>

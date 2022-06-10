@@ -1,20 +1,19 @@
 import React from 'react'
 import {useWindowDimensions} from 'react-native'
-import RenderHTML, {
-  MixedStyleDeclaration,
-  RenderHTMLProps,
-} from 'react-native-render-html'
+import RenderHTML, {MixedStyleDeclaration} from 'react-native-render-html'
 import {color, font} from '../../../tokens'
 
-type Props = Pick<RenderHTMLProps, 'source'>
+type Props = {
+  content: string
+}
 
-export const Article = ({source}: Props) => {
+export const Article = ({content}: Props) => {
   const {width} = useWindowDimensions()
 
   return (
     <RenderHTML
       contentWidth={width}
-      source={source}
+      source={{html: content}}
       systemFonts={[font.weight.demi, font.weight.regular]}
       tagsStyles={styles}
     />

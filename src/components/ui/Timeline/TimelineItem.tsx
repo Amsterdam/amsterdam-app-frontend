@@ -68,7 +68,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         )}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
-        <Article source={{html: item.content.html}} />
+        <Article content={item.content.html} />
       </Animated.View>
       <View style={styles.line} />
     </View>
