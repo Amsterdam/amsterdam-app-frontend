@@ -1,7 +1,7 @@
 import React from 'react'
 import {useWindowDimensions} from 'react-native'
 import RenderHTML, {MixedStyleDeclaration} from 'react-native-render-html'
-import {color, font} from '../../../tokens'
+import {Theme, useThemable} from '../../../themes'
 
 type Props = {
   content: string
@@ -32,28 +32,36 @@ const transformContent = (content: string) => {
   return transformedContent
 }
 
+/**
+ * Renders HTML content, applying the typographic design.
+ */
 export const Article = ({content}: Props) => {
   const {width} = useWindowDimensions()
+  const fonts = useThemable(createFontList)
+  const html = transformContent(content)
+
+  const baseStyles = useThemable(createBaseStyles)
+
+  const styles: Record<string, MixedStyleDeclaration> = {
+    h3: baseStyles.titleLevel3,
+    li: {...baseStyles.paragraph, ...baseStyles.listItem},
+    p: baseStyles.paragraph,
+    ul: baseStyles.list,
+  }
 
   return (
     <RenderHTML
       contentWidth={width}
-      source={{html: transformContent(content)}}
-      systemFonts={[font.weight.demi, font.weight.regular]}
+      source={{html}}
+      systemFonts={fonts}
       tagsStyles={styles}
     />
   )
 }
 
-const baseStyles: Record<string, MixedStyleDeclaration> = {
-  h3: {
-    color: color.font.regular,
-    fontWeight: '600', // Seems to work best visually – better than 500.
-    fontFamily: font.weight.demi,
-    fontSize: font.size.h3,
-    lineHeight: font.height.h3,
-    margin: 0,
-  },
+const createBaseStyles: (
+  theme: Theme,
+) => Record<string, MixedStyleDeclaration> = ({color, size, text}: Theme) => ({
   list: {
     margin: 0,
     marginLeft: -10,
@@ -61,22 +69,27 @@ const baseStyles: Record<string, MixedStyleDeclaration> = {
   listItem: {
     paddingLeft: 10,
   },
-  text: {
-    color: color.font.regular,
-    fontFamily: font.weight.regular,
-    fontSize: font.size.p1,
-    lineHeight: font.height.p1,
-    marginBottom: font.leadingBottom.p1,
-    marginTop: font.leadingTop.p1,
+  paragraph: {
+    color: color.text.default,
+    fontFamily: text.fontWeight.regular,
+    fontSize: text.fontSize.body,
+    lineHeight: text.lineHeight.body * text.fontSize.body,
+    marginTop: 0,
+    marginBottom: size.spacing.xl, // TODO Token
   },
-  textIntro: {
-    fontFamily: font.weight.demi,
+  titleLevel3: {
+    color: color.text.default,
+    fontWeight: '600', // TODO Check
+    fontFamily: text.fontWeight.bold,
+    fontSize: text.fontSize.h3,
+    lineHeight: text.lineHeight.h3 * text.fontSize.h3,
+    marginTop: 0,
+    marginBottom: size.spacing.lg, // TODO Token
   },
-}
+})
 
-const styles: Record<string, MixedStyleDeclaration> = {
-  h3: baseStyles.h3,
-  li: {...baseStyles.text, ...baseStyles.listItem},
-  p: baseStyles.text,
-  ul: baseStyles.list,
-}
+const createFontList = ({text}: Theme) => [
+  text.fontWeight.bold,
+  text.fontWeight.demi,
+  text.fontWeight.regular,
+]
