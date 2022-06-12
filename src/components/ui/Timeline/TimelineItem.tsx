@@ -7,7 +7,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {color} from '../../../tokens'
 import {TimelineItem as TimelineItemType} from '../../../types'
 import {Title} from '../Title'
-import {Article} from '../typography/Article'
+import {Article} from '../typography'
 import {maxHeight, timelineStyles} from './timelineStyles'
 
 type Props = {

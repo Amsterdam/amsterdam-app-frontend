@@ -5,8 +5,7 @@ import {useMarkArticleIdAsRead} from '../../../../components/features/notificati
 import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Paragraph, Title} from '../../../../components/ui/typography'
-import {Article} from '../../../../components/ui/typography/Article'
+import {Article, Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
