@@ -2,7 +2,6 @@ import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
 import {ParagraphVariants} from '../../../themes/tokens'
-import {font} from '../../../tokens'
 
 type Props = {
   children: ReactNode
@@ -30,7 +29,7 @@ const createStyles =
     StyleSheet.create({
       text: {
         color: color.text.default,
-        fontFamily: font.weight.regular,
+        fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant] * text.fontSize[variant],
       },
