@@ -15,8 +15,15 @@ export type TitleTokensPerLevel = {
   h6: number
 }
 
+type FontWeights = {
+  bold: string
+  demi: string
+  regular: string
+}
+
 export type TextTokens = {
   fontSize: ParagraphTokens & TitleTokensPerLevel
+  fontWeight: FontWeights
   lineHeight: ParagraphTokens & TitleTokensPerLevel
 }
 
@@ -31,6 +38,11 @@ export const textTokens: TextTokens = {
     h6: 16,
     intro: 22,
     small: 16,
+  },
+  fontWeight: {
+    bold: 'AvenirNext-Bold',
+    demi: 'AvenirNext-DemiBold',
+    regular: 'AvenirNext-Regular',
   },
   lineHeight: {
     body: 1.6,
