@@ -26,5 +26,5 @@ export const Init = ({children}: Props) => {
 
   useInitSentry()
 
-  return null
+  return <>{children}</>
 }

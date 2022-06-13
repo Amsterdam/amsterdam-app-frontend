@@ -1,4 +1,4 @@
-import Sentry from '@sentry/react-native'
+import {nativeCrash} from '@sentry/react-native'
 import React from 'react'
 import {Box, Button, Text} from '../../components/ui'
 import {ScrollView} from '../../components/ui/layout'
@@ -10,15 +10,15 @@ export const OpenWasteContainerScreen = () => (
       <Button
         onPress={() => {
           throw new Error('Sentry test 1')
-        }}>
-        Sentry test: JS error
-      </Button>
+        }}
+        text="Sentry test: JS error"
+      />
       <Button
         onPress={() => {
-          Sentry.nativeCrash()
-        }}>
-        Sentry test: native error
-      </Button>
+          nativeCrash()
+        }}
+        text="Sentry test: native error"
+      />
     </Box>
   </ScrollView>
 )
