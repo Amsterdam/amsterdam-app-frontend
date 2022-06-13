@@ -1,3 +1,4 @@
+export * from './AppHeader'
 export * from './linking'
 export * from './RootStackNavigator'
 export * from './screenOptions'
