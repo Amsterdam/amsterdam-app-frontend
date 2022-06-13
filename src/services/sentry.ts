@@ -87,13 +87,11 @@ export const setSentryBackEndEnvironment = (environment: Environment): void => {
 export const getCaptureSentryBreadcrumb =
   (logData: boolean): CaptureBreadcrumb =>
   (message, data, category = BreadcrumbCategory.default): void => {
-    const breadcrumb = {
+    addBreadcrumb({
       message,
       category,
       data: logData ? data : undefined,
-    }
-    devLog('Capture Sentry breadcrumb', breadcrumb)
-    addBreadcrumb(breadcrumb)
+    })
   }
 
 /**
@@ -106,7 +104,6 @@ export const getSendSentryErrorLog =
     Object.entries({filename, ...extraData}).forEach(([key, value]) => {
       setExtra(key, value)
     })
-    devLog('Send Sentry error log', message, extraData)
     captureException(new Error(message))
   }
 
