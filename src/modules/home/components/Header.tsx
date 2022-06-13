@@ -20,10 +20,10 @@ type Props = Pick<
 
 export const Header = (props: Props) => {
   const {route, screenType} = props
-  const {top: paddingTop = 0} = useSafeAreaInsets()
+  const {top: insetTop = 0} = useSafeAreaInsets()
   const createdStyles = useMemo(
-    () => createStyles({paddingTop, screenType}),
-    [paddingTop, screenType],
+    () => createStyles({insetTop, screenType}),
+    [insetTop, screenType],
   )
   const styles = useThemable(createdStyles)
 
@@ -42,16 +42,19 @@ export const Header = (props: Props) => {
 }
 
 const createStyles =
-  ({paddingTop, screenType}: CustomScreenOptions & {paddingTop: number}) =>
-  ({color, size}: Theme) =>
-    StyleSheet.create({
+  ({insetTop, screenType}: CustomScreenOptions & {insetTop: number}) =>
+  ({color, size}: Theme) => {
+    const insetHeader = size.spacing.md
+
+    return StyleSheet.create({
       header: {
         backgroundColor: color.screen.background[screenType],
-        paddingTop,
-        paddingBottom: size.spacing.sm,
-        paddingHorizontal: size.spacing.md,
+        paddingTop: insetTop + insetHeader,
+        paddingBottom: insetHeader,
+        paddingHorizontal: insetHeader,
         borderBottomWidth: 0,
         elevation: 0,
         shadowOpacity: 0,
       },
     })
+  }
