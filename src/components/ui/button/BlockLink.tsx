@@ -17,8 +17,8 @@ export const BlockLink = ({children, ...otherProps}: Props) => {
       accessibilityRole="button"
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
-      style={[otherProps.style, isPressed && styles.pressed]}
-      {...otherProps}>
+      {...otherProps}
+      style={[otherProps.style, isPressed && styles.pressed]}>
       {children}
     </Pressable>
   )
