@@ -5,11 +5,11 @@ import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useSelector} from 'react-redux'
-import {Row} from '../../components/ui/layout'
-import {Title} from '../../components/ui/typography'
-import {selectTheme, Theme, useThemable} from '../../themes'
-import {allInsets} from '../../utils'
-import {CustomScreenOptions} from './screenOptions'
+import {CustomScreenOptions} from '../../../app/navigation/screenOptions'
+import {Row} from '../../../components/ui/layout'
+import {Title} from '../../../components/ui/typography'
+import {selectTheme, Theme, useThemable} from '../../../themes'
+import {allInsets} from '../../../utils'
 
 type Props = Pick<
   StackHeaderProps,
@@ -19,7 +19,7 @@ type Props = Pick<
 
 const chevronSize = 20
 
-export const AppHeader = ({
+export const Header = ({
   back,
   navigation,
   options,

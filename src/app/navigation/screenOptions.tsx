@@ -1,7 +1,7 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
+import {Header} from '_modules/home/components'
+import {Theme} from '_themes/index'
 import React from 'react'
-import {Theme} from '../../themes'
-import {AppHeader} from './AppHeader'
 
 export type CustomScreenOptions = {
   screenType: keyof Theme['color']['screen']['background']
@@ -22,7 +22,7 @@ export const screenOptions: (
       backgroundColor: color.screen.background[customOptions.screenType],
     },
     header: props => (
-      <AppHeader {...props} screenType={customOptions.screenType} />
+      <Header {...props} screenType={customOptions.screenType} />
     ),
     headerMode: 'screen',
   }
