@@ -1,13 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {StyleSheet, TouchableHighlight} from 'react-native'
-import {useSelector} from 'react-redux'
+import {StyleSheet} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
 import {Row} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
 import {Theme, useThemable} from '../../../themes'
-import {selectTheme} from '../../../themes/themeSlice'
+import {BlockLink} from '@/components/ui/button/index'
 
 type Props = {
   icon: ReactNode
@@ -18,21 +17,17 @@ type Props = {
 export const ModuleButton = ({icon, label, name}: Props) => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-  const {theme} = useSelector(selectTheme)
   const styles = useThemable(createStyles)
 
   return (
-    <TouchableHighlight
-      accessibilityRole="button"
-      activeOpacity={1}
+    <BlockLink
       onPress={name ? () => navigation.navigate(name) : undefined}
-      style={styles.button}
-      underlayColor={theme.color.pressable.pressed.background}>
+      style={styles.button}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h5" text={label} />
       </Row>
-    </TouchableHighlight>
+    </BlockLink>
   )
 }
 
