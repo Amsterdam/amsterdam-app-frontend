@@ -4,7 +4,7 @@ import RenderHTML, {MixedStyleDeclaration} from 'react-native-render-html'
 import {Theme, useThemable} from '../../../themes'
 
 type Props = {
-  content: string
+  content: string | undefined
 }
 
 const transformRules = [
@@ -32,9 +32,13 @@ const transformContent = (content: string) => {
 export const Article = ({content}: Props) => {
   const {width} = useWindowDimensions()
   const fonts = useThemable(createFontList)
-  const html = transformContent(content)
-
   const baseStyles = useThemable(createBaseStyles)
+
+  if (!content) {
+    return null
+  }
+
+  const html = transformContent(content)
 
   const styles: Record<string, MixedStyleDeclaration> = {
     h3: baseStyles.titleLevel3,

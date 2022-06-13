@@ -58,12 +58,8 @@ export const ProjectNews = ({id}: Props) => {
           <Column gutter="md">
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>
             <Title text={news.title} />
-            {news.body?.preface.html && (
-              <Article content={news.body?.preface.html} />
-            )}
-            {news.body?.content.html && (
-              <Article content={news.body?.content.html} />
-            )}
+            <Article content={news.body?.preface.html} />
+            <Article content={news.body?.content.html} />
           </Column>
         </Box>
       )}
