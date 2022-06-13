@@ -5,6 +5,7 @@ import {Theme, useThemable} from '../../../themes'
 
 type Props = {
   content: string | undefined
+  isIntro?: boolean
 }
 
 const transformRules = [
@@ -29,10 +30,10 @@ const transformContent = (content: string) => {
 /**
  * Renders HTML content, applying the typographic design.
  */
-export const Article = ({content}: Props) => {
+export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
   const fonts = useThemable(createFontList)
-  const baseStyles = useThemable(createBaseStyles)
+  const baseStyles = useThemable(createBaseStyles(isIntro))
 
   if (!content) {
     return null
@@ -58,33 +59,37 @@ export const Article = ({content}: Props) => {
 }
 
 const createBaseStyles: (
-  theme: Theme,
-) => Record<string, MixedStyleDeclaration> = ({color, size, text}: Theme) => ({
-  list: {
-    margin: 0,
-    marginLeft: -10,
-  },
-  listItem: {
-    paddingLeft: 10,
-  },
-  paragraph: {
-    color: color.text.default,
-    fontFamily: text.fontWeight.regular,
-    fontSize: text.fontSize.body,
-    lineHeight: text.lineHeight.body * text.fontSize.body,
-    marginTop: 0,
-    marginBottom: size.spacing.xl, // TODO Token
-  },
-  titleLevel3: {
-    color: color.text.default,
-    fontWeight: '600', // TODO Check
-    fontFamily: text.fontWeight.bold,
-    fontSize: text.fontSize.h3,
-    lineHeight: text.lineHeight.h3 * text.fontSize.h3,
-    marginTop: 0,
-    marginBottom: size.spacing.lg, // TODO Token
-  },
-})
+  isIntro: Props['isIntro'],
+) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
+  isIntro =>
+  ({color, size, text}: Theme) => ({
+    list: {
+      margin: 0,
+      marginLeft: -10,
+    },
+    listItem: {
+      paddingLeft: 10,
+    },
+    paragraph: {
+      color: color.text.default,
+      fontFamily: text.fontWeight.regular,
+      fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
+      lineHeight: isIntro
+        ? text.lineHeight.intro * text.fontSize.intro
+        : text.lineHeight.body * text.fontSize.body,
+      marginTop: 0,
+      marginBottom: size.spacing.xl, // TODO Token
+    },
+    titleLevel3: {
+      color: color.text.default,
+      fontWeight: '600', // TODO Check
+      fontFamily: text.fontWeight.bold,
+      fontSize: text.fontSize.h3,
+      lineHeight: text.lineHeight.h3 * text.fontSize.h3,
+      marginTop: 0,
+      marginBottom: size.spacing.lg, // TODO Token
+    },
+  })
 
 const createFontList = ({text}: Theme) => [
   text.fontWeight.bold,
