@@ -3,13 +3,10 @@ import React, {useLayoutEffect} from 'react'
 import {ScrollView} from 'react-native-gesture-handler'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
 import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
-import {RenderHTML} from '../../../../components/ui/RenderHTML'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Paragraph, Title} from '../../../../components/ui/typography'
+import {Article, Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
-import {tagsStyles, tagsStylesIntro} from '../../../../styles/html'
-import {font} from '../../../../tokens'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
   useGetProjectNewsQuery,
@@ -61,20 +58,8 @@ export const ProjectNews = ({id}: Props) => {
           <Column gutter="md">
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>
             <Title text={news.title} />
-            {news.body?.preface.html && (
-              <RenderHTML
-                source={{html: news.body?.preface.html}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStylesIntro}
-              />
-            )}
-            {news.body?.content.html && (
-              <RenderHTML
-                source={{html: news.body?.content.html}}
-                systemFonts={[font.weight.regular, font.weight.demi]}
-                tagsStyles={tagsStyles}
-              />
-            )}
+            <Article content={news.body?.preface.html} isIntro />
+            <Article content={news.body?.content.html} />
           </Column>
         </Box>
       )}

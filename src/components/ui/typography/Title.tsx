@@ -2,7 +2,6 @@ import React, {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens'
-import {font} from '@/tokens'
 
 type Props = {
   level?: keyof TitleTokensPerLevel
@@ -27,7 +26,7 @@ const createStyles =
     StyleSheet.create({
       title: {
         color: color.text.default,
-        fontFamily: font.weight.bold,
+        fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level] * text.fontSize[level],
       },

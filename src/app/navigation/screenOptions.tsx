@@ -3,7 +3,7 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme} from '../../themes'
-import {color, font, size} from '../../tokens'
+import {size} from '../../tokens'
 
 type Options = {
   screenType: keyof Theme['color']['screen']['background']
@@ -16,23 +16,25 @@ const defaultOptions: Options = {
 export const screenOptions: (
   theme: Theme,
   options?: Options,
-) => StackNavigationOptions = (theme, options) => {
+) => StackNavigationOptions = ({color, text}, options) => {
   const resolvedOptions = {...defaultOptions, ...options}
   return {
     cardStyle: {
-      backgroundColor:
-        theme.color.screen.background[resolvedOptions.screenType],
+      backgroundColor: color.screen.background[resolvedOptions.screenType],
     },
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
       <View style={styles.headerBackImage}>
-        <ChevronLeft width={20} height={20} fill={color.font.primary} />
+        <ChevronLeft
+          width={20}
+          height={20}
+          fill={color.pressable.default.background}
+        />
       </View>
     ),
     headerBackTitleVisible: false,
     headerStyle: {
-      backgroundColor:
-        theme.color.screen.background[resolvedOptions.screenType],
+      backgroundColor: color.screen.background[resolvedOptions.screenType],
       borderBottomWidth: 0,
       elevation: 0,
       shadowOpacity: 0,
@@ -45,9 +47,9 @@ export const screenOptions: (
     },
     headerTitleAlign: 'center',
     headerTitleStyle: {
-      color: theme.color.text.default,
-      fontFamily: font.weight.demi,
-      fontSize: theme.text.fontSize.h1,
+      color: color.text.default,
+      fontFamily: text.fontWeight.demi,
+      fontSize: text.fontSize.h1,
     },
   }
 }
