@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
-import {Theme, useThemable} from '../../../themes'
-import {TitleTokensPerLevel} from '../../../themes/tokens'
-import {font} from '../../../tokens'
+import {Theme, useThemable} from '@/themes'
+import {TitleTokensPerLevel} from '@/themes/tokens'
+import {font} from '@/tokens'
 
 type Props = {
   level?: keyof TitleTokensPerLevel
