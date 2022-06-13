@@ -51,7 +51,12 @@ export const AppHeader = ({
           )}
         </View>
         <View style={styles.titleContainer}>
-          <Title level="h6" text={title} numberOfLines={1} />
+          <Title
+            level="h6"
+            text={title}
+            ellipsizeMode="middle"
+            numberOfLines={1}
+          />
         </View>
         <View style={styles.sideColumnWidth} />
       </Row>
