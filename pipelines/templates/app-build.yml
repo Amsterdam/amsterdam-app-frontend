@@ -5,14 +5,23 @@ parameters:
 
 steps:
   - template: ./install-node.yml
-  - script: echo "##vso[task.setvariable variable=VERSION;]$(node ./nodescripts/version-number.js)"
+  - script: |
+      "##vso[task.setvariable variable=VERSION;]$(node ./nodescripts/version-number.js)"
     displayName: "Get version number"
-  - script: echo "##vso[task.setvariable variable=BUILD_NUMBER;]$(node ./nodescripts/build-number.js)"
+  - script: |
+      "##vso[task.setvariable variable=BUILD_NUMBER;]$(node ./nodescripts/build-number.js)"
     displayName: "Get build number"
-  - script: echo "$(VERSION).$(BUILD_NUMBER)" > $(Build.ArtifactStagingDirectory)/version.txt
+  - script: |
+      "$(VERSION).$(BUILD_NUMBER)" > $(Build.ArtifactStagingDirectory)/version.txt
     displayName: "Save version number"
-  - script: echo "##vso[build.updatebuildnumber]$(VERSION).$(BUILD_NUMBER)"
+  - script: |
+      echo "##vso[build.updatebuildnumber]$(VERSION).$(BUILD_NUMBER)"
     displayName: "Update Azure Buildnumber"
+  - script: |
+      echo "##vso[task.setvariable variable=RELEASE]${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      export SENTRY_RELEASE=$(RELEASE)
+      export SENTRY_DIST=$(BUILD_NUMBER)
+    displayName: "Set release and dist env vars for Sentry source map upload"
   - template: ./copy-files.yml
     parameters: 
       platform: ${{ parameters.platform }}

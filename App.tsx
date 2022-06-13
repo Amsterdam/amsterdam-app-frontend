@@ -21,8 +21,8 @@ const AppComponent = () => {
   const navigation = useRef<NavigationContainerRef<RootStackParamList>>(null)
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
       <CustomErrorBoundary>
+        <StatusBar barStyle="dark-content" />
         <NavigationContainer
           linking={linking}
           ref={navigation}

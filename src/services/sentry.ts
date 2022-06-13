@@ -50,6 +50,7 @@ export const initSentry = () => {
     dist: BUILD_NUMBER,
     release: `${Platform.OS}@${version}.${BUILD_NUMBER ?? '0'}`,
     beforeBreadcrumb: (breadcrumb: Breadcrumb) => {
+      // remove query params from request URLS as they may contain personal data
       if (breadcrumb.category === 'xhr') {
         return {
           ...breadcrumb,
@@ -70,7 +71,6 @@ export const initSentry = () => {
       }),
     ],
   })
-  return Promise.resolve()
 }
 
 /**
