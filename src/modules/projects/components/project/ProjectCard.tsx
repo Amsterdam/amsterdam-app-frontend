@@ -62,13 +62,13 @@ export const ProjectCard = ({
 
 const createStyles =
   ({width}: Partial<Props>) =>
-  (theme: Theme) =>
+  ({color}: Theme) =>
     StyleSheet.create({
       pressable: {
         width,
         flexGrow: 1,
       },
       pressed: {
-        backgroundColor: theme.color.pressable.pressed.background,
+        backgroundColor: color.pressable.pressed.background,
       },
     })

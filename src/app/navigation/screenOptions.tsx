@@ -25,7 +25,11 @@ export const screenOptions: (
     headerBackAccessibilityLabel: 'Terug',
     headerBackImage: () => (
       <View style={styles.headerBackImage}>
-        <ChevronLeft width={20} height={20} fill={color.pressable.default} />
+        <ChevronLeft
+          width={20}
+          height={20}
+          fill={color.pressable.default.background}
+        />
       </View>
     ),
     headerBackTitleVisible: false,
