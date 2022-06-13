@@ -14,8 +14,9 @@ type Props = {
 
 export const NavigationButton = ({label, onPress}: Props) => {
   const {theme} = useSelector(selectTheme)
+
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} accessibilityRole="button">
       <Row align="between">
         <Link label={label} />
         <Icon size={24}>
