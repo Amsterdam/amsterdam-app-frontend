@@ -8,22 +8,22 @@ type Props = {
 }
 
 export const Screen = ({children, withoutNavigationHeader = false}: Props) => {
-  const {top, ...otherInsets} = useSafeAreaInsets()
-  const styles = createStyles({
-    ...otherInsets,
-    top: withoutNavigationHeader ? top : 0,
-  })
+  const insets = useSafeAreaInsets()
+  const styles = createStyles(insets, withoutNavigationHeader)
 
   return <View style={styles.screen}>{children}</View>
 }
 
-const createStyles = (insets: Partial<EdgeInsets>) =>
+const createStyles = (
+  insets: Partial<EdgeInsets>,
+  withoutNavigationHeader: boolean,
+) =>
   StyleSheet.create({
     screen: {
       flex: 1,
       paddingBottom: insets.bottom,
       paddingLeft: insets.left,
       paddingRight: insets.right,
-      paddingTop: insets.top,
+      paddingTop: withoutNavigationHeader ? insets.top : 0,
     },
   })
