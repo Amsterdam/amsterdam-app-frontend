@@ -18,11 +18,15 @@ steps:
       echo "##vso[build.updatebuildnumber]$(VERSION).$(BUILD_NUMBER)"
     displayName: "Update Azure Buildnumber"
   - script: |
-      echo "##vso[task.setvariable variable=RELEASE]'${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)'"
-      echo $(RELEASE)
-      export SENTRY_RELEASE="$(RELEASE)"
+      echo "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      export SENTRY_RELEASE="${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
       export SENTRY_DIST="$(BUILD_NUMBER)"
     displayName: "Set release and dist env vars for Sentry source map upload"
+  - script: |
+      echo "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      echo "##vso[task.setvariable variable=RELEASE;]${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      echo $(RELEASE)
+    displayName: "Test"
   - template: ./copy-files.yml
     parameters: 
       platform: ${{ parameters.platform }}
