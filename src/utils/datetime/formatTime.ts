@@ -7,7 +7,7 @@ export const formatTime: Signature = (date, displaySeconds = false) => {
   const jsDate = new Date(date)
 
   if (jsDate.toString() === 'Invalid Date') {
-    throw 'Incorrect `date` provided to `formatTime`.'
+    throw new Error('Incorrect `date` provided to `formatTime`.')
   }
 
   const options: Intl.DateTimeFormatOptions = {
