@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
-import {getCaptureSentryBreadcrumb, getSendSentryErrorLog} from '../services'
-import {SentryHandler} from '../types'
+import {getCaptureSentryBreadcrumb, getSendSentryErrorLog} from '@/services'
+import {SentryHandler} from '@/types'
 
 /**
  * Get logging and breadcrumb functions. If we call useSentry with dangerouslyOverrideConsent, we can log before the consent settings are initialized or indeed without consent.
