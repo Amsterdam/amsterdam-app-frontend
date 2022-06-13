@@ -7,18 +7,18 @@ type Props = {
   content: string
 }
 
-const transformContent = (content: string) => {
-  const transformRules = [
-    {
-      find: /"\/publish/g,
-      replace: '"https://www.amsterdam.nl/publish',
-    },
-    {
-      find: /&quot;\/publish/g,
-      replace: '&quot;https://www.amsterdam.nl/publish',
-    },
-  ]
+const transformRules = [
+  {
+    find: /"\/publish/g,
+    replace: '"https://www.amsterdam.nl/publish',
+  },
+  {
+    find: /&quot;\/publish/g,
+    replace: '&quot;https://www.amsterdam.nl/publish',
+  },
+]
 
+const transformContent = (content: string) => {
   // Applies all transform rules to the content.
   return transformRules.reduce(
     (result, {find, replace}) => result.replace(find, replace),
