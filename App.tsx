@@ -8,17 +8,12 @@ import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {
-  linking,
-  RootStackParamList,
-  RootStackNavigator,
-} from './src/app/navigation'
-import {Init} from './src/components/features/Init'
-import {ErrorWithRestart} from './src/components/ui/ErrorWithRestart'
-import {RootProvider} from './src/providers'
-import {registerNavigationContainer} from './src/services'
-import {store} from './src/store'
-import {CustomErrorBoundary} from '@/components/features/CustomErrorBoundary'
+import {linking, RootStackParamList, RootStackNavigator} from '@/app/navigation'
+import {Init, CustomErrorBoundary} from '@/components/features'
+import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
+import {RootProvider} from '@/providers'
+import {registerNavigationContainer} from '@/services'
+import {store} from '@/store'
 
 const persistor = persistStore(store)
 

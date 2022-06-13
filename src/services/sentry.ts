@@ -15,10 +15,10 @@ import {RefObject} from 'react'
 import {Platform} from 'react-native'
 import {getUniqueId} from 'react-native-device-info'
 import {version} from '../../package.json'
-import {RootStackParamList} from '../app/navigation'
-import {Environment} from '../environment'
-import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '../types'
-import {appFlavour, devLog, isDevApp} from './development'
+import {RootStackParamList} from '@/app/navigation'
+import {Environment} from '@/environment'
+import {appFlavour, devLog, isDevApp} from '@/services/development'
+import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -38,12 +38,7 @@ export const registerNavigationContainer = (
 /**
  * Remove query string from URL as it may contain user data
  */
-const sanitizeUrl = (url: string) => {
-  if (!url) {
-    return
-  }
-  return url.split('?')[0]
-}
+const sanitizeUrl = (url: string) => (url ? url.split('?')[0] : '')
 
 /**
  * The main initialization of Sentry
