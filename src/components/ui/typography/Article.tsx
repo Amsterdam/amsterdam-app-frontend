@@ -19,17 +19,11 @@ const transformContent = (content: string) => {
     },
   ]
 
-  let transformedContent = content
-
-  transformRules.forEach(
-    regex =>
-      (transformedContent = transformedContent.replace(
-        regex.find,
-        regex.replace,
-      )),
+  // Applies all transform rules to the content.
+  return transformRules.reduce(
+    (result, {find, replace}) => result.replace(find, replace),
+    content,
   )
-
-  return transformedContent
 }
 
 /**
