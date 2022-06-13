@@ -18,6 +18,7 @@ import {ErrorWithRestart} from './src/components/ui/ErrorWithRestart'
 import {RootProvider} from './src/providers'
 import {registerNavigationContainer} from './src/services'
 import {store} from './src/store'
+import {CustomErrorBoundary} from '@/components/features/CustomErrorBoundary'
 
 const persistor = persistStore(store)
 
@@ -26,22 +27,24 @@ const AppComponent = () => {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" />
-      <NavigationContainer
-        linking={linking}
-        ref={navigation}
-        onReady={() => {
-          registerNavigationContainer(navigation)
-        }}>
-        <RootProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <Init>
-              <ErrorBoundary fallback={<ErrorWithRestart />}>
-                <RootStackNavigator />
-              </ErrorBoundary>
-            </Init>
-          </PersistGate>
-        </RootProvider>
-      </NavigationContainer>
+      <CustomErrorBoundary>
+        <NavigationContainer
+          linking={linking}
+          ref={navigation}
+          onReady={() => {
+            registerNavigationContainer(navigation)
+          }}>
+          <RootProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <Init>
+                <ErrorBoundary fallback={<ErrorWithRestart />}>
+                  <RootStackNavigator />
+                </ErrorBoundary>
+              </Init>
+            </PersistGate>
+          </RootProvider>
+        </NavigationContainer>
+      </CustomErrorBoundary>
     </SafeAreaProvider>
   )
 }
