@@ -1,6 +1,5 @@
 export * from './createProjectTitlesDictionary'
 export * from './ProjectBodyMenu'
-export * from './ProjectBodyMenuItem'
 export * from './ProjectCard'
 export * from './ProjectContacts'
 export * from './ProjectContentSections'

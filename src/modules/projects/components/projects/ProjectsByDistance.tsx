@@ -16,7 +16,7 @@ import {useEnvironment} from '../../../../store'
 import {selectTheme} from '../../../../themes'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
-import {accessibleText, allInsets, mapImageSources} from '../../../../utils'
+import {allInsets, mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
 import {AddressRouteName} from '../../../address/routes'
 import {useGetProjectsByDistanceQuery} from '../../projects.service'
@@ -102,20 +102,7 @@ export const ProjectsByDistance = () => {
   const renderItem = ({item: project}: {item: Project}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources, environment)}
-      kicker={
-        <ProjectTraits
-          meter={project.meter}
-          strides={project.strides}
-          accessibilityLabel={accessibleText(
-            [
-              project.meter && `${project.meter} meter`,
-              project.meter && project.strides && 'of',
-              project.strides && `${project.strides} stappen`,
-              'vanaf uw adres',
-            ].join(' '),
-          )}
-        />
-      }
+      kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
         navigation.navigate(ProjectsRouteName.projectDetail, {
           id: project.identifier,

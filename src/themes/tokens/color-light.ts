@@ -20,6 +20,7 @@ export const lightColorTokens = {
     default: {
       background: baseColor.primary.darkblue,
     },
+    navigation: baseColor.primary.darkblue,
     pressed: {
       background: baseColor.custom.grey1,
     },

@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {View} from 'react-native'
+import {NavigationButton} from '../../../../components/ui/button/index'
+import {Column} from '../../../../components/ui/layout'
 import {ProjectDetail, ProjectDetailBody} from '../../../../types'
 import {isEmptyObject} from '../../../../utils'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
-import {ProjectBodyMenuItem} from '.'
 
 type Props = {
   project: ProjectDetail
@@ -55,7 +55,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
     (o.timeline && !isEmptyObject(o.timeline))
 
   return (
-    <View>
+    <Column gutter="md">
       {menuOptions.map(option => {
         if (!hasContentToShow(option)) {
           return null
@@ -64,7 +64,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
         const {title} = option
 
         return (
-          <ProjectBodyMenuItem
+          <NavigationButton
             key={title}
             label={title}
             onPress={() =>
@@ -78,6 +78,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           />
         )
       })}
-    </View>
+    </Column>
   )
 }
