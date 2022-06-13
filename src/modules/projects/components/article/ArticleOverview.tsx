@@ -1,12 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {PleaseWait, Title} from '../../../../components/ui'
-import {Column, Grid, GridCell} from '../../../../components/ui/layout'
+import {PleaseWait} from '../../../../components/ui'
+import {Column} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services/articles'
 import {ArticleSummary} from '../../../../types'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ArticlePreview} from '.'
+import {Title} from '@/components/ui/typography'
 
 type Props = {
   limit?: number
@@ -52,17 +53,13 @@ export const ArticleOverview = ({
 
   return articles?.length ? (
     <Column gutter="sm">
-      <Title level={2} text={title} />
-      <Grid>
-        {articles.map(article => (
-          <GridCell key={article.identifier}>
-            <ArticlePreview
-              article={article}
-              onPress={() => navigateToArticle(article)}
-            />
-          </GridCell>
-        ))}
-      </Grid>
+      <Title level="h2" text={title} />
+      {articles.map(article => (
+        <ArticlePreview
+          article={article}
+          onPress={() => navigateToArticle(article)}
+        />
+      ))}
     </Column>
   ) : null
 }

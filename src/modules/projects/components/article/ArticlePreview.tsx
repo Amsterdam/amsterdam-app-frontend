@@ -1,13 +1,12 @@
 import React from 'react'
-import {StyleSheet, TouchableHighlight, View} from 'react-native'
-import HeroImage from '../../../../assets/images/project-warning-hero.svg'
+import {TouchableHighlight, View} from 'react-native'
 import {Card, CardBody, Text} from '../../../../components/ui'
 import {Row} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
-import {imageTokens} from '../../../../themes/tokens'
 import {ArticleSummary} from '../../../../types'
 import {mapImageSources, mapWarningImageSources} from '../../../../utils'
+import {Hero} from '@/components/ui/Hero'
 
 type Props = {
   article: ArticleSummary
@@ -34,21 +33,16 @@ export const ArticlePreview = ({article, onPress}: Props) => {
   const imageSources = getImageSources()
 
   return (
-    <TouchableHighlight
-      accessibilityRole="button"
-      onPress={onPress}
-      style={styles.row}>
+    <TouchableHighlight accessibilityRole="button" onPress={onPress}>
       <Card>
         <CardBody>
           <Row gutter="md" valign="center">
             {imageSources && Object.keys(imageSources[0]).length ? (
               <Image aspectRatio="vintage" source={imageSources} />
             ) : (
-              <View style={styles.image}>
-                <HeroImage />
-              </View>
+              <Hero />
             )}
-            <View style={styles.text}>
+            <View>
               <Text>{article.title}</Text>
             </View>
           </Row>
@@ -57,19 +51,3 @@ export const ArticlePreview = ({article, onPress}: Props) => {
     </TouchableHighlight>
   )
 }
-
-const styles = StyleSheet.create({
-  image: {
-    alignSelf: 'center',
-    aspectRatio: imageTokens.aspectRatio.vintage,
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  text: {
-    alignSelf: 'center',
-    flex: 2, // Also prevents overflow
-  },
-})
