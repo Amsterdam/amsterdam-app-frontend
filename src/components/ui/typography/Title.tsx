@@ -25,6 +25,7 @@ const createStyles =
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
+        flexShrink: 1,
         color: color.text.default,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
