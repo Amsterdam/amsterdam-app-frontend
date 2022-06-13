@@ -71,7 +71,6 @@ export const initSentry = () => {
       }),
     ],
   })
-  return Promise.resolve()
 }
 
 /**
