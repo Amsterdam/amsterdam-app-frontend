@@ -37,6 +37,7 @@
     "@react-stately/radio": "^3.3.5",
     "@reduxjs/toolkit": "^1.7.1",
     "@sentry/react-native": "^3.4.3",
+    "dayjs": "^1.11.3",
     "intl": "^1.2.5",
     "lodash.debounce": "^4.0.8",
     "react": "17.0.2",
