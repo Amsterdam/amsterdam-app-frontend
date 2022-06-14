@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {EdgeInsets} from 'react-native-safe-area-context/src/SafeArea.types'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 
 type Props = {
   children: ReactNode

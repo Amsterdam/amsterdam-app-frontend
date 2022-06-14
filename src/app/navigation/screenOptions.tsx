@@ -1,64 +1,29 @@
-import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {StackNavigationOptions} from '@react-navigation/stack'
+import {Header} from '_modules/home/components'
+import {Theme} from '_themes/index'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Theme} from '../../themes'
-import {size} from '../../tokens'
 
-type Options = {
+export type CustomScreenOptions = {
   screenType: keyof Theme['color']['screen']['background']
 }
 
-const defaultOptions: Options = {
+const defaultOptions: CustomScreenOptions = {
   screenType: 'default',
 }
 
 export const screenOptions: (
   theme: Theme,
-  options?: Options,
-) => StackNavigationOptions = ({color, text}, options) => {
-  const resolvedOptions = {...defaultOptions, ...options}
+  options?: CustomScreenOptions,
+) => StackNavigationOptions = ({color}, options) => {
+  const customOptions = {...defaultOptions, ...options}
+
   return {
     cardStyle: {
-      backgroundColor: color.screen.background[resolvedOptions.screenType],
+      backgroundColor: color.screen.background[customOptions.screenType],
     },
-    headerBackAccessibilityLabel: 'Terug',
-    headerBackImage: () => (
-      <View style={styles.headerBackImage}>
-        <ChevronLeft
-          width={20}
-          height={20}
-          fill={color.pressable.default.background}
-        />
-      </View>
+    header: props => (
+      <Header {...props} screenType={customOptions.screenType} />
     ),
-    headerBackTitleVisible: false,
-    headerStyle: {
-      backgroundColor: color.screen.background[resolvedOptions.screenType],
-      borderBottomWidth: 0,
-      elevation: 0,
-      shadowOpacity: 0,
-    },
-    headerLeftContainerStyle: {
-      paddingStart: size.spacing.md,
-    },
-    headerRightContainerStyle: {
-      paddingEnd: size.spacing.md,
-    },
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-      color: color.text.default,
-      fontFamily: text.fontWeight.demi,
-      fontSize: text.fontSize.h1,
-    },
+    headerMode: 'screen',
   }
 }
-
-const styles = StyleSheet.create({
-  headerBackImage: {
-    marginLeft: -size.spacing.md,
-    paddingHorizontal: size.spacing.md + size.spacing.sm,
-    paddingStart: size.spacing.md,
-    paddingVertical: size.spacing.md - size.spacing.sm,
-  },
-})

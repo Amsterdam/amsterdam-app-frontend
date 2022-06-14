@@ -8,12 +8,12 @@ type Props = {
   text: string
 } & Omit<TextProps, 'style'>
 
-export const Title = ({level = 'h1', text}: Props) => {
+export const Title = ({level = 'h1', text, ...otherProps}: Props) => {
   const createdStyles = useMemo(() => createStyles({level}), [level])
   const styles = useThemable(createdStyles)
 
   return (
-    <Text accessibilityRole="header" style={styles.title}>
+    <Text accessibilityRole="header" style={styles.title} {...otherProps}>
       {text}
     </Text>
   )
@@ -25,6 +25,7 @@ const createStyles =
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
+        flexShrink: 1,
         color: color.text.default,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
