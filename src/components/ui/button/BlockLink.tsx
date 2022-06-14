@@ -5,7 +5,7 @@ import {Theme, useThemable} from '../../../themes'
 
 type Props = {
   children: ReactNode
-} & Omit<PressableProps, 'accessibilityRole' | 'onPressIn' | 'onPressOut'> &
+} & Omit<PressableProps, 'onPressIn' | 'onPressOut'> &
   Pick<ViewProps, 'style'>
 
 export const BlockLink = ({children, ...otherProps}: Props) => {
@@ -14,7 +14,6 @@ export const BlockLink = ({children, ...otherProps}: Props) => {
 
   return (
     <Pressable
-      accessibilityRole="button"
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       {...otherProps}
