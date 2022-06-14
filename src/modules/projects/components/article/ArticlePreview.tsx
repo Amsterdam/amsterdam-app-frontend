@@ -1,4 +1,5 @@
-import React from 'react'
+import dayjs from 'dayjs'
+import React, {useEffect, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {Column, Row} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
@@ -20,9 +21,18 @@ type Props = {
   onPress: () => void
 }
 
+const getDateDiffInDays = (date: string) => {
+  return dayjs().diff(dayjs(date), 'day')
+}
+
 export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
-  const styles = useThemable(createStyles({isFirst, isLast}))
+  const [isNew, setNew] = useState<boolean>()
+  const styles = useThemable(createStyles({isFirst, isLast}, isNew))
+
+  useEffect(() => {
+    getDateDiffInDays(article.publication_date) <= 3 ? setNew(true) : false
+  }, [article])
 
   const getImageSources = () => {
     if (article.type === 'news') {
@@ -50,9 +60,11 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
         <Column gutter="sm">
           <Row gutter="md" valign="center">
             <View style={styles.horizontalLine} />
-            <View style={styles.update}>
-              <Paragraph>Nieuw</Paragraph>
-            </View>
+            {isNew && (
+              <View style={styles.update}>
+                <Paragraph>Nieuw</Paragraph>
+              </View>
+            )}
             <Paragraph>{formatDate(article.publication_date)}</Paragraph>
           </Row>
           <Link label={article.title} level="h4" />
@@ -70,9 +82,11 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 }
 
 const lineThickness = 2
+const verticalLineTopWithAlert = 18
+const verticalLineTopWithoutAlert = 15
 
 const createStyles =
-  ({isFirst, isLast}: Partial<Props>) =>
+  ({isFirst, isLast}: Partial<Props>, isNew: boolean | undefined) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       button: {
@@ -93,7 +107,11 @@ const createStyles =
       },
       line: {
         position: 'absolute',
-        top: isFirst ? size.spacing.md + lineThickness : 0,
+        top: isFirst
+          ? isNew
+            ? verticalLineTopWithAlert
+            : verticalLineTopWithoutAlert
+          : 0,
         left: 0,
         zIndex: -1,
         width: lineThickness,
