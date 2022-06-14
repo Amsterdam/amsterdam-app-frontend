@@ -101,6 +101,7 @@ export const ArticleOverview = ({
                     ) ===
                     articles.length - 1
                   }
+                  key={article.identifier}
                   onPress={() => navigateToArticle(article)}
                 />
               ))}
