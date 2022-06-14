@@ -1,15 +1,16 @@
 import React, {useState} from 'react'
 import {ReactNode} from 'react'
-import {Pressable, PressableProps, StyleSheet, ViewProps} from 'react-native'
+import {Pressable, PressableProps, StyleSheet} from 'react-native'
 import {Theme, useThemable} from '../../../themes'
+import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
-} & Omit<PressableProps, 'onPressIn' | 'onPressOut'> &
-  Pick<ViewProps, 'style'>
+  padding?: keyof SpacingTokens
+} & Omit<PressableProps, 'onPressIn' | 'onPressOut'>
 
-export const BlockLink = ({children, ...otherProps}: Props) => {
-  const styles = useThemable(createStyles)
+export const BlockLink = ({children, padding, ...otherProps}: Props) => {
+  const styles = useThemable(createStyles({padding}))
   const [isPressed, setPressed] = useState(false)
 
   return (
@@ -17,15 +18,20 @@ export const BlockLink = ({children, ...otherProps}: Props) => {
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       {...otherProps}
-      style={[otherProps.style, isPressed && styles.pressed]}>
+      style={[styles.button, isPressed && styles.pressed]}>
       {children}
     </Pressable>
   )
 }
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    pressed: {
-      backgroundColor: color.pressable.pressed.background,
-    },
-  })
+const createStyles =
+  ({padding}: Pick<Props, 'padding'>) =>
+  ({color, size}: Theme) =>
+    StyleSheet.create({
+      button: {
+        padding: padding ? size.spacing[padding] : 0,
+      },
+      pressed: {
+        backgroundColor: color.pressable.pressed.background,
+      },
+    })
