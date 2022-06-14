@@ -20,8 +20,8 @@ export const ProjectsByDate = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
     useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
-  const device = useContext(DeviceContext)
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
+  const {fontScale} = useContext(DeviceContext)
+  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const isSearching = useSelector(selectIsProjectsSearching)
 

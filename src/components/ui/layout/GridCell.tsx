@@ -6,10 +6,10 @@ import {size} from '../../../tokens'
 type Props = ViewProps
 
 export const GridCell = ({children}: Props) => {
-  const device = useContext(DeviceContext)
+  const {isLandscape} = useContext(DeviceContext)
 
   return (
-    <View style={[device.isLandscape && styles.cell, styles.verticalGutter]}>
+    <View style={[isLandscape && styles.cell, styles.verticalGutter]}>
       {children}
     </View>
   )

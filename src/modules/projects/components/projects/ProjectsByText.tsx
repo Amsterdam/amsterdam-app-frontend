@@ -26,8 +26,8 @@ import {selectProjectSearchText} from './projectsByTextSlice'
 export const ProjectsByText = () => {
   const navigation =
     useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
-  const device = useContext(DeviceContext)
-  const itemDimension = 16 * size.spacing.md * Math.max(device.fontScale, 1)
+  const {fontScale} = useContext(DeviceContext)
+  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const searchText = useSelector(selectProjectSearchText)
 

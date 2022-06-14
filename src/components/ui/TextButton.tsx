@@ -26,7 +26,7 @@ export const TextButton = ({
   text,
   ...otherProps
 }: Props) => {
-  const device = useContext(DeviceContext)
+  const {fontScale} = useContext(DeviceContext)
   const [isPressed, setIsPressed] = useState(false)
 
   const iconColor = () => {
@@ -45,8 +45,8 @@ export const TextButton = ({
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
   // CSS spec, I couldn’t find a better approach yet.
   const iconProps: SVGProps<any> = {
-    width: 14 * device.fontScale,
-    height: 14 * device.fontScale,
+    width: 14 * fontScale,
+    height: 14 * fontScale,
     fill: iconColor(),
     style: {
       top: 3,

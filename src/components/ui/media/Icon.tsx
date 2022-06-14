@@ -10,10 +10,10 @@ type Props = {
 }
 
 export const Icon = ({children, size = 16}: Props) => {
-  const device = useContext(DeviceContext)
+  const {fontScale} = useContext(DeviceContext)
   const styles = useMemo(
-    () => createStyles(size * device.fontScale),
-    [device.fontScale, size],
+    () => createStyles(size * fontScale),
+    [fontScale, size],
   )
 
   return <View style={styles.icon}>{children}</View>
