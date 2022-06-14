@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import React, {useEffect, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
+import {useSelector} from 'react-redux'
 import {Column, Row} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
@@ -11,6 +12,7 @@ import {
   mapImageSources,
   mapWarningImageSources,
 } from '../../../../utils'
+import {selectNotificationSettings} from '@/components/features/notifications'
 import {Hero} from '@/components/ui/Hero'
 import {Link, Paragraph} from '@/components/ui/typography'
 import {Theme, useThemable} from '@/themes'
@@ -40,6 +42,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
   const [isNew, setNew] = useState<boolean>()
   const styles = useThemable(createStyles({isFirst, isLast}, isNew))
+  const {readIds} = useSelector(selectNotificationSettings)
 
   useEffect(() => {
     getDateDiffInDays(article.publication_date) <= 3 ? setNew(true) : false
@@ -71,7 +74,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
         <Column gutter="sm">
           <Row gutter="md" valign="center">
             <View style={styles.horizontalLine} />
-            {isNew && (
+            {isNew && !readIds.includes(article.identifier) && (
               <View style={styles.update}>
                 <Paragraph>Nieuw</Paragraph>
               </View>
