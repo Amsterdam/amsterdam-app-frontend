@@ -107,7 +107,7 @@ export const getSendSentryErrorLog =
   }
 
 /**
- * Set the user ID to be sent to Sentry; if enabled is false we do not send anything
+ * Set the user ID to be sent to Sentry; if enabled is false we do not send anything (user ID will be a unique hash)
  */
 export const setSentryUserData = (enabled: boolean) => {
   // we explicitly cast user ID to string, since non-string type will cause issues
