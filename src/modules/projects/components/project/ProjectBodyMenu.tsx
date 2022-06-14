@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {View} from 'react-native'
 import {NavigationButton} from '../../../../components/ui/button/index'
 import {ProjectDetail, ProjectDetailBody} from '../../../../types'
 import {isEmptyObject} from '../../../../utils'
@@ -55,7 +54,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
     (o.timeline && !isEmptyObject(o.timeline))
 
   return (
-    <View>
+    <>
       {menuOptions.map(option => {
         if (!hasContentToShow(option)) {
           return null
@@ -78,6 +77,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           />
         )
       })}
-    </View>
+    </>
   )
 }
