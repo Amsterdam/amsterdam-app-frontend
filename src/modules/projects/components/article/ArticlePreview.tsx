@@ -38,7 +38,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
   const [isNew, setNew] = useState<boolean>()
   const styles = useThemable(createStyles({isFirst, isLast}, isNew))
-  const {readIds} = useSelector(selectNotificationSettings)
+  const {readArticles} = useSelector(selectNotificationSettings)
 
   useEffect(() => {
     getDateDiffInDays(article.publication_date) <= 3 ? setNew(true) : false
@@ -70,11 +70,14 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
         <Column gutter="sm">
           <Row gutter="md" valign="center">
             <View style={styles.horizontalLine} />
-            {isNew && !readIds.includes(article.identifier) && (
-              <View style={styles.update}>
-                <Paragraph>Nieuw</Paragraph>
-              </View>
-            )}
+            {isNew &&
+              !readArticles.find(
+                readArticle => readArticle.id === article.identifier,
+              ) && (
+                <View style={styles.update}>
+                  <Paragraph>Nieuw</Paragraph>
+                </View>
+              )}
             <Paragraph>
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
