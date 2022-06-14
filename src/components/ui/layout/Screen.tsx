@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 
 type Props = {
@@ -11,7 +11,7 @@ export const Screen = ({children, handleTopNotch = false}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets, handleTopNotch)
 
-  return <View style={styles.screen}>{children}</View>
+  return <View style={[styles.screen, style]}>{children}</View>
 }
 
 const createStyles = (insets: Partial<EdgeInsets>, handleTopNotch: boolean) =>
