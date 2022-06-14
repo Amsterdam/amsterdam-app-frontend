@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import React, {useEffect, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
@@ -9,6 +8,7 @@ import {ArticleSummary} from '../../../../types'
 import {
   cutAmountOfCharsFromString,
   formatDate,
+  getDateDiffInDays,
   mapImageSources,
   mapWarningImageSources,
 } from '../../../../utils'
@@ -22,10 +22,6 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
-}
-
-const getDateDiffInDays = (date: string) => {
-  return dayjs().diff(dayjs(date), 'day')
 }
 
 const formatDateToDisplay = (date: string) => {
