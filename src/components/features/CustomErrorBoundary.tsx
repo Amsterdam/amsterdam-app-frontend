@@ -40,6 +40,8 @@ export class CustomErrorBoundary extends Component<Props, State> {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
+    backgroundColor: '#fff',
+    flex: 1,
   },
   text: {
     fontSize: 18,
