@@ -6,6 +6,7 @@ import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
 import {ArticleSummary} from '../../../../types'
 import {
+  cutAmountOfCharsFromString,
   formatDate,
   mapImageSources,
   mapWarningImageSources,
@@ -23,6 +24,16 @@ type Props = {
 
 const getDateDiffInDays = (date: string) => {
   return dayjs().diff(dayjs(date), 'day')
+}
+
+const formatDateToDisplay = (date: string) => {
+  const dateToDisplay = formatDate(date)
+  const dateToDisplayWithoutYear = cutAmountOfCharsFromString({
+    text: dateToDisplay,
+    amount: 5,
+    position: 'end',
+  })
+  return dateToDisplayWithoutYear
 }
 
 export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
@@ -65,7 +76,9 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 <Paragraph>Nieuw</Paragraph>
               </View>
             )}
-            <Paragraph>{formatDate(article.publication_date)}</Paragraph>
+            <Paragraph>
+              {formatDateToDisplay(article.publication_date)}
+            </Paragraph>
           </Row>
           <Link label={article.title} level="h4" />
           <View style={styles.image}>
