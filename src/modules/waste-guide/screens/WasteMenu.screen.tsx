@@ -18,7 +18,7 @@ type Props = {
 }
 
 export const WasteMenuScreen = ({navigation}: Props) => {
-  const device = useContext(DeviceContext)
+  const {fontScale, isPortrait, width} = useContext(DeviceContext)
   const iconProps = {fill: color.font.primary}
 
   const menuItems: TileButtonProps[] = [
@@ -47,9 +47,9 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     },
   ]
 
-  const itemDimension = device.isPortrait
-    ? device.width
-    : 24 * size.spacing.md * Math.max(device.fontScale, 1)
+  const itemDimension = isPortrait
+    ? width
+    : 24 * size.spacing.md * Math.max(fontScale, 1)
 
   return (
     <FlatGrid
