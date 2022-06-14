@@ -1,20 +1,28 @@
 import React from 'react'
-import {TouchableHighlight, View} from 'react-native'
-import {Card, CardBody, Text} from '../../../../components/ui'
-import {Row} from '../../../../components/ui/layout'
+import {Pressable, StyleSheet, View} from 'react-native'
+import {Column, Row} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
 import {ArticleSummary} from '../../../../types'
-import {mapImageSources, mapWarningImageSources} from '../../../../utils'
+import {
+  formatDate,
+  mapImageSources,
+  mapWarningImageSources,
+} from '../../../../utils'
 import {Hero} from '@/components/ui/Hero'
+import {Link, Paragraph} from '@/components/ui/typography'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   article: ArticleSummary
+  isFirst: boolean
+  isLast: boolean
   onPress: () => void
 }
 
-export const ArticlePreview = ({article, onPress}: Props) => {
+export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
+  const styles = useThemable(createStyles({isFirst, isLast}))
 
   const getImageSources = () => {
     if (article.type === 'news') {
@@ -33,21 +41,68 @@ export const ArticlePreview = ({article, onPress}: Props) => {
   const imageSources = getImageSources()
 
   return (
-    <TouchableHighlight accessibilityRole="button" onPress={onPress}>
-      <Card>
-        <CardBody>
+    <View style={styles.item}>
+      <View style={styles.line} />
+      <Pressable
+        accessibilityRole="button"
+        onPress={onPress}
+        style={styles.button}>
+        <Column gutter="sm">
           <Row gutter="md" valign="center">
+            <View style={styles.horizontalLine} />
+            <View style={styles.update}>
+              <Paragraph>Nieuw</Paragraph>
+            </View>
+            <Paragraph>{formatDate(article.publication_date)}</Paragraph>
+          </Row>
+          <Link label={article.title} level="h4" />
+          <View style={styles.image}>
             {imageSources && Object.keys(imageSources[0]).length ? (
-              <Image aspectRatio="vintage" source={imageSources} />
+              <Image aspectRatio="wide" source={imageSources} />
             ) : (
               <Hero />
             )}
-            <View>
-              <Text>{article.title}</Text>
-            </View>
-          </Row>
-        </CardBody>
-      </Card>
-    </TouchableHighlight>
+          </View>
+        </Column>
+      </Pressable>
+    </View>
   )
 }
+
+const lineThickness = 2
+
+const createStyles =
+  ({isFirst, isLast}: Partial<Props>) =>
+  ({color, size}: Theme) =>
+    StyleSheet.create({
+      button: {
+        paddingLeft: size.spacing.md,
+      },
+      horizontalLine: {
+        position: 'absolute',
+        left: -size.spacing.md,
+        height: lineThickness,
+        width: size.spacing.md,
+        backgroundColor: color.text.default,
+      },
+      image: {
+        paddingRight: size.spacing.xxl,
+      },
+      item: {
+        paddingBottom: isLast ? 0 : size.spacing.xl,
+      },
+      line: {
+        position: 'absolute',
+        top: isFirst ? size.spacing.md + lineThickness : 0,
+        left: 0,
+        zIndex: -1,
+        width: lineThickness,
+        height: isLast ? '100%' : '120%',
+        backgroundColor: color.text.default,
+      },
+      update: {
+        backgroundColor: color.box.background.alert,
+        paddingHorizontal: size.spacing.sm,
+        paddingVertical: size.spacing.xs,
+      },
+    })
