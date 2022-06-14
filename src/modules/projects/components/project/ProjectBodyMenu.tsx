@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {NavigationButton} from '../../../../components/ui/button/index'
-import {Column} from '../../../../components/ui/layout'
 import {ProjectDetail, ProjectDetailBody} from '../../../../types'
 import {isEmptyObject} from '../../../../utils'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
@@ -55,7 +54,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
     (o.timeline && !isEmptyObject(o.timeline))
 
   return (
-    <Column gutter="md">
+    <>
       {menuOptions.map(option => {
         if (!hasContentToShow(option)) {
           return null
@@ -78,6 +77,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           />
         )
       })}
-    </Column>
+    </>
   )
 }
