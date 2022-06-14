@@ -1,11 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '../../../store'
-import {NotificationSettings} from './'
+import {NotificationSettings, ReadArticle} from './'
 
 const initialState: NotificationSettings = {
   projectsEnabled: true,
   projects: {},
-  readIds: [],
+  readArticles: [],
 }
 
 export const notificationsSlice = createSlice({
@@ -45,24 +45,26 @@ export const notificationsSlice = createSlice({
     toggleProjectsEnabled: state => {
       state.projectsEnabled = !state.projectsEnabled
     },
-    addReadId: (state, {payload: articleId}: PayloadAction<string>) => {
-      state.readIds.push(articleId)
+    addReadArticle: (state, {payload: article}: PayloadAction<ReadArticle>) => {
+      state.readArticles.push(article)
     },
-    deleteReadId: (state, {payload: articleId}: PayloadAction<string>) => {
-      state.readIds = state.readIds.filter(id => id !== articleId)
+    deleteReadArticle: (state, {payload: articleId}: PayloadAction<string>) => {
+      state.readArticles = state.readArticles.filter(
+        article => article.id !== articleId,
+      )
     },
   },
 })
 
 export const {
   addProjects,
+  addReadArticle,
   deactivateAllProjects,
   deleteProjects,
-  deleteReadId,
+  deleteReadArticle,
   resetNotifications,
   toggleProject,
   toggleProjectsEnabled,
-  addReadId,
 } = notificationsSlice.actions
 
 export const selectNotificationSettings = (state: RootState) =>
