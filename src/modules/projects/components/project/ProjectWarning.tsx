@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {View} from 'react-native'
-import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
+import {useMarkArticleAsRead} from '../../../../components/features/notifications'
 import {Box, PleaseWait} from '../../../../components/ui'
 import {Hero} from '../../../../components/ui/Hero'
 import {Column, ScrollView} from '../../../../components/ui/layout'
@@ -25,11 +25,10 @@ export const ProjectWarning = ({id}: Props) => {
   const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
     undefined,
   )
+  const {markAsRead} = useMarkArticleAsRead()
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
     useGetProjectWarningQuery({id})
-
-  useMarkArticleIdAsRead(projectWarning?.identifier)
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
@@ -44,6 +43,14 @@ export const ProjectWarning = ({id}: Props) => {
     )
     mainImageFromProjectWarning && setMainImage(mainImageFromProjectWarning)
   }, [projectWarning])
+
+  useEffect(() => {
+    projectWarning &&
+      markAsRead({
+        id: projectWarning.identifier,
+        publicationDate: projectWarning.publication_date,
+      })
+  }, [markAsRead, projectWarning])
 
   useLayoutEffect(() => {
     navigation.setOptions({
