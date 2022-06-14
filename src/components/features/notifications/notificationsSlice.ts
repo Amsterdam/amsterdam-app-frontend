@@ -48,6 +48,9 @@ export const notificationsSlice = createSlice({
     addReadId: (state, {payload: articleId}: PayloadAction<string>) => {
       state.readIds.push(articleId)
     },
+    deleteReadId: (state, {payload: articleId}: PayloadAction<string>) => {
+      state.readIds = state.readIds.filter(id => id !== articleId)
+    },
   },
 })
 
@@ -55,6 +58,7 @@ export const {
   addProjects,
   deactivateAllProjects,
   deleteProjects,
+  deleteReadId,
   resetNotifications,
   toggleProject,
   toggleProjectsEnabled,
