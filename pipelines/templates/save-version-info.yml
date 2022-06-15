@@ -15,7 +15,7 @@ steps:
     displayName: "Save version number for Storybook"
     condition: eq('${{ parameters.isStorybook }}', true)
   - script: |
-      echo "$(VERSION).$(BUILD_NUMBER)" > $(System.DefaultWorkingDirectory)/version.txt
+      echo "$(VERSION).$(BUILD_NUMBER)" > $(Build.ArtifactStagingDirectory)/version.txt
     displayName: "Save version number"
     condition: eq('${{ parameters.isStorybook }}', false)
   - script: |
