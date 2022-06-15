@@ -10,7 +10,8 @@ steps:
     displayName: 'Run unit tests'
   - script: npm run storybook:build
     displayName: Build storybook
-  - script: node ./nodescripts/version-number.js > $(System.DefaultWorkingDirectory)/storybook-static/version.txt
-    displayName: "Save version number"
+  - template: ./save-version-info.yml
+    parameters: 
+      isStorybook: true
   - publish: $(System.DefaultWorkingDirectory)/storybook-static
     artifact: storybook-build
