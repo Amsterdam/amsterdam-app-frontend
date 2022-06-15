@@ -45,7 +45,7 @@ const sanitizeUrl = (url: string) => (url ? url.split('?')[0] : '')
  */
 export const initSentry = () => {
   init({
-    dsn: 'https://7a6ad9f75fab4c509da16d13bbab4271@o1279066.ingest.sentry.io/6479388',
+    dsn: 'https://146b2ba8ac304158b1679db085d6f3ee@sentry.data.amsterdam.nl/74',
     environment: appFlavour,
     dist: BUILD_NUMBER,
     release: `${Platform.OS}@${version}.${BUILD_NUMBER ?? '0'}`,
