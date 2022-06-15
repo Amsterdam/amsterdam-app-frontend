@@ -8,8 +8,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {RootStackParamList} from '../../../app/navigation'
 import {Row} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
-import {selectTheme} from '../../../themes'
-import {font, size, color} from '../../../tokens'
+import {Theme, useThemable} from '../../../themes'
 import {toggleModule} from '../store'
 
 type Props = {
@@ -19,67 +18,77 @@ type Props = {
   slug?: string | undefined
 }
 
+type DeleteProps = {
+  onPress: () => void
+}
+
+export const DeleteButton = ({onPress}: DeleteProps) => {
+  const styles = useThemable(createStyles)
+  return (
+    <View>
+      <Pressable style={styles.rightAction} onPress={() => onPress()}>
+        <Text style={styles.actionText}>Verwijderen</Text>
+        <TrashBin style={styles.actionIcon} />
+      </Pressable>
+    </View>
+  )
+}
+
 export const ModuleButton = ({icon, label, name, slug}: Props) => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
-  const {theme} = useSelector(selectTheme)
-  const onChange = (key: string) => {
-    dispatch(toggleModule(key))
-  }
-
-  const DeleteButton = () => {
-    return (
-      <View style={styles.rightActionContainer}>
-        <View style={styles.rightAction}>
-          <Text style={styles.actionText}>Verwijderen</Text>
-          <TrashBin style={styles.actionIcon} />
-        </View>
-      </View>
-    )
+  const styles = useThemable(createStyles)
+  const onDelete = () => {
+    dispatch(toggleModule(slug))
   }
   return (
-    <Swipeable
-      renderRightActions={DeleteButton}
-      onSwipeableRightOpen={() => onChange(slug)}>
-      <TouchableHighlight
-        activeOpacity={1}
-        onPress={name ? () => navigation.navigate(name) : undefined}
-        style={styles.button}
-        underlayColor={theme.color.pressable.pressed.background}>
-        <Row gutter="md" valign="center">
-          {icon}
-          <Title level="h5" text={`${label}`} />
-        </Row>
-      </TouchableHighlight>
-    </Swipeable>
+    <View style={styles.container}>
+      <Swipeable
+        renderRightActions={() => <DeleteButton onPress={onDelete} />}
+        onSwipeableRightOpen={() => {
+          setSwipeOpen(true)
+          swipeOpen && onDelete()
+        }}>
+        <View style={styles.buttonContainer}>
+          <BlockLink
+            onPress={name ? () => navigation.navigate(name) : undefined}
+            padding="md">
+            <Row gutter="md" valign="center">
+              {icon}
+              <Title level="h5" text={label} />
+            </Row>
+          </BlockLink>
+        </View>
+      </Swipeable>
+    </View>
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    padding: size.spacing.md,
-    backgroundColor: 'white',
-  },
-  rightActionContainer: {
-    backgroundColor: color.touchable.secondary,
-  },
-  rightAction: {
-    color: color.background.white,
-    padding: size.spacing.md,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  actionText: {
-    color: 'white',
-    fontFamily: font.weight.bold,
-    marginRight: 16,
-  },
-  actionIcon: {
-    width: 25,
-    height: 25,
-    fill: color.background.white,
-  },
-})
+const createStyles = ({color, size, text}: Theme) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: color.box.background.invalid,
+    },
+    buttonContainer: {
+      backgroundColor: 'white',
+    },
+    rightAction: {
+      color: color.box.background.white,
+      padding: size.spacing.md,
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    actionText: {
+      color: 'white',
+      fontFamily: text.fontWeight.bold,
+      marginRight: 16,
+    },
+    actionIcon: {
+      width: 25,
+      height: 25,
+      fill: color.box.background.white,
+    },
+  })
