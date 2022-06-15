@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native'
 import {Instagram, Whatsapp} from '../../../assets/icons'
-import {Box, Title} from '../../../components/ui'
+import {Box, IconButton, Title} from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {Icon} from '../../../components/ui/media'
 import {color} from '../../../tokens'
@@ -100,34 +100,40 @@ export const ContactOptions = () => {
       />
       <Gutter height="md" />
       <Row gutter="lg">
-        <TouchableOpacity
+        <IconButton
           accessibilityLabel="Facebook"
           accessibilityRole="link"
+          icon={
+            <Icon size={32}>
+              <Facebook fill={color.touchable.primary} />
+            </Icon>
+          }
           onPress={() =>
             openWebUrl('https://www.facebook.com/gemeenteamsterdam')
-          }>
-          <Icon size={32}>
-            <Facebook fill={color.touchable.primary} />
-          </Icon>
-        </TouchableOpacity>
-        <TouchableOpacity
+          }
+        />
+        <IconButton
           accessibilityLabel="Twitter"
           accessibilityRole="link"
-          onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}>
-          <Icon size={32}>
-            <Twitter fill={color.touchable.primary} />
-          </Icon>
-        </TouchableOpacity>
-        <TouchableOpacity
+          icon={
+            <Icon size={32}>
+              <Twitter fill={color.touchable.primary} />
+            </Icon>
+          }
+          onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
+        />
+        <IconButton
           accessibilityLabel="Instagram"
           accessibilityRole="link"
+          icon={
+            <Icon size={32}>
+              <Instagram fill={color.touchable.primary} />
+            </Icon>
+          }
           onPress={() =>
             openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
-          }>
-          <Icon size={32}>
-            <Instagram fill={color.touchable.primary} />
-          </Icon>
-        </TouchableOpacity>
+          }
+        />
       </Row>
       <Gutter height="xl" />
     </Box>

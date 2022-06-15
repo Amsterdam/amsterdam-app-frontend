@@ -11,6 +11,7 @@ import {module as userModule} from '../../../modules/user'
 import {isDevApp} from '../../../services/development'
 import {color} from '../../../tokens'
 import {HomeRouteName} from '../routes'
+import {Icon} from '@/components/ui/media'
 
 const iconProps = {
   fill: color.touchable.primary,
@@ -24,19 +25,31 @@ export const HeaderNavigation = () => {
     <Row gutter="md">
       {!!isDevApp && (
         <IconButton
-          icon={<Api {...iconProps} />}
-          label="Omgeving selecteren"
+          accessibilityLabel="Omgeving selecteren"
+          icon={
+            <Icon size={24}>
+              <Api {...iconProps} />
+            </Icon>
+          }
           onPress={() => navigation.navigate(HomeRouteName.admin)}
         />
       )}
       <IconButton
-        icon={<PersonalLogin {...iconProps} />}
-        label="Mijn profiel"
+        accessibilityLabel="Mijn profiel"
+        icon={
+          <Icon size={24}>
+            <PersonalLogin {...iconProps} />
+          </Icon>
+        }
         onPress={() => navigation.navigate(userModule.name)}
       />
       <IconButton
-        icon={<Settings {...iconProps} />}
-        label="Instellingen"
+        accessibilityLabel="Instellingen"
+        icon={
+          <Icon size={24}>
+            <Settings {...iconProps} />
+          </Icon>
+        }
         onPress={() => navigation.navigate(HomeRouteName.settings)}
       />
     </Row>

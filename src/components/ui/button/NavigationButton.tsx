@@ -19,7 +19,7 @@ export const NavigationButton = ({label, onPress}: Props) => {
   return (
     <Pressable onPress={onPress}>
       <Box insetHorizontal="md" insetVertical="sm">
-        <Row align="between">
+        <Row align="between" gutter="md">
           <Link label={label} />
           <Icon size={24}>
             <ChevronRight fill={theme.color.pressable.navigation} />

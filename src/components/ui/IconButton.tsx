@@ -9,37 +9,15 @@ type Props = {
    */
   badgeValue?: BadgeProps['value']
   /**
-   * The icon to be used.
+   * The icon to be used. Should be an SVG image wrapped in the `Icon` component.
    */
   icon: ReactNode
-  /**
-   * A short label representing the concept conveyed by the icon. Gets applied as accessibility label.
-   */
-  label: string
-  /**
-   * The width (and height) of the icon. Only square icons are currently supported.
-   */
-  size?: 24 | 32
-} & Omit<
-  PressableProps,
-  'accessibilityLabel' | 'accessibilityRole' | 'hitSlop' | 'style'
->
+} & Omit<PressableProps, 'style'>
 
 const hitSlopSize = sizeTokens.spacing.sm
 
-export const IconButton = ({
-  badgeValue,
-  icon,
-  label,
-  size = 24,
-  ...props
-}: Props) => (
-  <Pressable
-    accessibilityLabel={label}
-    accessibilityRole="button"
-    hitSlop={hitSlopSize}
-    style={dynamicStyles(size).pressable}
-    {...props}>
+export const IconButton = ({badgeValue, icon, ...props}: Props) => (
+  <Pressable {...props}>
     {icon}
     {badgeValue ? (
       <View style={styles.badgePosition}>
@@ -48,14 +26,6 @@ export const IconButton = ({
     ) : null}
   </Pressable>
 )
-
-const dynamicStyles = (size: number) =>
-  StyleSheet.create({
-    pressable: {
-      width: size,
-      height: size,
-    },
-  })
 
 const styles = StyleSheet.create({
   badgePosition: {

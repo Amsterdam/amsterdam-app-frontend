@@ -2,27 +2,32 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
-import {Pressable, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../../app/navigation'
 import {Edit} from '../../../../assets/icons'
-import {Box, PleaseWait, SomethingWentWrong} from '../../../../components/ui'
+import {
+  Box,
+  IconButton,
+  PleaseWait,
+  SomethingWentWrong,
+} from '../../../../components/ui'
 import {Gutter, Row} from '../../../../components/ui/layout'
-import {Icon} from '../../../../components/ui/media'
 import {Paragraph} from '../../../../components/ui/typography'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
 import {selectTheme} from '../../../../themes'
 import {size} from '../../../../tokens'
 import {Project} from '../../../../types'
-import {allInsets, mapImageSources} from '../../../../utils'
+import {mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
 import {AddressRouteName} from '../../../address/routes'
 import {useGetProjectsByDistanceQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard, ProjectTraits} from '../project'
 import {selectIsProjectsSearching} from './'
+import {Icon} from '@/components/ui/media'
 
 export const ProjectsByDistance = () => {
   const {primary: address} = useSelector(selectAddress)
@@ -81,19 +86,21 @@ export const ProjectsByDistance = () => {
         <Paragraph accessibilityLabel={`Projecten dichtbij ${address.adres}`}>
           Dichtbij {address.adres}
         </Paragraph>
-        <Pressable
-          hitSlop={allInsets(10)}
+        <IconButton
+          hitSlop={10}
+          icon={
+            <Icon size={32}>
+              <Edit fill={theme.color.pressable.default.background} />
+            </Icon>
+          }
           onPress={
             // TODO Open as modal
             () =>
               navigation.navigate('AddressModule', {
                 screen: AddressRouteName.addressForm,
               })
-          }>
-          <Icon size={32}>
-            <Edit fill={theme.color.pressable.default.background} />
-          </Icon>
-        </Pressable>
+          }
+        />
       </Row>
       <Gutter height="md" />
     </Box>
