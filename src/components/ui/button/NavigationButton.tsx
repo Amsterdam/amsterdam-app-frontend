@@ -6,7 +6,7 @@ import {Box} from '../Box'
 import {Row} from '../layout'
 import {Icon} from '../media'
 import {Link} from '../typography'
-import {BlockLink} from './BlockLink'
+import {Pressable} from './Pressable'
 
 type Props = {
   label: string
@@ -17,7 +17,7 @@ export const NavigationButton = ({label, onPress}: Props) => {
   const {theme} = useSelector(selectTheme)
 
   return (
-    <BlockLink onPress={onPress}>
+    <Pressable onPress={onPress}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row align="between">
           <Link label={label} />
@@ -26,6 +26,6 @@ export const NavigationButton = ({label, onPress}: Props) => {
           </Icon>
         </Row>
       </Box>
-    </BlockLink>
+    </Pressable>
   )
 }
