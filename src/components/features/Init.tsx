@@ -1,4 +1,4 @@
-import {ReactNode, useEffect} from 'react'
+import React, {ReactNode, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useInitSentry} from '../../hooks'
 import {selectProjectManager} from '../../modules/projects/components/project-manager'
@@ -26,5 +26,5 @@ export const Init = ({children}: Props) => {
 
   useInitSentry()
 
-  return children
+  return <>{children}</>
 }
