@@ -1,12 +1,12 @@
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {selectTheme} from '../../../themes'
-import {Box} from '../Box'
-import {Row} from '../layout'
-import {Icon} from '../media'
-import {Link} from '../typography'
-import {Pressable} from './Pressable'
+import {Box} from '@/components/ui'
+import {Pressable} from '@/components/ui/button/Pressable'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Link} from '@/components/ui/typography'
+import {selectTheme} from '@/themes'
 
 type Props = {
   label: string

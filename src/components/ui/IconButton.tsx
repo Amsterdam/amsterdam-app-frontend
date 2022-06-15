@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
-import {size as sizeTokens} from '../../tokens'
-import {Badge, BadgeProps} from './Badge'
+import {Badge, BadgeProps} from '@/components/ui/Badge'
+import {size as sizeTokens} from '@/tokens'
 
 type Props = {
   /**

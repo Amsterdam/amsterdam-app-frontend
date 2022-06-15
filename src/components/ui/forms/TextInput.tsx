@@ -7,11 +7,11 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {color, font, size} from '../../../tokens'
-import {Label} from '../index'
-import {Column} from '../layout'
+import {Label} from '@/components/ui'
+import {Column} from '@/components/ui//layout'
 import {Pressable} from '@/components/ui/button/index'
 import {Icon} from '@/components/ui/media'
+import {color, font, size} from '@/tokens'
 
 type Props = {
   label: string

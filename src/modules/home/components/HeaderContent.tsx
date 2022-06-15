@@ -1,14 +1,14 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
-import {CustomScreenOptions} from '_app/navigation'
-import {Row} from '_components/ui/layout'
-import {Title} from '_components/ui/typography'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
+import {CustomScreenOptions} from '@/app/navigation'
 import {IconButton} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
+import {Title} from '@/components/ui/typography'
 import {selectTheme} from '@/themes'
 
 type Props = Pick<

@@ -1,13 +1,13 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useContext} from 'react'
 import {Platform, StyleSheet, UIManager, View} from 'react-native'
-import {AlertContext} from '../../providers'
-import {color, size} from '../../tokens'
-import {accessibleText} from '../../utils'
 import {Row} from './layout'
 import {SingleSelectable, Text, Title} from '.'
 import {IconButton} from '@/components/ui'
 import {Icon} from '@/components/ui/media'
+import {AlertContext} from '@/providers'
+import {color, size} from '@/tokens'
+import {accessibleText} from '@/utils'
 
 if (
   Platform.OS === 'android' &&

@@ -6,15 +6,18 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {Instagram, Whatsapp} from '../../../assets/icons'
-import {Box, IconButton, Title} from '../../../components/ui'
-import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {Icon} from '../../../components/ui/media'
-import {color} from '../../../tokens'
-import {accessibleText, openPhoneUrl} from '../../../utils'
-import {openWebUrl} from '../../../utils/openWebUrl'
-import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
-import {ContactOption} from './ContactOption'
+import {Instagram, Whatsapp} from '@/assets/icons'
+import {Box, IconButton, Title} from '@/components/ui'
+import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {ContactOption} from '@/modules/city-offices/components'
+import {
+  CityOfficesRouteName,
+  CityOfficesStackParams,
+} from '@/modules/city-offices/routes'
+import {color} from '@/tokens'
+import {accessibleText, openPhoneUrl} from '@/utils'
+import {openWebUrl} from '@/utils/openWebUrl'
 
 type ContactOptionType = {
   buttonProps: TouchableOpacityProps & {key: Key}
