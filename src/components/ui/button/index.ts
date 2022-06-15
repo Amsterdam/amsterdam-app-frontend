@@ -1,2 +1,2 @@
-export * from './BlockLink'
+export * from './Pressable'
 export * from './NavigationButton'
