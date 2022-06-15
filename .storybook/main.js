@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const alias = require('../alias.js')
 const {presets} = require('../babel.config.js')
 
 module.exports = {
@@ -29,6 +30,7 @@ module.exports = {
         'react-native-image-crop-picker': require.resolve(
           './mocks/react-native-image-crop-picker',
         ),
+        ...alias,
       },
     }
     config.module.rules = [

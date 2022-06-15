@@ -1,34 +1,26 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 
 type Props = {
   children: ReactNode
-  withoutNavigationHeader?: boolean
-  style?: StyleProp<ViewStyle>
+  handleTopNotch?: boolean
 }
 
-export const Screen = ({
-  children,
-  withoutNavigationHeader = false,
-  style,
-}: Props) => {
+export const Screen = ({children, handleTopNotch = false}: Props) => {
   const insets = useSafeAreaInsets()
-  const styles = createStyles(insets, withoutNavigationHeader)
+  const styles = createStyles(insets, handleTopNotch)
 
-  return <View style={[styles.screen, style]}>{children}</View>
+  return <View style={styles.screen}>{children}</View>
 }
 
-const createStyles = (
-  insets: Partial<EdgeInsets>,
-  withoutNavigationHeader: boolean,
-) =>
+const createStyles = (insets: Partial<EdgeInsets>, handleTopNotch: boolean) =>
   StyleSheet.create({
     screen: {
       flex: 1,
       paddingBottom: insets.bottom,
       paddingLeft: insets.left,
       paddingRight: insets.right,
-      paddingTop: withoutNavigationHeader ? insets.top : 0,
+      paddingTop: handleTopNotch ? insets.top : 0,
     },
   })
