@@ -1,43 +1,58 @@
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {ReactNode, useState} from 'react'
-import {View, Pressable} from 'react-native'
-import {Swipeable} from 'react-native-gesture-handler'
-import {Box} from '@/components/ui'
-import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
-import {useTheme} from '@/themes'
+import {StyleSheet, View, Pressable, Text} from 'react-native'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import {Theme, useThemable} from '../../themes'
 
 type Props = {
+  onPress: () => void
+  onSwipe: () => void
+  label: String
   children: ReactNode
-  onEvent: () => void
 }
 
-export const SwipeToDelete = ({children, onEvent}: Props) => {
+export const SwipeToDelete = ({onPress, onSwipe, label, children}: Props) => {
   const [swipeOpen, setSwipeOpen] = useState(false)
-  const {color} = useTheme()
+  const styles = useThemable(createStyles)
 
   return (
     <Swipeable
       renderRightActions={() => (
         <View>
-          <Pressable onPress={onEvent}>
-            <Box background="invalid" inset="md">
-              <Row align="end" valign="center" gutter="md">
-                <Paragraph variant="small">Verwijderen</Paragraph>
-                <Icon size={24}>
-                  <TrashBin fill={color.text.default} />
-                </Icon>
-              </Row>
-            </Box>
+          <Pressable style={styles.rightAction} onPress={() => onPress()}>
+            <Text style={styles.actionText}>{label}</Text>
+            <TrashBin style={styles.actionIcon} />
           </Pressable>
         </View>
       )}
       onSwipeableRightOpen={() => {
         setSwipeOpen(true)
-        swipeOpen && onEvent()
+        swipeOpen && onSwipe()
       }}>
       {children}
     </Swipeable>
   )
 }
+
+const createStyles = ({color, size, text}: Theme) =>
+  StyleSheet.create({
+    rightAction: {
+      color: color.box.background.white,
+      backgroundColor: color.box.background.invalid,
+      padding: size.spacing.md,
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    actionText: {
+      color: 'white',
+      fontFamily: text.fontWeight.bold,
+      marginRight: 16,
+    },
+    actionIcon: {
+      width: 25,
+      height: 25,
+      fill: color.box.background.white,
+    },
+  })
