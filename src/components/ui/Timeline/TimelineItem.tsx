@@ -4,11 +4,15 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
-import {color} from '../../../tokens'
-import {TimelineItem as TimelineItemType} from '../../../types'
-import {Title} from '../Title'
-import {Article} from '../typography'
-import {maxHeight, timelineStyles} from './timelineStyles'
+import {
+  maxHeight,
+  timelineStyles,
+} from '@/components/ui/Timeline/timelineStyles'
+import {Title} from '@/components/ui/Title'
+import {Icon} from '@/components/ui/media'
+import {Article} from '@/components/ui/typography'
+import {color} from '@/tokens'
+import {TimelineItem as TimelineItemType} from '@/types'
 
 type Props = {
   isFirst?: boolean
@@ -55,7 +59,9 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         style={styles.header}>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (
-            <Checkmark fill={color.border.default} height={11} width={14} />
+            <Icon size={16}>
+              <Checkmark fill={color.border.default} />
+            </Icon>
           )}
         </View>
         <View style={styles.title}>

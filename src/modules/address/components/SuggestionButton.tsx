@@ -1,9 +1,10 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {Text} from '../../../components/ui'
-import {Row} from '../../../components/ui/layout'
-import {color, size} from '../../../tokens'
+import {Text} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {color, size} from '@/tokens'
 
 type Props = {
   label: string
@@ -15,7 +16,9 @@ export const SuggestionButton = ({label, onPress}: Props) => (
     onPress={onPress}
     style={styles.button}>
     <Row gutter="xs">
-      <Location width={24} height={24} fill={color.font.tertiary} />
+      <Icon size={24}>
+        <Location fill={color.font.tertiary} />
+      </Icon>
       <Text large>{label}</Text>
     </Row>
   </TouchableOpacity>
