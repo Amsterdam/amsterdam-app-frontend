@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
-import {ReactNode} from 'react'
+import React, {ReactNode, useState} from 'react'
 import {
   Pressable as PressableRN,
-  PressableProps,
+  PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
 import {Theme, useThemable} from '../../../themes'
@@ -11,7 +10,7 @@ import {SpacingTokens} from '@/themes/tokens'
 type Props = {
   children: ReactNode
   padding?: keyof SpacingTokens
-} & Omit<PressableProps, 'onPressIn' | 'onPressOut'>
+} & Omit<PressableRNProps, 'onPressIn' | 'onPressOut'>
 
 export const Pressable = ({children, padding, ...otherProps}: Props) => {
   const styles = useThemable(createStyles({padding}))
