@@ -10,7 +10,7 @@ import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ArticlePreview} from '.'
 import {Paragraph, Title} from '@/components/ui/typography'
 import {Theme, useThemable} from '@/themes'
-import {formatDate, isEmptyObject} from '@/utils'
+import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
 
 type Props = {
   limit?: number
@@ -21,8 +21,6 @@ type Props = {
 }
 
 type YearlyArticleSections = Record<string, ArticleSummary[]>
-
-const getYearOfPublicationDate = (date: string) => formatDate(date).slice(-4)
 
 export const ArticleOverview = ({
   limit,
