@@ -1,10 +1,13 @@
-import {useEffect} from 'react'
+import React, {ReactNode, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {useInitSentry} from '../../hooks'
 import {selectProjectManager} from '../../modules/projects/components/project-manager'
 import {setCredentials} from '../../store/authSlice'
 import {encryptWithAES} from '../../utils'
 
-export const Init = () => {
+type Props = {children: ReactNode}
+
+export const Init = ({children}: Props) => {
   const dispatch = useDispatch()
   const {id: projectManagerId} = useSelector(selectProjectManager)
 
@@ -21,5 +24,7 @@ export const Init = () => {
     }
   }, [dispatch, projectManagerId])
 
-  return null
+  useInitSentry()
+
+  return <>{children}</>
 }

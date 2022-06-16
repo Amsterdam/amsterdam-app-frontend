@@ -5,12 +5,10 @@ parameters:
 
 steps:
   - template: ./install-node.yml
-  - script: echo "##vso[task.setvariable variable=VERSION;]$(node ./nodescripts/version-number.js)"
-    displayName: "Get version number"
-  - script: echo "$(VERSION)" > $(Build.ArtifactStagingDirectory)/version.txt
-    displayName: "Save version number"
-  - script: echo "##vso[build.updatebuildnumber]$(VERSION)"
-    displayName: "Update Azure Buildnumber"
+  - template: ./save-version-info.yml
+  - template: ./copy-files.yml
+    parameters: 
+      platform: ${{ parameters.platform }}
   - template: ./copy-android-files.yml
     parameters: 
       condition: eq('${{ parameters.platform }}', 'android')
@@ -36,6 +34,11 @@ steps:
       bundle exec fastlane buildApps
     displayName: "Build ${{ parameters.platform }}"
     workingDirectory: ${{ parameters.platform }}
+    env:
+      VERSION: $(VERSION)
+      BUILD_NUMBER: $(BUILD_NUMBER)
+      SENTRY_RELEASE: "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      SENTRY_DIST: $(BUILD_NUMBER)
   - template: ./copy-generic-artifacts.yml
     parameters:
       platform: ${{ parameters.platform }}

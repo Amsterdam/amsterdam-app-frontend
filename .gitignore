@@ -20,6 +20,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+IDEWorkspaceChecks.plist
 
 # Android/IntelliJ
 #
@@ -83,3 +84,6 @@ logs/
 
 # Pact
 pacts/
+
+# Sentry
+sentry.properties

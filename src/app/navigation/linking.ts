@@ -5,6 +5,7 @@ import messaging, {
 import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {moduleLinkings} from '../../modules/utils'
+import {devLog} from '../../services'
 import {PushNotificationData} from '../../types'
 import {RootStackParamList} from './RootStackNavigator'
 
@@ -65,7 +66,7 @@ export const linking: LinkingOptions<RootStackParamList> = {
         createRoutWithPrefixFromDataObject(initialNotification.data)
       return routeWithPrefix ?? null
     } catch (error) {
-      console.log(error)
+      devLog(error)
     }
   },
 

@@ -1,26 +1,47 @@
-import {NavigationContainer} from '@react-navigation/native'
-import React from 'react'
+import {
+  NavigationContainer,
+  NavigationContainerRef,
+} from '@react-navigation/native'
+import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
+import React, {useRef} from 'react'
 import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {linking, RootStackNavigator} from './src/app/navigation'
-import {Init} from './src/components/features/Init'
-import {RootProvider} from './src/providers'
-import {store} from './src/store'
+import {linking, RootStackParamList, RootStackNavigator} from '@/app/navigation'
+import {Init, CustomErrorBoundary} from '@/components/features'
+import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
+import {RootProvider} from '@/providers'
+import {registerNavigationContainer} from '@/services'
+import {store} from '@/store'
 
-let persistor = persistStore(store)
+const persistor = persistStore(store)
 
-export const App = () => (
-  <SafeAreaProvider>
-    <StatusBar barStyle="dark-content" />
-    <NavigationContainer linking={linking}>
-      <RootProvider>
-        <PersistGate loading={null} persistor={persistor}>
-          <Init />
-          <RootStackNavigator />
-        </PersistGate>
-      </RootProvider>
-    </NavigationContainer>
-  </SafeAreaProvider>
-)
+const AppComponent = () => {
+  const navigation = useRef<NavigationContainerRef<RootStackParamList>>(null)
+  return (
+    <SafeAreaProvider>
+      <CustomErrorBoundary>
+        <StatusBar barStyle="dark-content" />
+        <NavigationContainer
+          linking={linking}
+          ref={navigation}
+          onReady={() => {
+            registerNavigationContainer(navigation)
+          }}>
+          <RootProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <Init>
+                <ErrorBoundary fallback={<ErrorWithRestart />}>
+                  <RootStackNavigator />
+                </ErrorBoundary>
+              </Init>
+            </PersistGate>
+          </RootProvider>
+        </NavigationContainer>
+      </CustomErrorBoundary>
+    </SafeAreaProvider>
+  )
+}
+
+export const App = SentryWrap(AppComponent)

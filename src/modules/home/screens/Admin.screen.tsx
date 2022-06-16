@@ -1,6 +1,6 @@
 import React from 'react'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {EnvironmentSelector} from '@/components/features/EnvironmentSelector'
+import {EnvironmentSelector} from '@/components/features'
 import {Screen} from '@/components/ui/layout'
 import {isDevApp} from '@/services'
 
