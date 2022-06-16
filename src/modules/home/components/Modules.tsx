@@ -6,6 +6,7 @@ import {color} from '../../../tokens'
 import {icons} from '../config'
 import {useModules} from '../hooks'
 import {ModuleButton} from './ModuleButton'
+import {Column} from '@/components/ui/layout'
 
 export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()
@@ -28,22 +29,24 @@ export const Modules = () => {
 
   return (
     <Box grow>
-      {modules.map(({icon, name, slug, title}) => {
-        const ModuleIcon = icons[icon]
+      <Column gutter="md">
+        {modules.map(({icon, name, slug, title}) => {
+          const ModuleIcon = icons[icon]
 
-        return (
-          <ModuleButton
-            icon={
-              <Icon size={24}>
-                <ModuleIcon fill={color.font.regular} />
-              </Icon>
-            }
-            key={slug}
-            label={title}
-            name={name}
-          />
-        )
-      })}
+          return (
+            <ModuleButton
+              icon={
+                <Icon size={24}>
+                  <ModuleIcon fill={color.font.regular} />
+                </Icon>
+              }
+              key={slug}
+              label={title}
+              name={name}
+            />
+          )
+        })}
+      </Column>
     </Box>
   )
 }
