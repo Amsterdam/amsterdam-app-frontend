@@ -17,7 +17,7 @@ import {Icon} from '@/components/ui/media'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from '@/modules/projects/screens/create-notification/routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
 import {color, font} from '@/tokens'
 import {accessibleText} from '@/utils'
 

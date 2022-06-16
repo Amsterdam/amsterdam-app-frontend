@@ -13,10 +13,16 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/typography'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
-import {ProjectCard, ProjectTraits} from '@/modules/projects/components/project'
-import {selectIsProjectsSearching} from '@/modules/projects/components/projects'
-import {useGetProjectsByDistanceQuery} from '@/modules/projects/projects.service'
-import {ProjectsRouteName, ProjectsStackParams} from '@/modules/projects/routes'
+import {
+  ProjectCard,
+  ProjectTraits,
+} from '@/modules/construction-work/components/project'
+import {selectIsProjectsSearching} from '@/modules/construction-work/components/projects'
+import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
+import {
+  ProjectsRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {selectTheme} from '@/themes'

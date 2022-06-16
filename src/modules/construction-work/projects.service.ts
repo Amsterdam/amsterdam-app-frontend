@@ -74,11 +74,11 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params => {
         if (params) {
           return generateRequestUrl({
-            path: '/projects',
+            path: '/construction-work',
             params: formatQueryParams(params),
           })
         }
-        return '/projects'
+        return '/construction-work'
       },
       transformResponse: (response: {result: Project[]}) => response.result,
     }),
@@ -86,7 +86,7 @@ export const projectsApi = baseApi.injectEndpoints({
     getProjectsByDistance: builder.query<Project[], ProjectsByDistanceQueryArg>(
       {
         query: params =>
-          generateRequestUrl({path: '/projects/distance', params}),
+          generateRequestUrl({path: '/construction-work/distance', params}),
         transformResponse: (response: {result: Project[]}) => response.result,
       },
     ),
@@ -94,7 +94,7 @@ export const projectsApi = baseApi.injectEndpoints({
     getProjectsByText: builder.query<Project[], ProjectsByTextQueryArg>({
       query: params => {
         return generateRequestUrl({
-          path: '/projects/search',
+          path: '/construction-work/search',
           params: formatQueryParams(params),
         })
       },

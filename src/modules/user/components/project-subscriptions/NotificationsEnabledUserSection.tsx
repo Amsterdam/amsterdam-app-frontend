@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {UserSection} from '..'
 import {
-  selectNotificationSettings,
   deactivateAllProjects,
+  selectNotificationSettings,
   toggleProjectsEnabled,
 } from '../../../../components/features/notifications'
 import {Text} from '../../../../components/ui'
