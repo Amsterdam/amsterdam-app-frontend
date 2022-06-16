@@ -84,16 +84,16 @@ export const ArticleOverview = ({
     <View style={styles.list}>
       <Column gutter="sm">
         <Title level="h2" text={title} />
-        {Object.keys(yearlyArticleSections)
+        {Object.entries(yearlyArticleSections)
           .reverse()
-          .map((year, index) => (
-            <View key={Object.keys(yearlyArticleSections)[index]}>
+          .map(([year, articlesPerYear], index) => (
+            <View key={year + index}>
               {index > 0 && (
                 <View style={styles.year}>
                   <Paragraph>{year}</Paragraph>
                 </View>
               )}
-              {Object.values(yearlyArticleSections[year]).map(article => (
+              {Object.values(articlesPerYear).map(article => (
                 <ArticlePreview
                   article={article}
                   isFirst={
