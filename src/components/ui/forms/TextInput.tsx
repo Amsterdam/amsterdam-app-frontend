@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import {Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
-import {Pressable} from '@/components/ui/button/index'
+import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {color, font, size} from '@/tokens'
 
