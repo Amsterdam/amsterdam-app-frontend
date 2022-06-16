@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {ContactScreen} from '../contact/Screen'
 import {CityOfficesScreen, MakeAppointmentScreen} from './screens'
 
@@ -24,21 +22,21 @@ export const cityOfficesRoutes: StackNavigationRoutes<
     component: CityOfficesScreen,
     name: CityOfficesRouteName.cityOffices,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Stadsloket" />,
+      headerTitle: 'Stadsloket',
     },
   },
   [CityOfficesRouteName.contact]: {
     component: ContactScreen,
     name: CityOfficesRouteName.contact,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Neem contact op" />,
+      headerTitle: 'Neem contact op',
     },
   },
   [CityOfficesRouteName.makeAppointment]: {
     component: MakeAppointmentScreen,
     name: CityOfficesRouteName.makeAppointment,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Maak een afspraak" />,
+      headerTitle: 'Maak een afspraak',
     },
   },
 }

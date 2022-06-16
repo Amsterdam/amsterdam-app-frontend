@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {
   BulkyWasteAppointmentScreen,
   RecyclingGuideScreen,
@@ -45,71 +43,63 @@ export const wasteGuideRoutes: StackNavigationRoutes<
     component: BulkyWasteAppointmentScreen,
     name: WasteGuideRouteName.bulkyWasteAppointment,
     options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Afspraak grof afval ophalen" />
-      ),
+      headerTitle: 'Afspraak grof afval ophalen',
     },
   },
   [WasteGuideRouteName.recyclingGuide]: {
     component: RecyclingGuideScreen,
     name: WasteGuideRouteName.recyclingGuide,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Afvalscheidingswijzer" />,
+      headerTitle: 'Afvalscheidingswijzer',
     },
   },
   [WasteGuideRouteName.reportNotCollected]: {
     component: ReportNotCollectedScreen,
     name: WasteGuideRouteName.reportNotCollected,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Melden" />,
+      headerTitle: 'Melden',
     },
   },
   [WasteGuideRouteName.wasteGuide]: {
     component: WasteGuideScreen,
     name: WasteGuideRouteName.wasteGuide,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Afvalwijzer" />,
+      headerTitle: 'Afvalwijzer',
     },
   },
   [WasteGuideRouteName.wasteGuideFeedback]: {
     component: WasteGuideFeedbackScreen,
     name: WasteGuideRouteName.wasteGuideFeedback,
     options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Melden afvalinformatie" />
-      ),
+      headerTitle: 'Melden afvalinformatie',
     },
   },
   [WasteGuideRouteName.wasteGuideCollectionPoints]: {
     component: WasteGuideCollectionPointsScreen,
     name: WasteGuideRouteName.wasteGuideCollectionPoints,
     options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Afvalpunten in de buurt" />
-      ),
+      headerTitle: 'Afvalpunten in de buurt',
     },
   },
   [WasteGuideRouteName.wasteGuideContainers]: {
     component: WasteGuideContainersScreen,
     name: WasteGuideRouteName.wasteGuideContainers,
     options: {
-      headerTitle: () => (
-        <NonScalingHeaderTitle text="Containers in de buurt" />
-      ),
+      headerTitle: 'Containers in de buurt',
     },
   },
   [WasteGuideRouteName.wasteMenu]: {
     component: WasteMenuScreen,
     name: WasteGuideRouteName.wasteMenu,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Menu" />,
+      headerTitle: 'Menu',
     },
   },
   [WasteGuideRouteName.whereToPutBulkyWaste]: {
     component: WhereToPutBulkyWasteScreen,
     name: WasteGuideRouteName.whereToPutBulkyWaste,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Grof afval" />,
+      headerTitle: 'Grof afval',
     },
   },
 }

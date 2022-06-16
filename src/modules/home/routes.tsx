@@ -1,6 +1,5 @@
 import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {HeaderLogo, HeaderNavigation} from './components'
 import {AdminScreen, HomeScreen, SettingsScreen} from './screens'
 
@@ -22,7 +21,7 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams, HomeRouteName> =
       component: AdminScreen,
       name: HomeRouteName.admin,
       options: {
-        headerTitle: () => <NonScalingHeaderTitle text="Omgeving selecteren" />,
+        headerTitle: 'Omgeving selecteren',
       },
     },
     [HomeRouteName.home]: {
@@ -38,7 +37,7 @@ export const homeRoutes: StackNavigationRoutes<HomeStackParams, HomeRouteName> =
       component: SettingsScreen,
       name: HomeRouteName.settings,
       options: {
-        headerTitle: () => <NonScalingHeaderTitle text="Instellingen" />,
+        headerTitle: 'Instellingen',
       },
     },
   }

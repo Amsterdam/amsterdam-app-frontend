@@ -10,7 +10,6 @@ import {
 import {
   Box,
   Button,
-  NonScalingHeaderTitle,
   PleaseWait,
   SingleSelectable,
   Text,
@@ -53,7 +52,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
+      headerTitle: project?.title,
     })
   }, [project?.title, navigation])
 

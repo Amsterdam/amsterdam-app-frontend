@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {View} from 'react-native'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
-import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
+import {Box, PleaseWait} from '../../../../components/ui'
 import {Hero} from '../../../../components/ui/Hero'
 import {Column, ScrollView} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
@@ -47,7 +47,7 @@ export const ProjectWarning = ({id}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
+      headerTitle: project?.title ?? '',
     })
   })
 

@@ -18,12 +18,12 @@ type Props = Pick<
 
 const chevronSize = 20
 
-export const HeaderContent = ({back, navigation, options, route}: Props) => {
+export const HeaderContent = ({back, navigation, options}: Props) => {
   const {theme} = useSelector(selectTheme)
-  const title = getHeaderTitle(options, route.name)
+  const title = getHeaderTitle(options, '')
 
   return (
-    <Row gutter="sm" valign="center">
+    <Row gutter="lg" valign="center">
       <View style={styles.sideColumn}>
         {back && (
           <Pressable hitSlop={allInsets(16)} onPress={navigation.goBack}>
@@ -37,10 +37,11 @@ export const HeaderContent = ({back, navigation, options, route}: Props) => {
       </View>
       <View style={styles.middleColumn}>
         <Title
-          level="h6"
-          text={title}
+          allowFontScaling={false}
           ellipsizeMode="middle"
+          level="h6"
           numberOfLines={1}
+          text={title}
         />
       </View>
       <View style={styles.sideColumn} />

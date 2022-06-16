@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {ScrollView} from 'react-native-gesture-handler'
 import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
-import {Box, NonScalingHeaderTitle, PleaseWait} from '../../../../components/ui'
+import {Box, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {Article, Paragraph, Title} from '../../../../components/ui/typography'
@@ -35,7 +35,7 @@ export const ProjectNews = ({id}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text={project?.title ?? ''} />,
+      headerTitle: project?.title ?? '',
     })
   })
 

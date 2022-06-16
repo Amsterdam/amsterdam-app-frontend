@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {ContactScreen} from './Screen'
 
 export enum ContactRouteName {
@@ -19,7 +17,7 @@ export const contactRoutes: StackNavigationRoutes<
     component: ContactScreen,
     name: ContactRouteName.contact,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Vragen" />,
+      headerTitle: 'Vragen',
     },
   },
 }
