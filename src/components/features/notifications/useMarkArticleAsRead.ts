@@ -13,22 +13,26 @@ export const useMarkArticleAsRead = () => {
   const dispatch = useDispatch()
 
   const deleteOldArticles = useCallback(() => {
+    console.log('render')
     readArticles.forEach(readArticle => {
       getDateDiffInDays(readArticle.publicationDate) > 3 &&
         dispatch(deleteReadArticle(readArticle.id))
     })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch, readArticles])
 
-  const markAsRead = useCallback((article: ReadArticle) => {
-    const articleAlreadyInList = readArticles.find(
-      readArticle => readArticle.id === article.id,
-    )
-    const oldArticle = getDateDiffInDays(article.publicationDate) > 3
-    if (!articleAlreadyInList && !oldArticle) {
+  const markAsRead = useCallback(
+    (article: ReadArticle) => {
+      deleteOldArticles()
+      if (getDateDiffInDays(article.publicationDate) > 3) {
+        return
+      }
+      if (readArticles.find(readArticle => readArticle.id === article.id)) {
+        return
+      }
       dispatch(addReadArticle(article))
-    }
-    deleteOldArticles()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    },
+    [deleteOldArticles, dispatch, readArticles],
+  )
 
   return {markAsRead}
 }
