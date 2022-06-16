@@ -6,7 +6,7 @@
 
 The `useSentry` hook returns the functions `captureSentryBreadcrumb` and `sendSentryErrorLog`.
 
-- `captureSentryBreadcrumb`: add an item to the breadcrumb trail. This contains a history of user interactions, requests etc. to which we can add custom "crumbs" using this function.
+- `captureSentryBreadcrumb`: add an item to the breadcrumb trail. This contains a history of user interactions, requests etc. to which we can add custom "crumbs" using this function (the name of which is defined in the `BreadcrumbCategory` enum).
 - `sendSentryErrorLog`: log an error manually; to be used in (e.g.) catch statements.
 
 ### ErrorBoundary
