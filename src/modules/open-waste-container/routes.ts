@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {OpenWasteContainerScreen} from './Screen'
 
 export enum OpenWasteContainerRouteName {
@@ -19,7 +17,7 @@ export const openWasteContainerRoutes: StackNavigationRoutes<
     component: OpenWasteContainerScreen,
     name: OpenWasteContainerRouteName.openWasteContainer,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Open GFE container" />,
+      headerTitle: 'Open GFE container',
     },
   },
 }

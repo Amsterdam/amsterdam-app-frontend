@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {NonScalingHeaderTitle, WebView} from '../../../components/ui'
+import {WebView} from '../../../components/ui'
 
 export const MakeAppointmentScreen = () => {
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text="Maak een afspraak" />,
+      headerTitle: 'Maak een afspraak',
     })
   }, [navigation])
 

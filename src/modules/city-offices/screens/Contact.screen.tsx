@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {NonScalingHeaderTitle, WebView} from '../../../components/ui'
+import {WebView} from '../../../components/ui'
 
 export const ContactScreen = () => {
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text="Neem contact op" />,
+      headerTitle: 'Neem contact op',
     })
   }, [navigation])
 

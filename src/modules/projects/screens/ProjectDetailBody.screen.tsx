@@ -1,6 +1,6 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {Box, NonScalingHeaderTitle, Timeline} from '../../../components/ui'
+import {Box, Timeline} from '../../../components/ui'
 import {Column, ScrollView} from '../../../components/ui/layout'
 import {Title} from '../../../components/ui/typography'
 import {ProjectContacts} from '../components/project'
@@ -22,7 +22,7 @@ export const ProjectDetailBodyScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <NonScalingHeaderTitle text={headerTitle} />,
+      headerTitle: headerTitle,
     })
   })
 

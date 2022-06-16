@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {UserScreen} from './screens'
 
 export enum UserRouteName {
@@ -17,7 +15,7 @@ export const userRoutes: StackNavigationRoutes<UserStackParams, UserRouteName> =
       component: UserScreen,
       name: UserRouteName.user,
       options: {
-        headerTitle: () => <NonScalingHeaderTitle text="Mijn Profiel" />,
+        headerTitle: 'Mijn Profiel',
       },
     },
   }

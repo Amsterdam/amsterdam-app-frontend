@@ -18,9 +18,9 @@ type Props = Pick<
 
 const chevronSize = 20
 
-export const HeaderContent = ({back, navigation, options, route}: Props) => {
+export const HeaderContent = ({back, navigation, options}: Props) => {
   const {theme} = useSelector(selectTheme)
-  const title = getHeaderTitle(options, route.name)
+  const title = getHeaderTitle(options, '')
 
   return (
     <Row gutter="sm" valign="center">

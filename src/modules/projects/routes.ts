@@ -1,6 +1,4 @@
-import React from 'react'
 import {StackNavigationRoutes} from '../../app/navigation'
-import {NonScalingHeaderTitle} from '../../components/ui'
 import {ProjectDetailBody} from '../../types'
 import {
   AuthorizedProjectsScreen,
@@ -49,7 +47,7 @@ export const projectsRoutes: StackNavigationRoutes<
     component: AuthorizedProjectsScreen,
     name: ProjectsRouteName.authorizedProjects,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Je bouwprojecten" />,
+      headerTitle: 'Je bouwprojecten',
     },
   },
   [ProjectsRouteName.createNotification]: {
@@ -57,14 +55,14 @@ export const projectsRoutes: StackNavigationRoutes<
     name: ProjectsRouteName.createNotification,
     options: {
       presentation: 'modal',
-      headerTitle: () => <NonScalingHeaderTitle text="Verstuur pushbericht" />,
+      headerTitle: 'Verstuur pushbericht',
     },
   },
   [ProjectsRouteName.projects]: {
     component: ProjectsScreen,
     name: ProjectsRouteName.projects,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Werk in uitvoering" />,
+      headerTitle: 'Werk in uitvoering',
     },
   },
   [ProjectsRouteName.projectDetail]: {
@@ -79,7 +77,7 @@ export const projectsRoutes: StackNavigationRoutes<
     component: ProjectManagerScreen,
     name: ProjectsRouteName.projectManager,
     options: {
-      headerTitle: () => <NonScalingHeaderTitle text="Welkom" />,
+      headerTitle: 'Welkom',
       presentation: 'modal',
     },
   },
