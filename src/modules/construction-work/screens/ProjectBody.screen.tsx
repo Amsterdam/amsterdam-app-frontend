@@ -2,10 +2,10 @@ import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {Box, Timeline} from '../../../components/ui'
 import {Column, ScrollView} from '../../../components/ui/layout'
-import {Title} from '../../../components/ui/text'
 import {ProjectContacts} from '../components/project'
 import {ProjectContentSections} from '../components/project/ProjectContentSections'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {Title} from '@/components/ui/text'
 
 type ProjectBodyScreenRouteProp = RouteProp<
   ProjectsStackParams,

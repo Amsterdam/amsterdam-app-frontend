@@ -5,10 +5,10 @@ import {View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Button} from '../../../../components/ui'
 import {Column, Row} from '../../../../components/ui/layout'
-import {Paragraph, Title} from '../../../../components/ui/text'
 import {selectTheme} from '../../../../themes'
 import {ProjectContact} from '../../../../types'
 import {capitalizeString, openMailUrl, openPhoneUrl} from '../../../../utils'
+import {Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
   contacts: ProjectContact[]

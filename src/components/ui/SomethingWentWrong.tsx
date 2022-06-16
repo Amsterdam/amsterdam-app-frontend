@@ -1,7 +1,5 @@
 import React from 'react'
-import {Attention} from './Attention'
-import {Box} from './Box'
-import {Text} from './Text'
+import {Attention, Box, Text} from './'
 
 export const SomethingWentWrong = () => (
   <Box>

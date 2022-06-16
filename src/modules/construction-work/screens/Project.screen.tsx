@@ -17,7 +17,6 @@ import {
 import {Switch} from '../../../components/ui/forms'
 import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {Image} from '../../../components/ui/media'
-import {Title} from '../../../components/ui/text'
 import {useEnvironment} from '../../../store'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {ArticleOverview} from '../components/article'
@@ -25,6 +24,7 @@ import {ProjectBodyMenu, ProjectTraits} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {useGetProjectQuery} from '../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {Title} from '@/components/ui/text'
 
 type ProjectScreenRouteProp = RouteProp<
   ProjectsStackParams,
