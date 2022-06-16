@@ -27,7 +27,7 @@ import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {selectTheme} from '@/themes'
 import {size} from '@/tokens'
-import {Project} from '@/types'
+import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 export const ProjectsByDistance = () => {
@@ -107,12 +107,12 @@ export const ProjectsByDistance = () => {
     </Box>
   )
 
-  const renderItem = ({item: project}: {item: Project}) => (
+  const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.projectDetail, {
+        navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,
         })
       }

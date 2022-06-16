@@ -52,7 +52,7 @@ export const AuthorizedProjectsUserSection = () => {
             <LinkToUserSection
               onPress={() =>
                 navigation.navigate(constructionWorkModule.name, {
-                  screen: ProjectsRouteName.projectDetail,
+                  screen: ProjectsRouteName.project,
                   params: {
                     id: project.identifier,
                   },

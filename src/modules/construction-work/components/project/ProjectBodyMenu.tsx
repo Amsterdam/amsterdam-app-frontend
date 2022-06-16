@@ -2,15 +2,15 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {NavigationButton} from '../../../../components/ui/buttons/index'
-import {ProjectDetail, ProjectDetailBody} from '../../../../types'
+import {Project, ProjectBody} from '../../../../types'
 import {isEmptyObject} from '../../../../utils'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 
 type Props = {
-  project: ProjectDetail
+  project: Project
 }
 
-enum ProjectDetailBodyTitles {
+enum ProjectBodyTitles {
   about = 'Over dit project',
   contact = 'Contact',
   planning = 'Planning',
@@ -20,35 +20,35 @@ enum ProjectDetailBodyTitles {
 export const ProjectBodyMenu = ({project}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectDetail>
+      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.project>
     >()
 
-  const menuOptions: ProjectDetailBody[] = [
+  const menuOptions: ProjectBody[] = [
     {
       sections: [
         ...(project.body.intro ?? []),
         ...(project.body.what ?? []),
         ...(project.body.where ?? []),
       ],
-      title: ProjectDetailBodyTitles.about,
+      title: ProjectBodyTitles.about,
     },
     {
       sections: project.body.when ?? [],
       timeline: project.body.timeline,
-      title: ProjectDetailBodyTitles.planning,
+      title: ProjectBodyTitles.planning,
     },
     {
       sections: project.body.work,
-      title: ProjectDetailBodyTitles.work,
+      title: ProjectBodyTitles.work,
     },
     {
       sections: project.body.contact,
       contacts: project.contacts,
-      title: ProjectDetailBodyTitles.contact,
+      title: ProjectBodyTitles.contact,
     },
   ]
 
-  const hasContentToShow = (o: ProjectDetailBody) =>
+  const hasContentToShow = (o: ProjectBody) =>
     o.contacts?.length ||
     o.sections?.length ||
     (o.timeline && !isEmptyObject(o.timeline))
@@ -67,7 +67,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
             key={title}
             label={title}
             onPress={() =>
-              navigation.navigate(ProjectsRouteName.projectDetailBody, {
+              navigation.navigate(ProjectsRouteName.projectBody, {
                 body: {
                   ...option,
                 },

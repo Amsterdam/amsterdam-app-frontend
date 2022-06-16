@@ -10,7 +10,7 @@ export type ProjectContact = {
 }
 
 // An item in a project list as received from our backend
-export type Project = {
+export type ProjectsItem = {
   active: boolean
   content_html: string
   content_text: string
@@ -31,7 +31,7 @@ export type Project = {
 }
 
 export type ProjectSummary = Pick<
-  Project,
+  ProjectsItem,
   'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
 >
 
@@ -61,7 +61,7 @@ export type ProjectsByTextQueryArg = {
 } & Partial<PageListQueryArg>
 
 // All project details as received from our backend
-export type ProjectDetail = {
+export type Project = {
   body: {
     contact: Section[]
     intro: Section[]
@@ -88,7 +88,7 @@ export type ProjectDetail = {
   url: string
 }
 
-export type ProjectDetailBody = {
+export type ProjectBody = {
   contacts?: ProjectContact[]
   sections?: Section[]
   timeline?: Timeline

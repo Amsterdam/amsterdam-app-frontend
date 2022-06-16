@@ -16,7 +16,7 @@ import {Gutter} from '../../../../components/ui/layout'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
 import {size} from '../../../../tokens'
-import {Project} from '../../../../types'
+import {ProjectsItem} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {useGetProjectsByTextQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
@@ -74,14 +74,14 @@ export const ProjectsByText = () => {
     </>
   )
 
-  const renderItem = ({item: project}: {item: Project}) => (
+  const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
       imageSource={
         project.images?.[0] &&
         mapImageSources(project.images[0].sources, environment)
       }
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.projectDetail, {
+        navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,
         })
       }

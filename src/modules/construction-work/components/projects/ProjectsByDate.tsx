@@ -8,7 +8,7 @@ import {PleaseWait, SomethingWentWrong} from '../../../../components/ui'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
 import {size} from '../../../../tokens'
-import {Project} from '../../../../types'
+import {ProjectsItem} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
 import {useGetProjectsQuery} from '../../projects.service'
@@ -48,11 +48,11 @@ export const ProjectsByDate = () => {
     return null
   }
 
-  const renderItem = ({item: project}: {item: Project}) => (
+  const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.projectDetail, {
+        navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,
         })
       }

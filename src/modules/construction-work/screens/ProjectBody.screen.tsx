@@ -7,16 +7,16 @@ import {ProjectContacts} from '../components/project'
 import {ProjectContentSections} from '../components/project/ProjectContentSections'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
 
-type ProjectDetailBodyScreenRouteProp = RouteProp<
+type ProjectBodyScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.projectDetailBody
+  ProjectsRouteName.projectBody
 >
 
 type Props = {
-  route: ProjectDetailBodyScreenRouteProp
+  route: ProjectBodyScreenRouteProp
 }
 
-export const ProjectDetailBodyScreen = ({route}: Props) => {
+export const ProjectBodyScreen = ({route}: Props) => {
   const {body, headerTitle} = route.params
   const navigation = useNavigation()
 
