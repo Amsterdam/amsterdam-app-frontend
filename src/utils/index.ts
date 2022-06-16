@@ -1,7 +1,6 @@
 export * from './accessibility/accessibleText'
 export * from './accessibility/injectCommas'
 export * from './accessibility/replaceAbbreviations'
-export * from './allInsets'
 export * from './api'
 export * from './capitalizeString'
 export * from './clipText'

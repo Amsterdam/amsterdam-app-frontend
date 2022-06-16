@@ -1,24 +1,25 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
 import {
   Box,
   Button,
+  IconButton,
   SingleSelectable,
   Text,
   TextInCircle,
   Title,
   ZebraList,
   ZebraListItemProps,
-} from '../../../../components/ui'
-import {Column, Gutter, Row, ScrollView} from '../../../../components/ui/layout'
-import {color, font} from '../../../../tokens'
-import {accessibleText} from '../../../../utils'
+} from '@/components/ui'
+import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/projects/screens/create-notification/routes'
+import {color, font} from '@/tokens'
+import {accessibleText} from '@/utils'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -51,12 +52,16 @@ export const WritingGuideScreen = ({navigation}: Props) => (
   <>
     <Row align="end">
       <Box>
-        <TouchableOpacity
+        <IconButton
           accessibilityLabel="Sluiten"
           accessibilityRole="button"
-          onPress={navigation.goBack}>
-          <Close fill={color.font.regular} height={20} width={20} />
-        </TouchableOpacity>
+          icon={
+            <Icon size={20}>
+              <Close fill={color.font.regular} />
+            </Icon>
+          }
+          onPress={navigation.goBack}
+        />
       </Box>
     </Row>
     <ScrollView>

@@ -1,14 +1,15 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
-import {CustomScreenOptions} from '_app/navigation'
-import {Row} from '_components/ui/layout'
-import {Title} from '_components/ui/typography'
 import React from 'react'
-import {Pressable, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
+import {CustomScreenOptions} from '@/app/navigation'
+import {IconButton} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Title} from '@/components/ui/typography'
 import {selectTheme} from '@/themes'
-import {allInsets} from '@/utils'
 
 type Props = Pick<
   StackHeaderProps,
@@ -26,13 +27,15 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
     <Row gutter="lg" valign="center">
       <View style={styles.sideColumn}>
         {back && (
-          <Pressable hitSlop={allInsets(16)} onPress={navigation.goBack}>
-            <ChevronLeft
-              width={chevronSize}
-              height={chevronSize}
-              fill={theme.color.pressable.default.background}
-            />
-          </Pressable>
+          <IconButton
+            icon={
+              <Icon size={chevronSize}>
+                <ChevronLeft fill={theme.color.pressable.default.background} />
+              </Icon>
+            }
+            hitSlop={16}
+            onPress={navigation.goBack}
+          />
         )}
       </View>
       <View style={styles.middleColumn}>

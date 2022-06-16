@@ -5,13 +5,13 @@ import {
   StyleSheet,
   TextInput as TextInputRN,
   TextInputProps as TextInputRNProps,
-  TouchableOpacity,
   View,
 } from 'react-native'
-import {color, font, size} from '../../../tokens'
-import {allInsets} from '../../../utils'
-import {Label} from '../index'
-import {Column} from '../layout'
+import {Label} from '@/components/ui'
+import {Column} from '@/components/ui//layout'
+import {Pressable} from '@/components/ui/button/index'
+import {Icon} from '@/components/ui/media'
+import {color, font, size} from '@/tokens'
 
 type Props = {
   label: string
@@ -94,14 +94,17 @@ export const TextInput = forwardRef(
             value={value}
           />
           {value ? (
-            <TouchableOpacity
+            // TODO Use `IconButton` here
+            <Pressable
               accessibilityRole="button"
               accessibilityHint="Verwijder uw invoertekst"
-              hitSlop={allInsets(size.spacing.sm)}
+              hitSlop={size.spacing.sm}
               onPress={handleClearText}
               style={styles.clearButton}>
-              <Close fill={color.font.regular} height={20} width={20} />
-            </TouchableOpacity>
+              <Icon size={20}>
+                <Close fill={color.font.regular} />
+              </Icon>
+            </Pressable>
           ) : null}
         </View>
       </Column>

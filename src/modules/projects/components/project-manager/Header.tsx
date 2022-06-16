@@ -1,9 +1,10 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React from 'react'
-import {Divider, Text, Title} from '../../../../components/ui'
-import {Column, Row} from '../../../../components/ui/layout'
-import {color} from '../../../../tokens'
+import {Divider, Text, Title} from '@/components/ui'
+import {Column, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {color} from '@/tokens'
 
 type Props = {
   hasProjects: boolean
@@ -14,7 +15,9 @@ export const ProjectManagerHeader = ({hasProjects}: Props) => {
     return (
       <Column gutter="md">
         <Row gutter="sm">
-          <Checkmark fill={color.status.success} height={28} width={28} />
+          <Icon size={24}>
+            <Checkmark fill={color.status.success} />
+          </Icon>
           <Title text="Gelukt!" />
         </Row>
         <Text intro>
@@ -29,7 +32,9 @@ export const ProjectManagerHeader = ({hasProjects}: Props) => {
   return (
     <Column gutter="md">
       <Row gutter="sm">
-        <Close fill={color.status.error} height={28} width={28} />
+        <Icon size={24}>
+          <Close fill={color.status.error} />
+        </Icon>
         <Title text="Er gaat iets mis…" />
       </Row>
       <Text intro>

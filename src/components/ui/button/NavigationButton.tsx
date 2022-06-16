@@ -1,12 +1,12 @@
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {selectTheme} from '../../../themes'
-import {Box} from '../Box'
-import {Row} from '../layout'
-import {Icon} from '../media'
-import {Link} from '../typography'
-import {Pressable} from './Pressable'
+import {Box} from '@/components/ui'
+import {Pressable} from '@/components/ui/button/Pressable'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Link} from '@/components/ui/typography'
+import {selectTheme} from '@/themes'
 
 type Props = {
   label: string
@@ -19,7 +19,7 @@ export const NavigationButton = ({label, onPress}: Props) => {
   return (
     <Pressable onPress={onPress}>
       <Box insetHorizontal="md" insetVertical="sm">
-        <Row align="between">
+        <Row align="between" gutter="md">
           <Link label={label} />
           <Icon size={24}>
             <ChevronRight fill={theme.color.pressable.navigation} />
