@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Column, Row} from '../../../../components/ui/layout'
@@ -36,13 +36,7 @@ const formatDateToDisplay = (date: string) => {
 
 export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
-  const [isNew, setNew] = useState<boolean>()
-  const styles = useThemable(createStyles({isFirst, isLast}, isNew))
   const {readArticles} = useSelector(selectNotificationSettings)
-
-  useEffect(() => {
-    getDateDiffInDays(article.publication_date) <= 3 ? setNew(true) : false
-  }, [article])
 
   const getImageSources = () => {
     if (article.type === 'news') {
@@ -60,6 +54,17 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 
   const imageSources = getImageSources()
 
+  const isNewAndUnreadArticle = useMemo(() => {
+    return (
+      getDateDiffInDays(article.publication_date) <= 3 &&
+      !readArticles.find(readArticle => readArticle.id === article.identifier)
+    )
+  }, [article.identifier, article.publication_date, readArticles])
+
+  const styles = useThemable(
+    createStyles({isFirst, isLast}, isNewAndUnreadArticle),
+  )
+
   return (
     <View style={styles.item}>
       <View style={styles.line} />
@@ -70,14 +75,11 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
         <Column gutter="sm">
           <Row gutter="md" valign="center">
             <View style={styles.horizontalLine} />
-            {isNew &&
-              !readArticles.find(
-                readArticle => readArticle.id === article.identifier,
-              ) && (
-                <View style={styles.update}>
-                  <Paragraph>Nieuw</Paragraph>
-                </View>
-              )}
+            {isNewAndUnreadArticle && (
+              <View style={styles.update}>
+                <Paragraph>Nieuw</Paragraph>
+              </View>
+            )}
             <Paragraph>
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
@@ -101,7 +103,10 @@ const verticalLineTopWithAlert = 18
 const verticalLineTopWithoutAlert = 15
 
 const createStyles =
-  ({isFirst, isLast}: Partial<Props>, isNew: boolean | undefined) =>
+  (
+    {isFirst, isLast}: Partial<Props>,
+    isNewAndUnreadArticle: boolean | undefined,
+  ) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       button: {
@@ -123,7 +128,7 @@ const createStyles =
       line: {
         position: 'absolute',
         top: isFirst
-          ? isNew
+          ? isNewAndUnreadArticle
             ? verticalLineTopWithAlert
             : verticalLineTopWithoutAlert
           : 0,
