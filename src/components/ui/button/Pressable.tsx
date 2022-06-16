@@ -18,6 +18,7 @@ export const Pressable = ({children, padding, ...otherProps}: Props) => {
 
   return (
     <PressableRN
+      accessibilityRole="button"
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       {...otherProps}
