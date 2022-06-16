@@ -1,41 +1,34 @@
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode} from 'react'
 import {
   Pressable as PressableRN,
   PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
+import {Box, BoxProps} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
-import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
-  padding?: keyof SpacingTokens
-} & Omit<PressableRNProps, 'onPressIn' | 'onPressOut'>
+} & Omit<PressableRNProps, 'style'> &
+  Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
-export const Pressable = ({children, padding, ...otherProps}: Props) => {
-  const styles = useThemable(createStyles({padding}))
-  const [isPressed, setPressed] = useState(false)
+export const Pressable = ({children, ...otherProps}: Props) => {
+  const {inset = 'no', insetHorizontal, insetVertical} = otherProps
+  const styles = useThemable(createStyles)
 
   return (
     <PressableRN
       accessibilityRole="button"
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
-      {...otherProps}
-      style={[styles.button, isPressed && styles.pressed]}>
-      {children}
+      style={({pressed}) => pressed && styles.pressed}
+      {...otherProps}>
+      <Box {...{inset, insetHorizontal, insetVertical}}>{children}</Box>
     </PressableRN>
   )
 }
 
-const createStyles =
-  ({padding}: Pick<Props, 'padding'>) =>
-  ({color, size}: Theme) =>
-    StyleSheet.create({
-      button: {
-        padding: padding ? size.spacing[padding] : 0,
-      },
-      pressed: {
-        backgroundColor: color.pressable.pressed.background,
-      },
-    })
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    pressed: {
+      backgroundColor: color.pressable.pressed.background,
+    },
+  })
