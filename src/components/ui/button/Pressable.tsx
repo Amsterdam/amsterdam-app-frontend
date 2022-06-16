@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode} from 'react'
 import {
   Pressable as PressableRN,
   PressableProps as PressableRNProps,
@@ -9,21 +9,18 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   children: ReactNode
-} & Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
-  Omit<PressableRNProps, 'onPressIn' | 'onPressOut'>
+} & Omit<PressableRNProps, 'style'> &
+  Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
 export const Pressable = ({children, ...otherProps}: Props) => {
-  const [isPressed, setPressed] = useState(false)
   const {inset = 'no', insetHorizontal, insetVertical} = otherProps
   const styles = useThemable(createStyles)
 
   return (
     <PressableRN
       accessibilityRole="button"
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
-      {...otherProps}
-      style={isPressed && styles.pressed}>
+      style={({pressed}) => pressed && styles.pressed}
+      {...otherProps}>
       <Box {...{inset, insetHorizontal, insetVertical}}>{children}</Box>
     </PressableRN>
   )

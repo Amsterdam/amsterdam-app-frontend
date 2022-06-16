@@ -99,8 +99,7 @@ export const TextInput = forwardRef(
               accessibilityRole="button"
               accessibilityHint="Verwijder uw invoertekst"
               hitSlop={size.spacing.sm}
-              onPress={handleClearText}
-              style={styles.clearButton}>
+              onPress={handleClearText}>
               <Icon size={20}>
                 <Close fill={color.font.regular} />
               </Icon>
@@ -113,10 +112,6 @@ export const TextInput = forwardRef(
 )
 
 const styles = StyleSheet.create({
-  clearButton: {
-    alignSelf: 'center',
-    marginLeft: size.spacing.sm,
-  },
   frame: {
     flexDirection: 'row',
     padding: frameInset,
