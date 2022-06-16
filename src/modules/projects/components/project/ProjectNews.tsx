@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useLayoutEffect} from 'react'
+import React, {useEffect, useLayoutEffect} from 'react'
 import {ScrollView} from 'react-native-gesture-handler'
-import {useMarkArticleIdAsRead} from '../../../../components/features/notifications'
+import {useMarkArticleAsRead} from '../../../../components/features/notifications'
 import {Box, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
@@ -19,12 +19,11 @@ type Props = {
 
 export const ProjectNews = ({id}: Props) => {
   const navigation = useNavigation()
+  const {markAsRead} = useMarkArticleAsRead()
 
   const {data: news, isLoading: newsIsLoading} = useGetProjectNewsQuery({
     id,
   })
-
-  useMarkArticleIdAsRead(news?.identifier)
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
@@ -32,6 +31,14 @@ export const ProjectNews = ({id}: Props) => {
     },
     {skip: !news},
   )
+
+  useEffect(() => {
+    news &&
+      markAsRead({
+        id: news.identifier,
+        publicationDate: news.publication_date,
+      })
+  }, [markAsRead, news])
 
   useLayoutEffect(() => {
     navigation.setOptions({

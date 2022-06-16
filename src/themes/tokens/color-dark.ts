@@ -9,6 +9,7 @@ export const darkColorTokens: ColorTokens = {
   },
   box: {
     background: {
+      alert: baseColor.supplement.yellow,
       emphasis: baseColor.primary.darkblue,
       grey: baseColor.neutral.grey1,
       invalid: baseColor.support.invalid,

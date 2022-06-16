@@ -1,12 +1,16 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
-import {PleaseWait, Title} from '../../../../components/ui'
-import {Column, Grid, GridCell} from '../../../../components/ui/layout'
+import React, {useEffect, useState} from 'react'
+import {StyleSheet, View} from 'react-native'
+import {PleaseWait} from '../../../../components/ui'
+import {Column} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services/articles'
 import {ArticleSummary} from '../../../../types'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ArticlePreview} from '.'
+import {Paragraph, Title} from '@/components/ui/typography'
+import {Theme, useThemable} from '@/themes'
+import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
 
 type Props = {
   limit?: number
@@ -16,6 +20,8 @@ type Props = {
   title: string
 }
 
+type YearlyArticleSections = Record<string, ArticleSummary[]>
+
 export const ArticleOverview = ({
   limit,
   projectIds,
@@ -23,16 +29,36 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
+  const [yearlyArticleSections, setYearlyArticleSections] = useState<
+    YearlyArticleSections | undefined
+  >()
   const navigation =
     useNavigation<
       StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectNews>
     >()
+  const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
     limit,
     projectIds,
     sortBy,
     sortOrder,
   })
+
+  useEffect(() => {
+    if (articles) {
+      const sections = articles.reduce(
+        (result: YearlyArticleSections, article) => {
+          const year = getYearOfPublicationDate(article.publication_date)
+          return {
+            ...result,
+            [year]: {...result[year], [article.identifier]: article},
+          }
+        },
+        {},
+      )
+      setYearlyArticleSections(sections)
+    }
+  }, [articles])
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
@@ -50,19 +76,55 @@ export const ArticleOverview = ({
     return <PleaseWait />
   }
 
-  return articles?.length ? (
-    <Column gutter="sm">
-      <Title level={2} text={title} />
-      <Grid>
-        {articles.map(article => (
-          <GridCell key={article.identifier}>
-            <ArticlePreview
-              article={article}
-              onPress={() => navigateToArticle(article)}
-            />
-          </GridCell>
-        ))}
-      </Grid>
-    </Column>
+  return articles &&
+    yearlyArticleSections &&
+    !isEmptyObject(yearlyArticleSections) ? (
+    <View style={styles.list}>
+      <Column gutter="sm">
+        <Title level="h2" text={title} />
+        {Object.entries(yearlyArticleSections)
+          .reverse()
+          .map(([year, articlesPerYear], index) => (
+            <View key={year + index}>
+              {index > 0 && (
+                <View style={styles.year}>
+                  <Paragraph>{year}</Paragraph>
+                </View>
+              )}
+              {Object.values(articlesPerYear).map(article => (
+                <ArticlePreview
+                  article={article}
+                  isFirst={
+                    articles.findIndex(
+                      a => a.identifier === article.identifier,
+                    ) === 0
+                  }
+                  isLast={
+                    articles.findIndex(
+                      a => a.identifier === article.identifier,
+                    ) ===
+                    articles.length - 1
+                  }
+                  key={article.identifier}
+                  onPress={() => navigateToArticle(article)}
+                />
+              ))}
+            </View>
+          ))}
+      </Column>
+    </View>
   ) : null
 }
+
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    list: {
+      marginBottom: size.spacing.lg,
+    },
+    year: {
+      backgroundColor: 'white',
+      left: -4,
+      position: 'relative',
+      zIndex: 2,
+    },
+  })
