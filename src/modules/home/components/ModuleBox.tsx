@@ -1,7 +1,7 @@
 import React, {ReactNode, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
-import {Theme, useThemable} from '../../../themes'
-import {baseColor} from '../../../tokens'
+import {Theme, useThemable} from '@/themes'
+import {baseColor} from '@/tokens'
 
 type Props = {
   children: ReactNode

@@ -1,6 +1,6 @@
-import {version as appVersion} from '../../../package.json'
-import {baseApi} from '../../services/init'
-import {ModuleServerConfig} from '../types'
+import {version as appVersion} from '@/../package.json'
+import {ModuleServerConfig} from '@/modules/types'
+import {baseApi} from '@/services/init'
 
 type RegisterModuleQueryArg = {
   app_version: string

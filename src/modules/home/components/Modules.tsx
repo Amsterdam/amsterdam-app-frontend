@@ -1,11 +1,12 @@
 import React from 'react'
-import {Box, PleaseWait} from '../../../components/ui'
-import {Icon} from '../../../components/ui/media'
-import {Paragraph} from '../../../components/ui/typography'
-import {color} from '../../../tokens'
-import {icons} from '../config'
-import {useModules} from '../hooks'
-import {ModuleButton} from './ModuleButton'
+import {Box, PleaseWait} from '@/components/ui'
+import {Column} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Paragraph} from '@/components/ui/typography'
+import {ModuleButton} from '@/modules/home/components'
+import {icons} from '@/modules/home/config'
+import {useModules} from '@/modules/home/hooks'
+import {color} from '@/tokens'
 
 export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()
@@ -28,22 +29,24 @@ export const Modules = () => {
 
   return (
     <Box grow>
-      {modules.map(({icon, name, slug, title}) => {
-        const ModuleIcon = icons[icon]
+      <Column gutter="md">
+        {modules.map(({icon, name, slug, title}) => {
+          const ModuleIcon = icons[icon]
 
-        return (
-          <ModuleButton
-            icon={
-              <Icon size={24}>
-                <ModuleIcon fill={color.font.regular} />
-              </Icon>
-            }
-            key={slug}
-            label={title}
-            name={name}
-          />
-        )
-      })}
+          return (
+            <ModuleButton
+              icon={
+                <Icon size={24}>
+                  <ModuleIcon fill={color.font.regular} />
+                </Icon>
+              }
+              key={slug}
+              label={title}
+              name={name}
+            />
+          )
+        })}
+      </Column>
     </Box>
   )
 }

@@ -4,7 +4,7 @@ import {
   PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
-import {Theme, useThemable} from '../../../themes'
+import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
@@ -18,6 +18,7 @@ export const Pressable = ({children, padding, ...otherProps}: Props) => {
 
   return (
     <PressableRN
+      accessibilityRole="button"
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
       {...otherProps}
