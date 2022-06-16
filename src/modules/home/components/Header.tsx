@@ -1,13 +1,13 @@
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
-import {CustomScreenOptions} from '_app/navigation/screenOptions'
-import {Box} from '_components/ui'
-import {HeaderContent, HeaderContentForHome} from '_modules/home/components'
-import {HomeRouteName} from '_modules/home/routes'
-import {Theme, useThemable} from '_themes/index'
 import React, {useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {CustomScreenOptions} from '@/app/navigation/screenOptions'
+import {Box} from '@/components/ui'
+import {HeaderContent, HeaderContentForHome} from '@/modules/home/components'
+import {HomeRouteName} from '@/modules/home/routes'
 import {DeviceContext} from '@/providers'
+import {Theme, useThemable} from '@/themes/index'
 
 type Props = Pick<
   StackHeaderProps,

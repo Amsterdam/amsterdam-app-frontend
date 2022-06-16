@@ -1,5 +1,5 @@
-import {ModuleClientConfig} from '../types'
-import {HomeStack} from './Stack'
+import {HomeStack} from '@/modules/home/Stack'
+import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   isCore: true,

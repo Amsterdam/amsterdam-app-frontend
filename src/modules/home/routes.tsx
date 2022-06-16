@@ -1,7 +1,7 @@
 import React from 'react'
-import {StackNavigationRoutes} from '../../app/navigation'
-import {HeaderLogo, HeaderNavigation} from './components'
 import {AdminScreen, HomeScreen, SettingsScreen} from './screens'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {HeaderLogo, HeaderNavigation} from '@/modules/home/components'
 
 export enum HomeRouteName {
   admin = 'Admin',

@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {RootStackParamList} from '../../../app/navigation'
-import {Row} from '../../../components/ui/layout'
-import {Title} from '../../../components/ui/typography'
+import {RootStackParamList} from '@/app/navigation'
 import {Pressable} from '@/components/ui/button/index'
+import {Row} from '@/components/ui/layout'
+import {Title} from '@/components/ui/typography'
 
 type Props = {
   icon: ReactNode

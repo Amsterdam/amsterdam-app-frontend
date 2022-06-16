@@ -1,12 +1,12 @@
 import React from 'react'
-import {Box, PleaseWait} from '../../../components/ui'
-import {Icon} from '../../../components/ui/media'
-import {Paragraph} from '../../../components/ui/typography'
-import {color} from '../../../tokens'
-import {icons} from '../config'
-import {useModules} from '../hooks'
-import {ModuleButton} from './ModuleButton'
+import {Box, PleaseWait} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Paragraph} from '@/components/ui/typography'
+import {ModuleButton} from '@/modules/home/components'
+import {icons} from '@/modules/home/config'
+import {useModules} from '@/modules/home/hooks'
+import {color} from '@/tokens'
 
 export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()

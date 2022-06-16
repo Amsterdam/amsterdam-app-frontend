@@ -1,10 +1,10 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {mergeModulesConfig} from '../../../utils'
-import {clientModules} from '../../index'
-import {Module} from '../../types'
-import {useGetModulesQuery} from '../services'
-import {initializeModules, selectModules} from '../store'
+import {useGetModulesQuery} from '@/modules/home/services'
+import {initializeModules, selectModules} from '@/modules/home/store'
+import {clientModules} from '@/modules/index'
+import {Module} from '@/modules/types'
+import {mergeModulesConfig} from '@/utils'
 
 export const useModules = () => {
   const dispatch = useDispatch()

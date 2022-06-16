@@ -4,7 +4,7 @@ import {
   PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
-import {Theme, useThemable} from '../../../themes'
+import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
