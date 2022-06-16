@@ -48,14 +48,17 @@ export const ArticleOverview = ({
 
   useEffect(() => {
     if (articles) {
-      const foo = articles.reduce((result: YearlyArticleSections, article) => {
-        const year = getYearOfPublicationDate(article.publication_date)
-        return {
-          ...result,
-          [year]: {...result[year], [article.identifier]: article},
-        }
-      }, {})
-      setYearlyArticleSections(foo)
+      const sections = articles.reduce(
+        (result: YearlyArticleSections, article) => {
+          const year = getYearOfPublicationDate(article.publication_date)
+          return {
+            ...result,
+            [year]: {...result[year], [article.identifier]: article},
+          }
+        },
+        {},
+      )
+      setYearlyArticleSections(sections)
     }
   }, [articles])
 
@@ -75,7 +78,7 @@ export const ArticleOverview = ({
     return <PleaseWait />
   }
 
-  return articles && yearlyArticleSections ? (
+  return articles && yearlyArticleSections?.length ? (
     <View style={styles.list}>
       <Column gutter="sm">
         <Title level="h2" text={title} />
