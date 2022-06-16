@@ -84,34 +84,33 @@ export const ArticleOverview = ({
     <View style={styles.list}>
       <Column gutter="sm">
         <Title level="h2" text={title} />
-        {!isEmptyObject(yearlyArticleSections) &&
-          Object.keys(yearlyArticleSections).map((year, index) => (
-            <View key={Object.keys(yearlyArticleSections)[index]}>
-              {index > 0 && (
-                <View style={styles.year}>
-                  <Paragraph>{year}</Paragraph>
-                </View>
-              )}
-              {Object.values(yearlyArticleSections[year]).map(article => (
-                <ArticlePreview
-                  article={article}
-                  isFirst={
-                    articles.findIndex(
-                      a => a.identifier === article.identifier,
-                    ) === 0
-                  }
-                  isLast={
-                    articles.findIndex(
-                      a => a.identifier === article.identifier,
-                    ) ===
-                    articles.length - 1
-                  }
-                  key={article.identifier}
-                  onPress={() => navigateToArticle(article)}
-                />
-              ))}
-            </View>
-          ))}
+        {Object.keys(yearlyArticleSections).map((year, index) => (
+          <View key={Object.keys(yearlyArticleSections)[index]}>
+            {index > 0 && (
+              <View style={styles.year}>
+                <Paragraph>{year}</Paragraph>
+              </View>
+            )}
+            {Object.values(yearlyArticleSections[year]).map(article => (
+              <ArticlePreview
+                article={article}
+                isFirst={
+                  articles.findIndex(
+                    a => a.identifier === article.identifier,
+                  ) === 0
+                }
+                isLast={
+                  articles.findIndex(
+                    a => a.identifier === article.identifier,
+                  ) ===
+                  articles.length - 1
+                }
+                key={article.identifier}
+                onPress={() => navigateToArticle(article)}
+              />
+            ))}
+          </View>
+        ))}
       </Column>
     </View>
   ) : null
