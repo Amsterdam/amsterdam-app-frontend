@@ -78,7 +78,9 @@ export const ArticleOverview = ({
     return <PleaseWait />
   }
 
-  return articles && yearlyArticleSections?.length ? (
+  return articles &&
+    yearlyArticleSections &&
+    !isEmptyObject(yearlyArticleSections) ? (
     <View style={styles.list}>
       <Column gutter="sm">
         <Title level="h2" text={title} />
