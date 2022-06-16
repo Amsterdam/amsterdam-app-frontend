@@ -18,8 +18,8 @@ export const ModuleButton = ({icon, label, name}: Props) => {
 
   return (
     <Pressable
-      onPress={name ? () => navigation.navigate(name) : undefined}
-      padding="md">
+      inset="md"
+      onPress={name ? () => navigation.navigate(name) : undefined}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h5" text={label} />
