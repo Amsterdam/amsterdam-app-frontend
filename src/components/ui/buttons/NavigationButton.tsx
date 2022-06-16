@@ -14,7 +14,9 @@ type Props = {
 }
 
 export const NavigationButton = ({label, onPress}: Props) => {
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
 
   return (
     <Pressable onPress={onPress}>
@@ -22,7 +24,7 @@ export const NavigationButton = ({label, onPress}: Props) => {
         <Row align="between" gutter="md">
           <Link label={label} level="h5" />
           <Icon size={24}>
-            <ChevronRight fill={theme.color.pressable.navigation} />
+            <ChevronRight fill={color.pressable.navigation} />
           </Icon>
         </Row>
       </Box>

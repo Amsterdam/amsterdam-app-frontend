@@ -20,7 +20,9 @@ type Props = Pick<
 const chevronSize = 20
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
   const title = getHeaderTitle(options, '')
 
   return (
@@ -30,7 +32,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
           <IconButton
             icon={
               <Icon size={chevronSize}>
-                <ChevronLeft fill={theme.color.pressable.default.background} />
+                <ChevronLeft fill={color.pressable.default.background} />
               </Icon>
             }
             hitSlop={16}

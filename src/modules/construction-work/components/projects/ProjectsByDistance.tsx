@@ -39,7 +39,9 @@ export const ProjectsByDistance = () => {
         ProjectsRouteName.projects
       >
     >()
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
   const {fontScale} = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
@@ -91,7 +93,7 @@ export const ProjectsByDistance = () => {
           hitSlop={10}
           icon={
             <Icon size={32}>
-              <Edit fill={theme.color.pressable.default.background} />
+              <Edit fill={color.pressable.default.background} />
             </Icon>
           }
           onPress={

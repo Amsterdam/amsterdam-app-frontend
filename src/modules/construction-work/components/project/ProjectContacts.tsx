@@ -16,7 +16,9 @@ type Props = {
 }
 
 export const ProjectContacts = ({contacts, emailSubject}: Props) => {
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
 
   return (
     <Column gutter="xl">
@@ -29,7 +31,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {phone && (
             <Row>
               <Button
-                icon={<Phone fill={theme.color.text.inverted} />}
+                icon={<Phone fill={color.text.inverted} />}
                 onPress={() => {
                   openPhoneUrl(phone)
                 }}
@@ -40,7 +42,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {email && (
             <Row>
               <Button
-                icon={<Email fill={theme.color.text.inverted} />}
+                icon={<Email fill={color.text.inverted} />}
                 onPress={() => {
                   openMailUrl(email, emailSubject)
                 }}
