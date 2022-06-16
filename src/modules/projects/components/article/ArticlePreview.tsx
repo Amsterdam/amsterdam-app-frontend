@@ -6,8 +6,7 @@ import {Image} from '../../../../components/ui/media'
 import {useEnvironment} from '../../../../store'
 import {ArticleSummary} from '../../../../types'
 import {
-  cutAmountOfCharsFromString,
-  formatDate,
+  formatDateToDisplay,
   getDateDiffInDays,
   mapImageSources,
   mapWarningImageSources,
@@ -22,16 +21,6 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
-}
-
-const formatDateToDisplay = (date: string) => {
-  const dateToDisplay = formatDate(date)
-  const dateToDisplayWithoutYear = cutAmountOfCharsFromString({
-    text: dateToDisplay,
-    amount: 5,
-    position: 'end',
-  })
-  return dateToDisplayWithoutYear
 }
 
 export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
