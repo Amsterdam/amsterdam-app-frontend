@@ -13,7 +13,7 @@ import {
 } from '../../../../utils'
 import {selectNotificationSettings} from '@/components/features/notifications'
 import {Hero} from '@/components/ui/Hero'
-import {Link, Paragraph} from '@/components/ui/typography'
+import {Link, Paragraph} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {

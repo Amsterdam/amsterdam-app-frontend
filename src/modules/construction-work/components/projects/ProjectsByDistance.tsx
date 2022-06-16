@@ -10,7 +10,7 @@ import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/typography'
+import {Paragraph} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
 import {

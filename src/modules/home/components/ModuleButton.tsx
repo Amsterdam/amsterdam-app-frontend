@@ -4,7 +4,7 @@ import React, {ReactNode} from 'react'
 import {RootStackParamList} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
-import {Title} from '@/components/ui/typography'
+import {Title} from '@/components/ui/text'
 
 type Props = {
   icon: ReactNode

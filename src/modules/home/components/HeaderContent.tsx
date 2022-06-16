@@ -8,7 +8,7 @@ import {CustomScreenOptions} from '@/app/navigation'
 import {IconButton} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/typography'
+import {Title} from '@/components/ui/text'
 import {selectTheme} from '@/themes'
 
 type Props = Pick<

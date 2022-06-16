@@ -7,7 +7,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {maxHeight, timelineStyles} from './timelineStyles'
 import {Title} from '@/components/ui/Title'
 import {Icon} from '@/components/ui/media'
-import {Article} from '@/components/ui/typography'
+import {Article} from '@/components/ui/text'
 import {color} from '@/tokens'
 import {TimelineItem as TimelineItemType} from '@/types'
 

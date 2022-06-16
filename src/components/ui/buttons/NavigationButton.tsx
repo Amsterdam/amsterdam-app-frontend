@@ -5,7 +5,7 @@ import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Link} from '@/components/ui/typography'
+import {Link} from '@/components/ui/text'
 import {selectTheme} from '@/themes'
 
 type Props = {

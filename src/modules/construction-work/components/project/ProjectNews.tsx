@@ -5,7 +5,7 @@ import {useMarkArticleAsRead} from '../../../../components/features/notification
 import {Box, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Article, Paragraph, Title} from '../../../../components/ui/typography'
+import {Article, Paragraph, Title} from '../../../../components/ui/text'
 import {useEnvironment} from '../../../../store'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
