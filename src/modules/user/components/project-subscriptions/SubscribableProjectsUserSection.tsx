@@ -16,8 +16,8 @@ import {
 import {Checkbox, Switch} from '../../../../components/ui/forms'
 import {Column, Row} from '../../../../components/ui/layout'
 import {accessibleText} from '../../../../utils'
-import {ProjectTitle} from '../../../projects/components/project'
-import {useGetProjectsQuery} from '../../../projects/projects.service'
+import {ProjectTitle} from '../../../construction-work/components/project'
+import {useGetProjectsQuery} from '../../../construction-work/projects.service'
 import {UserSection} from '../index'
 
 type Props = {

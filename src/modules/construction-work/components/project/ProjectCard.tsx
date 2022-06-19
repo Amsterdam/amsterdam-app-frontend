@@ -2,9 +2,9 @@ import React, {ReactElement, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet, View} from 'react-native'
 import {Gutter} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Paragraph, Title} from '../../../../components/ui/typography'
 import {Theme, useThemable} from '../../../../themes'
 import {accessibleText} from '../../../../utils'
+import {Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
   imageSource?: ImageSourcePropType

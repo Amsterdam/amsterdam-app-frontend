@@ -10,18 +10,24 @@ import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/typography'
+import {Paragraph} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
-import {ProjectCard, ProjectTraits} from '@/modules/projects/components/project'
-import {selectIsProjectsSearching} from '@/modules/projects/components/projects'
-import {useGetProjectsByDistanceQuery} from '@/modules/projects/projects.service'
-import {ProjectsRouteName, ProjectsStackParams} from '@/modules/projects/routes'
+import {
+  ProjectCard,
+  ProjectTraits,
+} from '@/modules/construction-work/components/project'
+import {selectIsProjectsSearching} from '@/modules/construction-work/components/projects'
+import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
+import {
+  ProjectsRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {selectTheme} from '@/themes'
 import {size} from '@/tokens'
-import {Project} from '@/types'
+import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 export const ProjectsByDistance = () => {
@@ -33,7 +39,9 @@ export const ProjectsByDistance = () => {
         ProjectsRouteName.projects
       >
     >()
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
   const {fontScale} = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
@@ -85,7 +93,7 @@ export const ProjectsByDistance = () => {
           hitSlop={10}
           icon={
             <Icon size={32}>
-              <Edit fill={theme.color.pressable.default.background} />
+              <Edit fill={color.pressable.default.background} />
             </Icon>
           }
           onPress={
@@ -101,12 +109,12 @@ export const ProjectsByDistance = () => {
     </Box>
   )
 
-  const renderItem = ({item: project}: {item: Project}) => (
+  const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
       imageSource={mapImageSources(project.images[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.projectDetail, {
+        navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,
         })
       }

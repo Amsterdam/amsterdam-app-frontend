@@ -6,7 +6,6 @@ import {Box, PleaseWait} from '../../../../components/ui'
 import {Hero} from '../../../../components/ui/Hero'
 import {Column, ScrollView} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
 import {ProjectWarningImage} from '../../../../types'
 import {formatDate, mapWarningImageSources} from '../../../../utils'
@@ -15,6 +14,7 @@ import {
   useGetProjectWarningQuery,
 } from '../../projects.service'
 import {ProjectContacts} from './ProjectContacts'
+import {Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
   id: string

@@ -8,7 +8,7 @@ import {useGetArticlesQuery} from '../../../../services/articles'
 import {ArticleSummary} from '../../../../types'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ArticlePreview} from '.'
-import {Paragraph, Title} from '@/components/ui/typography'
+import {Paragraph, Title} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
 

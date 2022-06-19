@@ -3,11 +3,11 @@ import {
   NewProjectWarning,
   NewsArticle,
   Project,
-  ProjectDetail,
   ProjectIdQueryArg,
   ProjectManagerResponse,
   ProjectsByDistanceQueryArg,
   ProjectsByTextQueryArg,
+  ProjectsItem,
   ProjectsQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
@@ -49,9 +49,9 @@ export const projectsApi = baseApi.injectEndpoints({
       },
     }),
 
-    getProject: builder.query<ProjectDetail, ProjectIdQueryArg>({
+    getProject: builder.query<Project, ProjectIdQueryArg>({
       query: params => generateRequestUrl({path: '/project/details', params}),
-      transformResponse: (response: {result: ProjectDetail}) => response.result,
+      transformResponse: (response: {result: Project}) => response.result,
     }),
 
     getProjectManager: builder.query<ProjectManagerResponse, ProjectIdQueryArg>(
@@ -68,37 +68,41 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     getProjects: builder.query<
-      Project[],
+      ProjectsItem[],
       Partial<ProjectsQueryArg & SortListQueryArg> | void
     >({
       query: params => {
         if (params) {
           return generateRequestUrl({
-            path: '/projects',
+            path: '/construction-work',
             params: formatQueryParams(params),
           })
         }
-        return '/projects'
+        return '/construction-work'
       },
-      transformResponse: (response: {result: Project[]}) => response.result,
+      transformResponse: (response: {result: ProjectsItem[]}) =>
+        response.result,
     }),
 
-    getProjectsByDistance: builder.query<Project[], ProjectsByDistanceQueryArg>(
-      {
-        query: params =>
-          generateRequestUrl({path: '/projects/distance', params}),
-        transformResponse: (response: {result: Project[]}) => response.result,
-      },
-    ),
+    getProjectsByDistance: builder.query<
+      ProjectsItem[],
+      ProjectsByDistanceQueryArg
+    >({
+      query: params =>
+        generateRequestUrl({path: '/construction-work/distance', params}),
+      transformResponse: (response: {result: ProjectsItem[]}) =>
+        response.result,
+    }),
 
-    getProjectsByText: builder.query<Project[], ProjectsByTextQueryArg>({
+    getProjectsByText: builder.query<ProjectsItem[], ProjectsByTextQueryArg>({
       query: params => {
         return generateRequestUrl({
-          path: '/projects/search',
+          path: '/construction-work/search',
           params: formatQueryParams(params),
         })
       },
-      transformResponse: (response: {result: Project[]}) => response.result,
+      transformResponse: (response: {result: ProjectsItem[]}) =>
+        response.result,
     }),
 
     getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({

@@ -7,7 +7,7 @@ import {
   ResponseStatus,
 } from '../../../../types'
 
-export type ProjectMinimal = {id: string; title: string}
+export type ProjectIdAndTitle = {id: string; title: string}
 
 type NewsArticleMinimal = {
   id: string
@@ -20,7 +20,7 @@ export type NotificationDraft = {
   mainImageDescription: string
   newsArticle?: NewsArticleMinimal
   notification: NotificationQueryArg | undefined
-  project: ProjectMinimal | undefined
+  project: ProjectIdAndTitle | undefined
   projectWarning: NewProjectWarning | undefined
   responseStatus: ResponseStatus | undefined
   step: number
@@ -69,7 +69,10 @@ export const notificationDraftSlice = createSlice({
     ) => {
       state.notification = notification
     },
-    setProject: (state, {payload: project}: PayloadAction<ProjectMinimal>) => {
+    setProject: (
+      state,
+      {payload: project}: PayloadAction<ProjectIdAndTitle>,
+    ) => {
       state.project = project
     },
     setProjectWarning: (

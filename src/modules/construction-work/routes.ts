@@ -1,25 +1,25 @@
 import {StackNavigationRoutes} from '../../app/navigation'
-import {ProjectDetailBody} from '../../types'
+import {ProjectBody} from '../../types'
 import {
   AuthorizedProjectsScreen,
-  ProjectDetailBodyScreen,
-  ProjectDetailScreen,
+  ProjectBodyScreen,
   ProjectManagerScreen,
   ProjectNewsScreen,
+  ProjectScreen,
   ProjectsScreen,
   ProjectWarningScreen,
 } from './screens'
 import {
   CreateNotificationScreen,
-  ProjectMinimal,
+  ProjectIdAndTitle,
 } from './screens/create-notification'
 
 export enum ProjectsRouteName {
   authorizedProjects = 'AuthorizedProjects',
   projects = 'Projects',
   createNotification = 'CreateNotification',
-  projectDetail = 'ProjectDetail',
-  projectDetailBody = 'ProjectDetailBody',
+  project = 'Project',
+  projectBody = 'ProjectBody',
   projectManager = 'ProjectManager',
   projectNews = 'ProjectNews',
   projectWarning = 'ProjectWarning',
@@ -27,11 +27,11 @@ export enum ProjectsRouteName {
 
 export type ProjectsStackParams = {
   [ProjectsRouteName.authorizedProjects]: {projectManagerId: string}
-  [ProjectsRouteName.createNotification]: {projectDetails: ProjectMinimal}
+  [ProjectsRouteName.createNotification]: {project: ProjectIdAndTitle}
   [ProjectsRouteName.projects]: undefined
-  [ProjectsRouteName.projectDetail]: {id: string}
-  [ProjectsRouteName.projectDetailBody]: {
-    body: ProjectDetailBody
+  [ProjectsRouteName.project]: {id: string}
+  [ProjectsRouteName.projectBody]: {
+    body: ProjectBody
     headerTitle: string
   }
   [ProjectsRouteName.projectManager]: {id: string}
@@ -65,13 +65,13 @@ export const projectsRoutes: StackNavigationRoutes<
       headerTitle: 'Werk in uitvoering',
     },
   },
-  [ProjectsRouteName.projectDetail]: {
-    component: ProjectDetailScreen,
-    name: ProjectsRouteName.projectDetail,
+  [ProjectsRouteName.project]: {
+    component: ProjectScreen,
+    name: ProjectsRouteName.project,
   },
-  [ProjectsRouteName.projectDetailBody]: {
-    component: ProjectDetailBodyScreen,
-    name: ProjectsRouteName.projectDetailBody,
+  [ProjectsRouteName.projectBody]: {
+    component: ProjectBodyScreen,
+    name: ProjectsRouteName.projectBody,
   },
   [ProjectsRouteName.projectManager]: {
     component: ProjectManagerScreen,

@@ -1,7 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {Project} from '../../../../types'
+import {ProjectsItem} from '../../../../types'
 import {
   useGetProjectManagerQuery,
   useGetProjectsQuery,
@@ -22,7 +22,7 @@ export const useProjectManagerFetcher = () => {
   // avoid unnecessary re-renders
   const selectAuthProjects = useMemo(() => {
     return createSelector(
-      (result: {data?: Project[]}) => result.data,
+      (result: {data?: ProjectsItem[]}) => result.data,
       data =>
         data?.filter(
           project =>

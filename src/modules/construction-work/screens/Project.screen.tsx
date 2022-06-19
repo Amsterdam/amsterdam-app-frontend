@@ -17,7 +17,6 @@ import {
 import {Switch} from '../../../components/ui/forms'
 import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
 import {Image} from '../../../components/ui/media'
-import {Title} from '../../../components/ui/typography'
 import {useEnvironment} from '../../../store'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {ArticleOverview} from '../components/article'
@@ -25,21 +24,22 @@ import {ProjectBodyMenu, ProjectTraits} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {useGetProjectQuery} from '../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {Title} from '@/components/ui/text'
 
-type ProjectDetailScreenRouteProp = RouteProp<
+type ProjectScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.projectDetail
+  ProjectsRouteName.project
 >
 
 type Props = {
   navigation: StackNavigationProp<
     ProjectsStackParams,
-    ProjectsRouteName.projectDetail
+    ProjectsRouteName.project
   >
-  route: ProjectDetailScreenRouteProp
+  route: ProjectScreenRouteProp
 }
 
-export const ProjectDetailScreen = ({navigation, route}: Props) => {
+export const ProjectScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
 
   const notificationSettings = useSelector(selectNotificationSettings)
@@ -88,7 +88,7 @@ export const ProjectDetailScreen = ({navigation, route}: Props) => {
               <Button
                 onPress={() =>
                   navigation.navigate(ProjectsRouteName.createNotification, {
-                    projectDetails: {
+                    project: {
                       id: project.identifier,
                       title: project.title,
                     },

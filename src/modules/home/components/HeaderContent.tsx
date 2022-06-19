@@ -8,7 +8,7 @@ import {CustomScreenOptions} from '@/app/navigation'
 import {IconButton} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/typography'
+import {Title} from '@/components/ui/text'
 import {selectTheme} from '@/themes'
 
 type Props = Pick<
@@ -20,7 +20,9 @@ type Props = Pick<
 const chevronSize = 20
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
-  const {theme} = useSelector(selectTheme)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
   const title = getHeaderTitle(options, '')
 
   return (
@@ -30,7 +32,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
           <IconButton
             icon={
               <Icon size={chevronSize}>
-                <ChevronLeft fill={theme.color.pressable.default.background} />
+                <ChevronLeft fill={color.pressable.default.background} />
               </Icon>
             }
             hitSlop={16}

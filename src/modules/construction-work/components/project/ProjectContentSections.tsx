@@ -1,7 +1,7 @@
 import React from 'react'
 import {Column} from '../../../../components/ui/layout'
-import {Article, Title} from '../../../../components/ui/typography'
 import {Section} from '../../../../types'
+import {Article, Title} from '@/components/ui/text'
 
 type Props = {
   sections: Section[]

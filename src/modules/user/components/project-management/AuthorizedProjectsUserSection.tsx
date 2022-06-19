@@ -13,10 +13,10 @@ import {
   Text,
 } from '../../../../components/ui'
 import {accessibleText} from '../../../../utils'
-import {module as projectsModule} from '../../../projects'
-import {ProjectTitle} from '../../../projects/components/project'
-import {useProjectManagerFetcher} from '../../../projects/components/project-manager'
-import {ProjectsRouteName} from '../../../projects/routes'
+import {module as constructionWorkModule} from '../../../construction-work'
+import {ProjectTitle} from '../../../construction-work/components/project'
+import {useProjectManagerFetcher} from '../../../construction-work/components/project-manager'
+import {ProjectsRouteName} from '../../../construction-work/routes'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
@@ -51,8 +51,8 @@ export const AuthorizedProjectsUserSection = () => {
           <Fragment key={project.identifier}>
             <LinkToUserSection
               onPress={() =>
-                navigation.navigate(projectsModule.name, {
-                  screen: ProjectsRouteName.projectDetail,
+                navigation.navigate(constructionWorkModule.name, {
+                  screen: ProjectsRouteName.project,
                   params: {
                     id: project.identifier,
                   },

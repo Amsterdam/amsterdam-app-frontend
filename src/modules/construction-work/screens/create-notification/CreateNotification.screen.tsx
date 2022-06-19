@@ -39,7 +39,7 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
   const totalSteps = useSelector(selectTotalSteps)
 
   useEffect(() => {
-    const {id, title} = route.params.projectDetails
+    const {id, title} = route.params.project
     dispatch(
       setProject({
         id,

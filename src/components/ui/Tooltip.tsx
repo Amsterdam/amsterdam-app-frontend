@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '../../themes'
-import {Text} from './Text'
+import {Text} from './'
 
 type Props = {
   text: string

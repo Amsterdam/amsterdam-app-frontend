@@ -6,7 +6,7 @@ import {Box} from './Box'
 import {Button} from './Button'
 import {Column, Gutter} from './layout'
 import {Screen} from './layout/Screen'
-import {Paragraph} from './typography'
+import {Paragraph} from './text'
 import {Theme, useThemable} from '@/themes'
 
 export const ErrorWithRestart = () => {

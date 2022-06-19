@@ -1,15 +1,21 @@
 import React from 'react'
-import {View} from 'react-native'
-import {useSelector} from 'react-redux'
+import {StyleSheet, View} from 'react-native'
 import HeroImage from '../../assets/images/project-warning-hero.svg'
-import {selectTheme} from '../../themes'
+import {Theme, useThemable} from '../../themes'
 
 export const Hero = () => {
-  const {theme} = useSelector(selectTheme)
+  const styles = useThemable(createStyles)
 
   return (
-    <View style={{aspectRatio: theme.image.aspectRatio.hero}}>
+    <View style={styles.aspectRatio}>
       <HeroImage />
     </View>
   )
 }
+
+const createStyles = ({image}: Theme) =>
+  StyleSheet.create({
+    aspectRatio: {
+      aspectRatio: image.aspectRatio.hero,
+    },
+  })

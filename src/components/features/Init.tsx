@@ -1,7 +1,7 @@
 import React, {ReactNode, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useInitSentry} from '../../hooks'
-import {selectProjectManager} from '../../modules/projects/components/project-manager'
+import {selectProjectManager} from '../../modules/construction-work/components/project-manager'
 import {setCredentials} from '../../store/authSlice'
 import {encryptWithAES} from '../../utils'
 

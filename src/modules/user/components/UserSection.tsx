@@ -1,8 +1,8 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Text} from '../../../components/ui/Text'
 import {Column} from '../../../components/ui/layout/Column'
 import {color, size} from '../../../tokens'
+import {Text} from '@/components/ui'
 
 type Props = {
   children: React.ReactNode

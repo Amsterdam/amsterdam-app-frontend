@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {Row} from './layout'
 import {Icon} from './media'
-import {Paragraph} from './typography'
+import {Paragraph} from './text'
 
 type Props = {
   icon: ReactNode

@@ -5,13 +5,13 @@ import {useMarkArticleAsRead} from '../../../../components/features/notification
 import {Box, PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
-import {Article, Paragraph, Title} from '../../../../components/ui/typography'
 import {useEnvironment} from '../../../../store'
 import {formatDate, mapImageSources} from '../../../../utils'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
 } from '../../projects.service'
+import {Article, Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
   id: string

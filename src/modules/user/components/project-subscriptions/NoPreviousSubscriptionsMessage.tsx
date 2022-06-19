@@ -5,8 +5,8 @@ import {module as userModule} from '../..'
 import {RootStackParamList} from '../../../../app/navigation'
 import {Attention, Text, TextButton} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
-import {module as projectsModule} from '../../../projects'
-import {ProjectsRouteName} from '../../../projects/routes'
+import {module as constructionWorkModule} from '../../../construction-work'
+import {ProjectsRouteName} from '../../../construction-work/routes'
 
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =
@@ -24,7 +24,7 @@ export const NoPreviousSubscriptionsMessage = () => {
       <TextButton
         emphasis
         onPress={() =>
-          navigation.navigate(projectsModule.name, {
+          navigation.navigate(constructionWorkModule.name, {
             screen: ProjectsRouteName.projects,
           })
         }
