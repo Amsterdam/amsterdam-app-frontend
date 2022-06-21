@@ -21,6 +21,9 @@ type FontTokens = {
   }
 }
 
+/**
+ * @deprecated Use `theme` instead.
+ */
 export const font: FontTokens = {
   height: {
     h1: 30,

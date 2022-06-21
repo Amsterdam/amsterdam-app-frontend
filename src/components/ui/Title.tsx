@@ -13,6 +13,9 @@ type Props = {
   visuallyHidden?: boolean
 } & Omit<TextProps, 'style'>
 
+/**
+ * @deprecated Use ui/text/Title instead.
+ */
 export const Title = ({
   center,
   level = 1,

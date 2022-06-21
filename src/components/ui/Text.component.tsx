@@ -20,6 +20,9 @@ type Props = {
   warning?: boolean
 } & Omit<TextRNProps, 'style'>
 
+/**
+ * @deprecated Use `Paragraph` instead.
+ */
 export const Text = ({
   children,
   intro,
