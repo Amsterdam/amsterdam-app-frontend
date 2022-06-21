@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react'
 import {SkipInScreenReader} from '@/components/ui/SkipInScreenReader'
-import {Row} from '@/components/ui/layout'
-import {MainAxisPosition} from '@/components/ui/layout/types'
+import {MainAxisPosition, Row} from '@/components/ui/layout'
 import {layoutStyles} from '@/styles'
 
 type Props = {

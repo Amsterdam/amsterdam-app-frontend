@@ -1,14 +1,12 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {ChildrenWithGutters} from '@/components/ui/layout'
 import {
+  ChildrenWithGutters,
   CrossAxisAlignment,
   MainAxisAlignment,
-} from '@/components/ui/layout/types'
-import {
   mapCrossAxisAlignment,
   mapMainAxisAlignment,
-} from '@/components/ui/layout/utils'
+} from '@/components/ui/layout'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {

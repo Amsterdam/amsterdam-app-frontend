@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Column} from '../../../components/ui/layout/Column'
 import {Text} from '@/components/ui'
+import {Column} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
