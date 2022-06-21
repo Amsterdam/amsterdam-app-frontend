@@ -27,6 +27,12 @@ steps:
     inputs:
       secureFile: 'upload.keystore'
     condition: ${{ parameters.condition }}
+  - task: CopyFiles@2
+    displayName: "Android: export keystore"
+    inputs:
+      contents: upload.keystore
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: ${{ parameters.condition }}
   - task: JavaToolInstaller@0
     inputs:
       versionSpec: '11'
