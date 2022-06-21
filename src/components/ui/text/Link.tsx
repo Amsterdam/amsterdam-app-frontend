@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {Theme, useThemable} from '../../../themes'
+import {Theme, useThemable} from '@/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {

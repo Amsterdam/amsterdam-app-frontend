@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {useSelector} from 'react-redux'
-import {FormField} from '../forms'
-import {MainAxisPosition} from '../layout/types'
+import {FormField} from '@/components/ui/forms'
+import {MainAxisPosition} from '@/components/ui/layout/types'
 import {selectTheme} from '@/themes'
 
 type Props = {

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {Circle as SvgCircle, Svg, Text as SvgText} from 'react-native-svg'
 import {useSelector} from 'react-redux'
-import {DeviceContext} from '../../providers'
+import {DeviceContext} from '@/providers'
 import {selectTheme} from '@/themes'
 
 type Props = {

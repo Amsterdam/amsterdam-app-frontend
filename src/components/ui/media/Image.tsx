@@ -4,8 +4,8 @@ import {
   ImageProps as ImageRNProps,
   StyleSheet,
 } from 'react-native'
-import {Theme, useThemable} from '../../../themes'
-import {ImageAspectRatioTokens} from '../../../themes/tokens'
+import {Theme, useThemable} from '@/themes'
+import {ImageAspectRatioTokens} from '@/themes/tokens'
 
 type ImageProps = {
   aspectRatio?: keyof ImageAspectRatioTokens

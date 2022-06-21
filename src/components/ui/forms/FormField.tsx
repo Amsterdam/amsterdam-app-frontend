@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
-import {layoutStyles} from '../../../styles'
-import {SkipInScreenReader} from '../SkipInScreenReader'
-import {Row} from '../layout'
-import {MainAxisPosition} from '../layout/types'
+import {SkipInScreenReader} from '@/components/ui/SkipInScreenReader'
+import {Row} from '@/components/ui/layout'
+import {MainAxisPosition} from '@/components/ui/layout/types'
+import {layoutStyles} from '@/styles'
 
 type Props = {
   children: ReactNode

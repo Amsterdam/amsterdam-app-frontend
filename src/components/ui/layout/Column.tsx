@@ -1,9 +1,15 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {SpacingTokens} from '../../../themes/tokens'
-import {CrossAxisAlignment, MainAxisAlignment} from './types'
-import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
-import {ChildrenWithGutters} from './'
+import {ChildrenWithGutters} from '@/components/ui/layout'
+import {
+  CrossAxisAlignment,
+  MainAxisAlignment,
+} from '@/components/ui/layout/types'
+import {
+  mapCrossAxisAlignment,
+  mapMainAxisAlignment,
+} from '@/components/ui/layout/utils'
+import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   align?: MainAxisAlignment

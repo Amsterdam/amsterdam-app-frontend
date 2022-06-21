@@ -1,7 +1,7 @@
 import React from 'react'
 import {useWindowDimensions} from 'react-native'
 import RenderHTML, {MixedStyleDeclaration} from 'react-native-render-html'
-import {Theme, useThemable} from '../../../themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   content: string | undefined

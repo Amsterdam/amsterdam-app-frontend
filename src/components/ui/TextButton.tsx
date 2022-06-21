@@ -7,8 +7,8 @@ import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
 import {useSelector} from 'react-redux'
-import {DeviceContext} from '../../providers'
 import {Row} from './layout'
+import {DeviceContext} from '@/providers'
 import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {

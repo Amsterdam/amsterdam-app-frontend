@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
-import {DeviceContext} from '../../../providers'
+import {DeviceContext} from '@/providers'
 
 type Props = ViewProps
 

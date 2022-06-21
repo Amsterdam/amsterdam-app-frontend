@@ -2,9 +2,9 @@ import {useRadio} from '@react-native-aria/radio'
 import React, {ReactNode, useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import CircleIcon from '../../../assets/icons/circle.svg'
-import {Center} from '../layout'
 import {RadioContext} from './'
+import CircleIcon from '@/assets/icons/circle.svg'
+import {Center} from '@/components/ui/layout'
 import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {

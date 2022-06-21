@@ -4,7 +4,7 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {color, font} from '../../tokens'
+import {color, font} from '@/tokens'
 
 type Props = {
   children: ReactNode

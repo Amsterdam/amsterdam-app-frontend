@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native'
 import {useSelector} from 'react-redux'
-import {FormField} from '../forms'
-import {MainAxisPosition} from '../layout/types'
+import {FormField} from '@/components/ui/forms'
+import {MainAxisPosition} from '@/components/ui/layout/types'
 import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {
