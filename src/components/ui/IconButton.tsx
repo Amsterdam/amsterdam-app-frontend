@@ -1,7 +1,13 @@
 import React, {ReactNode} from 'react'
-import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native'
 import {Badge, BadgeProps} from '@/components/ui/Badge'
-import {size as sizeTokens} from '@/tokens'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   /**
@@ -14,25 +20,31 @@ type Props = {
   icon: ReactNode
 } & Omit<PressableProps, 'style'>
 
-const hitSlopSize = sizeTokens.spacing.sm
+export const IconButton = ({badgeValue, icon, ...props}: Props) => {
+  const styles = useThemable(createStyles)
 
-export const IconButton = ({badgeValue, icon, ...props}: Props) => (
-  <Pressable {...props}>
-    {icon}
-    {badgeValue ? (
-      <View style={styles.badgePosition}>
-        <Badge accessible={false} value={badgeValue} />
-      </View>
-    ) : null}
-  </Pressable>
-)
+  return (
+    <Pressable {...props}>
+      {icon}
+      {badgeValue ? (
+        <View style={styles.badgePosition}>
+          <Badge accessible={false} value={badgeValue} />
+        </View>
+      ) : null}
+    </Pressable>
+  )
+}
 
-const styles = StyleSheet.create({
-  badgePosition: {
+const createStyles = ({size}: Theme) => {
+  const hitSlopSize = size.spacing.sm
+
+  const styles: ViewStyle = {
     position: 'absolute',
     top: -hitSlopSize,
     right: -hitSlopSize,
     left: -hitSlopSize,
     alignItems: 'flex-end',
-  },
-})
+  }
+
+  return StyleSheet.create({badgePosition: styles})
+}

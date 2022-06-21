@@ -4,11 +4,11 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
 import {Box, Button} from '../../../components/ui'
-import {size} from '../../../tokens'
 import {module as homeModule} from '../../home'
 import {HomeRouteName} from '../../home/routes'
 import {ProjectManagerSummary} from '../components/project-manager'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {Theme, useThemable} from '@/themes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
   ProjectsStackParams,
@@ -25,24 +25,29 @@ type Props = {
   route: ProjectManagerScreenRouteProp
 }
 
-export const ProjectManagerScreen = ({navigation, route}: Props) => (
-  <View style={styles.screenHeight}>
-    <ProjectManagerSummary routeParamsId={route.params.id} />
-    <Box>
-      <Button
-        text="Sluit venster"
-        onPress={() =>
-          navigation.navigate(homeModule.name, {screen: HomeRouteName.home})
-        }
-      />
-    </Box>
-  </View>
-)
+export const ProjectManagerScreen = ({navigation, route}: Props) => {
+  const styles = useThemable(createStyles)
 
-const styles = StyleSheet.create({
-  screenHeight: {
-    height: '100%',
-    justifyContent: 'space-between',
-    paddingBottom: size.spacing.md,
-  },
-})
+  return (
+    <View style={styles.screenHeight}>
+      <ProjectManagerSummary routeParamsId={route.params.id} />
+      <Box>
+        <Button
+          text="Sluit venster"
+          onPress={() =>
+            navigation.navigate(homeModule.name, {screen: HomeRouteName.home})
+          }
+        />
+      </Box>
+    </View>
+  )
+}
+
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    screenHeight: {
+      height: '100%',
+      justifyContent: 'space-between',
+      paddingBottom: size.spacing.md,
+    },
+  })

@@ -6,9 +6,10 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native'
-import {color} from '../../../tokens'
+import {useSelector} from 'react-redux'
 import {FormField} from '../forms'
 import {MainAxisPosition} from '../layout/types'
+import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -24,33 +25,39 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
+  const styles = useThemable(createStyles)
+
   return (
     <TouchableHighlight
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onValueChange}
-      underlayColor={color.background.white}>
+      underlayColor={color.box.background.white}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {value && <Checkmark fill={color.font.inverse} />}
+          {value && <Checkmark fill={color.text.inverted} />}
         </View>
       </FormField>
     </TouchableHighlight>
   )
 }
 
-const styles = StyleSheet.create({
-  checkbox: {
-    width: 24,
-    aspectRatio: 1,
-    padding: 4,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: color.control.default.border,
-    backgroundColor: color.control.default.background,
-  },
-  checked: {
-    backgroundColor: color.control.checked.background,
-    borderColor: color.control.checked.background,
-  },
-})
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    checkbox: {
+      width: 24,
+      aspectRatio: 1,
+      padding: 4,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: color.control.default.border,
+      backgroundColor: color.control.default.background,
+    },
+    checked: {
+      backgroundColor: color.control.checked.background,
+      borderColor: color.control.checked.background,
+    },
+  })

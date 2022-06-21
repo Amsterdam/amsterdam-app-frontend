@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {color, font, size} from '../../tokens'
-import {Row} from './layout'
-import {Icon} from './media'
-import {Text} from './'
+import {Text} from '@/components/ui/'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   icon?: ReactNode
@@ -11,14 +11,14 @@ type Props = {
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
 } & Omit<TouchableOpacityProps, 'style'>
 
-const verticalPadding = (44 - font.height.p1) / 2 // Design system: button height must be 44
-
 export const Button = ({
   icon,
   text,
   variant = 'primary',
   ...otherProps
 }: Props) => {
+  const styles = useThemable(createStyles)
+
   return (
     <TouchableOpacity
       accessibilityRole="button"
@@ -39,29 +39,30 @@ export const Button = ({
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: size.spacing.md,
-    paddingVertical: verticalPadding,
-  },
-  inverse: {
-    backgroundColor: color.background.white,
-    borderColor: color.touchable.primary,
-    borderWidth: 1,
-    borderStyle: 'solid',
-  },
-  primary: {
-    backgroundColor: color.touchable.primary,
-  },
-  secondary: {
-    backgroundColor: color.touchable.secondary,
-  },
-  text: {
-    backgroundColor: undefined,
-    color: color.touchable.primary,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-  },
-})
+const createStyles = ({color, text, size}: Theme) =>
+  StyleSheet.create({
+    button: {
+      justifyContent: 'center',
+      flexDirection: 'row',
+      paddingHorizontal: size.spacing.md,
+      paddingVertical: (44 - text.lineHeight.body) / 2, // Design system: button height must be 44
+    },
+    inverse: {
+      backgroundColor: color.box.background.white,
+      borderColor: color.pressable.default.background,
+      borderWidth: 1,
+      borderStyle: 'solid',
+    },
+    primary: {
+      backgroundColor: color.pressable.default.background,
+    },
+    secondary: {
+      backgroundColor: color.pressable.secondary.background,
+    },
+    text: {
+      backgroundColor: undefined,
+      color: color.pressable.default.background,
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+    },
+  })

@@ -1,7 +1,8 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {color, font} from '../../tokens'
+import {useSelector} from 'react-redux'
 import {SingleSelectable, TextInCircle} from './index'
+import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {
   current?: number
@@ -17,6 +18,10 @@ type Step = {
 }
 
 export const Stepper = ({current = 1, length}: Props) => {
+  const {
+    theme: {color, text},
+  } = useSelector(selectTheme)
+  const styles = useThemable(createStyles)
   const steps: Step[] = Array.from(new Array(length), (item, index) => {
     const oneBasedIndex = index + 1
 
@@ -45,7 +50,7 @@ export const Stepper = ({current = 1, length}: Props) => {
                 ? color.background.emphasis
                 : color.background.inactive
             }
-            fontSize={step.isCurrent ? font.size.h3 : undefined}
+            fontSize={step.isCurrent ? text.fontSize.h3 : undefined}
             label={step.label}
           />
           {!step.isLast && (
@@ -62,25 +67,26 @@ export const Stepper = ({current = 1, length}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  connector: {
-    height: 4,
-    flexGrow: 1,
-    alignSelf: 'center',
-    backgroundColor: color.background.inactive,
-  },
-  connectorComplete: {
-    backgroundColor: color.background.emphasis,
-  },
-  step: {
-    flexDirection: 'row',
-    flexGrow: 1,
-    alignItems: 'center',
-  },
-  stepLast: {
-    flexGrow: 0,
-  },
-  stepper: {
-    flexDirection: 'row',
-  },
-})
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    connector: {
+      height: 4,
+      flexGrow: 1,
+      alignSelf: 'center',
+      backgroundColor: color.background.inactive,
+    },
+    connectorComplete: {
+      backgroundColor: color.background.emphasis,
+    },
+    step: {
+      flexDirection: 'row',
+      flexGrow: 1,
+      alignItems: 'center',
+    },
+    stepLast: {
+      flexGrow: 0,
+    },
+    stepper: {
+      flexDirection: 'row',
+    },
+  })

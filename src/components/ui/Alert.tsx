@@ -1,12 +1,12 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useContext} from 'react'
 import {Platform, StyleSheet, UIManager, View} from 'react-native'
-import {Row} from './layout'
-import {SingleSelectable, Text, Title} from '.'
-import {IconButton} from '@/components/ui'
+import {useSelector} from 'react-redux'
+import {IconButton, SingleSelectable, Text, Title} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {AlertContext} from '@/providers'
-import {color, size} from '@/tokens'
+import {AlertContext, Variant} from '@/providers'
+import {selectTheme, Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
 if (
@@ -19,20 +19,17 @@ if (
 export const Alert = () => {
   const {changeVisibility, content, isVisible, variant} =
     useContext(AlertContext)
-
-  const dynamicStyles = StyleSheet.create({
-    alert: {
-      backgroundColor:
-        variant === 'success' ? color.background.valid : color.status.error,
-    },
-  })
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
+  const styles = useThemable(createStyles(variant))
 
   if (!isVisible) {
     return null
   }
 
   return (
-    <View style={[styles.alert, dynamicStyles.alert]}>
+    <View style={styles.alert}>
       <Row align="between">
         <SingleSelectable
           accessibilityLabel={accessibleText(content?.title, content?.text)}>
@@ -43,7 +40,7 @@ export const Alert = () => {
           accessibilityHint="Sluit melding"
           icon={
             <Icon size={24}>
-              <Close fill={color.font.inverse} />
+              <Close fill={color.text.inverted} />
             </Icon>
           }
           onPress={() => changeVisibility(false)}
@@ -53,8 +50,15 @@ export const Alert = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  alert: {
-    padding: size.spacing.md,
-  },
-})
+const createStyles =
+  (variant?: Variant) =>
+  ({color, size}: Theme) =>
+    StyleSheet.create({
+      alert: {
+        backgroundColor:
+          variant === 'success'
+            ? color.severity.positive
+            : color.severity.negative,
+        padding: size.spacing.md,
+      },
+    })

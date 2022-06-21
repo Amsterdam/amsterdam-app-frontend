@@ -13,13 +13,7 @@ type Props = {
 }
 
 export const Column = ({align, children, gutter, halign}: Props) => {
-  const styles = StyleSheet.create({
-    column: {
-      flexGrow: 1,
-      justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(halign),
-    },
-  })
+  const styles = createStyles({align, halign})
 
   return (
     <View style={styles.column}>
@@ -33,3 +27,12 @@ export const Column = ({align, children, gutter, halign}: Props) => {
     </View>
   )
 }
+
+const createStyles = ({align, halign}: Partial<Props>) =>
+  StyleSheet.create({
+    column: {
+      flexGrow: 1,
+      justifyContent: mapMainAxisAlignment(align),
+      alignItems: mapCrossAxisAlignment(halign),
+    },
+  })

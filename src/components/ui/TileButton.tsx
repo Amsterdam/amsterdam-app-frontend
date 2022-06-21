@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
-import {color, size} from '../../tokens'
 import {Gutter} from './layout'
 import {Title} from './'
+import {Theme, useThemable} from '@/themes'
 
 export type TileButtonProps = {
   icon?: ReactNode
@@ -21,6 +21,7 @@ export const TileButton = ({
   square,
   width,
 }: TileButtonProps) => {
+  const styles = useThemable(createStyles)
   const iconStyles = {width: iconSize, aspectRatio: 1}
 
   return (
@@ -40,18 +41,19 @@ export const TileButton = ({
   )
 }
 
-const styles = StyleSheet.create({
-  square: {
-    aspectRatio: 1,
-    justifyContent: 'center',
-  },
-  notSquare: {
-    flexDirection: 'row',
-  },
-  tileButton: {
-    flexShrink: 1,
-    alignItems: 'center',
-    backgroundColor: color.background.grey,
-    padding: size.spacing.md,
-  },
-})
+const createStyles = ({color, size}: Theme) =>
+  StyleSheet.create({
+    square: {
+      aspectRatio: 1,
+      justifyContent: 'center',
+    },
+    notSquare: {
+      flexDirection: 'row',
+    },
+    tileButton: {
+      flexShrink: 1,
+      alignItems: 'center',
+      backgroundColor: color.box.background.grey,
+      padding: size.spacing.md,
+    },
+  })

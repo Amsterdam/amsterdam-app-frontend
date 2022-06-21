@@ -26,7 +26,6 @@ import {
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {selectTheme} from '@/themes'
-import {size} from '@/tokens'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
@@ -42,7 +41,11 @@ export const ProjectsByDistance = () => {
   const {
     theme: {color},
   } = useSelector(selectTheme)
+
   const {fontScale} = useContext(DeviceContext)
+  const {
+    theme: {size},
+  } = useSelector(selectTheme)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const isSearching = useSelector(selectIsProjectsSearching)

@@ -7,11 +7,12 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
+import {useSelector} from 'react-redux'
 import {Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
 import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
-import {color, font, size} from '@/tokens'
+import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {
   label: string
@@ -20,9 +21,6 @@ type Props = {
   onFocus?: () => void
   warning?: boolean
 } & TextInputRNProps
-
-const frameInset = size.spacing.sm
-const textLineHeight = font.height.p1
 
 export const TextInput = forwardRef(
   (
@@ -39,6 +37,11 @@ export const TextInput = forwardRef(
   ) => {
     const [hasFocus, setFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
+
+    const {
+      theme: {color, size},
+    } = useSelector(selectTheme)
+    const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
 
     useEffect(() => {
       setValue(valueProp)
@@ -61,8 +64,51 @@ export const TextInput = forwardRef(
       onFocus && onFocus()
     }
 
-    const dynamicStyles = StyleSheet.create({
+    return (
+      <Column gutter="sm">
+        <Label isAccessible={!otherProps.accessibilityLabel} text={label} />
+        <View style={styles.frame}>
+          <TextInputRN
+            {...otherProps}
+            onBlur={handleBlur}
+            onChangeText={text => handleChangeText(text)}
+            onFocus={handleFocus}
+            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
+            ref={ref}
+            style={styles.textInput}
+            textAlignVertical="top"
+            value={value}
+          />
+          {value ? (
+            // TODO Use `IconButton` here
+            <Pressable
+              accessibilityRole="button"
+              accessibilityHint="Verwijder uw invoertekst"
+              hitSlop={size.spacing.sm}
+              onPress={handleClearText}>
+              <Icon size={20}>
+                <Close fill={color.text.default} />
+              </Icon>
+            </Pressable>
+          ) : null}
+        </View>
+      </Column>
+    )
+  },
+)
+
+const createStyles =
+  ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
+  ({color, size, text}: Theme) => {
+    const frameInset = size.spacing.sm
+    const textLineHeight = text.lineHeight.body
+
+    return StyleSheet.create({
       frame: {
+        flexDirection: 'row',
+        padding: frameInset,
+        backgroundColor: color.box.background.white,
+        borderStyle: 'solid',
         borderColor: warning
           ? color.control.warning.border
           : hasFocus
@@ -75,55 +121,12 @@ export const TextInput = forwardRef(
           Platform.OS === 'ios' && numberOfLines
             ? numberOfLines * textLineHeight + 2 * frameInset
             : 'auto',
+        flex: 1,
+        padding: 0, // Override an Android default
+        color: color.text.default,
+        fontFamily: text.fontWeight.regular,
+        fontSize: text.fontSize.body,
+        lineHeight: textLineHeight,
       },
     })
-
-    return (
-      <Column gutter="sm">
-        <Label isAccessible={!otherProps.accessibilityLabel} text={label} />
-        <View style={[styles.frame, dynamicStyles.frame]}>
-          <TextInputRN
-            {...otherProps}
-            onBlur={handleBlur}
-            onChangeText={text => handleChangeText(text)}
-            onFocus={handleFocus}
-            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
-            ref={ref}
-            style={[styles.textInput, dynamicStyles.textInput]}
-            textAlignVertical="top"
-            value={value}
-          />
-          {value ? (
-            // TODO Use `IconButton` here
-            <Pressable
-              accessibilityRole="button"
-              accessibilityHint="Verwijder uw invoertekst"
-              hitSlop={size.spacing.sm}
-              onPress={handleClearText}>
-              <Icon size={20}>
-                <Close fill={color.font.regular} />
-              </Icon>
-            </Pressable>
-          ) : null}
-        </View>
-      </Column>
-    )
-  },
-)
-
-const styles = StyleSheet.create({
-  frame: {
-    flexDirection: 'row',
-    padding: frameInset,
-    backgroundColor: color.background.white,
-    borderStyle: 'solid',
-  },
-  textInput: {
-    flex: 1,
-    padding: 0, // Override an Android default
-    color: color.font.regular,
-    fontFamily: font.weight.regular,
-    fontSize: font.size.p1,
-    lineHeight: textLineHeight,
-  },
-})
+  }

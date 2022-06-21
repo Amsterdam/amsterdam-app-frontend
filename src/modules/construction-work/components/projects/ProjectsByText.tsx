@@ -15,18 +15,22 @@ import {
 import {Gutter} from '../../../../components/ui/layout'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
-import {size} from '../../../../tokens'
 import {ProjectsItem} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {useGetProjectsByTextQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsByTextSlice'
+import {selectTheme} from '@/themes'
 
 export const ProjectsByText = () => {
   const navigation =
     useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+
   const {fontScale} = useContext(DeviceContext)
+  const {
+    theme: {size},
+  } = useSelector(selectTheme)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const searchText = useSelector(selectProjectSearchText)

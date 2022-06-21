@@ -3,6 +3,7 @@ import React, {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {color} from '../../tokens'
 import {Row} from './layout'
+import {Theme, useThemable} from '@/themes'
 
 const initialRotation = 0
 let stopAnimation = false
@@ -12,6 +13,7 @@ let stopAnimation = false
  * Best used through `PleaseWait` rather than by itself.
  */
 export const Spinner = () => {
+  const styles = useThemable(createStyles)
   const rotation = useRef(new Animated.Value(initialRotation)).current
 
   const startAnimation = () => {
@@ -51,9 +53,10 @@ export const Spinner = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    width: 20,
-    aspectRatio: 1,
-  },
-})
+const createStyles = ({image}: Theme) =>
+  StyleSheet.create({
+    container: {
+      width: 20,
+      aspectRatio: image.aspectRatio.square,
+    },
+  })

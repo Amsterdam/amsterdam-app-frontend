@@ -2,11 +2,11 @@ import {List} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {size} from '../../../../tokens'
 import {ProjectsItem} from '../../../../types'
 import {ProjectsRouteName} from '../../routes'
 import {ProjectManagerScreenNavigationProps} from '../../screens'
 import {ProjectTitle} from '../project'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   projects: ProjectsItem[] | undefined
@@ -14,6 +14,7 @@ type Props = {
 
 export const ProjectManagerProjects = ({projects}: Props) => {
   const navigation = useNavigation<ProjectManagerScreenNavigationProps>()
+  const styles = useThemable(createStyles)
 
   if (!projects || !projects.length) {
     return null
@@ -41,8 +42,9 @@ export const ProjectManagerProjects = ({projects}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: size.spacing.sm,
-  },
-})
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    button: {
+      paddingVertical: size.spacing.sm,
+    },
+  })

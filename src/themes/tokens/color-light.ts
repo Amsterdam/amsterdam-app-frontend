@@ -6,6 +6,8 @@ export type ColorTokens = typeof lightColorTokens
 export const lightColorTokens = {
   background: {
     cutout: baseColor.primary.white,
+    emphasis: baseColor.primary.darkblue,
+    inactive: baseColor.neutral.grey4,
     inverted: baseColor.neutral.grey5,
   },
   border: {
@@ -24,9 +26,33 @@ export const lightColorTokens = {
       white: baseColor.primary.white,
     },
   },
+  control: {
+    default: {
+      background: baseColor.primary.white,
+      border: baseColor.neutral.grey4,
+    },
+    checked: {
+      background: baseColor.primary.black,
+      border: baseColor.primary.black,
+    },
+    focus: {
+      border: baseColor.primary.black,
+    },
+    switch: {
+      background: baseColor.neutral.grey4,
+      off: baseColor.neutral.grey4,
+      on: baseColor.support.valid,
+    },
+    warning: {
+      border: baseColor.support.invalid,
+    },
+  },
   pressable: {
     default: {
       background: baseColor.primary.darkblue,
+    },
+    secondary: {
+      background: baseColor.primary.red,
     },
     navigation: baseColor.primary.darkblue,
     pressed: {
@@ -38,6 +64,11 @@ export const lightColorTokens = {
       default: baseColor.primary.white,
       settings: baseColor.custom.grey1,
     },
+  },
+  severity: {
+    positive: baseColor.support.valid,
+    negative: baseColor.support.invalid,
+    positiveDark: baseColor.supplement.darkergreen,
   },
   text: {
     default: baseColor.primary.black,
