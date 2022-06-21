@@ -99,7 +99,6 @@ platform :android do
           aab: isAab ? full_aab_path : nil,
           apk: !isAab ? full_apk_path : nil,
           version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
-          release_status: 'draft',
         )
       else
         UI.user_error!("ERROR: #{final_path} does not exist")
@@ -126,7 +125,6 @@ platform :android do
             skip_upload_images: true,
             skip_upload_screenshots: true,
             version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
-            release_status: 'draft',
           )
         else
           UI.user_error!("ERROR: #{final_path} does not exist")
@@ -145,7 +143,6 @@ platform :android do
           upload_to_play_store(
             package_name: app[:app_identifier],
             track: "alpha",
-            release_status: 'draft',
             track_promote_to: "production",
             track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
             aab: full_aab_path,
