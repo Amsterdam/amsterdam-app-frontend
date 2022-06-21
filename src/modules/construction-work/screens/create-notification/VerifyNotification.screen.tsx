@@ -229,9 +229,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 }
 
-const createStyles = ({image}: Theme) =>
+const createStyles = ({media}: Theme) =>
   StyleSheet.create({
     placeholder: {
-      aspectRatio: image.aspectRatio.wide,
+      aspectRatio: media.aspectRatio.wide,
     },
   })

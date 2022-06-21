@@ -56,10 +56,10 @@ export const Spinner = () => {
   )
 }
 
-const createStyles = ({image}: Theme) =>
+const createStyles = ({media}: Theme) =>
   StyleSheet.create({
     container: {
       width: 20,
-      aspectRatio: image.aspectRatio.square,
+      aspectRatio: media.aspectRatio.square,
     },
   })

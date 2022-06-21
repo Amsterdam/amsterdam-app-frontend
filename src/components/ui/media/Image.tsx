@@ -33,14 +33,14 @@ const createStyles =
     aspectRatio,
     customAspectRatio,
   }: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>) =>
-  ({image}: Theme) =>
+  ({media}: Theme) =>
     StyleSheet.create({
       image: {
         width: undefined,
         maxWidth: '100%',
         height: undefined,
         flex: 1,
-        aspectRatio: customAspectRatio ?? image.aspectRatio[aspectRatio],
+        aspectRatio: customAspectRatio ?? media.aspectRatio[aspectRatio],
         resizeMode: 'cover',
       },
     })

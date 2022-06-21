@@ -13,9 +13,9 @@ export const Hero = () => {
   )
 }
 
-const createStyles = ({image}: Theme) =>
+const createStyles = ({media}: Theme) =>
   StyleSheet.create({
     aspectRatio: {
-      aspectRatio: image.aspectRatio.hero,
+      aspectRatio: media.aspectRatio.hero,
     },
   })

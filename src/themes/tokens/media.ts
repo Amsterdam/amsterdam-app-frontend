@@ -1,7 +1,7 @@
-export type ImageTokens = typeof imageTokens
-export type ImageAspectRatioTokens = typeof imageTokens.aspectRatio
+export type MediaTokens = typeof mediaTokens
+export type ImageAspectRatioTokens = typeof mediaTokens.aspectRatio
 
-export const imageTokens = {
+export const mediaTokens = {
   aspectRatio: {
     default: 16 / 9,
     hero: 378 / 167,
