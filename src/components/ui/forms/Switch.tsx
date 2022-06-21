@@ -2,6 +2,7 @@ import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
+import {useTheme} from '@/themes'
 
 type Props = {
   label: ReactNode
