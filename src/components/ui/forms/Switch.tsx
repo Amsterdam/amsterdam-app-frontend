@@ -1,8 +1,9 @@
 import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
-import {color} from '../../../tokens'
+import {useSelector} from 'react-redux'
 import {FormField} from '../forms'
 import {MainAxisPosition} from '../layout/types'
+import {selectTheme} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -18,18 +19,24 @@ export const Switch = ({
   onValueChange,
   value,
   ...otherProps
-}: Props) => (
-  <FormField {...{label, labelPosition}}>
-    <SwitchRN
-      ios_backgroundColor={color.control.switch.background}
-      onValueChange={onValueChange}
-      trackColor={{
-        false: color.control.switch.off,
-        true: color.control.switch.on,
-      }}
-      thumbColor={color.control.default.background}
-      value={value}
-      {...otherProps}
-    />
-  </FormField>
-)
+}: Props) => {
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
+
+  return (
+    <FormField {...{label, labelPosition}}>
+      <SwitchRN
+        ios_backgroundColor={color.control.switch.background}
+        onValueChange={onValueChange}
+        trackColor={{
+          false: color.control.switch.off,
+          true: color.control.switch.on,
+        }}
+        thumbColor={color.control.default.background}
+        value={value}
+        {...otherProps}
+      />
+    </FormField>
+  )
+}

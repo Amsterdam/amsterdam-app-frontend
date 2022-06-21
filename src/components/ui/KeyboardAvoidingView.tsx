@@ -6,15 +6,19 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native'
-import {size} from '../../tokens'
+import {useSelector} from 'react-redux'
+import {selectTheme} from '@/themes'
 
 type Props = {
   children: ReactNode
 }
 
 export const KeyboardAvoidingView = ({children}: Props) => {
-  const headerHeight = useHeaderHeight()
+  const {
+    theme: {size},
+  } = useSelector(selectTheme)
 
+  const headerHeight = useHeaderHeight()
   const getHeaderHeight = (): number =>
     headerHeight + (StatusBar.currentHeight ?? 0)
 

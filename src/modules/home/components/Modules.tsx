@@ -1,4 +1,5 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -6,9 +7,13 @@ import {Paragraph} from '@/components/ui/text'
 import {ModuleButton} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
-import {color} from '@/tokens'
+import {selectTheme} from '@/themes'
 
 export const Modules = () => {
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
+
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
@@ -37,7 +42,7 @@ export const Modules = () => {
             <ModuleButton
               icon={
                 <Icon size={24}>
-                  <ModuleIcon fill={color.font.regular} />
+                  <ModuleIcon fill={color.text.default} />
                 </Icon>
               }
               key={slug}

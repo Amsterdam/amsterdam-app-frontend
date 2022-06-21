@@ -7,7 +7,7 @@ export const darkColorTokens: ColorTokens = {
     cutout: baseColor.primary.black,
     emphasis: baseColor.primary.darkblue,
     inactive: baseColor.neutral.grey4,
-    inverted: baseColor.neutral.grey1,
+    inverse: baseColor.neutral.grey1,
   },
   border: {
     default: baseColor.neutral.grey2,
@@ -19,6 +19,7 @@ export const darkColorTokens: ColorTokens = {
   box: {
     background: {
       alert: baseColor.supplement.yellow,
+      black: baseColor.primary.black,
       emphasis: baseColor.primary.darkblue,
       grey: baseColor.neutral.grey1,
       invalid: baseColor.support.invalid,
@@ -71,7 +72,7 @@ export const darkColorTokens: ColorTokens = {
   },
   text: {
     default: baseColor.primary.white,
-    inverted: baseColor.primary.black,
+    inverse: baseColor.primary.black,
     secondary: baseColor.neutral.grey1,
     tertiary: baseColor.neutral.grey2,
   },

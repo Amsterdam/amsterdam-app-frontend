@@ -31,7 +31,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {phone && (
             <Row>
               <Button
-                icon={<Phone fill={color.text.inverted} />}
+                icon={<Phone fill={color.text.inverse} />}
                 onPress={() => {
                   openPhoneUrl(phone)
                 }}
@@ -42,7 +42,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {email && (
             <Row>
               <Button
-                icon={<Email fill={color.text.inverted} />}
+                icon={<Email fill={color.text.inverse} />}
                 onPress={() => {
                   openMailUrl(email, emailSubject)
                 }}

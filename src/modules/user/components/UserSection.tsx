@@ -1,8 +1,8 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Column} from '../../../components/ui/layout/Column'
-import {color, size} from '../../../tokens'
 import {Text} from '@/components/ui'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   children: React.ReactNode
@@ -10,6 +10,7 @@ type Props = {
 }
 
 export const UserSection = ({children, title}: Props) => {
+  const styles = useThemable(createStyles)
   return (
     <Column gutter="sm">
       <View style={styles.header}>
@@ -22,17 +23,18 @@ export const UserSection = ({children, title}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  body: {
-    paddingHorizontal: size.spacing.md,
-    paddingVertical: size.spacing.sm,
-    backgroundColor: color.background.white,
-    borderBottomColor: color.border.onGrey,
-    borderTopColor: color.border.onGrey,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-  },
-  header: {
-    paddingHorizontal: size.spacing.md,
-  },
-})
+const createStyles = ({color, size}: Theme) =>
+  StyleSheet.create({
+    body: {
+      paddingHorizontal: size.spacing.md,
+      paddingVertical: size.spacing.sm,
+      backgroundColor: color.box.background.white,
+      borderBottomColor: color.border.onGrey,
+      borderTopColor: color.border.onGrey,
+      borderBottomWidth: 1,
+      borderTopWidth: 1,
+    },
+    header: {
+      paddingHorizontal: size.spacing.md,
+    },
+  })

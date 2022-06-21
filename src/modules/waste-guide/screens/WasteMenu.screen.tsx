@@ -4,11 +4,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {useSelector} from 'react-redux'
 import {BulkyWaste, Container} from '../../../assets/icons'
 import {TileButton, TileButtonProps} from '../../../components/ui'
 import {DeviceContext} from '../../../providers'
-import {color, size} from '../../../tokens'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {selectTheme, Theme, useThemable} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -19,7 +20,11 @@ type Props = {
 
 export const WasteMenuScreen = ({navigation}: Props) => {
   const {fontScale, isPortrait, width} = useContext(DeviceContext)
-  const iconProps = {fill: color.font.primary}
+  const {
+    theme: {color, size},
+  } = useSelector(selectTheme)
+
+  const iconProps = {fill: color.pressable.default.background}
 
   const menuItems: TileButtonProps[] = [
     {
@@ -51,6 +56,8 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     ? width
     : 24 * size.spacing.md * Math.max(fontScale, 1)
 
+  const styles = useThemable(createStyles)
+
   return (
     <FlatGrid
       data={menuItems}
@@ -63,8 +70,9 @@ export const WasteMenuScreen = ({navigation}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  grid: {
-    margin: size.spacing.sm,
-  },
-})
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    grid: {
+      margin: size.spacing.sm,
+    },
+  })

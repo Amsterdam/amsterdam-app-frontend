@@ -2,11 +2,12 @@ import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
+import {useSelector} from 'react-redux'
 import {Box, Button, IconButton, Text, Title} from '@/components/ui'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
-import {color} from '@/tokens'
+import {selectTheme} from '@/themes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
@@ -16,6 +17,10 @@ export const AddressPrivacyInfoScreen = ({
     AddressRouteName.addressInfo
   >
 }) => {
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
+
   return (
     <ScrollView grow>
       <Box grow>
@@ -25,7 +30,7 @@ export const AddressPrivacyInfoScreen = ({
             accessibilityRole="button"
             icon={
               <Icon size={20}>
-                <Close fill={color.font.regular} />
+                <Close fill={color.text.default} />
               </Icon>
             }
             onPress={navigation.goBack}

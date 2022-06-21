@@ -4,11 +4,12 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import {useSelector} from 'react-redux'
 import {maxHeight, timelineStyles} from './timelineStyles'
 import {Title} from '@/components/ui/Title'
 import {Icon} from '@/components/ui/media'
 import {Article} from '@/components/ui/text'
-import {color} from '@/tokens'
+import {selectTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 
 type Props = {
@@ -21,9 +22,17 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const isCurrent = item.progress === 'Huidig'
   const [expanded, setExpanded] = useState(isCurrent)
 
-  const chevronProps = {fill: color.background.darker, height: 9, width: 14}
+  const {
+    theme,
+    theme: {color},
+  } = useSelector(selectTheme)
+  const chevronProps = {
+    fill: color.box.background.black,
+    height: 9,
+    width: 14,
+  }
   const fadeAnim = useRef(new Animated.Value(0)).current
-  const styles = timelineStyles(isCurrent, isFirst, isLast)
+  const styles = timelineStyles(theme, isCurrent, isFirst, isLast)
 
   useLayoutEffect(() => {
     if (isCurrent) {

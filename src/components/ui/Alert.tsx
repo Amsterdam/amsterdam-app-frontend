@@ -40,7 +40,7 @@ export const Alert = () => {
           accessibilityHint="Sluit melding"
           icon={
             <Icon size={24}>
-              <Close fill={color.text.inverted} />
+              <Close fill={color.text.inverse} />
             </Icon>
           }
           onPress={() => changeVisibility(false)}

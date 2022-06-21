@@ -1,9 +1,9 @@
 import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
 import React, {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
-import {color} from '../../tokens'
+import {useSelector} from 'react-redux'
 import {Row} from './layout'
-import {Theme, useThemable} from '@/themes'
+import {selectTheme, Theme, useThemable} from '@/themes'
 
 const initialRotation = 0
 let stopAnimation = false
@@ -14,6 +14,9 @@ let stopAnimation = false
  */
 export const Spinner = () => {
   const styles = useThemable(createStyles)
+  const {
+    theme: {color},
+  } = useSelector(selectTheme)
   const rotation = useRef(new Animated.Value(initialRotation)).current
 
   const startAnimation = () => {
@@ -47,7 +50,7 @@ export const Spinner = () => {
         accessible
         accessibilityLabel="Bezig…"
         style={[styles.container, {transform: [{rotate}]}]}>
-        <SpinnerIcon fill={color.font.regular} />
+        <SpinnerIcon fill={color.text.default} />
       </Animated.View>
     </Row>
   )

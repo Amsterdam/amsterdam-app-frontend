@@ -1,6 +1,7 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {useSelector} from 'react-redux'
 import {
   Box,
   Button,
@@ -18,7 +19,7 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
-import {color, font} from '@/tokens'
+import {selectTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 type Props = {
@@ -39,43 +40,52 @@ const tips = [
   'Geen spoed maar wel belangrijk? Overleg met de redactie over een nieuwsbericht op de website.',
 ]
 
-const renderTip = ({index, text}: ZebraListItemProps) => (
-  <SingleSelectable label={accessibleText(index.toString(), text)}>
-    <Row gutter="md" valign="center">
-      <TextInCircle fontSize={font.size.h3} label={index.toString()} />
-      <Text>{text}</Text>
-    </Row>
-  </SingleSelectable>
-)
+const renderTip =
+  (fontSize: number) =>
+  ({index, text}: ZebraListItemProps) =>
+    (
+      <SingleSelectable label={accessibleText(index.toString(), text)}>
+        <Row gutter="md" valign="center">
+          <TextInCircle fontSize={fontSize} label={index.toString()} />
+          <Text>{text}</Text>
+        </Row>
+      </SingleSelectable>
+    )
 
-export const WritingGuideScreen = ({navigation}: Props) => (
-  <>
-    <Row align="end">
-      <Box>
-        <IconButton
-          accessibilityLabel="Sluiten"
-          accessibilityRole="button"
-          icon={
-            <Icon size={20}>
-              <Close fill={color.font.regular} />
-            </Icon>
-          }
-          onPress={navigation.goBack}
-        />
-      </Box>
-    </Row>
-    <ScrollView>
-      <Column align="between">
-        <Box insetHorizontal="md">
-          <Title text="Schrijftips" />
-        </Box>
-        <Gutter height="md" />
-        <ZebraList data={tips} renderItem={renderTip} />
+export const WritingGuideScreen = ({navigation}: Props) => {
+  const {
+    theme: {color, text},
+  } = useSelector(selectTheme)
+
+  return (
+    <>
+      <Row align="end">
         <Box>
-          <Button onPress={navigation.goBack} text="Aan de slag!" />
+          <IconButton
+            accessibilityLabel="Sluiten"
+            accessibilityRole="button"
+            icon={
+              <Icon size={20}>
+                <Close fill={color.text.default} />
+              </Icon>
+            }
+            onPress={navigation.goBack}
+          />
         </Box>
-      </Column>
-      <Gutter height="md" />
-    </ScrollView>
-  </>
-)
+      </Row>
+      <ScrollView>
+        <Column align="between">
+          <Box insetHorizontal="md">
+            <Title text="Schrijftips" />
+          </Box>
+          <Gutter height="md" />
+          <ZebraList data={tips} renderItem={renderTip(text.fontSize.h3)} />
+          <Box>
+            <Button onPress={navigation.goBack} text="Aan de slag!" />
+          </Box>
+        </Column>
+        <Gutter height="md" />
+      </ScrollView>
+    </>
+  )
+}

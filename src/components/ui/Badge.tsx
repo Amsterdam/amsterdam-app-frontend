@@ -49,6 +49,6 @@ const createStyles =
         fontFamily: text.fontWeight.bold,
         fontSize: fontSize,
         lineHeight: size - alignmentOffset, // Use line height for vertical inset to prevent cut-off glyphs
-        color: color.text.inverted,
+        color: color.text.inverse,
       },
     })
