@@ -22,7 +22,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const [expanded, setExpanded] = useState(isCurrent)
 
   const theme = useTheme()
-  const {color} = useTheme()
+  const {color} = theme
   const chevronProps = {
     fill: color.box.background.black,
     height: 9,
