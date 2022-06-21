@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
-const alias = require('../alias.js')
+const alias = require('../.config/alias.js')
 const {presets} = require('../babel.config.js')
 
 module.exports = {
