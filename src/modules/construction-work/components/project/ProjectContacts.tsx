@@ -2,13 +2,12 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import React from 'react'
 import {View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Button} from '../../../../components/ui'
 import {Column, Row} from '../../../../components/ui/layout'
-import {selectTheme} from '../../../../themes'
 import {ProjectContact} from '../../../../types'
 import {capitalizeString, openMailUrl, openPhoneUrl} from '../../../../utils'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useTheme} from '@/themes'
 
 type Props = {
   contacts: ProjectContact[]
@@ -16,9 +15,7 @@ type Props = {
 }
 
 export const ProjectContacts = ({contacts, emailSubject}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   return (
     <Column gutter="xl">

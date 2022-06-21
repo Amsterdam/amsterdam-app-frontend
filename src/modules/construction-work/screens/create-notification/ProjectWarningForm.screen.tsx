@@ -34,7 +34,7 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from './routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 const maxCharacters = {
   title: 50,
@@ -56,9 +56,7 @@ type Props = {
 }
 
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const tokens = {maxWidth: 1920, maxHeight: 1080}
 
   const {id: projectManagerId} = useSelector(selectProjectManager)

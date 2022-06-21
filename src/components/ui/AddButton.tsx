@@ -1,18 +1,13 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React from 'react'
 import {PressableProps, StyleSheet} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
-import {Theme, useThemable} from '@/themes'
-import {selectTheme} from '@/themes/themeSlice'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 export const AddButton = (props: PressableProps) => {
+  const {color} = useTheme()
   const styles = useThemable(createStyles)
-
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
 
   return (
     <Pressable style={styles.button} {...props}>

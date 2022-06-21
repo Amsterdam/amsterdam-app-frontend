@@ -6,7 +6,6 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Instagram, Whatsapp} from '@/assets/icons'
 import {Box, IconButton, Title} from '@/components/ui'
 import {Column, Gutter, Row} from '@/components/ui/layout'
@@ -16,7 +15,7 @@ import {
   CityOfficesRouteName,
   CityOfficesStackParams,
 } from '@/modules/city-offices/routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 import {accessibleText, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
 
@@ -31,9 +30,7 @@ type ContactOptionType = {
 }
 
 export const ContactOptions = () => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   const navigation =
     useNavigation<

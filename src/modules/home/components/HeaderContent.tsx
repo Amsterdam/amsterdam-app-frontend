@@ -3,13 +3,12 @@ import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {CustomScreenOptions} from '@/app/navigation'
 import {IconButton} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = Pick<
   StackHeaderProps,
@@ -20,9 +19,7 @@ type Props = Pick<
 const chevronSize = 20
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const title = getHeaderTitle(options, '')
 
   return (

@@ -1,8 +1,7 @@
 import React, {useContext} from 'react'
 import {Circle as SvgCircle, Svg, Text as SvgText} from 'react-native-svg'
-import {useSelector} from 'react-redux'
 import {DeviceContext} from '@/providers'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   backgroundColor?: string
@@ -12,9 +11,7 @@ type Props = {
 
 export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
   const {fontScale} = useContext(DeviceContext)
-  const {
-    theme: {color, text},
-  } = useSelector(selectTheme)
+  const {color, text} = useTheme()
 
   const scaledFontSize = (fontSize ?? text.fontSize.body) * fontScale
   const scaledSvgSize = 1.5 * scaledFontSize // The size of the circle depends on the font size

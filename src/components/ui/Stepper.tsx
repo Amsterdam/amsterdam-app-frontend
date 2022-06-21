@@ -1,8 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {SingleSelectable, TextInCircle} from './index'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   current?: number
@@ -18,9 +17,7 @@ type Step = {
 }
 
 export const Stepper = ({current = 1, length}: Props) => {
-  const {
-    theme: {color, text},
-  } = useSelector(selectTheme)
+  const {color, text} = useTheme()
   const styles = useThemable(createStyles)
   const steps: Step[] = Array.from(new Array(length), (item, index) => {
     const oneBasedIndex = index + 1

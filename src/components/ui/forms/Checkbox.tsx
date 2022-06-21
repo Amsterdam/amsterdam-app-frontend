@@ -6,10 +6,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native'
-import {useSelector} from 'react-redux'
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -25,9 +24,7 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const styles = useThemable(createStyles)
 
   return (

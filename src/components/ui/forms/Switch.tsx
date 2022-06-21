@@ -1,9 +1,7 @@
 import React, {ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
-import {useSelector} from 'react-redux'
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
-import {selectTheme} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -20,9 +18,7 @@ export const Switch = ({
   value,
   ...otherProps
 }: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   return (
     <FormField {...{label, labelPosition}}>

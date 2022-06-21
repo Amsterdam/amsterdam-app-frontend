@@ -1,13 +1,12 @@
 import React, {useEffect, useRef} from 'react'
 import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSelector} from 'react-redux'
 import {List, TextButton} from '../../../components/ui'
 import {TextInput} from '../../../components/ui/forms'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {BagResponseContent} from '../../../types'
 import {SuggestionButton} from './SuggestionButton'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
@@ -39,9 +38,7 @@ export const NumberInput = ({
   selectNumber,
   street,
 }: Props) => {
-  const {
-    theme: {size},
-  } = useSelector(selectTheme)
+  const {size} = useTheme()
 
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current

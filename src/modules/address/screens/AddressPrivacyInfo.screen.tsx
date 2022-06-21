@@ -2,12 +2,11 @@ import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Box, Button, IconButton, Text, Title} from '@/components/ui'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
@@ -17,9 +16,7 @@ export const AddressPrivacyInfoScreen = ({
     AddressRouteName.addressInfo
   >
 }) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   return (
     <ScrollView grow>

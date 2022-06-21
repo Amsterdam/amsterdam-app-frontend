@@ -1,12 +1,11 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {useContext} from 'react'
 import {Platform, StyleSheet, UIManager, View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {IconButton, SingleSelectable, Text, Title} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {AlertContext, Variant} from '@/providers'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 if (
@@ -19,9 +18,7 @@ if (
 export const Alert = () => {
   const {changeVisibility, content, isVisible, variant} =
     useContext(AlertContext)
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const styles = useThemable(createStyles(variant))
 
   if (!isVisible) {

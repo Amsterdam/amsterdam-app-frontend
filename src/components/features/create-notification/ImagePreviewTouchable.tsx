@@ -3,9 +3,8 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Image as ImageType} from 'react-native-image-crop-picker'
-import {useSelector} from 'react-redux'
 import {Icon, Image} from '../../ui/media'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   image: ImageType
@@ -13,9 +12,7 @@ type Props = {
 }
 
 export const ImagePreviewTouchable = ({image, onPress}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   return (
     <View>

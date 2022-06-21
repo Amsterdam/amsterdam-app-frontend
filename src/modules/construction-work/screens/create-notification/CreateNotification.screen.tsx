@@ -17,7 +17,7 @@ import {
   setProject,
 } from './notificationDraftSlice'
 import {createNotificationRoutes} from './routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type NotificationScreenRouteProp = RouteProp<
   ProjectsStackParams,
@@ -33,14 +33,11 @@ type Props = {
 }
 
 export const CreateNotificationScreen = ({navigation, route}: Props) => {
+  const {color} = useTheme()
   const dispatch = useDispatch()
   const isStepperVisible = useSelector(selectStepperVisibility)
   const step = useSelector(selectStep)
   const totalSteps = useSelector(selectTotalSteps)
-
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
 
   useEffect(() => {
     const {id, title} = route.params.project

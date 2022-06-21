@@ -1,20 +1,17 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Text} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   label: string
 } & TouchableOpacityProps
 
 export const SuggestionButton = ({label, onPress}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const styles = useThemable(createStyles)
 
   return (

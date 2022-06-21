@@ -1,20 +1,17 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React from 'react'
-import {useSelector} from 'react-redux'
 import {Divider, Text, Title} from '@/components/ui'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   hasProjects: boolean
 }
 
 export const ProjectManagerHeader = ({hasProjects}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   if (hasProjects) {
     return (

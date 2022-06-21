@@ -1,9 +1,8 @@
 import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
 import React, {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Row} from './layout'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 const initialRotation = 0
 let stopAnimation = false
@@ -14,9 +13,7 @@ let stopAnimation = false
  */
 export const Spinner = () => {
   const styles = useThemable(createStyles)
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const rotation = useRef(new Animated.Value(initialRotation)).current
 
   const startAnimation = () => {

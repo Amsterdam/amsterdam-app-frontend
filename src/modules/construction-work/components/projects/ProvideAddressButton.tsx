@@ -10,7 +10,7 @@ import {module as addressModule} from '../../../address'
 import {selectAddress} from '../../../address/addressSlice'
 import {AddressRouteName} from '../../../address/routes'
 import {ProjectsRouteName} from '../../routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 export const ProvideAddressButton = () => {
   const {primary: address} = useSelector(selectAddress)
@@ -20,9 +20,7 @@ export const ProvideAddressButton = () => {
       StackNavigationProp<RootStackParamList, ProjectsRouteName.projects>
     >()
 
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   if (address) {
     return null

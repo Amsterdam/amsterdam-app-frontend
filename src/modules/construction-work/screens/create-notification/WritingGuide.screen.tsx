@@ -1,7 +1,6 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {useSelector} from 'react-redux'
 import {
   Box,
   Button,
@@ -19,7 +18,7 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 type Props = {
@@ -53,9 +52,7 @@ const renderTip =
     )
 
 export const WritingGuideScreen = ({navigation}: Props) => {
-  const {
-    theme: {color, text},
-  } = useSelector(selectTheme)
+  const {color, text} = useTheme()
 
   return (
     <>

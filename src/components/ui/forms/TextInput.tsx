@@ -7,12 +7,11 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {useSelector} from 'react-redux'
 import {Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
 import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   label: string
@@ -38,9 +37,7 @@ export const TextInput = forwardRef(
     const [hasFocus, setFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
-    const {
-      theme: {color, size},
-    } = useSelector(selectTheme)
+    const {color, size} = useTheme()
     const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
 
     useEffect(() => {

@@ -1,14 +1,13 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {useSelector} from 'react-redux'
 import {screenOptions} from '../../app/navigation'
-import {selectTheme} from '../../themes/themeSlice'
 import {templateRoutes} from './routes'
+import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
 
 export const TemplateStack = () => {
-  const {theme} = useSelector(selectTheme)
+  const theme = useTheme()
 
   return (
     <Stack.Navigator

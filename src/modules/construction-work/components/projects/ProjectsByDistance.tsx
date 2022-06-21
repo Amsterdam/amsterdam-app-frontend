@@ -25,7 +25,7 @@ import {
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
@@ -38,14 +38,8 @@ export const ProjectsByDistance = () => {
         ProjectsRouteName.projects
       >
     >()
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
-
+  const {color, size} = useTheme()
   const {fontScale} = useContext(DeviceContext)
-  const {
-    theme: {size},
-  } = useSelector(selectTheme)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const isSearching = useSelector(selectIsProjectsSearching)

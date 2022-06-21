@@ -4,12 +4,11 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
 import {BulkyWaste, Container} from '../../../assets/icons'
 import {TileButton, TileButtonProps} from '../../../components/ui'
 import {DeviceContext} from '../../../providers'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -20,9 +19,7 @@ type Props = {
 
 export const WasteMenuScreen = ({navigation}: Props) => {
   const {fontScale, isPortrait, width} = useContext(DeviceContext)
-  const {
-    theme: {color, size},
-  } = useSelector(selectTheme)
+  const {color, size} = useTheme()
 
   const iconProps = {fill: color.pressable.default.background}
 

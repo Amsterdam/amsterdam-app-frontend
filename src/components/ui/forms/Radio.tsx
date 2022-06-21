@@ -1,11 +1,10 @@
 import {useRadio} from '@react-native-aria/radio'
 import React, {ReactNode, useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {RadioContext} from './'
 import CircleIcon from '@/assets/icons/circle.svg'
 import {Center} from '@/components/ui/layout'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   children: ReactNode
@@ -14,9 +13,7 @@ type Props = {
 }
 
 export const Radio = (props: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
   const styles = useThemable(createStyles)
 
   const contextState = useContext(RadioContext)

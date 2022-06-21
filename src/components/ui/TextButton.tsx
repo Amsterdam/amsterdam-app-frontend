@@ -6,10 +6,9 @@ import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
-import {useSelector} from 'react-redux'
 import {Row} from './layout'
 import {DeviceContext} from '@/providers'
-import {selectTheme, Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
@@ -30,9 +29,7 @@ export const TextButton = ({
   const {fontScale} = useContext(DeviceContext)
   const [isPressed, setIsPressed] = useState(false)
 
-  const {
-    theme: {size},
-  } = useSelector(selectTheme)
+  const {size} = useTheme()
   const iconColor = useThemable(createIconColor({emphasis, isPressed}))
   const styles = useThemable(createStyles)
 
