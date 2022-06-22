@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
-import {layoutStyles} from '../../styles'
-import {Theme, useThemable} from '../../themes'
-import {SpacingTokens} from '../../themes/tokens'
+import {layoutStyles} from '@/styles'
+import {Theme, useThemable} from '@/themes'
+import {SpacingTokens} from '@/themes/tokens'
 
 export type BoxProps = {
   background?: 'emphasis' | 'grey' | 'invalid' | 'white'

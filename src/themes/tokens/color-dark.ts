@@ -5,7 +5,9 @@ import {ColorTokens} from './color-light'
 export const darkColorTokens: ColorTokens = {
   background: {
     cutout: baseColor.primary.black,
-    inverted: baseColor.neutral.grey1,
+    emphasis: baseColor.primary.darkblue,
+    inactive: baseColor.neutral.grey4,
+    inverse: baseColor.neutral.grey1,
   },
   border: {
     default: baseColor.neutral.grey2,
@@ -17,15 +19,40 @@ export const darkColorTokens: ColorTokens = {
   box: {
     background: {
       alert: baseColor.supplement.yellow,
+      black: baseColor.primary.black,
       emphasis: baseColor.primary.darkblue,
       grey: baseColor.neutral.grey1,
       invalid: baseColor.support.invalid,
       white: baseColor.primary.white,
     },
   },
+  control: {
+    default: {
+      background: baseColor.primary.white,
+      border: baseColor.neutral.grey4,
+    },
+    checked: {
+      background: baseColor.primary.black,
+      border: baseColor.primary.black,
+    },
+    focus: {
+      border: baseColor.primary.black,
+    },
+    switch: {
+      background: baseColor.neutral.grey4,
+      off: baseColor.neutral.grey4,
+      on: baseColor.support.valid,
+    },
+    warning: {
+      border: baseColor.support.invalid,
+    },
+  },
   pressable: {
     default: {
       background: baseColor.primary.darkblue,
+    },
+    secondary: {
+      background: baseColor.primary.red,
     },
     navigation: baseColor.primary.darkblue,
     pressed: {
@@ -38,9 +65,14 @@ export const darkColorTokens: ColorTokens = {
       settings: baseColor.neutral.grey4,
     },
   },
+  severity: {
+    positive: baseColor.support.valid,
+    negative: baseColor.support.invalid,
+    positiveDark: baseColor.supplement.darkergreen,
+  },
   text: {
     default: baseColor.primary.white,
-    inverted: baseColor.primary.black,
+    inverse: baseColor.primary.black,
     secondary: baseColor.neutral.grey1,
     tertiary: baseColor.neutral.grey2,
   },

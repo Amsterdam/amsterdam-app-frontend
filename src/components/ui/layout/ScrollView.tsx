@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {ScrollView as RNScrollView, ScrollViewProps} from 'react-native'
-import {layoutStyles} from '../../../styles'
+import {layoutStyles} from '@/styles'
 
 type Props = {
   children: ReactNode

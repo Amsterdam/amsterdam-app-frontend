@@ -6,11 +6,11 @@ import {useSelector} from 'react-redux'
 import {RootStackParamList} from '../../../../app/navigation'
 import {Button} from '../../../../components/ui'
 import {Gutter, Row} from '../../../../components/ui/layout'
-import {color} from '../../../../tokens'
 import {module as addressModule} from '../../../address'
 import {selectAddress} from '../../../address/addressSlice'
 import {AddressRouteName} from '../../../address/routes'
 import {ProjectsRouteName} from '../../routes'
+import {useTheme} from '@/themes'
 
 export const ProvideAddressButton = () => {
   const {primary: address} = useSelector(selectAddress)
@@ -19,6 +19,8 @@ export const ProvideAddressButton = () => {
     useNavigation<
       StackNavigationProp<RootStackParamList, ProjectsRouteName.projects>
     >()
+
+  const {color} = useTheme()
 
   if (address) {
     return null
@@ -34,7 +36,7 @@ export const ProvideAddressButton = () => {
               screen: AddressRouteName.addressForm,
             })
           }
-          icon={<Location fill={color.font.inverse} />}
+          icon={<Location fill={color.text.inverse} />}
           text="Vul uw adres in"
         />
       </Row>

@@ -20,7 +20,6 @@ import {
 } from '../../../../components/ui/forms'
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {Icon} from '../../../../components/ui/media'
-import {color, size} from '../../../../tokens'
 import {NewProjectWarning} from '../../../../types'
 import {selectProjectManager} from '../../components/project-manager'
 import {
@@ -35,6 +34,7 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from './routes'
+import {useTheme} from '@/themes'
 
 const maxCharacters = {
   title: 50,
@@ -55,7 +55,11 @@ type Props = {
   >
 }
 
+const config = {maxWidth: 1920, maxHeight: 1080}
+
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
+  const {color} = useTheme()
+
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const dispatch = useDispatch()
   const mainImage = useSelector(selectMainImage)
@@ -107,10 +111,10 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
       cropperCancelText: 'Annuleren',
       cropperChooseText: 'Kiezen',
       cropping: true,
-      height: size.warningMainPhoto.maxHeight,
+      height: config.maxHeight,
       includeBase64: true,
       mediaType: 'photo',
-      width: size.warningMainPhoto.maxWidth,
+      width: config.maxWidth,
     }).then(image => {
       dispatch(setMainImage(image))
     })
@@ -269,7 +273,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   <Button
                     icon={
                       <Icon size={24}>
-                        <Enlarge fill={color.font.primary} />
+                        <Enlarge fill={color.pressable.default.background} />
                       </Icon>
                     }
                     onPress={handleSubmit(pickImage)}

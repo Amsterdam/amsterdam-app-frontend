@@ -6,7 +6,7 @@ import {Box, Button, IconButton, Text, Title} from '@/components/ui'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
-import {color} from '@/tokens'
+import {useTheme} from '@/themes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
@@ -16,6 +16,8 @@ export const AddressPrivacyInfoScreen = ({
     AddressRouteName.addressInfo
   >
 }) => {
+  const {color} = useTheme()
+
   return (
     <ScrollView grow>
       <Box grow>
@@ -25,7 +27,7 @@ export const AddressPrivacyInfoScreen = ({
             accessibilityRole="button"
             icon={
               <Icon size={20}>
-                <Close fill={color.font.regular} />
+                <Close fill={color.text.default} />
               </Icon>
             }
             onPress={navigation.goBack}

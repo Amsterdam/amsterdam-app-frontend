@@ -32,6 +32,9 @@ export const baseColor = {
   },
 }
 
+/**
+ * @deprecated Use `theme` instead.
+ */
 export const color = {
   background: {
     app: baseColor.neutral.grey2,

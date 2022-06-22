@@ -7,15 +7,20 @@ type Props = {
   fullSize?: boolean
 }
 
-export const PleaseWait = ({fullSize = true}: Props) => (
-  <Center style={fullSize && styles.fullSize}>
-    <Spinner />
-  </Center>
-)
+export const PleaseWait = ({fullSize = true}: Props) => {
+  const styles = createStyles({fullSize})
 
-const styles = StyleSheet.create({
-  fullSize: {
-    width: '100%',
-    height: '100%',
-  },
-})
+  return (
+    <Center style={styles.fullSize}>
+      <Spinner />
+    </Center>
+  )
+}
+
+const createStyles = ({fullSize}: Props) =>
+  StyleSheet.create({
+    fullSize: {
+      width: fullSize ? '100%' : undefined,
+      height: fullSize ? '100%' : undefined,
+    },
+  })

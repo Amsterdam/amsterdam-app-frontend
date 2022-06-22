@@ -8,7 +8,6 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, KeyboardAvoidingView, Stepper} from '../../../../components/ui'
 import {Gutter} from '../../../../components/ui/layout'
-import {color} from '../../../../tokens'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {
   clearDraft,
@@ -18,6 +17,7 @@ import {
   setProject,
 } from './notificationDraftSlice'
 import {createNotificationRoutes} from './routes'
+import {useTheme} from '@/themes'
 
 type NotificationScreenRouteProp = RouteProp<
   ProjectsStackParams,
@@ -33,6 +33,7 @@ type Props = {
 }
 
 export const CreateNotificationScreen = ({navigation, route}: Props) => {
+  const {color} = useTheme()
   const dispatch = useDispatch()
   const isStepperVisible = useSelector(selectStepperVisibility)
   const step = useSelector(selectStep)
@@ -59,7 +60,7 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
 
   const screenOptions: StackNavigationOptions = {
     cardStyle: {
-      backgroundColor: color.background.white,
+      backgroundColor: color.box.background.white,
     },
     headerShown: false,
   }

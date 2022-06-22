@@ -1,45 +1,51 @@
 import React from 'react'
 import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
-import {color, font} from '../../tokens'
-import {formatNumber} from '../../utils/formatNumber'
-import {Row} from './layout'
+import {Row} from '@/components/ui/layout'
+import {Theme, useThemable} from '@/themes'
+import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
   value: number | string
 } & Pick<AccessibilityProps, 'accessible'>
 
-const size = 20 // Width and height of the circle
-const fontSize = 12 // Text size of the value
-const inset = 2 // Horizontal padding
-const alignmentOffset = 1 // Adjusts vertical alignment – glyphs are not centered in the font’s line height
+export const Badge = ({accessible, value}: BadgeProps) => {
+  const styles = useThemable(createStyles)
 
-export const Badge = ({accessible, value}: BadgeProps) => (
-  <Row align="start">
-    <View style={styles.circle}>
-      <Text
-        accessible={accessible}
-        allowFontScaling={false}
-        numberOfLines={1}
-        style={styles.text}>
-        {typeof value === 'number' ? formatNumber(value) : value}
-      </Text>
-    </View>
-  </Row>
-)
+  return (
+    <Row align="start">
+      <View style={styles.circle}>
+        <Text
+          accessible={accessible}
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={styles.text}>
+          {typeof value === 'number' ? formatNumber(value) : value}
+        </Text>
+      </View>
+    </Row>
+  )
+}
 
-const styles = StyleSheet.create({
-  circle: {
-    borderRadius: size / 2,
-    backgroundColor: color.touchable.secondary,
-  },
-  text: {
-    minWidth: size, // Make sure we have at least a circle
-    marginTop: alignmentOffset, // See comment above
-    paddingHorizontal: inset, // Use padding for horizontal inset
-    textAlign: 'center',
-    fontFamily: font.weight.demi,
-    fontSize: fontSize,
-    lineHeight: size - alignmentOffset, // Use line height for vertical inset to prevent cut-off glyphs
-    color: color.font.inverse,
-  },
-})
+const createStyles = ({color, text}: Theme) => {
+  const size = 20
+  const alignmentOffset = 1
+  const inset = 2
+  const fontSize = 12
+
+  return StyleSheet.create({
+    circle: {
+      borderRadius: size / 2,
+      backgroundColor: color.pressable.secondary.background,
+    },
+    text: {
+      minWidth: size, // Make sure we have at least a circle
+      marginTop: alignmentOffset, // Adjust for glyphs not being centered in the font’s line height
+      paddingHorizontal: inset, // Use padding for horizontal inset
+      textAlign: 'center',
+      fontFamily: text.fontWeight.bold,
+      fontSize: fontSize,
+      lineHeight: size - alignmentOffset, // Use line height for vertical inset, to prevent cut-off glyphs
+      color: color.text.inverse,
+    },
+  })
+}

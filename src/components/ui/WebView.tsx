@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {WebView as WebViewRN} from 'react-native-webview'
-import {DeviceContext} from '../../providers'
 import {PleaseWait} from './PleaseWait'
+import {DeviceContext} from '@/providers'
 
 export type WebViewProps = {
   sliceFromTop?: {

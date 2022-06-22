@@ -4,7 +4,7 @@ import {
   Text as TextRN,
   TextProps as TextRNProps,
 } from 'react-native'
-import {color, font} from '../../tokens'
+import {color, font} from '@/tokens'
 
 type Props = {
   children: ReactNode
@@ -20,6 +20,9 @@ type Props = {
   warning?: boolean
 } & Omit<TextRNProps, 'style'>
 
+/**
+ * @deprecated Use `Paragraph` instead.
+ */
 export const Text = ({
   children,
   intro,

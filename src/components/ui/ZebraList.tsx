@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {color, size} from '../../tokens'
+import {Theme, useThemable} from '@/themes'
 
 export type ZebraListItemProps = {
   index: number
@@ -12,28 +12,31 @@ type Props = {
   renderItem: ({index, text}: ZebraListItemProps) => ReactNode
 }
 
-export const ZebraList = ({data, renderItem}: Props) => (
-  <>
-    {data.map((item, index) => (
-      <View
-        key={item.substring(0, 16)}
-        style={[
-          styles.item,
-          {
-            backgroundColor:
-              index % 2 ? color.background.white : color.background.grey,
-          },
-        ]}>
-        {renderItem({index: index + 1, text: item})}
-      </View>
-    ))}
-  </>
-)
+export const ZebraList = ({data, renderItem}: Props) => {
+  const styles = useThemable(createStyles)
 
-const styles = StyleSheet.create({
-  item: {
-    padding: size.spacing.md,
-    borderTopWidth: 2,
-    borderTopColor: color.border.default,
-  },
-})
+  return (
+    <>
+      {data.map((item, index) => (
+        <View
+          key={item.substring(0, 16)}
+          style={[styles.item, index % 2 === 0 && styles.itemDark]}>
+          {renderItem({index: index + 1, text: item})}
+        </View>
+      ))}
+    </>
+  )
+}
+
+const createStyles = ({color, size}: Theme) =>
+  StyleSheet.create({
+    item: {
+      padding: size.spacing.md,
+      backgroundColor: color.box.background.white,
+      borderTopWidth: 2,
+      borderTopColor: color.border.default,
+    },
+    itemDark: {
+      backgroundColor: color.box.background.grey,
+    },
+  })

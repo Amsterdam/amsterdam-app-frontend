@@ -6,9 +6,9 @@ import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
-import {DeviceContext} from '../../providers'
-import {color, font, size} from '../../tokens'
 import {Row} from './layout'
+import {DeviceContext} from '@/providers'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
@@ -29,17 +29,9 @@ export const TextButton = ({
   const {fontScale} = useContext(DeviceContext)
   const [isPressed, setIsPressed] = useState(false)
 
-  const iconColor = () => {
-    if (isPressed) {
-      return color.touchable.pressed
-    }
-
-    if (emphasis) {
-      return color.touchable.primary
-    }
-
-    return color.font.regular
-  }
+  const {size} = useTheme()
+  const iconColor = useThemable(createIconColor({emphasis, isPressed}))
+  const styles = useThemable(createStyles)
 
   // The `top` style aims to vertically align the icon with the baseline of the text.
   // As SVG isn’t text, and because React’s flexbox implementation differs from the
@@ -47,7 +39,7 @@ export const TextButton = ({
   const iconProps: SVGProps<any> = {
     width: 14 * fontScale,
     height: 14 * fontScale,
-    fill: iconColor(),
+    fill: iconColor,
     style: {
       top: 3,
     },
@@ -82,24 +74,39 @@ export const TextButton = ({
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    flexShrink: 1,
-  },
-  emphasis: {
-    color: color.touchable.primary,
-  },
-  pressed: {
-    color: color.touchable.pressed,
-  },
-  text: {
-    flexShrink: 1, // Allow wrapping
-    fontFamily: font.weight.demi,
-    fontSize: font.size.p1,
-    lineHeight: font.height.p1,
-    color: color.font.regular,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-})
+const createIconColor =
+  ({emphasis, isPressed}: Partial<Props> & {isPressed: boolean}) =>
+  ({color}: Theme) => {
+    if (isPressed) {
+      return color.pressable.pressed.background
+    }
+
+    if (emphasis) {
+      return color.pressable.default.background
+    }
+
+    return color.text.default
+  }
+
+const createStyles = ({color, text}: Theme) =>
+  StyleSheet.create({
+    button: {
+      flexShrink: 1,
+    },
+    emphasis: {
+      color: color.pressable.default.background,
+    },
+    pressed: {
+      color: color.pressable.pressed.background,
+    },
+    text: {
+      flexShrink: 1, // Allow wrapping
+      fontFamily: text.fontWeight.demi,
+      fontSize: text.fontSize.body,
+      lineHeight: text.fontSize.body * text.lineHeight.body,
+      color: color.text.default,
+    },
+    row: {
+      flexDirection: 'row',
+    },
+  })

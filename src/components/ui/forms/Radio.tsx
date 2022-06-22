@@ -1,10 +1,10 @@
 import {useRadio} from '@react-native-aria/radio'
 import React, {ReactNode, useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
-import CircleIcon from '../../../assets/icons/circle.svg'
-import {color, size} from '../../../tokens'
-import {Center} from '../layout'
 import {RadioContext} from './'
+import CircleIcon from '@/assets/icons/circle.svg'
+import {Center} from '@/components/ui/layout'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   children: ReactNode
@@ -13,6 +13,9 @@ type Props = {
 }
 
 export const Radio = (props: Props) => {
+  const {color} = useTheme()
+  const styles = useThemable(createStyles)
+
   const contextState = useContext(RadioContext)
   let inputRef = useRef(null)
   const {inputProps} = useRadio(props, contextState, inputRef)
@@ -41,29 +44,30 @@ export const Radio = (props: Props) => {
 const outerCircleSize = 20
 const innerCircleSize = 12
 
-const styles = StyleSheet.create({
-  radioButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  outerCircle: {
-    width: outerCircleSize,
-    aspectRatio: 1,
-    marginRight: size.spacing.md,
-    backgroundColor: color.control.default.background,
-    borderColor: color.control.default.border,
-    borderRadius: outerCircleSize / 2,
-    borderStyle: 'solid',
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  outerCircleChecked: {
-    borderColor: color.control.checked.border,
-  },
-  innerCircle: {
-    width: innerCircleSize,
-    aspectRatio: 1,
-  },
-  text: {
-    flexShrink: 1,
-  },
-})
+const createStyles = ({color, size}: Theme) =>
+  StyleSheet.create({
+    radioButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    outerCircle: {
+      width: outerCircleSize,
+      aspectRatio: 1,
+      marginRight: size.spacing.md,
+      backgroundColor: color.control.default.background,
+      borderColor: color.control.default.border,
+      borderRadius: outerCircleSize / 2,
+      borderStyle: 'solid',
+      borderWidth: StyleSheet.hairlineWidth,
+    },
+    outerCircleChecked: {
+      borderColor: color.control.checked.border,
+    },
+    innerCircle: {
+      width: innerCircleSize,
+      aspectRatio: 1,
+    },
+    text: {
+      flexShrink: 1,
+    },
+  })

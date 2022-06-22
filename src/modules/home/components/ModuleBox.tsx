@@ -1,7 +1,6 @@
 import React, {ReactNode, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {baseColor} from '@/tokens'
 
 type Props = {
   children: ReactNode
@@ -35,7 +34,7 @@ const createStyles =
         backgroundColor,
         borderWidth,
         borderStyle: 'dashed',
-        borderColor: selected ? backgroundColor : baseColor.primary.darkblue,
+        borderColor: selected ? backgroundColor : color.border.primary,
       },
     })
   }

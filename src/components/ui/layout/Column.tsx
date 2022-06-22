@@ -1,9 +1,13 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {SpacingTokens} from '../../../themes/tokens'
-import {CrossAxisAlignment, MainAxisAlignment} from './types'
-import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
-import {ChildrenWithGutters} from './'
+import {
+  ChildrenWithGutters,
+  CrossAxisAlignment,
+  MainAxisAlignment,
+  mapCrossAxisAlignment,
+  mapMainAxisAlignment,
+} from '@/components/ui/layout'
+import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   align?: MainAxisAlignment
@@ -13,13 +17,7 @@ type Props = {
 }
 
 export const Column = ({align, children, gutter, halign}: Props) => {
-  const styles = StyleSheet.create({
-    column: {
-      flexGrow: 1,
-      justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(halign),
-    },
-  })
+  const styles = createStyles({align, halign})
 
   return (
     <View style={styles.column}>
@@ -33,3 +31,12 @@ export const Column = ({align, children, gutter, halign}: Props) => {
     </View>
   )
 }
+
+const createStyles = ({align, halign}: Partial<Props>) =>
+  StyleSheet.create({
+    column: {
+      flexGrow: 1,
+      justifyContent: mapMainAxisAlignment(align),
+      alignItems: mapCrossAxisAlignment(halign),
+    },
+  })

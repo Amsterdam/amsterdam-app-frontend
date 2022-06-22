@@ -24,7 +24,7 @@ type Content =
     }
   | undefined
 
-type Variant = 'success' | 'failure'
+export type Variant = 'success' | 'failure'
 
 type Context = {
   changeContent: (content: Content) => void

@@ -15,7 +15,7 @@ import {
   CityOfficesRouteName,
   CityOfficesStackParams,
 } from '@/modules/city-offices/routes'
-import {color} from '@/tokens'
+import {useTheme} from '@/themes'
 import {accessibleText, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
 
@@ -30,6 +30,8 @@ type ContactOptionType = {
 }
 
 export const ContactOptions = () => {
+  const {color} = useTheme()
+
   const navigation =
     useNavigation<
       StackNavigationProp<
@@ -46,7 +48,7 @@ export const ContactOptions = () => {
         onPress: () => navigation.navigate(CityOfficesRouteName.contact),
       },
       contactProps: {
-        icon: <Email fill={color.touchable.primary} />,
+        icon: <Email fill={color.pressable.default.background} />,
         text: 'Reactie binnen 1 werkdag',
         title: 'Contactformulier',
       },
@@ -59,7 +61,7 @@ export const ContactOptions = () => {
       },
       contactProps: {
         accessibilityTitle: 'Bel veertien nul twintig',
-        icon: <Phone fill={color.touchable.primary} />,
+        icon: <Phone fill={color.pressable.default.background} />,
         text: 'Gemiddeld 5 minuten wachten',
         title: 'Bel 14 020',
       },
@@ -73,7 +75,7 @@ export const ContactOptions = () => {
       contactProps: {
         accessibilityTitle:
           'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-        icon: <Whatsapp fill={color.touchable.primary} />,
+        icon: <Whatsapp fill={color.pressable.default.background} />,
         text: 'Reactie binnen 2 uur',
         title: 'WhatsApp 06 44 44 06 55',
       },
@@ -108,7 +110,7 @@ export const ContactOptions = () => {
           accessibilityRole="link"
           icon={
             <Icon size={32}>
-              <Facebook fill={color.touchable.primary} />
+              <Facebook fill={color.pressable.default.background} />
             </Icon>
           }
           onPress={() =>
@@ -120,7 +122,7 @@ export const ContactOptions = () => {
           accessibilityRole="link"
           icon={
             <Icon size={32}>
-              <Twitter fill={color.touchable.primary} />
+              <Twitter fill={color.pressable.default.background} />
             </Icon>
           }
           onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
@@ -130,7 +132,7 @@ export const ContactOptions = () => {
           accessibilityRole="link"
           icon={
             <Icon size={32}>
-              <Instagram fill={color.touchable.primary} />
+              <Instagram fill={color.pressable.default.background} />
             </Icon>
           }
           onPress={() =>

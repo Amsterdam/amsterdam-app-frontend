@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
-import {color, font} from '../../tokens'
+import {color, font} from '@/tokens'
 
 type Props = {
   center?: boolean
@@ -13,6 +13,9 @@ type Props = {
   visuallyHidden?: boolean
 } & Omit<TextProps, 'style'>
 
+/**
+ * @deprecated Use ui/text/Title instead.
+ */
 export const Title = ({
   center,
   level = 1,

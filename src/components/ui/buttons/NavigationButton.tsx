@@ -1,12 +1,11 @@
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React from 'react'
-import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Link} from '@/components/ui/text'
-import {selectTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   label: string
@@ -14,9 +13,7 @@ type Props = {
 }
 
 export const NavigationButton = ({label, onPress}: Props) => {
-  const {
-    theme: {color},
-  } = useSelector(selectTheme)
+  const {color} = useTheme()
 
   return (
     <Pressable onPress={onPress}>

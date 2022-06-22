@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {Theme, useThemable} from '../../../themes'
-import {font} from '../../../tokens'
+import {Theme, useThemable} from '@/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {
@@ -11,6 +10,7 @@ type Props = {
 
 export const Link = ({label, level}: Props) => {
   const styles = useThemable(createStyles({level}))
+
   return <Text style={styles.text}>{label}</Text>
 }
 
@@ -20,8 +20,8 @@ const createStyles =
     StyleSheet.create({
       text: {
         color: color.pressable.navigation,
+        fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
-        fontFamily: font.weight.bold,
         lineHeight: text.lineHeight.h5 * text.fontSize.h5,
       },
     })

@@ -1,13 +1,16 @@
 import {StyleSheet} from 'react-native'
-import {color, size} from '../../../tokens'
+import {Theme} from '@/themes'
 
 export const maxHeight = 800
 
 export const timelineStyles = (
+  theme: Theme,
   isCurrent: boolean,
   firstItem?: boolean,
   lastItem?: boolean,
 ) => {
+  const {color, size} = theme
+
   const tokens = {
     body: {
       insetLeft: size.spacing.md,

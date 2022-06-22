@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Theme, useThemable} from '../../themes'
 import {Text} from './'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   text: string
@@ -21,6 +21,6 @@ const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
     tooltip: {
       padding: size.spacing.md,
-      backgroundColor: color.background.inverted,
+      backgroundColor: color.background.inverse,
     },
   })

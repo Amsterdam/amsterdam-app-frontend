@@ -16,7 +16,6 @@ import {
 import {Column, Row, ScrollView} from '../../../../components/ui/layout'
 import {Image} from '../../../../components/ui/media'
 import {useAddNotificationMutation} from '../../../../services'
-import {imageTokens} from '../../../../themes/tokens'
 import {NotificationQueryArg} from '../../../../types'
 import {
   useAddProjectWarningImageMutation,
@@ -36,6 +35,7 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from './routes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -166,6 +166,8 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     navigation,
   ])
 
+  const styles = useThemable(createStyles)
+
   if (addWarningIsLoading || addNotificationIsLoading) {
     return <PleaseWait />
   }
@@ -227,8 +229,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  placeholder: {
-    aspectRatio: imageTokens.aspectRatio.wide,
-  },
-})
+const createStyles = ({media}: Theme) =>
+  StyleSheet.create({
+    placeholder: {
+      aspectRatio: media.aspectRatio.wide,
+    },
+  })

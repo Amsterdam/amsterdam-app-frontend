@@ -9,17 +9,15 @@ type Props = {
 /**
  * Groups its children into a single selectable component for screen readers.
  */
-export const SingleSelectable = ({children, label, ...otherProps}: Props) => {
-  return (
-    <View
-      accessible
-      accessibilityLabel={label}
-      style={styles.singleSelectable}
-      {...otherProps}>
-      {children}
-    </View>
-  )
-}
+export const SingleSelectable = ({children, label, ...otherProps}: Props) => (
+  <View
+    accessible
+    accessibilityLabel={label}
+    style={styles.singleSelectable}
+    {...otherProps}>
+    {children}
+  </View>
+)
 
 const styles = StyleSheet.create({
   singleSelectable: {

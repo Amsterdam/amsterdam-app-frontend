@@ -11,15 +11,13 @@ import {Icon} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
 import {module as userModule} from '@/modules/user'
 import {isDevApp} from '@/services'
-import {color} from '@/tokens'
-
-const iconProps = {
-  fill: color.touchable.primary,
-}
+import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+
+  const iconProps = useThemable(createIconProps)
 
   return (
     <Row gutter="md">
@@ -55,3 +53,7 @@ export const HeaderNavigation = () => {
     </Row>
   )
 }
+
+const createIconProps = ({color}: Theme) => ({
+  fill: color.pressable.default.background,
+})

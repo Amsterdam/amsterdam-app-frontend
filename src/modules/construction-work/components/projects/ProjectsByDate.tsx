@@ -7,7 +7,6 @@ import {useSelector} from 'react-redux'
 import {PleaseWait, SomethingWentWrong} from '../../../../components/ui'
 import {DeviceContext} from '../../../../providers'
 import {useEnvironment} from '../../../../store'
-import {size} from '../../../../tokens'
 import {ProjectsItem} from '../../../../types'
 import {mapImageSources} from '../../../../utils'
 import {selectAddress} from '../../../address/addressSlice'
@@ -15,12 +14,15 @@ import {useGetProjectsQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard} from '../project'
 import {selectIsProjectsSearching} from './'
+import {useTheme} from '@/themes'
 
 export const ProjectsByDate = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
     useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+
   const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const isSearching = useSelector(selectIsProjectsSearching)
