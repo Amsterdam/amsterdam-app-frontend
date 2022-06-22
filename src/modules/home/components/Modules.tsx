@@ -1,33 +1,12 @@
 import React from 'react'
-import {FlatList, StyleSheet, View} from 'react-native'
-import {Box, Button, Image, PleaseWait, Text} from '../../../components/ui'
-import {ScrollView} from '../../../components/ui/layout'
-import {Theme, useThemable} from '../../../themes'
-import {color} from '../../../tokens'
-import {Module} from '../../types'
-import {icons} from '../config'
-import {useModules} from '../hooks'
-import {HomeRouteName, HomeStackParams} from '../routes'
-import {ModuleButton} from './ModuleButton'
-
-const iconProps = {
-  width: 24,
-  aspectRatio: 1,
-  fill: color.font.regular,
-}
-
-const renderModuleButton = (module: Module) => {
-  const {icon, name, slug, title} = module
-  const Icon = icons[icon]
-  return (
-    <ModuleButton
-      icon={<Icon {...iconProps} />}
-      slug={slug}
-      label={title}
-      name={name}
-    />
-  )
-}
+import {Box, PleaseWait} from '@/components/ui'
+import {Column} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Paragraph} from '@/components/ui/text'
+import {ModuleButton} from '@/modules/home/components'
+import {icons} from '@/modules/home/config'
+import {useModules} from '@/modules/home/hooks'
+import {color} from '@/tokens'
 
 export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()
@@ -37,15 +16,7 @@ export const Modules = () => {
     return <PleaseWait />
   }
 
-  if (!modules) {
-    return (
-      <Box insetHorizontal="md" insetVertical="xxxl">
-        <Paragraph>Modules worden niet geladen</Paragraph>
-      </Box>
-    )
-  }
-
-  if (!modules.length) {
+  if (!modules?.length) {
     return (
       <Box insetHorizontal="md" insetVertical="xxxl">
         <Paragraph>
@@ -59,7 +30,7 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({icon, slug, title}) => {
+        {modules.map(({icon, name, slug, title}) => {
           const ModuleIcon = icons[icon]
 
           return (
@@ -72,7 +43,7 @@ export const Modules = () => {
               key={slug}
               slug={slug}
               label={title}
-              slug={slug}
+              name={name}
             />
           )
         })}
