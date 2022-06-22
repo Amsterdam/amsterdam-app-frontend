@@ -1,6 +1,18 @@
 import {Image} from './image'
 import {PageListQueryArg, Section, Timeline} from './'
 
+export enum ProjectsEndpointName {
+  addProjectWarning = 'addProjectWarning',
+  addProjectWarningImage = 'addProjectWarningImage',
+  getProject = 'getProject',
+  getProjectManager = 'getProjectManager',
+  getProjectNews = 'getProjectNews',
+  getProjects = 'getProjects',
+  getProjectsByDistance = 'getProjectsByDistance',
+  getProjectsByText = 'getProjectsByText',
+  getProjectWarning = 'getProjectWarning',
+}
+
 export type ProjectContact = {
   address: string
   email: string
