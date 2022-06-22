@@ -122,6 +122,8 @@ platform :android do
             aab: isAab ? full_aab_path : nil,
             apk: !isAab ? full_apk_path : nil,
             validate_only: false,
+            skip_upload_apk: true,
+            skip_upload_aab: true,
             skip_upload_images: true,
             skip_upload_screenshots: true,
             version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
@@ -147,7 +149,7 @@ platform :android do
             track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
             aab: full_aab_path,
             skip_upload_apk: true,
-            skip_upload_aab: false,
+            skip_upload_aab: true,
             validate_only: false,
             skip_upload_images: true,
             skip_upload_screenshots: true,
