@@ -28,7 +28,7 @@ const createStyles =
   (buttonHeight: number) =>
   ({color, size, text}: Theme) => {
     const arrowWidth = 15
-    const verticalPadding = (44 - text.lineHeight.body) / 2 // Design system: button height must be 44
+    const verticalPadding = (44 - text.fontSize.body * text.lineHeight.body) / 2 // Design system: button height must be 44
 
     return StyleSheet.create({
       button: {

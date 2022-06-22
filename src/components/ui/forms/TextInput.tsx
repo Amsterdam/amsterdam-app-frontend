@@ -98,7 +98,7 @@ const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) => {
     const frameInset = size.spacing.sm
-    const textLineHeight = text.lineHeight.body
+    const textLineHeight = text.fontSize.body * text.lineHeight.body
 
     return StyleSheet.create({
       frame: {

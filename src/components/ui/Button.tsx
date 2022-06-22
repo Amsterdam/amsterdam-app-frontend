@@ -45,7 +45,7 @@ const createStyles = ({color, text, size}: Theme) =>
       justifyContent: 'center',
       flexDirection: 'row',
       paddingHorizontal: size.spacing.md,
-      paddingVertical: (44 - text.lineHeight.body) / 2, // Design system: button height must be 44
+      paddingVertical: (44 - text.fontSize.body * text.lineHeight.body) / 2, // Design system: button height must be 44
     },
     inverse: {
       backgroundColor: color.box.background.white,
