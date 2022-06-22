@@ -29,10 +29,9 @@ export const ModuleButton = ({icon, label, name, slug}: Props) => {
     <View style={styles.container}>
       <SwipeToDelete onPress={onDelete} onSwipe={onDelete} label="Verwijderen">
         <View style={styles.buttonContainer}>
-          <BlockLink
+          <Pressable
             onPress={name ? () => navigation.navigate(name) : undefined}
-            padding="md"
-            accessibilityRole="button">
+            inset="md">
             <Row gutter="md" valign="center">
               {icon}
               <Title level="h5" text={label} />
