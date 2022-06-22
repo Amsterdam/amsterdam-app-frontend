@@ -55,9 +55,10 @@ type Props = {
   >
 }
 
+const config = {maxWidth: 1920, maxHeight: 1080}
+
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const {color} = useTheme()
-  const tokens = {maxWidth: 1920, maxHeight: 1080}
 
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const dispatch = useDispatch()
@@ -110,10 +111,10 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
       cropperCancelText: 'Annuleren',
       cropperChooseText: 'Kiezen',
       cropping: true,
-      height: tokens.maxHeight,
+      height: config.maxHeight,
       includeBase64: true,
       mediaType: 'photo',
-      width: tokens.maxWidth,
+      width: config.maxWidth,
     }).then(image => {
       dispatch(setMainImage(image))
     })
