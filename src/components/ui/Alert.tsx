@@ -55,7 +55,9 @@ const createStyles =
         backgroundColor:
           variant === 'success'
             ? color.severity.positive
-            : color.severity.negative,
+            : variant === 'failure'
+            ? color.severity.negative
+            : color.box.background.grey,
         padding: size.spacing.md,
       },
     })
