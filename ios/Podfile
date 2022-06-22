@@ -26,8 +26,11 @@ target 'AmsterdamApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
 
+
+
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+  
   target 'AmsterdamAppTests' do
     inherit! :complete
     # Pods for testing
