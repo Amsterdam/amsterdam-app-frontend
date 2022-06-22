@@ -1,6 +1,6 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useMemo} from 'react'
 import {
   Box,
   Button,
@@ -54,6 +54,11 @@ const renderTip =
 export const WritingGuideScreen = ({navigation}: Props) => {
   const {color, text} = useTheme()
 
+  const RenderTip = useMemo(
+    () => renderTip(text.fontSize.h3),
+    [text.fontSize.h3],
+  )
+
   return (
     <>
       <Row align="end">
@@ -76,7 +81,7 @@ export const WritingGuideScreen = ({navigation}: Props) => {
             <Title text="Schrijftips" />
           </Box>
           <Gutter height="md" />
-          <ZebraList data={tips} renderItem={renderTip(text.fontSize.h3)} />
+          <ZebraList data={tips} renderItem={RenderTip} />
           <Box>
             <Button onPress={navigation.goBack} text="Aan de slag!" />
           </Box>
