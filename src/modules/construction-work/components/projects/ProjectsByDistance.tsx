@@ -21,7 +21,7 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
-import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
+import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ProjectsRouteName,
   ProjectsStackParams,

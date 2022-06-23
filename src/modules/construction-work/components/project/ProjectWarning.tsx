@@ -12,7 +12,7 @@ import {formatDate, mapWarningImageSources} from '../../../../utils'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
-} from '../../projects.service'
+} from '../../construction-work.service'
 import {ProjectContacts} from './ProjectContacts'
 import {Paragraph, Title} from '@/components/ui/text'
 

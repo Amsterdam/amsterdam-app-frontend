@@ -20,7 +20,7 @@ import {NotificationQueryArg} from '../../../../types'
 import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
-} from '../../projects.service'
+} from '../../construction-work.service'
 import {
   selectMainImage,
   selectMainImageDescription,

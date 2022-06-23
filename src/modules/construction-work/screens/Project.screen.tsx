@@ -23,7 +23,7 @@ import {ArticleOverview} from '../components/article'
 import {ProjectBodyMenu} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {ProjectTraits} from '../components/shared'
-import {useGetProjectQuery} from '../projects.service'
+import {useGetProjectQuery} from '../construction-work.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../routes'
 import {Title} from '@/components/ui/text'
 

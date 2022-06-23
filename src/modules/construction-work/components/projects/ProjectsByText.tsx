@@ -11,7 +11,7 @@ import {Gutter} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
-import {useGetProjectsByTextQuery} from '@/modules/construction-work/projects.service'
+import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ProjectsRouteName,
   ProjectsStackParams,

@@ -10,7 +10,7 @@ import {formatDate, mapImageSources} from '../../../../utils'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
-} from '../../projects.service'
+} from '../../construction-work.service'
 import {Article, Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
