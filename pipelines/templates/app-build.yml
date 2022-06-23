@@ -8,14 +8,14 @@ steps:
   - template: ./install-node.yml
   - script: npm ci
     displayName: 'Install node dependencies'
-  - script: |
-      echo "##vso[task.setvariable variable=rubyVersion]$(cat '$(System.DefaultWorkingDirectory)/.ruby-version')"
-    displayName: 'Get Ruby version'
   - task: UseRubyVersion@0
     displayName: 'Set Ruby version'
     inputs:
-      versionSpec: '~> $(rubyVersion)'
+      versionSpec: '~> 2.7'
       addToPath: true
+  - script: |
+      gem install bundler:2.2.33
+    displayName: "Install bundler"
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
     inputs:
