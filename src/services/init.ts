@@ -40,7 +40,7 @@ const dynamicBaseQuery: BaseQueryFn<
         headers.set('userauthorization', token)
       }
       deviceIdRequestingEndpoints.includes(endpoint) &&
-        headers.set('deviceid', getUniqueId().toString())
+        headers.set('deviceid', getUniqueId())
       return headers
     },
   })(args, baseQueryApi, extraOptions)
