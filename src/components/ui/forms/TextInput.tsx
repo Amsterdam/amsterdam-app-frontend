@@ -94,6 +94,9 @@ export const TextInput = forwardRef(
   },
 )
 
+const borderWidth = (hasFocus: boolean, warning?: boolean) =>
+  hasFocus || warning ? 2 : 1
+
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) => {
@@ -104,6 +107,11 @@ const createStyles =
       frame: {
         flexDirection: 'row',
         padding: frameInset,
+        paddingBottom:
+          frameInset +
+          (hasFocus
+            ? borderWidth(false, warning) - borderWidth(true, warning)
+            : 0),
         backgroundColor: color.box.background.white,
         borderStyle: 'solid',
         borderColor: warning
@@ -111,7 +119,7 @@ const createStyles =
           : hasFocus
           ? color.control.focus.border
           : color.control.default.border,
-        borderWidth: hasFocus || warning ? 2 : 1,
+        borderWidth: borderWidth(hasFocus, warning),
       },
       textInput: {
         minHeight:
