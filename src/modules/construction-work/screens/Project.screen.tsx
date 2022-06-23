@@ -24,18 +24,18 @@ import {ProjectBodyMenu} from '../components/project'
 import {useProjectManagerFetcher} from '../components/project-manager'
 import {ProjectTraits} from '../components/shared'
 import {useGetProjectQuery} from '../construction-work.service'
-import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {ConstructionWorkRouteName, ProjectsStackParams} from '../routes'
 import {Title} from '@/components/ui/text'
 
 type ProjectScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.project
+  ConstructionWorkRouteName.project
 >
 
 type Props = {
   navigation: StackNavigationProp<
     ProjectsStackParams,
-    ProjectsRouteName.project
+    ConstructionWorkRouteName.project
   >
   route: ProjectScreenRouteProp
 }
@@ -88,12 +88,15 @@ export const ProjectScreen = ({navigation, route}: Props) => {
             {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(ProjectsRouteName.createNotification, {
-                    project: {
-                      id: project.identifier,
-                      title: project.title,
+                  navigation.navigate(
+                    ConstructionWorkRouteName.createNotification,
+                    {
+                      project: {
+                        id: project.identifier,
+                        title: project.title,
+                      },
                     },
-                  })
+                  )
                 }
                 text="Verstuur pushbericht"
                 variant="inverse"

@@ -1,11 +1,11 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {ProjectNews} from '../components/project'
-import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {ConstructionWorkRouteName, ProjectsStackParams} from '../routes'
 
 type ProjectNewsScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.projectNews
+  ConstructionWorkRouteName.projectNews
 >
 
 type Props = {

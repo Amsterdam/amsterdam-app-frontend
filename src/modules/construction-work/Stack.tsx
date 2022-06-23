@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {screenOptions} from '../../app/navigation'
-import {ProjectsRouteName, projectsRoutes as routes} from './routes'
+import {ConstructionWorkRouteName, projectsRoutes as routes} from './routes'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
@@ -11,7 +11,7 @@ export const ConstructionWorkStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ProjectsRouteName.projects}
+      initialRouteName={ConstructionWorkRouteName.projects}
       screenOptions={screenOptions(theme)}>
       {Object.entries(routes).map(([key, route]) => (
         <Stack.Screen key={key} {...route} />

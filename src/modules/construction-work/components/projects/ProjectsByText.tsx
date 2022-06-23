@@ -13,7 +13,7 @@ import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
-  ProjectsRouteName,
+  ConstructionWorkRouteName,
   ProjectsStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -24,7 +24,9 @@ import {mapImageSources} from '@/utils'
 
 export const ProjectsByText = () => {
   const navigation =
-    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+    useNavigation<
+      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
+    >()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -81,7 +83,7 @@ export const ProjectsByText = () => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.project, {
+        navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
         })
       }

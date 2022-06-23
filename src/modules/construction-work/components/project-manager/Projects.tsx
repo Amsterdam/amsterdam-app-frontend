@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
 import {ProjectsItem} from '../../../../types'
-import {ProjectsRouteName} from '../../routes'
+import {ConstructionWorkRouteName} from '../../routes'
 import {ProjectManagerScreenNavigationProps} from '../../screens'
 import {ProjectTitle} from '../project'
 import {Theme, useThemable} from '@/themes'
@@ -27,7 +27,7 @@ export const ProjectManagerProjects = ({projects}: Props) => {
           accessibilityRole="button"
           key={project.identifier}
           onPress={() => {
-            navigation.navigate(ProjectsRouteName.project, {
+            navigation.navigate(ConstructionWorkRouteName.project, {
               id: project.identifier,
             })
           }}

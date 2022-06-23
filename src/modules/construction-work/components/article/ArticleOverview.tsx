@@ -6,7 +6,7 @@ import {PleaseWait} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {useGetArticlesQuery} from '../../../../services/articles'
 import {ArticleSummary} from '../../../../types'
-import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
+import {ConstructionWorkRouteName, ProjectsStackParams} from '../../routes'
 import {ArticlePreview} from '.'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
@@ -34,7 +34,10 @@ export const ArticleOverview = ({
   >()
   const navigation =
     useNavigation<
-      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectNews>
+      StackNavigationProp<
+        ProjectsStackParams,
+        ConstructionWorkRouteName.projectNews
+      >
     >()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
@@ -62,11 +65,11 @@ export const ArticleOverview = ({
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
-      navigation.navigate(ProjectsRouteName.projectNews, {
+      navigation.navigate(ConstructionWorkRouteName.projectNews, {
         id: article.identifier,
       })
     } else if (article.type === 'warning') {
-      navigation.navigate(ProjectsRouteName.projectWarning, {
+      navigation.navigate(ConstructionWorkRouteName.projectWarning, {
         id: article.identifier,
       })
     }

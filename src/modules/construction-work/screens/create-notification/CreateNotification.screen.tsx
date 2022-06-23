@@ -8,7 +8,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, KeyboardAvoidingView, Stepper} from '../../../../components/ui'
 import {Gutter} from '../../../../components/ui/layout'
-import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
+import {ConstructionWorkRouteName, ProjectsStackParams} from '../../routes'
 import {
   clearDraft,
   selectStep,
@@ -21,13 +21,13 @@ import {useTheme} from '@/themes'
 
 type NotificationScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.createNotification
+  ConstructionWorkRouteName.createNotification
 >
 
 type Props = {
   navigation: StackNavigationProp<
     ProjectsStackParams,
-    ProjectsRouteName.createNotification
+    ConstructionWorkRouteName.createNotification
   >
   route: NotificationScreenRouteProp
 }

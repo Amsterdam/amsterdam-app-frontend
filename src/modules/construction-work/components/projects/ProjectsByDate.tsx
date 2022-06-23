@@ -10,7 +10,7 @@ import {selectAddress} from '@/modules/address/addressSlice'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {
-  ProjectsRouteName,
+  ConstructionWorkRouteName,
   ProjectsStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -22,7 +22,9 @@ import {mapImageSources} from '@/utils'
 export const ProjectsByDate = () => {
   const {primary: address} = useSelector(selectAddress)
   const navigation =
-    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+    useNavigation<
+      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
+    >()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -57,7 +59,7 @@ export const ProjectsByDate = () => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.project, {
+        navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
         })
       }

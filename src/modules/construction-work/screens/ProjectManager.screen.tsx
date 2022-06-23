@@ -7,17 +7,17 @@ import {Box, Button} from '../../../components/ui'
 import {module as homeModule} from '../../home'
 import {HomeRouteName} from '../../home/routes'
 import {ProjectManagerSummary} from '../components/project-manager'
-import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {ConstructionWorkRouteName, ProjectsStackParams} from '../routes'
 import {Theme, useThemable} from '@/themes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.projectManager
+  ConstructionWorkRouteName.projectManager
 >
 
 export type ProjectManagerScreenNavigationProps = StackNavigationProp<
   RootStackParamList,
-  ProjectsRouteName.projectManager
+  ConstructionWorkRouteName.projectManager
 >
 
 type Props = {
