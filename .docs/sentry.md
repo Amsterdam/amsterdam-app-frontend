@@ -13,7 +13,7 @@ The `useSentry` hook returns the functions `captureSentryBreadcrumb` and `sendSe
 
 To be used to catch errors thrown in the wrapped components. See https://docs.sentry.io/platforms/javascript/guides/react/components/errorboundary/
 
-2 ErrorBoundaries are implemented in `App.tsx` to catch errors that are not handled by a "deeper" boundary.
+2 ErrorBoundaries are implemented in `App.tsx` to catch errors that are not handled by a "deeper" boundary. `CustomErrorBoundary.tsx` is to be used outside the Redux RootProvider only and contains unthemed styles as a necessity (the theme is not available outside the RootProvider).
 
 #### Caveats
 

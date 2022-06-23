@@ -4,7 +4,7 @@ Here we document useful tips and solutions to (relatively) common problems with 
 
 ## react-native start fails
 
-Sometimes building the JS fails due to caching issues, for example after changes in the import aliases or the babel config. If the issue is unclear a good place to start is to clear all relevant caches:
+Sometimes building the JS fails due to caching issues, for example after changes in the import aliases or the babel config. If the cause of the issue is unclear, a good place to start is to clear all relevant caches:
 
 - `$ npm cache clear -f` (clear npm cache)
 - `$ watchman watch-del-all` (clear watchman cache)

@@ -4,14 +4,18 @@ We are creating a native app for citizens, entrepreneurs, and visitors of the Ci
 
 ## Installation
 
-The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your development environment. To summarize:
+The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your development environment. Specific instructions for this project:
 
 - Clone the repository
   - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
   - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`
 - Set Node version
-  - Install the used node version: Linux/MacOS: `nvm install`, Windows: `nvm install $(Get-Content .nvmrc)`
-  - Select the used node version: Linux/MacOS: `nvm use`, Windows: `nvm use $(Get-Content .nvmrc)`
+  - Install the used node version:
+    - Linux/MacOS: `nvm install`
+    - Windows: `nvm install $(Get-Content .nvmrc)`
+  - Select the used node version
+    - Linux/MacOS: `nvm use`
+    - Windows: `nvm use $(Get-Content .nvmrc)`
 - Install Node dependencies: `npm i`.
 - For iOS development, install other dependencies:
   - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or https://rubygems.org/
@@ -19,13 +23,13 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Install bundler (Ruby gem manager): `gem install bundler:2.2.33`
   - Install/update the gems with bundler: `bundle update`
   - Install pods: `pod install`
-- Get the necessary files from a team member and add them:
+- Get the necessary files and add them to the project
   - See "Secret files" below
 - To run the app on a simulator/emulator
   - Start the iOS phone simulator: `npm run ios:phone:dev`
   - Start the Android phone emulator: `npm run android:phone:dev`
   - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
-    - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager
+    - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
 - We recommend installing the [React Native debugger](https://github.com/jhen0409/react-native-debugger)
   - For Mac via Homebrew: `brew install --cask react-native-debugger`
 
@@ -62,7 +66,7 @@ To test push notifications locally, do the following:
 7. Set header: `Authorization: Bearer /[access_token/]`
 8. Enter body of this signature, where `token` is the Firebase token of your device (see code):
 
-```
+```json
 {
   "message": {
     "token": "alovelyfcmtoken",
@@ -95,3 +99,9 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 ## Tips and tricks
 
 1. To see what's in the async store, type `showAsyncStorageContentInDev()` in the React Native Debugger console.
+
+## More documentation
+
+- [Build documentation](./.docs/build.md)
+- [Troubleshooting](./.docs/frequently-solved-problems.md)
+- [Sentry](./.docs/sentry.md)

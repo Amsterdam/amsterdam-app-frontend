@@ -10,13 +10,13 @@ steps:
       secureFile: 'api-5152920179310760437-158079-bad988ebb867.json'
     condition: ${{ parameters.condition }}
   - task: DownloadSecureFile@1
-    displayName: 'google-services.json'
+    displayName: 'Download google-services.json'
     name: FirebaseApiKey
     inputs:
       secureFile: 'google-services.json'
     condition: ${{ parameters.condition }}
   - task: DownloadSecureFile@1
-    displayName: 'google-services.json dev'
+    displayName: 'Download google-services.json dev'
     name: FirebaseApiKeyDev
     inputs:
       secureFile: 'google-services-dev.json'
@@ -26,18 +26,6 @@ steps:
     name: Keystore
     inputs:
       secureFile: 'upload.keystore'
-    condition: ${{ parameters.condition }}
-  - task: CopyFiles@2
-    displayName: "Android: export keystore"
-    inputs:
-      contents: upload.keystore
-      targetFolder: $(Build.ArtifactStagingDirectory)
-    condition: ${{ parameters.condition }}
-  - task: JavaToolInstaller@0
-    inputs:
-      versionSpec: '11'
-      jdkArchitectureOption: 'x64'
-      jdkSourceOption: 'PreInstalled'
     condition: ${{ parameters.condition }}
   - script: |
       mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
