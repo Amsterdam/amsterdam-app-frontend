@@ -16,10 +16,10 @@ type Props = {
   onFocus?: () => void
 } & TextInputRNProps
 
-export const SearchField = forwardRef(
+export const SearchField = forwardRef<TextInputRN, Props>(
   (
     {onChangeText, onFocus, value: valueProp = '', ...otherProps}: Props,
-    ref: any,
+    ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
@@ -35,17 +35,17 @@ export const SearchField = forwardRef(
 
     const handleChangeText = (text: string) => {
       setValue(text)
-      onChangeText && onChangeText(text)
+      onChangeText?.(text)
     }
 
     const handleClearText = () => {
       setValue('')
-      onChangeText && onChangeText('')
+      onChangeText?.('')
     }
 
     const handleFocus = () => {
       setHasFocus(true)
-      onFocus && onFocus()
+      onFocus?.()
     }
 
     return (
@@ -57,7 +57,7 @@ export const SearchField = forwardRef(
           multiline={true}
           numberOfLines={1}
           onBlur={handleBlur}
-          onChangeText={text => handleChangeText(text)}
+          onChangeText={handleChangeText}
           onFocus={handleFocus}
           ref={ref}
           style={styles.textInput}

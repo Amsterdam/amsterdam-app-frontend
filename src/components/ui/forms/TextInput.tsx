@@ -20,7 +20,7 @@ type Props = {
   warning?: boolean
 } & TextInputRNProps
 
-export const TextInput = forwardRef(
+export const TextInput = forwardRef<TextInputRN, Props>(
   (
     {
       label,
@@ -31,7 +31,7 @@ export const TextInput = forwardRef(
       value: valueProp = '',
       ...otherProps
     }: Props,
-    ref: any,
+    ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
@@ -47,17 +47,17 @@ export const TextInput = forwardRef(
 
     const handleChangeText = (text: string) => {
       setValue(text)
-      onChangeText && onChangeText(text)
+      onChangeText?.(text)
     }
 
     const handleClearText = () => {
       setValue('')
-      onChangeText && onChangeText('')
+      onChangeText?.('')
     }
 
     const handleFocus = () => {
       setHasFocus(true)
-      onFocus && onFocus()
+      onFocus?.()
     }
 
     return (
@@ -67,7 +67,7 @@ export const TextInput = forwardRef(
           <TextInputRN
             {...otherProps}
             onBlur={handleBlur}
-            onChangeText={text => handleChangeText(text)}
+            onChangeText={handleChangeText}
             onFocus={handleFocus}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             ref={ref}
