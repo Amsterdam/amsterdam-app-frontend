@@ -1,11 +1,7 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
-import {RootState} from '../../../../store'
-import {
-  NewProjectWarning,
-  NotificationQueryArg,
-  ResponseStatus,
-} from '../../../../types'
+import {RootState} from '@/store'
+import {NewProjectWarning, NotificationQueryArg, ResponseStatus} from '@/types'
 
 export type ProjectIdAndTitle = {id: string; title: string}
 

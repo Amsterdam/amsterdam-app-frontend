@@ -1,20 +1,20 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {View} from 'react-native'
-import {useMarkArticleAsRead} from '../../../../components/features/notifications'
-import {Box, PleaseWait} from '../../../../components/ui'
-import {Hero} from '../../../../components/ui/Hero'
-import {Column, ScrollView} from '../../../../components/ui/layout'
-import {Image} from '../../../../components/ui/media'
-import {useEnvironment} from '../../../../store'
-import {ProjectWarningImage} from '../../../../types'
-import {formatDate, mapWarningImageSources} from '../../../../utils'
+import {useMarkArticleAsRead} from '@/components/features/notifications'
+import {Box, PleaseWait} from '@/components/ui'
+import {Hero} from '@/components/ui/Hero'
+import {Column, ScrollView} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {Paragraph, Title} from '@/components/ui/text'
+import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
-} from '../../construction-work.service'
-import {ProjectContacts} from './ProjectContacts'
-import {Paragraph, Title} from '@/components/ui/text'
+} from '@/modules/construction-work/construction-work.service'
+import {useEnvironment} from '@/store'
+import {ProjectWarningImage} from '@/types'
+import {formatDate, mapWarningImageSources} from '@/utils'
 
 type Props = {
   id: string

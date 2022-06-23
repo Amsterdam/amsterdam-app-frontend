@@ -1,4 +1,4 @@
-import {baseApi} from '../../services'
+import {baseApi} from '@/services'
 import {
   NewProjectWarning,
   NewsArticle,
@@ -15,8 +15,8 @@ import {
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
   SortListQueryArg,
-} from '../../types'
-import {formatQueryParams, generateRequestUrl} from '../../utils'
+} from '@/types'
+import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({

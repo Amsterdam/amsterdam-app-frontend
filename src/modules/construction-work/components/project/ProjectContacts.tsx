@@ -2,12 +2,12 @@ import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import React from 'react'
 import {View} from 'react-native'
-import {Button} from '../../../../components/ui'
-import {Column, Row} from '../../../../components/ui/layout'
-import {ProjectContact} from '../../../../types'
-import {capitalizeString, openMailUrl, openPhoneUrl} from '../../../../utils'
+import {Button} from '@/components/ui'
+import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useTheme} from '@/themes'
+import {ProjectContact} from '@/types'
+import {capitalizeString, openMailUrl, openPhoneUrl} from '@/utils'
 
 type Props = {
   contacts: ProjectContact[]

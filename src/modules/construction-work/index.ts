@@ -1,8 +1,8 @@
-import {ModuleClientConfig} from '../types'
-import {ConstructionWorkStack} from './Stack'
-import {projectManagerSlice} from './components/project-manager'
-import {projectsByTextSlice} from './components/projects'
-import {ConstructionWorkRouteName} from './routes'
+import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
+import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
+import {projectsByTextSlice} from '@/modules/construction-work/components/projects'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   linking: {

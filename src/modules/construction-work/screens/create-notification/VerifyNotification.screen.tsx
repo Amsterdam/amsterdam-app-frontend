@@ -2,7 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import HeroImage from '../../../../assets/images/project-warning-hero.svg'
+import HeroImage from '@/assets/images/project-warning-hero.svg'
 import {
   Box,
   PleaseWait,
@@ -12,15 +12,13 @@ import {
   Text,
   TextButton,
   Title,
-} from '../../../../components/ui'
-import {Column, Row, ScrollView} from '../../../../components/ui/layout'
-import {Image} from '../../../../components/ui/media'
-import {useAddNotificationMutation} from '../../../../services'
-import {NotificationQueryArg} from '../../../../types'
+} from '@/components/ui'
+import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
-} from '../../construction-work.service'
+} from '@/modules/construction-work/construction-work.service'
 import {
   selectMainImage,
   selectMainImageDescription,
@@ -30,12 +28,14 @@ import {
   selectProjectWarning,
   setResponseStatus,
   setStep,
-} from './notificationDraftSlice'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
+import {useAddNotificationMutation} from '@/services'
 import {Theme, useThemable} from '@/themes'
+import {NotificationQueryArg} from '@/types'
 
 type Props = {
   navigation: StackNavigationProp<

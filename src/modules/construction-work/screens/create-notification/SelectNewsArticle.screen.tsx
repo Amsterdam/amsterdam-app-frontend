@@ -10,23 +10,19 @@ import {
   Text,
   TextButton,
   Title,
-} from '../../../../components/ui'
+} from '@/components/ui'
+import {Radio, RadioGroup, ValidationWarning} from '@/components/ui/forms'
+import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {
-  RadioGroup,
-  Radio,
-  ValidationWarning,
-} from '../../../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../../../components/ui/layout'
-import {useGetArticlesQuery} from '../../../../services'
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from '@/modules/construction-work/screens/create-notification//routes'
 import {
   selectProjectId,
   setNewsArticle,
   setStep,
-} from './notificationDraftSlice'
-import {
-  CreateNotificationRouteName,
-  CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
+import {useGetArticlesQuery} from '@/services'
 
 type Props = {
   navigation: StackNavigationProp<

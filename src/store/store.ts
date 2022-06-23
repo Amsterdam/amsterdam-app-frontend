@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {notificationDraftSlice} from '_modules/construction-work/screens/create-notification'
 import {
   FLUSH,
   PAUSE,
@@ -13,7 +14,6 @@ import {notificationsSlice} from '../components/features/notifications'
 import {addressSlice} from '../modules/address/addressSlice'
 import {projectManagerSlice} from '../modules/construction-work/components/project-manager'
 import {projectsByTextSlice} from '../modules/construction-work/components/projects'
-import {notificationDraftSlice} from '../modules/construction-work/screens/create-notification'
 import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {baseApi} from '../services/init'
 import {themeSlice} from '../themes/themeSlice'

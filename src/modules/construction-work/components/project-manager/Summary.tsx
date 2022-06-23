@@ -2,20 +2,20 @@ import React, {useCallback, useEffect} from 'react'
 import {ScrollView} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {
+  addProjects,
   selectNotificationSettings,
   toggleProjectsEnabled,
-  addProjects,
-} from '../../../../components/features/notifications'
-import {PleaseWait, Box} from '../../../../components/ui'
-import {setCredentials} from '../../../../store'
-import {encryptWithAES} from '../../../../utils'
+} from '@/components/features/notifications'
+import {Box, PleaseWait} from '@/components/ui'
 import {
   addProjectManagerId,
   addProjectManagerProjects,
   ProjectManagerHeader,
   ProjectManagerProjects,
   useProjectManagerFetcher,
-} from '.'
+} from '@/modules/construction-work/components/project-manager'
+import {setCredentials} from '@/store'
+import {encryptWithAES} from '@/utils'
 
 type Props = {routeParamsId: string}
 

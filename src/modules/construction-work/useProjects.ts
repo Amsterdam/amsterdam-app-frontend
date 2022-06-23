@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useSelector} from 'react-redux'
-import {selectAddress} from '../address/addressSlice'
-import {useGetProjectsByDistanceQuery} from './construction-work.service'
+import {selectAddress} from '@/modules/address/addressSlice'
+import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 
 type Params = {
   projectId?: string

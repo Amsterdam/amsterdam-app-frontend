@@ -2,11 +2,11 @@ import {List} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
-import {ProjectsItem} from '../../../../types'
-import {ConstructionWorkRouteName} from '../../routes'
-import {ProjectManagerScreenNavigationProps} from '../../screens'
-import {ProjectTitle} from '../project'
+import {ProjectTitle} from '@/modules/construction-work/components/project'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ProjectManagerScreenNavigationProps} from '@/modules/construction-work/screens'
 import {Theme, useThemable} from '@/themes'
+import {ProjectsItem} from '@/types'
 
 type Props = {
   projects: ProjectsItem[] | undefined

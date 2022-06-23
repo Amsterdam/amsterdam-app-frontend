@@ -4,9 +4,12 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {sanitizeProjects, selectIsProjectsSearching} from './'
 import {PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {selectAddress} from '@/modules/address/addressSlice'
+import {
+  sanitizeProjects,
+  selectIsProjectsSearching,
+} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {

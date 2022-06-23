@@ -1,20 +1,20 @@
 import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import {Column, Row} from '../../../../components/ui/layout'
-import {Image} from '../../../../components/ui/media'
-import {useEnvironment} from '../../../../store'
-import {ArticleSummary} from '../../../../types'
+import {selectNotificationSettings} from '@/components/features/notifications'
+import {Hero} from '@/components/ui/Hero'
+import {Column, Row} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {Link, Paragraph} from '@/components/ui/text'
+import {useEnvironment} from '@/store'
+import {Theme, useThemable} from '@/themes'
+import {ArticleSummary} from '@/types'
 import {
   formatDateToDisplay,
   getDateDiffInDays,
   mapImageSources,
   mapWarningImageSources,
-} from '../../../../utils'
-import {selectNotificationSettings} from '@/components/features/notifications'
-import {Hero} from '@/components/ui/Hero'
-import {Link, Paragraph} from '@/components/ui/text'
-import {Theme, useThemable} from '@/themes'
+} from '@/utils'
 
 type Props = {
   article: ArticleSummary

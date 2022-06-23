@@ -6,17 +6,20 @@ import {
 } from '@react-navigation/stack'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, KeyboardAvoidingView, Stepper} from '../../../../components/ui'
-import {Gutter} from '../../../../components/ui/layout'
-import {ConstructionWorkRouteName, ProjectsStackParams} from '../../routes'
+import {Box, KeyboardAvoidingView, Stepper} from '@/components/ui'
+import {Gutter} from '@/components/ui/layout'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
 import {
   clearDraft,
   selectStep,
   selectStepperVisibility,
   selectTotalSteps,
   setProject,
-} from './notificationDraftSlice'
-import {createNotificationRoutes} from './routes'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
+import {createNotificationRoutes} from '@/modules/construction-work/screens/create-notification/routes'
 import {useTheme} from '@/themes'
 
 type NotificationScreenRouteProp = RouteProp<

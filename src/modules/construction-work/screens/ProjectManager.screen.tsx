@@ -2,12 +2,15 @@ import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
-import {Box, Button} from '../../../components/ui'
-import {module as homeModule} from '../../home'
-import {HomeRouteName} from '../../home/routes'
-import {ProjectManagerSummary} from '../components/project-manager'
-import {ConstructionWorkRouteName, ProjectsStackParams} from '../routes'
+import {RootStackParamList} from '@/app/navigation'
+import {Box, Button} from '@/components/ui'
+import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {module as homeModule} from '@/modules/home'
+import {HomeRouteName} from '@/modules/home/routes'
 import {Theme, useThemable} from '@/themes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<

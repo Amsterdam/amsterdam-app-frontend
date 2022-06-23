@@ -1,10 +1,13 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {NavigationButton} from '../../../../components/ui/buttons/index'
-import {Project, ProjectBody} from '../../../../types'
-import {isEmptyObject} from '../../../../utils'
-import {ConstructionWorkRouteName, ProjectsStackParams} from '../../routes'
+import {NavigationButton} from '@/components/ui/buttons'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {Project, ProjectBody} from '@/types'
+import {isEmptyObject} from '@/utils'
 
 type Props = {
   project: Project
