@@ -79,7 +79,6 @@ const createBaseStyles: (
       },
       titleLevel3: {
         color: color.text.default,
-        fontWeight: '600', // TODO Check
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
