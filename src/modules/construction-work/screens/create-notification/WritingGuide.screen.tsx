@@ -65,7 +65,6 @@ export const WritingGuideScreen = ({navigation}: Props) => {
         <Box>
           <IconButton
             accessibilityLabel="Sluiten"
-            accessibilityRole="button"
             icon={
               <Icon size={20}>
                 <Close fill={color.text.default} />

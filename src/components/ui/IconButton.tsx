@@ -1,12 +1,11 @@
 import React, {ReactNode} from 'react'
 import {
-  Pressable,
-  PressableProps,
+  PressableProps as PressableRNProps,
   StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native'
-import {Badge, BadgeProps} from '@/components/ui/Badge'
+import {Badge, BadgeProps} from '@/components/ui'
+import {Pressable} from '@/components/ui/buttons'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -18,7 +17,7 @@ type Props = {
    * The icon to be used. Should be an SVG image wrapped in the `Icon` component.
    */
   icon: ReactNode
-} & Omit<PressableProps, 'style'>
+} & Omit<PressableRNProps, 'style'>
 
 export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
@@ -38,13 +37,13 @@ export const IconButton = ({badgeValue, icon, ...props}: Props) => {
 const createStyles = ({size}: Theme) => {
   const hitSlopSize = size.spacing.sm
 
-  const styles: ViewStyle = {
-    position: 'absolute',
-    top: -hitSlopSize,
-    right: -hitSlopSize,
-    left: -hitSlopSize,
-    alignItems: 'flex-end',
-  }
-
-  return StyleSheet.create({badgePosition: styles})
+  return StyleSheet.create({
+    badgePosition: {
+      position: 'absolute',
+      top: -hitSlopSize,
+      right: -hitSlopSize,
+      left: -hitSlopSize,
+      alignItems: 'flex-end',
+    },
+  })
 }

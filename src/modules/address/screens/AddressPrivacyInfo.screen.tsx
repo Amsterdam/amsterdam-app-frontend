@@ -24,7 +24,6 @@ export const AddressPrivacyInfoScreen = ({
         <Row align="end">
           <IconButton
             accessibilityLabel="Sluiten"
-            accessibilityRole="button"
             icon={
               <Icon size={20}>
                 <Close fill={color.text.default} />

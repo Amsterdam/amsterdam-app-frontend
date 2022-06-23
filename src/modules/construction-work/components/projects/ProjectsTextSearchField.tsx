@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce'
 import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {TextInput} from '@/components/ui/forms'
+import {SearchField} from '@/components/ui/forms'
 import {
   config,
   selectProjectSearchText,
@@ -37,9 +37,8 @@ export const ProjectsTextSearchField = () => {
   }, [dispatch])
 
   return (
-    <TextInput
+    <SearchField
       blurOnSubmit={true}
-      label="Zoek in bouwprojecten"
       onChangeText={dispatchSearchData}
       onFocus={() => dispatch(setIsSearching(true))}
       onEndEditing={() => dispatch(setIsSearching(!!searchText))}

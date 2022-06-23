@@ -7,9 +7,8 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {Label} from '@/components/ui'
+import {IconButton, Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
-import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
 
@@ -21,7 +20,7 @@ type Props = {
   warning?: boolean
 } & TextInputRNProps
 
-export const TextInput = forwardRef(
+export const TextInput = forwardRef<TextInputRN, Props>(
   (
     {
       label,
@@ -32,33 +31,33 @@ export const TextInput = forwardRef(
       value: valueProp = '',
       ...otherProps
     }: Props,
-    ref: any,
+    ref,
   ) => {
-    const [hasFocus, setFocus] = useState(false)
+    const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
-    const {color, size} = useTheme()
+    const {color} = useTheme()
     const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
 
     useEffect(() => {
       setValue(valueProp)
     }, [valueProp])
 
-    const handleBlur = () => setFocus(false)
+    const handleBlur = () => setHasFocus(false)
 
     const handleChangeText = (text: string) => {
       setValue(text)
-      onChangeText && onChangeText(text)
+      onChangeText?.(text)
     }
 
     const handleClearText = () => {
       setValue('')
-      onChangeText && onChangeText('')
+      onChangeText?.('')
     }
 
     const handleFocus = () => {
-      setFocus(true)
-      onFocus && onFocus()
+      setHasFocus(true)
+      onFocus?.()
     }
 
     return (
@@ -68,7 +67,7 @@ export const TextInput = forwardRef(
           <TextInputRN
             {...otherProps}
             onBlur={handleBlur}
-            onChangeText={text => handleChangeText(text)}
+            onChangeText={handleChangeText}
             onFocus={handleFocus}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             ref={ref}
@@ -77,22 +76,24 @@ export const TextInput = forwardRef(
             value={value}
           />
           {value ? (
-            // TODO Use `IconButton` here
-            <Pressable
-              accessibilityRole="button"
-              accessibilityHint="Verwijder uw invoertekst"
-              hitSlop={size.spacing.sm}
-              onPress={handleClearText}>
-              <Icon size={20}>
-                <Close fill={color.text.default} />
-              </Icon>
-            </Pressable>
+            <IconButton
+              accessibilityHint="Maak dit tekstveld leeg"
+              icon={
+                <Icon size={24}>
+                  <Close fill={color.text.default} />
+                </Icon>
+              }
+              onPress={handleClearText}
+            />
           ) : null}
         </View>
       </Column>
     )
   },
 )
+
+const borderWidth = (hasFocus: boolean, warning?: boolean) =>
+  hasFocus || warning ? 2 : 1
 
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
@@ -104,6 +105,11 @@ const createStyles =
       frame: {
         flexDirection: 'row',
         padding: frameInset,
+        paddingBottom:
+          frameInset +
+          (hasFocus
+            ? borderWidth(false, warning) - borderWidth(true, warning)
+            : 0),
         backgroundColor: color.box.background.white,
         borderStyle: 'solid',
         borderColor: warning
@@ -111,7 +117,7 @@ const createStyles =
           : hasFocus
           ? color.control.focus.border
           : color.control.default.border,
-        borderWidth: hasFocus || warning ? 2 : 1,
+        borderWidth: borderWidth(hasFocus, warning),
       },
       textInput: {
         minHeight:
