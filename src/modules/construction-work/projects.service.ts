@@ -7,6 +7,7 @@ import {
   ProjectManagerResponse,
   ProjectsByDistanceQueryArg,
   ProjectsByTextQueryArg,
+  ProjectsEndpointName,
   ProjectsItem,
   ProjectsQueryArg,
   ProjectWarning,
@@ -19,7 +20,7 @@ import {formatQueryParams, generateRequestUrl} from '../../utils'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    addProjectWarning: builder.mutation<
+    [ProjectsEndpointName.addProjectWarning]: builder.mutation<
       ProjectWarningResponse,
       NewProjectWarning
     >({
@@ -35,7 +36,7 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    addProjectWarningImage: builder.mutation<
+    [ProjectsEndpointName.addProjectWarningImage]: builder.mutation<
       unknown,
       ProjectWarningImageQueryArg
     >({
@@ -49,25 +50,32 @@ export const projectsApi = baseApi.injectEndpoints({
       },
     }),
 
-    getProject: builder.query<Project, ProjectIdQueryArg>({
+    [ProjectsEndpointName.getProject]: builder.query<
+      Project,
+      ProjectIdQueryArg
+    >({
       query: params => generateRequestUrl({path: '/project/details', params}),
       transformResponse: (response: {result: Project}) => response.result,
     }),
 
-    getProjectManager: builder.query<ProjectManagerResponse, ProjectIdQueryArg>(
-      {
-        query: params => generateRequestUrl({path: '/project/manager', params}),
-        transformResponse: (response: {result: [ProjectManagerResponse]}) =>
-          response.result[0],
-      },
-    ),
+    [ProjectsEndpointName.getProjectManager]: builder.query<
+      ProjectManagerResponse,
+      ProjectIdQueryArg
+    >({
+      query: params => generateRequestUrl({path: '/project/manager', params}),
+      transformResponse: (response: {result: [ProjectManagerResponse]}) =>
+        response.result[0],
+    }),
 
-    getProjectNews: builder.query<NewsArticle, ProjectIdQueryArg>({
+    [ProjectsEndpointName.getProjectNews]: builder.query<
+      NewsArticle,
+      ProjectIdQueryArg
+    >({
       query: params => generateRequestUrl({path: '/project/news', params}),
       transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
-    getProjects: builder.query<
+    [ProjectsEndpointName.getProjects]: builder.query<
       ProjectsItem[],
       Partial<ProjectsQueryArg & SortListQueryArg> | void
     >({
@@ -84,7 +92,7 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    getProjectsByDistance: builder.query<
+    [ProjectsEndpointName.getProjectsByDistance]: builder.query<
       ProjectsItem[],
       ProjectsByDistanceQueryArg
     >({
@@ -93,7 +101,10 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    getProjectsByText: builder.query<ProjectsItem[], ProjectsByTextQueryArg>({
+    [ProjectsEndpointName.getProjectsByText]: builder.query<
+      ProjectsItem[],
+      ProjectsByTextQueryArg
+    >({
       query: params => {
         return generateRequestUrl({
           path: '/projects/search',
@@ -104,7 +115,10 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    getProjectWarning: builder.query<ProjectWarning, ProjectWarningIdQueryArg>({
+    [ProjectsEndpointName.getProjectWarning]: builder.query<
+      ProjectWarning,
+      ProjectWarningIdQueryArg
+    >({
       query: params => generateRequestUrl({path: '/project/warning', params}),
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,

@@ -5,16 +5,23 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
+import {getUniqueId} from 'react-native-device-info'
 import {EnvironmentConfig} from '../environment'
 import {selectEnvironment} from '../store'
 import {selectAuthManagerToken} from '../store/authSlice'
 import {RootState} from '../store/store'
+import {ProjectsEndpointName} from '@/types'
 
 const managerAuthorizedEndpoints = [
   'addNotification',
-  'addProjectWarning',
-  'addProjectWarningImage',
-  'getProjectManager',
+  ProjectsEndpointName.addProjectWarning,
+  ProjectsEndpointName.addProjectWarningImage,
+  ProjectsEndpointName.getProjectManager,
+]
+
+const deviceIdRequestingEndpoints: string[] = [
+  ProjectsEndpointName.getProject,
+  ProjectsEndpointName.getProjects,
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
@@ -32,7 +39,8 @@ const dynamicBaseQuery: BaseQueryFn<
       if (token && managerAuthorizedEndpoints.includes(endpoint)) {
         headers.set('userauthorization', token)
       }
-
+      deviceIdRequestingEndpoints.includes(endpoint) &&
+        headers.set('deviceid', getUniqueId())
       return headers
     },
   })(args, baseQueryApi, extraOptions)
