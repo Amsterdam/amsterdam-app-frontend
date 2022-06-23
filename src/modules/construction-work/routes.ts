@@ -39,7 +39,7 @@ export type ProjectsStackParams = {
   [ConstructionWorkRouteName.projectWarning]: {id: string}
 }
 
-export const projectsRoutes: StackNavigationRoutes<
+export const constructionWorkRoutes: StackNavigationRoutes<
   ProjectsStackParams,
   ConstructionWorkRouteName
 > = {

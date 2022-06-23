@@ -1,7 +1,10 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {screenOptions} from '../../app/navigation'
-import {ConstructionWorkRouteName, projectsRoutes as routes} from './routes'
+import {
+  ConstructionWorkRouteName,
+  constructionWorkRoutes as routes,
+} from './routes'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
