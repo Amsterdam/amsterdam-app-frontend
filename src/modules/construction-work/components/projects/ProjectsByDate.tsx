@@ -52,7 +52,7 @@ export const ProjectsByDate = () => {
 
   const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
-      imageSource={mapImageSources(project.images[0].sources, environment)}
+      imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
         navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,

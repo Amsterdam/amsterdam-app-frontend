@@ -108,7 +108,7 @@ export const ProjectsByDistance = () => {
 
   const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
-      imageSource={mapImageSources(project.images[0].sources, environment)}
+      imageSource={mapImageSources(project.images?.[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
         navigation.navigate(ProjectsRouteName.project, {
