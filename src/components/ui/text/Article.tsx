@@ -34,6 +34,7 @@ export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
   const fonts = useThemable(createFontList)
   const baseStyles = useThemable(createBaseStyles(isIntro))
+  const renderersProps = useThemable(createRenderersProps)
 
   if (!content) {
     return null
@@ -43,13 +44,13 @@ export const Article = ({content, isIntro}: Props) => {
 
   const styles: Record<string, MixedStyleDeclaration> = {
     h3: baseStyles.titleLevel3,
-    li: {...baseStyles.paragraph, ...baseStyles.listItem},
+    li: baseStyles.paragraph,
     p: baseStyles.paragraph,
-    ul: baseStyles.list,
   }
 
   return (
     <RenderHTML
+      renderersProps={renderersProps}
       contentWidth={width}
       source={{html}}
       systemFonts={fonts}
@@ -63,13 +64,6 @@ const createBaseStyles: (
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
   ({color, size, text}: Theme) => ({
-    list: {
-      margin: 0,
-      marginLeft: -10,
-    },
-    listItem: {
-      paddingLeft: 10,
-    },
     paragraph: {
       color: color.text.default,
       fontFamily: text.fontWeight.regular,
@@ -96,3 +90,12 @@ const createFontList = ({text}: Theme) => [
   text.fontWeight.demi,
   text.fontWeight.regular,
 ]
+
+const createRenderersProps = ({text}: Theme) => ({
+  ul: {
+    markerBoxStyle: {
+      paddingRight: text.fontSize.body / 3,
+      paddingTop: (text.lineHeight.body * text.fontSize.body) / 5,
+    },
+  },
+})
