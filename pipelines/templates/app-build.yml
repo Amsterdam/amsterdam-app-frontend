@@ -5,8 +5,17 @@ parameters:
 
 steps:
   # Set up environment
+  - template: ./install-node.yml
   - script: npm ci
     displayName: 'Install node dependencies'
+  - script: |
+      echo "##vso[task.setvariable variable=rubyVersion]$(cat '$(System.DefaultWorkingDirectory)/.ruby-version')"
+    displayName: 'Get Ruby version'
+  - task: UseRubyVersion@0
+    displayName: 'Set Ruby version'
+    inputs:
+      versionSpec: $(rubyVersion)
+      addToPath: true
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
     inputs:
@@ -22,7 +31,6 @@ steps:
     displayName: 'Run TypeScript checks'
   - script: npm run test
     displayName: 'Run unit tests'
-  - template: ./install-node.yml
 
   # Version info
   - template: ./save-version-info.yml
