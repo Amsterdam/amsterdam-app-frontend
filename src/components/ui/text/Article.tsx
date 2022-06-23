@@ -63,27 +63,31 @@ const createBaseStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({color, size, text}: Theme) => ({
-    paragraph: {
-      color: color.text.default,
-      fontFamily: text.fontWeight.regular,
-      fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
-      lineHeight: isIntro
-        ? text.lineHeight.intro * text.fontSize.intro
-        : text.lineHeight.body * text.fontSize.body,
-      marginTop: 0,
-      marginBottom: size.spacing.xl, // TODO Token
-    },
-    titleLevel3: {
-      color: color.text.default,
-      fontWeight: '600', // TODO Check
-      fontFamily: text.fontWeight.bold,
-      fontSize: text.fontSize.h3,
-      lineHeight: text.lineHeight.h3 * text.fontSize.h3,
-      marginTop: 0,
-      marginBottom: size.spacing.lg, // TODO Token
-    },
-  })
+  ({color, text}: Theme) => {
+    const lineHeight = isIntro
+      ? text.lineHeight.intro * text.fontSize.intro
+      : text.lineHeight.body * text.fontSize.body
+
+    return {
+      paragraph: {
+        color: color.text.default,
+        fontFamily: text.fontWeight.regular,
+        fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
+        lineHeight,
+        marginTop: 0,
+        marginBottom: lineHeight,
+      },
+      titleLevel3: {
+        color: color.text.default,
+        fontWeight: '600', // TODO Check
+        fontFamily: text.fontWeight.bold,
+        fontSize: text.fontSize.h3,
+        lineHeight: text.lineHeight.h3 * text.fontSize.h3,
+        marginTop: 0,
+        marginBottom: lineHeight,
+      },
+    }
+  }
 
 const createFontList = ({text}: Theme) => [
   text.fontWeight.bold,
