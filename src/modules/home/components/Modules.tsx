@@ -6,9 +6,11 @@ import {Paragraph} from '@/components/ui/text'
 import {ModuleButton} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
-import {color} from '@/tokens'
+import {useTheme} from '@/themes'
 
 export const Modules = () => {
+  const {color} = useTheme()
+
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
@@ -36,7 +38,7 @@ export const Modules = () => {
             <ModuleButton
               icon={
                 <Icon size={24}>
-                  <ModuleIcon fill={color.font.regular} />
+                  <ModuleIcon fill={color.text.default} />
                 </Icon>
               }
               key={slug}
