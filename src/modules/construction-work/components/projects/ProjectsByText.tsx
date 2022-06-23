@@ -6,8 +6,9 @@ import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {selectProjectSearchText} from './projectsByTextSlice'
-import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '@/components/ui'
+import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
+import {Paragraph, Title} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/projects.service'
@@ -62,13 +63,15 @@ export const ProjectsByText = () => {
   const renderListHeader = () => (
     <>
       <Box insetHorizontal="md">
-        <Text intro>{projects.length} zoekresultaten</Text>
-        <Gutter height="md" />
+        <Paragraph variant="small">{projects.length} zoekresultaten</Paragraph>
+        <Gutter height="lg" />
       </Box>
       {projects.length === 0 ? (
         <Box insetHorizontal="md">
-          <Title level={3} text="Helaas…" />
-          <Text>We hebben geen resultaten gevonden voor deze zoekterm.</Text>
+          <Title level="h1" text="Helaas…" />
+          <Paragraph>
+            We hebben geen projecten gevonden voor deze zoekterm.
+          </Paragraph>
         </Box>
       ) : null}
     </>
