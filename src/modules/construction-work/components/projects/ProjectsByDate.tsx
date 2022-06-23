@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux'
 import {sanitizeProjects, selectIsProjectsSearching} from './'
 import {PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {selectAddress} from '@/modules/address/addressSlice'
-import {ProjectCard} from '@/modules/construction-work/components/project'
+import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/projects.service'
 import {
   ProjectsRouteName,

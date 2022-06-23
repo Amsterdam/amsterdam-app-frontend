@@ -8,8 +8,8 @@ import {useSelector} from 'react-redux'
 import {selectProjectSearchText} from './projectsByTextSlice'
 import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
-import {ProjectCard} from '@/modules/construction-work/components/project'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
+import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/projects.service'
 import {
   ProjectsRouteName,

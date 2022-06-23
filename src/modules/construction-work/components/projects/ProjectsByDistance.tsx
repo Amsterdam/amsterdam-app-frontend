@@ -14,13 +14,13 @@ import {Paragraph} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
 import {
-  ProjectCard,
-  ProjectTraits,
-} from '@/modules/construction-work/components/project'
-import {
   sanitizeProjects,
   selectIsProjectsSearching,
 } from '@/modules/construction-work/components/projects'
+import {
+  ProjectCard,
+  ProjectTraits,
+} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
 import {
   ProjectsRouteName,
