@@ -2,6 +2,10 @@
 
 Here we document useful tips and solutions to (relatively) common problems with building the app.
 
+## Ruby install issues
+
+If you run into issues installing the correct Ruby version via gems, you can manually install the correct version using http://rbenv.org/ or https://rvm.io/
+
 ## react-native start fails
 
 Sometimes building the JS fails due to caching issues, for example after changes in the import aliases or the babel config. If the cause of the issue is unclear, a good place to start is to clear all relevant caches:
