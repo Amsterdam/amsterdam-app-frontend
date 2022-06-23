@@ -3,7 +3,6 @@ import {
   PressableProps as PressableRNProps,
   StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native'
 import {Badge, BadgeProps} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
@@ -38,13 +37,13 @@ export const IconButton = ({badgeValue, icon, ...props}: Props) => {
 const createStyles = ({size}: Theme) => {
   const hitSlopSize = size.spacing.sm
 
-  const styles: ViewStyle = {
-    position: 'absolute',
-    top: -hitSlopSize,
-    right: -hitSlopSize,
-    left: -hitSlopSize,
-    alignItems: 'flex-end',
-  }
-
-  return StyleSheet.create({badgePosition: styles})
+  return StyleSheet.create({
+    badgePosition: {
+      position: 'absolute',
+      top: -hitSlopSize,
+      right: -hitSlopSize,
+      left: -hitSlopSize,
+      alignItems: 'flex-end',
+    },
+  })
 }
