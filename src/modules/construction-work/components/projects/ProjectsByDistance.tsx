@@ -14,10 +14,13 @@ import {Paragraph} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
 import {
+  sanitizeProjects,
+  selectIsProjectsSearching,
+} from '@/modules/construction-work/components/projects'
+import {
   ProjectCard,
   ProjectTraits,
-} from '@/modules/construction-work/components/project'
-import {selectIsProjectsSearching} from '@/modules/construction-work/components/projects'
+} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
 import {
   ProjectsRouteName,
@@ -108,7 +111,7 @@ export const ProjectsByDistance = () => {
 
   const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
-      imageSource={mapImageSources(project.images[0].sources, environment)}
+      imageSource={mapImageSources(project.images?.[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
         navigation.navigate(ProjectsRouteName.project, {
@@ -122,7 +125,7 @@ export const ProjectsByDistance = () => {
 
   return (
     <FlatGrid
-      data={projects}
+      data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}

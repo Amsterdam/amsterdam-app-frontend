@@ -29,7 +29,7 @@ export type ProjectsItem = {
   district_id: number
   district_name: string
   identifier: string
-  images: Image[]
+  images: Image[] | null
   last_seen: string // date
   meter?: number
   modification_date: string

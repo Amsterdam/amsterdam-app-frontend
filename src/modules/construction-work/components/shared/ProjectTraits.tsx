@@ -1,12 +1,12 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {View} from 'react-native'
-import {Strides} from '../../../../assets/icons'
-import {PleaseWait, Trait} from '../../../../components/ui'
-import {Row} from '../../../../components/ui/layout'
-import {Theme, useThemable} from '../../../../themes'
-import {accessibleText} from '../../../../utils'
-import {useProjects} from '../../useProjects'
+import {Strides} from '@/assets/icons'
+import {PleaseWait, Trait} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
+import {useProjects} from '@/modules/construction-work/useProjects'
+import {Theme, useThemable} from '@/themes'
+import {accessibleText} from '@/utils'
 
 type Props = {
   projectId: string

@@ -5,23 +5,21 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {
-  Box,
-  PleaseWait,
-  SomethingWentWrong,
-  Text,
-  Title,
-} from '../../../../components/ui'
-import {Gutter} from '../../../../components/ui/layout'
-import {DeviceContext} from '../../../../providers'
-import {useEnvironment} from '../../../../store'
-import {ProjectsItem} from '../../../../types'
-import {mapImageSources} from '../../../../utils'
-import {useGetProjectsByTextQuery} from '../../projects.service'
-import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
-import {ProjectCard} from '../project'
 import {selectProjectSearchText} from './projectsByTextSlice'
+import {Box, PleaseWait, SomethingWentWrong, Text, Title} from '@/components/ui'
+import {Gutter} from '@/components/ui/layout'
+import {sanitizeProjects} from '@/modules/construction-work/components/projects'
+import {ProjectCard} from '@/modules/construction-work/components/shared'
+import {useGetProjectsByTextQuery} from '@/modules/construction-work/projects.service'
+import {
+  ProjectsRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {DeviceContext} from '@/providers'
+import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
+import {ProjectsItem} from '@/types'
+import {mapImageSources} from '@/utils'
 
 export const ProjectsByText = () => {
   const navigation =
@@ -78,10 +76,7 @@ export const ProjectsByText = () => {
 
   const renderItem = ({item: project}: {item: ProjectsItem}) => (
     <ProjectCard
-      imageSource={
-        project.images?.[0] &&
-        mapImageSources(project.images[0].sources, environment)
-      }
+      imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
         navigation.navigate(ProjectsRouteName.project, {
           id: project.identifier,
@@ -94,7 +89,7 @@ export const ProjectsByText = () => {
 
   return (
     <FlatGrid
-      data={projects}
+      data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}

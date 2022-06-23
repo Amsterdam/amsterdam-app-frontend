@@ -1,13 +1,13 @@
 import debounce from 'lodash.debounce'
 import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {TextInput} from '../../../../components/ui/forms'
-import {config} from './config'
+import {TextInput} from '@/components/ui/forms'
 import {
+  config,
   selectProjectSearchText,
   setIsSearching,
   setSearchText,
-} from './projectsByTextSlice'
+} from '@/modules/construction-work/components/projects'
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()
