@@ -19,6 +19,16 @@ To be used to catch errors thrown in the wrapped components. See https://docs.se
 
 Note that ErrorBoundaries will not catch exceptions thrown in event handlers! This means that, when a handler (e.g. in an onPress prop) is liable to throw an error, you are required to handle it in the function passed to the handler.
 
+## Config
+
+To connect Sentry to a different account:
+- Replace the content of `sentry.properties`
+  - `defaults.url`: the URL of the server; will be `https://sentry.io/` if we're using Sentry SaaS or the domain name in the case of a "self hosted" solution
+  - `defaults.org`: Sentry organistation slug, can be found in the Sentry interface
+  - `defaults.project`: Sentry project name, can be found in the Sentry interface
+  - `auth.token`: can be generated in the Sentry interface, under Settings > Account > API > Auth Tokens
+- Set the correct DSN in `services/sentry.ts`: can be found under the project > Client Keys
+
 ## Consent
 
 Current implementation is "consent ready". This means that when we implement a consent mechanism, which allows users to (dis-) allow data sharing, we can enable or disable Sentry or Sentry features based on this setting. The consent setting is presumed to live in the Redux state. We can refer to the state in the Sentry hooks. Consent related data relevant to this is:
