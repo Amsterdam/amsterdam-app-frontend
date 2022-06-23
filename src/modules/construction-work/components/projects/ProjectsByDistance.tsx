@@ -17,7 +17,10 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/project'
-import {selectIsProjectsSearching} from '@/modules/construction-work/components/projects'
+import {
+  sanitizeProjects,
+  selectIsProjectsSearching,
+} from '@/modules/construction-work/components/projects'
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
 import {
   ProjectsRouteName,
@@ -122,7 +125,7 @@ export const ProjectsByDistance = () => {
 
   return (
     <FlatGrid
-      data={projects}
+      data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}

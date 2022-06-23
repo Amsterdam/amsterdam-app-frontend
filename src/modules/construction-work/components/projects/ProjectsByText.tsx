@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
+import {sanitizeProjects} from '_modules/construction-work/components/projects/utils/sanitizeProjects'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
@@ -91,7 +92,7 @@ export const ProjectsByText = () => {
 
   return (
     <FlatGrid
-      data={projects}
+      data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}

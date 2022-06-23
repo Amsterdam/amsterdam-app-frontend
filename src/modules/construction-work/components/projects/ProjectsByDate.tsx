@@ -13,7 +13,7 @@ import {selectAddress} from '../../../address/addressSlice'
 import {useGetProjectsQuery} from '../../projects.service'
 import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
 import {ProjectCard} from '../project'
-import {selectIsProjectsSearching} from './'
+import {sanitizeProjects, selectIsProjectsSearching} from './'
 import {useTheme} from '@/themes'
 
 export const ProjectsByDate = () => {
@@ -65,7 +65,7 @@ export const ProjectsByDate = () => {
 
   return (
     <FlatGrid
-      data={projects}
+      data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
