@@ -14,7 +14,7 @@ steps:
   - task: UseRubyVersion@0
     displayName: 'Set Ruby version'
     inputs:
-      versionSpec: $(rubyVersion)
+      versionSpec: '~> $(rubyVersion)'
       addToPath: true
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
