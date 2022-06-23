@@ -7,9 +7,8 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {Label} from '@/components/ui'
+import {IconButton, Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
-import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
 
@@ -37,7 +36,7 @@ export const TextInput = forwardRef(
     const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
-    const {color, size} = useTheme()
+    const {color} = useTheme()
     const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
 
     useEffect(() => {
@@ -77,16 +76,15 @@ export const TextInput = forwardRef(
             value={value}
           />
           {value ? (
-            // TODO Use `IconButton` here
-            <Pressable
-              accessibilityRole="button"
-              accessibilityHint="Verwijder uw invoertekst"
-              hitSlop={size.spacing.sm}
-              onPress={handleClearText}>
-              <Icon size={20}>
-                <Close fill={color.text.default} />
-              </Icon>
-            </Pressable>
+            <IconButton
+              accessibilityHint="Maak dit tekstveld leeg"
+              icon={
+                <Icon size={24}>
+                  <Close fill={color.text.default} />
+                </Icon>
+              }
+              onPress={handleClearText}
+            />
           ) : null}
         </View>
       </Column>
