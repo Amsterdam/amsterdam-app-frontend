@@ -4,17 +4,20 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {PleaseWait, SomethingWentWrong} from '../../../../components/ui'
-import {DeviceContext} from '../../../../providers'
-import {useEnvironment} from '../../../../store'
-import {ProjectsItem} from '../../../../types'
-import {mapImageSources} from '../../../../utils'
-import {selectAddress} from '../../../address/addressSlice'
-import {useGetProjectsQuery} from '../../projects.service'
-import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
-import {ProjectCard} from '../project'
 import {sanitizeProjects, selectIsProjectsSearching} from './'
+import {PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {selectAddress} from '@/modules/address/addressSlice'
+import {ProjectCard} from '@/modules/construction-work/components/project'
+import {useGetProjectsQuery} from '@/modules/construction-work/projects.service'
+import {
+  ProjectsRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {DeviceContext} from '@/providers'
+import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
+import {ProjectsItem} from '@/types'
+import {mapImageSources} from '@/utils'
 
 export const ProjectsByDate = () => {
   const {primary: address} = useSelector(selectAddress)
