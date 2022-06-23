@@ -6,15 +6,16 @@ import {useDispatch} from 'react-redux'
 import {SwipeToDelete} from '../../../../src/components/ui/SwipeToDelete'
 import {RootStackParamList} from '../../../app/navigation'
 import {Row} from '../../../components/ui/layout'
-import {Title} from '../../../components/ui/typography'
+import {Title} from '../../../components/ui/text'
 import {Theme, useThemable} from '../../../themes'
 import {toggleModule} from '../store'
+import {Pressable} from '@/components/ui/buttons/index'
 
 type Props = {
   icon: ReactNode
   label: string
   name?: keyof RootStackParamList
-  slug?: string | undefined
+  slug: string
 }
 
 export const ModuleButton = ({icon, label, name, slug}: Props) => {
@@ -36,7 +37,7 @@ export const ModuleButton = ({icon, label, name, slug}: Props) => {
               {icon}
               <Title level="h5" text={label} />
             </Row>
-          </BlockLink>
+          </Pressable>
         </View>
       </SwipeToDelete>
     </View>
