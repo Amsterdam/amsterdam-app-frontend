@@ -34,7 +34,7 @@ export const TextInput = forwardRef(
     }: Props,
     ref: any,
   ) => {
-    const [hasFocus, setFocus] = useState(false)
+    const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
     const {color, size} = useTheme()
@@ -44,7 +44,7 @@ export const TextInput = forwardRef(
       setValue(valueProp)
     }, [valueProp])
 
-    const handleBlur = () => setFocus(false)
+    const handleBlur = () => setHasFocus(false)
 
     const handleChangeText = (text: string) => {
       setValue(text)
@@ -57,7 +57,7 @@ export const TextInput = forwardRef(
     }
 
     const handleFocus = () => {
-      setFocus(true)
+      setHasFocus(true)
       onFocus && onFocus()
     }
 
