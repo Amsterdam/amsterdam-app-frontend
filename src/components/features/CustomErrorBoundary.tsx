@@ -20,7 +20,7 @@ export class CustomErrorBoundary extends Component<Props, State> {
   }
 
   render() {
-    if (this.state.hasError === 0) {
+    if (this.state.hasError === 1) {
       return this.props.children
     }
     const {wrapper, text, paragraph, button, buttonText} = styles
