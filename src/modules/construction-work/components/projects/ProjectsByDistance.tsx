@@ -1,47 +1,25 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {RootStackParamList} from '@/app/navigation'
-import {Edit} from '@/assets/icons'
-import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
-import {Gutter, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {Column} from '@/components/ui/layout'
 import {selectAddress} from '@/modules/address/addressSlice'
-import {AddressRouteName} from '@/modules/address/routes'
 import {
+  ProjectsByDistanceListHeader,
+  ProjectsByDistanceListItem,
+  ProjectsByDistanceNoResults,
   sanitizeProjects,
   selectIsProjectsSearching,
 } from '@/modules/construction-work/components/projects'
-import {
-  ProjectCard,
-  ProjectTraits,
-} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
-import {
-  ConstructionWorkRouteName,
-  ProjectsStackParams,
-} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
-import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {ProjectsItem} from '@/types'
-import {mapImageSources} from '@/utils'
 
 export const ProjectsByDistance = () => {
   const {primary: address} = useSelector(selectAddress)
-  const navigation =
-    useNavigation<
-      StackNavigationProp<
-        RootStackParamList & ProjectsStackParams,
-        ConstructionWorkRouteName.projects
-      >
-    >()
-  const {color, size} = useTheme()
+  const {size} = useTheme()
   const {fontScale} = useContext(DeviceContext)
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
@@ -61,8 +39,6 @@ export const ProjectsByDistance = () => {
     isError,
   } = useGetProjectsByDistanceQuery(params ?? skipToken)
 
-  const environment = useEnvironment()
-
   if (isSearching || !address) {
     return null
   }
@@ -75,64 +51,21 @@ export const ProjectsByDistance = () => {
     return <SomethingWentWrong />
   }
 
-  if (!projects.length) {
-    return (
-      <Box>
-        <Paragraph>Geen projecten in de buurt.</Paragraph>
-      </Box>
-    )
-  }
-
-  const renderListHeader = () => (
-    <Box insetHorizontal="md">
-      <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={`Projecten dichtbij ${address.adres}`}>
-          Dichtbij {address.adres}
-        </Paragraph>
-        <IconButton
-          hitSlop={10}
-          icon={
-            <Icon size={32}>
-              <Edit fill={color.pressable.default.background} />
-            </Icon>
-          }
-          onPress={
-            // TODO Open as modal
-            () =>
-              navigation.navigate('AddressModule', {
-                screen: AddressRouteName.addressForm,
-              })
-          }
-        />
-      </Row>
-      <Gutter height="md" />
-    </Box>
-  )
-
-  const renderItem = ({item: project}: {item: ProjectsItem}) => (
-    <ProjectCard
-      imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits projectId={project.identifier} />}
-      onPress={() =>
-        navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.identifier,
-        })
-      }
-      subtitle={project.subtitle ?? undefined}
-      title={project.title}
-    />
-  )
-
   return (
-    <FlatGrid
-      data={sanitizeProjects(projects)}
-      itemContainerStyle={styles.itemContainer}
-      itemDimension={itemDimension}
-      keyExtractor={project => project.identifier}
-      ListHeaderComponent={renderListHeader}
-      renderItem={renderItem}
-      spacing={size.spacing.md}
-    />
+    <Column gutter="md">
+      <FlatGrid
+        data={sanitizeProjects(projects)}
+        itemContainerStyle={styles.itemContainer}
+        itemDimension={itemDimension}
+        keyExtractor={project => project.identifier}
+        ListEmptyComponent={ProjectsByDistanceNoResults}
+        ListHeaderComponent={
+          <ProjectsByDistanceListHeader address={address.adres} />
+        }
+        renderItem={({item}) => <ProjectsByDistanceListItem project={item} />}
+        spacing={size.spacing.md}
+      />
+    </Column>
   )
 }
 
