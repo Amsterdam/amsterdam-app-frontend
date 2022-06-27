@@ -40,8 +40,9 @@ export const ProjectsTextSearchField = () => {
     <SearchField
       blurOnSubmit={true}
       onChangeText={dispatchSearchData}
-      onFocus={() => dispatch(setIsSearching(true))}
       onEndEditing={() => dispatch(setIsSearching(!!searchText))}
+      onFocus={() => dispatch(setIsSearching(true))}
+      placeholder="Zoek in werkzaamheden"
     />
   )
 }

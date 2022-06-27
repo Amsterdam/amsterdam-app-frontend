@@ -59,6 +59,7 @@ export const SearchField = forwardRef<TextInputRN, Props>(
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
+          placeholderTextColor={color.text.secondary}
           ref={ref}
           style={styles.textInput}
           textAlignVertical="top"
@@ -111,7 +112,7 @@ const createStyles =
         color: color.text.default,
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
-        lineHeight: text.fontSize.body * 1, // Can’t get glyphs to vertically center otherwise
+        lineHeight: text.fontSize.body * text.lineHeight.input,
       },
     })
   }

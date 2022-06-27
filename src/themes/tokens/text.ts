@@ -1,5 +1,9 @@
 export type ParagraphVariants = 'body' | 'intro' | 'small'
 
+type FormTextTokens = {
+  input: number
+}
+
 type ParagraphTokens = {
   body: number
   intro: number
@@ -24,7 +28,7 @@ type FontWeights = {
 export type TextTokens = {
   fontSize: ParagraphTokens & TitleTokensPerLevel
   fontWeight: FontWeights
-  lineHeight: ParagraphTokens & TitleTokensPerLevel
+  lineHeight: FormTextTokens & ParagraphTokens & TitleTokensPerLevel
 }
 
 export const textTokens: TextTokens = {
@@ -45,6 +49,7 @@ export const textTokens: TextTokens = {
     regular: 'AvenirNext-Regular',
   },
   lineHeight: {
+    input: 1.4,
     body: 1.6,
     h1: 1.1,
     h2: 1.2,
