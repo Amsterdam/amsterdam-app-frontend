@@ -49,7 +49,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
         <IconButton
           accessibilityLabel="Wijzig het adres"
           icon={
-            <Icon size={32}>
+            <Icon size={24}>
               <Edit fill={color.pressable.default.background} />
             </Icon>
           }
