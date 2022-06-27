@@ -53,12 +53,12 @@ export const ProjectNews = ({id}: Props) => {
 
   return (
     <ScrollView>
-      {news?.images?.length && (
+      {news?.images?.length ? (
         <Image
           aspectRatio="wide"
           source={mapImageSources(news.images[0].sources, environment)}
         />
-      )}
+      ) : null}
       {news && (
         <Box>
           <Column gutter="md">
