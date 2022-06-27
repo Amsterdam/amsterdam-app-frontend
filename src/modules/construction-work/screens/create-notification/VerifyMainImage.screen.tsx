@@ -3,23 +3,23 @@ import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {ImagePreviewTouchable} from '../../../../components/features/create-notification'
-import {Box, SubmitButton, TextButton, Title} from '../../../../components/ui'
+import {ImagePreviewTouchable} from '@/components/features/create-notification'
+import {Box, SubmitButton, TextButton, Title} from '@/components/ui'
 import {
   CharactersLeftDisplay,
   TextInput,
   ValidationWarning,
-} from '../../../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../../../components/ui/layout'
+} from '@/components/ui/forms'
+import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {
   selectMainImage,
   setMainImage,
   setMainImageDescription,
-} from './notificationDraftSlice'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
 
 type Props = {
   navigation: StackNavigationProp<

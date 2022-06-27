@@ -2,25 +2,25 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, SubmitButton, Title} from '../../../../components/ui'
+import {Box, SubmitButton, Title} from '@/components/ui'
 import {
   CharactersLeftDisplay,
   TextInput,
   ValidationWarning,
-} from '../../../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../../../components/ui/layout'
-import {useGetArticlesQuery} from '../../../../services'
-import {NotificationQueryArg} from '../../../../types'
-import {formatTime} from '../../../../utils'
+} from '@/components/ui/forms'
+import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {
   selectProjectId,
   setNotification,
   setStep,
-} from './notificationDraftSlice'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
+import {useGetArticlesQuery} from '@/services'
+import {NotificationQueryArg} from '@/types'
+import {formatTime} from '@/utils'
 
 const maxCharacters = {
   title: 54,

@@ -1,5 +1,8 @@
-import {StackNavigationRoutes} from '../../app/navigation'
-import {ProjectBody} from '../../types'
+import {
+  CreateNotificationScreen,
+  ProjectIdAndTitle,
+} from '_modules/construction-work/screens/create-notification'
+import {StackNavigationRoutes} from '@/app/navigation'
 import {
   AuthorizedProjectsScreen,
   ProjectBodyScreen,
@@ -8,17 +11,14 @@ import {
   ProjectScreen,
   ProjectsScreen,
   ProjectWarningScreen,
-} from './screens'
-import {
-  CreateNotificationScreen,
-  ProjectIdAndTitle,
-} from './screens/create-notification'
+} from '@/modules/construction-work/screens'
+import {ProjectBody} from '@/types'
 
-export enum ProjectsRouteName {
+export enum ConstructionWorkRouteName {
   authorizedProjects = 'AuthorizedProjects',
-  projects = 'Projects',
   createNotification = 'CreateNotification',
   project = 'Project',
+  projects = 'Projects',
   projectBody = 'ProjectBody',
   projectManager = 'ProjectManager',
   projectNews = 'ProjectNews',
@@ -26,67 +26,67 @@ export enum ProjectsRouteName {
 }
 
 export type ProjectsStackParams = {
-  [ProjectsRouteName.authorizedProjects]: {projectManagerId: string}
-  [ProjectsRouteName.createNotification]: {project: ProjectIdAndTitle}
-  [ProjectsRouteName.projects]: undefined
-  [ProjectsRouteName.project]: {id: string}
-  [ProjectsRouteName.projectBody]: {
+  [ConstructionWorkRouteName.authorizedProjects]: {projectManagerId: string}
+  [ConstructionWorkRouteName.createNotification]: {project: ProjectIdAndTitle}
+  [ConstructionWorkRouteName.projects]: undefined
+  [ConstructionWorkRouteName.project]: {id: string}
+  [ConstructionWorkRouteName.projectBody]: {
     body: ProjectBody
     headerTitle: string
   }
-  [ProjectsRouteName.projectManager]: {id: string}
-  [ProjectsRouteName.projectNews]: {id: string}
-  [ProjectsRouteName.projectWarning]: {id: string}
+  [ConstructionWorkRouteName.projectManager]: {id: string}
+  [ConstructionWorkRouteName.projectNews]: {id: string}
+  [ConstructionWorkRouteName.projectWarning]: {id: string}
 }
 
-export const projectsRoutes: StackNavigationRoutes<
+export const constructionWorkRoutes: StackNavigationRoutes<
   ProjectsStackParams,
-  ProjectsRouteName
+  ConstructionWorkRouteName
 > = {
-  [ProjectsRouteName.authorizedProjects]: {
+  [ConstructionWorkRouteName.authorizedProjects]: {
     component: AuthorizedProjectsScreen,
-    name: ProjectsRouteName.authorizedProjects,
+    name: ConstructionWorkRouteName.authorizedProjects,
     options: {
       headerTitle: 'Je bouwprojecten',
     },
   },
-  [ProjectsRouteName.createNotification]: {
+  [ConstructionWorkRouteName.createNotification]: {
     component: CreateNotificationScreen,
-    name: ProjectsRouteName.createNotification,
+    name: ConstructionWorkRouteName.createNotification,
     options: {
       presentation: 'modal',
       headerTitle: 'Verstuur pushbericht',
     },
   },
-  [ProjectsRouteName.projects]: {
+  [ConstructionWorkRouteName.projects]: {
     component: ProjectsScreen,
-    name: ProjectsRouteName.projects,
+    name: ConstructionWorkRouteName.projects,
     options: {
       headerTitle: 'Werk in uitvoering',
     },
   },
-  [ProjectsRouteName.project]: {
+  [ConstructionWorkRouteName.project]: {
     component: ProjectScreen,
-    name: ProjectsRouteName.project,
+    name: ConstructionWorkRouteName.project,
   },
-  [ProjectsRouteName.projectBody]: {
+  [ConstructionWorkRouteName.projectBody]: {
     component: ProjectBodyScreen,
-    name: ProjectsRouteName.projectBody,
+    name: ConstructionWorkRouteName.projectBody,
   },
-  [ProjectsRouteName.projectManager]: {
+  [ConstructionWorkRouteName.projectManager]: {
     component: ProjectManagerScreen,
-    name: ProjectsRouteName.projectManager,
+    name: ConstructionWorkRouteName.projectManager,
     options: {
       headerTitle: 'Welkom',
       presentation: 'modal',
     },
   },
-  [ProjectsRouteName.projectNews]: {
+  [ConstructionWorkRouteName.projectNews]: {
     component: ProjectNewsScreen,
-    name: ProjectsRouteName.projectNews,
+    name: ConstructionWorkRouteName.projectNews,
   },
-  [ProjectsRouteName.projectWarning]: {
+  [ConstructionWorkRouteName.projectWarning]: {
     component: ProjectWarningScreen,
-    name: ProjectsRouteName.projectWarning,
+    name: ConstructionWorkRouteName.projectWarning,
   },
 }

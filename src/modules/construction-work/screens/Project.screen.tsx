@@ -6,36 +6,33 @@ import {
   selectNotificationSettings,
   toggleProject,
   toggleProjectsEnabled,
-} from '../../../components/features/notifications'
-import {
-  Box,
-  Button,
-  PleaseWait,
-  SingleSelectable,
-  Text,
-} from '../../../components/ui'
-import {Switch} from '../../../components/ui/forms'
-import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {useEnvironment} from '../../../store'
-import {accessibleText, mapImageSources} from '../../../utils'
-import {ArticleOverview} from '../components/article'
-import {ProjectBodyMenu} from '../components/project'
-import {useProjectManagerFetcher} from '../components/project-manager'
-import {ProjectTraits} from '../components/shared'
-import {useGetProjectQuery} from '../projects.service'
-import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+} from '@/components/features/notifications'
+import {Box, Button, PleaseWait, SingleSelectable, Text} from '@/components/ui'
+import {Switch} from '@/components/ui/forms'
+import {Column, Gutter, ScrollView} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
+import {ArticleOverview} from '@/modules/construction-work/components/article'
+import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
+import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
+import {ProjectTraits} from '@/modules/construction-work/components/shared'
+import {useGetProjectQuery} from '@/modules/construction-work/construction-work.service'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {useEnvironment} from '@/store'
+import {accessibleText, mapImageSources} from '@/utils'
 
 type ProjectScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.project
+  ConstructionWorkRouteName.project
 >
 
 type Props = {
   navigation: StackNavigationProp<
     ProjectsStackParams,
-    ProjectsRouteName.project
+    ConstructionWorkRouteName.project
   >
   route: ProjectScreenRouteProp
 }
@@ -88,12 +85,15 @@ export const ProjectScreen = ({navigation, route}: Props) => {
             {projectManager?.projects.includes(project.identifier) && (
               <Button
                 onPress={() =>
-                  navigation.navigate(ProjectsRouteName.createNotification, {
-                    project: {
-                      id: project.identifier,
-                      title: project.title,
+                  navigation.navigate(
+                    ConstructionWorkRouteName.createNotification,
+                    {
+                      project: {
+                        id: project.identifier,
+                        title: project.title,
+                      },
                     },
-                  })
+                  )
                 }
                 text="Verstuur pushbericht"
                 variant="inverse"

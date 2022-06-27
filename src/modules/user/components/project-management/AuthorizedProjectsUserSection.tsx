@@ -16,7 +16,7 @@ import {accessibleText} from '../../../../utils'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {ProjectTitle} from '../../../construction-work/components/project'
 import {useProjectManagerFetcher} from '../../../construction-work/components/project-manager'
-import {ProjectsRouteName} from '../../../construction-work/routes'
+import {ConstructionWorkRouteName} from '../../../construction-work/routes'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
@@ -52,7 +52,7 @@ export const AuthorizedProjectsUserSection = () => {
             <LinkToUserSection
               onPress={() =>
                 navigation.navigate(constructionWorkModule.name, {
-                  screen: ProjectsRouteName.project,
+                  screen: ConstructionWorkRouteName.project,
                   params: {
                     id: project.identifier,
                   },

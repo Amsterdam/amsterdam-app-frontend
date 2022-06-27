@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '../../../../store'
-import {ProjectManager} from './types'
+import {ProjectManager} from '@/modules/construction-work/components/project-manager/types'
+import {RootState} from '@/store'
 
 const initialState: ProjectManager = {
   id: '',

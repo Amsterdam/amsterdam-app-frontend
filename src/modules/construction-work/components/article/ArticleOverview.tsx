@@ -2,14 +2,17 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {PleaseWait} from '../../../../components/ui'
-import {Column} from '../../../../components/ui/layout'
-import {useGetArticlesQuery} from '../../../../services/articles'
-import {ArticleSummary} from '../../../../types'
-import {ProjectsRouteName, ProjectsStackParams} from '../../routes'
-import {ArticlePreview} from '.'
+import {PleaseWait} from '@/components/ui'
+import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
+import {ArticlePreview} from '@/modules/construction-work/components/article'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
+import {useGetArticlesQuery} from '@/services/articles'
 import {Theme, useThemable} from '@/themes'
+import {ArticleSummary} from '@/types'
 import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
 
 type Props = {
@@ -34,7 +37,10 @@ export const ArticleOverview = ({
   >()
   const navigation =
     useNavigation<
-      StackNavigationProp<ProjectsStackParams, ProjectsRouteName.projectNews>
+      StackNavigationProp<
+        ProjectsStackParams,
+        ConstructionWorkRouteName.projectNews
+      >
     >()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
@@ -62,11 +68,11 @@ export const ArticleOverview = ({
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {
-      navigation.navigate(ProjectsRouteName.projectNews, {
+      navigation.navigate(ConstructionWorkRouteName.projectNews, {
         id: article.identifier,
       })
     } else if (article.type === 'warning') {
-      navigation.navigate(ProjectsRouteName.projectWarning, {
+      navigation.navigate(ConstructionWorkRouteName.projectWarning, {
         id: article.identifier,
       })
     }

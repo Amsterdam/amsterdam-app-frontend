@@ -1,11 +1,13 @@
-import {StackNavigationRoutes} from '../../../../app/navigation'
-import {NotificationFormScreen} from './NotificationForm.screen'
-import {NotificationResponseScreen} from './NotificationResponse.screen'
-import {ProjectWarningFormScreen} from './ProjectWarningForm.screen'
-import {SelectNewsArticleScreen} from './SelectNewsArticle.screen'
-import {VerifyMainImageScreen} from './VerifyMainImage.screen'
-import {VerifyNotificationScreen} from './VerifyNotification.screen'
-import {WritingGuideScreen} from './WritingGuide.screen'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {
+  NotificationFormScreen,
+  NotificationResponseScreen,
+  ProjectWarningFormScreen,
+  SelectNewsArticleScreen,
+  VerifyMainImageScreen,
+  VerifyNotificationScreen,
+  WritingGuideScreen,
+} from '@/modules/construction-work/screens/create-notification'
 
 export enum CreateNotificationRouteName {
   notificationForm = 'NotificationForm',

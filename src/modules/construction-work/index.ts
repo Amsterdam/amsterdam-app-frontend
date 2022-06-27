@@ -1,14 +1,14 @@
-import {ModuleClientConfig} from '../types'
-import {ConstructionWorkStack} from './Stack'
-import {projectManagerSlice} from './components/project-manager'
-import {projectsByTextSlice} from './components/projects'
-import {ProjectsRouteName} from './routes'
+import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
+import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
+import {projectsByTextSlice} from '@/modules/construction-work/components/projects'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   linking: {
-    [ProjectsRouteName.projectNews]: 'news/:id',
-    [ProjectsRouteName.projectManager]: 'project-manager/:id',
-    [ProjectsRouteName.projectWarning]: 'warning/:id',
+    [ConstructionWorkRouteName.projectNews]: 'news/:id',
+    [ConstructionWorkRouteName.projectManager]: 'project-manager/:id',
+    [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
   name: 'ConstructionWorkModule',
   slug: 'construction-work',

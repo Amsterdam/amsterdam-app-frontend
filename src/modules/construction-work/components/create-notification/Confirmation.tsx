@@ -2,12 +2,12 @@ import {Card} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {Button, CardBody, Text, Title} from '../../../../components/ui'
-import {Gutter, Column, Row} from '../../../../components/ui/layout'
+import {Button, CardBody, Text, Title} from '@/components/ui'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from '../../screens/create-notification/routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
 
 type Props = {
   body: string

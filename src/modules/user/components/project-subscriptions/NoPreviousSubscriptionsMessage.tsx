@@ -6,7 +6,7 @@ import {RootStackParamList} from '../../../../app/navigation'
 import {Attention, Text, TextButton} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {module as constructionWorkModule} from '../../../construction-work'
-import {ProjectsRouteName} from '../../../construction-work/routes'
+import {ConstructionWorkRouteName} from '../../../construction-work/routes'
 
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =
@@ -25,7 +25,7 @@ export const NoPreviousSubscriptionsMessage = () => {
         emphasis
         onPress={() =>
           navigation.navigate(constructionWorkModule.name, {
-            screen: ProjectsRouteName.projects,
+            screen: ConstructionWorkRouteName.projects,
           })
         }
         text="Naar bouwprojecten"

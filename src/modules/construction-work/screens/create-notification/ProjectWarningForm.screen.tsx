@@ -12,16 +12,15 @@ import {
   Text,
   TextButton,
   Title,
-} from '../../../../components/ui'
+} from '@/components/ui'
 import {
   CharactersLeftDisplay,
   TextInput,
   ValidationWarning,
-} from '../../../../components/ui/forms'
-import {Column, Row, ScrollView} from '../../../../components/ui/layout'
-import {Icon} from '../../../../components/ui/media'
-import {NewProjectWarning} from '../../../../types'
-import {selectProjectManager} from '../../components/project-manager'
+} from '@/components/ui/forms'
+import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {selectProjectManager} from '@/modules/construction-work/components/project-manager'
 import {
   selectMainImage,
   selectProjectId,
@@ -29,12 +28,13 @@ import {
   setMainImageDescription,
   setProjectWarning,
   setStep,
-} from './notificationDraftSlice'
+} from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
-} from './routes'
+} from '@/modules/construction-work/screens/create-notification/routes'
 import {useTheme} from '@/themes'
+import {NewProjectWarning} from '@/types'
 
 const maxCharacters = {
   title: 50,

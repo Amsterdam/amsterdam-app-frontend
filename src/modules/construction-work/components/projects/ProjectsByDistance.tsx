@@ -21,9 +21,9 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
-import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/projects.service'
+import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 import {
-  ProjectsRouteName,
+  ConstructionWorkRouteName,
   ProjectsStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -38,7 +38,7 @@ export const ProjectsByDistance = () => {
     useNavigation<
       StackNavigationProp<
         RootStackParamList & ProjectsStackParams,
-        ProjectsRouteName.projects
+        ConstructionWorkRouteName.projects
       >
     >()
   const {color, size} = useTheme()
@@ -114,7 +114,7 @@ export const ProjectsByDistance = () => {
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.project, {
+        navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
         })
       }

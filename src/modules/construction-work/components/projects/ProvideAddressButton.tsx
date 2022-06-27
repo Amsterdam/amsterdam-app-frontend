@@ -9,7 +9,7 @@ import {Gutter, Row} from '@/components/ui/layout'
 import {module as addressModule} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
-import {ProjectsRouteName} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useTheme} from '@/themes'
 
 export const ProvideAddressButton = () => {
@@ -17,7 +17,10 @@ export const ProvideAddressButton = () => {
   // TODO Check
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, ProjectsRouteName.projects>
+      StackNavigationProp<
+        RootStackParamList,
+        ConstructionWorkRouteName.projects
+      >
     >()
 
   const {color} = useTheme()

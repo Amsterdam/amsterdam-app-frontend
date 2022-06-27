@@ -1,15 +1,18 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {Box, Timeline} from '../../../components/ui'
-import {Column, ScrollView} from '../../../components/ui/layout'
-import {ProjectContacts} from '../components/project'
-import {ProjectContentSections} from '../components/project/ProjectContentSections'
-import {ProjectsRouteName, ProjectsStackParams} from '../routes'
+import {Box, Timeline} from '@/components/ui'
+import {Column, ScrollView} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {ProjectContacts} from '@/modules/construction-work/components/project'
+import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
+import {
+  ConstructionWorkRouteName,
+  ProjectsStackParams,
+} from '@/modules/construction-work/routes'
 
 type ProjectBodyScreenRouteProp = RouteProp<
   ProjectsStackParams,
-  ProjectsRouteName.projectBody
+  ConstructionWorkRouteName.projectBody
 >
 
 type Props = {

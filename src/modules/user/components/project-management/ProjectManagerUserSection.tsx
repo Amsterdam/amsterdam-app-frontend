@@ -8,7 +8,7 @@ import {RootStackParamList} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {selectProjectManager} from '../../../construction-work/components/project-manager'
-import {ProjectsRouteName} from '../../../construction-work/routes'
+import {ConstructionWorkRouteName} from '../../../construction-work/routes'
 
 export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
@@ -26,7 +26,7 @@ export const ProjectManagerUserSection = () => {
       <LinkToUserSection
         onPress={() =>
           navigation.navigate(constructionWorkModule.name, {
-            screen: ProjectsRouteName.authorizedProjects,
+            screen: ConstructionWorkRouteName.authorizedProjects,
           })
         }>
         <Text large>Je bouwprojecten</Text>

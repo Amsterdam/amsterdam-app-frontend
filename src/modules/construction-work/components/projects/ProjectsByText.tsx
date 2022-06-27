@@ -5,15 +5,15 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {selectProjectSearchText} from './projectsByTextSlice'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
+import {selectProjectSearchText} from '@/modules/construction-work/components/projects/projectsByTextSlice'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
-import {useGetProjectsByTextQuery} from '@/modules/construction-work/projects.service'
+import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
-  ProjectsRouteName,
+  ConstructionWorkRouteName,
   ProjectsStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -24,7 +24,9 @@ import {mapImageSources} from '@/utils'
 
 export const ProjectsByText = () => {
   const navigation =
-    useNavigation<StackNavigationProp<ProjectsStackParams, ProjectsRouteName>>()
+    useNavigation<
+      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
+    >()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -81,7 +83,7 @@ export const ProjectsByText = () => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(ProjectsRouteName.project, {
+        navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
         })
       }

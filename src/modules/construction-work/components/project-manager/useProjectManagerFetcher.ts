@@ -1,12 +1,12 @@
 import {createSelector} from '@reduxjs/toolkit'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {ProjectsItem} from '../../../../types'
+import {selectProjectManager} from '@/modules/construction-work/components/project-manager/projectManagerSlice'
 import {
   useGetProjectManagerQuery,
   useGetProjectsQuery,
-} from '../../projects.service'
-import {selectProjectManager} from './projectManagerSlice'
+} from '@/modules/construction-work/construction-work.service'
+import {ProjectsItem} from '@/types'
 
 export const useProjectManagerFetcher = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
