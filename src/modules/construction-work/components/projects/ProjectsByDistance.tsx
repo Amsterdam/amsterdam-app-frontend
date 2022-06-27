@@ -141,9 +141,11 @@ export const ProjectsByDistance = ({
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
         ListEmptyComponent={
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
-          </Box>
+          <>
+            <Box insetHorizontal="md">
+              <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
+            </Box>
+          </>
         }
         ListHeaderComponent={
           <ListHeader address={adres} navigation={navigation} />
