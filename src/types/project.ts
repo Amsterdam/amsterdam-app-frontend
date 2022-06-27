@@ -92,6 +92,7 @@ export type Project = {
   }
   district_id: number
   district_name: string
+  followed: boolean
   identifier: string
   images: Image[]
   page_id: number
