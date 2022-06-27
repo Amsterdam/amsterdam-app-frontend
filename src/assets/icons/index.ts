@@ -5,6 +5,7 @@ import Checkmark from './checkmark.svg'
 import Circle from './circle.svg'
 import CityOffice from './city-office.svg'
 import Close from './close.svg'
+import ConstructionWork from './construction-work.svg'
 import Container from './container.svg'
 import DarkMode from './dark-mode.svg'
 import Edit from './edit.svg'
@@ -25,6 +26,7 @@ export {
   Circle,
   CityOffice,
   Close,
+  ConstructionWork,
   Container,
   DarkMode,
   Edit,
