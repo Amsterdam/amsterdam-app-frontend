@@ -10,7 +10,7 @@ import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
 import {
@@ -32,7 +32,7 @@ import {useTheme} from '@/themes'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
-type ProjectsByDistanceListHeaderProps = {
+type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
     RootStackParamList & ProjectsStackParams,
@@ -40,10 +40,7 @@ type ProjectsByDistanceListHeaderProps = {
   >
 }
 
-const ProjectsByDistanceListHeader = ({
-  address,
-  navigation,
-}: ProjectsByDistanceListHeaderProps) => {
+const ListHeader = ({address, navigation}: ListHeaderProps) => {
   const {color} = useTheme()
 
   return (
@@ -72,7 +69,7 @@ const ProjectsByDistanceListHeader = ({
   )
 }
 
-type ProjectsByDistanceListItemProps = {
+type ListItemProps = {
   navigation: StackNavigationProp<
     RootStackParamList & ProjectsStackParams,
     ConstructionWorkRouteName.projects
@@ -80,10 +77,7 @@ type ProjectsByDistanceListItemProps = {
   project: ProjectsItem
 }
 
-const ProjectsByDistanceListItem = ({
-  navigation,
-  project,
-}: ProjectsByDistanceListItemProps) => {
+const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
 
   return (
@@ -101,9 +95,10 @@ const ProjectsByDistanceListItem = ({
   )
 }
 
-const ProjectsByDistanceNoResults = () => (
-  <Box>
-    <Paragraph>Geen projecten in de buurt.</Paragraph>
+const ListEmpty = () => (
+  <Box insetHorizontal="md">
+    <Title level="h1" text="Helaas…" />
+    <Paragraph>We hebben geen projecten gevonden voor dit adres.</Paragraph>
   </Box>
 )
 
@@ -117,12 +112,11 @@ export const ProjectsByDistance = () => {
     >()
 
   const {primary: address} = useSelector(selectAddress)
-  const {size} = useTheme()
   const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const isSearching = useSelector(selectIsProjectsSearching)
-
   const params = address
     ? {
         address: address.centroid[1] ? '' : address.adres ?? '',
@@ -156,15 +150,12 @@ export const ProjectsByDistance = () => {
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={ProjectsByDistanceNoResults}
+        ListEmptyComponent={ListEmpty}
         ListHeaderComponent={
-          <ProjectsByDistanceListHeader
-            address={address.adres}
-            navigation={navigation}
-          />
+          <ListHeader address={address.adres} navigation={navigation} />
         }
         renderItem={({item}) => (
-          <ProjectsByDistanceListItem navigation={navigation} project={item} />
+          <ListItem navigation={navigation} project={item} />
         )}
         spacing={size.spacing.md}
       />

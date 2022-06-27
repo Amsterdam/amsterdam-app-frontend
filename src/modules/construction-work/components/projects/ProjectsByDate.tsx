@@ -1,10 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
+import {RootStackParamList} from '_app/navigation'
+import {Paragraph, Title} from '_components/ui/text'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {
   sanitizeProjects,
@@ -22,43 +24,18 @@ import {useTheme} from '@/themes'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
-export const ProjectsByDate = () => {
-  const {primary: address} = useSelector(selectAddress)
-  const navigation =
-    useNavigation<
-      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
-    >()
+type ListItemProps = {
+  navigation: StackNavigationProp<
+    RootStackParamList & ProjectsStackParams,
+    ConstructionWorkRouteName.projects
+  >
+  project: ProjectsItem
+}
 
-  const {fontScale} = useContext(DeviceContext)
-  const {size} = useTheme()
-  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
-
-  const isSearching = useSelector(selectIsProjectsSearching)
-
-  const {
-    data: projects = [],
-    isLoading: projectsIsLoading,
-    isError,
-  } = useGetProjectsQuery({
-    sortBy: 'publication_date',
-    sortOrder: 'desc',
-  })
-
+const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
 
-  if (projectsIsLoading) {
-    return <PleaseWait />
-  }
-
-  if (isError) {
-    return <SomethingWentWrong />
-  }
-
-  if (address || isSearching || !projects.length) {
-    return null
-  }
-
-  const renderItem = ({item: project}: {item: ProjectsItem}) => (
+  return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
@@ -70,6 +47,51 @@ export const ProjectsByDate = () => {
       title={project.title}
     />
   )
+}
+
+const ListEmpty = () => (
+  <Box insetHorizontal="md">
+    <Title level="h1" text="Helaas…" />
+    <Paragraph>We hebben geen projecten gevonden.</Paragraph>
+  </Box>
+)
+
+export const ProjectsByDate = () => {
+  const navigation =
+    useNavigation<
+      StackNavigationProp<
+        ProjectsStackParams,
+        ConstructionWorkRouteName.projects
+      >
+    >()
+
+  const {primary: address} = useSelector(selectAddress)
+  const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
+  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
+
+  const isSearching = useSelector(selectIsProjectsSearching)
+
+  const {
+    data: projects = [],
+    isLoading,
+    isError,
+  } = useGetProjectsQuery({
+    sortBy: 'publication_date',
+    sortOrder: 'desc',
+  })
+
+  if (address || isSearching) {
+    return null
+  }
+
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (isError) {
+    return <SomethingWentWrong />
+  }
 
   return (
     <FlatGrid
@@ -77,7 +99,10 @@ export const ProjectsByDate = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      renderItem={renderItem}
+      ListEmptyComponent={ListEmpty}
+      renderItem={({item}) => (
+        <ListItem navigation={navigation} project={item} />
+      )}
       spacing={size.spacing.md}
     />
   )

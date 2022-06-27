@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
+import {RootStackParamList} from '_app/navigation'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
@@ -22,10 +23,56 @@ import {useTheme} from '@/themes'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
+type ListHeaderProps = {
+  results: number
+}
+
+const ListHeader = ({results}: ListHeaderProps) => (
+  <Box insetHorizontal="md">
+    <Paragraph variant="small">{results} zoekresultaten</Paragraph>
+    <Gutter height="lg" />
+  </Box>
+)
+
+type ListItemProps = {
+  navigation: StackNavigationProp<
+    RootStackParamList & ProjectsStackParams,
+    ConstructionWorkRouteName.projects
+  >
+  project: ProjectsItem
+}
+
+const ListItem = ({navigation, project}: ListItemProps) => {
+  const environment = useEnvironment()
+
+  return (
+    <ProjectCard
+      imageSource={mapImageSources(project.images?.[0].sources, environment)}
+      onPress={() =>
+        navigation.navigate(ConstructionWorkRouteName.project, {
+          id: project.identifier,
+        })
+      }
+      subtitle={project.subtitle ?? undefined}
+      title={project.title}
+    />
+  )
+}
+
+const ListEmpty = () => (
+  <Box insetHorizontal="md">
+    <Title level="h1" text="Helaas…" />
+    <Paragraph>We hebben geen projecten gevonden voor deze zoekterm.</Paragraph>
+  </Box>
+)
+
 export const ProjectsByText = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
+      StackNavigationProp<
+        ProjectsStackParams,
+        ConstructionWorkRouteName.projects
+      >
     >()
 
   const {fontScale} = useContext(DeviceContext)
@@ -33,7 +80,6 @@ export const ProjectsByText = () => {
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const searchText = useSelector(selectProjectSearchText)
-
   const params = searchText
     ? {
         fields: ['identifier', 'images', 'subtitle', 'title'],
@@ -48,8 +94,6 @@ export const ProjectsByText = () => {
     isError,
   } = useGetProjectsByTextQuery(params ?? skipToken)
 
-  const environment = useEnvironment()
-
   if (!searchText) {
     return null
   }
@@ -62,44 +106,17 @@ export const ProjectsByText = () => {
     return <SomethingWentWrong />
   }
 
-  const renderListHeader = () => (
-    <>
-      <Box insetHorizontal="md">
-        <Paragraph variant="small">{projects.length} zoekresultaten</Paragraph>
-        <Gutter height="lg" />
-      </Box>
-      {projects.length === 0 ? (
-        <Box insetHorizontal="md">
-          <Title level="h1" text="Helaas…" />
-          <Paragraph>
-            We hebben geen projecten gevonden voor deze zoekterm.
-          </Paragraph>
-        </Box>
-      ) : null}
-    </>
-  )
-
-  const renderItem = ({item: project}: {item: ProjectsItem}) => (
-    <ProjectCard
-      imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      onPress={() =>
-        navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.identifier,
-        })
-      }
-      subtitle={project.subtitle ?? undefined}
-      title={project.title}
-    />
-  )
-
   return (
     <FlatGrid
       data={sanitizeProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListHeaderComponent={renderListHeader}
-      renderItem={renderItem}
+      ListEmptyComponent={ListEmpty}
+      ListHeaderComponent={<ListHeader results={projects.length} />}
+      renderItem={({item}) => (
+        <ListItem navigation={navigation} project={item} />
+      )}
       spacing={size.spacing.md}
     />
   )
