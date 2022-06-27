@@ -126,9 +126,7 @@ export const sentryLoggerMiddleware: Middleware = () => next => action => {
     let message = 'Rejected RTK action'
     let data = action
     if (action.payload?.originalStatus && action.meta.arg?.endpointName) {
-      message = `${action.payload.originalStatus ?? 'Unknown error'} for ${
-        action.meta.arg.endpointName ?? 'request'
-      }`
+      message = `${action.payload.originalStatus} for ${action.meta.arg.endpointName}`
       data = action.payload
     }
     getSendSentryErrorLog(!!consent)(message, 'sentry.ts', data)
