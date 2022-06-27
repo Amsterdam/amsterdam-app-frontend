@@ -100,13 +100,11 @@ export const ProjectsByText = ({searchText}: Props) => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={
-        <>
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
-          </Box>
-        </>
-      }
+      ListEmptyComponent={() => (
+        <Box insetHorizontal="md">
+          <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
+        </Box>
+      )}
       ListHeaderComponent={<ListHeader results={projects.length} />}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />

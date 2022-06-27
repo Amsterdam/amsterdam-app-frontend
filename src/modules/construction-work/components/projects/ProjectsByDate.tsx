@@ -80,13 +80,11 @@ export const ProjectsByDate = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={
-        <>
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen projecten gevonden." />
-          </Box>
-        </>
-      }
+      ListEmptyComponent={() => (
+        <Box insetHorizontal="md">
+          <EmptyMessage text="We hebben geen projecten gevonden." />
+        </Box>
+      )}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
       )}
