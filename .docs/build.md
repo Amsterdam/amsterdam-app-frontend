@@ -1,10 +1,13 @@
-# Configuration of the pipeline
+# Builds and releases
 
-## Library
+A continuous integration & deployment pipeline using Azure DevOps and [Fastlane](https://fastlane.tools/) is included.
+
+## Azure DevOps Library
 
 Azure DevOps Pipelines has a library where our secrets are stored. This consists of variables and secure files. When testing on local machines, these have to exist there as well.
 
 ### Variables
+
 - `P12_PASSWORD`: password to decrypt the Apple developer certificate; used in the pipelines
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
 - `AUTH_PASSWORD`: authorise project managers to send push notifications; used in the app as env var
@@ -25,15 +28,11 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 
 #### Other/shared
 - `sentry.properties`: Sentry config and API key (for both iOS and Android)
-- `storybook-github-ssh`: SSH key to release the Storybokk build to GitHub pages
+- `storybook-github-ssh`: SSH key to release the Storybook build to GitHub pages
 
-## Release automation
+## Azure DevOps pipelines
 
-A continuous integration & deployment pipeline using Azure DevOps and [Fastlane](https://fastlane.tools/) is included.
-
-### Azure DevOps
-
-#### Builds
+### Builds
 
 The configuration of the build pipelines (YAML) is in `/pipelines`. These YAML files contain the instructions for DevOps.
 
@@ -51,13 +50,13 @@ A short overview of the app build process in the Amsterdam-App-Frontend pipeline
 - create a txt file with the version and build number
 - publish all created artifacts (AABs, IPAs and version.txt) in a folder
 
-#### Releases
+### Releases
 
 A completed, successful run will trigger a release, which will use Fastlane to distribute the apps to the stores.
 
-The configuration of the release pipelines is done in the DevOps interface, not via YAML files. In the releases the App Stoe and Play store API keys (secure files) are used. Note that the env vars VERSION_NUMBER and ARTIFACT_FOLDER, to be used by Fastlane, are set in the "Fastlane distribute" step.
+The configuration of the release pipelines is done in the DevOps interface, not via YAML files. In the releases the App Store and Play store API keys (secure files) are used. Note that the env vars VERSION_NUMBER and ARTIFACT_FOLDER, to be used by Fastlane, are set in the "Fastlane distribute" step.
 
-### Fastlane
+## Fastlane
 
 Fastlane handles building, signing and releasing our app. Fastlane "lanes" are triggered by the build pipelines and can be run locally too (provided you have the necessary files and set the env vars).
 
@@ -68,7 +67,7 @@ In the `/ios` and `/android` folders you can find a `fastlane` folder. This cont
 
 You can find more documentation in these files.
 
-#### Installation
+### Installation
 
 If you have the project up and running via the instructions in the main README, fastlane should be installed for iOS already.
 

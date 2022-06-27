@@ -8,8 +8,6 @@ ios/certs
 /ios/Pods/
 GoogleService-Info.plist
 *.xcarchive
-.aab
-.apk
 .ipa
 
 # Xcode
@@ -39,6 +37,8 @@ builds/
 build/
 .gradle
 local.properties
+.aab
+.apk
 
 # IntelliJ
 .idea
