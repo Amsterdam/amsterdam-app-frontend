@@ -1,7 +1,3 @@
-import {
-  CreateNotificationScreen,
-  ProjectIdAndTitle,
-} from '_modules/construction-work/screens/create-notification'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
   AuthorizedProjectsScreen,
@@ -12,6 +8,10 @@ import {
   ProjectsScreen,
   ProjectWarningScreen,
 } from '@/modules/construction-work/screens'
+import {
+  CreateNotificationScreen,
+  ProjectIdAndTitle,
+} from '@/modules/construction-work/screens/create-notification'
 import {ProjectBody} from '@/types'
 
 export enum ConstructionWorkRouteName {

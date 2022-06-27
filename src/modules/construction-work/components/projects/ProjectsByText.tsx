@@ -4,12 +4,12 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
+import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
-import {selectProjectSearchText} from '@/modules/construction-work/components/projects/projectsByTextSlice'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
@@ -22,64 +22,29 @@ import {useTheme} from '@/themes'
 import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
-export const ProjectsByText = () => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<ProjectsStackParams, ConstructionWorkRouteName>
-    >()
+type ListHeaderProps = {
+  results: number
+}
 
-  const {fontScale} = useContext(DeviceContext)
-  const {size} = useTheme()
-  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
+const ListHeader = ({results}: ListHeaderProps) => (
+  <Box insetHorizontal="md">
+    <Paragraph variant="small">{results} zoekresultaten</Paragraph>
+    <Gutter height="lg" />
+  </Box>
+)
 
-  const searchText = useSelector(selectProjectSearchText)
+type ListItemProps = {
+  navigation: StackNavigationProp<
+    RootStackParamList & ProjectsStackParams,
+    ConstructionWorkRouteName.projects
+  >
+  project: ProjectsItem
+}
 
-  const params = searchText
-    ? {
-        fields: ['identifier', 'images', 'subtitle', 'title'],
-        text: searchText,
-        queryFields: ['subtitle', 'title'],
-      }
-    : undefined
-
-  const {
-    data: projects = [],
-    isLoading,
-    isError,
-  } = useGetProjectsByTextQuery(params ?? skipToken)
-
+const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
 
-  if (!searchText) {
-    return null
-  }
-
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
-  if (isError) {
-    return <SomethingWentWrong />
-  }
-
-  const renderListHeader = () => (
-    <>
-      <Box insetHorizontal="md">
-        <Paragraph variant="small">{projects.length} zoekresultaten</Paragraph>
-        <Gutter height="lg" />
-      </Box>
-      {projects.length === 0 ? (
-        <Box insetHorizontal="md">
-          <Title level="h1" text="Helaas…" />
-          <Paragraph>
-            We hebben geen projecten gevonden voor deze zoekterm.
-          </Paragraph>
-        </Box>
-      ) : null}
-    </>
-  )
-
-  const renderItem = ({item: project}: {item: ProjectsItem}) => (
+  return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
@@ -91,6 +56,44 @@ export const ProjectsByText = () => {
       title={project.title}
     />
   )
+}
+
+type Props = {
+  searchText: string
+}
+
+export const ProjectsByText = ({searchText}: Props) => {
+  const navigation =
+    useNavigation<
+      StackNavigationProp<
+        ProjectsStackParams,
+        ConstructionWorkRouteName.projects
+      >
+    >()
+
+  const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
+  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
+
+  const params = {
+    fields: ['identifier', 'images', 'subtitle', 'title'],
+    text: searchText,
+    queryFields: ['subtitle', 'title'],
+  }
+
+  const {
+    data: projects = [],
+    isLoading,
+    isError,
+  } = useGetProjectsByTextQuery(params ?? skipToken)
+
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (isError) {
+    return <SomethingWentWrong />
+  }
 
   return (
     <FlatGrid
@@ -98,8 +101,17 @@ export const ProjectsByText = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListHeaderComponent={renderListHeader}
-      renderItem={renderItem}
+      ListEmptyComponent={
+        <>
+          <Box insetHorizontal="md">
+            <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
+          </Box>
+        </>
+      }
+      ListHeaderComponent={<ListHeader results={projects.length} />}
+      renderItem={({item}) => (
+        <ListItem navigation={navigation} project={item} />
+      )}
       spacing={size.spacing.md}
     />
   )

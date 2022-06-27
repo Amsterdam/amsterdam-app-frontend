@@ -4,19 +4,15 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
 import {RootStackParamList} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
-import {Gutter, Row} from '@/components/ui/layout'
+import {EmptyMessage} from '@/components/ui/feedback'
+import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
-import {
-  sanitizeProjects,
-  selectIsProjectsSearching,
-} from '@/modules/construction-work/components/projects'
+import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -29,68 +25,28 @@ import {
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {ProjectsItem} from '@/types'
+import {Address, ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
-export const ProjectsByDistance = () => {
-  const {primary: address} = useSelector(selectAddress)
-  const navigation =
-    useNavigation<
-      StackNavigationProp<
-        RootStackParamList & ProjectsStackParams,
-        ConstructionWorkRouteName.projects
-      >
-    >()
-  const {color, size} = useTheme()
-  const {fontScale} = useContext(DeviceContext)
-  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
+type ListHeaderProps = {
+  address: string
+  navigation: StackNavigationProp<
+    RootStackParamList & ProjectsStackParams,
+    ConstructionWorkRouteName.projects
+  >
+}
 
-  const isSearching = useSelector(selectIsProjectsSearching)
+const ListHeader = ({address, navigation}: ListHeaderProps) => {
+  const {color} = useTheme()
 
-  const params = address
-    ? {
-        address: address.centroid[1] ? '' : address.adres ?? '',
-        lat: address.centroid[1] ?? 0,
-        lon: address.centroid[0] ?? 0,
-      }
-    : undefined
-
-  const {
-    data: projects = [],
-    isLoading,
-    isError,
-  } = useGetProjectsByDistanceQuery(params ?? skipToken)
-
-  const environment = useEnvironment()
-
-  if (isSearching || !address) {
-    return null
-  }
-
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
-  if (isError) {
-    return <SomethingWentWrong />
-  }
-
-  if (!projects.length) {
-    return (
-      <Box>
-        <Paragraph>Geen projecten in de buurt.</Paragraph>
-      </Box>
-    )
-  }
-
-  const renderListHeader = () => (
-    <Box insetHorizontal="md">
+  return (
+    <Box>
       <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={`Projecten dichtbij ${address.adres}`}>
-          Dichtbij {address.adres}
+        <Paragraph accessibilityLabel={`Projecten dichtbij ${address}`}>
+          Dichtbij {address}
         </Paragraph>
         <IconButton
-          hitSlop={10}
+          accessibilityLabel="Wijzig het adres"
           icon={
             <Icon size={32}>
               <Edit fill={color.pressable.default.background} />
@@ -105,11 +61,22 @@ export const ProjectsByDistance = () => {
           }
         />
       </Row>
-      <Gutter height="md" />
     </Box>
   )
+}
 
-  const renderItem = ({item: project}: {item: ProjectsItem}) => (
+type ListItemProps = {
+  navigation: StackNavigationProp<
+    RootStackParamList & ProjectsStackParams,
+    ConstructionWorkRouteName.projects
+  >
+  project: ProjectsItem
+}
+
+const ListItem = ({navigation, project}: ListItemProps) => {
+  const environment = useEnvironment()
+
+  return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       kicker={<ProjectTraits projectId={project.identifier} />}
@@ -122,17 +89,73 @@ export const ProjectsByDistance = () => {
       title={project.title}
     />
   )
+}
+
+type Props = {
+  address: Address
+}
+
+export const ProjectsByDistance = ({
+  address: {
+    centroid: [lon = 0, lat = 0],
+    adres,
+  },
+}: Props) => {
+  const navigation =
+    useNavigation<
+      StackNavigationProp<
+        RootStackParamList & ProjectsStackParams,
+        ConstructionWorkRouteName.projects
+      >
+    >()
+
+  const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
+  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
+
+  const params = {
+    address: lat && lon ? '' : adres,
+    lat,
+    lon,
+  }
+
+  const {
+    data: projects = [],
+    isLoading,
+    isError,
+  } = useGetProjectsByDistanceQuery(params ?? skipToken)
+
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (isError) {
+    return <SomethingWentWrong />
+  }
 
   return (
-    <FlatGrid
-      data={sanitizeProjects(projects)}
-      itemContainerStyle={styles.itemContainer}
-      itemDimension={itemDimension}
-      keyExtractor={project => project.identifier}
-      ListHeaderComponent={renderListHeader}
-      renderItem={renderItem}
-      spacing={size.spacing.md}
-    />
+    <Column gutter="md">
+      <FlatGrid
+        data={sanitizeProjects(projects)}
+        itemContainerStyle={styles.itemContainer}
+        itemDimension={itemDimension}
+        keyExtractor={project => project.identifier}
+        ListEmptyComponent={
+          <>
+            <Box insetHorizontal="md">
+              <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
+            </Box>
+          </>
+        }
+        ListHeaderComponent={
+          <ListHeader address={adres} navigation={navigation} />
+        }
+        renderItem={({item}) => (
+          <ListItem navigation={navigation} project={item} />
+        )}
+        spacing={size.spacing.md}
+      />
+    </Column>
   )
 }
 
