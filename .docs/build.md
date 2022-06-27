@@ -2,7 +2,12 @@
 
 A continuous integration & deployment pipeline using Azure DevOps and [Fastlane](https://fastlane.tools/) is included.
 
-## Azure DevOps Library
+- [Azure DevOps Library](#library)
+- [Azure DevOps Pipelines](#pipelines)
+- [Fastlane](#fastlane)
+
+
+## <a id="library"></a>Azure DevOps Library
 
 Azure DevOps Pipelines has a library where our secrets are stored. This consists of variables and secure files. When testing on local machines, these have to exist there as well.
 
@@ -30,7 +35,7 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 - `sentry.properties`: Sentry config and API key (for both iOS and Android)
 - `storybook-github-ssh`: SSH key to release the Storybook build to GitHub pages
 
-## Azure DevOps pipelines
+## <a id="pipelines"></a>Azure DevOps Pipelines
 
 ### Builds
 
@@ -56,7 +61,7 @@ A completed, successful run will trigger a release, which will use Fastlane to d
 
 The configuration of the release pipelines is done in the DevOps interface, not via YAML files. In the releases the App Store and Play store API keys (secure files) are used. Note that the env vars VERSION_NUMBER and ARTIFACT_FOLDER, to be used by Fastlane, are set in the "Fastlane distribute" step.
 
-## Fastlane
+## <a id="fastlane"></a>Fastlane
 
 Fastlane handles building, signing and releasing our app. Fastlane "lanes" are triggered by the build pipelines and can be run locally too (provided you have the necessary files and set the env vars).
 
