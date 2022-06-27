@@ -4,21 +4,20 @@ import {useDispatch} from 'react-redux'
 import {Box, PleaseWait, Tooltip} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {ModuleBox} from '@/modules/home/components/index'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
   const {modules, selectedModulesBySlug} = useModules()
 
-  // TODO Create `Icon` component with size and color props
-  const iconProps = useThemable(createIconProps)
-
+  const {color} = useTheme()
   const styles = useThemable(createStyles)
 
   const onChange = (slug: string) => {
@@ -36,7 +35,7 @@ export const ModuleSettings = () => {
           const isSelected =
             selectedModulesBySlug?.includes(module.slug) ?? false
           const {description, icon, slug, title} = module
-          const Icon = icons[icon]
+          const ModuleIcon = icons[icon]
 
           return (
             <ModuleBox
@@ -51,7 +50,11 @@ export const ModuleSettings = () => {
                 accessibilityLabel={accessibleText(title, description)}
                 label={
                   <Row gutter="md" valign="center">
-                    <Icon {...iconProps} />
+                    {!!ModuleIcon && (
+                      <Icon size={24}>
+                        <ModuleIcon fill={color.text.default} />
+                      </Icon>
+                    )}
                     <Title level="h5" text={title} />
                   </Row>
                 }
@@ -65,12 +68,6 @@ export const ModuleSettings = () => {
     </Box>
   )
 }
-
-const createIconProps = ({color}: Theme) => ({
-  width: 24,
-  aspectRatio: 1,
-  fill: color.text.default,
-})
 
 const createStyles = ({size}: Theme) =>
   StyleSheet.create({

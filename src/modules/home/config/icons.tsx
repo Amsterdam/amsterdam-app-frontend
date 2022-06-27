@@ -6,10 +6,8 @@ import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {ElementType} from 'react'
 import {
   Checkmark,
-  CityOffice,
   ConstructionWork,
   OrganicWasteContainer,
-  Project,
 } from '@/assets/icons'
 
 export const icons: Record<string, ElementType> = {
@@ -17,12 +15,8 @@ export const icons: Record<string, ElementType> = {
   'chat-bubble': ChatBubble, // Contact
   chatting: Chatting, // Contact
   checkmark: Checkmark, // Direct regelen
-  'city-office': CityOffice, // Contact TODO Remove
-  container: OrganicWasteContainer, // Container openen TODO Remove,
   info: Info, // Over deze app
   'organic-waste-container': OrganicWasteContainer, // Container openen
-  location: TrashBin, // Afvalwijzer TODO Remove
-  project: Project, // Werkzaamheden TODO Remove
-  'construction-work': ConstructionWork, // Werkzaamheden
+  projects: ConstructionWork, // Werkzaamheden
   'trash-bin': TrashBin, // Afvalwijzer
 }

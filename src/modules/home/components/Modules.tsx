@@ -38,9 +38,11 @@ export const Modules = () => {
           return (
             <ModuleButton
               icon={
-                <Icon size={24}>
-                  <ModuleIcon fill={color.text.default} />
-                </Icon>
+                !!ModuleIcon && (
+                  <Icon size={24}>
+                    <ModuleIcon fill={color.text.default} />
+                  </Icon>
+                )
               }
               key={slug}
               label={title}
