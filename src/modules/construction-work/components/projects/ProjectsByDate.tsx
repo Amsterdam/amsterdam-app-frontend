@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParamList} from '_app/navigation'
-import {Paragraph, Title} from '_components/ui/text'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
+import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {EmptyMessage} from '@/components/ui/feedback'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {
   sanitizeProjects,
@@ -48,13 +48,6 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     />
   )
 }
-
-const ListEmpty = () => (
-  <Box insetHorizontal="md">
-    <Title level="h1" text="Helaas…" />
-    <Paragraph>We hebben geen projecten gevonden.</Paragraph>
-  </Box>
-)
 
 export const ProjectsByDate = () => {
   const navigation =
@@ -99,7 +92,11 @@ export const ProjectsByDate = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={ListEmpty}
+      ListEmptyComponent={
+        <Box insetHorizontal="md">
+          <EmptyMessage text="We hebben geen projecten gevonden." />
+        </Box>
+      }
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
       )}

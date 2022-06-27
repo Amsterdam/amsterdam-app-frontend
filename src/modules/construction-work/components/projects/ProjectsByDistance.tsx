@@ -8,9 +8,10 @@ import {useSelector} from 'react-redux'
 import {RootStackParamList} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {EmptyMessage} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
 import {
@@ -95,13 +96,6 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
-const ListEmpty = () => (
-  <Box insetHorizontal="md">
-    <Title level="h1" text="Helaas…" />
-    <Paragraph>We hebben geen projecten gevonden voor dit adres.</Paragraph>
-  </Box>
-)
-
 export const ProjectsByDistance = () => {
   const navigation =
     useNavigation<
@@ -150,7 +144,11 @@ export const ProjectsByDistance = () => {
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={ListEmpty}
+        ListEmptyComponent={
+          <Box insetHorizontal="md">
+            <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
+          </Box>
+        }
         ListHeaderComponent={
           <ListHeader address={address.adres} navigation={navigation} />
         }

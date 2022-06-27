@@ -1,14 +1,15 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
-import {RootStackParamList} from '_app/navigation'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
+import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {selectProjectSearchText} from '@/modules/construction-work/components/projects/projectsByTextSlice'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
@@ -59,13 +60,6 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
-const ListEmpty = () => (
-  <Box insetHorizontal="md">
-    <Title level="h1" text="Helaas…" />
-    <Paragraph>We hebben geen projecten gevonden voor deze zoekterm.</Paragraph>
-  </Box>
-)
-
 export const ProjectsByText = () => {
   const navigation =
     useNavigation<
@@ -112,7 +106,11 @@ export const ProjectsByText = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={ListEmpty}
+      ListEmptyComponent={
+        <Box insetHorizontal="md">
+          <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
+        </Box>
+      }
       ListHeaderComponent={<ListHeader results={projects.length} />}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
