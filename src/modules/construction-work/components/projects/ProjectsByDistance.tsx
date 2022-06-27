@@ -95,7 +95,12 @@ type Props = {
   address: Address
 }
 
-export const ProjectsByDistance = ({address}: Props) => {
+export const ProjectsByDistance = ({
+  address: {
+    centroid: [lon = 0, lat = 0],
+    adres,
+  },
+}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
@@ -109,9 +114,9 @@ export const ProjectsByDistance = ({address}: Props) => {
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const params = {
-    address: address.centroid[1] ? '' : address.adres ?? '',
-    lat: address.centroid[1] ?? 0,
-    lon: address.centroid[0] ?? 0,
+    address: lat && lon ? '' : adres,
+    lat,
+    lon,
   }
 
   const {
@@ -141,7 +146,7 @@ export const ProjectsByDistance = ({address}: Props) => {
           </Box>
         }
         ListHeaderComponent={
-          <ListHeader address={address.adres} navigation={navigation} />
+          <ListHeader address={adres} navigation={navigation} />
         }
         renderItem={({item}) => (
           <ListItem navigation={navigation} project={item} />
