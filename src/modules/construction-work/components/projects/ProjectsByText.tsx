@@ -14,7 +14,7 @@ import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -35,7 +35,7 @@ const ListHeader = ({results}: ListHeaderProps) => (
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -66,8 +66,8 @@ export const ProjectsByText = ({searchText}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
-        ConstructionWorkRouteName.projects
+        ConstructionWorkStackParams,
+        ConstructionWorkRouteName
       >
     >()
 

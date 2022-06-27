@@ -4,11 +4,14 @@ import {ScrollView} from '@/components/ui/layout'
 import {Project} from '@/modules/construction-work/components/project'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 
 type Props = {
-  route: RouteProp<ProjectsStackParams, ConstructionWorkRouteName.project>
+  route: RouteProp<
+    ConstructionWorkStackParams,
+    ConstructionWorkRouteName.project
+  >
 }
 
 export const ProjectScreen = ({route}: Props) => (

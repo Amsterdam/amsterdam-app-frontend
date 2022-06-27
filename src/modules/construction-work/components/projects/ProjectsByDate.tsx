@@ -11,7 +11,7 @@ import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -21,7 +21,7 @@ import {mapImageSources} from '@/utils'
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -48,8 +48,8 @@ export const ProjectsByDate = () => {
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
-        ConstructionWorkRouteName.projects
+        ConstructionWorkStackParams,
+        ConstructionWorkRouteName
       >
     >()
 

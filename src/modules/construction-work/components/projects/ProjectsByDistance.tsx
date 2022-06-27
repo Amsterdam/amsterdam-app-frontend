@@ -21,7 +21,7 @@ import {
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -32,7 +32,7 @@ import {mapImageSources} from '@/utils'
 type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
 }
@@ -68,7 +68,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -105,7 +105,7 @@ export const ProjectsByDistance = ({
   const navigation =
     useNavigation<
       StackNavigationProp<
-        RootStackParamList & ProjectsStackParams,
+        RootStackParamList & ConstructionWorkStackParams,
         ConstructionWorkRouteName.projects
       >
     >()

@@ -20,7 +20,7 @@ import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {useGetProjectQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'
@@ -36,7 +36,7 @@ export const Project = ({id}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
+        ConstructionWorkStackParams,
         ConstructionWorkRouteName.project
       >
     >()

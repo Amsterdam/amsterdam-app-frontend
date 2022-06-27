@@ -8,7 +8,7 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {useGetArticlesQuery} from '@/services/articles'
 import {Theme, useThemable} from '@/themes'
@@ -38,7 +38,7 @@ export const ArticleOverview = ({
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
+        ConstructionWorkStackParams,
         ConstructionWorkRouteName.projectNews
       >
     >()
