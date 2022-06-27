@@ -50,7 +50,7 @@ export const ModuleSettings = () => {
                 accessibilityLabel={accessibleText(title, description)}
                 label={
                   <Row gutter="md" valign="center">
-                    {ModuleIcon && (
+                    {!!ModuleIcon && (
                       <Icon size={24}>
                         <ModuleIcon fill={color.text.default} />
                       </Icon>
