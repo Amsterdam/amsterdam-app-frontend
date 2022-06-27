@@ -23,6 +23,6 @@ export const icons: Record<string, ElementType> = {
   'organic-waste-container': OrganicWasteContainer, // Container openen
   location: TrashBin, // Afvalwijzer TODO Remove
   project: Project, // Werkzaamheden TODO Remove
-  'construction-work': ConstructionWork, // Werkzaamheden
+  projects: ConstructionWork, // Werkzaamheden
   'trash-bin': TrashBin, // Afvalwijzer
 }
