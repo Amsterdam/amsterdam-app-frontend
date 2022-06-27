@@ -28,6 +28,7 @@ export type ProjectsItem = {
   content_text: string
   district_id: number
   district_name: string
+  followed: boolean
   identifier: string
   images: Image[] | null
   last_seen: string // date

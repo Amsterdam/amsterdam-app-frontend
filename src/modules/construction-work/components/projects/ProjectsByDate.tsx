@@ -7,7 +7,10 @@ import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
-import {ProjectCard} from '@/modules/construction-work/components/shared'
+import {
+  ProjectCard,
+  ProjectTraits,
+} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
@@ -29,10 +32,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
+  const {followed} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
+      kicker={<ProjectTraits {...{followed}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
