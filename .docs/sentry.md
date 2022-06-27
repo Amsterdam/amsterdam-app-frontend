@@ -36,5 +36,19 @@ Current implementation is "consent ready". This means that when we implement a c
 - Data sent with `captureSentryBreadcrumb` and `sendSentryErrorLog`.
 - Default data sent with logs and breadcrumbs. This can be sanitized in `beforeBreadcrumb` and `beforeSend` in the init method (`services/sentry.ts`). For example, URL query params are already stripped from the `xhr` breadcrumbs as they may contain personal details.
 - We set `getUniqueId` from `react-native-device-info` as the use ID, but can anonimize this via `setSentryUserData` (`services/sentry.ts`).
+- When we capture RTK rejects with middleware (`services/sentry.ts`).
+
+To implement consent in this middleware, we can get consent info from the state like so:
+
+```js
+export const sentryLoggerMiddleware: Middleware =
+  ({getState}: MiddlewareAPI) =>
+  next =>
+  action => {
+    if (isRejected(action)) {
+      const {dataUsageAllowed} = (getState() as RootState).consent // for example
+      getSendSentryErrorLog(dataUsageAllowed)(...)
+      ...
+```
 
 Note that the `useSentry` hooks has 2 parameters to optionally override the consent settings, which we can use *with care* to log errors before consent is initialised or to override the consent setting, only if we are sure we do not send any sensitive data.

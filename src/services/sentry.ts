@@ -1,5 +1,6 @@
 import {BUILD_NUMBER} from '@env'
 import {NavigationContainerRef} from '@react-navigation/native'
+import {isRejected} from '@reduxjs/toolkit'
 import {
   init,
   ReactNavigationInstrumentation,
@@ -15,6 +16,7 @@ import {RefObject} from 'react'
 import {Platform} from 'react-native'
 import {getUniqueId} from 'react-native-device-info'
 import {version} from '../../package.json'
+import type {Middleware} from '@reduxjs/toolkit'
 import {RootStackParamList} from '@/app/navigation'
 import {Environment} from '@/environment'
 import {appFlavour, devLog, isDevApp} from '@/services/development'
@@ -45,7 +47,7 @@ const sanitizeUrl = (url: string) => (url ? url.split('?')[0] : '')
  */
 export const initSentry = () => {
   init({
-    dsn: 'https://7a6ad9f75fab4c509da16d13bbab4271@o1279066.ingest.sentry.io/6479388',
+    dsn: 'https://7a6ad9f75fab4c509da16d13bbab4271@o1299992.ingest.sentry.io/6479388',
     environment: appFlavour,
     dist: BUILD_NUMBER,
     release: `${Platform.OS}@${version}.${BUILD_NUMBER ?? '0'}`,
@@ -112,4 +114,24 @@ export const getSendSentryErrorLog =
 export const setSentryUserData = (enabled: boolean) => {
   // we explicitly cast user ID to string, since non-string type will cause issues
   setUser(enabled ? {id: getUniqueId().toString()} : null)
+}
+
+/**
+ * RTK middleware to catch API errors and other rejections
+ */
+export const sentryLoggerMiddleware: Middleware = () => next => action => {
+  if (isRejected(action)) {
+    // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
+    const consent = true
+    let message = 'Rejected RTK action'
+    let data = action
+    if (action.payload?.originalStatus && action.meta.arg?.endpointName) {
+      message = `${action.payload.originalStatus ?? 'Unknown error'} for ${
+        action.meta.arg.endpointName ?? 'request'
+      }`
+      data = action.payload
+    }
+    getSendSentryErrorLog(!!consent)(message, 'sentry.ts', data)
+  }
+  return next(action)
 }
