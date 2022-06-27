@@ -76,11 +76,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
+  const {meter, strides} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits projectId={project.identifier} />}
+      kicker={<ProjectTraits {...{meter, strides}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,

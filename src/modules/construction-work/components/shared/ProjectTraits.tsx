@@ -2,30 +2,18 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {View} from 'react-native'
 import {Strides} from '@/assets/icons'
-import {PleaseWait, Trait} from '@/components/ui'
+import {Trait} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
-import {useProjects} from '@/modules/construction-work/useProjects'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
 type Props = {
-  projectId: string
+  meter?: number
+  strides?: number
 }
 
-export const ProjectTraits = ({projectId}: Props) => {
+export const ProjectTraits = ({meter, strides}: Props) => {
   const iconProps = useThemable(createIconProps)
-  const {isLoadingProjectByDistance, projectByDistance} = useProjects({
-    projectId,
-  })
-
-  if (isLoadingProjectByDistance) {
-    return <PleaseWait />
-  }
-
-  if (!projectByDistance) {
-    return null
-  }
-  const {meter, strides} = projectByDistance
 
   return (
     <View
