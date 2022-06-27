@@ -25,7 +25,7 @@ export const HeaderNavigation = () => {
         <IconButton
           accessibilityLabel="Omgeving selecteren"
           icon={
-            <Icon size={24}>
+            <Icon scaleWithText={false} size={24}>
               <Api {...iconProps} />
             </Icon>
           }
@@ -35,7 +35,7 @@ export const HeaderNavigation = () => {
       <IconButton
         accessibilityLabel="Mijn profiel"
         icon={
-          <Icon size={24}>
+          <Icon scaleWithText={false} size={24}>
             <PersonalLogin {...iconProps} />
           </Icon>
         }
@@ -44,7 +44,7 @@ export const HeaderNavigation = () => {
       <IconButton
         accessibilityLabel="Instellingen"
         icon={
-          <Icon size={24}>
+          <Icon scaleWithText={false} size={24}>
             <Settings {...iconProps} />
           </Icon>
         }
