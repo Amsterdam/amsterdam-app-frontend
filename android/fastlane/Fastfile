@@ -18,7 +18,8 @@ default_platform(:android)
 puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
 puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
 
-# we only set this in the release pipelines, this is a default to prevent errors during the build task
+# The path to the folder with the AAB/APK files (artifact staging directory)
+# we only set this in the release pipelines, this is a default to prevent errors during the build pipeline
 app_build_path = ""
 
 if ENV["ARTIFACT_FOLDER"]
@@ -51,7 +52,11 @@ apps = [
 ]
 
 def parseVersionNumber(fullVersionNumber)
-  return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+  if fullVersionNumber
+    return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+  else
+    UI.user_error!("ERROR: parseVersionNumber failed")
+  end
 end
 
 platform :android do
@@ -63,7 +68,8 @@ platform :android do
     keystore_alias = "key0"
 
     if File.exists?(keystore_path)
-      system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
+      # this will create a file on the path set in the AppFile (json_key_file)
+      system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk/aab
 
       apps.each do |app|
         gradle(
@@ -138,7 +144,7 @@ platform :android do
   lane :distributeProduction do
     apps.each do |app|
       if app[:distribute_to_production]
-        # note: we only submit AABs for release
+        # Note: we only submit AABs for a production release (this is mandatory)
         full_aab_path = "#{app_build_path}#{app[:aab_path]}"
         puts "Upload to Play Store for #{full_aab_path}"
         if File.exists?(full_aab_path)

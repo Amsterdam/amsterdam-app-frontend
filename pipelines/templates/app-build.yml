@@ -4,8 +4,38 @@ parameters:
   default: "ios"
 
 steps:
+  # Set up environment
   - template: ./install-node.yml
+  - script: npm ci
+    displayName: 'Install node dependencies'
+  - task: UseRubyVersion@0
+    displayName: 'Set Ruby version'
+    inputs:
+      versionSpec: '~> 2.7'
+      addToPath: true
+  - script: |
+      gem install bundler:2.2.33
+    displayName: "Install bundler"
+  - task: JavaToolInstaller@0
+    displayName: 'Install Java SDK'
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  # Tests
+  - script: npm run lint
+    displayName: 'Run lint'
+  - script: npm run typescript
+    displayName: 'Run TypeScript checks'
+  - script: npm run test
+    displayName: 'Run unit tests'
+
+  # Version info
   - template: ./save-version-info.yml
+
+  # Download and move secure files
   - template: ./copy-files.yml
     parameters: 
       platform: ${{ parameters.platform }}
@@ -15,20 +45,8 @@ steps:
   - template: ./copy-ios-files.yml
     parameters: 
       condition: eq('${{ parameters.platform }}', 'ios')
-  - script: npm ci
-    displayName: 'Install node dependencies'
-  - script: npm run lint
-    displayName: 'Run lint'
-  - script: npm run typescript
-    displayName: 'Run typescript checks'
-  - script: npm run test
-    displayName: 'Run unit tests'
-  - task: JavaToolInstaller@0
-    inputs:
-      versionSpec: '11'
-      jdkArchitectureOption: 'x64'
-      jdkSourceOption: 'PreInstalled'
-    condition: eq('${{ parameters.platform }}', 'android')
+
+  # Install gems and run Fastlane
   - script: |
       bundle install
       bundle exec fastlane buildApps
@@ -39,6 +57,8 @@ steps:
       BUILD_NUMBER: $(BUILD_NUMBER)
       SENTRY_RELEASE: "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
       SENTRY_DIST: $(BUILD_NUMBER)
+
+  # Handle artifacts
   - template: ./copy-generic-artifacts.yml
     parameters:
       platform: ${{ parameters.platform }}
@@ -49,6 +69,7 @@ steps:
     parameters: 
       condition: eq('${{ parameters.platform }}', 'ios')
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifacts'
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
       artifactName: ${{ parameters.platform }}-build

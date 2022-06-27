@@ -2,7 +2,7 @@ module.exports = {
   preset: 'react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFiles: [
-    './jest-init.js',
+    './.config/jest-init.js',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
     '<rootDir>/node_modules/react-native/jest/setup.js',
   ],
