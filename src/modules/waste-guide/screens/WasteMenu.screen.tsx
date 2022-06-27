@@ -61,6 +61,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
       itemDimension={itemDimension}
       keyExtractor={item => item.label}
       renderItem={({item}) => <TileButton {...item} />}
+      scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.sm}
       style={styles.grid}
     />

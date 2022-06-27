@@ -12,6 +12,7 @@ export const ScrollView = ({children, grow, ...otherProps}: Props) => {
     <RNScrollView
       contentContainerStyle={grow && layoutStyles.grow}
       keyboardShouldPersistTaps={grow && 'handled'}
+      scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       {...otherProps}>
       {children}
     </RNScrollView>
