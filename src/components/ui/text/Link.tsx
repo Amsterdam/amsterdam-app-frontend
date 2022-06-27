@@ -19,6 +19,7 @@ const createStyles =
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
+        flexShrink: 1,
         color: color.pressable.navigation,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
