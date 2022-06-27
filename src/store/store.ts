@@ -19,6 +19,7 @@ import {baseApi} from '../services/init'
 import {themeSlice} from '../themes/themeSlice'
 import {authSlice} from './authSlice'
 import {environmentSlice} from './environmentSlice'
+import {sentryLoggerMiddleware} from '@/services'
 
 const addressPersistConfig = {
   key: 'address',
@@ -75,7 +76,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware)
+    }).concat([baseApi.middleware, sentryLoggerMiddleware])
     if (__DEV__) {
       const createDebugger = require('redux-flipper').default
       middleware.push(createDebugger())

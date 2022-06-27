@@ -5,11 +5,11 @@ export const isDevApp = BuildConfig?.BUILD_VARIANT === 'dev'
 enum AppFlavour {
   production = 'production',
   development = 'development',
+  local = 'local',
 }
 
-export const appFlavour = isDevApp
-  ? AppFlavour.development
-  : AppFlavour.production
+export const appFlavour =
+  AppFlavour[__DEV__ ? 'local' : isDevApp ? 'development' : 'production']
 
 export const devLog = (...args: unknown[]) => {
   if (isDevApp) {
