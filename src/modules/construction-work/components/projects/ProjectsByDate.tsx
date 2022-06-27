@@ -3,15 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
 import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {selectAddress} from '@/modules/address/addressSlice'
-import {
-  sanitizeProjects,
-  selectIsProjectsSearching,
-} from '@/modules/construction-work/components/projects'
+import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {
@@ -58,12 +53,9 @@ export const ProjectsByDate = () => {
       >
     >()
 
-  const {primary: address} = useSelector(selectAddress)
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
-
-  const isSearching = useSelector(selectIsProjectsSearching)
 
   const {
     data: projects = [],
@@ -73,10 +65,6 @@ export const ProjectsByDate = () => {
     sortBy: 'publication_date',
     sortOrder: 'desc',
   })
-
-  if (address || isSearching) {
-    return null
-  }
 
   if (isLoading) {
     return <PleaseWait />

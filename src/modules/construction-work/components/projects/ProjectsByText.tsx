@@ -4,14 +4,12 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
 import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
-import {selectProjectSearchText} from '@/modules/construction-work/components/projects/projectsByTextSlice'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
@@ -60,7 +58,11 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
-export const ProjectsByText = () => {
+type Props = {
+  searchText: string
+}
+
+export const ProjectsByText = ({searchText}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
@@ -73,24 +75,17 @@ export const ProjectsByText = () => {
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const searchText = useSelector(selectProjectSearchText)
-  const params = searchText
-    ? {
-        fields: ['identifier', 'images', 'subtitle', 'title'],
-        text: searchText,
-        queryFields: ['subtitle', 'title'],
-      }
-    : undefined
+  const params = {
+    fields: ['identifier', 'images', 'subtitle', 'title'],
+    text: searchText,
+    queryFields: ['subtitle', 'title'],
+  }
 
   const {
     data: projects = [],
     isLoading,
     isError,
   } = useGetProjectsByTextQuery(params ?? skipToken)
-
-  if (!searchText) {
-    return null
-  }
 
   if (isLoading) {
     return <PleaseWait />

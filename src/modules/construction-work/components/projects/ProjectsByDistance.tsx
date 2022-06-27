@@ -4,7 +4,6 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
 import {RootStackParamList} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
@@ -12,12 +11,8 @@ import {EmptyMessage} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {selectAddress} from '@/modules/address/addressSlice'
 import {AddressRouteName} from '@/modules/address/routes'
-import {
-  sanitizeProjects,
-  selectIsProjectsSearching,
-} from '@/modules/construction-work/components/projects'
+import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -30,7 +25,7 @@ import {
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {ProjectsItem} from '@/types'
+import {Address, ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListHeaderProps = {
@@ -96,7 +91,11 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
-export const ProjectsByDistance = () => {
+type Props = {
+  address: Address
+}
+
+export const ProjectsByDistance = ({address}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
@@ -105,29 +104,21 @@ export const ProjectsByDistance = () => {
       >
     >()
 
-  const {primary: address} = useSelector(selectAddress)
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const isSearching = useSelector(selectIsProjectsSearching)
-  const params = address
-    ? {
-        address: address.centroid[1] ? '' : address.adres ?? '',
-        lat: address.centroid[1] ?? 0,
-        lon: address.centroid[0] ?? 0,
-      }
-    : undefined
+  const params = {
+    address: address.centroid[1] ? '' : address.adres ?? '',
+    lat: address.centroid[1] ?? 0,
+    lon: address.centroid[0] ?? 0,
+  }
 
   const {
     data: projects = [],
     isLoading,
     isError,
   } = useGetProjectsByDistanceQuery(params ?? skipToken)
-
-  if (isSearching || !address) {
-    return null
-  }
 
   if (isLoading) {
     return <PleaseWait />
