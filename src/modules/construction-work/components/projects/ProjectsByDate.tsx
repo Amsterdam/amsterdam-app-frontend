@@ -22,7 +22,7 @@ import {mapImageSources} from '@/utils'
 type ListItemProps = {
   navigation: StackNavigationProp<
     RootStackParamList & ConstructionWorkStackParams,
-    ConstructionWorkRouteName.projects
+    ConstructionWorkRouteName
   >
   project: ProjectsItem
 }
