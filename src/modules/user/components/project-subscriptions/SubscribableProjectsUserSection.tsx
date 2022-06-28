@@ -6,19 +6,14 @@ import {
   toggleProject,
   toggleProjectsEnabled,
 } from '../../../../components/features/notifications'
-import {
-  Box,
-  Button,
-  Divider,
-  PleaseWait,
-  TextButton,
-} from '../../../../components/ui'
+import {Box, Divider, PleaseWait} from '../../../../components/ui'
 import {Checkbox, Switch} from '../../../../components/ui/forms'
 import {Column, Row} from '../../../../components/ui/layout'
 import {accessibleText} from '../../../../utils'
 import {ProjectTitle} from '../../../construction-work/components/project'
 import {useGetProjectsQuery} from '../../../construction-work/construction-work.service'
 import {UserSection} from '../index'
+import {Button, TextButton} from '@/components/ui/buttons'
 
 type Props = {
   subscribableProjectIds: string[]

@@ -2,7 +2,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, SubmitButton, Title} from '@/components/ui'
+import {Box, Title} from '@/components/ui'
+import {SubmitButton} from '@/components/ui/buttons'
 import {
   CharactersLeftDisplay,
   TextInput,

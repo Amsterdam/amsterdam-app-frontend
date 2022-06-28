@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
-import {Gutter} from './layout'
-import {Title} from './'
+import {Title} from '@/components/ui'
+import {Gutter} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'
 
 export type TileButtonProps = {

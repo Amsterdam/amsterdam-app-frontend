@@ -3,7 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParamList} from '@/app/navigation'
-import {Box, Button} from '@/components/ui'
+import {Box} from '@/components/ui'
+import {Button} from '@/components/ui/buttons'
 import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
 import {
   ConstructionWorkRouteName,
