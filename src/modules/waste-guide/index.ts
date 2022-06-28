@@ -1,8 +1,9 @@
+import {ModuleSlugs} from '../slugs'
 import {ModuleClientConfig} from '../types'
 
 export const module: ModuleClientConfig = {
   linking: {},
   name: 'WasteGuideModule',
-  slug: 'waste-guide',
+  slug: ModuleSlugs['waste-guide'],
   state: [],
 }

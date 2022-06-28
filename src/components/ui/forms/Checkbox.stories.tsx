@@ -11,6 +11,6 @@ export const Default = {
   args: {
     value: false,
     label: <Text>Een label</Text>,
-    labelPosition: 'start',
+    labelPosition: 'end',
   },
 }
