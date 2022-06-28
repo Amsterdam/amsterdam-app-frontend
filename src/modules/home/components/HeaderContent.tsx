@@ -27,12 +27,13 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
       <View style={styles.sideColumn}>
         {back && (
           <IconButton
+            accessibilityLabel="Terug"
+            hitSlop={16}
             icon={
-              <Icon size={chevronSize}>
+              <Icon scaleWithText={false} size={chevronSize}>
                 <ChevronLeft fill={color.pressable.default.background} />
               </Icon>
             }
-            hitSlop={16}
             onPress={navigation.goBack}
           />
         )}

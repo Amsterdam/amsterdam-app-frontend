@@ -49,8 +49,9 @@ export const Button = ({
 const createStyles = ({color, text, size}: Theme) =>
   StyleSheet.create({
     button: {
-      justifyContent: 'center',
       flexDirection: 'row',
+      justifyContent: 'center',
+      flexShrink: 1,
       paddingHorizontal: size.spacing.md,
       paddingVertical: (44 - text.fontSize.body * text.lineHeight.body) / 2, // Design system: button height must be 44
     },
