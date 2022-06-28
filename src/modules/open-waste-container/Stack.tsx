@@ -1,10 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {screenOptions} from '../../app/navigation'
-import {
-  OpenWasteContainerRouteName,
-  openWasteContainerRoutes as routes,
-} from './routes'
+import {OpenWasteContainerRouteName} from './routes'
+import {openWasteContainerScreenConfig as routes} from './screenConfig'
+import {screenOptions} from '@/app/navigation'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()

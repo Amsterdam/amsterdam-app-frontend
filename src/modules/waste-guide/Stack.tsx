@@ -1,7 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {screenOptions} from '../../app/navigation'
-import {WasteGuideRouteName, wasteGuideRoutes} from './routes'
+import {WasteGuideRouteName} from './routes'
+import {wasteGuideScreenConfig} from './screenConfig'
+import {screenOptions} from '@/app/navigation'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
@@ -13,7 +14,7 @@ export const WasteGuideStack = () => {
     <Stack.Navigator
       initialRouteName={WasteGuideRouteName.wasteMenu}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(wasteGuideRoutes).map(([key, route]) => (
+      {Object.entries(wasteGuideScreenConfig).map(([key, route]) => (
         <Stack.Screen key={key} {...route} />
       ))}
     </Stack.Navigator>
