@@ -3,8 +3,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useMemo} from 'react'
 import {
   Box,
-  Button,
-  IconButton,
   SingleSelectable,
   Text,
   TextInCircle,
@@ -12,6 +10,7 @@ import {
   ZebraList,
   ZebraListItemProps,
 } from '@/components/ui'
+import {Button, IconButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {

@@ -3,10 +3,11 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {module as userModule} from '../..'
 import {RootStackParamList} from '../../../../app/navigation'
-import {Attention, Text, TextButton} from '../../../../components/ui'
+import {Attention, Text} from '../../../../components/ui'
 import {Column} from '../../../../components/ui/layout'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {ConstructionWorkRouteName} from '../../../construction-work/routes'
+import {TextButton} from '@/components/ui/buttons'
 
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =

@@ -8,11 +8,10 @@ import {
   PleaseWait,
   Preview,
   SingleSelectable,
-  SubmitButton,
   Text,
-  TextButton,
   Title,
 } from '@/components/ui'
+import {SubmitButton, TextButton} from '@/components/ui/buttons'
 import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {

@@ -12,7 +12,6 @@ import {
   PleaseWait,
   SingleSelectable,
   Text,
-  TextButton,
   Title,
 } from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
@@ -31,6 +30,7 @@ import {
   WasteGuideCollectionPoints,
   WasteGuideContainers,
 } from '.'
+import {TextButton} from '@/components/ui/buttons'
 
 export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)

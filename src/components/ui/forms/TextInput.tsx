@@ -7,8 +7,9 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {IconButton, Label} from '@/components/ui'
+import {Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
+import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
 

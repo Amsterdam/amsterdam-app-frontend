@@ -7,12 +7,12 @@ import {
 import {Box, BoxProps} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
 
-type Props = {
+export type PressableProps = {
   children: ReactNode
 } & Omit<PressableRNProps, 'style'> &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
-export const Pressable = ({children, ...otherProps}: Props) => {
+export const Pressable = ({children, ...otherProps}: PressableProps) => {
   const {inset = 'no', insetHorizontal, insetVertical} = otherProps
   const styles = useThemable(createStyles)
 

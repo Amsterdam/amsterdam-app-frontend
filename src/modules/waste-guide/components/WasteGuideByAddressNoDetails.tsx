@@ -3,16 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
 import {RootStackParamList} from '../../../app/navigation'
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Text,
-  Title,
-} from '../../../components/ui'
+import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {Address} from '../../../types'
+import {Button} from '@/components/ui/buttons'
 
 type Props = {
   address: Address

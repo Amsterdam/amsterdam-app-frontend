@@ -2,17 +2,16 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
   DescriptionList,
-  TextButton,
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
 import {WasteGuideDetails} from '../types'
+import {Button, TextButton} from '@/components/ui/buttons'
 
 type Props = {
   details: WasteGuideDetails
