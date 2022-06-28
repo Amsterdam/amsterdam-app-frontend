@@ -1,4 +1,3 @@
-import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
 import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
 import {projectsByTextSlice} from '@/modules/construction-work/components/projects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -12,6 +11,5 @@ export const module: ModuleClientConfig = {
   },
   name: 'ConstructionWorkModule',
   slug: 'construction-work',
-  stack: ConstructionWorkStack,
   state: [projectsByTextSlice, projectManagerSlice],
 }

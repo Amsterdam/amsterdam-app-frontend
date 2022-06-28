@@ -1,5 +1,4 @@
 import {ModuleClientConfig} from '../types'
-import {AddressStack} from './Stack'
 import {addressSlice} from './addressSlice'
 
 export const module: ModuleClientConfig = {
@@ -7,6 +6,5 @@ export const module: ModuleClientConfig = {
   linking: {},
   name: 'AddressModule',
   slug: 'address',
-  stack: AddressStack,
   state: [addressSlice],
 }
