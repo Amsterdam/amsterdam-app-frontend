@@ -70,7 +70,6 @@ const createStyles = ({color, text, size}: Theme) =>
       backgroundColor: color.pressable.secondary.background,
     },
     text: {
-      // weight
       backgroundColor: undefined,
       color: color.pressable.default.background,
       paddingHorizontal: 0,
