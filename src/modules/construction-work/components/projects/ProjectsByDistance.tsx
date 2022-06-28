@@ -153,6 +153,7 @@ export const ProjectsByDistance = ({
         renderItem={({item}) => (
           <ListItem navigation={navigation} project={item} />
         )}
+        scrollIndicatorInsets={{right: Number.MIN_VALUE}}
         spacing={size.spacing.md}
       />
     </Column>

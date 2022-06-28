@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react'
-import {ScrollView} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {
   addProjects,
@@ -7,6 +6,7 @@ import {
   toggleProjectsEnabled,
 } from '@/components/features/notifications'
 import {Box, PleaseWait} from '@/components/ui'
+import {ScrollView} from '@/components/ui/layout'
 import {
   addProjectManagerId,
   addProjectManagerProjects,
