@@ -1,7 +1,12 @@
 module.exports = {
   root: true,
   plugins: ['import'],
-  extends: '@react-native-community',
+  extends: [
+    '@react-native-community',
+    'plugin:storybook/recommended',
+    'plugin:storybook/csf',
+    'plugin:storybook/csf-strict',
+  ],
   ignorePatterns: ['!.storybook'],
   rules: {
     'import/no-default-export': 'error',
