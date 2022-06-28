@@ -1,17 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Text,
-  TextButton,
-  Title,
-} from '../../../components/ui'
+import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {Image} from '../../../components/ui/media'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {TextButton} from '@/components/ui/buttons'
 
 export const WasteGuideContainers = () => {
   const navigation =

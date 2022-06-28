@@ -2,7 +2,8 @@ import {Card} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {Button, CardBody, Text, Title} from '@/components/ui'
+import {CardBody, Text, Title} from '@/components/ui'
+import {Button} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {
   CreateNotificationRouteName,

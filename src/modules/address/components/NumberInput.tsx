@@ -1,11 +1,12 @@
 import React, {useEffect, useRef} from 'react'
 import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {List, TextButton} from '../../../components/ui'
+import {List} from '../../../components/ui'
 import {TextInput} from '../../../components/ui/forms'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {BagResponseContent} from '../../../types'
 import {SuggestionButton} from './SuggestionButton'
+import {TextButton} from '@/components/ui/buttons'
 import {useTheme} from '@/themes'
 
 type Props = {

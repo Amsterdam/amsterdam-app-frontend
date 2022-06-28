@@ -7,7 +7,8 @@ import {
   toggleProject,
   toggleProjectsEnabled,
 } from '@/components/features/notifications'
-import {Box, Button, PleaseWait, SingleSelectable, Text} from '@/components/ui'
+import {Box, PleaseWait, SingleSelectable, Text} from '@/components/ui'
+import {Button, FollowButton} from '@/components/ui/buttons'
 import {Switch} from '@/components/ui/forms'
 import {Column, Gutter, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -110,6 +111,7 @@ export const ProjectScreen = ({navigation, route}: Props) => {
                 )}
               </Column>
             </SingleSelectable>
+            <FollowButton following={false} />
             <Switch
               accessibilityLabel="Ontvang berichten"
               label={<Text>Ontvang berichten</Text>}

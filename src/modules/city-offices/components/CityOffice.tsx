@@ -4,7 +4,6 @@ import React from 'react'
 import {View} from 'react-native'
 import {
   Attention,
-  Button,
   Card,
   CardBody,
   PleaseWait,
@@ -19,6 +18,7 @@ import {ImageSources} from '../../../types'
 import {accessibleText, mapImageSources} from '../../../utils'
 import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
 import {useGetCityOfficeQuery} from '../services'
+import {Button} from '@/components/ui/buttons'
 
 type Props = {
   id: string

@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, TouchableOpacity, TouchableOpacityProps} from 'react-native'
+import {Pressable, PressableProps, StyleSheet} from 'react-native'
 import {Text} from '@/components/ui/'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -9,20 +9,27 @@ type Props = {
   icon?: ReactNode
   text?: string
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
-} & Omit<TouchableOpacityProps, 'style'>
+  width?: 'full' | 'auto'
+} & Omit<PressableProps, 'style'>
 
 export const Button = ({
   icon,
   text,
   variant = 'primary',
+  width = 'full',
   ...otherProps
 }: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <TouchableOpacity
+    <Pressable
       accessibilityRole="button"
-      style={[styles.button, styles[variant]]}
+      style={({pressed}) => [
+        styles.button,
+        styles[variant],
+        width === 'auto' && styles.auto,
+        pressed && styles.pressed,
+      ]}
       {...otherProps}>
       <Row gutter="md">
         {icon && <Icon size={24}>{icon}</Icon>}
@@ -35,7 +42,7 @@ export const Button = ({
           </Text>
         )}
       </Row>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -46,6 +53,9 @@ const createStyles = ({color, text, size}: Theme) =>
       flexDirection: 'row',
       paddingHorizontal: size.spacing.md,
       paddingVertical: (44 - text.fontSize.body * text.lineHeight.body) / 2, // Design system: button height must be 44
+    },
+    auto: {
+      alignSelf: 'flex-start',
     },
     inverse: {
       backgroundColor: color.box.background.white,
@@ -65,4 +75,5 @@ const createStyles = ({color, text, size}: Theme) =>
       paddingHorizontal: 0,
       paddingVertical: 0,
     },
+    pressed: {},
   })

@@ -6,12 +6,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {module as addressModule} from '../'
 import {RootStackParamList} from '../../../app/navigation'
 import {
-  Button,
   Card,
   CardBody,
   SingleSelectable,
   Text,
-  TextButton,
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
@@ -20,6 +18,7 @@ import {isEmptyObject} from '../../../utils'
 import {module as userModule} from '../../user'
 import {removePrimaryAddress, selectAddress} from '../addressSlice'
 import {AddressRouteName} from '../routes'
+import {Button, TextButton} from '@/components/ui/buttons'
 
 export const Address = () => {
   const dispatch = useDispatch()

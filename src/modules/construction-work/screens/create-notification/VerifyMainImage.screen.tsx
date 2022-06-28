@@ -4,7 +4,8 @@ import {Controller, useForm} from 'react-hook-form'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {ImagePreviewTouchable} from '@/components/features/create-notification'
-import {Box, SubmitButton, TextButton, Title} from '@/components/ui'
+import {Box, Title} from '@/components/ui'
+import {SubmitButton, TextButton} from '@/components/ui/buttons'
 import {
   CharactersLeftDisplay,
   TextInput,

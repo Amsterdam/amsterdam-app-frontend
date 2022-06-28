@@ -7,9 +7,10 @@ import {
   setCustomEnvironment,
   setEnvironment,
 } from '../../store'
-import {Box, Button} from '../ui'
+import {Box} from '../ui'
 import {TextInput} from '../ui/forms'
 import {Grid, GridCell} from '../ui/layout'
+import {Button} from '@/components/ui/buttons'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()

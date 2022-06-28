@@ -4,15 +4,8 @@ import React, {useEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-  Box,
-  Button,
-  Label,
-  SubmitButton,
-  Text,
-  TextButton,
-  Title,
-} from '@/components/ui'
+import {Box, Label, Text, Title} from '@/components/ui'
+import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
 import {
   CharactersLeftDisplay,
   TextInput,

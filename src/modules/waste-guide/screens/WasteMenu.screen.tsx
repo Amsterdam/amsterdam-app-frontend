@@ -5,9 +5,9 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {BulkyWaste, Container} from '../../../assets/icons'
-import {TileButton, TileButtonProps} from '../../../components/ui'
 import {DeviceContext} from '../../../providers'
 import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {TileButton, TileButtonProps} from '@/components/ui/buttons'
 import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
