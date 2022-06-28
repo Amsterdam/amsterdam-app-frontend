@@ -70,7 +70,7 @@ export const Project = ({id}: Props) => {
     ? notificationSettings.projects[project.identifier]
     : undefined
 
-  const {followed, meter, strides} = project
+  const {followed} = project
 
   return (
     <ScrollView>
@@ -104,7 +104,7 @@ export const Project = ({id}: Props) => {
               accessibilityRole="header"
               label={accessibleText(project.title, project.subtitle)}>
               <Column gutter="sm">
-                <ProjectTraits {...{followed, meter, strides}} />
+                <ProjectTraits {...{followed}} />
                 {project.title && <Title text={project.title} />}
                 {project.subtitle && (
                   <Title level="h4" text={project.subtitle} />
