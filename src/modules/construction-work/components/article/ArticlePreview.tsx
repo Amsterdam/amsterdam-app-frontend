@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import {selectConstructionWorkReadArticles} from '../../construction-work.slice'
 import {Hero} from '@/components/ui/Hero'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Link, Paragraph} from '@/components/ui/text'
+import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
 import {useEnvironment} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {ArticleSummary} from '@/types'
@@ -29,8 +29,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 
   const getImageSources = () => {
     if (article.type === 'news') {
-      const sources = article.image?.sources
-      return mapImageSources(sources, environment)
+      return mapImageSources(article.image?.sources, environment)
     }
     const mainImageFromProjectWarning = article?.images?.find(
       image => image.main,
