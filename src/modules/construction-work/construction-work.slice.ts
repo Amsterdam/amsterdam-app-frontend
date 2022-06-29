@@ -19,7 +19,7 @@ const initialState: ConstructionWorkSliceState = {
 }
 
 export const constructionWorkSlice = createSlice({
-  name: 'construction-work',
+  name: 'constructionWork',
   initialState,
   reducers: {
     addReadArticle: (state, {payload: article}: PayloadAction<ReadArticle>) => {
