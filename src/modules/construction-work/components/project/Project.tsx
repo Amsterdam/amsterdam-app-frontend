@@ -1,15 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-  selectNotificationSettings,
-  toggleProject,
-  toggleProjectsEnabled,
-} from '@/components/features/notifications'
-import {Box, PleaseWait, SingleSelectable, Text} from '@/components/ui'
+import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
-import {Switch} from '@/components/ui/forms'
 import {Column, Gutter, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -30,7 +23,6 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const dispatch = useDispatch()
   const environment = useEnvironment()
 
   const navigation =
@@ -41,7 +33,6 @@ export const Project = ({id}: Props) => {
       >
     >()
 
-  const notificationSettings = useSelector(selectNotificationSettings)
   const {projectManager} = useProjectManagerFetcher()
   const {data: project, isLoading} = useGetProjectQuery({id})
 
@@ -50,13 +41,6 @@ export const Project = ({id}: Props) => {
       headerTitle: project?.title,
     })
   }, [project?.title, navigation])
-
-  const toggleProjectSubscription = (projectId: string) => {
-    if (!notificationSettings.projectsEnabled) {
-      dispatch(toggleProjectsEnabled())
-    }
-    dispatch(toggleProject(projectId))
-  }
 
   if (isLoading) {
     return <PleaseWait />
@@ -67,7 +51,6 @@ export const Project = ({id}: Props) => {
   }
 
   const {images, followed, subtitle, title} = project
-  const isSubscribed = !!notificationSettings.projects[id]
 
   return (
     <ScrollView>
@@ -102,13 +85,6 @@ export const Project = ({id}: Props) => {
               </Column>
             </SingleSelectable>
             <FollowButton following={false} />
-            <Switch
-              accessibilityLabel="Ontvang berichten"
-              label={<Text>Ontvang berichten</Text>}
-              labelPosition="end"
-              onValueChange={() => toggleProjectSubscription(id)}
-              value={isSubscribed}
-            />
           </Column>
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />

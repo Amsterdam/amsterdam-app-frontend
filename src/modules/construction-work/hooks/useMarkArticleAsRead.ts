@@ -1,19 +1,18 @@
 import {useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
-  addReadArticle,
   deleteReadArticle,
-  selectNotificationSettings,
-} from './notificationsSlice'
-import {ReadArticle} from './types'
+  ReadArticle,
+  addReadArticle,
+  selectConstructionWorkReadArticles,
+} from '@/modules/construction-work/construction-work.slice'
 import {getDateDiffInDays} from '@/utils'
 
 export const useMarkArticleAsRead = () => {
-  const {readArticles} = useSelector(selectNotificationSettings)
+  const readArticles = useSelector(selectConstructionWorkReadArticles)
   const dispatch = useDispatch()
 
   const deleteOldArticles = useCallback(() => {
-    console.log('render')
     readArticles.forEach(readArticle => {
       getDateDiffInDays(readArticle.publicationDate) > 3 &&
         dispatch(deleteReadArticle(readArticle.id))

@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect} from 'react'
-import {useMarkArticleAsRead} from '@/components/features/notifications'
 import {Box, PleaseWait} from '@/components/ui'
 import {Column, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -9,6 +8,7 @@ import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
 } from '@/modules/construction-work/construction-work.service'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {useEnvironment} from '@/store'
 import {formatDate, mapImageSources} from '@/utils'
 
