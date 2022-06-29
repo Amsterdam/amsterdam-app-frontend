@@ -19,6 +19,10 @@ export type ImageSource = {
   url: string
 }
 
+export type FollowProjectQueryArg = {
+  project_id: string
+}
+
 export type ProjectWarningImageQueryArg = {
   project_warning_id: string
   image: {

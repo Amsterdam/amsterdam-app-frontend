@@ -4,6 +4,7 @@ import {PageListQueryArg, Section, Timeline} from './'
 export enum ProjectsEndpointName {
   addProjectWarning = 'addProjectWarning',
   addProjectWarningImage = 'addProjectWarningImage',
+  followProject = 'followProject',
   getProject = 'getProject',
   getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',
@@ -11,6 +12,7 @@ export enum ProjectsEndpointName {
   getProjectsByDistance = 'getProjectsByDistance',
   getProjectsByText = 'getProjectsByText',
   getProjectWarning = 'getProjectWarning',
+  unfollowProject = 'unfollowProject',
 }
 
 export type ProjectContact = {

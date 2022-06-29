@@ -1,5 +1,6 @@
 import {baseApi} from '@/services'
 import {
+  FollowProjectQueryArg,
   NewProjectWarning,
   NewsArticle,
   Project,
@@ -16,6 +17,7 @@ import {
   ProjectWarningResponse,
   SortListQueryArg,
 } from '@/types'
+import {MutationResponse} from '@/types/api'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -37,13 +39,26 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     [ProjectsEndpointName.addProjectWarningImage]: builder.mutation<
-      unknown,
+      MutationResponse,
       ProjectWarningImageQueryArg
     >({
       invalidatesTags: ['Articles'],
       query(body) {
         return {
           url: '/project/warning/image',
+          method: 'POST',
+          body,
+        }
+      },
+    }),
+
+    [ProjectsEndpointName.followProject]: builder.mutation<
+      MutationResponse,
+      FollowProjectQueryArg
+    >({
+      query(body) {
+        return {
+          url: '/projects/follow',
           method: 'POST',
           body,
         }
@@ -122,6 +137,19 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params => generateRequestUrl({path: '/project/warning', params}),
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,
+    }),
+
+    [ProjectsEndpointName.unfollowProject]: builder.mutation<
+      MutationResponse,
+      FollowProjectQueryArg
+    >({
+      query(body) {
+        return {
+          url: '/projects/follow',
+          method: 'DELETE',
+          body,
+        }
+      },
     }),
   }),
   overrideExisting: true,

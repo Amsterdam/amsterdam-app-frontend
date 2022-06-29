@@ -20,8 +20,10 @@ const managerAuthorizedEndpoints = [
 ]
 
 const deviceIdRequestingEndpoints: string[] = [
+  ProjectsEndpointName.followProject,
   ProjectsEndpointName.getProject,
   ProjectsEndpointName.getProjects,
+  ProjectsEndpointName.unfollowProject,
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
