@@ -14,11 +14,11 @@ export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
-  if (isLoadingModules) {
+  if (isLoadingModules || !modules) {
     return <PleaseWait />
   }
 
-  if (!modules?.length) {
+  if (!modules.length) {
     return (
       <Box insetHorizontal="md" insetVertical="xxxl">
         <Paragraph>
