@@ -66,15 +66,12 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const isSubscribed = project.identifier
-    ? notificationSettings.projects[project.identifier]
-    : undefined
-
+  const isSubscribed = !!notificationSettings.projects[project.identifier]
   const {followed} = project
 
   return (
     <ScrollView>
-      {project.images.length && (
+      {!!project.images.length && (
         <Image
           aspectRatio="wide"
           source={mapImageSources(project.images[0].sources, environment)}
