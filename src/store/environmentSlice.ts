@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, getEnvironment} from '../environment'
-import {RootState} from '.'
+import {RootState} from './'
 
 type EnvironmentState = {
   environment: Environment

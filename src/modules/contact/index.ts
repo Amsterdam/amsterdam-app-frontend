@@ -1,10 +1,9 @@
+import {ModuleSlugs} from '../slugs'
 import {ModuleClientConfig} from '../types'
-import {ContactStack} from './Stack'
 
 export const module: ModuleClientConfig = {
   linking: {},
   name: 'ContactModule',
-  slug: 'contact',
-  stack: ContactStack,
+  slug: ModuleSlugs.contact,
   state: [],
 }

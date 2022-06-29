@@ -4,7 +4,7 @@ import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {CustomScreenOptions} from '@/app/navigation'
-import {IconButton} from '@/components/ui'
+import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
@@ -27,12 +27,13 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
       <View style={styles.sideColumn}>
         {back && (
           <IconButton
+            accessibilityLabel="Terug"
+            hitSlop={16}
             icon={
-              <Icon size={chevronSize}>
+              <Icon scaleWithText={false} size={chevronSize}>
                 <ChevronLeft fill={color.pressable.default.background} />
               </Icon>
             }
-            hitSlop={16}
             onPress={navigation.goBack}
           />
         )}

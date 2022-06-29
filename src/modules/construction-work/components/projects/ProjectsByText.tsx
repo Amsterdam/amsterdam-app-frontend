@@ -4,7 +4,6 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
@@ -14,7 +13,7 @@ import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -35,8 +34,8 @@ const ListHeader = ({results}: ListHeaderProps) => (
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
-    ConstructionWorkRouteName.projects
+    ConstructionWorkStackParams,
+    ConstructionWorkRouteName
   >
   project: ProjectsItem
 }
@@ -66,8 +65,8 @@ export const ProjectsByText = ({searchText}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
-        ConstructionWorkRouteName.projects
+        ConstructionWorkStackParams,
+        ConstructionWorkRouteName
       >
     >()
 
@@ -101,17 +100,16 @@ export const ProjectsByText = ({searchText}: Props) => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={
-        <>
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
-          </Box>
-        </>
-      }
+      ListEmptyComponent={() => (
+        <Box insetHorizontal="md">
+          <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
+        </Box>
+      )}
       ListHeaderComponent={<ListHeader results={projects.length} />}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
       )}
+      scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
     />
   )

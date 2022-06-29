@@ -1,12 +1,7 @@
 import React, {useCallback, useEffect} from 'react'
-import {ScrollView} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
-import {
-  addProjects,
-  selectNotificationSettings,
-  toggleProjectsEnabled,
-} from '@/components/features/notifications'
+import {useDispatch} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
+import {ScrollView} from '@/components/ui/layout'
 import {
   addProjectManagerId,
   addProjectManagerProjects,
@@ -20,7 +15,6 @@ import {encryptWithAES} from '@/utils'
 type Props = {routeParamsId: string}
 
 export const ProjectManagerSummary = ({routeParamsId}: Props) => {
-  const notificationSettings = useSelector(selectNotificationSettings)
   const dispatch = useDispatch()
   const {
     authorizedProjects,
@@ -48,12 +42,8 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
   const storeProjectManagerSettings = useCallback(() => {
     if (projectManager) {
       dispatch(addProjectManagerProjects(projectManager.projects))
-
-      if (!notificationSettings.projectsEnabled) {
-        dispatch(toggleProjectsEnabled())
-      }
-      dispatch(addProjects(projectManager.projects))
     }
+    // TODO: also follow these projects (/projects/follow)
   }, [projectManager]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

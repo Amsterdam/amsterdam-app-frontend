@@ -6,7 +6,7 @@ import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
-import {Row} from './layout'
+import {Row} from '@/components/ui/layout'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable, useTheme} from '@/themes'
 

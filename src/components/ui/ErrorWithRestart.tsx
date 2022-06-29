@@ -3,10 +3,10 @@ import {StyleSheet, View} from 'react-native'
 import RNRestart from 'react-native-restart'
 import {Attention} from './Attention'
 import {Box} from './Box'
-import {Button} from './Button'
 import {Column, Gutter} from './layout'
 import {Screen} from './layout/Screen'
 import {Paragraph} from './text'
+import {Button} from '@/components/ui/buttons'
 import {Theme, useThemable} from '@/themes'
 
 export const ErrorWithRestart = () => {

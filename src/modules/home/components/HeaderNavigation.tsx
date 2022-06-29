@@ -5,7 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParamList} from '@/app/navigation'
 import {Settings} from '@/assets/icons'
-import {IconButton} from '@/components/ui'
+import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
@@ -25,7 +25,7 @@ export const HeaderNavigation = () => {
         <IconButton
           accessibilityLabel="Omgeving selecteren"
           icon={
-            <Icon size={24}>
+            <Icon scaleWithText={false} size={24}>
               <Api {...iconProps} />
             </Icon>
           }
@@ -35,7 +35,7 @@ export const HeaderNavigation = () => {
       <IconButton
         accessibilityLabel="Mijn profiel"
         icon={
-          <Icon size={24}>
+          <Icon scaleWithText={false} size={24}>
             <PersonalLogin {...iconProps} />
           </Icon>
         }
@@ -44,7 +44,7 @@ export const HeaderNavigation = () => {
       <IconButton
         accessibilityLabel="Instellingen"
         icon={
-          <Icon size={24}>
+          <Icon scaleWithText={false} size={24}>
             <Settings {...iconProps} />
           </Icon>
         }

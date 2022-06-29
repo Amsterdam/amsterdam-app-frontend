@@ -1,11 +1,10 @@
-import {HomeStack} from '@/modules/home/Stack'
+import {ModuleSlugs} from '../slugs'
 import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   isCore: true,
   linking: {},
   name: 'HomeModule',
-  slug: 'home',
-  stack: HomeStack,
+  slug: ModuleSlugs.home,
   state: [],
 }

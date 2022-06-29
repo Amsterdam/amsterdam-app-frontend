@@ -3,14 +3,8 @@ import React, {useEffect} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-  Box,
-  Button,
-  SubmitButton,
-  Text,
-  TextButton,
-  Title,
-} from '@/components/ui'
+import {Box, Text, Title} from '@/components/ui'
+import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
 import {Radio, RadioGroup, ValidationWarning} from '@/components/ui/forms'
 import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {

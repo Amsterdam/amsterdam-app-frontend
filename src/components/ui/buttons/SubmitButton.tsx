@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
-import {Text} from './'
+import {Text} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {

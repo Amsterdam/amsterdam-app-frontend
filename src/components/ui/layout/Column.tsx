@@ -35,7 +35,7 @@ export const Column = ({align, children, gutter, halign}: Props) => {
 const createStyles = ({align, halign}: Partial<Props>) =>
   StyleSheet.create({
     column: {
-      flexGrow: 1,
+      flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(halign),
     },

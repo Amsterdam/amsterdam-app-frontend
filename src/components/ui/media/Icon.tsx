@@ -6,14 +6,15 @@ type IconSizes = 16 | 20 | 24 | 32
 
 type Props = {
   children: ReactNode
+  scaleWithText?: boolean
   size?: IconSizes
 }
 
-export const Icon = ({children, size = 16}: Props) => {
+export const Icon = ({children, scaleWithText = true, size = 16}: Props) => {
   const {fontScale} = useContext(DeviceContext)
   const styles = useMemo(
-    () => createStyles(size * fontScale),
-    [fontScale, size],
+    () => createStyles(scaleWithText ? size * fontScale : size),
+    [fontScale, scaleWithText, size],
   )
 
   return <View style={styles.icon}>{children}</View>

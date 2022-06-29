@@ -4,13 +4,13 @@ import {Checkbox} from './Checkbox'
 
 export default {
   component: Checkbox,
-  title: 'forms/Checkbox',
-  args: {
-    value: false,
-    label: <Text>Een label</Text>,
-    labelPosition: 'start',
-  },
   argTypes: {onValueChange: {action: 'onValueChange'}},
 }
 
-export const Default = Checkbox
+export const Default = {
+  args: {
+    value: false,
+    label: <Text>Een label</Text>,
+    labelPosition: 'end',
+  },
+}

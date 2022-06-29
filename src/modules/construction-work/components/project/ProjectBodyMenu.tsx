@@ -4,7 +4,7 @@ import React from 'react'
 import {NavigationButton} from '@/components/ui/buttons'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {Project, ProjectBody} from '@/types'
 import {isEmptyObject} from '@/utils'
@@ -24,7 +24,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<
-        ProjectsStackParams,
+        ConstructionWorkStackParams,
         ConstructionWorkRouteName.project
       >
     >()

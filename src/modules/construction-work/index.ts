@@ -1,4 +1,4 @@
-import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
+import {ModuleSlugs} from '../slugs'
 import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
 import {projectsByTextSlice} from '@/modules/construction-work/components/projects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -11,7 +11,6 @@ export const module: ModuleClientConfig = {
     [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
   name: 'ConstructionWorkModule',
-  slug: 'construction-work',
-  stack: ConstructionWorkStack,
+  slug: ModuleSlugs['construction-work'],
   state: [projectsByTextSlice, projectManagerSlice],
 }

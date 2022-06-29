@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {View} from 'react-native'
-import {useMarkArticleAsRead} from '@/components/features/notifications'
 import {Box, PleaseWait} from '@/components/ui'
 import {Hero} from '@/components/ui/Hero'
 import {Column, ScrollView} from '@/components/ui/layout'
@@ -12,6 +11,7 @@ import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/construction-work.service'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {useEnvironment} from '@/store'
 import {ProjectWarningImage} from '@/types'
 import {formatDate, mapWarningImageSources} from '@/utils'

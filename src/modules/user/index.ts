@@ -1,11 +1,10 @@
+import {ModuleSlugs} from '../slugs'
 import {ModuleClientConfig} from '../types'
-import {UserStack} from './Stack'
 
 export const module: ModuleClientConfig = {
   isCore: true,
   linking: {},
   name: 'UserModule',
-  slug: 'user',
-  stack: UserStack,
+  slug: ModuleSlugs.user,
   state: [],
 }

@@ -37,6 +37,7 @@ const createStyles = ({align, valign}: Partial<Props>) =>
   StyleSheet.create({
     row: {
       flexDirection: 'row',
+      flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),
     },

@@ -1,5 +1,5 @@
 import {Slice} from '@reduxjs/toolkit'
-import {ComponentType} from 'react'
+import {ModuleSlugs} from './slugs'
 
 /**
  * The client part of a module’s configuration.
@@ -8,8 +8,7 @@ export type ModuleClientConfig = {
   isCore?: boolean
   linking: Record<string, string>
   name: string
-  slug: string
-  stack: ComponentType<any>
+  slug: ModuleSlugs
   state: Slice[]
 }
 
@@ -19,7 +18,7 @@ export type ModuleClientConfig = {
 export type ModuleServerConfig = {
   description: string
   icon: string
-  slug: string
+  slug: ModuleSlugs
   status: number
   title: string
   version: string

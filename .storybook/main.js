@@ -4,13 +4,16 @@ const alias = require('../.config/alias.js')
 const {presets} = require('../babel.config.js')
 
 module.exports = {
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
     '@storybook/addon-postcss',
   ],
+  features: {
+    previewCsfV3: true,
+  },
   webpackFinal: config => {
     config.resolve = {
       modules: ['node_modules'],

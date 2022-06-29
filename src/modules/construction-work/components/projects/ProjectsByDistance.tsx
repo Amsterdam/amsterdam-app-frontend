@@ -6,7 +6,8 @@ import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParamList} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
-import {Box, IconButton, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {IconButton} from '@/components/ui/buttons'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -20,7 +21,7 @@ import {
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -31,7 +32,7 @@ import {mapImageSources} from '@/utils'
 type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
 }
@@ -48,7 +49,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
         <IconButton
           accessibilityLabel="Wijzig het adres"
           icon={
-            <Icon size={32}>
+            <Icon size={24}>
               <Edit fill={color.pressable.default.background} />
             </Icon>
           }
@@ -67,7 +68,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -75,11 +76,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
+  const {followed, meter, strides} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits projectId={project.identifier} />}
+      kicker={<ProjectTraits {...{followed, meter, strides}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
@@ -104,7 +106,7 @@ export const ProjectsByDistance = ({
   const navigation =
     useNavigation<
       StackNavigationProp<
-        RootStackParamList & ProjectsStackParams,
+        RootStackParamList & ConstructionWorkStackParams,
         ConstructionWorkRouteName.projects
       >
     >()
@@ -140,19 +142,18 @@ export const ProjectsByDistance = ({
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={
-          <>
-            <Box insetHorizontal="md">
-              <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
-            </Box>
-          </>
-        }
+        ListEmptyComponent={() => (
+          <Box insetHorizontal="md">
+            <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
+          </Box>
+        )}
         ListHeaderComponent={
           <ListHeader address={adres} navigation={navigation} />
         }
         renderItem={({item}) => (
           <ListItem navigation={navigation} project={item} />
         )}
+        scrollIndicatorInsets={{right: Number.MIN_VALUE}}
         spacing={size.spacing.md}
       />
     </Column>

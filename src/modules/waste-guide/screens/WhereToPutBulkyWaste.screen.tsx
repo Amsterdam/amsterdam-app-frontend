@@ -1,7 +1,6 @@
 import React from 'react'
-import {ScrollView} from 'react-native'
 import {Box, Card, CardBody, Text, Title} from '../../../components/ui'
-import {Gutter, Row} from '../../../components/ui/layout'
+import {Gutter, Row, ScrollView} from '../../../components/ui/layout'
 import {Image} from '../../../components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (

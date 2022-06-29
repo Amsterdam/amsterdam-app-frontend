@@ -1,6 +1,5 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Search from '@amsterdam/asc-assets/static/icons/Search.svg'
-import {IconButton} from '_components/ui'
 import React, {forwardRef, useEffect, useState} from 'react'
 import {
   StyleSheet,
@@ -8,6 +7,7 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
+import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
 
