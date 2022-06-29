@@ -40,12 +40,14 @@ const modulesPersistConfig = {
 const constructionWorkPersistConfig = {
   key: 'constructionWork',
   storage: AsyncStorage,
+  whitelist: ['readArticles'],
 }
 
 const projectManagerPersistConfig = {
   key: 'projectManager',
   storage: AsyncStorage,
 }
+
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
