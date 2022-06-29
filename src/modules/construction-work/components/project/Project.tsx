@@ -66,31 +66,26 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const isSubscribed = !!notificationSettings.projects[project.identifier]
-  const {followed} = project
+  const {images, followed, subtitle, title} = project
+  const isSubscribed = !!notificationSettings.projects[id]
 
   return (
     <ScrollView>
-      {!!project.images.length && (
+      {!!images.length && (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(project.images[0].sources, environment)}
+          source={mapImageSources(images[0].sources, environment)}
         />
       )}
       <Column gutter="md">
         <Box background="white">
           <Column gutter="md">
-            {projectManager?.projects.includes(project.identifier) && (
+            {projectManager?.projects.includes(id) && (
               <Button
                 onPress={() =>
                   navigation.navigate(
                     ConstructionWorkRouteName.createNotification,
-                    {
-                      project: {
-                        id: project.identifier,
-                        title: project.title,
-                      },
-                    },
+                    {project: {id, title}},
                   )
                 }
                 text="Verstuur pushbericht"
@@ -99,13 +94,11 @@ export const Project = ({id}: Props) => {
             )}
             <SingleSelectable
               accessibilityRole="header"
-              label={accessibleText(project.title, project.subtitle)}>
+              label={accessibleText(title, subtitle)}>
               <Column gutter="sm">
                 <ProjectTraits {...{followed}} />
-                {project.title && <Title text={project.title} />}
-                {project.subtitle && (
-                  <Title level="h4" text={project.subtitle} />
-                )}
+                {title && <Title text={title} />}
+                {subtitle && <Title level="h4" text={subtitle} />}
               </Column>
             </SingleSelectable>
             <FollowButton following={false} />
@@ -113,9 +106,7 @@ export const Project = ({id}: Props) => {
               accessibilityLabel="Ontvang berichten"
               label={<Text>Ontvang berichten</Text>}
               labelPosition="end"
-              onValueChange={() =>
-                toggleProjectSubscription(project.identifier)
-              }
+              onValueChange={() => toggleProjectSubscription(id)}
               value={isSubscribed}
             />
           </Column>
@@ -123,7 +114,7 @@ export const Project = ({id}: Props) => {
           <ProjectBodyMenu project={project} />
         </Box>
         <Box>
-          <ArticleOverview projectIds={[project.identifier]} title="Nieuws" />
+          <ArticleOverview projectIds={[id]} title="Nieuws" />
         </Box>
       </Column>
     </ScrollView>
