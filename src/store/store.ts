@@ -10,7 +10,6 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'
-import {notificationsSlice} from '../components/features/notifications'
 import {addressSlice} from '../modules/address/addressSlice'
 import {projectManagerSlice} from '../modules/construction-work/components/project-manager'
 import {projectsByTextSlice} from '../modules/construction-work/components/projects'
@@ -19,6 +18,7 @@ import {baseApi} from '../services/init'
 import {themeSlice} from '../themes/themeSlice'
 import {authSlice} from './authSlice'
 import {environmentSlice} from './environmentSlice'
+import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
 import {sentryLoggerMiddleware} from '@/services'
 
 const addressPersistConfig = {
@@ -37,8 +37,8 @@ const modulesPersistConfig = {
   storage: AsyncStorage,
 }
 
-const notificationsPersistConfig = {
-  key: 'notifications',
+const constructionWorkPersistConfig = {
+  key: 'constructionWork',
   storage: AsyncStorage,
 }
 
@@ -55,9 +55,9 @@ const rootReducer = combineReducers({
     environmentSlice.reducer,
   ),
   modules: persistReducer(modulesPersistConfig, modulesSlice.reducer),
-  notifications: persistReducer(
-    notificationsPersistConfig,
-    notificationsSlice.reducer,
+  constructionWork: persistReducer(
+    constructionWorkPersistConfig,
+    constructionWorkSlice.reducer,
   ),
   notificationDraft: notificationDraftSlice.reducer,
   projectManager: persistReducer(
