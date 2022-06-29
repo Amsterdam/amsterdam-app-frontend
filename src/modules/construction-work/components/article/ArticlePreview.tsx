@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import {selectNotificationSettings} from '@/components/features/notifications'
+import {selectConstructionWorkReadArticles} from '../../construction-work.slice'
 import {Hero} from '@/components/ui/Hero'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -25,12 +25,12 @@ type Props = {
 
 export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   const environment = useEnvironment()
-  const {readArticles} = useSelector(selectNotificationSettings)
+  const readArticles = useSelector(selectConstructionWorkReadArticles)
 
   const getImageSources = () => {
     if (article.type === 'news') {
-      const imageSources = article.image?.sources
-      return mapImageSources(imageSources, environment)
+      const sources = article.image?.sources
+      return mapImageSources(sources, environment)
     }
     const mainImageFromProjectWarning = article?.images?.find(
       image => image.main,
