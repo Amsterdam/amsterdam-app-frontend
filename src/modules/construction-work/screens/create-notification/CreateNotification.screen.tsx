@@ -10,7 +10,7 @@ import {Box, KeyboardAvoidingView, Stepper} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {
   clearDraft,
@@ -23,13 +23,13 @@ import {createNotificationRoutes} from '@/modules/construction-work/screens/crea
 import {useTheme} from '@/themes'
 
 type NotificationScreenRouteProp = RouteProp<
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
   ConstructionWorkRouteName.createNotification
 >
 
 type Props = {
   navigation: StackNavigationProp<
-    ProjectsStackParams,
+    ConstructionWorkStackParams,
     ConstructionWorkRouteName.createNotification
   >
   route: NotificationScreenRouteProp

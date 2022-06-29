@@ -7,11 +7,11 @@ import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 
 type ProjectBodyScreenRouteProp = RouteProp<
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
   ConstructionWorkRouteName.projectBody
 >
 

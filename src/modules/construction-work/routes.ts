@@ -12,7 +12,7 @@ export enum ConstructionWorkRouteName {
   projectWarning = 'ProjectWarning',
 }
 
-export type ProjectsStackParams = {
+export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.authorizedProjects]: {projectManagerId: string}
   [ConstructionWorkRouteName.createNotification]: {project: ProjectIdAndTitle}
   [ConstructionWorkRouteName.projects]: undefined

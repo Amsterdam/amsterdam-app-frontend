@@ -21,7 +21,7 @@ import {
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -32,7 +32,7 @@ import {mapImageSources} from '@/utils'
 type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
 }
@@ -68,7 +68,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ProjectsStackParams,
+    RootStackParamList & ConstructionWorkStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -76,11 +76,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
+  const {followed, meter, strides} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits projectId={project.identifier} />}
+      kicker={<ProjectTraits {...{followed, meter, strides}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
@@ -105,7 +106,7 @@ export const ProjectsByDistance = ({
   const navigation =
     useNavigation<
       StackNavigationProp<
-        RootStackParamList & ProjectsStackParams,
+        RootStackParamList & ConstructionWorkStackParams,
         ConstructionWorkRouteName.projects
       >
     >()
@@ -141,13 +142,11 @@ export const ProjectsByDistance = ({
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={
-          <>
-            <Box insetHorizontal="md">
-              <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
-            </Box>
-          </>
-        }
+        ListEmptyComponent={() => (
+          <Box insetHorizontal="md">
+            <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
+          </Box>
+        )}
         ListHeaderComponent={
           <ListHeader address={adres} navigation={navigation} />
         }

@@ -3,11 +3,11 @@ import React from 'react'
 import {ProjectNews} from '@/modules/construction-work/components/project'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 
 type ProjectNewsScreenRouteProp = RouteProp<
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
   ConstructionWorkRouteName.projectNews
 >
 

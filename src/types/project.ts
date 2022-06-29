@@ -28,6 +28,7 @@ export type ProjectsItem = {
   content_text: string
   district_id: number
   district_name: string
+  followed: boolean
   identifier: string
   images: Image[] | null
   last_seen: string // date
@@ -74,6 +75,7 @@ export type ProjectsByTextQueryArg = {
 
 // All project details as received from our backend
 export type Project = {
+  active: boolean
   body: {
     contact: Section[]
     intro: Section[]
@@ -91,12 +93,23 @@ export type Project = {
   }
   district_id: number
   district_name: string
+  followed: boolean
+  followers: number
   identifier: string
   images: Image[]
+  last_seen: string // date
+  news: ProjectNews[]
   page_id: number
+  project_type: string
   rel_url: string
   subtitle: string
   title: string
+  url: string
+}
+
+export type ProjectNews = {
+  identifier: string
+  project_identifier: string
   url: string
 }
 

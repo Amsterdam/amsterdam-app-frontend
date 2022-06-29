@@ -8,14 +8,14 @@ import {Button} from '@/components/ui/buttons'
 import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
 import {
   ConstructionWorkRouteName,
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {module as homeModule} from '@/modules/home'
 import {HomeRouteName} from '@/modules/home/routes'
 import {Theme, useThemable} from '@/themes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
   ConstructionWorkRouteName.projectManager
 >
 
