@@ -1,4 +1,4 @@
-import {ProjectsStackParams, ConstructionWorkRouteName} from './routes'
+import {ConstructionWorkRouteName, ConstructionWorkStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
   AuthorizedProjectsScreen,
@@ -12,7 +12,7 @@ import {
 import {CreateNotificationScreen} from '@/modules/construction-work/screens/create-notification'
 
 export const constructionWorkScreenConfig: StackNavigationRoutes<
-  ProjectsStackParams,
+  ConstructionWorkStackParams,
   ConstructionWorkRouteName
 > = {
   [ConstructionWorkRouteName.authorizedProjects]: {
