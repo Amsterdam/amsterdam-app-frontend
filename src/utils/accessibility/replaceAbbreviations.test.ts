@@ -1,4 +1,4 @@
-import {replaceAbbreviations} from '../index'
+import {replaceAbbreviations} from './replaceAbbreviations'
 
 test('vervang ‘t/m’', () =>
   expect(replaceAbbreviations('Brouwersgracht 29 t/m 59')).toBe(
