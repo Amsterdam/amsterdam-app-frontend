@@ -1,5 +1,5 @@
 /**
- * Converts timestamp to date
+ * Converts string to date
  */
 export const formatDate = (date: string | number) => {
   if (date === null || date === undefined) {
