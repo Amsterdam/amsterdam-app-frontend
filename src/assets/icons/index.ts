@@ -1,3 +1,4 @@
+import Announcement from './announcement.svg'
 import BellActive from './bell-active.svg'
 import BellInactive from './bell-inactive.svg'
 import BulkyWaste from './bulky-waste.svg'
@@ -19,6 +20,7 @@ import Strides from './strides.svg'
 import Whatsapp from './whatsapp.svg'
 
 export {
+  Announcement,
   BellActive,
   BellInactive,
   BulkyWaste,

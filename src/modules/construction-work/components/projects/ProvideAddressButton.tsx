@@ -27,7 +27,7 @@ export const ProvideAddressButton = () => {
       <Row align="start">
         <Button
           onPress={() =>
-            navigation.navigate(addressModule.name, {
+            navigation.navigate(addressModule.slug, {
               screen: AddressRouteName.addressForm,
             })
           }

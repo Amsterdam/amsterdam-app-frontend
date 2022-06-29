@@ -1,5 +1,5 @@
-import {baseApi} from '../../services'
 import {Template} from './types'
+import {baseApi} from '@/services'
 
 export const templateApi = baseApi.injectEndpoints({
   endpoints: builder => ({

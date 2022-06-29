@@ -12,7 +12,7 @@ import {TextButton} from '@/components/ui/buttons'
 export const NoPreviousSubscriptionsMessage = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.name>
+      StackNavigationProp<RootStackParamList, typeof userModule.slug>
     >()
 
   return (
@@ -25,7 +25,7 @@ export const NoPreviousSubscriptionsMessage = () => {
       <TextButton
         emphasis
         onPress={() =>
-          navigation.navigate(constructionWorkModule.name, {
+          navigation.navigate(constructionWorkModule.slug, {
             screen: ConstructionWorkRouteName.projects,
           })
         }

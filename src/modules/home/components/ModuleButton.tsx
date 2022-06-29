@@ -5,21 +5,22 @@ import {RootStackParamList} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {ModuleSlugs} from '@/modules/slugs'
 
 type Props = {
   icon: ReactNode
   label: string
-  name?: keyof RootStackParamList
+  slug?: keyof RootStackParamList
 }
 
-export const ModuleButton = ({icon, label, name}: Props) => {
+export const ModuleButton = ({icon, label, slug}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, ModuleSlugs.home>>()
 
   return (
     <Pressable
       inset="md"
-      onPress={name ? () => navigation.navigate(name) : undefined}>
+      onPress={slug ? () => navigation.navigate(slug) : undefined}>
       <Row gutter="md" valign="center">
         {icon}
         <Title level="h5" text={label} />

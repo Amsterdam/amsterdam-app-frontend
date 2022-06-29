@@ -32,7 +32,7 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({icon, name, slug, title}) => {
+        {modules.map(({icon, slug, title}) => {
           const ModuleIcon = icons[icon]
 
           return (
@@ -46,7 +46,7 @@ export const Modules = () => {
               }
               key={slug}
               label={title}
-              name={name}
+              slug={slug}
             />
           )
         })}

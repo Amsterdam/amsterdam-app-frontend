@@ -39,7 +39,7 @@ export const ProjectManagerScreen = ({navigation, route}: Props) => {
         <Button
           text="Sluit venster"
           onPress={() =>
-            navigation.navigate(homeModule.name, {screen: HomeRouteName.home})
+            navigation.navigate(homeModule.slug, {screen: HomeRouteName.home})
           }
         />
       </Box>

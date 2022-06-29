@@ -17,7 +17,7 @@ export const AddressFormTeaser = ({text, title}: Props) => {
   const inputLabel = 'Vul uw postcode of straatnaam in'
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.name>
+      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.slug>
     >()
 
   return (
@@ -29,7 +29,7 @@ export const AddressFormTeaser = ({text, title}: Props) => {
           accessibilityLabel={inputLabel}
           label={inputLabel}
           onFocus={() =>
-            navigation.navigate(addressModule.name, {
+            navigation.navigate(addressModule.slug, {
               screen: AddressRouteName.addressForm,
             })
           }

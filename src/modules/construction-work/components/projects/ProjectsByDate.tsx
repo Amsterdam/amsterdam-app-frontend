@@ -12,10 +12,7 @@ import {
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
@@ -23,10 +20,7 @@ import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListItemProps = {
-  navigation: StackNavigationProp<
-    RootStackParamList & ConstructionWorkStackParams,
-    ConstructionWorkRouteName
-  >
+  navigation: StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
   project: ProjectsItem
 }
 
@@ -58,10 +52,7 @@ const ListEmptyMessage = () => (
 export const ProjectsByDate = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        ConstructionWorkStackParams,
-        ConstructionWorkRouteName
-      >
+      StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
     >()
 
   const {fontScale} = useContext(DeviceContext)

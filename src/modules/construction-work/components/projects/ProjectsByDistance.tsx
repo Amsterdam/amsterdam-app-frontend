@@ -19,10 +19,8 @@ import {
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
 import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ModuleSlugs} from '@/modules/slugs'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
@@ -32,7 +30,7 @@ import {mapImageSources} from '@/utils'
 type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
-    RootStackParamList & ConstructionWorkStackParams,
+    RootStackParamList,
     ConstructionWorkRouteName.projects
   >
 }
@@ -56,7 +54,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
           onPress={
             // TODO Open as modal
             () =>
-              navigation.navigate('AddressModule', {
+              navigation.navigate(ModuleSlugs.address, {
                 screen: AddressRouteName.addressForm,
               })
           }
@@ -68,7 +66,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList & ConstructionWorkStackParams,
+    RootStackParamList,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -112,7 +110,7 @@ export const ProjectsByDistance = ({
   const navigation =
     useNavigation<
       StackNavigationProp<
-        RootStackParamList & ConstructionWorkStackParams,
+        RootStackParamList,
         ConstructionWorkRouteName.projects
       >
     >()

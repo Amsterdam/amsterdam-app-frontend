@@ -40,7 +40,7 @@ export const WasteGuideByAddress = () => {
   )
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.name>
+      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.slug>
     >()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
@@ -70,7 +70,7 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(addressModule.name, {
+    navigation.navigate(addressModule.slug, {
       screen: AddressRouteName.addressForm,
       params: {
         addressIsTemporary: true,

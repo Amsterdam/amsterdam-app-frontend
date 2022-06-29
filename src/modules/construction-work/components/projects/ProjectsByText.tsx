@@ -4,6 +4,7 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {RootStackParamList} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
@@ -11,10 +12,7 @@ import {Paragraph} from '@/components/ui/text'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
@@ -33,10 +31,7 @@ const ListHeader = ({results}: ListHeaderProps) => (
 )
 
 type ListItemProps = {
-  navigation: StackNavigationProp<
-    ConstructionWorkStackParams,
-    ConstructionWorkRouteName
-  >
+  navigation: StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
   project: ProjectsItem
 }
 
@@ -70,10 +65,7 @@ type Props = {
 export const ProjectsByText = ({searchText}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        ConstructionWorkStackParams,
-        ConstructionWorkRouteName
-      >
+      StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
     >()
 
   const {fontScale} = useContext(DeviceContext)

@@ -3,9 +3,13 @@ import React from 'react'
 import {RootStackParamList} from '../../../app/navigation'
 import {BannerCard} from '../../../components/features'
 import {WasteGuideRouteName} from '../routes'
+import {ModuleSlugs} from '@/modules/slugs'
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'WasteGuideModule'>
+  navigation: StackNavigationProp<
+    RootStackParamList,
+    typeof ModuleSlugs['waste-guide']
+  >
 }
 
 export const ReportNotCollectedBanner = ({navigation}: Props) => {

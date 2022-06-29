@@ -6,7 +6,9 @@ import {RootStackParamList} from '../../../app/navigation'
 import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {Address} from '../../../types'
+import {WasteGuideRouteName} from '../routes'
 import {Button} from '@/components/ui/buttons'
+import {ModuleSlugs} from '@/modules/slugs'
 
 type Props = {
   address: Address
@@ -14,7 +16,9 @@ type Props = {
 
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'WasteGuideModule'>>()
+    useNavigation<
+      StackNavigationProp<RootStackParamList, typeof ModuleSlugs['waste-guide']>
+    >()
 
   const content =
     address.woonplaats === 'Weesp'
@@ -40,7 +44,8 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
           title: 'Niet gevonden',
           text: `We konden geen afvalinformatie vinden voor het adres ${address.adres}, ${address.postcode} ${address.woonplaats}.`,
           button: {
-            onPress: () => navigation.navigate('WasteGuideFeedback'),
+            onPress: () =>
+              navigation.navigate(WasteGuideRouteName.wasteGuideFeedback),
             label: 'Hier klopt iets niet',
             secondary: true,
           },

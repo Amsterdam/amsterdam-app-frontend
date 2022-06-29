@@ -23,7 +23,7 @@ export const AuthorizedProjectsUserSection = () => {
     useProjectManagerFetcher()
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.name>
+      StackNavigationProp<RootStackParamList, typeof userModule.slug>
     >()
 
   if (!projectManager) {
@@ -51,7 +51,7 @@ export const AuthorizedProjectsUserSection = () => {
           <Fragment key={project.identifier}>
             <LinkToUserSection
               onPress={() =>
-                navigation.navigate(constructionWorkModule.name, {
+                navigation.navigate(constructionWorkModule.slug, {
                   screen: ConstructionWorkRouteName.project,
                   params: {
                     id: project.identifier,

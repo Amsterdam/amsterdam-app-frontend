@@ -9,13 +9,14 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
+import {ModuleSlugs} from '@/modules/slugs'
 import {module as userModule} from '@/modules/user'
 import {isDevApp} from '@/processes'
 import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, 'HomeModule'>>()
+    useNavigation<StackNavigationProp<RootStackParamList, ModuleSlugs.home>>()
 
   const iconProps = useThemable(createIconProps)
 
@@ -39,7 +40,7 @@ export const HeaderNavigation = () => {
             <PersonalLogin {...iconProps} />
           </Icon>
         }
-        onPress={() => navigation.navigate(userModule.name)}
+        onPress={() => navigation.navigate(userModule.slug)}
       />
       <IconButton
         accessibilityLabel="Instellingen"

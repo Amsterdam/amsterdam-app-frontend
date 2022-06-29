@@ -12,7 +12,7 @@ import {TextButton} from '@/components/ui/buttons'
 export const NoNotificationsMessage = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.name>
+      StackNavigationProp<RootStackParamList, typeof userModule.slug>
     >()
 
   return (
@@ -38,7 +38,7 @@ export const NoNotificationsMessage = () => {
         <TextButton
           emphasis
           onPress={() =>
-            navigation.navigate(constructionWorkModule.name, {
+            navigation.navigate(constructionWorkModule.slug, {
               screen: ConstructionWorkRouteName.projects,
             })
           }

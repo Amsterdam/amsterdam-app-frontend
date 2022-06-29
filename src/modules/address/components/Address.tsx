@@ -24,7 +24,7 @@ export const Address = () => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.name>
+      StackNavigationProp<RootStackParamList, typeof userModule.slug>
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
@@ -57,7 +57,7 @@ export const Address = () => {
                 <Button
                   variant="inverse"
                   onPress={() =>
-                    navigation.navigate(addressModule.name, {
+                    navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
@@ -89,7 +89,7 @@ export const Address = () => {
                 <Row align="start">
                   <Button
                     onPress={() =>
-                      navigation.navigate(addressModule.name, {
+                      navigation.navigate(addressModule.slug, {
                         screen: AddressRouteName.addressInfo,
                       })
                     }
@@ -101,7 +101,7 @@ export const Address = () => {
               <Row align="start">
                 <Button
                   onPress={() =>
-                    navigation.navigate(addressModule.name, {
+                    navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }

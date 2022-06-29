@@ -14,7 +14,7 @@ export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.name>
+      StackNavigationProp<RootStackParamList, typeof userModule.slug>
     >()
 
   if (!projectManagerId) {
@@ -25,7 +25,7 @@ export const ProjectManagerUserSection = () => {
     <UserSection title="Omgevingsmanager">
       <LinkToUserSection
         onPress={() =>
-          navigation.navigate(constructionWorkModule.name, {
+          navigation.navigate(constructionWorkModule.slug, {
             screen: ConstructionWorkRouteName.authorizedProjects,
           })
         }>
