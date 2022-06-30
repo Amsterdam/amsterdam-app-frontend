@@ -40,21 +40,21 @@ export const ProjectCard = ({
         {imageSource && (
           <>
             <Image aspectRatio="wide" source={imageSource} />
-            <Gutter height="md" />
+            <Gutter height="sm" />
           </>
         )}
         <View>
           {kicker && (
             <>
               {kicker}
-              <Gutter height="sm" />
+              <Gutter height="xs" />
             </>
           )}
           <Title inPressable level="h4" text={title} />
           {subtitle ? <Paragraph>{subtitle}</Paragraph> : null}
         </View>
         {/*TODO Replace with better `Grid` gutters */}
-        <Gutter height="md" />
+        <Gutter height="sm" />
       </View>
     </Pressable>
   )

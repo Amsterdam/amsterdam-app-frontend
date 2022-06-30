@@ -31,7 +31,7 @@ export const ProvideAddressButton = () => {
 
   return (
     <>
-      <Gutter height="md" />
+      <Gutter height="lg" />
       <Row align="start">
         <Button
           onPress={() =>
