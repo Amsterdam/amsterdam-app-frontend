@@ -57,6 +57,12 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
+const ListEmptyMessage = () => (
+  <Box insetHorizontal="md">
+    <EmptyMessage text="We hebben geen werkzaamheden gevonden voor deze zoekterm." />
+  </Box>
+)
+
 type Props = {
   searchText: string
 }
@@ -100,11 +106,7 @@ export const ProjectsByText = ({searchText}: Props) => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={() => (
-        <Box insetHorizontal="md">
-          <EmptyMessage text="We hebben geen werkzaamheden gevonden voor deze zoekterm." />
-        </Box>
-      )}
+      ListEmptyComponent={ListEmptyMessage}
       ListHeaderComponent={<ListHeader results={projects.length} />}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />

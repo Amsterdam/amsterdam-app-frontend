@@ -49,6 +49,12 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
+const ListEmptyMessage = () => (
+  <Box insetHorizontal="md">
+    <EmptyMessage text="We hebben geen werkzaamheden gevonden." />
+  </Box>
+)
+
 export const ProjectsByDate = () => {
   const navigation =
     useNavigation<
@@ -85,11 +91,7 @@ export const ProjectsByDate = () => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={() => (
-        <Box insetHorizontal="md">
-          <EmptyMessage text="We hebben geen werkzaamheden gevonden." />
-        </Box>
-      )}
+      ListEmptyComponent={ListEmptyMessage}
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
       )}

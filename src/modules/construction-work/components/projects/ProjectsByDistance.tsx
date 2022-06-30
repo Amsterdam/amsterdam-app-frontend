@@ -93,6 +93,12 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   )
 }
 
+const ListEmptyMessage = () => (
+  <Box insetHorizontal="md">
+    <EmptyMessage text="We hebben geen werkzaamheden gevonden dichtbij dit adres." />
+  </Box>
+)
+
 type Props = {
   address: Address
 }
@@ -142,11 +148,7 @@ export const ProjectsByDistance = ({
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={() => (
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen werkzaamheden gevonden dichtbij dit adres." />
-          </Box>
-        )}
+        ListEmptyComponent={ListEmptyMessage}
         ListHeaderComponent={
           <ListHeader address={adres} navigation={navigation} />
         }
