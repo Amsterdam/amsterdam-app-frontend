@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, environments} from '../../environment'
-import {baseApi, isDevApp} from '../../services'
 import {
   selectEnvironmentConfig,
   setCustomEnvironment,
@@ -11,6 +10,8 @@ import {Box} from '../ui'
 import {TextInput} from '../ui/forms'
 import {Grid, GridCell} from '../ui/layout'
 import {Button} from '@/components/ui/buttons'
+import {isDevApp} from '@/processes'
+import {baseApi} from '@/services'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {getCaptureSentryBreadcrumb, getSendSentryErrorLog} from '@/services'
+import {getCaptureSentryBreadcrumb, getSendSentryErrorLog} from '@/processes'
 import {SentryHandler} from '@/types'
 
 /**

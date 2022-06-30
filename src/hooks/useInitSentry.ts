@@ -3,9 +3,9 @@ import {useEffect} from 'react'
 import {useSentry} from '@/hooks'
 import {
   initSentry,
-  setSentryBackEndEnvironment,
   setSentryUserData,
-} from '@/services'
+  setSentryBackEndEnvironment,
+} from '@/processes'
 import {useAppSelector} from '@/store'
 import {BreadcrumbCategory} from '@/types'
 

@@ -2,7 +2,6 @@ import messaging from '@react-native-firebase/messaging'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {getSubscribedProjects} from '../modules/user/utils'
-import {devLog} from '../services'
 import {useEnvironment} from '../store'
 import {DeviceRegistration, NotificationSettings, Settings} from '../types'
 import {
@@ -12,6 +11,7 @@ import {
   Permission,
 } from '../utils'
 import {useFetch} from './useFetch'
+import {devLog} from '@/processes'
 
 export const useDeviceRegistration = (settings: Settings | undefined) => {
   const [refreshToken, setRefreshToken] = useState<string | undefined>()

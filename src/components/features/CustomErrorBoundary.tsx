@@ -2,7 +2,7 @@ import React, {Component, ReactNode} from 'react'
 import {Pressable, Text, StyleSheet} from 'react-native'
 import RNRestart from 'react-native-restart'
 import {SafeAreaView} from 'react-native-safe-area-context'
-import {devLog} from '@/services'
+import {devLog} from '@/processes'
 
 type Props = {children: ReactNode}
 

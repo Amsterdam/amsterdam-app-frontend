@@ -19,7 +19,7 @@ import {themeSlice} from '../themes/themeSlice'
 import {authSlice} from './authSlice'
 import {environmentSlice} from './environmentSlice'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
-import {sentryLoggerMiddleware} from '@/services'
+import {sentryLoggerMiddleware} from '@/processes'
 
 const addressPersistConfig = {
   key: 'address',
