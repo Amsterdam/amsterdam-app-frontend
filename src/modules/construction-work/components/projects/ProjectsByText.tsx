@@ -27,7 +27,7 @@ type ListHeaderProps = {
 
 const ListHeader = ({results}: ListHeaderProps) => (
   <Box insetHorizontal="md">
-    <Paragraph variant="small">{results} zoekresultaten</Paragraph>
+    <Paragraph>{results} zoekresultaten</Paragraph>
     <Gutter height="lg" />
   </Box>
 )
