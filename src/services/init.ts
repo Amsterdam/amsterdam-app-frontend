@@ -32,6 +32,7 @@ const deviceAuthorizationHeaderEndpoints: string[] = [
   ProjectsEndpointName.followProject,
   ProjectsEndpointName.unfollowProject,
   DeviceRegistrationEndpointName.registerDevice,
+  DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
 const dynamicBaseQuery: BaseQueryFn<

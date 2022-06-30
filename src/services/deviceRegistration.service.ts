@@ -1,5 +1,6 @@
 import {Platform} from 'react-native'
 import {baseApi} from '@/services/init'
+import {DeviceRegistrationEndpointName} from '@/types'
 import {MutationResponse} from '@/types/api'
 
 type DeviceRegistrationQueryArg = {
@@ -8,7 +9,7 @@ type DeviceRegistrationQueryArg = {
 
 export const deviceRegistrationApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    registerDevice: builder.mutation<
+    [DeviceRegistrationEndpointName.registerDevice]: builder.mutation<
       MutationResponse,
       DeviceRegistrationQueryArg
     >({
@@ -23,7 +24,19 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
         }
       },
     }),
+    [DeviceRegistrationEndpointName.unregisterDevice]: builder.mutation<
+      MutationResponse,
+      undefined
+    >({
+      query() {
+        return {
+          url: '/device/register',
+          method: 'DELETE',
+        }
+      },
+    }),
   }),
 })
 
-export const {useRegisterDeviceMutation} = deviceRegistrationApi
+export const {useRegisterDeviceMutation, useUnregisterDeviceMutation} =
+  deviceRegistrationApi
