@@ -102,7 +102,7 @@ export const ProjectsByText = ({searchText}: Props) => {
       keyExtractor={project => project.identifier}
       ListEmptyComponent={() => (
         <Box insetHorizontal="md">
-          <EmptyMessage text="We hebben geen projecten gevonden voor deze zoekterm." />
+          <EmptyMessage text="We hebben geen werkzaamheden gevonden voor deze zoekterm." />
         </Box>
       )}
       ListHeaderComponent={<ListHeader results={projects.length} />}

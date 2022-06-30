@@ -87,7 +87,7 @@ export const ProjectsByDate = () => {
       keyExtractor={project => project.identifier}
       ListEmptyComponent={() => (
         <Box insetHorizontal="md">
-          <EmptyMessage text="We hebben geen projecten gevonden." />
+          <EmptyMessage text="We hebben geen werkzaamheden gevonden." />
         </Box>
       )}
       renderItem={({item}) => (
