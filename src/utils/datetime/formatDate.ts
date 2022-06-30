@@ -1,3 +1,5 @@
+import 'intl'
+import 'intl/locale-data/jsonp/nl-NL'
 /**
  * Converts string to date
  */
@@ -6,7 +8,7 @@ export const formatDate = (date: string | number) => {
     return ''
   }
   const jsDate = new Date(date)
-  console.log(jsDate)
+
   const formattedDate = new Intl.DateTimeFormat('nl-NL', {
     day: 'numeric',
     month: 'long',
