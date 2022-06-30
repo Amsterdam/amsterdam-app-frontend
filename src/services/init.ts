@@ -6,6 +6,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
+import {DeviceRegistrationEndpointName} from './deviceRegistration.service'
 import {EnvironmentConfig} from '@/environment'
 import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
@@ -25,11 +26,13 @@ const deviceIdRequestingEndpoints: string[] = [
   ProjectsEndpointName.getProject,
   ProjectsEndpointName.getProjects,
   ProjectsEndpointName.unfollowProject,
+  DeviceRegistrationEndpointName.registerDevice,
 ]
 
 const deviceAuthorizationHeaderEndpoints: string[] = [
   ProjectsEndpointName.followProject,
   ProjectsEndpointName.unfollowProject,
+  DeviceRegistrationEndpointName.registerDevice,
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
