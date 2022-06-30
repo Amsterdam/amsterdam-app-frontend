@@ -6,3 +6,7 @@ export const getAuthToken = (salt: string = '') => {
     salt,
   })
 }
+
+export const deviceAuthorizationToken = getAuthToken(
+  process.env.AUTH_SHARED_SECRET,
+)

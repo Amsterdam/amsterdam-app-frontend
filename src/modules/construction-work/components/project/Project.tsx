@@ -10,7 +10,11 @@ import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
-import {useGetProjectQuery} from '@/modules/construction-work/construction-work.service'
+import {
+  useFollowProjectMutation,
+  useGetProjectQuery,
+  useUnfollowProjectMutation,
+} from '@/modules/construction-work/construction-work.service'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -35,6 +39,10 @@ export const Project = ({id}: Props) => {
 
   const {projectManager} = useProjectManagerFetcher()
   const {data: project, isLoading} = useGetProjectQuery({id})
+  const [followProject, {isLoading: isUpdatingFollow}] =
+    useFollowProjectMutation()
+  const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
+    useUnfollowProjectMutation()
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -84,7 +92,18 @@ export const Project = ({id}: Props) => {
                 {subtitle && <Title level="h4" text={subtitle} />}
               </Column>
             </SingleSelectable>
-            <FollowButton following={false} />
+            <FollowButton
+              accessibilityLabel={
+                project.followed ? 'Ontvolg dit project' : 'Volg dit project'
+              }
+              disabled={isUpdatingFollow || isUpdatingUnfollow}
+              following={project.followed}
+              onPress={() => {
+                project.followed
+                  ? unfollowProject({project_id: project.identifier})
+                  : followProject({project_id: project.identifier})
+              }}
+            />
           </Column>
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />

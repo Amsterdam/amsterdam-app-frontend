@@ -11,6 +11,7 @@ import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
 import {RootState} from '@/store/store'
 import {ProjectsEndpointName} from '@/types'
+import {deviceAuthorizationToken} from '@/utils'
 
 const managerAuthorizedEndpoints = [
   'addNotification',
@@ -26,6 +27,11 @@ const deviceIdRequestingEndpoints: string[] = [
   ProjectsEndpointName.unfollowProject,
 ]
 
+const deviceAuthorizationHeaderEndpoints: string[] = [
+  ProjectsEndpointName.followProject,
+  ProjectsEndpointName.unfollowProject,
+]
+
 const dynamicBaseQuery: BaseQueryFn<
   string | (FetchArgs & {api?: keyof EnvironmentConfig}),
   unknown,
@@ -38,11 +44,16 @@ const dynamicBaseQuery: BaseQueryFn<
     prepareHeaders: (headers, {endpoint, getState}) => {
       const token = selectAuthManagerToken(getState() as RootState)
 
-      if (token && managerAuthorizedEndpoints.includes(endpoint)) {
+      token &&
+        managerAuthorizedEndpoints.includes(endpoint) &&
         headers.set('userauthorization', token)
-      }
+
       deviceIdRequestingEndpoints.includes(endpoint) &&
         headers.set('deviceid', getUniqueId())
+
+      deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
+        headers.set('DeviceAuthorization', deviceAuthorizationToken)
+
       return headers
     },
   })(args, baseQueryApi, extraOptions)
@@ -52,5 +63,5 @@ export const baseApi = createApi({
   baseQuery: dynamicBaseQuery,
   endpoints: () => ({}),
   reducerPath: 'api',
-  tagTypes: ['Articles', 'Modules', 'Notifications'],
+  tagTypes: ['Articles', 'Modules', 'Notifications', 'Projects'],
 })
