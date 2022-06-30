@@ -6,26 +6,33 @@ import {Button} from '@/components/ui/buttons'
 import {useTheme} from '@/themes'
 
 type Props = {
-  following: boolean
-} & Omit<PressableProps, 'style'>
+  followed: boolean
+} & Omit<PressableProps, 'style' | 'onPress'> & {
+    onPress: (followed: boolean) => void
+  }
 
-export const FollowButton = ({following, ...otherProps}: Props) => {
+export const FollowButton = ({followed, onPress, ...otherProps}: Props) => {
   const {color} = useTheme()
-  return following ? (
+  const sharedProps = {
+    onPress: () => onPress(followed),
+    ...otherProps,
+  }
+
+  return followed ? (
     <Button
-      variant="primary"
       icon={<Checkmark fill={color.text.inverse} />}
       text="Volgend"
+      variant="primary"
       width="auto"
-      {...otherProps}
+      {...sharedProps}
     />
   ) : (
     <Button
-      variant="inverse"
       icon={<Enlarge fill={color.pressable.default.background} />}
       text="Volgen"
+      variant="inverse"
       width="auto"
-      {...otherProps}
+      {...sharedProps}
     />
   )
 }

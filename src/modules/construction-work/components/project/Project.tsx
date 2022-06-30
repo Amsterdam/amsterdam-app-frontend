@@ -1,11 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useLayoutEffect} from 'react'
+import React, {useCallback, useLayoutEffect} from 'react'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useDeviceRegistration} from '@/hooks'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
@@ -43,6 +44,22 @@ export const Project = ({id}: Props) => {
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
+  const {deviceRegistration} = useDeviceRegistration()
+
+  const onFollowButtonPress = useCallback(
+    async (isFollowed: boolean) => {
+      if (!project) {
+        return
+      }
+      if (isFollowed) {
+        unfollowProject({project_id: project.identifier})
+      } else {
+        followProject({project_id: project.identifier})
+        deviceRegistration()
+      }
+    },
+    [deviceRegistration, followProject, project, unfollowProject],
+  )
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -97,12 +114,8 @@ export const Project = ({id}: Props) => {
                 project.followed ? 'Ontvolg dit project' : 'Volg dit project'
               }
               disabled={isUpdatingFollow || isUpdatingUnfollow}
-              following={project.followed}
-              onPress={() => {
-                project.followed
-                  ? unfollowProject({project_id: project.identifier})
-                  : followProject({project_id: project.identifier})
-              }}
+              followed={followed}
+              onPress={onFollowButtonPress}
             />
           </Column>
           <Gutter height="lg" />
