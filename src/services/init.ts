@@ -6,12 +6,11 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
-import {DeviceRegistrationEndpointName} from './deviceRegistration.service'
 import {EnvironmentConfig} from '@/environment'
 import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
 import {RootState} from '@/store/store'
-import {ProjectsEndpointName} from '@/types'
+import {DeviceRegistrationEndpointName, ProjectsEndpointName} from '@/types'
 import {deviceAuthorizationToken} from '@/utils'
 
 const managerAuthorizedEndpoints = [

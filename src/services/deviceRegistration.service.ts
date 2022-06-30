@@ -1,13 +1,9 @@
 import {Platform} from 'react-native'
-import {baseApi} from './init'
+import {baseApi} from '@/services/init'
 import {MutationResponse} from '@/types/api'
 
 type DeviceRegistrationQueryArg = {
   firebase_token: string
-}
-
-export enum DeviceRegistrationEndpointName {
-  registerDevice = 'registerDevice',
 }
 
 export const deviceRegistrationApi = baseApi.injectEndpoints({
