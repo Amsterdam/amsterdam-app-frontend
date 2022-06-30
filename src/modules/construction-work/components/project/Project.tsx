@@ -3,9 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useLayoutEffect} from 'react'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
-import {Column, Gutter, ScrollView} from '@/components/ui/layout'
+import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph, Text, Title} from '@/components/ui/text'
 import {useDeviceRegistration} from '@/hooks'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
@@ -109,14 +109,23 @@ export const Project = ({id}: Props) => {
                 {subtitle && <Title level="h4" text={subtitle} />}
               </Column>
             </SingleSelectable>
-            <FollowButton
-              accessibilityLabel={
-                project.followed ? 'Ontvolg dit project' : 'Volg dit project'
-              }
-              disabled={isUpdatingFollow || isUpdatingUnfollow}
-              followed={followed}
-              onPress={onFollowButtonPress}
-            />
+            <Row gutter="md">
+              <FollowButton
+                accessibilityLabel={
+                  project.followed ? 'Ontvolg dit project' : 'Volg dit project'
+                }
+                disabled={isUpdatingFollow || isUpdatingUnfollow}
+                followed={followed}
+                onPress={onFollowButtonPress}
+              />
+              <SingleSelectable
+                label={accessibleText(project.followers.toString(), 'volgers')}>
+                <Column>
+                  <Text variant="bold">{project.followers}</Text>
+                  <Text>Volgers</Text>
+                </Column>
+              </SingleSelectable>
+            </Row>
           </Column>
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
