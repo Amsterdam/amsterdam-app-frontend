@@ -9,3 +9,5 @@ export const module: ModuleClientConfig = {
   slug: ModuleSlugs.address,
   state: [addressSlice],
 }
+
+export * from './types'

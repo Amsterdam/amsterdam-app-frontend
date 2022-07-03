@@ -1,3 +1,4 @@
+import {AddressQueryArg} from '@/modules/address'
 import {baseApi} from '@/services'
 import {
   FollowProjectBody,
@@ -68,7 +69,7 @@ export const projectsApi = baseApi.injectEndpoints({
 
     [ProjectsEndpointName.getProject]: builder.query<
       Project,
-      ProjectIdQueryArg
+      ProjectIdQueryArg & AddressQueryArg
     >({
       providesTags: ['Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
