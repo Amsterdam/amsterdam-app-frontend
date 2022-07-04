@@ -15,6 +15,10 @@ export enum ProjectsEndpointName {
   unfollowProject = 'unfollowProject',
 }
 
+export type FollowProjectBody = {
+  project_id: string
+}
+
 export type ProjectContact = {
   address: string
   email: string

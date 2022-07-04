@@ -1,6 +1,6 @@
 import {baseApi} from '@/services'
 import {
-  FollowProjectQueryArg,
+  FollowProjectBody,
   NewProjectWarning,
   NewsArticle,
   Project,
@@ -54,7 +54,7 @@ export const projectsApi = baseApi.injectEndpoints({
 
     [ProjectsEndpointName.followProject]: builder.mutation<
       MutationResponse,
-      FollowProjectQueryArg
+      FollowProjectBody
     >({
       invalidatesTags: ['Projects'],
       query(body) {
@@ -145,7 +145,7 @@ export const projectsApi = baseApi.injectEndpoints({
 
     [ProjectsEndpointName.unfollowProject]: builder.mutation<
       MutationResponse,
-      FollowProjectQueryArg
+      FollowProjectBody
     >({
       invalidatesTags: ['Projects'],
       query(body) {
