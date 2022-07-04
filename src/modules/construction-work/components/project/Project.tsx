@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useLayoutEffect} from 'react'
 import {useSelector} from 'react-redux'
+import simplur from 'simplur'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
@@ -61,6 +62,7 @@ export const Project = ({id}: Props) => {
       if (!project) {
         return
       }
+
       if (isFollowed) {
         unfollowProject({project_id: project.identifier})
       } else {
@@ -85,7 +87,8 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const {images, followed, meter, strides, subtitle, title} = project
+  const {images, followed, followers, meter, strides, subtitle, title} = project
+  const followersLabel = simplur`${[followers]} volger[|s]`
 
   return (
     <ScrollView>
@@ -96,22 +99,22 @@ export const Project = ({id}: Props) => {
         />
       )}
       <Column gutter="md">
-        <Box background="white">
+        <Box>
           <Column gutter="md">
             <Row gutter="md">
               <FollowButton
                 accessibilityLabel={
-                  project.followed ? 'Ontvolg dit project' : 'Volg dit project'
+                  followed ? 'Ontvolg dit project' : 'Volg dit project'
                 }
                 disabled={isUpdatingFollow || isUpdatingUnfollow}
                 followed={followed}
                 onPress={onPressFollowButton}
               />
               <SingleSelectable
-                label={accessibleText(project.followers.toString(), 'volgers')}>
+                label={accessibleText(followers.toString(), followersLabel)}>
                 <Column>
-                  <Text variant="bold">{project.followers}</Text>
-                  <Text>Volgers</Text>
+                  <Text variant="bold">{followers}</Text>
+                  <Text>{followersLabel}</Text>
                 </Column>
               </SingleSelectable>
             </Row>
