@@ -1,7 +1,6 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
-import {Header} from '_modules/home/components'
-import {Theme} from '_themes/index'
-import React from 'react'
+import {Header} from '@/modules/home/components'
+import {Theme} from '@/themes'
 
 export type CustomScreenOptions = {
   screenType: keyof Theme['color']['screen']['background']
@@ -21,9 +20,7 @@ export const screenOptions: (
     cardStyle: {
       backgroundColor: color.screen.background[customOptions.screenType],
     },
-    header: props => (
-      <Header {...props} screenType={customOptions.screenType} />
-    ),
+    header: Header,
     headerMode: 'screen',
   }
 }

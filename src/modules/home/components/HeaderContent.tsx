@@ -3,18 +3,13 @@ import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {CustomScreenOptions} from '@/app/navigation'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 
-type Props = Pick<
-  StackHeaderProps,
-  'back' | 'navigation' | 'options' | 'route'
-> &
-  CustomScreenOptions
+type Props = Pick<StackHeaderProps, 'back' | 'navigation' | 'options' | 'route'>
 
 const chevronSize = 20
 
