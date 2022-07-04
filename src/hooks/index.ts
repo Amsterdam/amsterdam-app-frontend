@@ -1,5 +1,5 @@
 export * from './useAsyncStorage'
-export * from './useDeviceRegistration'
+export * from './useRegisterDevice'
 export * from './useFetch'
 export * from './useForegroundPushNotificationHandler'
 export * from './useInitSentry'

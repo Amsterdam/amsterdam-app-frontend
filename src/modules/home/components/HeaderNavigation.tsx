@@ -10,7 +10,7 @@ import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
 import {module as userModule} from '@/modules/user'
-import {isDevApp} from '@/services'
+import {isDevApp} from '@/processes'
 import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {

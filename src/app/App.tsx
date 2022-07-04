@@ -11,8 +11,8 @@ import {PersistGate} from 'redux-persist/integration/react'
 import {linking, RootStackParamList, RootStackNavigator} from '@/app/navigation'
 import {Init, CustomErrorBoundary} from '@/components/features'
 import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
+import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
-import {registerNavigationContainer} from '@/services'
 import {store} from '@/store'
 
 const persistor = persistStore(store)

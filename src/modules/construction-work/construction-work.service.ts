@@ -1,5 +1,6 @@
 import {baseApi} from '@/services'
 import {
+  FollowProjectBody,
   NewProjectWarning,
   NewsArticle,
   Project,
@@ -16,6 +17,7 @@ import {
   ProjectWarningResponse,
   SortListQueryArg,
 } from '@/types'
+import {MutationResponse} from '@/types/api'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -37,7 +39,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     [ProjectsEndpointName.addProjectWarningImage]: builder.mutation<
-      unknown,
+      MutationResponse,
       ProjectWarningImageQueryArg
     >({
       invalidatesTags: ['Articles'],
@@ -50,10 +52,25 @@ export const projectsApi = baseApi.injectEndpoints({
       },
     }),
 
+    [ProjectsEndpointName.followProject]: builder.mutation<
+      MutationResponse,
+      FollowProjectBody
+    >({
+      invalidatesTags: ['Projects'],
+      query(body) {
+        return {
+          url: '/projects/follow',
+          method: 'POST',
+          body,
+        }
+      },
+    }),
+
     [ProjectsEndpointName.getProject]: builder.query<
       Project,
       ProjectIdQueryArg
     >({
+      providesTags: ['Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
       transformResponse: (response: {result: Project}) => response.result,
     }),
@@ -79,6 +96,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsItem[],
       Partial<ProjectsQueryArg & SortListQueryArg> | void
     >({
+      providesTags: ['Projects'],
       query: params => {
         if (params) {
           return generateRequestUrl({
@@ -96,6 +114,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsItem[],
       ProjectsByDistanceQueryArg
     >({
+      providesTags: ['Projects'],
       query: params => generateRequestUrl({path: '/projects/distance', params}),
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
@@ -123,6 +142,20 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,
     }),
+
+    [ProjectsEndpointName.unfollowProject]: builder.mutation<
+      MutationResponse,
+      FollowProjectBody
+    >({
+      invalidatesTags: ['Projects'],
+      query(body) {
+        return {
+          url: '/projects/follow',
+          method: 'DELETE',
+          body,
+        }
+      },
+    }),
   }),
   overrideExisting: true,
 })
@@ -130,6 +163,7 @@ export const projectsApi = baseApi.injectEndpoints({
 export const {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
+  useFollowProjectMutation,
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,
@@ -137,4 +171,5 @@ export const {
   useGetProjectsByDistanceQuery,
   useGetProjectsByTextQuery,
   useGetProjectsQuery,
+  useUnfollowProjectMutation,
 } = projectsApi

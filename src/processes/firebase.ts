@@ -1,4 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
+import {devLog} from '@/processes'
 
 export enum Permission {
   Denied,
@@ -34,7 +35,7 @@ export const getFcmToken = async () => {
       const token = await messaging().getToken()
       return token
     } catch (error) {
-      console.log(error)
+      devLog(error)
     }
   }
 }
