@@ -26,7 +26,6 @@ export type ProjectContact = {
   position: string
 }
 
-// An item in a project list as received from our backend
 export type ProjectsItem = {
   active: boolean
   content_html: string
@@ -53,7 +52,6 @@ export type ProjectSummary = Pick<
   'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
 >
 
-// Only the titles of a project, e.g. for small lists
 export type ProjectTitles = Pick<
   ProjectSummary,
   'identifier' | 'subtitle' | 'title'
@@ -71,7 +69,6 @@ export type ProjectsByTextQueryArg = {
   text: string
 } & Partial<PageListQueryArg>
 
-// All project details as received from our backend
 export type Project = {
   active: boolean
   body: {
@@ -134,7 +131,6 @@ export type ProjectManagerResponse = {
   projects: string[]
 }
 
-// An app user creates an initial warning
 export type NewProjectWarning = {
   title: string
   body: {
@@ -164,7 +160,6 @@ export type ProjectWarningImage = {
   sources: ProjectWarningImageSources
 }
 
-// Our backend adds a number of fields
 export type ProjectWarning = NewProjectWarning & {
   author_email: string
   identifier: string

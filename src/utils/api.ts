@@ -11,13 +11,6 @@ type Signature = {
   params: {}
 }
 
-/**
- *
- * @param {Object} params Defaults to empty Object
- * @param {string} path optional
- * @returns
- */
-
 export const generateRequestUrl = ({params = {}, path}: Signature) => {
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
