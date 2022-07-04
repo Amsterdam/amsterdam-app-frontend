@@ -45,7 +45,7 @@ export const Project = ({id}: Props) => {
     useUnfollowProjectMutation()
   const {deviceRegistration} = useDeviceRegistration()
 
-  const onFollowButtonPress = useCallback(
+  const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
       if (!project) {
         return
@@ -94,7 +94,7 @@ export const Project = ({id}: Props) => {
                 }
                 disabled={isUpdatingFollow || isUpdatingUnfollow}
                 followed={followed}
-                onPress={onFollowButtonPress}
+                onPress={onPressFollowButton}
               />
               <SingleSelectable
                 label={accessibleText(project.followers.toString(), 'volgers')}>
