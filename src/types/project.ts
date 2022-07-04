@@ -14,6 +14,10 @@ export enum ProjectsEndpointName {
   unfollowProject = 'unfollowProject',
 }
 
+export type FieldsQueryArg = {
+  fields?: string[]
+}
+
 export type FollowProjectBody = {
   project_id: string
 }
@@ -36,13 +40,13 @@ export type ProjectsItem = {
   identifier: string
   images: Image[] | null
   last_seen: string // date
-  meter?: number
+  meter: number
   modification_date: string
   project_type: string
   publication_date: string
   score: number
   source_url: string
-  strides?: number
+  strides: number
   subtitle: string | null
   title: string
 }
@@ -64,7 +68,6 @@ export type ProjectsQueryArg = {
 }
 
 export type ProjectsByTextQueryArg = {
-  fields?: string[]
   queryFields: string[]
   text: string
 } & Partial<PageListQueryArg>

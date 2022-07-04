@@ -1,6 +1,7 @@
 import {AddressQueryArg} from '@/modules/address'
 import {baseApi} from '@/services'
 import {
+  FieldsQueryArg,
   FollowProjectBody,
   NewProjectWarning,
   NewsArticle,
@@ -94,7 +95,9 @@ export const projectsApi = baseApi.injectEndpoints({
 
     [ProjectsEndpointName.getProjects]: builder.query<
       ProjectsItem[],
-      Partial<ProjectsQueryArg & SortListQueryArg> | void
+      Partial<
+        ProjectsQueryArg & AddressQueryArg & FieldsQueryArg & SortListQueryArg
+      > | void
     >({
       providesTags: ['Projects'],
       query: params => {
@@ -112,7 +115,7 @@ export const projectsApi = baseApi.injectEndpoints({
 
     [ProjectsEndpointName.getProjectsByText]: builder.query<
       ProjectsItem[],
-      ProjectsByTextQueryArg
+      ProjectsByTextQueryArg & FieldsQueryArg
     >({
       query: params => {
         return generateRequestUrl({

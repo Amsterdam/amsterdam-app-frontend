@@ -1,4 +1,5 @@
 import {
+  FieldsQueryArg,
   ListQueryArg,
   ProjectIdsQueryArg,
   ProjectsByTextQueryArg,
@@ -42,7 +43,11 @@ export const formatQueryParams = ({
   sortOrder,
   ...rest
 }: Partial<
-  ListQueryArg & ProjectIdsQueryArg & ProjectsByTextQueryArg & ProjectsQueryArg
+  ListQueryArg &
+    ProjectIdsQueryArg &
+    ProjectsByTextQueryArg &
+    FieldsQueryArg &
+    ProjectsQueryArg
 >) => ({
   ...(districtId && {'district-id': districtId}),
   ...(fields && {fields: fields.join(',')}),
