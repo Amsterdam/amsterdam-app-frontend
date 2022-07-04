@@ -11,28 +11,24 @@ type Props = {
     onPress: (followed: boolean) => void
   }
 
-export const FollowButton = ({followed, onPress, ...otherProps}: Props) => {
+export const FollowButton = ({followed, onPress}: Props) => {
   const {color} = useTheme()
-  const sharedProps = {
-    onPress: () => onPress(followed),
-    ...otherProps,
-  }
 
-  return followed ? (
+  return (
     <Button
-      icon={<Checkmark fill={color.text.inverse} />}
-      text="Volgend"
-      variant="primary"
       width="auto"
-      {...sharedProps}
-    />
-  ) : (
-    <Button
-      icon={<Enlarge fill={color.pressable.default.background} />}
-      text="Volgen"
-      variant="inverse"
-      width="auto"
-      {...sharedProps}
+      onPress={() => onPress(followed)}
+      {...(followed
+        ? {
+            icon: <Checkmark fill={color.text.inverse} />,
+            text: 'Volgend',
+            variant: 'primary',
+          }
+        : {
+            icon: <Enlarge fill={color.pressable.default.background} />,
+            text: 'Volgen',
+            variant: 'inverse',
+          })}
     />
   )
 }
