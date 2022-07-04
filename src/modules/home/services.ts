@@ -24,7 +24,7 @@ export const modulesApi = baseApi.injectEndpoints({
         }
       },
     }),
-    getModules: builder.query<ModuleServerConfig[], void>({
+    getModulesForApp: builder.query<ModuleServerConfig[], void>({
       providesTags: ['Modules'],
       query: () => {
         return {
@@ -55,6 +55,6 @@ export const modulesApi = baseApi.injectEndpoints({
 
 export const {
   useAddModuleMutation,
-  useGetModulesQuery,
+  useGetModulesForAppQuery,
   useSetModulesOrderMutation,
 } = modulesApi
