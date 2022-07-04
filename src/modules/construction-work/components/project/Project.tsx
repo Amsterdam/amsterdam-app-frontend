@@ -46,7 +46,7 @@ export const Project = ({id}: Props) => {
   const {deviceRegistration} = useDeviceRegistration()
 
   const onFollowButtonPress = useCallback(
-    async (isFollowed: boolean) => {
+    (isFollowed: boolean) => {
       if (!project) {
         return
       }
