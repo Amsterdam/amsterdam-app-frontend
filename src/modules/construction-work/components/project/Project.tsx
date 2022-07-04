@@ -1,15 +1,20 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useLayoutEffect} from 'react'
+import {useSelector} from 'react-redux'
+import simplur from 'simplur'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Text, Title} from '@/components/ui/text'
 import {useRegisterDevice} from '@/hooks'
+import {AddressQueryArg} from '@/modules/address'
+import {selectAddress} from '@/modules/address/addressSlice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
+import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
   useGetProjectQuery,
@@ -28,6 +33,7 @@ type Props = {
 
 export const Project = ({id}: Props) => {
   const environment = useEnvironment()
+  const {primary: address} = useSelector(selectAddress)
 
   const navigation =
     useNavigation<
@@ -37,8 +43,14 @@ export const Project = ({id}: Props) => {
       >
     >()
 
+  const addressParam: AddressQueryArg = {
+    address: address?.centroid[1] ? undefined : address?.adres,
+    lat: address?.centroid[1],
+    lon: address?.centroid[0],
+  }
+
   const {projectManager} = useProjectManagerFetcher()
-  const {data: project, isLoading} = useGetProjectQuery({id})
+  const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
@@ -50,6 +62,7 @@ export const Project = ({id}: Props) => {
       if (!project) {
         return
       }
+
       if (isFollowed) {
         unfollowProject({project_id: project.identifier})
       } else {
@@ -74,7 +87,8 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const {images, followed, subtitle, title} = project
+  const {images, followed, followers, meter, strides, subtitle, title} = project
+  const followersLabel = simplur`${[followers]} volger[|s]`
 
   return (
     <ScrollView>
@@ -85,22 +99,22 @@ export const Project = ({id}: Props) => {
         />
       )}
       <Column gutter="md">
-        <Box background="white">
+        <Box>
           <Column gutter="md">
             <Row gutter="md">
               <FollowButton
                 accessibilityLabel={
-                  project.followed ? 'Ontvolg dit project' : 'Volg dit project'
+                  followed ? 'Ontvolg dit project' : 'Volg dit project'
                 }
                 disabled={isUpdatingFollow || isUpdatingUnfollow}
                 followed={followed}
                 onPress={onPressFollowButton}
               />
               <SingleSelectable
-                label={accessibleText(project.followers.toString(), 'volgers')}>
+                label={accessibleText(followers.toString(), followersLabel)}>
                 <Column>
-                  <Text variant="bold">{project.followers}</Text>
-                  <Text>Volgers</Text>
+                  <Text variant="bold">{followers}</Text>
+                  <Text>{followersLabel}</Text>
                 </Column>
               </SingleSelectable>
             </Row>
@@ -119,9 +133,12 @@ export const Project = ({id}: Props) => {
             <SingleSelectable
               accessibilityRole="header"
               label={accessibleText(title, subtitle)}>
-              <Column gutter="sm">
-                {title && <Title text={title} />}
-                {subtitle && <Title level="h4" text={subtitle} />}
+              <Column gutter="md">
+                <ProjectTraits {...{meter, strides}} />
+                <Column gutter="sm">
+                  {title && <Title text={title} />}
+                  {subtitle && <Title level="h4" text={subtitle} />}
+                </Column>
               </Column>
             </SingleSelectable>
           </Column>

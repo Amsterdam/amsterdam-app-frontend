@@ -104,10 +104,12 @@ export type Project = {
   identifier: string
   images: Image[]
   last_seen: string // date
+  meter: number
   news: ProjectNews[]
   page_id: number
   project_type: string
   rel_url: string
+  strides: number
   subtitle: string
   title: string
   url: string
