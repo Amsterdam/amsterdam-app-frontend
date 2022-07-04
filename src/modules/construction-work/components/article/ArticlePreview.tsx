@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
+import {Box} from '@/components/ui'
 import {Hero} from '@/components/ui/Hero'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -72,14 +73,18 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
           </Row>
-          <Link label={article.title} level="h4" />
-          <View style={styles.image}>
-            {imageSources && Object.keys(imageSources[0]).length ? (
-              <Image aspectRatio="wide" source={imageSources} />
-            ) : (
-              <Hero />
-            )}
-          </View>
+          <Box insetHorizontal="md">
+            <Column gutter="sm">
+              <Link label={article.title} level="h4" />
+              <View style={styles.image}>
+                {imageSources && Object.keys(imageSources[0]).length ? (
+                  <Image aspectRatio="wide" source={imageSources} />
+                ) : (
+                  <Hero />
+                )}
+              </View>
+            </Column>
+          </Box>
         </Column>
       </Pressable>
     </View>
@@ -123,7 +128,7 @@ const createStyles =
         left: 0,
         zIndex: -1,
         width: lineThickness,
-        height: isLast ? '100%' : '120%',
+        height: isLast ? '100%' : '130%',
         backgroundColor: color.text.default,
       },
       update: {
