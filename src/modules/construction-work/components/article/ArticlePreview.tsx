@@ -119,6 +119,7 @@ const createStyles =
         paddingBottom: isLast ? 0 : size.spacing.xl,
       },
       line: {
+        bottom: isLast ? 0 : -size.spacing.xl,
         position: 'absolute',
         top: isFirst
           ? isNewAndUnreadArticle
@@ -128,7 +129,6 @@ const createStyles =
         left: 0,
         zIndex: -1,
         width: lineThickness,
-        height: isLast ? '100%' : '130%',
         backgroundColor: color.text.default,
       },
       update: {
