@@ -43,7 +43,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
   return (
     <Box>
       <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={`Projecten dichtbij ${address}`}>
+        <Paragraph accessibilityLabel={`Werkzaamheden dichtbij ${address}`}>
           Dichtbij {address}
         </Paragraph>
         <IconButton
@@ -92,6 +92,12 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     />
   )
 }
+
+const ListEmptyMessage = () => (
+  <Box insetHorizontal="md">
+    <EmptyMessage text="We hebben geen werkzaamheden gevonden dichtbij dit adres." />
+  </Box>
+)
 
 type Props = {
   address: Address
@@ -142,11 +148,7 @@ export const ProjectsByDistance = ({
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}
-        ListEmptyComponent={() => (
-          <Box insetHorizontal="md">
-            <EmptyMessage text="We hebben geen projecten gevonden voor dit adres." />
-          </Box>
-        )}
+        ListEmptyComponent={ListEmptyMessage}
         ListHeaderComponent={
           <ListHeader address={adres} navigation={navigation} />
         }

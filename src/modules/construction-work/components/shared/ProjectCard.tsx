@@ -27,36 +27,39 @@ export const ProjectCard = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={accessibleText(
-        title,
-        subtitle,
-        kicker?.props.accessibilityLabel,
-      )}
-      onPress={onPress}
-      style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
-      <View>
-        {imageSource && (
-          <>
-            <Image aspectRatio="wide" source={imageSource} />
-            <Gutter height="md" />
-          </>
+    <>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={accessibleText(
+          title,
+          subtitle,
+          kicker?.props.accessibilityLabel,
         )}
+        onPress={onPress}
+        style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
         <View>
-          {kicker && (
+          {imageSource && (
             <>
-              {kicker}
+              <Image aspectRatio="wide" source={imageSource} />
               <Gutter height="sm" />
             </>
           )}
-          <Title inPressable level="h4" text={title} />
-          {subtitle ? <Paragraph>{subtitle}</Paragraph> : null}
+          <View>
+            {kicker && (
+              <>
+                {kicker}
+                <Gutter height="xs" />
+              </>
+            )}
+            <Title inPressable level="h4" text={title} />
+            {subtitle ? <Paragraph>{subtitle}</Paragraph> : null}
+          </View>
+          {/*TODO Replace with better `Grid` gutters */}
+          <Gutter height="sm" />
         </View>
-        {/*TODO Replace with better `Grid` gutters */}
-        <Gutter height="md" />
-      </View>
-    </Pressable>
+      </Pressable>
+      <Gutter height="sm" />
+    </>
   )
 }
 

@@ -24,7 +24,7 @@ export const ProjectsScreen = () => {
     <>
       <Box>
         <ProjectsTextSearchField />
-        <ProvideAddressButton />
+        {!hasAddress && !isSearching && <ProvideAddressButton />}
       </Box>
       {isSearching ? (
         hasSearchText ? (
