@@ -18,7 +18,7 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
-import {useGetProjectsByDistanceQuery} from '@/modules/construction-work/construction-work.service'
+import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ModuleSlugs} from '@/modules/slugs'
 import {DeviceContext} from '@/providers'
@@ -120,13 +120,14 @@ export const ProjectsByDistance = ({
     address: lat && lon ? '' : adres,
     lat,
     lon,
+    sortBy: 'meter',
   }
 
   const {
     data: projects = [],
     isLoading,
     isError,
-  } = useGetProjectsByDistanceQuery(params ?? skipToken)
+  } = useGetProjectsQuery(params ?? skipToken)
 
   if (isLoading) {
     return <PleaseWait />

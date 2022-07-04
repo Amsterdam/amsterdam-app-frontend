@@ -9,7 +9,6 @@ export enum ProjectsEndpointName {
   getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',
   getProjects = 'getProjects',
-  getProjectsByDistance = 'getProjectsByDistance',
   getProjectsByText = 'getProjectsByText',
   getProjectWarning = 'getProjectWarning',
   unfollowProject = 'unfollowProject',
@@ -64,13 +63,6 @@ export type ProjectsQueryArg = {
   projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
-}
-
-export type ProjectsByDistanceQueryArg = {
-  address: string
-  lat: number
-  lon: number
-  radius?: number
 }
 
 export type ProjectsByTextQueryArg = {

@@ -7,7 +7,6 @@ import {
   Project,
   ProjectIdQueryArg,
   ProjectManagerResponse,
-  ProjectsByDistanceQueryArg,
   ProjectsByTextQueryArg,
   ProjectsEndpointName,
   ProjectsItem,
@@ -111,16 +110,6 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
-    [ProjectsEndpointName.getProjectsByDistance]: builder.query<
-      ProjectsItem[],
-      ProjectsByDistanceQueryArg
-    >({
-      providesTags: ['Projects'],
-      query: params => generateRequestUrl({path: '/projects/distance', params}),
-      transformResponse: (response: {result: ProjectsItem[]}) =>
-        response.result,
-    }),
-
     [ProjectsEndpointName.getProjectsByText]: builder.query<
       ProjectsItem[],
       ProjectsByTextQueryArg
@@ -169,7 +158,6 @@ export const {
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectWarningQuery,
-  useGetProjectsByDistanceQuery,
   useGetProjectsByTextQuery,
   useGetProjectsQuery,
   useUnfollowProjectMutation,
