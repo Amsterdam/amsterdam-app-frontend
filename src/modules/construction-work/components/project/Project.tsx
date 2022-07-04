@@ -6,7 +6,7 @@ import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Text, Title} from '@/components/ui/text'
-import {useDeviceRegistration} from '@/hooks'
+import {useRegisterDevice} from '@/hooks'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
@@ -43,7 +43,7 @@ export const Project = ({id}: Props) => {
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
-  const {deviceRegistration} = useDeviceRegistration()
+  const {deviceRegistration} = useRegisterDevice()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
