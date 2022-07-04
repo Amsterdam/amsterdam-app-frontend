@@ -17,6 +17,10 @@ type Props = {
 export const ProjectTraits = ({followed, meter, strides}: Props) => {
   const iconProps = useThemable(createIconProps)
 
+  if ([followed, meter, strides].every(v => !v)) {
+    return null
+  }
+
   return (
     <View
       accessibilityLabel={accessibleText(
