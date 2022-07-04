@@ -10,7 +10,6 @@ import {useDeviceRegistration} from '@/hooks'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
-import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
   useGetProjectQuery,
@@ -88,27 +87,6 @@ export const Project = ({id}: Props) => {
       <Column gutter="md">
         <Box background="white">
           <Column gutter="md">
-            {projectManager?.projects.includes(id) && (
-              <Button
-                onPress={() =>
-                  navigation.navigate(
-                    ConstructionWorkRouteName.createNotification,
-                    {project: {id, title}},
-                  )
-                }
-                text="Verstuur pushbericht"
-                variant="inverse"
-              />
-            )}
-            <SingleSelectable
-              accessibilityRole="header"
-              label={accessibleText(title, subtitle)}>
-              <Column gutter="sm">
-                <ProjectTraits {...{followed}} />
-                {title && <Title text={title} />}
-                {subtitle && <Title level="h4" text={subtitle} />}
-              </Column>
-            </SingleSelectable>
             <Row gutter="md">
               <FollowButton
                 accessibilityLabel={
@@ -126,6 +104,26 @@ export const Project = ({id}: Props) => {
                 </Column>
               </SingleSelectable>
             </Row>
+            {projectManager?.projects.includes(id) && (
+              <Button
+                onPress={() =>
+                  navigation.navigate(
+                    ConstructionWorkRouteName.createNotification,
+                    {project: {id, title}},
+                  )
+                }
+                text="Verstuur pushbericht"
+                variant="inverse"
+              />
+            )}
+            <SingleSelectable
+              accessibilityRole="header"
+              label={accessibleText(title, subtitle)}>
+              <Column gutter="sm">
+                {title && <Title text={title} />}
+                {subtitle && <Title level="h4" text={subtitle} />}
+              </Column>
+            </SingleSelectable>
           </Column>
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
