@@ -95,10 +95,10 @@ export const CityOffice = ({id}: Props) => {
           </View>
           <Column halign="start">
             <Button
+              label="Maak een afspraak"
               onPress={() =>
                 navigation.navigate(CityOfficesRouteName.makeAppointment)
               }
-              text="Maak een afspraak"
             />
           </Column>
         </Column>

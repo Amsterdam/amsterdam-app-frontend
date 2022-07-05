@@ -13,8 +13,8 @@ import {
 type Props = {
   body: string
   button: {
+    label: string
     onPress: 'goBack' | 'popModal'
-    text: string
   }
   icon: ReactNode
   title: string
@@ -39,6 +39,7 @@ export const Confirmation = ({body, button, icon, title}: Props) => {
           <Text>{body}</Text>
           <Row>
             <Button
+              label={button.label}
               onPress={() => {
                 if (button.onPress === 'goBack') {
                   navigation.goBack()
@@ -47,7 +48,6 @@ export const Confirmation = ({body, button, icon, title}: Props) => {
                   navigation.getParent()?.goBack()
                 }
               }}
-              text={button.text}
             />
           </Row>
         </Column>

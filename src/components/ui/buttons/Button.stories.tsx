@@ -12,20 +12,20 @@ export default {
 
 export const Default: ComponentStoryObj<typeof Button> = {
   args: {
-    text: 'Label',
+    label: 'Label',
   },
 }
 
 export const Secondary: ComponentStoryObj<typeof Button> = {
   args: {
-    text: 'Label',
+    label: 'Label',
     variant: 'secondary',
   },
 }
 
 export const Text: ComponentStoryObj<typeof Button> = {
   args: {
-    text: 'Label',
+    label: 'Label',
     variant: 'text',
   },
 }

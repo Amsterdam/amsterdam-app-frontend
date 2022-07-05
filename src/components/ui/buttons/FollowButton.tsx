@@ -2,7 +2,7 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React from 'react'
 import {PressableProps} from 'react-native'
-import {Button} from '@/components/ui/buttons'
+import {Button, ButtonProps} from '@/components/ui/buttons'
 import {useTheme} from '@/themes'
 
 type Props = {
@@ -13,21 +13,17 @@ type Props = {
 
 export const FollowButton = ({followed, onPress}: Props) => {
   const {color} = useTheme()
+  const buttonProps: ButtonProps = followed
+    ? {
+        icon: <Checkmark fill={color.text.inverse} />,
+        label: 'Volgend',
+        variant: 'primary',
+      }
+    : {
+        icon: <Enlarge fill={color.pressable.default.background} />,
+        label: 'Volgen',
+        variant: 'secondary',
+      }
 
-  return (
-    <Button
-      onPress={() => onPress(followed)}
-      {...(followed
-        ? {
-            icon: <Checkmark fill={color.text.inverse} />,
-            text: 'Volgend',
-            variant: 'primary',
-          }
-        : {
-            icon: <Enlarge fill={color.pressable.default.background} />,
-            text: 'Volgen',
-            variant: 'secondary',
-          })}
-    />
-  )
+  return <Button onPress={() => onPress(followed)} {...buttonProps} />
 }

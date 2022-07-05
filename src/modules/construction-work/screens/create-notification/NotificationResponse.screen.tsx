@@ -23,14 +23,14 @@ export const NotificationResponseScreen = () => {
         {responseStatus === 'success' ? (
           <Confirmation
             body="Het pushbericht is verstuurd."
-            button={{onPress: 'popModal', text: 'Naar projectpagina'}}
+            button={{onPress: 'popModal', label: 'Naar projectpagina'}}
             icon={<Checkmark />}
             title="Gelukt!"
           />
         ) : (
           <Confirmation
             body="Het is niet gelukt om het pushbericht te versturen."
-            button={{onPress: 'goBack', text: 'Probeer het nog eens'}}
+            button={{onPress: 'goBack', label: 'Probeer het nog eens'}}
             icon={<Close />}
             title="Helaas…"
           />

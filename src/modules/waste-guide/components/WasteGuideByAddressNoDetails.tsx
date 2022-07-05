@@ -61,8 +61,8 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
         <Gutter height="md" />
         <Row align="start">
           <Button
+            label={content.button.label}
             onPress={content.button.onPress}
-            text={content.button.label}
             variant={content.button.secondary ? 'secondary' : undefined}
           />
         </Row>

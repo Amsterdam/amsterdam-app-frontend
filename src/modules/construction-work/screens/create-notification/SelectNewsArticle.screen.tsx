@@ -117,12 +117,12 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
               </View>
               <View style={styles.justifyStart}>
                 <Button
+                  label="Schrijf een nieuwsartikel"
                   onPress={() =>
                     navigation.navigate(
                       CreateNotificationRouteName.projectWarningForm,
                     )
                   }
-                  text="Schrijf een nieuwsartikel"
                   variant="secondary"
                 />
               </View>

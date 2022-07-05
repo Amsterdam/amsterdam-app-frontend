@@ -5,18 +5,18 @@ import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
-type Props = {
+export type ButtonProps = {
   icon?: ReactNode
-  text?: string
+  label?: string
   variant?: 'primary' | 'secondary' | 'text'
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({
   icon,
-  text,
+  label,
   variant = 'primary',
   ...otherProps
-}: Props) => {
+}: ButtonProps) => {
   const styles = useThemable(createStyles)
 
   return (
@@ -30,9 +30,9 @@ export const Button = ({
       {...otherProps}>
       <Row gutter="md">
         {icon && <Icon size={24}>{icon}</Icon>}
-        {text && (
+        {label && (
           <Text inverse={variant === 'primary'} link={variant === 'text'}>
-            {text}
+            {label}
           </Text>
         )}
       </Row>

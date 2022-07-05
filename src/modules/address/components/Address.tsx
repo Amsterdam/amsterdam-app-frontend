@@ -55,12 +55,12 @@ export const Address = () => {
               <View>
                 <Gutter height="md" />
                 <Button
+                  label="Wijzig adres"
                   onPress={() =>
                     navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  text="Wijzig adres"
                   variant="secondary"
                 />
               </View>
@@ -88,24 +88,24 @@ export const Address = () => {
                 </Text>
                 <Row align="start">
                   <Button
+                    label="Meer informatie"
                     onPress={() =>
                       navigation.navigate(addressModule.slug, {
                         screen: AddressRouteName.addressInfo,
                       })
                     }
-                    text="Meer informatie"
                     variant="text"
                   />
                 </Row>
               </>
               <Row align="start">
                 <Button
+                  label="Vul adres in"
                   onPress={() =>
                     navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  text="Vul adres in"
                   variant="secondary"
                 />
               </Row>

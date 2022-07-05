@@ -81,7 +81,7 @@ export const WritingGuideScreen = ({navigation}: Props) => {
           <Gutter height="md" />
           <ZebraList data={tips} renderItem={RenderTip} />
           <Box>
-            <Button onPress={navigation.goBack} text="Aan de slag!" />
+            <Button label="Aan de slag!" onPress={navigation.goBack} />
           </Box>
         </Column>
         <Gutter height="md" />
