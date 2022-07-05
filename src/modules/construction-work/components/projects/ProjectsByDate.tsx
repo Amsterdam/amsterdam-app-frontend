@@ -64,6 +64,7 @@ export const ProjectsByDate = () => {
     isLoading,
     isError,
   } = useGetProjectsQuery({
+    fields: ['followed', 'identifier', 'images', 'subtitle', 'title'],
     sortBy: 'publication_date',
     sortOrder: 'desc',
   })

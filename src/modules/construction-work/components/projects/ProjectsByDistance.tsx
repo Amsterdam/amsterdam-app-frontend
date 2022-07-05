@@ -118,6 +118,7 @@ export const ProjectsByDistance = ({
 
   const params = {
     address: lat && lon ? '' : adres,
+    fields: ['followed', 'identifier', 'images', 'subtitle', 'title'],
     lat,
     lon,
     sortBy: 'meter',
