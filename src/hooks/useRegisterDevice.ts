@@ -8,7 +8,7 @@ export const useRegisterDevice = () => {
   const registerDevice = useCallback(
     (status: Permission) => {
       getFcmToken(status)?.then(firebase_token => {
-        firebase_token && registerDeviceMutation({firebase_token})
+        registerDeviceMutation({firebase_token})
       })
     },
     [registerDeviceMutation],

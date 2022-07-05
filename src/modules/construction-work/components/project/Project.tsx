@@ -24,7 +24,7 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
-import {requestPermission} from '@/processes'
+import {requestPushNotificationsPermission} from '@/processes'
 import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'
 
@@ -63,12 +63,11 @@ export const Project = ({id}: Props) => {
       if (!project) {
         return
       }
-
       if (isFollowed) {
         unfollowProject({project_id: project.identifier})
       } else {
         followProject({project_id: project.identifier})
-        requestPermission().then(registerDevice)
+        requestPushNotificationsPermission().then(registerDevice)
       }
     },
     [registerDevice, followProject, project, unfollowProject],

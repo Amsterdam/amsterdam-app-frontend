@@ -2,36 +2,40 @@ import messaging from '@react-native-firebase/messaging'
 import {devLog} from '@/processes'
 
 export enum Permission {
-  Denied,
-  Granted,
-  Undetermined,
+  denied,
+  granted,
+  undetermined,
 }
 
-export const mapPermissionStatus = (fcmAuthStatus: number): Permission => {
+const mapPermissionStatus = (fcmAuthStatus: number): Permission => {
   switch (fcmAuthStatus) {
     case 0:
-      return Permission.Denied
+      return Permission.denied
     case 1:
     case 2:
-      return Permission.Granted
+      return Permission.granted
     case -1:
     default:
-      return Permission.Undetermined
+      return Permission.undetermined
   }
 }
 
-export const requestPermission = async () => {
+/**
+ * Determines whether the user has given permission to receive push notifications via FCM.
+ * If FCM can't determine the permission status, it will trigger a system dialog to request permissions.
+ */
+export const requestPushNotificationsPermission = async () => {
   const authStatus = await messaging().requestPermission()
   return mapPermissionStatus(authStatus)
 }
 
-export const getPermission = async () => {
+export const getPushNotificationsPermission = async () => {
   const authStatus = await messaging().hasPermission()
   return mapPermissionStatus(authStatus)
 }
 
-export const getFcmToken = (permissionStatus?: Permission) => {
-  if (permissionStatus === Permission.Granted) {
+export const getFcmToken = (currentPermissionStatus: Permission) => {
+  if (currentPermissionStatus === Permission.granted) {
     try {
       return messaging().getToken()
     } catch (error) {
