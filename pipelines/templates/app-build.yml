@@ -3,9 +3,6 @@ parameters:
   type: string
   default: "ios"
 
-variables:
-- group: device-authorization
-
 steps:
   # Set up environment
   - template: ./install-node.yml
