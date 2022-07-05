@@ -9,6 +9,11 @@ type Props = {
   variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
 
+/**
+ * Displays (very) short text phrases.
+ * Offers the three sizing variants, and bold text.
+ * For sentences, use `Paragraph` instead.
+ */
 export const Text = ({
   children,
   fontWeight = 'regular',
