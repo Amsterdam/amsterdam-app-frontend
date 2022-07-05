@@ -1,5 +1,5 @@
 import React, {ReactNode, useMemo} from 'react'
-import {StyleSheet, Text as TextRN, TextProps} from 'react-native'
+import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {ParagraphVariants} from '@/themes/tokens'
 
@@ -27,9 +27,9 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <TextRN style={styles.text} {...otherProps}>
+    <Text style={styles.text} {...otherProps}>
       {children}
-    </TextRN>
+    </Text>
   )
 }
 
