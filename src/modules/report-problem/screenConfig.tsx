@@ -1,5 +1,5 @@
 import {ReportProblemScreen} from './Screen'
-import {ReportProblemStackParams, ReportProblemRouteName} from './routes'
+import {ReportProblemRouteName, ReportProblemStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
 
 export const reportProblemScreenConfig: StackNavigationRoutes<
@@ -10,7 +10,7 @@ export const reportProblemScreenConfig: StackNavigationRoutes<
     component: ReportProblemScreen,
     name: ReportProblemRouteName.reportProblem,
     options: {
-      headerTitle: 'Melden',
+      headerTitle: 'Melding doen',
     },
   },
 }

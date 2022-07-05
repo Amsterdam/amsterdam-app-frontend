@@ -26,7 +26,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
   const menuItems: TileButtonProps[] = [
     {
       icon: <Location {...iconProps} />,
-      label: 'Afvalinformatie op adres',
+      label: 'Afvalwijzer',
       onPress: () => navigation.navigate(WasteGuideRouteName.wasteGuide),
     },
     {

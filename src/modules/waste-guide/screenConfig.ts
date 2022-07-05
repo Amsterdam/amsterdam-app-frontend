@@ -1,4 +1,4 @@
-import {WasteGuideStackParams, WasteGuideRouteName} from './routes'
+import {WasteGuideRouteName, WasteGuideStackParams} from './routes'
 import {
   BulkyWasteAppointmentScreen,
   RecyclingGuideScreen,
@@ -34,7 +34,7 @@ export const wasteGuideScreenConfig: StackNavigationRoutes<
     component: ReportNotCollectedScreen,
     name: WasteGuideRouteName.reportNotCollected,
     options: {
-      headerTitle: 'Melden',
+      headerTitle: 'Melding doen',
     },
   },
   [WasteGuideRouteName.wasteGuide]: {
@@ -48,7 +48,7 @@ export const wasteGuideScreenConfig: StackNavigationRoutes<
     component: WasteGuideFeedbackScreen,
     name: WasteGuideRouteName.wasteGuideFeedback,
     options: {
-      headerTitle: 'Melden afvalinformatie',
+      headerTitle: 'Melding afvalinformatie doen',
     },
   },
   [WasteGuideRouteName.wasteGuideCollectionPoints]: {

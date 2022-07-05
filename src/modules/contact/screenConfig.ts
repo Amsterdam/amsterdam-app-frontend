@@ -1,5 +1,5 @@
 import {ContactScreen} from './Screen'
-import {ContactStackParams, ContactRouteName} from './routes'
+import {ContactRouteName, ContactStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
 
 export const contactScreenConfig: StackNavigationRoutes<
@@ -10,7 +10,7 @@ export const contactScreenConfig: StackNavigationRoutes<
     component: ContactScreen,
     name: ContactRouteName.contact,
     options: {
-      headerTitle: 'Vragen',
+      headerTitle: 'Contact',
     },
   },
 }
