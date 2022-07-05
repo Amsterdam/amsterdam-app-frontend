@@ -40,7 +40,7 @@ export const EnvironmentSelector = () => {
                     dispatch(setEnvironment(env as Environment))
                     dispatch(baseApi.util.resetApiState())
                   }}
-                  variant={environment === env ? 'inverse' : 'primary'}
+                  variant={environment === env ? 'secondary' : 'primary'}
                 />
               </GridCell>
             )

@@ -127,7 +127,7 @@ export const Project = ({id}: Props) => {
                   )
                 }
                 text="Verstuur pushbericht"
-                variant="inverse"
+                variant="secondary"
               />
             )}
 

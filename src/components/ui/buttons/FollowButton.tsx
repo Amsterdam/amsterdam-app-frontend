@@ -26,7 +26,7 @@ export const FollowButton = ({followed, onPress}: Props) => {
         : {
             icon: <Enlarge fill={color.pressable.default.background} />,
             text: 'Volgen',
-            variant: 'inverse',
+            variant: 'secondary',
           })}
     />
   )

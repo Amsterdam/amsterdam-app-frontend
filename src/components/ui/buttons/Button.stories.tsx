@@ -23,13 +23,6 @@ export const Secondary: ComponentStoryObj<typeof Button> = {
   },
 }
 
-export const Inverse: ComponentStoryObj<typeof Button> = {
-  args: {
-    text: 'Label',
-    variant: 'inverse',
-  },
-}
-
 export const Text: ComponentStoryObj<typeof Button> = {
   args: {
     text: 'Label',

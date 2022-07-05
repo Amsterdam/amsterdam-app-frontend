@@ -271,7 +271,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                     }
                     onPress={handleSubmit(pickImage)}
                     text="Foto’s toevoegen"
-                    variant="inverse"
+                    variant="secondary"
                   />
                 </Row>
               </Column>

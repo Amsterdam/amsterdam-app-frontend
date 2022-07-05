@@ -55,13 +55,13 @@ export const Address = () => {
               <View>
                 <Gutter height="md" />
                 <Button
-                  variant="inverse"
                   onPress={() =>
                     navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
                   text="Wijzig adres"
+                  variant="secondary"
                 />
               </View>
               <View>
@@ -106,7 +106,7 @@ export const Address = () => {
                     })
                   }
                   text="Vul adres in"
-                  variant="inverse"
+                  variant="secondary"
                 />
               </Row>
             </Column>

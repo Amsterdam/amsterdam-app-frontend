@@ -123,7 +123,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                     )
                   }
                   text="Schrijf een nieuwsartikel"
-                  variant="inverse"
+                  variant="secondary"
                 />
               </View>
             </Column>

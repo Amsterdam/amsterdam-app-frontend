@@ -8,7 +8,7 @@ import {Theme, useThemable} from '@/themes'
 type Props = {
   icon?: ReactNode
   text?: string
-  variant?: 'inverse' | 'primary' | 'secondary' | 'text'
+  variant?: 'primary' | 'secondary' | 'text'
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({
@@ -31,10 +31,7 @@ export const Button = ({
       <Row gutter="md">
         {icon && <Icon size={24}>{icon}</Icon>}
         {text && (
-          <Text
-            inverse={variant !== 'text'}
-            primary={variant === 'inverse'}
-            link={variant === 'text'}>
+          <Text inverse={variant === 'primary'} link={variant === 'text'}>
             {text}
           </Text>
         )}
@@ -54,16 +51,13 @@ const createStyles = ({color, text, size}: Theme) =>
       borderWidth: 1,
       borderColor: 'transparent',
     },
-    inverse: {
+    secondary: {
       backgroundColor: color.box.background.white,
       borderColor: color.pressable.default.background,
       borderStyle: 'solid',
     },
     primary: {
       backgroundColor: color.pressable.default.background,
-    },
-    secondary: {
-      backgroundColor: color.pressable.secondary.background,
     },
     text: {
       backgroundColor: undefined,
