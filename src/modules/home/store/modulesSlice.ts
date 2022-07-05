@@ -13,6 +13,7 @@ export const modulesSlice = createSlice({
   name: 'modules',
   initialState,
   reducers: {
+    // Gets fired as soon as modules are retrieved from backend
     initializeModules: (
       state,
       {payload: moduleSlugs}: PayloadAction<string[]>,

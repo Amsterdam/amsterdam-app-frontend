@@ -14,8 +14,16 @@ export const Modules = () => {
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
-  if (isLoadingModules || !modules) {
+  if (isLoadingModules) {
     return <PleaseWait />
+  }
+
+  if (!modules) {
+    return (
+      <Box insetHorizontal="md" insetVertical="xxxl">
+        <Paragraph>Modules worden niet geladen</Paragraph>
+      </Box>
+    )
   }
 
   if (!modules.length) {
