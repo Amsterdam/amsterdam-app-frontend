@@ -5,7 +5,7 @@ import {ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
-  fontWeight?: 'bold' | 'demi' | 'regular'
+  fontWeight?: 'bold' | 'regular'
   variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
 
