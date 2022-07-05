@@ -57,6 +57,8 @@ steps:
       BUILD_NUMBER: $(BUILD_NUMBER)
       SENTRY_RELEASE: "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
       SENTRY_DIST: $(BUILD_NUMBER)
+      AUTH_PASSWORD: $(AUTH_PASSWORD)
+      AUTH_SHARED_SECRET: $(AUTH_SHARED_SECRET)
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml

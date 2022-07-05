@@ -11,6 +11,7 @@ jobs:
       vmImage: macOS-11
     variables:
       - group: React Native Variables
+      - group: device-authorization
       - name: lc.all
         value: 'en_US.UTF-8'
       - name: lang
@@ -25,6 +26,7 @@ jobs:
       vmImage: macOS-11
     variables:
       - group: React Native Variables
+      - group: device-authorization
       - name: lc.all
         value: 'en_US.UTF-8'
       - name: lang
