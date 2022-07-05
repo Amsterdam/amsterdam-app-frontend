@@ -4,6 +4,7 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import simplur from 'simplur'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
@@ -25,7 +26,7 @@ type ListHeaderProps = {
 
 const ListHeader = ({results}: ListHeaderProps) => (
   <Box insetHorizontal="md">
-    <Paragraph>{results} zoekresultaten</Paragraph>
+    <Paragraph>{simplur`${results} zoekresulta[at|ten]`}</Paragraph>
     <Gutter height="lg" />
   </Box>
 )
