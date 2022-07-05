@@ -14,7 +14,7 @@ type Props = {
  * Offers the three sizing variants, and bold text.
  * For sentences, use `Paragraph` instead.
  */
-export const Text = ({
+export const Phrase = ({
   children,
   fontWeight = 'regular',
   variant = 'body',
