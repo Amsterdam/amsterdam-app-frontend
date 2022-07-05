@@ -47,6 +47,7 @@ const sanitizeUrl = (url: string) => (url ? url.split('?')[0] : '')
  * The main initialization of Sentry
  */
 export const initSentry = () => {
+  // We do not log errors when running the app locally, but may want to in the future
   if (appFlavour === AppFlavour.local) {
     return
   }
@@ -105,6 +106,7 @@ export const getCaptureSentryBreadcrumb =
 export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (message, filename, data) => {
+    devLog('sendSentryErrorLog', message, filename, data)
     const extraData = logData ? data : undefined
     Object.entries({filename, ...extraData}).forEach(([key, value]) => {
       setExtra(key, stringifyIfObject(value))

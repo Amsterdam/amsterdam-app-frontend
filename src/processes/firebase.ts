@@ -1,5 +1,4 @@
 import messaging from '@react-native-firebase/messaging'
-import {devLog} from '@/processes'
 
 export enum Permission {
   denied,
@@ -34,12 +33,7 @@ export const getPushNotificationsPermission = async () => {
   return mapPermissionStatus(authStatus)
 }
 
-export const getFcmToken = (currentPermissionStatus: Permission) => {
-  if (currentPermissionStatus === Permission.granted) {
-    try {
-      return messaging().getToken()
-    } catch (error) {
-      devLog(error)
-    }
-  }
-}
+export const getFcmToken = (currentPermissionStatus: Permission) =>
+  currentPermissionStatus === Permission.granted
+    ? messaging().getToken()
+    : undefined
