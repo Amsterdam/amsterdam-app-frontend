@@ -3,9 +3,9 @@ import BuildConfig from 'react-native-build-config'
 export const isDevApp = BuildConfig?.BUILD_VARIANT === 'dev'
 
 export enum AppFlavour {
-  production = 'production',
   development = 'development',
   local = 'local',
+  production = 'production',
 }
 
 export const appFlavour =

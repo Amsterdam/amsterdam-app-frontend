@@ -12,8 +12,9 @@ type Props = {children: ReactNode}
 export const Init = ({children}: Props) => {
   const dispatch = useDispatch()
   const {id: projectManagerId} = useSelector(selectProjectManager)
-  const {registerDevice} = useRegisterDevice()
+  useInitSentry()
   const {sendSentryErrorLog} = useSentry()
+  const {registerDevice} = useRegisterDevice()
 
   useAppState({
     onForeground: () => {
@@ -22,7 +23,7 @@ export const Init = ({children}: Props) => {
         .catch((error: unknown) => {
           sendSentryErrorLog(
             'Register device for push notifications failed',
-            'Project.tsx',
+            'Init.tsx',
             {error},
           )
         })
@@ -41,8 +42,6 @@ export const Init = ({children}: Props) => {
       )
     }
   }, [dispatch, projectManagerId])
-
-  useInitSentry()
 
   return <>{children}</>
 }
