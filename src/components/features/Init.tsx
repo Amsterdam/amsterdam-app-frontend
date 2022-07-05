@@ -5,17 +5,18 @@ import {selectProjectManager} from '../../modules/construction-work/components/p
 import {setCredentials} from '../../store/authSlice'
 import {encryptWithAES} from '../../utils'
 import {useAppState} from '@/hooks/useAppState'
+import {getPushNotificationsPermission} from '@/processes'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   const dispatch = useDispatch()
   const {id: projectManagerId} = useSelector(selectProjectManager)
-  const {deviceRegistration} = useRegisterDevice()
+  const {registerDevice} = useRegisterDevice()
 
   useAppState({
     onForeground: () => {
-      deviceRegistration()
+      getPushNotificationsPermission().then(registerDevice)
     },
   })
 

@@ -1,15 +1,18 @@
 import {useCallback} from 'react'
-import {getFcmToken} from '@/processes'
+import {getFcmToken, Permission} from '@/processes'
 import {useRegisterDeviceMutation} from '@/services'
 
 export const useRegisterDevice = () => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
 
-  const deviceRegistration = useCallback(() => {
-    getFcmToken().then(firebase_token => {
-      firebase_token && registerDeviceMutation({firebase_token})
-    })
-  }, [registerDeviceMutation])
+  const registerDevice = useCallback(
+    (status: Permission) => {
+      getFcmToken(status)?.then(firebase_token => {
+        registerDeviceMutation({firebase_token})
+      })
+    },
+    [registerDeviceMutation],
+  )
 
-  return {deviceRegistration}
+  return {registerDevice}
 }
