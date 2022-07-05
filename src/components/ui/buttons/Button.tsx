@@ -9,14 +9,12 @@ type Props = {
   icon?: ReactNode
   text?: string
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
-  width?: 'full' | 'auto'
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({
   icon,
   text,
   variant = 'primary',
-  width = 'full',
   ...otherProps
 }: Props) => {
   const styles = useThemable(createStyles)
@@ -27,7 +25,6 @@ export const Button = ({
       style={({pressed}) => [
         styles.button,
         styles[variant],
-        width === 'auto' && styles.auto,
         pressed && styles.pressed,
       ]}
       {...otherProps}>
@@ -54,9 +51,6 @@ const createStyles = ({color, text, size}: Theme) =>
       flexShrink: 1,
       paddingHorizontal: size.spacing.md,
       paddingVertical: (44 - text.fontSize.body * text.lineHeight.body) / 2, // Design system: button height must be 44
-    },
-    auto: {
-      alignSelf: 'flex-start',
     },
     inverse: {
       backgroundColor: color.box.background.white,
