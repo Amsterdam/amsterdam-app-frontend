@@ -101,7 +101,7 @@ export const Project = ({id}: Props) => {
       <Column gutter="md">
         <Box>
           <Column gutter="md">
-            <Row gutter="md">
+            <Row gutter="md" valign="center">
               <FollowButton
                 accessibilityLabel={
                   followed ? 'Ontvolg dit project' : 'Volg dit project'
