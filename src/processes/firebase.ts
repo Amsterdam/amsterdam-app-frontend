@@ -7,33 +7,33 @@ export enum Permission {
   Undetermined,
 }
 
-export const mapPermissionStatus = (
-  fcmAuthStatus: number,
-): Permission | undefined => {
+export const mapPermissionStatus = (fcmAuthStatus: number): Permission => {
   switch (fcmAuthStatus) {
-    case -1:
-      return Permission.Undetermined
     case 0:
       return Permission.Denied
     case 1:
     case 2:
       return Permission.Granted
+    case -1:
     default:
-      return undefined
+      return Permission.Undetermined
   }
 }
 
-const requestPermission = async () => {
+export const requestPermission = async () => {
   const authStatus = await messaging().requestPermission()
   return mapPermissionStatus(authStatus)
 }
 
-export const getFcmToken = async () => {
-  const permissionStatus = await requestPermission()
+export const getPermission = async () => {
+  const authStatus = await messaging().hasPermission()
+  return mapPermissionStatus(authStatus)
+}
+
+export const getFcmToken = (permissionStatus?: Permission) => {
   if (permissionStatus === Permission.Granted) {
     try {
-      const token = await messaging().getToken()
-      return token
+      return messaging().getToken()
     } catch (error) {
       devLog(error)
     }

@@ -24,6 +24,7 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
+import {requestPermission} from '@/processes'
 import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'
 
@@ -55,7 +56,7 @@ export const Project = ({id}: Props) => {
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
-  const {deviceRegistration} = useRegisterDevice()
+  const {registerDevice} = useRegisterDevice()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -67,10 +68,10 @@ export const Project = ({id}: Props) => {
         unfollowProject({project_id: project.identifier})
       } else {
         followProject({project_id: project.identifier})
-        deviceRegistration()
+        requestPermission().then(registerDevice)
       }
     },
-    [deviceRegistration, followProject, project, unfollowProject],
+    [registerDevice, followProject, project, unfollowProject],
   )
 
   useLayoutEffect(() => {
