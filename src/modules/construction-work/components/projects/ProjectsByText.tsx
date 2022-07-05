@@ -73,7 +73,7 @@ export const ProjectsByText = ({searchText}: Props) => {
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
   const params = {
-    fields: ['followed', 'identifier', 'images', 'subtitle', 'title'],
+    fields: ['identifier', 'images', 'subtitle', 'title'],
     text: searchText,
     queryFields: ['subtitle', 'title'],
   }
