@@ -8,7 +8,7 @@ import {Badge, BadgeProps} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Theme, useThemable} from '@/themes'
 
-type Props = {
+export type IconButtonProps = {
   /**
    * The value for a badge to be displayed on top of the icon.
    */
@@ -19,7 +19,7 @@ type Props = {
   icon: ReactNode
 } & Omit<PressableRNProps, 'style'>
 
-export const IconButton = ({badgeValue, icon, ...props}: Props) => {
+export const IconButton = ({badgeValue, icon, ...props}: IconButtonProps) => {
   const styles = useThemable(createStyles)
 
   return (

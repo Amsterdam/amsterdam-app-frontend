@@ -3,12 +3,12 @@ import {Pressable, StyleSheet, View} from 'react-native'
 import {Text} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
 
-type Props = {
+export type SubmitButtonProps = {
   onPress: () => void
   text: string
 }
 
-export const SubmitButton = (props: Props) => {
+export const SubmitButton = (props: SubmitButtonProps) => {
   const [buttonHeight, setButtonHeight] = useState<number>(0)
   const styles = useThemable(createStyles(buttonHeight))
 

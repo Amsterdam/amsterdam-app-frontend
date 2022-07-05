@@ -10,7 +10,7 @@ import {Row} from '@/components/ui/layout'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable, useTheme} from '@/themes'
 
-type Props = {
+export type TextButtonProps = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
   icon?: 'cancel' | 'remove'
   emphasis?: boolean
@@ -25,7 +25,7 @@ export const TextButton = ({
   onPress,
   text,
   ...otherProps
-}: Props) => {
+}: TextButtonProps) => {
   const {fontScale} = useContext(DeviceContext)
   const [isPressed, setIsPressed] = useState(false)
 
@@ -75,7 +75,7 @@ export const TextButton = ({
 }
 
 const createIconColor =
-  ({emphasis, isPressed}: Partial<Props> & {isPressed: boolean}) =>
+  ({emphasis, isPressed}: Partial<TextButtonProps> & {isPressed: boolean}) =>
   ({color}: Theme) => {
     if (isPressed) {
       return color.pressable.pressed.background

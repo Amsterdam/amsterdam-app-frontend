@@ -4,4 +4,8 @@ export default {
   component: Badge,
 }
 
-export const Default = {args: {value: 7}}
+export const Default = {
+  args: {
+    value: 7,
+  },
+}

@@ -4,13 +4,17 @@ import {Checkbox} from './Checkbox'
 
 export default {
   component: Checkbox,
-  argTypes: {onValueChange: {action: 'onValueChange'}},
+  argTypes: {
+    onValueChange: {
+      action: 'onValueChange',
+    },
+  },
 }
 
 export const Default = {
   args: {
-    value: false,
-    label: <Text>Een label</Text>,
+    label: <Text>Ik ga akkoord met de voorwaarden</Text>,
     labelPosition: 'end',
+    value: false,
   },
 }
