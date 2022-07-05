@@ -5,6 +5,7 @@ import Info from '@amsterdam/asc-assets/static/icons/Info.svg'
 import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {ElementType} from 'react'
 import {
+  Announcement,
   Checkmark,
   ConstructionWork,
   OrganicWasteContainer,
@@ -12,6 +13,7 @@ import {
 
 export const icons: Record<string, ElementType> = {
   alert: Alert, // Melding doen
+  announcement: Announcement, // Plaats berichten
   'chat-bubble': ChatBubble, // Contact
   chatting: Chatting, // Contact
   checkmark: Checkmark, // Direct regelen

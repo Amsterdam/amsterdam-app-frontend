@@ -4,7 +4,7 @@ import React, {useContext} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {module as addressModule} from '../'
-import {RootStackParamList} from '../../../app/navigation'
+import {RootStackParams} from '../../../app/navigation'
 import {
   Card,
   CardBody,
@@ -24,7 +24,7 @@ export const Address = () => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.slug>
+      StackNavigationProp<RootStackParams, typeof userModule.slug>
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
 

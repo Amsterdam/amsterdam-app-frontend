@@ -2,7 +2,7 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
 import {module as addressModule} from '@/modules/address'
@@ -13,10 +13,7 @@ import {useTheme} from '@/themes'
 export const ProvideAddressButton = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        RootStackParamList,
-        ConstructionWorkRouteName.projects
-      >
+      StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
 
   const {color} = useTheme()

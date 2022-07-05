@@ -17,7 +17,7 @@ import {Platform} from 'react-native'
 import {getUniqueId} from 'react-native-device-info'
 import {version} from '../../package.json'
 import type {Middleware} from '@reduxjs/toolkit'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Environment} from '@/environment'
 import {appFlavour, devLog, isDevApp} from '@/processes'
 import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
@@ -28,7 +28,7 @@ const routingInstrumentation = new ReactNavigationInstrumentation()
  * To be used in the onready of the NavigationContainer: register the navigation with Sentry
  */
 export const registerNavigationContainer = (
-  ref: RefObject<NavigationContainerRef<RootStackParamList>>,
+  ref: RefObject<NavigationContainerRef<RootStackParams>>,
 ) => {
   try {
     routingInstrumentation.registerNavigationContainer(ref)

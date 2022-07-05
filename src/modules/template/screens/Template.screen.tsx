@@ -4,7 +4,7 @@ import {ScrollView} from '@/components/ui/layout'
 
 export const TemplateScreen: FC = () => {
   // const navigation =
-  //   useNavigation<StackNavigationProp<RootStackParamList, TemplateRouteName>>()
+  //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
   return (
     <ScrollView>

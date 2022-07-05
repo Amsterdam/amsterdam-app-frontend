@@ -2,7 +2,7 @@ import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
@@ -20,7 +20,7 @@ export type ProjectManagerScreenRouteProp = RouteProp<
 >
 
 export type ProjectManagerScreenNavigationProps = StackNavigationProp<
-  RootStackParamList,
+  RootStackParams,
   ConstructionWorkRouteName.projectManager
 >
 

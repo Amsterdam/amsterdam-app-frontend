@@ -13,7 +13,7 @@ export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
     component: MyProjectsScreen,
     name: ConstructionWorkEditorRouteName.myProjects,
     options: {
-      headerTitle: 'Template',
+      headerTitle: 'Plaats berichten',
     },
   },
 }

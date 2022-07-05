@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
 import {LinkToUserSection, UserSection} from '..'
 import {module as userModule} from '../..'
-import {RootStackParamList} from '../../../../app/navigation'
+import {RootStackParams} from '../../../../app/navigation'
 import {
   Attention,
   Box,
@@ -23,7 +23,7 @@ export const AuthorizedProjectsUserSection = () => {
     useProjectManagerFetcher()
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.slug>
+      StackNavigationProp<RootStackParams, typeof userModule.slug>
     >()
 
   if (!projectManager) {

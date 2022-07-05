@@ -4,7 +4,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {LinkToUserSection, UserSection} from '..'
 import {module as userModule} from '../..'
-import {RootStackParamList} from '../../../../app/navigation'
+import {RootStackParams} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {selectProjectManager} from '../../../construction-work/components/project-manager'
@@ -14,7 +14,7 @@ export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof userModule.slug>
+      StackNavigationProp<RootStackParams, typeof userModule.slug>
     >()
 
   if (!projectManagerId) {

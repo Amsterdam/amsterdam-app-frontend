@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {module as wasteGuideModule} from '../'
-import {RootStackParamList} from '../../../app/navigation'
+import {RootStackParams} from '../../../app/navigation'
 import {
   Box,
   Card,
@@ -40,7 +40,7 @@ export const WasteGuideByAddress = () => {
   )
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof wasteGuideModule.slug>
+      StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
 
   const wasteGuideEndpoint = useFetch<WasteGuideResponse>({

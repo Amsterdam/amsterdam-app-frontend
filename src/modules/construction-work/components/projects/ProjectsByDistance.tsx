@@ -4,7 +4,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
@@ -30,7 +30,7 @@ import {mapImageSources} from '@/utils'
 type ListHeaderProps = {
   address: string
   navigation: StackNavigationProp<
-    RootStackParamList,
+    RootStackParams,
     ConstructionWorkRouteName.projects
   >
 }
@@ -66,7 +66,7 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
 
 type ListItemProps = {
   navigation: StackNavigationProp<
-    RootStackParamList,
+    RootStackParams,
     ConstructionWorkRouteName.projects
   >
   project: ProjectsItem
@@ -109,10 +109,7 @@ export const ProjectsByDistance = ({
 }: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        RootStackParamList,
-        ConstructionWorkRouteName.projects
-      >
+      StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
 
   const {fontScale} = useContext(DeviceContext)

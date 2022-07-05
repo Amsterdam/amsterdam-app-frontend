@@ -3,7 +3,7 @@ import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Settings} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
@@ -16,7 +16,7 @@ import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, ModuleSlugs.home>>()
+    useNavigation<StackNavigationProp<RootStackParams, ModuleSlugs.home>>()
 
   const iconProps = useThemable(createIconProps)
 

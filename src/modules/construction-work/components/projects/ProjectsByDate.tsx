@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {sanitizeProjects} from '@/modules/construction-work/components/projects'
@@ -20,7 +20,7 @@ import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListItemProps = {
-  navigation: StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
+  navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
   project: ProjectsItem
 }
 
@@ -52,7 +52,7 @@ const ListEmptyMessage = () => (
 export const ProjectsByDate = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, ConstructionWorkRouteName>
+      StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
     >()
 
   const {fontScale} = useContext(DeviceContext)

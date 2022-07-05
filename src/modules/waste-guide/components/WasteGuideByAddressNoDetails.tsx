@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
-import {RootStackParamList} from '../../../app/navigation'
+import {RootStackParams} from '../../../app/navigation'
 import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {Address} from '../../../types'
@@ -17,7 +17,7 @@ type Props = {
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParamList, typeof ModuleSlugs['waste-guide']>
+      StackNavigationProp<RootStackParams, typeof ModuleSlugs['waste-guide']>
     >()
 
   const content =
