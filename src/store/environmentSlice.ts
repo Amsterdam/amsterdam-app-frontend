@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, getEnvironment} from '../environment'
 import {RootState} from './'
+import {isDevApp} from '@/processes'
 
 type EnvironmentState = {
   environment: Environment
@@ -10,7 +11,9 @@ type EnvironmentState = {
 
 export const environmentSlice = createSlice({
   name: 'environment',
-  initialState: {environment: Environment.production} as EnvironmentState,
+  initialState: {
+    environment: isDevApp ? Environment.acceptance : Environment.production,
+  } as EnvironmentState,
   reducers: {
     setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
       state.environment = payload
