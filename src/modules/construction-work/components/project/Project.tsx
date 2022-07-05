@@ -113,7 +113,7 @@ export const Project = ({id}: Props) => {
               <SingleSelectable
                 label={accessibleText(followers.toString(), followersLabel)}>
                 <Column>
-                  <Text variant="bold">{followers}</Text>
+                  <Text fontWeight="bold">{followers}</Text>
                   <Text>{followersLabel}</Text>
                 </Column>
               </SingleSelectable>

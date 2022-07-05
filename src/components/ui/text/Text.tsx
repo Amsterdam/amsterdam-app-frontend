@@ -4,11 +4,15 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   children: ReactNode
-  variant?: 'bold' | 'demi' | 'regular'
+  fontWeight?: 'bold' | 'demi' | 'regular'
 } & Omit<TextProps, 'style'>
 
-export const Text = ({children, variant = 'regular', ...otherProps}: Props) => {
-  const createdStyles = useMemo(() => createStyles({variant}), [variant])
+export const Text = ({
+  children,
+  fontWeight = 'regular',
+  ...otherProps
+}: Props) => {
+  const createdStyles = useMemo(() => createStyles({fontWeight}), [fontWeight])
   const styles = useThemable(createdStyles)
 
   return (
@@ -19,12 +23,12 @@ export const Text = ({children, variant = 'regular', ...otherProps}: Props) => {
 }
 
 const createStyles =
-  ({variant}: Required<Pick<Props, 'variant'>>) =>
+  ({fontWeight}: Required<Pick<Props, 'fontWeight'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
         color: color.text.default,
-        fontFamily: text.fontWeight[variant],
+        fontFamily: text.fontWeight[fontWeight],
         fontSize: text.fontSize.body,
       },
     })
