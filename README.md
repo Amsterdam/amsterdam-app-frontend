@@ -105,3 +105,4 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 - [Build documentation](./.docs/build.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
 - [Sentry](./.docs/sentry.md)
+- [Running on Device](./.docs/running-on-device.md)
