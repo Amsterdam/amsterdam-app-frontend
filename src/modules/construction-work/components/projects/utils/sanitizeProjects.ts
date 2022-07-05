@@ -6,5 +6,5 @@ import {ProjectsItem} from '@/types'
  */
 export const sanitizeProjects = (projects: ProjectsItem[]) =>
   [...projects]
-    .sort((p, q) => Number(q.followed ?? 0) - Number(p.followed ?? 0))
+    .sort((p, q) => Number(q.followed) - Number(p.followed))
     .slice(0, 20)
