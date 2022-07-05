@@ -85,8 +85,5 @@ storybook-static/
 # Logs
 logs/
 
-# Pact
-pacts/
-
 # Sentry
 sentry.properties
