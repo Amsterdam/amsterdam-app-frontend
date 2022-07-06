@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Circle as SvgCircle, Svg, Text as SvgText} from 'react-native-svg'
+import {Circle, Svg, Text} from 'react-native-svg'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 
@@ -22,13 +22,13 @@ export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
       height={scaledSvgSize}
       viewBox={`0 0 ${scaledSvgSize} ${scaledSvgSize}`}
       width={scaledSvgSize}>
-      <SvgCircle
+      <Circle
         cx={scaledSvgSize / 2}
         cy={scaledSvgSize / 2}
         fill={backgroundColor ?? color.box.background.emphasis}
         r={scaledSvgSize / 2}
       />
-      <SvgText
+      <Text
         fill={color.text.inverse}
         fontFamily={text.fontWeight.demi}
         fontSize={scaledFontSize}
@@ -37,7 +37,7 @@ export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
         x={scaledSvgSize / 2}
         y={scaledBaselineOffset}>
         {label}
-      </SvgText>
+      </Text>
     </Svg>
   )
 }

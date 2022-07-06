@@ -9,10 +9,13 @@ export enum ProjectsEndpointName {
   getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',
   getProjects = 'getProjects',
-  getProjectsByDistance = 'getProjectsByDistance',
   getProjectsByText = 'getProjectsByText',
   getProjectWarning = 'getProjectWarning',
   unfollowProject = 'unfollowProject',
+}
+
+export type FieldsQueryArg = {
+  fields?: string[]
 }
 
 export type FollowProjectBody = {
@@ -27,7 +30,6 @@ export type ProjectContact = {
   position: string
 }
 
-// An item in a project list as received from our backend
 export type ProjectsItem = {
   active: boolean
   content_html: string
@@ -38,13 +40,13 @@ export type ProjectsItem = {
   identifier: string
   images: Image[] | null
   last_seen: string // date
-  meter?: number
+  meter: number
   modification_date: string
   project_type: string
   publication_date: string
   score: number
   source_url: string
-  strides?: number
+  strides: number
   subtitle: string | null
   title: string
 }
@@ -54,7 +56,6 @@ export type ProjectSummary = Pick<
   'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'
 >
 
-// Only the titles of a project, e.g. for small lists
 export type ProjectTitles = Pick<
   ProjectSummary,
   'identifier' | 'subtitle' | 'title'
@@ -66,20 +67,11 @@ export type ProjectsQueryArg = {
   fields: string[]
 }
 
-export type ProjectsByDistanceQueryArg = {
-  address: string
-  lat: number
-  lon: number
-  radius?: number
-}
-
 export type ProjectsByTextQueryArg = {
-  fields?: string[]
   queryFields: string[]
   text: string
 } & Partial<PageListQueryArg>
 
-// All project details as received from our backend
 export type Project = {
   active: boolean
   body: {
@@ -142,7 +134,6 @@ export type ProjectManagerResponse = {
   projects: string[]
 }
 
-// An app user creates an initial warning
 export type NewProjectWarning = {
   title: string
   body: {
@@ -172,7 +163,6 @@ export type ProjectWarningImage = {
   sources: ProjectWarningImageSources
 }
 
-// Our backend adds a number of fields
 export type ProjectWarning = NewProjectWarning & {
   author_email: string
   identifier: string

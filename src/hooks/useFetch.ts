@@ -26,7 +26,7 @@ export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
 
   const fetchData = useCallback(
     // TODO Refactor signature to object
-    async (params = undefined, body = undefined) => {
+    async (params: Record<string, any> = {}, body = undefined) => {
       setIsLoading(true)
       const queryParams = {...options?.params, ...params}
       const queryString = Object.keys(queryParams)

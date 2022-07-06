@@ -1,7 +1,7 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
-import {Controller, useForm} from 'react-hook-form'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Label, Text, Title} from '@/components/ui'
@@ -73,7 +73,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     formState: {errors},
     handleSubmit,
     watch,
-  } = useForm()
+  } = useForm<FormData>()
 
   const watchTitle = watch('title')
   const watchIntro = watch('intro')
@@ -92,7 +92,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     dispatch(setProjectWarning(warningData))
   }
 
-  const onSubmitForm = (data: FormData) => {
+  const onSubmitForm: SubmitHandler<FormData> = data => {
     addProjectWarningToStore(data)
     dispatch(setMainImageDescription('placeholder tekst'))
     navigation.navigate(CreateNotificationRouteName.verifyNotification)
@@ -175,7 +175,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                       multiline={true}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.title}
+                      warning={!!errors.title}
                     />
                   )}
                   name="title"
@@ -205,7 +205,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                       numberOfLines={3}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.intro}
+                      warning={!!errors.intro}
                     />
                   )}
                   name="intro"
@@ -235,7 +235,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                       numberOfLines={5}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.message}
+                      warning={!!errors.message}
                     />
                   )}
                   name="message"

@@ -5,4 +5,6 @@ import {ProjectsItem} from '@/types'
  * @todo Remove this workaround after updating the backend
  */
 export const sanitizeProjects = (projects: ProjectsItem[]) =>
-  projects.filter(p => p.identifier).slice(0, 20)
+  [...projects]
+    .sort((p, q) => Number(q.followed) - Number(p.followed))
+    .slice(0, 20)

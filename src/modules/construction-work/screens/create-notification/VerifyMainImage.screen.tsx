@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
-import {Controller, useForm} from 'react-hook-form'
+import React from 'react'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {ImagePreviewTouchable} from '@/components/features/create-notification'
@@ -33,6 +33,10 @@ const maxCharacters = {
   title: 54,
 }
 
+type FormData = {
+  title: string
+}
+
 export const VerifyMainImageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
   const image = useSelector(selectMainImage)
@@ -41,14 +45,8 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
     formState: {errors},
     handleSubmit,
     watch,
-  } = useForm()
-  const [characterCountTitle, setCharacterCountTitle] = useState<number>(0)
-
-  const watchTitle = watch('title')
-
-  useEffect(() => {
-    setCharacterCountTitle(watchTitle?.length)
-  }, [watchTitle])
+  } = useForm<FormData>()
+  const characterCountTitle = watch('title')?.length ?? 0
 
   if (!image) {
     return null
@@ -59,8 +57,8 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
     navigation.goBack()
   }
 
-  const onSubmit = (data: {title: string}) => {
-    dispatch(setMainImageDescription(data.title))
+  const onSubmit: SubmitHandler<FormData> = ({title}) => {
+    dispatch(setMainImageDescription(title))
     navigation.navigate(CreateNotificationRouteName.verifyNotification)
   }
 
@@ -89,7 +87,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
                       maxLength={maxCharacters.title}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.title}
+                      warning={!!errors.title}
                     />
                   )}
                   name="title"
