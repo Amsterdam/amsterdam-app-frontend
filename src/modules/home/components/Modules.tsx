@@ -10,7 +10,6 @@ import {useTheme} from '@/themes'
 
 export const Modules = () => {
   const {color} = useTheme()
-
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
@@ -32,20 +31,20 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({icon, name, slug, title}) => {
+        {modules.map(({icon, slug, title}) => {
           const ModuleIcon = icons[icon]
-
           return (
             <ModuleButton
               icon={
-                <Icon size={24}>
-                  <ModuleIcon fill={color.text.default} />
-                </Icon>
+                !!ModuleIcon && (
+                  <Icon size={24}>
+                    <ModuleIcon fill={color.text.default} />
+                  </Icon>
+                )
               }
               key={slug}
               slug={slug}
               label={title}
-              name={name}
             />
           )
         })}

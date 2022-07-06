@@ -3,36 +3,38 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {SwipeToDelete} from '../../../../src/components/ui/SwipeToDelete'
-import {Theme, useThemable} from '../../../themes'
-import {HomeRouteName} from '../routes'
-import {toggleModule} from '../store'
-import {RootStackParamList} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation'
+import {SwipeToDelete} from '@/components/ui/SwipeToDelete'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {HomeRouteName} from '@/modules/home/routes'
+import {toggleModule} from '@/modules/home/store'
+import {ModuleSlugs} from '@/modules/slugs'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   icon: ReactNode
   label: string
-  name?: keyof RootStackParamList
-  slug?: string | undefined
+  slug: ModuleSlugs
 }
 
-export const ModuleButton = ({icon, label, name, slug}: Props) => {
+export const ModuleButton = ({icon, label, slug}: Props) => {
   const dispatch = useDispatch()
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParamList, HomeRouteName>>()
+    useNavigation<StackNavigationProp<RootStackParams, HomeRouteName>>()
   const styles = useThemable(createStyles)
+
   const onDelete = useCallback(() => {
     dispatch(toggleModule(slug))
   }, [slug, dispatch])
+
   return (
     <View style={styles.container}>
-      <SwipeToDelete onPress={onDelete} onSwipe={onDelete} label="Verwijderen">
+      <SwipeToDelete onEvent={onDelete}>
         <View style={styles.buttonContainer}>
           <Pressable
-            onPress={name ? () => navigation.navigate(name) : undefined}
+            onPress={slug ? () => navigation.navigate(slug) : undefined}
             inset="md">
             <Row gutter="md" valign="center">
               {icon}
@@ -51,6 +53,6 @@ const createStyles = ({color}: Theme) =>
       backgroundColor: color.box.background.invalid,
     },
     buttonContainer: {
-      backgroundColor: 'white',
+      backgroundColor: color.box.background.white,
     },
   })
