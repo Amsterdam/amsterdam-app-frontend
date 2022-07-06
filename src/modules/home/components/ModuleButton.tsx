@@ -40,7 +40,7 @@ export const ModuleButton = ({icon, label, slug}: Props) => {
               {icon}
               <Title level="h5" text={label} />
             </Row>
-          </BlockLink>
+          </Pressable>
         </View>
       </SwipeToDelete>
     </View>
