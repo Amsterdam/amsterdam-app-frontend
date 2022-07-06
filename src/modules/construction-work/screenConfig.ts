@@ -34,7 +34,7 @@ export const constructionWorkScreenConfig: StackNavigationRoutes<
     component: ProjectsScreen,
     name: ConstructionWorkRouteName.projects,
     options: {
-      headerTitle: 'Werk in uitvoering',
+      headerTitle: 'Werkzaamheden',
     },
   },
   [ConstructionWorkRouteName.project]: {
