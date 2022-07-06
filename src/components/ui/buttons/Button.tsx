@@ -50,51 +50,70 @@ export const Button = ({
   )
 }
 
-// TODO Color tokens
-// TODO Ternaries
+// TODO Improve color tokens
 const createStyles =
   (variant: Pick<Props, 'variant'>, pressed: boolean) =>
-  ({border, color, text, size}: Theme) =>
-    StyleSheet.create({
+  ({border, color, text, size}: Theme) => {
+    const borderWidth =
+      variant === 'secondary' && pressed ? border.width.lg : border.width.md
+    const labelFontSize = text.fontSize.body
+    const labelLineHeight = text.lineHeight.body
+
+    const backgroundColor = () => {
+      if (variant === 'primary') {
+        return pressed
+          ? color.pressable.primary.highlight
+          : color.pressable.primary.default
+      }
+
+      return color.box.background.white
+    }
+
+    const borderColor = () => {
+      if (variant === 'primary') {
+        return 'transparent'
+      }
+
+      if (variant === 'secondary') {
+        return pressed
+          ? color.pressable.primary.highlight
+          : color.pressable.primary.default
+      }
+
+      if (variant === 'tertiary') {
+        return pressed ? color.pressable.pressed.background : 'transparent'
+      }
+    }
+
+    const labelColor = () => {
+      if (variant === 'primary') {
+        return color.text.inverse
+      }
+
+      return pressed
+        ? color.pressable.primary.highlight
+        : color.pressable.primary.default
+    }
+
+    return StyleSheet.create({
       button: {
         flexDirection: 'row',
         justifyContent: 'center',
         flexShrink: 1,
         paddingHorizontal: size.spacing.md + 2, // Why DS why
         paddingVertical:
-          (48 - text.fontSize.body * text.lineHeight.body - border.width.md) /
-          2, // Design system: button height must be 48
-        backgroundColor:
-          variant === 'primary'
-            ? pressed
-              ? color.pressable.primary.highlight
-              : color.pressable.primary.default
-            : color.box.background.white,
-        borderColor:
-          variant === 'primary'
-            ? 'transparent'
-            : variant === 'secondary'
-            ? pressed
-              ? color.pressable.primary.highlight
-              : color.pressable.primary.default
-            : variant === 'tertiary'
-            ? pressed
-              ? color.pressable.pressed.background
-              : 'transparent'
-            : 'transparent',
+          (48 - labelFontSize * labelLineHeight - 2 * borderWidth) / 2, // Design system: button height must be 48
+        backgroundColor: backgroundColor(),
+        borderColor: borderColor(),
         borderStyle: 'solid',
-        borderWidth: border.width.md,
+        borderWidth: borderWidth,
       },
       label: {
         flexShrink: 1,
-        color:
-          variant === 'primary'
-            ? color.text.inverse
-            : pressed
-            ? color.pressable.primary.highlight
-            : color.pressable.primary.default,
+        color: labelColor(),
         fontFamily: text.fontWeight.demi,
-        fontSize: text.fontSize.body,
-        lineHeight: text.lineHeight.body * text.fontSize.body,
+        fontSize: labelFontSize,
+        lineHeight: labelLineHeight * labelFontSize,
       },
     })
+  }

@@ -4,6 +4,7 @@ export const borderTokens = {
   width: {
     sm: 1,
     md: 2,
-    lg: 4,
+    lg: 3,
+    xl: 4,
   },
 }
