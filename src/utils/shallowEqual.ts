@@ -3,9 +3,19 @@ type IObject = {
 }
 
 export const shallowEqual = (object1: IObject, object2: IObject) => {
+  if (!object1 || !object2) {
+    return false
+  }
+  if (typeof object1 !== 'object' || typeof object2 !== 'object') {
+    return false
+  }
+
   const keys1 = Object.keys(object1)
   const keys2 = Object.keys(object2)
 
+  // if (arguments.length > 2) {
+  //   return false
+  // }
   if (keys1.length !== keys2.length) {
     return false
   }
