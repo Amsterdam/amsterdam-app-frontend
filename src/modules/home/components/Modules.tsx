@@ -17,7 +17,15 @@ export const Modules = () => {
     return <PleaseWait />
   }
 
-  if (!modules?.length) {
+  if (!modules) {
+    return (
+      <Box insetHorizontal="md" insetVertical="xxxl">
+        <Paragraph>Modules worden niet geladen</Paragraph>
+      </Box>
+    )
+  }
+
+  if (!modules.length) {
     return (
       <Box insetHorizontal="md" insetVertical="xxxl">
         <Paragraph>
@@ -43,8 +51,8 @@ export const Modules = () => {
                 )
               }
               key={slug}
-              slug={slug}
               label={title}
+              slug={slug}
             />
           )
         })}
