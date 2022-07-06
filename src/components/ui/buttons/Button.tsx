@@ -5,7 +5,7 @@ import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
-export type ButtonProps = {
+type Props = {
   icon?: ReactNode
   text?: string
   variant?: 'inverse' | 'primary' | 'secondary' | 'text'
@@ -16,7 +16,7 @@ export const Button = ({
   text,
   variant = 'primary',
   ...otherProps
-}: ButtonProps) => {
+}: Props) => {
   const styles = useThemable(createStyles)
 
   return (

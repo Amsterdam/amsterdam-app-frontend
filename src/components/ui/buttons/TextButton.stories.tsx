@@ -1,6 +1,5 @@
-import {Story} from '@storybook/react'
-import React from 'react'
-import {TextButton, TextButtonProps} from './TextButton'
+import {ComponentStoryObj} from '@storybook/react'
+import {TextButton} from './TextButton'
 
 export default {
   component: TextButton,
@@ -11,9 +10,8 @@ export default {
   },
 }
 
-const Template: Story<TextButtonProps> = args => <TextButton {...args} />
-
-export const Default = Template.bind({})
-Default.args = {
-  text: 'Label',
+export const Default: ComponentStoryObj<typeof TextButton> = {
+  args: {
+    text: 'Label',
+  },
 }

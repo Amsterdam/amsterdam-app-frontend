@@ -1,23 +1,26 @@
-import {Meta, Story} from '@storybook/react'
+import {
+  ComponentMeta,
+  ComponentStory,
+  ComponentStoryObj,
+} from '@storybook/react'
+import {NavigationButton} from '_components/ui/buttons'
 import React from 'react'
 import {View} from 'react-native'
-import {Phrase, PhraseProps} from './Phrase'
+import {Phrase} from './Phrase'
 
 export default {
   component: Phrase,
-} as Meta
+} as ComponentMeta<typeof Phrase>
 
-const Template: Story<PhraseProps> = args => (
-  <Phrase {...args}>Phrase content</Phrase>
-)
-
-export const Default = Template.bind({})
-
-Default.args = {
-  fontWeight: 'regular',
-  variant: 'body',
+export const Default: ComponentStoryObj<typeof Phrase> = {
+  args: {
+    children: 'Phrase content',
+    fontWeight: 'regular',
+    variant: 'body',
+  },
 }
-export const Pattern = () => (
+
+export const Pattern: ComponentStory<typeof NavigationButton> = () => (
   <View>
     <Phrase variant="small" fontWeight="bold">
       14

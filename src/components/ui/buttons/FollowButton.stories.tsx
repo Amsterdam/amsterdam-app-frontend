@@ -1,3 +1,4 @@
+import {ComponentStoryObj} from '@storybook/react'
 import {FollowButton} from './FollowButton'
 
 export default {
@@ -9,8 +10,8 @@ export default {
   },
 }
 
-export const Default = {
+export const Default: ComponentStoryObj<typeof FollowButton> = {
   args: {
-    following: false,
+    followed: false,
   },
 }

@@ -1,7 +1,5 @@
-import {Story} from '@storybook/react'
-import React from 'react'
-import {TileButton, TileButtonProps} from './TileButton'
-import {Row} from '@/components/ui/layout'
+import {ComponentStoryObj} from '@storybook/react'
+import {TileButton} from './TileButton'
 
 export default {
   component: TileButton,
@@ -12,13 +10,8 @@ export default {
   },
 }
 
-const Template: Story<TileButtonProps> = args => (
-  <Row align="start">
-    <TileButton {...args} />
-  </Row>
-)
-
-export const Default = Template.bind({})
-Default.args = {
-  label: 'Label',
+export const Default: ComponentStoryObj<typeof TileButton> = {
+  args: {
+    label: 'Label',
+  },
 }

@@ -1,6 +1,6 @@
-import {Meta, Story} from '@storybook/react'
+import {ComponentStoryObj, Meta} from '@storybook/react'
 import React from 'react'
-import {Pressable, PressableProps} from './Pressable'
+import {Pressable} from './Pressable'
 import {Paragraph} from '@/components/ui/text'
 
 export default {
@@ -12,10 +12,9 @@ export default {
   },
 } as Meta
 
-const Template: Story<PressableProps> = args => <Pressable {...args} />
-
-export const Default = Template.bind({})
-Default.args = {
-  children: <Paragraph>Press me</Paragraph>,
-  insetHorizontal: 'lg',
+export const Default: ComponentStoryObj<typeof Pressable> = {
+  args: {
+    children: <Paragraph>Press me</Paragraph>,
+    insetHorizontal: 'lg',
+  },
 }

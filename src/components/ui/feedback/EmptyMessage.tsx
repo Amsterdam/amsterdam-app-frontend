@@ -3,11 +3,11 @@ import {SingleSelectable} from '@/components/ui'
 import {Paragraph, Title} from '@/components/ui/text'
 import {accessibleText} from '@/utils'
 
-export type EmptyMessageProps = {
+type Props = {
   text: string
 }
 
-export const EmptyMessage = ({text}: EmptyMessageProps) => {
+export const EmptyMessage = ({text}: Props) => {
   const title = 'Helaas…'
 
   return (

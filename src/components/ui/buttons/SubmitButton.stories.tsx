@@ -1,7 +1,5 @@
-import {Story} from '@storybook/react'
-import React from 'react'
-import {SubmitButton, SubmitButtonProps} from './SubmitButton'
-import {Row} from '@/components/ui/layout'
+import {ComponentStoryObj} from '@storybook/react'
+import {SubmitButton} from './SubmitButton'
 
 export default {
   component: SubmitButton,
@@ -12,13 +10,8 @@ export default {
   },
 }
 
-const Template: Story<SubmitButtonProps> = args => (
-  <Row align="start">
-    <SubmitButton {...args} />
-  </Row>
-)
-
-export const Default = Template.bind({})
-Default.args = {
-  text: 'Label',
+export const Default: ComponentStoryObj<typeof SubmitButton> = {
+  args: {
+    text: 'Label',
+  },
 }

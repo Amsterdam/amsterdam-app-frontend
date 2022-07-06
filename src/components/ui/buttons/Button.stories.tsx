@@ -1,6 +1,5 @@
-import {Meta, Story} from '@storybook/react'
-import React from 'react'
-import {Button, ButtonProps} from './Button'
+import {ComponentStoryObj, Meta} from '@storybook/react'
+import {Button} from './Button'
 
 export default {
   component: Button,
@@ -11,27 +10,29 @@ export default {
   },
 } as Meta
 
-const Template: Story<ButtonProps> = args => <Button text="Label" {...args} />
-
-export const Default = Template.bind({})
-Default.args = {
-  text: 'Label',
+export const Default: ComponentStoryObj<typeof Button> = {
+  args: {
+    text: 'Label',
+  },
 }
 
-export const Secondary = Template.bind({})
-Secondary.args = {
-  text: 'Label',
-  variant: 'secondary',
+export const Secondary: ComponentStoryObj<typeof Button> = {
+  args: {
+    text: 'Label',
+    variant: 'secondary',
+  },
 }
 
-export const Inverse = Template.bind({})
-Inverse.args = {
-  text: 'Label',
-  variant: 'inverse',
+export const Inverse: ComponentStoryObj<typeof Button> = {
+  args: {
+    text: 'Label',
+    variant: 'inverse',
+  },
 }
 
-export const Text = Template.bind({})
-Text.args = {
-  text: 'Label',
-  variant: 'text',
+export const Text: ComponentStoryObj<typeof Button> = {
+  args: {
+    text: 'Label',
+    variant: 'text',
+  },
 }

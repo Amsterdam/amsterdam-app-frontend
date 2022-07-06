@@ -1,3 +1,4 @@
+import {ComponentStoryObj} from '@storybook/react'
 import {AddButton} from './AddButton'
 
 export default {
@@ -9,6 +10,6 @@ export default {
   },
 }
 
-export const Default = {
+export const Default: ComponentStoryObj<typeof AddButton> = {
   args: {},
 }
