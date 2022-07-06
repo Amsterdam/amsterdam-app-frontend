@@ -67,7 +67,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/runtime": "^7.14.8",
-    "@pact-foundation/pact": "^9.17.3",
     "@react-native-community/eslint-config": "^3.0.3",
     "@storybook/addon-a11y": "6.4.22",
     "@storybook/addon-essentials": "6.4.22",
