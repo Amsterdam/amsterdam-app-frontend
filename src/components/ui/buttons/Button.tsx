@@ -52,7 +52,7 @@ export const Button = ({
 
 // TODO Improve color tokens
 const createStyles =
-  (variant: Pick<Props, 'variant'>, pressed: boolean) =>
+  (variant: ButtonProps['variant'], pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
     const borderWidth =
       variant === 'secondary' && pressed ? border.width.lg : border.width.md
