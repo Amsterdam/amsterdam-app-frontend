@@ -10,9 +10,10 @@ export default {
   },
 } as ComponentMeta<typeof Button>
 
-export const Default: ComponentStoryObj<typeof Button> = {
+export const Primary: ComponentStoryObj<typeof Button> = {
   args: {
     label: 'Label',
+    variant: 'primary',
   },
 }
 
