@@ -1,4 +1,4 @@
-import {ComponentStoryObj, Meta} from '@storybook/react'
+import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
 import React from 'react'
 import {Pressable} from './Pressable'
 import {Paragraph} from '@/components/ui/text'
@@ -10,7 +10,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta
+} as ComponentMeta<typeof Pressable>
 
 export const Default: ComponentStoryObj<typeof Pressable> = {
   args: {

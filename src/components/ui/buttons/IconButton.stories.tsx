@@ -1,5 +1,5 @@
 import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
-import {ComponentStoryObj, Meta} from '@storybook/react'
+import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
 import React from 'react'
 import {IconButton} from './IconButton'
 import {Icon} from '@/components/ui/media'
@@ -11,7 +11,7 @@ export default {
       action: 'onPress',
     },
   },
-} as Meta
+} as ComponentMeta<typeof IconButton>
 
 export const Default: ComponentStoryObj<typeof IconButton> = {
   args: {

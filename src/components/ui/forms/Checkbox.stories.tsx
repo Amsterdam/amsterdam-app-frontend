@@ -1,4 +1,4 @@
-import {ComponentStoryObj} from '@storybook/react'
+import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
 import React from 'react'
 import {Text} from 'react-native'
 import {Checkbox} from './Checkbox'
@@ -10,7 +10,7 @@ export default {
       action: 'onValueChange',
     },
   },
-}
+} as ComponentMeta<typeof Checkbox>
 
 export const Default: ComponentStoryObj<typeof Checkbox> = {
   args: {
