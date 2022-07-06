@@ -4,8 +4,8 @@ import {
   Pressable,
   PressableProps,
   StyleSheet,
+  Text,
 } from 'react-native'
-import {Text} from '@/components/ui/'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
@@ -13,7 +13,7 @@ import {Theme, useThemable} from '@/themes'
 export type ButtonProps = {
   icon?: ReactNode
   label?: string
-  variant?: 'primary' | 'secondary' | 'text'
+  variant?: 'primary' | 'secondary' | 'tertiary'
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({
@@ -23,7 +23,7 @@ export const Button = ({
   ...otherProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
-  const styles = useThemable(createStyles(isPressed))
+  const styles = useThemable(createStyles(variant, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
     setIsPressed(true)
@@ -40,22 +40,20 @@ export const Button = ({
       accessibilityRole="button"
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
-      style={[styles.button, styles[variant]]}
+      style={styles.button}
       {...otherProps}>
       <Row gutter="md">
         {icon && <Icon size={24}>{icon}</Icon>}
-        {label && (
-          <Text inverse={variant === 'primary'} link={variant === 'text'}>
-            {label}
-          </Text>
-        )}
+        {label && <Text style={styles.label}>{label}</Text>}
       </Row>
     </Pressable>
   )
 }
 
+// TODO Color tokens
+// TODO Ternaries
 const createStyles =
-  (pressed: boolean) =>
+  (variant: Pick<Props, 'variant'>, pressed: boolean) =>
   ({border, color, text, size}: Theme) =>
     StyleSheet.create({
       button: {
@@ -66,28 +64,37 @@ const createStyles =
         paddingVertical:
           (48 - text.fontSize.body * text.lineHeight.body - border.width.md) /
           2, // Design system: button height must be 48
-        borderColor: 'transparent',
+        backgroundColor:
+          variant === 'primary'
+            ? pressed
+              ? color.pressable.primary.highlight
+              : color.pressable.primary.default
+            : color.box.background.white,
+        borderColor:
+          variant === 'primary'
+            ? 'transparent'
+            : variant === 'secondary'
+            ? pressed
+              ? color.pressable.primary.highlight
+              : color.pressable.primary.default
+            : variant === 'tertiary'
+            ? pressed
+              ? color.pressable.pressed.background
+              : 'transparent'
+            : 'transparent',
         borderStyle: 'solid',
         borderWidth: border.width.md,
       },
-      primary: {
-        backgroundColor: pressed
-          ? color.pressable.primary.highlight
-          : color.pressable.primary.default,
-        borderColor: pressed
-          ? color.pressable.primary.highlight
-          : color.pressable.primary.default,
-      },
-      secondary: {
-        backgroundColor: color.box.background.white,
-        borderColor: pressed
-          ? color.pressable.primary.highlight
-          : color.pressable.primary.default,
-      },
-      text: {
-        backgroundColor: undefined,
-        color: color.pressable.default.background,
-        paddingHorizontal: 0,
-        paddingVertical: 0,
+      label: {
+        flexShrink: 1,
+        color:
+          variant === 'primary'
+            ? color.text.inverse
+            : pressed
+            ? color.pressable.primary.highlight
+            : color.pressable.primary.default,
+        fontFamily: text.fontWeight.demi,
+        fontSize: text.fontSize.body,
+        lineHeight: text.lineHeight.body * text.fontSize.body,
       },
     })

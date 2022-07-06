@@ -23,9 +23,9 @@ export const Secondary: ComponentStoryObj<typeof Button> = {
   },
 }
 
-export const Text: ComponentStoryObj<typeof Button> = {
+export const Tertiary: ComponentStoryObj<typeof Button> = {
   args: {
     label: 'Label',
-    variant: 'text',
+    variant: 'tertiary',
   },
 }

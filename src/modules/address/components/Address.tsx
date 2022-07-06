@@ -83,22 +83,11 @@ export const Address = () => {
               <>
                 <Title level={4} text="Adres" />
                 <Text>
-                  Vul een adres en huisnummer in zodat u informatie krijgt uit
-                  die buurt.
+                  Vul een straatnaam en huisnummer in zodat u informatie krijgt
+                  uit die buurt.
                 </Text>
-                <Row align="start">
-                  <Button
-                    label="Meer informatie"
-                    onPress={() =>
-                      navigation.navigate(addressModule.slug, {
-                        screen: AddressRouteName.addressInfo,
-                      })
-                    }
-                    variant="text"
-                  />
-                </Row>
               </>
-              <Row align="start">
+              <Row align="between">
                 <Button
                   label="Vul adres in"
                   onPress={() =>
@@ -107,6 +96,15 @@ export const Address = () => {
                     })
                   }
                   variant="secondary"
+                />
+                <Button
+                  label="Meer informatie"
+                  onPress={() =>
+                    navigation.navigate(addressModule.slug, {
+                      screen: AddressRouteName.addressInfo,
+                    })
+                  }
+                  variant="tertiary"
                 />
               </Row>
             </Column>
