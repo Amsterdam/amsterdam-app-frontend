@@ -16,7 +16,6 @@ export const FollowButton = ({followed, onPress}: Props) => {
 
   return (
     <Button
-      width="auto"
       onPress={() => onPress(followed)}
       {...(followed
         ? {

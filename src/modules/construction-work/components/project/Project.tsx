@@ -7,7 +7,7 @@ import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Paragraph, Text, Title} from '@/components/ui/text'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice} from '@/hooks'
 import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
@@ -101,7 +101,7 @@ export const Project = ({id}: Props) => {
       <Column gutter="md">
         <Box>
           <Column gutter="md">
-            <Row gutter="md">
+            <Row gutter="md" valign="center">
               <FollowButton
                 accessibilityLabel={
                   followed ? 'Ontvolg dit project' : 'Volg dit project'
@@ -113,8 +113,8 @@ export const Project = ({id}: Props) => {
               <SingleSelectable
                 label={accessibleText(followers.toString(), followersLabel)}>
                 <Column>
-                  <Text variant="bold">{followers}</Text>
-                  <Text>{followersLabel}</Text>
+                  <Phrase fontWeight="bold">{followers}</Phrase>
+                  <Phrase>{followersLabel}</Phrase>
                 </Column>
               </SingleSelectable>
             </Row>
