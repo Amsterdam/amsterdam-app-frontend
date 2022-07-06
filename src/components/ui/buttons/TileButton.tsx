@@ -2,11 +2,12 @@ import React, {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Title} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
+import {IconSizes} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
 export type TileButtonProps = {
   icon?: ReactNode
-  iconSize?: number
+  iconSize?: IconSizes
   label: string
   onPress: () => void
   square?: boolean

@@ -2,7 +2,7 @@ import React, {ReactNode, useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {DeviceContext} from '@/providers'
 
-type IconSizes = 16 | 20 | 24 | 32
+export type IconSizes = 16 | 20 | 24 | 32
 
 type Props = {
   children: ReactNode

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {ParagraphVariants} from '@/themes/tokens'
 
-export type PhraseProps = {
+type Props = {
   children: ReactNode
   fontWeight?: 'bold' | 'regular'
   variant?: ParagraphVariants
@@ -19,7 +19,7 @@ export const Phrase = ({
   fontWeight = 'regular',
   variant = 'body',
   ...otherProps
-}: PhraseProps) => {
+}: Props) => {
   const createdStyles = useMemo(
     () => createStyles({fontWeight, variant}),
     [fontWeight, variant],
@@ -34,10 +34,7 @@ export const Phrase = ({
 }
 
 const createStyles =
-  ({
-    fontWeight,
-    variant,
-  }: Required<Pick<PhraseProps, 'fontWeight' | 'variant'>>) =>
+  ({fontWeight, variant}: Required<Pick<Props, 'fontWeight' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {

@@ -1,9 +1,12 @@
 export const baseColor = {
   primary: {
     black: '#000000',
-    darkblue: '#004699',
+    blue: '#004699',
     red: '#ec0000',
     white: '#ffffff',
+  },
+  functional: {
+    darkblue: '#00387a',
   },
   neutral: {
     grey1: '#f5f5f5',
@@ -17,13 +20,12 @@ export const baseColor = {
     invalid: '#ec0000',
     valid: '#00a03c',
   },
-  supplement: {
+  secondary: {
     darkgreen: '#00a03c',
-    darkergreen: '#0C8836',
-    lightblue: '#009dec',
+    blue: '#009dec',
     lightgreen: '#bed200',
     orange: '#ff9100',
-    pink: '#e50082',
+    magenta: '#e50082',
     purple: '#a00078',
     yellow: '#ffe600',
   },
@@ -39,11 +41,10 @@ export const color = {
   background: {
     app: baseColor.neutral.grey2,
     darker: baseColor.primary.black,
-    emphasis: baseColor.primary.darkblue,
+    emphasis: baseColor.primary.blue,
     grey: baseColor.neutral.grey1,
     inactive: baseColor.neutral.grey4,
     invalid: baseColor.support.invalid,
-    valid: baseColor.supplement.darkergreen,
     white: baseColor.primary.white,
   },
   border: {
@@ -51,7 +52,7 @@ export const color = {
     divider: baseColor.neutral.grey3,
     onGrey: baseColor.neutral.grey3,
     invalid: baseColor.support.invalid,
-    primary: baseColor.primary.darkblue,
+    primary: baseColor.primary.blue,
   },
   control: {
     default: {
@@ -77,7 +78,7 @@ export const color = {
   font: {
     invalid: baseColor.support.invalid,
     inverse: baseColor.primary.white,
-    primary: baseColor.primary.darkblue,
+    primary: baseColor.primary.blue,
     regular: baseColor.primary.black,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
@@ -88,7 +89,7 @@ export const color = {
   },
   touchable: {
     pressed: baseColor.primary.red,
-    primary: baseColor.primary.darkblue,
+    primary: baseColor.primary.blue,
     secondary: baseColor.primary.red,
   },
 }

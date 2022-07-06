@@ -5,7 +5,7 @@ import {ColorTokens} from './color-light'
 export const darkColorTokens: ColorTokens = {
   background: {
     cutout: baseColor.primary.black,
-    emphasis: baseColor.primary.darkblue,
+    emphasis: baseColor.primary.blue,
     inactive: baseColor.neutral.grey4,
     inverse: baseColor.neutral.grey1,
   },
@@ -14,13 +14,13 @@ export const darkColorTokens: ColorTokens = {
     divider: baseColor.neutral.grey3,
     onGrey: baseColor.neutral.grey3,
     invalid: baseColor.support.invalid,
-    primary: baseColor.primary.darkblue,
+    primary: baseColor.primary.blue,
   },
   box: {
     background: {
-      alert: baseColor.supplement.yellow,
+      alert: baseColor.secondary.yellow,
       black: baseColor.primary.black,
-      emphasis: baseColor.primary.darkblue,
+      emphasis: baseColor.primary.blue,
       grey: baseColor.neutral.grey1,
       invalid: baseColor.support.invalid,
       white: baseColor.primary.white,
@@ -49,12 +49,12 @@ export const darkColorTokens: ColorTokens = {
   },
   pressable: {
     default: {
-      background: baseColor.primary.darkblue,
+      background: baseColor.primary.blue,
     },
     secondary: {
       background: baseColor.primary.red,
     },
-    navigation: baseColor.primary.darkblue,
+    navigation: baseColor.primary.blue,
     pressed: {
       background: baseColor.neutral.grey5,
     },
@@ -68,7 +68,6 @@ export const darkColorTokens: ColorTokens = {
   severity: {
     positive: baseColor.support.valid,
     negative: baseColor.support.invalid,
-    positiveDark: baseColor.supplement.darkergreen,
   },
   text: {
     default: baseColor.primary.white,

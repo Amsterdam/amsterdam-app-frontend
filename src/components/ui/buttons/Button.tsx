@@ -50,12 +50,13 @@ const createStyles = ({color, text, size}: Theme) =>
       justifyContent: 'center',
       flexShrink: 1,
       paddingHorizontal: size.spacing.md,
-      paddingVertical: (44 - text.fontSize.body * text.lineHeight.body) / 2, // Design system: button height must be 44
+      paddingVertical: (44 - text.fontSize.body * text.lineHeight.body - 2) / 2, // Design system: button height must be 44
+      borderWidth: 1,
+      borderColor: 'transparent',
     },
     inverse: {
       backgroundColor: color.box.background.white,
       borderColor: color.pressable.default.background,
-      borderWidth: 1,
       borderStyle: 'solid',
     },
     primary: {
