@@ -13,9 +13,6 @@ export const shallowEqual = (object1: IObject, object2: IObject) => {
   const keys1 = Object.keys(object1)
   const keys2 = Object.keys(object2)
 
-  // if (arguments.length > 2) {
-  //   return false
-  // }
   if (keys1.length !== keys2.length) {
     return false
   }
