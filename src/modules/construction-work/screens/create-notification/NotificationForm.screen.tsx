@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
-import {Controller, useForm} from 'react-hook-form'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Title} from '@/components/ui'
 import {SubmitButton} from '@/components/ui/buttons'
@@ -56,7 +56,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     formState: {errors},
     handleSubmit,
     watch,
-  } = useForm()
+  } = useForm<FormData>()
 
   const watchTitle = watch('title')
   const watchMessage = watch('message')
@@ -74,7 +74,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     },
   )
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = data => {
     const notificationData: NotificationQueryArg = {
       title: data.title,
       body: data.message,
@@ -130,7 +130,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                       multiline={true}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.title}
+                      warning={!!errors.title}
                     />
                   )}
                   name="title"
@@ -160,7 +160,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                       numberOfLines={3}
                       onChangeText={onChange}
                       value={value}
-                      warning={errors.message}
+                      warning={!!errors.message}
                     />
                   )}
                   name="message"

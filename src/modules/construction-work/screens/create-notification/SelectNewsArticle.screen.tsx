@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect} from 'react'
-import {Controller, useForm} from 'react-hook-form'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Text, Title} from '@/components/ui'
@@ -37,7 +37,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     formState: {errors},
     handleSubmit,
     watch,
-  } = useForm()
+  } = useForm<FormData>()
 
   const watchRadioGroup = watch('news')
 
@@ -53,7 +53,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
     },
   )
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = data => {
     const newsSelected = newsArticles?.find(
       item => item.identifier === data.news,
     )
