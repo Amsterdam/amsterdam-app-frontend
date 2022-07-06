@@ -96,9 +96,10 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 
 - <https://github.com/Yelp/detect-secrets>
 
-## Tips and tricks
+## Storybook
 
-1. To see what's in the async store, type `showAsyncStorageContentInDev()` in the React Native Debugger console.
+- Run locally with `npm run storybook`
+- [Production URL] (https://amsterdam.github.io/amsterdam-app-storybook)
 
 ## More documentation
 
