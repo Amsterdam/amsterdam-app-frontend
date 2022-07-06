@@ -51,6 +51,10 @@ export const darkColorTokens: ColorTokens = {
     default: {
       background: baseColor.primary.blue,
     },
+    primary: {
+      default: baseColor.primary.blue,
+      highlight: '#00387a',
+    },
     secondary: {
       background: baseColor.primary.red,
     },

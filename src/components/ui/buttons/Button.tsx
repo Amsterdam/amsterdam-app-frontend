@@ -1,5 +1,10 @@
-import React, {ReactNode} from 'react'
-import {Pressable, PressableProps, StyleSheet} from 'react-native'
+import React, {ReactNode, useState} from 'react'
+import {
+  GestureResponderEvent,
+  Pressable,
+  PressableProps,
+  StyleSheet,
+} from 'react-native'
 import {Text} from '@/components/ui/'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -17,16 +22,25 @@ export const Button = ({
   variant = 'primary',
   ...otherProps
 }: ButtonProps) => {
-  const styles = useThemable(createStyles)
+  const [isPressed, setIsPressed] = useState(false)
+  const styles = useThemable(createStyles(isPressed))
+
+  const mergeOnPressIn = (e: GestureResponderEvent) => {
+    setIsPressed(true)
+    otherProps.onPressIn?.(e)
+  }
+
+  const mergeOnPressOut = (e: GestureResponderEvent) => {
+    setIsPressed(false)
+    otherProps.onPressOut?.(e)
+  }
 
   return (
     <Pressable
       accessibilityRole="button"
-      style={({pressed}) => [
-        styles.button,
-        styles[variant],
-        pressed && styles.pressed,
-      ]}
+      onPressIn={mergeOnPressIn}
+      onPressOut={mergeOnPressOut}
+      style={[styles.button, styles[variant]]}
       {...otherProps}>
       <Row gutter="md">
         {icon && <Icon size={24}>{icon}</Icon>}
@@ -40,30 +54,40 @@ export const Button = ({
   )
 }
 
-const createStyles = ({color, text, size}: Theme) =>
-  StyleSheet.create({
-    button: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      flexShrink: 1,
-      paddingHorizontal: size.spacing.md,
-      paddingVertical: (44 - text.fontSize.body * text.lineHeight.body - 2) / 2, // Design system: button height must be 44
-      borderWidth: 1,
-      borderColor: 'transparent',
-    },
-    secondary: {
-      backgroundColor: color.box.background.white,
-      borderColor: color.pressable.default.background,
-      borderStyle: 'solid',
-    },
-    primary: {
-      backgroundColor: color.pressable.default.background,
-    },
-    text: {
-      backgroundColor: undefined,
-      color: color.pressable.default.background,
-      paddingHorizontal: 0,
-      paddingVertical: 0,
-    },
-    pressed: {},
-  })
+const createStyles =
+  (pressed: boolean) =>
+  ({border, color, text, size}: Theme) =>
+    StyleSheet.create({
+      button: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexShrink: 1,
+        paddingHorizontal: size.spacing.md + 2, // Why DS why
+        paddingVertical:
+          (48 - text.fontSize.body * text.lineHeight.body - border.width.md) /
+          2, // Design system: button height must be 48
+        borderColor: 'transparent',
+        borderStyle: 'solid',
+        borderWidth: border.width.md,
+      },
+      primary: {
+        backgroundColor: pressed
+          ? color.pressable.primary.highlight
+          : color.pressable.primary.default,
+        borderColor: pressed
+          ? color.pressable.primary.highlight
+          : color.pressable.primary.default,
+      },
+      secondary: {
+        backgroundColor: color.box.background.white,
+        borderColor: pressed
+          ? color.pressable.primary.highlight
+          : color.pressable.primary.default,
+      },
+      text: {
+        backgroundColor: undefined,
+        color: color.pressable.default.background,
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+      },
+    })
