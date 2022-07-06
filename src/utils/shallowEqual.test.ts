@@ -18,7 +18,3 @@ test('null parameter', () =>
 test('string parameter', () =>
   // @ts-ignore
   expect(shallowEqual('a', 'a')).toBe(false))
-
-test('Three or more objects', () =>
-  // @ts-ignore
-  expect(shallowEqual({a: 1}, {a: 1}, {a: 1})).toBe(true))
