@@ -14,7 +14,6 @@
     "storybook": "start-storybook -p 7007",
     "storybook:build": "build-storybook",
     "test": "jest",
-    "test:pact": "jest --ci pact.spec.ts",
     "test-ci": "npx jest --ci --coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
@@ -67,7 +66,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/runtime": "^7.14.8",
-    "@pact-foundation/pact": "^9.17.3",
     "@react-native-community/eslint-config": "^3.0.1",
     "@storybook/addon-a11y": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",

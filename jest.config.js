@@ -15,7 +15,6 @@ module.exports = {
     '.vscode',
     '.husky',
     'logs',
-    'pacts',
     'patches',
   ],
   cacheDirectory: '.jest/cache',
