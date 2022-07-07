@@ -3,6 +3,7 @@ import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {View} from 'react-native'
 import {useSelector} from 'react-redux'
+import simplur from 'simplur'
 import {Strides} from '@/assets/icons'
 import {Badge, Trait} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
@@ -47,7 +48,6 @@ export const ProjectTraits = ({
           (numOfUnreadArticles ? (
             <Row gutter="sm" valign="baseline">
               <Badge value={numOfUnreadArticles} />
-              <Phrase>{`Bericht${numOfUnreadArticles > 1 ? 'en' : ''}`}</Phrase>
               <Phrase>{simplur`${numOfUnreadArticles} Bericht[|en]`}</Phrase>
             </Row>
           ) : (
