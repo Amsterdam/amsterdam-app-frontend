@@ -51,7 +51,7 @@ export const AddressPrivacyInfoScreen = ({
               instellingen.
             </Text>
           </View>
-          <Button onPress={navigation.goBack} text="Ik begrijp het" />
+          <Button label="Ik begrijp het" onPress={navigation.goBack} />
         </Column>
       </Box>
       <Gutter height="md" />

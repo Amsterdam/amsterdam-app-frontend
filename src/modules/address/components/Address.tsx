@@ -55,13 +55,13 @@ export const Address = () => {
               <View>
                 <Gutter height="md" />
                 <Button
-                  variant="inverse"
+                  label="Wijzig adres"
                   onPress={() =>
                     navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  text="Wijzig adres"
+                  variant="secondary"
                 />
               </View>
               <View>
@@ -83,30 +83,28 @@ export const Address = () => {
               <>
                 <Title level={4} text="Adres" />
                 <Text>
-                  Vul een adres en huisnummer in zodat u informatie krijgt uit
-                  die buurt.
+                  Vul een straatnaam en huisnummer in zodat u informatie krijgt
+                  uit die buurt.
                 </Text>
-                <Row align="start">
-                  <Button
-                    onPress={() =>
-                      navigation.navigate(addressModule.slug, {
-                        screen: AddressRouteName.addressInfo,
-                      })
-                    }
-                    text="Meer informatie"
-                    variant="text"
-                  />
-                </Row>
               </>
-              <Row align="start">
+              <Row align="between">
                 <Button
+                  label="Vul adres in"
                   onPress={() =>
                     navigation.navigate(addressModule.slug, {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  text="Vul adres in"
-                  variant="inverse"
+                  variant="secondary"
+                />
+                <Button
+                  label="Meer informatie"
+                  onPress={() =>
+                    navigation.navigate(addressModule.slug, {
+                      screen: AddressRouteName.addressInfo,
+                    })
+                  }
+                  variant="tertiary"
                 />
               </Row>
             </Column>

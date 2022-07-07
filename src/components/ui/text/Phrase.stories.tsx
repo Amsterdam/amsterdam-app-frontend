@@ -3,7 +3,6 @@ import {
   ComponentStory,
   ComponentStoryObj,
 } from '@storybook/react'
-import {NavigationButton} from '_components/ui/buttons'
 import React from 'react'
 import {View} from 'react-native'
 import {Phrase} from './Phrase'
@@ -20,7 +19,7 @@ export const Default: ComponentStoryObj<typeof Phrase> = {
   },
 }
 
-export const Pattern: ComponentStory<typeof NavigationButton> = () => (
+export const Pattern: ComponentStory<typeof Phrase> = () => (
   <View>
     <Phrase variant="small" fontWeight="bold">
       14

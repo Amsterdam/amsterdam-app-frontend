@@ -23,8 +23,8 @@ export const ErrorWithRestart = () => {
             </Attention>
             <Gutter height="md" />
             <Button
+              label="De app opnieuw opstarten"
               onPress={() => RNRestart.Restart()}
-              text="De app opnieuw opstarten"
             />
           </Column>
         </Box>

@@ -23,13 +23,13 @@ export const ProvideAddressButton = () => {
       <Gutter height="lg" />
       <Row align="start">
         <Button
+          icon={<Location fill={color.text.inverse} />}
+          label="Vul uw adres in"
           onPress={() =>
             navigation.navigate(addressModule.slug, {
               screen: AddressRouteName.addressForm,
             })
           }
-          icon={<Location fill={color.text.inverse} />}
-          text="Vul uw adres in"
         />
       </Row>
     </>

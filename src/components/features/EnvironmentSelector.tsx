@@ -35,12 +35,12 @@ export const EnvironmentSelector = () => {
             return (
               <GridCell key={env}>
                 <Button
-                  text={env}
+                  label={env}
                   onPress={() => {
                     dispatch(setEnvironment(env as Environment))
                     dispatch(baseApi.util.resetApiState())
                   }}
-                  variant={environment === env ? 'inverse' : 'primary'}
+                  variant={environment === env ? 'secondary' : 'primary'}
                 />
               </GridCell>
             )
@@ -70,7 +70,7 @@ export const EnvironmentSelector = () => {
             </GridCell>
             <GridCell>
               <Button
-                text="Go!"
+                label="Go!"
                 onPress={() => {
                   dispatch(setCustomEnvironment(customUrls))
                 }}

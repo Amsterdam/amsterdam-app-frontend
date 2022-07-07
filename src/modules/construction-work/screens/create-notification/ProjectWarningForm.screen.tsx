@@ -151,12 +151,12 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
               <Title level={4} text="Schrijftips voor een nieuwsartikel" />
               <Row align="start">
                 <Button
+                  label="Toon schrijftips"
                   onPress={() =>
                     navigation.navigate(
                       CreateNotificationRouteName.writingGuide,
                     )
                   }
-                  text="Toon schrijftips"
                 />
               </Row>
             </Column>
@@ -269,9 +269,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                         <Enlarge fill={color.pressable.default.background} />
                       </Icon>
                     }
+                    label="Foto’s toevoegen"
                     onPress={handleSubmit(pickImage)}
-                    text="Foto’s toevoegen"
-                    variant="inverse"
+                    variant="secondary"
                   />
                 </Row>
               </Column>

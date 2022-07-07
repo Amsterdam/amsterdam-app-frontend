@@ -120,14 +120,14 @@ export const Project = ({id}: Props) => {
             </Row>
             {projectManager?.projects.includes(id) && (
               <Button
+                label="Verstuur pushbericht"
                 onPress={() =>
                   navigation.navigate(
                     ConstructionWorkRouteName.createNotification,
                     {project: {id, title}},
                   )
                 }
-                text="Verstuur pushbericht"
-                variant="inverse"
+                variant="secondary"
               />
             )}
 
