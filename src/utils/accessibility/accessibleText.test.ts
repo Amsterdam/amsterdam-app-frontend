@@ -1,6 +1,6 @@
 import {accessibleText} from './accessibleText'
 
-test(`empty string`, () => expect('').toBe(''))
+test(`empty string`, () => expect(accessibleText('')).toBe(''))
 
 //@ts-ignore
 test(`value is 'null'`, () => expect(accessibleText(null)).toBe(''))

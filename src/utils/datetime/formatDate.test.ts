@@ -17,10 +17,10 @@ test('ISO date UTC', () =>
 test('ISO date GMT+2', () =>
   expect(formatDate('2021-01-01T12:00:00+02:00')).toBe('1 januari 2021'))
 
-test('Short dates', () =>
+test('Date format with slashes', () =>
   expect(formatDate('01/01/2021')).toBe('1 januari 2021'))
 
-test('Long dates / 1', () =>
+test('Date format MMM DD YYYY', () =>
   expect(formatDate('Jan 01 2021')).toBe('1 januari 2021'))
 
 test(`value of 'null'`, () =>
