@@ -12,6 +12,6 @@ export default {
 
 export const Default: ComponentStoryObj<typeof TextButton> = {
   args: {
-    text: 'Label',
+    label: 'Label',
   },
 }

@@ -134,10 +134,10 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
             <TextButton
               direction="backward"
               emphasis
+              label="Vorige"
               onPress={navigation.goBack}
-              text="Vorige"
             />
-            <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
+            <SubmitButton onPress={handleSubmit(onSubmit)} label="Controleer" />
           </Row>
         </Box>
       </Column>

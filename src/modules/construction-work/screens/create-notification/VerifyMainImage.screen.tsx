@@ -105,10 +105,10 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
             <TextButton
               direction="backward"
               emphasis
+              label="Vorige"
               onPress={handleSubmit(onBackward)}
-              text="Vorige"
             />
-            <SubmitButton onPress={handleSubmit(onSubmit)} text="Controleer" />
+            <SubmitButton onPress={handleSubmit(onSubmit)} label="Controleer" />
           </Row>
         </Column>
       </Box>

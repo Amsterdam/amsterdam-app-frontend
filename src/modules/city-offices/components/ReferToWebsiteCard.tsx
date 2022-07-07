@@ -25,8 +25,8 @@ export const ReferToWebsiteCard = () => (
           accessibilityLabel="Naar amsterdam punt nl"
           accessibilityRole="link"
           direction="forward"
+          label="Naar amsterdam.nl"
           onPress={() => openWebUrl('https://www.amsterdam.nl/')}
-          text="Naar amsterdam.nl"
         />
       </Row>
     </CardBody>

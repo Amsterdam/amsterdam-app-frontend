@@ -5,20 +5,20 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   onPress: () => void
-  text: string
+  label: string
 }
 
-export const SubmitButton = (props: Props) => {
+export const SubmitButton = ({label, onPress}: Props) => {
   const [buttonHeight, setButtonHeight] = useState<number>(0)
   const styles = useThemable(createStyles(buttonHeight))
 
   return (
     <Pressable
-      onLayout={e => setButtonHeight(e.nativeEvent.layout.height)}
-      onPress={props.onPress}
       accessibilityRole="button"
+      onLayout={e => setButtonHeight(e.nativeEvent.layout.height)}
+      onPress={onPress}
       style={styles.button}>
-      <Text inverse>{props.text}</Text>
+      <Text inverse>{label}</Text>
       <View style={styles.pointedEnd} />
     </Pressable>
   )

@@ -86,8 +86,8 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
             <Row align="start">
               <TextButton
                 direction="forward"
+                label={footerLink.text}
                 onPress={footerLink.onPress}
-                text={footerLink.text}
               />
             </Row>
           </>

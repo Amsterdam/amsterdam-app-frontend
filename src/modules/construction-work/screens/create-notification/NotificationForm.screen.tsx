@@ -181,12 +181,12 @@ export const NotificationFormScreen = ({navigation}: Props) => {
         <Box>
           <Row align="end" valign="center">
             <SubmitButton
-              onPress={handleSubmit(onSubmit)}
-              text={
+              label={
                 newsArticlesCount
                   ? 'Kies een nieuwsartikel'
                   : 'Schrijf een nieuwsartikel'
               }
+              onPress={handleSubmit(onSubmit)}
             />
           </Row>
         </Box>

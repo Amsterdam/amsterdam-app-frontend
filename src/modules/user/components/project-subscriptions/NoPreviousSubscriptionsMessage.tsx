@@ -24,12 +24,12 @@ export const NoPreviousSubscriptionsMessage = () => {
       </Attention>
       <TextButton
         emphasis
+        label="Naar bouwprojecten"
         onPress={() =>
           navigation.navigate(constructionWorkModule.slug, {
             screen: ConstructionWorkRouteName.projects,
           })
         }
-        text="Naar bouwprojecten"
       />
     </Column>
   )

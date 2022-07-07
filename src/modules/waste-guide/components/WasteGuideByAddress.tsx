@@ -100,8 +100,8 @@ export const WasteGuideByAddress = () => {
           <TextButton
             direction="backward"
             emphasis
+            label="Verander adres"
             onPress={navigateToAddressForm}
-            text="Verander adres"
           />
         </Row>
       </Box>
@@ -148,10 +148,10 @@ export const WasteGuideByAddress = () => {
             <Gutter height="md" />
             <TextButton
               direction="forward"
+              label="Kloppen de dagen of tijden niet?"
               onPress={() =>
                 navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
               }
-              text="Kloppen de dagen of tijden niet?"
             />
           </>
         )}

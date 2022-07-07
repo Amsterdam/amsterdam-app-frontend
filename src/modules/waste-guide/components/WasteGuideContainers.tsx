@@ -27,10 +27,10 @@ export const WasteGuideContainers = () => {
         <Row align="start">
           <TextButton
             direction="forward"
+            label="Bekijk de kaart met containers in de buurt"
             onPress={() =>
               navigation.navigate(WasteGuideRouteName.wasteGuideContainers)
             }
-            text="Bekijk de kaart met containers in de buurt"
           />
         </Row>
         <Gutter height="md" />

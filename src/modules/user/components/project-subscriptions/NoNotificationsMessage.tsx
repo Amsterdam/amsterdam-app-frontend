@@ -37,12 +37,12 @@ export const NoNotificationsMessage = () => {
         </Text>
         <TextButton
           emphasis
+          label="Naar bouwprojecten"
           onPress={() =>
             navigation.navigate(constructionWorkModule.slug, {
               screen: ConstructionWorkRouteName.projects,
             })
           }
-          text="Naar bouwprojecten"
         />
       </Column>
     </Box>

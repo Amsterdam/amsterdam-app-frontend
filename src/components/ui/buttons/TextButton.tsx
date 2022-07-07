@@ -14,7 +14,7 @@ type Props = {
   direction?: 'backward' | 'down' | 'forward' | 'up'
   icon?: 'cancel' | 'remove'
   emphasis?: boolean
-  text: string
+  label: string
 } & PressableProps
 
 export const TextButton = ({
@@ -22,8 +22,8 @@ export const TextButton = ({
   direction,
   emphasis,
   icon,
+  label,
   onPress,
-  text,
   ...otherProps
 }: Props) => {
   const {fontScale} = useContext(DeviceContext)
@@ -67,7 +67,7 @@ export const TextButton = ({
             emphasis && styles.emphasis,
             isPressed && styles.pressed,
           ]}>
-          {text}
+          {label}
         </Text>
       </Row>
     </Pressable>
