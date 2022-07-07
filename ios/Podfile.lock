@@ -339,7 +339,7 @@ PODS:
     - glog
   - react-native-build-config (0.3.2):
     - React
-  - react-native-flipper (0.145.0):
+  - react-native-flipper (0.153.0):
     - React-Core
   - react-native-netinfo (9.3.0):
     - React-Core
@@ -446,14 +446,14 @@ PODS:
   - RNScreens (3.14.1):
     - React-Core
     - React-RCTImage
-  - RNSentry (4.1.0):
+  - RNSentry (4.0.1):
     - React-Core
-    - Sentry (= 7.18.1)
+    - Sentry (= 7.18.0)
   - RNSVG (12.3.0):
     - React-Core
-  - Sentry (7.18.1):
-    - Sentry/Core (= 7.18.1)
-  - Sentry/Core (7.18.1)
+  - Sentry (7.18.0):
+    - Sentry/Core (= 7.18.0)
+  - Sentry/Core (7.18.0)
   - SocketRocket (0.6.0)
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
@@ -703,7 +703,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 218a2503198ff28a085f8e16622a8d8f507c8019
   React-logger: f79dd3cc0f9b44f5611c6c7862badd891a862cf8
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
-  react-native-flipper: 1b78844db5b0de19bd64847c3b88cafc6cc119ba
+  react-native-flipper: 88dd2735e76e6fb79f8714124bf9315f1e05a7e6
   react-native-netinfo: 129bd99f607a2dc5bb096168f3e5c150fd1f1c95
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
@@ -729,9 +729,9 @@ SPEC CHECKSUMS:
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
   RNScreens: aa9a97835afbbdc18a4757870b2b59b7d9fae16a
-  RNSentry: d27112c8fcb77c52a42c3fffb796193c333ee562
+  RNSentry: fc5a7ed36b2298b6b98699b3d6357ccc4d407722
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
-  Sentry: 2d70348d6247a29702a8317e710c5ba890672df5
+  Sentry: aff6fb3785973436f0bf25748f6b3bcb3e825e09
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 17cd9a50243093b547c1e539c749928dd68152da
