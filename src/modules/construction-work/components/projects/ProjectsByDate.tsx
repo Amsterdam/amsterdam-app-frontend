@@ -11,6 +11,7 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
+import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -26,12 +27,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
-  const {followed} = project
+  const {followed, recent_articles} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits {...{followed}} />}
+      kicker={<ProjectTraits {...{followed, recent_articles}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
@@ -64,7 +65,15 @@ export const ProjectsByDate = () => {
     isLoading,
     isError,
   } = useGetProjectsQuery({
-    fields: ['followed', 'identifier', 'images', 'subtitle', 'title'],
+    articles_max_age: articlesMaxAgeInDays,
+    fields: [
+      'followed',
+      'identifier',
+      'images',
+      'recent_articles',
+      'subtitle',
+      'title',
+    ],
     sortBy: 'publication_date',
     sortOrder: 'desc',
   })

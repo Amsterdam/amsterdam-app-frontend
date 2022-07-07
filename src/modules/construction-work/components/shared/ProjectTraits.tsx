@@ -2,20 +2,31 @@ import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {View} from 'react-native'
+import {useSelector} from 'react-redux'
+import simplur from 'simplur'
 import {Strides} from '@/assets/icons'
-import {Trait} from '@/components/ui'
+import {Badge, Trait} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
+import {Phrase} from '@/components/ui/text'
+import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {ProjectsItem} from '@/types'
+import {accessibleText, excludeListItemsFromList} from '@/utils'
 
-type Props = {
-  followed?: boolean
-  meter?: number
-  strides?: number
-}
+type Props = Partial<ProjectsItem>
 
-export const ProjectTraits = ({followed, meter, strides}: Props) => {
+export const ProjectTraits = ({
+  followed,
+  meter,
+  recent_articles,
+  strides,
+}: Props) => {
   const iconProps = useThemable(createIconProps)
+  const readArticles = useSelector(selectConstructionWorkReadArticles)
+  const numOfUnreadArticles = excludeListItemsFromList(
+    recent_articles || [],
+    readArticles.map(r => r.id),
+  ).length
 
   if ([followed, meter, strides].every(v => !v)) {
     return null
@@ -33,9 +44,15 @@ export const ProjectTraits = ({followed, meter, strides}: Props) => {
         ].join(' '),
       )}>
       <Row gutter="md" wrap>
-        {followed && (
-          <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
-        )}
+        {followed &&
+          (numOfUnreadArticles ? (
+            <Row gutter="sm" valign="baseline">
+              <Badge value={numOfUnreadArticles} />
+              <Phrase>{simplur`${[numOfUnreadArticles]} Bericht[|en]`}</Phrase>
+            </Row>
+          ) : (
+            <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
+          ))}
         {meter && (
           <Trait icon={<Location {...iconProps} />} label={`${meter} meter`} />
         )}

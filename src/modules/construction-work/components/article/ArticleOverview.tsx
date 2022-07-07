@@ -6,6 +6,7 @@ import {PleaseWait} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -49,6 +50,7 @@ export const ArticleOverview = ({
     sortBy,
     sortOrder,
   })
+  const {markMultipleAsRead} = useMarkArticleAsRead()
 
   useEffect(() => {
     if (articles) {
@@ -65,6 +67,18 @@ export const ArticleOverview = ({
       setYearlyArticleSections(sections)
     }
   }, [articles])
+
+  useEffect(() => {
+    return navigation.addListener('blur', () => {
+      const {index, routes} = navigation.getState()
+      if (
+        routes[index].name === ConstructionWorkRouteName.projects &&
+        articles
+      ) {
+        markMultipleAsRead(articles)
+      }
+    })
+  }, [articles, markMultipleAsRead, navigation])
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {

@@ -44,6 +44,7 @@ export type ProjectsItem = {
   modification_date: string
   project_type: string
   publication_date: string
+  recent_articles?: string[]
   score: number
   source_url: string
   strides: number
@@ -62,6 +63,7 @@ export type ProjectTitles = Pick<
 >
 
 export type ProjectsQueryArg = {
+  articles_max_age: number
   projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
