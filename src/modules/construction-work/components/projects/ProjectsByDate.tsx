@@ -3,6 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {articleAsNewDays} from '../../hooks/useMarkArticleAsRead'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
@@ -26,12 +27,12 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
-  const {followed} = project
+  const {followed, recent_articles} = project
 
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits {...{followed}} />}
+      kicker={<ProjectTraits {...{followed, recent_articles}} />}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
@@ -64,7 +65,15 @@ export const ProjectsByDate = () => {
     isLoading,
     isError,
   } = useGetProjectsQuery({
-    fields: ['followed', 'identifier', 'images', 'subtitle', 'title'],
+    articles_max_age: articleAsNewDays,
+    fields: [
+      'followed',
+      'identifier',
+      'images',
+      'recent_articles',
+      'subtitle',
+      'title',
+    ],
     sortBy: 'publication_date',
     sortOrder: 'desc',
   })
