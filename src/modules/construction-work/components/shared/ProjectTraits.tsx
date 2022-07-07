@@ -45,7 +45,7 @@ export const ProjectTraits = ({
       <Row gutter="md" wrap>
         {followed &&
           (numOfUnreadArticles ? (
-            <Row gutter="sm">
+            <Row gutter="sm" valign="baseline">
               <Badge value={numOfUnreadArticles} />
               <Phrase>{`Bericht${numOfUnreadArticles > 1 ? 'en' : ''}`}</Phrase>
             </Row>
