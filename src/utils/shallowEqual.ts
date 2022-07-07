@@ -1,8 +1,7 @@
-type IObject = {
-  [key: string]: string | number
-}
-
-export const shallowEqual = (object1: IObject, object2: IObject) => {
+export const shallowEqual = (
+  object1: Record<string, unknown>,
+  object2: Record<string, unknown>,
+) => {
   if (!object1 || !object2) {
     return false
   }
@@ -17,7 +16,7 @@ export const shallowEqual = (object1: IObject, object2: IObject) => {
     return false
   }
 
-  for (let key of keys1) {
+  for (const key of keys1) {
     if (object1[key] !== object2[key]) {
       return false
     }
