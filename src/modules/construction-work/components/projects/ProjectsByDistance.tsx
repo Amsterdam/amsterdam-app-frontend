@@ -4,7 +4,6 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {articleAsNewDays} from '../../hooks/useMarkArticleAsRead'
 import {RootStackParams} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
@@ -19,6 +18,7 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
+import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ModuleSlugs} from '@/modules/slugs'
@@ -121,7 +121,7 @@ export const ProjectsByDistance = ({
 
   const params = {
     address: lat && lon ? '' : adres,
-    articles_max_age: articleAsNewDays,
+    articles_max_age: articlesMaxAgeInDays,
     fields: [
       'followed',
       'identifier',

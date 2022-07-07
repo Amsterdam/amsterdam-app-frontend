@@ -3,7 +3,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {articleAsNewDays} from '../../hooks/useMarkArticleAsRead'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
@@ -12,6 +11,7 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
+import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {DeviceContext} from '@/providers'
@@ -65,7 +65,7 @@ export const ProjectsByDate = () => {
     isLoading,
     isError,
   } = useGetProjectsQuery({
-    articles_max_age: articleAsNewDays,
+    articles_max_age: articlesMaxAgeInDays,
     fields: [
       'followed',
       'identifier',
