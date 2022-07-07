@@ -3,9 +3,9 @@ import {
   ComponentStory,
   ComponentStoryObj,
 } from '@storybook/react'
-import {Row} from '_components/ui/layout'
 import React from 'react'
 import {Button} from './Button'
+import {Row} from '@/components/ui/layout'
 
 export default {
   component: Button,
