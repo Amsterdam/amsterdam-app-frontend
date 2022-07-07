@@ -1,6 +1,6 @@
 import {BUILD_NUMBER} from '@env'
 import {NavigationContainerRef} from '@react-navigation/native'
-import {isRejected} from '@reduxjs/toolkit'
+import {isRejectedWithValue} from '@reduxjs/toolkit'
 import {
   init,
   ReactNavigationInstrumentation,
@@ -19,8 +19,9 @@ import {version} from '../../package.json'
 import type {Middleware} from '@reduxjs/toolkit'
 import {RootStackParams} from '@/app/navigation'
 import {Environment} from '@/environment'
-import {appFlavour, devLog, isDevApp} from '@/processes'
+import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes'
 import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
+import {stringifyIfObject} from '@/utils'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -46,6 +47,10 @@ const sanitizeUrl = (url: string) => (url ? url.split('?')[0] : '')
  * The main initialization of Sentry
  */
 export const initSentry = () => {
+  // We do not log errors when running the app locally, but may want to in the future
+  if (appFlavour === AppFlavour.local) {
+    return
+  }
   init({
     dsn: 'https://7a6ad9f75fab4c509da16d13bbab4271@o1299992.ingest.sentry.io/6479388',
     environment: appFlavour,
@@ -101,9 +106,10 @@ export const getCaptureSentryBreadcrumb =
 export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (message, filename, data) => {
+    devLog('sendSentryErrorLog', message, filename, data)
     const extraData = logData ? data : undefined
     Object.entries({filename, ...extraData}).forEach(([key, value]) => {
-      setExtra(key, value)
+      setExtra(key, stringifyIfObject(value))
     })
     captureException(new Error(message))
   }
@@ -120,7 +126,7 @@ export const setSentryUserData = (enabled: boolean) => {
  * RTK middleware to catch API errors and other rejections
  */
 export const sentryLoggerMiddleware: Middleware = () => next => action => {
-  if (isRejected(action)) {
+  if (isRejectedWithValue(action)) {
     // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
     const consent = true
     let message = 'Rejected RTK action'

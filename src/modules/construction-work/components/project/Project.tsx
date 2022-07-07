@@ -8,7 +8,7 @@ import {Button, FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
-import {useRegisterDevice} from '@/hooks'
+import {useRegisterDevice, useSentry} from '@/hooks'
 import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
@@ -57,6 +57,7 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
   const {registerDevice} = useRegisterDevice()
+  const {sendSentryErrorLog} = useSentry()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -67,10 +68,24 @@ export const Project = ({id}: Props) => {
         unfollowProject({project_id: project.identifier})
       } else {
         followProject({project_id: project.identifier})
-        requestPushNotificationsPermission().then(registerDevice)
+        requestPushNotificationsPermission()
+          .then(registerDevice)
+          .catch((error: unknown) => {
+            sendSentryErrorLog(
+              'Register device for push notifications failed',
+              'Project.tsx',
+              {error},
+            )
+          })
       }
     },
-    [registerDevice, followProject, project, unfollowProject],
+    [
+      followProject,
+      project,
+      registerDevice,
+      sendSentryErrorLog,
+      unfollowProject,
+    ],
   )
 
   useLayoutEffect(() => {
