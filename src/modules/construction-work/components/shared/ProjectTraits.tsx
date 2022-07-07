@@ -24,7 +24,7 @@ export const ProjectTraits = ({
   const iconProps = useThemable(createIconProps)
   const readArticles = useSelector(selectConstructionWorkReadArticles)
   const numOfUnreadArticles = excludeListItemsFromList(
-    recent_articles || [],
+    recent_articles?.map(r => r.identifier) || [],
     readArticles.map(r => r.id),
   ).length
 
