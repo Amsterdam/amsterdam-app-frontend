@@ -47,5 +47,14 @@ export const useMarkArticleAsRead = () => {
     [markAsRead],
   )
 
-  return {markAsRead, markMultipleAsRead}
+  const markMultipleAsUnRead = useCallback(
+    (articles: Articles) => {
+      articles?.forEach(({identifier}) =>
+        dispatch(deleteReadArticle(identifier)),
+      )
+    },
+    [dispatch],
+  )
+
+  return {markAsRead, markMultipleAsRead, markMultipleAsUnRead}
 }
