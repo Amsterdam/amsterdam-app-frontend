@@ -2,11 +2,11 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useMarkArticleAsRead} from '../../hooks/useMarkArticleAsRead'
 import {PleaseWait} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
