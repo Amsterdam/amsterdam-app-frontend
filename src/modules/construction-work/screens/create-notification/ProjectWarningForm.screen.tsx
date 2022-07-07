@@ -283,12 +283,12 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
             <TextButton
               direction="backward"
               emphasis
+              label="Vorige"
               onPress={navigation.goBack}
-              text="Vorige"
             />
             <SubmitButton
+              label="Controleer"
               onPress={handleSubmit(onSubmitForm)}
-              text="Controleer"
             />
           </Row>
         </Box>

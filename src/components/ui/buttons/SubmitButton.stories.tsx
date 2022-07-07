@@ -12,6 +12,6 @@ export default {
 
 export const Default: ComponentStoryObj<typeof SubmitButton> = {
   args: {
-    text: 'Label',
+    label: 'Label',
   },
 }

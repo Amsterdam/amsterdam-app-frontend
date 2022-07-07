@@ -217,10 +217,10 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             <TextButton
               direction="backward"
               emphasis
+              label="Vorige"
               onPress={navigation.goBack}
-              text="Vorige"
             />
-            <SubmitButton onPress={handleSubmit} text="Verstuur" />
+            <SubmitButton onPress={handleSubmit} label="Verstuur" />
           </Row>
         </Box>
       </Column>

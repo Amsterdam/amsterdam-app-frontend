@@ -69,8 +69,8 @@ export const Address = () => {
                 <TextButton
                   emphasis
                   icon="remove"
+                  label="Verwijder adres"
                   onPress={removeAddressAndShowAlert}
-                  text="Verwijder adres"
                 />
               </View>
             </Row>

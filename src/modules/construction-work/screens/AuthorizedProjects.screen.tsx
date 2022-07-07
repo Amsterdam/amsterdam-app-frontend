@@ -21,13 +21,13 @@ export const AuthorizedProjectsScreen = () => (
       <Text small>Ontbreekt er een bouwproject?</Text>
       <TextButton
         emphasis
+        label="Neem contact op met de redactie"
         onPress={() =>
           openMailUrl(
             'redactieprojecten@amsterdam.nl',
             'Bouwprojecten in de Amsterdam app',
           )
         }
-        text="Neem contact op met de redactie"
       />
     </Box>
   </ScrollView>

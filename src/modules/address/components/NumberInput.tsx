@@ -60,7 +60,7 @@ export const NumberInput = ({
       <Row align="start">
         <TextButton
           direction="up"
-          text={street}
+          label={street}
           onPress={() => changeIsStreetSelected(false)}
         />
       </Row>
