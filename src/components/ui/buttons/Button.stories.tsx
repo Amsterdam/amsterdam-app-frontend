@@ -1,3 +1,4 @@
+import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import {
   ComponentMeta,
   ComponentStory,
@@ -63,4 +64,16 @@ export const __Alignment: ComponentStory<typeof Button & typeof Row> = ({
 __Alignment.args = {
   align: 'start',
   gutter: 'md',
+}
+
+export const __WithIcon: ComponentStory<typeof Button & typeof Row> = ({
+  align,
+}) => (
+  <Row align={align}>
+    <Button icon={<Phone fill="white" />} label="Bel ons" />
+  </Row>
+)
+
+__WithIcon.args = {
+  align: 'start',
 }

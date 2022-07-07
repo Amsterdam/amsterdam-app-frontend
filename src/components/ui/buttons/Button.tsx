@@ -54,6 +54,7 @@ export const Button = ({
 const createStyles =
   (variant: ButtonProps['variant'], pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
+    const buttonHeight = 48 // Design system requirement
     const borderWidth =
       variant === 'secondary' && pressed ? border.width.lg : border.width.md
     const labelFontSize = text.fontSize.body
@@ -102,7 +103,8 @@ const createStyles =
         flexShrink: 1,
         paddingHorizontal: size.spacing.md + 2, // Why DS why
         paddingVertical:
-          (48 - labelFontSize * labelLineHeight - 2 * borderWidth) / 2, // Design system: button height must be 48
+          (buttonHeight - labelFontSize * labelLineHeight - 2 * borderWidth) /
+          2,
         backgroundColor: backgroundColor(),
         borderColor: borderColor(),
         borderStyle: 'solid',
