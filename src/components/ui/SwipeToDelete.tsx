@@ -3,9 +3,7 @@ import React, {ReactNode, useState} from 'react'
 import {View, Pressable} from 'react-native'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Box} from '@/components/ui'
-import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 
 type Props = {
@@ -23,12 +21,9 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
         <View>
           <Pressable onPress={onEvent}>
             <Box background="invalid" inset="md">
-              <Row align="end" valign="center" gutter="md">
-                <Paragraph variant="small">Verwijderen</Paragraph>
-                <Icon size={24}>
-                  <TrashBin fill={color.text.default} />
-                </Icon>
-              </Row>
+              <Icon size={24}>
+                <TrashBin fill={color.text.inverse} />
+              </Icon>
             </Box>
           </Pressable>
         </View>
