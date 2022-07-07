@@ -6,7 +6,10 @@ import {
   addReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/construction-work.slice'
+import {Articles} from '@/types'
 import {getDateDiffInDays} from '@/utils'
+
+export const articleAsNewDays = 3
 
 export const useMarkArticleAsRead = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
@@ -14,7 +17,7 @@ export const useMarkArticleAsRead = () => {
 
   const deleteOldArticles = useCallback(() => {
     readArticles.forEach(readArticle => {
-      getDateDiffInDays(readArticle.publicationDate) > 3 &&
+      getDateDiffInDays(readArticle.publicationDate) > articleAsNewDays &&
         dispatch(deleteReadArticle(readArticle.id))
     })
   }, [dispatch, readArticles])
@@ -22,7 +25,7 @@ export const useMarkArticleAsRead = () => {
   const markAsRead = useCallback(
     (article: ReadArticle) => {
       deleteOldArticles()
-      if (getDateDiffInDays(article.publicationDate) > 3) {
+      if (getDateDiffInDays(article.publicationDate) > articleAsNewDays) {
         return
       }
       if (readArticles.find(readArticle => readArticle.id === article.id)) {
@@ -33,5 +36,17 @@ export const useMarkArticleAsRead = () => {
     [deleteOldArticles, dispatch, readArticles],
   )
 
-  return {markAsRead}
+  const markMultipleAsRead = useCallback(
+    (articles: Articles) => {
+      articles?.forEach(({identifier, publication_date}) =>
+        markAsRead({
+          id: identifier,
+          publicationDate: publication_date,
+        }),
+      )
+    },
+    [markAsRead],
+  )
+
+  return {markAsRead, markMultipleAsRead}
 }
