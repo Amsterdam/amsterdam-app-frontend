@@ -30,6 +30,11 @@ export type ProjectContact = {
   position: string
 }
 
+export type RecentArticle = {
+  identifier: string
+  publication_date: string
+}
+
 export type ProjectsItem = {
   active: boolean
   content_html: string
@@ -44,7 +49,7 @@ export type ProjectsItem = {
   modification_date: string
   project_type: string
   publication_date: string
-  recent_articles?: string[]
+  recent_articles?: RecentArticle[]
   score: number
   source_url: string
   strides: number
