@@ -14,7 +14,7 @@ test(`'null' in 2 string parameter`, () =>
   //@ts-ignore
   expect(accessibleText('text', null)).toBe('text'))
 
-test(`abbraviation  and inject comma's`, () =>
+test(`abbreviation and inject comma's`, () =>
   expect(accessibleText('het is van 5 t/m 7 oktober', 'in de ochtend')).toBe(
     'het is van 5 tot en met 7 oktober, in de ochtend',
   ))
