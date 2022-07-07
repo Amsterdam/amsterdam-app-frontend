@@ -1,4 +1,10 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {
+  ComponentMeta,
+  ComponentStory,
+  ComponentStoryObj,
+} from '@storybook/react'
+import {Row} from '_components/ui/layout'
+import React from 'react'
 import {Button} from './Button'
 
 export default {
@@ -30,3 +36,17 @@ export const Tertiary: ComponentStoryObj<typeof Button> = {
     variant: 'tertiary',
   },
 }
+
+export const _Inline: ComponentStory<typeof Button> = () => (
+  <Row align="start">
+    <Button label="Inline button" />
+  </Row>
+)
+
+export const __Alignment: ComponentStory<typeof Button> = () => (
+  <Row align="start" gutter="md">
+    <Button label="First button" />
+    <Button label="Second button" variant="secondary" />
+    <Button label="Third button" variant="tertiary" />
+  </Row>
+)
