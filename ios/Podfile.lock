@@ -448,8 +448,8 @@ PODS:
     - React-RCTImage
   - RNSentry (4.0.1):
     - React-Core
-    - Sentry (= 7.18.1)
-  - RNSVG (12.2.0):
+    - Sentry (= 7.18.0)
+  - RNSVG (12.3.0):
     - React-Core
   - Sentry (7.18.0):
     - Sentry/Core (= 7.18.0)
@@ -729,9 +729,9 @@ SPEC CHECKSUMS:
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
   RNScreens: aa9a97835afbbdc18a4757870b2b59b7d9fae16a
-  RNSentry: d27112c8fcb77c52a42c3fffb796193c333ee562
-  RNSVG: 4ecc2e8f38b6ebe7889909570c26f3abe8059767
-  Sentry: 2d70348d6247a29702a8317e710c5ba890672df5
+  RNSentry: fc5a7ed36b2298b6b98699b3d6357ccc4d407722
+  RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
+  Sentry: aff6fb3785973436f0bf25748f6b3bcb3e825e09
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 17cd9a50243093b547c1e539c749928dd68152da
