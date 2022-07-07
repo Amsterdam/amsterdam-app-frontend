@@ -130,17 +130,18 @@ export const Project = ({id}: Props) => {
                 variant="inverse"
               />
             )}
-            <SingleSelectable
-              accessibilityRole="header"
-              label={accessibleText(title, subtitle)}>
-              <Column gutter="md">
-                <ProjectTraits {...{meter, strides}} />
+
+            <Column gutter="md">
+              <ProjectTraits {...{meter, strides}} />
+              <SingleSelectable
+                accessibilityRole="header"
+                label={accessibleText(title, subtitle)}>
                 <Column gutter="sm">
                   {title && <Title text={title} />}
                   {subtitle && <Title level="h4" text={subtitle} />}
                 </Column>
-              </Column>
-            </SingleSelectable>
+              </SingleSelectable>
+            </Column>
           </Column>
           <Gutter height="lg" />
           <ProjectBodyMenu project={project} />
