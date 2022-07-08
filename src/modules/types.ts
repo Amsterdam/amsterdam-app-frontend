@@ -6,6 +6,7 @@ import {ModuleSlugs} from './slugs'
  */
 export type ModuleClientConfig = {
   isCore?: boolean
+  isForEmployees?: boolean
   linking: Record<string, string>
   name: string
   slug: ModuleSlugs
