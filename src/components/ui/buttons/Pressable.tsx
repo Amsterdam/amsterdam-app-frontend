@@ -7,7 +7,7 @@ import {
 import {Box, BoxProps} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
 
-type ButtonVariants = 'primary' | 'tertiary'
+type ButtonVariants = 'primary' | 'tertiary' | 'negative'
 
 type Props = {
   children: ReactNode
@@ -41,9 +41,6 @@ const createStyles =
         backgroundColor: color.pressable[variant].default,
       },
       pressed: {
-        backgroundColor:
-          variant === 'tertiary'
-            ? color.pressable.pressed.background
-            : color.pressable.primary.highlight,
+        backgroundColor: color.pressable[variant].highlight,
       },
     })
