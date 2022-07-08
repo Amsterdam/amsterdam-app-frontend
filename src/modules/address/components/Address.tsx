@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Gutter, Row} from '@/components/ui/layout'
 import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
@@ -55,7 +55,7 @@ export const Address = () => {
                 {[primaryAddress.postcode, primaryAddress.woonplaats].join(' ')}
               </Text>
             </SingleSelectable>
-            <Row align="between" valign="center" gutter="md" wrap>
+            <Row valign="center" gutter="md" wrap>
               <View>
                 <Gutter height="md" />
                 <Button
@@ -87,15 +87,14 @@ export const Address = () => {
       ) : (
         <Card>
           <CardBody>
-            <Column gutter="md">
-              <>
-                <Title level={4} text="Adres" />
-                <Text>
-                  Vul een straatnaam en huisnummer in zodat u informatie krijgt
-                  uit die buurt.
-                </Text>
-              </>
-              <Row align="between">
+            <Title level={4} text="Adres" />
+            <Text>
+              Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
+              die buurt.
+            </Text>
+            <Row valign="center" gutter="md" wrap>
+              <View>
+                <Gutter height="md" />
                 <Button
                   label="Vul adres in"
                   onPress={() =>
@@ -105,6 +104,9 @@ export const Address = () => {
                   }
                   variant="secondary"
                 />
+              </View>
+              <View>
+                <Gutter height="md" />
                 <Button
                   label="Meer informatie"
                   onPress={() =>
@@ -114,8 +116,8 @@ export const Address = () => {
                   }
                   variant="tertiary"
                 />
-              </Row>
-            </Column>
+              </View>
+            </Row>
           </CardBody>
         </Card>
       )}
