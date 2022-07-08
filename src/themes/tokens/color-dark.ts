@@ -61,7 +61,6 @@ export const darkColorTokens: ColorTokens = {
     tertiary: {
       default: baseColor.primary.white,
     },
-    navigation: baseColor.primary.blue,
     pressed: {
       background: baseColor.neutral.grey5,
     },
