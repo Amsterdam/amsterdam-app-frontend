@@ -51,7 +51,7 @@ export const ProjectCard = ({
                 <Gutter height="xs" />
               </>
             )}
-            <Title inPressable level="h4" text={title} />
+            <Title color="link" level="h4" text={title} />
             {subtitle ? <Paragraph>{subtitle}</Paragraph> : null}
           </View>
           {/*TODO Replace with better `Grid` gutters */}

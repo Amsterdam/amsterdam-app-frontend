@@ -80,6 +80,7 @@ export const lightColorTokens = {
   text: {
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
+    link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
   },

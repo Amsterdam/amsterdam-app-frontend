@@ -51,7 +51,11 @@ export const ModuleButton = ({
               <Icon size={24}>
                 <ModuleIcon {...iconProps} />
               </Icon>
-              <Title level="h5" text={label} />
+              <Title
+                color={variant === 'primary' ? 'inverse' : 'default'}
+                level="h5"
+                text={label}
+              />
             </Row>
           </Pressable>
         </View>
