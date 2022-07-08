@@ -18,7 +18,7 @@ const DeleteButton = ({onPress}: {onPress: () => void}) => {
 
   return (
     <Pressable onPress={onPress}>
-      <Box background="invalid" inset="md">
+      <Box inset="md">
         <Row align="end" valign="center" gutter="sm">
           <Phrase color="inverse" variant="small">
             Verwijder

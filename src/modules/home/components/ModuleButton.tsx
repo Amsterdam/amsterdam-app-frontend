@@ -36,29 +36,30 @@ export const ModuleButton = ({
 
   const ModuleIcon = icons[iconName]
   const iconProps = useThemable(createIconProps(variant))
-  const styles = useThemable(createStyles(variant))
+  const styles = useThemable(createStyles)
 
   const onDelete = useCallback(() => {
     dispatch(toggleModule(slug))
   }, [slug, dispatch])
 
   return (
-    <View style={styles.container}>
+    <View style={styles.swipeToDeleteContainer}>
       <SwipeToDelete onEvent={onDelete}>
-        <View style={styles.buttonContainer}>
-          <Pressable onPress={() => navigation.navigate(slug)} inset="md">
-            <Row gutter="md" valign="center">
-              <Icon size={24}>
-                <ModuleIcon {...iconProps} />
-              </Icon>
-              <Title
-                color={variant === 'primary' ? 'inverse' : 'default'}
-                level="h5"
-                text={label}
-              />
-            </Row>
-          </Pressable>
-        </View>
+        <Pressable
+          inset="md"
+          onPress={() => navigation.navigate(slug)}
+          variant={variant}>
+          <Row gutter="md" valign="center">
+            <Icon size={24}>
+              <ModuleIcon {...iconProps} />
+            </Icon>
+            <Title
+              color={variant === 'primary' ? 'inverse' : 'default'}
+              level="h5"
+              text={label}
+            />
+          </Row>
+        </Pressable>
       </SwipeToDelete>
     </View>
   )
@@ -70,14 +71,9 @@ const createIconProps =
     fill: variant === 'tertiary' ? color.text.default : color.text.inverse,
   })
 
-const createStyles =
-  (variant: ButtonVariants) =>
-  ({color}: Theme) =>
-    StyleSheet.create({
-      container: {
-        backgroundColor: color.box.background.invalid,
-      },
-      buttonContainer: {
-        backgroundColor: color.pressable[variant].default,
-      },
-    })
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    swipeToDeleteContainer: {
+      backgroundColor: color.box.background.invalid,
+    },
+  })
