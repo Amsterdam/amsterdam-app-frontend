@@ -12,11 +12,20 @@ type Props = {
   onEvent: () => void
 }
 
-const DeleteButton = ({onPress}: {onPress: () => void}) => {
+type DeleteButtonProps = {
+  accessible: boolean
+  onPress: () => void
+}
+
+const DeleteButton = ({accessible, onPress}: DeleteButtonProps) => {
   const {color} = useTheme()
 
   return (
-    <Pressable inset="md" onPress={onPress} variant="negative">
+    <Pressable
+      accessible={accessible}
+      inset="md"
+      onPress={onPress}
+      variant="negative">
       <Row align="end" valign="center" gutter="sm">
         <Phrase color="inverse" variant="small">
           Verwijder
@@ -39,7 +48,9 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
 
   return (
     <Swipeable
-      renderRightActions={() => <DeleteButton onPress={onEvent} />}
+      renderRightActions={() => (
+        <DeleteButton accessible={isSwipeOpen} onPress={onEvent} />
+      )}
       onSwipeableRightOpen={onSwipeableRightOpen}>
       {children}
     </Swipeable>
