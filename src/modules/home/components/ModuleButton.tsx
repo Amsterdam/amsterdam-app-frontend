@@ -1,28 +1,33 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {SwipeToDelete} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
+import {icons} from '@/modules/home/config'
 import {HomeRouteName} from '@/modules/home/routes'
 import {toggleModule} from '@/modules/home/store'
 import {ModuleSlugs} from '@/modules/slugs'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
-  icon: ReactNode
+  iconName: string
   label: string
   slug: ModuleSlugs
 }
 
-export const ModuleButton = ({icon, label, slug}: Props) => {
+export const ModuleButton = ({iconName, label, slug}: Props) => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, HomeRouteName>>()
+
+  const ModuleIcon = icons[iconName]
+  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   const onDelete = useCallback(() => {
@@ -35,7 +40,9 @@ export const ModuleButton = ({icon, label, slug}: Props) => {
         <View style={styles.buttonContainer}>
           <Pressable onPress={() => navigation.navigate(slug)} inset="md">
             <Row gutter="md" valign="center">
-              {icon}
+              <Icon size={24}>
+                <ModuleIcon {...iconProps} />
+              </Icon>
               <Title level="h5" text={label} />
             </Row>
           </Pressable>
@@ -44,6 +51,10 @@ export const ModuleButton = ({icon, label, slug}: Props) => {
     </View>
   )
 }
+
+const createIconProps = ({color}: Theme) => ({
+  fill: color.text.default,
+})
 
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({
