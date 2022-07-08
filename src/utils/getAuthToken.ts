@@ -1,4 +1,4 @@
-import {encryptWithAES} from './'
+import {encryptWithAES} from './encryption'
 
 export const getAuthToken = (salt: string = '') =>
   encryptWithAES({
