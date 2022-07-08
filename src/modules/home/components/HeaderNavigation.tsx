@@ -2,7 +2,7 @@ import Api from '@amsterdam/asc-assets/static/icons/Api.svg'
 import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Settings} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
@@ -55,6 +55,6 @@ export const HeaderNavigation = () => {
   )
 }
 
-const createIconProps = ({color}: Theme) => ({
+const createIconProps = ({color}: Theme): SVGProps<any> => ({
   fill: color.pressable.default.background,
 })

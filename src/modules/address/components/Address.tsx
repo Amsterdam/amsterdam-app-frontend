@@ -2,7 +2,7 @@ import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {Icon} from '_components/ui/media'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -125,6 +125,6 @@ export const Address = () => {
   )
 }
 
-const createIconProps = ({color}: Theme) => ({
+const createIconProps = ({color}: Theme): SVGProps<any> => ({
   fill: color.text.link,
 })
