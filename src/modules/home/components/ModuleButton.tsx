@@ -15,20 +15,28 @@ import {toggleModule} from '@/modules/home/store'
 import {ModuleSlugs} from '@/modules/slugs'
 import {Theme, useThemable} from '@/themes'
 
+type ButtonVariants = 'primary' | 'tertiary'
+
 type Props = {
   iconName: string
   label: string
   slug: ModuleSlugs
+  variant?: ButtonVariants
 }
 
-export const ModuleButton = ({iconName, label, slug}: Props) => {
+export const ModuleButton = ({
+  iconName,
+  label,
+  slug,
+  variant = 'tertiary',
+}: Props) => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, HomeRouteName>>()
 
   const ModuleIcon = icons[iconName]
-  const iconProps = useThemable(createIconProps)
-  const styles = useThemable(createStyles)
+  const iconProps = useThemable(createIconProps(variant))
+  const styles = useThemable(createStyles(variant))
 
   const onDelete = useCallback(() => {
     dispatch(toggleModule(slug))
@@ -52,16 +60,20 @@ export const ModuleButton = ({iconName, label, slug}: Props) => {
   )
 }
 
-const createIconProps = ({color}: Theme) => ({
-  fill: color.text.default,
-})
-
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.box.background.invalid,
-    },
-    buttonContainer: {
-      backgroundColor: color.box.background.white,
-    },
+const createIconProps =
+  (variant: ButtonVariants) =>
+  ({color}: Theme) => ({
+    fill: variant === 'tertiary' ? color.text.default : color.text.inverse,
   })
+
+const createStyles =
+  (variant: ButtonVariants) =>
+  ({color}: Theme) =>
+    StyleSheet.create({
+      container: {
+        backgroundColor: color.box.background.invalid,
+      },
+      buttonContainer: {
+        backgroundColor: color.pressable[variant].default,
+      },
+    })

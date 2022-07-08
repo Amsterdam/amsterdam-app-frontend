@@ -59,6 +59,9 @@ export const lightColorTokens = {
     secondary: {
       background: baseColor.primary.red,
     },
+    tertiary: {
+      default: baseColor.primary.white,
+    },
     navigation: baseColor.primary.blue,
     pressed: {
       background: baseColor.custom.grey1,

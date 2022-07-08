@@ -39,8 +39,14 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({icon, slug, title}) => (
-          <ModuleButton iconName={icon} key={slug} label={title} slug={slug} />
+        {modules.map(({icon, isForEmployees, slug, title}) => (
+          <ModuleButton
+            iconName={icon}
+            key={slug}
+            label={title}
+            slug={slug}
+            variant={isForEmployees ? 'primary' : 'tertiary'}
+          />
         ))}
       </Column>
     </Box>
