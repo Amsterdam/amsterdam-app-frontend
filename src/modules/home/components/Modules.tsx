@@ -1,8 +1,9 @@
 import React from 'react'
-import {Box, PleaseWait} from '@/components/ui'
+import {Attention, Box, PleaseWait} from '@/components/ui'
+import {EmptyMessage} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {Paragraph, Phrase} from '@/components/ui/text'
 import {ModuleButton} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
@@ -10,7 +11,6 @@ import {useTheme} from '@/themes'
 
 export const Modules = () => {
   const {color} = useTheme()
-
   const {getSelectedModules, isLoadingModules} = useModules()
   const modules = getSelectedModules()
 
@@ -21,7 +21,10 @@ export const Modules = () => {
   if (!modules) {
     return (
       <Box insetHorizontal="md" insetVertical="xxxl">
-        <Paragraph>Modules worden niet geladen</Paragraph>
+        <Attention warning>
+          <Phrase fontWeight="bold">Fout</Phrase>
+          <Paragraph variant="small">Modules worden niet geladen.</Paragraph>
+        </Attention>
       </Box>
     )
   }
@@ -29,10 +32,10 @@ export const Modules = () => {
   if (!modules.length) {
     return (
       <Box insetHorizontal="md" insetVertical="xxxl">
-        <Paragraph>
-          Alle modules staan uit. Daardoor is hier niet veel te doen. Zet er
-          snel één of meer weer aan via de instellingen rechtsboven.
-        </Paragraph>
+        <EmptyMessage
+          text="Alle modules staan uit. Daardoor is hier niet veel te doen.
+          Zet één of meer modules aan via de instellingen rechtsboven."
+        />
       </Box>
     )
   }
@@ -42,7 +45,6 @@ export const Modules = () => {
       <Column gutter="md">
         {modules.map(({icon, slug, title}) => {
           const ModuleIcon = icons[icon]
-
           return (
             <ModuleButton
               icon={

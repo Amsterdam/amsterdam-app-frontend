@@ -5,6 +5,7 @@ import {ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
+  color?: 'default' | 'inverse'
   fontWeight?: 'bold' | 'regular'
   variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
@@ -16,13 +17,14 @@ type Props = {
  */
 export const Phrase = ({
   children,
+  color = 'default',
   fontWeight = 'regular',
   variant = 'body',
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({fontWeight, variant}),
-    [fontWeight, variant],
+    () => createStyles({color, fontWeight, variant}),
+    [color, fontWeight, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -34,13 +36,17 @@ export const Phrase = ({
 }
 
 const createStyles =
-  ({fontWeight, variant}: Required<Pick<Props, 'fontWeight' | 'variant'>>) =>
+  ({
+    color: textColor,
+    fontWeight,
+    variant,
+  }: Required<Pick<Props, 'color' | 'fontWeight' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
-        color: color.text.default,
+        color: color.text[textColor],
         fontFamily: text.fontWeight[fontWeight],
         fontSize: text.fontSize[variant],
-        lineHeight: 1.2 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
+        lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
       },
     })

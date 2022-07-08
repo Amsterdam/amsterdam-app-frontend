@@ -14,6 +14,7 @@ export default {
 export const Default: ComponentStoryObj<typeof Phrase> = {
   args: {
     children: 'Phrase content',
+    color: 'default',
     fontWeight: 'regular',
     variant: 'body',
   },
