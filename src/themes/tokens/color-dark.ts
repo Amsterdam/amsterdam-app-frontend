@@ -60,6 +60,7 @@ export const darkColorTokens: ColorTokens = {
     },
     tertiary: {
       default: baseColor.primary.white,
+      highlight: baseColor.custom.grey1,
     },
     pressed: {
       background: baseColor.neutral.grey5,
