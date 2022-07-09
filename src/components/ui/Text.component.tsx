@@ -64,11 +64,11 @@ export const Text = ({
 
 const styles = StyleSheet.create({
   intro: {
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
   },
   inverse: {
     color: color.font.inverse,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
   },
   large: {
     fontSize: font.size.l1,
@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
   },
   warning: {
     color: color.font.invalid,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
   },
 })

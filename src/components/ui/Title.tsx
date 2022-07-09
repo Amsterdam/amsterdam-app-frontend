@@ -54,7 +54,7 @@ export const Title = ({
 const styles = StyleSheet.create({
   h1: {
     color: color.font.regular,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
     fontSize: font.size.h1,
     lineHeight: font.height.h1,
   },
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   h2: {
     color: color.font.regular,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
     fontSize: font.size.h2,
     lineHeight: font.height.h2,
   },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   h3: {
     color: color.font.regular,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
     fontSize: font.size.h3,
     lineHeight: font.height.h3,
   },
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   h4: {
     color: color.font.regular,
-    fontFamily: font.weight.demi,
+    fontFamily: font.weight.bold,
     fontSize: font.size.h4,
     lineHeight: font.height.h4,
   },

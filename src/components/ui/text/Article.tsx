@@ -90,7 +90,8 @@ const createBaseStyles: (
 
 const createFontList = ({text}: Theme) => [
   text.fontWeight.bold,
-  text.fontWeight.demi,
+  text.fontWeight.extraBold,
+  text.fontWeight.light,
   text.fontWeight.regular,
 ]
 
