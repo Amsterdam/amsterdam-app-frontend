@@ -115,7 +115,7 @@ export const Project = ({id}: Props) => {
       )}
       <Column gutter="md">
         <Box>
-          <Column gutter="md">
+          <Column gutter="lg">
             <Row gutter="md" valign="center">
               <FollowButton
                 accessibilityLabel={
@@ -128,8 +128,10 @@ export const Project = ({id}: Props) => {
               <SingleSelectable
                 label={accessibleText(followers.toString(), followersLabel)}>
                 <Column>
-                  <Phrase fontWeight="bold">{followers}</Phrase>
-                  <Phrase>{followersLabel}</Phrase>
+                  <Phrase variant="small" fontWeight="bold">
+                    {followers}
+                  </Phrase>
+                  <Phrase variant="small">{followersLabel}</Phrase>
                 </Column>
               </SingleSelectable>
             </Row>
@@ -145,7 +147,6 @@ export const Project = ({id}: Props) => {
                 variant="secondary"
               />
             )}
-
             <Column gutter="md">
               <ProjectTraits {...{meter, strides}} />
               <SingleSelectable
