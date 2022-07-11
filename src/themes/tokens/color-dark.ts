@@ -62,6 +62,10 @@ export const darkColorTokens: ColorTokens = {
       default: baseColor.primary.white,
       highlight: baseColor.custom.grey1,
     },
+    negative: {
+      default: baseColor.primary.red,
+      highlight: baseColor.primary.red,
+    },
     pressed: {
       background: baseColor.neutral.grey5,
     },
