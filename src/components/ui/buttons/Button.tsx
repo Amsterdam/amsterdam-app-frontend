@@ -96,15 +96,19 @@ const createStyles =
         : color.pressable.primary.default
     }
 
+    const paddingHorizontal =
+      size.spacing.md + 2 + border.width.md - borderWidth
+
+    const paddingVertical =
+      (buttonHeight - labelFontSize * labelLineHeight - 2 * borderWidth) / 2
+
     return StyleSheet.create({
       button: {
         flexDirection: 'row',
         justifyContent: 'center',
         flexShrink: 1,
-        paddingHorizontal: size.spacing.md + 2, // Why DS why
-        paddingVertical:
-          (buttonHeight - labelFontSize * labelLineHeight - 2 * borderWidth) /
-          2,
+        paddingHorizontal,
+        paddingVertical,
         backgroundColor: backgroundColor(),
         borderColor: borderColor(),
         borderStyle: 'solid',
