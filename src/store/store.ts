@@ -12,7 +12,6 @@ import {
 } from 'redux-persist'
 import {addressSlice} from '../modules/address/addressSlice'
 import {projectManagerSlice} from '../modules/construction-work/components/project-manager'
-import {projectsByTextSlice} from '../modules/construction-work/components/projects'
 import {modulesSlice} from '../modules/home/store/modulesSlice'
 import {baseApi} from '../services/init'
 import {themeSlice} from '../themes/themeSlice'
@@ -66,7 +65,6 @@ const rootReducer = combineReducers({
     projectManagerPersistConfig,
     projectManagerSlice.reducer,
   ),
-  projectsSearch: projectsByTextSlice.reducer,
   theme: themeSlice.reducer,
 })
 

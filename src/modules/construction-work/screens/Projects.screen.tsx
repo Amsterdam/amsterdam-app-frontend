@@ -8,14 +8,16 @@ import {
   ProjectsByText,
   ProjectsTextSearchField,
   ProvideAddressButton,
-  selectIsProjectsSearching,
-  selectProjectSearchText,
 } from '@/modules/construction-work/components/projects'
+import {
+  selectConstructionWorkIsSearching,
+  selectConstructionWorkSearchText,
+} from '@/modules/construction-work/construction-work.slice'
 
 export const ProjectsScreen = () => {
   const {primary: address} = useSelector(selectAddress)
-  const isSearching = useSelector(selectIsProjectsSearching)
-  const searchText = useSelector(selectProjectSearchText)
+  const isSearching = useSelector(selectConstructionWorkIsSearching)
+  const searchText = useSelector(selectConstructionWorkSearchText)
 
   const hasAddress = !!address
   const hasSearchText = !!searchText
