@@ -1,6 +1,6 @@
-import {Articles, ArticleQueryArg} from '../types'
-import {formatQueryParams, generateRequestUrl} from '../utils'
-import {baseApi} from './init'
+import {baseApi} from '@/services'
+import {Articles, ArticleQueryArg} from '@/types'
+import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
