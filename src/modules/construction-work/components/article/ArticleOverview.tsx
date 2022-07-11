@@ -144,6 +144,7 @@ const createStyles = ({size}: Theme) =>
     year: {
       backgroundColor: 'white',
       left: -4,
+      bottom: size.spacing.md,
       position: 'relative',
       zIndex: 2,
     },
