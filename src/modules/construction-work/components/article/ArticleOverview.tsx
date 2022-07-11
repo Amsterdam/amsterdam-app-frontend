@@ -109,6 +109,7 @@ export const ArticleOverview = ({
               {index > 0 && (
                 <View style={styles.year}>
                   <Paragraph>{year}</Paragraph>
+                  <View style={styles.line} />
                 </View>
               )}
               {Object.values(articlesPerYear).map(article => (
@@ -136,15 +137,22 @@ export const ArticleOverview = ({
   ) : null
 }
 
-const createStyles = ({size}: Theme) =>
+const yearInset = 4
+
+const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
+    line: {
+      height: size.spacing.md,
+      left: yearInset,
+      width: 2,
+      backgroundColor: color.text.default,
+    },
     list: {
       marginBottom: size.spacing.lg,
     },
     year: {
       backgroundColor: 'white',
-      left: -4,
-      bottom: size.spacing.md,
+      left: -yearInset,
       position: 'relative',
       zIndex: 2,
     },
