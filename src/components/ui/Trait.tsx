@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const Trait = ({icon, label}: Props) => (
-  <Row gutter="xs" valign="center">
+  <Row gutter="sm" valign="center">
     <Icon size={16}>{icon}</Icon>
     <Paragraph variant="small">{label}</Paragraph>
   </Row>
