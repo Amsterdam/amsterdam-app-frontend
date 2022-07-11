@@ -20,7 +20,7 @@ const createStyles =
     StyleSheet.create({
       text: {
         flexShrink: 1,
-        color: color.pressable.navigation,
+        color: color.text.link,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight.h5 * text.fontSize.h5,

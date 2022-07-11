@@ -58,7 +58,14 @@ export const darkColorTokens: ColorTokens = {
     secondary: {
       background: baseColor.primary.red,
     },
-    navigation: baseColor.primary.blue,
+    tertiary: {
+      default: baseColor.primary.white,
+      highlight: baseColor.custom.grey1,
+    },
+    negative: {
+      default: baseColor.primary.red,
+      highlight: baseColor.primary.red,
+    },
     pressed: {
       background: baseColor.neutral.grey5,
     },
@@ -76,6 +83,7 @@ export const darkColorTokens: ColorTokens = {
   text: {
     default: baseColor.primary.white,
     inverse: baseColor.primary.black,
+    link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey1,
     tertiary: baseColor.neutral.grey2,
   },

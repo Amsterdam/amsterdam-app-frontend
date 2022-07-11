@@ -7,28 +7,40 @@ import {
 import {Box, BoxProps} from '@/components/ui'
 import {Theme, useThemable} from '@/themes'
 
+type ButtonVariants = 'primary' | 'tertiary' | 'negative'
+
 type Props = {
   children: ReactNode
+  variant?: ButtonVariants
 } & Omit<PressableRNProps, 'style'> &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
-export const Pressable = ({children, ...otherProps}: Props) => {
+export const Pressable = ({
+  children,
+  variant = 'tertiary',
+  ...otherProps
+}: Props) => {
   const {inset = 'no', insetHorizontal, insetVertical} = otherProps
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(variant))
 
   return (
     <PressableRN
       accessibilityRole="button"
-      style={({pressed}) => pressed && styles.pressed}
+      style={({pressed}) => [styles.button, pressed && styles.pressed]}
       {...otherProps}>
       <Box {...{inset, insetHorizontal, insetVertical}}>{children}</Box>
     </PressableRN>
   )
 }
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    pressed: {
-      backgroundColor: color.pressable.pressed.background,
-    },
-  })
+const createStyles =
+  (variant: ButtonVariants) =>
+  ({color}: Theme) =>
+    StyleSheet.create({
+      button: {
+        backgroundColor: color.pressable[variant].default,
+      },
+      pressed: {
+        backgroundColor: color.pressable[variant].highlight,
+      },
+    })

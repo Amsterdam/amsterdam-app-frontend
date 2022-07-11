@@ -59,7 +59,14 @@ export const lightColorTokens = {
     secondary: {
       background: baseColor.primary.red,
     },
-    navigation: baseColor.primary.blue,
+    tertiary: {
+      default: baseColor.primary.white,
+      highlight: baseColor.custom.grey1,
+    },
+    negative: {
+      default: baseColor.primary.red,
+      highlight: baseColor.primary.red,
+    },
     pressed: {
       background: baseColor.custom.grey1,
     },
@@ -77,6 +84,7 @@ export const lightColorTokens = {
   text: {
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
+    link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
   },

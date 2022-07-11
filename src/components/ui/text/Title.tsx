@@ -4,20 +4,20 @@ import {Theme, useThemable} from '@/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {
-  inPressable?: boolean
+  color?: 'default' | 'inverse' | 'link'
   level?: keyof TitleTokensPerLevel
   text: string
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
-  inPressable = false,
+  color = 'default',
   level = 'h1',
   text,
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({inPressable, level}),
-    [inPressable, level],
+    () => createStyles({color, level}),
+    [color, level],
   )
   const styles = useThemable(createdStyles)
 
@@ -30,12 +30,12 @@ export const Title = ({
 
 // TODO Transition text color
 const createStyles =
-  ({inPressable, level}: Required<Pick<Props, 'inPressable' | 'level'>>) =>
+  ({color: textColor, level}: Required<Pick<Props, 'color' | 'level'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
         flexShrink: 1,
-        color: inPressable ? color.pressable.navigation : color.text.default,
+        color: color.text[textColor],
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level] * text.fontSize[level],
