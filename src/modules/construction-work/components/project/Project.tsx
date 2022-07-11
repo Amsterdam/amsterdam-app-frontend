@@ -16,14 +16,14 @@ import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
-  useFollowProjectMutation,
-  useGetProjectQuery,
-  useUnfollowProjectMutation,
-} from '@/modules/construction-work/construction-work.service'
-import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
+import {
+  useFollowProjectMutation,
+  useGetProjectQuery,
+  useUnfollowProjectMutation,
+} from '@/modules/construction-work/services'
 import {requestPushNotificationsPermission} from '@/processes'
 import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'

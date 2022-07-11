@@ -12,8 +12,8 @@ import {
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
-import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {useGetProjectsQuery} from '@/modules/construction-work/services'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'

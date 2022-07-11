@@ -4,11 +4,11 @@ import {Box, PleaseWait} from '@/components/ui'
 import {Column, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
-} from '@/modules/construction-work/construction-work.service'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+} from '@/modules/construction-work/services'
 import {useEnvironment} from '@/store'
 import {formatDate, mapImageSources} from '@/utils'
 

@@ -11,7 +11,7 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
-import {useGetArticlesQuery} from '@/services/articles'
+import {useGetArticlesQuery} from '@/modules/construction-work/services'
 import {Theme, useThemable} from '@/themes'
 import {ArticleSummary} from '@/types'
 import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
