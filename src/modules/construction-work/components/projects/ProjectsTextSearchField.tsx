@@ -2,16 +2,16 @@ import debounce from 'lodash.debounce'
 import React, {useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {SearchField} from '@/components/ui/forms'
+import {config} from '@/modules/construction-work/components/projects'
 import {
-  config,
-  selectProjectSearchText,
+  selectConstructionWorkSearchText,
   setIsSearching,
   setSearchText,
-} from '@/modules/construction-work/components/projects'
+} from '@/modules/construction-work/construction-work.slice'
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()
-  const searchText = useSelector(selectProjectSearchText)
+  const searchText = useSelector(selectConstructionWorkSearchText)
 
   /**
    * Updates ‘search text’ if it has at least three characters, or it is empty.
