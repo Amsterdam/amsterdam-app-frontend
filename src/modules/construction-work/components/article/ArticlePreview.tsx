@@ -102,7 +102,7 @@ const createStyles =
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
   ({color, size}: Theme) => {
-    const itemBottomInset = isLast ? 0 : size.spacing.xl
+    const itemBottomInset = isLast ? 0 : size.spacing.xl + size.spacing.md
     return StyleSheet.create({
       button: {
         paddingLeft: size.spacing.md,
