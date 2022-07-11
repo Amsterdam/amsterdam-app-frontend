@@ -30,7 +30,7 @@ export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
       />
       <Text
         fill={color.text.inverse}
-        fontFamily={text.fontWeight.demi}
+        fontFamily={text.fontWeight.bold}
         fontSize={scaledFontSize}
         fontWeight="500"
         textAnchor="middle"

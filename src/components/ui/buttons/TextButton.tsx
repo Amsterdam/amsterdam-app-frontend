@@ -101,7 +101,7 @@ const createStyles = ({color, text}: Theme) =>
     },
     text: {
       flexShrink: 1, // Allow wrapping
-      fontFamily: text.fontWeight.demi,
+      fontFamily: text.fontWeight.bold,
       fontSize: text.fontSize.body,
       lineHeight: text.fontSize.body * text.lineHeight.body,
       color: color.text.default,

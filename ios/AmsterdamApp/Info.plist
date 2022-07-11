@@ -54,34 +54,37 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
-      			<true/>
+				<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-            	<false/>
+				<false/>
 			</dict>
 			<key>luscinia-solutions.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
-      			<true/>
+				<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-            	<false/>
+				<false/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Amsterdam-app wil toegang tot je camera</string>
+	<string>De Amsterdam app wil toegang tot je camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Amsterdam-app wil toegang tot je foto&apos;s</string>
+	<string>De Amsterdam app wil toegang tot je foto’s</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>AvenirNext-DemiBold.ttf</string>
-		<string>AvenirNext-Regular.ttf</string>
-		<string>AvenirNext-Bold.ttf</string>
+		<string>AmsterdamSans-Bold.otf</string>
+		<string>AmsterdamSans-BoldItalic.otf</string>
+		<string>AmsterdamSans-ExtraBold.otf</string>
+		<string>AmsterdamSans-Italic.otf</string>
+		<string>AmsterdamSans-Light.otf</string>
+		<string>AmsterdamSans-Regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
