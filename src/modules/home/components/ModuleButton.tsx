@@ -50,9 +50,11 @@ export const ModuleButton = ({
           onPress={() => navigation.navigate(slug)}
           variant={variant}>
           <Row gutter="md" valign="center">
-            <Icon size={24}>
-              <ModuleIcon {...iconProps} />
-            </Icon>
+            {!!ModuleIcon && (
+              <Icon size={24}>
+                <ModuleIcon {...iconProps} />
+              </Icon>
+            )}
             <Title
               color={variant === 'primary' ? 'inverse' : 'default'}
               level="h5"
