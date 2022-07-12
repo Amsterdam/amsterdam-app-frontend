@@ -1,11 +1,11 @@
 import React, {ReactNode} from 'react'
 import {
+  Pressable,
   PressableProps as PressableRNProps,
   StyleSheet,
   View,
 } from 'react-native'
 import {Badge, BadgeProps} from '@/components/ui'
-import {Pressable} from '@/components/ui/buttons'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
