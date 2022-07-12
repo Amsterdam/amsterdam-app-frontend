@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {notificationDraftSlice} from '_modules/construction-work/screens/create-notification'
 import {
   FLUSH,
   PAUSE,
@@ -10,15 +9,17 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'
-import {addressSlice} from '../modules/address/addressSlice'
-import {projectManagerSlice} from '../modules/construction-work/components/project-manager'
-import {modulesSlice} from '../modules/home/store/modulesSlice'
-import {baseApi} from '../services/init'
-import {themeSlice} from '../themes/themeSlice'
-import {authSlice} from './authSlice'
-import {environmentSlice} from './environmentSlice'
+import {addressSlice} from '@/modules/address/addressSlice'
+import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
+import {notificationDraftSlice} from '@/modules/construction-work/screens/create-notification'
+import {modulesSlice} from '@/modules/home/store/modulesSlice'
 import {sentryLoggerMiddleware} from '@/processes'
+import {baseApi} from '@/services'
+import {alertSlice} from '@/store/alertSlice'
+import {authSlice} from '@/store/authSlice'
+import {environmentSlice} from '@/store/environmentSlice'
+import {themeSlice} from '@/themes/themeSlice'
 
 const addressPersistConfig = {
   key: 'address',
@@ -50,6 +51,7 @@ const projectManagerPersistConfig = {
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
+  alert: alertSlice.reducer,
   auth: authSlice.reducer,
   environment: persistReducer(
     environmentPersistConfig,

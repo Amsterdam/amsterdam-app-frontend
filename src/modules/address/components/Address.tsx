@@ -1,24 +1,21 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {module as addressModule} from '../'
-import {RootStackParams} from '../../../app/navigation'
-import {
-  Card,
-  CardBody,
-  SingleSelectable,
-  Text,
-  Title,
-} from '../../../components/ui'
-import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {AlertContext} from '../../../providers'
-import {isEmptyObject} from '../../../utils'
-import {module as userModule} from '../../user'
-import {removePrimaryAddress, selectAddress} from '../addressSlice'
-import {AddressRouteName} from '../routes'
+import {RootStackParams} from '@/app/navigation'
+import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
 import {Button, TextButton} from '@/components/ui/buttons'
+import {Column, Gutter, Row} from '@/components/ui/layout'
+import {module as addressModule} from '@/modules/address'
+import {
+  removePrimaryAddress,
+  selectAddress,
+} from '@/modules/address/addressSlice'
+import {AddressRouteName} from '@/modules/address/routes'
+import {module as userModule} from '@/modules/user'
+import {setAlert} from '@/store/alertSlice'
+import {isEmptyObject} from '@/utils'
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -28,15 +25,18 @@ export const Address = () => {
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
-  const {changeContent, changeVariant} = useContext(AlertContext)
-
   const removeAddressAndShowAlert = async () => {
     dispatch(removePrimaryAddress())
-    changeContent({
-      title: 'Gelukt',
-      text: 'Het adres is verwijderd uit uw profiel.',
-    })
-    changeVariant('success')
+    dispatch(
+      setAlert({
+        content: {
+          title: 'Gelukt',
+          text: 'Het adres is verwijderd uit uw profiel.',
+        },
+        variant: 'success',
+        isVisible: true,
+      }),
+    )
   }
 
   return (
