@@ -12,7 +12,7 @@ import {
   selectAlertVisibility,
   setAlertVisibility,
   Variant,
-} from '@/store'
+} from '@/store/alertSlice'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 

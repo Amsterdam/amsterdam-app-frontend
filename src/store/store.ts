@@ -16,7 +16,9 @@ import {notificationDraftSlice} from '@/modules/construction-work/screens/create
 import {modulesSlice} from '@/modules/home/store/modulesSlice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
-import {alertSlice, authSlice, environmentSlice} from '@/store'
+import {alertSlice} from '@/store/alertSlice'
+import {authSlice} from '@/store/authSlice'
+import {environmentSlice} from '@/store/environmentSlice'
 import {themeSlice} from '@/themes/themeSlice'
 
 const addressPersistConfig = {

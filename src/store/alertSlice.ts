@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
-import {RootState} from './store'
+import {RootState} from '@/store'
 
 type Content =
   | {
