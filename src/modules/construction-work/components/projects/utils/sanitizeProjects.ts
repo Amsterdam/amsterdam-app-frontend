@@ -1,4 +1,4 @@
-import {ProjectsItem} from '@/types'
+import {ProjectsItem} from '@/modules/construction-work/types'
 
 /**
  * Filter zombie projects without identifiers and return the first 20 of them.

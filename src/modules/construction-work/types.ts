@@ -1,10 +1,17 @@
-import {Image} from './image'
-import {PageListQueryArg, Section, Timeline} from './'
+import {
+  Image,
+  ListQueryArg,
+  PageListQueryArg,
+  RichText,
+  Section,
+  Timeline,
+} from '@/types'
 
 export enum ProjectsEndpointName {
   addProjectWarning = 'addProjectWarning',
   addProjectWarningImage = 'addProjectWarningImage',
   followProject = 'followProject',
+  getArticles = 'getArticles',
   getProject = 'getProject',
   getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',
@@ -13,6 +20,45 @@ export enum ProjectsEndpointName {
   getProjectWarning = 'getProjectWarning',
   unfollowProject = 'unfollowProject',
 }
+
+export type ArticleSummary = {
+  identifier: string
+  image?: Image | null
+  images?: ProjectWarningImage[]
+  publication_date: string
+  title: string
+  type: 'news' | 'warning'
+}
+
+export type Articles = ArticleSummary[]
+
+export type ArticleApiResponse = {
+  status: boolean
+  result: ArticleSummary[]
+}
+
+export type ArticleQueryArg = {
+  projectIds?: string[]
+} & Partial<ListQueryArg>
+
+export type NewsArticle = {
+  assets?: NewsArticleAsset[]
+  body?: NewsArticleBody
+  identifier: string
+  images?: Image[]
+  project_identifier: string
+  publication_date: string
+  title: string
+  url: string
+}
+
+type NewsArticleBody = {
+  content: RichText
+  preface: RichText
+  summary: RichText
+}
+
+type NewsArticleAsset = any
 
 export type FieldsQueryArg = {
   fields?: string[]
@@ -139,6 +185,15 @@ export type ProjectManagerResponse = {
   identifier: string
   email: string
   projects: string[]
+}
+
+export type ProjectWarningImageQueryArg = {
+  project_warning_id: string
+  image: {
+    main: boolean
+    description: string
+    data: string
+  }
 }
 
 export type NewProjectWarning = {

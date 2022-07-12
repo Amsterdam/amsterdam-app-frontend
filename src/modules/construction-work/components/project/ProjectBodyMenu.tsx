@@ -6,7 +6,7 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
-import {Project, ProjectBody} from '@/types'
+import {Project, ProjectBody} from '@/modules/construction-work/types'
 import {isEmptyObject} from '@/utils'
 
 type Props = {

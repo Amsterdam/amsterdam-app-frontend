@@ -9,8 +9,8 @@ import {Badge, Trait} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
+import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {ProjectsItem} from '@/types'
 import {accessibleText, excludeListItemsFromList} from '@/utils'
 
 type Props = Partial<ProjectsItem>

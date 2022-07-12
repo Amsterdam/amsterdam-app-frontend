@@ -6,14 +6,14 @@ import {PleaseWait} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
+import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
-import {useGetArticlesQuery} from '@/services/articles'
+import {ArticleSummary} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {ArticleSummary} from '@/types'
 import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
 
 type Props = {

@@ -5,8 +5,8 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 import {ProjectTitle} from '@/modules/construction-work/components/project'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectManagerScreenNavigationProps} from '@/modules/construction-work/screens'
+import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {ProjectsItem} from '@/types'
 
 type Props = {
   projects: ProjectsItem[] | undefined

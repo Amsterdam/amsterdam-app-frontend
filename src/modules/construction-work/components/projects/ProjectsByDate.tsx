@@ -14,10 +14,10 @@ import {
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListItemProps = {

@@ -10,6 +10,7 @@ import {
   ValidationWarning,
 } from '@/components/ui/forms'
 import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
   setNotification,
@@ -19,7 +20,6 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
-import {useGetArticlesQuery} from '@/services'
 import {NotificationQueryArg} from '@/types'
 import {formatTime} from '@/utils'
 

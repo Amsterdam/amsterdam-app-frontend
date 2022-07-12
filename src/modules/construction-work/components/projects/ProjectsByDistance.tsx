@@ -21,11 +21,12 @@ import {
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ProjectsItem} from '@/modules/construction-work/types'
 import {ModuleSlugs} from '@/modules/slugs'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {Address, ProjectsItem} from '@/types'
+import {Address} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListHeaderProps = {
