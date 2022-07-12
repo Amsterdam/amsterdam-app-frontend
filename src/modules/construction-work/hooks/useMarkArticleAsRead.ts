@@ -7,7 +7,7 @@ import {
   addReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/construction-work.slice'
-import {Articles} from '@/types'
+import {Articles} from '@/modules/construction-work/types'
 import {getDateDiffInDays} from '@/utils'
 
 export const useMarkArticleAsRead = () => {

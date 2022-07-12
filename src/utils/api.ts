@@ -1,10 +1,10 @@
 import {
   FieldsQueryArg,
-  ListQueryArg,
   ProjectIdsQueryArg,
   ProjectsByTextQueryArg,
   ProjectsQueryArg,
-} from '../types'
+} from '@/modules/construction-work/types'
+import {ListQueryArg} from '@/types'
 
 type Signature = {
   baseUrl?: string

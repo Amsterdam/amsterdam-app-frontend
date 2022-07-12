@@ -7,10 +7,11 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
 import {EnvironmentConfig} from '@/environment'
+import {ProjectsEndpointName} from '@/modules/construction-work/types'
 import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
 import {RootState} from '@/store/store'
-import {DeviceRegistrationEndpointName, ProjectsEndpointName} from '@/types'
+import {DeviceRegistrationEndpointName} from '@/types'
 import {deviceAuthorizationToken} from '@/utils'
 
 const managerAuthorizedEndpoints = [

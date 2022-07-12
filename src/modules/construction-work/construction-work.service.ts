@@ -1,5 +1,4 @@
 import {AddressQueryArg} from '@/modules/address'
-import {baseApi} from '@/services'
 import {
   ArticleQueryArg,
   Articles,
@@ -18,9 +17,9 @@ import {
   ProjectWarningIdQueryArg,
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
-  SortListQueryArg,
-} from '@/types'
-import {MutationResponse} from '@/types/api'
+} from '@/modules/construction-work/types'
+import {baseApi} from '@/services'
+import {MutationResponse, SortListQueryArg} from '@/types'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({

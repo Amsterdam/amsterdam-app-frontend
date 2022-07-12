@@ -5,8 +5,8 @@ import {View} from 'react-native'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
+import {ProjectContact} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
-import {ProjectContact} from '@/types'
 import {capitalizeString, openMailUrl, openPhoneUrl} from '@/utils'
 
 type Props = {

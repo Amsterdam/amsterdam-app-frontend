@@ -1,5 +1,5 @@
 import {ProjectIdAndTitle} from '@/modules/construction-work/screens/create-notification'
-import {ProjectBody} from '@/types'
+import {ProjectBody} from '@/modules/construction-work/types'
 
 export enum ConstructionWorkRouteName {
   authorizedProjects = 'AuthorizedProjects',

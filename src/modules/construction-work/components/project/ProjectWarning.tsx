@@ -12,8 +12,8 @@ import {
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/construction-work.service'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {ProjectWarningImage} from '@/modules/construction-work/types'
 import {useEnvironment} from '@/store'
-import {ProjectWarningImage} from '@/types'
 import {formatDate, mapWarningImageSources} from '@/utils'
 
 type Props = {

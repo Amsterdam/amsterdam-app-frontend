@@ -8,9 +8,9 @@ import {Image} from '@/components/ui/media'
 import {Link, Paragraph} from '@/components/ui/text'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
+import {ArticleSummary} from '@/modules/construction-work/types'
 import {useEnvironment} from '@/store'
 import {Theme, useThemable} from '@/themes'
-import {ArticleSummary} from '@/types'
 import {
   formatDateToDisplay,
   getDateDiffInDays,

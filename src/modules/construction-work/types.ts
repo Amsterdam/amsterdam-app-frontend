@@ -1,4 +1,11 @@
-import {Image, ListQueryArg, PageListQueryArg, Section, Timeline} from '@/types'
+import {
+  Image,
+  ListQueryArg,
+  PageListQueryArg,
+  RichText,
+  Section,
+  Timeline,
+} from '@/types'
 
 export enum ProjectsEndpointName {
   addProjectWarning = 'addProjectWarning',
@@ -33,6 +40,25 @@ export type ArticleApiResponse = {
 export type ArticleQueryArg = {
   projectIds?: string[]
 } & Partial<ListQueryArg>
+
+export type NewsArticle = {
+  assets?: NewsArticleAsset[]
+  body?: NewsArticleBody
+  identifier: string
+  images?: Image[]
+  project_identifier: string
+  publication_date: string
+  title: string
+  url: string
+}
+
+type NewsArticleBody = {
+  content: RichText
+  preface: RichText
+  summary: RichText
+}
+
+type NewsArticleAsset = any
 
 export type FieldsQueryArg = {
   fields?: string[]
@@ -159,6 +185,15 @@ export type ProjectManagerResponse = {
   identifier: string
   email: string
   projects: string[]
+}
+
+export type ProjectWarningImageQueryArg = {
+  project_warning_id: string
+  image: {
+    main: boolean
+    description: string
+    data: string
+  }
 }
 
 export type NewProjectWarning = {

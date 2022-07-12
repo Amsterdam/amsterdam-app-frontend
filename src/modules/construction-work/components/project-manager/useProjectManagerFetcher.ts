@@ -6,7 +6,7 @@ import {
   useGetProjectManagerQuery,
   useGetProjectsQuery,
 } from '@/modules/construction-work/construction-work.service'
-import {ProjectsItem} from '@/types'
+import {ProjectsItem} from '@/modules/construction-work/types'
 
 export const useProjectManagerFetcher = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)

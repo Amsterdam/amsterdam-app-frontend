@@ -14,10 +14,10 @@ import {sanitizeProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {ProjectsItem} from '@/types'
 import {mapImageSources} from '@/utils'
 
 type ListHeaderProps = {

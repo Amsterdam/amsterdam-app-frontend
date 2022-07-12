@@ -26,8 +26,8 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
+import {NewProjectWarning} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
-import {NewProjectWarning} from '@/types'
 
 const maxCharacters = {
   title: 50,
