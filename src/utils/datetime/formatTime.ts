@@ -1,23 +1,15 @@
-import 'intl'
-import 'intl/locale-data/jsonp/nl-NL'
+import dayjs from 'dayjs'
+import 'dayjs/locale/nl'
+dayjs.locale('nl')
 
-type Signature = (date: string | number, displaySeconds?: boolean) => string
+export const formatTime = (
+  date: string | number,
+  displaySeconds: boolean = false,
+): string => {
+  const dayJsDate = dayjs(date)
 
-export const formatTime: Signature = (date, displaySeconds = false) => {
-  const jsDate = new Date(date)
-
-  if (jsDate.toString() === 'Invalid Date') {
-    throw new Error('Incorrect `date` provided to `formatTime`.')
+  if (displaySeconds) {
+    return dayJsDate.format('HH:mm:ss')
   }
-
-  const options: Intl.DateTimeFormatOptions = {
-    hourCycle: 'h24',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: displaySeconds ? '2-digit' : undefined,
-  }
-
-  const formattedTime = new Intl.DateTimeFormat('nl-NL', options).format(jsDate)
-
-  return formattedTime
+  return dayJsDate.format('HH:mm')
 }

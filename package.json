@@ -39,7 +39,6 @@
     "@reduxjs/toolkit": "^1.7.1",
     "@sentry/react-native": "4.0.1",
     "dayjs": "^1.11.3",
-    "intl": "^1.2.5",
     "lodash.debounce": "^4.0.8",
     "react": "17.0.2",
     "react-hook-form": "^7.15.3",

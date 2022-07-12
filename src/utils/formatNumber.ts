@@ -1,8 +1,3 @@
-import 'intl'
-import 'intl/locale-data/jsonp/nl-NL'
-
-export const formatNumber = (number: number) => {
-  const formattedNumber = new Intl.NumberFormat('nl-NL').format(number)
-
-  return formattedNumber
+export const formatNumber = (number: number = 0) => {
+  return number.toLocaleString('nl-NL')
 }
