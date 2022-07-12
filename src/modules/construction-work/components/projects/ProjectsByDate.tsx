@@ -18,7 +18,7 @@ import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {mapImageSources} from '@/utils'
+import {accessibleText, mapImageSources} from '@/utils'
 
 type ListItemProps = {
   navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
@@ -32,7 +32,12 @@ const ListItem = ({navigation, project}: ListItemProps) => {
   return (
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={<ProjectTraits {...{followed, recent_articles}} />}
+      kicker={
+        <ProjectTraits
+          accessibilityLabel={accessibleText(followed ? 'Volgend' : undefined)}
+          {...{followed, recent_articles}}
+        />
+      }
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
