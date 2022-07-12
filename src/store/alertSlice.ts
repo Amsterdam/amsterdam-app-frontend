@@ -27,8 +27,9 @@ export const alertSlice = createSlice({
   name: 'alert',
   initialState,
   reducers: {
-    setAlertContent: (state, {payload: content}: PayloadAction<Content>) => {
-      state.content = content
+    setAlert: (_state, {payload: alert}: PayloadAction<AlertSliceState>) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      return alert
     },
     setAlertVisibility: (
       state,
@@ -37,14 +38,10 @@ export const alertSlice = createSlice({
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       state.isVisible = isVisible
     },
-    setAlertVariant: (state, {payload: variant}: PayloadAction<Variant>) => {
-      state.variant = variant
-    },
   },
 })
 
-export const {setAlertContent, setAlertVisibility, setAlertVariant} =
-  alertSlice.actions
+export const {setAlert, setAlertVisibility} = alertSlice.actions
 
 export const selectAlertContent = ({alert}: RootState) => alert.content
 export const selectAlertVisibility = ({alert}: RootState) => alert.isVisible

@@ -18,7 +18,7 @@ import {module as userModule} from '../../user'
 import {removePrimaryAddress, selectAddress} from '../addressSlice'
 import {AddressRouteName} from '../routes'
 import {Button, TextButton} from '@/components/ui/buttons'
-import {setAlertContent, setAlertVariant, setAlertVisibility} from '@/store'
+import {setAlert} from '@/store'
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -31,13 +31,15 @@ export const Address = () => {
   const removeAddressAndShowAlert = async () => {
     dispatch(removePrimaryAddress())
     dispatch(
-      setAlertContent({
-        title: 'Gelukt',
-        text: 'Het adres is verwijderd uit uw profiel.',
+      setAlert({
+        content: {
+          title: 'Gelukt',
+          text: 'Het adres is verwijderd uit uw profiel.',
+        },
+        variant: 'success',
+        isVisible: true,
       }),
     )
-    dispatch(setAlertVisibility(true))
-    dispatch(setAlertVariant('success'))
   }
 
   return (
