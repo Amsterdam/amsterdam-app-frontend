@@ -72,7 +72,7 @@ const createIconColor =
   ({emphasis, isPressed}: Partial<Props> & {isPressed: boolean}) =>
   ({color}: Theme) => {
     if (isPressed) {
-      return color.pressable.pressed.background
+      return color.pressable.primary.highlight
     }
 
     if (emphasis) {
@@ -91,7 +91,7 @@ const createStyles = ({color, text}: Theme) =>
       color: color.pressable.default.background,
     },
     pressed: {
-      color: color.pressable.pressed.background,
+      color: color.pressable.primary.highlight,
     },
     text: {
       flexShrink: 1, // Allow wrapping
