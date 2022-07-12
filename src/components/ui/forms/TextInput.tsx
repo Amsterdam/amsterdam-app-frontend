@@ -67,10 +67,10 @@ export const TextInput = forwardRef<TextInputRN, Props>(
         <View style={styles.frame}>
           <TextInputRN
             {...otherProps}
+            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             onBlur={handleBlur}
             onChangeText={handleChangeText}
             onFocus={handleFocus}
-            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             ref={ref}
             style={styles.textInput}
             textAlignVertical="top"
@@ -130,7 +130,6 @@ const createStyles =
         color: color.text.default,
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
-        lineHeight: textLineHeight,
       },
     })
   }
