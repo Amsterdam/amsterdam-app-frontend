@@ -5,6 +5,7 @@ export enum ProjectsEndpointName {
   addProjectWarning = 'addProjectWarning',
   addProjectWarningImage = 'addProjectWarningImage',
   followProject = 'followProject',
+  getArticles = 'getArticles',
   getProject = 'getProject',
   getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',

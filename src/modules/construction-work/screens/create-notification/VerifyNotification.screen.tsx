@@ -15,6 +15,10 @@ import {SubmitButton, TextButton} from '@/components/ui/buttons'
 import {Column, Row, ScrollView} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {
+  useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
+} from '@/modules/construction-work/construction-work.service'
+import {
   selectMainImage,
   selectMainImageDescription,
   selectNewsArticle,
@@ -28,10 +32,6 @@ import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
-import {
-  useAddProjectWarningImageMutation,
-  useAddProjectWarningMutation,
-} from '@/modules/construction-work/services'
 import {useAddNotificationMutation} from '@/services'
 import {Theme, useThemable} from '@/themes'
 import {NotificationQueryArg} from '@/types'

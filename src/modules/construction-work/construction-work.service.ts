@@ -1,6 +1,8 @@
 import {AddressQueryArg} from '@/modules/address'
 import {baseApi} from '@/services'
 import {
+  ArticleQueryArg,
+  Articles,
   FieldsQueryArg,
   FollowProjectBody,
   NewProjectWarning,
@@ -65,6 +67,18 @@ export const projectsApi = baseApi.injectEndpoints({
           body,
         }
       },
+    }),
+
+    [ProjectsEndpointName.getArticles]: builder.query<
+      Articles,
+      ArticleQueryArg
+    >({
+      providesTags: ['Articles'],
+      query: params => {
+        const q = formatQueryParams(params)
+        return generateRequestUrl({path: '/articles', params: q})
+      },
+      transformResponse: (response: {result: Articles}) => response.result,
     }),
 
     [ProjectsEndpointName.getProject]: builder.query<
@@ -157,6 +171,7 @@ export const {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
   useFollowProjectMutation,
+  useGetArticlesQuery,
   useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,

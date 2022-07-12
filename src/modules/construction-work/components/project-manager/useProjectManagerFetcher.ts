@@ -5,7 +5,7 @@ import {selectProjectManager} from '@/modules/construction-work/components/proje
 import {
   useGetProjectManagerQuery,
   useGetProjectsQuery,
-} from '@/modules/construction-work/services'
+} from '@/modules/construction-work/construction-work.service'
 import {ProjectsItem} from '@/types'
 
 export const useProjectManagerFetcher = () => {

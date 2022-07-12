@@ -7,16 +7,16 @@ import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
 import {Radio, RadioGroup, ValidationWarning} from '@/components/ui/forms'
 import {Column, Row, ScrollView} from '@/components/ui/layout'
-import {
-  CreateNotificationRouteName,
-  CreateNotificationStackParams,
-} from '@/modules/construction-work/screens/create-notification//routes'
+import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
   setNewsArticle,
   setStep,
 } from '@/modules/construction-work/screens/create-notification/notificationDraftSlice'
-import {useGetArticlesQuery} from '@/services'
+import {
+  CreateNotificationRouteName,
+  CreateNotificationStackParams,
+} from '@/modules/construction-work/screens/create-notification/routes'
 
 type Props = {
   navigation: StackNavigationProp<
