@@ -1,11 +1,18 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import React, {useContext} from 'react'
+import React from 'react'
 import {Platform, StyleSheet, UIManager, View} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import {SingleSelectable, Text, Title} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {AlertContext, Variant} from '@/providers'
+import {
+  selectAlertContent,
+  selectAlertVariant,
+  selectAlertVisibility,
+  setAlertVisibility,
+  Variant,
+} from '@/store'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -17,9 +24,11 @@ if (
 }
 
 export const Alert = () => {
-  const {changeVisibility, content, isVisible, variant} =
-    useContext(AlertContext)
+  const dispatch = useDispatch()
   const {color} = useTheme()
+  const content = useSelector(selectAlertContent)
+  const isVisible = useSelector(selectAlertVisibility)
+  const variant = useSelector(selectAlertVariant)
   const styles = useThemable(createStyles(variant))
 
   if (!isVisible) {
@@ -41,7 +50,7 @@ export const Alert = () => {
               <Close fill={color.text.inverse} />
             </Icon>
           }
-          onPress={() => changeVisibility(false)}
+          onPress={() => dispatch(setAlertVisibility(false))}
         />
       </Row>
     </View>

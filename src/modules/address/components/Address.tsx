@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {module as addressModule} from '../'
@@ -13,12 +13,12 @@ import {
   Title,
 } from '../../../components/ui'
 import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {AlertContext} from '../../../providers'
 import {isEmptyObject} from '../../../utils'
 import {module as userModule} from '../../user'
 import {removePrimaryAddress, selectAddress} from '../addressSlice'
 import {AddressRouteName} from '../routes'
 import {Button, TextButton} from '@/components/ui/buttons'
+import {setAlertContent, setAlertVariant, setAlertVisibility} from '@/store'
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -28,15 +28,16 @@ export const Address = () => {
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
 
-  const {changeContent, changeVariant} = useContext(AlertContext)
-
   const removeAddressAndShowAlert = async () => {
     dispatch(removePrimaryAddress())
-    changeContent({
-      title: 'Gelukt',
-      text: 'Het adres is verwijderd uit uw profiel.',
-    })
-    changeVariant('success')
+    dispatch(
+      setAlertContent({
+        title: 'Gelukt',
+        text: 'Het adres is verwijderd uit uw profiel.',
+      }),
+    )
+    dispatch(setAlertVisibility(true))
+    dispatch(setAlertVariant('success'))
   }
 
   return (
