@@ -33,16 +33,10 @@ export const TextButton = ({
   const iconColor = useThemable(createIconColor({emphasis, isPressed}))
   const styles = useThemable(createStyles)
 
-  // The `top` style aims to vertically align the icon with the baseline of the text.
-  // As SVG isn’t text, and because React’s flexbox implementation differs from the
-  // CSS spec, I couldn’t find a better approach yet.
   const iconProps: SVGProps<any> = {
     width: 14 * fontScale,
     height: 14 * fontScale,
     fill: iconColor,
-    style: {
-      top: 3,
-    },
   }
 
   return (
@@ -54,7 +48,7 @@ export const TextButton = ({
       onPressOut={() => setIsPressed(false)}
       style={[styles.button, direction && styles.row]}
       {...otherProps}>
-      <Row gutter="xs">
+      <Row gutter="xs" valign="center">
         {direction === 'backward' && <ChevronLeft {...iconProps} />}
         {direction === 'down' && <ChevronDown {...iconProps} />}
         {direction === 'forward' && <ChevronRight {...iconProps} />}
@@ -78,7 +72,7 @@ const createIconColor =
   ({emphasis, isPressed}: Partial<Props> & {isPressed: boolean}) =>
   ({color}: Theme) => {
     if (isPressed) {
-      return color.pressable.pressed.background
+      return color.pressable.primary.highlight
     }
 
     if (emphasis) {
@@ -97,7 +91,7 @@ const createStyles = ({color, text}: Theme) =>
       color: color.pressable.default.background,
     },
     pressed: {
-      color: color.pressable.pressed.background,
+      color: color.pressable.primary.highlight,
     },
     text: {
       flexShrink: 1, // Allow wrapping
