@@ -52,7 +52,7 @@ export const initSentry = () => {
     return
   }
   init({
-    dsn: 'https://7a6ad9f75fab4c509da16d13bbab4271@o1299992.ingest.sentry.io/6479388',
+    dsn: 'https://39ba20d819034bc2a98af077acec8bec@o1315195.ingest.sentry.io/6567463',
     environment: appFlavour,
     dist: BUILD_NUMBER,
     release: `${Platform.OS}@${version}.${BUILD_NUMBER ?? '0'}`,
