@@ -1,5 +1,4 @@
-import {Image} from './image'
-import {PageListQueryArg, Section, Timeline} from './'
+import {Image, ListQueryArg, PageListQueryArg, Section, Timeline} from '@/types'
 
 export enum ProjectsEndpointName {
   addProjectWarning = 'addProjectWarning',
@@ -14,6 +13,26 @@ export enum ProjectsEndpointName {
   getProjectWarning = 'getProjectWarning',
   unfollowProject = 'unfollowProject',
 }
+
+export type ArticleSummary = {
+  identifier: string
+  image?: Image | null
+  images?: ProjectWarningImage[]
+  publication_date: string
+  title: string
+  type: 'news' | 'warning'
+}
+
+export type Articles = ArticleSummary[]
+
+export type ArticleApiResponse = {
+  status: boolean
+  result: ArticleSummary[]
+}
+
+export type ArticleQueryArg = {
+  projectIds?: string[]
+} & Partial<ListQueryArg>
 
 export type FieldsQueryArg = {
   fields?: string[]
