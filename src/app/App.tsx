@@ -14,6 +14,7 @@ import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
 import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
 import {store} from '@/store'
+import {baseColor} from '@/tokens'
 
 const persistor = persistStore(store)
 
@@ -22,7 +23,10 @@ const AppComponent = () => {
   return (
     <SafeAreaProvider>
       <CustomErrorBoundary>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={baseColor.primary.white}
+        />
         <NavigationContainer
           linking={linking}
           ref={navigation}
