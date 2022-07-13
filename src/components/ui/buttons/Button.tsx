@@ -42,7 +42,7 @@ export const Button = ({
       onPressOut={mergeOnPressOut}
       style={styles.button}
       {...otherProps}>
-      <Row gutter="md">
+      <Row gutter="sm" valign="center">
         {icon && <Icon size={24}>{icon}</Icon>}
         {label && <Text style={styles.label}>{label}</Text>}
       </Row>
