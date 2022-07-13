@@ -1,7 +1,6 @@
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {Icon} from '_components/ui/media'
 import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
@@ -9,6 +8,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
