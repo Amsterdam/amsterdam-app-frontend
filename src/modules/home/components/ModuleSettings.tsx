@@ -1,12 +1,11 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {Box, PleaseWait, Tooltip} from '@/components/ui'
+import {Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/text'
-import {ModuleBox} from '@/modules/home/components/index'
+import {Paragraph, Title} from '@/components/ui/text'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
@@ -38,30 +37,28 @@ export const ModuleSettings = () => {
           const ModuleIcon = icons[icon]
 
           return (
-            <ModuleBox
-              expandedChildren={
-                <View style={styles.tooltipContainer}>
-                  <Tooltip text={description} />
-                </View>
-              }
+            <View
               key={slug}
-              selected={isSelected}>
+              style={[styles.box, isSelected && styles.selected]}>
               <Switch
                 accessibilityLabel={accessibleText(title, description)}
                 label={
-                  <Row gutter="md" valign="center">
-                    {!!ModuleIcon && (
-                      <Icon size={24}>
-                        <ModuleIcon fill={color.text.default} />
-                      </Icon>
-                    )}
-                    <Title level="h5" text={title} />
-                  </Row>
+                  <Column gutter="sm">
+                    <Row gutter="sm" valign="center">
+                      {!!ModuleIcon && (
+                        <Icon size={24}>
+                          <ModuleIcon fill={color.text.default} />
+                        </Icon>
+                      )}
+                      <Title level="h5" text={title} />
+                    </Row>
+                    <Paragraph variant="small">{description}</Paragraph>
+                  </Column>
                 }
                 onChange={() => onChange(slug)}
                 value={isSelected}
               />
-            </ModuleBox>
+            </View>
           )
         })}
       </Column>
@@ -69,11 +66,16 @@ export const ModuleSettings = () => {
   )
 }
 
-const createStyles = ({size}: Theme) =>
+const createStyles = ({border, color, size}: Theme) =>
   StyleSheet.create({
-    tooltipContainer: {
-      marginTop: size.spacing.md,
-      marginBottom: size.spacing.sm,
-      marginHorizontal: size.spacing.lg,
+    box: {
+      padding: size.spacing.md - border.width.sm,
+      borderWidth: border.width.sm,
+      borderStyle: 'dashed',
+      borderColor: color.border.primary,
+    },
+    selected: {
+      backgroundColor: color.background.cutout,
+      borderColor: 'transparent',
     },
   })
