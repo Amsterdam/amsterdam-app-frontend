@@ -65,7 +65,7 @@ export const Address = () => {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  variant="secondary"
+                  variant="primary"
                 />
               </View>
               <View>
@@ -78,7 +78,7 @@ export const Address = () => {
                   }
                   label="Verwijder adres"
                   onPress={removeAddressAndShowAlert}
-                  variant="tertiary"
+                  variant="secondary"
                 />
               </View>
             </Row>
@@ -102,7 +102,7 @@ export const Address = () => {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  variant="secondary"
+                  variant="primary"
                 />
               </View>
               <View>
@@ -114,7 +114,7 @@ export const Address = () => {
                       screen: AddressRouteName.addressInfo,
                     })
                   }
-                  variant="tertiary"
+                  variant="secondary"
                 />
               </View>
             </Row>
