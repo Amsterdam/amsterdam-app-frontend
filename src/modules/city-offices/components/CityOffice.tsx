@@ -8,15 +8,18 @@ import {
   SingleSelectable,
   Text,
   Title,
-} from '../../../components/ui'
-import {Column, Gutter} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {useEnvironment} from '../../../store'
-import {ImageSources} from '../../../types'
-import {accessibleText, mapImageSources} from '../../../utils'
-import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
-import {useGetCityOfficeQuery} from '../services'
+} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Column, Gutter} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {
+  CityOfficesRouteName,
+  CityOfficesStackParams,
+} from '@/modules/city-offices/routes'
+import {useGetCityOfficeQuery} from '@/modules/city-offices/services'
+import {useEnvironment} from '@/store'
+import {ImageSources} from '@/types'
+import {accessibleText, mapImageSources} from '@/utils'
 
 type Props = {
   id: string

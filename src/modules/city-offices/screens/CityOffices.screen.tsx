@@ -1,10 +1,10 @@
 import React from 'react'
-import {Screen, ScrollView} from '../../../components/ui/layout'
+import {Screen, ScrollView} from '@/components/ui/layout'
 import {
   CityOfficeOverview,
   ContactOptions,
   ReferToWebsiteCard,
-} from '../components'
+} from '@/modules/city-offices/components'
 
 export const CityOfficesScreen = () => (
   <Screen>

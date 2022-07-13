@@ -2,32 +2,30 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {module as wasteGuideModule} from '../'
-import {RootStackParams} from '../../../app/navigation'
+import {RootStackParams} from '@/app/navigation'
+import {Box, PleaseWait, SingleSelectable, Text, Title} from '@/components/ui'
+import {TextButton} from '@/components/ui/buttons'
+import {Column, Gutter, Row} from '@/components/ui/layout'
+import {useFetch} from '@/hooks'
+import {module as addressModule} from '@/modules/address'
+import {selectAddress} from '@/modules/address/addressSlice'
+import {AddressRouteName} from '@/modules/address/routes'
+import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
-  Box,
-  PleaseWait,
-  SingleSelectable,
-  Text,
-  Title,
-} from '../../../components/ui'
-import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {useFetch} from '../../../hooks'
-import {useEnvironment} from '../../../store'
-import {module as addressModule} from '../../address'
-import {selectAddress} from '../../address/addressSlice'
-import {AddressRouteName} from '../../address/routes'
-import {WasteGuideRouteName} from '../routes'
-import {WasteGuide, WasteGuideResponse, WasteType} from '../types'
-import {transformWasteGuideResponse} from '../utils'
-import {AddressFormTeaser} from './AddressFormTeaser'
-import {
+  AddressFormTeaser,
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
   WasteGuideCollectionPoints,
   WasteGuideContainers,
-} from '.'
-import {TextButton} from '@/components/ui/buttons'
+} from '@/modules/waste-guide/components'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
+import {
+  WasteGuide,
+  WasteGuideResponse,
+  WasteType,
+} from '@/modules/waste-guide/types'
+import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
+import {useEnvironment} from '@/store'
 
 export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)

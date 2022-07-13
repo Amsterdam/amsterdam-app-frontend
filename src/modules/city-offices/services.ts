@@ -1,6 +1,6 @@
-import {baseApi} from '../../services/init'
-import {generateRequestUrl} from '../../utils'
-import {CityOffice, CityOffices} from './types'
+import {CityOffice, CityOffices} from '@/modules/city-offices/types'
+import {baseApi} from '@/services/init'
+import {generateRequestUrl} from '@/utils'
 
 export const cityApi = baseApi.injectEndpoints({
   endpoints: builder => ({

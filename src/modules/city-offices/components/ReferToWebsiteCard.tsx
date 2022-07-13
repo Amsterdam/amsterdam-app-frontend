@@ -1,18 +1,16 @@
 import React from 'react'
 import {View} from 'react-native'
-import {Box, Text, Title} from '../../../components/ui'
-import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {openWebUrl} from '../../../utils/openWebUrl'
+import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
+import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {openWebUrl} from '@/utils/openWebUrl'
 
 export const ReferToWebsiteCard = () => (
   <Box>
     <Column gutter="md">
       <Row>
-        <Image
-          source={require('../../../assets/images/refer-to-website-hero.jpg')}
-        />
+        <Image source={require('@/assets/images/refer-to-website-hero.jpg')} />
       </Row>
       <View>
         <Title level={2} text="Niet gevonden wat u zocht?" />

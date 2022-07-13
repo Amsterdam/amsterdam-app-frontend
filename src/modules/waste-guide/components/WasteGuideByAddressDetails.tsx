@@ -1,11 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Box, DescriptionList, Title} from '../../../components/ui'
-import {Column, Gutter, Row} from '../../../components/ui/layout'
-import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
-import {WasteGuideDetails} from '../types'
+import {Box, DescriptionList, Title} from '@/components/ui'
 import {Button, TextButton} from '@/components/ui/buttons'
+import {Column, Gutter, Row} from '@/components/ui/layout'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
+import {WasteGuideDetails} from '@/modules/waste-guide/types'
 
 type Props = {
   details: WasteGuideDetails

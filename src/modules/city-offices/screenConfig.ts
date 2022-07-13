@@ -1,7 +1,13 @@
-import {StackNavigationRoutes} from '../../app/navigation'
-import {ContactScreen} from '../contact/Screen'
-import {CityOfficesStackParams, CityOfficesRouteName} from './routes'
-import {CityOfficesScreen, MakeAppointmentScreen} from './screens'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {
+  CityOfficesRouteName,
+  CityOfficesStackParams,
+} from '@/modules/city-offices/routes'
+import {
+  CityOfficesScreen,
+  MakeAppointmentScreen,
+} from '@/modules/city-offices/screens'
+import {ContactScreen} from '@/modules/contact/Screen'
 
 export const cityOfficesScreenConfig: StackNavigationRoutes<
   CityOfficesStackParams,

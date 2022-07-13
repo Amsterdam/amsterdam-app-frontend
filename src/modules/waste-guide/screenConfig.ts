@@ -1,4 +1,8 @@
-import {WasteGuideRouteName, WasteGuideStackParams} from './routes'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
 import {
   BulkyWasteAppointmentScreen,
   RecyclingGuideScreen,
@@ -9,8 +13,7 @@ import {
   WasteGuideScreen,
   WasteMenuScreen,
   WhereToPutBulkyWasteScreen,
-} from './screens'
-import {StackNavigationRoutes} from '@/app/navigation'
+} from '@/modules/waste-guide/screens'
 
 export const wasteGuideScreenConfig: StackNavigationRoutes<
   WasteGuideStackParams,

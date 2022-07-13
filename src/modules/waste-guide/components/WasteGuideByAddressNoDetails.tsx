@@ -2,13 +2,13 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
-import {RootStackParams} from '../../../app/navigation'
-import {Box, Text, Title} from '../../../components/ui'
-import {Gutter, Row} from '../../../components/ui/layout'
-import {Address} from '../../../types'
-import {WasteGuideRouteName} from '../routes'
+import {RootStackParams} from '@/app/navigation'
+import {Box, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Gutter, Row} from '@/components/ui/layout'
 import {ModuleSlugs} from '@/modules/slugs'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
+import {Address} from '@/types'
 
 type Props = {
   address: Address

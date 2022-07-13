@@ -1,8 +1,8 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {WebView} from '../../../components/ui'
-import {useEnvironment} from '../../../store'
-import {selectAddress} from '../../address/addressSlice'
+import {WebView} from '@/components/ui'
+import {selectAddress} from '@/modules/address/addressSlice'
+import {useEnvironment} from '@/store'
 
 export const ReportNotCollectedScreen = () => {
   const {primary: address} = useSelector(selectAddress)

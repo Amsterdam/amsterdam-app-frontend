@@ -4,10 +4,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
-import {BulkyWaste, Container} from '../../../assets/icons'
-import {DeviceContext} from '../../../providers'
-import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {BulkyWaste, Container} from '@/assets/icons'
 import {TileButton, TileButtonProps} from '@/components/ui/buttons'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
+import {DeviceContext} from '@/providers'
 import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {

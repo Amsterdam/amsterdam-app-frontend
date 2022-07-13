@@ -1,7 +1,7 @@
 import React from 'react'
-import {Box, Text, Title} from '../../../components/ui'
-import {Gutter, Row, Screen, ScrollView} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
+import {Box, Text, Title} from '@/components/ui'
+import {Gutter, Row, Screen, ScrollView} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <Screen>

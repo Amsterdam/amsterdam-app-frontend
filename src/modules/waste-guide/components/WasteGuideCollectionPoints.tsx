@@ -1,11 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Box, Text, Title} from '../../../components/ui'
-import {Column, Row} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
+import {Column, Row} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
 
 export const WasteGuideCollectionPoints = () => {
   const navigation =
@@ -35,7 +38,7 @@ export const WasteGuideCollectionPoints = () => {
         <Row>
           <Image
             customAspectRatio={638 / 220}
-            source={require('../../../assets/images/placeholder-map-collection-points.jpg')}
+            source={require('@/assets/images/placeholder-map-collection-points.jpg')}
           />
         </Row>
       </Column>

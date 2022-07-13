@@ -1,9 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
-import {Gutter, Screen, ScrollView} from '../../../components/ui/layout'
-import {WasteGuideByAddress} from '../components'
-import {RecyclingGuideBanner} from '../components/RecyclingGuideBanner'
-import {ReportNotCollectedBanner} from '../components/ReportNotCollectedBanner'
+import {Gutter, Screen, ScrollView} from '@/components/ui/layout'
+import {
+  RecyclingGuideBanner,
+  ReportNotCollectedBanner,
+  WasteGuideByAddress,
+} from '@/modules/waste-guide/components'
 
 export const WasteGuideScreen = () => {
   return (
