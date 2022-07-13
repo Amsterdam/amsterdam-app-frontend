@@ -84,7 +84,7 @@ export const ContactOptions = () => {
   ]
 
   return (
-    <Box background="white">
+    <Box>
       <Title level={2} text="Neem contact op" />
       <Gutter height="md" />
       <Column gutter="sm">

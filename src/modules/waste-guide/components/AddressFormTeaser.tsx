@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {module as wasteGuideModule} from '../'
-import {RootStackParams} from '../../../app/navigation'
-import {Card, CardBody, Text, Title} from '../../../components/ui'
-import {TextInput} from '../../../components/ui/forms'
-import {module as addressModule} from '../../address'
-import {AddressRouteName} from '../../address/routes'
+import {RootStackParams} from '@/app/navigation'
+import {Card, CardBody, Text, Title} from '@/components/ui'
+import {TextInput} from '@/components/ui/forms'
+import {module as addressModule} from '@/modules/address'
+import {AddressRouteName} from '@/modules/address/routes'
+import {module as wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   text: string

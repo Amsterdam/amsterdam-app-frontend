@@ -1,11 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
-import {Gutter, Row} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
+import {Column, Row} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
 
 export const WasteGuideContainers = () => {
   const navigation =
@@ -14,16 +17,13 @@ export const WasteGuideContainers = () => {
     >()
 
   return (
-    <Card>
-      <CardHeader>
-        <Title level={4} text="Containers in de buurt" />
-      </CardHeader>
-      <CardBody>
+    <Box>
+      <Column gutter="md">
+        <Title level={2} text="Containers in de buurt" />
         <Text>
           Zoekt u een container voor glas, papier, textiel, plastic verpakkingen
           of restafval?
         </Text>
-        <Gutter height="md" />
         <Row align="start">
           <TextButton
             direction="forward"
@@ -33,14 +33,13 @@ export const WasteGuideContainers = () => {
             }
           />
         </Row>
-        <Gutter height="md" />
         <Row>
           <Image
             customAspectRatio={632 / 220}
-            source={require('../../../assets/images/placeholder-map-containers.jpg')}
+            source={require('@/assets/images/placeholder-map-containers.jpg')}
           />
         </Row>
-      </CardBody>
-    </Card>
+      </Column>
+    </Box>
   )
 }

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
-import {WebView} from '../../../components/ui'
+import {WebView} from '@/components/ui'
 
 export const MakeAppointmentScreen = () => {
   const navigation = useNavigation()

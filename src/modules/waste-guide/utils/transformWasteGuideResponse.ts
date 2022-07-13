@@ -1,8 +1,12 @@
-import {Address} from '../../../types'
-import {formatDatesTimes, formatSentence} from '../../../utils'
-import {mapWasteType, WasteGuide, WasteGuideResponse} from '../types'
-import {EnvironmentConfig} from './../../../environment'
-import {appointmentUrl} from './appointmentUrl'
+import {EnvironmentConfig} from '@/environment'
+import {
+  mapWasteType,
+  WasteGuide,
+  WasteGuideResponse,
+} from '@/modules/waste-guide/types'
+import {appointmentUrl} from '@/modules/waste-guide/utils'
+import {Address} from '@/types'
+import {formatDatesTimes, formatSentence} from '@/utils'
 
 export const transformWasteGuideResponse = (
   wasteGuideResponse: WasteGuideResponse | undefined,

@@ -4,21 +4,22 @@ import React from 'react'
 import {View} from 'react-native'
 import {
   Attention,
-  Card,
-  CardBody,
   PleaseWait,
   SingleSelectable,
   Text,
   Title,
-} from '../../../components/ui'
-import {Column} from '../../../components/ui/layout'
-import {Image} from '../../../components/ui/media'
-import {useEnvironment} from '../../../store'
-import {ImageSources} from '../../../types'
-import {accessibleText, mapImageSources} from '../../../utils'
-import {CityOfficesRouteName, CityOfficesStackParams} from '../routes'
-import {useGetCityOfficeQuery} from '../services'
+} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Column, Gutter} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
+import {
+  CityOfficesRouteName,
+  CityOfficesStackParams,
+} from '@/modules/city-offices/routes'
+import {useGetCityOfficeQuery} from '@/modules/city-offices/services'
+import {useEnvironment} from '@/store'
+import {ImageSources} from '@/types'
+import {accessibleText, mapImageSources} from '@/utils'
 
 type Props = {
   id: string
@@ -46,7 +47,7 @@ export const CityOffice = ({id}: Props) => {
     return (
       <Attention warning>
         <Text intro>Fout</Text>
-        <Text>Stadsdeelkantoor niet gevonden</Text>
+        <Text>Stadsloket niet gevonden.</Text>
       </Attention>
     )
   }
@@ -60,49 +61,48 @@ export const CityOffice = ({id}: Props) => {
   const hasImage = Object.keys(imageSources).length
 
   return (
-    <Card>
+    <Column gutter="md">
       {!!hasImage && (
         <Image source={mapImageSources(imageSources, environment)} />
       )}
-      <CardBody>
-        <Column gutter="md">
-          <View>
-            <Title level={2} text={title} />
-            <SingleSelectable
-              accessibilityLabel={accessibleText(
-                'Adres',
-                addressLine1,
-                addressLine2,
-              )}>
-              <Text>{addressLine1}</Text>
-              <Text>{addressLine2}</Text>
-            </SingleSelectable>
-          </View>
-          <View>
-            <Text secondary accessibilityRole="header">
-              Openingstijden
-            </Text>
-            <Text>
-              De Stadsloketten zijn maandag, dinsdag, woensdag, donderdag en
-              vrijdag van 09.00 tot 17.00 uur open.
-            </Text>
-          </View>
-          <View>
-            <Title level={4} text="Bezoek op afspraak" />
-            <Text>
-              U heeft een afspraak nodig om langs te komen bij een Stadsloket.
-            </Text>
-          </View>
-          <Column halign="start">
-            <Button
-              label="Maak een afspraak"
-              onPress={() =>
-                navigation.navigate(CityOfficesRouteName.makeAppointment)
-              }
-            />
-          </Column>
+      <Column gutter="md">
+        <View>
+          <Title level={2} text={title} />
+          <SingleSelectable
+            accessibilityLabel={accessibleText(
+              'Adres',
+              addressLine1,
+              addressLine2,
+            )}>
+            <Text>{addressLine1}</Text>
+            <Text>{addressLine2}</Text>
+          </SingleSelectable>
+        </View>
+        <View>
+          <Text secondary accessibilityRole="header">
+            Openingstijden
+          </Text>
+          <Text>
+            De Stadsloketten zijn maandag, dinsdag, woensdag, donderdag en
+            vrijdag van 09.00 tot 17.00 uur open.
+          </Text>
+        </View>
+        <View>
+          <Title level={4} text="Bezoek op afspraak" />
+          <Text>
+            U heeft een afspraak nodig om langs te komen bij een Stadsloket.
+          </Text>
+        </View>
+        <Column halign="start">
+          <Button
+            label="Maak een afspraak"
+            onPress={() =>
+              navigation.navigate(CityOfficesRouteName.makeAppointment)
+            }
+          />
         </Column>
-      </CardBody>
-    </Card>
+      </Column>
+      <Gutter height="lg" />
+    </Column>
   )
 }

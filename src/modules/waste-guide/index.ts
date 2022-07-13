@@ -1,5 +1,5 @@
-import {ModuleSlugs} from '../slugs'
-import {ModuleClientConfig} from '../types'
+import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   linking: {},

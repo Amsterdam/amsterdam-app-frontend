@@ -1,8 +1,8 @@
 import React from 'react'
-import {PleaseWait} from '../../../components/ui'
-import {Grid, GridCell} from '../../../components/ui/layout'
-import {useGetCityOfficesQuery} from '../services'
-import {CityOffice} from './CityOffice'
+import {Box, PleaseWait} from '@/components/ui'
+import {Grid, GridCell} from '@/components/ui/layout'
+import {CityOffice} from '@/modules/city-offices/components'
+import {useGetCityOfficesQuery} from '@/modules/city-offices/services'
 
 export const CityOfficeOverview = () => {
   const {data: cityOffices, isLoading: isCityOfficesLoading} =
@@ -13,12 +13,17 @@ export const CityOfficeOverview = () => {
   }
 
   return (
-    <Grid>
-      {cityOffices.offices.map(cityOffice => (
-        <GridCell key={cityOffice.identifier}>
-          <CityOffice id={cityOffice.identifier} key={cityOffice.identifier} />
-        </GridCell>
-      ))}
-    </Grid>
+    <Box>
+      <Grid>
+        {cityOffices.offices.map(cityOffice => (
+          <GridCell key={cityOffice.identifier}>
+            <CityOffice
+              id={cityOffice.identifier}
+              key={cityOffice.identifier}
+            />
+          </GridCell>
+        ))}
+      </Grid>
+    </Box>
   )
 }

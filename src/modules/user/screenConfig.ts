@@ -1,6 +1,6 @@
-import {UserStackParams, UserRouteName} from './routes'
-import {UserScreen} from './screens'
 import {StackNavigationRoutes} from '@/app/navigation'
+import {UserRouteName, UserStackParams} from '@/modules/user/routes'
+import {UserScreen} from '@/modules/user/screens'
 
 export const userScreenConfig: StackNavigationRoutes<
   UserStackParams,
@@ -10,7 +10,7 @@ export const userScreenConfig: StackNavigationRoutes<
     component: UserScreen,
     name: UserRouteName.user,
     options: {
-      headerTitle: 'Mijn Profiel',
+      headerTitle: 'Mijn profiel',
     },
   },
 }

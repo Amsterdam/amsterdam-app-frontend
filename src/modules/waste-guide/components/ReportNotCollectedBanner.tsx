@@ -1,9 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {RootStackParams} from '../../../app/navigation'
-import {BannerCard} from '../../../components/features'
-import {WasteGuideRouteName} from '../routes'
+import {RootStackParams} from '@/app/navigation'
+import {BannerCard} from '@/components/features'
 import {ModuleSlugs} from '@/modules/slugs'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -15,8 +15,7 @@ type Props = {
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
   return (
     <BannerCard
-      border
-      imageSource={require('../../../assets/images/banner-afval-niet-opgehaald.jpg')}
+      imageSource={require('@/assets/images/banner-afval-niet-opgehaald.jpg')}
       onPress={() =>
         navigation.navigate(WasteGuideRouteName.reportNotCollected)
       }

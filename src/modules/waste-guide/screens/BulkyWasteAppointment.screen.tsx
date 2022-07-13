@@ -1,7 +1,10 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {WebView} from '../../../components/ui'
-import {WasteGuideRouteName, WasteGuideStackParams} from '../routes'
+import {WebView} from '@/components/ui'
+import {
+  WasteGuideRouteName,
+  WasteGuideStackParams,
+} from '@/modules/waste-guide/routes'
 
 type Props = {
   route: RouteProp<

@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {View} from 'react-native'
-import {Box, Text, Title} from '../../../components/ui'
-import {Row} from '../../../components/ui/layout'
-import {Icon} from '../../../components/ui/media'
+import {Box, Text, Title} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 
 type Props = {
   icon: ReactNode
