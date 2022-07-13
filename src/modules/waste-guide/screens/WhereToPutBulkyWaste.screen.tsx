@@ -18,7 +18,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         <Row>
           <Image
             customAspectRatio={632 / 196}
-            source={require('../../../assets/images/grofafval-buiten.png')}
+            source={require('@/assets/images/grofafval-buiten.png')}
           />
         </Row>
         <Gutter height="md" />
@@ -33,7 +33,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         <Row>
           <Image
             customAspectRatio={632 / 196}
-            source={require('../../../assets/images/grofafval-afvalpunt.png')}
+            source={require('@/assets/images/grofafval-afvalpunt.png')}
           />
         </Row>
         <Gutter height="md" />

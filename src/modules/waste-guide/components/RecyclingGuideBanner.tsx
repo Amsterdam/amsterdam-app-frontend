@@ -15,7 +15,7 @@ export const RecyclingGuideBanner = () => {
 
   return (
     <BannerCard
-      imageSource={require('../../../assets/images/banner-illustratie-welkafvalhoortwaar.png')}
+      imageSource={require('@/assets/images/banner-illustratie-welkafvalhoortwaar.png')}
       onPress={() => navigation.navigate(WasteGuideRouteName.recyclingGuide)}
       subtitle="Bekijk de afvalscheidingswijzer"
       title="Welk afval hoort waar?"
