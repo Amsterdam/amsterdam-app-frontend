@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useGetModulesForAppQuery} from '@/modules/home/services'
 import {initializeModules, selectModules} from '@/modules/home/store'
@@ -11,7 +11,10 @@ export const useModules = () => {
   const {data: modulesFromApi, isLoading: isLoadingModules} =
     useGetModulesForAppQuery()
   const {modules: selectedModulesBySlug} = useSelector(selectModules)
-  const [modules, setModules] = useState<Module[]>()
+  const modules = mergeModulesConfig(clientModules, modulesFromApi)
+  const selectedModules: Module[] = modules.filter(m =>
+    selectedModulesBySlug?.includes(m.slug),
+  )
 
   // Wait for modules to be fetched and initialize a list of module slugs
   useEffect(() => {
@@ -20,30 +23,10 @@ export const useModules = () => {
     }
   }, [dispatch, modulesFromApi, selectedModulesBySlug])
 
-  // When modules are fetched, merge them with client config and set in state
-  useEffect(() => {
-    modulesFromApi &&
-      setModules(mergeModulesConfig(clientModules, modulesFromApi))
-  }, [modulesFromApi])
-
-  // Callback to receive only active modules
-  const getActiveModules = useCallback(
-    () => modules && modules.filter(m => m.status === 1),
-    [modules],
-  )
-
-  // Callback to receive slugs from selected modules only
-  const getSelectedModules = useCallback(
-    () =>
-      modules && modules.filter(m => selectedModulesBySlug?.includes(m.slug)),
-    [modules, selectedModulesBySlug],
-  )
-
   return {
     isLoadingModules,
     modules,
-    getActiveModules,
-    getSelectedModules,
+    selectedModules,
     selectedModulesBySlug,
   }
 }
