@@ -8,24 +8,26 @@ import {StatusBar} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {linking, RootStackParams, RootStackNavigator} from '@/app/navigation'
-import {Init, CustomErrorBoundary} from '@/components/features'
+import {linking, RootStackNavigator, RootStackParams} from '@/app/navigation'
+import {CustomErrorBoundary, Init} from '@/components/features'
 import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
 import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
 import {store} from '@/store'
-import {baseColor} from '@/tokens'
+import {useTheme} from '@/themes'
 
 const persistor = persistStore(store)
 
 const AppComponent = () => {
   const navigation = useRef<NavigationContainerRef<RootStackParams>>(null)
+  const {color} = useTheme()
+
   return (
     <SafeAreaProvider>
       <CustomErrorBoundary>
         <StatusBar
+          backgroundColor={color.screen.background.default}
           barStyle="dark-content"
-          backgroundColor={baseColor.primary.white}
         />
         <NavigationContainer
           linking={linking}
