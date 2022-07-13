@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
 type ModulesSliceState = {
-  disabledModules: string[] | undefined
+  disabledModules: string[]
 }
 
 const initialState: ModulesSliceState = {
@@ -10,7 +10,7 @@ const initialState: ModulesSliceState = {
 }
 
 export const modulesSlice = createSlice({
-  name: 'disabledModules',
+  name: 'modules',
   initialState,
   reducers: {
     resetModules: () => initialState,
