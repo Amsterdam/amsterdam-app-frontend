@@ -14,19 +14,18 @@ import {ErrorWithRestart} from '@/components/ui/ErrorWithRestart'
 import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
 import {store} from '@/store'
-import {useTheme} from '@/themes'
+import {lightColorTokens} from '@/themes/tokens'
 
 const persistor = persistStore(store)
 
 const AppComponent = () => {
   const navigation = useRef<NavigationContainerRef<RootStackParams>>(null)
-  const {color} = useTheme()
 
   return (
     <SafeAreaProvider>
       <CustomErrorBoundary>
         <StatusBar
-          backgroundColor={color.screen.background.default}
+          backgroundColor={lightColorTokens.screen.background.default}
           barStyle="dark-content"
         />
         <NavigationContainer
