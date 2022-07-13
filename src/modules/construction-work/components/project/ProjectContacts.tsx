@@ -7,7 +7,12 @@ import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectContact} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
-import {capitalizeString, openMailUrl, openPhoneUrl} from '@/utils'
+import {
+  accessibleText,
+  capitalizeString,
+  openMailUrl,
+  openPhoneUrl,
+} from '@/utils'
 
 type Props = {
   contacts: ProjectContact[]
@@ -39,6 +44,10 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {email && (
             <Row>
               <Button
+                accessibilityLabel={accessibleText(
+                  'Stuur een e-mail naar',
+                  email,
+                )}
                 icon={<Email fill={color.text.inverse} />}
                 label={email}
                 onPress={() => {
