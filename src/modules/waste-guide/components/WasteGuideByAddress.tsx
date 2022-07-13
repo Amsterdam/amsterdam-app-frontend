@@ -89,7 +89,7 @@ export const WasteGuideByAddress = () => {
 
   return (
     <>
-      <Box background="white">
+      <Box>
         <SingleSelectable>
           <Text>Afvalinformatie voor</Text>
           <Gutter height="xs" />

@@ -7,7 +7,7 @@ import {openMailUrl} from '@/utils'
 
 export const AuthorizedProjectsScreen = () => (
   <ScrollView>
-    <Box background="white">
+    <Box>
       <Title text="Berichten sturen" />
       <Gutter height="sm" />
       <Text>

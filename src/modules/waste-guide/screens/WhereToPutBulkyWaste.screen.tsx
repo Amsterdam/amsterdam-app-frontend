@@ -5,7 +5,7 @@ import {Image} from '../../../components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <ScrollView>
-    <Box background="white">
+    <Box>
       <Title text="Buiten zetten of naar een afvalpunt?" />
       <Gutter height="sm" />
       <Text>

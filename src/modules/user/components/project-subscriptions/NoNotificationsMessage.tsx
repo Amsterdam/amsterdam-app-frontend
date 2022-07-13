@@ -16,7 +16,7 @@ export const NoNotificationsMessage = () => {
     >()
 
   return (
-    <Box background="white">
+    <Box>
       <Column gutter="md">
         <Title level={2} text="U ontvangt geen berichten" />
         <Text intro>

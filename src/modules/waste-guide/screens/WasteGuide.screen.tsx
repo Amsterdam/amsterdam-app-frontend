@@ -10,7 +10,7 @@ export const WasteGuideScreen = () => {
   return (
     <ScrollView>
       <WasteGuideByAddress />
-      <Box background="white">
+      <Box>
         <RecyclingGuideBanner />
         <Gutter height="md" />
         <ReportNotCollectedBanner navigation={useNavigation()} />

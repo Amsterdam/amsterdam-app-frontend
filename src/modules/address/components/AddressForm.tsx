@@ -105,7 +105,7 @@ export const AddressForm = ({temp}: Props) => {
   }, [isAddressStored]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box background="white" inset="lg">
+    <Box>
       {!isStreetSelected ? (
         <StreetInput
           bagList={bagList}
