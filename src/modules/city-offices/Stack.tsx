@@ -14,8 +14,7 @@ export const CityOfficesStack = () => {
     <Stack.Navigator
       initialRouteName={CityOfficesRouteName.cityOffices}
       screenOptions={screenOptions(theme)}>
-      <Stack.Group
-        screenOptions={screenOptions(theme, {screenType: 'settings'})}>
+      <Stack.Group>
         {Object.entries(routes).map(([key, route]) => (
           <Stack.Screen key={key} {...route} />
         ))}
