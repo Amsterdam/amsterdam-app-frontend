@@ -1,9 +1,12 @@
+import {Center} from '_components/ui/layout'
+import {Phrase} from '_components/ui/text'
 import React from 'react'
-import {getVersion, getBuildNumber} from 'react-native-device-info'
-import {Text} from '../ui'
+import {getBuildNumber, getVersion} from 'react-native-device-info'
 
 export const VersionInfo = () => (
-  <Text small>
-    Versie {getVersion()} (Build {getBuildNumber()})
-  </Text>
+  <Center>
+    <Phrase variant="small">
+      versie {getVersion()}.{getBuildNumber()}
+    </Phrase>
+  </Center>
 )
