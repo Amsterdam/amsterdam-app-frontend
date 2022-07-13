@@ -5,9 +5,9 @@ import {
 } from '@/modules/city-offices/routes'
 import {
   CityOfficesScreen,
+  ContactScreen,
   MakeAppointmentScreen,
 } from '@/modules/city-offices/screens'
-import {ContactScreen} from '@/modules/contact/Screen'
 
 export const cityOfficesScreenConfig: StackNavigationRoutes<
   CityOfficesStackParams,
