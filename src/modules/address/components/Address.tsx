@@ -1,11 +1,13 @@
+import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
+import {Icon} from '_components/ui/media'
 import React from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
-import {Button, TextButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {module as addressModule} from '@/modules/address'
 import {
@@ -15,6 +17,7 @@ import {
 import {AddressRouteName} from '@/modules/address/routes'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
+import {Theme, useThemable} from '@/themes'
 import {isEmptyObject} from '@/utils'
 
 export const Address = () => {
@@ -24,6 +27,7 @@ export const Address = () => {
       StackNavigationProp<RootStackParams, typeof userModule.slug>
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
+  const iconProps = useThemable(createIconProps)
 
   const removeAddressAndShowAlert = async () => {
     dispatch(removePrimaryAddress())
@@ -66,11 +70,15 @@ export const Address = () => {
               </View>
               <View>
                 <Gutter height="md" />
-                <TextButton
-                  emphasis
-                  icon="remove"
+                <Button
+                  icon={
+                    <Icon size={24}>
+                      <Remove {...iconProps} />
+                    </Icon>
+                  }
                   label="Verwijder adres"
                   onPress={removeAddressAndShowAlert}
+                  variant="tertiary"
                 />
               </View>
             </Row>
@@ -114,3 +122,7 @@ export const Address = () => {
     </>
   )
 }
+
+const createIconProps = ({color}: Theme) => ({
+  fill: color.text.link,
+})
