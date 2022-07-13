@@ -15,7 +15,6 @@ type Props = {
 export const ReportNotCollectedBanner = ({navigation}: Props) => {
   return (
     <BannerCard
-      border
       imageSource={require('../../../assets/images/banner-afval-niet-opgehaald.jpg')}
       onPress={() =>
         navigation.navigate(WasteGuideRouteName.reportNotCollected)

@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
 import {RootStackParams} from '../../../app/navigation'
-import {Card, CardBody, CardHeader, Text, Title} from '../../../components/ui'
+import {Box, Text, Title} from '../../../components/ui'
 import {Gutter, Row} from '../../../components/ui/layout'
 import {Address} from '../../../types'
 import {WasteGuideRouteName} from '../routes'
@@ -52,21 +52,17 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
         }
 
   return (
-    <Card>
-      <CardHeader>
-        <Title level={4} text={content.title} />
-      </CardHeader>
-      <CardBody>
-        <Text>{content.text}</Text>
-        <Gutter height="md" />
-        <Row align="start">
-          <Button
-            label={content.button.label}
-            onPress={content.button.onPress}
-            variant={content.button.secondary ? 'secondary' : undefined}
-          />
-        </Row>
-      </CardBody>
-    </Card>
+    <Box>
+      <Title level={2} text={content.title} />
+      <Text>{content.text}</Text>
+      <Gutter height="md" />
+      <Row align="start">
+        <Button
+          label={content.button.label}
+          onPress={content.button.onPress}
+          variant={content.button.secondary ? 'secondary' : undefined}
+        />
+      </Row>
+    </Box>
   )
 }

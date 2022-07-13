@@ -6,15 +6,12 @@ import {module as wasteGuideModule} from '../'
 import {RootStackParams} from '../../../app/navigation'
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   PleaseWait,
   SingleSelectable,
   Text,
   Title,
 } from '../../../components/ui'
-import {Gutter, Row} from '../../../components/ui/layout'
+import {Column, Gutter, Row} from '../../../components/ui/layout'
 import {useFetch} from '../../../hooks'
 import {useEnvironment} from '../../../store'
 import {module as addressModule} from '../../address'
@@ -88,64 +85,57 @@ export const WasteGuideByAddress = () => {
   }
 
   return (
-    <>
+    <Column gutter="md">
       <Box>
-        <SingleSelectable>
-          <Text>Afvalinformatie voor</Text>
-          <Gutter height="xs" />
-          <Title text={address.adres} />
-          <Gutter height="sm" />
-        </SingleSelectable>
-        <Row align="start">
-          <TextButton
-            direction="backward"
-            emphasis
-            label="Verander adres"
-            onPress={navigateToAddressForm}
-          />
-        </Row>
+        <Column gutter="sm">
+          <SingleSelectable>
+            <Text>Afvalinformatie voor</Text>
+            <Title text={address.adres} />
+          </SingleSelectable>
+          <Row align="start">
+            <TextButton
+              direction="backward"
+              emphasis
+              label="Verander adres"
+              onPress={navigateToAddressForm}
+            />
+          </Row>
+        </Column>
       </Box>
-      <Box>
-        {wasteGuideLength === undefined ? (
-          <Card>
-            <CardHeader>
-              <Title level={4} text="Gegevens ophalen…" />
-            </CardHeader>
-            <CardBody>
-              <PleaseWait fullSize={false} />
-            </CardBody>
-          </Card>
-        ) : wasteGuideLength === 0 ? (
-          <WasteGuideByAddressNoDetails address={address} />
-        ) : (
-          <>
-            {wasteGuide?.[WasteType.Bulky] && (
-              <>
-                <WasteGuideByAddressDetails
-                  details={wasteGuide[WasteType.Bulky]!}
-                  footerLink={{
-                    onPress: () =>
-                      navigation.navigate(
-                        WasteGuideRouteName.whereToPutBulkyWaste,
-                      ),
-                    text: 'Grof afval: buiten zetten of naar een afvalpunt?',
-                  }}
-                />
-                <Gutter height="md" />
-                <WasteGuideCollectionPoints />
-              </>
-            )}
-            {wasteGuide?.[WasteType.Household] && (
-              <>
-                {wasteGuide[WasteType.Bulky] && <Gutter height="md" />}
-                <WasteGuideByAddressDetails
-                  details={wasteGuide[WasteType.Household]!}
-                />
-                <Gutter height="md" />
-                <WasteGuideContainers />
-              </>
-            )}
-            <Gutter height="md" />
+      {wasteGuideLength === undefined ? (
+        <Box>
+          <Title level={4} text="Gegevens ophalen…" />
+          <PleaseWait fullSize={false} />
+        </Box>
+      ) : wasteGuideLength === 0 ? (
+        <WasteGuideByAddressNoDetails address={address} />
+      ) : (
+        <>
+          {wasteGuide?.[WasteType.Bulky] && (
+            <Column gutter="md">
+              <WasteGuideByAddressDetails
+                details={wasteGuide[WasteType.Bulky]!}
+                footerLink={{
+                  onPress: () =>
+                    navigation.navigate(
+                      WasteGuideRouteName.whereToPutBulkyWaste,
+                    ),
+                  text: 'Grof afval: buiten zetten of naar een afvalpunt?',
+                }}
+              />
+              <WasteGuideCollectionPoints />
+            </Column>
+          )}
+          {wasteGuide?.[WasteType.Household] && (
+            <Column gutter="md">
+              {wasteGuide[WasteType.Bulky] && <Gutter height="md" />}
+              <WasteGuideByAddressDetails
+                details={wasteGuide[WasteType.Household]!}
+              />
+              <WasteGuideContainers />
+            </Column>
+          )}
+          <Box>
             <TextButton
               direction="forward"
               label="Kloppen de dagen of tijden niet?"
@@ -153,9 +143,9 @@ export const WasteGuideByAddress = () => {
                 navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
               }
             />
-          </>
-        )}
-      </Box>
-    </>
+          </Box>
+        </>
+      )}
+    </Column>
   )
 }
