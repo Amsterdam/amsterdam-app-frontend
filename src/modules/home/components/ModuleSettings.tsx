@@ -1,15 +1,15 @@
 import React from 'react'
+import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {ModuleBox} from '@/modules/home/components/index'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
-import {useTheme} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
@@ -17,6 +17,7 @@ export const ModuleSettings = () => {
   const {modules, selectedModulesBySlug} = useModules()
 
   const {color} = useTheme()
+  const styles = useThemable(createStyles)
 
   const onChange = (slug: string) => {
     dispatch(toggleModule(slug))
@@ -36,7 +37,9 @@ export const ModuleSettings = () => {
           const ModuleIcon = icons[icon]
 
           return (
-            <ModuleBox key={slug} selected={isSelected}>
+            <View
+              key={slug}
+              style={[styles.box, isSelected && styles.selected]}>
               <Switch
                 accessibilityLabel={accessibleText(title, description)}
                 label={
@@ -55,10 +58,24 @@ export const ModuleSettings = () => {
                 onChange={() => onChange(slug)}
                 value={isSelected}
               />
-            </ModuleBox>
+            </View>
           )
         })}
       </Column>
     </Box>
   )
 }
+
+const createStyles = ({border, color, size}: Theme) =>
+  StyleSheet.create({
+    box: {
+      padding: size.spacing.md - border.width.sm,
+      borderWidth: border.width.sm,
+      borderStyle: 'dashed',
+      borderColor: color.border.primary,
+    },
+    selected: {
+      backgroundColor: color.background.cutout,
+      borderColor: 'transparent',
+    },
+  })
