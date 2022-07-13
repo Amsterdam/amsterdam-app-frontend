@@ -7,8 +7,7 @@ import {ModuleButton} from '@/modules/home/components'
 import {useModules} from '@/modules/home/hooks'
 
 export const Modules = () => {
-  const {getSelectedModules, isLoadingModules} = useModules()
-  const modules = getSelectedModules()
+  const {selectedModules: modules, isLoadingModules} = useModules()
 
   if (isLoadingModules) {
     return <PleaseWait />
