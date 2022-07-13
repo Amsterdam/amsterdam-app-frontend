@@ -148,7 +148,17 @@ export const Project = ({id}: Props) => {
               />
             )}
             <Column gutter="md">
-              <ProjectTraits {...{meter, strides}} />
+              <ProjectTraits
+                accessibilityLabel={accessibleText(
+                  [
+                    meter && `${meter} meter`,
+                    meter && strides && 'of',
+                    strides && `${strides} stappen`,
+                    'vanaf uw adres',
+                  ].join(' '),
+                )}
+                {...{meter, strides}}
+              />
               <SingleSelectable
                 accessibilityRole="header"
                 label={accessibleText(title, subtitle)}>

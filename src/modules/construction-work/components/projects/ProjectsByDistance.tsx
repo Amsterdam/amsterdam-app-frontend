@@ -27,7 +27,7 @@ import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
 import {Address} from '@/types'
-import {mapImageSources} from '@/utils'
+import {accessibleText, mapImageSources} from '@/utils'
 
 type ListHeaderProps = {
   address: string
@@ -82,7 +82,18 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       kicker={
-        <ProjectTraits {...{followed, meter, recent_articles, strides}} />
+        <ProjectTraits
+          accessibilityLabel={accessibleText(
+            followed ? 'Volgend' : undefined,
+            [
+              meter && `${meter} meter`,
+              meter && strides && 'of',
+              strides && `${strides} stappen`,
+              'vanaf uw adres',
+            ].join(' '),
+          )}
+          {...{followed, meter, recent_articles, strides}}
+        />
       }
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {

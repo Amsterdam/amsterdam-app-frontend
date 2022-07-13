@@ -11,11 +11,12 @@ import {Phrase} from '@/components/ui/text'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText, excludeListItemsFromList} from '@/utils'
+import {excludeListItemsFromList} from '@/utils'
 
-type Props = Partial<ProjectsItem>
+type Props = Partial<ProjectsItem> & {accessibilityLabel: string}
 
 export const ProjectTraits = ({
+  accessibilityLabel,
   followed,
   meter,
   recent_articles,
@@ -33,16 +34,7 @@ export const ProjectTraits = ({
   }
 
   return (
-    <View
-      accessibilityLabel={accessibleText(
-        followed ? 'Volgend' : undefined,
-        [
-          meter && `${meter} meter`,
-          meter && strides && 'of',
-          strides && `${strides} stappen`,
-          'vanaf uw adres',
-        ].join(' '),
-      )}>
+    <View accessibilityLabel={accessibilityLabel}>
       <Row gutter="md" wrap>
         {followed &&
           (numOfUnreadArticles ? (
