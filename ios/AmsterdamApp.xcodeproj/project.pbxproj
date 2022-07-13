@@ -11,17 +11,17 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2F71AEAFBD074220B3B72EFD /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0136C6B44AD6409897877831 /* AmsterdamSans-ExtraBold.otf */; };
+		3B19E01CFD4B4C2CA38B3E61 /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE65206046154C95B4A2E932 /* AmsterdamSans-Bold.otf */; };
 		6A19800B395FA72D9E5D77B7 /* libPods-AmsterdamApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */; };
+		7F71F394CCE94AB59627F223 /* AmsterdamSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 43B74B0AE20A4902BC36A4CF /* AmsterdamSans-Light.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B28083428C434BBEB83590F1 /* AmsterdamSans-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3F184A610D924B1DBCE7B73A /* AmsterdamSans-BoldItalic.otf */; };
+		C405F3791D694198B34AAC21 /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03CBE5B8A74748B28DAD438B /* AmsterdamSans-Regular.otf */; };
 		C4927713A1A784BB3B18DBC4 /* libPods-AmsterdamApp-AmsterdamAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E969FF5DE00A928514C21C25 /* libPods-AmsterdamApp-AmsterdamAppTests.a */; };
+		CC5AA42CA4AA4CABA20C2629 /* AmsterdamSans-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50D023B83AF74A52BAAD4FC2 /* AmsterdamSans-Italic.otf */; };
 		D71BAD6826FA2FE7001B5972 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BAD6726FA2FE7001B5972 /* File.swift */; };
 		D76C6CCE2729933D00E1460A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D76C6CCD2729933D00E1460A /* GoogleService-Info.plist */; };
-		3B19E01CFD4B4C2CA38B3E61 /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE65206046154C95B4A2E932 /* AmsterdamSans-Bold.otf */; };
-		B28083428C434BBEB83590F1 /* AmsterdamSans-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3F184A610D924B1DBCE7B73A /* AmsterdamSans-BoldItalic.otf */; };
-		2F71AEAFBD074220B3B72EFD /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0136C6B44AD6409897877831 /* AmsterdamSans-ExtraBold.otf */; };
-		CC5AA42CA4AA4CABA20C2629 /* AmsterdamSans-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50D023B83AF74A52BAAD4FC2 /* AmsterdamSans-Italic.otf */; };
-		7F71F394CCE94AB59627F223 /* AmsterdamSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 43B74B0AE20A4902BC36A4CF /* AmsterdamSans-Light.otf */; };
-		C405F3791D694198B34AAC21 /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03CBE5B8A74748B28DAD438B /* AmsterdamSans-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,8 @@
 		00E356EE1AD99517003FC87E /* AmsterdamAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmsterdamAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AmsterdamAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmsterdamAppTests.m; sourceTree = "<group>"; };
+		0136C6B44AD6409897877831 /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-ExtraBold.otf"; path = "../src/assets/fonts/AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; };
+		03CBE5B8A74748B28DAD438B /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Regular.otf"; path = "../src/assets/fonts/AmsterdamSans-Regular.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Amsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AmsterdamApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = AmsterdamApp/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,6 +47,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AmsterdamApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AmsterdamApp/main.m; sourceTree = "<group>"; };
 		2F69FEEA62C39F6CD7DB1371 /* Pods-AmsterdamApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.debug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.debug.xcconfig"; sourceTree = "<group>"; };
+		3F184A610D924B1DBCE7B73A /* AmsterdamSans-BoldItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-BoldItalic.otf"; path = "../src/assets/fonts/AmsterdamSans-BoldItalic.otf"; sourceTree = "<group>"; };
+		43B74B0AE20A4902BC36A4CF /* AmsterdamSans-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Light.otf"; path = "../src/assets/fonts/AmsterdamSans-Light.otf"; sourceTree = "<group>"; };
+		50D023B83AF74A52BAAD4FC2 /* AmsterdamSans-Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Italic.otf"; path = "../src/assets/fonts/AmsterdamSans-Italic.otf"; sourceTree = "<group>"; };
 		6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E87AB06EFAA4881C55967FC /* Pods-AmsterdamApp-AmsterdamAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp-AmsterdamAppTests.debug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp-AmsterdamAppTests/Pods-AmsterdamApp-AmsterdamAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AmsterdamApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,6 +57,7 @@
 		86B03B84F45E65D2707B1CD4 /* Pods-AmsterdamApp-AmsterdamAppTests.devdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp-AmsterdamAppTests.devdebug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp-AmsterdamAppTests/Pods-AmsterdamApp-AmsterdamAppTests.devdebug.xcconfig"; sourceTree = "<group>"; };
 		A3830F9D08EB4C084763DC88 /* Pods-AmsterdamApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.release.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.release.xcconfig"; sourceTree = "<group>"; };
 		B12AB5ECD661CF7F7D25E413 /* Pods-AmsterdamApp.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devrelease.xcconfig"; sourceTree = "<group>"; };
+		CE65206046154C95B4A2E932 /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Bold.otf"; path = "../src/assets/fonts/AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		D76C6CCC2729820200E1460A /*  */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; sourceTree = "<group>"; };
 		D76C6CCD2729933D00E1460A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -59,12 +65,6 @@
 		E4F505E5473892CBAEF29FA2 /* Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp-AmsterdamAppTests/Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-AmsterdamApp-AmsterdamAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp-AmsterdamAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		CE65206046154C95B4A2E932 /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-Bold.otf"; path = "../src/assets/fonts/AmsterdamSans-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3F184A610D924B1DBCE7B73A /* AmsterdamSans-BoldItalic.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-BoldItalic.otf"; path = "../src/assets/fonts/AmsterdamSans-BoldItalic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0136C6B44AD6409897877831 /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-ExtraBold.otf"; path = "../src/assets/fonts/AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		50D023B83AF74A52BAAD4FC2 /* AmsterdamSans-Italic.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-Italic.otf"; path = "../src/assets/fonts/AmsterdamSans-Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		43B74B0AE20A4902BC36A4CF /* AmsterdamSans-Light.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-Light.otf"; path = "../src/assets/fonts/AmsterdamSans-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		03CBE5B8A74748B28DAD438B /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; name = "AmsterdamSans-Regular.otf"; path = "../src/assets/fonts/AmsterdamSans-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
