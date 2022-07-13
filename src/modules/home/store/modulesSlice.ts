@@ -2,41 +2,35 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
 type ModulesSliceState = {
-  modules: string[] | undefined
+  disabledModules: string[] | undefined
 }
 
 const initialState: ModulesSliceState = {
-  modules: undefined,
+  disabledModules: [],
 }
 
 export const modulesSlice = createSlice({
-  name: 'modules',
+  name: 'disabledModules',
   initialState,
   reducers: {
-    // Gets fired as soon as modules are retrieved from backend
-    initializeModules: (
-      state,
-      {payload: moduleSlugs}: PayloadAction<string[]>,
-    ) => {
-      state.modules = moduleSlugs
-    },
     resetModules: () => initialState,
     toggleModule: (state, {payload: slug}: PayloadAction<string>) => {
-      const {modules} = state
+      const {disabledModules} = state
 
-      if (modules?.includes(slug)) {
+      if (disabledModules?.includes(slug)) {
         return {
           ...state,
-          modules: modules.filter(moduleSlug => moduleSlug !== slug),
+          disabledModules: disabledModules.filter(
+            moduleSlug => moduleSlug !== slug,
+          ),
         }
       }
 
-      state.modules = [...(state.modules ?? []), slug]
+      state.disabledModules = [...(state.disabledModules ?? []), slug]
     },
   },
 })
 
-export const {initializeModules, resetModules, toggleModule} =
-  modulesSlice.actions
+export const {resetModules, toggleModule} = modulesSlice.actions
 
-export const selectModules = (state: RootState) => state.modules
+export const selectDisabledModules = (state: RootState) => state.modules
