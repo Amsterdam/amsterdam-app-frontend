@@ -62,6 +62,7 @@ export const WasteMenuScreen = ({navigation}: Props) => {
     <FlatGrid
       data={menuItems}
       itemDimension={itemDimension}
+      keyboardDismissMode="on-drag"
       keyExtractor={item => item.label}
       renderItem={({item}) => <TileButton {...item} />}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}

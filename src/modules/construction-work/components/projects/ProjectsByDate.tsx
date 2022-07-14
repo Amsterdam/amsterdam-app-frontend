@@ -97,6 +97,7 @@ export const ProjectsByDate = () => {
       data={sortProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
+      keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
       ListEmptyComponent={ListEmptyMessage}
       renderItem={({item}) => (
