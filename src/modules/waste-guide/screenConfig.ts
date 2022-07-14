@@ -11,7 +11,6 @@ import {
   WasteGuideContainersScreen,
   WasteGuideFeedbackScreen,
   WasteGuideScreen,
-  WasteMenuScreen,
   WhereToPutBulkyWasteScreen,
 } from '@/modules/waste-guide/screens'
 
@@ -66,13 +65,6 @@ export const wasteGuideScreenConfig: StackNavigationRoutes<
     name: WasteGuideRouteName.wasteGuideContainers,
     options: {
       headerTitle: 'Containers in de buurt',
-    },
-  },
-  [WasteGuideRouteName.wasteMenu]: {
-    component: WasteMenuScreen,
-    name: WasteGuideRouteName.wasteMenu,
-    options: {
-      headerTitle: 'Menu',
     },
   },
   [WasteGuideRouteName.whereToPutBulkyWaste]: {
