@@ -1,11 +1,11 @@
 import React from 'react'
-import {Box, Text} from '../../components/ui'
-import {ScrollView} from '../../components/ui/layout'
+import {Screen, ScrollView} from '@/components/ui/layout'
+import {ComingSoon} from '@/modules/open-waste-container/components'
 
 export const OpenWasteContainerScreen = () => (
-  <ScrollView>
-    <Box>
-      <Text>Hallo, ik ben een module! 🎉</Text>
-    </Box>
-  </ScrollView>
+  <Screen>
+    <ScrollView>
+      <ComingSoon />
+    </ScrollView>
+  </Screen>
 )
