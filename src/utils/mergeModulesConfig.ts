@@ -9,12 +9,12 @@ export const mergeModulesConfig = (
     return [] as Module[]
   }
 
-  return clientConfig
-    .map(clientModule => {
-      const serverModule = serverConfig.find(m => clientModule.slug === m.slug)
+  return serverConfig
+    .map(serverModule => {
+      const clientModule = clientConfig.find(m => serverModule.slug === m.slug)
 
-      if (serverModule) {
-        return {...clientModule, ...serverModule}
+      if (clientModule) {
+        return {...serverModule, ...clientModule}
       }
     })
     .filter(nonNullable)
