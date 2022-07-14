@@ -11,11 +11,8 @@ import {Box, Title} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {ContactOption} from '@/modules/city-offices/components'
-import {
-  CityOfficesRouteName,
-  CityOfficesStackParams,
-} from '@/modules/city-offices/routes'
+import {ContactOption} from '@/modules/contact/components'
+import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
 import {useTheme} from '@/themes'
 import {accessibleText, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
@@ -35,10 +32,7 @@ export const ContactOptions = () => {
 
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        CityOfficesStackParams,
-        CityOfficesRouteName.cityOffices
-      >
+      StackNavigationProp<ContactStackParams, ContactRouteName.contact>
     >()
 
   const contactOptions: ContactOptionType[] = [
@@ -46,7 +40,7 @@ export const ContactOptions = () => {
       buttonProps: {
         accessibilityRole: 'button',
         key: 'email',
-        onPress: () => navigation.navigate(CityOfficesRouteName.contact),
+        onPress: () => navigation.navigate(ContactRouteName.contactForm),
       },
       contactProps: {
         icon: <Email fill={color.pressable.default.background} />,

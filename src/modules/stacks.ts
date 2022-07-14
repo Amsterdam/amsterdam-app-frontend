@@ -1,11 +1,6 @@
 import {ComponentType} from 'react'
 import {AddressStack} from './address/Stack'
 import {AddressRouteName, AddressStackParams} from './address/routes'
-import {CityOfficesStack} from './city-offices/Stack'
-import {
-  CityOfficesRouteName,
-  CityOfficesStackParams,
-} from './city-offices/routes'
 import {ConstructionWorkEditorStack} from './construction-work-editor/Stack'
 import {
   ConstructionWorkEditorRouteName,
@@ -38,7 +33,6 @@ import {WasteGuideRouteName, WasteGuideStackParams} from './waste-guide/routes'
 
 export type ModuleRoutes =
   | AddressRouteName
-  | CityOfficesRouteName
   | ConstructionWorkRouteName
   | ConstructionWorkEditorRouteName
   | ContactRouteName
@@ -49,7 +43,6 @@ export type ModuleRoutes =
   | WasteGuideRouteName
 
 export type ModuleStackParams = AddressStackParams &
-  CityOfficesStackParams &
   ConstructionWorkStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
@@ -61,7 +54,6 @@ export type ModuleStackParams = AddressStackParams &
 
 const stacks: Record<ModuleSlugs, ComponentType<any>> = {
   [ModuleSlugs.address]: AddressStack,
-  [ModuleSlugs['city-offices']]: CityOfficesStack,
   [ModuleSlugs['construction-work']]: ConstructionWorkStack,
   [ModuleSlugs['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlugs.contact]: ContactStack,
@@ -80,7 +72,7 @@ export const getModuleStack = (
     return stack
   }
   console.error(
-    `Stack not found for module with slug ${slug}, add it in @/modules/stacks.ts`,
+    `Stack not found for module with slug ${slug}. Add it to @/modules/stacks.ts.`,
   )
   return null
 }

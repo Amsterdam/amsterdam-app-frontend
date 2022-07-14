@@ -1,8 +1,8 @@
 import React from 'react'
 import {Box, PleaseWait} from '@/components/ui'
 import {Grid, GridCell} from '@/components/ui/layout'
-import {CityOffice} from '@/modules/city-offices/components'
-import {useGetCityOfficesQuery} from '@/modules/city-offices/services'
+import {CityOffice} from '@/modules/contact/components'
+import {useGetCityOfficesQuery} from '@/modules/contact/services'
 
 export const CityOfficeOverview = () => {
   const {data: cityOffices, isLoading: isCityOfficesLoading} =

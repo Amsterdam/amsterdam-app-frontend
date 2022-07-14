@@ -1,5 +1,4 @@
 import {module as addressModule} from './address'
-import {module as cityOfficesModule} from './city-offices'
 import {module as constructionWorkModule} from './construction-work'
 import {module as constructionWorkEditorModule} from './construction-work-editor'
 import {module as contactModule} from './contact'
@@ -13,11 +12,10 @@ const coreModules = [addressModule, homeModule, userModule]
 
 export const clientModules = [
   ...coreModules,
-  wasteGuideModule,
-  openWasteContainerModule,
-  constructionWorkModule,
   constructionWorkEditorModule,
-  reportProblemModule,
-  cityOfficesModule,
+  constructionWorkModule,
   contactModule,
+  openWasteContainerModule,
+  reportProblemModule,
+  wasteGuideModule,
 ]

@@ -1,4 +1,4 @@
-import {CityOffice, CityOffices} from '@/modules/city-offices/types'
+import {CityOffice, CityOffices} from '@/modules/contact/types'
 import {baseApi} from '@/services/init'
 import {generateRequestUrl} from '@/utils'
 
