@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 import {Theme} from '@/themes'
 
-export const maxHeight = 800
+export const maxHeight = 1200
 
 export const timelineStyles = (
   theme: Theme,
@@ -53,7 +53,7 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: firstItem ? tokens.indicator.inset + 2 : 0,
+      top: firstItem ? tokens.indicator.inset + tokens.indicator.size / 2 : 0,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
