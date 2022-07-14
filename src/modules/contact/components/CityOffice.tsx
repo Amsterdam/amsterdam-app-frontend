@@ -12,11 +12,8 @@ import {
 import {Button} from '@/components/ui/buttons'
 import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {
-  CityOfficesRouteName,
-  CityOfficesStackParams,
-} from '@/modules/city-offices/routes'
-import {useGetCityOfficeQuery} from '@/modules/city-offices/services'
+import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
+import {useGetCityOfficeQuery} from '@/modules/contact/services'
 import {useEnvironment} from '@/store'
 import {ImageSources} from '@/types'
 import {accessibleText, mapImageSources} from '@/utils'
@@ -28,10 +25,7 @@ type Props = {
 export const CityOffice = ({id}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<
-        CityOfficesStackParams,
-        CityOfficesRouteName.cityOffices
-      >
+      StackNavigationProp<ContactStackParams, ContactRouteName.cityOffices>
     >()
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =
@@ -97,7 +91,7 @@ export const CityOffice = ({id}: Props) => {
           <Button
             label="Maak een afspraak"
             onPress={() =>
-              navigation.navigate(CityOfficesRouteName.makeAppointment)
+              navigation.navigate(ContactRouteName.makeAppointment)
             }
           />
         </Column>

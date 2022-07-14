@@ -13,7 +13,7 @@ import {
 export const icons: Record<string, ElementType> = {
   alert: Alert, // Melding doen
   announcement: Announcement, // Plaats berichten
-  chatting: Chatting, // Stadsloket
+  chatting: Chatting, // Contact
   checkmark: Checkmark, // Direct regelen
   info: Info, // Over deze app
   'organic-waste-container': OrganicWasteContainer, // GFT-container openen

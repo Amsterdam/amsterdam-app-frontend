@@ -3,7 +3,7 @@ import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   linking: {},
-  name: 'CityOfficesModule',
-  slug: ModuleSlugs['city-offices'],
+  name: 'ContactModule',
+  slug: ModuleSlugs.contact,
   state: [],
 }

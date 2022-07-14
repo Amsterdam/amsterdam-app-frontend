@@ -4,7 +4,7 @@ import {
   CityOfficeOverview,
   ContactOptions,
   ReferToWebsiteCard,
-} from '@/modules/city-offices/components'
+} from '@/modules/contact/components'
 
 export const CityOfficesScreen = () => (
   <Screen>
