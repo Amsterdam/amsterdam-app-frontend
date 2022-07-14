@@ -6,12 +6,17 @@ export type Timeline = {
   title: RichText
 }
 
+type TimeLineContent = {
+  title: string
+  body: RichText
+}
+
 export type TimelineItem = {
   collapsed: boolean
-  content: RichText
+  content: TimeLineContent[]
   progress: 'Afgelopen' | 'Huidig' | 'Toekomst'
   subitems?: TimelineSubItem[]
-  title: RichText
+  title: string
 }
 
 type TimelineSubItem = Omit<TimelineItem, 'status'>

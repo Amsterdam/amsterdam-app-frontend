@@ -5,9 +5,8 @@ import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {maxHeight, timelineStyles} from './timelineStyles'
-import {Title} from '@/components/ui/Title'
 import {Icon} from '@/components/ui/media'
-import {Article} from '@/components/ui/text'
+import {Article, Title} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 
@@ -18,7 +17,7 @@ type Props = {
 }
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
-  const isCurrent = item.progress === 'Huidig'
+  const isCurrent = !item.collapsed
   const [expanded, setExpanded] = useState(isCurrent)
 
   const theme = useTheme()
@@ -68,7 +67,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           )}
         </View>
         <View style={styles.title}>
-          <Title level={4} margin text={item.title.text} />
+          <Title level="h5" text={item.title} />
         </View>
         {expanded ? (
           <ChevronUp {...chevronProps} />
@@ -77,7 +76,12 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         )}
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
-        <Article content={item.content.html} />
+        {item.content.map(c => (
+          <React.Fragment key={c.title}>
+            <Title level="h5" text={c.title} />
+            <Article content={c.body.html} />
+          </React.Fragment>
+        ))}
       </Animated.View>
       <View style={styles.line} />
     </View>

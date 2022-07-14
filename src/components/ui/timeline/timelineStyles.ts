@@ -53,7 +53,7 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: firstItem ? tokens.indicator.inset : 0,
+      top: firstItem ? tokens.indicator.inset + 2 : 0,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
