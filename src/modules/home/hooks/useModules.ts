@@ -8,12 +8,13 @@ import {mergeModulesConfig} from '@/utils'
 
 const postProcessModules = (
   disabledModulesBySlug: string[],
-  modulesFromApi?: ModuleServerConfig[],
+  serverModules?: ModuleServerConfig[],
 ) => {
-  const modules = mergeModulesConfig(clientModules, modulesFromApi)
+  const modules = mergeModulesConfig(clientModules, serverModules)
   const selectedModules = modules.filter(
     module => !disabledModulesBySlug?.includes(module.slug),
   )
+
   return {
     modules,
     selectedModules,
@@ -22,31 +23,29 @@ const postProcessModules = (
 }
 
 export const useModules = () => {
-  const {
-    data: modulesFromApi,
-    isLoading,
-    isSuccess,
-  } = useGetModulesForAppQuery()
+  const {data: serverModules, isLoading, isSuccess} = useGetModulesForAppQuery()
 
   const {disabledModules: disabledModulesBySlug} = useSelector(
     selectDisabledModules,
   )
 
-  const [modulesData, setModulesData] = useState(
-    postProcessModules(disabledModulesBySlug, modulesFromApi),
+  const [postProcessedModules, setPostProcessedModules] = useState(
+    postProcessModules(disabledModulesBySlug, serverModules),
   )
 
   useEffect(() => {
-    setModulesData(postProcessModules(disabledModulesBySlug, modulesFromApi))
-  }, [disabledModulesBySlug, modulesFromApi])
+    setPostProcessedModules(
+      postProcessModules(disabledModulesBySlug, serverModules),
+    )
+  }, [disabledModulesBySlug, serverModules])
 
   // this prevents the situation where an empty modules array is returned when isLoading is false
   // we should fix this later by handling the async nature of requests in a better way
   const isLoadingModules =
-    isLoading || (isSuccess && modulesData.modules.length === 0)
+    isLoading || (isSuccess && postProcessedModules.modules.length === 0)
 
   return {
     isLoadingModules,
-    ...modulesData,
+    ...postProcessedModules,
   }
 }
