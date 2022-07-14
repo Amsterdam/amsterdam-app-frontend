@@ -78,7 +78,10 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
         {item.content.map(c => (
           <React.Fragment key={c.title}>
-            <Title level="h5" text={c.title} />
+            {/* <View> is needed as long as <Title> has flexShrink */}
+            <View>
+              <Title level="h5" text={c.title} />
+            </View>
             <Article content={c.body.html} />
           </React.Fragment>
         ))}
