@@ -1,6 +1,6 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
-import {TouchableOpacityProps} from 'react-native'
+import {PressableProps} from 'react-native'
 import {Text} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
@@ -9,7 +9,7 @@ import {useTheme} from '@/themes'
 
 type Props = {
   label: string
-} & TouchableOpacityProps
+} & PressableProps
 
 export const SuggestionButton = ({label, onPress}: Props) => {
   const {color} = useTheme()
