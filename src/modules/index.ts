@@ -12,10 +12,10 @@ const coreModules = [addressModule, homeModule, userModule]
 
 export const clientModules = [
   ...coreModules,
-  wasteGuideModule,
-  openWasteContainerModule,
-  constructionWorkModule,
-  constructionWorkEditorModule,
-  reportProblemModule,
   cityOfficesModule,
+  constructionWorkEditorModule,
+  constructionWorkModule,
+  openWasteContainerModule,
+  reportProblemModule,
+  wasteGuideModule,
 ]
