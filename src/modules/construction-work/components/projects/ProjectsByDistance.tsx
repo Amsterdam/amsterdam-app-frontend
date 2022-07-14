@@ -167,6 +167,7 @@ export const ProjectsByDistance = ({
         data={sortProjects(projects)}
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
+        keyboardDismissMode="on-drag"
         keyExtractor={project => project.identifier}
         ListEmptyComponent={ListEmptyMessage}
         ListHeaderComponent={

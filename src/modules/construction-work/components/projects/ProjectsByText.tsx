@@ -98,6 +98,7 @@ export const ProjectsByText = ({searchText}: Props) => {
       data={sortProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
+      keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
       ListEmptyComponent={ListEmptyMessage}
       ListHeaderComponent={<ListHeader results={projects.length} />}
