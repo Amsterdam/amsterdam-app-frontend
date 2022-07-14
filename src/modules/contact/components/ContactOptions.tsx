@@ -32,7 +32,7 @@ export const ContactOptions = () => {
 
   const navigation =
     useNavigation<
-      StackNavigationProp<ContactStackParams, ContactRouteName.cityOffices>
+      StackNavigationProp<ContactStackParams, ContactRouteName.contact>
     >()
 
   const contactOptions: ContactOptionType[] = [

@@ -1,8 +1,8 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
 import {
-  CityOfficesScreen,
   ContactFormScreen,
+  ContactScreen,
   MakeAppointmentScreen,
 } from '@/modules/contact/screens'
 
@@ -10,9 +10,9 @@ export const contactScreenConfig: StackNavigationRoutes<
   ContactStackParams,
   ContactRouteName
 > = {
-  [ContactRouteName.cityOffices]: {
-    component: CityOfficesScreen,
-    name: ContactRouteName.cityOffices,
+  [ContactRouteName.contact]: {
+    component: ContactScreen,
+    name: ContactRouteName.contact,
     options: {
       headerTitle: 'Contact',
     },

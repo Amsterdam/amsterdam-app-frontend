@@ -6,7 +6,7 @@ import {
   ReferToWebsiteCard,
 } from '@/modules/contact/components'
 
-export const CityOfficesScreen = () => (
+export const ContactScreen = () => (
   <Screen>
     <ScrollView>
       <CityOfficeOverview />

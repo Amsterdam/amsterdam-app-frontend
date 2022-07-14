@@ -25,7 +25,7 @@ type Props = {
 export const CityOffice = ({id}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<ContactStackParams, ContactRouteName.cityOffices>
+      StackNavigationProp<ContactStackParams, ContactRouteName.contact>
     >()
 
   const {data: cityOffice, isLoading: isCityOfficeLoading} =

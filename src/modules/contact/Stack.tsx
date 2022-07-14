@@ -12,7 +12,7 @@ export const ContactStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ContactRouteName.cityOffices}
+      initialRouteName={ContactRouteName.contact}
       screenOptions={screenOptions(theme)}>
       <Stack.Group>
         {Object.entries(routes).map(([key, route]) => (
