@@ -1,9 +1,8 @@
 import React from 'react'
-import {Attention, Box, PleaseWait} from '@/components/ui'
+import {Box, PleaseWait} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
-import {Paragraph, Phrase} from '@/components/ui/text'
-import {ModuleButton} from '@/modules/home/components'
+import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {useModules} from '@/modules/home/hooks'
 
 export const Modules = () => {
@@ -14,14 +13,7 @@ export const Modules = () => {
   }
 
   if (!modules) {
-    return (
-      <Box insetHorizontal="md" insetVertical="xxxl">
-        <Attention warning>
-          <Phrase fontWeight="bold">Fout</Phrase>
-          <Paragraph variant="small">Modules worden niet geladen.</Paragraph>
-        </Attention>
-      </Box>
-    )
+    return <ModulesWarning text="Modules worden niet geladen." />
   }
 
   if (!modules.length) {

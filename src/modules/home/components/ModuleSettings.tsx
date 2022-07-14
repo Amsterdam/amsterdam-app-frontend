@@ -1,3 +1,4 @@
+import {ModulesWarning} from '_modules/home/components/ModulesWarning'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
@@ -25,6 +26,12 @@ export const ModuleSettings = () => {
 
   if (!modules) {
     return <PleaseWait />
+  }
+
+  if (!modules.length) {
+    return (
+      <ModulesWarning text="We hebben geen modules gevonden voor versie {getVersion()} van de app." />
+    )
   }
 
   return (
