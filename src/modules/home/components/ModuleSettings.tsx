@@ -1,11 +1,12 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
-import {Attention, Box, PleaseWait} from '@/components/ui'
+import {Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
 import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
@@ -25,23 +26,14 @@ export const ModuleSettings = () => {
   }
 
   if (isLoadingModules) {
-    return <PleaseWait />
-  }
-
-  if (!modules) {
-    return (
-      <Box insetHorizontal="md" insetVertical="xxxl">
-        <Attention warning>
-          <Phrase fontWeight="bold">Fout</Phrase>
-          <Paragraph variant="small">Modules worden niet geladen.</Paragraph>
-        </Attention>
-      </Box>
-    )
+    return <PleaseWait fullSize />
   }
 
   if (!modules.length) {
     return (
-      <ModulesWarning text="We hebben geen modules gevonden voor versie {getVersion()} van de app." />
+      <ModulesWarning
+        text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
+      />
     )
   }
 

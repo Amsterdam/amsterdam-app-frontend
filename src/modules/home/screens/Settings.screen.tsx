@@ -4,7 +4,7 @@ import {ModuleSettings} from '@/modules/home/components'
 
 export const SettingsScreen = () => (
   <Screen>
-    <ScrollView>
+    <ScrollView grow>
       <ModuleSettings />
     </ScrollView>
   </Screen>

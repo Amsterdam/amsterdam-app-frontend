@@ -2,18 +2,14 @@ import React from 'react'
 import {Box, PleaseWait} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
-import {ModuleButton, ModulesWarning} from '@/modules/home/components'
+import {ModuleButton} from '@/modules/home/components'
 import {useModules} from '@/modules/home/hooks'
 
 export const Modules = () => {
   const {selectedModules: modules, isLoadingModules} = useModules()
 
   if (isLoadingModules) {
-    return <PleaseWait />
-  }
-
-  if (!modules) {
-    return <ModulesWarning text="Modules worden niet geladen." />
+    return <PleaseWait fullSize />
   }
 
   if (!modules.length) {
