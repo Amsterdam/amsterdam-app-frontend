@@ -1,12 +1,12 @@
+import {ModulesWarning} from '_modules/home/components/ModulesWarning'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
-import {Attention, Box, PleaseWait} from '@/components/ui'
+import {Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
@@ -30,15 +30,7 @@ export const ModuleSettings = () => {
 
   if (!modules.length) {
     return (
-      <Box insetHorizontal="md" insetVertical="xxxl">
-        <Attention warning>
-          <Phrase fontWeight="bold">Fout</Phrase>
-          <Paragraph variant="small">
-            We hebben geen modules gevonden voor versie {getVersion()} van de
-            app.
-          </Paragraph>
-        </Attention>
-      </Box>
+      <ModulesWarning text="We hebben geen modules gevonden voor versie {getVersion()} van de app." />
     )
   }
 
