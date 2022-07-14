@@ -1,8 +1,8 @@
-import React, {FC} from 'react'
+import React from 'react'
 import {Box, Text} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 
-export const MyProjectsScreen: FC = () => {
+export const AuthorizedProjectsScreen = () => {
   // const navigation =
   //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 

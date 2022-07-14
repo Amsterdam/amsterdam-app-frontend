@@ -1,1 +1,1 @@
-export * from './MyProjects.screen'
+export * from './AuthorizedProjects.screen'

@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {constructionWorkEditorScreenConfig} from './screenConfig'
 import {screenOptions} from '@/app/navigation'
+import {constructionWorkEditorScreenConfig} from '@/modules/construction-work-editor/screenConfig'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
@@ -11,7 +11,9 @@ export const ConstructionWorkEditorStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={constructionWorkEditorScreenConfig.MyProjects.name}
+      initialRouteName={
+        constructionWorkEditorScreenConfig.AuthorizedProjects.name
+      }
       screenOptions={screenOptions(theme)}>
       {Object.entries(constructionWorkEditorScreenConfig).map(
         ([key, route]) => (
