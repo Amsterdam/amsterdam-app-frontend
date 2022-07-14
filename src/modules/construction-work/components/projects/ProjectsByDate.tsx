@@ -75,6 +75,7 @@ export const ProjectsByDate = () => {
       'followed',
       'identifier',
       'images',
+      'publication_date',
       'recent_articles',
       'subtitle',
       'title',
