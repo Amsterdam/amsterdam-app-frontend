@@ -11,7 +11,7 @@ import {
   ZebraListItemProps,
 } from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Gutter, Row, Screen, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {
   CreateNotificationRouteName,
@@ -59,7 +59,7 @@ export const WritingGuideScreen = ({navigation}: Props) => {
   )
 
   return (
-    <>
+    <Screen>
       <Row align="end">
         <Box>
           <IconButton
@@ -86,6 +86,6 @@ export const WritingGuideScreen = ({navigation}: Props) => {
         </Column>
         <Gutter height="md" />
       </ScrollView>
-    </>
+    </Screen>
   )
 }

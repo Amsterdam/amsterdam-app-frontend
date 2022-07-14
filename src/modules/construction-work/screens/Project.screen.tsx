@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {ScrollView} from '@/components/ui/layout'
+import {Screen, ScrollView} from '@/components/ui/layout'
 import {Project} from '@/modules/construction-work/components/project'
 import {
   ConstructionWorkRouteName,
@@ -15,7 +15,9 @@ type Props = {
 }
 
 export const ProjectScreen = ({route}: Props) => (
-  <ScrollView>
-    <Project id={route.params.id} />
-  </ScrollView>
+  <Screen>
+    <ScrollView>
+      <Project id={route.params.id} />
+    </ScrollView>
+  </Screen>
 )

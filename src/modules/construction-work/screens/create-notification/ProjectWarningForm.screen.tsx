@@ -11,7 +11,7 @@ import {
   TextInput,
   ValidationWarning,
 } from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {selectProjectManager} from '@/modules/construction-work/components/project-manager'
 import {
@@ -142,157 +142,161 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView grow>
-      <Column align="between" gutter="xl">
-        <Box>
-          <Column gutter="lg">
-            <Title text="Schrijf een nieuwsartikel" />
-            <Column gutter="sm">
-              <Title level={4} text="Schrijftips voor een nieuwsartikel" />
-              <Row align="start">
-                <Button
-                  label="Toon schrijftips"
-                  onPress={() =>
-                    navigation.navigate(
-                      CreateNotificationRouteName.writingGuide,
-                    )
-                  }
-                />
-              </Row>
-            </Column>
-            <>
-              <Column gutter="xs">
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, value}}) => (
-                    <TextInput
-                      accessibilityLabel="Titel nieuwsartikel"
-                      label="Titel nieuwsartikel"
-                      maxLength={maxCharacters.title}
-                      multiline={true}
-                      onChangeText={onChange}
-                      value={value}
-                      warning={!!errors.title}
-                    />
-                  )}
-                  name="title"
-                  defaultValue=""
-                />
-                <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.title - (characterCountTitle || 0)
-                  }
-                />
-              </Column>
-              {errors.title && <ValidationWarning warning="Vul een titel in" />}
-            </>
-            <>
-              <Column gutter="xs">
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, value}}) => (
-                    <TextInput
-                      accessibilityLabel="Korte inleiding"
-                      label="Korte inleiding"
-                      maxLength={maxCharacters.intro}
-                      multiline={true}
-                      numberOfLines={3}
-                      onChangeText={onChange}
-                      value={value}
-                      warning={!!errors.intro}
-                    />
-                  )}
-                  name="intro"
-                  defaultValue=""
-                />
-                <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.intro - (characterCountIntro || 0)
-                  }
-                />
-              </Column>
-              {errors.intro && <ValidationWarning warning="Type een intro" />}
-            </>
-            <>
-              <Column gutter="xs">
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, value}}) => (
-                    <TextInput
-                      accessibilityLabel="Tekst nieuwsartikel"
-                      label="Tekst nieuwsartikel"
-                      maxLength={maxCharacters.message}
-                      multiline={true}
-                      numberOfLines={5}
-                      onChangeText={onChange}
-                      value={value}
-                      warning={!!errors.message}
-                    />
-                  )}
-                  name="message"
-                  defaultValue=""
-                />
-                <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.message - (characterCountMessage || 0)
-                  }
-                />
-              </Column>
-              {errors.message && (
-                <ValidationWarning warning="Type een nieuwsartikel" />
-              )}
-            </>
-            <Column gutter="xs">
-              <Row valign="baseline">
-                <Label isAccessible text="Foto toevoegen " />
-                <Text>(niet verplicht)</Text>
-              </Row>
-              <Column gutter="md">
-                <Text>
-                  Je kunt een foto toevoegen bij dit artikel. Deze komt bovenaan
-                  het artikel te staan. Wanneer je geen foto toevoegt dan
-                  gebruiken we een standaard afbeelding.
-                </Text>
+    <Screen>
+      <ScrollView grow>
+        <Column align="between" gutter="xl">
+          <Box>
+            <Column gutter="lg">
+              <Title text="Schrijf een nieuwsartikel" />
+              <Column gutter="sm">
+                <Title level={4} text="Schrijftips voor een nieuwsartikel" />
                 <Row align="start">
                   <Button
-                    icon={
-                      <Icon size={24}>
-                        <Enlarge fill={color.pressable.default.background} />
-                      </Icon>
+                    label="Toon schrijftips"
+                    onPress={() =>
+                      navigation.navigate(
+                        CreateNotificationRouteName.writingGuide,
+                      )
                     }
-                    label="Foto’s toevoegen"
-                    onPress={handleSubmit(pickImage)}
-                    variant="secondary"
                   />
                 </Row>
               </Column>
+              <>
+                <Column gutter="xs">
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({field: {onChange, value}}) => (
+                      <TextInput
+                        accessibilityLabel="Titel nieuwsartikel"
+                        label="Titel nieuwsartikel"
+                        maxLength={maxCharacters.title}
+                        multiline={true}
+                        onChangeText={onChange}
+                        value={value}
+                        warning={!!errors.title}
+                      />
+                    )}
+                    name="title"
+                    defaultValue=""
+                  />
+                  <CharactersLeftDisplay
+                    charactersLeft={
+                      maxCharacters.title - (characterCountTitle || 0)
+                    }
+                  />
+                </Column>
+                {errors.title && (
+                  <ValidationWarning warning="Vul een titel in" />
+                )}
+              </>
+              <>
+                <Column gutter="xs">
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({field: {onChange, value}}) => (
+                      <TextInput
+                        accessibilityLabel="Korte inleiding"
+                        label="Korte inleiding"
+                        maxLength={maxCharacters.intro}
+                        multiline={true}
+                        numberOfLines={3}
+                        onChangeText={onChange}
+                        value={value}
+                        warning={!!errors.intro}
+                      />
+                    )}
+                    name="intro"
+                    defaultValue=""
+                  />
+                  <CharactersLeftDisplay
+                    charactersLeft={
+                      maxCharacters.intro - (characterCountIntro || 0)
+                    }
+                  />
+                </Column>
+                {errors.intro && <ValidationWarning warning="Type een intro" />}
+              </>
+              <>
+                <Column gutter="xs">
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({field: {onChange, value}}) => (
+                      <TextInput
+                        accessibilityLabel="Tekst nieuwsartikel"
+                        label="Tekst nieuwsartikel"
+                        maxLength={maxCharacters.message}
+                        multiline={true}
+                        numberOfLines={5}
+                        onChangeText={onChange}
+                        value={value}
+                        warning={!!errors.message}
+                      />
+                    )}
+                    name="message"
+                    defaultValue=""
+                  />
+                  <CharactersLeftDisplay
+                    charactersLeft={
+                      maxCharacters.message - (characterCountMessage || 0)
+                    }
+                  />
+                </Column>
+                {errors.message && (
+                  <ValidationWarning warning="Type een nieuwsartikel" />
+                )}
+              </>
+              <Column gutter="xs">
+                <Row valign="baseline">
+                  <Label isAccessible text="Foto toevoegen " />
+                  <Text>(niet verplicht)</Text>
+                </Row>
+                <Column gutter="md">
+                  <Text>
+                    Je kunt een foto toevoegen bij dit artikel. Deze komt
+                    bovenaan het artikel te staan. Wanneer je geen foto toevoegt
+                    dan gebruiken we een standaard afbeelding.
+                  </Text>
+                  <Row align="start">
+                    <Button
+                      icon={
+                        <Icon size={24}>
+                          <Enlarge fill={color.pressable.default.background} />
+                        </Icon>
+                      }
+                      label="Foto’s toevoegen"
+                      onPress={handleSubmit(pickImage)}
+                      variant="secondary"
+                    />
+                  </Row>
+                </Column>
+              </Column>
             </Column>
-          </Column>
-        </Box>
-        <Box>
-          <Row align="between" valign="center">
-            <TextButton
-              direction="backward"
-              emphasis
-              label="Vorige"
-              onPress={navigation.goBack}
-            />
-            <SubmitButton
-              label="Controleer"
-              onPress={handleSubmit(onSubmitForm)}
-            />
-          </Row>
-        </Box>
-      </Column>
-    </ScrollView>
+          </Box>
+          <Box>
+            <Row align="between" valign="center">
+              <TextButton
+                direction="backward"
+                emphasis
+                label="Vorige"
+                onPress={navigation.goBack}
+              />
+              <SubmitButton
+                label="Controleer"
+                onPress={handleSubmit(onSubmitForm)}
+              />
+            </Row>
+          </Box>
+        </Column>
+      </ScrollView>
+    </Screen>
   )
 }

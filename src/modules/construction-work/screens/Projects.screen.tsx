@@ -1,6 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
+import {Screen} from '@/components/ui/layout'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {
   ProjectsByDate,
@@ -23,7 +24,7 @@ export const ProjectsScreen = () => {
   const hasSearchText = !!searchText
 
   return (
-    <>
+    <Screen>
       <Box insetHorizontal="md">
         <ProjectsTextSearchField />
         {!hasAddress && !isSearching && <ProvideAddressButton />}
@@ -37,6 +38,6 @@ export const ProjectsScreen = () => {
       ) : (
         <ProjectsByDate />
       )}
-    </>
+    </Screen>
   )
 }

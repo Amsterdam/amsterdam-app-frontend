@@ -1,10 +1,10 @@
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Column, Screen, ScrollView} from '@/components/ui/layout'
 import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
 import {
   ConstructionWorkRouteName,
@@ -12,7 +12,6 @@ import {
 } from '@/modules/construction-work/routes'
 import {module as homeModule} from '@/modules/home'
 import {HomeRouteName} from '@/modules/home/routes'
-import {Theme, useThemable} from '@/themes'
 
 export type ProjectManagerScreenRouteProp = RouteProp<
   ConstructionWorkStackParams,
@@ -29,29 +28,20 @@ type Props = {
   route: ProjectManagerScreenRouteProp
 }
 
-export const ProjectManagerScreen = ({navigation, route}: Props) => {
-  const styles = useThemable(createStyles)
-
-  return (
-    <View style={styles.screenHeight}>
-      <ProjectManagerSummary routeParamsId={route.params.id} />
-      <Box>
-        <Button
-          label="Sluit venster"
-          onPress={() =>
-            navigation.navigate(homeModule.slug, {screen: HomeRouteName.home})
-          }
-        />
-      </Box>
-    </View>
-  )
-}
-
-const createStyles = ({size}: Theme) =>
-  StyleSheet.create({
-    screenHeight: {
-      height: '100%',
-      justifyContent: 'space-between',
-      paddingBottom: size.spacing.md,
-    },
-  })
+export const ProjectManagerScreen = ({navigation, route}: Props) => (
+  <Screen>
+    <ScrollView grow>
+      <Column align="between">
+        <ProjectManagerSummary routeParamsId={route.params.id} />
+        <Box>
+          <Button
+            label="Sluit venster"
+            onPress={() =>
+              navigation.navigate(homeModule.slug, {screen: HomeRouteName.home})
+            }
+          />
+        </Box>
+      </Column>
+    </ScrollView>
+  </Screen>
+)

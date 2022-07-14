@@ -11,7 +11,7 @@ import {
   TextInput,
   ValidationWarning,
 } from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen, ScrollView} from '@/components/ui/layout'
 import {
   selectMainImage,
   setMainImage,
@@ -67,51 +67,58 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView grow>
-      <Box grow>
-        <Column align="between">
-          <Column gutter="md">
-            <Title text="Gekozen afbeelding" />
-            <ImagePreviewTouchable image={image} onPress={clickIt} />
-            <View>
-              <Column gutter="xs">
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, value}}) => (
-                    <TextInput
-                      accessibilityLabel="Beschrijf kort wat er op de foto staat"
-                      label="Beschrijf kort wat er op de foto staat"
-                      maxLength={maxCharacters.title}
-                      onChangeText={onChange}
-                      value={value}
-                      warning={!!errors.title}
-                    />
-                  )}
-                  name="title"
-                />
-                <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.title - (characterCountTitle || 0)
-                  }
-                />
-              </Column>
-              {errors.title && <ValidationWarning warning="Vul een titel in" />}
-            </View>
+    <Screen>
+      <ScrollView grow>
+        <Box grow>
+          <Column align="between">
+            <Column gutter="md">
+              <Title text="Gekozen afbeelding" />
+              <ImagePreviewTouchable image={image} onPress={clickIt} />
+              <View>
+                <Column gutter="xs">
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({field: {onChange, value}}) => (
+                      <TextInput
+                        accessibilityLabel="Beschrijf kort wat er op de foto staat"
+                        label="Beschrijf kort wat er op de foto staat"
+                        maxLength={maxCharacters.title}
+                        onChangeText={onChange}
+                        value={value}
+                        warning={!!errors.title}
+                      />
+                    )}
+                    name="title"
+                  />
+                  <CharactersLeftDisplay
+                    charactersLeft={
+                      maxCharacters.title - (characterCountTitle || 0)
+                    }
+                  />
+                </Column>
+                {errors.title && (
+                  <ValidationWarning warning="Vul een titel in" />
+                )}
+              </View>
+            </Column>
+            <Row align="between" valign="center">
+              <TextButton
+                direction="backward"
+                emphasis
+                label="Vorige"
+                onPress={handleSubmit(onBackward)}
+              />
+              <SubmitButton
+                onPress={handleSubmit(onSubmit)}
+                label="Controleer"
+              />
+            </Row>
           </Column>
-          <Row align="between" valign="center">
-            <TextButton
-              direction="backward"
-              emphasis
-              label="Vorige"
-              onPress={handleSubmit(onBackward)}
-            />
-            <SubmitButton onPress={handleSubmit(onSubmit)} label="Controleer" />
-          </Row>
-        </Column>
-      </Box>
-    </ScrollView>
+        </Box>
+      </ScrollView>
+    </Screen>
   )
 }

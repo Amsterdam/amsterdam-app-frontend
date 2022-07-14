@@ -4,7 +4,7 @@ import React from 'react'
 import {View} from 'react-native'
 import {Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
-import {Column, Row, Screen, ScrollView} from '@/components/ui/layout'
+import {Column, Gutter, Row, Screen, ScrollView} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
@@ -21,47 +21,43 @@ export const AddressPrivacyInfoScreen = ({
   const {color, size} = useTheme()
 
   return (
-    <Screen handleTopNotch>
-      <ScrollView>
-        <Box inset="lg">
+    <Screen>
+      <ScrollView grow>
+        <Box grow>
           <Row align="end">
             <IconButton
               accessibilityLabel="Sluiten"
-              hitSlop={size.spacing.md}
               icon={
-                <Icon size={24}>
+                <Icon size={20}>
                   <Close fill={color.text.default} />
                 </Icon>
               }
               onPress={navigation.goBack}
             />
           </Row>
-          <View>
-            <Box insetVertical="lg">
-              <Title text="Veilig omgaan met uw adres" />
-            </Box>
-            <Column gutter="md">
-              <Paragraph variant="intro">
+          <Column align="between" gutter="xl">
+            <View>
+              <Title margin text="Veilig omgaan met uw adres" />
+              <Text margin intro>
                 Wij slaan uw adres niet op. Het staat alleen in de app op uw
                 telefoon. We kunnen uw adres dus aan niemand geven.
-              </Paragraph>
-              <Paragraph>
+              </Text>
+              <Text margin>
                 Wij gebruiken uw adres alleen om u informatie uit uw buurt te
                 laten zien. De informatie gaat over wegwerkzaamheden,
                 bouwprojecten, het dichtstbijzijnde Stadsloket en informatie
                 over afval.
-              </Paragraph>
-              <Paragraph>
+              </Text>
+              <Text margin>
                 U kunt uw adres wijzigen of verwijderen. Ga dan naar uw
                 instellingen.
-              </Paragraph>
-            </Column>
-          </View>
+              </Text>
+            </View>
+            <Button label="Ik begrijp het" onPress={navigation.goBack} />
+          </Column>
         </Box>
+        <Gutter height="md" />
       </ScrollView>
-      <Box inset="lg">
-        <Button label="Ik begrijp het" onPress={navigation.goBack} />
-      </Box>
     </Screen>
   )
 }

@@ -7,7 +7,7 @@ import {
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, KeyboardAvoidingView, Stepper} from '@/components/ui'
-import {Gutter} from '@/components/ui/layout'
+import {Gutter, Screen} from '@/components/ui/layout'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -69,20 +69,22 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
   }
 
   return (
-    <KeyboardAvoidingView>
-      {isStepperVisible && (
-        <Box background="grey">
-          <Stepper current={step} length={totalSteps} />
-        </Box>
-      )}
-      <Stack.Navigator screenOptions={screenOptions}>
-        {Object.entries(createNotificationRoutes).map(
-          ([key, createNotificationRoute]) => (
-            <Stack.Screen key={key} {...createNotificationRoute} />
-          ),
+    <Screen>
+      <KeyboardAvoidingView>
+        {isStepperVisible && (
+          <Box background="grey">
+            <Stepper current={step} length={totalSteps} />
+          </Box>
         )}
-      </Stack.Navigator>
-      <Gutter height="xl" />
-    </KeyboardAvoidingView>
+        <Stack.Navigator screenOptions={screenOptions}>
+          {Object.entries(createNotificationRoutes).map(
+            ([key, createNotificationRoute]) => (
+              <Stack.Screen key={key} {...createNotificationRoute} />
+            ),
+          )}
+        </Stack.Navigator>
+        <Gutter height="xl" />
+      </KeyboardAvoidingView>
+    </Screen>
   )
 }
