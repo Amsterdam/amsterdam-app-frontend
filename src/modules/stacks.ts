@@ -16,8 +16,6 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from './construction-work/routes'
-import {ContactStack} from './contact/Stack'
-import {ContactRouteName, ContactStackParams} from './contact/routes'
 import {HomeStack} from './home/Stack'
 import {HomeRouteName, HomeStackParams} from './home/routes'
 import {OpenWasteContainerStack} from './open-waste-container/Stack'
@@ -41,7 +39,6 @@ export type ModuleRoutes =
   | CityOfficesRouteName
   | ConstructionWorkRouteName
   | ConstructionWorkEditorRouteName
-  | ContactRouteName
   | HomeRouteName
   | OpenWasteContainerRouteName
   | ReportProblemRouteName
@@ -52,7 +49,6 @@ export type ModuleStackParams = AddressStackParams &
   CityOfficesStackParams &
   ConstructionWorkStackParams &
   ConstructionWorkEditorStackParams &
-  ContactStackParams &
   HomeStackParams &
   OpenWasteContainerStackParams &
   ReportProblemStackParams &
@@ -64,7 +60,6 @@ const stacks: Record<ModuleSlugs, ComponentType<any>> = {
   [ModuleSlugs['city-offices']]: CityOfficesStack,
   [ModuleSlugs['construction-work']]: ConstructionWorkStack,
   [ModuleSlugs['construction-work-editor']]: ConstructionWorkEditorStack,
-  [ModuleSlugs.contact]: ContactStack,
   [ModuleSlugs.home]: HomeStack,
   [ModuleSlugs['open-waste-container']]: OpenWasteContainerStack,
   [ModuleSlugs['report-problem']]: ReportProblemStack,

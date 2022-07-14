@@ -3,7 +3,6 @@ export enum ModuleSlugs {
   'city-offices' = 'city-offices',
   'construction-work' = 'construction-work',
   'construction-work-editor' = 'construction-work-editor',
-  contact = 'contact',
   home = 'home',
   'open-waste-container' = 'open-waste-container',
   'report-problem' = 'report-problem',
