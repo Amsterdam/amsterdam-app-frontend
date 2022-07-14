@@ -95,7 +95,7 @@ export type ProjectsItem = {
   modification_date: string
   project_type: string
   publication_date: string
-  recent_articles?: RecentArticle[]
+  recent_articles?: RecentArticle[] // only present when sent 'articles_max_age' in request body
   score: number
   source_url: string
   strides: number
