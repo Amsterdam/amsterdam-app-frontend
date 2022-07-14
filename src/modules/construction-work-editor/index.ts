@@ -1,10 +1,10 @@
-import {ModuleSlugs} from '../slugs'
+import {ModuleSlug} from '../slugs'
 import {ModuleClientConfig} from '../types'
 
 export const module: ModuleClientConfig = {
   isForEmployees: true,
   linking: {},
   name: 'ConstructionWorkEditorModule',
-  slug: ModuleSlugs['construction-work-editor'],
+  slug: ModuleSlug['construction-work-editor'],
   state: [],
 }

@@ -2,13 +2,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {BannerCard} from '@/components/features'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = {
   navigation: StackNavigationProp<
     RootStackParams,
-    typeof ModuleSlugs['waste-guide']
+    typeof ModuleSlug['waste-guide']
   >
 }
 

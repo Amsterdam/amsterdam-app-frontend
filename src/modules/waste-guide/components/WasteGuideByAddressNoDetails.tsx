@@ -6,7 +6,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Box, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {Address} from '@/types'
 
@@ -17,7 +17,7 @@ type Props = {
 export const WasteGuideByAddressNoDetails = ({address}: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParams, typeof ModuleSlugs['waste-guide']>
+      StackNavigationProp<RootStackParams, typeof ModuleSlug['waste-guide']>
     >()
 
   const content =

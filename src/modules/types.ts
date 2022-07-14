@@ -1,5 +1,5 @@
 import {Slice} from '@reduxjs/toolkit'
-import {ModuleSlugs} from './slugs'
+import {ModuleSlug} from './slugs'
 
 /**
  * The client part of a module’s configuration.
@@ -9,7 +9,7 @@ export type ModuleClientConfig = {
   isForEmployees?: boolean
   linking: Record<string, string>
   name: string
-  slug: ModuleSlugs
+  slug: ModuleSlug
   state: Slice[]
 }
 
@@ -19,7 +19,7 @@ export type ModuleClientConfig = {
 export type ModuleServerConfig = {
   description: string
   icon: string
-  slug: ModuleSlugs
+  slug: ModuleSlug
   status: number
   title: string
   version: string

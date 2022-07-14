@@ -1,4 +1,4 @@
-import {ModuleSlugs} from '../slugs'
+import {ModuleSlug} from '../slugs'
 import {ModuleClientConfig} from '../types'
 
 // TODO Add to `clientModules` in `/src/modules/index.ts`.
@@ -6,6 +6,6 @@ import {ModuleClientConfig} from '../types'
 export const module: ModuleClientConfig = {
   linking: {},
   name: 'TemplateModule',
-  slug: ModuleSlugs.home,
+  slug: ModuleSlug.home,
   state: [],
 }

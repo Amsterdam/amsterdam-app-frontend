@@ -14,7 +14,7 @@ import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {useSortProjects} from '@/modules/construction-work/hooks/useSortProjects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes'
 import {Address} from '@/types'
 
@@ -45,7 +45,7 @@ const ListHeader = ({addressText}: ListHeaderProps) => {
           onPress={
             // TODO Open as modal
             () =>
-              navigation.navigate(ModuleSlugs.address, {
+              navigation.navigate(ModuleSlug.address, {
                 screen: AddressRouteName.addressForm,
               })
           }
