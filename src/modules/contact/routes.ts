@@ -1,11 +1,11 @@
 export enum ContactRouteName {
   cityOffices = 'CityOffices',
-  contact = 'Contact',
+  contactForm = 'ContactForm',
   makeAppointment = 'MakeAppointment',
 }
 
 export type ContactStackParams = {
   [ContactRouteName.cityOffices]: undefined
-  [ContactRouteName.contact]: undefined
+  [ContactRouteName.contactForm]: undefined
   [ContactRouteName.makeAppointment]: undefined
 }

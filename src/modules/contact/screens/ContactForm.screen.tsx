@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {WebView} from '@/components/ui'
 
-export const ContactScreen = () => {
+export const ContactFormScreen = () => {
   const navigation = useNavigation()
 
   useLayoutEffect(() => {

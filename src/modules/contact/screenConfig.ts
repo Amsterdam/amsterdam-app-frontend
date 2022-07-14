@@ -2,7 +2,7 @@ import {StackNavigationRoutes} from '@/app/navigation'
 import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
 import {
   CityOfficesScreen,
-  ContactScreen,
+  ContactFormScreen,
   MakeAppointmentScreen,
 } from '@/modules/contact/screens'
 
@@ -17,9 +17,9 @@ export const contactScreenConfig: StackNavigationRoutes<
       headerTitle: 'Contact',
     },
   },
-  [ContactRouteName.contact]: {
-    component: ContactScreen,
-    name: ContactRouteName.contact,
+  [ContactRouteName.contactForm]: {
+    component: ContactFormScreen,
+    name: ContactRouteName.contactForm,
     options: {
       headerTitle: 'Neem contact op',
     },

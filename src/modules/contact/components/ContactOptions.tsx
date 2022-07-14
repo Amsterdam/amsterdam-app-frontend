@@ -40,7 +40,7 @@ export const ContactOptions = () => {
       buttonProps: {
         accessibilityRole: 'button',
         key: 'email',
-        onPress: () => navigation.navigate(ContactRouteName.contact),
+        onPress: () => navigation.navigate(ContactRouteName.contactForm),
       },
       contactProps: {
         icon: <Email fill={color.pressable.default.background} />,
