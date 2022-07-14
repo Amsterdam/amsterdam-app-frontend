@@ -1,12 +1,13 @@
-import {ModulesWarning} from '_modules/home/components/ModulesWarning'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
@@ -15,7 +16,7 @@ import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, selectedModulesBySlug} = useModules()
+  const {modules, selectedModulesBySlug, isLoadingModules} = useModules()
 
   const {color} = useTheme()
   const styles = useThemable(createStyles)
@@ -24,13 +25,15 @@ export const ModuleSettings = () => {
     dispatch(toggleModule(slug))
   }
 
-  if (!modules) {
-    return <PleaseWait />
+  if (isLoadingModules) {
+    return <PleaseWait fullSize />
   }
 
   if (!modules.length) {
     return (
-      <ModulesWarning text="We hebben geen modules gevonden voor versie {getVersion()} van de app." />
+      <ModulesWarning
+        text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
+      />
     )
   }
 
