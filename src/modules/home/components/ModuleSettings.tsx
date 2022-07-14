@@ -1,12 +1,12 @@
-import {ModulesWarning} from '_modules/home/components/ModulesWarning'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {Box, PleaseWait} from '@/components/ui'
+import {Attention, Box, PleaseWait} from '@/components/ui'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
@@ -15,7 +15,7 @@ import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, selectedModulesBySlug} = useModules()
+  const {modules, selectedModulesBySlug, isLoadingModules} = useModules()
 
   const {color} = useTheme()
   const styles = useThemable(createStyles)
@@ -24,8 +24,19 @@ export const ModuleSettings = () => {
     dispatch(toggleModule(slug))
   }
 
-  if (!modules) {
+  if (isLoadingModules) {
     return <PleaseWait />
+  }
+
+  if (!modules) {
+    return (
+      <Box insetHorizontal="md" insetVertical="xxxl">
+        <Attention warning>
+          <Phrase fontWeight="bold">Fout</Phrase>
+          <Paragraph variant="small">Modules worden niet geladen.</Paragraph>
+        </Attention>
+      </Box>
+    )
   }
 
   if (!modules.length) {
