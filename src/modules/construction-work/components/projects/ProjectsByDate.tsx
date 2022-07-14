@@ -6,7 +6,7 @@ import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {sanitizeProjects} from '@/modules/construction-work/components/projects'
+import {sortProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -93,7 +93,7 @@ export const ProjectsByDate = () => {
 
   return (
     <FlatGrid
-      data={sanitizeProjects(projects)}
+      data={sortProjects(projects)}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyExtractor={project => project.identifier}

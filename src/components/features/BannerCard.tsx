@@ -1,9 +1,9 @@
-import {Pressable} from '_components/ui/buttons'
-import {Column} from '_components/ui/layout'
 import React from 'react'
 import {ImageSourcePropType} from 'react-native'
 import {Box, SingleSelectable, Title} from '../ui'
 import {Image} from '../ui/media'
+import {Pressable} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout'
 
 type Props = {
   imageSource?: ImageSourcePropType

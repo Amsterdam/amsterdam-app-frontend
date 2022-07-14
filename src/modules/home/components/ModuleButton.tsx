@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback} from 'react'
+import React, {SVGProps, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -69,7 +69,7 @@ export const ModuleButton = ({
 
 const createIconProps =
   (variant: ButtonVariants) =>
-  ({color}: Theme) => ({
+  ({color}: Theme): SVGProps<any> => ({
     fill: variant === 'tertiary' ? color.text.default : color.text.inverse,
   })
 

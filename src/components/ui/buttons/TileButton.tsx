@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react'
-import {FlexStyle, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {FlexStyle, StyleSheet, View} from 'react-native'
 import {Title} from '@/components/ui'
+import {Pressable} from '@/components/ui/buttons'
 import {Gutter} from '@/components/ui/layout'
 import {IconSizes} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
@@ -14,6 +15,9 @@ export type TileButtonProps = {
   width?: FlexStyle['flexBasis']
 }
 
+/**
+ * @deprecated
+ */
 export const TileButton = ({
   icon,
   iconSize = 32,
@@ -26,19 +30,21 @@ export const TileButton = ({
   const iconStyles = {width: iconSize, aspectRatio: 1}
 
   return (
-    <TouchableOpacity
+    <Pressable
       accessibilityLabel={label}
       accessibilityRole="button"
-      onPress={onPress}
-      style={[
-        styles.tileButton,
-        square ? styles.square : styles.notSquare,
-        {flexBasis: width},
-      ]}>
-      <View style={iconStyles}>{icon}</View>
-      <Gutter {...{[square ? 'height' : 'width']: 'md'}} />
-      <Title center={square} level={4} text={label} />
-    </TouchableOpacity>
+      onPress={onPress}>
+      <View
+        style={[
+          styles.tileButton,
+          square ? styles.square : styles.notSquare,
+          {flexBasis: width},
+        ]}>
+        <View style={iconStyles}>{icon}</View>
+        <Gutter {...{[square ? 'height' : 'width']: 'md'}} />
+        <Title center={square} level={4} text={label} />
+      </View>
+    </Pressable>
   )
 }
 

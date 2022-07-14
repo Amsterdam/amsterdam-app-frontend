@@ -1,6 +1,6 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
@@ -59,6 +59,6 @@ export const ProjectTraits = ({
   )
 }
 
-const createIconProps = ({color}: Theme) => ({
+const createIconProps = ({color}: Theme): SVGProps<any> => ({
   fill: color.text.default,
 })

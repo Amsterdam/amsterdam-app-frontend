@@ -13,7 +13,7 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {AddressRouteName} from '@/modules/address/routes'
-import {sanitizeProjects} from '@/modules/construction-work/components/projects'
+import {sortProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -164,7 +164,7 @@ export const ProjectsByDistance = ({
   return (
     <Column gutter="md">
       <FlatGrid
-        data={sanitizeProjects(projects)}
+        data={sortProjects(projects)}
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyExtractor={project => project.identifier}

@@ -1,12 +1,14 @@
+import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
-import {Button, TextButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Button} from '@/components/ui/buttons'
+import {Gutter, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
@@ -15,6 +17,7 @@ import {
 import {AddressRouteName} from '@/modules/address/routes'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
+import {Theme, useThemable} from '@/themes'
 import {isEmptyObject} from '@/utils'
 
 export const Address = () => {
@@ -24,6 +27,7 @@ export const Address = () => {
       StackNavigationProp<RootStackParams, typeof userModule.slug>
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
+  const iconProps = useThemable(createIconProps)
 
   const removeAddressAndShowAlert = async () => {
     dispatch(removePrimaryAddress())
@@ -51,7 +55,7 @@ export const Address = () => {
                 {[primaryAddress.postcode, primaryAddress.woonplaats].join(' ')}
               </Text>
             </SingleSelectable>
-            <Row align="between" valign="center" gutter="md" wrap>
+            <Row valign="center" gutter="md" wrap>
               <View>
                 <Gutter height="md" />
                 <Button
@@ -61,16 +65,20 @@ export const Address = () => {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  variant="secondary"
+                  variant="primary"
                 />
               </View>
               <View>
                 <Gutter height="md" />
-                <TextButton
-                  emphasis
-                  icon="remove"
+                <Button
+                  icon={
+                    <Icon size={24}>
+                      <Remove {...iconProps} />
+                    </Icon>
+                  }
                   label="Verwijder adres"
                   onPress={removeAddressAndShowAlert}
+                  variant="secondary"
                 />
               </View>
             </Row>
@@ -79,15 +87,14 @@ export const Address = () => {
       ) : (
         <Card>
           <CardBody>
-            <Column gutter="md">
-              <>
-                <Title level={4} text="Adres" />
-                <Text>
-                  Vul een straatnaam en huisnummer in zodat u informatie krijgt
-                  uit die buurt.
-                </Text>
-              </>
-              <Row align="between">
+            <Title level={4} text="Adres" />
+            <Text>
+              Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
+              die buurt.
+            </Text>
+            <Row valign="center" gutter="md" wrap>
+              <View>
+                <Gutter height="md" />
                 <Button
                   label="Vul adres in"
                   onPress={() =>
@@ -95,8 +102,11 @@ export const Address = () => {
                       screen: AddressRouteName.addressForm,
                     })
                   }
-                  variant="secondary"
+                  variant="primary"
                 />
+              </View>
+              <View>
+                <Gutter height="md" />
                 <Button
                   label="Meer informatie"
                   onPress={() =>
@@ -104,13 +114,17 @@ export const Address = () => {
                       screen: AddressRouteName.addressInfo,
                     })
                   }
-                  variant="tertiary"
+                  variant="secondary"
                 />
-              </Row>
-            </Column>
+              </View>
+            </Row>
           </CardBody>
         </Card>
       )}
     </>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<any> => ({
+  fill: color.text.link,
+})
