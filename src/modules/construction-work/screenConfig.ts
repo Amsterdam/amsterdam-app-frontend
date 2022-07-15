@@ -1,7 +1,6 @@
 import {ConstructionWorkRouteName, ConstructionWorkStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
-  AuthorizedProjectsScreen,
   ProjectBodyScreen,
   ProjectManagerScreen,
   ProjectNewsScreen,
@@ -15,13 +14,6 @@ export const constructionWorkScreenConfig: StackNavigationRoutes<
   ConstructionWorkStackParams,
   ConstructionWorkRouteName
 > = {
-  [ConstructionWorkRouteName.authorizedProjects]: {
-    component: AuthorizedProjectsScreen,
-    name: ConstructionWorkRouteName.authorizedProjects,
-    options: {
-      headerTitle: 'Je bouwprojecten',
-    },
-  },
   [ConstructionWorkRouteName.createNotification]: {
     component: CreateNotificationScreen,
     name: ConstructionWorkRouteName.createNotification,
