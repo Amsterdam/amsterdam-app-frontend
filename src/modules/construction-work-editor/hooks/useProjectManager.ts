@@ -1,7 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {selectProjectManager} from '@/modules/construction-work/components/project-manager/projectManagerSlice'
+import {selectProjectManager} from '@/modules/construction-work-editor/slice'
 import {
   useGetProjectManagerQuery,
   useGetProjectsQuery,

@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {selectProjectManager} from '@/modules/construction-work/components/project-manager'
+import {selectProjectManager} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
   selectProjectId,

@@ -7,8 +7,8 @@ import {module as userModule} from '../..'
 import {RootStackParams} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
 import {module as constructionWorkModule} from '../../../construction-work'
-import {selectProjectManager} from '../../../construction-work/components/project-manager'
 import {ConstructionWorkRouteName} from '../../../construction-work/routes'
+import {selectProjectManager} from '@/modules/construction-work-editor/slice'
 
 export const ProjectManagerUserSection = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)

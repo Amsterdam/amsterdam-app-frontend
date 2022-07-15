@@ -6,6 +6,8 @@ import {useProjectManager} from '@/modules/construction-work-editor/hooks'
 import {
   addProjectManagerId,
   addProjectManagerProjects,
+} from '@/modules/construction-work-editor/slice'
+import {
   ProjectManagerHeader,
   ProjectManagerProjects,
 } from '@/modules/construction-work/components/project-manager'

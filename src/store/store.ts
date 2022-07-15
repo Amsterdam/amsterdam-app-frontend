@@ -10,7 +10,7 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 import {addressSlice} from '@/modules/address/addressSlice'
-import {projectManagerSlice} from '@/modules/construction-work/components/project-manager'
+import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
 import {notificationDraftSlice} from '@/modules/construction-work/screens/create-notification'
 import {modulesSlice} from '@/modules/home/store/modulesSlice'
@@ -43,8 +43,8 @@ const constructionWorkPersistConfig = {
   whitelist: ['readArticles'],
 }
 
-const projectManagerPersistConfig = {
-  key: 'projectManager',
+const constructionWorkEditorPersistConfig = {
+  key: 'constructionWorkEditor',
   storage: AsyncStorage,
 }
 
@@ -64,8 +64,8 @@ const rootReducer = combineReducers({
   ),
   notificationDraft: notificationDraftSlice.reducer,
   projectManager: persistReducer(
-    projectManagerPersistConfig,
-    projectManagerSlice.reducer,
+    constructionWorkEditorPersistConfig,
+    constructionWorkEditorSlice.reducer,
   ),
   theme: themeSlice.reducer,
 })
