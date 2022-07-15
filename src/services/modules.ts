@@ -1,5 +1,5 @@
-import {ModuleServerConfig} from '../modules/types'
-import {baseApi} from './init'
+import {ModuleServerConfig} from '@/modules/types'
+import {baseApi} from '@/services/init'
 
 type RegisterModuleQueryArg = {
   app_version: string
