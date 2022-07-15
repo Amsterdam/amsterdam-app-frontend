@@ -7,6 +7,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Attention, Box, PleaseWait} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Paragraph} from '@/components/ui/text'
+import {module as constructionWorkModule} from '@/modules/construction-work'
 import {authorizedProjectsMock} from '@/modules/construction-work-editor/authorized-projects.mock'
 import {useProjectManager} from '@/modules/construction-work-editor/hooks'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
@@ -29,8 +30,11 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.identifier,
+        navigation.navigate(constructionWorkModule.slug, {
+          screen: ConstructionWorkRouteName.project,
+          params: {
+            id: project.identifier,
+          },
         })
       }
       subtitle={project.subtitle ?? undefined}
