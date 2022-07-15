@@ -3,5 +3,7 @@ export enum ConstructionWorkEditorRouteName {
 }
 
 export type ConstructionWorkEditorStackParams = {
-  [ConstructionWorkEditorRouteName.authorizedProjects]: undefined
+  [ConstructionWorkEditorRouteName.authorizedProjects]: {
+    projectManagerId: string
+  }
 }

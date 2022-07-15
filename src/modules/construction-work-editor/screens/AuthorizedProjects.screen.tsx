@@ -1,16 +1,9 @@
 import React from 'react'
-import {Box, Text} from '@/components/ui'
-import {Screen} from '@/components/ui/layout'
+import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
 
 export const AuthorizedProjectsScreen = () => {
   // const navigation =
   //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
-  return (
-    <Screen>
-      <Box>
-        <Text>Hallo, ik ben een module! 🎉</Text>
-      </Box>
-    </Screen>
-  )
+  return <AuthorizedProjects />
 }
