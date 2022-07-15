@@ -8,7 +8,7 @@ import {
 } from '@/modules/construction-work/construction-work.service'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
-export const useProjectManagerFetcher = () => {
+export const useProjectManager = () => {
   const {id: projectManagerId} = useSelector(selectProjectManager)
   const {
     data: projectManager,

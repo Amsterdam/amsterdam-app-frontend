@@ -2,12 +2,12 @@ import React, {useCallback, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
 import {ScrollView} from '@/components/ui/layout'
+import {useProjectManager} from '@/modules/construction-work-editor/hooks'
 import {
   addProjectManagerId,
   addProjectManagerProjects,
   ProjectManagerHeader,
   ProjectManagerProjects,
-  useProjectManagerFetcher,
 } from '@/modules/construction-work/components/project-manager'
 import {setCredentials} from '@/store'
 import {encryptWithAES} from '@/utils'
@@ -24,7 +24,7 @@ export const ProjectManagerSummary = ({routeParamsId}: Props) => {
     isGetProjectManagerLoading,
     projectManager,
     projectManagerId,
-  } = useProjectManagerFetcher()
+  } = useProjectManager()
 
   dispatch(
     setCredentials({

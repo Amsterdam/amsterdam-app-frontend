@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {authorizedProjectsMock} from '_modules/construction-work-editor/authorized-projects.mock'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
@@ -8,7 +7,8 @@ import {RootStackParams} from '@/app/navigation'
 import {Attention, Box, PleaseWait} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Paragraph} from '@/components/ui/text'
-import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
+import {authorizedProjectsMock} from '@/modules/construction-work-editor/authorized-projects.mock'
+import {useProjectManager} from '@/modules/construction-work-editor/hooks'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectsItem} from '@/modules/construction-work/types'
@@ -47,7 +47,7 @@ const ListEmptyMessage = () => (
 
 export const AuthorizedProjects = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
-    useProjectManagerFetcher()
+    useProjectManager()
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName>

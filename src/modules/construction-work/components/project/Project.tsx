@@ -11,9 +11,9 @@ import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
+import {useProjectManager} from '@/modules/construction-work-editor/hooks'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
-import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
@@ -50,7 +50,7 @@ export const Project = ({id}: Props) => {
     lon: address?.centroid[0],
   }
 
-  const {projectManager} = useProjectManagerFetcher()
+  const {projectManager} = useProjectManager()
   const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useFollowProjectMutation()
