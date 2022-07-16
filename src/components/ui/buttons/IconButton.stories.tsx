@@ -18,7 +18,7 @@ export const Default: ComponentStoryObj<typeof IconButton> = {
     badgeValue: 7,
     icon: (
       <Icon size={24}>
-        <PersonalLogin fill="white" />
+        <PersonalLogin fill="black" />
       </Icon>
     ),
   },
