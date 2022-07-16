@@ -4,12 +4,18 @@ import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 
 type Props = {
   children: ReactNode
+  safeBottomInset?: boolean
   safeTopInset?: boolean
 }
 
-export const Screen = ({children, safeTopInset = true}: Props) => {
+export const Screen = ({
+  children,
+  safeTopInset = true,
+  safeBottomInset = false,
+}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets, {
+    safeBottomInset: safeBottomInset,
     safeTopInset: safeTopInset,
   })
 
@@ -18,12 +24,12 @@ export const Screen = ({children, safeTopInset = true}: Props) => {
 
 const createStyles = (
   insets: Partial<EdgeInsets>,
-  {safeTopInset}: Partial<Props>,
+  {safeBottomInset, safeTopInset}: Partial<Props>,
 ) =>
   StyleSheet.create({
     screen: {
       flex: 1,
-      paddingBottom: insets.bottom,
+      paddingBottom: safeBottomInset ? insets.bottom : 0,
       paddingLeft: insets.left,
       paddingRight: insets.right,
       paddingTop: safeTopInset ? insets.top : 0,
