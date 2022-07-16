@@ -12,7 +12,7 @@ export const HomeScreen = () => {
     useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
 
   return (
-    <Screen>
+    <Screen safeTopInset={false}>
       <ScrollView grow>
         <Modules />
       </ScrollView>
