@@ -8,7 +8,6 @@ import {
   NewsArticle,
   Project,
   ProjectIdQueryArg,
-  ProjectManagerResponse,
   ProjectsByTextQueryArg,
   ProjectsEndpointName,
   ProjectsItem,
@@ -89,15 +88,6 @@ export const projectsApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: Project}) => response.result,
     }),
 
-    [ProjectsEndpointName.getProjectManager]: builder.query<
-      ProjectManagerResponse,
-      ProjectIdQueryArg
-    >({
-      query: params => generateRequestUrl({path: '/project/manager', params}),
-      transformResponse: (response: {result: [ProjectManagerResponse]}) =>
-        response.result[0],
-    }),
-
     [ProjectsEndpointName.getProjectNews]: builder.query<
       NewsArticle,
       ProjectIdQueryArg
@@ -171,7 +161,6 @@ export const {
   useAddProjectWarningMutation,
   useFollowProjectMutation,
   useGetArticlesQuery,
-  useGetProjectManagerQuery,
   useGetProjectNewsQuery,
   useGetProjectQuery,
   useGetProjectWarningQuery,

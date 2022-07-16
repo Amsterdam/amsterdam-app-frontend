@@ -13,7 +13,6 @@ export enum ProjectsEndpointName {
   followProject = 'followProject',
   getArticles = 'getArticles',
   getProject = 'getProject',
-  getProjectManager = 'getProjectManager',
   getProjectNews = 'getProjectNews',
   getProjects = 'getProjects',
   getProjectsByText = 'getProjectsByText',
@@ -179,12 +178,6 @@ export type ProjectIdQueryArg = {
 
 export type ProjectIdsQueryArg = {
   projectIds: string[]
-}
-
-export type ProjectManagerResponse = {
-  identifier: string
-  email: string
-  projects: string[]
 }
 
 export type ProjectWarningImageQueryArg = {

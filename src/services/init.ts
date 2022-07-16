@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
 import {EnvironmentConfig} from '@/environment'
+import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {ProjectsEndpointName} from '@/modules/construction-work/types'
 import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
@@ -16,9 +17,9 @@ import {deviceAuthorizationToken} from '@/utils'
 
 const managerAuthorizedEndpoints = [
   'addNotification',
+  ConstructionWorkEditorEndpointName.getProjectManager,
   ProjectsEndpointName.addProjectWarning,
   ProjectsEndpointName.addProjectWarningImage,
-  ProjectsEndpointName.getProjectManager,
 ]
 
 const deviceIdRequestingEndpoints: string[] = [
