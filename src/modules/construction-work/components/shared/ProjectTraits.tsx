@@ -7,7 +7,6 @@ import simplur from 'simplur'
 import {Strides} from '@/assets/icons'
 import {Badge, Trait} from '@/components/ui'
 import {Row} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/construction-work.slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
@@ -38,12 +37,9 @@ export const ProjectTraits = ({
       <Row gutter="md" wrap>
         {followed &&
           (numOfUnreadArticles ? (
-            <Row gutter="sm" valign="baseline">
+            <Trait label={simplur`${[numOfUnreadArticles]} Bericht[|en]`}>
               <Badge value={numOfUnreadArticles} />
-              <Phrase variant="small">{simplur`${[
-                numOfUnreadArticles,
-              ]} Bericht[|en]`}</Phrase>
-            </Row>
+            </Trait>
           ) : (
             <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
           ))}
