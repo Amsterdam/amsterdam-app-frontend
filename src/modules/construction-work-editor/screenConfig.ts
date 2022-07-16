@@ -1,9 +1,9 @@
-import {StackNavigationRoutes} from '../../app/navigation'
+import {StackNavigationRoutes} from '@/app/navigation'
 import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
-} from './routes'
-import {AuthorizedProjectsScreen} from './screens'
+} from '@/modules/construction-work-editor/routes'
+import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens'
 
 export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
   ConstructionWorkEditorStackParams,
