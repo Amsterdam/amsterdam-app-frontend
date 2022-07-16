@@ -40,7 +40,9 @@ export const ProjectTraits = ({
           (numOfUnreadArticles ? (
             <Row gutter="sm" valign="baseline">
               <Badge value={numOfUnreadArticles} />
-              <Phrase>{simplur`${[numOfUnreadArticles]} Bericht[|en]`}</Phrase>
+              <Phrase variant="small">{simplur`${[
+                numOfUnreadArticles,
+              ]} Bericht[|en]`}</Phrase>
             </Row>
           ) : (
             <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
