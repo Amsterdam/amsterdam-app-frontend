@@ -1,5 +1,4 @@
 import React from 'react'
-import {Phone} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {Accordion, Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
@@ -35,7 +34,7 @@ export const MakeAppointmentScreen = () => (
                       <Row>
                         <Button
                           accessibilityLabel="Bel veertien nul twintig"
-                          icon={Phone}
+                          iconName="phone"
                           label="Bel 14 020"
                           onPress={() => {
                             openPhoneUrl('14020')

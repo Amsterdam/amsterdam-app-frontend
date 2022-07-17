@@ -23,7 +23,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@amsterdam/asc-assets": "^0.31.0",
     "@gorhom/bottom-sheet": "^4.4.3",
     "@notifee/react-native": "^4.0.1",
     "@react-native-aria/radio": "^0.2.5",

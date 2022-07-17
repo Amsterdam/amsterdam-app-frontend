@@ -1,6 +1,5 @@
-import React, {forwardRef, SVGProps, useState} from 'react'
+import React, {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
-import {Close, Search} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
@@ -14,7 +13,6 @@ export const SearchField = forwardRef<TextInput, Props>(
   ({onChangeText, onFocus, value = '', ...otherProps}: Props, ref) => {
     const [hasFocus, setHasFocus] = useState(false)
 
-    const iconProps = useThemable(createIconProps)
     const styles = useThemable(createStyles({hasFocus}))
     const textInputProps = useThemable(createTextInputProps)
 
@@ -49,26 +47,16 @@ export const SearchField = forwardRef<TextInput, Props>(
         {value ? (
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
-            icon={
-              <Icon>
-                <Close {...iconProps} />
-              </Icon>
-            }
+            icon={<Icon name="close" />}
             onPress={handleClearText}
           />
         ) : (
-          <Icon size={24}>
-            <Search {...iconProps} />
-          </Icon>
+          <Icon name="search" size={24} />
         )}
       </View>
     )
   },
 )
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.default,
-})
 
 const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 

@@ -1,9 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps, useContext} from 'react'
+import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
-import {Close} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
@@ -21,7 +20,6 @@ const closeIconSize = 20
 export const ModalHeader = ({title}: Props) => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
-  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   return (
@@ -35,21 +33,13 @@ export const ModalHeader = ({title}: Props) => {
         </View>
         <IconButton
           accessibilityLabel="Sluiten"
-          icon={
-            <Icon size={closeIconSize}>
-              <Close {...iconProps} />
-            </Icon>
-          }
+          icon={<Icon color="link" name="close" size={closeIconSize} />}
           onPress={navigation.goBack}
         />
       </Row>
     </Box>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})
 
 const createStyles = ({size}: Theme) =>
   StyleSheet.create({

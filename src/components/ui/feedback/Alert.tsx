@@ -1,7 +1,5 @@
-import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
-import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {FC, Fragment, ReactNode, SVGProps, useEffect} from 'react'
+import React, {FC, Fragment, ReactNode, useEffect} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -11,7 +9,6 @@ import {
   View,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {Close} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
 import {
@@ -41,8 +38,8 @@ export const Alert = () => {
 
   const {closeType, content, variant, withIcon} = alert
 
-  const iconProps = useThemable(createIconProps)
   const variantConfig = useThemable(createVariantConfig)
+  const iconName = variantConfig[variant].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
@@ -57,8 +54,6 @@ export const Alert = () => {
   if (isEmptyObject(alert)) {
     return null
   }
-
-  const IconComponent = variantConfig[variant].icon
 
   const WrapperComponent: FC<{children: ReactNode}> =
     closeType === AlertCloseType.withoutButton
@@ -77,11 +72,7 @@ export const Alert = () => {
                 content?.text,
               )}>
               <Row gutter="md">
-                {!!withIcon && (
-                  <Icon size={24}>
-                    <IconComponent {...iconProps} />
-                  </Icon>
-                )}
+                {!!withIcon && <Icon color="link" name={iconName} size={24} />}
                 <Column>
                   {!!content?.title && (
                     <Title level="h4" text={content?.title} />
@@ -94,11 +85,7 @@ export const Alert = () => {
               <View>
                 <IconButton
                   accessibilityHint="Sluit melding"
-                  icon={
-                    <Icon size={24}>
-                      <Close {...iconProps} />
-                    </Icon>
-                  }
+                  icon={<Icon color="link" name="close" size={24} />}
                   onPress={() => dispatch(resetAlert())}
                 />
               </View>
@@ -109,10 +96,6 @@ export const Alert = () => {
     </WrapperComponent>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.default,
-})
 
 const createStyles =
   (variant: AlertVariant, variantConfig: AlertVariantConfig) =>
@@ -138,18 +121,18 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     backgroundColor: color.box.background.alert,
     borderColor: color.box.background.alert,
     borderWidth: 2,
-    icon: AlertIcon,
+    iconName: 'alert',
   },
   [AlertVariant.negative]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.negative,
     borderWidth: 2,
-    icon: AlertIcon,
+    iconName: 'alert',
   },
   [AlertVariant.positive]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.positive,
     borderWidth: 2,
-    icon: Checkmark,
+    iconName: 'checkmark',
   },
 })

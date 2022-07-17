@@ -15,7 +15,7 @@ type Props = {
    */
   badgeValue?: BadgeProps['value']
   /**
-   * The icon to be used. Should be an SVG image wrapped in the `Icon` component.
+   * The icon component to use for the button.
    */
   icon: ReactNode
 } & Omit<PressableRNProps, 'style'>

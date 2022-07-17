@@ -1,12 +1,10 @@
-import React, {SVGProps} from 'react'
-import {ChevronLeft, ChevronRight} from '@/assets/icons'
+import React from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {IconSize} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
 
 type Props = {
   direction?: 'backward' | 'forward'
@@ -20,31 +18,18 @@ export const NavigationButton = ({
   iconSize = 24,
   label,
   onPress,
-}: Props) => {
-  const IconComponent = direction === 'forward' ? ChevronRight : ChevronLeft
-  const iconProps = useThemable(createIconProps)
-
-  return (
-    <Pressable accessibilityRole="link" onPress={onPress}>
-      <Box insetHorizontal="md" insetVertical="sm">
-        <Row align="between" gutter="md" valign="center">
-          {direction === 'backward' && (
-            <Icon size={iconSize}>
-              <IconComponent {...iconProps} />
-            </Icon>
-          )}
-          <Title color="link" level="h5" text={label} />
-          {direction === 'forward' && (
-            <Icon size={iconSize}>
-              <IconComponent {...iconProps} />
-            </Icon>
-          )}
-        </Row>
-      </Box>
-    </Pressable>
-  )
-}
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})
+}: Props) => (
+  <Pressable accessibilityRole="link" onPress={onPress}>
+    <Box insetHorizontal="md" insetVertical="sm">
+      <Row align="between" gutter="md" valign="center">
+        {direction === 'backward' && (
+          <Icon color="link" name="chevron-left" size={iconSize} />
+        )}
+        <Title color="link" level="h5" text={label} />
+        {direction === 'forward' && (
+          <Icon color="link" name="chevron-right" size={iconSize} />
+        )}
+      </Row>
+    </Box>
+  </Pressable>
+)

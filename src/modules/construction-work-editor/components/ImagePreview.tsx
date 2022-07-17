@@ -1,5 +1,4 @@
-import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
-import React, {SVGProps} from 'react'
+import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Image as ImageType} from 'react-native-image-crop-picker'
 import {IconButton} from '@/components/ui/buttons'
@@ -14,7 +13,6 @@ type Props = {
 const iconSize = 24
 
 export const ImagePreview = ({image, onPress}: Props) => {
-  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   return (
@@ -24,20 +22,12 @@ export const ImagePreview = ({image, onPress}: Props) => {
         <IconButton
           accessibilityHint="Verwijder foto"
           onPress={onPress}
-          icon={
-            <Icon size={iconSize}>
-              <TrashBin {...iconProps} />
-            </Icon>
-          }
+          icon={<Icon color="link" name="trash-bin" size={iconSize} />}
         />
       </View>
     </View>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})
 
 const createStyles = ({color, size}: Theme) => {
   const buttonContainerPadding = size.spacing.sm

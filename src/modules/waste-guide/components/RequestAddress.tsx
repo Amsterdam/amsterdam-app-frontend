@@ -3,7 +3,6 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
-import {Location} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
@@ -30,7 +29,7 @@ export const RequestAddress = () => {
             </Paragraph>
             <Row>
               <Button
-                icon={Location}
+                iconName="location"
                 label="Vul uw adres in"
                 onPress={() =>
                   navigation.navigate(AddressModalName.addressForm)

@@ -1,60 +1,44 @@
-import Api from '@amsterdam/asc-assets/static/icons/Api.svg'
-import PersonalLogin from '@amsterdam/asc-assets/static/icons/PersonalLogin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps} from 'react'
+import React from 'react'
 import {RootStackParams} from '@/app/navigation'
-import {Settings} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Icon, IconProps} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {module as userModule} from '@/modules/user'
 import {isDevApp} from '@/processes'
-import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, ModuleSlug.home>>()
 
-  const iconProps = useThemable(createIconProps)
+  const iconProps: Partial<IconProps> = {
+    color: 'link',
+    scalesWithFont: false,
+    size: 24,
+  }
 
   return (
     <Row gutter="md">
       {!!isDevApp && (
         <IconButton
           accessibilityLabel="Omgeving selecteren"
-          icon={
-            <Icon scalesWithFont={false} size={24}>
-              <Api {...iconProps} />
-            </Icon>
-          }
+          icon={<Icon name="api" {...iconProps} />}
           onPress={() => navigation.navigate(HomeRouteName.admin)}
         />
       )}
       <IconButton
         accessibilityLabel="Mijn profiel"
-        icon={
-          <Icon scalesWithFont={false} size={24}>
-            <PersonalLogin {...iconProps} />
-          </Icon>
-        }
+        icon={<Icon name="person" {...iconProps} />}
         onPress={() => navigation.navigate(userModule.slug)}
       />
       <IconButton
         accessibilityLabel="Instellingen"
-        icon={
-          <Icon scalesWithFont={false} size={24}>
-            <Settings {...iconProps} />
-          </Icon>
-        }
+        icon={<Icon name="settings" {...iconProps} />}
         onPress={() => navigation.navigate(HomeRouteName.settings)}
       />
     </Row>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

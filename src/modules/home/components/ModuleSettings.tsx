@@ -1,4 +1,4 @@
-import React, {SVGProps, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
@@ -10,17 +10,14 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {useModules, useRegisterDevice, useSentry} from '@/hooks'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModulesWarning} from '@/modules/home/components'
-import {icons} from '@/modules/home/config'
 import {getPushNotificationsPermission} from '@/processes'
 import {toggleModule} from '@/store'
-import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
   const {modules, modulesLoading, selectedModulesBySlug, selectedModules} =
     useModules()
-  const iconProps = useThemable(createIconProps)
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
 
   const {sendSentryErrorLog} = useSentry()
@@ -63,8 +60,13 @@ export const ModuleSettings = () => {
     <Box>
       <Column gutter="sm">
         {modules.map(module => {
-          const {description, icon, isForEmployees, slug, title} = module
-          const ModuleIcon = icons[icon]
+          const {
+            description,
+            icon: iconName,
+            isForEmployees,
+            slug,
+            title,
+          } = module
 
           if (isForEmployees && !constructionWorkEditorId) {
             return
@@ -77,11 +79,7 @@ export const ModuleSettings = () => {
                 label={
                   <Column gutter="sm">
                     <Row gutter="sm" valign="center">
-                      {!!ModuleIcon && (
-                        <Icon size={24}>
-                          <ModuleIcon {...iconProps} />
-                        </Icon>
-                      )}
+                      {!!iconName && <Icon name={iconName} size={24} />}
                       <Title level="h5" text={title} />
                     </Row>
                     <Paragraph variant="small">{description}</Paragraph>
@@ -97,7 +95,3 @@ export const ModuleSettings = () => {
     </Box>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.default,
-})

@@ -1,4 +1,3 @@
-import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
@@ -63,8 +62,8 @@ export const DisplayAddress = ({address}: Props) => {
           variant="primary"
         />
         <Button
-          icon={Remove}
-          label="Verwijder adres"
+          iconName="trash-bin"
+          label="Verwijder"
           onPress={removeAddressAndShowAlert}
           small
           variant="secondary"

@@ -1,25 +1,22 @@
-import React, {SVGProps} from 'react'
+import React from 'react'
 import {useDispatch} from 'react-redux'
-import {ChevronDown, CityOffice as CityOfficeIcon} from '@/assets/icons'
 import {IconWithTitleButton} from '@/components/ui/buttons'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/types'
 import {toggleBottomSheet} from '@/store'
-import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
 export const NameAndAddress = ({address, addressContent, title}: Props) => {
   const dispatch = useDispatch()
-  const iconProps = useThemable(createIconProps)
 
   return (
     <Column gutter="md">
       <IconWithTitleButton
-        icon={<CityOfficeIcon {...iconProps} />}
+        iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
         text={
           <SingleSelectable
@@ -37,7 +34,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
           </SingleSelectable>
         }
         title={title}
-        titleIcon={<ChevronDown {...iconProps} />}
+        titleIconName="chevron-down"
       />
       {!!addressContent && (
         <>
@@ -49,7 +46,3 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
     </Column>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

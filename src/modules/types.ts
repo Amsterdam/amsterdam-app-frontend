@@ -1,5 +1,6 @@
 import {Slice} from '@reduxjs/toolkit'
 import {ElementType} from 'react'
+import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
 
 /**
@@ -21,7 +22,7 @@ export type ModuleClientConfig = {
  */
 export type ModuleServerConfig = {
   description: string
-  icon: string
+  icon: IconName
   slug: ModuleSlug
   status: number
   title: string

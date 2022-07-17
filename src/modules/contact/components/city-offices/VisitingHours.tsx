@@ -1,5 +1,4 @@
-import React, {SVGProps, useState} from 'react'
-import {QuestionMarkSolid} from '@/assets/icons'
+import React, {useState} from 'react'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'
@@ -9,7 +8,6 @@ import {Article, Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils'
-import {Theme, useThemable} from '@/themes'
 import {accessibleText, dayjs, nonNullable} from '@/utils'
 
 type Props = {
@@ -63,7 +61,6 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false)
-  const iconProps = useThemable(createIconProps)
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
 
   if (visitingHoursContent) {
@@ -79,11 +76,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           </Paragraph>
         )}
         <IconButton
-          icon={
-            <Icon size={24}>
-              <QuestionMarkSolid {...iconProps} />
-            </Icon>
-          }
+          icon={<Icon color="link" name="question-mark-solid" size={24} />}
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
@@ -102,7 +95,3 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
     </Column>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

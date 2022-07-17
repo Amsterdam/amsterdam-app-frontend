@@ -1,4 +1,3 @@
-import ExternalLink from '@amsterdam/asc-assets/static/icons/ExternalLink.svg'
 import React from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons'
@@ -25,7 +24,7 @@ export const WasteGuideForWeesp = ({address}: Props) => {
       <Row align="start">
         <Button
           accessibilityRole="link"
-          icon={ExternalLink}
+          iconName="external-link"
           label="Ga naar GAD.nl"
           onPress={() => {
             // eslint-disable-next-line no-void

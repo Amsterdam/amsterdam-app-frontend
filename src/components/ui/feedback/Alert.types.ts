@@ -1,5 +1,4 @@
-import {FC} from 'react'
-import {SvgProps} from '@/types'
+import {IconName} from '@/components/ui/media'
 
 export enum AlertCloseType {
   withButton = 'withButton',
@@ -17,6 +16,6 @@ export type AlertVariantConfig = {
     backgroundColor: string
     borderColor: string
     borderWidth: number
-    icon: FC<SvgProps>
+    iconName: IconName
   }
 }
