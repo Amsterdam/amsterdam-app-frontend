@@ -29,16 +29,16 @@ const postProcessModules = (
 export const useModules = () => {
   const {
     data: serverModules,
+    error,
     isLoading,
     isSuccess,
-    error,
     refetch,
   } = useGetModulesForAppQuery()
   const {sendSentryErrorLog} = useSentry()
   const {disabledModules: disabledModulesBySlug} = useSelector(
     selectDisabledModules,
   )
-  const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES - 1)
+  const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const [postProcessedModules, setPostProcessedModules] = useState(
     postProcessModules(disabledModulesBySlug, serverModules),
   )
@@ -50,7 +50,6 @@ export const useModules = () => {
   }, [disabledModulesBySlug, serverModules])
 
   useEffect(() => {
-    console.log(retriesRemaining)
     if (error) {
       if (!isLoading) {
         sendSentryErrorLog('useGetModulesForAppQuery error', 'useModules.ts', {
@@ -64,7 +63,7 @@ export const useModules = () => {
         }
       }
     } else {
-      setRetriesRemaining(MAX_RETRIES - 1)
+      setRetriesRemaining(MAX_RETRIES)
     }
   }, [
     error,
@@ -88,8 +87,8 @@ export const useModules = () => {
 
   useAppState({
     onForeground: () => {
+      setRetriesRemaining(MAX_RETRIES)
       refetch()
-      setRetriesRemaining(MAX_RETRIES - 1)
     },
   })
 
@@ -100,8 +99,8 @@ export const useModules = () => {
 
   return {
     modulesLoading,
-    refetchModules: retriesRemaining === 0 ? refetch : undefined,
     modulesError: error,
+    refetchModules: retriesRemaining === 0 ? refetch : undefined,
     ...postProcessedModules,
   }
 }

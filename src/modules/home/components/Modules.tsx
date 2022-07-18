@@ -7,10 +7,10 @@ import {useModules} from '@/modules/home/hooks'
 
 export const Modules = () => {
   const {
-    selectedModules: modules,
+    modulesError,
     modulesLoading,
     refetchModules,
-    modulesError,
+    selectedModules: modules,
   } = useModules()
 
   if (modulesLoading) {
@@ -20,7 +20,7 @@ export const Modules = () => {
   if (modulesError) {
     return (
       <ModulesWarning
-        text={'Er is iets misgegaan bij het ophalen van de modules.'}
+        text="Er is iets misgegaan bij het ophalen van de modules."
         onRetry={refetchModules}
       />
     )

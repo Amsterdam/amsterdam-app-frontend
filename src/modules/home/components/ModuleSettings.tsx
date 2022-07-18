@@ -16,7 +16,7 @@ import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, selectedModulesBySlug, modulesLoading} = useModules()
+  const {modules, modulesLoading, selectedModulesBySlug} = useModules()
 
   const {color} = useTheme()
   const styles = useThemable(createStyles)
