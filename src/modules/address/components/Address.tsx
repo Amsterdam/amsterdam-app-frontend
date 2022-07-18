@@ -5,10 +5,11 @@ import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Card, CardBody, SingleSelectable, Text, Title} from '@/components/ui'
+import {Box, SingleSelectable} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
+import {Paragraph, Title} from '@/components/ui/text'
 import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
@@ -44,84 +45,88 @@ export const Address = () => {
   }
 
   return (
-    <>
+    <Box background="white">
       {primaryAddress && !isEmptyObject(primaryAddress) ? (
-        <Card>
-          <CardBody>
-            <SingleSelectable>
-              <Title level={4} text="Uw adres" />
-              <Text large>{primaryAddress.adres}</Text>
-              <Text large>
-                {[primaryAddress.postcode, primaryAddress.woonplaats].join(' ')}
-              </Text>
-            </SingleSelectable>
-            <Row valign="center" gutter="md" wrap>
-              <View>
-                <Gutter height="md" />
-                <Button
-                  label="Wijzig adres"
-                  onPress={() =>
-                    navigation.navigate(addressModule.slug, {
-                      screen: AddressRouteName.addressForm,
-                    })
-                  }
-                  variant="primary"
-                />
-              </View>
-              <View>
-                <Gutter height="md" />
-                <Button
-                  icon={
-                    <Icon size={24}>
-                      <Remove {...iconProps} />
-                    </Icon>
-                  }
-                  label="Verwijder adres"
-                  onPress={removeAddressAndShowAlert}
-                  variant="secondary"
-                />
-              </View>
-            </Row>
-          </CardBody>
-        </Card>
+        <>
+          <SingleSelectable>
+            <Title text="Adres" />
+            <Gutter height="md" />
+            <Paragraph>{primaryAddress.adres}</Paragraph>
+            <Paragraph>
+              {[
+                primaryAddress.postcode.substring(0, 4),
+                primaryAddress.postcode.substring(4, 6),
+                primaryAddress.woonplaats.toUpperCase(),
+              ].join(' ')}
+            </Paragraph>
+          </SingleSelectable>
+          <Row valign="center" gutter="md" wrap>
+            <View>
+              <Gutter height="md" />
+              <Button
+                label="Wijzig adres"
+                onPress={() =>
+                  navigation.navigate(addressModule.slug, {
+                    screen: AddressRouteName.addressForm,
+                  })
+                }
+                variant="primary"
+              />
+            </View>
+            <View>
+              <Gutter height="md" />
+              <Button
+                icon={
+                  <Icon size={24}>
+                    <Remove {...iconProps} />
+                  </Icon>
+                }
+                label="Verwijder adres"
+                onPress={removeAddressAndShowAlert}
+                variant="secondary"
+              />
+            </View>
+          </Row>
+        </>
       ) : (
-        <Card>
-          <CardBody>
-            <Title level={4} text="Adres" />
-            <Text>
+        <>
+          <SingleSelectable>
+            <Title text="Adres" />
+            <Gutter height="md" />
+            <Paragraph>
               Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
               die buurt.
-            </Text>
-            <Row valign="center" gutter="md" wrap>
-              <View>
-                <Gutter height="md" />
-                <Button
-                  label="Vul adres in"
-                  onPress={() =>
-                    navigation.navigate(addressModule.slug, {
-                      screen: AddressRouteName.addressForm,
-                    })
-                  }
-                  variant="primary"
-                />
-              </View>
-              <View>
-                <Gutter height="md" />
-                <Button
-                  label="Meer informatie"
-                  onPress={() =>
-                    navigation.navigate(addressModule.slug, {
-                      screen: AddressRouteName.addressInfo,
-                    })
-                  }
-                  variant="secondary"
-                />
-              </View>
-            </Row>
-          </CardBody>
-        </Card>
+            </Paragraph>
+          </SingleSelectable>
+          <Row valign="center" gutter="md" wrap>
+            <View>
+              <Gutter height="md" />
+              <Button
+                label="Vul adres in"
+                onPress={() =>
+                  navigation.navigate(addressModule.slug, {
+                    screen: AddressRouteName.addressForm,
+                  })
+                }
+                variant="primary"
+              />
+            </View>
+            <View>
+              <Gutter height="md" />
+              <Button
+                label="Meer informatie"
+                onPress={() =>
+                  navigation.navigate(addressModule.slug, {
+                    screen: AddressRouteName.addressInfo,
+                  })
+                }
+                variant="secondary"
+              />
+            </View>
+          </Row>
+        </>
       )}
-    </>
+    </Box>
   )
 }
 
