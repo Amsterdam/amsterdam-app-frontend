@@ -51,16 +51,14 @@ export const useModules = () => {
 
   useEffect(() => {
     if (error) {
-      if (!isLoading) {
-        sendSentryErrorLog('useGetModulesForAppQuery error', 'useModules.ts', {
-          error,
-          retriesRemaining,
-          serverModules,
-        })
-        if (retriesRemaining > 0) {
-          refetch()
-          setRetriesRemaining(v => v - 1)
-        }
+      sendSentryErrorLog('useGetModulesForAppQuery error', 'useModules.ts', {
+        error,
+        retriesRemaining,
+        serverModules,
+      })
+      if (retriesRemaining > 0) {
+        refetch()
+        setRetriesRemaining(v => v - 1)
       }
     } else {
       setRetriesRemaining(MAX_RETRIES)
