@@ -11,14 +11,14 @@ export const ComingSoon = () => (
     />
     <Box insetHorizontal="md" insetVertical="lg">
       <Column gutter="md">
-        <Title text="Open een GFT-container met deze app" />
+        <Title text="Open een gft-container met deze app" />
         <Paragraph>
-          Vanaf volgend jaar kunt u een GFE-container openen met uw telefoon. U
+          Vanaf volgend jaar kunt u een gft-container openen met uw telefoon. U
           kunt dit dan op deze pagina activeren.
         </Paragraph>
         <Paragraph>
           We vervangen de plastic passen om kosten te besparen én minder plastic
-          is ook beter voor het milieu. Op een GFE-container zit een slot zodat
+          is ook beter voor het milieu. Op een gft-container zit een slot zodat
           er niet zomaar ander afval in gegooid kan worden. Hierdoor is het
           afval van hogere kwaliteit en kunnen we meer recyclen.
         </Paragraph>

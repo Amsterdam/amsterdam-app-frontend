@@ -13,7 +13,7 @@ export const openWasteContainerScreenConfig: StackNavigationRoutes<
     component: OpenWasteContainerScreen,
     name: OpenWasteContainerRouteName.openWasteContainer,
     options: {
-      headerTitle: 'GFT-container openen',
+      headerTitle: 'Gft-container openen',
     },
   },
 }
