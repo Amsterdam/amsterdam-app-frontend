@@ -16,7 +16,7 @@ import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, selectedModulesBySlug, isLoadingModules} = useModules()
+  const {modules, selectedModulesBySlug, modulesLoading} = useModules()
 
   const {color} = useTheme()
   const styles = useThemable(createStyles)
@@ -25,7 +25,7 @@ export const ModuleSettings = () => {
     dispatch(toggleModule(slug))
   }
 
-  if (isLoadingModules) {
+  if (modulesLoading) {
     return <PleaseWait fullSize />
   }
 
