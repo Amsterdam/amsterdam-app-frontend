@@ -129,6 +129,7 @@ export const sentryLoggerMiddleware: Middleware = () => next => action => {
   if (isRejectedWithValue(action)) {
     // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
     const consent = true
+    console.log(action)
     getSendSentryErrorLog(!!consent)(
       action.meta.arg?.endpointName
         ? `${action.payload?.originalStatus ?? 'Error'} for ${
@@ -136,7 +137,7 @@ export const sentryLoggerMiddleware: Middleware = () => next => action => {
           }`
         : 'Rejected RTK action',
       'sentry.ts',
-      {...action},
+      {...action, url: sanitizeUrl(action.meta.baseQueryMeta?.request?.url)},
     )
   }
   return next(action)
