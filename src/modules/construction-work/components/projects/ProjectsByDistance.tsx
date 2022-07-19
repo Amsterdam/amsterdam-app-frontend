@@ -13,13 +13,13 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {AddressRouteName} from '@/modules/address/routes'
-import {sortProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
+import {useSortProjects} from '@/modules/construction-work/hooks/useSortProjects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {ModuleSlugs} from '@/modules/slugs'
@@ -126,6 +126,7 @@ export const ProjectsByDistance = ({
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
+  const {sortProjects} = useSortProjects()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()

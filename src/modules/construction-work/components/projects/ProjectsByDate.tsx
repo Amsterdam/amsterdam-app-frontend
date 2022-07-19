@@ -3,10 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlatGrid} from 'react-native-super-grid'
+import {useSortProjects} from '../../hooks/useSortProjects'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {sortProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -60,6 +60,7 @@ export const ProjectsByDate = () => {
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
     >()
+  const {sortProjects} = useSortProjects()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
