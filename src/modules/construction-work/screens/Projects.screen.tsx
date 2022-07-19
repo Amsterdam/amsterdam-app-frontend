@@ -24,7 +24,7 @@ export const ProjectsScreen = () => {
   const hasSearchText = !!searchText
 
   return (
-    <Screen>
+    <Screen withBottomInset={false}>
       <Box insetHorizontal="md">
         <ProjectsTextSearchField />
         {!hasAddress && !isSearching && <ProvideAddressButton />}

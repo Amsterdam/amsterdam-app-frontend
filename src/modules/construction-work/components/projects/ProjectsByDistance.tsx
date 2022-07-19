@@ -1,50 +1,39 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {skipToken} from '@reduxjs/toolkit/dist/query'
-import React, {useContext} from 'react'
-import {StyleSheet} from 'react-native'
-import {FlatGrid} from 'react-native-super-grid'
+import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
-import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
+import {Box} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
-import {EmptyMessage} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
+import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {AddressRouteName} from '@/modules/address/routes'
-import {
-  ProjectCard,
-  ProjectTraits,
-} from '@/modules/construction-work/components/shared'
+import {ProjectsBy} from '@/modules/construction-work/components/projects'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {useSortProjects} from '@/modules/construction-work/hooks/useSortProjects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {ProjectsItem} from '@/modules/construction-work/types'
 import {ModuleSlugs} from '@/modules/slugs'
-import {DeviceContext} from '@/providers'
-import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
 import {Address} from '@/types'
-import {accessibleText, mapImageSources} from '@/utils'
 
 type ListHeaderProps = {
-  address: string
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkRouteName.projects
-  >
+  addressText: string
 }
 
-const ListHeader = ({address, navigation}: ListHeaderProps) => {
+const ListHeader = ({addressText}: ListHeaderProps) => {
   const {color} = useTheme()
+  const navigation =
+    useNavigation<
+      StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
+    >()
 
   return (
     <Box>
       <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={`Werkzaamheden dichtbij ${address}`}>
-          Dichtbij {address}
+        <Paragraph accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}>
+          Dichtbij {addressText}
         </Paragraph>
         <IconButton
           accessibilityLabel="Wijzig het adres"
@@ -66,52 +55,6 @@ const ListHeader = ({address, navigation}: ListHeaderProps) => {
   )
 }
 
-type ListItemProps = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkRouteName.projects
-  >
-  project: ProjectsItem
-}
-
-const ListItem = ({navigation, project}: ListItemProps) => {
-  const environment = useEnvironment()
-  const {followed, meter, recent_articles, strides} = project
-
-  return (
-    <ProjectCard
-      imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      kicker={
-        <ProjectTraits
-          accessibilityLabel={accessibleText(
-            followed ? 'Volgend' : undefined,
-            [
-              meter && `${meter} meter`,
-              meter && strides && 'of',
-              strides && `${strides} stappen`,
-              'vanaf uw adres',
-            ].join(' '),
-          )}
-          {...{followed, meter, recent_articles, strides}}
-        />
-      }
-      onPress={() =>
-        navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.identifier,
-        })
-      }
-      subtitle={project.subtitle ?? undefined}
-      title={project.title}
-    />
-  )
-}
-
-const ListEmptyMessage = () => (
-  <Box insetHorizontal="md">
-    <EmptyMessage text="We hebben geen werkzaamheden gevonden dichtbij dit adres." />
-  </Box>
-)
-
 type Props = {
   address: Address
 }
@@ -119,20 +62,11 @@ type Props = {
 export const ProjectsByDistance = ({
   address: {
     centroid: [lon = 0, lat = 0],
-    adres,
+    adres: addressText,
   },
 }: Props) => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
-    >()
-
-  const {fontScale} = useContext(DeviceContext)
-  const {size} = useTheme()
-  const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
-
-  const params = {
-    address: lat && lon ? '' : adres,
+  const result = useGetProjectsQuery({
+    address: lat && lon ? '' : addressText,
     articles_max_age: articlesMaxAgeInDays,
     fields: [
       'followed',
@@ -145,52 +79,22 @@ export const ProjectsByDistance = ({
     lat,
     lon,
     sortBy: 'meter',
-  }
+  })
 
-  const {
-    data: projects = [],
-    isLoading,
-    isError,
-  } = useGetProjectsQuery(params ?? skipToken)
-
-  const sortedProjects = useSortProjects(projects)
-
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
-  if (isError) {
-    return <SomethingWentWrong />
-  }
+  const sortedProjects = useSortProjects(result.data)
 
   return (
-    <Column gutter="md">
-      <FlatGrid
-        data={sortedProjects}
-        itemContainerStyle={styles.itemContainer}
-        itemDimension={itemDimension}
-        keyboardDismissMode="on-drag"
-        keyExtractor={project => project.identifier}
-        ListEmptyComponent={ListEmptyMessage}
-        ListHeaderComponent={
-          <ListHeader address={adres} navigation={navigation} />
-        }
-        renderItem={({item}) => (
-          <ListItem navigation={navigation} project={item} />
-        )}
-        scrollIndicatorInsets={{right: Number.MIN_VALUE}}
-        spacing={size.spacing.md}
-      />
-    </Column>
+    <ProjectsBy
+      {...result}
+      data={sortedProjects}
+      getProjectTraits={({followed, meter, recent_articles, strides}) => ({
+        followed,
+        meter,
+        recent_articles,
+        strides,
+      })}
+      listHeader={<ListHeader addressText={addressText} />}
+      noResultsMessage="We hebben geen werkzaamheden gevonden dichtbij dit adres."
+    />
   )
 }
-
-const styles = StyleSheet.create({
-  iconButton: {
-    width: 24,
-    aspectRatio: 1,
-  },
-  itemContainer: {
-    justifyContent: 'flex-start',
-  },
-})

@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 import simplur from 'simplur'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
 import {Button, FollowButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice, useSentry} from '@/hooks'
@@ -106,7 +106,7 @@ export const Project = ({id}: Props) => {
   const followersLabel = simplur`${[followers]} volger[|s]`
 
   return (
-    <ScrollView>
+    <>
       {!!images.length && (
         <Image
           aspectRatio="wide"
@@ -176,6 +176,6 @@ export const Project = ({id}: Props) => {
           <ArticleOverview projectIds={[id]} title="Nieuws" />
         </Box>
       </Column>
-    </ScrollView>
+    </>
   )
 }

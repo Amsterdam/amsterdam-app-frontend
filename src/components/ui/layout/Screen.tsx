@@ -1,37 +1,53 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {ScrollView} from '@/components/ui/layout'
 
 type Props = {
   children: ReactNode
-  safeBottomInset?: boolean
-  safeTopInset?: boolean
+  withBottomInset?: boolean
+  withTopInset?: boolean
+  scroll?: boolean
 }
 
 export const Screen = ({
   children,
-  safeTopInset = true,
-  safeBottomInset = false,
+  withTopInset = false,
+  withBottomInset = true,
+  scroll = false,
 }: Props) => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets, {
-    safeBottomInset: safeBottomInset,
-    safeTopInset: safeTopInset,
+    withTopInset,
+    withBottomInset,
   })
 
-  return <View style={styles.screen}>{children}</View>
+  return scroll ? (
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.view}>{children}</View>
+    </ScrollView>
+  ) : (
+    <View style={styles.view}>{children}</View>
+  )
 }
 
 const createStyles = (
-  insets: Partial<EdgeInsets>,
-  {safeBottomInset, safeTopInset}: Partial<Props>,
-) =>
-  StyleSheet.create({
-    screen: {
+  {bottom, left, right, top}: EdgeInsets,
+  {
+    withBottomInset,
+    withTopInset,
+  }: Pick<Props, 'withTopInset' | 'withBottomInset'>,
+) => {
+  return StyleSheet.create({
+    scrollView: {
       flex: 1,
-      paddingBottom: safeBottomInset ? insets.bottom : 0,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-      paddingTop: safeTopInset ? insets.top : 0,
+    },
+    view: {
+      flex: 1,
+      paddingBottom: withBottomInset ? bottom : 0,
+      paddingLeft: left,
+      paddingRight: right,
+      paddingTop: withTopInset ? top : 0,
     },
   })
+}
