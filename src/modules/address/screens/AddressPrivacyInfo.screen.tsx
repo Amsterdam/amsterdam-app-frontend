@@ -18,7 +18,7 @@ export const AddressPrivacyInfoScreen = ({
     AddressRouteName.addressInfo
   >
 }) => {
-  const {color, size} = useTheme()
+  const {color} = useTheme()
 
   return (
     <Screen>
@@ -37,21 +37,21 @@ export const AddressPrivacyInfoScreen = ({
           </Row>
           <Column align="between" gutter="xl">
             <View>
-              <Title margin text="Veilig omgaan met uw adres" />
-              <Text margin intro>
+              <Title text="Veilig omgaan met uw adres" />
+              <Paragraph variant="intro">
                 Wij slaan uw adres niet op. Het staat alleen in de app op uw
                 telefoon. We kunnen uw adres dus aan niemand geven.
-              </Text>
-              <Text margin>
+              </Paragraph>
+              <Paragraph>
                 Wij gebruiken uw adres alleen om u informatie uit uw buurt te
                 laten zien. De informatie gaat over wegwerkzaamheden,
                 bouwprojecten, het dichtstbijzijnde Stadsloket en informatie
                 over afval.
-              </Text>
-              <Text margin>
+              </Paragraph>
+              <Paragraph>
                 U kunt uw adres wijzigen of verwijderen. Ga dan naar uw
                 instellingen.
-              </Text>
+              </Paragraph>
             </View>
             <Button label="Ik begrijp het" onPress={navigation.goBack} />
           </Column>
