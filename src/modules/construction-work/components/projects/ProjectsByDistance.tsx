@@ -126,7 +126,6 @@ export const ProjectsByDistance = ({
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
-  const {sortProjects} = useSortProjects()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -154,6 +153,8 @@ export const ProjectsByDistance = ({
     isError,
   } = useGetProjectsQuery(params ?? skipToken)
 
+  const sortedProjects = useSortProjects(projects)
+
   if (isLoading) {
     return <PleaseWait />
   }
@@ -165,7 +166,7 @@ export const ProjectsByDistance = ({
   return (
     <Column gutter="md">
       <FlatGrid
-        data={sortProjects(projects)}
+        data={sortedProjects}
         itemContainerStyle={styles.itemContainer}
         itemDimension={itemDimension}
         keyboardDismissMode="on-drag"

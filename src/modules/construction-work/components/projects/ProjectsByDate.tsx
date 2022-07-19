@@ -60,7 +60,6 @@ export const ProjectsByDate = () => {
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
     >()
-  const {sortProjects} = useSortProjects()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -85,6 +84,8 @@ export const ProjectsByDate = () => {
     sortOrder: 'desc',
   })
 
+  const sortedProjects = useSortProjects(projects)
+
   if (isLoading) {
     return <PleaseWait />
   }
@@ -95,7 +96,7 @@ export const ProjectsByDate = () => {
 
   return (
     <FlatGrid
-      data={sortProjects(projects)}
+      data={sortedProjects}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
