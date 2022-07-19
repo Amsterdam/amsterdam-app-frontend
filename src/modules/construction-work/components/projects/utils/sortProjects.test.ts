@@ -160,7 +160,7 @@ describe('Compare sort result of recent article dates', () => {
   test('Project with articles should come before projects without', () => {
     expect(compareRecentArticleDates([])(project4, project2)).toBe(-1)
   })
-  test('Projects without articles should stay as they are', () => {
+  test('The order of projects should be unchanged when no articles are present', () => {
     expect(compareRecentArticleDates([])(project1, project2)).toBe(1)
   })
 })
