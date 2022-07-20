@@ -12,7 +12,7 @@ export const WasteGuideStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={WasteGuideRouteName.wasteMenu}
+      initialRouteName={WasteGuideRouteName.wasteGuide}
       screenOptions={screenOptions(theme)}>
       {Object.entries(wasteGuideScreenConfig).map(([key, route]) => (
         <Stack.Screen key={key} {...route} />
