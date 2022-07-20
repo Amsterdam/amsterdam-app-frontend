@@ -1,22 +1,23 @@
 import React from 'react'
 import {VersionInfo} from '../../../components/features'
 import {Alert, Box} from '../../../components/ui'
-import {Column, Gutter, ScrollView} from '../../../components/ui/layout'
+import {Column, Screen, ScrollView} from '../../../components/ui/layout'
 import {Address} from '../../address/components'
 import {ProjectManagerUserSection} from '../components'
 
 export const UserScreen = () => (
-  <ScrollView>
-    <Alert />
-    <Column gutter="lg">
-      <Box>
-        <Address />
-      </Box>
-      <ProjectManagerUserSection />
-      <Box insetHorizontal="md">
-        <VersionInfo />
-      </Box>
-    </Column>
-    <Gutter height="xl" />
-  </ScrollView>
+  <Screen>
+    <ScrollView grow>
+      <Alert />
+      <Column gutter="md">
+        <Box>
+          <Address />
+        </Box>
+        <ProjectManagerUserSection />
+      </Column>
+    </ScrollView>
+    <Box insetHorizontal="md">
+      <VersionInfo />
+    </Box>
+  </Screen>
 )
