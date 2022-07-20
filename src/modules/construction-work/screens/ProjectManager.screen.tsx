@@ -4,7 +4,7 @@ import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {Column, Screen, ScrollView} from '@/components/ui/layout'
+import {Column, Screen} from '@/components/ui/layout'
 import {ProjectManagerSummary} from '@/modules/construction-work/components/project-manager'
 import {
   ConstructionWorkRouteName,
@@ -29,19 +29,17 @@ type Props = {
 }
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => (
-  <Screen>
-    <ScrollView grow>
-      <Column align="between">
-        <ProjectManagerSummary routeParamsId={route.params.id} />
-        <Box>
-          <Button
-            label="Sluit venster"
-            onPress={() =>
-              navigation.navigate(homeModule.slug, {screen: HomeRouteName.home})
-            }
-          />
-        </Box>
-      </Column>
-    </ScrollView>
+  <Screen scroll>
+    <Column align="between">
+      <ProjectManagerSummary routeParamsId={route.params.id} />
+      <Box>
+        <Button
+          label="Sluit venster"
+          onPress={() =>
+            navigation.navigate(homeModule.slug, {screen: HomeRouteName.home})
+          }
+        />
+      </Box>
+    </Column>
   </Screen>
 )

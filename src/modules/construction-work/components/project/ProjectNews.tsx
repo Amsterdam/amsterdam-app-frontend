@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect} from 'react'
 import {Box, PleaseWait} from '@/components/ui'
-import {Column, ScrollView} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
 import {
@@ -52,7 +52,7 @@ export const ProjectNews = ({id}: Props) => {
   }
 
   return (
-    <ScrollView>
+    <>
       {news?.images?.length ? (
         <Image
           aspectRatio="wide"
@@ -69,6 +69,6 @@ export const ProjectNews = ({id}: Props) => {
           </Column>
         </Box>
       )}
-    </ScrollView>
+    </>
   )
 }

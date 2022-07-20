@@ -12,7 +12,7 @@ import {
   Title,
 } from '@/components/ui'
 import {SubmitButton, TextButton} from '@/components/ui/buttons'
-import {Column, Row, Screen, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {
   useAddProjectWarningImageMutation,
@@ -180,52 +180,50 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 
   return (
-    <Screen>
-      <ScrollView grow>
-        <Column align="between" gutter="xl">
-          <Box>
-            <Column gutter="lg">
-              <Title text="Controleer" />
-              <SingleSelectable>
-                <Text>Project</Text>
-                {project && <Title level={2} text={project.title} />}
-              </SingleSelectable>
-              {notification && (
-                <>
-                  <Preview label="Pushbericht">
-                    <Title level={2} text={notification.title} />
-                    <Text>{notification.body}</Text>
-                  </Preview>
-                </>
-              )}
-              {newsArticle && (
-                <Preview label="Nieuwsartikel">
-                  <Text>{newsArticle.title}</Text>
+    <Screen scroll>
+      <Column align="between" gutter="xl">
+        <Box>
+          <Column gutter="lg">
+            <Title text="Controleer" />
+            <SingleSelectable>
+              <Text>Project</Text>
+              {project && <Title level={2} text={project.title} />}
+            </SingleSelectable>
+            {notification && (
+              <>
+                <Preview label="Pushbericht">
+                  <Title level={2} text={notification.title} />
+                  <Text>{notification.body}</Text>
                 </Preview>
-              )}
-              {projectWarning && (
-                <Preview image={image} label="Nieuwsartikel">
-                  <Text>Omschrijving: {mainImageDescription}</Text>
-                  <Title level={2} text={projectWarning.title} />
-                  <Text intro>{projectWarning.body.preface}</Text>
-                  <Text>{projectWarning.body.content}</Text>
-                </Preview>
-              )}
-            </Column>
-          </Box>
-          <Box>
-            <Row align="between" valign="center">
-              <TextButton
-                direction="backward"
-                emphasis
-                label="Vorige"
-                onPress={navigation.goBack}
-              />
-              <SubmitButton onPress={handleSubmit} label="Verstuur" />
-            </Row>
-          </Box>
-        </Column>
-      </ScrollView>
+              </>
+            )}
+            {newsArticle && (
+              <Preview label="Nieuwsartikel">
+                <Text>{newsArticle.title}</Text>
+              </Preview>
+            )}
+            {projectWarning && (
+              <Preview image={image} label="Nieuwsartikel">
+                <Text>Omschrijving: {mainImageDescription}</Text>
+                <Title level={2} text={projectWarning.title} />
+                <Text intro>{projectWarning.body.preface}</Text>
+                <Text>{projectWarning.body.content}</Text>
+              </Preview>
+            )}
+          </Column>
+        </Box>
+        <Box>
+          <Row align="between" valign="center">
+            <TextButton
+              direction="backward"
+              emphasis
+              label="Vorige"
+              onPress={navigation.goBack}
+            />
+            <SubmitButton onPress={handleSubmit} label="Verstuur" />
+          </Row>
+        </Box>
+      </Column>
     </Screen>
   )
 }

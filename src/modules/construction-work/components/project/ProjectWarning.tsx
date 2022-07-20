@@ -1,9 +1,8 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {View} from 'react-native'
 import {Box, PleaseWait} from '@/components/ui'
 import {Hero} from '@/components/ui/Hero'
-import {Column, ScrollView} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
@@ -65,18 +64,16 @@ export const ProjectWarning = ({id}: Props) => {
   }
 
   return (
-    <ScrollView>
-      <View>
-        {mainImage ? (
-          <Image
-            accessible
-            accessibilityLabel={mainImage.description}
-            source={mapWarningImageSources(mainImage.sources, environment)}
-          />
-        ) : (
-          <Hero />
-        )}
-      </View>
+    <>
+      {mainImage ? (
+        <Image
+          accessible
+          accessibilityLabel={mainImage.description}
+          source={mapWarningImageSources(mainImage.sources, environment)}
+        />
+      ) : (
+        <Hero />
+      )}
       <Box>
         <Column gutter="md">
           <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
@@ -90,6 +87,6 @@ export const ProjectWarning = ({id}: Props) => {
           <ProjectContacts contacts={project.contacts} />
         </Box>
       )}
-    </ScrollView>
+    </>
   )
 }

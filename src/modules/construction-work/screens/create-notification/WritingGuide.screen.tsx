@@ -11,7 +11,7 @@ import {
   ZebraListItemProps,
 } from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row, Screen, ScrollView} from '@/components/ui/layout'
+import {Column, Gutter, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {
   CreateNotificationRouteName,
@@ -59,33 +59,33 @@ export const WritingGuideScreen = ({navigation}: Props) => {
   )
 
   return (
-    <Screen>
-      <Row align="end">
-        <Box>
-          <IconButton
-            accessibilityLabel="Sluiten"
-            icon={
-              <Icon size={20}>
-                <Close fill={color.text.default} />
-              </Icon>
-            }
-            onPress={navigation.goBack}
-          />
-        </Box>
-      </Row>
-      <ScrollView>
-        <Column align="between">
-          <Box insetHorizontal="md">
-            <Title text="Schrijftips" />
-          </Box>
-          <Gutter height="md" />
-          <ZebraList data={tips} renderItem={RenderTip} />
+    <Screen
+      scroll
+      stickyHeader={
+        <Row align="end">
           <Box>
-            <Button label="Aan de slag!" onPress={navigation.goBack} />
+            <IconButton
+              accessibilityLabel="Sluiten"
+              icon={
+                <Icon size={20}>
+                  <Close fill={color.text.default} />
+                </Icon>
+              }
+              onPress={navigation.goBack}
+            />
           </Box>
-        </Column>
+        </Row>
+      }>
+      <Column align="between">
+        <Box insetHorizontal="md">
+          <Title text="Schrijftips" />
+        </Box>
         <Gutter height="md" />
-      </ScrollView>
+        <ZebraList data={tips} renderItem={RenderTip} />
+        <Box>
+          <Button label="Aan de slag!" onPress={navigation.goBack} />
+        </Box>
+      </Column>
     </Screen>
   )
 }
