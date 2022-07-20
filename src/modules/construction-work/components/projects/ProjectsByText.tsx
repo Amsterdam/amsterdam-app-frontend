@@ -1,9 +1,9 @@
 import React from 'react'
 import simplur from 'simplur'
-import {ProjectsBy} from './ProjectsBy'
 import {Box} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {ProjectsList} from '@/modules/construction-work/components/projects'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 
 type ListHeaderProps = {
@@ -29,7 +29,7 @@ export const ProjectsByText = ({searchText}: Props) => {
   })
 
   return (
-    <ProjectsBy
+    <ProjectsList
       {...result}
       listHeader={<ListHeader results={result.data?.length ?? 0} />}
       noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."

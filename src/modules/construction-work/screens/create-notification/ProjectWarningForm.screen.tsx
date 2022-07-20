@@ -119,10 +119,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }, [mainImage, navigation])
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
+    return navigation.addListener('focus', () => {
       dispatch(setStep(2))
     })
-    return focusListener
   }, [dispatch, navigation])
 
   useEffect(() => {

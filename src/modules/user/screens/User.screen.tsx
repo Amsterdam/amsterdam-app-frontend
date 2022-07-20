@@ -6,8 +6,7 @@ import {Address} from '@/modules/address/components'
 import {ProjectManagerUserSection} from '@/modules/user/components'
 
 export const UserScreen = () => (
-  <Screen scroll>
-    <Alert />
+  <Screen scroll stickyHeader={<Alert />}>
     <Column gutter="lg">
       <Box>
         <Address />

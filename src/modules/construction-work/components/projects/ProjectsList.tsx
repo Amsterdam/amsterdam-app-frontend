@@ -32,9 +32,9 @@ const ListItem = ({navigation, project, getProjectTraits}: ListItemProps) => {
   const environment = useEnvironment()
 
   let projectTraits
-  const traits = getProjectTraits?.(project)
 
-  if (traits) {
+  if (getProjectTraits) {
+    const traits = getProjectTraits?.(project)
     const {followed, meter, strides} = traits
     projectTraits = (
       <ProjectTraits
@@ -81,7 +81,7 @@ type Props = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
 }
 
-export const ProjectsBy = ({
+export const ProjectsList = ({
   isError,
   isLoading,
   data = [],

@@ -1,21 +1,34 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, StyleProp, ViewStyle, View} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/KeyboardAvoidingView'
 import {ScrollView} from '@/components/ui/layout'
 
-const getWrapper = (scroll: boolean, keyboardAware: boolean) => {
+type WrapperProps = Pick<Props, 'scroll' | 'keyboardAware' | 'children'> & {
+  keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
+}
+
+const Wrapper = ({
+  keyboardAware = false,
+  scroll = false,
+  children,
+  keyboardAwareScrollViewStyle,
+}: WrapperProps) => {
   if (scroll) {
     if (keyboardAware) {
-      return KeyboardAwareScrollView
+      return (
+        <KeyboardAwareScrollView style={keyboardAwareScrollViewStyle}>
+          {children}
+        </KeyboardAwareScrollView>
+      )
     }
-    return ScrollView
+    return <ScrollView grow>{children}</ScrollView>
   }
   if (keyboardAware) {
-    return KeyboardAvoidingView
+    return <KeyboardAvoidingView>{children}</KeyboardAvoidingView>
   }
-  return
+  return <>{children}</>
 }
 
 type Props = {
@@ -30,12 +43,11 @@ type Props = {
 
 export const Screen = ({
   children,
-  keyboardAware = false,
-  scroll = false,
   stickyFooter,
   stickyHeader,
   withTopInset = false,
   withBottomInset = true,
+  ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets, {
@@ -45,13 +57,14 @@ export const Screen = ({
     hasStickyHeader: !!stickyHeader,
   })
 
-  const Wrapper = getWrapper(scroll, keyboardAware)
-  const content = <View style={styles.content}>{children}</View>
-
   return (
     <View style={styles.screen}>
       {stickyHeader}
-      {Wrapper ? <Wrapper style={styles.wrapper}>{content}</Wrapper> : content}
+      <Wrapper
+        {...wrapperProps}
+        keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}>
+        <View style={styles.content}>{children}</View>
+      </Wrapper>
       {stickyFooter}
     </View>
   )
@@ -77,7 +90,7 @@ const createStyles = (
       paddingRight: right,
       paddingTop: withTopInset && hasStickyHeader ? top : 0,
     },
-    wrapper: {
+    keyboardAwareScrollView: {
       flex: 1,
     },
     content: {

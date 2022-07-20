@@ -1,5 +1,5 @@
 import React, {ReactElement, useMemo} from 'react'
-import {ImageSourcePropType, Pressable, StyleSheet, View} from 'react-native'
+import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -37,26 +37,22 @@ export const ProjectCard = ({
         )}
         onPress={onPress}
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
-        <View>
-          {imageSource && (
-            <>
-              <Image aspectRatio="wide" source={imageSource} />
-              <Gutter height="sm" />
-            </>
-          )}
-          <View>
-            {kicker && (
-              <>
-                {kicker}
-                <Gutter height="xs" />
-              </>
-            )}
-            <Title color="link" level="h4" text={title} />
-            {subtitle ? <Paragraph>{subtitle}</Paragraph> : null}
-          </View>
-          {/*TODO Replace with better `Grid` gutters */}
-          <Gutter height="sm" />
-        </View>
+        {!!imageSource && (
+          <>
+            <Image aspectRatio="wide" source={imageSource} />
+            <Gutter height="sm" />
+          </>
+        )}
+        {!!kicker && (
+          <>
+            {kicker}
+            <Gutter height="xs" />
+          </>
+        )}
+        <Title color="link" level="h4" text={title} />
+        {!!subtitle && <Paragraph>{subtitle}</Paragraph>}
+        {/*TODO Replace with better `Grid` gutters */}
+        <Gutter height="sm" />
       </Pressable>
       <Gutter height="sm" />
     </>
