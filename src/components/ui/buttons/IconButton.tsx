@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native'
 import {Badge, BadgeProps} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -23,14 +24,16 @@ export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable {...props}>
-      {icon}
-      {badgeValue ? (
-        <View style={styles.badgePosition}>
-          <Badge accessible={false} value={badgeValue} />
-        </View>
-      ) : null}
-    </Pressable>
+    <Row align="start">
+      <Pressable {...props}>
+        {icon}
+        {badgeValue ? (
+          <View style={styles.badgePosition}>
+            <Badge accessible={false} value={badgeValue} />
+          </View>
+        ) : null}
+      </Pressable>
+    </Row>
   )
 }
 
