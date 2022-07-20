@@ -1,13 +1,13 @@
 import React from 'react'
 import {VersionInfo} from '@/components/features'
 import {Alert, Box} from '@/components/ui'
-import {Column, Gutter, Screen} from '@/components/ui/layout'
+import {Column, Screen} from '@/components/ui/layout'
 import {Address} from '@/modules/address/components'
 import {ProjectManagerUserSection} from '@/modules/user/components'
 
 export const UserScreen = () => (
   <Screen scroll stickyHeader={<Alert />}>
-    <Column gutter="lg">
+    <Column align="between" grow gutter="lg">
       <Box>
         <Address />
       </Box>
@@ -16,6 +16,5 @@ export const UserScreen = () => (
         <VersionInfo />
       </Box>
     </Column>
-    <Gutter height="xl" />
   </Screen>
 )
