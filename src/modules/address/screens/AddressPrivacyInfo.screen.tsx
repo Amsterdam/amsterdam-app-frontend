@@ -22,7 +22,6 @@ export const AddressPrivacyInfoScreen = ({
   return (
     <Screen
       scroll
-      withTopInset
       stickyHeader={
         <Box>
           <Row align="end">
@@ -37,7 +36,8 @@ export const AddressPrivacyInfoScreen = ({
             />
           </Row>
         </Box>
-      }>
+      }
+      withTopInset>
       <Box>
         <Title text="Veilig omgaan met uw adres" />
         <Box insetVertical="md">

@@ -36,7 +36,7 @@ export const ErrorWithRestart = () => {
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({
     screen: {
-      flex: 1,
       backgroundColor: color.screen.background.default,
+      flex: 1,
     },
   })

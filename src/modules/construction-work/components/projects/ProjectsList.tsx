@@ -23,16 +23,14 @@ import {accessibleText, mapImageSources} from '@/utils'
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 
 type ListItemProps = {
+  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
   project: ProjectsItem
-  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
 }
 
-const ListItem = ({navigation, project, getProjectTraits}: ListItemProps) => {
+const ListItem = ({getProjectTraits, navigation, project}: ListItemProps) => {
   const environment = useEnvironment()
-
   let projectTraits
-
   if (getProjectTraits) {
     const traits = getProjectTraits?.(project)
     const {followed, meter, strides} = traits
@@ -73,21 +71,21 @@ const ListEmptyMessage = ({text}: ListEmptyMessageProps) => (
 )
 
 type Props = {
+  data?: ProjectsItem[]
+  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   isError: boolean
   isLoading: boolean
-  data?: ProjectsItem[]
   listHeader?: JSX.Element
   noResultsMessage?: string
-  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
 }
 
 export const ProjectsList = ({
+  data = [],
+  getProjectTraits,
   isError,
   isLoading,
-  data = [],
-  noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
   listHeader,
-  getProjectTraits,
+  noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
 }: Props) => {
   const navigation =
     useNavigation<

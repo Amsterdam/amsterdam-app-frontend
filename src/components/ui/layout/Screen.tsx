@@ -5,15 +5,15 @@ import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/KeyboardAvoidingView'
 import {ScrollView} from '@/components/ui/layout'
 
-type WrapperProps = Pick<Props, 'scroll' | 'keyboardAware' | 'children'> & {
+type WrapperProps = Pick<Props, 'children' | 'keyboardAware' | 'scroll'> & {
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
 }
 
 const Wrapper = ({
-  keyboardAware = false,
-  scroll = false,
   children,
+  keyboardAware = false,
   keyboardAwareScrollViewStyle,
+  scroll = false,
 }: WrapperProps) => {
   if (scroll) {
     if (keyboardAware) {
@@ -45,24 +45,24 @@ export const Screen = ({
   children,
   stickyFooter,
   stickyHeader,
-  withTopInset = false,
   withBottomInset = true,
+  withTopInset = false,
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets, {
-    withTopInset,
-    withBottomInset,
     hasStickyFooter: !!stickyFooter,
     hasStickyHeader: !!stickyHeader,
+    withBottomInset,
+    withTopInset,
   })
 
   return (
     <View style={styles.screen}>
       {stickyHeader}
       <Wrapper
-        {...wrapperProps}
-        keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}>
+        keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
+        {...wrapperProps}>
         <View style={styles.content}>{children}</View>
       </Wrapper>
       {stickyFooter}
@@ -73,11 +73,11 @@ export const Screen = ({
 const createStyles = (
   {bottom, left, right, top}: EdgeInsets,
   {
-    withBottomInset,
-    withTopInset,
     hasStickyFooter,
     hasStickyHeader,
-  }: Pick<Props, 'withTopInset' | 'withBottomInset'> & {
+    withBottomInset,
+    withTopInset,
+  }: Pick<Props, 'withBottomInset' | 'withTopInset'> & {
     hasStickyFooter: boolean
     hasStickyHeader: boolean
   },

@@ -4,7 +4,7 @@ import {Screen} from '@/components/ui/layout'
 import {isDevApp} from '@/processes'
 
 export const AdminScreen = () => (
-  <Screen scroll keyboardAware>
+  <Screen keyboardAware scroll>
     {!!isDevApp && <EnvironmentSelector />}
   </Screen>
 )
