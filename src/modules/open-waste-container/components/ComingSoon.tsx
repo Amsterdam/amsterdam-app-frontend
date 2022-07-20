@@ -12,7 +12,7 @@ export const ComingSoon = () => (
     <Box insetHorizontal="md" insetVertical="lg">
       <Column gutter="md">
         <Title text="Open een gft-container met deze app" />
-        <Paragraph>
+        <Paragraph variant="intro">
           Vanaf volgend jaar kunt u een gft-container openen met uw telefoon. U
           kunt dit dan op deze pagina activeren.
         </Paragraph>
