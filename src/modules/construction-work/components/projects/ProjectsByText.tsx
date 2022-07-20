@@ -10,7 +10,6 @@ import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {sortProjects} from '@/modules/construction-work/components/projects'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -95,7 +94,7 @@ export const ProjectsByText = ({searchText}: Props) => {
 
   return (
     <FlatGrid
-      data={sortProjects(projects)}
+      data={projects}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
