@@ -8,7 +8,6 @@ import {getAccessibleDistanceText} from './utils/getAccessibleDistanceText'
 import {RootStackParams} from '@/app/navigation'
 import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {sortProjects} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
@@ -108,7 +107,7 @@ export const ProjectsList = ({
   return (
     <FlatGrid
       contentContainerStyle={{paddingBottom}}
-      data={sortProjects(data)}
+      data={data}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
