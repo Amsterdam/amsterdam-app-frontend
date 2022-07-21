@@ -22,3 +22,30 @@ To accomplish removal of the app data differs per OS:
 - In the menu go to "Storage" (or "Opslag" in Dutch)
 - At the bottom press the "Delete data" (in Dutch "Gegevens wissen") button and press Ok
 - Go back to the app to see the counters
+
+#### 21-07-2022 - list of projects with recent articles:
+- IJboulevard
+- Jacob Catskade
+- Houtmankade
+- Herengracht 522 t/m 532
+- Herengracht 1 t/m 103
+- H-buurt Midden
+- Hamerkwartier
+- Geuzenveld
+- Gerard Doubuurt
+- Frans Halsbuurt
+- Ferdinand Bolstraat Zuid
+- Entreegebied Gulden Winckel
+- Eerste Van Swindenstraat
+- Eenhoorngebied
+- E-buurt
+- Diemerpark
+- De Ruijterkade Oost
+- Cornelis Lelylaan en Koningin Wilhelminaplein
+- Burgemeester Röellstraat
+- Bullebak en Bullebakssluis
+- Binnenring
+- Baarsjesweg 216 - 313
+- Amsterdam Science Park
+- Amstelstation-Amsteloever
+- Amstelstation
