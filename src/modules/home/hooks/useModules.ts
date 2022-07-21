@@ -10,22 +10,6 @@ import {mergeModulesConfig} from '@/utils'
 
 const MAX_RETRIES = 3
 
-const tempGetModulesForAppApiStatesSelector = (state: {
-  api?: {queries?: Record<string, unknown>}
-}) => {
-  if (state.api?.queries) {
-    return Object.entries(state.api.queries).reduce<unknown[]>(
-      (result, [key, value]) => {
-        return key.indexOf('getModulesForApp') === 0
-          ? [...result, value]
-          : result
-      },
-      [],
-    )
-  }
-  return []
-}
-
 const postProcessModules = (
   disabledModulesBySlug: string[],
   serverModules?: ModuleServerConfig[],
@@ -65,15 +49,10 @@ export const useModules = () => {
     )
   }, [disabledModulesBySlug, serverModules])
 
-  const getModulesForAppApiStates = useSelector(
-    tempGetModulesForAppApiStatesSelector,
-  )
-
   useEffect(() => {
     if (error) {
       sendSentryErrorLog('useGetModulesForAppQuery error', 'useModules.ts', {
         error,
-        getModulesForAppApiStates,
         retriesRemaining,
         serverModules,
       })
@@ -86,7 +65,6 @@ export const useModules = () => {
     }
   }, [
     error,
-    getModulesForAppApiStates,
     isLoading,
     refetch,
     retriesRemaining,
