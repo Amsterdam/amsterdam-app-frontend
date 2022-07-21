@@ -44,7 +44,7 @@ const constructionWorkPersistConfig = {
 }
 
 const constructionWorkEditorPersistConfig = {
-  key: 'constructionWorkEditor',
+  key: 'projectManager',
   storage: AsyncStorage,
 }
 
