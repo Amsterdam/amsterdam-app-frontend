@@ -2,7 +2,7 @@ import React, {ReactNode, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useInitSentry, useRegisterDevice, useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
-import {selectProjectManager} from '@/modules/construction-work-editor/slice'
+import {selectProjectManagerId} from '@/modules/construction-work-editor/slice'
 import {getPushNotificationsPermission} from '@/processes'
 import {setCredentials} from '@/store'
 import {encryptWithAES} from '@/utils'
@@ -11,7 +11,7 @@ type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   const dispatch = useDispatch()
-  const {id: projectManagerId} = useSelector(selectProjectManager)
+  const projectManagerId = useSelector(selectProjectManagerId)
   useInitSentry()
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice} = useRegisterDevice()

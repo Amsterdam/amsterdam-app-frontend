@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {selectProjectManager} from '@/modules/construction-work-editor/slice'
+import {selectProjectManagerId} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
   selectProjectId,
@@ -53,7 +53,7 @@ const config = {maxWidth: 1920, maxHeight: 1080}
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const {color} = useTheme()
 
-  const {id: projectManagerId} = useSelector(selectProjectManager)
+  const projectManagerId = useSelector(selectProjectManagerId)
   const dispatch = useDispatch()
   const mainImage = useSelector(selectMainImage)
   const projectId = useSelector(selectProjectId)

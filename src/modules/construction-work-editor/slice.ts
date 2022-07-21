@@ -4,6 +4,7 @@ import {RootState} from '@/store'
 
 const initialState: ProjectManager = {
   id: '',
+  hasSeenWelcomeMessage: false,
   projects: [],
 }
 
@@ -20,6 +21,9 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.projects = projects
     },
+    setHasSeenWelcomeMessage: state => {
+      state.hasSeenWelcomeMessage = true
+    },
     removeProjectManager: () => initialState,
   },
 })
@@ -27,7 +31,14 @@ export const constructionWorkEditorSlice = createSlice({
 export const {
   addProjectManagerId,
   addProjectManagerProjects,
+  setHasSeenWelcomeMessage,
   removeProjectManager,
 } = constructionWorkEditorSlice.actions
 
-export const selectProjectManager = (state: RootState) => state.projectManager
+export const selectProjectManagerId = ({projectManager}: RootState) =>
+  projectManager.id
+export const selectProjectManagerHasSeenWelcomeMessage = ({
+  projectManager,
+}: RootState) => projectManager.hasSeenWelcomeMessage
+export const selectProjectManagerProjects = ({projectManager}: RootState) =>
+  projectManager.projects
