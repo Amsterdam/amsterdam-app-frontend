@@ -1,6 +1,7 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
@@ -21,7 +22,6 @@ export const AddressPrivacyInfoScreen = ({
 
   return (
     <Screen
-      scroll
       stickyHeader={
         <Box>
           <Row align="end">
@@ -38,7 +38,7 @@ export const AddressPrivacyInfoScreen = ({
         </Box>
       }
       withTopInset>
-      <Column align="between" grow>
+      <View style={styles.view}>
         <Box>
           <Title text="Veilig omgaan met uw adres" />
           <Box insetVertical="md">
@@ -63,7 +63,14 @@ export const AddressPrivacyInfoScreen = ({
         <Box>
           <Button label="Ik begrijp het" onPress={navigation.goBack} />
         </Box>
-      </Column>
+      </View>
     </Screen>
   )
 }
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+})

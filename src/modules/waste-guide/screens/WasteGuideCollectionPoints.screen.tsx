@@ -3,7 +3,7 @@ import {WebView} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 
 export const WasteGuideCollectionPointsScreen = () => (
-  <Screen>
+  <Screen scroll={false}>
     <WebView
       sliceFromTop={{portrait: 50, landscape: 50}}
       url={

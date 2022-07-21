@@ -4,7 +4,7 @@ import {Gutter, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (
-  <Screen scroll>
+  <Screen>
     <Box>
       <Title text="Buiten zetten of naar een afvalpunt?" />
       <Gutter height="sm" />

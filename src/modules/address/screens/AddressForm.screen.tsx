@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const AddressFormScreen = ({route}: Props) => (
-  <Screen>
+  <Screen scroll={false}>
     <AddressForm temp={route?.params?.addressIsTemporary} />
   </Screen>
 )

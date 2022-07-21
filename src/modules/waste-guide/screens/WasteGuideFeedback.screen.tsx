@@ -3,7 +3,7 @@ import {WebView} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 
 export const WasteGuideFeedbackScreen = () => (
-  <Screen>
+  <Screen scroll={false}>
     <WebView
       sliceFromTop={{portrait: 161, landscape: 207}}
       url={

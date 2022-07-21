@@ -10,7 +10,7 @@ export const ReportProblemScreen = () => {
 
   const environment = useEnvironment()
   return (
-    <Screen>
+    <Screen scroll={false}>
       <WebView
         url={`${environment.signalsBaseUrl}/incident/beschrijf`}
         urlParams={{

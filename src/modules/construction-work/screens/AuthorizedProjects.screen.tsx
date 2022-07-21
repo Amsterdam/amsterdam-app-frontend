@@ -6,7 +6,7 @@ import {AuthorizedProjectsUserSection} from '@/modules/user/components'
 import {openMailUrl} from '@/utils'
 
 export const AuthorizedProjectsScreen = () => (
-  <Screen scroll>
+  <Screen>
     <Box>
       <Title text="Berichten sturen" />
       <Gutter height="sm" />

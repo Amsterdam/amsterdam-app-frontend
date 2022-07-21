@@ -13,7 +13,6 @@ export const HomeScreen = () => {
 
   return (
     <Screen
-      scroll
       stickyFooter={
         <Box>
           <AddButton

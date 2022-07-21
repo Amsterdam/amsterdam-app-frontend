@@ -7,7 +7,7 @@ import {
 } from '@/modules/contact/components'
 
 export const ContactScreen = () => (
-  <Screen scroll>
+  <Screen>
     <CityOfficeOverview />
     <ReferToWebsiteCard />
     <ContactOptions />

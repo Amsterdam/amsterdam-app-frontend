@@ -9,7 +9,7 @@ import {
 
 export const WasteGuideScreen = () => {
   return (
-    <Screen scroll>
+    <Screen>
       <WasteGuideByAddress />
       <RecyclingGuideBanner />
       <Gutter height="md" />

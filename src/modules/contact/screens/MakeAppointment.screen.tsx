@@ -13,7 +13,7 @@ export const MakeAppointmentScreen = () => {
   }, [navigation])
 
   return (
-    <Screen>
+    <Screen scroll={false}>
       <WebView
         sliceFromTop={{portrait: 162, landscape: 208}}
         url="https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/"

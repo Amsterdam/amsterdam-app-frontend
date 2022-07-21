@@ -3,7 +3,7 @@ import {WebView} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 
 export const RecyclingGuideScreen = () => (
-  <Screen>
+  <Screen scroll={false}>
     <WebView url="https://www.afvalscheidingswijzer.nl" />
   </Screen>
 )

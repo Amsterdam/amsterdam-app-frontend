@@ -13,7 +13,7 @@ export const ContactFormScreen = () => {
   }, [navigation])
 
   return (
-    <Screen>
+    <Screen scroll={false}>
       <WebView
         sliceFromTop={{portrait: 50, landscape: 50}}
         url="https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx"

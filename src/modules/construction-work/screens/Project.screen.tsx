@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const ProjectScreen = ({route}: Props) => (
-  <Screen scroll>
+  <Screen>
     <Project id={route.params.id} />
   </Screen>
 )

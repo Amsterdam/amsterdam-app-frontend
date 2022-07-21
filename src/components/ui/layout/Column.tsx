@@ -12,19 +12,12 @@ import {SpacingTokens} from '@/themes/tokens'
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
-  grow?: boolean
   gutter?: keyof SpacingTokens
   halign?: CrossAxisAlignment
 }
 
-export const Column = ({
-  align,
-  children,
-  grow = false,
-  gutter,
-  halign,
-}: Props) => {
-  const styles = createStyles({align, grow, halign})
+export const Column = ({align, children, gutter, halign}: Props) => {
+  const styles = createStyles({align, halign})
 
   return (
     <View style={styles.column}>
@@ -39,16 +32,11 @@ export const Column = ({
   )
 }
 
-const createStyles = ({
-  align,
-  grow,
-  halign,
-}: Pick<Props, 'align' | 'grow' | 'halign'>) =>
+const createStyles = ({align, halign}: Pick<Props, 'align' | 'halign'>) =>
   StyleSheet.create({
     column: {
       alignItems: mapCrossAxisAlignment(halign),
-      flex: grow ? 1 : undefined,
-      flexShrink: grow ? undefined : 1,
+      flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
     },
   })

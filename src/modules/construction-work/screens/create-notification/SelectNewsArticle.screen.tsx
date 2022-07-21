@@ -75,7 +75,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }, [dispatch, navigation])
 
   return newsArticles ? (
-    <Screen scroll>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="xl">

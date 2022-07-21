@@ -25,12 +25,12 @@ export const ProjectBodyScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: headerTitle,
+      headerTitle,
     })
   })
 
   return (
-    <Screen scroll>
+    <Screen>
       <Column gutter="md">
         <Box>
           <Column gutter="md">

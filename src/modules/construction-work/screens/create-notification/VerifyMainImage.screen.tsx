@@ -67,7 +67,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
   }
 
   return (
-    <Screen scroll>
+    <Screen>
       <Box grow>
         <Column align="between">
           <Column gutter="md">

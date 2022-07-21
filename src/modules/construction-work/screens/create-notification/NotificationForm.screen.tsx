@@ -99,10 +99,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
+    return navigation.addListener('focus', () => {
       dispatch(setStep(1))
     })
-    return focusListener
   }, [dispatch, navigation])
 
   if (!projectId) {
@@ -110,7 +109,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   return (
-    <Screen scroll>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">

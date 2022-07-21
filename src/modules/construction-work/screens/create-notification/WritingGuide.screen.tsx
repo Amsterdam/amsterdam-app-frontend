@@ -60,7 +60,6 @@ export const WritingGuideScreen = ({navigation}: Props) => {
 
   return (
     <Screen
-      scroll
       stickyHeader={
         <Row align="end">
           <Box>

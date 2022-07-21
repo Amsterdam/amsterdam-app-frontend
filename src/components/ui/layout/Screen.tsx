@@ -13,7 +13,7 @@ const Wrapper = ({
   children,
   keyboardAware = false,
   keyboardAwareScrollViewStyle,
-  scroll = false,
+  scroll = true,
 }: WrapperProps) => {
   if (scroll) {
     if (keyboardAware) {

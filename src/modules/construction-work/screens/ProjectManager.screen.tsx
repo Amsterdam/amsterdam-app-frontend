@@ -29,7 +29,7 @@ type Props = {
 }
 
 export const ProjectManagerScreen = ({navigation, route}: Props) => (
-  <Screen scroll>
+  <Screen>
     <Column align="between">
       <ProjectManagerSummary routeParamsId={route.params.id} />
       <Box>

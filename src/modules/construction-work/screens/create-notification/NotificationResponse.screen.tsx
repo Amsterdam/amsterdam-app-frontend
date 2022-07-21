@@ -18,7 +18,7 @@ export const NotificationResponseScreen = () => {
   })
 
   return (
-    <Screen scroll>
+    <Screen>
       <Box>
         {responseStatus === 'success' ? (
           <Confirmation

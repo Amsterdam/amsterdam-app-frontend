@@ -14,7 +14,7 @@ export const ErrorWithRestart = () => {
 
   return (
     <View style={styles.screen}>
-      <Screen withTopInset>
+      <Screen scroll={false} withTopInset>
         <Box inset="lg">
           <Column gutter="md">
             <Attention warning>

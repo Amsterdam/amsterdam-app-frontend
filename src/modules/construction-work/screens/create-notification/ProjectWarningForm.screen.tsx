@@ -141,7 +141,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }
 
   return (
-    <Screen scroll>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">

@@ -7,7 +7,7 @@ export const MyProjectsScreen: FC = () => {
   //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
   return (
-    <Screen scroll>
+    <Screen>
       <Box>
         <Text>Hallo, ik ben een module! 🎉</Text>
       </Box>
