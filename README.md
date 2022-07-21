@@ -107,3 +107,4 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
 - [Sentry](./.docs/sentry.md)
 - [Running on Device](./.docs/running-on-device.md)
+- [Testing features](./.docs/testing-features.md)
