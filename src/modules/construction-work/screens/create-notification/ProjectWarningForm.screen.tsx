@@ -87,7 +87,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         content: data.message,
       },
       project_identifier: projectId!,
-      project_manager_id: projectManagerId,
+      project_manager_id: projectManagerId!,
     }
     dispatch(setProjectWarning(warningData))
   }

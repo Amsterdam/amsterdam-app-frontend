@@ -1,4 +1,5 @@
 import {createSelector} from '@reduxjs/toolkit'
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
@@ -13,8 +14,8 @@ export const useProjectManager = () => {
     isError: isGetProjectManagerError,
     isLoading: isGetProjectManagerLoading,
   } = useGetProjectManagerQuery(
-    {id: projectManagerId},
-    {skip: !projectManagerId, refetchOnMountOrArgChange: true},
+    projectManagerId ? {id: projectManagerId} : skipToken,
+    {refetchOnMountOrArgChange: true},
   )
 
   // avoid unnecessary re-renders

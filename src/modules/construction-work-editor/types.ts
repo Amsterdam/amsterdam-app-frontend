@@ -4,7 +4,7 @@ export enum ConstructionWorkEditorEndpointName {
 }
 
 export type ProjectManager = {
-  id: string
+  id?: string
   hasSeenWelcomeMessage: boolean
   projects: string[]
 }

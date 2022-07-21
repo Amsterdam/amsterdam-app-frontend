@@ -3,7 +3,7 @@ import {ProjectManager} from '@/modules/construction-work-editor/types'
 import {RootState} from '@/store'
 
 const initialState: ProjectManager = {
-  id: '',
+  id: undefined,
   hasSeenWelcomeMessage: false,
   projects: [],
 }
