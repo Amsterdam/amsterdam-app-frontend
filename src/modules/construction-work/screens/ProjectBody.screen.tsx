@@ -1,7 +1,7 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
 import React, {useLayoutEffect} from 'react'
 import {Box, Timeline} from '@/components/ui'
-import {Column, ScrollView} from '@/components/ui/layout'
+import {Column, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
@@ -25,14 +25,13 @@ export const ProjectBodyScreen = ({route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: headerTitle,
+      headerTitle,
     })
   })
 
   return (
-    <ScrollView>
+    <Screen>
       <Column gutter="md">
-        <></>
         <Box>
           <Column gutter="md">
             <Title text={body.title} />
@@ -46,6 +45,6 @@ export const ProjectBodyScreen = ({route}: Props) => {
           </Column>
         </Box>
       </Column>
-    </ScrollView>
+    </Screen>
   )
 }

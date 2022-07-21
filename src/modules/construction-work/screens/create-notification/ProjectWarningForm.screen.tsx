@@ -11,7 +11,7 @@ import {
   TextInput,
   ValidationWarning,
 } from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {selectProjectManager} from '@/modules/construction-work/components/project-manager'
 import {
@@ -119,10 +119,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }, [mainImage, navigation])
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
+    return navigation.addListener('focus', () => {
       dispatch(setStep(2))
     })
-    return focusListener
   }, [dispatch, navigation])
 
   useEffect(() => {
@@ -142,7 +141,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView grow>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
@@ -293,6 +292,6 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
           </Row>
         </Box>
       </Column>
-    </ScrollView>
+    </Screen>
   )
 }

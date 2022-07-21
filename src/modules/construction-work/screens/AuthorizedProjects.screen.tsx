@@ -1,12 +1,12 @@
 import React from 'react'
 import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
-import {Gutter, ScrollView} from '@/components/ui/layout'
+import {Gutter, Screen} from '@/components/ui/layout'
 import {AuthorizedProjectsUserSection} from '@/modules/user/components'
 import {openMailUrl} from '@/utils'
 
 export const AuthorizedProjectsScreen = () => (
-  <ScrollView>
+  <Screen>
     <Box>
       <Title text="Berichten sturen" />
       <Gutter height="sm" />
@@ -30,5 +30,5 @@ export const AuthorizedProjectsScreen = () => (
         }
       />
     </Box>
-  </ScrollView>
+  </Screen>
 )

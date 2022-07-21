@@ -11,7 +11,7 @@ import {
   TextInput,
   ValidationWarning,
 } from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {
   selectMainImage,
   setMainImage,
@@ -67,7 +67,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView grow>
+    <Screen>
       <Box grow>
         <Column align="between">
           <Column gutter="md">
@@ -112,6 +112,6 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
           </Row>
         </Column>
       </Box>
-    </ScrollView>
+    </Screen>
   )
 }

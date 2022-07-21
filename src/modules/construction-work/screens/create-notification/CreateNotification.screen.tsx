@@ -6,8 +6,8 @@ import {
 } from '@react-navigation/stack'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, KeyboardAvoidingView, Stepper} from '@/components/ui'
-import {Gutter} from '@/components/ui/layout'
+import {Box, Stepper} from '@/components/ui'
+import {Screen} from '@/components/ui/layout'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -53,10 +53,9 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
   }, [dispatch, route])
 
   useEffect(() => {
-    const focusListener = navigation.addListener('beforeRemove', () => {
+    return navigation.addListener('beforeRemove', () => {
       dispatch(clearDraft())
     })
-    return focusListener
   }, [dispatch, navigation])
 
   const Stack = createStackNavigator()
@@ -69,7 +68,7 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
   }
 
   return (
-    <KeyboardAvoidingView>
+    <Screen keyboardAware>
       {isStepperVisible && (
         <Box background="grey">
           <Stepper current={step} length={totalSteps} />
@@ -82,7 +81,6 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
           ),
         )}
       </Stack.Navigator>
-      <Gutter height="xl" />
-    </KeyboardAvoidingView>
+    </Screen>
   )
 }

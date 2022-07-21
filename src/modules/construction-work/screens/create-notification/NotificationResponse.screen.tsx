@@ -2,7 +2,7 @@ import React, {useLayoutEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Checkmark, Close} from '@/assets/icons'
 import {Box} from '@/components/ui'
-import {ScrollView} from '@/components/ui/layout'
+import {Screen} from '@/components/ui/layout'
 import {Confirmation} from '@/modules/construction-work/components/create-notification/Confirmation'
 import {
   selectResponseStatus,
@@ -18,7 +18,7 @@ export const NotificationResponseScreen = () => {
   })
 
   return (
-    <ScrollView>
+    <Screen>
       <Box>
         {responseStatus === 'success' ? (
           <Confirmation
@@ -36,6 +36,6 @@ export const NotificationResponseScreen = () => {
           />
         )}
       </Box>
-    </ScrollView>
+    </Screen>
   )
 }

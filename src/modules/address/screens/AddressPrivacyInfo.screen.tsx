@@ -1,10 +1,10 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
-import {Column, Row, Screen, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
@@ -18,28 +18,30 @@ export const AddressPrivacyInfoScreen = ({
     AddressRouteName.addressInfo
   >
 }) => {
-  const {color, size} = useTheme()
+  const {color} = useTheme()
 
   return (
-    <Screen handleTopNotch>
-      <ScrollView>
-        <Box inset="lg">
+    <Screen
+      stickyHeader={
+        <Box>
           <Row align="end">
             <IconButton
               accessibilityLabel="Sluiten"
-              hitSlop={size.spacing.md}
               icon={
-                <Icon size={24}>
+                <Icon size={20}>
                   <Close fill={color.text.default} />
                 </Icon>
               }
               onPress={navigation.goBack}
             />
           </Row>
-          <View>
-            <Box insetVertical="lg">
-              <Title text="Veilig omgaan met uw adres" />
-            </Box>
+        </Box>
+      }
+      withTopInset>
+      <View style={styles.view}>
+        <Box>
+          <Title text="Veilig omgaan met uw adres" />
+          <Box insetVertical="md">
             <Column gutter="md">
               <Paragraph variant="intro">
                 Wij slaan uw adres niet op. Het staat alleen in de app op uw
@@ -56,12 +58,19 @@ export const AddressPrivacyInfoScreen = ({
                 instellingen.
               </Paragraph>
             </Column>
-          </View>
+          </Box>
         </Box>
-      </ScrollView>
-      <Box inset="lg">
-        <Button label="Ik begrijp het" onPress={navigation.goBack} />
-      </Box>
+        <Box>
+          <Button label="Ik begrijp het" onPress={navigation.goBack} />
+        </Box>
+      </View>
     </Screen>
   )
 }
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+})

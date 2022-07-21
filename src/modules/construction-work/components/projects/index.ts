@@ -1,4 +1,5 @@
 export * from './config'
+export * from './ProjectsList'
 export * from './ProjectsByDate'
 export * from './ProjectsByDistance'
 export * from './ProjectsByText'

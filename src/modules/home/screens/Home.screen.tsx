@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Box} from '@/components/ui'
 import {AddButton} from '@/components/ui/buttons'
-import {Screen, ScrollView} from '@/components/ui/layout'
+import {Screen} from '@/components/ui/layout'
 import {Modules} from '@/modules/home/components'
 import {HomeRouteName, HomeStackParams} from '@/modules/home/routes'
 
@@ -12,16 +12,16 @@ export const HomeScreen = () => {
     useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
 
   return (
-    <Screen>
-      <ScrollView grow>
-        <Modules />
-      </ScrollView>
-      <Box>
-        <AddButton
-          accessibilityLabel="Instellingen"
-          onPress={() => navigation.navigate(HomeRouteName.settings)}
-        />
-      </Box>
+    <Screen
+      stickyFooter={
+        <Box>
+          <AddButton
+            accessibilityLabel="Instellingen"
+            onPress={() => navigation.navigate(HomeRouteName.settings)}
+          />
+        </Box>
+      }>
+      <Modules />
     </Screen>
   )
 }

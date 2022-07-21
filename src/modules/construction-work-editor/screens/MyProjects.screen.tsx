@@ -1,16 +1,16 @@
 import React, {FC} from 'react'
 import {Box, Text} from '@/components/ui'
-import {ScrollView} from '@/components/ui/layout'
+import {Screen} from '@/components/ui/layout'
 
 export const MyProjectsScreen: FC = () => {
   // const navigation =
   //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
   return (
-    <ScrollView>
+    <Screen>
       <Box>
         <Text>Hallo, ik ben een module! 🎉</Text>
       </Box>
-    </ScrollView>
+    </Screen>
   )
 }

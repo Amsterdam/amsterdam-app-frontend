@@ -1,5 +1,5 @@
 import React from 'react'
-import {Screen, ScrollView} from '@/components/ui/layout'
+import {Screen} from '@/components/ui/layout'
 import {
   CityOfficeOverview,
   ContactOptions,
@@ -8,10 +8,8 @@ import {
 
 export const ContactScreen = () => (
   <Screen>
-    <ScrollView>
-      <CityOfficeOverview />
-      <ReferToWebsiteCard />
-      <ContactOptions />
-    </ScrollView>
+    <CityOfficeOverview />
+    <ReferToWebsiteCard />
+    <ContactOptions />
   </Screen>
 )

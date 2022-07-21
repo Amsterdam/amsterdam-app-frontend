@@ -2,6 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {AddressForm} from '../components'
 import {AddressRouteName, AddressStackParams} from '../routes'
+import {Screen} from '@/components/ui/layout'
 
 type AddressFormScreenRouteProp = RouteProp<
   AddressStackParams,
@@ -13,5 +14,7 @@ type Props = {
 }
 
 export const AddressFormScreen = ({route}: Props) => (
-  <AddressForm temp={route?.params?.addressIsTemporary} />
+  <Screen scroll={false}>
+    <AddressForm temp={route?.params?.addressIsTemporary} />
+  </Screen>
 )

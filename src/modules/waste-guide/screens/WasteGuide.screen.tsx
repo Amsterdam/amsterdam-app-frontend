@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import React from 'react'
-import {Gutter, Screen, ScrollView} from '@/components/ui/layout'
+import {Gutter, Screen} from '@/components/ui/layout'
 import {
   RecyclingGuideBanner,
   ReportNotCollectedBanner,
@@ -10,12 +10,10 @@ import {
 export const WasteGuideScreen = () => {
   return (
     <Screen>
-      <ScrollView>
-        <WasteGuideByAddress />
-        <RecyclingGuideBanner />
-        <Gutter height="md" />
-        <ReportNotCollectedBanner navigation={useNavigation()} />
-      </ScrollView>
+      <WasteGuideByAddress />
+      <RecyclingGuideBanner />
+      <Gutter height="md" />
+      <ReportNotCollectedBanner navigation={useNavigation()} />
     </Screen>
   )
 }

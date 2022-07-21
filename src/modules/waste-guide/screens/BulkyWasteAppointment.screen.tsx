@@ -1,6 +1,7 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {WebView} from '@/components/ui'
+import {Screen} from '@/components/ui/layout'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -15,9 +16,11 @@ type Props = {
 
 export const BulkyWasteAppointmentScreen = ({route}: Props) => {
   return (
-    <WebView
-      sliceFromTop={{portrait: 162, landscape: 208}}
-      url={route?.params?.appointmentUrl}
-    />
+    <Screen scroll={false}>
+      <WebView
+        sliceFromTop={{portrait: 162, landscape: 208}}
+        url={route?.params?.appointmentUrl}
+      />
+    </Screen>
   )
 }

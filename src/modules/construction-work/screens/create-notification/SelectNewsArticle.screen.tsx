@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
 import {Radio, RadioGroup, ValidationWarning} from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
@@ -75,7 +75,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
   }, [dispatch, navigation])
 
   return newsArticles ? (
-    <ScrollView grow>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="xl">
@@ -141,7 +141,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
           </Row>
         </Box>
       </Column>
-    </ScrollView>
+    </Screen>
   ) : null
 }
 

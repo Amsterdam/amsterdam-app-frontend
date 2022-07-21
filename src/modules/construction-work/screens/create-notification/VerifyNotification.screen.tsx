@@ -12,7 +12,7 @@ import {
   Title,
 } from '@/components/ui'
 import {SubmitButton, TextButton} from '@/components/ui/buttons'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {
   useAddProjectWarningImageMutation,
@@ -180,7 +180,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
   )
 
   return (
-    <ScrollView grow>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
@@ -224,7 +224,7 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
           </Row>
         </Box>
       </Column>
-    </ScrollView>
+    </Screen>
   )
 }
 

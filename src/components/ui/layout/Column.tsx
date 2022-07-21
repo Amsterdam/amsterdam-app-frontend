@@ -32,11 +32,11 @@ export const Column = ({align, children, gutter, halign}: Props) => {
   )
 }
 
-const createStyles = ({align, halign}: Partial<Props>) =>
+const createStyles = ({align, halign}: Pick<Props, 'align' | 'halign'>) =>
   StyleSheet.create({
     column: {
+      alignItems: mapCrossAxisAlignment(halign),
       flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(halign),
     },
   })

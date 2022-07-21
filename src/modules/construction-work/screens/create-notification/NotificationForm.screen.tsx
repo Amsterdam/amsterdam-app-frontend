@@ -9,7 +9,7 @@ import {
   TextInput,
   ValidationWarning,
 } from '@/components/ui/forms'
-import {Column, Row, ScrollView} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
@@ -99,10 +99,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }, [watchMessage])
 
   useEffect(() => {
-    const focusListener = navigation.addListener('focus', () => {
+    return navigation.addListener('focus', () => {
       dispatch(setStep(1))
     })
-    return focusListener
   }, [dispatch, navigation])
 
   if (!projectId) {
@@ -110,7 +109,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
   }
 
   return (
-    <ScrollView grow>
+    <Screen>
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="lg">
@@ -191,6 +190,6 @@ export const NotificationFormScreen = ({navigation}: Props) => {
           </Row>
         </Box>
       </Column>
-    </ScrollView>
+    </Screen>
   )
 }
