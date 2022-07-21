@@ -1,14 +1,14 @@
-import {ProjectManagerResponse} from '@/modules/construction-work-editor/types'
 import {
-  ProjectIdQueryArg,
-  ProjectsEndpointName,
-} from '@/modules/construction-work/types'
+  ConstructionWorkEditorEndpointName,
+  ProjectManagerResponse,
+} from '@/modules/construction-work-editor/types'
+import {ProjectIdQueryArg} from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
 import {generateRequestUrl} from '@/utils'
 
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [ProjectsEndpointName.getProjectManager]: builder.query<
+    [ConstructionWorkEditorEndpointName.getProjectManager]: builder.query<
       ProjectManagerResponse,
       ProjectIdQueryArg
     >({

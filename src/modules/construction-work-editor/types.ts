@@ -1,10 +1,11 @@
+export enum ConstructionWorkEditorEndpointName {
+  getProjectManager = 'getProjectManager',
+  getProjects = 'getProjects',
+}
+
 export type ProjectManager = {
   id: string
   projects: string[]
-}
-
-export enum ConstructionWorkEditorEndpointName {
-  getProjectManager = 'getProjectManager',
 }
 
 export type ProjectManagerResponse = {
