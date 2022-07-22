@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Text} from '@/components/ui'
+import {Paragraph} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -12,7 +12,9 @@ export const Tooltip = ({text}: Props) => {
 
   return (
     <View style={styles.tooltip}>
-      <Text inverse>{text}</Text>
+      <Paragraph color="inverse" variant="small">
+        {text}
+      </Paragraph>
     </View>
   )
 }
