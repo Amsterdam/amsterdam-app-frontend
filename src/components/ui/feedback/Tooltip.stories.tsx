@@ -1,8 +1,11 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import React from 'react'
 import {Tooltip} from './Tooltip'
+import {MaxWidth} from '@/../.storybook/components/MaxWidth'
 
 export default {
   component: Tooltip,
+  decorators: [Story => <MaxWidth width="20em">{Story()}</MaxWidth>],
 } as ComponentMeta<typeof Tooltip>
 
 export const Default: ComponentStoryObj<typeof Tooltip> = {
