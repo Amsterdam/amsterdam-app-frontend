@@ -38,8 +38,6 @@ export const ModuleSettings = () => {
     <Box>
       <Column gutter="sm">
         {modules.map(module => {
-          const isSelected =
-            selectedModulesBySlug?.includes(module.slug) ?? false
           const {description, icon, slug, title} = module
           const ModuleIcon = icons[icon]
 
@@ -61,7 +59,7 @@ export const ModuleSettings = () => {
                   </Column>
                 }
                 onChange={() => onChange(slug)}
-                value={isSelected}
+                value={selectedModulesBySlug.includes(slug)}
               />
             </Box>
           )
