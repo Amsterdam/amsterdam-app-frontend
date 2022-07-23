@@ -1,4 +1,5 @@
-import {Column} from '_components/ui/layout'
+import {Triangle} from '_components/ui/feedback/Triangle'
+import {Column, Row} from '_components/ui/layout'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Paragraph} from '@/components/ui/text'
@@ -13,15 +14,23 @@ export const Tooltip = ({text}: Props) => {
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
-    <View style={styles.tooltip}>
-      <Column gutter="sm">
-        {paragraphs.map(paragraph => (
-          <Paragraph color="inverse" variant="small" key={paragraph}>
-            {paragraph}
-          </Paragraph>
-        ))}
+    <Row>
+      <Triangle direction="back" />
+      <Column>
+        <Triangle direction="up" />
+        <View style={styles.tooltip}>
+          <Column gutter="sm">
+            {paragraphs.map(paragraph => (
+              <Paragraph color="inverse" variant="small" key={paragraph}>
+                {paragraph}
+              </Paragraph>
+            ))}
+          </Column>
+        </View>
+        <Triangle direction="down" />
       </Column>
-    </View>
+      <Triangle direction="forward" />
+    </Row>
   )
 }
 
