@@ -5,7 +5,7 @@ import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {openMailUrl} from '@/utils'
 
-export const Contact = () => (
+export const ContactConstructionWorkSupport = () => (
   <Box insetHorizontal="md">
     <Column gutter="sm">
       <Paragraph>Ontbreekt er een bouwproject?</Paragraph>
