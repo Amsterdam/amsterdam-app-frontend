@@ -50,7 +50,7 @@ const ListItem = ({navigation, project}: ListItemProps) => {
 
 const ListEmptyMessage = () => (
   <Box insetHorizontal="md">
-    <EmptyMessage text="We hebben geen projecten gevonden waarvoor je pushberichten mag sturen." />
+    <EmptyMessage text="We hebben geen projecten gevonden waarvoor je berichten mag sturen." />
   </Box>
 )
 
