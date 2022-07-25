@@ -6,7 +6,6 @@ export enum ConstructionWorkRouteName {
   project = 'Project',
   projects = 'Projects',
   projectBody = 'ProjectBody',
-  projectManager = 'ProjectManager',
   projectNews = 'ProjectNews',
   projectWarning = 'ProjectWarning',
 }
@@ -19,7 +18,6 @@ export type ConstructionWorkStackParams = {
     body: ProjectBody
     headerTitle: string
   }
-  [ConstructionWorkRouteName.projectManager]: {id: string}
   [ConstructionWorkRouteName.projectNews]: {id: string}
   [ConstructionWorkRouteName.projectWarning]: {id: string}
 }
