@@ -55,8 +55,4 @@ export const alertSlice = createSlice({
 
 export const {resetAlert, setAlert, setAlertVisibility} = alertSlice.actions
 
-export const selectAlertCloseType = ({alert}: RootState) => alert.closeType
-export const selectAlertContent = ({alert}: RootState) => alert.content
-export const selectAlertWithIcon = ({alert}: RootState) => alert.withIcon
-export const selectAlertVariant = ({alert}: RootState) => alert.variant
-export const selectAlertVisibility = ({alert}: RootState) => alert.isVisible
+export const selectAlert = (state: RootState) => state.alert

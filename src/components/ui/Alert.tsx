@@ -19,13 +19,9 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {
   resetAlert,
-  selectAlertCloseType,
-  selectAlertContent,
-  selectAlertWithIcon,
-  selectAlertVariant,
-  selectAlertVisibility,
   setAlertVisibility,
   Variant,
+  selectAlert,
 } from '@/store/alertSlice'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
@@ -41,11 +37,8 @@ export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
-  const closeType = useSelector(selectAlertCloseType)
-  const content = useSelector(selectAlertContent)
-  const withIcon = useSelector(selectAlertWithIcon)
-  const isVisible = useSelector(selectAlertVisibility)
-  const variant = useSelector(selectAlertVariant)
+  const {closeType, content, isVisible, variant, withIcon} =
+    useSelector(selectAlert)
 
   const {color} = useTheme()
   const styles = useThemable(createStyles(variant))
