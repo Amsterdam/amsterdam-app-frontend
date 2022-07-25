@@ -83,7 +83,7 @@ export const Alert = () => {
             <Row gutter="md">
               {withIcon && icon}
               <View>
-                {content?.title && <Title level="h4" text={content?.title} />}
+                {!!content?.title && <Title level="h4" text={content?.title} />}
                 <Paragraph>{content?.text}</Paragraph>
               </View>
             </Row>
