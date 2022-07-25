@@ -10,6 +10,7 @@ import {EmptyMessage} from '@/components/ui/feedback'
 import {module as constructionWorkModule} from '@/modules/construction-work'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {authorizedProjectsMock} from '@/modules/construction-work-editor/authorized-projects.mock'
+import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectsItem} from '@/modules/construction-work/types'
@@ -67,7 +68,7 @@ export const AuthorizedProjects = () => {
   return (
     <FlatGrid
       data={mockProjects}
-      itemContainerStyle={[styles.itemContainer, {paddingBottom}]}
+      itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
@@ -77,6 +78,8 @@ export const AuthorizedProjects = () => {
       )}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
+      ListFooterComponent={ContactConstructionWorkSupport}
+      ListFooterComponentStyle={{paddingBottom}}
     />
   )
 }
