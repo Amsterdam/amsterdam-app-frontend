@@ -16,11 +16,11 @@ import {accessibleText} from '../../../../utils'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {ProjectTitle} from '../../../construction-work/components/project'
 import {ConstructionWorkRouteName} from '../../../construction-work/routes'
-import {useProjectManager} from '@/modules/construction-work-editor/hooks'
+import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =
-    useProjectManager()
+    useConstructionWorkEditor()
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof userModule.slug>
