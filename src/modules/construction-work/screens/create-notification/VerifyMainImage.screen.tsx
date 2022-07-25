@@ -6,12 +6,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import {ImagePreviewTouchable} from '@/components/features/create-notification'
 import {Box, Title} from '@/components/ui'
 import {SubmitButton, TextButton} from '@/components/ui/buttons'
-import {
-  CharactersLeftDisplay,
-  TextInput,
-  ValidationWarning,
-} from '@/components/ui/forms'
+import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
+import {Paragraph} from '@/components/ui/text'
 import {
   selectMainImage,
   setMainImage,
@@ -98,7 +95,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <ValidationWarning warning="Vul een titel in" />}
+              {errors.title && <Paragraph warning>Vul een titel in</Paragraph>}
             </View>
           </Column>
           <Row align="between" valign="center">

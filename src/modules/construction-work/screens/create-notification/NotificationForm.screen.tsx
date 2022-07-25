@@ -4,12 +4,9 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Title} from '@/components/ui'
 import {SubmitButton} from '@/components/ui/buttons'
-import {
-  CharactersLeftDisplay,
-  TextInput,
-  ValidationWarning,
-} from '@/components/ui/forms'
+import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
+import {Paragraph} from '@/components/ui/text'
 import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
@@ -141,7 +138,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <ValidationWarning warning="Vul een titel in" />}
+              {errors.title && <Paragraph warning>Vul een titel in</Paragraph>}
             </>
             <>
               <Column gutter="xs">
@@ -172,7 +169,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                 />
               </Column>
               {errors.message && (
-                <ValidationWarning warning="Type een pushbericht" />
+                <Paragraph warning>Type een pushbericht</Paragraph>
               )}
             </>
           </Column>
