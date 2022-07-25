@@ -6,7 +6,6 @@ import {ModuleClientConfig} from '@/modules/types'
 export const module: ModuleClientConfig = {
   linking: {
     [ConstructionWorkRouteName.projectNews]: 'news/:id',
-    [ConstructionWorkRouteName.projectManager]: 'project-manager/:id',
     [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
   name: 'ConstructionWorkModule',
