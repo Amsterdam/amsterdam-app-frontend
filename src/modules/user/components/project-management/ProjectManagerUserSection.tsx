@@ -6,7 +6,7 @@ import {LinkToUserSection, UserSection} from '..'
 import {module as userModule} from '../..'
 import {RootStackParams} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
-import {module as constructionWorkModule} from '../../../construction-work'
+import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 
@@ -25,7 +25,7 @@ export const ProjectManagerUserSection = () => {
     <UserSection title="Omgevingsmanager">
       <LinkToUserSection
         onPress={() =>
-          navigation.navigate(constructionWorkModule.slug, {
+          navigation.navigate(constructionWorkEditorModule.slug, {
             screen: ConstructionWorkEditorRouteName.authorizedProjects,
           })
         }>
