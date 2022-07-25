@@ -87,5 +87,6 @@ export const lightColorTokens = {
     link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey4,
     tertiary: baseColor.neutral.grey3,
+    warning: baseColor.support.invalid,
   },
 }
