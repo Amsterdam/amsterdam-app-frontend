@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
@@ -55,9 +55,12 @@ const ListEmptyMessage = () => (
   </Box>
 )
 
-export const AuthorizedProjects = () => {
+type Props = {
+  initialMetrics: Metrics | null | undefined
+}
+
+export const AuthorizedProjects = ({initialMetrics}: Props) => {
   const navigation = useNavigation<Navigation>()
-  const {bottom: paddingBottom} = useSafeAreaInsets()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -79,7 +82,12 @@ export const AuthorizedProjects = () => {
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
       ListFooterComponent={ContactConstructionWorkSupport}
-      ListFooterComponentStyle={{paddingBottom}}
+      ListFooterComponentStyle={{
+        paddingBottom: Math.max(
+          initialMetrics?.insets.bottom ?? 0,
+          size.spacing.lg,
+        ),
+      }}
     />
   )
 }
