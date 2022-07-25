@@ -4,10 +4,10 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
-import {moduleLinkings} from '../../modules/utils'
-import {PushNotificationData} from '../../types'
-import {RootStackParams} from './RootStackNavigator'
+import {RootStackParams} from '@/app/navigation/RootStackNavigator'
+import {moduleLinkings} from '@/modules/utils'
 import {devLog} from '@/processes'
+import {PushNotificationData} from '@/types'
 
 const appPrefix = 'amsterdam://'
 

@@ -12,7 +12,7 @@ import {Title} from '@/components/ui/text'
 import {icons} from '@/modules/home/config'
 import {HomeRouteName} from '@/modules/home/routes'
 import {toggleModule} from '@/modules/home/store'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {Theme, useThemable} from '@/themes'
 
 type ButtonVariants = 'primary' | 'tertiary'
@@ -20,7 +20,7 @@ type ButtonVariants = 'primary' | 'tertiary'
 type Props = {
   iconName: string
   label: string
-  slug: ModuleSlugs
+  slug: ModuleSlug
   variant?: ButtonVariants
 }
 

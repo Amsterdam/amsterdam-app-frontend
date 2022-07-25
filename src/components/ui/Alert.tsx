@@ -1,19 +1,25 @@
+import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
+import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import React from 'react'
-import {Platform, StyleSheet, UIManager, View} from 'react-native'
+import {useNavigation} from '@react-navigation/core'
+import React, {useEffect} from 'react'
+import {
+  InteractionManager,
+  Platform,
+  Pressable,
+  StyleSheet,
+  UIManager,
+  View,
+} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {SingleSelectable, Text, Title} from '@/components/ui'
+import {Box, SingleSelectable} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {
-  selectAlertContent,
-  selectAlertVariant,
-  selectAlertVisibility,
-  setAlertVisibility,
-  Variant,
-} from '@/store/alertSlice'
+import {Paragraph, Title} from '@/components/ui/text'
+import {resetAlert, setAlertVisibility, selectAlert} from '@/store/alertSlice'
 import {Theme, useThemable, useTheme} from '@/themes'
+import {CloseType, Variant} from '@/types'
 import {accessibleText} from '@/utils'
 
 if (
@@ -25,49 +31,88 @@ if (
 
 export const Alert = () => {
   const dispatch = useDispatch()
+  const navigation = useNavigation()
+
+  const {closeType, content, isVisible, variant, withIcon} =
+    useSelector(selectAlert)
+
   const {color} = useTheme()
-  const content = useSelector(selectAlertContent)
-  const isVisible = useSelector(selectAlertVisibility)
-  const variant = useSelector(selectAlertVariant)
   const styles = useThemable(createStyles(variant))
+
+  useEffect(() => {
+    return navigation.addListener('blur', () => {
+      const task = InteractionManager.runAfterInteractions(() => {
+        dispatch(resetAlert())
+      })
+      return () => task.cancel()
+    })
+  }, [dispatch, navigation])
 
   if (!isVisible) {
     return null
   }
 
-  return (
-    <View style={styles.alert}>
-      <Row align="between">
-        <SingleSelectable
-          accessibilityLabel={accessibleText(content?.title, content?.text)}>
-          <Title inverse level={4} text={content?.title!} />
-          <Text inverse>{content?.text}</Text>
-        </SingleSelectable>
-        <IconButton
-          accessibilityHint="Sluit melding"
-          icon={
-            <Icon size={24}>
-              <Close fill={color.text.inverse} />
-            </Icon>
-          }
-          onPress={() => dispatch(setAlertVisibility(false))}
-        />
-      </Row>
-    </View>
+  const IconComponent = variant === Variant.success ? Checkmark : AlertIcon
+
+  const alertComponent = (
+    <Box>
+      <View style={styles.view}>
+        <Row align="between">
+          <SingleSelectable
+            accessibilityLabel={accessibleText(content?.title, content?.text)}>
+            <Row gutter="md">
+              {withIcon && (
+                <Icon size={24}>
+                  <IconComponent fill={color.text.default} />
+                </Icon>
+              )}
+              <View>
+                {!!content?.title && <Title level="h4" text={content?.title} />}
+                <Paragraph>{content?.text}</Paragraph>
+              </View>
+            </Row>
+          </SingleSelectable>
+          {closeType === CloseType.withButton && (
+            <IconButton
+              accessibilityHint="Sluit melding"
+              icon={
+                <Icon size={24}>
+                  <Close fill={color.text.default} />
+                </Icon>
+              }
+              onPress={() => dispatch(setAlertVisibility(false))}
+            />
+          )}
+        </Row>
+      </View>
+    </Box>
   )
+
+  if (closeType === CloseType.withoutButton) {
+    return (
+      <Pressable onPress={() => dispatch(resetAlert())}>
+        {alertComponent}
+      </Pressable>
+    )
+  }
+
+  return alertComponent
 }
 
 const createStyles =
   (variant?: Variant) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
-      alert: {
+      view: {
         backgroundColor:
-          variant === 'success'
+          variant === Variant.information
+            ? color.box.background.alert
+            : color.box.background.white,
+        borderWidth: variant === Variant.information ? 0 : 2,
+        borderColor:
+          variant === Variant.success
             ? color.severity.positive
-            : variant === 'failure'
-            ? color.severity.negative
-            : color.box.background.grey,
+            : color.severity.negative,
         padding: size.spacing.md,
       },
     })

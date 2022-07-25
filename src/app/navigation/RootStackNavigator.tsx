@@ -3,14 +3,14 @@ import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {clientModules} from '@/modules'
 import {module as homeModule} from '@/modules/home'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, ModuleStackParams} from '@/modules/stacks'
 
 type ModuleParams<
   ParamList extends ParamListBase,
   RouteName extends keyof ParamList = Extract<keyof ParamList, string>,
 > = Record<
-  ModuleSlugs,
+  ModuleSlug,
   | undefined
   | {screen?: RouteName}
   | {screen: RouteName; params: ParamList[RouteName]}

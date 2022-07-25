@@ -1,35 +1,45 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
 import {RootState} from '@/store'
+import {CloseType, Variant} from '@/types'
 
 type Content =
   | {
-      title: string | undefined
-      text: string | undefined
+      title?: string
+      text: string
     }
   | undefined
 
-export type Variant = 'success' | 'failure'
-
 type AlertSliceState = {
+  closeType?: CloseType
   content?: Content
   isVisible: boolean
   variant?: Variant
+  withIcon?: boolean
 }
 
 const initialState: AlertSliceState = {
+  closeType: CloseType.withoutButton,
   content: undefined,
   isVisible: false,
   variant: undefined,
+  withIcon: false,
 }
 
 export const alertSlice = createSlice({
   name: 'alert',
   initialState,
   reducers: {
-    setAlert: (_state, {payload: alert}: PayloadAction<AlertSliceState>) => {
+    resetAlert: () => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      return alert
+      return initialState
+    },
+    setAlert: (state, {payload: alert}: PayloadAction<AlertSliceState>) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      return {
+        ...state,
+        ...alert,
+      }
     },
     setAlertVisibility: (
       state,
@@ -41,8 +51,6 @@ export const alertSlice = createSlice({
   },
 })
 
-export const {setAlert, setAlertVisibility} = alertSlice.actions
+export const {resetAlert, setAlert, setAlertVisibility} = alertSlice.actions
 
-export const selectAlertContent = ({alert}: RootState) => alert.content
-export const selectAlertVisibility = ({alert}: RootState) => alert.isVisible
-export const selectAlertVariant = ({alert}: RootState) => alert.variant
+export const selectAlert = (state: RootState) => state.alert

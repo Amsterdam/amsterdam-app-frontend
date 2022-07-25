@@ -2,18 +2,15 @@ import {ProjectIdAndTitle} from '@/modules/construction-work/screens/create-noti
 import {ProjectBody} from '@/modules/construction-work/types'
 
 export enum ConstructionWorkRouteName {
-  authorizedProjects = 'AuthorizedProjects',
   createNotification = 'CreateNotification',
   project = 'Project',
   projects = 'Projects',
   projectBody = 'ProjectBody',
-  projectManager = 'ProjectManager',
   projectNews = 'ProjectNews',
   projectWarning = 'ProjectWarning',
 }
 
 export type ConstructionWorkStackParams = {
-  [ConstructionWorkRouteName.authorizedProjects]: {projectManagerId: string}
   [ConstructionWorkRouteName.createNotification]: {project: ProjectIdAndTitle}
   [ConstructionWorkRouteName.projects]: undefined
   [ConstructionWorkRouteName.project]: {id: string}
@@ -21,7 +18,6 @@ export type ConstructionWorkStackParams = {
     body: ProjectBody
     headerTitle: string
   }
-  [ConstructionWorkRouteName.projectManager]: {id: string}
   [ConstructionWorkRouteName.projectNews]: {id: string}
   [ConstructionWorkRouteName.projectWarning]: {id: string}
 }

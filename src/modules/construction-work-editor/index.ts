@@ -1,10 +1,13 @@
-import {ModuleSlugs} from '../slugs'
-import {ModuleClientConfig} from '../types'
+import {ConstructionWorkEditorRouteName} from './routes'
+import {ModuleSlug} from '@/modules/slugs'
+import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   isForEmployees: true,
-  linking: {},
+  linking: {
+    [ConstructionWorkEditorRouteName.authorizedProjects]: 'project-manager/:id',
+  },
   name: 'ConstructionWorkEditorModule',
-  slug: ModuleSlugs['construction-work-editor'],
+  slug: ModuleSlug['construction-work-editor'],
   state: [],
 }

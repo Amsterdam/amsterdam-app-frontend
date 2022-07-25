@@ -4,7 +4,7 @@ import React, {useCallback, useLayoutEffect} from 'react'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
 import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
-import {Button, FollowButton} from '@/components/ui/buttons'
+import {FollowButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
@@ -13,7 +13,6 @@ import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
-import {useProjectManagerFetcher} from '@/modules/construction-work/components/project-manager'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
@@ -50,7 +49,6 @@ export const Project = ({id}: Props) => {
     lon: address?.centroid[0],
   }
 
-  const {projectManager} = useProjectManagerFetcher()
   const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useFollowProjectMutation()
@@ -135,18 +133,6 @@ export const Project = ({id}: Props) => {
                 </Column>
               </SingleSelectable>
             </Row>
-            {projectManager?.projects.includes(id) && (
-              <Button
-                label="Verstuur pushbericht"
-                onPress={() =>
-                  navigation.navigate(
-                    ConstructionWorkRouteName.createNotification,
-                    {project: {id, title}},
-                  )
-                }
-                variant="secondary"
-              />
-            )}
             <Column gutter="md">
               <ProjectTraits
                 accessibilityLabel={accessibleText(

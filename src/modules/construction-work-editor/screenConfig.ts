@@ -1,17 +1,17 @@
-import {StackNavigationRoutes} from '../../app/navigation'
+import {StackNavigationRoutes} from '@/app/navigation'
 import {
-  ConstructionWorkEditorStackParams,
   ConstructionWorkEditorRouteName,
-} from './routes'
-import {MyProjectsScreen} from './screens'
+  ConstructionWorkEditorStackParams,
+} from '@/modules/construction-work-editor/routes'
+import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens'
 
 export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
   ConstructionWorkEditorStackParams,
   ConstructionWorkEditorRouteName
 > = {
-  [ConstructionWorkEditorRouteName.myProjects]: {
-    component: MyProjectsScreen,
-    name: ConstructionWorkEditorRouteName.myProjects,
+  [ConstructionWorkEditorRouteName.authorizedProjects]: {
+    component: AuthorizedProjectsScreen,
+    name: ConstructionWorkEditorRouteName.authorizedProjects,
     options: {
       headerTitle: 'Plaats berichten',
     },

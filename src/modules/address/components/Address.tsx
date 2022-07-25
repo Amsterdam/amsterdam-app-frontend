@@ -19,6 +19,7 @@ import {AddressRouteName} from '@/modules/address/routes'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
+import {Variant} from '@/types'
 import {isEmptyObject} from '@/utils'
 
 export const Address = () => {
@@ -38,7 +39,7 @@ export const Address = () => {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
-        variant: 'success',
+        variant: Variant.success,
         isVisible: true,
       }),
     )

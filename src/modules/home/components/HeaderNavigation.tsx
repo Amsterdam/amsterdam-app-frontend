@@ -9,14 +9,14 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
-import {ModuleSlugs} from '@/modules/slugs'
+import {ModuleSlug} from '@/modules/slugs'
 import {module as userModule} from '@/modules/user'
 import {isDevApp} from '@/processes'
 import {Theme, useThemable} from '@/themes'
 
 export const HeaderNavigation = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParams, ModuleSlugs.home>>()
+    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug.home>>()
 
   const iconProps = useThemable(createIconProps)
 

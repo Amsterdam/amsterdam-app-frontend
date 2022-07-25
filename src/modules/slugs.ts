@@ -1,4 +1,4 @@
-export enum ModuleSlugs {
+export enum ModuleSlug {
   address = 'address',
   'construction-work' = 'construction-work',
   'construction-work-editor' = 'construction-work-editor',
