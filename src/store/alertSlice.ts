@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
 import {RootState} from '@/store'
+import {CloseType, Variant} from '@/types'
 
 type Content =
   | {
@@ -8,9 +9,6 @@ type Content =
       text: string
     }
   | undefined
-
-export type Variant = 'success' | 'failure' | 'information'
-export type CloseType = 'with-button' | 'without-button'
 
 type AlertSliceState = {
   closeType?: CloseType
@@ -21,7 +19,7 @@ type AlertSliceState = {
 }
 
 const initialState: AlertSliceState = {
-  closeType: 'without-button',
+  closeType: CloseType.withoutButton,
   content: undefined,
   isVisible: false,
   variant: undefined,

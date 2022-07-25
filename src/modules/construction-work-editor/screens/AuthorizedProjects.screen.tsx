@@ -8,6 +8,7 @@ import {Alert} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
 import {setAlert} from '@/store'
+import {Variant} from '@/types'
 
 export const AuthorizedProjectsScreen = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ export const AuthorizedProjectsScreen = () => {
           content: {
             text: 'Gelukt, de app herkent je nu als omgevingsmanager voor onderstaande projecten. Klik op het project waarvoor je een bericht wilt plaatsen, om een bericht te maken.',
           },
-          variant: 'information',
+          variant: Variant.information,
           isVisible: true,
         }),
       )

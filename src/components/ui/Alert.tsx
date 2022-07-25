@@ -17,13 +17,9 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {
-  resetAlert,
-  setAlertVisibility,
-  Variant,
-  selectAlert,
-} from '@/store/alertSlice'
+import {resetAlert, setAlertVisibility, selectAlert} from '@/store/alertSlice'
 import {Theme, useThemable, useTheme} from '@/themes'
+import {CloseType, Variant} from '@/types'
 import {accessibleText} from '@/utils'
 
 if (
@@ -56,7 +52,7 @@ export const Alert = () => {
     return null
   }
 
-  const IconComponent = variant === 'success' ? Checkmark : AlertIcon
+  const IconComponent = variant === Variant.success ? Checkmark : AlertIcon
 
   const alertComponent = (
     <Box>
@@ -76,7 +72,7 @@ export const Alert = () => {
               </View>
             </Row>
           </SingleSelectable>
-          {closeType === 'with-button' && (
+          {closeType === CloseType.withButton && (
             <IconButton
               accessibilityHint="Sluit melding"
               icon={
@@ -92,7 +88,7 @@ export const Alert = () => {
     </Box>
   )
 
-  if (closeType === 'without-button') {
+  if (closeType === CloseType.withoutButton) {
     return (
       <Pressable onPress={() => dispatch(resetAlert())}>
         {alertComponent}
@@ -109,12 +105,12 @@ const createStyles =
     StyleSheet.create({
       view: {
         backgroundColor:
-          variant === 'information'
+          variant === Variant.information
             ? color.box.background.alert
             : color.box.background.white,
-        borderWidth: variant === 'information' ? 0 : 2,
+        borderWidth: variant === Variant.information ? 0 : 2,
         borderColor:
-          variant === 'success'
+          variant === Variant.success
             ? color.severity.positive
             : color.severity.negative,
         padding: size.spacing.md,
