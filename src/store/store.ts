@@ -77,6 +77,10 @@ export const store = configureStore({
     const middleware = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        warnAfter: 256,
+      },
+      immutableCheck: {
+        warnAfter: 256,
       },
     }).concat([baseApi.middleware, sentryLoggerMiddleware])
     if (__DEV__) {

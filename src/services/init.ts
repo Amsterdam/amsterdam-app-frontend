@@ -4,6 +4,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
+  retry,
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
 import {EnvironmentConfig} from '@/environment'
@@ -44,24 +45,27 @@ const dynamicBaseQuery: BaseQueryFn<
 > = async (args, baseQueryApi, extraOptions) => {
   const api = typeof args !== 'string' && args.api ? args.api : 'apiUrl'
 
-  return fetchBaseQuery({
-    baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
-    prepareHeaders: (headers, {endpoint, getState}) => {
-      const token = selectAuthManagerToken(getState() as RootState)
+  return retry(
+    fetchBaseQuery({
+      baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
+      prepareHeaders: (headers, {endpoint, getState}) => {
+        const token = selectAuthManagerToken(getState() as RootState)
 
-      token &&
-        managerAuthorizedEndpoints.includes(endpoint) &&
-        headers.set('userauthorization', token)
+        token &&
+          managerAuthorizedEndpoints.includes(endpoint) &&
+          headers.set('userauthorization', token)
 
-      deviceIdRequestingEndpoints.includes(endpoint) &&
-        headers.set('deviceid', getUniqueId())
+        deviceIdRequestingEndpoints.includes(endpoint) &&
+          headers.set('deviceid', getUniqueId())
 
-      deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
-        headers.set('DeviceAuthorization', deviceAuthorizationToken)
+        deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
+          headers.set('DeviceAuthorization', deviceAuthorizationToken)
 
-      return headers
-    },
-  })(args, baseQueryApi, extraOptions)
+        return headers
+      },
+    }),
+    {maxRetries: 5},
+  )(args, baseQueryApi, extraOptions)
 }
 
 export const baseApi = createApi({
