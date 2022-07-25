@@ -1,35 +1,44 @@
 @font-face {
-    font-family: "AmsterdamSans-Bold";
-    src: url('../src/assets/fonts/AmsterdamSans-Bold.otf');
-    font-weight: 600 700;
+  font-family: "AmsterdamSans-Bold";
+  src: url('../src/assets/fonts/AmsterdamSans-Bold.otf');
+  font-weight: 600 700;
 }
 
 @font-face {
-    font-family: "AmsterdamSans-BoldItalic";
-    src: url('../src/assets/fonts/AmsterdamSans-BoldItalic.otf');
-    font-weight: 600 700;
-    font-style: italic;
+  font-family: "AmsterdamSans-BoldItalic";
+  src: url('../src/assets/fonts/AmsterdamSans-BoldItalic.otf');
+  font-weight: 600 700;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "AmsterdamSans-ExtraBold";
-    src: url('../src/assets/fonts/AmsterdamSans-ExtraBold.otf');
-    font-weight: 800 900;
+  font-family: "AmsterdamSans-ExtraBold";
+  src: url('../src/assets/fonts/AmsterdamSans-ExtraBold.otf');
+  font-weight: 800 900;
 }
 
 @font-face {
-    font-family: "AmsterdamSans-Italic";
-    src: url('../src/assets/fonts/AmsterdamSans-Italic.otf');
-    font-style: italic;
+  font-family: "AmsterdamSans-Italic";
+  src: url('../src/assets/fonts/AmsterdamSans-Italic.otf');
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "AmsterdamSans-Light";
-    src: url('../src/assets/fonts/AmsterdamSans-Light.otf');
-    font-weight: 100 200;
+  font-family: "AmsterdamSans-Light";
+  src: url('../src/assets/fonts/AmsterdamSans-Light.otf');
+  font-weight: 100 200;
 }
 
 @font-face {
-    font-family: "AmsterdamSans-Regular";
-    src: url('../src/assets/fonts/AmsterdamSans-Regular.otf');
+  font-family: "AmsterdamSans-Regular";
+  src: url('../src/assets/fonts/AmsterdamSans-Regular.otf');
+}
+
+:root {
+  --highlight-color: rgba(0, 0, 0, .125);
+}
+
+.highlight-layout {
+  background: repeating-linear-gradient(135deg, var(--highlight-color), var(--highlight-color) 1px, transparent 1px, transparent 7px);
+  border: 1px solid var(--highlight-color);
 }
