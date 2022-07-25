@@ -1,13 +1,15 @@
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps} from 'react'
+import React, {SVGProps, useState} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box, SingleSelectable} from '@/components/ui'
-import {Button} from '@/components/ui/buttons'
-import {Gutter, Row} from '@/components/ui/layout'
+import {Question} from '@/assets/icons'
+import {Box} from '@/components/ui'
+import {Button, IconButton} from '@/components/ui/buttons'
+import {Tooltip} from '@/components/ui/feedback'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {module as addressModule} from '@/modules/address'
@@ -18,9 +20,38 @@ import {
 import {AddressRouteName} from '@/modules/address/routes'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {Variant} from '@/types'
 import {isEmptyObject} from '@/utils'
+
+const TitleAndHelp = () => {
+  const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
+  const {color} = useTheme()
+
+  return (
+    <Column gutter="sm">
+      <Row gutter="sm">
+        <Title text="Adres" />
+        <IconButton
+          icon={
+            <Icon>
+              <Question fill={color.pressable.primary.default} />
+            </Icon>
+          }
+          onPress={() => setTooltipIsVisible(!tooltipIsVisible)}
+        />
+      </Row>
+      {tooltipIsVisible && (
+        <Box insetHorizontal="lg">
+          <Tooltip
+            direction="up"
+            text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
+          />
+        </Box>
+      )}
+    </Column>
+  )
+}
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -49,18 +80,16 @@ export const Address = () => {
     <Box background="white">
       {primaryAddress && !isEmptyObject(primaryAddress) ? (
         <>
-          <SingleSelectable>
-            <Title text="Adres" />
-            <Gutter height="md" />
-            <Paragraph>{primaryAddress.adres}</Paragraph>
-            <Paragraph>
-              {[
-                primaryAddress.postcode.substring(0, 4),
-                primaryAddress.postcode.substring(4, 6),
-                primaryAddress.woonplaats.toUpperCase(),
-              ].join(' ')}
-            </Paragraph>
-          </SingleSelectable>
+          <TitleAndHelp />
+          <Gutter height="md" />
+          <Paragraph>{primaryAddress.adres}</Paragraph>
+          <Paragraph>
+            {[
+              primaryAddress.postcode.substring(0, 4),
+              primaryAddress.postcode.substring(4, 6),
+              primaryAddress.woonplaats.toUpperCase(),
+            ].join(' ')}
+          </Paragraph>
           <Row valign="center" gutter="md" wrap>
             <View>
               <Gutter height="md" />
@@ -91,14 +120,7 @@ export const Address = () => {
         </>
       ) : (
         <>
-          <SingleSelectable>
-            <Title text="Adres" />
-            <Gutter height="md" />
-            <Paragraph>
-              Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
-              die buurt.
-            </Paragraph>
-          </SingleSelectable>
+          <TitleAndHelp />
           <Row valign="center" gutter="md" wrap>
             <View>
               <Gutter height="md" />
