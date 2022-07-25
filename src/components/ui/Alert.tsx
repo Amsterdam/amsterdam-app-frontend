@@ -63,16 +63,7 @@ export const Alert = () => {
     return null
   }
 
-  const icon =
-    variant === 'success' ? (
-      <Icon size={24}>
-        <Checkmark fill={color.text.default} />
-      </Icon>
-    ) : (
-      <Icon size={24}>
-        <AlertIcon fill={color.text.default} />
-      </Icon>
-    )
+  const IconComponent = variant === 'success' ? Checkmark : AlertIcon
 
   const alertComponent = (
     <Box>
@@ -81,7 +72,11 @@ export const Alert = () => {
           <SingleSelectable
             accessibilityLabel={accessibleText(content?.title, content?.text)}>
             <Row gutter="md">
-              {withIcon && icon}
+              {withIcon && (
+                <Icon size={24}>
+                  <IconComponent fill={color.text.default} />
+                </Icon>
+              )}
               <View>
                 {!!content?.title && <Title level="h4" text={content?.title} />}
                 <Paragraph>{content?.text}</Paragraph>
