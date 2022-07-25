@@ -16,7 +16,7 @@ export const AuthorizedProjectsScreen = () => {
   )
 
   useEffect(() => {
-    !hasSeenWelcomeMessage &&
+    if (!hasSeenWelcomeMessage) {
       dispatch(
         setAlert({
           content: {
@@ -26,7 +26,8 @@ export const AuthorizedProjectsScreen = () => {
           isVisible: true,
         }),
       )
-    dispatch(setHasSeenWelcomeMessage())
+      dispatch(setHasSeenWelcomeMessage())
+    }
   }, [dispatch, hasSeenWelcomeMessage])
 
   return (
