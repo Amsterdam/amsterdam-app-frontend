@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
@@ -55,6 +56,7 @@ const ListEmptyMessage = () => (
 
 export const AuthorizedProjects = () => {
   const navigation = useNavigation<Navigation>()
+  const {bottom: paddingBottom} = useSafeAreaInsets()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
@@ -65,7 +67,7 @@ export const AuthorizedProjects = () => {
   return (
     <FlatGrid
       data={mockProjects}
-      itemContainerStyle={styles.itemContainer}
+      itemContainerStyle={[styles.itemContainer, {paddingBottom}]}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
