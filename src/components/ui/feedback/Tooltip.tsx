@@ -1,35 +1,44 @@
-import {Triangle} from '_components/ui/feedback/Triangle'
-import {Column, Row} from '_components/ui/layout'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {Direction, Triangle} from '@/components/ui/feedback/Triangle'
+import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
+  direction: Direction
   text: string | string[]
 }
 
-export const Tooltip = ({text}: Props) => {
+const TooltipContent = ({text}: Pick<Props, 'text'>) => {
   const styles = useThemable(createStyles)
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
-    <Row>
-      <Triangle direction="back" />
-      <Column>
-        <Triangle direction="up" />
-        <View style={styles.tooltip}>
-          <Column gutter="sm">
-            {paragraphs.map(paragraph => (
-              <Paragraph color="inverse" variant="small" key={paragraph}>
-                {paragraph}
-              </Paragraph>
-            ))}
-          </Column>
-        </View>
-        <Triangle direction="down" />
+    <View style={styles.tooltip}>
+      <Column gutter="sm">
+        {paragraphs.map(paragraph => (
+          <Paragraph color="inverse" variant="small" key={paragraph}>
+            {paragraph}
+          </Paragraph>
+        ))}
       </Column>
-      <Triangle direction="forward" />
+    </View>
+  )
+}
+
+export const Tooltip = ({direction, text}: Props) => {
+  const props = {direction}
+
+  return (
+    <Row>
+      {direction === 'back' && <Triangle {...props} />}
+      <Column>
+        {direction === 'up' && <Triangle {...props} />}
+        <TooltipContent text={text} />
+        {direction === 'down' && <Triangle {...props} />}
+      </Column>
+      {direction === 'forward' && <Triangle {...props} />}
     </Row>
   )
 }

@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {useTheme} from '@/themes'
 
-type Direction = 'up' | 'down' | 'back' | 'forward'
+export type Direction = 'up' | 'down' | 'back' | 'forward'
 
 type Props = {
   direction: Direction
@@ -19,9 +19,10 @@ const path: Record<Direction, string> = {
 
 export const Triangle = ({direction}: Props) => {
   const {color} = useTheme()
-  const width = ['up', 'down'].includes(direction) ? 32 : 16
-  const height = ['up', 'down'].includes(direction) ? 16 : 32
-  const viewBox = ['up', 'down'].includes(direction) ? '0 0 32 16' : '0 0 16 32'
+  const directionIsVertical = ['up', 'down'].includes(direction)
+  const width = directionIsVertical ? 32 : 16
+  const height = directionIsVertical ? 16 : 32
+  const viewBox = directionIsVertical ? '0 0 32 16' : '0 0 16 32'
 
   return (
     <Center>
