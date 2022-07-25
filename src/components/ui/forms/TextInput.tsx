@@ -7,9 +7,9 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {Label} from '@/components/ui'
 import {Column} from '@/components/ui//layout'
 import {IconButton} from '@/components/ui/buttons'
+import {Label} from '@/components/ui/forms'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
 
@@ -18,6 +18,7 @@ type Props = {
   numberOfLines?: number
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  placeholder?: string
   warning?: boolean
 } & TextInputRNProps
 
@@ -28,6 +29,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
       numberOfLines,
       onChangeText,
       onFocus,
+      placeholder = '',
       warning,
       value: valueProp = '',
       ...otherProps
@@ -67,6 +69,8 @@ export const TextInput = forwardRef<TextInputRN, Props>(
         <View style={styles.frame}>
           <TextInputRN
             {...otherProps}
+            placeholder={placeholder}
+            placeholderTextColor={color.text.secondary}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             onBlur={handleBlur}
             onChangeText={handleChangeText}
@@ -93,24 +97,19 @@ export const TextInput = forwardRef<TextInputRN, Props>(
   },
 )
 
-const borderWidth = (hasFocus: boolean, warning?: boolean) =>
-  hasFocus || warning ? 2 : 1
-
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) => {
-    const frameInset = size.spacing.sm
+    const borderWidth = hasFocus || warning ? 2 : 1
+    const paddingHorizontal = size.spacing.md - (borderWidth - 1)
+    const paddingVertical = size.spacing.sm - (borderWidth - 1)
     const textLineHeight = text.fontSize.body * text.lineHeight.body
 
     return StyleSheet.create({
       frame: {
         flexDirection: 'row',
-        padding: frameInset,
-        paddingBottom:
-          frameInset +
-          (hasFocus
-            ? borderWidth(false, warning) - borderWidth(true, warning)
-            : 0),
+        paddingHorizontal,
+        paddingVertical,
         backgroundColor: color.box.background.white,
         borderStyle: 'solid',
         borderColor: warning
@@ -118,18 +117,19 @@ const createStyles =
           : hasFocus
           ? color.control.focus.border
           : color.control.default.border,
-        borderWidth: borderWidth(hasFocus, warning),
+        borderWidth,
       },
       textInput: {
         minHeight:
           Platform.OS === 'ios' && numberOfLines
-            ? numberOfLines * textLineHeight + 2 * frameInset
+            ? numberOfLines * textLineHeight + 2 * paddingVertical
             : 'auto',
         flex: 1,
         padding: 0, // Override an Android default
         color: color.text.default,
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
+        lineHeight: text.lineHeight.body * text.fontSize.body,
       },
     })
   }
