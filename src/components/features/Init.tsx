@@ -2,7 +2,7 @@ import React, {ReactNode, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useInitSentry, useRegisterDevice, useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
-import {selectProjectManagerId} from '@/modules/construction-work-editor/slice'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {getPushNotificationsPermission} from '@/processes'
 import {setCredentials} from '@/store'
 import {encryptWithAES} from '@/utils'
@@ -11,7 +11,7 @@ type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   const dispatch = useDispatch()
-  const projectManagerId = useSelector(selectProjectManagerId)
+  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   useInitSentry()
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice} = useRegisterDevice()
@@ -31,17 +31,17 @@ export const Init = ({children}: Props) => {
   })
 
   useEffect(() => {
-    if (projectManagerId) {
+    if (constructionWorkEditorId) {
       dispatch(
         setCredentials({
           managerToken: encryptWithAES({
             password: process.env.AUTH_PASSWORD ?? '',
-            salt: projectManagerId,
+            salt: constructionWorkEditorId,
           }),
         }),
       )
     }
-  }, [dispatch, projectManagerId])
+  }, [dispatch, constructionWorkEditorId])
 
   return <>{children}</>
 }

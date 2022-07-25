@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
-  selectProjectManagerHasSeenWelcomeMessage,
+  selectConstructionWorkEditorHasSeenWelcomeMessage,
   setHasSeenWelcomeMessage,
 } from '../slice'
 import {Alert} from '@/components/ui'
@@ -12,7 +12,7 @@ import {setAlert} from '@/store'
 export const AuthorizedProjectsScreen = () => {
   const dispatch = useDispatch()
   const hasSeenWelcomeMessage = useSelector(
-    selectProjectManagerHasSeenWelcomeMessage,
+    selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
 
   useEffect(() => {

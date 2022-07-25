@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {selectProjectManagerId} from '@/modules/construction-work-editor/slice'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
   selectProjectId,
@@ -53,7 +53,7 @@ const config = {maxWidth: 1920, maxHeight: 1080}
 export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const {color} = useTheme()
 
-  const projectManagerId = useSelector(selectProjectManagerId)
+  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const dispatch = useDispatch()
   const mainImage = useSelector(selectMainImage)
   const projectId = useSelector(selectProjectId)
@@ -87,7 +87,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         content: data.message,
       },
       project_identifier: projectId!,
-      project_manager_id: projectManagerId!,
+      project_manager_id: constructionWorkEditorId!,
     }
     dispatch(setProjectWarning(warningData))
   }
@@ -136,7 +136,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
     setCharacterCountMessage(watchMessage?.length)
   }, [watchMessage])
 
-  if (!projectId || !projectManagerId) {
+  if (!projectId || !constructionWorkEditorId) {
     return null
   }
 

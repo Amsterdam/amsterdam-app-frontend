@@ -8,10 +8,10 @@ import {RootStackParams} from '../../../../app/navigation'
 import {Text} from '../../../../components/ui'
 import {module as constructionWorkModule} from '../../../construction-work'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {selectProjectManagerId} from '@/modules/construction-work-editor/slice'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 
 export const ProjectManagerUserSection = () => {
-  const projectManagerId = useSelector(selectProjectManagerId)
+  const projectManagerId = useSelector(selectConstructionWorkEditorId)
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof userModule.slug>
