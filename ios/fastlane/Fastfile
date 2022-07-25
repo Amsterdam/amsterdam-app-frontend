@@ -163,6 +163,8 @@ platform :ios do
             ipa: full_ipa_path,
             distribute_only: true,
             groups: 'AmsterdamApp-stakeholders',
+            app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
+            build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
             app_identifier: app[:app_identifier],
           )
         else
@@ -191,6 +193,8 @@ platform :ios do
             submit_for_review: false,
             automatic_release: false,
             ipa: full_ipa_path,
+            app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
+            build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
             app_identifier: app[:app_identifier],
           )
         else
