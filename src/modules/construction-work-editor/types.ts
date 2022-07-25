@@ -3,13 +3,13 @@ export enum ConstructionWorkEditorEndpointName {
   getProjects = 'getProjects',
 }
 
-export type ProjectManager = {
+export type ConstructionWorkEditor = {
   id?: string
   hasSeenWelcomeMessage: boolean
   projects: string[]
 }
 
-export type ProjectManagerResponse = {
+export type ConstructionWorkEditorResponse = {
   identifier: string
   email: string
   projects: string[]

@@ -44,7 +44,7 @@ const constructionWorkPersistConfig = {
 }
 
 const constructionWorkEditorPersistConfig = {
-  key: 'projectManager',
+  key: 'constructionWorkEditor',
   storage: AsyncStorage,
 }
 
@@ -63,7 +63,7 @@ const rootReducer = combineReducers({
     constructionWorkSlice.reducer,
   ),
   notificationDraft: notificationDraftSlice.reducer,
-  projectManager: persistReducer(
+  constructionWorkEditor: persistReducer(
     constructionWorkEditorPersistConfig,
     constructionWorkEditorSlice.reducer,
   ),

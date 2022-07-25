@@ -1,21 +1,24 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {ProjectManager} from '@/modules/construction-work-editor/types'
+import {ConstructionWorkEditor} from '@/modules/construction-work-editor/types'
 import {RootState} from '@/store'
 
-const initialState: ProjectManager = {
+const initialState: ConstructionWorkEditor = {
   id: undefined,
   hasSeenWelcomeMessage: false,
   projects: [],
 }
 
 export const constructionWorkEditorSlice = createSlice({
-  name: 'projectManager',
+  name: 'constructionWorkEditor',
   initialState,
   reducers: {
-    addProjectManagerId: (state, {payload: id}: PayloadAction<string>) => {
+    addConstructionWorkEditorId: (
+      state,
+      {payload: id}: PayloadAction<string>,
+    ) => {
       state.id = id
     },
-    addProjectManagerProjects: (
+    addConstructionWorkEditorProjects: (
       state,
       {payload: projects}: PayloadAction<string[]>,
     ) => {
@@ -24,21 +27,23 @@ export const constructionWorkEditorSlice = createSlice({
     setHasSeenWelcomeMessage: state => {
       state.hasSeenWelcomeMessage = true
     },
-    removeProjectManager: () => initialState,
+    removeConstructionWorkEditor: () => initialState,
   },
 })
 
 export const {
-  addProjectManagerId,
-  addProjectManagerProjects,
+  addConstructionWorkEditorId,
+  addConstructionWorkEditorProjects,
   setHasSeenWelcomeMessage,
-  removeProjectManager,
+  removeConstructionWorkEditor,
 } = constructionWorkEditorSlice.actions
 
-export const selectProjectManagerId = ({projectManager}: RootState) =>
-  projectManager.id
-export const selectProjectManagerHasSeenWelcomeMessage = ({
-  projectManager,
-}: RootState) => projectManager.hasSeenWelcomeMessage
-export const selectProjectManagerProjects = ({projectManager}: RootState) =>
-  projectManager.projects
+export const selectConstructionWorkEditorId = ({
+  constructionWorkEditor,
+}: RootState) => constructionWorkEditor.id
+export const selectConstructionWorkEditorHasSeenWelcomeMessage = ({
+  constructionWorkEditor,
+}: RootState) => constructionWorkEditor.hasSeenWelcomeMessage
+export const selectConstructionWorkEditorProjects = ({
+  constructionWorkEditor,
+}: RootState) => constructionWorkEditor.projects
