@@ -4,8 +4,9 @@ import React, {useEffect, useState} from 'react'
 import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, Label, Text, Title} from '@/components/ui'
+import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
+import {Label} from '@/components/ui/forms'
 import {
   CharactersLeftDisplay,
   TextInput,
@@ -173,6 +174,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
+                      placeholder="Voer een titel in..."
                       value={value}
                       warning={!!errors.title}
                     />

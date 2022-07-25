@@ -1,6 +1,7 @@
 export * from './CharactersLeftDisplay'
 export * from './Checkbox'
 export * from './FormField'
+export * from './Label'
 export * from './Radio'
 export * from './RadioGroup'
 export * from './SearchField'

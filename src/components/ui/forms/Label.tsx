@@ -1,9 +1,9 @@
 import React from 'react'
 import {View} from 'react-native'
-import {Title} from './'
+import {Paragraph} from '../text'
 
 type Props = {
-  isAccessible: boolean | undefined
+  isAccessible?: boolean
   text: string
 }
 
@@ -13,7 +13,7 @@ export const Label = ({isAccessible, text}: Props) => {
       accessibilityElementsHidden={!isAccessible} // in case of iOS
       importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
     >
-      <Title level={4} text={text} />
+      <Paragraph>{text}</Paragraph>
     </View>
   )
 }
