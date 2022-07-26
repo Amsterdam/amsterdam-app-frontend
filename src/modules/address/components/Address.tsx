@@ -34,17 +34,17 @@ const TitleAndHelp = () => {
         <Title text="Adres" />
         <IconButton
           icon={
-            <Icon>
+            <Icon size={24}>
               <Question fill={color.pressable.primary.default} />
             </Icon>
           }
           onPress={() => setTooltipIsVisible(!tooltipIsVisible)}
         />
       </Row>
-      {tooltipIsVisible && (
+      {!!tooltipIsVisible && (
         <Box insetHorizontal="lg">
           <Tooltip
-            direction="up"
+            placement="bottom"
             text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
           />
         </Box>

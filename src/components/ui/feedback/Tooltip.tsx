@@ -3,11 +3,12 @@ import {StyleSheet, View} from 'react-native'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {Direction} from '@/components/ui/types'
+import {Placement} from '@/components/ui/types'
+import {mapPlacementToDirection} from '@/components/ui/utils'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
-  direction: Direction
+  placement: Placement
   text: string | string[]
 }
 
@@ -28,18 +29,18 @@ const TooltipContent = ({text}: Pick<Props, 'text'>) => {
   )
 }
 
-export const Tooltip = ({direction, text}: Props) => {
-  const props = {direction}
+export const Tooltip = ({placement, text}: Props) => {
+  const props = {direction: mapPlacementToDirection(placement)}
 
   return (
     <Row>
-      {direction === 'back' && <Triangle {...props} />}
+      {placement === 'end' && <Triangle {...props} />}
       <Column>
-        {direction === 'up' && <Triangle {...props} />}
+        {placement === 'bottom' && <Triangle {...props} />}
         <TooltipContent text={text} />
-        {direction === 'down' && <Triangle {...props} />}
+        {placement === 'top' && <Triangle {...props} />}
       </Column>
-      {direction === 'forward' && <Triangle {...props} />}
+      {placement === 'start' && <Triangle {...props} />}
     </Row>
   )
 }
