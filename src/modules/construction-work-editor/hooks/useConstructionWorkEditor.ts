@@ -15,7 +15,6 @@ export const useConstructionWorkEditor = () => {
     isLoading: isGetProjectManagerLoading,
   } = useGetProjectManagerQuery(
     constructionWorkEditorId ? {id: constructionWorkEditorId} : skipToken,
-    {refetchOnMountOrArgChange: true},
   )
 
   const selectAuthProjects = useMemo(() => {

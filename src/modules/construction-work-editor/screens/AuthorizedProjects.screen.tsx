@@ -1,4 +1,4 @@
-import {RouteProp, useRoute} from '@react-navigation/core'
+import {RouteProp} from '@react-navigation/core'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Alert, PleaseWait} from '@/components/ui'
@@ -7,14 +7,14 @@ import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
 import {useRegisterConstructionWorkEditorId} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 
-export const AuthorizedProjectsScreen = () => {
-  const route =
-    useRoute<
-      RouteProp<
-        RootStackParams,
-        ConstructionWorkEditorRouteName.authorizedProjects
-      >
-    >()
+type Props = {
+  route: RouteProp<
+    RootStackParams,
+    ConstructionWorkEditorRouteName.authorizedProjects
+  >
+}
+
+export const AuthorizedProjectsScreen = ({route}: Props) => {
   const deeplinkId = route.params?.id ?? undefined
 
   const {isLoading} = useRegisterConstructionWorkEditorId(deeplinkId)
