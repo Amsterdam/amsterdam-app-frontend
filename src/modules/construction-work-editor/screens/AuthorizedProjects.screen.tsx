@@ -1,7 +1,7 @@
 import {RouteProp, useRoute} from '@react-navigation/core'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
-import {Alert, Spinner} from '@/components/ui'
+import {Alert, PleaseWait} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
 import {useRegisterConstructionWorkEditorId} from '@/modules/construction-work-editor/hooks'
@@ -21,7 +21,7 @@ export const AuthorizedProjectsScreen = () => {
 
   return (
     <Screen scroll={false} stickyHeader={<Alert />}>
-      {isLoading ? <Spinner /> : <AuthorizedProjects />}
+      {isLoading ? <PleaseWait /> : <AuthorizedProjects />}
     </Screen>
   )
 }
