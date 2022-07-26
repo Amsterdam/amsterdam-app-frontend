@@ -56,7 +56,7 @@ const ListEmptyMessage = () => (
 )
 
 type Props = {
-  initialMetrics: Metrics | null | undefined
+  initialMetrics?: Metrics | null
 }
 
 export const AuthorizedProjects = ({initialMetrics}: Props) => {
