@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {WebView as WebViewRN} from 'react-native-webview'
-import {PleaseWait} from '@/components/ui/PleaseWait'
+import {PleaseWait} from '@/components/ui/feedback'
 import {DeviceContext} from '@/providers'
 
 export type WebViewProps = {

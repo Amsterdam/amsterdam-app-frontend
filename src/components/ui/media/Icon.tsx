@@ -1,13 +1,12 @@
 import React, {ReactNode, useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {IconSize} from '@/components/ui/types'
 import {DeviceContext} from '@/providers'
-
-export type IconSizes = 16 | 20 | 24 | 32
 
 type Props = {
   children: ReactNode
   scaleWithText?: boolean
-  size?: IconSizes
+  size?: IconSize
 }
 
 export const Icon = ({children, scaleWithText = true, size = 16}: Props) => {

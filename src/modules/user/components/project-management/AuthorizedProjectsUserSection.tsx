@@ -2,14 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
 import {RootStackParams} from '@/app/navigation'
-import {
-  Attention,
-  Box,
-  Divider,
-  PleaseWait,
-  SingleSelectable,
-  Text,
-} from '@/components/ui'
+import {Attention, Box, Divider, SingleSelectable, Text} from '@/components/ui'
+import {PleaseWait} from '@/components/ui/feedback'
 import {module as constructionWorkModule} from '@/modules/construction-work'
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 import {ProjectTitle} from '@/modules/construction-work/components/project'

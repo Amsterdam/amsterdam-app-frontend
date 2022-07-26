@@ -1,7 +1,5 @@
-import {FC, ReactNode} from 'react'
+export type Direction = 'up' | 'down' | 'back' | 'forward'
 
-export type StoryComponent<
-  T extends FC<unknown> | ((props: Record<string, unknown>) => ReactNode),
-> = FC<Parameters<T>[0]> & {
-  args?: Partial<Parameters<T>[0]>
-}
+export type IconSize = 16 | 20 | 24 | 32
+
+export type Placement = 'top' | 'bottom' | 'start' | 'end'

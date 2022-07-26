@@ -1,8 +1,9 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Direction, Triangle} from '@/components/ui/feedback/Triangle'
+import {Triangle} from '@/components/ui/feedback/Triangle'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {Direction} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
