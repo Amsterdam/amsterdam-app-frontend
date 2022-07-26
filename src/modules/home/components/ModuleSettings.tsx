@@ -23,7 +23,7 @@ export const ModuleSettings = () => {
   }
 
   if (modulesLoading) {
-    return <PleaseWait fullSize />
+    return <PleaseWait grow />
   }
 
   if (!modules.length) {

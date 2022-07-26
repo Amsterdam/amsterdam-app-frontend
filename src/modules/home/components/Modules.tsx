@@ -15,7 +15,7 @@ export const Modules = () => {
   } = useModules()
 
   if (modulesLoading) {
-    return <PleaseWait fullSize />
+    return <PleaseWait grow />
   }
 
   if (modulesError) {

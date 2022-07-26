@@ -104,7 +104,7 @@ export const WasteGuideByAddress = () => {
       {wasteGuideLength === undefined ? (
         <Box>
           <Title level={4} text="Gegevens ophalen…" />
-          <PleaseWait fullSize={false} />
+          <PleaseWait />
         </Box>
       ) : wasteGuideLength === 0 ? (
         <WasteGuideByAddressNoDetails address={address} />
