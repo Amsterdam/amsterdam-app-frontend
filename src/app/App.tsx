@@ -5,7 +5,10 @@ import {
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
 import React, {useRef} from 'react'
 import {StatusBar} from 'react-native'
-import {SafeAreaProvider} from 'react-native-safe-area-context'
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 import {linking, RootStackNavigator, RootStackParams} from '@/app/navigation'
@@ -22,7 +25,7 @@ const AppComponent = () => {
   const navigation = useRef<NavigationContainerRef<RootStackParams>>(null)
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <CustomErrorBoundary>
         <StatusBar
           backgroundColor={lightColorTokens.screen.background.default}
