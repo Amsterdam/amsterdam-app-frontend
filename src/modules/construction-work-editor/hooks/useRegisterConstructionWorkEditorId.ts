@@ -9,7 +9,7 @@ import {
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
 import {useFollowProjectMutation} from '@/modules/construction-work/construction-work.service'
-import {getPushNotificationsPermission} from '@/processes'
+import {requestPushNotificationsPermission} from '@/processes'
 import {setAlert, setAlertVisibility} from '@/store'
 import {Variant} from '@/types'
 
@@ -46,7 +46,7 @@ export const useRegisterConstructionWorkEditorId = (
       authorizedProjects.forEach(({identifier}) => {
         followProject({project_id: identifier})
       })
-      getPushNotificationsPermission()
+      requestPushNotificationsPermission()
         .then(registerDevice)
         .catch((error: unknown) => {
           sendSentryErrorLog(
