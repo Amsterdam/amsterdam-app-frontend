@@ -10,12 +10,14 @@ export default {
 
 export const Default: ComponentStoryObj<typeof Tooltip> = {
   args: {
+    direction: 'up',
     text: 'We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld.',
   },
 }
 
 export const Multiline: ComponentStoryObj<typeof Tooltip> = {
   args: {
+    direction: 'up',
     text: ['Tip!', 'Vul het formulier in en win een parkeervergunning.'],
   },
 }
