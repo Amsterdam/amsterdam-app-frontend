@@ -12,3 +12,13 @@ export const Default: ComponentStoryObj<typeof TextInput> = {
     value: '',
   },
 }
+
+export const Multiline: ComponentStoryObj<typeof TextInput> = {
+  args: {
+    label: 'Wat is de titel van je bericht?',
+    multiline: true,
+    numberOfLines: 5,
+    placeholder: 'Voer een titel in...',
+    value: '',
+  },
+}
