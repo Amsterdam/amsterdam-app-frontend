@@ -2,7 +2,7 @@ import {useRadioGroup} from '@react-native-aria/radio'
 import {useRadioGroupState} from '@react-stately/radio'
 import React, {createContext} from 'react'
 import {View} from 'react-native'
-import {Label} from '@/components/ui/Label'
+import {Label} from '@/components/ui/forms'
 import {Gutter} from '@/components/ui/layout'
 import {IRadioGroupProps, RadioGroupState} from '@/types/radio'
 

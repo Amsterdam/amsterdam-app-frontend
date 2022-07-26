@@ -4,15 +4,13 @@ import React, {useEffect, useState} from 'react'
 import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, Label, Text, Title} from '@/components/ui'
+import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
-import {
-  CharactersLeftDisplay,
-  TextInput,
-  ValidationWarning,
-} from '@/components/ui/forms'
+import {Label} from '@/components/ui/forms'
+import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
+import {Paragraph} from '@/components/ui/text'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
@@ -173,6 +171,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                       maxLength={maxCharacters.title}
                       multiline={true}
                       onChangeText={onChange}
+                      placeholder="Voer een titel in..."
                       value={value}
                       warning={!!errors.title}
                     />
@@ -186,7 +185,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <ValidationWarning warning="Vul een titel in" />}
+              {errors.title && (
+                <Paragraph color="warning">Vul een titel in</Paragraph>
+              )}
             </>
             <>
               <Column gutter="xs">
@@ -216,7 +217,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.intro && <ValidationWarning warning="Type een intro" />}
+              {errors.intro && (
+                <Paragraph color="warning">Type een intro</Paragraph>
+              )}
             </>
             <>
               <Column gutter="xs">
@@ -247,7 +250,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                 />
               </Column>
               {errors.message && (
-                <ValidationWarning warning="Type een nieuwsartikel" />
+                <Paragraph color="warning">Type een nieuwsartikel</Paragraph>
               )}
             </>
             <Column gutter="xs">

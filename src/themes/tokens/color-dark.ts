@@ -86,5 +86,6 @@ export const darkColorTokens: ColorTokens = {
     link: baseColor.primary.blue,
     secondary: baseColor.neutral.grey1,
     tertiary: baseColor.neutral.grey2,
+    warning: baseColor.support.invalid,
   },
 }

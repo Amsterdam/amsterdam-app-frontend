@@ -5,8 +5,9 @@ import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
-import {Radio, RadioGroup, ValidationWarning} from '@/components/ui/forms'
+import {Radio, RadioGroup} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
+import {Paragraph} from '@/components/ui/text'
 import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
 import {
   selectProjectId,
@@ -104,7 +105,9 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 rules={{required: 'Kies een nieuwsartikel'}}
               />
               {errors.news && (
-                <ValidationWarning warning="Selecteer een nieuwsartikel" />
+                <Paragraph color="warning">
+                  Selecteer een nieuwsartikel
+                </Paragraph>
               )}
             </>
             <Column gutter="md">
