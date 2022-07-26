@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const PleaseWait = ({grow}: Props) => (
-  <Center style={grow && layoutStyles.grow}>
+  <Center style={!!grow && layoutStyles.grow}>
     <Spinner />
   </Center>
 )
