@@ -36,7 +36,7 @@ export const useConstructionWorkEditor = () => {
     authorizedProjects,
   } = useGetProjectsQuery(
     {
-      fields: ['identifier', 'subtitle', 'title'],
+      fields: ['identifier', 'subtitle', 'title', 'images'],
     },
     {
       selectFromResult: result => ({

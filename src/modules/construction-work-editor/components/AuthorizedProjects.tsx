@@ -4,12 +4,12 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
+import {useConstructionWorkEditor} from '../hooks'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {module as constructionWorkModule} from '@/modules/construction-work'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
-import {authorizedProjectsMock} from '@/modules/construction-work-editor/authorized-projects.mock'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -66,11 +66,15 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const mockProjects = authorizedProjectsMock.map(p => p as ProjectsItem)
+  const {authorizedProjects} = useConstructionWorkEditor()
+
+  if (!authorizedProjects) {
+    return null
+  }
 
   return (
     <FlatGrid
-      data={mockProjects}
+      data={authorizedProjects}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
