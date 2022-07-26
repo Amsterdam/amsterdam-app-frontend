@@ -90,9 +90,8 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
                   name="title"
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.title - (characterCountTitle || 0)
-                  }
+                  maxCharacters={maxCharacters.title}
+                  numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
               {errors.title && (

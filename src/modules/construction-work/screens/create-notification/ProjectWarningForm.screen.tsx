@@ -180,9 +180,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.title - (characterCountTitle || 0)
-                  }
+                  maxCharacters={maxCharacters.title}
+                  numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
               {errors.title && (
@@ -212,9 +211,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.intro - (characterCountIntro || 0)
-                  }
+                  maxCharacters={maxCharacters.intro}
+                  numOfCharacters={characterCountIntro || 0}
                 />
               </Column>
               {errors.intro && (
@@ -244,9 +242,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   defaultValue=""
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.message - (characterCountMessage || 0)
-                  }
+                  maxCharacters={maxCharacters.message}
+                  numOfCharacters={characterCountMessage || 0}
                 />
               </Column>
               {errors.message && (

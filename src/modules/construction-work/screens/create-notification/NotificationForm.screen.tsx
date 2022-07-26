@@ -133,9 +133,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue={'TEST ' + formatTime(now, true) + ' '}
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.title - (characterCountTitle || 0)
-                  }
+                  maxCharacters={maxCharacters.title}
+                  numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
               {errors.title && (
@@ -165,9 +164,8 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   defaultValue="Lorem ipsum dolor sit amet. We testen pushberichten vanuit de Amsterdam app."
                 />
                 <CharactersLeftDisplay
-                  charactersLeft={
-                    maxCharacters.message - (characterCountMessage || 0)
-                  }
+                  maxCharacters={maxCharacters.message}
+                  numOfCharacters={characterCountMessage || 0}
                 />
               </Column>
               {errors.message && (
