@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useConstructionWorkEditor} from './useConstructionWorkEditor'
-import {useSetConstructionWorkEditorCredentials} from './useConstructionWorkEditorCredentials'
 import {useRegisterDevice, useSentry} from '@/hooks'
+import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditor'
+import {useSetConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditorCredentials'
 import {
   selectConstructionWorkEditorHasSeenWelcomeMessage,
   addConstructionWorkEditorId,
@@ -51,7 +51,7 @@ export const useRegisterConstructionWorkEditorId = (
         .catch((error: unknown) => {
           sendSentryErrorLog(
             'Register device for push notifications failed',
-            'Init.tsx',
+            'useRegisterConstructionWorkEditorId.ts',
             {error},
           )
         })
