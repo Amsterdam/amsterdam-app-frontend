@@ -138,7 +138,9 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <Paragraph warning>Vul een titel in</Paragraph>}
+              {errors.title && (
+                <Paragraph color="warning">Vul een titel in</Paragraph>
+              )}
             </>
             <>
               <Column gutter="xs">
@@ -169,7 +171,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                 />
               </Column>
               {errors.message && (
-                <Paragraph warning>Type een pushbericht</Paragraph>
+                <Paragraph color="warning">Type een pushbericht</Paragraph>
               )}
             </>
           </Column>

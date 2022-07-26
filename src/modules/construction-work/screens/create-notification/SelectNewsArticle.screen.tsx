@@ -105,7 +105,9 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 rules={{required: 'Kies een nieuwsartikel'}}
               />
               {errors.news && (
-                <Paragraph warning>Selecteer een nieuwsartikel</Paragraph>
+                <Paragraph color="warning">
+                  Selecteer een nieuwsartikel
+                </Paragraph>
               )}
             </>
             <Column gutter="md">

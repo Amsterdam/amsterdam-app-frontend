@@ -95,7 +95,9 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <Paragraph warning>Vul een titel in</Paragraph>}
+              {errors.title && (
+                <Paragraph color="warning">Vul een titel in</Paragraph>
+              )}
             </View>
           </Column>
           <Row align="between" valign="center">

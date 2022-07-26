@@ -185,7 +185,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.title && <Paragraph warning>Vul een titel in</Paragraph>}
+              {errors.title && (
+                <Paragraph color="warning">Vul een titel in</Paragraph>
+              )}
             </>
             <>
               <Column gutter="xs">
@@ -215,7 +217,9 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   }
                 />
               </Column>
-              {errors.intro && <Paragraph warning>Type een intro</Paragraph>}
+              {errors.intro && (
+                <Paragraph color="warning">Type een intro</Paragraph>
+              )}
             </>
             <>
               <Column gutter="xs">
@@ -246,7 +250,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                 />
               </Column>
               {errors.message && (
-                <Paragraph warning>Type een nieuwsartikel</Paragraph>
+                <Paragraph color="warning">Type een nieuwsartikel</Paragraph>
               )}
             </>
             <Column gutter="xs">

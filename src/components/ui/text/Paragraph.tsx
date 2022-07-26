@@ -1,29 +1,29 @@
 import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {ParagraphVariants} from '@/themes/tokens'
+import {ColorTokens, ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
   variant?: ParagraphVariants
-  warning?: boolean
+  color?: keyof ColorTokens['text']
 } & Omit<TextProps, 'style'>
 
 export const Paragraph = ({
   children,
+  color = 'default',
   variant = 'body',
-  warning = false,
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({variant, warning}),
-    [variant, warning],
+    () => createStyles({variant, color}),
+    [variant, color],
   )
   const styles = useThemable(createdStyles)
 
   return (
     <Text
-      accessibilityRole={warning ? 'alert' : 'none'}
+      accessibilityRole={color === 'warning' ? 'alert' : 'none'}
       style={styles.text}
       {...otherProps}>
       {children}
@@ -32,12 +32,12 @@ export const Paragraph = ({
 }
 
 const createStyles =
-  ({variant, warning}: Required<Pick<Props, 'variant' | 'warning'>>) =>
+  ({variant, color: textColor}: Required<Pick<Props, 'variant' | 'color'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
         flexShrink: 1,
-        color: warning ? color.text.warning : color.text.default,
+        color: color.text[textColor],
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant] * text.fontSize[variant],
