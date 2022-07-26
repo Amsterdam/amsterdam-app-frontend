@@ -1,5 +1,5 @@
 import * as CSS from 'csstype'
-import React, {ReactNode} from 'react'
+import React, {CSSProperties, ReactNode} from 'react'
 
 type Props = {
   children: ReactNode
@@ -16,8 +16,12 @@ export const Canvas = (props: Props) => {
   return (
     <div
       className={highlight ? 'highlight-layout' : undefined}
-      style={{...otherProps}}>
+      style={{...otherProps, ...styles}}>
       {children}
     </div>
   )
+}
+
+const styles: CSSProperties = {
+  display: 'flex',
 }
