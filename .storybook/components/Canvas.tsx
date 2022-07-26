@@ -1,13 +1,12 @@
-import * as CSS from 'csstype'
 import React, {CSSProperties, ReactNode} from 'react'
 
 type Props = {
   children: ReactNode
-  height?: CSS.Property.Height
+  height?: string
   highlight?: boolean
-  maxHeight?: CSS.Property.MaxHeight
-  maxWidth?: CSS.Property.MaxWidth
-  width?: CSS.Property.Width
+  maxHeight?: string
+  maxWidth?: string
+  width?: string
 }
 
 export const Canvas = (props: Props) => {
