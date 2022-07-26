@@ -24,7 +24,7 @@ export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Row align="start">
+    <Row align="start" valign="center">
       <Pressable {...props}>
         {icon}
         {badgeValue ? (
