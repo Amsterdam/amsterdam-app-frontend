@@ -94,7 +94,7 @@ export const VerifyMainImageScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
-              {errors.title && (
+              {!!errors.title && (
                 <Paragraph color="warning">Vul een titel in</Paragraph>
               )}
             </View>

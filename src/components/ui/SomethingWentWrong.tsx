@@ -1,5 +1,5 @@
 import React from 'react'
-import {Attention, Box, Text} from './'
+import {Attention, Box, Text} from '@/components/ui/'
 
 export const SomethingWentWrong = () => (
   <Box>

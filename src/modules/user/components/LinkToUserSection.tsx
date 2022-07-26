@@ -1,9 +1,9 @@
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React, {ReactNode} from 'react'
 import {TouchableOpacity} from 'react-native'
-import {Box} from '../../../components/ui'
-import {Row} from '../../../components/ui/layout'
-import {Icon} from '../../../components/ui/media'
+import {Box} from '@/components/ui'
+import {Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {useTheme} from '@/themes'
 
 type Props = {

@@ -1,6 +1,9 @@
-import {AddressStackParams, AddressRouteName} from './routes'
-import {AddressFormScreen, AddressPrivacyInfoScreen} from './screens'
 import {StackNavigationRoutes} from '@/app/navigation'
+import {AddressStackParams, AddressRouteName} from '@/modules/address/routes'
+import {
+  AddressFormScreen,
+  AddressPrivacyInfoScreen,
+} from '@/modules/address/screens'
 
 export const addressScreenConfig: StackNavigationRoutes<
   AddressStackParams,

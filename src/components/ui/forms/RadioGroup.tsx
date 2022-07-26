@@ -10,6 +10,7 @@ export const RadioContext = createContext({} as RadioGroupState)
 
 export const RadioGroup = (props: IRadioGroupProps) => {
   const state = useRadioGroupState(props)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const {radioGroupProps} = useRadioGroup(
     {...props, 'aria-label': props.accessibilityLabel},
     state,

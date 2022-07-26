@@ -44,7 +44,8 @@ export const useRegisterConstructionWorkEditorId = (
   useEffect(() => {
     if (authorizedProjects && deeplinkId) {
       authorizedProjects.forEach(({identifier}) => {
-        followProject({project_id: identifier})
+        // eslint-disable-next-line no-void
+        void followProject({project_id: identifier})
       })
       requestPushNotificationsPermission()
         .then(registerDevice)

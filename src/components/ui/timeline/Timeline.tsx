@@ -1,5 +1,5 @@
 import React from 'react'
-import {TimelineItem} from './TimelineItem'
+import {TimelineItem} from '@/components/ui/timeline/TimelineItem'
 import {TimelineItem as TimelineItemType} from '@/types'
 
 type Props = {
@@ -15,7 +15,7 @@ export const Timeline = ({items}: Props) => {
             isFirst={index === 0}
             isLast={index === items.length - 1}
             item={item}
-            key={item.title + index}
+            key={item.title + index.toString()}
           />
         )
       })}

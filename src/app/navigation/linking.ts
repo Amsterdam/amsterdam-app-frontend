@@ -77,7 +77,7 @@ export const linking: LinkingOptions<RootStackParams> = {
     // Listen to incoming links from deep linking
     const subscription = Linking.addEventListener('url', onReceiveURL)
 
-    const onMessageReceived = async (
+    const onMessageReceived = (
       message: FirebaseMessagingTypes.RemoteMessage,
     ) => {
       const routeWithPrefix =
@@ -97,7 +97,8 @@ export const linking: LinkingOptions<RootStackParams> = {
         name: 'Default Channel',
       })
       if (message.notification) {
-        notifee.displayNotification({
+        // eslint-disable-next-line no-void
+        void notifee.displayNotification({
           title: message.notification.title,
           body: message.notification.body,
           android: {

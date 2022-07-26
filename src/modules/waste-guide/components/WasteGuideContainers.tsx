@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {ImageSourcePropType} from 'react-native'
 import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
@@ -36,7 +37,9 @@ export const WasteGuideContainers = () => {
         <Row>
           <Image
             customAspectRatio={632 / 220}
-            source={require('@/assets/images/placeholder-map-containers.jpg')}
+            source={
+              require('@/assets/images/placeholder-map-containers.jpg') as ImageSourcePropType
+            }
           />
         </Row>
       </Column>

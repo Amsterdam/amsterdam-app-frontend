@@ -33,7 +33,7 @@ export const TextButton = ({
   const iconColor = useThemable(createIconColor({emphasis, isPressed}))
   const styles = useThemable(createStyles)
 
-  const iconProps: SVGProps<any> = {
+  const iconProps: SVGProps<unknown> = {
     width: 14 * fontScale,
     height: 14 * fontScale,
     fill: iconColor,

@@ -8,7 +8,7 @@ import {
 } from '@/modules/waste-guide/routes'
 
 type Props = {
-  route: RouteProp<
+  route?: RouteProp<
     WasteGuideStackParams,
     WasteGuideRouteName.bulkyWasteAppointment
   >
@@ -19,7 +19,7 @@ export const BulkyWasteAppointmentScreen = ({route}: Props) => {
     <Screen scroll={false}>
       <WebView
         sliceFromTop={{portrait: 162, landscape: 208}}
-        url={route?.params?.appointmentUrl}
+        url={route?.params?.appointmentUrl ?? ''}
       />
     </Screen>
   )

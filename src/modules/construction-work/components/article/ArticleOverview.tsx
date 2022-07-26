@@ -105,7 +105,7 @@ export const ArticleOverview = ({
         {Object.entries(yearlyArticleSections)
           .reverse()
           .map(([year, articlesPerYear], index) => (
-            <View key={year + index}>
+            <View key={year + index.toString()}>
               {index > 0 && (
                 <View style={styles.year}>
                   <Paragraph>{year}</Paragraph>

@@ -31,7 +31,7 @@ export const Address = () => {
   const {primary: primaryAddress} = useSelector(selectAddress)
   const iconProps = useThemable(createIconProps)
 
-  const removeAddressAndShowAlert = async () => {
+  const removeAddressAndShowAlert = () => {
     dispatch(removePrimaryAddress())
     dispatch(
       setAlert({
@@ -131,6 +131,6 @@ export const Address = () => {
   )
 }
 
-const createIconProps = ({color}: Theme): SVGProps<any> => ({
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })

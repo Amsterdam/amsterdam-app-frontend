@@ -1,6 +1,9 @@
 import React from 'react'
 import {useWindowDimensions} from 'react-native'
-import RenderHTML, {MixedStyleDeclaration} from 'react-native-render-html'
+import RenderHTML, {
+  MixedStyleDeclaration,
+  RenderersProps,
+} from 'react-native-render-html'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -88,14 +91,14 @@ const createBaseStyles: (
     }
   }
 
-const createFontList = ({text}: Theme) => [
+const createFontList = ({text}: Theme): string[] => [
   text.fontWeight.bold,
   text.fontWeight.extraBold,
   text.fontWeight.light,
   text.fontWeight.regular,
 ]
 
-const createRenderersProps = ({text}: Theme) => ({
+const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({
   ul: {
     markerBoxStyle: {
       paddingRight: text.fontSize.body / 3,

@@ -1,8 +1,8 @@
 import {ImageURISource} from 'react-native'
-import {EnvironmentConfig} from '../../environment'
-import {mediaTokens} from '../../themes/tokens'
-import {ImageSources} from '../../types'
+import {EnvironmentConfig} from '@/environment'
 import {ProjectWarningImageSources} from '@/modules/construction-work/types'
+import {mediaTokens} from '@/themes/tokens'
+import {ImageSources} from '@/types'
 
 export const mapImageSources = (
   sources: ImageSources | undefined,

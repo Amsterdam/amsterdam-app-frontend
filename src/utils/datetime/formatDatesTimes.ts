@@ -1,4 +1,6 @@
-import {getPreviousDay, parseDays, parseTime} from '../index'
+import {getPreviousDay} from '@/utils/datetime/getPreviousDay'
+import {parseDays} from '@/utils/datetime/parseDays'
+import {parseTime} from '@/utils/datetime/parseTime'
 
 /**
  * Returns a well-formed sentence for one or more days and times.
@@ -21,8 +23,8 @@ export const formatDatesTimes = (
     return emptyValue
   }
 
-  const fromTime = parseTime(from ?? '')
-  const untilTime = parseTime(until ?? '')
+  const fromTime = parseTime(from ?? '') ?? ''
+  const untilTime = parseTime(until ?? '') ?? ''
 
   if (days.includes(' tot en met ')) {
     return `${days} tussen ${fromTime} en ${untilTime} uur`

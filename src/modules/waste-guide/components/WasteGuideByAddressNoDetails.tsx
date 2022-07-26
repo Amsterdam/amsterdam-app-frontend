@@ -28,15 +28,17 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
             'Het afval in Weesp wordt niet opgehaald door Gemeente Amsterdam ' +
             'maar door het GAD. Bekijk hun website voor meer informatie.',
           button: {
-            onPress: () =>
-              Linking.openURL(
+            onPress: () => {
+              // eslint-disable-next-line no-void
+              void Linking.openURL(
                 'https://inzamelkalender.gad.nl/adres/' +
                   [
                     address.postcode,
                     address.huisnummer,
                     address.bag_toevoeging,
                   ].join(':'),
-              ),
+              )
+            },
             label: 'Ga naar GAD.nl',
           },
         }
@@ -44,8 +46,9 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
           title: 'Niet gevonden',
           text: `We konden geen afvalinformatie vinden voor het adres ${address.adres}, ${address.postcode} ${address.woonplaats}.`,
           button: {
-            onPress: () =>
-              navigation.navigate(WasteGuideRouteName.wasteGuideFeedback),
+            onPress: () => {
+              navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
+            },
             label: 'Hier klopt iets niet',
             secondary: true,
           },

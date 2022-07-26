@@ -35,7 +35,7 @@ export const ProjectTraits = ({
   return (
     <View accessibilityLabel={accessibilityLabel}>
       <Row gutter="md" wrap>
-        {followed &&
+        {!!followed &&
           (numOfUnreadArticles ? (
             <Trait label={simplur`${[numOfUnreadArticles]} Bericht[|en]`}>
               <Badge value={numOfUnreadArticles} />
@@ -43,10 +43,10 @@ export const ProjectTraits = ({
           ) : (
             <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
           ))}
-        {meter && (
+        {!!meter && (
           <Trait icon={<Location {...iconProps} />} label={`${meter} meter`} />
         )}
-        {strides && (
+        {!!strides && (
           <Trait
             icon={<Strides {...iconProps} />}
             label={`${strides} stappen`}
@@ -57,6 +57,6 @@ export const ProjectTraits = ({
   )
 }
 
-const createIconProps = ({color}: Theme): SVGProps<any> => ({
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.default,
 })

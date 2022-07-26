@@ -7,7 +7,7 @@ type Props = ViewProps
 export const Grid = ({children}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
 
-  return <View style={isLandscape && styles.grid}>{children}</View>
+  return <View style={!!isLandscape && styles.grid}>{children}</View>
 }
 
 const styles = StyleSheet.create({

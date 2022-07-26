@@ -9,7 +9,7 @@ import {ListQueryArg} from '@/types'
 type Signature = {
   baseUrl?: string
   path?: string
-  params: {}
+  params: Record<string, string[] | string | number | boolean>
 }
 
 export const generateRequestUrl = ({params = {}, path}: Signature) => {
@@ -21,7 +21,7 @@ export const generateRequestUrl = ({params = {}, path}: Signature) => {
 
   const scalarParams = Object.entries(params)
     .filter(([, value]) => Boolean(value) && !Array.isArray(value))
-    .flatMap(([key, value]) => `${key}=${value}`)
+    .flatMap(([key, value]) => `${key}=${value as string}`)
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
 

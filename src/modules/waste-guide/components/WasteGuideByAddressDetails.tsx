@@ -59,7 +59,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           },
         ]}
       />
-      {appointmentUrl && (
+      {!!appointmentUrl && (
         <>
           <Gutter height="md" />
           <Column halign="start">
@@ -74,7 +74,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           </Column>
         </>
       )}
-      {footerLink && (
+      {!!footerLink && (
         <>
           <Gutter height="md" />
           <Row align="start">

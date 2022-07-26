@@ -97,19 +97,21 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
     [addNotification, notification],
   )
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (newsArticle?.id) {
       sendNotificationToBackend({news_identifier: newsArticle.id})
     }
 
     if (projectWarning) {
-      await sendWarningToBackend()
+      // eslint-disable-next-line no-void
+      void sendWarningToBackend()
     }
   }
 
   useEffect(() => {
     if (addWarningData && isWarningSent && mainImage && mainImage.data) {
-      addProjectWarningImage({
+      // eslint-disable-next-line no-void
+      void addProjectWarningImage({
         project_warning_id: addWarningData.warning_identifier,
         image: {
           main: true,
@@ -187,9 +189,9 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
             <Title text="Controleer" />
             <SingleSelectable>
               <Text>Project</Text>
-              {project && <Title level={2} text={project.title} />}
+              {!!project && <Title level={2} text={project.title} />}
             </SingleSelectable>
-            {notification && (
+            {!!notification && (
               <>
                 <Preview label="Pushbericht">
                   <Title level={2} text={notification.title} />
@@ -197,12 +199,12 @@ export const VerifyNotificationScreen = ({navigation}: Props) => {
                 </Preview>
               </>
             )}
-            {newsArticle && (
+            {!!newsArticle && (
               <Preview label="Nieuwsartikel">
                 <Text>{newsArticle.title}</Text>
               </Preview>
             )}
-            {projectWarning && (
+            {!!projectWarning && (
               <Preview image={image} label="Nieuwsartikel">
                 <Text>Omschrijving: {mainImageDescription}</Text>
                 <Title level={2} text={projectWarning.title} />

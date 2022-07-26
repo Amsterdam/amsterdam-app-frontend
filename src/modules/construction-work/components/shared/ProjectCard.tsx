@@ -33,7 +33,8 @@ export const ProjectCard = ({
         accessibilityLabel={accessibleText(
           title,
           subtitle,
-          kicker?.props.accessibilityLabel,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+          kicker?.props.accessibilityLabel ?? undefined,
         )}
         onPress={onPress}
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>

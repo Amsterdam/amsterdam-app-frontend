@@ -10,7 +10,7 @@ import {
   sizeTokens,
   TextTokens,
   textTokens,
-} from './tokens'
+} from '@/themes/tokens'
 
 export type SharedTheme = {
   border: BorderTokens

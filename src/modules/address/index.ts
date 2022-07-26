@@ -1,4 +1,4 @@
-import {addressSlice} from './addressSlice'
+import {addressSlice} from '@/modules/address/addressSlice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 

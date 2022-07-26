@@ -9,7 +9,7 @@ type Props = {
 export const ProjectTitle = ({title, subtitle}: Props) => (
   <>
     <Text large>{title}</Text>
-    {subtitle && (
+    {!!subtitle && (
       <Text secondary small>
         {subtitle}
       </Text>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {ImageSourcePropType, View} from 'react-native'
 import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
@@ -10,7 +10,11 @@ export const ReferToWebsiteCard = () => (
   <Box>
     <Column gutter="md">
       <Row>
-        <Image source={require('@/assets/images/refer-to-website-hero.jpg')} />
+        <Image
+          source={
+            require('@/assets/images/refer-to-website-hero.jpg') as ImageSourcePropType
+          }
+        />
       </Row>
       <View>
         <Title level={2} text="Niet gevonden wat u zocht?" />

@@ -1,4 +1,5 @@
 import React from 'react'
+import {ImageSourcePropType} from 'react-native'
 import {Box} from '@/components/ui'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -7,7 +8,9 @@ import {Paragraph, Title} from '@/components/ui/text'
 export const ComingSoon = () => (
   <Column>
     <Image
-      source={require('@/assets/images/open-waste-container-coming-soon.jpg')}
+      source={
+        require('@/assets/images/open-waste-container-coming-soon.jpg') as ImageSourcePropType
+      }
     />
     <Box insetHorizontal="md" insetVertical="lg">
       <Column gutter="md">

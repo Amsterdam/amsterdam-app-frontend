@@ -1,5 +1,15 @@
 declare module '*.svg' {
-  const content: any
+  import {CSSProperties, FC} from 'react'
+  import {ViewStyle} from 'react-native'
+
+  type SvgProps = {fill?: string; style?: ViewStyle | CSSProperties}
+  const content: FC<SvgProps>
+  export default content // eslint-disable-line import/no-default-export
+}
+declare module '*.png' {
+  import {ImageSourcePropType} from 'react-native'
+
+  const content: ImageSourcePropType
   export default content // eslint-disable-line import/no-default-export
 }
 

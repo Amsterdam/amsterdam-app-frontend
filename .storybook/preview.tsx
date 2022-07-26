@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import {RootProvider} from '../src/providers'
+import {RootProvider} from '@/providers'
+// eslint-disable-next-line no-restricted-imports
 import './preview.css'
 import {baseColor} from '@/tokens'
 
@@ -33,7 +34,7 @@ export const parameters = {
 }
 
 export const decorators = [
-  Story => (
+  (Story: FC) => (
     <SafeAreaProvider>
       <RootProvider>
         <Story />

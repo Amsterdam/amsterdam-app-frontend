@@ -1,7 +1,7 @@
 import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
 import React, {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
-import {Row} from './layout'
+import {Row} from '@/components/ui/layout'
 import {Theme, useThemable, useTheme} from '@/themes'
 
 const initialRotation = 0

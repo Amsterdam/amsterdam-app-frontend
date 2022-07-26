@@ -1,4 +1,4 @@
-import {ListQueryArg} from '.'
+import {ListQueryArg} from '@/types'
 
 export type NotificationQueryArg = {
   title: string

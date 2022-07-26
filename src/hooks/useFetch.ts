@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import {shallowEqual} from '../utils/shallowEqual'
+import {shallowEqual} from '@/utils/shallowEqual'
 
 type UseFetchProps = {
   onLoad?: boolean
@@ -14,6 +20,9 @@ type UseFetchProps = {
   url: string
 }
 
+/**
+ * @deprecated
+ */
 export const useFetch = <T>({url, options, onLoad = true}: UseFetchProps) => {
   const [data, setData] = useState<T | undefined>(undefined)
   const [hasError, setHasError] = useState<boolean>(false)

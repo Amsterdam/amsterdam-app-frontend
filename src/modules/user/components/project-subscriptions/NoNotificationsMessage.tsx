@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {module as userModule} from '../..'
-import {RootStackParams} from '../../../../app/navigation'
-import {Box, Text, Title} from '../../../../components/ui'
-import {Column} from '../../../../components/ui/layout'
-import {module as constructionWorkModule} from '../../../construction-work'
-import {ConstructionWorkRouteName} from '../../../construction-work/routes'
+import {RootStackParams} from '@/app/navigation'
+import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout'
+import {module as constructionWorkModule} from '@/modules/construction-work'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {module as userModule} from '@/modules/user'
 
 export const NoNotificationsMessage = () => {
   const navigation =

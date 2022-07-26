@@ -23,7 +23,7 @@ type Props = {
 
 export const Trait = ({children, icon, label}: Props) => (
   <Row gutter="sm" valign="center">
-    {icon && <Icon size={16}>{icon}</Icon>}
+    {!!icon && <Icon size={16}>{icon}</Icon>}
     {children}
     <Phrase variant="small">{label}</Phrase>
   </Row>

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  plugins: ['import'],
+  plugins: ['import', 'jsx-expressions'],
   extends: [
     '@react-native-community',
     'plugin:storybook/recommended',
@@ -31,18 +31,71 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     semi: ['error', 'never'],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['.*'],
+            message:
+              "Please use a clean path like: '@/components/something' instead of '../components/something'.",
+          },
+        ],
+      },
+    ],
   },
   overrides: [
     {
       files: ['*.stories.tsx'],
       rules: {
         'import/no-default-export': 'off',
+        'no-restricted-imports': 'off',
+      },
+    },
+    {
+      files: ['index.ts'],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['../*'],
+                message: "Barrelfile imports should stats with './' or '@/'",
+              },
+            ],
+          },
+        ],
       },
     },
     {
       files: ['.storybook/mocks/**/*'],
       rules: {
         'import/no-default-export': 'off',
+      },
+    },
+    {
+      files: ['*.ts', '*.tsx'],
+
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+      ],
+      rules: {
+        'jsx-expressions/strict-logical-expressions': 'error',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
+      },
+
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+    {
+      files: ['*.test.ts', '*.test.tsx'],
+      rules: {
+        'no-restricted-imports': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
       },
     },
   ],

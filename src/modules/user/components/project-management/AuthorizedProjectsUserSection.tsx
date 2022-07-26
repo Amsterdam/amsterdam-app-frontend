@@ -1,9 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Fragment} from 'react'
-import {LinkToUserSection, UserSection} from '..'
-import {module as userModule} from '../..'
-import {RootStackParams} from '../../../../app/navigation'
+import {RootStackParams} from '@/app/navigation'
 import {
   Attention,
   Box,
@@ -11,12 +9,14 @@ import {
   PleaseWait,
   SingleSelectable,
   Text,
-} from '../../../../components/ui'
-import {accessibleText} from '../../../../utils'
-import {module as constructionWorkModule} from '../../../construction-work'
-import {ProjectTitle} from '../../../construction-work/components/project'
-import {ConstructionWorkRouteName} from '../../../construction-work/routes'
+} from '@/components/ui'
+import {module as constructionWorkModule} from '@/modules/construction-work'
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
+import {ProjectTitle} from '@/modules/construction-work/components/project'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {module as userModule} from '@/modules/user'
+import {LinkToUserSection, UserSection} from '@/modules/user/components'
+import {accessibleText} from '@/utils'
 
 export const AuthorizedProjectsUserSection = () => {
   const {authorizedProjects, isLoadingProjects, projectManager} =

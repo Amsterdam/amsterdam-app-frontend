@@ -14,8 +14,8 @@ export const ReportProblemScreen = () => {
       <WebView
         url={`${environment.signalsBaseUrl}/incident/beschrijf`}
         urlParams={{
-          lat: address?.centroid[1] ?? 0,
-          lng: address?.centroid[0] ?? 0,
+          lat: address?.centroid[1]?.toString() ?? '0',
+          lng: address?.centroid[0]?.toString() ?? '0',
         }}
       />
     </Screen>

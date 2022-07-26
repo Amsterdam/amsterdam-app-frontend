@@ -84,8 +84,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
         preface: data.intro,
         content: data.message,
       },
-      project_identifier: projectId!,
-      project_manager_id: constructionWorkEditorId!,
+      project_identifier: projectId ?? '',
+      project_manager_id: constructionWorkEditorId ?? '',
     }
     dispatch(setProjectWarning(warningData))
   }
@@ -98,7 +98,8 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
 
   const pickImage = (data: FormData) => {
     addProjectWarningToStore(data)
-    ImageCropPicker.openPicker({
+    // eslint-disable-next-line no-void
+    void ImageCropPicker.openPicker({
       cropperCancelText: 'Annuleren',
       cropperChooseText: 'Kiezen',
       cropping: true,
@@ -184,7 +185,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
-              {errors.title && (
+              {!!errors.title && (
                 <Paragraph color="warning">Vul een titel in</Paragraph>
               )}
             </>
@@ -215,7 +216,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountIntro || 0}
                 />
               </Column>
-              {errors.intro && (
+              {!!errors.intro && (
                 <Paragraph color="warning">Type een intro</Paragraph>
               )}
             </>
@@ -246,7 +247,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountMessage || 0}
                 />
               </Column>
-              {errors.message && (
+              {!!errors.message && (
                 <Paragraph color="warning">Type een nieuwsartikel</Paragraph>
               )}
             </>

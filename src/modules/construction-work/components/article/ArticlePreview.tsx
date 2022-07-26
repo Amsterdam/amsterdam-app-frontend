@@ -65,7 +65,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
         <Column gutter="sm">
           <Row gutter="md" valign="center">
             <View style={styles.horizontalLine} />
-            {isNewAndUnreadArticle && (
+            {!!isNewAndUnreadArticle && (
               <View style={styles.update}>
                 <Paragraph>Nieuw</Paragraph>
               </View>

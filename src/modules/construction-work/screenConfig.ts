@@ -1,5 +1,8 @@
-import {ConstructionWorkRouteName, ConstructionWorkStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
+import {
+  ConstructionWorkRouteName,
+  ConstructionWorkStackParams,
+} from '@/modules/construction-work/routes'
 import {
   ProjectBodyScreen,
   ProjectNewsScreen,

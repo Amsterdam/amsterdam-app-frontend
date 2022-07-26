@@ -1,10 +1,10 @@
+import {baseApi} from '@/services/init'
 import {
   Notification,
   NotificationQueryArg,
   NotificationsQueryArg,
-} from '../types'
-import {formatQueryParams, generateRequestUrl} from '../utils'
-import {baseApi} from './init'
+} from '@/types'
+import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({

@@ -1,9 +1,9 @@
-import {StackNavigationRoutes} from '../../app/navigation'
-import {OpenWasteContainerScreen} from './Screen'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {OpenWasteContainerScreen} from '@/modules/open-waste-container/Screen'
 import {
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
-} from './routes'
+} from '@/modules/open-waste-container/routes'
 
 export const openWasteContainerScreenConfig: StackNavigationRoutes<
   OpenWasteContainerStackParams,

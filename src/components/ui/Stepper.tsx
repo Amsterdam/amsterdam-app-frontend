@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import {SingleSelectable, TextInCircle} from './index'
+import {SingleSelectable, TextInCircle} from '@/components/ui'
 import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {

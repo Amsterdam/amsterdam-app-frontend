@@ -1,5 +1,5 @@
 import {Slice} from '@reduxjs/toolkit'
-import {ModuleSlug} from './slugs'
+import {ModuleSlug} from '@/modules/slugs'
 
 /**
  * The client part of a module’s configuration.

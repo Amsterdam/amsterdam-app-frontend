@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
-import {Center} from './layout'
-import {Spinner} from './'
+import {Spinner} from '@/components/ui/'
+import {Center} from '@/components/ui/layout'
 
 type Props = {
   fullSize?: boolean

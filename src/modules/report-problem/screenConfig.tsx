@@ -1,6 +1,9 @@
-import {ReportProblemScreen} from './Screen'
-import {ReportProblemRouteName, ReportProblemStackParams} from './routes'
 import {StackNavigationRoutes} from '@/app/navigation'
+import {ReportProblemScreen} from '@/modules/report-problem/Screen'
+import {
+  ReportProblemRouteName,
+  ReportProblemStackParams,
+} from '@/modules/report-problem/routes'
 
 export const reportProblemScreenConfig: StackNavigationRoutes<
   ReportProblemStackParams,

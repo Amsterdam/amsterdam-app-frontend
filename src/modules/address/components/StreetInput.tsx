@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {Ref} from 'react'
+import {TextInput as RNTextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {List} from '../../../components/ui'
-import {TextInput} from '../../../components/ui/forms'
-import {BagResponseContent} from '../../../types'
-import {SuggestionButton} from './SuggestionButton'
+import {List} from '@/components/ui'
+import {TextInput} from '@/components/ui/forms'
+import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {BagResponseContent} from '@/types'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
   changeStreet: (text: string) => void
-  inputStreetRef: any
+  inputStreetRef: Ref<RNTextInput>
   isStreetSelected: boolean
   selectStreet: (text: string) => void
   street: string

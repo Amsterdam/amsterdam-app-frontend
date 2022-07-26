@@ -1,5 +1,5 @@
-import {cutAmountOfCharsFromString} from '../cutAmountOfCharsFromString'
-import {formatDate} from './formatDate'
+import {cutAmountOfCharsFromString} from '@/utils/cutAmountOfCharsFromString'
+import {formatDate} from '@/utils/datetime/formatDate'
 
 export const formatDateToDisplay = (date: string) => {
   const dateToDisplay = formatDate(date)

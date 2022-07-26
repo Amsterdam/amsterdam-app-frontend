@@ -55,7 +55,7 @@ export type ModuleStackParams = AddressStackParams &
   UserStackParams &
   WasteGuideStackParams
 
-const stacks: Record<ModuleSlug, ComponentType<any>> = {
+const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.address]: AddressStack,
   [ModuleSlug['construction-work']]: ConstructionWorkStack,
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
@@ -67,7 +67,9 @@ const stacks: Record<ModuleSlug, ComponentType<any>> = {
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 
-export const getModuleStack = (slug: ModuleSlug): ComponentType<any> | null => {
+export const getModuleStack = (
+  slug: ModuleSlug,
+): ComponentType<unknown> | null => {
   const stack = stacks[slug]
   if (stack) {
     return stack

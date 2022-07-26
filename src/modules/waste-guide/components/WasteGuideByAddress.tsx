@@ -45,7 +45,8 @@ export const WasteGuideByAddress = () => {
   })
 
   useEffect(() => {
-    wasteGuideEndpoint.fetchData({
+    // eslint-disable-next-line no-void
+    void wasteGuideEndpoint.fetchData({
       lon: address?.centroid[0] ?? '',
       lat: address?.centroid[1] ?? '',
     })
@@ -112,6 +113,7 @@ export const WasteGuideByAddress = () => {
           {wasteGuide?.[WasteType.Bulky] && (
             <Column gutter="md">
               <WasteGuideByAddressDetails
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 details={wasteGuide[WasteType.Bulky]!}
                 footerLink={{
                   onPress: () =>
@@ -128,6 +130,7 @@ export const WasteGuideByAddress = () => {
             <Column gutter="md">
               {wasteGuide[WasteType.Bulky] && <Gutter height="md" />}
               <WasteGuideByAddressDetails
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 details={wasteGuide[WasteType.Household]!}
               />
               <WasteGuideContainers />

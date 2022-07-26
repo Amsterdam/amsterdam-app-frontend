@@ -2,13 +2,13 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {LinkToUserSection, UserSection} from '..'
-import {module as userModule} from '../..'
-import {RootStackParams} from '../../../../app/navigation'
-import {Text} from '../../../../components/ui'
+import {RootStackParams} from '@/app/navigation'
+import {Text} from '@/components/ui'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
+import {module as userModule} from '@/modules/user'
+import {LinkToUserSection, UserSection} from '@/modules/user/components'
 
 export const ProjectManagerUserSection = () => {
   const projectManagerId = useSelector(selectConstructionWorkEditorId)

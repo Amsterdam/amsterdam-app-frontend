@@ -1,15 +1,17 @@
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {selectTheme} from './themeSlice'
-import {Theme} from './themes'
+import {selectTheme} from '@/themes/themeSlice'
+import {Theme} from '@/themes/themes'
 
-type Generator<T extends {}> = (theme: Theme) => T
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-explicit-any
+type Generator<T extends any> = (theme: Theme) => T
 
 /**
  * Generator function that allows using a `theme`.
  * @param fn The function in which the theme is used.
  */
-const useThemable = <T extends {}>(fn: Generator<T>) => {
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-explicit-any
+const useThemable = <T extends any>(fn: Generator<T>) => {
   const {theme} = useSelector(selectTheme)
 
   return useMemo(() => fn(theme), [fn, theme])

@@ -3,7 +3,7 @@ import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Image as ImageType} from 'react-native-image-crop-picker'
-import {Icon, Image} from '../../ui/media'
+import {Icon, Image} from '@/components/ui/media'
 import {useTheme} from '@/themes'
 
 type Props = {

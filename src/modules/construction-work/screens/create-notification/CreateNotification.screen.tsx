@@ -69,7 +69,7 @@ export const CreateNotificationScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen keyboardAware>
-      {isStepperVisible && (
+      {!!isStepperVisible && (
         <Box background="grey">
           <Stepper current={step} length={totalSteps} />
         </Box>

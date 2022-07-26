@@ -1,9 +1,9 @@
 import React from 'react'
 import {ImageSourcePropType} from 'react-native'
-import {Box, SingleSelectable, Title} from '../ui'
-import {Image} from '../ui/media'
+import {Box, SingleSelectable, Title} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 
 type Props = {
   imageSource?: ImageSourcePropType
@@ -18,7 +18,7 @@ export const BannerCard = ({imageSource, onPress, subtitle, title}: Props) => (
     <Title text={title} visuallyHidden />
     <Pressable accessibilityRole="button" onPress={onPress}>
       <Column gutter="md">
-        {imageSource && <Image source={imageSource} />}
+        {!!imageSource && <Image source={imageSource} />}
         {/* Skip re-reading main title */}
         <SingleSelectable label={subtitle}>
           <Title level={3} text={title} />

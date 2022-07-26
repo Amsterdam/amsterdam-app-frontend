@@ -1,4 +1,4 @@
-import {version as appVersion} from '@/../package.json'
+import {getVersion} from 'react-native-device-info'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
 
@@ -30,7 +30,7 @@ export const modulesApi = baseApi.injectEndpoints({
         return {
           api: 'modulesApiUrl',
           headers: {
-            appVersion,
+            appVersion: getVersion(),
           },
           url: '/modules_for_app',
         }

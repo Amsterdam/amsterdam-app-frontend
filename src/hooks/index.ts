@@ -1,4 +1,3 @@
-export * from './useAsyncStorage'
 export * from './useRegisterDevice'
 export * from './useFetch'
 export * from './useForegroundPushNotificationHandler'

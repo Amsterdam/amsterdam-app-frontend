@@ -1,6 +1,6 @@
-import {ResponseAddress, BagResponse, Address} from '../types'
-import {generateRequestUrl} from '../utils'
-import {baseApi} from './init'
+import {baseApi} from '@/services/init'
+import {ResponseAddress, BagResponse, Address} from '@/types'
+import {generateRequestUrl} from '@/utils'
 
 const addressPath = '/search/adres'
 const bagPath = '/typeahead/bag'

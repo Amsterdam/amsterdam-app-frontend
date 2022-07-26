@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {WebView as WebViewRN} from 'react-native-webview'
-import {PleaseWait} from './PleaseWait'
+import {PleaseWait} from '@/components/ui/PleaseWait'
 import {DeviceContext} from '@/providers'
 
 export type WebViewProps = {
@@ -9,7 +9,7 @@ export type WebViewProps = {
     landscape: number
   }
   url: string
-  urlParams?: {}
+  urlParams?: Record<string, string>
 }
 
 export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
@@ -26,7 +26,7 @@ export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
       source={{uri: urlWithParams}}
       startInLoadingState
       style={
-        sliceFromTop && {
+        !!sliceFromTop && {
           marginTop: isPortrait
             ? -sliceFromTop.portrait
             : -sliceFromTop.landscape,

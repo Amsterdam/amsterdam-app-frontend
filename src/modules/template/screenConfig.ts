@@ -1,6 +1,6 @@
-import {StackNavigationRoutes} from '../../app/navigation'
-import {TemplateStackParams, TemplateRouteName} from './routes'
-import {TemplateScreen} from './screens'
+import {StackNavigationRoutes} from '@/app/navigation'
+import {TemplateStackParams, TemplateRouteName} from '@/modules/template/routes'
+import {TemplateScreen} from '@/modules/template/screens'
 
 export const templateScreenConfig: StackNavigationRoutes<
   TemplateStackParams,

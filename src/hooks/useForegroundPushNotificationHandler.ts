@@ -1,8 +1,8 @@
 import notifee, {EventType} from '@notifee/react-native'
 import {useLinkTo} from '@react-navigation/native'
 import {useCallback, useEffect} from 'react'
-import {pushNotificationTypes} from '../app/navigation'
-import {PushNotification, PushNotificationData} from '../types'
+import {pushNotificationTypes} from '@/app/navigation'
+import {PushNotification, PushNotificationData} from '@/types'
 
 // Listen for foreground pushnotification with Notifee and navigate to a path derived from
 // its data-object, which is picked up by the linking configuration (linking.ts)

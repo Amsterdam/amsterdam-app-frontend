@@ -26,7 +26,7 @@ export const ProjectNews = ({id}: Props) => {
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: news?.project_identifier!,
+      id: news?.project_identifier ?? '',
     },
     {skip: !news},
   )
@@ -59,7 +59,7 @@ export const ProjectNews = ({id}: Props) => {
           source={mapImageSources(news.images[0].sources, environment)}
         />
       ) : null}
-      {news && (
+      {!!news && (
         <Box>
           <Column gutter="md">
             <Paragraph>{formatDate(news.publication_date)}</Paragraph>

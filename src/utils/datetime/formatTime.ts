@@ -4,7 +4,7 @@ dayjs.locale('nl')
 
 export const formatTime = (
   date: string | number,
-  displaySeconds: boolean = false,
+  displaySeconds = false,
 ): string => {
   const dayJsDate = dayjs(date)
 

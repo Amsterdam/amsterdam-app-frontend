@@ -1,6 +1,6 @@
 import React from 'react'
-import {Gutter} from './layout'
-import {SingleSelectable, Text} from './'
+import {SingleSelectable, Text} from '@/components/ui/'
+import {Gutter} from '@/components/ui/layout'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]

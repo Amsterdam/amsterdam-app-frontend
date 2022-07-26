@@ -63,9 +63,11 @@ export const Project = ({id}: Props) => {
         return
       }
       if (isFollowed) {
-        unfollowProject({project_id: project.identifier})
+        // eslint-disable-next-line no-void
+        void unfollowProject({project_id: project.identifier})
       } else {
-        followProject({project_id: project.identifier})
+        // eslint-disable-next-line no-void
+        void followProject({project_id: project.identifier})
         requestPushNotificationsPermission()
           .then(registerDevice)
           .catch((error: unknown) => {
@@ -149,8 +151,8 @@ export const Project = ({id}: Props) => {
                 accessibilityRole="header"
                 label={accessibleText(title, subtitle)}>
                 <Column gutter="sm">
-                  {title && <Title text={title} />}
-                  {subtitle && <Title level="h4" text={subtitle} />}
+                  {!!title && <Title text={title} />}
+                  {!!subtitle && <Title level="h4" text={subtitle} />}
                 </Column>
               </SingleSelectable>
             </Column>

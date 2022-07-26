@@ -1,5 +1,5 @@
-import {baseColor} from '../../tokens'
-import {ColorTokens} from './color-light'
+import {ColorTokens} from '@/themes/tokens/color-light'
+import {baseColor} from '@/tokens'
 
 // TODO Implement dark mode properly
 export const darkColorTokens: ColorTokens = {

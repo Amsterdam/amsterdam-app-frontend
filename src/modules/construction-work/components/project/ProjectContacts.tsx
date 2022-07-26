@@ -27,10 +27,10 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
       {contacts.map(({address, email, name, phone, position}) => (
         <Column gutter="md" key={name + email}>
           <View>
-            {name && <Title level="h3" text={name} />}
-            {position && <Paragraph>{capitalizeString(position)}</Paragraph>}
+            {!!name && <Title level="h3" text={name} />}
+            {!!position && <Paragraph>{capitalizeString(position)}</Paragraph>}
           </View>
-          {phone && (
+          {!!phone && (
             <Row>
               <Button
                 icon={<Phone fill={color.text.inverse} />}
@@ -41,7 +41,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
               />
             </Row>
           )}
-          {email && (
+          {!!email && (
             <Row>
               <Button
                 accessibilityLabel={accessibleText(
@@ -56,7 +56,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
               />
             </Row>
           )}
-          {address && <Paragraph>{address}</Paragraph>}
+          {!!address && <Paragraph>{address}</Paragraph>}
         </Column>
       ))}
     </Column>

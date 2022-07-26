@@ -1,4 +1,4 @@
-import {baseColor} from '../../tokens'
+import {baseColor} from '@/tokens'
 
 export type ColorTokens = typeof lightColorTokens
 

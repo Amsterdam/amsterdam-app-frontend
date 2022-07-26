@@ -57,7 +57,7 @@ type NewsArticleBody = {
   summary: RichText
 }
 
-type NewsArticleAsset = any
+type NewsArticleAsset = unknown
 
 export type FieldsQueryArg = {
   fields?: string[]

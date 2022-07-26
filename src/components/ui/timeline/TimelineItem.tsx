@@ -4,9 +4,12 @@ import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
-import {maxHeight, timelineStyles} from './timelineStyles'
 import {Icon} from '@/components/ui/media'
 import {Article, Title} from '@/components/ui/text'
+import {
+  maxHeight,
+  timelineStyles,
+} from '@/components/ui/timeline/timelineStyles'
 import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 

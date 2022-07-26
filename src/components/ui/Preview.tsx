@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {View} from 'react-native'
-import {Column} from './layout'
-import {Box, Text} from './'
+import {Box, Text} from '@/components/ui/'
+import {Column} from '@/components/ui/layout'
 
 type Props = {
   children: ReactNode

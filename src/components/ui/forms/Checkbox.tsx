@@ -36,7 +36,7 @@ export const Checkbox = ({
       underlayColor={color.box.background.white}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {value && <Checkmark fill={color.text.inverse} />}
+          {!!value && <Checkmark fill={color.text.inverse} />}
         </View>
       </FormField>
     </TouchableHighlight>

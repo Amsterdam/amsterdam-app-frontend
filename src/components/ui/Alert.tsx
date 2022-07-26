@@ -61,7 +61,7 @@ export const Alert = () => {
           <SingleSelectable
             accessibilityLabel={accessibleText(content?.title, content?.text)}>
             <Row gutter="md">
-              {withIcon && (
+              {!!withIcon && (
                 <Icon size={24}>
                   <IconComponent fill={color.text.default} />
                 </Icon>

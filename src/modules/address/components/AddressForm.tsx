@@ -2,21 +2,20 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {Box} from '../../../components/ui'
-import {useAsyncStorage} from '../../../hooks'
-import {useGetAddressQuery, useGetBagQuery} from '../../../services/address'
-import {BagResponseContent} from '../../../types'
-import {addAddress, addTempAddress} from '../addressSlice'
-import {AddressRouteName, AddressStackParams} from '../routes'
-import {NumberInput, StreetInput} from '.'
+import {Box} from '@/components/ui'
+import {addAddress, addTempAddress} from '@/modules/address/addressSlice'
+import {NumberInput, StreetInput} from '@/modules/address/components'
+import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
+import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
+import {BagResponseContent} from '@/types'
 
 type Props = {
   temp?: boolean
 }
 
 export const AddressForm = ({temp}: Props) => {
-  const asyncStorage = useAsyncStorage()
   const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -27,7 +26,7 @@ export const AddressForm = ({temp}: Props) => {
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
 
-  const inputStreetRef = useRef<any>()
+  const inputStreetRef = useRef<TextInput | null>(null)
 
   const navigation =
     useNavigation<
@@ -93,7 +92,6 @@ export const AddressForm = ({temp}: Props) => {
       if (temp) {
         dispatch(addTempAddress(addressData))
       } else {
-        asyncStorage.storeData('address', addressData)
         dispatch(addAddress(addressData))
       }
       setIsAddressStored(true)

@@ -20,7 +20,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
   return (
     <Row gutter="lg" valign="center">
       <View style={styles.sideColumn}>
-        {back && (
+        {!!back && (
           <IconButton
             accessibilityLabel="Terug"
             hitSlop={16}

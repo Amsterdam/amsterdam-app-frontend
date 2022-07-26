@@ -60,7 +60,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
 
   const {newsArticlesCount} = useGetArticlesQuery(
     {
-      projectIds: [projectId!],
+      projectIds: [projectId ?? ''],
     },
     {
       selectFromResult: ({data}) => ({
@@ -75,7 +75,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
     const notificationData: NotificationQueryArg = {
       title: data.title,
       body: data.message,
-      project_identifier: projectId!,
+      project_identifier: projectId ?? '',
     }
 
     const nextScreen =
@@ -137,7 +137,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountTitle || 0}
                 />
               </Column>
-              {errors.title && (
+              {!!errors.title && (
                 <Paragraph color="warning">Vul een titel in</Paragraph>
               )}
             </>
@@ -168,7 +168,7 @@ export const NotificationFormScreen = ({navigation}: Props) => {
                   numOfCharacters={characterCountMessage || 0}
                 />
               </Column>
-              {errors.message && (
+              {!!errors.message && (
                 <Paragraph color="warning">Type een pushbericht</Paragraph>
               )}
             </>

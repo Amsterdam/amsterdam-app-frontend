@@ -31,7 +31,7 @@ export const ProjectWarning = ({id}: Props) => {
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: projectWarning?.project_identifier!,
+      id: projectWarning?.project_identifier ?? '',
     },
     {skip: !projectWarning},
   )

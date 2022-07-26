@@ -1,8 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {AddressRouteName} from './routes'
-import {addressScreenConfig as routes} from './screenConfig'
 import {screenOptions} from '@/app/navigation'
+import {AddressRouteName} from '@/modules/address/routes'
+import {addressScreenConfig as routes} from '@/modules/address/screenConfig'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()

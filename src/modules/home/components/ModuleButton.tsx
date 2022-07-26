@@ -69,7 +69,7 @@ export const ModuleButton = ({
 
 const createIconProps =
   (variant: ButtonVariants) =>
-  ({color}: Theme): SVGProps<any> => ({
+  ({color}: Theme): SVGProps<unknown> => ({
     fill: variant === 'tertiary' ? color.text.default : color.text.inverse,
   })
 

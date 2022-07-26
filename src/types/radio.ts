@@ -3,7 +3,7 @@ import {ViewProps} from 'react-native'
 
 type IRadioValue = string
 
-type IRadioGroupOnChangeHandler = (value: IRadioValue) => any
+type IRadioGroupOnChangeHandler = (value: IRadioValue) => unknown
 
 export interface IRadioProps extends ViewProps {
   /**

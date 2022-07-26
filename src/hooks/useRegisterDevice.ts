@@ -7,8 +7,10 @@ export const useRegisterDevice = () => {
 
   const registerDevice = useCallback(
     (status: Permission) => {
-      getFcmToken(status)?.then(firebase_token => {
-        registerDeviceMutation({firebase_token})
+      // eslint-disable-next-line no-void
+      void getFcmToken(status)?.then(firebase_token => {
+        // eslint-disable-next-line no-void
+        void registerDeviceMutation({firebase_token})
       })
     },
     [registerDeviceMutation],

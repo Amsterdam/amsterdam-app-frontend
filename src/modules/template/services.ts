@@ -1,4 +1,4 @@
-import {Template} from './types'
+import {Template} from '@/modules/template/types'
 import {baseApi} from '@/services'
 
 export const templateApi = baseApi.injectEndpoints({

@@ -1,4 +1,4 @@
-import {RichText} from './section'
+import {RichText} from '@/types/section'
 
 export type Timeline = {
   intro: RichText

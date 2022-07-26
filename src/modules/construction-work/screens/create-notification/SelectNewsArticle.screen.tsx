@@ -44,7 +44,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
 
   const {newsArticles} = useGetArticlesQuery(
     {
-      projectIds: [projectId!],
+      projectIds: [projectId ?? ''],
     },
     {
       selectFromResult: ({data}) => ({
@@ -104,7 +104,7 @@ export const SelectNewsArticleScreen = ({navigation}: Props) => {
                 name="news"
                 rules={{required: 'Kies een nieuwsartikel'}}
               />
-              {errors.news && (
+              {!!errors.news && (
                 <Paragraph color="warning">
                   Selecteer een nieuwsartikel
                 </Paragraph>

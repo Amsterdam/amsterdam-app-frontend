@@ -8,8 +8,8 @@ import {SentryHandler} from '@/types'
  * Note: only use this if you HAVE TO and make sure you're not sending any personal data!
  */
 export const useSentry = (
-  dangerouslyOverrideConsent: boolean = false,
-  dangerouslyLogAdditionalDataAnyway: boolean = false,
+  dangerouslyOverrideConsent = false,
+  dangerouslyLogAdditionalDataAnyway = false,
 ): SentryHandler => {
   // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
   const consent = true
@@ -25,8 +25,8 @@ export const useSentry = (
       }
     }
     return {
-      captureSentryBreadcrumb: () => {},
-      sendSentryErrorLog: () => {},
+      captureSentryBreadcrumb: () => null,
+      sendSentryErrorLog: () => null,
     }
   }, [consent, dangerouslyOverrideConsent, dangerouslyLogAdditionalDataAnyway])
 }

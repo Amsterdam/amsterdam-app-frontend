@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
-import {templateScreenConfig} from './screenConfig'
 import {screenOptions} from '@/app/navigation'
+import {templateScreenConfig} from '@/modules/template/screenConfig'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()

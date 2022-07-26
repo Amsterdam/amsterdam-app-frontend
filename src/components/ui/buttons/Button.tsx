@@ -43,8 +43,8 @@ export const Button = ({
       style={styles.button}
       {...otherProps}>
       <Row gutter="sm" valign="center">
-        {icon && <Icon size={24}>{icon}</Icon>}
-        {label && <Text style={styles.label}>{label}</Text>}
+        {!!icon && <Icon size={24}>{icon}</Icon>}
+        {!!label && <Text style={styles.label}>{label}</Text>}
       </Row>
     </Pressable>
   )

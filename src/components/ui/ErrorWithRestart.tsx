@@ -1,12 +1,12 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import RNRestart from 'react-native-restart'
-import {Attention} from './Attention'
-import {Box} from './Box'
-import {Column} from './layout'
-import {Screen} from './layout/Screen'
-import {Paragraph} from './text'
+import {Attention} from '@/components/ui/Attention'
+import {Box} from '@/components/ui/Box'
 import {Button} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Paragraph} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
 export const ErrorWithRestart = () => {
