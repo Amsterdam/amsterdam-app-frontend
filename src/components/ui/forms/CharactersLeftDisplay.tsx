@@ -1,5 +1,5 @@
 import React from 'react'
-import {Paragraph} from '../text'
+import {Paragraph} from '@/components/ui/text'
 
 type Props = {
   maxCharacters: number
