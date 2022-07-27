@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "ms-azure-devops.azure-pipelines"
+        "ms-azure-devops.azure-pipelines",
+        "orta.vscode-jest",
+        "dbaeumer.vscode-eslint"
     ]
 }
