@@ -29,6 +29,7 @@ const deviceIdRequestingEndpoints: string[] = [
   ProjectsEndpointName.getProjects,
   ProjectsEndpointName.unfollowProject,
   DeviceRegistrationEndpointName.registerDevice,
+  DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
 const deviceAuthorizationHeaderEndpoints: string[] = [

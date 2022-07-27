@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
 import {Box, PleaseWait} from '@/components/ui'
@@ -6,21 +6,46 @@ import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useRegisterDevice, useSentry} from '@/hooks'
 import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {useModules} from '@/modules/home/hooks'
 import {toggleModule} from '@/modules/home/store'
+import {getPushNotificationsPermission} from '@/processes'
+import {useUnregisterDeviceMutation} from '@/services'
 import {useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
-  const {modules, modulesLoading, selectedModulesBySlug} = useModules()
+  const {modules, modulesLoading, selectedModulesBySlug, selectedModules} =
+    useModules()
   const {color} = useTheme()
+
+  const {sendSentryErrorLog} = useSentry()
+  const {registerDevice} = useRegisterDevice()
+  const [unregisterDevice] = useUnregisterDeviceMutation()
 
   const onChange = (slug: string) => {
     dispatch(toggleModule(slug))
   }
+
+  useEffect(() => {
+    if (selectedModules.some(module => module.requiresFirebaseToken)) {
+      getPushNotificationsPermission()
+        .then(registerDevice)
+        .catch((error: unknown) => {
+          sendSentryErrorLog(
+            'Register device for push notifications failed',
+            'ModuleSettings.tsx',
+            {error},
+          )
+        })
+    } else {
+      // eslint-disable-next-line no-void
+      void unregisterDevice(undefined)
+    }
+  }, [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice])
 
   if (modulesLoading) {
     return <PleaseWait fullSize />
