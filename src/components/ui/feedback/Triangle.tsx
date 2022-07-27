@@ -1,7 +1,7 @@
-import {Center} from '_components/ui/layout'
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
+import {Center} from '@/components/ui/layout'
 import {Direction} from '@/components/ui/types'
 import {useTheme} from '@/themes'
 

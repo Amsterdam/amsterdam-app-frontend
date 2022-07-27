@@ -1,6 +1,6 @@
-import {Spinner} from '_components/ui'
-import {Center} from '_components/ui/layout'
 import React from 'react'
+import {Spinner} from '@/components/ui'
+import {Center} from '@/components/ui/layout'
 import {layoutStyles} from '@/styles'
 
 type Props = {
