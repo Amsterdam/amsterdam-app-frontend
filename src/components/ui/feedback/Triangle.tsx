@@ -10,18 +10,19 @@ type Props = {
 }
 
 const path: Record<Direction, string> = {
-  up: 'M 16 0 L 32 16 L 0 16 L 16 0',
-  down: 'M 16 16 L 0 0 L 32 0 L 16 16',
-  back: 'M 0 16 L 16 0 L 16 32 L 0 16',
-  forward: 'M 16 16 L 0 0 L 0 32 L 16 16',
+  [Direction.up]: 'M 16 0 L 32 16 L 0 16 L 16 0',
+  [Direction.down]: 'M 16 16 L 0 0 L 32 0 L 16 16',
+  [Direction.back]: 'M 0 16 L 16 0 L 16 32 L 0 16',
+  [Direction.forward]: 'M 16 16 L 0 0 L 0 32 L 16 16',
 }
 
 export const Triangle = ({direction}: Props) => {
   const {color} = useTheme()
-  const directionIsVertical = ['up', 'down'].includes(direction)
-  const width = directionIsVertical ? 32 : 16
-  const height = directionIsVertical ? 16 : 32
-  const viewBox = directionIsVertical ? '0 0 32 16' : '0 0 16 32'
+  const [width, height, viewBox] = [Direction.up, Direction.down].includes(
+    direction,
+  )
+    ? [32, 16, '0 0 32 16']
+    : [16, 32, '0 0 16 32']
 
   return (
     <Center>

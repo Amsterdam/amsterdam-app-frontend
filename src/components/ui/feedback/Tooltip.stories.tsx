@@ -2,6 +2,7 @@ import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
 import React from 'react'
 import {Tooltip} from './Tooltip'
 import {Canvas} from '@/../.storybook/components'
+import {Placement} from '@/components/ui/types'
 
 export default {
   component: Tooltip,
@@ -10,14 +11,14 @@ export default {
 
 export const Default: ComponentStoryObj<typeof Tooltip> = {
   args: {
-    placement: 'bottom',
+    placement: Placement.bottom,
     text: 'We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld.',
   },
 }
 
 export const Multiline: ComponentStoryObj<typeof Tooltip> = {
   args: {
-    placement: 'bottom',
+    placement: Placement.bottom,
     text: ['Tip!', 'Vul het formulier in en win een parkeervergunning.'],
   },
 }

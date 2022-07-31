@@ -1,5 +1,15 @@
-export type Direction = 'up' | 'down' | 'back' | 'forward'
+export enum Direction {
+  up = 'up',
+  down = 'down',
+  back = 'back',
+  forward = 'forward',
+}
 
 export type IconSize = 16 | 20 | 24 | 32
 
-export type Placement = 'top' | 'bottom' | 'start' | 'end'
+export enum Placement {
+  top = 'top',
+  bottom = 'bottom',
+  start = 'start',
+  end = 'end',
+}

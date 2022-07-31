@@ -12,6 +12,7 @@ import {Tooltip} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {Placement} from '@/components/ui/types'
 import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
@@ -44,7 +45,7 @@ const TitleAndHelp = () => {
       {!!tooltipIsVisible && (
         <Box insetHorizontal="lg">
           <Tooltip
-            placement="bottom"
+            placement={Placement.bottom}
             text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
           />
         </Box>
