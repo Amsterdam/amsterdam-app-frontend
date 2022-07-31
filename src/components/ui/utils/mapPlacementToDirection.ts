@@ -2,10 +2,10 @@ import {Direction, Placement} from '@/components/ui/types'
 
 export const mapPlacementToDirection = (placement: Placement): Direction => {
   const mapping: Record<Placement, Direction> = {
-    [Placement.top]: Direction.down,
-    [Placement.bottom]: Direction.up,
-    [Placement.start]: Direction.forward,
-    [Placement.end]: Direction.back,
+    [Placement.above]: Direction.down,
+    [Placement.below]: Direction.up,
+    [Placement.before]: Direction.right,
+    [Placement.after]: Direction.left,
   }
 
   return mapping[placement]

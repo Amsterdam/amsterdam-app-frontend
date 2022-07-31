@@ -1,14 +1,14 @@
-import {Placement} from '@/components/ui/types'
+import {Direction, Placement} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
 
 test('placement is `top`', () =>
-  expect(mapPlacementToDirection(Placement.top)).toBe('down'))
+  expect(mapPlacementToDirection(Placement.above)).toBe(Direction.down))
 
 test('placement is `bottom`', () =>
-  expect(mapPlacementToDirection(Placement.bottom)).toBe('up'))
+  expect(mapPlacementToDirection(Placement.below)).toBe(Direction.up))
 
 test('placement is `start`', () =>
-  expect(mapPlacementToDirection(Placement.start)).toBe('forward'))
+  expect(mapPlacementToDirection(Placement.before)).toBe(Direction.right))
 
 test('placement is `end`', () =>
-  expect(mapPlacementToDirection(Placement.end)).toBe('back'))
+  expect(mapPlacementToDirection(Placement.after)).toBe(Direction.left))

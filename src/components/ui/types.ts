@@ -1,15 +1,15 @@
 export enum Direction {
   up = 'up',
   down = 'down',
-  back = 'back',
-  forward = 'forward',
+  left = 'left',
+  right = 'right',
 }
 
 export type IconSize = 16 | 20 | 24 | 32
 
 export enum Placement {
-  top = 'top',
-  bottom = 'bottom',
-  start = 'start',
-  end = 'end',
+  above = 'above',
+  below = 'below',
+  before = 'before',
+  after = 'after',
 }

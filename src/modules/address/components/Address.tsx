@@ -45,7 +45,7 @@ const TitleAndHelp = () => {
       {!!tooltipIsVisible && (
         <Box insetHorizontal="lg">
           <Tooltip
-            placement={Placement.bottom}
+            placement={Placement.below}
             text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
           />
         </Box>

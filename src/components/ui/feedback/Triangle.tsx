@@ -12,8 +12,8 @@ type Props = {
 const path: Record<Direction, string> = {
   [Direction.up]: 'M 16 0 L 32 16 L 0 16 L 16 0',
   [Direction.down]: 'M 16 16 L 0 0 L 32 0 L 16 16',
-  [Direction.back]: 'M 0 16 L 16 0 L 16 32 L 0 16',
-  [Direction.forward]: 'M 16 16 L 0 0 L 0 32 L 16 16',
+  [Direction.left]: 'M 0 16 L 16 0 L 16 32 L 0 16',
+  [Direction.right]: 'M 16 16 L 0 0 L 0 32 L 16 16',
 }
 
 export const Triangle = ({direction}: Props) => {

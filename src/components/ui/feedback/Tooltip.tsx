@@ -34,13 +34,13 @@ export const Tooltip = ({placement, text}: Props) => {
 
   return (
     <Row>
-      {placement === Placement.end && <Triangle {...props} />}
+      {placement === Placement.after && <Triangle {...props} />}
       <Column>
-        {placement === Placement.bottom && <Triangle {...props} />}
+        {placement === Placement.below && <Triangle {...props} />}
         <TooltipContent text={text} />
-        {placement === Placement.top && <Triangle {...props} />}
+        {placement === Placement.above && <Triangle {...props} />}
       </Column>
-      {placement === Placement.start && <Triangle {...props} />}
+      {placement === Placement.before && <Triangle {...props} />}
     </Row>
   )
 }
