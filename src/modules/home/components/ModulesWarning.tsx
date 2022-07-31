@@ -1,6 +1,7 @@
 import React from 'react'
-import {Attention, Box} from '@/components/ui'
+import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Attention} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph, Phrase} from '@/components/ui/text'
 
