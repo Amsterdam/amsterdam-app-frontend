@@ -7,8 +7,10 @@ import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
-import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects'
-import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
+import {
+  getAccessibleDistanceText,
+  getAccessibleFollowingText,
+} from '@/modules/construction-work/components/projects'
 import {
   ProjectCard,
   ProjectTraits,
