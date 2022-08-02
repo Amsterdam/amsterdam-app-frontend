@@ -7,6 +7,7 @@ import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
+import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {
   ProjectCard,
@@ -32,11 +33,11 @@ const ListItem = ({getProjectTraits, navigation, project}: ListItemProps) => {
   let projectTraits
   if (getProjectTraits) {
     const traits = getProjectTraits?.(project)
-    const {followed, meter, strides} = traits
+    const {followed, meter, recent_articles, strides} = traits
     projectTraits = (
       <ProjectTraits
         accessibilityLabel={accessibleText(
-          followed ? 'Volgend' : undefined,
+          getAccessibleFollowingText(!!followed, recent_articles?.length),
           getAccessibleDistanceText(meter, strides),
         )}
         {...traits}
