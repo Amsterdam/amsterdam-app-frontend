@@ -3,7 +3,12 @@ import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
-import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens'
+import {
+  AddMainImageToMessageScreen,
+  AuthorizedProjectsScreen,
+  ConfirmMessageScreen,
+  CreateMessageScreen,
+} from '@/modules/construction-work-editor/screens'
 
 export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
   ConstructionWorkEditorStackParams,
@@ -15,5 +20,17 @@ export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Plaats berichten',
     },
+  },
+  [ConstructionWorkEditorRouteName.createMessage]: {
+    component: CreateMessageScreen,
+    name: ConstructionWorkEditorRouteName.createMessage,
+  },
+  [ConstructionWorkEditorRouteName.addMainImageToMessage]: {
+    component: AddMainImageToMessageScreen,
+    name: ConstructionWorkEditorRouteName.addMainImageToMessage,
+  },
+  [ConstructionWorkEditorRouteName.confirmMessage]: {
+    component: ConfirmMessageScreen,
+    name: ConstructionWorkEditorRouteName.confirmMessage,
   },
 }

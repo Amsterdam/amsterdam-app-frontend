@@ -80,10 +80,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
   const addProjectWarningToStore = (data: FormData) => {
     const warningData: NewProjectWarning = {
       title: data.title,
-      body: {
-        preface: data.intro,
-        content: data.message,
-      },
+      body: data.message,
       project_identifier: projectId ?? '',
       project_manager_id: constructionWorkEditorId ?? '',
     }
