@@ -26,26 +26,24 @@ export const Badge = ({accessible, value}: BadgeProps) => {
 
 const createStyles =
   (fontScale: Device['fontScale']) =>
-  ({color, text}: Theme) => {
-    const width = 20 * fontScale
-    const height = 20
-    const alignmentOffset = 1
-    const inset = 2
-    const fontSize = 12
+  ({color, size, text}: Theme) => {
+    const circleSize = 16
+    const scaledCircleSize = circleSize * fontScale
 
     return StyleSheet.create({
       circle: {
-        borderRadius: width / 2,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        minWidth: scaledCircleSize, // Make sure we have at least a circle
+        paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment in even width
+        paddingEnd: size.spacing.xs,
+        borderRadius: scaledCircleSize / 2,
         backgroundColor: color.pressable.secondary.background,
       },
       text: {
-        minWidth: width, // Make sure we have at least a circle
-        marginTop: alignmentOffset, // Adjust for glyphs not being centered in the font’s line height
-        paddingHorizontal: inset, // Use padding for horizontal inset
-        textAlign: 'center',
         fontFamily: text.fontWeight.bold,
-        fontSize: fontSize,
-        lineHeight: height - alignmentOffset, // Use line height for vertical inset, to prevent cut-off glyphs
+        fontSize: 12,
+        lineHeight: circleSize,
         color: color.text.inverse,
       },
     })
