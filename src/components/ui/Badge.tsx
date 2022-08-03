@@ -6,7 +6,7 @@ import {Theme, useThemable} from '@/themes'
 import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
-  value: number | string
+  value: number
 } & Pick<AccessibilityProps, 'accessible'>
 
 export const Badge = ({accessible, value}: BadgeProps) => {
@@ -17,7 +17,7 @@ export const Badge = ({accessible, value}: BadgeProps) => {
     <Row align="start">
       <View style={styles.circle}>
         <Text accessible={accessible} numberOfLines={1} style={styles.text}>
-          {typeof value === 'number' ? formatNumber(value) : value}
+          {formatNumber(value)}
         </Text>
       </View>
     </Row>
