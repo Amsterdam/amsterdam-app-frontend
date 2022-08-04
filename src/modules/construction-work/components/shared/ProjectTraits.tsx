@@ -49,7 +49,7 @@ export const ProjectTraits = ({
         {!!strides && (
           <Trait
             icon={<Strides {...iconProps} />}
-            label={`${strides} stappen`}
+            label={simplur`${strides} stap[|pen]`}
           />
         )}
       </Row>

@@ -1,3 +1,5 @@
+import simplur from 'simplur'
+
 export const getAccessibleFollowingText = (
   followed: boolean,
   numArticles: number | undefined,
@@ -7,7 +9,7 @@ export const getAccessibleFollowingText = (
   }
 
   if (numArticles) {
-    return `${numArticles} berichten`
+    return simplur`${numArticles} Bericht[|en]`
   }
 
   return 'Volgend'
