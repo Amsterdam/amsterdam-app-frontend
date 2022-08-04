@@ -6,12 +6,17 @@ import {Theme, useThemable} from '@/themes'
 import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
+  scalesWithText?: boolean
   value: number
 } & Pick<AccessibilityProps, 'accessible'>
 
-export const Badge = ({accessible, value}: BadgeProps) => {
+export const Badge = ({
+  accessible,
+  scalesWithText = true,
+  value,
+}: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale))
+  const styles = useThemable(createStyles(fontScale, scalesWithText))
 
   return (
     <Row align="start">
@@ -25,25 +30,30 @@ export const Badge = ({accessible, value}: BadgeProps) => {
 }
 
 const createStyles =
-  (fontScale: Device['fontScale']) =>
+  (
+    fontScale: Device['fontScale'],
+    scalesWithText: BadgeProps['scalesWithText'],
+  ) =>
   ({color, size, text}: Theme) => {
-    const circleSize = 16
-    const scaledCircleSize = circleSize * fontScale
+    const diameter = 16
+    const minWidth = diameter * (scalesWithText ? fontScale : 1)
+    const fontSize = 12 / (scalesWithText ? 1 : fontScale)
+    const lineHeight = diameter / (scalesWithText ? 1 : fontScale)
 
     return StyleSheet.create({
       circle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        minWidth: scaledCircleSize, // Make sure we have at least a circle
-        paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment in even width
+        minWidth, // Prevent the circle becoming a vertical oval
+        paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
         paddingEnd: size.spacing.xs,
-        borderRadius: scaledCircleSize / 2,
+        borderRadius: minWidth / 2,
         backgroundColor: color.pressable.secondary.background,
       },
       text: {
         fontFamily: text.fontWeight.bold,
-        fontSize: 12,
-        lineHeight: circleSize,
+        fontSize,
+        lineHeight,
         color: color.text.inverse,
       },
     })
