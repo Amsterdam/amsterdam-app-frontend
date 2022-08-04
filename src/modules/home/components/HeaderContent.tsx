@@ -25,7 +25,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
             accessibilityLabel="Terug"
             hitSlop={16}
             icon={
-              <Icon scaleWithText={false} size={chevronSize}>
+              <Icon scalesWithFont={false} size={chevronSize}>
                 <ChevronLeft fill={color.pressable.default.background} />
               </Icon>
             }

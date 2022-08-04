@@ -6,17 +6,23 @@ import {Theme, useThemable} from '@/themes'
 import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
-  scalesWithText?: boolean
+  /**
+   * Whether the icon scales with text being zoomed in or out.
+   */
+  scalesWithFont?: boolean
+  /**
+   * The value to display in the badge.
+   */
   value: number
 } & Pick<AccessibilityProps, 'accessible'>
 
 export const Badge = ({
   accessible,
-  scalesWithText = true,
+  scalesWithFont = true,
   value,
 }: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale, scalesWithText))
+  const styles = useThemable(createStyles(fontScale, scalesWithFont))
 
   return (
     <Row align="start">
@@ -32,13 +38,13 @@ export const Badge = ({
 const createStyles =
   (
     fontScale: Device['fontScale'],
-    scalesWithText: BadgeProps['scalesWithText'],
+    scalesWithFont: BadgeProps['scalesWithFont'],
   ) =>
   ({color, size, text}: Theme) => {
     const diameter = 16
-    const minWidth = diameter * (scalesWithText ? fontScale : 1)
-    const fontSize = 12 / (scalesWithText ? 1 : fontScale)
-    const lineHeight = diameter / (scalesWithText ? 1 : fontScale)
+    const minWidth = diameter * (scalesWithFont ? fontScale : 1)
+    const fontSize = 12 / (scalesWithFont ? 1 : fontScale)
+    const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
 
     return StyleSheet.create({
       circle: {

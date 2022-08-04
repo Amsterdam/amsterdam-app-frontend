@@ -13,7 +13,7 @@ type Props = {
   /**
    * Whether the badge value scales with text being zoomed in or out.
    */
-  badgeScalesWithText?: boolean
+  badgeScalesWithFont?: boolean
   /**
    * The value for a badge to be displayed on top of the icon.
    */
@@ -25,7 +25,7 @@ type Props = {
 } & Omit<PressableRNProps, 'style'>
 
 export const IconButton = ({
-  badgeScalesWithText,
+  badgeScalesWithFont,
   badgeValue,
   icon,
   ...props
@@ -40,7 +40,7 @@ export const IconButton = ({
           <View style={styles.badgePosition}>
             <Badge
               accessible={false}
-              scalesWithText={badgeScalesWithText}
+              scalesWithFont={badgeScalesWithFont}
               value={badgeValue}
             />
           </View>
