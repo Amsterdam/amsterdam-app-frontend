@@ -16,7 +16,7 @@ describe('getAccessibleDistanceText', () => {
       '999 stappen vanaf uw adres',
     )
   })
-  it('return nothing if both params undefined', () => {
+  it('returns nothing if both params undefined', () => {
     expect(getAccessibleDistanceText(undefined, undefined)).toBe(undefined)
   })
   it('handles all zero values', () => {

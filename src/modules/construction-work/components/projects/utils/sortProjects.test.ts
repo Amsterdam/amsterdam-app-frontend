@@ -2,7 +2,7 @@ import {
   compareRecentArticleDates,
   getFirstUnreadArticlePublicationDate,
   sortProjects,
-} from '@/modules/construction-work/components/projects/utils/sortProjects'
+} from './sortProjects'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
 const project1 = {

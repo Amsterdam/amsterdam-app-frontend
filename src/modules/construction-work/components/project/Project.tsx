@@ -14,6 +14,7 @@ import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
+import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
@@ -139,12 +140,7 @@ export const Project = ({id}: Props) => {
             <Column gutter="md">
               <ProjectTraits
                 accessibilityLabel={accessibleText(
-                  [
-                    meter && `${meter} meter`,
-                    meter && strides && 'of',
-                    strides && `${strides} stappen`,
-                    'vanaf uw adres',
-                  ].join(' '),
+                  getAccessibleDistanceText(meter, strides),
                 )}
                 {...{meter, strides}}
               />
