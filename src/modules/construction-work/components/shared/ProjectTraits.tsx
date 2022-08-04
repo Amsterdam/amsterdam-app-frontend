@@ -1,7 +1,7 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React, {SVGProps} from 'react'
-import {View} from 'react-native'
+import {View, ViewProps} from 'react-native'
 import simplur from 'simplur'
 import {Strides} from '@/assets/icons'
 import {Badge, Trait} from '@/components/ui'
@@ -10,16 +10,15 @@ import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = Partial<ProjectsItem> & {
-  accessibilityLabel: string
   numOfUnreadArticles?: number
-}
+} & ViewProps
 
 export const ProjectTraits = ({
-  accessibilityLabel,
   followed,
   meter,
   numOfUnreadArticles,
   strides,
+  ...viewProps
 }: Props) => {
   const iconProps = useThemable(createIconProps)
 
@@ -28,7 +27,7 @@ export const ProjectTraits = ({
   }
 
   return (
-    <View accessibilityLabel={accessibilityLabel}>
+    <View {...viewProps}>
       <Row gutter="md" wrap>
         {!!followed &&
           (numOfUnreadArticles ? (
