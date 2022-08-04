@@ -1,9 +1,6 @@
 import {getAccessibleFollowingText} from './getAccessibleFollowingText'
 
 describe('getAccessibleFollowingText', () => {
-  it('handles a followed project without recent articles', () => {
-    expect(getAccessibleFollowingText(true, undefined)).toBe('Volgend')
-  })
   it('handles a followed project with zero recent articles', () => {
     expect(getAccessibleFollowingText(true, 0)).toBe('Volgend')
   })
@@ -12,9 +9,6 @@ describe('getAccessibleFollowingText', () => {
   })
   it('handles a followed project with multiple recent articles', () => {
     expect(getAccessibleFollowingText(true, 2)).toBe('2 Berichten')
-  })
-  it('handles a non-followed project without recent articles', () => {
-    expect(getAccessibleFollowingText(false, undefined)).toBe(undefined)
   })
   it('handles a non-followed project with zero recent articles', () => {
     expect(getAccessibleFollowingText(false, 0)).toBe(undefined)

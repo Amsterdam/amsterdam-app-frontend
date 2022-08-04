@@ -4,6 +4,7 @@ import React, {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
+import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box, SomethingWentWrong} from '@/components/ui'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
@@ -15,12 +16,20 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
+import {
+  ReadArticle,
+  selectConstructionWorkReadArticles,
+} from '@/modules/construction-work/construction-work.slice'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {accessibleText, mapImageSources} from '@/utils'
+import {
+  accessibleText,
+  excludeListItemsFromList,
+  mapImageSources,
+} from '@/utils'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 
@@ -28,20 +37,34 @@ type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
   project: ProjectsItem
+  readArticles: ReadArticle[]
 }
 
-const ListItem = ({getProjectTraits, navigation, project}: ListItemProps) => {
+const ListItem = ({
+  getProjectTraits,
+  navigation,
+  project,
+  readArticles,
+}: ListItemProps) => {
   const environment = useEnvironment()
+
   let projectTraits
   if (getProjectTraits) {
     const traits = getProjectTraits?.(project)
     const {followed, meter, recent_articles, strides} = traits
+
+    const numOfUnreadArticles = excludeListItemsFromList(
+      recent_articles?.map(r => r.identifier) ?? [],
+      readArticles.map(r => r.id),
+    ).length
+
     projectTraits = (
       <ProjectTraits
         accessibilityLabel={accessibleText(
-          getAccessibleFollowingText(!!followed, recent_articles?.length),
+          getAccessibleFollowingText(!!followed, numOfUnreadArticles),
           getAccessibleDistanceText(meter, strides),
         )}
+        numOfUnreadArticles={numOfUnreadArticles}
         {...traits}
       />
     )
@@ -99,6 +122,8 @@ export const ProjectsList = ({
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
+  const readArticles = useSelector(selectConstructionWorkReadArticles)
+
   if (isLoading) {
     return <PleaseWait />
   }
@@ -119,9 +144,10 @@ export const ProjectsList = ({
       ListHeaderComponent={listHeader}
       renderItem={({item}) => (
         <ListItem
+          getProjectTraits={getProjectTraits}
           navigation={navigation}
           project={item}
-          getProjectTraits={getProjectTraits}
+          readArticles={readArticles}
         />
       )}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}

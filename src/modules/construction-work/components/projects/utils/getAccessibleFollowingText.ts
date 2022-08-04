@@ -2,7 +2,7 @@ import simplur from 'simplur'
 
 export const getAccessibleFollowingText = (
   followed: boolean,
-  numOfUnreadArticles: number | undefined,
+  numOfUnreadArticles: number,
 ) => {
   if (!followed) {
     return
