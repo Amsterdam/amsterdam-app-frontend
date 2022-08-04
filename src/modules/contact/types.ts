@@ -27,7 +27,8 @@ export type CityOffice = {
   }
   images: Image
   info: RichText & RichTxt
-  last_seen: string // date
+  // date
+  last_seen: string
   location?: string
   title?: string
 }
