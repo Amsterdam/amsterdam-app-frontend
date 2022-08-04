@@ -1,7 +1,8 @@
 import React from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
-import {Box, PleaseWait} from '@/components/ui'
+import {Box} from '@/components/ui'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -23,7 +24,7 @@ export const ModuleSettings = () => {
   }
 
   if (modulesLoading) {
-    return <PleaseWait fullSize />
+    return <PleaseWait grow />
   }
 
   if (!modules.length) {

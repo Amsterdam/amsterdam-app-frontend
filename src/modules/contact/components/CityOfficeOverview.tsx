@@ -1,5 +1,6 @@
 import React from 'react'
-import {Box, PleaseWait} from '@/components/ui'
+import {Box} from '@/components/ui'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Grid, GridCell} from '@/components/ui/layout'
 import {CityOffice} from '@/modules/contact/components'
 import {useGetCityOfficesQuery} from '@/modules/contact/services'

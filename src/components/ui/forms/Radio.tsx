@@ -3,7 +3,6 @@ import React, {ReactNode, useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import CircleIcon from '@/assets/icons/circle.svg'
 import {RadioContext} from '@/components/ui/forms/'
-import {Center} from '@/components/ui/layout'
 import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
@@ -27,7 +26,7 @@ export const Radio = (props: Props) => {
       accessibilityRole="radio"
       accessibilityState={{selected: isChecked}}
       style={[styles.radioButton]}>
-      <Center
+      <View
         style={[styles.outerCircle, isChecked && styles.outerCircleChecked]}>
         {!!isChecked && (
           <CircleIcon
@@ -35,7 +34,7 @@ export const Radio = (props: Props) => {
             style={styles.innerCircle}
           />
         )}
-      </Center>
+      </View>
       <View style={styles.text}>{props.children}</View>
     </Pressable>
   )
@@ -51,6 +50,8 @@ const createStyles = ({color, size}: Theme) =>
       alignItems: 'center',
     },
     outerCircle: {
+      alignItems: 'center',
+      justifyContent: 'center',
       width: outerCircleSize,
       aspectRatio: 1,
       marginRight: size.spacing.md,

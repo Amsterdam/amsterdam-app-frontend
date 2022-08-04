@@ -1,7 +1,7 @@
-import {Center} from '_components/ui/layout'
-import {Phrase} from '_components/ui/text'
 import React from 'react'
 import {getBuildNumber, getVersion} from 'react-native-device-info'
+import {Center} from '@/components/ui/layout'
+import {Phrase} from '@/components/ui/text'
 
 export const VersionInfo = () => (
   <Center>

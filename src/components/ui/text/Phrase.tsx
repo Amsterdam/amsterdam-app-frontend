@@ -5,8 +5,17 @@ import {ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
+  /**
+   * Provides an inverse text color to allow a paragraph on a dark background.
+   */
   color?: 'default' | 'inverse'
+  /**
+   * Allows the phrase to convey more emphasis.
+   */
   fontWeight?: 'bold' | 'regular'
+  /**
+   * Which variation of a phrase to display.
+   */
   variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
 

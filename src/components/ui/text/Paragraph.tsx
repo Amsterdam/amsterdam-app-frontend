@@ -5,8 +5,14 @@ import {ColorTokens, ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
-  variant?: ParagraphVariants
+  /**
+   * Provides an inverse text color to allow a paragraph on a dark background.
+   */
   color?: keyof ColorTokens['text']
+  /**
+   * Which variation of a paragraph to display.
+   */
+  variant?: ParagraphVariants
 } & Omit<TextProps, 'style'>
 
 export const Paragraph = ({
@@ -16,8 +22,8 @@ export const Paragraph = ({
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({variant, color}),
-    [variant, color],
+    () => createStyles({color, variant}),
+    [color, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -32,7 +38,7 @@ export const Paragraph = ({
 }
 
 const createStyles =
-  ({variant, color: textColor}: Required<Pick<Props, 'variant' | 'color'>>) =>
+  ({color: textColor, variant}: Required<Pick<Props, 'color' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {

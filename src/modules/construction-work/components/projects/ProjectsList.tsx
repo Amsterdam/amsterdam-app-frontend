@@ -5,8 +5,8 @@ import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
-import {Box, PleaseWait, SomethingWentWrong} from '@/components/ui'
-import {EmptyMessage} from '@/components/ui/feedback'
+import {Box, SomethingWentWrong} from '@/components/ui'
+import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {
   ProjectCard,
