@@ -1,7 +1,7 @@
 import React, {createContext, ReactNode, useEffect, useState} from 'react'
 import {ScaledSize, useWindowDimensions} from 'react-native'
 
-type Device = {
+export type Device = {
   isLandscape: boolean | undefined
   isPortrait: boolean | undefined
 } & ScaledSize

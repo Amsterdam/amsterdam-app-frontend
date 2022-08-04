@@ -11,7 +11,7 @@ export const AddButton = (props: PressableProps) => {
 
   return (
     <Pressable style={styles.button} {...props}>
-      <Icon scaleWithText={false} size={24}>
+      <Icon scalesWithFont={false} size={24}>
         <Enlarge fill={color.pressable.default.background} />
       </Icon>
     </Pressable>

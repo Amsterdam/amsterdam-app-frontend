@@ -7,6 +7,6 @@ export default {
 
 export const Default: ComponentStoryObj<typeof Badge> = {
   args: {
-    value: 7,
+    value: 3,
   },
 }
