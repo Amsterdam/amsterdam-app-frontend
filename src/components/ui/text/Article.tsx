@@ -4,7 +4,8 @@ import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
+import {SizeTokens} from '@/themes/tokens'
 
 type Props = {
   content: string | undefined
@@ -30,11 +31,21 @@ const transformContent = (content: string) => {
   )
 }
 
+const computeEmbeddedMaxWidth =
+  (size: SizeTokens) => (contentWidth: number, tagName: string) => {
+    if (tagName === 'img') {
+      return contentWidth - 2 * size.spacing.md
+    }
+
+    return contentWidth
+  }
+
 /**
  * Renders HTML content, applying the typographic design.
  */
 export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
+  const {size} = useTheme()
   const fonts = useThemable(createFontList)
   const baseStyles = useThemable(createBaseStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps)
@@ -53,8 +64,9 @@ export const Article = ({content, isIntro}: Props) => {
 
   return (
     <RenderHTML
-      renderersProps={renderersProps}
+      computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
       contentWidth={width}
+      renderersProps={renderersProps}
       source={{html}}
       systemFonts={fonts}
       tagsStyles={styles}
