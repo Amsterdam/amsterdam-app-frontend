@@ -47,6 +47,7 @@ export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
   const {size} = useTheme()
   const fonts = useThemable(createFontList)
+  const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps)
 
@@ -65,6 +66,7 @@ export const Article = ({content, isIntro}: Props) => {
 
   return (
     <RenderHTML
+      baseStyle={baseStyle}
       computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
       contentWidth={width}
       renderersProps={renderersProps}
@@ -75,11 +77,16 @@ export const Article = ({content, isIntro}: Props) => {
   )
 }
 
+const createBaseStyle = ({color, text}: Theme) => ({
+  color: color.text.default,
+  fontFamily: text.fontWeight.regular,
+})
+
 const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({color, text}: Theme) => {
+  ({text}: Theme) => {
     const lineHeight = isIntro
       ? text.lineHeight.intro * text.fontSize.intro
       : text.lineHeight.body * text.fontSize.body
@@ -90,13 +97,10 @@ const createStyles: (
         marginBottom: lineHeight,
       },
       paragraph: {
-        color: color.text.default,
-        fontFamily: text.fontWeight.regular,
         fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
         lineHeight,
       },
       titleLevel3: {
-        color: color.text.default,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
