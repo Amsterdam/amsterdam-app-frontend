@@ -1,21 +1,13 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useMemo} from 'react'
-import {
-  Box,
-  SingleSelectable,
-  Text,
-  TextInCircle,
-  Title,
-  ZebraList,
-  ZebraListItemProps,
-} from '@/components/ui'
+import React from 'react'
+import {Box, SingleSelectable} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
   CreateNotificationRouteName,
   CreateNotificationStackParams,
 } from '@/modules/construction-work/screens/create-notification/routes'
-import {useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 type Props = {
@@ -33,39 +25,26 @@ const tips = [
   'Gebruik geen jargon en moeilijke woorden.',
   'Schrijf actief. Niet: ‘De weg wordt afgesloten’, maar: ‘We sluiten de weg af’.',
   'Spreek mensen aan met ‘u’.',
-  'Geen spoed maar wel belangrijk? Overleg met de redactie over een nieuwsbericht op de website.',
+  'Geen spoed maar wel belangrijk? Overleg met de redactie over een nieuwsbericht op amsterdam.nl of projectpagina.',
 ]
 
-const renderTip =
-  (fontSize: number) =>
-  ({index, text}: ZebraListItemProps) =>
-    (
-      <SingleSelectable label={accessibleText(index.toString(), text)}>
-        <Row gutter="md" valign="center">
-          <TextInCircle fontSize={fontSize} label={index.toString()} />
-          <Text>{text}</Text>
-        </Row>
-      </SingleSelectable>
-    )
+export const WritingGuide = ({navigation}: Props) => (
+  <Box>
+    <Column gutter="md">
+      <Title text="Schrijftips" />
+      {tips.map((tip, index) => {
+        const step = (index + 1).toString()
 
-export const WritingGuide = ({navigation}: Props) => {
-  const {text} = useTheme()
-
-  const RenderTip = useMemo(
-    () => renderTip(text.fontSize.h3),
-    [text.fontSize.h3],
-  )
-
-  return (
-    <Column align="between">
-      <Box insetHorizontal="md">
-        <Title text="Schrijftips" />
-      </Box>
-      <Gutter height="md" />
-      <ZebraList data={tips} renderItem={RenderTip} />
-      <Box>
-        <Button label="Aan de slag!" onPress={navigation.goBack} />
-      </Box>
+        return (
+          <SingleSelectable label={accessibleText(step, tip)} key={tip}>
+            <Row gutter="md">
+              <Phrase fontWeight="bold">{step}</Phrase>
+              <Paragraph>{tip}</Paragraph>
+            </Row>
+          </SingleSelectable>
+        )
+      })}
+      <Button label="Aan de slag!" onPress={navigation.goBack} />
     </Column>
-  )
-}
+  </Box>
+)
