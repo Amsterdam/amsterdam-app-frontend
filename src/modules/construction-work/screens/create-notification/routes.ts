@@ -6,7 +6,6 @@ import {
   SelectNewsArticleScreen,
   VerifyMainImageScreen,
   VerifyNotificationScreen,
-  WritingGuideScreen,
 } from '@/modules/construction-work/screens/create-notification'
 
 export enum CreateNotificationRouteName {
@@ -16,7 +15,6 @@ export enum CreateNotificationRouteName {
   selectNewsArticle = 'SelectNewsArticle',
   verifyMainImage = 'VerifyMainImage',
   verifyNotification = 'VerifyNotification',
-  writingGuide = 'WritingGuide',
 }
 
 export type CreateNotificationStackParams = {
@@ -26,7 +24,6 @@ export type CreateNotificationStackParams = {
   [CreateNotificationRouteName.selectNewsArticle]: undefined
   [CreateNotificationRouteName.verifyMainImage]: undefined
   [CreateNotificationRouteName.verifyNotification]: undefined
-  [CreateNotificationRouteName.writingGuide]: undefined
 }
 
 export const createNotificationRoutes: StackNavigationRoutes<
@@ -56,9 +53,5 @@ export const createNotificationRoutes: StackNavigationRoutes<
   [CreateNotificationRouteName.verifyNotification]: {
     component: VerifyNotificationScreen,
     name: CreateNotificationRouteName.verifyNotification,
-  },
-  [CreateNotificationRouteName.writingGuide]: {
-    component: WritingGuideScreen,
-    name: CreateNotificationRouteName.writingGuide,
   },
 }
