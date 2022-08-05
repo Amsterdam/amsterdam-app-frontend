@@ -19,7 +19,7 @@ export type TitleTokensPerLevel = {
   h6: number
 }
 
-type FontWeights = {
+export type FontWeights = {
   bold: string
   extraBold: string
   regular: string

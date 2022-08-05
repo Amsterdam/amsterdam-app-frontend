@@ -31,7 +31,7 @@ const tips = [
 export const WritingGuide = ({navigation}: Props) => (
   <Box>
     <Column gutter="md">
-      <Title text="Schrijftips" />
+      <Title text="Schrijftips" weight="extraBold" />
       {tips.map((tip, index) => {
         const step = (index + 1).toString()
 
