@@ -57,10 +57,10 @@ export const Article = ({content, isIntro}: Props) => {
   const html = transformContent(content)
 
   const styles: Record<string, MixedStyleDeclaration> = {
-    h3: baseStyles.titleLevel3,
-    img: baseStyles.figure,
-    li: baseStyles.paragraph,
-    p: baseStyles.paragraph,
+    h3: {...baseStyles.titleLevel3, ...baseStyles.margins},
+    img: baseStyles.margins,
+    li: {...baseStyles.paragraph, ...baseStyles.margins},
+    p: {...baseStyles.paragraph, ...baseStyles.margins},
   }
 
   return (
@@ -85,7 +85,8 @@ const createBaseStyles: (
       : text.lineHeight.body * text.fontSize.body
 
     return {
-      figure: {
+      margins: {
+        marginTop: 0,
         marginBottom: lineHeight,
       },
       paragraph: {
@@ -93,16 +94,12 @@ const createBaseStyles: (
         fontFamily: text.fontWeight.regular,
         fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
         lineHeight,
-        marginTop: 0,
-        marginBottom: lineHeight,
       },
       titleLevel3: {
         color: color.text.default,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
-        marginTop: 0,
-        marginBottom: lineHeight,
       },
     }
   }
