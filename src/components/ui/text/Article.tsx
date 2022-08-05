@@ -47,7 +47,7 @@ export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
   const {size} = useTheme()
   const fonts = useThemable(createFontList)
-  const baseStyles = useThemable(createBaseStyles(isIntro))
+  const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps)
 
   if (!content) {
@@ -56,11 +56,11 @@ export const Article = ({content, isIntro}: Props) => {
 
   const html = transformContent(content)
 
-  const styles: Record<string, MixedStyleDeclaration> = {
-    h3: {...baseStyles.titleLevel3, ...baseStyles.margins},
-    img: baseStyles.margins,
-    li: {...baseStyles.paragraph, ...baseStyles.margins},
-    p: {...baseStyles.paragraph, ...baseStyles.margins},
+  const tagsStyles: Record<string, MixedStyleDeclaration> = {
+    h3: {...styles.titleLevel3, ...styles.margins},
+    img: styles.margins,
+    li: {...styles.paragraph, ...styles.margins},
+    p: {...styles.paragraph, ...styles.margins},
   }
 
   return (
@@ -70,12 +70,12 @@ export const Article = ({content, isIntro}: Props) => {
       renderersProps={renderersProps}
       source={{html}}
       systemFonts={fonts}
-      tagsStyles={styles}
+      tagsStyles={tagsStyles}
     />
   )
 }
 
-const createBaseStyles: (
+const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
