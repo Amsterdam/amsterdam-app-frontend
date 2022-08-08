@@ -1,5 +1,10 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React, {useCallback, useEffect} from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
@@ -31,18 +36,12 @@ type FormData = {
 }
 
 type Props = {
-  isSubmitButtonPressed: boolean
-  onFormSubmitted: () => void
   onMainImageSelected: () => void
 }
 
 const config = {maxWidth: 1920, maxHeight: 1080}
 
-export const MessageForm = ({
-  onFormSubmitted,
-  onMainImageSelected,
-  isSubmitButtonPressed,
-}: Props) => {
+export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
   const projectId = useSelector(selectProjectId)
@@ -52,7 +51,7 @@ export const MessageForm = ({
   const {color} = useTheme()
 
   const form = useForm<FormData>()
-  const {formState, getValues, handleSubmit} = form
+  const {handleSubmit} = form
 
   const saveMessage = useCallback(
     (data: FormData) => {
@@ -95,21 +94,19 @@ export const MessageForm = ({
 
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
-      if (!formState.isValid) {
-        return
-      }
       saveMessage(data)
       dispatch(setMainImageDescription('placeholder tekst'))
-      onFormSubmitted()
     },
-    [dispatch, formState, onFormSubmitted, saveMessage],
+    [dispatch, saveMessage],
   )
 
-  useEffect(() => {
-    if (isSubmitButtonPressed) {
-      onSubmitForm(getValues())
-    }
-  }, [formState, getValues, isSubmitButtonPressed, onSubmitForm])
+  useImperativeHandle(
+    ref,
+    () => ({
+      handleSubmit: handleSubmit(onSubmitForm),
+    }),
+    [handleSubmit, onSubmitForm],
+  )
 
   useEffect(() => {
     mainImage && onMainImageSelected()
@@ -164,4 +161,4 @@ export const MessageForm = ({
       </Column>
     </FormProvider>
   )
-}
+})

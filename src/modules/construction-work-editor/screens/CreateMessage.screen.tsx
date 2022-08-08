@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
@@ -26,7 +26,10 @@ type Props = {
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
-  const [isNextButtonPressed, setNextButtonPressed] = useState(false)
+
+  const formRef = useRef<{
+    handleSubmit: () => Promise<void>
+  }>()
 
   useEffect(() => {
     const {projectId, projectTitle} = route.params
@@ -66,22 +69,25 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
       </Column>
       <Box>
         <MessageForm
-          onFormSubmitted={() =>
-            navigation.navigate(ConstructionWorkEditorRouteName.confirmMessage)
-          }
           onMainImageSelected={() =>
             navigation.navigate(
               ConstructionWorkEditorRouteName.addMainImageToMessage,
             )
           }
-          isSubmitButtonPressed={isNextButtonPressed}
+          ref={formRef}
         />
       </Box>
       <Row align="end" valign="center">
         <NavigationButton
           iconSize={16}
           label="Volgende"
-          onPress={() => setNextButtonPressed(true)}
+          onPress={() =>
+            formRef.current?.handleSubmit().then(() => {
+              navigation.navigate(
+                ConstructionWorkEditorRouteName.confirmMessage,
+              )
+            })
+          }
         />
       </Row>
     </Screen>
