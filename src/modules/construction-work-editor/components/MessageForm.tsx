@@ -1,10 +1,5 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-} from 'react'
+import React, {forwardRef, useCallback, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
@@ -16,7 +11,6 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
-  selectMainImage,
   selectProjectId,
   setMainImage,
   setMainImageDescription,
@@ -46,7 +40,6 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const {sendSentryErrorLog} = useSentry()
   const projectId = useSelector(selectProjectId)
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
-  const mainImage = useSelector(selectMainImage)
 
   const {color} = useTheme()
 
@@ -82,6 +75,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       .then(image => {
         dispatch(setMainImage(image))
         dispatch(setMainImageDescription('placeholder tekst'))
+        onMainImageSelected()
       })
       .catch((error: unknown) => {
         sendSentryErrorLog(
@@ -111,10 +105,6 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     }),
     [handleSubmit, onSubmitForm],
   )
-
-  useEffect(() => {
-    mainImage && onMainImageSelected()
-  }, [mainImage, onMainImageSelected])
 
   return (
     <FormProvider {...form}>
