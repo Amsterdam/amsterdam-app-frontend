@@ -11,7 +11,6 @@ import {useModules} from '@/hooks'
 import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {getPushNotificationsPermission} from '@/processes'
-import {useUnregisterDeviceMutation} from '@/services'
 import {toggleModule} from '@/store'
 import {useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
@@ -23,8 +22,7 @@ export const ModuleSettings = () => {
   const {color} = useTheme()
 
   const {sendSentryErrorLog} = useSentry()
-  const {registerDevice} = useRegisterDevice()
-  const [unregisterDevice] = useUnregisterDeviceMutation()
+  const {registerDevice, unregisterDevice} = useRegisterDevice()
 
   const onChange = (slug: string) => {
     dispatch(toggleModule(slug))

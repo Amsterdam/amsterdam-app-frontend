@@ -3,15 +3,13 @@ import {useInitSentry, useModules, useRegisterDevice, useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
 import {useConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks'
 import {getPushNotificationsPermission} from '@/processes'
-import {useUnregisterDeviceMutation} from '@/services'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   useInitSentry()
   const {sendSentryErrorLog} = useSentry()
-  const {registerDevice} = useRegisterDevice()
-  const [unregisterDevice] = useUnregisterDeviceMutation()
+  const {registerDevice, unregisterDevice} = useRegisterDevice()
   const {selectedModules} = useModules()
 
   useAppState({
