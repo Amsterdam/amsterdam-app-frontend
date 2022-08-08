@@ -3,12 +3,13 @@ import React from 'react'
 import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout'
-import {Icon, IconSizes} from '@/components/ui/media'
+import {Icon} from '@/components/ui/media'
 import {Link} from '@/components/ui/text'
+import {IconSize} from '@/components/ui/types'
 import {useTheme} from '@/themes'
 
 type Props = {
-  iconSize?: IconSizes
+  iconSize?: IconSize
   label: string
   onPress: () => void
 }
