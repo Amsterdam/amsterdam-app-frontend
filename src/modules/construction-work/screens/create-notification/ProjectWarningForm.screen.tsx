@@ -10,10 +10,7 @@ import {CharactersLeftDisplay, Label, TextInput} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {
-  ConstructionWorkEditorRouteName,
-  ConstructionWorkEditorStackParams,
-} from '@/modules/construction-work-editor/routes'
+import {ConstructionWorkEditorStackParams} from '@/modules/construction-work-editor/routes'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
@@ -148,14 +145,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
             <Column gutter="sm">
               <Title level={4} text="Schrijftips voor een nieuwsartikel" />
               <Row align="start">
-                <Button
-                  label="Toon schrijftips"
-                  onPress={() =>
-                    navigation.navigate(
-                      ConstructionWorkEditorRouteName.writingGuide,
-                    )
-                  }
-                />
+                <Button label="Toon schrijftips" />
               </Row>
             </Column>
             <>

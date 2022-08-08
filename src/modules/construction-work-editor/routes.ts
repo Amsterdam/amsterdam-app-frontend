@@ -16,5 +16,7 @@ export type ConstructionWorkEditorStackParams = {
     projectId: string
     projectTitle: string
   }
-  [ConstructionWorkEditorRouteName.writingGuide]: undefined
+  [ConstructionWorkEditorRouteName.writingGuide]: {
+    projectTitle: string
+  }
 }
