@@ -77,7 +77,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
           ref={formRef}
         />
       </Box>
-      <Row align="end" valign="center">
+      <Row align="end">
         <NavigationButton
           iconSize={16}
           label="Volgende"
