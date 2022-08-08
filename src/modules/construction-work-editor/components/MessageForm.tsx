@@ -122,7 +122,9 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             numberOfLines={3}
             name="title"
             placeholder="Voer een titel in…"
-            requiredErrorMessage="Vul een titel in"
+            rules={{
+              required: 'Vul een titel in',
+            }}
           />
           <FormField
             label="Wat is de tekst van je bericht?"
@@ -130,7 +132,9 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             name="body"
             numberOfLines={7}
             placeholder="Voer een tekst in…"
-            requiredErrorMessage="Vul een tekst in"
+            rules={{
+              required: 'Vul een tekst in',
+            }}
           />
         </Column>
         <Column gutter="xs">

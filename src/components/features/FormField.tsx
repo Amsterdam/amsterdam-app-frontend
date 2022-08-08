@@ -9,7 +9,6 @@ type Props = {
   maxCharacters: number
   numberOfLines?: number
   placeholder: string
-  requiredErrorMessage: string
 } & UseControllerProps
 
 export const FormField = ({
@@ -19,13 +18,11 @@ export const FormField = ({
   numberOfLines,
   name,
   placeholder,
-  requiredErrorMessage,
+  rules,
 }: Props) => {
   return (
     <Controller
-      rules={{
-        required: requiredErrorMessage, // TODO: set rules as a prop instead of individual error messages
-      }}
+      rules={rules}
       render={({field: {onChange, value}, fieldState: {error}}) => (
         <>
           <Column gutter="xs">
