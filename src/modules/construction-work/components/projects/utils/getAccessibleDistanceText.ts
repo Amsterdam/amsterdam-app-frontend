@@ -2,6 +2,7 @@ export const getAccessibleDistanceText = (meter?: number, strides?: number) => {
   if (meter === undefined && strides === undefined) {
     return
   }
+
   const textParts = ['vanaf uw adres']
 
   if (strides !== undefined) {

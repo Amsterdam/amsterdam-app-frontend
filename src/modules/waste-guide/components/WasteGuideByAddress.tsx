@@ -3,8 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box, PleaseWait, SingleSelectable, Text, Title} from '@/components/ui'
+import {Box, SingleSelectable, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {useFetch} from '@/hooks'
 import {module as addressModule} from '@/modules/address'
@@ -104,7 +105,7 @@ export const WasteGuideByAddress = () => {
       {wasteGuideLength === undefined ? (
         <Box>
           <Title level={4} text="Gegevens ophalen…" />
-          <PleaseWait fullSize={false} />
+          <PleaseWait />
         </Box>
       ) : wasteGuideLength === 0 ? (
         <WasteGuideByAddressNoDetails address={address} />

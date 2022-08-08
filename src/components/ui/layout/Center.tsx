@@ -1,13 +1,14 @@
 import React, {ReactNode} from 'react'
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {layoutStyles} from '@/styles'
 
 type Props = {
   children: ReactNode
-  style?: StyleProp<ViewStyle>
+  grow?: boolean
 }
 
-export const Center = ({children, style}: Props) => (
-  <View style={[styles.center, style]}>{children}</View>
+export const Center = ({children, grow}: Props) => (
+  <View style={[styles.center, grow && layoutStyles.grow]}>{children}</View>
 )
 
 const styles = StyleSheet.create({

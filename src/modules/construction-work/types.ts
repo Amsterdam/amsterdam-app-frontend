@@ -89,12 +89,14 @@ export type ProjectsItem = {
   followed: boolean
   identifier: string
   images: Image[] | null
-  last_seen: string // date
+  // date
+  last_seen: string
   meter: number
   modification_date: string
   project_type: string
   publication_date: string
-  recent_articles?: RecentArticle[] // only present when sent 'articles_max_age' in request body
+  // only present when sent 'articles_max_age' in request body
+  recent_articles?: RecentArticle[]
   score: number
   source_url: string
   strides: number
@@ -147,7 +149,8 @@ export type Project = {
   followers: number
   identifier: string
   images: Image[]
-  last_seen: string // date
+  // date
+  last_seen: string
   meter: number
   news: ProjectNews[]
   page_id: number

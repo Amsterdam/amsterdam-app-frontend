@@ -15,6 +15,7 @@ import LightMode from './light-mode.svg'
 import Logo from './logo.svg'
 import OrganicWasteContainer from './organic-waste-container.svg'
 import Project from './project.svg'
+import Question from './question.svg'
 import Settings from './settings.svg'
 import Strides from './strides.svg'
 import Whatsapp from './whatsapp.svg'
@@ -37,6 +38,7 @@ export {
   Logo,
   OrganicWasteContainer,
   Project,
+  Question,
   Settings,
   Strides,
   Whatsapp,

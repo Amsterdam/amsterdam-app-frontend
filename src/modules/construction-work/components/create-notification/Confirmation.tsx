@@ -1,8 +1,7 @@
-import {Card} from '@amsterdam/asc-assets'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode} from 'react'
-import {CardBody, Text, Title} from '@/components/ui'
+import {Box, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {
@@ -30,28 +29,26 @@ export const Confirmation = ({body, button, icon, title}: Props) => {
     >()
 
   return (
-    <Card>
-      <CardBody>
-        {icon}
-        <Gutter height="lg" />
-        <Column gutter="md">
-          <Title text={title} />
-          <Text>{body}</Text>
-          <Row>
-            <Button
-              label={button.label}
-              onPress={() => {
-                if (button.onPress === 'goBack') {
-                  navigation.goBack()
-                }
-                if (button.onPress === 'popModal') {
-                  navigation.getParent()?.goBack()
-                }
-              }}
-            />
-          </Row>
-        </Column>
-      </CardBody>
-    </Card>
+    <Box>
+      {icon}
+      <Gutter height="lg" />
+      <Column gutter="md">
+        <Title text={title} />
+        <Text>{body}</Text>
+        <Row>
+          <Button
+            label={button.label}
+            onPress={() => {
+              if (button.onPress === 'goBack') {
+                navigation.goBack()
+              }
+              if (button.onPress === 'popModal') {
+                navigation.getParent()?.goBack()
+              }
+            }}
+          />
+        </Row>
+      </Column>
+    </Box>
   )
 }

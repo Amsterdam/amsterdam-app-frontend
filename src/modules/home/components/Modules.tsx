@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box, PleaseWait} from '@/components/ui'
-import {EmptyMessage} from '@/components/ui/feedback'
+import {Box} from '@/components/ui'
+import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {useModules} from '@/modules/home/hooks'
@@ -15,7 +15,7 @@ export const Modules = () => {
   } = useModules()
 
   if (modulesLoading) {
-    return <PleaseWait fullSize />
+    return <PleaseWait grow />
   }
 
   if (modulesError) {

@@ -12,5 +12,6 @@ export const Default: ComponentStory<typeof Paragraph> = args => (
   </Paragraph>
 )
 Default.args = {
+  color: 'default',
   variant: 'body',
 }

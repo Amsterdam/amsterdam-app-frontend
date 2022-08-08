@@ -2,14 +2,9 @@ import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {View} from 'react-native'
-import {
-  Attention,
-  PleaseWait,
-  SingleSelectable,
-  Text,
-  Title,
-} from '@/components/ui'
+import {Attention, SingleSelectable, Text, Title} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'

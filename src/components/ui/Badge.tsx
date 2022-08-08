@@ -1,51 +1,66 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout'
+import {Device, DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
-  value: number | string
+  /**
+   * Whether the icon scales with text being zoomed in or out.
+   */
+  scalesWithFont?: boolean
+  /**
+   * The value to display in the badge.
+   */
+  value: number
 } & Pick<AccessibilityProps, 'accessible'>
 
-export const Badge = ({accessible, value}: BadgeProps) => {
-  const styles = useThemable(createStyles)
+export const Badge = ({
+  accessible,
+  scalesWithFont = true,
+  value,
+}: BadgeProps) => {
+  const {fontScale} = useContext(DeviceContext)
+  const styles = useThemable(createStyles(fontScale, scalesWithFont))
 
   return (
     <Row align="start">
       <View style={styles.circle}>
-        <Text
-          accessible={accessible}
-          allowFontScaling={false}
-          numberOfLines={1}
-          style={styles.text}>
-          {typeof value === 'number' ? formatNumber(value) : value}
+        <Text accessible={accessible} numberOfLines={1} style={styles.text}>
+          {formatNumber(value)}
         </Text>
       </View>
     </Row>
   )
 }
 
-const createStyles = ({color, text}: Theme) => {
-  const size = 20
-  const alignmentOffset = 1
-  const inset = 2
-  const fontSize = 12
+const createStyles =
+  (
+    fontScale: Device['fontScale'],
+    scalesWithFont: BadgeProps['scalesWithFont'],
+  ) =>
+  ({color, size, text}: Theme) => {
+    const diameter = 16
+    const minWidth = diameter * (scalesWithFont ? fontScale : 1)
+    const fontSize = 12 / (scalesWithFont ? 1 : fontScale)
+    const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
 
-  return StyleSheet.create({
-    circle: {
-      borderRadius: size / 2,
-      backgroundColor: color.pressable.secondary.background,
-    },
-    text: {
-      minWidth: size, // Make sure we have at least a circle
-      marginTop: alignmentOffset, // Adjust for glyphs not being centered in the font’s line height
-      paddingHorizontal: inset, // Use padding for horizontal inset
-      textAlign: 'center',
-      fontFamily: text.fontWeight.bold,
-      fontSize: fontSize,
-      lineHeight: size - alignmentOffset, // Use line height for vertical inset, to prevent cut-off glyphs
-      color: color.text.inverse,
-    },
-  })
-}
+    return StyleSheet.create({
+      circle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        minWidth, // Prevent the circle becoming a vertical oval
+        paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
+        paddingEnd: size.spacing.xs,
+        borderRadius: minWidth / 2,
+        backgroundColor: color.pressable.secondary.background,
+      },
+      text: {
+        fontFamily: text.fontWeight.bold,
+        fontSize,
+        lineHeight,
+        color: color.text.inverse,
+      },
+    })
+  }

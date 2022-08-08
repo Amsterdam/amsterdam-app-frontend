@@ -3,15 +3,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import HeroImage from '@/assets/images/project-warning-hero.svg'
-import {
-  Box,
-  PleaseWait,
-  Preview,
-  SingleSelectable,
-  Text,
-  Title,
-} from '@/components/ui'
+import {Box, Preview, SingleSelectable, Text, Title} from '@/components/ui'
 import {SubmitButton, TextButton} from '@/components/ui/buttons'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {

@@ -4,7 +4,8 @@ import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
+import {SizeTokens} from '@/themes/tokens'
 
 type Props = {
   content: string | undefined
@@ -30,13 +31,24 @@ const transformContent = (content: string) => {
   )
 }
 
+const computeEmbeddedMaxWidth =
+  (size: SizeTokens) => (contentWidth: number, tagName: string) => {
+    if (tagName === 'img') {
+      return contentWidth - 2 * size.spacing.md
+    }
+
+    return contentWidth
+  }
+
 /**
  * Renders HTML content, applying the typographic design.
  */
 export const Article = ({content, isIntro}: Props) => {
   const {width} = useWindowDimensions()
+  const {size} = useTheme()
   const fonts = useThemable(createFontList)
-  const baseStyles = useThemable(createBaseStyles(isIntro))
+  const baseStyle = useThemable(createBaseStyle)
+  const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps)
 
   if (!content) {
@@ -45,48 +57,53 @@ export const Article = ({content, isIntro}: Props) => {
 
   const html = transformContent(content)
 
-  const styles: Record<string, MixedStyleDeclaration> = {
-    h3: baseStyles.titleLevel3,
-    li: baseStyles.paragraph,
-    p: baseStyles.paragraph,
+  const tagsStyles: Record<string, MixedStyleDeclaration> = {
+    h3: {...styles.titleLevel3, ...styles.margins},
+    img: styles.margins,
+    li: {...styles.paragraph, ...styles.margins},
+    p: {...styles.paragraph, ...styles.margins},
   }
 
   return (
     <RenderHTML
-      renderersProps={renderersProps}
+      baseStyle={baseStyle}
+      computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
       contentWidth={width}
+      renderersProps={renderersProps}
       source={{html}}
       systemFonts={fonts}
-      tagsStyles={styles}
+      tagsStyles={tagsStyles}
     />
   )
 }
 
-const createBaseStyles: (
+const createBaseStyle = ({color, text}: Theme) => ({
+  color: color.text.default,
+  fontFamily: text.fontWeight.regular,
+})
+
+const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({color, text}: Theme) => {
+  ({text}: Theme) => {
     const lineHeight = isIntro
       ? text.lineHeight.intro * text.fontSize.intro
       : text.lineHeight.body * text.fontSize.body
 
     return {
-      paragraph: {
-        color: color.text.default,
-        fontFamily: text.fontWeight.regular,
-        fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
-        lineHeight,
+      margins: {
         marginTop: 0,
         marginBottom: lineHeight,
       },
+      paragraph: {
+        fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
+        lineHeight,
+      },
       titleLevel3: {
-        color: color.text.default,
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
-        marginTop: 0,
-        marginBottom: lineHeight,
       },
     }
   }

@@ -1,20 +1,26 @@
 import React, {ReactNode, useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {IconSize} from '@/components/ui/types'
 import {DeviceContext} from '@/providers'
-
-export type IconSizes = 16 | 20 | 24 | 32
 
 type Props = {
   children: ReactNode
-  scaleWithText?: boolean
-  size?: IconSizes
+  /**
+   * Whether the icon scales with text being zoomed in or out.
+   */
+  scalesWithFont?: boolean
+  /**
+   * The size of the icon.
+   * Must be one of the allowed sizes.
+   */
+  size?: IconSize
 }
 
-export const Icon = ({children, scaleWithText = true, size = 16}: Props) => {
+export const Icon = ({children, scalesWithFont = true, size = 16}: Props) => {
   const {fontScale} = useContext(DeviceContext)
   const styles = useMemo(
-    () => createStyles(scaleWithText ? size * fontScale : size),
-    [fontScale, scaleWithText, size],
+    () => createStyles(scalesWithFont ? size * fontScale : size),
+    [fontScale, scalesWithFont, size],
   )
 
   return <View style={styles.icon}>{children}</View>

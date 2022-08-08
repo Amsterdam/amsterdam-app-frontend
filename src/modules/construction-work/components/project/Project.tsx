@@ -3,8 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback, useLayoutEffect} from 'react'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
-import {Box, PleaseWait, SingleSelectable} from '@/components/ui'
+import {Box, SingleSelectable} from '@/components/ui'
 import {FollowButton} from '@/components/ui/buttons'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
@@ -13,6 +14,7 @@ import {AddressQueryArg} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
+import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
   useFollowProjectMutation,
@@ -138,12 +140,7 @@ export const Project = ({id}: Props) => {
             <Column gutter="md">
               <ProjectTraits
                 accessibilityLabel={accessibleText(
-                  [
-                    meter && `${meter} meter`,
-                    meter && strides && 'of',
-                    strides && `${strides} stappen`,
-                    'vanaf uw adres',
-                  ].join(' '),
+                  getAccessibleDistanceText(meter, strides),
                 )}
                 {...{meter, strides}}
               />
