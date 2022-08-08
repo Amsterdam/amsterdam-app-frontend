@@ -14,13 +14,3 @@ export type ConstructionWorkEditorResponse = {
   email: string
   projects: string[]
 }
-
-export type MessageDraft = {
-  title: string
-  body: {
-    content: string
-    preface: string
-  }
-  project_identifier: string
-  project_manager_id: string
-}
