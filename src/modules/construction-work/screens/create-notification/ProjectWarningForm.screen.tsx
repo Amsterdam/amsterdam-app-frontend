@@ -6,11 +6,11 @@ import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, Text, Title} from '@/components/ui'
 import {Button, SubmitButton, TextButton} from '@/components/ui/buttons'
-import {Label} from '@/components/ui/forms'
-import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
+import {CharactersLeftDisplay, Label, TextInput} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {ConstructionWorkEditorStackParams} from '@/modules/construction-work-editor/routes'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectMainImage,
@@ -41,7 +41,7 @@ type FormData = {
 
 type Props = {
   navigation: StackNavigationProp<
-    CreateNotificationStackParams,
+    CreateNotificationStackParams & ConstructionWorkEditorStackParams,
     CreateNotificationRouteName
   >
 }
@@ -145,14 +145,7 @@ export const ProjectWarningFormScreen = ({navigation}: Props) => {
             <Column gutter="sm">
               <Title level={4} text="Schrijftips voor een nieuwsartikel" />
               <Row align="start">
-                <Button
-                  label="Toon schrijftips"
-                  onPress={() =>
-                    navigation.navigate(
-                      CreateNotificationRouteName.writingGuide,
-                    )
-                  }
-                />
+                <Button label="Toon schrijftips" />
               </Row>
             </Column>
             <>

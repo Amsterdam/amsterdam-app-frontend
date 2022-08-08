@@ -3,6 +3,7 @@ export enum ConstructionWorkEditorRouteName {
   authorizedProjects = 'authorizedProjects',
   confirmMessage = 'confirmMessage',
   createMessage = 'createMessage',
+  writingGuide = 'WritingGuide',
 }
 
 export type ConstructionWorkEditorStackParams = {
@@ -13,6 +14,9 @@ export type ConstructionWorkEditorStackParams = {
   [ConstructionWorkEditorRouteName.confirmMessage]: undefined
   [ConstructionWorkEditorRouteName.createMessage]: {
     projectId: string
+    projectTitle: string
+  }
+  [ConstructionWorkEditorRouteName.writingGuide]: {
     projectTitle: string
   }
 }

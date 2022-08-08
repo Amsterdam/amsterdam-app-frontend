@@ -8,6 +8,7 @@ import {
   AuthorizedProjectsScreen,
   ConfirmMessageScreen,
   CreateMessageScreen,
+  WritingGuideScreen,
 } from '@/modules/construction-work-editor/screens'
 
 export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
@@ -32,5 +33,12 @@ export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
   [ConstructionWorkEditorRouteName.confirmMessage]: {
     component: ConfirmMessageScreen,
     name: ConstructionWorkEditorRouteName.confirmMessage,
+  },
+  [ConstructionWorkEditorRouteName.writingGuide]: {
+    component: WritingGuideScreen,
+    name: ConstructionWorkEditorRouteName.writingGuide,
+    options: {
+      headerTitle: 'Schrijftips',
+    },
   },
 }

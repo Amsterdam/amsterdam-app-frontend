@@ -7,6 +7,7 @@ import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
+import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {MessageForm} from '@/modules/construction-work-editor/components'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setProject} from '@/modules/construction-work/screens/create-notification'
@@ -58,7 +59,12 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
               <Button
                 label="Toon schrijftips"
                 onPress={() => {
-                  console.log('hewhi')
+                  navigation.navigate(constructionWorkEditorModule.slug, {
+                    screen: ConstructionWorkEditorRouteName.writingGuide,
+                    params: {
+                      projectTitle: route.params.projectTitle,
+                    },
+                  })
                 }}
               />
             </Row>

@@ -4,8 +4,8 @@ import {useRegisterDevice, useSentry} from '@/hooks'
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditor'
 import {useSetConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditorCredentials'
 import {
-  selectConstructionWorkEditorHasSeenWelcomeMessage,
   addConstructionWorkEditorId,
+  selectConstructionWorkEditorHasSeenWelcomeMessage,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
 import {useFollowProjectMutation} from '@/modules/construction-work/construction-work.service'
@@ -75,7 +75,7 @@ export const useRegisterConstructionWorkEditorId = (
       dispatch(
         setAlert({
           content: {
-            text: 'Gelukt, de app herkent je nu als omgevingsmanager voor onderstaande projecten. Klik op het project waarvoor je een bericht wilt plaatsen, om een bericht te maken.',
+            text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
           },
           variant: Variant.information,
           isVisible: true,
@@ -101,7 +101,7 @@ export const useRegisterConstructionWorkEditorId = (
       dispatch(
         setAlert({
           content: {
-            text: 'Helaas, de app heeft je niet herkent als omgevingsmanager. Probeer je opnieuw te registreren om een berichten te kunnen versturen.',
+            text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
           },
           variant: Variant.failure,
           isVisible: true,
