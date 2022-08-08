@@ -27,12 +27,12 @@ import {useTheme} from '@/themes'
 
 const maxCharacters = {
   title: 100,
-  message: 500,
+  body: 500,
 }
 
 type FormData = {
   title: string
-  message: string
+  body: string
 }
 
 type Props = {
@@ -58,7 +58,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       if (projectId && constructionWorkEditorId) {
         const warningData: NewProjectWarning = {
           title: data.title,
-          body: data.message,
+          body: data.body,
           project_identifier: projectId,
           project_manager_id: constructionWorkEditorId,
         }
@@ -126,8 +126,8 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           />
           <FormField
             label="Wat is de tekst van je bericht?"
-            maxCharacters={maxCharacters.message}
-            name="message"
+            maxCharacters={maxCharacters.body}
+            name="body"
             numberOfLines={7}
             placeholder="Voer een tekst in..."
             requiredErrorMessage="Vul een tekst in"
