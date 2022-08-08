@@ -12,7 +12,7 @@ export const ConstructionWorkEditorStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        constructionWorkEditorScreenConfig.AuthorizedProjects.name
+        constructionWorkEditorScreenConfig.authorizedProjects.name
       }
       screenOptions={screenOptions(theme)}>
       {Object.entries(constructionWorkEditorScreenConfig).map(

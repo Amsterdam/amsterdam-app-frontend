@@ -194,10 +194,7 @@ export type ProjectWarningImageQueryArg = {
 
 export type NewProjectWarning = {
   title: string
-  body: {
-    content: string
-    preface: string
-  }
+  body: string
   project_identifier: string
   project_manager_id: string
 }

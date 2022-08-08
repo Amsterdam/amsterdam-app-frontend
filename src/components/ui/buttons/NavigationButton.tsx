@@ -5,14 +5,16 @@ import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Link} from '@/components/ui/text'
+import {IconSize} from '@/components/ui/types'
 import {useTheme} from '@/themes'
 
 type Props = {
+  iconSize?: IconSize
   label: string
   onPress: () => void
 }
 
-export const NavigationButton = ({label, onPress}: Props) => {
+export const NavigationButton = ({iconSize = 24, label, onPress}: Props) => {
   const {color} = useTheme()
 
   return (
@@ -20,7 +22,7 @@ export const NavigationButton = ({label, onPress}: Props) => {
       <Box insetHorizontal="md" insetVertical="sm">
         <Row align="between" gutter="md" valign="center">
           <Link label={label} level="h5" />
-          <Icon size={24}>
+          <Icon size={iconSize}>
             <ChevronRight fill={color.text.link} />
           </Icon>
         </Row>

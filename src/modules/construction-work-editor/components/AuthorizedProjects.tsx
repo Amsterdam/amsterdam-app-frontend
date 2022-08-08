@@ -7,12 +7,11 @@ import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {module as constructionWorkModule} from '@/modules/construction-work'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
+import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
-import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
@@ -36,10 +35,11 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(constructionWorkModule.slug, {
-          screen: ConstructionWorkRouteName.project,
+        navigation.navigate(constructionWorkEditorModule.slug, {
+          screen: ConstructionWorkEditorRouteName.createMessage,
           params: {
-            id: project.identifier,
+            projectId: project.identifier,
+            projectTitle: project.title,
           },
         })
       }
