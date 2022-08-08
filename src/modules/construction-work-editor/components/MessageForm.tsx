@@ -121,7 +121,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             maxCharacters={maxCharacters.title}
             numberOfLines={3}
             name="title"
-            placeholder="Voer een titel in..."
+            placeholder="Voer een titel in…"
             requiredErrorMessage="Vul een titel in"
           />
           <FormField
@@ -129,13 +129,13 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             maxCharacters={maxCharacters.body}
             name="body"
             numberOfLines={7}
-            placeholder="Voer een tekst in..."
+            placeholder="Voer een tekst in…"
             requiredErrorMessage="Vul een tekst in"
           />
         </Column>
         <Column gutter="xs">
           <Row valign="baseline">
-            <Title text="Foto toevoegen " />
+            <Title text="Foto toevoegen" />
             <Paragraph>(niet verplicht)</Paragraph>
           </Row>
           <Column gutter="md">
