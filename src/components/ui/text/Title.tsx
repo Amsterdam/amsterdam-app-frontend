@@ -4,7 +4,7 @@ import {Theme, useThemable} from '@/themes'
 import {FontWeights, TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {
-  color?: 'default' | 'inverse' | 'link'
+  color?: keyof Theme['color']['text']
   level?: keyof TitleTokensPerLevel
   text: string
   weight?: keyof FontWeights
