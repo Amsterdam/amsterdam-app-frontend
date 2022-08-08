@@ -57,9 +57,11 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
             <Row align="start">
               <Button
                 label="Toon schrijftips"
-                onPress={() => {
-                  console.log('hewhi')
-                }}
+                onPress={() =>
+                  navigation.navigate(
+                    ConstructionWorkEditorRouteName.writingGuide,
+                  )
+                }
               />
             </Row>
           </Column>
