@@ -78,8 +78,7 @@ export const ProjectWarning = ({id}: Props) => {
         <Column gutter="md">
           <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
           <Title text={projectWarning.title} />
-          <Paragraph variant="intro">{projectWarning.body.preface}</Paragraph>
-          <Paragraph>{projectWarning.body.content}</Paragraph>
+          <Paragraph>{projectWarning.body}</Paragraph>
         </Column>
       </Box>
       {project?.contacts && (
