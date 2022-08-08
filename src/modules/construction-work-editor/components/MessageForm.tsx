@@ -103,7 +103,11 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   useImperativeHandle(
     ref,
     () => ({
-      handleSubmit: handleSubmit(onSubmitForm),
+      handleSubmit: (onSuccess: () => void) =>
+        handleSubmit((...args) => {
+          onSubmitForm(...args)
+          onSuccess()
+        })(),
     }),
     [handleSubmit, onSubmitForm],
   )

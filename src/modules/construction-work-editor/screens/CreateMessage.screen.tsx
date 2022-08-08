@@ -26,7 +26,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
 
   const formRef = useRef<{
-    handleSubmit: () => Promise<void>
+    handleSubmit: (onSuccess?: () => void) => Promise<void>
   }>()
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
           iconSize={16}
           label="Volgende"
           onPress={() =>
-            formRef.current?.handleSubmit().then(() => {
+            formRef.current?.handleSubmit(() => {
               navigation.navigate(
                 ConstructionWorkEditorRouteName.confirmMessage,
               )
