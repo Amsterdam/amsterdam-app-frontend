@@ -1,4 +1,5 @@
-import {getVersion} from 'react-native-device-info'
+// eslint-disable-next-line no-restricted-imports
+import {version as appVersion} from '@/../package.json'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
 
@@ -10,7 +11,7 @@ export const modulesApi = baseApi.injectEndpoints({
         return {
           api: 'modulesApiUrl',
           headers: {
-            appVersion: getVersion(),
+            appVersion,
           },
           url: '/modules_for_app',
         }
