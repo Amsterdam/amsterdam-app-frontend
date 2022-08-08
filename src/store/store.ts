@@ -13,12 +13,12 @@ import {addressSlice} from '@/modules/address/addressSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
 import {notificationDraftSlice} from '@/modules/construction-work/screens/create-notification'
-import {modulesSlice} from '@/modules/home/store/modulesSlice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
 import {authSlice} from '@/store/authSlice'
 import {environmentSlice} from '@/store/environmentSlice'
+import {modulesSlice} from '@/store/modulesSlice'
 import {themeSlice} from '@/themes/themeSlice'
 
 const addressPersistConfig = {

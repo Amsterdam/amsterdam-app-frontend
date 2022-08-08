@@ -3,9 +3,9 @@ import {useSelector} from 'react-redux'
 import {useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
 import {clientModules} from '@/modules'
-import {useGetModulesForAppQuery} from '@/modules/home/services'
-import {selectDisabledModules} from '@/modules/home/store'
 import {ModuleServerConfig} from '@/modules/types'
+import {useGetModulesForAppQuery} from '@/services'
+import {selectDisabledModules} from '@/store'
 import {mergeModulesConfig} from '@/utils'
 
 const MAX_RETRIES = 3

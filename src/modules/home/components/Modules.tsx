@@ -2,8 +2,8 @@ import React from 'react'
 import {Box} from '@/components/ui'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
+import {useModules} from '@/hooks'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
-import {useModules} from '@/modules/home/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const Modules = () => {

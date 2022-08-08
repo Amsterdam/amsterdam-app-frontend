@@ -9,6 +9,7 @@ export type ModuleClientConfig = {
   isForEmployees?: boolean
   linking: Record<string, string>
   name: string
+  requiresFirebaseToken?: boolean
   slug: ModuleSlug
   state: Slice[]
 }

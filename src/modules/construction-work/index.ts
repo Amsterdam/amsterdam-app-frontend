@@ -9,6 +9,7 @@ export const module: ModuleClientConfig = {
     [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
   name: 'ConstructionWorkModule',
+  requiresFirebaseToken: true,
   slug: ModuleSlug['construction-work'],
   state: [constructionWorkSlice],
 }

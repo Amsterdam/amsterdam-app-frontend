@@ -1,9 +1,13 @@
 import {useCallback} from 'react'
 import {getFcmToken, Permission} from '@/processes'
-import {useRegisterDeviceMutation} from '@/services'
+import {
+  useRegisterDeviceMutation,
+  useUnregisterDeviceMutation,
+} from '@/services'
 
 export const useRegisterDevice = () => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
+  const [unregisterDevice] = useUnregisterDeviceMutation()
 
   const registerDevice = useCallback(
     (status: Permission) => {
@@ -16,5 +20,5 @@ export const useRegisterDevice = () => {
     [registerDeviceMutation],
   )
 
-  return {registerDevice}
+  return {registerDevice, unregisterDevice}
 }
