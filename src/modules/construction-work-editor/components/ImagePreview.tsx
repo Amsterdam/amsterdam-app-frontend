@@ -36,7 +36,7 @@ export const ImagePreview = ({image, onPress}: Props) => {
 }
 
 const createStyles = ({color, size}: Theme) => {
-  const buttonContainerPadding = size.spacing.xs
+  const buttonContainerPadding = size.spacing.sm
   return StyleSheet.create({
     button: {
       justifyContent: 'center',
