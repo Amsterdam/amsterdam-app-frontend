@@ -14,9 +14,8 @@ type Props = {
 const iconSize = 24
 
 export const ImagePreview = ({image, onPress}: Props) => {
-  const {color, size} = useTheme()
-  const buttonContainerPadding = size.spacing.xs
-  const styles = useThemable(createStyles(buttonContainerPadding))
+  const {color} = useTheme()
+  const styles = useThemable(createStyles)
 
   return (
     <View>
@@ -24,7 +23,6 @@ export const ImagePreview = ({image, onPress}: Props) => {
       <View style={styles.buttonContainer}>
         <IconButton
           accessibilityHint="Verwijder foto"
-          hitSlop={size.spacing.xs}
           onPress={onPress}
           icon={
             <Icon size={iconSize}>
@@ -37,23 +35,22 @@ export const ImagePreview = ({image, onPress}: Props) => {
   )
 }
 
-const createStyles =
-  (buttonContainerPadding: number) =>
-  ({color, size}: Theme) => {
-    return StyleSheet.create({
-      button: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-      },
-      buttonContainer: {
-        position: 'absolute',
-        bottom: size.spacing.xs,
-        right: size.spacing.xs,
-        backgroundColor: color.background.cutout,
-        borderRadius: (iconSize + buttonContainerPadding * 2) / 2,
-        padding: buttonContainerPadding,
-      },
-    })
-  }
+const createStyles = ({color, size}: Theme) => {
+  const buttonContainerPadding = size.spacing.xs
+  return StyleSheet.create({
+    button: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+    },
+    buttonContainer: {
+      position: 'absolute',
+      bottom: size.spacing.xs,
+      right: size.spacing.xs,
+      backgroundColor: color.background.cutout,
+      borderRadius: (iconSize + buttonContainerPadding * 2) / 2,
+      padding: buttonContainerPadding,
+    },
+  })
+}
