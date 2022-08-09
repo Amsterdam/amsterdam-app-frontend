@@ -1,7 +1,7 @@
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useLayoutEffect, useRef} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
@@ -9,7 +9,10 @@ import {Column, Row, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {MessageForm} from '@/modules/construction-work-editor/components'
-import {setProject} from '@/modules/construction-work-editor/messageDraftSlice'
+import {
+  selectMainImage,
+  setProject,
+} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 
 type Props = {
@@ -25,6 +28,7 @@ type Props = {
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
+  const mainImage = useSelector(selectMainImage)
 
   const formRef = useRef<{
     handleSubmit: (onSuccess?: () => void) => Promise<void>
@@ -87,9 +91,13 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
           label="Volgende"
           onPress={() =>
             formRef.current?.handleSubmit(() => {
-              navigation.navigate(
-                ConstructionWorkEditorRouteName.confirmMessage,
-              )
+              mainImage
+                ? navigation.navigate(
+                    ConstructionWorkEditorRouteName.addMainImageToMessage,
+                  )
+                : navigation.navigate(
+                    ConstructionWorkEditorRouteName.confirmMessage,
+                  )
             })
           }
         />
