@@ -46,8 +46,8 @@ const createStyles = ({color, size}: Theme) => {
     },
     buttonContainer: {
       position: 'absolute',
-      bottom: size.spacing.xs,
-      right: size.spacing.xs,
+      bottom: size.spacing.sm,
+      right: size.spacing.sm,
       backgroundColor: color.background.cutout,
       borderRadius: (iconSize + buttonContainerPadding * 2) / 2,
       padding: buttonContainerPadding,
