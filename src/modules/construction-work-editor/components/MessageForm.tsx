@@ -11,12 +11,12 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
 import {
   selectProjectId,
-  setProjectWarning,
+  setMessage,
   setMainImage,
   setMainImageDescription,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
-import {NewProjectWarning} from '@/modules/construction-work/types'
+import {NewMessage} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
 
 const maxCharacters = {
@@ -49,13 +49,13 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const saveMessage = useCallback(
     (data: FormData) => {
       if (projectId && constructionWorkEditorId) {
-        const warningData: NewProjectWarning = {
+        const message: NewMessage = {
           title: data.title,
           body: data.body,
           project_identifier: projectId,
           project_manager_id: constructionWorkEditorId,
         }
-        dispatch(setProjectWarning(warningData))
+        dispatch(setMessage(message))
       }
     },
     [constructionWorkEditorId, dispatch, projectId],

@@ -1,32 +1,25 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
-import {NewProjectWarning} from '@/modules/construction-work/types'
+import {NewMessage} from '@/modules/construction-work/types'
 import {RootState} from '@/store'
 import {NotificationQueryArg} from '@/types'
 
 export type ProjectIdAndTitle = {id: string; title: string}
 
-type NewsArticleMinimal = {
-  id: string
-  title: string
-}
-
 export type MessageDraft = {
   mainImage: Image | undefined
   mainImageDescription: string
-  newsArticle?: NewsArticleMinimal
   notification: NotificationQueryArg | undefined
   project: ProjectIdAndTitle | undefined
-  projectWarning: NewProjectWarning | undefined
+  message: NewMessage | undefined
 }
 
 const initialState: MessageDraft = {
   mainImage: undefined,
   mainImageDescription: '',
-  newsArticle: undefined,
   notification: undefined,
   project: undefined,
-  projectWarning: undefined,
+  message: undefined,
 }
 
 export const messageDraftSlice = createSlice({
@@ -46,12 +39,6 @@ export const messageDraftSlice = createSlice({
     ) => {
       state.mainImageDescription = mainImageDescription
     },
-    setNewsArticle: (
-      state,
-      {payload: newsArticle}: PayloadAction<NewsArticleMinimal>,
-    ) => {
-      state.newsArticle = newsArticle
-    },
     setNotification: (
       state,
       {payload: notification}: PayloadAction<NotificationQueryArg>,
@@ -64,11 +51,8 @@ export const messageDraftSlice = createSlice({
     ) => {
       state.project = project
     },
-    setProjectWarning: (
-      state,
-      {payload: projectWarning}: PayloadAction<NewProjectWarning>,
-    ) => {
-      state.projectWarning = projectWarning
+    setMessage: (state, {payload: message}: PayloadAction<NewMessage>) => {
+      state.message = message
     },
   },
 })
@@ -77,10 +61,9 @@ export const {
   clearDraft,
   setMainImage,
   setMainImageDescription,
-  setNewsArticle,
   setNotification,
   setProject,
-  setProjectWarning,
+  setMessage,
 } = messageDraftSlice.actions
 
 export const selectMainImage = createSelector(
@@ -91,11 +74,6 @@ export const selectMainImage = createSelector(
 export const selectMainImageDescription = createSelector(
   (state: RootState) => state.messageDraft,
   (messageDraft: MessageDraft) => messageDraft?.mainImageDescription,
-)
-
-export const selectNewsArticle = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.newsArticle,
 )
 
 export const selectNotification = createSelector(
@@ -113,7 +91,7 @@ export const selectProjectId = createSelector(
   (messageDraft: MessageDraft) => messageDraft?.project?.id,
 )
 
-export const selectProjectWarning = createSelector(
+export const selectMessage = createSelector(
   (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.projectWarning,
+  (messageDraft: MessageDraft) => messageDraft?.message,
 )
