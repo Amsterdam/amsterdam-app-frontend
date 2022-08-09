@@ -1,9 +1,10 @@
+import {useFlipper} from '@react-navigation/devtools'
 import {
   NavigationContainer,
-  NavigationContainerRef,
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
-import React, {useRef} from 'react'
+import React from 'react'
 import {StatusBar} from 'react-native'
 import {
   initialWindowMetrics,
@@ -22,8 +23,8 @@ import {lightColorTokens} from '@/themes/tokens'
 const persistor = persistStore(store)
 
 const AppComponent = () => {
-  const navigation = useRef<NavigationContainerRef<RootStackParams>>(null)
-
+  const navigation = useNavigationContainerRef<RootStackParams>()
+  useFlipper(navigation)
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <CustomErrorBoundary>
