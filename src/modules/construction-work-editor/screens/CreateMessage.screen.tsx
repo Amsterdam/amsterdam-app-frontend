@@ -9,8 +9,8 @@ import {Column, Row, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {MessageForm} from '@/modules/construction-work-editor/components'
+import {setProject} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {setProject} from '@/modules/construction-work/screens/create-notification'
 
 type Props = {
   navigation: StackNavigationProp<

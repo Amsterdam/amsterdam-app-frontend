@@ -10,20 +10,11 @@ import {
   ProjectsScreen,
   ProjectWarningScreen,
 } from '@/modules/construction-work/screens'
-import {CreateNotificationScreen} from '@/modules/construction-work/screens/create-notification'
 
 export const constructionWorkScreenConfig: StackNavigationRoutes<
   ConstructionWorkStackParams,
   ConstructionWorkRouteName
 > = {
-  [ConstructionWorkRouteName.createNotification]: {
-    component: CreateNotificationScreen,
-    name: ConstructionWorkRouteName.createNotification,
-    options: {
-      presentation: 'modal',
-      headerTitle: 'Verstuur pushbericht',
-    },
-  },
   [ConstructionWorkRouteName.projects]: {
     component: ProjectsScreen,
     name: ConstructionWorkRouteName.projects,
