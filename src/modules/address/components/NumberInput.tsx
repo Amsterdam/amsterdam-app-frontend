@@ -1,5 +1,10 @@
 import React, {useEffect, useRef} from 'react'
-import {Animated, Dimensions, KeyboardTypeOptions} from 'react-native'
+import {
+  Animated,
+  Dimensions,
+  KeyboardTypeOptions,
+  TextInput as TextInputRN,
+} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {List} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
@@ -47,12 +52,15 @@ export const NumberInput = ({
     inputRange: [0, 1],
     outputRange: [0, windowHeight + size.spacing.lg],
   })
+  const inputRef = useRef<TextInputRN | null>(null)
 
   useEffect(() => {
     Animated.timing(moveUpAnim, {
       toValue: 0,
       useNativeDriver: false,
-    }).start()
+    }).start(() => {
+      inputRef.current?.focus()
+    })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -67,10 +75,10 @@ export const NumberInput = ({
       <Gutter height="sm" />
       <TextInput
         accessibilityLabel="Vul uw huisnummer in"
-        autoFocus
         keyboardType={keyboardType}
         label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
+        ref={inputRef}
         value={number}
       />
       {!isNumberSelected && number ? (
