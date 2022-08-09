@@ -9,13 +9,13 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectProjectId,
+  setProjectWarning,
   setMainImage,
   setMainImageDescription,
-  setProjectWarning,
-} from '@/modules/construction-work/screens/create-notification'
+} from '@/modules/construction-work-editor/messageDraftSlice'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewProjectWarning} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
 
