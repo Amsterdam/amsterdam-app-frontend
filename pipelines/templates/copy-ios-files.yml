@@ -30,13 +30,20 @@ steps:
       secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
     condition: ${{ parameters.condition }}
   - task: DownloadSecureFile@1
-    displayName: 'Download GoogleService-Info.plist'
-    name: GoogleService
+    displayName: 'Download GoogleService-Info-Test.plist'
+    name: GoogleServiceTest
     inputs:
-      secureFile: 'GoogleService-Info.plist'
+      secureFile: 'GoogleService-Info-Test.plist'
+    condition: ${{ parameters.condition }}
+  - task: DownloadSecureFile@1
+    displayName: 'Download GoogleService-Info-Prod.plist'
+    name: GoogleServiceProd
+    inputs:
+      secureFile: 'GoogleService-Info-Prod.plist'
     condition: ${{ parameters.condition }}
   - script: |
       mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
-      cp $(GoogleService.secureFilePath) ios
+      cp $(GoogleServiceTest.secureFilePath) ios
+      cp $(GoogleServiceProd.secureFilePath) ios
     displayName: 'Copy secure files'
     condition: ${{ parameters.condition }}
