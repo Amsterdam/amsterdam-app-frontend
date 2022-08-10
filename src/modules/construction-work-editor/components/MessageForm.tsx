@@ -9,14 +9,14 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {
   selectProjectId,
+  setMessage,
   setMainImage,
   setMainImageDescription,
-  setProjectWarning,
-} from '@/modules/construction-work/screens/create-notification'
-import {NewProjectWarning} from '@/modules/construction-work/types'
+} from '@/modules/construction-work-editor/messageDraftSlice'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
+import {NewMessage} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes'
 
 const maxCharacters = {
@@ -49,13 +49,13 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const saveMessage = useCallback(
     (data: FormData) => {
       if (projectId && constructionWorkEditorId) {
-        const warningData: NewProjectWarning = {
+        const message: NewMessage = {
           title: data.title,
           body: data.body,
           project_identifier: projectId,
           project_manager_id: constructionWorkEditorId,
         }
-        dispatch(setProjectWarning(warningData))
+        dispatch(setMessage(message))
       }
     },
     [constructionWorkEditorId, dispatch, projectId],
@@ -134,7 +134,6 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
         <Column gutter="xs">
           <Row valign="baseline">
             <Title text="Foto toevoegen" />
-            <Paragraph>(niet verplicht)</Paragraph>
           </Row>
           <Column gutter="md">
             <Paragraph>

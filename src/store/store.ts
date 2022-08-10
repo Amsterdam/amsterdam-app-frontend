@@ -10,9 +10,9 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 import {addressSlice} from '@/modules/address/addressSlice'
+import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
-import {notificationDraftSlice} from '@/modules/construction-work/screens/create-notification'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
@@ -62,7 +62,7 @@ const rootReducer = combineReducers({
     constructionWorkPersistConfig,
     constructionWorkSlice.reducer,
   ),
-  notificationDraft: notificationDraftSlice.reducer,
+  messageDraft: messageDraftSlice.reducer,
   constructionWorkEditor: persistReducer(
     constructionWorkEditorPersistConfig,
     constructionWorkEditorSlice.reducer,

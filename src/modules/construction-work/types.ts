@@ -192,7 +192,7 @@ export type ProjectWarningImageQueryArg = {
   }
 }
 
-export type NewProjectWarning = {
+export type NewMessage = {
   title: string
   body: string
   project_identifier: string
@@ -218,7 +218,7 @@ export type ProjectWarningImage = {
   sources: ProjectWarningImageSources
 }
 
-export type ProjectWarning = NewProjectWarning & {
+export type ProjectWarning = NewMessage & {
   author_email: string
   identifier: string
   images?: ProjectWarningImage[]

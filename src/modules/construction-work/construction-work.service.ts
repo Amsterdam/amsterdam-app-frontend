@@ -4,7 +4,7 @@ import {
   Articles,
   FieldsQueryArg,
   FollowProjectBody,
-  NewProjectWarning,
+  NewMessage,
   NewsArticle,
   Project,
   ProjectIdQueryArg,
@@ -25,7 +25,7 @@ export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ProjectsEndpointName.addProjectWarning]: builder.mutation<
       ProjectWarningResponse,
-      NewProjectWarning
+      NewMessage
     >({
       invalidatesTags: ['Articles'],
       query(body) {
