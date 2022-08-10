@@ -41,7 +41,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
     return null
   }
 
-  const clickIt = () => {
+  const resetAndGoBack = () => {
     dispatch(setMainImage(undefined))
     navigation.goBack()
   }
@@ -71,7 +71,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
       <Box>
         <Column gutter="md">
           <Title text="Foto toevoegen" />
-          <ImagePreview image={image} onPress={clickIt} />
+          <ImagePreview image={image} onPress={resetAndGoBack} />
           <FormProvider {...form}>
             <FormField
               label="Beschrijf kort wat er op de foto staat"
