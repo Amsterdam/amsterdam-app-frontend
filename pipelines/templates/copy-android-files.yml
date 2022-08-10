@@ -30,6 +30,6 @@ steps:
   - script: |
       mkdir -p android/certs && cp $(PlayStoreApiKey.secureFilePath) android/certs && cp $(Keystore.secureFilePath) android/certs
       mkdir -p android/app && cp $(FirebaseApiKey.secureFilePath) android/app
-      mkdir -p android/app/src/dev && cp $(FirebaseApiKeyDev.secureFilePath) android/app/src/dev && mv android/app/src/dev/google-services-dev.json android/app/src/dev/google-services.json
+      mkdir -p android/app/src/dev && cp $(FirebaseApiKeyDev.secureFilePath) android/app/src/dev/google-services.json
     displayName: 'Copy secure files'
     condition: ${{ parameters.condition }}

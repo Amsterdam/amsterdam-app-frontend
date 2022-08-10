@@ -37,8 +37,10 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 
 To build the app locally, you need these files. These files contain credentials or API keys, so they are not part of the repo.
 
-- `android/app/google-services.json` (Firebase config/key for Android)
-- `ios/GoogleService-Info.plist` (Firebase config/key for iOS)
+- `android/app/google-services.json` (Prod Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app))
+- `android/app/src/dev/google-services.json` (Dev Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev))
+- `ios/GoogleService-Info-Prod.plist` (Prod Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app) and rename it)
+- `ios/GoogleService-Info-Test.plist` (Dev Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev) and rename it)
 - `android/sentry.properties` (Sentry config/key for Android)
 - `ios/sentry.properties` (Sentry config/key for iOS)
 - `.env` (environment variables to be used in the JS, see `.env.example`)

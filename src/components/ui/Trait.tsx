@@ -5,7 +5,7 @@ import {Phrase} from '@/components/ui/text'
 
 type Props = {
   /**
-   * Allows a custom visualisation for the trait.
+   * Allows a custom visualization for the trait.
    * Use a small component here.
    */
   children?: ReactNode
