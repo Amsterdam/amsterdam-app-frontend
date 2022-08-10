@@ -7,6 +7,8 @@ ios/build/
 ios/certs
 /ios/Pods/
 GoogleService-Info.plist
+GoogleService-Info-Test.plist
+GoogleService-Info-Prod.plist
 *.xcarchive
 .ipa
 
