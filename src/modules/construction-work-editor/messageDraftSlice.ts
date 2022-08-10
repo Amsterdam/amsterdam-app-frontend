@@ -7,58 +7,90 @@ import {NotificationQueryArg} from '@/types'
 export type ProjectIdAndTitle = {id: string; title: string}
 
 export type MessageDraft = {
-  mainImage: Image | undefined
-  mainImageDescription: string
-  notification: NotificationQueryArg | undefined
-  project: ProjectIdAndTitle | undefined
-  message: NewMessage | undefined
+  mainImage?: Image
+  mainImageDescription?: string
+  notification?: NotificationQueryArg
+  project?: ProjectIdAndTitle
+  message?: NewMessage
 }
 
-const initialState: MessageDraft = {
-  mainImage: undefined,
-  mainImageDescription: '',
-  notification: undefined,
-  project: undefined,
-  message: undefined,
+type MessageDraftState = Record<string, MessageDraft> & {
+  currentProjectId: string
 }
+
+const initialState = {} as MessageDraftState
 
 export const messageDraftSlice = createSlice({
   name: 'messageDraft',
-  initialState: initialState,
+  initialState,
   reducers: {
     clearDraft: () => initialState,
+    setCurrentProjectId: (
+      state,
+      {payload: currentProjectId}: PayloadAction<string>,
+    ) => {
+      state.currentProjectId = currentProjectId
+    },
     setMainImage: (
       state,
-      {payload: mainImage}: PayloadAction<Image | undefined>,
+      {
+        payload: {projectId, mainImage},
+      }: PayloadAction<{projectId: string; mainImage: Image | undefined}>,
     ) => {
-      state.mainImage = mainImage
+      state[projectId] = {
+        ...state[projectId],
+        mainImage,
+      }
     },
     setMainImageDescription: (
       state,
-      {payload: mainImageDescription}: PayloadAction<string>,
+      {
+        payload: {projectId, mainImageDescription},
+      }: PayloadAction<{projectId: string; mainImageDescription: string}>,
     ) => {
-      state.mainImageDescription = mainImageDescription
+      state[projectId] = {
+        ...state[projectId],
+        mainImageDescription,
+      }
     },
     setNotification: (
       state,
-      {payload: notification}: PayloadAction<NotificationQueryArg>,
+      {
+        payload: {projectId, notification},
+      }: PayloadAction<{projectId: string; notification: NotificationQueryArg}>,
     ) => {
-      state.notification = notification
+      state[projectId] = {
+        ...state[projectId],
+        notification,
+      }
     },
     setProject: (
       state,
       {payload: project}: PayloadAction<ProjectIdAndTitle>,
     ) => {
-      state.project = project
+      state[project.id] = {
+        ...state[project.id],
+        project,
+      }
     },
-    setMessage: (state, {payload: message}: PayloadAction<NewMessage>) => {
-      state.message = message
+
+    setMessage: (
+      state,
+      {
+        payload: {projectId, message},
+      }: PayloadAction<{projectId: string; message: NewMessage}>,
+    ) => {
+      state[projectId] = {
+        ...state[projectId],
+        message,
+      }
     },
   },
 })
 
 export const {
   clearDraft,
+  setCurrentProjectId,
   setMainImage,
   setMainImageDescription,
   setNotification,
@@ -66,32 +98,42 @@ export const {
   setMessage,
 } = messageDraftSlice.actions
 
-export const selectMainImage = createSelector(
+export const selectCurrentProjectId = createSelector(
   (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.mainImage,
+  (messageDraft: MessageDraftState) => messageDraft?.currentProjectId,
 )
 
-export const selectMainImageDescription = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.mainImageDescription,
-)
+export const selectMainImage = (id: string) =>
+  createSelector(
+    (state: RootState) => state.messageDraft,
+    (messageDraft: MessageDraftState) => messageDraft[id]?.mainImage,
+  )
 
-export const selectNotification = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.notification,
-)
+export const selectMainImageDescription = (id: string) =>
+  createSelector(
+    (state: RootState) => state.messageDraft,
+    (messageDraft: MessageDraftState) => messageDraft[id]?.mainImageDescription,
+  )
 
-export const selectProject = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.project,
-)
+export const selectNotification = (id: string) =>
+  createSelector(
+    (state: RootState) => state.messageDraft,
+    (messageDraft: MessageDraftState) => messageDraft[id]?.notification,
+  )
+
+export const selectProject = (id: string) =>
+  createSelector(
+    (state: RootState) => state.messageDraft,
+    (messageDraft: MessageDraftState) => messageDraft[id]?.project,
+  )
 
 export const selectProjectId = createSelector(
   (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.project?.id,
+  (messageDraft: MessageDraftState) => messageDraft.currentProjectId,
 )
 
-export const selectMessage = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraft) => messageDraft?.message,
-)
+export const selectMessage = (id: string) =>
+  createSelector(
+    (state: RootState) => state.messageDraft,
+    (messageDraft: MessageDraftState) => messageDraft[id]?.message,
+  )
