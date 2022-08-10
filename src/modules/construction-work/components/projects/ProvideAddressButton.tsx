@@ -5,8 +5,7 @@ import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
-import {module as addressModule} from '@/modules/address'
-import {AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useTheme} from '@/themes'
 
@@ -25,11 +24,7 @@ export const ProvideAddressButton = () => {
         <Button
           icon={<Location fill={color.text.inverse} />}
           label="Vul uw adres in"
-          onPress={() =>
-            navigation.navigate(addressModule.slug, {
-              screen: AddressRouteName.addressForm,
-            })
-          }
+          onPress={() => navigation.navigate(AddressModalName.addressForm)}
         />
       </Row>
       <Gutter height="md" />

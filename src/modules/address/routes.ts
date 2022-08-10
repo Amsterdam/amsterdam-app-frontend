@@ -1,9 +1,14 @@
-export enum AddressRouteName {
+export enum AddressRouteName {}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type AddressStackParams = {}
+
+export enum AddressModalName {
   addressForm = 'AddressForm',
   addressInfo = 'AddressInfo',
 }
 
-export type AddressStackParams = {
-  [AddressRouteName.addressForm]: {addressIsTemporary?: boolean}
-  [AddressRouteName.addressInfo]: undefined
+export type AddressModalParams = {
+  [AddressModalName.addressForm]: {addressIsTemporary?: boolean} | undefined
+  [AddressModalName.addressInfo]: undefined
 }

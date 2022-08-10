@@ -2,21 +2,19 @@ import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
+import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {useTheme} from '@/themes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
 }: {
-  navigation: StackNavigationProp<
-    AddressStackParams,
-    AddressRouteName.addressInfo
-  >
+  navigation: StackNavigationProp<RootStackParams, AddressModalName.addressInfo>
 }) => {
   const {color} = useTheme()
 

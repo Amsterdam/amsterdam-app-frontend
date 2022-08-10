@@ -4,8 +4,7 @@ import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Box, Text, Title} from '@/components/ui'
 import {TextInput} from '@/components/ui/forms'
-import {module as addressModule} from '@/modules/address'
-import {AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
@@ -27,11 +26,7 @@ export const AddressFormTeaser = ({text, title}: Props) => {
       <TextInput
         accessibilityLabel={inputLabel}
         label={inputLabel}
-        onFocus={() =>
-          navigation.navigate(addressModule.slug, {
-            screen: AddressRouteName.addressForm,
-          })
-        }
+        onFocus={() => navigation.navigate(AddressModalName.addressForm)}
       />
     </Box>
   )

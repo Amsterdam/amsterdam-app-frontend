@@ -1,6 +1,11 @@
 import {ComponentType} from 'react'
 import {AddressStack} from '@/modules/address/Stack'
-import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
+import {
+  AddressModalParams,
+  AddressRouteName,
+  AddressStackParams,
+} from '@/modules/address/routes'
+import {addressModals} from '@/modules/address/screenConfig'
 import {ConstructionWorkEditorStack} from '@/modules/construction-work-editor/Stack'
 import {
   ConstructionWorkEditorRouteName,
@@ -65,6 +70,12 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
+}
+
+export type ModalParams = AddressModalParams
+
+export const modals = {
+  ...addressModals,
 }
 
 export const getModuleStack = (

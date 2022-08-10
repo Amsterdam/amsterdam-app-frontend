@@ -8,9 +8,8 @@ import {TextButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {useFetch} from '@/hooks'
-import {module as addressModule} from '@/modules/address'
 import {selectAddress} from '@/modules/address/addressSlice'
-import {AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
   AddressFormTeaser,
@@ -67,11 +66,8 @@ export const WasteGuideByAddress = () => {
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
   const navigateToAddressForm = () => {
-    navigation.navigate(addressModule.slug, {
-      screen: AddressRouteName.addressForm,
-      params: {
-        addressIsTemporary: true,
-      },
+    navigation.navigate(AddressModalName.addressForm, {
+      addressIsTemporary: true,
     })
   }
 
