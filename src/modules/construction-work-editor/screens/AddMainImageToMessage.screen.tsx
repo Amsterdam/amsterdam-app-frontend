@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -10,7 +10,10 @@ import {Column, Row, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {ImagePreview} from '@/modules/construction-work-editor/components'
 import {
+  selectCurrentProjectId,
   selectMainImage,
+  selectMainImageDescription,
+  selectProject,
   setMainImage,
   setMainImageDescription,
 } from '@/modules/construction-work-editor/messageDraftSlice'
@@ -33,22 +36,39 @@ type FormData = {
 
 export const AddMainImageToMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
-  const image = useSelector(selectMainImage)
+  const currentProjectId = useSelector(selectCurrentProjectId)
+  const project = useSelector(selectProject(currentProjectId))
+  const image = useSelector(selectMainImage(currentProjectId))
+  const imageDescription = useSelector(
+    selectMainImageDescription(currentProjectId),
+  )
   const form = useForm<FormData>()
   const {handleSubmit} = form
 
-  if (!image) {
-    return null
-  }
+  useLayoutEffect(() => {
+    project &&
+      navigation.setOptions({
+        headerTitle: project.title,
+      })
+  }, [navigation, project])
 
   const resetAndGoBack = () => {
-    dispatch(setMainImage(undefined))
+    dispatch(setMainImage({projectId: currentProjectId, mainImage: undefined}))
     navigation.goBack()
   }
 
   const onSubmit: SubmitHandler<FormData> = ({title}) => {
-    dispatch(setMainImageDescription(title))
+    dispatch(
+      setMainImageDescription({
+        projectId: currentProjectId,
+        mainImageDescription: title,
+      }),
+    )
     navigation.navigate(ConstructionWorkEditorRouteName.confirmMessage)
+  }
+
+  if (!image) {
+    return null
   }
 
   return (
@@ -74,6 +94,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
           <ImagePreview image={image} onPress={resetAndGoBack} />
           <FormProvider {...form}>
             <FormField
+              defaultValue={imageDescription ?? ''}
               label="Beschrijf kort wat er op de foto staat"
               maxCharacters={maxCharacters.title}
               name="title"

@@ -1,5 +1,10 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React, {forwardRef, useCallback, useImperativeHandle} from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
@@ -10,10 +15,12 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
 import {
-  selectProjectId,
   setMessage,
   setMainImage,
   setMainImageDescription,
+  selectMainImageDescription,
+  selectMessage,
+  selectCurrentProjectId,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewMessage} from '@/modules/construction-work/types'
@@ -38,27 +45,40 @@ const config = {maxWidth: 1920, maxHeight: 1080}
 export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
-  const projectId = useSelector(selectProjectId)
+  const currentProjectId = useSelector(selectCurrentProjectId)
+  const selectedMessage = useSelector(selectMessage(currentProjectId))
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
+  const mainImageDescription = useSelector(
+    selectMainImageDescription(currentProjectId),
+  )
+
+  // console.log(selectedMessage)
+  // console.log(currentProjectId)
 
   const {color} = useTheme()
 
   const form = useForm<FormData>()
-  const {handleSubmit} = form
+
+  const {handleSubmit, setValue} = form
+
+  useEffect(() => {
+    setValue('title', selectedMessage?.title ?? '')
+    setValue('body', selectedMessage?.body ?? '')
+  }, [selectedMessage, setValue])
 
   const saveMessage = useCallback(
     (data: FormData) => {
-      if (projectId && constructionWorkEditorId) {
+      if (currentProjectId && constructionWorkEditorId) {
         const message: NewMessage = {
           title: data.title,
           body: data.body,
-          project_identifier: projectId,
+          project_identifier: currentProjectId,
           project_manager_id: constructionWorkEditorId,
         }
-        dispatch(setMessage(message))
+        dispatch(setMessage({projectId: currentProjectId, message}))
       }
     },
-    [constructionWorkEditorId, dispatch, projectId],
+    [constructionWorkEditorId, dispatch, currentProjectId],
   )
 
   const pickImage = (data: FormData) => {
@@ -72,9 +92,15 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       mediaType: 'photo',
       width: config.maxWidth,
     })
-      .then(image => {
-        dispatch(setMainImage(image))
-        dispatch(setMainImageDescription('placeholder tekst'))
+      .then(mainImage => {
+        dispatch(setMainImage({projectId: currentProjectId, mainImage}))
+        !mainImageDescription &&
+          dispatch(
+            setMainImageDescription({
+              projectId: currentProjectId,
+              mainImageDescription: 'placeholder tekst',
+            }),
+          )
         onMainImageSelected()
       })
       .catch((error: unknown) => {
@@ -89,9 +115,15 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
       saveMessage(data)
-      dispatch(setMainImageDescription('placeholder tekst'))
+      !mainImageDescription &&
+        dispatch(
+          setMainImageDescription({
+            projectId: currentProjectId,
+            mainImageDescription: 'placeholder tekst',
+          }),
+        )
     },
-    [dispatch, saveMessage],
+    [dispatch, mainImageDescription, currentProjectId, saveMessage],
   )
 
   useImperativeHandle(

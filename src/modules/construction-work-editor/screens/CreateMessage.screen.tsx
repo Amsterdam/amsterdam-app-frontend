@@ -11,6 +11,7 @@ import {module as constructionWorkEditorModule} from '@/modules/construction-wor
 import {MessageForm} from '@/modules/construction-work-editor/components'
 import {
   selectMainImage,
+  setCurrentProjectId,
   setProject,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
@@ -28,7 +29,8 @@ type Props = {
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
-  const mainImage = useSelector(selectMainImage)
+  const mainImage = useSelector(selectMainImage(route.params.projectId))
+  console.log(mainImage)
 
   const formRef = useRef<{
     handleSubmit: (onSuccess?: () => void) => Promise<void>
@@ -42,6 +44,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
         title: projectTitle,
       }),
     )
+    dispatch(setCurrentProjectId(projectId))
   }, [dispatch, route])
 
   useLayoutEffect(() => {
@@ -55,10 +58,12 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="md">
-            <Title text="Maak een bericht" />
-            <Paragraph variant="intro">
-              Schrijftips voor een nieuwsbericht.
-            </Paragraph>
+            <Column gutter="sm">
+              <Title text="Maak een bericht" />
+              <Paragraph variant="intro">
+                Schrijftips voor een nieuwsbericht.
+              </Paragraph>
+            </Column>
             <Row align="start">
               <Button
                 label="Toon schrijftips"
