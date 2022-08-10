@@ -48,6 +48,11 @@ const constructionWorkEditorPersistConfig = {
   storage: AsyncStorage,
 }
 
+const messageDraftPersistConfig = {
+  key: 'messageDraft',
+  storage: AsyncStorage,
+}
+
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
@@ -62,7 +67,10 @@ const rootReducer = combineReducers({
     constructionWorkPersistConfig,
     constructionWorkSlice.reducer,
   ),
-  messageDraft: messageDraftSlice.reducer,
+  messageDraft: persistReducer(
+    messageDraftPersistConfig,
+    messageDraftSlice.reducer,
+  ),
   constructionWorkEditor: persistReducer(
     constructionWorkEditorPersistConfig,
     constructionWorkEditorSlice.reducer,
