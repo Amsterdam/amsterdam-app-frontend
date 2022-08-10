@@ -5,7 +5,13 @@ import {Canvas} from '@/../.storybook/components'
 
 export default {
   component: NavigationButton,
-  decorators: [Story => <Canvas maxWidth="300px">{Story()}</Canvas>],
+  decorators: [
+    Story => (
+      <Canvas maxWidth="300px">
+        <Story />
+      </Canvas>
+    ),
+  ],
   argTypes: {
     onPress: {
       action: 'onPress',
