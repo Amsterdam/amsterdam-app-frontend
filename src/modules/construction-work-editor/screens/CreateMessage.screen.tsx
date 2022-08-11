@@ -30,7 +30,6 @@ type Props = {
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const mainImage = useSelector(selectMainImage(route.params.projectId))
-  console.log(mainImage)
 
   const formRef = useRef<{
     handleSubmit: (onSuccess?: () => void) => Promise<void>

@@ -52,9 +52,6 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     selectMainImageDescription(currentProjectId),
   )
 
-  // console.log(selectedMessage)
-  // console.log(currentProjectId)
-
   const {color} = useTheme()
 
   const form = useForm<FormData>()
