@@ -33,13 +33,6 @@ export const useRegisterConstructionWorkEditorId = (
   const [followProject] = useFollowProjectMutation()
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice} = useRegisterDevice()
-  useEffect(() => {
-    if (deeplinkId) {
-      dispatch(setAlertVisibility(false))
-      setConstructionWorkEditorCredentials(deeplinkId)
-      dispatch(addConstructionWorkEditorId(deeplinkId))
-    }
-  }, [deeplinkId, dispatch, setConstructionWorkEditorCredentials])
 
   useEffect(() => {
     if (authorizedProjects && deeplinkId) {
@@ -95,6 +88,14 @@ export const useRegisterConstructionWorkEditorId = (
     isGetProjectManagerError ||
     isGetProjectsError
   const isLoading = !isFailed && !authorizedProjects
+
+  useEffect(() => {
+    if (deeplinkId) {
+      isFailed && setAlertVisibility(false)
+      setConstructionWorkEditorCredentials(deeplinkId)
+      dispatch(addConstructionWorkEditorId(deeplinkId))
+    }
+  }, [deeplinkId, dispatch, isFailed, setConstructionWorkEditorCredentials])
 
   useEffect(() => {
     if (isFailed) {

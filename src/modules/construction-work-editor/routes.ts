@@ -10,6 +10,7 @@ export type ConstructionWorkEditorStackParams = {
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: undefined
   [ConstructionWorkEditorRouteName.authorizedProjects]: {
     id?: string
+    showSuccesfullySendMessageAlert?: boolean
   }
   [ConstructionWorkEditorRouteName.confirmMessage]: undefined
   [ConstructionWorkEditorRouteName.createMessage]: {
