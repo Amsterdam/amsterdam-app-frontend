@@ -8,8 +8,6 @@ import {
 } from '@/types'
 
 export enum ProjectsEndpointName {
-  addProjectWarning = 'addProjectWarning',
-  addProjectWarningImage = 'addProjectWarningImage',
   followProject = 'followProject',
   getArticles = 'getArticles',
   getProject = 'getProject',
@@ -183,22 +181,6 @@ export type ProjectIdsQueryArg = {
   projectIds: string[]
 }
 
-export type ProjectWarningImageQueryArg = {
-  project_warning_id: string
-  image: {
-    main: boolean
-    description: string
-    data: string
-  }
-}
-
-export type NewMessage = {
-  title: string
-  body: string
-  project_identifier: string
-  project_manager_id: string
-}
-
 export type ProjectWarningImageSources = {
   image_id: string
   mime_type: string
@@ -218,18 +200,18 @@ export type ProjectWarningImage = {
   sources: ProjectWarningImageSources
 }
 
-export type ProjectWarning = NewMessage & {
+export type ProjectWarning = {
   author_email: string
+  body: string
   identifier: string
   images?: ProjectWarningImage[]
   modification_date?: string
+  project_identifier: string
+  project_manager_id: string
   publication_date: string
+  title: string
 }
 
 export type ProjectWarningIdQueryArg = {
   id: string
-}
-
-export type ProjectWarningResponse = {
-  warning_identifier: string
 }

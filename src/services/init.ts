@@ -19,8 +19,8 @@ import {deviceAuthorizationToken} from '@/utils'
 const managerAuthorizedEndpoints = [
   'addNotification',
   ConstructionWorkEditorEndpointName.getProjectManager,
-  ProjectsEndpointName.addProjectWarning,
-  ProjectsEndpointName.addProjectWarningImage,
+  ConstructionWorkEditorEndpointName.addProjectWarning,
+  ConstructionWorkEditorEndpointName.addProjectWarningImage,
 ]
 
 const deviceIdRequestingEndpoints: string[] = [

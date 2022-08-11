@@ -4,7 +4,6 @@ import {
   Articles,
   FieldsQueryArg,
   FollowProjectBody,
-  NewMessage,
   NewsArticle,
   Project,
   ProjectIdQueryArg,
@@ -14,8 +13,6 @@ import {
   ProjectsQueryArg,
   ProjectWarning,
   ProjectWarningIdQueryArg,
-  ProjectWarningImageQueryArg,
-  ProjectWarningResponse,
 } from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
 import {MutationResponse, SortListQueryArg} from '@/types'
@@ -23,36 +20,6 @@ import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [ProjectsEndpointName.addProjectWarning]: builder.mutation<
-      ProjectWarningResponse,
-      NewMessage
-    >({
-      invalidatesTags: ['Articles'],
-      query(body) {
-        return {
-          url: '/project/warning',
-          method: 'POST',
-          body,
-        }
-      },
-      transformResponse: (response: {result: ProjectWarningResponse}) =>
-        response.result,
-    }),
-
-    [ProjectsEndpointName.addProjectWarningImage]: builder.mutation<
-      MutationResponse,
-      ProjectWarningImageQueryArg
-    >({
-      invalidatesTags: ['Articles'],
-      query(body) {
-        return {
-          url: '/project/warning/image',
-          method: 'POST',
-          body,
-        }
-      },
-    }),
-
     [ProjectsEndpointName.followProject]: builder.mutation<
       MutationResponse,
       FollowProjectBody
@@ -157,8 +124,6 @@ export const projectsApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useAddProjectWarningImageMutation,
-  useAddProjectWarningMutation,
   useFollowProjectMutation,
   useGetArticlesQuery,
   useGetProjectNewsQuery,
