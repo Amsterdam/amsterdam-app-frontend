@@ -18,3 +18,8 @@ export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.projectNews]: {id: string}
   [ConstructionWorkRouteName.projectWarning]: {id: string}
 }
+
+export enum ConstructionWorkModalName {}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type ConstructionWorkModalParams = {}

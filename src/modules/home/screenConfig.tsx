@@ -1,7 +1,11 @@
 import React from 'react'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {HeaderLogo, HeaderNavigation} from '@/modules/home/components'
-import {HomeStackParams, HomeRouteName} from '@/modules/home/routes'
+import {
+  HomeStackParams,
+  HomeRouteName,
+  HomeModalParams,
+} from '@/modules/home/routes'
 import {AdminScreen, HomeScreen, SettingsScreen} from '@/modules/home/screens'
 
 export const homeScreenConfig: StackNavigationRoutes<
@@ -32,3 +36,5 @@ export const homeScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const homeModals: StackNavigationRoutes<HomeModalParams> = {}

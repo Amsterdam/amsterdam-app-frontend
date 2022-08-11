@@ -9,3 +9,8 @@ export type ContactStackParams = {
   [ContactRouteName.contactForm]: undefined
   [ContactRouteName.makeAppointment]: undefined
 }
+
+export enum ContactModalName {}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type ContactModalParams = {}

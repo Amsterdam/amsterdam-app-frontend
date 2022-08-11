@@ -11,33 +11,41 @@ import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
+import {constructionWorkEditorModals} from '@/modules/construction-work-editor/screenConfig'
 import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
+import {constructionWorkModals} from '@/modules/construction-work/screenConfig'
 import {ContactStack} from '@/modules/contact/Stack'
 import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
+import {contactModals} from '@/modules/contact/screenConfig'
 import {HomeStack} from '@/modules/home/Stack'
 import {HomeRouteName, HomeStackParams} from '@/modules/home/routes'
+import {homeModals} from '@/modules/home/screenConfig'
 import {OpenWasteContainerStack} from '@/modules/open-waste-container/Stack'
 import {
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
+import {openWasteContainerModals} from '@/modules/open-waste-container/screenConfig'
 import {ReportProblemStack} from '@/modules/report-problem/Stack'
 import {
   ReportProblemRouteName,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
+import {reportProblemModals} from '@/modules/report-problem/screenConfig'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserStack} from '@/modules/user/Stack'
 import {UserRouteName, UserStackParams} from '@/modules/user/routes'
+import {userModals} from '@/modules/user/screenConfig'
 import {WasteGuideStack} from '@/modules/waste-guide/Stack'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
+import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
 
 export type ModuleRoutes =
   | AddressRouteName
@@ -76,6 +84,14 @@ export type ModalParams = AddressModalParams
 
 export const modals = {
   ...addressModals,
+  ...constructionWorkModals,
+  ...constructionWorkEditorModals,
+  ...contactModals,
+  ...homeModals,
+  ...openWasteContainerModals,
+  ...reportProblemModals,
+  ...userModals,
+  ...wasteGuideModals,
 }
 
 export const getModuleStack = (

@@ -19,3 +19,8 @@ export type WasteGuideStackParams = {
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
   [WasteGuideRouteName.whereToPutBulkyWaste]: undefined
 }
+
+export enum WasteGuideModalName {}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type WasteGuideModalParams = {}

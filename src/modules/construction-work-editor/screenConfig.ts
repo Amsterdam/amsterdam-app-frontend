@@ -1,5 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
+  ConstructionWorkEditorModalParams,
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
@@ -42,3 +43,6 @@ export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const constructionWorkEditorModals: StackNavigationRoutes<ConstructionWorkEditorModalParams> =
+  {}

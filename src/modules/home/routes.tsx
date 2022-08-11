@@ -9,3 +9,8 @@ export type HomeStackParams = {
   [HomeRouteName.home]: undefined
   [HomeRouteName.settings]: undefined
 }
+
+export enum HomeModalName {}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type HomeModalParams = {}
