@@ -46,7 +46,10 @@ export const messageDraftSlice = createSlice({
       state,
       {
         payload: {projectId, mainImageDescription},
-      }: PayloadAction<{projectId: string; mainImageDescription: string}>,
+      }: PayloadAction<{
+        projectId: string
+        mainImageDescription: string | undefined
+      }>,
     ) => {
       state[projectId] = {
         ...state[projectId],

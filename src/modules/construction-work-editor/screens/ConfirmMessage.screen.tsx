@@ -52,7 +52,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           <HeroImage />
         </View>
       )}
-      <Paragraph>{mainImageDescription}</Paragraph>
+      {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}
     </Column>
   )
 

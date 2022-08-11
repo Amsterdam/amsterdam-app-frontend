@@ -95,7 +95,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           dispatch(
             setMainImageDescription({
               projectId: currentProjectId,
-              mainImageDescription: 'placeholder tekst',
+              mainImageDescription: undefined,
             }),
           )
         onMainImageSelected()
@@ -116,7 +116,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
         dispatch(
           setMainImageDescription({
             projectId: currentProjectId,
-            mainImageDescription: 'placeholder tekst',
+            mainImageDescription: undefined,
           }),
         )
     },
