@@ -23,7 +23,7 @@ import {
   selectCurrentProjectId,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
-import {NewMessage} from '@/modules/construction-work/types'
+import {NewMessage} from '@/modules/construction-work-editor/types'
 import {useTheme} from '@/themes'
 
 const maxCharacters = {
