@@ -1,8 +1,8 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
-  AddressStackParams,
-  AddressModalParams,
   AddressModalName,
+  AddressModalParams,
+  AddressStackParams,
 } from '@/modules/address/routes'
 import {
   AddressFormScreen,
