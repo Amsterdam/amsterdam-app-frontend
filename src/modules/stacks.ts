@@ -8,6 +8,7 @@ import {
 import {addressModals} from '@/modules/address/screenConfig'
 import {ConstructionWorkEditorStack} from '@/modules/construction-work-editor/Stack'
 import {
+  ConstructionWorkEditorModalParams,
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
@@ -19,29 +20,44 @@ import {
 } from '@/modules/construction-work/routes'
 import {constructionWorkModals} from '@/modules/construction-work/screenConfig'
 import {ContactStack} from '@/modules/contact/Stack'
-import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
+import {
+  ContactModalParams,
+  ContactRouteName,
+  ContactStackParams,
+} from '@/modules/contact/routes'
 import {contactModals} from '@/modules/contact/screenConfig'
 import {HomeStack} from '@/modules/home/Stack'
-import {HomeRouteName, HomeStackParams} from '@/modules/home/routes'
+import {
+  HomeModalParams,
+  HomeRouteName,
+  HomeStackParams,
+} from '@/modules/home/routes'
 import {homeModals} from '@/modules/home/screenConfig'
 import {OpenWasteContainerStack} from '@/modules/open-waste-container/Stack'
 import {
+  OpenWasteContainerModalParams,
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
 import {openWasteContainerModals} from '@/modules/open-waste-container/screenConfig'
 import {ReportProblemStack} from '@/modules/report-problem/Stack'
 import {
+  ReportProblemModalParams,
   ReportProblemRouteName,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
 import {reportProblemModals} from '@/modules/report-problem/screenConfig'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserStack} from '@/modules/user/Stack'
-import {UserRouteName, UserStackParams} from '@/modules/user/routes'
+import {
+  UserModalParams,
+  UserRouteName,
+  UserStackParams,
+} from '@/modules/user/routes'
 import {userModals} from '@/modules/user/screenConfig'
 import {WasteGuideStack} from '@/modules/waste-guide/Stack'
 import {
+  WasteGuideModalParams,
   WasteGuideRouteName,
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
@@ -80,7 +96,14 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 
-export type ModalParams = AddressModalParams
+export type ModalParams = AddressModalParams &
+  ConstructionWorkEditorModalParams &
+  ContactModalParams &
+  HomeModalParams &
+  OpenWasteContainerModalParams &
+  ReportProblemModalParams &
+  UserModalParams &
+  WasteGuideModalParams
 
 export const modals = {
   ...addressModals,
