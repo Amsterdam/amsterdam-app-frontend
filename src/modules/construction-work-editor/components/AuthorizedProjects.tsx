@@ -35,12 +35,9 @@ const ListItem = ({navigation, project}: ListItemProps) => {
     <ProjectCard
       imageSource={mapImageSources(project.images?.[0].sources, environment)}
       onPress={() =>
-        navigation.navigate(constructionWorkEditorModule.slug, {
-          screen: ConstructionWorkEditorRouteName.createMessage,
-          params: {
-            projectId: project.identifier,
-            projectTitle: project.title,
-          },
+        navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
+          projectId: project.identifier,
+          projectTitle: project.title,
         })
       }
       subtitle={project.subtitle ?? undefined}

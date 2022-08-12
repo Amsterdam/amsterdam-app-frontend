@@ -4,7 +4,6 @@ import React, {Fragment} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Attention, Box, Divider, SingleSelectable, Text} from '@/components/ui'
 import {PleaseWait} from '@/components/ui/feedback'
-import {module as constructionWorkModule} from '@/modules/construction-work'
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 import {ProjectTitle} from '@/modules/construction-work/components/project'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -45,11 +44,8 @@ export const AuthorizedProjectsUserSection = () => {
           <Fragment key={project.identifier}>
             <LinkToUserSection
               onPress={() =>
-                navigation.navigate(constructionWorkModule.slug, {
-                  screen: ConstructionWorkRouteName.project,
-                  params: {
-                    id: project.identifier,
-                  },
+                navigation.navigate(ConstructionWorkRouteName.project, {
+                  id: project.identifier,
                 })
               }>
               <SingleSelectable
