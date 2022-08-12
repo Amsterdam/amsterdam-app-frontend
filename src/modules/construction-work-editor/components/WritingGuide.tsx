@@ -1,7 +1,5 @@
-import {useNavigation} from '@react-navigation/native'
 import React from 'react'
 import {Box, SingleSelectable} from '@/components/ui'
-import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {accessibleText} from '@/utils'
@@ -17,27 +15,22 @@ const tips = [
   'Geen spoed maar wel belangrijk? Overleg met de redactie over een nieuwsbericht op amsterdam.nl of projectpagina.',
 ]
 
-export const WritingGuide = () => {
-  const navigation = useNavigation()
+export const WritingGuide = () => (
+  <Box>
+    <Column gutter="md">
+      <Title text="Schrijftips" />
+      {tips.map((tip, index) => {
+        const step = (index + 1).toString()
 
-  return (
-    <Box>
-      <Column gutter="md">
-        <Title text="Schrijftips" weight="extraBold" />
-        {tips.map((tip, index) => {
-          const step = (index + 1).toString()
-
-          return (
-            <SingleSelectable label={accessibleText(step, tip)} key={tip}>
-              <Row gutter="md">
-                <Phrase fontWeight="bold">{step}</Phrase>
-                <Paragraph>{tip}</Paragraph>
-              </Row>
-            </SingleSelectable>
-          )
-        })}
-        <Button label="Aan de slag!" onPress={navigation.goBack} />
-      </Column>
-    </Box>
-  )
-}
+        return (
+          <SingleSelectable label={accessibleText(step, tip)} key={tip}>
+            <Row gutter="md">
+              <Phrase fontWeight="bold">{step}</Phrase>
+              <Paragraph>{tip}</Paragraph>
+            </Row>
+          </SingleSelectable>
+        )
+      })}
+    </Column>
+  </Box>
+)
