@@ -8,5 +8,4 @@ export type ReportProblemStackParams = {
 
 export enum ReportProblemModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type ReportProblemModalParams = {}
+export type ReportProblemModalParams = Record<string, never>

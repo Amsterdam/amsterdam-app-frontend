@@ -8,5 +8,4 @@ export type UserStackParams = {
 
 export enum UserModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type UserModalParams = {}
+export type UserModalParams = Record<string, never>

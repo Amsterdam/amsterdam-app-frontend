@@ -1,7 +1,6 @@
 export enum AddressRouteName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type AddressStackParams = {}
+export type AddressStackParams = Record<string, never>
 
 export enum AddressModalName {
   addressForm = 'AddressForm',

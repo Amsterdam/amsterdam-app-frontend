@@ -21,5 +21,4 @@ export type ConstructionWorkStackParams = {
 
 export enum ConstructionWorkModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type ConstructionWorkModalParams = {}
+export type ConstructionWorkModalParams = Record<string, never>

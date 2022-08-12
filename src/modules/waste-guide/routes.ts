@@ -22,5 +22,4 @@ export type WasteGuideStackParams = {
 
 export enum WasteGuideModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type WasteGuideModalParams = {}
+export type WasteGuideModalParams = Record<string, never>

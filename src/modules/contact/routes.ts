@@ -12,5 +12,4 @@ export type ContactStackParams = {
 
 export enum ContactModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type ContactModalParams = {}
+export type ContactModalParams = Record<string, never>

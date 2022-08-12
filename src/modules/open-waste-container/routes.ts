@@ -8,5 +8,4 @@ export type OpenWasteContainerStackParams = {
 
 export enum OpenWasteContainerModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type OpenWasteContainerModalParams = {}
+export type OpenWasteContainerModalParams = Record<string, never>

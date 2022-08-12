@@ -12,5 +12,4 @@ export type HomeStackParams = {
 
 export enum HomeModalName {}
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type HomeModalParams = {}
+export type HomeModalParams = Record<string, never>
