@@ -19,7 +19,8 @@ export const templateScreenConfig: StackNavigationRoutes<
     },
   },
 }
-export const addressModals: StackNavigationRoutes<
+
+export const templateModals: StackNavigationRoutes<
   TemplateModalParams,
   TemplateModalName
 > = {
