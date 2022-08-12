@@ -4,10 +4,11 @@ import {skipToken} from '@reduxjs/toolkit/query/react'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
+import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {addAddress, addTempAddress} from '@/modules/address/addressSlice'
 import {NumberInput, StreetInput} from '@/modules/address/components'
-import {AddressRouteName, AddressStackParams} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
 import {BagResponseContent} from '@/types'
 
@@ -30,7 +31,7 @@ export const AddressForm = ({temp}: Props) => {
 
   const navigation =
     useNavigation<
-      StackNavigationProp<AddressStackParams, AddressRouteName.addressForm>
+      StackNavigationProp<RootStackParams, AddressModalName.addressForm>
     >()
 
   const removeWeespSuffix = (streetName: string) => {

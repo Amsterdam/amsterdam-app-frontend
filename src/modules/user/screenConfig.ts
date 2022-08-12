@@ -1,5 +1,9 @@
 import {StackNavigationRoutes} from '@/app/navigation'
-import {UserRouteName, UserStackParams} from '@/modules/user/routes'
+import {
+  UserModalParams,
+  UserRouteName,
+  UserStackParams,
+} from '@/modules/user/routes'
 import {UserScreen} from '@/modules/user/screens'
 
 export const userScreenConfig: StackNavigationRoutes<
@@ -14,3 +18,5 @@ export const userScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const userModals: StackNavigationRoutes<UserModalParams> = {}

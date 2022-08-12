@@ -18,3 +18,7 @@ export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.projectNews]: {id: string}
   [ConstructionWorkRouteName.projectWarning]: {id: string}
 }
+
+export enum ConstructionWorkModalName {}
+
+export type ConstructionWorkModalParams = Record<string, never>

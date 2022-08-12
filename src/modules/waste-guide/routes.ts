@@ -19,3 +19,7 @@ export type WasteGuideStackParams = {
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
   [WasteGuideRouteName.whereToPutBulkyWaste]: undefined
 }
+
+export enum WasteGuideModalName {}
+
+export type WasteGuideModalParams = Record<string, never>

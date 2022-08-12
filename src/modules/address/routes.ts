@@ -1,9 +1,13 @@
-export enum AddressRouteName {
+export enum AddressRouteName {}
+
+export type AddressStackParams = Record<string, never>
+
+export enum AddressModalName {
   addressForm = 'AddressForm',
   addressInfo = 'AddressInfo',
 }
 
-export type AddressStackParams = {
-  [AddressRouteName.addressForm]: {addressIsTemporary?: boolean}
-  [AddressRouteName.addressInfo]: undefined
+export type AddressModalParams = {
+  [AddressModalName.addressForm]: {addressIsTemporary?: boolean} | undefined
+  [AddressModalName.addressInfo]: undefined
 }

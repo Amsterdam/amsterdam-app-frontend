@@ -10,12 +10,11 @@ import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {module as addressModule} from '@/modules/address'
 import {
   removePrimaryAddress,
   selectAddress,
 } from '@/modules/address/addressSlice'
-import {AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
@@ -67,9 +66,7 @@ export const Address = () => {
               <Button
                 label="Wijzig adres"
                 onPress={() =>
-                  navigation.navigate(addressModule.slug, {
-                    screen: AddressRouteName.addressForm,
-                  })
+                  navigation.navigate(AddressModalName.addressForm)
                 }
                 variant="primary"
               />
@@ -105,9 +102,7 @@ export const Address = () => {
               <Button
                 label="Vul adres in"
                 onPress={() =>
-                  navigation.navigate(addressModule.slug, {
-                    screen: AddressRouteName.addressForm,
-                  })
+                  navigation.navigate(AddressModalName.addressForm)
                 }
                 variant="primary"
               />
@@ -117,9 +112,7 @@ export const Address = () => {
               <Button
                 label="Meer informatie"
                 onPress={() =>
-                  navigation.navigate(addressModule.slug, {
-                    screen: AddressRouteName.addressInfo,
-                  })
+                  navigation.navigate(AddressModalName.addressInfo)
                 }
                 variant="secondary"
               />

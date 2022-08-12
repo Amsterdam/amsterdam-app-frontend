@@ -1,5 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
+  WasteGuideModalParams,
   WasteGuideRouteName,
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
@@ -75,3 +76,5 @@ export const wasteGuideScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const wasteGuideModals: StackNavigationRoutes<WasteGuideModalParams> = {}

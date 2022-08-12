@@ -8,13 +8,12 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {AddressRouteName} from '@/modules/address/routes'
+import {AddressModalName} from '@/modules/address/routes'
 import {ProjectsList} from '@/modules/construction-work/components/projects'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
 import {useSortProjects} from '@/modules/construction-work/hooks/useSortProjects'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {ModuleSlug} from '@/modules/slugs'
 import {useTheme} from '@/themes'
 import {Address} from '@/types'
 
@@ -26,7 +25,7 @@ const ListHeader = ({addressText}: ListHeaderProps) => {
   const {color} = useTheme()
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
+      StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
 
   return (
@@ -42,13 +41,7 @@ const ListHeader = ({addressText}: ListHeaderProps) => {
               <Edit fill={color.pressable.default.background} />
             </Icon>
           }
-          onPress={
-            // TODO Open as modal
-            () =>
-              navigation.navigate(ModuleSlug.address, {
-                screen: AddressRouteName.addressForm,
-              })
-          }
+          onPress={() => navigation.navigate(AddressModalName.addressForm)}
         />
       </Row>
     </Box>

@@ -1,6 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {OpenWasteContainerScreen} from '@/modules/open-waste-container/Screen'
 import {
+  OpenWasteContainerModalParams,
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
@@ -17,3 +18,6 @@ export const openWasteContainerScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const openWasteContainerModals: StackNavigationRoutes<OpenWasteContainerModalParams> =
+  {}

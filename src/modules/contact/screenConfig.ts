@@ -1,5 +1,9 @@
 import {StackNavigationRoutes} from '@/app/navigation'
-import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
+import {
+  ContactModalParams,
+  ContactRouteName,
+  ContactStackParams,
+} from '@/modules/contact/routes'
 import {
   ContactFormScreen,
   ContactScreen,
@@ -32,3 +36,5 @@ export const contactScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const contactModals: StackNavigationRoutes<ContactModalParams> = {}

@@ -5,3 +5,7 @@ export enum UserRouteName {
 export type UserStackParams = {
   [UserRouteName.user]: undefined
 }
+
+export enum UserModalName {}
+
+export type UserModalParams = Record<string, never>

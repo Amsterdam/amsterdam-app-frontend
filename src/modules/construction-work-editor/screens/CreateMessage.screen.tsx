@@ -7,7 +7,6 @@ import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
-import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {MessageForm} from '@/modules/construction-work-editor/components'
 import {
   selectMainImage,
@@ -67,12 +66,12 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
               <Button
                 label="Toon schrijftips"
                 onPress={() => {
-                  navigation.navigate(constructionWorkEditorModule.slug, {
-                    screen: ConstructionWorkEditorRouteName.writingGuide,
-                    params: {
+                  navigation.navigate(
+                    ConstructionWorkEditorRouteName.writingGuide,
+                    {
                       projectTitle: route.params.projectTitle,
                     },
-                  })
+                  )
                 }}
               />
             </Row>

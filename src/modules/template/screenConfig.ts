@@ -1,5 +1,10 @@
 import {StackNavigationRoutes} from '@/app/navigation'
-import {TemplateStackParams, TemplateRouteName} from '@/modules/template/routes'
+import {
+  TemplateStackParams,
+  TemplateRouteName,
+  TemplateModalName,
+  TemplateModalParams,
+} from '@/modules/template/routes'
 import {TemplateScreen} from '@/modules/template/screens'
 
 export const templateScreenConfig: StackNavigationRoutes<
@@ -11,6 +16,19 @@ export const templateScreenConfig: StackNavigationRoutes<
     name: TemplateRouteName.home,
     options: {
       headerTitle: 'Template',
+    },
+  },
+}
+
+export const templateModals: StackNavigationRoutes<
+  TemplateModalParams,
+  TemplateModalName
+> = {
+  [TemplateModalName.modal]: {
+    component: TemplateScreen,
+    name: TemplateModalName.modal,
+    options: {
+      headerTitle: 'Template modal',
     },
   },
 }

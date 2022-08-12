@@ -5,3 +5,7 @@ export enum OpenWasteContainerRouteName {
 export type OpenWasteContainerStackParams = {
   [OpenWasteContainerRouteName.openWasteContainer]: undefined
 }
+
+export enum OpenWasteContainerModalName {}
+
+export type OpenWasteContainerModalParams = Record<string, never>

@@ -9,3 +9,7 @@ export type HomeStackParams = {
   [HomeRouteName.home]: undefined
   [HomeRouteName.settings]: undefined
 }
+
+export enum HomeModalName {}
+
+export type HomeModalParams = Record<string, never>

@@ -1,6 +1,7 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {ReportProblemScreen} from '@/modules/report-problem/Screen'
 import {
+  ReportProblemModalParams,
   ReportProblemRouteName,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
@@ -17,3 +18,6 @@ export const reportProblemScreenConfig: StackNavigationRoutes<
     },
   },
 }
+
+export const reportProblemModals: StackNavigationRoutes<ReportProblemModalParams> =
+  {}

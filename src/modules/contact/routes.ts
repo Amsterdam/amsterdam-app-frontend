@@ -9,3 +9,7 @@ export type ContactStackParams = {
   [ContactRouteName.contactForm]: undefined
   [ContactRouteName.makeAppointment]: undefined
 }
+
+export enum ContactModalName {}
+
+export type ContactModalParams = Record<string, never>
