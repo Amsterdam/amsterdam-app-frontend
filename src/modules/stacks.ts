@@ -1,4 +1,5 @@
 import {ComponentType} from 'react'
+import {RootStackParams, StackNavigationRoutes} from '@/app/navigation'
 import {AddressStack} from '@/modules/address/Stack'
 import {
   AddressModalParams,
@@ -105,7 +106,7 @@ export type ModalParams = AddressModalParams &
   UserModalParams &
   WasteGuideModalParams
 
-export const modals = {
+export const modals: StackNavigationRoutes<RootStackParams> = {
   ...addressModals,
   ...constructionWorkModals,
   ...constructionWorkEditorModals,
