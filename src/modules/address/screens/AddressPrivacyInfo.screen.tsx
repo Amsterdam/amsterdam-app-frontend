@@ -1,32 +1,35 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {SVGProps} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph, ScreenTitle, Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 export const AddressPrivacyInfoScreen = ({
   navigation,
 }: {
   navigation: StackNavigationProp<RootStackParams, AddressModalName.addressInfo>
 }) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
 
   return (
     <Screen
       stickyHeader={
         <Box>
-          <Row align="end">
+          <Row align="between" valign="end">
+            <View style={styles.balanceCenterAlignment} />
+            <ScreenTitle text="Adres" />
             <IconButton
               accessibilityLabel="Sluiten"
               icon={
                 <Icon size={20}>
-                  <Close fill={color.text.default} />
+                  <Close {...iconProps} />
                 </Icon>
               }
               onPress={navigation.goBack}
@@ -63,3 +66,13 @@ export const AddressPrivacyInfoScreen = ({
     </Screen>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
+})
+
+const styles = StyleSheet.create({
+  balanceCenterAlignment: {
+    width: 20,
+  },
+})
