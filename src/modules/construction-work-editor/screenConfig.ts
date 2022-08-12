@@ -1,5 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
+  ConstructionWorkEditorModalName,
   ConstructionWorkEditorModalParams,
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
@@ -35,14 +36,14 @@ export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
     component: ConfirmMessageScreen,
     name: ConstructionWorkEditorRouteName.confirmMessage,
   },
-  [ConstructionWorkEditorRouteName.writingGuide]: {
-    component: WritingGuideScreen,
-    name: ConstructionWorkEditorRouteName.writingGuide,
-    options: {
-      headerTitle: 'Schrijftips',
-    },
-  },
 }
 
-export const constructionWorkEditorModals: StackNavigationRoutes<ConstructionWorkEditorModalParams> =
-  {}
+export const constructionWorkEditorModals: StackNavigationRoutes<
+  ConstructionWorkEditorModalParams,
+  ConstructionWorkEditorModalName
+> = {
+  [ConstructionWorkEditorModalName.writingGuide]: {
+    component: WritingGuideScreen,
+    name: ConstructionWorkEditorModalName.writingGuide,
+  },
+}

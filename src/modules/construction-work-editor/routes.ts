@@ -3,7 +3,6 @@ export enum ConstructionWorkEditorRouteName {
   authorizedProjects = 'authorizedProjects',
   confirmMessage = 'confirmMessage',
   createMessage = 'createMessage',
-  writingGuide = 'WritingGuide',
 }
 
 export type ConstructionWorkEditorStackParams = {
@@ -16,12 +15,14 @@ export type ConstructionWorkEditorStackParams = {
     projectId: string
     projectTitle: string
   }
-  [ConstructionWorkEditorRouteName.writingGuide]: {
+}
+
+export enum ConstructionWorkEditorModalName {
+  writingGuide = 'WritingGuide',
+}
+
+export type ConstructionWorkEditorModalParams = {
+  [ConstructionWorkEditorModalName.writingGuide]: {
     projectTitle: string
   }
 }
-
-export enum ConstructionWorkEditorModalName {}
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type ConstructionWorkEditorModalParams = {}

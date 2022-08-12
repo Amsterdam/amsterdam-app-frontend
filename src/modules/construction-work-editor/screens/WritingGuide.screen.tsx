@@ -4,16 +4,16 @@ import React, {useLayoutEffect} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Screen} from '@/components/ui/layout'
 import {WritingGuide} from '@/modules/construction-work-editor/components'
-import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
+import {ConstructionWorkEditorModalName} from '@/modules/construction-work-editor/routes'
 
 type Props = {
   navigation: StackNavigationProp<
     RootStackParams,
-    ConstructionWorkEditorRouteName.writingGuide
+    ConstructionWorkEditorModalName.writingGuide
   >
   route: RouteProp<
     RootStackParams,
-    ConstructionWorkEditorRouteName.writingGuide
+    ConstructionWorkEditorModalName.writingGuide
   >
 }
 

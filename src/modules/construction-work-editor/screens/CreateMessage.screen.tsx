@@ -13,7 +13,10 @@ import {
   setCurrentProjectId,
   setProject,
 } from '@/modules/construction-work-editor/messageDraftSlice'
-import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
+import {
+  ConstructionWorkEditorModalName,
+  ConstructionWorkEditorRouteName,
+} from '@/modules/construction-work-editor/routes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -67,7 +70,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                 label="Toon schrijftips"
                 onPress={() => {
                   navigation.navigate(
-                    ConstructionWorkEditorRouteName.writingGuide,
+                    ConstructionWorkEditorModalName.writingGuide,
                     {
                       projectTitle: route.params.projectTitle,
                     },
