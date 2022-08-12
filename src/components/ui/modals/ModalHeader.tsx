@@ -20,12 +20,15 @@ const closeIconSize = 20
 export const ModalHeader = ({title}: Props) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const iconProps = useThemable(createIconProps)
+  const styles = useThemable(createStyles)
 
   return (
     <Box>
-      <Row align="between" valign="end">
+      <Row align="between">
         <View style={styles.balanceCenterAlignment} />
-        <ScreenTitle text={title} />
+        <View style={styles.nudgeVerticalAlignment}>
+          <ScreenTitle text={title} />
+        </View>
         <IconButton
           accessibilityLabel="Sluiten"
           icon={
@@ -44,8 +47,12 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })
 
-const styles = StyleSheet.create({
-  balanceCenterAlignment: {
-    width: closeIconSize,
-  },
-})
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
+    balanceCenterAlignment: {
+      width: closeIconSize,
+    },
+    nudgeVerticalAlignment: {
+      marginTop: size.spacing.xs,
+    },
+  })
