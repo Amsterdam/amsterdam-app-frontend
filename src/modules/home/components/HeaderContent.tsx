@@ -6,7 +6,7 @@ import {StyleSheet, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/text'
+import {ScreenTitle} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 
 type Props = Pick<StackHeaderProps, 'back' | 'navigation' | 'options' | 'route'>
@@ -34,13 +34,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
         )}
       </View>
       <View style={styles.middleColumn}>
-        <Title
-          allowFontScaling={false}
-          ellipsizeMode="middle"
-          level="h6"
-          numberOfLines={1}
-          text={title}
-        />
+        <ScreenTitle text={title} />
       </View>
       <View style={styles.sideColumn} />
     </Row>
