@@ -24,7 +24,7 @@ export const ModalHeader = ({title}: Props) => {
 
   return (
     <Box>
-      <Row align="between">
+      <Row align="between" gutter="md">
         <View style={styles.balanceCenterAlignment} />
         <View style={styles.nudgeVerticalAlignment}>
           <ScreenTitle text={title} />
@@ -53,6 +53,7 @@ const createStyles = ({size}: Theme) =>
       width: closeIconSize,
     },
     nudgeVerticalAlignment: {
+      flexShrink: 1,
       marginTop: size.spacing.xs,
     },
   })
