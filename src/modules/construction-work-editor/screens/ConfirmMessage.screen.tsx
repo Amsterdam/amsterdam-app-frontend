@@ -22,7 +22,6 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {Variant} from '@/types'
@@ -37,7 +36,6 @@ type Props = {
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
   const [hasAlert, setHasAlert] = useState(true)
-  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const currentProjectId = useSelector(selectCurrentProjectId)
   const message = useSelector(selectMessage(currentProjectId))
   const mainImage = useSelector(selectMainImage(currentProjectId))
@@ -82,10 +80,17 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       // is shown, we have to remove the Alert in this component
       setHasAlert(false)
 
-      navigation.navigate(ConstructionWorkEditorRouteName.authorizedProjects, {
-        id: constructionWorkEditorId,
-        showSuccesfullySendMessageAlert: true,
-      })
+      navigation.popToTop()
+      dispatch(
+        setAlert({
+          content: {
+            title: 'Gelukt',
+            text: 'Uw bericht is geplaatst.',
+          },
+          variant: Variant.success,
+          isVisible: true,
+        }),
+      )
     } catch (error: unknown) {
       dispatch(
         setAlert({
