@@ -29,7 +29,7 @@ import {Variant} from '@/types'
 type Props = {
   navigation: StackNavigationProp<
     RootStackParams,
-    ConstructionWorkEditorRouteName
+    ConstructionWorkEditorRouteName.confirmMessage
   >
 }
 
