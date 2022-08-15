@@ -1,9 +1,9 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
-  TemplateStackParams,
-  TemplateRouteName,
   TemplateModalName,
   TemplateModalParams,
+  TemplateRouteName,
+  TemplateStackParams,
 } from '@/modules/template/routes'
 import {TemplateScreen} from '@/modules/template/screens'
 
@@ -27,8 +27,5 @@ export const templateModals: StackNavigationRoutes<
   [TemplateModalName.modal]: {
     component: TemplateScreen,
     name: TemplateModalName.modal,
-    options: {
-      headerTitle: 'Template modal',
-    },
   },
 }
