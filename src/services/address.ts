@@ -2,8 +2,8 @@ import {baseApi} from '@/services/init'
 import {ResponseAddress, BagResponse, Address} from '@/types'
 import {generateRequestUrl} from '@/utils'
 
-const addressPath = '/search/adres'
-const bagPath = '/typeahead/bag'
+const addressPath = '/search/adres/'
+const bagPath = '/typeahead/bag/'
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: builder => ({
