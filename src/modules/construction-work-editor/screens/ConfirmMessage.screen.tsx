@@ -65,15 +65,16 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     try {
       const warningResponse = await addWarning(message).unwrap()
 
-      mainImage?.data &&
-        (await addProjectWarningImage({
+      if (mainImage?.data) {
+        await addProjectWarningImage({
           project_warning_id: warningResponse.warning_identifier,
           image: {
             main: true,
             description: mainImageDescription ?? 'Vervangende afbeelding',
             data: mainImage.data,
           },
-        }))
+        })
+      }
 
       dispatch(clearDraft())
 
