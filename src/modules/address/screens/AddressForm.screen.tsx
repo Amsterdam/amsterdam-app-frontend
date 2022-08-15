@@ -2,6 +2,7 @@ import {RouteProp} from '@react-navigation/native'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Screen} from '@/components/ui/layout'
+import {ModalHeader} from '@/components/ui/modals'
 import {AddressForm} from '@/modules/address/components'
 import {AddressModalName} from '@/modules/address/routes'
 
@@ -15,7 +16,7 @@ type Props = {
 }
 
 export const AddressFormScreen = ({route}: Props) => (
-  <Screen scroll={false}>
+  <Screen scroll={false} stickyHeader={<ModalHeader title="Adres" />}>
     <AddressForm temp={route?.params?.addressIsTemporary} />
   </Screen>
 )

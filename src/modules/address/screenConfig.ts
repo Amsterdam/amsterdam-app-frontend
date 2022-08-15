@@ -1,8 +1,8 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {
-  AddressStackParams,
-  AddressModalParams,
   AddressModalName,
+  AddressModalParams,
+  AddressStackParams,
 } from '@/modules/address/routes'
 import {
   AddressFormScreen,
@@ -18,15 +18,9 @@ export const addressModals: StackNavigationRoutes<
   [AddressModalName.addressForm]: {
     component: AddressFormScreen,
     name: AddressModalName.addressForm,
-    options: {
-      headerTitle: 'Uw adres',
-    },
   },
   [AddressModalName.addressInfo]: {
     component: AddressPrivacyInfoScreen,
     name: AddressModalName.addressInfo,
-    options: {
-      headerShown: false,
-    },
   },
 }
