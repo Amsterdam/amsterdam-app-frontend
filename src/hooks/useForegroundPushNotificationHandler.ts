@@ -1,6 +1,6 @@
 import notifee, {EventType} from '@notifee/react-native'
 import {useLinkTo} from '@react-navigation/native'
-import {useCallback, useEffect} from 'react'
+import {useEffect} from 'react'
 import {pushNotificationTypes} from '@/app/navigation'
 import {PushNotification, PushNotificationData} from '@/types'
 
@@ -16,31 +16,27 @@ export const useForegroundPushNotificationHandler = () => {
       return
     }
     if (notificationType?.route) {
-      const urlFromNotification = dataObj.linkSourceid
+      return dataObj.linkSourceid
         ? `${notificationType.route}/${dataObj.linkSourceid}`
         : notificationType.route
-      return urlFromNotification
     }
   }
 
-  const navigateToUrlFromNotification = useCallback(
-    (notification: PushNotification | undefined) => {
+  useEffect(() => {
+    const navigateToUrlFromNotification = (
+      notification: PushNotification | undefined,
+    ) => {
       if (!notification?.data) {
         return
       }
       const url = createUrlFromDataObject(notification.data)
       url && linkTo(url)
-    },
-    [linkTo],
-  )
+    }
 
-  useEffect(() => {
     return notifee.onForegroundEvent(({type, detail}) => {
-      switch (type) {
-        case EventType.PRESS:
-          navigateToUrlFromNotification(detail.notification)
-          break
+      if (type === EventType.PRESS) {
+        navigateToUrlFromNotification(detail.notification)
       }
     })
-  }, [navigateToUrlFromNotification])
+  }, [linkTo])
 }
