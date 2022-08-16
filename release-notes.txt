@@ -1,0 +1,26 @@
+Release 0.21.0:
+
+- Verwijder oude componenten uit ‘Mijn profiel’
+- Create push notification functionality
+- Pas juiste vormgeving toe op alle modals
+- Fix 301 forward in address lookup
+- Save message and give feedback to user
+- Maak modals weer werkend als modals
+- Create screen to confirm message
+- Load different GoogleService-Info.plist files for Test and Prod builds
+- Create main image confirmation screen
+- Fix Flipper for iOS
+- Add react navigation devtools
+- Set focus to ref when animation is finished
+- Make sure screen is keyboard aware
+- Pas nieuwe vormgeving toe op schrijftips
+- Create screen for manager to create message
+- Unregister push notifications When all modules that require push notifications are unselected
+- Herstel marge om afbeeldingen in CMS-content
+- Laat badge meezoomen met tekst
+- Laat screen reader aantal recente berichten voorlezen
+- Verwijder `Card` componenten
+- Tooltip uitbreiden met wijzertje
+- Revert to fix bug
+- Add new eslint rules and fix the errors
+- Redesign indicator and add story
