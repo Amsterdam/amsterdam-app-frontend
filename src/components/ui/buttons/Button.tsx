@@ -11,14 +11,18 @@ import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
 export type ButtonProps = {
+  ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   icon?: ReactNode
   label?: string
+  numberOfLines?: number
   variant?: 'primary' | 'secondary' | 'tertiary'
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({
+  ellipsizeMode,
   icon,
   label,
+  numberOfLines,
   variant = 'primary',
   ...otherProps
 }: ButtonProps) => {
@@ -44,7 +48,14 @@ export const Button = ({
       {...otherProps}>
       <Row gutter="sm" valign="center">
         {!!icon && <Icon size={24}>{icon}</Icon>}
-        {!!label && <Text style={styles.label}>{label}</Text>}
+        {!!label && (
+          <Text
+            style={styles.label}
+            numberOfLines={numberOfLines}
+            ellipsizeMode={ellipsizeMode}>
+            {label}
+          </Text>
+        )}
       </Row>
     </Pressable>
   )
