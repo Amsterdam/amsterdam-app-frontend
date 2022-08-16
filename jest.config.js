@@ -11,6 +11,7 @@ module.exports = {
     'node_modules',
     'android',
     'ios',
+    '.git',
     '.storybook',
     '.vscode',
     '.husky',

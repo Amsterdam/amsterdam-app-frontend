@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
@@ -39,15 +39,10 @@ export const useModules = () => {
     selectDisabledModules,
   )
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
-  const [postProcessedModules, setPostProcessedModules] = useState(
-    postProcessModules(disabledModulesBySlug, serverModules),
+  const postProcessedModules = useMemo(
+    () => postProcessModules(disabledModulesBySlug, serverModules),
+    [disabledModulesBySlug, serverModules],
   )
-
-  useEffect(() => {
-    setPostProcessedModules(
-      postProcessModules(disabledModulesBySlug, serverModules),
-    )
-  }, [disabledModulesBySlug, serverModules])
 
   useEffect(() => {
     if (error) {
