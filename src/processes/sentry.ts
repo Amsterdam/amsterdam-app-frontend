@@ -147,18 +147,21 @@ export const sentryLoggerMiddleware: Middleware =
           ).baseQueryMeta
         }
       }
-      getSendSentryErrorLog(!!consent)(error, 'sentry.ts', {
-        ...action,
-        url: sanitizeUrl(
-          (
-            action.meta as unknown as {
-              baseQueryMeta?: {request?: {url: string}}
-            }
-          ).baseQueryMeta?.request?.url ?? '',
-        ),
+      const url = sanitizeUrl(
+        (
+          action.meta as unknown as {
+            baseQueryMeta?: {request?: {url: string}}
+          }
+        ).baseQueryMeta?.request?.url ?? '',
+      )
+      if (!url.startsWith('http://localhost')) {
+        getSendSentryErrorLog(!!consent)(error, 'sentry.ts', {
+          ...action,
+          url,
 
-        dataWithDangerousSentryScrubbingOverride,
-      })
+          dataWithDangerousSentryScrubbingOverride,
+        })
+      }
     }
     return next(action)
   }
