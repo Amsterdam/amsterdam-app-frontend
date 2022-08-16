@@ -3,6 +3,7 @@ import {
   Animated,
   Dimensions,
   KeyboardTypeOptions,
+  StyleSheet,
   TextInput as TextInputRN,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
@@ -64,7 +65,7 @@ export const NumberInput = ({
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Animated.View style={{marginTop: y}}>
+    <Animated.View style={[{marginTop: y}, styles.flex]}>
       <Row align="start">
         <TextButton
           direction="up"
@@ -82,7 +83,9 @@ export const NumberInput = ({
         value={number}
       />
       {!isNumberSelected && number ? (
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          style={styles.flex}>
           <List dividerBottom>
             {bagList?.map(bagItem => (
               <SuggestionButton
@@ -99,3 +102,9 @@ export const NumberInput = ({
     </Animated.View>
   )
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+})

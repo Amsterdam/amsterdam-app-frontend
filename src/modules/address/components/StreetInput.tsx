@@ -1,5 +1,5 @@
 import React, {Ref} from 'react'
-import {TextInput as RNTextInput} from 'react-native'
+import {StyleSheet, TextInput as RNTextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {List} from '@/components/ui'
 import {TextInput} from '@/components/ui/forms'
@@ -36,7 +36,9 @@ export const StreetInput = ({
         value={street}
       />
       {!isStreetSelected ? (
-        <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          style={styles.flex}>
           <List dividerBottom>
             {bagList?.map(bagItem => (
               <SuggestionButton
@@ -53,3 +55,9 @@ export const StreetInput = ({
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+})

@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const AddressFormScreen = ({route}: Props) => (
-  <Screen keyboardAware scroll stickyHeader={<ModalHeader title="Adres" />}>
+  <Screen scroll={false} stickyHeader={<ModalHeader title="Adres" />}>
     <AddressForm temp={route?.params?.addressIsTemporary} />
   </Screen>
 )
