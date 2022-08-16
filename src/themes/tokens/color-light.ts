@@ -33,8 +33,8 @@ export const lightColorTokens = {
       border: baseColor.neutral.grey4,
     },
     checked: {
-      background: baseColor.primary.black,
-      border: baseColor.primary.black,
+      background: baseColor.primary.blue,
+      border: baseColor.primary.blue,
     },
     focus: {
       border: baseColor.primary.black,

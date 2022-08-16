@@ -6,9 +6,10 @@ import {RootStackParams} from '@/app/navigation'
 import HeroImage from '@/assets/images/project-warning-hero.svg'
 import {Alert, Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Checkbox} from '@/components/ui/forms'
 import {Row, Column, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
   clearDraft,
   selectCurrentProjectId,
@@ -22,7 +23,8 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
-import {setAlert} from '@/store'
+import {useAddNotificationMutation} from '@/services'
+import {resetAlert, setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {Variant} from '@/types'
 
@@ -36,6 +38,8 @@ type Props = {
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
   const [hasAlert, setHasAlert] = useState(true)
+  const [isPushNotificationChecked, setPushNotificationChecked] =
+    useState(false)
   const currentProjectId = useSelector(selectCurrentProjectId)
   const message = useSelector(selectMessage(currentProjectId))
   const mainImage = useSelector(selectMainImage(currentProjectId))
@@ -46,8 +50,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const styles = useThemable(createStyles)
 
   const [addWarning] = useAddProjectWarningMutation()
-
   const [addProjectWarningImage] = useAddProjectWarningImageMutation()
+  const [addNotification] = useAddNotificationMutation()
 
   useLayoutEffect(() => {
     project &&
@@ -60,6 +64,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     if (!message) {
       return
     }
+    dispatch(resetAlert())
     try {
       const warningResponse = await addWarning(message).unwrap()
 
@@ -71,6 +76,20 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             description: mainImageDescription ?? 'Vervangende afbeelding',
             data: mainImage.data,
           },
+        })
+      }
+
+      if (
+        !!isPushNotificationChecked &&
+        !!project?.title &&
+        !!project.id &&
+        !!message.title
+      ) {
+        await addNotification({
+          title: project.title,
+          body: message.title,
+          project_identifier: project.id,
+          warning_identifier: warningResponse.warning_identifier,
         })
       }
 
@@ -147,6 +166,23 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             {!!message?.title && <Title text={message.title} />}
             {!!message?.body && <Paragraph>{message.body}</Paragraph>}
           </Column>
+          {!!project?.title && !!message?.title && (
+            <Column gutter="sm">
+              <Checkbox
+                label={<Phrase>Wil je ook een pushbericht versturen?</Phrase>}
+                onValueChange={() =>
+                  setPushNotificationChecked(!isPushNotificationChecked)
+                }
+                value={isPushNotificationChecked}
+              />
+              {!!isPushNotificationChecked && (
+                <Column gutter="xs">
+                  <Phrase fontWeight="bold">{project.title}</Phrase>
+                  <Phrase>{message.title}</Phrase>
+                </Column>
+              )}
+            </Column>
+          )}
         </Column>
       </Box>
     </Screen>

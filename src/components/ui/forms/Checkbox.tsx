@@ -49,12 +49,11 @@ const createStyles = ({color}: Theme) =>
       width: 24,
       aspectRatio: 1,
       padding: 4,
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: color.control.default.border,
+      borderWidth: 2,
+      borderColor: color.control.checked.background,
       backgroundColor: color.control.default.background,
     },
     checked: {
       backgroundColor: color.control.checked.background,
-      borderColor: color.control.checked.background,
     },
   })
