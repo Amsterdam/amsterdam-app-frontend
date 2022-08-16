@@ -24,7 +24,7 @@ import {
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
 import {useAddNotificationMutation} from '@/services'
-import {setAlert} from '@/store'
+import {resetAlert, setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {Variant} from '@/types'
 
@@ -64,6 +64,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     if (!message) {
       return
     }
+    dispatch(resetAlert())
     try {
       const warningResponse = await addWarning(message).unwrap()
 
