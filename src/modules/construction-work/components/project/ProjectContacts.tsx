@@ -48,8 +48,10 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
                   'Stuur een e-mail naar',
                   email,
                 )}
+                ellipsizeMode="tail"
                 icon={<Email fill={color.text.inverse} />}
                 label={email}
+                numberOfLines={1}
                 onPress={() => {
                   openMailUrl(email, emailSubject)
                 }}
