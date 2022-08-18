@@ -41,6 +41,7 @@ export const Button = ({
 
   return (
     <Pressable
+      accessibilityLabel={label ? `Bel ${label}` : undefined}
       accessibilityRole="button"
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
