@@ -81,21 +81,25 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             value={value}
           />
           {value ? (
-            <IconButton
-              accessibilityHint="Maak dit tekstveld leeg"
-              icon={
-                <Icon size={24}>
-                  <Close fill={color.text.default} />
-                </Icon>
-              }
-              onPress={handleClearText}
-            />
+            <View style={styles.buttonContainer}>
+              <IconButton
+                accessibilityHint="Maak dit tekstveld leeg"
+                icon={
+                  <Icon size={24}>
+                    <Close fill={color.text.default} />
+                  </Icon>
+                }
+                onPress={handleClearText}
+              />
+            </View>
           ) : null}
         </View>
       </Column>
     )
   },
 )
+
+const RNTextInputMultilineTopPadding = 5
 
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
@@ -106,6 +110,12 @@ const createStyles =
     const textLineHeight = text.fontSize.body * text.lineHeight.body
 
     return StyleSheet.create({
+      buttonContainer: {
+        paddingTop:
+          numberOfLines && numberOfLines > 1
+            ? RNTextInputMultilineTopPadding
+            : 0,
+      },
       frame: {
         flexDirection: 'row',
         paddingHorizontal,
