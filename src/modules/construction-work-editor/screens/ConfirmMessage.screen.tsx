@@ -169,6 +169,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           {!!project?.title && !!message?.title && (
             <Column gutter="sm">
               <Checkbox
+                accessibilityLabel="Wil je ook een pushbericht versturen?"
                 label={<Phrase>Wil je ook een pushbericht versturen?</Phrase>}
                 onValueChange={() =>
                   setPushNotificationChecked(!isPushNotificationChecked)
