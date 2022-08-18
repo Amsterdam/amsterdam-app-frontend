@@ -3,7 +3,7 @@ import {StyleSheet, StyleProp, ViewStyle, View} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/KeyboardAvoidingView'
-import {ScrollView} from '@/components/ui/layout'
+import {Gutter, ScrollView} from '@/components/ui/layout'
 
 type WrapperProps = Pick<Props, 'children' | 'keyboardAware' | 'scroll'> & {
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
@@ -67,7 +67,12 @@ export const Screen = ({
         {...wrapperProps}>
         <View style={styles.content}>{children}</View>
       </Wrapper>
-      {stickyFooter}
+      {!!stickyFooter && (
+        <>
+          <Gutter height="sm" />
+          {stickyFooter}
+        </>
+      )}
     </View>
   )
 }
@@ -84,6 +89,7 @@ const createStyles = (
     hasStickyHeader: boolean
   },
 ) => {
+  console.log(bottom)
   return StyleSheet.create({
     screen: {
       flex: 1,
