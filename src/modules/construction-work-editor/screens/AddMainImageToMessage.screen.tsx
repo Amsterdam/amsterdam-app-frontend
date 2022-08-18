@@ -73,9 +73,8 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
 
   return (
     <Screen
-      keyboardAware
       stickyFooter={
-        <Row align="between" valign="center">
+        <Row align="between" shrink={false} valign="center">
           <NavigationButton
             direction="backward"
             iconSize={16}
