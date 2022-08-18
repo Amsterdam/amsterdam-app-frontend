@@ -101,6 +101,10 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
               numberOfLines={3}
               placeholder="Voer een tekst in…"
               rules={{
+                maxLength: {
+                  value: maxCharacters.title,
+                  message: 'Het maximum aantal tekens is bereikt',
+                },
                 required: 'Vul een tekst in',
               }}
             />

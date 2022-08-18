@@ -146,6 +146,10 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             name="title"
             placeholder="Voer een titel in…"
             rules={{
+              maxLength: {
+                value: maxCharacters.title,
+                message: 'Het maximum aantal tekens is bereikt',
+              },
               required: 'Vul een titel in',
             }}
           />
@@ -156,6 +160,10 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             numberOfLines={7}
             placeholder="Voer een tekst in…"
             rules={{
+              maxLength: {
+                value: maxCharacters.body,
+                message: 'Het maximum aantal tekens is bereikt',
+              },
               required: 'Vul een tekst in',
             }}
           />
