@@ -89,7 +89,6 @@ const createStyles = (
     hasStickyHeader: boolean
   },
 ) => {
-  console.log(bottom)
   return StyleSheet.create({
     screen: {
       flex: 1,
