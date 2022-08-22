@@ -34,7 +34,7 @@ export const IconButton = ({
 
   return (
     <Row align="start" valign="center">
-      <Pressable {...props}>
+      <Pressable accessibilityRole="button" {...props}>
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>

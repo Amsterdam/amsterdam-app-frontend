@@ -31,7 +31,10 @@ export class CustomErrorBoundary extends Component<Props, State> {
         <Text style={[paragraph, text]}>
           Er is iets misgegaan met de app. Sorry voor het ongemak!
         </Text>
-        <Pressable style={button} onPress={() => RNRestart.Restart()}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => RNRestart.Restart()}
+          style={button}>
           <Text style={[text, buttonText]}>Herstart de app</Text>
         </Pressable>
       </SafeAreaView>
