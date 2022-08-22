@@ -10,5 +10,10 @@ export const CharactersLeftDisplay = ({
   maxCharacters,
   numOfCharacters,
 }: Props) => {
-  return <Paragraph>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>
+  return (
+    <Paragraph
+      color={
+        numOfCharacters > maxCharacters ? 'warning' : 'default'
+      }>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>
+  )
 }

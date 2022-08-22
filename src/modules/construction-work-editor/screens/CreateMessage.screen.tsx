@@ -6,7 +6,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Title} from '@/components/ui/text'
 import {MessageForm} from '@/modules/construction-work-editor/components'
 import {
   selectMainImage,
@@ -59,12 +59,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
       <Column align="between" gutter="xl">
         <Box>
           <Column gutter="md">
-            <Column gutter="sm">
-              <Title text="Maak een bericht" />
-              <Paragraph variant="intro">
-                Schrijftips voor een nieuwsbericht.
-              </Paragraph>
-            </Column>
+            <Title text="Maak een bericht" />
             <Row align="start">
               <Button
                 label="Toon schrijftips"

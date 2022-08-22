@@ -29,7 +29,6 @@ export const FormField = ({
             <TextInput
               accessibilityLabel={label}
               label={label}
-              maxLength={maxCharacters}
               multiline={!!numberOfLines}
               numberOfLines={numberOfLines ?? 1}
               onChangeText={onChange}

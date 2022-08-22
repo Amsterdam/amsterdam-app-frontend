@@ -140,12 +140,16 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       <Column gutter="xl">
         <Column gutter="md">
           <FormField
-            label="Titel nieuwsartikel"
+            label="Wat is de titel van je bericht?"
             maxCharacters={maxCharacters.title}
             numberOfLines={3}
             name="title"
             placeholder="Voer een titel in…"
             rules={{
+              maxLength: {
+                value: maxCharacters.title,
+                message: 'Het maximum aantal tekens is bereikt',
+              },
               required: 'Vul een titel in',
             }}
           />
@@ -156,6 +160,10 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             numberOfLines={7}
             placeholder="Voer een tekst in…"
             rules={{
+              maxLength: {
+                value: maxCharacters.body,
+                message: 'Het maximum aantal tekens is bereikt',
+              },
               required: 'Vul een tekst in',
             }}
           />
@@ -166,9 +174,9 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           </Row>
           <Column gutter="md">
             <Paragraph>
-              Je kunt een foto toevoegen bij dit bericht. Deze komt bovenaan het
-              bericht te staan. Wanneer je geen foto toevoegt dan gebruiken we
-              een standaard afbeelding.
+              Je kunt een foto toevoegen bij dit bericht. Deze wordt liggend
+              uitgesneden en komt bovenaan het bericht te staan. Wanneer je geen
+              foto toevoegt dan gebruiken we een standaard afbeelding.
             </Paragraph>
             <Row align="start">
               <Button
@@ -177,7 +185,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
                     <Enlarge fill={color.pressable.default.background} />
                   </Icon>
                 }
-                label="Foto’s toevoegen"
+                label="Foto toevoegen"
                 onPress={handleSubmit(pickImage)}
                 variant="secondary"
               />
