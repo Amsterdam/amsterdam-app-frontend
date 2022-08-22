@@ -8,8 +8,8 @@ import {
 
 export const ContactScreen = () => (
   <Screen>
+    <ContactOptions />
     <CityOfficeOverview />
     <ReferToWebsiteCard />
-    <ContactOptions />
   </Screen>
 )
