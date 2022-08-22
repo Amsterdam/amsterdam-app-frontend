@@ -1,16 +1,14 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
-import Facebook from '@amsterdam/asc-assets/static/icons/Facebook.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
-import Twitter from '@amsterdam/asc-assets/static/icons/Twitter.svg'
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode} from 'react'
-import {TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import {Instagram, Whatsapp} from '@/assets/icons'
-import {Box, Title} from '@/components/ui'
-import {IconButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {PressableProps} from 'react-native'
+import {PersonalLogin, Whatsapp} from '@/assets/icons'
+import {Box} from '@/components/ui'
+import {Pressable} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout'
+import {Paragraph, Title} from '@/components/ui/text'
 import {ContactOption} from '@/modules/contact/components'
 import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
 import {useTheme} from '@/themes'
@@ -18,7 +16,7 @@ import {accessibleText, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
 
 type ContactOptionType = {
-  buttonProps: TouchableOpacityProps & {key: Key}
+  buttonProps: PressableProps & {key: Key}
   contactProps: {
     accessibilityTitle?: string
     icon: ReactNode
@@ -75,67 +73,46 @@ export const ContactOptions = () => {
         title: 'WhatsApp 06 44 44 06 55',
       },
     },
+    {
+      buttonProps: {
+        accessibilityRole: 'link',
+        key: 'mijn-amsterdam',
+        onPress: () =>
+          openWebUrl(
+            'https://mijn.amsterdam.nl/?pk_vid=1b2e97fe97357d351658843171e6a58f',
+          ),
+      },
+      contactProps: {
+        accessibilityTitle: 'Ga naar mijn amsterdam',
+        icon: <PersonalLogin fill={color.pressable.default.background} />,
+        text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
+        title: 'Mijn Amsterdam',
+      },
+    },
   ]
 
   return (
     <Box>
-      <Title level={2} text="Neem contact op" />
-      <Gutter height="md" />
-      <Column gutter="sm">
-        {contactOptions.map(({buttonProps, contactProps}) => (
-          <TouchableOpacity
-            accessibilityLabel={accessibleText(
-              contactProps.accessibilityTitle ?? contactProps.title,
-              contactProps.text,
-            )}
-            {...buttonProps}>
-            <ContactOption {...contactProps} />
-          </TouchableOpacity>
-        ))}
+      <Column gutter="lg">
+        <Column>
+          <Title text="Kunnen we u helpen?" />
+          <Paragraph>
+            Heeft u een vraag of wilt u iets weten? Neem contact met ons op.
+          </Paragraph>
+        </Column>
+        <Column gutter="sm">
+          {contactOptions.map(({buttonProps, contactProps}) => (
+            <Pressable
+              accessibilityLabel={accessibleText(
+                contactProps.accessibilityTitle ?? contactProps.title,
+                contactProps.text,
+              )}
+              {...buttonProps}>
+              <ContactOption {...contactProps} />
+            </Pressable>
+          ))}
+        </Column>
       </Column>
-      <Gutter height="lg" />
-      <Title
-        level={4}
-        text="U kunt ook contact opnemen via één van onze social kanalen"
-      />
-      <Gutter height="md" />
-      <Row gutter="lg">
-        <IconButton
-          accessibilityLabel="Facebook"
-          accessibilityRole="link"
-          icon={
-            <Icon size={32}>
-              <Facebook fill={color.pressable.default.background} />
-            </Icon>
-          }
-          onPress={() =>
-            openWebUrl('https://www.facebook.com/gemeenteamsterdam')
-          }
-        />
-        <IconButton
-          accessibilityLabel="Twitter"
-          accessibilityRole="link"
-          icon={
-            <Icon size={32}>
-              <Twitter fill={color.pressable.default.background} />
-            </Icon>
-          }
-          onPress={() => openWebUrl('https://twitter.com/AmsterdamNL')}
-        />
-        <IconButton
-          accessibilityLabel="Instagram"
-          accessibilityRole="link"
-          icon={
-            <Icon size={32}>
-              <Instagram fill={color.pressable.default.background} />
-            </Icon>
-          }
-          onPress={() =>
-            openWebUrl('https://www.instagram.com/gemeenteamsterdam/')
-          }
-        />
-      </Row>
-      <Gutter height="xl" />
     </Box>
   )
 }
