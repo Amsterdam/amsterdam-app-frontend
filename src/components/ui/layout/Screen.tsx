@@ -18,7 +18,9 @@ const Wrapper = ({
   if (scroll) {
     if (keyboardAware) {
       return (
-        <KeyboardAwareScrollView style={keyboardAwareScrollViewStyle}>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          style={keyboardAwareScrollViewStyle}>
           {children}
         </KeyboardAwareScrollView>
       )
