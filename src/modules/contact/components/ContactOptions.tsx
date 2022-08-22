@@ -27,6 +27,7 @@ type ContactOptionType = {
 
 export const ContactOptions = () => {
   const {color} = useTheme()
+  const iconColor = color.pressable.default.background
 
   const navigation =
     useNavigation<
@@ -41,7 +42,7 @@ export const ContactOptions = () => {
         onPress: () => navigation.navigate(ContactRouteName.contactForm),
       },
       contactProps: {
-        icon: <Email fill={color.pressable.default.background} />,
+        icon: <Email fill={iconColor} />,
         text: 'Reactie binnen 1 werkdag',
         title: 'Contactformulier',
       },
@@ -54,7 +55,7 @@ export const ContactOptions = () => {
       },
       contactProps: {
         accessibilityTitle: 'Bel veertien nul twintig',
-        icon: <Phone fill={color.pressable.default.background} />,
+        icon: <Phone fill={iconColor} />,
         text: 'Gemiddeld 5 minuten wachten',
         title: 'Bel 14 020',
       },
@@ -68,7 +69,7 @@ export const ContactOptions = () => {
       contactProps: {
         accessibilityTitle:
           'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-        icon: <Whatsapp fill={color.pressable.default.background} />,
+        icon: <Whatsapp fill={iconColor} />,
         text: 'Reactie binnen 2 uur',
         title: 'WhatsApp 06 44 44 06 55',
       },
@@ -84,7 +85,7 @@ export const ContactOptions = () => {
       },
       contactProps: {
         accessibilityTitle: 'Ga naar mijn amsterdam',
-        icon: <PersonalLogin fill={color.pressable.default.background} />,
+        icon: <PersonalLogin fill={iconColor} />,
         text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
         title: 'Mijn Amsterdam',
       },
