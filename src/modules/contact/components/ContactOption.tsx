@@ -12,8 +12,8 @@ type Props = {
 }
 
 export const ContactOption = ({icon, title, text}: Props) => (
-  <Box inset="sm">
-    <Row gutter="md" valign="center">
+  <Box insetHorizontal="md" insetVertical="sm">
+    <Row gutter="lg" valign="center">
       <Icon size={32}>{icon}</Icon>
       <View>
         <Title color="link" level="h4" text={title} />

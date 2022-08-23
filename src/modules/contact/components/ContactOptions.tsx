@@ -95,7 +95,7 @@ export const ContactOptions = () => {
   return (
     <Box>
       <Column gutter="lg">
-        <Column>
+        <Column gutter="sm">
           <Title text="Kunnen we u helpen?" />
           <Paragraph>
             Heeft u een vraag of wilt u iets weten? Neem contact met ons op.
