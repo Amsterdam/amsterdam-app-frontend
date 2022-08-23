@@ -105,7 +105,9 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 
 ## Icons
 
-- When creating an icon, please copy the SVG code from [ASC](https://amsterdam.github.io/amsterdam-styled-components) and add it to the assets folder. Import it from there.
+- When creating an icon, please copy the SVG code from [ASC](https://amsterdam.github.io/amsterdam-styled-components) and add it to the assets folder.
+- Optimise the markup through [SVGOMG](https://jakearchibald.github.io/svgomg/) with the default options. We aim for minimal SVG markup and usage of `path` elements only.
+- Import the icon from within the app repository.
 
 ## More documentation
 
