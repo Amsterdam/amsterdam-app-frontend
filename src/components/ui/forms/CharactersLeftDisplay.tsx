@@ -12,6 +12,7 @@ export const CharactersLeftDisplay = ({
 }: Props) => {
   return (
     <Paragraph
+      accessibilityLabel={`U heeft ${numOfCharacters} van de maximaal ${maxCharacters} tekens ingevoerd`}
       color={
         numOfCharacters > maxCharacters ? 'warning' : 'default'
       }>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>

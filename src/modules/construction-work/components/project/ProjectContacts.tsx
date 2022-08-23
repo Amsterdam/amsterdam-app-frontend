@@ -1,15 +1,16 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {View} from 'react-native'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectContact} from '@/modules/construction-work/types'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 import {
   accessibleText,
   capitalizeString,
+  formatPhoneNumber,
   openMailUrl,
   openPhoneUrl,
 } from '@/utils'
@@ -20,7 +21,7 @@ type Props = {
 }
 
 export const ProjectContacts = ({contacts, emailSubject}: Props) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
 
   return (
     <Column gutter="xl">
@@ -33,8 +34,12 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {!!phone && (
             <Row>
               <Button
-                icon={<Phone fill={color.text.inverse} />}
-                label={phone}
+                accessibilityLabel={accessibleText(
+                  'Bel',
+                  ...(formatPhoneNumber(phone) ?? '').split(' '),
+                )}
+                icon={<Phone {...iconProps} />}
+                label={formatPhoneNumber(phone)}
                 onPress={() => {
                   openPhoneUrl(phone)
                 }}
@@ -49,7 +54,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
                   email,
                 )}
                 ellipsizeMode="tail"
-                icon={<Email fill={color.text.inverse} />}
+                icon={<Email {...iconProps} />}
                 label={email}
                 numberOfLines={1}
                 onPress={() => {
@@ -64,3 +69,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
     </Column>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.inverse,
+})
