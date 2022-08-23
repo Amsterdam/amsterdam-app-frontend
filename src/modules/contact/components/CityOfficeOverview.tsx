@@ -1,30 +1,21 @@
 import React from 'react'
 import {Box} from '@/components/ui'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Grid, GridCell} from '@/components/ui/layout'
+import {Column, Grid, GridCell} from '@/components/ui/layout'
+import {Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/components'
-import {useGetCityOfficesQuery} from '@/modules/contact/services'
+import {response} from '@/modules/contact/data/city-offices'
 
-export const CityOfficeOverview = () => {
-  const {data: cityOffices, isLoading: isCityOfficesLoading} =
-    useGetCityOfficesQuery()
-
-  if (isCityOfficesLoading || !cityOffices?.offices) {
-    return <PleaseWait />
-  }
-
-  return (
-    <Box>
+export const CityOfficeOverview = () => (
+  <Box>
+    <Column gutter="sm">
+      <Title level="h2" text="Bezoek ons" />
       <Grid>
-        {cityOffices.offices.map(cityOffice => (
+        {response.cityOffices.map(cityOffice => (
           <GridCell key={cityOffice.identifier}>
-            <CityOffice
-              id={cityOffice.identifier}
-              key={cityOffice.identifier}
-            />
+            <CityOffice data={cityOffice} />
           </GridCell>
         ))}
       </Grid>
-    </Box>
-  )
-}
+    </Column>
+  </Box>
+)
