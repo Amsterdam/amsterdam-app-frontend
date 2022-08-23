@@ -23,7 +23,11 @@ export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
 
   if (phoneNumber.length === 10) {
     if (phoneNumber.startsWith('06')) {
-      return phoneNumber.match(/.{2}/g)?.join(' ')
+      return [
+        phoneNumber.substring(0, 2),
+        phoneNumber.substring(2, 6),
+        phoneNumber.substring(6, 10),
+      ].join(' ')
     }
 
     if (threeDigitAreaCodes.includes(phoneNumber.substring(0, 3))) {
