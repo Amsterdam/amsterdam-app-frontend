@@ -33,6 +33,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {!!phone && (
             <Row>
               <Button
+                accessibilityLabel={`Bel ${phone}`}
                 icon={<Phone fill={color.text.inverse} />}
                 label={phone}
                 onPress={() => {
