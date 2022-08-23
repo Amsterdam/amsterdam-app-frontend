@@ -18,12 +18,10 @@ type Props = {
 } & PressableProps
 
 export const TextButton = ({
-  accessibilityRole,
   direction,
   emphasis,
   icon,
   label,
-  onPress,
   ...otherProps
 }: Props) => {
   const {fontScale} = useContext(DeviceContext)
@@ -41,9 +39,8 @@ export const TextButton = ({
 
   return (
     <Pressable
-      accessibilityRole={accessibilityRole ?? 'button'}
+      accessibilityRole="button"
       hitSlop={size.spacing.sm}
-      onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
       style={[styles.button, direction && styles.row]}
