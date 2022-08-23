@@ -10,10 +10,10 @@ import {useTheme} from '@/themes'
 import {
   accessibleText,
   capitalizeString,
+  formatPhoneNumber,
   openMailUrl,
   openPhoneUrl,
 } from '@/utils'
-import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 type Props = {
   contacts: ProjectContact[]
