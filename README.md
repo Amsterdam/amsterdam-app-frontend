@@ -103,6 +103,10 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 - Run locally with `npm run storybook`
 - [Production URL] (<https://amsterdam.github.io/amsterdam-app-storybook>)
 
+## Icons
+
+- When creating an icon, please copy the SVG code from [ASC](https://amsterdam.github.io/amsterdam-styled-components) and add it to the assets folder. Import it from there.
+
 ## More documentation
 
 - [Build documentation](./.docs/build.md)
