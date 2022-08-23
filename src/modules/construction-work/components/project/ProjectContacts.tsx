@@ -13,6 +13,7 @@ import {
   openMailUrl,
   openPhoneUrl,
 } from '@/utils'
+import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 type Props = {
   contacts: ProjectContact[]
@@ -35,7 +36,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
               <Button
                 accessibilityLabel={`Bel ${phone}`}
                 icon={<Phone fill={color.text.inverse} />}
-                label={phone}
+                label={formatPhoneNumber(phone)}
                 onPress={() => {
                   openPhoneUrl(phone)
                 }}
