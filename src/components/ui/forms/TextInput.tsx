@@ -81,7 +81,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             value={value}
           />
           {value ? (
-            <View style={styles.buttonContainer}>
+            <View>
               <IconButton
                 accessibilityHint="Maak dit tekstveld leeg"
                 icon={
@@ -99,8 +99,6 @@ export const TextInput = forwardRef<TextInputRN, Props>(
   },
 )
 
-const RNTextInputMultilineTopPadding = 5
-
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) => {
@@ -110,12 +108,6 @@ const createStyles =
     const textLineHeight = text.fontSize.body * text.lineHeight.body
 
     return StyleSheet.create({
-      buttonContainer: {
-        paddingTop:
-          numberOfLines && numberOfLines > 1
-            ? RNTextInputMultilineTopPadding
-            : 0,
-      },
       frame: {
         flexDirection: 'row',
         paddingHorizontal,
@@ -136,6 +128,7 @@ const createStyles =
             : 'auto',
         flex: 1,
         padding: 0, // Override an Android default
+        paddingTop: 0,
         color: color.text.default,
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
