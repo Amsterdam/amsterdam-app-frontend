@@ -34,7 +34,10 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
           {!!phone && (
             <Row>
               <Button
-                accessibilityLabel={`Bel ${phone}`}
+                accessibilityLabel={accessibleText(
+                  'Bel',
+                  ...(formatPhoneNumber(phone) ?? '').split(' '),
+                )}
                 icon={<Phone {...iconProps} />}
                 label={formatPhoneNumber(phone)}
                 onPress={() => {
