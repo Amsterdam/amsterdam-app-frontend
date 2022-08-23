@@ -14,6 +14,7 @@ import Instagram from './instagram.svg'
 import LightMode from './light-mode.svg'
 import Logo from './logo.svg'
 import OrganicWasteContainer from './organic-waste-container.svg'
+import PersonalLogin from './personal-login.svg'
 import Project from './project.svg'
 import Question from './question.svg'
 import Settings from './settings.svg'
@@ -37,6 +38,7 @@ export {
   LightMode,
   Logo,
   OrganicWasteContainer,
+  PersonalLogin,
   Project,
   Question,
   Settings,
