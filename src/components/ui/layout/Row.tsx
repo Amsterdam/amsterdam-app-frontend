@@ -13,20 +13,12 @@ type Props = {
   align?: MainAxisAlignment
   children: ReactNode
   gutter?: keyof SpacingTokens
-  shrink?: boolean
   valign?: CrossAxisAlignment
   wrap?: boolean
 }
 
-export const Row = ({
-  align,
-  children,
-  gutter,
-  shrink = true,
-  valign,
-  wrap,
-}: Props) => {
-  const styles = createStyles({align, shrink, valign})
+export const Row = ({align, children, gutter, valign, wrap}: Props) => {
+  const styles = createStyles({align, valign})
 
   return (
     <View style={[styles.row, wrap && styles.wrap]}>
@@ -41,11 +33,11 @@ export const Row = ({
   )
 }
 
-const createStyles = ({align, shrink, valign}: Partial<Props>) =>
+const createStyles = ({align, valign}: Partial<Props>) =>
   StyleSheet.create({
     row: {
       flexDirection: 'row',
-      flexShrink: shrink ? 1 : 0,
+      flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),
     },
