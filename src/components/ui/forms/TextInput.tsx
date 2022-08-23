@@ -81,15 +81,17 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             value={value}
           />
           {value ? (
-            <IconButton
-              accessibilityHint="Maak dit tekstveld leeg"
-              icon={
-                <Icon size={24}>
-                  <Close fill={color.text.default} />
-                </Icon>
-              }
-              onPress={handleClearText}
-            />
+            <View>
+              <IconButton
+                accessibilityHint="Maak dit tekstveld leeg"
+                icon={
+                  <Icon size={24}>
+                    <Close fill={color.text.default} />
+                  </Icon>
+                }
+                onPress={handleClearText}
+              />
+            </View>
           ) : null}
         </View>
       </Column>
@@ -126,6 +128,7 @@ const createStyles =
             : 'auto',
         flex: 1,
         padding: 0, // Override an Android default
+        paddingTop: 0,
         color: color.text.default,
         fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
