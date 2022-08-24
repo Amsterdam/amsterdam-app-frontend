@@ -3,11 +3,9 @@ import {Divider} from '@/components/ui/Divider'
 
 type Props = {
   children: ReactNode
-  dividerBottom?: boolean
-  dividerTop?: boolean
 }
 
-export const List = ({children, dividerBottom, dividerTop}: Props) => {
+export const List = ({children}: Props) => {
   const childrenArray = Children.toArray(children)
 
   if (!childrenArray.length) {
@@ -16,7 +14,6 @@ export const List = ({children, dividerBottom, dividerTop}: Props) => {
 
   return (
     <>
-      {!!dividerTop && <Divider />}
       {childrenArray.map((child, index: number) => (
         <Fragment
           key={
@@ -28,7 +25,6 @@ export const List = ({children, dividerBottom, dividerTop}: Props) => {
           {index < childrenArray.length - 1 && <Divider />}
         </Fragment>
       ))}
-      {!!dividerBottom && <Divider />}
     </>
   )
 }
