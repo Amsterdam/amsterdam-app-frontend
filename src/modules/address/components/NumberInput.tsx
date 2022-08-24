@@ -9,7 +9,7 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {List} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
-import {TextInput} from '@/components/ui/forms'
+import {SearchField} from '@/components/ui/forms'
 import {Gutter, Row} from '@/components/ui/layout'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
@@ -74,10 +74,9 @@ export const NumberInput = ({
         />
       </Row>
       <Gutter height="sm" />
-      <TextInput
-        accessibilityLabel="Vul uw huisnummer in"
+      <SearchField
+        placeholder="Vul uw huisnummer in"
         keyboardType={keyboardType}
-        label="Huisnummer + toevoeging"
         onChangeText={text => changeNumber(text)}
         ref={inputRef}
         value={number}
@@ -86,7 +85,7 @@ export const NumberInput = ({
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List dividerBottom>
+          <List>
             {bagList?.map(bagItem => (
               <SuggestionButton
                 key={bagItem.uri}

@@ -2,7 +2,7 @@ import React, {Ref} from 'react'
 import {StyleSheet, TextInput as RNTextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {List} from '@/components/ui'
-import {TextInput} from '@/components/ui/forms'
+import {SearchField} from '@/components/ui/forms'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {BagResponseContent} from '@/types'
 
@@ -25,21 +25,20 @@ export const StreetInput = ({
 }: Props) => {
   return (
     <>
-      <TextInput
-        accessibilityLabel="Vul uw postcode of straatnaam in"
+      <SearchField
         autoFocus={!isStreetSelected}
-        label="Vul uw postcode of straatnaam in"
+        placeholder="Vul uw postcode of straatnaam in"
         onChangeText={text => {
           changeStreet(text)
         }}
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected ? (
+      {!isStreetSelected && street ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List dividerBottom>
+          <List>
             {bagList?.map(bagItem => (
               <SuggestionButton
                 key={bagItem.uri}
