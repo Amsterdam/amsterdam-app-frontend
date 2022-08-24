@@ -1,5 +1,5 @@
 import React, {SVGProps, useState} from 'react'
-import {Question} from '@/assets/icons'
+import {QuestionMarkSolid} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
 import {Tooltip} from '@/components/ui/feedback'
@@ -38,7 +38,7 @@ export const OpeningHours = () => {
           accessibilityRole="none"
           icon={
             <Icon size={24}>
-              <Question {...iconProps} />
+              <QuestionMarkSolid {...iconProps} />
             </Icon>
           }
           onPress={() => setTooltipIsVisible(!tooltipIsVisible)}
