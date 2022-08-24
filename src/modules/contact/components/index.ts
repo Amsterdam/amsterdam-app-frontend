@@ -1,5 +1,6 @@
 export * from './city-offices/CityOffice'
 export * from './city-offices/CityOfficeOverview'
+export * from './city-offices/NameAndAddress'
 export * from './city-offices/OpeningHours'
 export * from './contact-options/ContactOption'
 export * from './contact-options/ContactOptions'
