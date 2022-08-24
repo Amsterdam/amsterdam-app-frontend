@@ -96,7 +96,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
       dispatch(clearDraft())
 
-      // Before we navigate to the screen where the Alert (showSuccesfullySendMessageAlert)
+      // Before we navigate to the screen where the Alert (showSuccessfullySentMessageAlert)
       // is shown, we have to remove the Alert in this component
       setHasAlert(false)
 
