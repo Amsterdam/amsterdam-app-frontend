@@ -6,8 +6,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box, SomethingWentWrong} from '@/components/ui'
-import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
+import {Box} from '@/components/ui'
+import {
+  EmptyMessage,
+  PleaseWait,
+  SomethingWentWrong,
+} from '@/components/ui/feedback'
 import {
   getAccessibleDistanceText,
   getAccessibleFollowingText,

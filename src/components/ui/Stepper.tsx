@@ -31,6 +31,10 @@ export const Stepper = ({current = 1, length}: Props) => {
     }
   })
 
+  if (current > steps.length) {
+    return null
+  }
+
   return (
     <SingleSelectable
       accessibilityLabel=""

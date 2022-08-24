@@ -1,7 +1,8 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {VersionInfo} from '@/components/features'
-import {Alert, Box} from '@/components/ui'
+import {Box} from '@/components/ui'
+import {Alert} from '@/components/ui/feedback'
 import {Screen} from '@/components/ui/layout'
 import {Address} from '@/modules/address/components'
 
