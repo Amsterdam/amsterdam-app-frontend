@@ -16,7 +16,8 @@ import Logo from './logo.svg'
 import OrganicWasteContainer from './organic-waste-container.svg'
 import PersonalLogin from './personal-login.svg'
 import Project from './project.svg'
-import Question from './question.svg'
+import QuestionMarkSolid from './question-mark-solid.svg'
+import QuestionMark from './question-mark.svg'
 import Settings from './settings.svg'
 import Strides from './strides.svg'
 import Whatsapp from './whatsapp.svg'
@@ -40,7 +41,8 @@ export {
   OrganicWasteContainer,
   PersonalLogin,
   Project,
-  Question,
+  QuestionMark,
+  QuestionMarkSolid,
   Settings,
   Strides,
   Whatsapp,
