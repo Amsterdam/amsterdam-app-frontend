@@ -48,6 +48,7 @@ export const CityOffice = ({data}: Props) => {
           </Column>
         </Row>
       </Box>
+      {/* TODO Remove when we only show one city office through bottom sheet. */}
       <Gutter height="md" />
     </>
   )

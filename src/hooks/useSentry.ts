@@ -11,7 +11,7 @@ export const useSentry = (
   dangerouslyOverrideConsent = false,
   dangerouslyLogAdditionalDataAnyway = false,
 ): SentryHandler => {
-  // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
+  // TODO When we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting.
   const consent = true
   return useMemo(() => {
     if (consent || dangerouslyOverrideConsent) {

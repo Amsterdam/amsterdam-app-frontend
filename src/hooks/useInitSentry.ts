@@ -3,8 +3,8 @@ import {useEffect} from 'react'
 import {useSentry} from '@/hooks'
 import {
   initSentry,
-  setSentryUserData,
   setSentryBackEndEnvironment,
+  setSentryUserData,
 } from '@/processes'
 import {useAppSelector} from '@/store'
 import {BreadcrumbCategory} from '@/types'
@@ -16,7 +16,7 @@ export const useInitSentry = () => {
   const environment = useAppSelector(state => state.environment.environment)
   const {captureSentryBreadcrumb} = useSentry()
 
-  // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
+  // TODO When we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting.
   const consent = true
 
   useEffect(() => {
