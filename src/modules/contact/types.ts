@@ -1,10 +1,5 @@
 import {Image} from '@/types'
 
-export type Response = {
-  cityOffices: CityOffice[]
-  visitingHours: VisitingHour[]
-}
-
 export type CityOffice = {
   identifier: string
   title: string
@@ -30,7 +25,7 @@ type Coordinates = {
   lon: number
 }
 
-type VisitingHour = {
+export type VisitingHour = {
   day: WeekDay
   time: TimeRange
 }
