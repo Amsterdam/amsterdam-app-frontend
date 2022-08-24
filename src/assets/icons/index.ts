@@ -18,6 +18,7 @@ import PersonalLogin from './personal-login.svg'
 import Project from './project.svg'
 import QuestionMarkSolid from './question-mark-solid.svg'
 import QuestionMark from './question-mark.svg'
+import Search from './search.svg'
 import Settings from './settings.svg'
 import Strides from './strides.svg'
 import Whatsapp from './whatsapp.svg'
@@ -43,6 +44,7 @@ export {
   Project,
   QuestionMark,
   QuestionMarkSolid,
+  Search,
   Settings,
   Strides,
   Whatsapp,
