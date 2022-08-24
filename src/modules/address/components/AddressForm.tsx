@@ -69,6 +69,9 @@ export const AddressForm = ({temp}: Props) => {
     setIsStreetSelected(false)
     setStreet(text)
     setNumber('')
+    if (street.length < 3 && bagList?.length) {
+      setBagList([])
+    }
   }
 
   const selectNumber = (text: string) => {
