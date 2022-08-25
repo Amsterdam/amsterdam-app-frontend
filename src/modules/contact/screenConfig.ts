@@ -4,11 +4,7 @@ import {
   ContactRouteName,
   ContactStackParams,
 } from '@/modules/contact/routes'
-import {
-  ContactFormScreen,
-  ContactScreen,
-  MakeAppointmentScreen,
-} from '@/modules/contact/screens'
+import {ContactScreen, MakeAppointmentScreen} from '@/modules/contact/screens'
 
 export const contactScreenConfig: StackNavigationRoutes<
   ContactStackParams,
@@ -19,13 +15,6 @@ export const contactScreenConfig: StackNavigationRoutes<
     name: ContactRouteName.contact,
     options: {
       headerTitle: 'Contact',
-    },
-  },
-  [ContactRouteName.contactForm]: {
-    component: ContactFormScreen,
-    name: ContactRouteName.contactForm,
-    options: {
-      headerTitle: 'Neem contact op',
     },
   },
   [ContactRouteName.makeAppointment]: {
