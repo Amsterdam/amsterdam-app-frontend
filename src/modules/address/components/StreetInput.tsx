@@ -34,7 +34,7 @@ export const StreetInput = ({
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected && street ? (
+      {!isStreetSelected && street.length >= 3 ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
