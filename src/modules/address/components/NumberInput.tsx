@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {SVGProps, useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -7,12 +7,13 @@ import {
   TextInput as TextInputRN,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {ChevronUp} from '@/assets/icons'
 import {List} from '@/components/ui'
-import {TextButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
-import {Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {useTheme} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {BagResponseContent} from '@/types'
 
 type Props = {
@@ -46,6 +47,7 @@ export const NumberInput = ({
   street,
 }: Props) => {
   const {size} = useTheme()
+  const iconProps = useThemable(createIconProps)
 
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current
@@ -66,22 +68,24 @@ export const NumberInput = ({
 
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>
-      <Row align="start">
-        <TextButton
-          direction="up"
-          label={street}
-          onPress={() => changeIsStreetSelected(false)}
+      <Column gutter="sm">
+        <Row align="start">
+          <Button
+            icon={<ChevronUp {...iconProps} />}
+            label={street}
+            onPress={() => changeIsStreetSelected(false)}
+            variant="tertiary"
+          />
+        </Row>
+        <SearchField
+          placeholder="Vul uw huisnummer in"
+          keyboardType={keyboardType}
+          onChangeText={text => changeNumber(text)}
+          ref={inputRef}
+          value={number}
         />
-      </Row>
-      <Gutter height="sm" />
-      <SearchField
-        placeholder="Vul uw huisnummer in"
-        keyboardType={keyboardType}
-        onChangeText={text => changeNumber(text)}
-        ref={inputRef}
-        value={number}
-      />
-      {!isNumberSelected && number ? (
+      </Column>
+      {!isNumberSelected && number.length ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
@@ -106,4 +110,8 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+})
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
 })
