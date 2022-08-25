@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react'
+import React, {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {Close, Search} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
@@ -11,29 +11,19 @@ type Props = {
 } & TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
-  (
-    {onChangeText, onFocus, value: valueProp = '', ...otherProps}: Props,
-    ref,
-  ) => {
+  ({onChangeText, onFocus, value = '', ...otherProps}: Props, ref) => {
     const [hasFocus, setHasFocus] = useState(false)
-    const [value, setValue] = useState(valueProp)
 
     const {color} = useTheme()
     const styles = useThemable(createStyles({hasFocus}))
 
-    useEffect(() => {
-      setValue(valueProp)
-    }, [valueProp])
-
     const handleBlur = () => setHasFocus(false)
 
     const handleChangeText = (text: string) => {
-      setValue(text)
       onChangeText?.(text)
     }
 
     const handleClearText = () => {
-      setValue('')
       onChangeText?.('')
     }
 
