@@ -8,7 +8,7 @@ type Props = {
   /**
    * Provides an inverse text color to allow a paragraph on a dark background.
    */
-  color?: 'default' | 'inverse'
+  color?: 'default' | 'inverse' | 'link'
   /**
    * Allows the phrase to convey more emphasis.
    */
