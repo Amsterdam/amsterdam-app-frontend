@@ -67,11 +67,8 @@ export const AddressForm = ({temp}: Props) => {
 
   const changeStreet = (text: string) => {
     setIsStreetSelected(false)
-    setStreet(text)
+    setStreet(text.replace(/[0-9]/g, ''))
     setNumber('')
-    if (street.length < 3 && bagList?.length) {
-      setBagList([])
-    }
   }
 
   const selectNumber = (text: string) => {
