@@ -1,7 +1,5 @@
 import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
 import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
-import {useNavigation} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
 import React, {Key, ReactNode, SVGProps} from 'react'
 import {PressableProps} from 'react-native'
 import {PersonalLogin, Whatsapp} from '@/assets/icons'
@@ -10,7 +8,6 @@ import {Pressable} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ContactOption} from '@/modules/contact/components'
-import {ContactRouteName, ContactStackParams} from '@/modules/contact/routes'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
@@ -28,17 +25,15 @@ type ContactOptionType = {
 export const ContactOptions = () => {
   const iconProps = useThemable(createIconProps)
 
-  const navigation =
-    useNavigation<
-      StackNavigationProp<ContactStackParams, ContactRouteName.contact>
-    >()
-
   const contactOptions: ContactOptionType[] = [
     {
       buttonProps: {
         accessibilityRole: 'button',
         key: 'email',
-        onPress: () => navigation.navigate(ContactRouteName.contactForm),
+        onPress: () =>
+          openWebUrl(
+            'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
+          ),
       },
       contactProps: {
         icon: <Email {...iconProps} />,
