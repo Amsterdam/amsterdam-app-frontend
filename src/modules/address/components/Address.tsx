@@ -5,7 +5,7 @@ import React, {SVGProps, useEffect, useState} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Question} from '@/assets/icons'
+import {QuestionMarkSolid} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {AddButton, Button, IconButton} from '@/components/ui/buttons'
 import {Tooltip} from '@/components/ui/feedback'
@@ -63,7 +63,7 @@ export const Address = () => {
               accessibilityLabel="Toon of verberg uitleg over openingstijden"
               icon={
                 <Icon size={24}>
-                  <Question {...iconProps} />
+                  <QuestionMarkSolid {...iconProps} />
                 </Icon>
               }
               onPress={() => setTooltipVisible(!isTooltipVisible)}
