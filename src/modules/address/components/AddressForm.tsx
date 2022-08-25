@@ -62,7 +62,7 @@ export const AddressForm = ({temp}: Props) => {
 
   const changeNumber = (text: string) => {
     setIsNumberSelected(false)
-    setNumber(text)
+    setNumber(text.replace(/^[^0-9]/gi, ''))
   }
 
   const changeStreet = (text: string) => {
