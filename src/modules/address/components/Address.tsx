@@ -1,15 +1,18 @@
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps} from 'react'
+import React, {SVGProps, useEffect, useState} from 'react'
 import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box, SingleSelectable} from '@/components/ui'
-import {Button} from '@/components/ui/buttons'
-import {Gutter, Row} from '@/components/ui/layout'
+import {QuestionMarkSolid} from '@/assets/icons'
+import {Box} from '@/components/ui'
+import {AddButton, Button, IconButton} from '@/components/ui/buttons'
+import {Tooltip} from '@/components/ui/feedback'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {Placement} from '@/components/ui/types'
 import {
   removePrimaryAddress,
   selectAddress,
@@ -19,7 +22,6 @@ import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
 import {Variant} from '@/types'
-import {isEmptyObject} from '@/utils'
 
 export const Address = () => {
   const dispatch = useDispatch()
@@ -29,6 +31,7 @@ export const Address = () => {
     >()
   const {primary: primaryAddress} = useSelector(selectAddress)
   const iconProps = useThemable(createIconProps)
+  const [isTooltipVisible, setTooltipVisible] = useState(false)
 
   const removeAddressAndShowAlert = () => {
     dispatch(removePrimaryAddress())
@@ -44,13 +47,41 @@ export const Address = () => {
     )
   }
 
+  useEffect(() => {
+    return navigation.addListener('blur', () => {
+      isTooltipVisible && setTooltipVisible(false)
+    })
+  }, [isTooltipVisible, navigation])
+
   return (
     <Box background="white">
-      {primaryAddress && !isEmptyObject(primaryAddress) ? (
-        <>
-          <SingleSelectable>
+      <Column gutter="md">
+        <Column gutter="xs">
+          <Row gutter="sm" valign="center">
             <Title text="Adres" />
-            <Gutter height="md" />
+            <IconButton
+              icon={
+                <Icon size={24}>
+                  <QuestionMarkSolid {...iconProps} />
+                </Icon>
+              }
+              accessibilityLabel={`${
+                isTooltipVisible ? 'Verberg' : 'Toon'
+              } uitleg over het opslaan van uw adres.`}
+              onPress={() => setTooltipVisible(!isTooltipVisible)}
+            />
+          </Row>
+          {!!isTooltipVisible && (
+            <Box insetHorizontal="md">
+              <Tooltip
+                placement={Placement.below}
+                text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
+              />
+            </Box>
+          )}
+        </Column>
+        {primaryAddress ? (
+          <Column>
             <Paragraph>{primaryAddress.adres}</Paragraph>
             <Paragraph>
               {[
@@ -59,10 +90,16 @@ export const Address = () => {
                 primaryAddress.woonplaats.toUpperCase(),
               ].join(' ')}
             </Paragraph>
-          </SingleSelectable>
+          </Column>
+        ) : (
+          <Paragraph>
+            Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
+            die buurt.
+          </Paragraph>
+        )}
+        {primaryAddress ? (
           <Row valign="center" gutter="md" wrap>
             <View>
-              <Gutter height="md" />
               <Button
                 label="Wijzig adres"
                 onPress={() =>
@@ -85,41 +122,13 @@ export const Address = () => {
               />
             </View>
           </Row>
-        </>
-      ) : (
-        <>
-          <SingleSelectable>
-            <Title text="Adres" />
-            <Gutter height="md" />
-            <Paragraph>
-              Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
-              die buurt.
-            </Paragraph>
-          </SingleSelectable>
-          <Row valign="center" gutter="md" wrap>
-            <View>
-              <Gutter height="md" />
-              <Button
-                label="Vul adres in"
-                onPress={() =>
-                  navigation.navigate(AddressModalName.addressForm)
-                }
-                variant="primary"
-              />
-            </View>
-            <View>
-              <Gutter height="md" />
-              <Button
-                label="Meer informatie"
-                onPress={() =>
-                  navigation.navigate(AddressModalName.addressInfo)
-                }
-                variant="secondary"
-              />
-            </View>
-          </Row>
-        </>
-      )}
+        ) : (
+          <AddButton
+            accessibilityLabel="Voeg adres toe"
+            onPress={() => navigation.navigate(AddressModalName.addressForm)}
+          />
+        )}
+      </Column>
     </Box>
   )
 }

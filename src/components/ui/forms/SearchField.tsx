@@ -1,12 +1,6 @@
-import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import Search from '@amsterdam/asc-assets/static/icons/Search.svg'
-import React, {forwardRef, useEffect, useState} from 'react'
-import {
-  StyleSheet,
-  TextInput as TextInputRN,
-  TextInputProps as TextInputRNProps,
-  View,
-} from 'react-native'
+import React, {forwardRef, useState} from 'react'
+import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
+import {Close, Search} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable, useTheme} from '@/themes'
@@ -14,32 +8,22 @@ import {Theme, useThemable, useTheme} from '@/themes'
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-} & TextInputRNProps
+} & TextInputProps
 
-export const SearchField = forwardRef<TextInputRN, Props>(
-  (
-    {onChangeText, onFocus, value: valueProp = '', ...otherProps}: Props,
-    ref,
-  ) => {
+export const SearchField = forwardRef<TextInput, Props>(
+  ({onChangeText, onFocus, value = '', ...otherProps}: Props, ref) => {
     const [hasFocus, setHasFocus] = useState(false)
-    const [value, setValue] = useState(valueProp)
 
     const {color} = useTheme()
     const styles = useThemable(createStyles({hasFocus}))
 
-    useEffect(() => {
-      setValue(valueProp)
-    }, [valueProp])
-
     const handleBlur = () => setHasFocus(false)
 
     const handleChangeText = (text: string) => {
-      setValue(text)
       onChangeText?.(text)
     }
 
     const handleClearText = () => {
-      setValue('')
       onChangeText?.('')
     }
 
@@ -50,12 +34,8 @@ export const SearchField = forwardRef<TextInputRN, Props>(
 
     return (
       <View style={styles.frame}>
-        {/* Both `multiline={true}` and `numberOfLines={1}` work around vertical alignment issues. */}
-        {/* See https://github.com/facebook/react-native/issues/27658#issuecomment-1152902938 */}
-        <TextInputRN
+        <TextInput
           {...otherProps}
-          multiline={true}
-          numberOfLines={1}
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
@@ -69,7 +49,7 @@ export const SearchField = forwardRef<TextInputRN, Props>(
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
             icon={
-              <Icon size={24}>
+              <Icon>
                 <Close fill={color.text.default} />
               </Icon>
             }

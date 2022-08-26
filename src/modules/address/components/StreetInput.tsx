@@ -1,15 +1,15 @@
 import React, {Ref} from 'react'
-import {StyleSheet, TextInput as RNTextInput} from 'react-native'
+import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {List} from '@/components/ui'
-import {TextInput} from '@/components/ui/forms'
-import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {SearchField} from '@/components/ui/forms'
+import {SuggestionButton} from '@/modules/address/components'
+import {config} from '@/modules/address/config'
 import {BagResponseContent} from '@/types'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
   changeStreet: (text: string) => void
-  inputStreetRef: Ref<RNTextInput>
+  inputStreetRef: Ref<TextInput>
   isStreetSelected: boolean
   selectStreet: (text: string) => void
   street: string
@@ -23,33 +23,32 @@ export const StreetInput = ({
   selectStreet,
   street,
 }: Props) => {
+  const {streetLengthThreshold} = config
+
   return (
     <>
-      <TextInput
-        accessibilityLabel="Vul uw postcode of straatnaam in"
+      <SearchField
         autoFocus={!isStreetSelected}
-        label="Vul uw postcode of straatnaam in"
         onChangeText={text => {
           changeStreet(text)
         }}
+        placeholder="Vul uw straatnaam in"
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected ? (
+      {!isStreetSelected && street.length >= streetLengthThreshold ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List dividerBottom>
-            {bagList?.map(bagItem => (
-              <SuggestionButton
-                key={bagItem.uri}
-                label={bagItem._display}
-                onPress={() => {
-                  selectStreet(bagItem._display)
-                }}
-              />
-            ))}
-          </List>
+          {bagList?.map(bagItem => (
+            <SuggestionButton
+              key={bagItem.uri}
+              label={bagItem._display}
+              onPress={() => {
+                selectStreet(bagItem._display)
+              }}
+            />
+          ))}
         </KeyboardAwareScrollView>
       ) : null}
     </>

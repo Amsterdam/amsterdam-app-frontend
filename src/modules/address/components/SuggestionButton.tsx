@@ -1,10 +1,10 @@
-import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import React from 'react'
 import {PressableProps} from 'react-native'
-import {Text} from '@/components/ui'
+import {Location} from '@/assets/icons'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
+import {Phrase} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 
 type Props = {
@@ -16,11 +16,13 @@ export const SuggestionButton = ({label, onPress}: Props) => {
 
   return (
     <Pressable accessibilityRole="button" insetVertical="md" onPress={onPress}>
-      <Row gutter="xs">
+      <Row gutter="sm">
         <Icon size={24}>
-          <Location fill={color.text.tertiary} />
+          <Location fill={color.text.link} />
         </Icon>
-        <Text large>{label}</Text>
+        <Phrase color="link" ellipsizeMode="tail" numberOfLines={1}>
+          {label}
+        </Phrase>
       </Row>
     </Pressable>
   )

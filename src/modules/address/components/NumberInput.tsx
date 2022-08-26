@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from 'react'
+import {Icon} from '_components/ui/media'
+import React, {SVGProps, useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -7,12 +8,12 @@ import {
   TextInput as TextInputRN,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {List} from '@/components/ui'
-import {TextButton} from '@/components/ui/buttons'
-import {TextInput} from '@/components/ui/forms'
-import {Gutter, Row} from '@/components/ui/layout'
+import {ChevronUp} from '@/assets/icons'
+import {Button} from '@/components/ui/buttons'
+import {SearchField} from '@/components/ui/forms'
+import {Column, Row} from '@/components/ui/layout'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {useTheme} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {BagResponseContent} from '@/types'
 
 type Props = {
@@ -46,6 +47,7 @@ export const NumberInput = ({
   street,
 }: Props) => {
   const {size} = useTheme()
+  const iconProps = useThemable(createIconProps)
 
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current
@@ -66,37 +68,40 @@ export const NumberInput = ({
 
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>
-      <Row align="start">
-        <TextButton
-          direction="up"
-          label={street}
-          onPress={() => changeIsStreetSelected(false)}
+      <Column gutter="sm">
+        <Row align="start">
+          <Button
+            icon={
+              <Icon>
+                <ChevronUp {...iconProps} />
+              </Icon>
+            }
+            label={street}
+            onPress={() => changeIsStreetSelected(false)}
+            variant="tertiary"
+          />
+        </Row>
+        <SearchField
+          keyboardType={keyboardType}
+          onChangeText={text => changeNumber(text)}
+          placeholder="Vul uw huisnummer in"
+          ref={inputRef}
+          value={number}
         />
-      </Row>
-      <Gutter height="sm" />
-      <TextInput
-        accessibilityLabel="Vul uw huisnummer in"
-        keyboardType={keyboardType}
-        label="Huisnummer + toevoeging"
-        onChangeText={text => changeNumber(text)}
-        ref={inputRef}
-        value={number}
-      />
-      {!isNumberSelected && number ? (
+      </Column>
+      {!isNumberSelected && number.length ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List dividerBottom>
-            {bagList?.map(bagItem => (
-              <SuggestionButton
-                key={bagItem.uri}
-                label={getNumberFromAddress(bagItem._display)}
-                onPress={() => {
-                  selectNumber(getNumberFromAddress(bagItem._display))
-                }}
-              />
-            ))}
-          </List>
+          {bagList?.map(bagItem => (
+            <SuggestionButton
+              key={bagItem.uri}
+              label={getNumberFromAddress(bagItem._display)}
+              onPress={() => {
+                selectNumber(getNumberFromAddress(bagItem._display))
+              }}
+            />
+          ))}
         </KeyboardAwareScrollView>
       ) : null}
     </Animated.View>
@@ -107,4 +112,8 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+})
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
 })

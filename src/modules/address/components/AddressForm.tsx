@@ -8,6 +8,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
 import {addAddress, addTempAddress} from '@/modules/address/addressSlice'
 import {NumberInput, StreetInput} from '@/modules/address/components'
+import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
 import {BagResponseContent} from '@/types'
@@ -28,6 +29,7 @@ export const AddressForm = ({temp}: Props) => {
   const [street, setStreet] = useState<string>('')
 
   const inputStreetRef = useRef<TextInput | null>(null)
+  const {streetLengthThreshold} = config
 
   const navigation =
     useNavigation<
@@ -57,17 +59,17 @@ export const AddressForm = ({temp}: Props) => {
   })
 
   const {data: bagData} = useGetBagQuery(address ?? skipToken, {
-    skip: address?.length < 3,
+    skip: address?.length < streetLengthThreshold,
   })
 
   const changeNumber = (text: string) => {
     setIsNumberSelected(false)
-    setNumber(text)
+    setNumber(text.replace(/^[^0-9]/gi, ''))
   }
 
   const changeStreet = (text: string) => {
     setIsStreetSelected(false)
-    setStreet(text)
+    setStreet(text.replace(/[0-9]/g, ''))
     setNumber('')
   }
 
