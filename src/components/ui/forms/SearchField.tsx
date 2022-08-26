@@ -49,7 +49,7 @@ export const SearchField = forwardRef<TextInput, Props>(
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
             icon={
-              <Icon size={24}>
+              <Icon>
                 <Close fill={color.text.default} />
               </Icon>
             }

@@ -16,7 +16,7 @@ export const SuggestionButton = ({label, onPress}: Props) => {
 
   return (
     <Pressable accessibilityRole="button" insetVertical="md" onPress={onPress}>
-      <Row gutter="xs">
+      <Row gutter="sm">
         <Icon size={24}>
           <Location fill={color.text.link} />
         </Icon>

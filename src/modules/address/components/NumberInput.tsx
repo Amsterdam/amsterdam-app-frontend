@@ -1,3 +1,4 @@
+import {Icon} from '_components/ui/media'
 import React, {SVGProps, useEffect, useRef} from 'react'
 import {
   Animated,
@@ -70,7 +71,11 @@ export const NumberInput = ({
       <Column gutter="sm">
         <Row align="start">
           <Button
-            icon={<ChevronUp {...iconProps} />}
+            icon={
+              <Icon>
+                <ChevronUp {...iconProps} />
+              </Icon>
+            }
             label={street}
             onPress={() => changeIsStreetSelected(false)}
             variant="tertiary"
