@@ -1,15 +1,16 @@
 import React, {Ref} from 'react'
-import {StyleSheet, TextInput as RNTextInput} from 'react-native'
+import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {List} from '@/components/ui'
 import {SearchField} from '@/components/ui/forms'
-import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {SuggestionButton} from '@/modules/address/components'
+import {config} from '@/modules/address/config'
 import {BagResponseContent} from '@/types'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
   changeStreet: (text: string) => void
-  inputStreetRef: Ref<RNTextInput>
+  inputStreetRef: Ref<TextInput>
   isStreetSelected: boolean
   selectStreet: (text: string) => void
   street: string
@@ -23,6 +24,8 @@ export const StreetInput = ({
   selectStreet,
   street,
 }: Props) => {
+  const {streetLengthThreshold} = config
+
   return (
     <>
       <SearchField
@@ -34,7 +37,7 @@ export const StreetInput = ({
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected && street.length >= 3 ? (
+      {!isStreetSelected && street.length >= streetLengthThreshold ? (
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
