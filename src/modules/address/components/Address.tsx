@@ -57,15 +57,17 @@ export const Address = () => {
     <Box background="white">
       <Column gutter="md">
         <Column gutter="xs">
-          <Row gutter="md" valign="center">
+          <Row gutter="sm" valign="center">
             <Title text="Adres" />
             <IconButton
-              accessibilityLabel="Toon of verberg uitleg over openingstijden"
               icon={
                 <Icon size={24}>
                   <QuestionMarkSolid {...iconProps} />
                 </Icon>
               }
+              accessibilityLabel={`${
+                isTooltipVisible ? 'Verberg' : 'Toon'
+              } uitleg over het opslaan van uw adres.`}
               onPress={() => setTooltipVisible(!isTooltipVisible)}
             />
           </Row>
@@ -73,7 +75,7 @@ export const Address = () => {
             <Box insetHorizontal="md">
               <Tooltip
                 placement={Placement.below}
-                text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. U gegevens worden niet gedeeld."
+                text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
               />
             </Box>
           )}

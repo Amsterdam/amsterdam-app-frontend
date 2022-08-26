@@ -27,10 +27,10 @@ export const StreetInput = ({
     <>
       <SearchField
         autoFocus={!isStreetSelected}
-        placeholder="Vul uw postcode of straatnaam in"
         onChangeText={text => {
           changeStreet(text)
         }}
+        placeholder="Vul uw straatnaam in"
         ref={inputStreetRef}
         value={street}
       />

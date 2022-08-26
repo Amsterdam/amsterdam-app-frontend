@@ -78,9 +78,9 @@ export const NumberInput = ({
           />
         </Row>
         <SearchField
-          placeholder="Vul uw huisnummer in"
           keyboardType={keyboardType}
           onChangeText={text => changeNumber(text)}
+          placeholder="Vul uw huisnummer in"
           ref={inputRef}
           value={number}
         />
