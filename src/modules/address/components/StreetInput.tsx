@@ -1,7 +1,6 @@
 import React, {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {List} from '@/components/ui'
 import {SearchField} from '@/components/ui/forms'
 import {SuggestionButton} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
@@ -41,17 +40,15 @@ export const StreetInput = ({
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List>
-            {bagList?.map(bagItem => (
-              <SuggestionButton
-                key={bagItem.uri}
-                label={bagItem._display}
-                onPress={() => {
-                  selectStreet(bagItem._display)
-                }}
-              />
-            ))}
-          </List>
+          {bagList?.map(bagItem => (
+            <SuggestionButton
+              key={bagItem.uri}
+              label={bagItem._display}
+              onPress={() => {
+                selectStreet(bagItem._display)
+              }}
+            />
+          ))}
         </KeyboardAwareScrollView>
       ) : null}
     </>

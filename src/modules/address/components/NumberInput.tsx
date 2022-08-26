@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {ChevronUp} from '@/assets/icons'
-import {List} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
@@ -89,17 +88,15 @@ export const NumberInput = ({
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <List>
-            {bagList?.map(bagItem => (
-              <SuggestionButton
-                key={bagItem.uri}
-                label={getNumberFromAddress(bagItem._display)}
-                onPress={() => {
-                  selectNumber(getNumberFromAddress(bagItem._display))
-                }}
-              />
-            ))}
-          </List>
+          {bagList?.map(bagItem => (
+            <SuggestionButton
+              key={bagItem.uri}
+              label={getNumberFromAddress(bagItem._display)}
+              onPress={() => {
+                selectNumber(getNumberFromAddress(bagItem._display))
+              }}
+            />
+          ))}
         </KeyboardAwareScrollView>
       ) : null}
     </Animated.View>

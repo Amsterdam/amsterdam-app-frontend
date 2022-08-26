@@ -49,7 +49,6 @@ export const color = {
   },
   border: {
     default: baseColor.neutral.grey2,
-    divider: baseColor.neutral.grey3,
     onGrey: baseColor.neutral.grey3,
     invalid: baseColor.support.invalid,
     primary: baseColor.primary.blue,
