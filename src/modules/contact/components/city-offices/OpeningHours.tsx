@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import React, {SVGProps, useState} from 'react'
 import {QuestionMarkSolid} from '@/assets/icons'
 import {Box} from '@/components/ui'
@@ -7,34 +8,54 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
+import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {accessibleText, nonNullable} from '@/utils'
 
-const copy = {
-  paragraph: {
-    text: 'We zijn geopend tot 17.00 uur.',
-    accessibilityLabel: 'We zijn geopend tot 5 uur.',
-  },
-  tooltip: {
-    text: 'De Stadsloketten zijn elke werkdag van 09.00 tot 17.00 uur open. Op donderdag tot 20.00 uur.',
-    accessibilityLabel:
-      'De Stadsloketten zijn elke werkdag van 9 tot 5 uur open. Op donderdag tot 8 uur.',
-  },
+const getVisitingHoursSentence = (compact?: boolean) => {
+  const {preposition, dayName, time24hr, time12hr} = getVisitingState()
+
+  return [
+    'We zijn open',
+    preposition,
+    dayName,
+    compact ? time12hr : time24hr,
+    'uur.',
+  ]
+    .filter(nonNullable)
+    .join(' ')
+}
+
+const getTooltipContent = (compact?: boolean) => {
+  const formatTime = (time: number) =>
+    dayjs()
+      .startOf('d')
+      .hour(time)
+      .format(compact ? 'h:mm' : 'HH.mm')
+
+  return [
+    'De Stadsloketten zijn elke werkdag van',
+    formatTime(9),
+    'tot',
+    formatTime(17),
+    'uur open. Op donderdag tot',
+    formatTime(20),
+    'uur.',
+  ].join(' ')
 }
 
 export const OpeningHours = () => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
-  const {paragraph, tooltip} = copy
 
   return (
     <Column gutter="md">
       <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={paragraph.accessibilityLabel}>
-          {paragraph.text}
+        <Paragraph accessibilityLabel={getVisitingHoursSentence(true)}>
+          {getVisitingHoursSentence()}
         </Paragraph>
         <IconButton
-          accessibilityLabel={accessibleText(tooltip.accessibilityLabel)}
+          accessibilityLabel={accessibleText(getTooltipContent(true))}
           accessibilityRole="none"
           icon={
             <Icon size={24}>
@@ -46,7 +67,7 @@ export const OpeningHours = () => {
       </Row>
       {!!tooltipIsVisible && (
         <Box insetHorizontal="lg">
-          <Tooltip placement={Placement.below} text={tooltip.text} />
+          <Tooltip placement={Placement.below} text={getTooltipContent()} />
         </Box>
       )}
     </Column>

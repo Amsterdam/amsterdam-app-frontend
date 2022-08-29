@@ -25,14 +25,15 @@ type Coordinates = {
   lon: number
 }
 
-export type VisitingHour = {
-  day: WeekDay
-  time: TimeRange
+type HoursAndMinutes = {
+  hours: number
+  minutes: number
 }
 
-type TimeRange = {
-  start: string
-  end: string
+export type VisitingHour = {
+  dayOfWeek: DayOfWeek
+  opens: HoursAndMinutes
+  closes: HoursAndMinutes
 }
 
 type Link = {
@@ -45,7 +46,7 @@ type Section = {
   html: string
 }
 
-enum WeekDay {
+enum DayOfWeek {
   'maandag' = 0,
   'dinsdag' = 1,
   'woensdag' = 2,

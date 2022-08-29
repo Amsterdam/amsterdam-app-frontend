@@ -1,4 +1,3 @@
-import {Icon} from '_components/ui/media'
 import React, {SVGProps, useEffect, useRef} from 'react'
 import {
   Animated,
@@ -12,6 +11,7 @@ import {ChevronUp} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {BagResponseContent} from '@/types'
