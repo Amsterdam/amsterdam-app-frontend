@@ -2,14 +2,13 @@ import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {SVGProps, useEffect, useState} from 'react'
-import {View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {QuestionMarkSolid} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {AddButton, Button, IconButton} from '@/components/ui/buttons'
 import {Tooltip} from '@/components/ui/feedback'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
@@ -98,29 +97,22 @@ export const Address = () => {
           </Paragraph>
         )}
         {primaryAddress ? (
-          <Row valign="center" gutter="md" wrap>
-            <View>
-              <Button
-                label="Wijzig adres"
-                onPress={() =>
-                  navigation.navigate(AddressModalName.addressForm)
-                }
-                variant="primary"
-              />
-            </View>
-            <View>
-              <Gutter height="md" />
-              <Button
-                icon={
-                  <Icon size={24}>
-                    <Remove {...iconProps} />
-                  </Icon>
-                }
-                label="Verwijder adres"
-                onPress={removeAddressAndShowAlert}
-                variant="tertiary"
-              />
-            </View>
+          <Row gutter="md">
+            <Button
+              label="Wijzig adres"
+              onPress={() => navigation.navigate(AddressModalName.addressForm)}
+              variant="primary"
+            />
+            <Button
+              icon={
+                <Icon size={24}>
+                  <Remove {...iconProps} />
+                </Icon>
+              }
+              label="Verwijder adres"
+              onPress={removeAddressAndShowAlert}
+              variant="tertiary"
+            />
           </Row>
         ) : (
           <AddButton
