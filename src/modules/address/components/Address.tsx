@@ -118,7 +118,7 @@ export const Address = () => {
                 }
                 label="Verwijder adres"
                 onPress={removeAddressAndShowAlert}
-                variant="secondary"
+                variant="tertiary"
               />
             </View>
           </Row>
