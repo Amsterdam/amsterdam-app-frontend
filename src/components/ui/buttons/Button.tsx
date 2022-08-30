@@ -50,9 +50,9 @@ export const Button = ({
         {!!icon && <Icon size={24}>{icon}</Icon>}
         {!!label && (
           <Text
-            style={styles.label}
+            ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
-            ellipsizeMode={ellipsizeMode}>
+            style={styles.label}>
             {label}
           </Text>
         )}
@@ -68,8 +68,8 @@ const createStyles =
     const buttonHeight = 48 // Design system requirement
     const borderWidth =
       variant === 'secondary' && pressed ? border.width.lg : border.width.md
-    const labelFontSize = text.fontSize.body
-    const labelLineHeight = text.lineHeight.body
+    const labelFontSize = text.fontSize.small
+    const labelLineHeight = text.lineHeight.small
 
     const backgroundColor = () => {
       if (variant === 'primary') {

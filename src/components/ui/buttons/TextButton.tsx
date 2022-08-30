@@ -93,8 +93,8 @@ const createStyles = ({color, text}: Theme) =>
     text: {
       flexShrink: 1, // Allow wrapping
       fontFamily: text.fontWeight.bold,
-      fontSize: text.fontSize.body,
-      lineHeight: text.fontSize.body * text.lineHeight.body,
+      fontSize: text.fontSize.small,
+      lineHeight: text.fontSize.small * text.lineHeight.small,
       color: color.text.default,
     },
     row: {
