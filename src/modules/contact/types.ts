@@ -36,6 +36,12 @@ export type VisitingHour = {
   closes: HoursAndMinutes
 }
 
+export type ExceptionDate = {
+  date: string
+  opens?: HoursAndMinutes
+  closes?: HoursAndMinutes
+}
+
 type Link = {
   label: string
   url: string
