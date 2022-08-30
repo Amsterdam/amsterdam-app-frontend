@@ -17,9 +17,7 @@ type ReturnType = {
 }
 
 export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
-  let offset = 0
-
-  while (true) {
+  for (let offset = 0; offset <= 31; offset++) {
     const candidate = date.startOf('d').add(offset, 'd')
 
     const candidateVisitingHours = visitingHours.find(
@@ -60,7 +58,7 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
         time12hr: time.format('h:mm'),
       }
     }
-
-    offset++
   }
+
+  return {} as ReturnType
 }
