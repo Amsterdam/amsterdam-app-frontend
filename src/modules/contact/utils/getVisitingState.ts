@@ -23,34 +23,34 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
     const candidate = date.startOf('d').add(offset, 'd')
 
     const candidateVisitingHours = visitingHours.find(
-      ({closes, dayOfWeek}) =>
+      ({closing, dayOfWeek}) =>
         candidate.day() === dayOfWeek &&
         !holidays.some(holiday => candidate.isSame(dayjs(holiday), 'd')) &&
         date.isBefore(
-          candidate.startOf('m').hour(closes.hours).minute(closes.minutes),
+          candidate.startOf('m').hour(closing.hours).minute(closing.minutes),
         ),
     )
 
     if (candidateVisitingHours) {
-      const {opens, closes} = candidateVisitingHours
+      const {opening, closing} = candidateVisitingHours
       let {preposition, dayName, time} = {} as ReturnType & {time: Dayjs}
 
       if (candidate.isSame(date, 'd')) {
         if (
           date.isBefore(
-            candidate.startOf('m').hour(opens.hours).minute(opens.minutes),
+            candidate.startOf('m').hour(opening.hours).minute(opening.minutes),
           )
         ) {
           preposition = Preposition.from
-          time = candidate.hour(opens.hours).minute(opens.minutes)
+          time = candidate.hour(opening.hours).minute(opening.minutes)
         } else {
           preposition = Preposition.until
-          time = candidate.hour(closes.hours).minute(closes.minutes)
+          time = candidate.hour(closing.hours).minute(closing.minutes)
         }
       } else {
         dayName = offset === 1 ? undefined : candidate.format('dddd')
         preposition = Preposition.from
-        time = candidate.hour(opens.hours).minute(opens.minutes)
+        time = candidate.hour(opening.hours).minute(opening.minutes)
       }
 
       return {

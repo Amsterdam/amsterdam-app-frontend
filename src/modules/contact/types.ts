@@ -30,17 +30,18 @@ type HoursAndMinutes = {
   minutes: number
 }
 
+type OpeningAndClosingTimes = {
+  opening: HoursAndMinutes
+  closing: HoursAndMinutes
+}
+
 export type VisitingHour = {
   dayOfWeek: number
-  opens: HoursAndMinutes
-  closes: HoursAndMinutes
-}
+} & OpeningAndClosingTimes
 
 export type ExceptionDate = {
   date: string
-  opens?: HoursAndMinutes
-  closes?: HoursAndMinutes
-}
+} & Partial<OpeningAndClosingTimes>
 
 type Link = {
   label: string

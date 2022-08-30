@@ -3,55 +3,55 @@ import {VisitingHour} from '@/modules/contact/types'
 export const visitingHours: VisitingHour[] = [
   {
     dayOfWeek: 1,
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 17,
       minutes: 0,
     },
   },
   {
     dayOfWeek: 2,
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 17,
       minutes: 0,
     },
   },
   {
     dayOfWeek: 3,
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 17,
       minutes: 0,
     },
   },
   {
     dayOfWeek: 4,
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 20,
       minutes: 0,
     },
   },
   {
     dayOfWeek: 5,
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 17,
       minutes: 0,
     },

@@ -2,7 +2,7 @@ import React from 'react'
 import {Box} from '@/components/ui'
 import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {NameAndAddress, OpeningHours} from '@/modules/contact/components'
+import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
 import {CityOffice as CityOfficeType} from '@/modules/contact/types'
 import {useEnvironment} from '@/store'
 import {mapImageSources} from '@/utils'
@@ -21,7 +21,7 @@ export const CityOffice = ({data}: Props) => {
       <Box insetHorizontal="md" insetVertical="lg">
         <Column gutter="lg">
           <NameAndAddress {...{address, title}} />
-          <OpeningHours />
+          <VisitingHours />
         </Column>
       </Box>
       {/* TODO Remove when we only show one city office through bottom sheet. */}

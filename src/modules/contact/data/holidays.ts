@@ -8,11 +8,11 @@ export const exceptionDates: ExceptionDate[] = [
   },
   {
     date: '2022-12-05',
-    opens: {
+    opening: {
       hours: 9,
       minutes: 0,
     },
-    closes: {
+    closing: {
       hours: 16,
       minutes: 0,
     },

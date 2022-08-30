@@ -44,7 +44,7 @@ const getTooltipContent = (compact?: boolean) => {
   ].join(' ')
 }
 
-export const OpeningHours = () => {
+export const VisitingHours = () => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
 
