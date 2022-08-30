@@ -31,7 +31,7 @@ type HoursAndMinutes = {
 }
 
 export type VisitingHour = {
-  dayOfWeek: DayOfWeek
+  dayOfWeek: number
   opens: HoursAndMinutes
   closes: HoursAndMinutes
 }
@@ -44,14 +44,4 @@ type Link = {
 type Section = {
   title?: string
   html: string
-}
-
-enum DayOfWeek {
-  'maandag' = 0,
-  'dinsdag' = 1,
-  'woensdag' = 2,
-  'donderdag' = 3,
-  'vrijdag' = 4,
-  'zaterdag' = 5,
-  'zondag' = 6,
 }
