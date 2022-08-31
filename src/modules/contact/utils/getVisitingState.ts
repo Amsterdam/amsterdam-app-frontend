@@ -46,7 +46,10 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
           time = candidate.hour(closing.hours).minute(closing.minutes)
         }
       } else {
-        dayName = offset === 1 ? undefined : candidate.format('dddd')
+        dayName =
+          candidate.diff(date.startOf('d'), 'd') === 1
+            ? 'morgen'
+            : candidate.format('dddd')
         preposition = Preposition.from
         time = candidate.hour(opening.hours).minute(opening.minutes)
       }
