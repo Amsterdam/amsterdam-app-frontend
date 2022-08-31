@@ -2,59 +2,70 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/nl'
 import {getVisitingState, Preposition} from './getVisitingState'
 
-const [wednesday, thursday, friday, saturday, sunday, holiday] = [
-  '2022-08-31',
-  '2022-09-01',
-  '2022-09-02',
-  '2022-09-03',
-  '2022-09-04',
-  '2022-12-23',
-]
-const timezone = '.000+02:00'
+// Test data: various days of the week and some holidays.
+const d: Record<string, string> = {
+  wednesday: '2022-08-31',
+  thursday: '2022-09-01',
+  friday: '2022-09-02',
+  saturday: '2022-09-03',
+  sunday: '2022-09-04',
+  beforeKingsDay: '2022-04-26',
+  kingsDay: '2022-04-27',
+  beforeChristmasDay: '2022-12-23',
+  christmasDay: '2022-12-26',
+}
+
+// Time zones for standard and daylight savings time
+const t: Record<string, string> = {
+  summer: '.000+02:00',
+  winter: '.000+01:00',
+}
 
 describe('getVisitingState', () => {
   it('handles a Wednesday before opening time', () => {
-    expect(getVisitingState(dayjs(`${wednesday}T08:59:59${timezone}`))).toEqual(
-      {
-        preposition: Preposition.from,
-        dayName: undefined,
-        time24hr: '09.00',
-        time12hr: '9:00',
-      },
-    )
+    expect(
+      getVisitingState(dayjs(`${d.wednesday}T08:59:59${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: undefined,
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
   })
   it('handles a Wednesday after opening time', () => {
-    expect(getVisitingState(dayjs(`${wednesday}T09:00:00${timezone}`))).toEqual(
-      {
-        preposition: 'tot',
-        dayName: undefined,
-        time24hr: '17.00',
-        time12hr: '5:00',
-      },
-    )
+    expect(
+      getVisitingState(dayjs(`${d.wednesday}T09:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.until,
+      dayName: undefined,
+      time24hr: '17.00',
+      time12hr: '5:00',
+    })
   })
   it('handles a Wednesday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${wednesday}T17:00:00${timezone}`))).toEqual(
-      {
-        preposition: Preposition.from,
-        dayName: undefined,
-        time24hr: '09.00',
-        time12hr: '9:00',
-      },
-    )
+    expect(
+      getVisitingState(dayjs(`${d.wednesday}T17:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
   })
   it('handles a Wednesday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${wednesday}T20:00:00${timezone}`))).toEqual(
-      {
-        preposition: Preposition.from,
-        dayName: undefined,
-        time24hr: '09.00',
-        time12hr: '9:00',
-      },
-    )
+    expect(
+      getVisitingState(dayjs(`${d.wednesday}T20:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
   })
   it('handles a Thursday before opening time', () => {
-    expect(getVisitingState(dayjs(`${thursday}T08:59:59${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.thursday}T08:59:59${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: undefined,
       time24hr: '09.00',
@@ -62,15 +73,19 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Thursday after opening time', () => {
-    expect(getVisitingState(dayjs(`${thursday}T09:00:00${timezone}`))).toEqual({
-      preposition: 'tot',
+    expect(
+      getVisitingState(dayjs(`${d.thursday}T09:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.until,
       dayName: undefined,
       time24hr: '20.00',
       time12hr: '8:00',
     })
   })
   it('handles a Thursday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${thursday}T17:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.thursday}T17:00:00${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.until,
       dayName: undefined,
       time24hr: '20.00',
@@ -78,15 +93,17 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Thursday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${thursday}T20:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.thursday}T20:00:00${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
-      dayName: undefined,
+      dayName: 'morgen',
       time24hr: '09.00',
       time12hr: '9:00',
     })
   })
   it('handles a Friday before opening time', () => {
-    expect(getVisitingState(dayjs(`${friday}T08:59:59${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.friday}T08:59:59${t.summer}`))).toEqual({
       preposition: Preposition.from,
       dayName: undefined,
       time24hr: '09.00',
@@ -94,15 +111,15 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Friday after opening time', () => {
-    expect(getVisitingState(dayjs(`${friday}T09:00:00${timezone}`))).toEqual({
-      preposition: 'tot',
+    expect(getVisitingState(dayjs(`${d.friday}T09:00:00${t.summer}`))).toEqual({
+      preposition: Preposition.until,
       dayName: undefined,
       time24hr: '17.00',
       time12hr: '5:00',
     })
   })
   it('handles a Friday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${friday}T17:00:00${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.friday}T17:00:00${t.summer}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -110,7 +127,7 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Friday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${friday}T20:00:00${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.friday}T20:00:00${t.summer}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -118,7 +135,9 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Saturday before opening time', () => {
-    expect(getVisitingState(dayjs(`${saturday}T08:59:59${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.saturday}T08:59:59${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -126,7 +145,9 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Saturday after opening time', () => {
-    expect(getVisitingState(dayjs(`${saturday}T09:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.saturday}T09:00:00${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -134,7 +155,9 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Saturday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${saturday}T17:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.saturday}T17:00:00${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -142,7 +165,9 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Saturday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${saturday}T20:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.saturday}T20:00:00${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'maandag',
       time24hr: '09.00',
@@ -151,39 +176,121 @@ describe('getVisitingState', () => {
   })
 
   it('handles a Sunday before opening time', () => {
-    expect(getVisitingState(dayjs(`${sunday}T08:59:59${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.sunday}T08:59:59${t.summer}`))).toEqual({
       preposition: Preposition.from,
-      dayName: undefined,
+      dayName: 'morgen',
       time24hr: '09.00',
       time12hr: '9:00',
     })
   })
   it('handles a Sunday after opening time', () => {
-    expect(getVisitingState(dayjs(`${sunday}T09:00:00${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.sunday}T09:00:00${t.summer}`))).toEqual({
       preposition: Preposition.from,
-      dayName: undefined,
+      dayName: 'morgen',
       time24hr: '09.00',
       time12hr: '9:00',
     })
   })
   it('handles a Sunday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${sunday}T17:00:00${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.sunday}T17:00:00${t.summer}`))).toEqual({
       preposition: Preposition.from,
-      dayName: undefined,
+      dayName: 'morgen',
       time24hr: '09.00',
       time12hr: '9:00',
     })
   })
   it('handles a Sunday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${sunday}T20:00:00${timezone}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.sunday}T20:00:00${t.summer}`))).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles the day before a Wednesday holiday before opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.beforeKingsDay}T08:59:59${t.summer}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: undefined,
       time24hr: '09.00',
       time12hr: '9:00',
     })
   })
+  it('handles the day before a Wednesday holiday after opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.beforeKingsDay}T09:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.until,
+      dayName: undefined,
+      time24hr: '17.00',
+      time12hr: '5:00',
+    })
+  })
+  it('handles the day before a Wednesday holiday after regular closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.beforeKingsDay}T17:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'donderdag',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles the day before a Wednesday holiday after late closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.beforeKingsDay}T20:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'donderdag',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Wednesday holiday before opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.kingsDay}T08:59:59${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Wednesday holiday after opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.kingsDay}T09:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Wednesday holiday after regular closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.kingsDay}T17:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Wednesday holiday after late closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.kingsDay}T20:00:00${t.summer}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
   it('handles a Friday before a Monday holiday before opening time', () => {
-    expect(getVisitingState(dayjs(`${holiday}T08:59:59${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.beforeChristmasDay}T08:59:59${t.winter}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: undefined,
       time24hr: '09.00',
@@ -191,15 +298,19 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Friday before a Monday holiday after opening time', () => {
-    expect(getVisitingState(dayjs(`${holiday}T09:00:00${timezone}`))).toEqual({
-      preposition: 'tot',
+    expect(
+      getVisitingState(dayjs(`${d.beforeChristmasDay}T09:00:00${t.winter}`)),
+    ).toEqual({
+      preposition: Preposition.until,
       dayName: undefined,
       time24hr: '17.00',
       time12hr: '5:00',
     })
   })
   it('handles a Friday before a Monday holiday after regular closing time', () => {
-    expect(getVisitingState(dayjs(`${holiday}T17:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.beforeChristmasDay}T17:00:00${t.winter}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'dinsdag',
       time24hr: '09.00',
@@ -207,9 +318,51 @@ describe('getVisitingState', () => {
     })
   })
   it('handles a Friday before a Monday holiday after late closing time', () => {
-    expect(getVisitingState(dayjs(`${holiday}T20:00:00${timezone}`))).toEqual({
+    expect(
+      getVisitingState(dayjs(`${d.beforeChristmasDay}T20:00:00${t.winter}`)),
+    ).toEqual({
       preposition: Preposition.from,
       dayName: 'dinsdag',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Monday holiday before opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.christmasDay}T08:59:59${t.winter}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Monday holiday after opening time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.christmasDay}T09:00:00${t.winter}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Monday holiday after regular closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.christmasDay}T17:00:00${t.winter}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles a Monday holiday after late closing time', () => {
+    expect(
+      getVisitingState(dayjs(`${d.christmasDay}T20:00:00${t.winter}`)),
+    ).toEqual({
+      preposition: Preposition.from,
+      dayName: 'morgen',
       time24hr: '09.00',
       time12hr: '9:00',
     })
