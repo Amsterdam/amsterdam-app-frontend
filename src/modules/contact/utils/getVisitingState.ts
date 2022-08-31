@@ -34,13 +34,13 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
       let {preposition, dayName, time} = {} as ReturnType & {time: Dayjs}
 
       if (candidate.isSame(date, 'd')) {
-        if (
-          date.isBefore(
-            candidate.startOf('m').hour(opening.hours).minute(opening.minutes),
-          )
-        ) {
+        const candidateOpeningTime = candidate
+          .startOf('m')
+          .hour(opening.hours)
+          .minute(opening.minutes) // of beter nog eigenlijk de losse functie die ik hierboven suggereerde
+        if (date.isBefore(candidateOpeningTime)) {
           preposition = Preposition.from
-          time = candidate.hour(opening.hours).minute(opening.minutes)
+          time = candidateOpeningTime
         } else {
           preposition = Preposition.until
           time = candidate.hour(closing.hours).minute(closing.minutes)
