@@ -9,14 +9,14 @@ export enum Preposition {
   until = 'tot',
 }
 
-type ReturnType = {
+type VisitingState = {
   dayName?: string
   preposition: Preposition
   time24hr: string
   time12hr: string
 }
 
-export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
+export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
   for (let offset = 0; offset <= 31; offset++) {
     const candidate = date.startOf('d').add(offset, 'd')
 
@@ -31,7 +31,7 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
 
     if (candidateVisitingHours) {
       const {opening, closing} = candidateVisitingHours
-      let {preposition, dayName, time} = {} as ReturnType & {time: Dayjs}
+      let {preposition, dayName, time} = {} as VisitingState & {time: Dayjs}
 
       if (candidate.isSame(date, 'd')) {
         const candidateOpeningTime = candidate
@@ -63,5 +63,5 @@ export const getVisitingState = (date: Dayjs = dayjs()): ReturnType => {
     }
   }
 
-  return {} as ReturnType
+  return {} as VisitingState
 }
