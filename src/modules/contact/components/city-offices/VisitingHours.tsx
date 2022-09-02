@@ -29,7 +29,7 @@ const getVisitingHoursSentence = (compact?: boolean) => {
 const getTooltipContent = (compact?: boolean) => {
   const formatTime = (time: number) =>
     dayjs()
-      .startOf('d')
+      .startOf('day')
       .hour(time)
       .format(compact ? 'h:mm' : 'HH.mm')
 

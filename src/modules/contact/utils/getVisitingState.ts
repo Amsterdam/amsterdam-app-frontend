@@ -18,14 +18,17 @@ type VisitingState = {
 
 export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
   for (let offset = 0; offset <= 31; offset++) {
-    const candidate = date.startOf('d').add(offset, 'd')
+    const candidate = date.startOf('day').add(offset, 'day')
 
     const candidateVisitingHours = visitingHours.find(
       ({closing, dayOfWeek}) =>
         candidate.day() === dayOfWeek &&
-        !holidays.some(holiday => candidate.isSame(dayjs(holiday), 'd')) &&
+        !holidays.some(holiday => candidate.isSame(dayjs(holiday), 'day')) &&
         date.isBefore(
-          candidate.startOf('m').hour(closing.hours).minute(closing.minutes),
+          candidate
+            .startOf('minute')
+            .hour(closing.hours)
+            .minute(closing.minutes),
         ),
     )
 
@@ -33,9 +36,9 @@ export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
       const {opening, closing} = candidateVisitingHours
       let {preposition, dayName, time} = {} as VisitingState & {time: Dayjs}
 
-      if (candidate.isSame(date, 'd')) {
+      if (candidate.isSame(date, 'day')) {
         const candidateOpeningTime = candidate
-          .startOf('m')
+          .startOf('minute')
           .hour(opening.hours)
           .minute(opening.minutes) // of beter nog eigenlijk de losse functie die ik hierboven suggereerde
         if (date.isBefore(candidateOpeningTime)) {
@@ -47,7 +50,7 @@ export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
         }
       } else {
         dayName =
-          candidate.diff(date.startOf('d'), 'd') === 1
+          candidate.diff(date.startOf('day'), 'day') === 1
             ? 'morgen'
             : candidate.format('dddd')
         preposition = Preposition.from
