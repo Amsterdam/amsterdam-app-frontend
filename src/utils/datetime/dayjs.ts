@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-imports */
+// eslint-disable-next-line no-restricted-imports
 import dayjsFn, {ConfigType} from 'dayjs'
 export {Dayjs} from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
