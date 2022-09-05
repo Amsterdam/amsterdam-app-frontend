@@ -16,17 +16,30 @@ type Props = {
 
 export const CityOffice = ({data}: Props) => {
   const environment = useEnvironment()
-  const {title, image, address, appointment} = data
+  const {title, image, address, appointment, directionsUrl} = data
 
   return (
     <>
-      <Image source={mapImageSources(image.sources, environment)} />
-      <Box insetHorizontal="md" insetVertical="lg">
-        <Column gutter="lg">
+      <Column gutter="lg">
+        <Image source={mapImageSources(image.sources, environment)} />
+        <Box insetHorizontal="md">
           <NameAndAddress {...{address, title}} />
-          <VisitingHours />
-          {!!appointment && (
-            <Paragraph variant="small">{appointment.text}</Paragraph>
+        </Box>
+        <Column gutter="md">
+          <Column gutter="sm">
+            <VisitingHours />
+            {!!appointment && (
+              <Paragraph variant="small">{appointment.text}</Paragraph>
+            )}
+          </Column>
+        </Column>
+        <Column gutter="md">
+          {!!directionsUrl && (
+            <Button
+              label="Toon route"
+              onPress={() => openWebUrl(directionsUrl)}
+              variant={appointment ? 'secondary' : 'primary'}
+            />
           )}
           {!!appointment && (
             <Button
@@ -35,9 +48,9 @@ export const CityOffice = ({data}: Props) => {
             />
           )}
         </Column>
-      </Box>
+      </Column>
       {/* TODO Remove when we only show one city office through bottom sheet. */}
-      <Gutter height="md" />
+      <Gutter height="xl" />
     </>
   )
 }

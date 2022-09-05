@@ -9,7 +9,7 @@ export type CityOffice = {
   address: Address
   addressContent?: Section
   coordinates: Coordinates
-  directionsLink: Link
+  directionsUrl: string
   visitingHoursContent?: Section
   appointment?: {
     text: string
@@ -50,11 +50,6 @@ export type HoursAndMinutes = {
 }
 
 /* Generic content */
-
-type Link = {
-  label: string
-  url: string
-}
 
 type Section = {
   title?: string

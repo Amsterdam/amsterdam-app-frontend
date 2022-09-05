@@ -49,10 +49,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3742621,
       lon: 4.8909625,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/dUtqzFyNVktNq11L8',
-    },
+    directionsUrl: 'https://goo.gl/maps/dUtqzFyNVktNq11L8',
   },
   {
     identifier: '5d9637689a8b902fa1a13acdf0006d26',
@@ -102,10 +99,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3578387,
       lon: 4.8065925,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/RmZF88U17WBkMzv57',
-    },
+    directionsUrl: 'https://goo.gl/maps/RmZF88U17WBkMzv57',
   },
   {
     identifier: '081d6a38f46686905693fcd6087039f5',
@@ -160,10 +154,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.4010321,
       lon: 4.9309679,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/6DGxb6id1vsEBs5K9',
-    },
+    directionsUrl: 'https://goo.gl/maps/6DGxb6id1vsEBs5K9',
   },
   {
     identifier: '29e3b63d09d1f0c9a9c7238064c70790',
@@ -213,10 +204,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3691125,
       lon: 4.8751483,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/SqTh7LJcf6HdMbdB6',
-    },
+    directionsUrl: 'https://goo.gl/maps/SqTh7LJcf6HdMbdB6',
   },
   {
     identifier: 'b4b178107cbc0c609d8d190bbdbdfb08',
@@ -266,10 +254,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3780311,
       lon: 4.8452795,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/ggXcZ9yi7dzbA9Xd8',
-    },
+    directionsUrl: 'https://goo.gl/maps/ggXcZ9yi7dzbA9Xd8',
   },
   {
     identifier: 'b887a4d081821c4245c02f07e2de3290',
@@ -319,10 +304,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3578387,
       lon: 4.8065925,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/HyL7XrhK9U8PtwRH9',
-    },
+    directionsUrl: 'https://goo.gl/maps/HyL7XrhK9U8PtwRH9',
     appointment: {
       text: 'U kunt alleen langskomen als u een afspraak hebt.',
       url: 'https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/',
@@ -376,10 +358,7 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3165644,
       lon: 4.956622,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://goo.gl/maps/jRL1s5RGLLMCnyVM7',
-    },
+    directionsUrl: 'https://goo.gl/maps/jRL1s5RGLLMCnyVM7',
   },
   {
     identifier: '5ae1d0dd98a417fbf6772aeec85cb40f',
@@ -429,10 +408,8 @@ export const cityOffices: CityOffice[] = [
       lat: 52.3578387,
       lon: 4.8065925,
     },
-    directionsLink: {
-      label: 'Route',
-      url: 'https://www.google.com/maps/place/Gemeente+Weesp+en+Gem+Instellingen/@52.3067429,5.0401705,17z/data=!4m12!1m6!3m5!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!2sGemeente+Weesp+en+Gem+Instellingen!8m2!3d52.3067388!4d5.0423473!3m4!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!8m2!3d52.3067388!4d5.0423473',
-    },
+    directionsUrl:
+      'https://www.google.com/maps/place/Gemeente+Weesp+en+Gem+Instellingen/@52.3067429,5.0401705,17z/data=!4m12!1m6!3m5!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!2sGemeente+Weesp+en+Gem+Instellingen!8m2!3d52.3067388!4d5.0423473!3m4!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!8m2!3d52.3067388!4d5.0423473',
     appointment: {
       text: 'U kunt alleen langskomen als u in Weesp woont en een afspraak hebt.',
       url: 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx/',
