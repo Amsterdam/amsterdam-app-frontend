@@ -12,18 +12,21 @@ import {Theme, useThemable} from '@/themes'
 import {accessibleText, nonNullable} from '@/utils'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-const getVisitingHoursSentence = (compact?: boolean) => {
-  const {preposition, dayName, time24hr, time12hr} = getVisitingState()
-
-  return [
-    'We zijn open',
-    preposition,
-    dayName,
-    compact ? time12hr : time24hr,
-    'uur.',
-  ]
-    .filter(nonNullable)
-    .join(' ')
+const getVisitingHoursSentence = () => {
+  const visitingState = getVisitingState()
+  if (visitingState) {
+    const {preposition, dayName, time24hr, time12hr} = visitingState
+    return {
+      full: ['We zijn open', preposition, dayName, time24hr, 'uur.']
+        .filter(nonNullable)
+        .join(' '),
+      compact: ['We zijn open', preposition, dayName, time12hr, 'uur.']
+        .filter(nonNullable)
+        .join(' '),
+    }
+  } else {
+    return {full: '', compact: ''}
+  }
 }
 
 const getTooltipContent = (compact?: boolean) => {
@@ -48,12 +51,15 @@ export const VisitingHours = () => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
 
+  const visitingHoursSentence = getVisitingHoursSentence()
   return (
     <Column gutter="md">
       <Row gutter="sm" valign="center">
-        <Paragraph accessibilityLabel={getVisitingHoursSentence(true)}>
-          {getVisitingHoursSentence()}
-        </Paragraph>
+        {!!visitingHoursSentence.full && (
+          <Paragraph accessibilityLabel={visitingHoursSentence.compact}>
+            {visitingHoursSentence.full}
+          </Paragraph>
+        )}
         <IconButton
           accessibilityLabel={accessibleText(getTooltipContent(true))}
           accessibilityRole="none"

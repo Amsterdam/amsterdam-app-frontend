@@ -10,7 +10,9 @@ type VisitingState = {
   time12hr: string
 }
 
-export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
+export const getVisitingState = (
+  date: Dayjs = dayjs(),
+): VisitingState | null => {
   for (let offset = 0; offset <= 31; offset++) {
     const candidate = date.startOf('day').add(offset, 'day')
 
@@ -51,5 +53,5 @@ export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
     }
   }
 
-  return {} as VisitingState
+  return null
 }
