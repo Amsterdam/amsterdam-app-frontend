@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import 'dayjs/locale/nl'
-import {getVisitingState, Preposition} from './getVisitingState'
+import {getVisitingState} from './getVisitingState'
+import {Preposition} from '@/types'
 
 // Test data: various days of the week and some holidays.
 const d: Record<string, string> = {

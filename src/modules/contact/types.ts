@@ -1,5 +1,7 @@
 import {Image} from '@/types'
 
+/* City office */
+
 export type CityOffice = {
   identifier: string
   title: string
@@ -25,15 +27,7 @@ type Coordinates = {
   lon: number
 }
 
-type HoursAndMinutes = {
-  hours: number
-  minutes: number
-}
-
-type OpeningAndClosingTimes = {
-  opening: HoursAndMinutes
-  closing: HoursAndMinutes
-}
+/* Visiting hours */
 
 export type VisitingHour = {
   dayOfWeek: number
@@ -42,6 +36,18 @@ export type VisitingHour = {
 export type ExceptionDate = {
   date: string
 } & Partial<OpeningAndClosingTimes>
+
+type OpeningAndClosingTimes = {
+  opening: HoursAndMinutes
+  closing: HoursAndMinutes
+}
+
+export type HoursAndMinutes = {
+  hours: number
+  minutes: number
+}
+
+/* Generic content */
 
 type Link = {
   label: string
