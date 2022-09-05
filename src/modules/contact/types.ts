@@ -7,7 +7,10 @@ export type CityOffice = {
   title: string
   image: Image
   address: Address
-  addressContent?: Section
+  addressContent?: {
+    title: string
+    html: string
+  }
   coordinates: Coordinates
   directionsUrl: string
   visitingHoursContent?: string
@@ -47,11 +50,4 @@ type OpeningAndClosingTimes = {
 export type HoursAndMinutes = {
   hours: number
   minutes: number
-}
-
-/* Generic content */
-
-type Section = {
-  title?: string
-  html: string
 }
