@@ -322,7 +322,7 @@ export const cityOffices: CityOffice[] = [
     },
     directionsLink: {
       label: 'Route',
-      url: 'https://goo.gl/maps/RmZF88U17WBkMzv57',
+      url: 'https://goo.gl/maps/HyL7XrhK9U8PtwRH9',
     },
     visitingContent: [
       {
@@ -437,7 +437,7 @@ export const cityOffices: CityOffice[] = [
     },
     directionsLink: {
       label: 'Route',
-      url: 'https://goo.gl/maps/RmZF88U17WBkMzv57',
+      url: 'https://www.google.com/maps/place/Gemeente+Weesp+en+Gem+Instellingen/@52.3067429,5.0401705,17z/data=!4m12!1m6!3m5!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!2sGemeente+Weesp+en+Gem+Instellingen!8m2!3d52.3067388!4d5.0423473!3m4!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!8m2!3d52.3067388!4d5.0423473',
     },
     visitingContent: [
       {
