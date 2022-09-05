@@ -1,7 +1,5 @@
-import dayjs, {Dayjs} from 'dayjs'
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {isTomorrow} from '@/utils/datetime/isTomorrow'
-
-dayjs.locale('nl')
 
 /**
  * Returns the name of a given day,

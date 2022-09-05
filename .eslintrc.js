@@ -41,6 +41,14 @@ module.exports = {
               "Please use a clean path like: '@/components/something' instead of '../components/something'.",
           },
         ],
+        paths: [
+          {
+            name: 'dayjs',
+            importNames: ['default'],
+            message:
+              'Import dayjs from @/utils/datetime to prevent timezone issues.',
+          },
+        ],
       },
     ],
   },

@@ -1,10 +1,7 @@
-import dayjs, {Dayjs} from 'dayjs'
-import 'dayjs/locale/nl'
 import {holidays, visitingHours} from '@/modules/contact/data'
 import {Preposition} from '@/types'
 import {adjustHoursAndMinutes, formatDayName} from '@/utils'
-
-dayjs.locale('nl')
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 
 type VisitingState = {
   dayName?: string

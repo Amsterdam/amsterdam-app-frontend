@@ -1,7 +1,5 @@
 import {HoursAndMinutes} from '_modules/contact/types'
-import dayjs, {Dayjs} from 'dayjs'
-
-dayjs.locale('nl')
+import {Dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Applies the given hours and minutes to a date

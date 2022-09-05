@@ -1,6 +1,4 @@
-import dayjs, {Dayjs} from 'dayjs'
-
-dayjs.locale('nl')
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Whether the given date is tomorrow,

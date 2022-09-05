@@ -1,6 +1,4 @@
-import dayjs from 'dayjs'
-import 'dayjs/locale/nl'
-dayjs.locale('nl')
+import {dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Converts string to date

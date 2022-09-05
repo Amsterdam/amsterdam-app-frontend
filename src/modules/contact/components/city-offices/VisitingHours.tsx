@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import React, {SVGProps, useState} from 'react'
 import {QuestionMarkSolid} from '@/assets/icons'
 import {Box} from '@/components/ui'
@@ -11,6 +10,7 @@ import {Placement} from '@/components/ui/types'
 import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, nonNullable} from '@/utils'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const getVisitingHoursSentence = (compact?: boolean) => {
   const {preposition, dayName, time24hr, time12hr} = getVisitingState()
