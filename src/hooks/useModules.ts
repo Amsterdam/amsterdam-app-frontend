@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {useSentry} from '@/hooks'
 import {useAppState} from '@/hooks/useAppState'
@@ -74,8 +74,8 @@ export const useModules = () => {
     },
   })
 
-  // this prevents the situation where an empty modules array is returned when isLoading is false
-  // we should fix this later by handling the async nature of requests in a better way
+  // This prevents the situation where an empty modules array is returned when isLoading is false.
+  // TODO We should fix this later by handling the async nature of requests in a better way.
   const modulesLoading =
     isLoading || (isSuccess && postProcessedModules.modules.length === 0)
 

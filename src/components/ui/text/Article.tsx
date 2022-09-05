@@ -59,6 +59,7 @@ export const Article = ({content, isIntro}: Props) => {
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
     h3: {...styles.titleLevel3, ...styles.margins},
+    h4: {...styles.titleLevel4, ...styles.margins},
     img: styles.margins,
     li: {...styles.paragraph, ...styles.margins},
     p: {...styles.paragraph, ...styles.margins},
@@ -104,6 +105,11 @@ const createStyles: (
         fontFamily: text.fontWeight.bold,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
+      },
+      titleLevel4: {
+        fontFamily: text.fontWeight.bold,
+        fontSize: text.fontSize.h4,
+        lineHeight: text.lineHeight.h4 * text.fontSize.h4,
       },
     }
   }

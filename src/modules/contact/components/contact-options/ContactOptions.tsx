@@ -9,7 +9,7 @@ import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ContactOption} from '@/modules/contact/components'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText, openPhoneUrl} from '@/utils'
+import {accessibleText, formatPhoneNumber, openPhoneUrl} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
 
 type ContactOptionType = {
@@ -65,7 +65,7 @@ export const ContactOptions = () => {
           'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
         icon: <Whatsapp {...iconProps} />,
         text: 'Reactie binnen 2 uur',
-        title: 'WhatsApp 06 44 44 06 55',
+        title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
       },
     },
     {

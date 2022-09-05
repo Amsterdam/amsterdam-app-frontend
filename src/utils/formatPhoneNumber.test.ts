@@ -2,7 +2,7 @@ import {formatPhoneNumber} from './formatPhoneNumber'
 
 describe('formatPhoneNumber', () => {
   it('formats a mobile phone number', () => {
-    expect(formatPhoneNumber('0612345678')).toEqual('06 12 34 56 78')
+    expect(formatPhoneNumber('0612345678')).toEqual('06 1234 5678')
   })
   it('formats a landline number for Amsterdam', () => {
     expect(formatPhoneNumber('0201234567')).toEqual('020 123 4567')
