@@ -14,8 +14,10 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 const getVisitingHoursSentence = () => {
   const visitingState = getVisitingState()
+
   if (visitingState) {
     const {preposition, dayName, time24hr, time12hr} = visitingState
+
     return {
       full: ['We zijn open', preposition, dayName, time24hr, 'uur.']
         .filter(nonNullable)
@@ -24,9 +26,9 @@ const getVisitingHoursSentence = () => {
         .filter(nonNullable)
         .join(' '),
     }
-  } else {
-    return {full: '', compact: ''}
   }
+
+  return {full: '', compact: ''}
 }
 
 const getTooltipContent = (compact?: boolean) => {
@@ -50,8 +52,8 @@ const getTooltipContent = (compact?: boolean) => {
 export const VisitingHours = () => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
-
   const visitingHoursSentence = getVisitingHoursSentence()
+
   return (
     <Column gutter="md">
       <Row gutter="sm" valign="center">
