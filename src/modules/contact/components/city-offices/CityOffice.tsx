@@ -16,14 +16,15 @@ type Props = {
 
 export const CityOffice = ({data}: Props) => {
   const environment = useEnvironment()
-  const {title, image, address, appointment, directionsUrl} = data
+  const {title, image, address, appointment, addressContent, directionsUrl} =
+    data
 
   return (
     <>
       <Column gutter="lg">
         <Image source={mapImageSources(image.sources, environment)} />
         <Box insetHorizontal="md">
-          <NameAndAddress {...{address, title}} />
+          <NameAndAddress {...{address, addressContent, title}} />
         </Box>
         <Column gutter="md">
           <Column gutter="sm">

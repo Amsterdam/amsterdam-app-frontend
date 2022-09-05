@@ -149,7 +149,6 @@ export const cityOffices: CityOffice[] = [
       title: 'Parkeren in de Bomengarage (P2)',
       html: '<p><span class="Calltoaction-grijs">Het parkeerterrein bij Stadsloket Noord is opgeheven. U kunt parkeren in de Bomengarage aan de IJdoornlaan (P2). Bij het Stadsloket zijn nog wel parkeerplaatsen voor gehandicapten.</span></p>',
     },
-
     coordinates: {
       lat: 52.4010321,
       lon: 4.9309679,
