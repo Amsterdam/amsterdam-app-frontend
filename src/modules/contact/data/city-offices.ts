@@ -413,9 +413,29 @@ export const cityOffices: CityOffice[] = [
       text: 'U kunt alleen langskomen als u in Weesp woont en een afspraak hebt.',
       url: 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx/',
     },
-    visitingHoursContent: {
-      title: 'Openingstijden burgerzaken, altijd met afspraak:',
-      html: '<ul><li>maandag van 08.30 tot 12.00 uur</li><li>dinsdag van 08.30 tot 12.00 uur zonder afspraak</li><li>dinsdag van 14.00 tot 16.00 uur</li><li>woensdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>donderdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>vrijdag van 08.30 tot 12.00 uur</li></ul><h4 id="h0319e974-93ff-4733-bc32-7a2a3743263f">Openingstijden receptie en informatiecentrum</h4><p>Voor informatie over stadsgebied Weesp kunt u terecht bij de receptie of het informatiecentrum.</p><ul><li>maandag, dinsdag, woensdag, donderdag: 8.30 - 17.00 uur</li><li>vrijdag: 8.30 - 12.00 uur</li><li>Stadsloket gesloten tijdens <a href="https://www.amsterdam.nl/veelgevraagd/?caseid=%7B7FE77A97-A961-49DA-8E9B-C5F55C692EB6%7D" class="externLink ga-tracked">de feestdagen</a>.</li></ul><h4 id="h199ee306-f236-441e-99d6-50a1225e5a2c">Openingstijden Sociaal loket, altijd met afspraak:</h4><ul><li>maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur</li><li>woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.</li></ul>\n',
-    },
+    visitingHoursContent:
+      '<div class="iprox-rich-content iprox-content tekst">\n' +
+      '<h3 id="h66ac9756-1f33-45a7-83fc-a94c2b490104">Openingstijden burgerzaken, altijd met afspraak:</h3>\n' +
+      '<ul>\n' +
+      '<li>maandag van 08.30 tot 12.00 uur\n' +
+      '</li><li>dinsdag van 08.30 tot 12.00 uur zonder afspraak\n' +
+      '</li><li>dinsdag van 14.00 tot 16.00 uur\n' +
+      '</li><li>woensdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur\n' +
+      '</li><li>donderdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur\n' +
+      '</li><li>vrijdag van 08.30 tot 12.00 uur\n' +
+      '</li></ul>\n' +
+      '<h4 id="h0319e974-93ff-4733-bc32-7a2a3743263f">Openingstijden receptie en informatiecentrum</h4>\n' +
+      '<p>Voor informatie over stadsgebied Weesp kunt u terecht bij de receptie of het informatiecentrum.</p>\n' +
+      '<ul>\n' +
+      '<li>maandag, dinsdag, woensdag, donderdag: 8.30 - 17.00 uur\n' +
+      '</li><li>vrijdag: 8.30 - 12.00 uur\n' +
+      '</li><li>Stadsloket gesloten tijdens <a href="https://www.amsterdam.nl/veelgevraagd/?caseid=%7B7FE77A97-A961-49DA-8E9B-C5F55C692EB6%7D" class="externLink ga-tracked">de feestdagen</a>.\n' +
+      '</li></ul>\n' +
+      '<h4 id="h199ee306-f236-441e-99d6-50a1225e5a2c">Openingstijden Sociaal loket, altijd met afspraak:</h4>\n' +
+      '<ul>\n' +
+      '<li>maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur\n' +
+      '</li><li>woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.\n' +
+      '</li></ul>\n' +
+      '</div>',
   },
 ]

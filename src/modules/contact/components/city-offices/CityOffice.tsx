@@ -1,5 +1,5 @@
 import {Button} from '_components/ui/buttons'
-import {Paragraph} from '_components/ui/text'
+import {Article, Paragraph} from '_components/ui/text'
 import {openWebUrl} from '_utils/openWebUrl'
 import React from 'react'
 import {Box} from '@/components/ui'
@@ -16,8 +16,15 @@ type Props = {
 
 export const CityOffice = ({data}: Props) => {
   const environment = useEnvironment()
-  const {title, image, address, appointment, addressContent, directionsUrl} =
-    data
+  const {
+    title,
+    image,
+    address,
+    appointment,
+    addressContent,
+    directionsUrl,
+    visitingHoursContent,
+  } = data
 
   return (
     <>
@@ -28,7 +35,11 @@ export const CityOffice = ({data}: Props) => {
         </Box>
         <Column gutter="md">
           <Column gutter="sm">
-            <VisitingHours />
+            {visitingHoursContent ? (
+              <Article content={visitingHoursContent} />
+            ) : (
+              <VisitingHours />
+            )}
             {!!appointment && (
               <Paragraph variant="small">{appointment.text}</Paragraph>
             )}

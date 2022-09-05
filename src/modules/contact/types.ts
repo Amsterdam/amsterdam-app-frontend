@@ -10,7 +10,7 @@ export type CityOffice = {
   addressContent?: Section
   coordinates: Coordinates
   directionsUrl: string
-  visitingHoursContent?: Section
+  visitingHoursContent?: string
   appointment?: {
     text: string
     url: string
