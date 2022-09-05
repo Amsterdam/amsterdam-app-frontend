@@ -28,7 +28,7 @@ export const ContactOptions = () => {
   const contactOptions: ContactOptionType[] = [
     {
       buttonProps: {
-        accessibilityRole: 'button',
+        accessibilityRole: 'link',
         key: 'email',
         onPress: () =>
           openWebUrl(
@@ -43,7 +43,7 @@ export const ContactOptions = () => {
     },
     {
       buttonProps: {
-        accessibilityRole: 'link',
+        accessibilityRole: 'button',
         key: 'phone',
         onPress: () => openPhoneUrl('+3114020'),
       },
@@ -56,7 +56,7 @@ export const ContactOptions = () => {
     },
     {
       buttonProps: {
-        accessibilityRole: 'link',
+        accessibilityRole: 'button',
         key: 'whatsapp',
         onPress: () => openWebUrl('https://wa.me/31644440655'),
       },
