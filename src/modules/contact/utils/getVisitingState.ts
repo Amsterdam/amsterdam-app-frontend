@@ -17,7 +17,7 @@ export const getVisitingState = (date: Dayjs = dayjs()): VisitingState => {
   for (let offset = 0; offset <= 31; offset++) {
     const candidate = date.startOf('day').add(offset, 'day')
 
-    // Find the first upcoming date with opening times
+    // Find the first upcoming date with opening times.
     const candidateVisitingHours = visitingHours.find(
       ({closing, dayOfWeek}) =>
         candidate.day() === dayOfWeek &&
