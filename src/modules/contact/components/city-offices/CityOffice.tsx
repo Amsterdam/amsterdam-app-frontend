@@ -1,3 +1,6 @@
+import {Button} from '_components/ui/buttons'
+import {Paragraph} from '_components/ui/text'
+import {openWebUrl} from '_utils/openWebUrl'
 import React from 'react'
 import {Box} from '@/components/ui'
 import {Column, Gutter} from '@/components/ui/layout'
@@ -13,7 +16,7 @@ type Props = {
 
 export const CityOffice = ({data}: Props) => {
   const environment = useEnvironment()
-  const {title, image, address} = data
+  const {title, image, address, appointment} = data
 
   return (
     <>
@@ -22,6 +25,15 @@ export const CityOffice = ({data}: Props) => {
         <Column gutter="lg">
           <NameAndAddress {...{address, title}} />
           <VisitingHours />
+          {!!appointment && (
+            <Paragraph variant="small">{appointment.text}</Paragraph>
+          )}
+          {!!appointment && (
+            <Button
+              label="Maak een afspraak"
+              onPress={() => openWebUrl(appointment.url)}
+            />
+          )}
         </Column>
       </Box>
       {/* TODO Remove when we only show one city office through bottom sheet. */}

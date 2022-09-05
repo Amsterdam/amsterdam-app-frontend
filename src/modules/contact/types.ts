@@ -7,12 +7,14 @@ export type CityOffice = {
   title: string
   image: Image
   address: Address
-  addressContent?: Section[]
+  addressContent?: Section
   coordinates: Coordinates
   directionsLink: Link
-  visitingContent?: Section[]
-  visitingHoursContent?: Section[]
-  appointmentLink?: Link
+  visitingHoursContent?: Section
+  appointment?: {
+    text: string
+    url: string
+  }
 }
 
 type Address = {

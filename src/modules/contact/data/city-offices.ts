@@ -151,12 +151,11 @@ export const cityOffices: CityOffice[] = [
       postalCode: '1025 XL',
       city: 'Amsterdam',
     },
-    addressContent: [
-      {
-        title: 'Parkeren in de Bomengarage (P2)',
-        html: '<p><span class="Calltoaction-grijs">Het parkeerterrein bij Stadsloket Noord is opgeheven. U kunt parkeren in de Bomengarage aan de IJdoornlaan (P2).&nbsp;Bij het Stadsloket zijn nog wel parkeerplaatsen voor gehandicapten.</span></p>',
-      },
-    ],
+    addressContent: {
+      title: 'Parkeren in de Bomengarage (P2)',
+      html: '<p><span class="Calltoaction-grijs">Het parkeerterrein bij Stadsloket Noord is opgeheven. U kunt parkeren in de Bomengarage aan de IJdoornlaan (P2). Bij het Stadsloket zijn nog wel parkeerplaatsen voor gehandicapten.</span></p>',
+    },
+
     coordinates: {
       lat: 52.4010321,
       lon: 4.9309679,
@@ -324,13 +323,8 @@ export const cityOffices: CityOffice[] = [
       label: 'Route',
       url: 'https://goo.gl/maps/HyL7XrhK9U8PtwRH9',
     },
-    visitingContent: [
-      {
-        html: '<p id="h0e64c76f-52aa-46fb-a65e-c0d2d5c898f4">U kunt in Stadsloket Zuid&nbsp;<strong>alleen langskomen&nbsp;als u een afspraak hebt</strong>. Een afspraak maakt u gemakkelijk en gratis zelf.</p>',
-      },
-    ],
-    appointmentLink: {
-      label: 'Afspraak maken op het Stadsloket',
+    appointment: {
+      text: 'U kunt alleen langskomen als u een afspraak hebt.',
       url: 'https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/',
     },
   },
@@ -439,20 +433,13 @@ export const cityOffices: CityOffice[] = [
       label: 'Route',
       url: 'https://www.google.com/maps/place/Gemeente+Weesp+en+Gem+Instellingen/@52.3067429,5.0401705,17z/data=!4m12!1m6!3m5!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!2sGemeente+Weesp+en+Gem+Instellingen!8m2!3d52.3067388!4d5.0423473!3m4!1s0x47c60da2b1e577bf:0xefe4bf795ddbf05!8m2!3d52.3067388!4d5.0423473',
     },
-    visitingContent: [
-      {
-        html: '<p id="h0e64c76f-52aa-46fb-a65e-c0d2d5c898f4">U kunt alleen langskomen&nbsp;als u in Weesp woont en een afspraak hebt. Een afspraak maakt u gemakkelijk en gratis zelf.</p>',
-      },
-    ],
-    visitingHoursContent: [
-      {
-        title: 'Openingstijden burgerzaken, altijd met afspraak:',
-        html: '<ul><li>maandag van 08.30 tot 12.00 uur</li><li>dinsdag&nbsp;van 08.30 tot 12.00 uur zonder afspraak</li><li>dinsdag van 14.00 tot 16.00 uur</li><li>woensdag&nbsp;van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>donderdag&nbsp;van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>vrijdag van 08.30 tot 12.00 uur</li></ul><h4 id="h0319e974-93ff-4733-bc32-7a2a3743263f">Openingstijden receptie en informatiecentrum</h4><p>Voor informatie over stadsgebied Weesp kunt u terecht bij de receptie of het informatiecentrum.</p><ul><li>maandag, dinsdag, woensdag, donderdag: 8.30 - 17.00 uur</li><li>vrijdag: 8.30 - 12.00 uur</li><li>Stadsloket gesloten tijdens <a href="https://www.amsterdam.nl/veelgevraagd/?caseid=%7B7FE77A97-A961-49DA-8E9B-C5F55C692EB6%7D" class="externLink ga-tracked">de feestdagen</a>.</li></ul><h4 id="h199ee306-f236-441e-99d6-50a1225e5a2c">Openingstijden Sociaal loket, altijd met afspraak:</h4><ul><li>maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur</li><li>woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.</li></ul>\n',
-      },
-    ],
-    appointmentLink: {
-      label: 'Afspraak maken Stadsloket Weesp',
+    appointment: {
+      text: 'U kunt alleen langskomen als u in Weesp woont en een afspraak hebt.',
       url: 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx/',
+    },
+    visitingHoursContent: {
+      title: 'Openingstijden burgerzaken, altijd met afspraak:',
+      html: '<ul><li>maandag van 08.30 tot 12.00 uur</li><li>dinsdag van 08.30 tot 12.00 uur zonder afspraak</li><li>dinsdag van 14.00 tot 16.00 uur</li><li>woensdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>donderdag van 08.30 tot 12.00 uur en 14.00 tot 16.00 uur</li><li>vrijdag van 08.30 tot 12.00 uur</li></ul><h4 id="h0319e974-93ff-4733-bc32-7a2a3743263f">Openingstijden receptie en informatiecentrum</h4><p>Voor informatie over stadsgebied Weesp kunt u terecht bij de receptie of het informatiecentrum.</p><ul><li>maandag, dinsdag, woensdag, donderdag: 8.30 - 17.00 uur</li><li>vrijdag: 8.30 - 12.00 uur</li><li>Stadsloket gesloten tijdens <a href="https://www.amsterdam.nl/veelgevraagd/?caseid=%7B7FE77A97-A961-49DA-8E9B-C5F55C692EB6%7D" class="externLink ga-tracked">de feestdagen</a>.</li></ul><h4 id="h199ee306-f236-441e-99d6-50a1225e5a2c">Openingstijden Sociaal loket, altijd met afspraak:</h4><ul><li>maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur</li><li>woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.</li></ul>\n',
     },
   },
 ]
