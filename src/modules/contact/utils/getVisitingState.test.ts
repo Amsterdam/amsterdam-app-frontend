@@ -4,7 +4,7 @@ import {getVisitingState} from './getVisitingState'
 import {Preposition} from '@/types'
 
 // Test data: various days of the week and some holidays.
-const d: Record<string, string> = {
+const d = {
   wednesday: '2022-08-31',
   thursday: '2022-09-01',
   friday: '2022-09-02',
@@ -19,7 +19,7 @@ const d: Record<string, string> = {
 }
 
 // Time zones for standard and daylight saving time.
-const tz: Record<string, string> = {
+const tz = {
   dst: '.000+02:00',
   st: '.000+01:00',
 }
@@ -347,7 +347,7 @@ describe('getVisitingState', () => {
     })
   })
   it('handles the Sunday just before DST starts', () => {
-    expect(getVisitingState(dayjs(`${d.startDst}T01:59:59${tz.st}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.dstStart}T01:59:59${tz.st}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'morgen',
       time24hr: '09.00',
@@ -355,7 +355,7 @@ describe('getVisitingState', () => {
     })
   })
   it('handles the Sunday just when DST starts', () => {
-    expect(getVisitingState(dayjs(`${d.startDst}T03:00:00${tz.dst}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.dstStart}T03:00:00${tz.dst}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'morgen',
       time24hr: '09.00',
@@ -363,7 +363,7 @@ describe('getVisitingState', () => {
     })
   })
   it('handles the Sunday just before DST ends', () => {
-    expect(getVisitingState(dayjs(`${d.endDst}T01:59:59${tz.dst}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.dstEnd}T01:59:59${tz.dst}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'morgen',
       time24hr: '09.00',
@@ -371,7 +371,7 @@ describe('getVisitingState', () => {
     })
   })
   it('handles the Sunday just when DST ends', () => {
-    expect(getVisitingState(dayjs(`${d.endDst}T02:00:00${tz.st}`))).toEqual({
+    expect(getVisitingState(dayjs(`${d.dstEnd}T02:00:00${tz.st}`))).toEqual({
       preposition: Preposition.from,
       dayName: 'morgen',
       time24hr: '09.00',
