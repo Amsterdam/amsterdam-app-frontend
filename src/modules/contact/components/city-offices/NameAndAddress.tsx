@@ -58,10 +58,10 @@ export const NameAndAddress = ({
         </Box>
       </Pressable>
       {!!addressContent && (
-        <Box insetHorizontal="md">
+        <>
           <Title level="h5" text={addressContent.title} />
           <Article content={addressContent.html} />
-        </Box>
+        </>
       )}
     </Column>
   )
