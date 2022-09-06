@@ -1,4 +1,5 @@
 export * from './city-offices/CityOffice'
+export * from './city-offices/CityOfficeButton'
 export * from './city-offices/NameAndAddress'
 export * from './city-offices/VisitingHours'
 export * from './contact-options/ContactOption'

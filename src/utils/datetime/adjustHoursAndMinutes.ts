@@ -1,4 +1,4 @@
-import {HoursAndMinutes} from '_modules/contact/types'
+import {HoursAndMinutes} from '@/modules/contact/types'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 /**

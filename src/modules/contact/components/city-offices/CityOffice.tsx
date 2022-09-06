@@ -1,5 +1,5 @@
-import {Box} from '_components/ui'
 import React from 'react'
+import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'

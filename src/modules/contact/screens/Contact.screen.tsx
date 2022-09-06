@@ -1,13 +1,18 @@
 import BottomSheet from '@gorhom/bottom-sheet'
-import {Title} from '_components/ui/text'
 import React, {useCallback, useRef, useState} from 'react'
+import {FlatList} from 'react-native'
 import {Box} from '@/components/ui'
-import {Row, Screen} from '@/components/ui/layout'
+import {Gutter, Screen} from '@/components/ui/layout'
+import {Title} from '@/components/ui/text'
 import {
   CityOffice,
+  CityOfficeButton,
   ContactOptions,
   ReferToWebsiteCard,
 } from '@/modules/contact/components'
+import {cityOffices} from '@/modules/contact/data'
+
+const gutter = () => <Gutter height="sm" />
 
 export const ContactScreen = () => {
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -33,11 +38,16 @@ export const ContactScreen = () => {
           index={-1}
           onChange={updateBottomSheetState}
           ref={bottomSheetRef}
-          snapPoints={['50%']}>
-          <Box>
-            <Row align="center">
-              <Title text="💩" />
-            </Row>
+          snapPoints={['87.5%']}>
+          <Box grow>
+            <Title level="h3" text="Stadsloketten" />
+            <Gutter height="md" />
+            <FlatList
+              data={cityOffices}
+              ItemSeparatorComponent={gutter}
+              keyExtractor={i => i.identifier}
+              renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
+            />
           </Box>
         </BottomSheet>
       }>
