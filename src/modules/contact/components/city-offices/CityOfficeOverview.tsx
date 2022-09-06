@@ -5,14 +5,21 @@ import {Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/components'
 import {cityOffices} from '@/modules/contact/data'
 
-export const CityOfficeOverview = () => (
+type Props = {
+  toggleBottomSheet: () => void
+}
+
+export const CityOfficeOverview = ({toggleBottomSheet}: Props) => (
   <Box>
     <Column gutter="sm">
       <Title level="h2" text="Bezoek ons" />
       <Grid>
         {cityOffices.map(cityOffice => (
           <GridCell key={cityOffice.identifier}>
-            <CityOffice data={cityOffice} />
+            <CityOffice
+              data={cityOffice}
+              toggleBottomSheet={toggleBottomSheet}
+            />
           </GridCell>
         ))}
       </Grid>
