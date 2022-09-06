@@ -1,4 +1,7 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+} from '@gorhom/bottom-sheet'
 import React, {useCallback, useRef, useState} from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui'
@@ -12,7 +15,11 @@ import {
 } from '@/modules/contact/components'
 import {cityOffices} from '@/modules/contact/data'
 
-const gutter = () => <Gutter height="sm" />
+const renderBackdrop = (props: BottomSheetBackdropProps) => (
+  <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />
+)
+
+const renderGutter = () => <Gutter height="sm" />
 
 export const ContactScreen = () => {
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -34,6 +41,7 @@ export const ContactScreen = () => {
     <Screen
       stickyFooter={
         <BottomSheet
+          backdropComponent={renderBackdrop}
           enablePanDownToClose
           index={-1}
           onChange={updateBottomSheetState}
@@ -44,7 +52,7 @@ export const ContactScreen = () => {
             <Gutter height="md" />
             <FlatList
               data={cityOffices}
-              ItemSeparatorComponent={gutter}
+              ItemSeparatorComponent={renderGutter}
               keyExtractor={i => i.identifier}
               renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
             />
