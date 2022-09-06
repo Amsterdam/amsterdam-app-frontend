@@ -13,6 +13,7 @@ import {addressSlice} from '@/modules/address/addressSlice'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
+import {contactSlice} from '@/modules/contact/slice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
@@ -25,6 +26,11 @@ const addressPersistConfig = {
   key: 'address',
   storage: AsyncStorage,
   blacklist: ['temp'],
+}
+
+const contactPersistConfig = {
+  key: 'contact',
+  storage: AsyncStorage,
 }
 
 const environmentPersistConfig = {
@@ -58,6 +64,7 @@ const rootReducer = combineReducers({
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   alert: alertSlice.reducer,
   auth: authSlice.reducer,
+  contact: persistReducer(contactPersistConfig, contactSlice.reducer),
   environment: persistReducer(
     environmentPersistConfig,
     environmentSlice.reducer,

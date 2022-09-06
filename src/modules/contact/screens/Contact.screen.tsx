@@ -54,7 +54,12 @@ export const ContactScreen = () => {
               data={cityOffices}
               ItemSeparatorComponent={renderGutter}
               keyExtractor={i => i.identifier}
-              renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
+              renderItem={({item}) => (
+                <CityOfficeButton
+                  cityOffice={item}
+                  toggleBottomSheet={toggleBottomSheet}
+                />
+              )}
             />
           </Box>
         </BottomSheet>

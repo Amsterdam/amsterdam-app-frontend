@@ -1,11 +1,14 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {SomethingWentWrong} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
 import {cityOffices} from '@/modules/contact/data'
+import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
 import {mapImageSources} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
@@ -16,6 +19,14 @@ type Props = {
 
 export const CityOffice = ({toggleBottomSheet}: Props) => {
   const environment = useEnvironment()
+  const cityOfficeId =
+    useSelector(selectCityOffice) ?? cityOffices[0].identifier
+  const cityOffice = cityOffices.find(c => c.identifier === cityOfficeId)
+
+  if (!cityOffice) {
+    return <SomethingWentWrong />
+  }
+
   const {
     title,
     image,
@@ -24,7 +35,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
     addressContent,
     directionsUrl,
     visitingHoursContent,
-  } = cityOffices[0]
+  } = cityOffice
 
   return (
     <Box>
