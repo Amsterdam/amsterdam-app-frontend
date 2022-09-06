@@ -4,7 +4,7 @@ import React, {useCallback, useRef, useState} from 'react'
 import {Box} from '@/components/ui'
 import {Row, Screen} from '@/components/ui/layout'
 import {
-  CityOfficeOverview,
+  CityOffice,
   ContactOptions,
   ReferToWebsiteCard,
 } from '@/modules/contact/components'
@@ -42,7 +42,7 @@ export const ContactScreen = () => {
         </BottomSheet>
       }>
       <ContactOptions />
-      <CityOfficeOverview toggleBottomSheet={toggleBottomSheet} />
+      <CityOffice toggleBottomSheet={toggleBottomSheet} />
       <ReferToWebsiteCard />
     </Screen>
   )

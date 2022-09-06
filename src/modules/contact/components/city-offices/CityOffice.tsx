@@ -1,20 +1,20 @@
+import {Box} from '_components/ui'
 import React from 'react'
 import {Button} from '@/components/ui/buttons'
-import {Column, Gutter} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
-import {CityOffice as CityOfficeType} from '@/modules/contact/types'
+import {cityOffices} from '@/modules/contact/data'
 import {useEnvironment} from '@/store'
 import {mapImageSources} from '@/utils'
 import {openWebUrl} from '@/utils/openWebUrl'
 
 type Props = {
-  data: CityOfficeType
   toggleBottomSheet: () => void
 }
 
-export const CityOffice = ({data, toggleBottomSheet}: Props) => {
+export const CityOffice = ({toggleBottomSheet}: Props) => {
   const environment = useEnvironment()
   const {
     title,
@@ -24,10 +24,10 @@ export const CityOffice = ({data, toggleBottomSheet}: Props) => {
     addressContent,
     directionsUrl,
     visitingHoursContent,
-  } = data
+  } = cityOffices[0]
 
   return (
-    <>
+    <Box>
       <Column gutter="lg">
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress
@@ -62,8 +62,6 @@ export const CityOffice = ({data, toggleBottomSheet}: Props) => {
           )}
         </Column>
       </Column>
-      {/* TODO Remove when we only show one city office through bottom sheet. */}
-      <Gutter height="xl" />
-    </>
+    </Box>
   )
 }
