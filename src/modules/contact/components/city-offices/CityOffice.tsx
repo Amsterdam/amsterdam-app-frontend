@@ -40,7 +40,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
     <Box>
       <Title level="h2" text="Bezoek ons" />
       <Gutter height="md" />
-      <Column gutter="lg">
+      <Column gutter="md">
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress
           {...{address, addressContent, title}}

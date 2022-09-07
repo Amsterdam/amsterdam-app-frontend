@@ -9,7 +9,7 @@ import {Theme, useThemable} from '@/themes'
 
 type ButtonVariants = 'primary' | 'tertiary' | 'negative'
 
-type Props = {
+export type PressableProps = {
   children: ReactNode
   variant?: ButtonVariants
 } & Omit<PressableRNProps, 'style'> &
@@ -19,7 +19,7 @@ export const Pressable = ({
   children,
   variant = 'tertiary',
   ...otherProps
-}: Props) => {
+}: PressableProps) => {
   const {inset = 'no', insetHorizontal, insetVertical} = otherProps
   const styles = useThemable(createStyles(variant))
 
