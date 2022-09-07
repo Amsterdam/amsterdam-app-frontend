@@ -1,6 +1,11 @@
 import React, {ReactNode} from 'react'
-import {useInitSentry, useModules, useRegisterDevice, useSentry} from '@/hooks'
-import {useAppState} from '@/hooks/useAppState'
+import {
+  useAppState,
+  useInitSentry,
+  useModules,
+  useRegisterDevice,
+  useSentry,
+} from '@/hooks'
 import {useConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks'
 import {getPushNotificationsPermission} from '@/processes'
 

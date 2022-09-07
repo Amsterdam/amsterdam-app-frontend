@@ -1,7 +1,6 @@
 import {useEffect, useMemo, useState} from 'react'
 import {useSelector} from 'react-redux'
-import {useSentry} from '@/hooks'
-import {useAppState} from '@/hooks/useAppState'
+import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
 import {ModuleServerConfig} from '@/modules/types'
 import {useGetModulesForAppQuery} from '@/services'

@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,

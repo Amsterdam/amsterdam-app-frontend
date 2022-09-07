@@ -6,7 +6,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,

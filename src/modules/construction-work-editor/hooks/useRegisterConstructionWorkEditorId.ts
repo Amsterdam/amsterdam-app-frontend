@@ -1,8 +1,10 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRegisterDevice, useSentry} from '@/hooks'
-import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditor'
-import {useSetConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditorCredentials'
+import {
+  useConstructionWorkEditor,
+  useSetConstructionWorkEditorCredentials,
+} from '@/modules/construction-work-editor/hooks'
 import {
   addConstructionWorkEditorId,
   selectConstructionWorkEditorHasSeenWelcomeMessage,

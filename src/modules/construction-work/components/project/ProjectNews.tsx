@@ -5,7 +5,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
