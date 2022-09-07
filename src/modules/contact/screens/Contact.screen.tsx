@@ -10,7 +10,7 @@ import {
   SelectCityOffice,
 } from '@/modules/contact/components'
 
-const renderBackdrop = (props: BottomSheetBackdropProps) => (
+const Backdrop = (props: BottomSheetBackdropProps) => (
   <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />
 )
 
@@ -34,7 +34,7 @@ export const ContactScreen = () => {
     <Screen
       stickyFooter={
         <BottomSheet
-          backdropComponent={renderBackdrop}
+          backdropComponent={Backdrop}
           enablePanDownToClose
           index={-1}
           onChange={updateBottomSheetState}

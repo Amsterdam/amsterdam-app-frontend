@@ -10,7 +10,7 @@ type Props = {
   toggleBottomSheet: () => void
 }
 
-const renderGutter = () => <Gutter height="sm" />
+const ItemSeparator = () => <Gutter height="sm" />
 
 export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
   return (
@@ -19,7 +19,7 @@ export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
       <Gutter height="md" />
       <FlatList
         data={cityOffices}
-        ItemSeparatorComponent={renderGutter}
+        ItemSeparatorComponent={ItemSeparator}
         keyExtractor={i => i.identifier}
         renderItem={({item}) => (
           <CityOfficeButton
