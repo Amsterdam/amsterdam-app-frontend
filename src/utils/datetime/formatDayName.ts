@@ -1,5 +1,4 @@
-import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
-import {isTomorrow} from '@/utils/datetime/isTomorrow'
+import {dayjs, Dayjs, isTomorrow} from '@/utils'
 
 /**
  * Returns the name of a given day,

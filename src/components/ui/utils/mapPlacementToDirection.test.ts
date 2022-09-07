@@ -1,5 +1,5 @@
 import {Direction, Placement} from '@/components/ui/types'
-import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
+import {mapPlacementToDirection} from '@/components/ui/utils'
 
 test('placement is `top`', () =>
   expect(mapPlacementToDirection(Placement.above)).toBe(Direction.down))

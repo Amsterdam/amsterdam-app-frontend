@@ -1,5 +1,5 @@
 import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
-import {nonNullable} from '@/utils/nonNullable'
+import {nonNullable} from '@/utils'
 
 export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],

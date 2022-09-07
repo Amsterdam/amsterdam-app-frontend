@@ -1,6 +1,4 @@
-import {getPreviousDay} from '@/utils/datetime/getPreviousDay'
-import {parseDays} from '@/utils/datetime/parseDays'
-import {parseTime} from '@/utils/datetime/parseTime'
+import {getPreviousDay, parseDays, parseTime} from '@/utils'
 
 /**
  * Returns a well-formed sentence for one or more days and times.
@@ -43,6 +41,7 @@ export const formatDatesTimes = (
     return daysList
       .map(d => {
         const pd = getPreviousDay(d)
+
         return `${pd} vanaf ${fromTime} uur tot ${d} ${untilTime} uur`
       })
       .join(' en ')

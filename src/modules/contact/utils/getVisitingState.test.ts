@@ -1,6 +1,6 @@
 import {getVisitingState} from './getVisitingState'
 import {Preposition} from '@/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjs} from '@/utils'
 
 // Test data: various days of the week and some holidays.
 const d = {

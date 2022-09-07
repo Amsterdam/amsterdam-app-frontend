@@ -1,5 +1,4 @@
-import {cutAmountOfCharsFromString} from '@/utils/cutAmountOfCharsFromString'
-import {formatDate} from '@/utils/datetime/formatDate'
+import {cutAmountOfCharsFromString, formatDate} from '@/utils'
 
 export const formatDateToDisplay = (date: string) => {
   const dateToDisplay = formatDate(date)
@@ -8,5 +7,6 @@ export const formatDateToDisplay = (date: string) => {
     amount: 5,
     position: 'end',
   })
+
   return dateToDisplayWithoutYear
 }

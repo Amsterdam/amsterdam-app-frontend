@@ -1,5 +1,4 @@
-import {injectCommas} from '@/utils/accessibility/injectCommas'
-import {replaceAbbreviations} from '@/utils/accessibility/replaceAbbreviations'
+import {injectCommas, replaceAbbreviations} from '@/utils'
 
 export const accessibleText = (...fragments: (string | undefined)[]) =>
   replaceAbbreviations(injectCommas(...fragments))

@@ -9,8 +9,12 @@ import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ContactOption} from '@/modules/contact/components'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText, formatPhoneNumber, openPhoneUrl} from '@/utils'
-import {openWebUrl} from '@/utils/openWebUrl'
+import {
+  accessibleText,
+  formatPhoneNumber,
+  openPhoneUrl,
+  openWebUrl,
+} from '@/utils'
 
 type ContactOptionType = {
   buttonProps: PressableProps & {key: Key}
