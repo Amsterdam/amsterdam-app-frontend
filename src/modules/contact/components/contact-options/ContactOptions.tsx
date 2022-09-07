@@ -15,74 +15,57 @@ import {
   openWebUrl,
 } from '@/utils'
 
-type ContactOptionType = {
-  buttonProps: PressableProps & {key: Key}
-  contactProps: {
-    accessibilityTitle?: string
-    icon: ReactNode
-    text: string
-    title: string
-  }
-}
+type ContactOption = {
+  key: Key
+  icon: ReactNode
+  text: string
+  title: string
+} & Partial<
+  Pick<PressableProps, 'accessibilityLabel' | 'accessibilityRole' | 'onPress'>
+>
 
 export const ContactOptions = () => {
   const iconProps = useThemable(createIconProps)
 
-  const contactOptions: ContactOptionType[] = [
+  const contactOptions: ContactOption[] = [
     {
-      buttonProps: {
-        accessibilityRole: 'link',
-        key: 'email',
-        onPress: () =>
-          openWebUrl(
-            'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
-          ),
-      },
-      contactProps: {
-        icon: <Email {...iconProps} />,
-        text: 'Reactie binnen 1 werkdag',
-        title: 'Contactformulier',
-      },
+      accessibilityRole: 'link',
+      icon: <Email {...iconProps} />,
+      key: 'email',
+      onPress: () =>
+        openWebUrl(
+          'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
+        ),
+      text: 'Reactie binnen 1 werkdag',
+      title: 'Contactformulier',
     },
     {
-      buttonProps: {
-        accessibilityRole: 'button',
-        key: 'phone',
-        onPress: () => openPhoneUrl('+3114020'),
-      },
-      contactProps: {
-        accessibilityTitle: 'Bel veertien nul twintig',
-        icon: <Phone {...iconProps} />,
-        text: 'Gemiddeld 5 minuten wachten',
-        title: 'Bel 14 020',
-      },
+      accessibilityRole: 'button',
+      accessibilityLabel: 'Bel veertien nul twintig',
+      icon: <Phone {...iconProps} />,
+      key: 'phone',
+      onPress: () => openPhoneUrl('+3114020'),
+      text: 'Gemiddeld 5 minuten wachten',
+      title: 'Bel 14 020',
     },
     {
-      buttonProps: {
-        accessibilityRole: 'button',
-        key: 'whatsapp',
-        onPress: () => openWebUrl('https://wa.me/31644440655'),
-      },
-      contactProps: {
-        accessibilityTitle:
-          'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-        icon: <Whatsapp {...iconProps} />,
-        text: 'Reactie binnen 2 uur',
-        title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
-      },
+      accessibilityRole: 'button',
+      accessibilityLabel:
+        'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
+      icon: <Whatsapp {...iconProps} />,
+      key: 'whatsapp',
+      onPress: () => openWebUrl('https://wa.me/31644440655'),
+      text: 'Reactie binnen 2 uur',
+      title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
     },
     {
-      buttonProps: {
-        accessibilityRole: 'link',
-        key: 'mijn-amsterdam',
-        onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
-      },
-      contactProps: {
-        accessibilityTitle: 'Ga naar Mijn Amsterdam',
-        icon: <PersonalLogin {...iconProps} />,
-        text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
-        title: 'Mijn Amsterdam',
-      },
+      accessibilityRole: 'link',
+      accessibilityLabel: 'Ga naar Mijn Amsterdam',
+      icon: <PersonalLogin {...iconProps} />,
+      key: 'mijn-amsterdam',
+      onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
+      text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
+      title: 'Mijn Amsterdam',
     },
   ]
 
@@ -96,14 +79,13 @@ export const ContactOptions = () => {
           </Paragraph>
         </Column>
         <Column gutter="sm">
-          {contactOptions.map(({buttonProps, contactProps}) => (
+          {contactOptions.map(props => (
             <IconWithTitleButton
               accessibilityLabel={accessibleText(
-                contactProps.accessibilityTitle ?? contactProps.title,
-                contactProps.text,
+                props.accessibilityLabel ?? props.title,
+                props.text,
               )}
-              {...buttonProps}
-              {...contactProps}
+              {...props}
             />
           ))}
         </Column>
