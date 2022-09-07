@@ -1,4 +1,4 @@
-import {encryptWithAES} from '@/utils'
+import {encryptWithAES} from '@/utils/encryption'
 
 export const getAuthToken = (salt = ''): string =>
   encryptWithAES({

@@ -1,4 +1,4 @@
-import {dayjs} from '@/utils'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Converts string to date

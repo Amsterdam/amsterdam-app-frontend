@@ -1,5 +1,5 @@
 import {HoursAndMinutes} from '@/modules/contact/types'
-import {Dayjs} from '@/utils'
+import {Dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Applies the given hours and minutes to a date

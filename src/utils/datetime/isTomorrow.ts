@@ -1,4 +1,4 @@
-import {dayjs, Dayjs} from '@/utils'
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 
 /**
  * Whether the given date is tomorrow,

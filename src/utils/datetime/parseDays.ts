@@ -1,4 +1,4 @@
-import {days} from '@/utils'
+import {days} from '@/utils/datetime/days'
 
 /**
  * Returns an array of day names found in a string.

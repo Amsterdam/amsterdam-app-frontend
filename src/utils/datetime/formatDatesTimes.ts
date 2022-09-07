@@ -1,4 +1,6 @@
-import {getPreviousDay, parseDays, parseTime} from '@/utils'
+import {getPreviousDay} from '@/utils/datetime/getPreviousDay'
+import {parseDays} from '@/utils/datetime/parseDays'
+import {parseTime} from '@/utils/datetime/parseTime'
 
 /**
  * Returns a well-formed sentence for one or more days and times.
