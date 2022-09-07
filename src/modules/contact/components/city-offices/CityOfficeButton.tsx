@@ -19,13 +19,13 @@ export const CityOfficeButton = ({cityOffice, toggleBottomSheet}: Props) => {
   const dispatch = useDispatch()
   const iconProps = useThemable(createIconProps)
 
-  const changeCityOffice = (identifier: CityOffice['identifier']) => {
+  const selectCityOffice = (identifier: CityOffice['identifier']) => {
     dispatch(setSelectedCityOffice(identifier))
     toggleBottomSheet()
   }
 
   return (
-    <Pressable onPress={() => changeCityOffice(cityOffice.identifier)}>
+    <Pressable onPress={() => selectCityOffice(cityOffice.identifier)}>
       <Box>
         <Row gutter="md">
           <Icon size={24}>
