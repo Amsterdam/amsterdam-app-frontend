@@ -45,7 +45,11 @@ module.exports = {
             cacheDirectory: true,
             presets,
             sourceMaps: true,
-            plugins: ['react-native-web'],
+            plugins: [
+              'react-native-web',
+              '@babel/plugin-proposal-export-namespace-from',
+              'react-native-reanimated/plugin',
+            ],
           },
         },
         exclude: /node_modules/,
@@ -58,6 +62,11 @@ module.exports = {
             options: {
               sourceType: 'unambiguous',
               sourceMaps: true,
+              plugins: [
+                'react-native-web',
+                '@babel/plugin-proposal-export-namespace-from',
+                'react-native-reanimated/plugin',
+              ],
             },
           },
         ],
