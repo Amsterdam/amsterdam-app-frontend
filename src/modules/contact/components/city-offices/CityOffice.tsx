@@ -1,21 +1,32 @@
-import {Button} from '_components/ui/buttons'
-import {Article, Paragraph} from '_components/ui/text'
-import {openWebUrl} from '_utils/openWebUrl'
 import React from 'react'
+import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
+import {Button} from '@/components/ui/buttons'
+import {SomethingWentWrong} from '@/components/ui/feedback'
 import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
+import {Article, Paragraph, Title} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
-import {CityOffice as CityOfficeType} from '@/modules/contact/types'
+import {cityOffices} from '@/modules/contact/data'
+import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
 import {mapImageSources} from '@/utils'
+import {openWebUrl} from '@/utils/openWebUrl'
 
 type Props = {
-  data: CityOfficeType
+  toggleBottomSheet: () => void
 }
 
-export const CityOffice = ({data}: Props) => {
+export const CityOffice = ({toggleBottomSheet}: Props) => {
   const environment = useEnvironment()
+  const cityOfficeId =
+    useSelector(selectCityOffice) ?? cityOffices[0].identifier
+  const cityOffice = cityOffices.find(c => c.identifier === cityOfficeId)
+
+  if (!cityOffice) {
+    return <SomethingWentWrong />
+  }
+
   const {
     title,
     image,
@@ -24,15 +35,18 @@ export const CityOffice = ({data}: Props) => {
     addressContent,
     directionsUrl,
     visitingHoursContent,
-  } = data
+  } = cityOffice
 
   return (
-    <>
+    <Box>
+      <Title level="h2" text="Bezoek ons" />
+      <Gutter height="md" />
       <Column gutter="lg">
         <Image source={mapImageSources(image.sources, environment)} />
-        <Box insetHorizontal="md">
-          <NameAndAddress {...{address, addressContent, title}} />
-        </Box>
+        <NameAndAddress
+          {...{address, addressContent, title}}
+          toggleBottomSheet={toggleBottomSheet}
+        />
         <Column gutter="md">
           <Column gutter="sm">
             {visitingHoursContent ? (
@@ -61,8 +75,6 @@ export const CityOffice = ({data}: Props) => {
           )}
         </Column>
       </Column>
-      {/* TODO Remove when we only show one city office through bottom sheet. */}
-      <Gutter height="xl" />
-    </>
+    </Box>
   )
 }
