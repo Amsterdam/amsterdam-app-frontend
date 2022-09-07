@@ -7,7 +7,6 @@ import {Screen} from '@/components/ui/layout'
 import {
   CityOffice,
   ContactOptions,
-  ReferToWebsiteCard,
   SelectCityOffice,
 } from '@/modules/contact/components'
 
@@ -46,7 +45,6 @@ export const ContactScreen = () => {
       }>
       <ContactOptions />
       <CityOffice toggleBottomSheet={toggleBottomSheet} />
-      <ReferToWebsiteCard />
     </Screen>
   )
 }
