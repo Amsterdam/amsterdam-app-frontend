@@ -76,7 +76,7 @@ const ListItem = ({
 
   return (
     <ProjectCard
-      imageSource={mapImageSources(project.images?.[0].sources, environment)}
+      imageSource={mapImageSources(project.images?.[0]?.sources, environment)}
       kicker={projectTraits}
       onPress={() =>
         navigation.navigate(ConstructionWorkRouteName.project, {
