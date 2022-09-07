@@ -8,7 +8,7 @@ import {
   selectConstructionWorkEditorHasSeenWelcomeMessage,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
-import {useFollowProjectMutation} from '@/modules/construction-work/construction-work.service'
+import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
 import {setAlert, setAlertVisibility} from '@/store'
 import {Variant} from '@/types'

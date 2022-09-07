@@ -9,10 +9,10 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'
-import {addressSlice} from '@/modules/address/addressSlice'
+import {addressSlice} from '@/modules/address/slice'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
-import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
+import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {contactSlice} from '@/modules/contact/slice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
@@ -20,7 +20,7 @@ import {alertSlice} from '@/store/alertSlice'
 import {authSlice} from '@/store/authSlice'
 import {environmentSlice} from '@/store/environmentSlice'
 import {modulesSlice} from '@/store/modulesSlice'
-import {themeSlice} from '@/themes/themeSlice'
+import {themeSlice} from '@/themes/slice'
 
 const addressPersistConfig = {
   key: 'address',
