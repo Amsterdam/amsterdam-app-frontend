@@ -10,8 +10,7 @@ import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
 import {cityOffices} from '@/modules/contact/data'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
-import {mapImageSources} from '@/utils'
-import {openWebUrl} from '@/utils/openWebUrl'
+import {mapImageSources, openWebUrl} from '@/utils'
 
 type Props = {
   toggleBottomSheet: () => void

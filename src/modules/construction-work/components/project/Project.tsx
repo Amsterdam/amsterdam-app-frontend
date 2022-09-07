@@ -11,20 +11,20 @@ import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {AddressQueryArg} from '@/modules/address'
-import {selectAddress} from '@/modules/address/addressSlice'
+import {selectAddress} from '@/modules/address/slice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects'
 import {ProjectTraits} from '@/modules/construction-work/components/shared'
 import {
-  useFollowProjectMutation,
-  useGetProjectQuery,
-  useUnfollowProjectMutation,
-} from '@/modules/construction-work/construction-work.service'
-import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
+import {
+  useFollowProjectMutation,
+  useGetProjectQuery,
+  useUnfollowProjectMutation,
+} from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
 import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'

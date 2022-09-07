@@ -1,8 +1,8 @@
 import React from 'react'
 import {ProjectsList} from '@/modules/construction-work/components/projects'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
-import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
-import {useSortProjects} from '@/modules/construction-work/hooks/useSortProjects'
+import {useSortProjects} from '@/modules/construction-work/hooks'
+import {useGetProjectsQuery} from '@/modules/construction-work/service'
 
 export const ProjectsByDate = () => {
   const result = useGetProjectsQuery({

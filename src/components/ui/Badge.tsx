@@ -3,7 +3,7 @@ import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Device, DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
-import {formatNumber} from '@/utils/formatNumber'
+import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
   /**

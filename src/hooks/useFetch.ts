@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import {shallowEqual} from '@/utils/shallowEqual'
+import {shallowEqual} from '@/utils'
 
 type UseFetchProps = {
   onLoad?: boolean

@@ -6,12 +6,12 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ArticlePreview} from '@/modules/construction-work/components/article'
-import {useGetArticlesQuery} from '@/modules/construction-work/construction-work.service'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
+import {useGetArticlesQuery} from '@/modules/construction-work/service'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
 import {getYearOfPublicationDate, isEmptyObject} from '@/utils'

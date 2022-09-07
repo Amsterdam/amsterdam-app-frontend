@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {selectTheme} from '@/themes/themeSlice'
+import {selectTheme} from '@/themes/slice'
 import {Theme} from '@/themes/themes'
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-explicit-any

@@ -8,5 +8,6 @@ export const formatDateToDisplay = (date: string) => {
     amount: 5,
     position: 'end',
   })
+
   return dateToDisplayWithoutYear
 }

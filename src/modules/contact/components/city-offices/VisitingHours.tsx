@@ -9,8 +9,7 @@ import {Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
 import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText, nonNullable} from '@/utils'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {accessibleText, dayjs, nonNullable} from '@/utils'
 
 const getVisitingHoursSentence = () => {
   const visitingState = getVisitingState()

@@ -7,7 +7,7 @@ import {
   selectConstructionWorkSearchText,
   setIsSearching,
   setSearchText,
-} from '@/modules/construction-work/construction-work.slice'
+} from '@/modules/construction-work/slice'
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()

@@ -43,6 +43,7 @@ export const formatDatesTimes = (
     return daysList
       .map(d => {
         const pd = getPreviousDay(d)
+
         return `${pd} vanaf ${fromTime} uur tot ${d} ${untilTime} uur`
       })
       .join(' en ')

@@ -6,7 +6,7 @@ import {
   ReadArticle,
   addReadArticle,
   selectConstructionWorkReadArticles,
-} from '@/modules/construction-work/construction-work.slice'
+} from '@/modules/construction-work/slice'
 import {Articles} from '@/modules/construction-work/types'
 import {getDateDiffInDays} from '@/utils'
 

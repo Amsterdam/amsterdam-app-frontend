@@ -1,7 +1,6 @@
 import {holidays, visitingHours} from '@/modules/contact/data'
 import {Preposition} from '@/types'
-import {adjustHoursAndMinutes, formatDayName} from '@/utils'
-import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
+import {adjustHoursAndMinutes, dayjs, Dayjs, formatDayName} from '@/utils'
 
 type VisitingState = {
   dayName?: string

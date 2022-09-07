@@ -4,7 +4,7 @@ import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
-import {useGetProjectsQuery} from '@/modules/construction-work/construction-work.service'
+import {useGetProjectsQuery} from '@/modules/construction-work/service'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
 export const useConstructionWorkEditor = () => {

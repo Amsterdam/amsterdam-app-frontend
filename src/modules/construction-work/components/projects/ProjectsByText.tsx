@@ -4,7 +4,7 @@ import {Box} from '@/components/ui'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {ProjectsList} from '@/modules/construction-work/components/projects'
-import {useGetProjectsByTextQuery} from '@/modules/construction-work/construction-work.service'
+import {useGetProjectsByTextQuery} from '@/modules/construction-work/service'
 
 type ListHeaderProps = {
   results: number

@@ -20,11 +20,11 @@ import {
   ProjectCard,
   ProjectTraits,
 } from '@/modules/construction-work/components/shared'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   ReadArticle,
   selectConstructionWorkReadArticles,
-} from '@/modules/construction-work/construction-work.slice'
-import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+} from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'

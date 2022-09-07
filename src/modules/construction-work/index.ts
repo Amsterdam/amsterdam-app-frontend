@@ -1,5 +1,5 @@
-import {constructionWorkSlice} from '@/modules/construction-work/construction-work.slice'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 

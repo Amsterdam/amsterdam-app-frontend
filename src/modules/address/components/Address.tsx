@@ -12,11 +12,8 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
-import {
-  removePrimaryAddress,
-  selectAddress,
-} from '@/modules/address/addressSlice'
 import {AddressModalName} from '@/modules/address/routes'
+import {removePrimaryAddress, selectAddress} from '@/modules/address/slice'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'

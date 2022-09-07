@@ -2,7 +2,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
-import {selectAddress} from '@/modules/address/addressSlice'
+import {selectAddress} from '@/modules/address/slice'
 import {
   ProjectsByDate,
   ProjectsByDistance,
@@ -13,7 +13,7 @@ import {
 import {
   selectConstructionWorkIsSearching,
   selectConstructionWorkSearchText,
-} from '@/modules/construction-work/construction-work.slice'
+} from '@/modules/construction-work/slice'
 
 export const ProjectsScreen = () => {
   const {primary: address} = useSelector(selectAddress)

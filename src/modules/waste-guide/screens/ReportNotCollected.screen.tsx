@@ -2,7 +2,7 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {WebView} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
-import {selectAddress} from '@/modules/address/addressSlice'
+import {selectAddress} from '@/modules/address/slice'
 import {useEnvironment} from '@/store'
 
 export const ReportNotCollectedScreen = () => {
