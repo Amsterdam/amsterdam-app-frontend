@@ -4,10 +4,9 @@ import React, {Key, ReactNode, SVGProps} from 'react'
 import {PressableProps} from 'react-native'
 import {PersonalLogin, Whatsapp} from '@/assets/icons'
 import {Box} from '@/components/ui'
-import {Pressable} from '@/components/ui/buttons'
+import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
-import {ContactOption} from '@/modules/contact/components'
 import {Theme, useThemable} from '@/themes'
 import {
   accessibleText,
@@ -98,14 +97,14 @@ export const ContactOptions = () => {
         </Column>
         <Column gutter="sm">
           {contactOptions.map(({buttonProps, contactProps}) => (
-            <Pressable
+            <IconWithTitleButton
               accessibilityLabel={accessibleText(
                 contactProps.accessibilityTitle ?? contactProps.title,
                 contactProps.text,
               )}
-              {...buttonProps}>
-              <ContactOption {...contactProps} />
-            </Pressable>
+              {...buttonProps}
+              {...contactProps}
+            />
           ))}
         </Column>
       </Column>
@@ -114,5 +113,5 @@ export const ContactOptions = () => {
 }
 
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.pressable.default.background,
+  fill: color.text.link,
 })
