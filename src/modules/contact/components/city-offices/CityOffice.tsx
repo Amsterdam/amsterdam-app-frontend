@@ -3,9 +3,9 @@ import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {SomethingWentWrong} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
+import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Article, Paragraph} from '@/components/ui/text'
+import {Article, Paragraph, Title} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
 import {cityOffices} from '@/modules/contact/data'
 import {selectCityOffice} from '@/modules/contact/slice'
@@ -39,6 +39,8 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
 
   return (
     <Box>
+      <Title level="h2" text="Bezoek ons" />
+      <Gutter height="md" />
       <Column gutter="lg">
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress

@@ -85,7 +85,7 @@ export const ContactOptions = () => {
 
   return (
     <Box>
-      <Column gutter="lg">
+      <Column gutter="md">
         <Column gutter="sm">
           <Title text="Kunnen we u helpen?" />
           <Paragraph>
