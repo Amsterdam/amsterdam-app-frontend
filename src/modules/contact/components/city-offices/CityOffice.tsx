@@ -2,12 +2,12 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {SomethingWentWrong} from '@/components/ui/feedback'
+import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {Column, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
-import {cityOffices} from '@/modules/contact/data'
+import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
 import {mapImageSources, openWebUrl} from '@/utils'
@@ -18,8 +18,14 @@ type Props = {
 
 export const CityOffice = ({toggleBottomSheet}: Props) => {
   const environment = useEnvironment()
-  const cityOfficeId =
-    useSelector(selectCityOffice) ?? cityOffices[0].identifier
+  const selectedCityOfficeId = useSelector(selectCityOffice)
+  const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
+
+  if (isLoading || !cityOffices) {
+    return <PleaseWait />
+  }
+
+  const cityOfficeId = selectedCityOfficeId ?? cityOffices[0]?.identifier
   const cityOffice = cityOffices.find(c => c.identifier === cityOfficeId)
 
   if (!cityOffice) {

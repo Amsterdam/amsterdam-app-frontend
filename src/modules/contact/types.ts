@@ -1,5 +1,11 @@
 import {Image} from '@/types'
 
+/* Endpoints */
+
+export enum ContactEndpointName {
+  getCityOffices = 'getCityOffices',
+}
+
 /* City office */
 
 export type CityOffice = {
