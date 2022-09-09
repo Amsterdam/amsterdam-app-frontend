@@ -60,17 +60,17 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
           )}
           {!!appointment && <Paragraph>{appointment.text}</Paragraph>}
         </Column>
+        {!!appointment && (
+          <Button
+            label="Maak een afspraak"
+            onPress={() => openWebUrl(appointment.url)}
+          />
+        )}
         {!!directionsUrl && (
           <Button
             label="Toon route"
             onPress={() => openWebUrl(directionsUrl)}
             variant={appointment ? 'secondary' : 'primary'}
-          />
-        )}
-        {!!appointment && (
-          <Button
-            label="Maak een afspraak"
-            onPress={() => openWebUrl(appointment.url)}
           />
         )}
       </Column>
