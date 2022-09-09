@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
-import {Column, Gutter} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
@@ -39,46 +39,42 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
     appointment,
     addressContent,
     directionsUrl,
+    visitingHours,
     visitingHoursContent,
   } = cityOffice
 
   return (
     <Box>
-      <Title level="h2" text="Bezoek ons" />
-      <Gutter height="md" />
       <Column gutter="md">
+        <Title level="h2" text="Bezoek ons" />
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress
           {...{address, addressContent, title}}
           toggleBottomSheet={toggleBottomSheet}
         />
-        <Column gutter="md">
-          <Column gutter="sm">
-            {visitingHoursContent ? (
-              <Article content={visitingHoursContent} />
-            ) : (
-              <VisitingHours />
-            )}
-            {!!appointment && (
-              <Paragraph variant="small">{appointment.text}</Paragraph>
-            )}
-          </Column>
-        </Column>
-        <Column gutter="md">
-          {!!directionsUrl && (
-            <Button
-              label="Toon route"
-              onPress={() => openWebUrl(directionsUrl)}
-              variant={appointment ? 'secondary' : 'primary'}
-            />
+        <Column gutter="sm">
+          {visitingHoursContent ? (
+            <Article content={visitingHoursContent} />
+          ) : (
+            <VisitingHours visitingHours={visitingHours.regular} />
           )}
           {!!appointment && (
-            <Button
-              label="Maak een afspraak"
-              onPress={() => openWebUrl(appointment.url)}
-            />
+            <Paragraph variant="small">{appointment.text}</Paragraph>
           )}
         </Column>
+        {!!directionsUrl && (
+          <Button
+            label="Toon route"
+            onPress={() => openWebUrl(directionsUrl)}
+            variant={appointment ? 'secondary' : 'primary'}
+          />
+        )}
+        {!!appointment && (
+          <Button
+            label="Maak een afspraak"
+            onPress={() => openWebUrl(appointment.url)}
+          />
+        )}
       </Column>
     </Box>
   )
