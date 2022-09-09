@@ -29,11 +29,8 @@ export const Modules = () => {
 
   if (!modules.length) {
     return (
-      <Box insetHorizontal="md" insetVertical="xxxl">
-        <EmptyMessage
-          text="Alle modules staan uit. Daardoor is hier niet veel te doen.
-          Zet één of meer modules aan via de instellingen rechtsboven."
-        />
+      <Box>
+        <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
       </Box>
     )
   }
