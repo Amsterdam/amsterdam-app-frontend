@@ -42,7 +42,6 @@ const getTooltipContent = (compact?: boolean) => {
       .hour(time)
       .format(compact ? 'h:mm' : 'HH.mm')
 
-  // TODO Use dayjs.format here.
   return [
     'De Stadsloketten zijn elke werkdag van',
     formatTime(9),
