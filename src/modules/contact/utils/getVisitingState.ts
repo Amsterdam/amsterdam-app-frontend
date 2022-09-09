@@ -1,4 +1,5 @@
-import {holidays, visitingHours} from '@/modules/contact/data'
+import {holidays} from '@/modules/contact/data'
+import {VisitingHour} from '@/modules/contact/types'
 import {Preposition} from '@/types'
 import {adjustHoursAndMinutes, dayjs, Dayjs, formatDayName} from '@/utils'
 
@@ -10,6 +11,7 @@ type VisitingState = {
 }
 
 export const getVisitingState = (
+  visitingHours: VisitingHour[],
   date: Dayjs = dayjs(),
 ): VisitingState | null => {
   for (let offset = 0; offset <= 31; offset++) {
