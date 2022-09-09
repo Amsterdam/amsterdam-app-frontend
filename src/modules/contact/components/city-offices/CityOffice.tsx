@@ -58,9 +58,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
           ) : (
             <VisitingHours visitingHours={visitingHours.regular} />
           )}
-          {!!appointment && (
-            <Paragraph variant="small">{appointment.text}</Paragraph>
-          )}
+          {!!appointment && <Paragraph>{appointment.text}</Paragraph>}
         </Column>
         {!!directionsUrl && (
           <Button
