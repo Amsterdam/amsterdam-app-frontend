@@ -1,28 +1,49 @@
 import React, {SVGProps} from 'react'
 import {Clock, PersonalLogin} from '@/assets/icons'
 import {Box} from '@/components/ui'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {useGetWaitingTimesQuery} from '@/modules/contact/service'
 import {Theme, useThemable} from '@/themes'
 
-export const WaitingTime = () => {
+type Props = {
+  cityOfficeId: string
+}
+
+export const WaitingTime = ({cityOfficeId}: Props) => {
+  const {data: waitingTimes, isLoading} = useGetWaitingTimesQuery()
   const iconProps = useThemable(createIconProps)
+
+  if (isLoading || !waitingTimes) {
+    return <PleaseWait />
+  }
+
+  const waitingTimesForCityOffice = waitingTimes.find(
+    w => w.identifier === cityOfficeId,
+  )
+
+  if (!waitingTimesForCityOffice) {
+    return null
+  }
+
+  const {queued, waitingTime} = waitingTimesForCityOffice
 
   return (
     <Box>
       <Column gutter="md">
-        <Row gutter="md">
+        <Row gutter="md" valign="center">
           <Icon size={32}>
             <Clock {...iconProps} />
           </Icon>
-          <Paragraph>Actuele wachttijd: 5 minuten</Paragraph>
+          <Paragraph>Actuele wachttijd {waitingTime} minuten</Paragraph>
         </Row>
-        <Row gutter="md">
+        <Row gutter="md" valign="center">
           <Icon size={32}>
             <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>Momenteel 3 wachtenden</Paragraph>
+          <Paragraph>Momenteel {queued} wachtenden</Paragraph>
         </Row>
       </Column>
     </Box>

@@ -1,4 +1,8 @@
-import {CityOffice, ContactEndpointName} from '@/modules/contact/types'
+import {
+  CityOffice,
+  ContactEndpointName,
+  WaitingTime,
+} from '@/modules/contact/types'
 import {baseApi} from '@/services'
 
 export const contactApi = baseApi.injectEndpoints({
@@ -9,8 +13,14 @@ export const contactApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: {result: CityOffice[]}) => response.result,
     }),
+    [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
+      query: () => {
+        return '/waiting_times'
+      },
+      transformResponse: (response: {result: WaitingTime[]}) => response.result,
+    }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetCityOfficesQuery} = contactApi
+export const {useGetCityOfficesQuery, useGetWaitingTimesQuery} = contactApi

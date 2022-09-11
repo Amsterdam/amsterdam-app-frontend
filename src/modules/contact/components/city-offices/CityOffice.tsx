@@ -37,6 +37,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
   }
 
   const {
+    identifier,
     title,
     image,
     address,
@@ -69,7 +70,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
             />
           </Column>
         ) : (
-          <WaitingTime />
+          <WaitingTime cityOfficeId={identifier} />
         )}
         {!!directionsUrl && (
           <Button
