@@ -1,7 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {skipToken} from '@reduxjs/toolkit/query/react'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -10,6 +16,7 @@ import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {addAddress, addTempAddress} from '@/modules/address/slice'
+import {DeviceContext} from '@/providers'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
 import {BagResponseContent} from '@/types'
 
@@ -18,6 +25,7 @@ type Props = {
 }
 
 export const AddressForm = ({temp}: Props) => {
+  const {isLandscape} = useContext(DeviceContext)
   const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -106,7 +114,7 @@ export const AddressForm = ({temp}: Props) => {
   }, [isAddressStored]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box grow>
+    <Box grow insetHorizontal="md" insetVertical={isLandscape ? 'no' : 'md'}>
       {!isStreetSelected ? (
         <StreetInput
           bagList={bagList}
