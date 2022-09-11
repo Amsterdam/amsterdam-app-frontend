@@ -1,4 +1,5 @@
 import React, {SVGProps} from 'react'
+import simplur from 'simplur'
 import {Clock, PersonalLogin} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {PleaseWait} from '@/components/ui/feedback'
@@ -29,6 +30,11 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   }
 
   const {queued, waitingTime} = waitingTimesForCityOffice
+  const queuedPhrase = simplur`${[
+    queued,
+    (q: number) => (q === 0 ? 'geen' : q),
+  ]} wachtende[|n]`
+  const waitingTimePhrase = simplur`${waitingTime} minu[ut|ten]`
 
   return (
     <Box>
@@ -37,13 +43,13 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon size={32}>
             <Clock {...iconProps} />
           </Icon>
-          <Paragraph>Actuele wachttijd {waitingTime} minuten</Paragraph>
+          <Paragraph>Actuele wachttijd {waitingTimePhrase}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
           <Icon size={32}>
             <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>Momenteel {queued} wachtenden</Paragraph>
+          <Paragraph>Momenteel {queuedPhrase}</Paragraph>
         </Row>
       </Column>
     </Box>
