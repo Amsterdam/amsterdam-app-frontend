@@ -5,15 +5,16 @@ import {IconButton} from '@/components/ui/buttons'
 import {Tooltip} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {Article, Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
-import {VisitingHour} from '@/modules/contact/types'
+import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, dayjs, nonNullable} from '@/utils'
 
 type Props = {
   visitingHours: VisitingHour[]
+  visitingHoursContent: CityOffice['visitingHoursContent']
 }
 
 const getVisitingHoursSentence = (visitingHours: VisitingHour[]) => {
@@ -53,10 +54,14 @@ const getTooltipContent = (compact?: boolean) => {
   ].join(' ')
 }
 
-export const VisitingHours = ({visitingHours}: Props) => {
+export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+
+  if (visitingHoursContent) {
+    return <Article content={visitingHoursContent} />
+  }
 
   return (
     <Column gutter="md">
