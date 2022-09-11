@@ -3,8 +3,8 @@ import {ScaledSize, useWindowDimensions} from 'react-native'
 import {isTablet} from 'react-native-device-info'
 
 export type Device = {
-  isLandscape: boolean | undefined
-  isPortrait: boolean | undefined
+  isLandscape: boolean
+  isPortrait: boolean
   isTablet: boolean
 } & ScaledSize
 
