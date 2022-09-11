@@ -19,13 +19,15 @@ type Props = {
 const closeIconSize = 20
 
 export const ModalHeader = ({title}: Props) => {
-  const {isLandscape} = useContext(DeviceContext)
+  const {isLandscape, isTablet} = useContext(DeviceContext)
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   return (
-    <Box insetHorizontal="md" insetVertical={isLandscape ? 'sm' : 'md'}>
+    <Box
+      insetHorizontal="md"
+      insetVertical={isLandscape && !isTablet ? 'sm' : 'md'}>
       <Row align="between" gutter="md">
         <View style={styles.balanceCenterAlignment} />
         <View style={styles.nudgeVerticalAlignment}>

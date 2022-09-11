@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const AddressForm = ({temp}: Props) => {
-  const {isLandscape} = useContext(DeviceContext)
+  const {isLandscape, isTablet} = useContext(DeviceContext)
   const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
     null,
@@ -114,7 +114,10 @@ export const AddressForm = ({temp}: Props) => {
   }, [isAddressStored]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box grow insetHorizontal="md" insetVertical={isLandscape ? 'no' : 'md'}>
+    <Box
+      grow
+      insetHorizontal="md"
+      insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
       {!isStreetSelected ? (
         <StreetInput
           bagList={bagList}
