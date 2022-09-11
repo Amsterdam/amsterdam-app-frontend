@@ -2,7 +2,7 @@ import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {useEffect} from 'react'
+import React, {SVGProps, useEffect} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -18,7 +18,7 @@ import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 import {CloseType, Variant} from '@/types'
 import {accessibleText} from '@/utils'
 
@@ -36,7 +36,7 @@ export const Alert = () => {
   const {closeType, content, isVisible, variant, withIcon} =
     useSelector(selectAlert)
 
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles(variant))
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const Alert = () => {
             <Row gutter="md">
               {!!withIcon && (
                 <Icon size={24}>
-                  <IconComponent fill={color.text.default} />
+                  <IconComponent {...iconProps} />
                 </Icon>
               )}
               <View>
@@ -77,7 +77,7 @@ export const Alert = () => {
               accessibilityHint="Sluit melding"
               icon={
                 <Icon size={24}>
-                  <Close fill={color.text.default} />
+                  <Close {...iconProps} />
                 </Icon>
               }
               onPress={() => dispatch(setAlertVisibility(false))}
@@ -98,6 +98,10 @@ export const Alert = () => {
 
   return alertComponent
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.default,
+})
 
 const createStyles =
   (variant?: Variant) =>

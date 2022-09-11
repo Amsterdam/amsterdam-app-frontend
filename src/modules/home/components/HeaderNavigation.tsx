@@ -56,5 +56,5 @@ export const HeaderNavigation = () => {
 }
 
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.pressable.default.background,
+  fill: color.text.link,
 })

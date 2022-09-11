@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {SVGProps, useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch} from 'react-redux'
 import {Box} from '@/components/ui'
@@ -7,20 +7,19 @@ import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {useRegisterDevice, useSentry} from '@/hooks'
-import {useModules} from '@/hooks'
+import {useModules, useRegisterDevice, useSentry} from '@/hooks'
 import {ModulesWarning} from '@/modules/home/components'
 import {icons} from '@/modules/home/config'
 import {getPushNotificationsPermission} from '@/processes'
 import {toggleModule} from '@/store'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
 export const ModuleSettings = () => {
   const dispatch = useDispatch()
   const {modules, modulesLoading, selectedModulesBySlug, selectedModules} =
     useModules()
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
 
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice, unregisterDevice} = useRegisterDevice()
@@ -74,7 +73,7 @@ export const ModuleSettings = () => {
                     <Row gutter="sm" valign="center">
                       {!!ModuleIcon && (
                         <Icon size={24}>
-                          <ModuleIcon fill={color.text.default} />
+                          <ModuleIcon {...iconProps} />
                         </Icon>
                       )}
                       <Title level="h5" text={title} />
@@ -92,3 +91,7 @@ export const ModuleSettings = () => {
     </Box>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.default,
+})

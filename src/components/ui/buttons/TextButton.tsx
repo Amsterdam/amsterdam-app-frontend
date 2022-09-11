@@ -73,7 +73,7 @@ const createIconColor =
     }
 
     if (emphasis) {
-      return color.pressable.default.background
+      return color.text.link
     }
 
     return color.text.default
@@ -85,7 +85,7 @@ const createStyles = ({color, text}: Theme) =>
       flexShrink: 1,
     },
     emphasis: {
-      color: color.pressable.default.background,
+      color: color.text.link,
     },
     pressed: {
       color: color.pressable.primary.highlight,
