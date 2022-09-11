@@ -6,7 +6,11 @@ import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
+import {
+  NameAndAddress,
+  VisitingHours,
+  WaitingTime,
+} from '@/modules/contact/components'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
@@ -56,7 +60,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}
         />
-        {!!appointment && (
+        {appointment ? (
           <Column gutter="md">
             <Paragraph>{appointment.text}</Paragraph>
             <Button
@@ -64,6 +68,8 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
               onPress={() => openWebUrl(appointment.url)}
             />
           </Column>
+        ) : (
+          <WaitingTime />
         )}
         {!!directionsUrl && (
           <Button

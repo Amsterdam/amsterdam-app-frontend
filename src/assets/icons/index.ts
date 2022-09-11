@@ -6,6 +6,7 @@ import Checkmark from './checkmark.svg'
 import ChevronUp from './chevron-up.svg'
 import Circle from './circle.svg'
 import CityOffice from './city-office.svg'
+import Clock from './clock.svg'
 import Close from './close.svg'
 import ConstructionWork from './construction-work.svg'
 import Container from './container.svg'
@@ -34,6 +35,7 @@ export {
   ChevronUp,
   Circle,
   CityOffice,
+  Clock,
   Close,
   ConstructionWork,
   Container,
