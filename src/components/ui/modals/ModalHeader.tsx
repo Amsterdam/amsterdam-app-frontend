@@ -1,7 +1,7 @@
 import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps} from 'react'
+import React, {SVGProps, useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui'
@@ -9,6 +9,7 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
+import {DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -18,12 +19,15 @@ type Props = {
 const closeIconSize = 20
 
 export const ModalHeader = ({title}: Props) => {
+  const {isLandscape, isTablet} = useContext(DeviceContext)
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   return (
-    <Box>
+    <Box
+      insetHorizontal="md"
+      insetVertical={isLandscape && !isTablet ? 'sm' : 'md'}>
       <Row align="between" gutter="md">
         <View style={styles.balanceCenterAlignment} />
         <View style={styles.nudgeVerticalAlignment}>

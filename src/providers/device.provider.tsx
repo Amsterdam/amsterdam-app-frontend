@@ -1,9 +1,11 @@
 import React, {createContext, ReactNode, useEffect, useState} from 'react'
 import {ScaledSize, useWindowDimensions} from 'react-native'
+import {isTablet} from 'react-native-device-info'
 
 export type Device = {
-  isLandscape: boolean | undefined
-  isPortrait: boolean | undefined
+  isLandscape: boolean
+  isPortrait: boolean
+  isTablet: boolean
 } & ScaledSize
 
 const initialValue: Device = {
@@ -11,6 +13,7 @@ const initialValue: Device = {
   height: 640,
   isLandscape: false,
   isPortrait: true,
+  isTablet: false,
   scale: 1,
   width: 360,
 }
@@ -29,6 +32,7 @@ export const DeviceProvider = ({children}: Props) => {
     setValue({
       isLandscape: window.height < window.width,
       isPortrait: window.height >= window.width,
+      isTablet: isTablet(),
       ...window,
     })
   }, [window])
