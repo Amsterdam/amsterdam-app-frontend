@@ -10,6 +10,7 @@ export const day = {
   kingsDay: '2022-04-27',
   beforeChristmas: '2022-12-23',
   christmasDay: '2022-12-26',
+  // Daylight saving time
   dstStart: '2022-03-27',
   dstEnd: '2022-10-30',
 }
