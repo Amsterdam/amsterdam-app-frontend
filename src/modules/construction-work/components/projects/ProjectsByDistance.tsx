@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {Box} from '@/components/ui'
@@ -14,7 +14,7 @@ import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useSortProjects} from '@/modules/construction-work/hooks'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 import {Address} from '@/types'
 
 type ListHeaderProps = {
@@ -22,7 +22,8 @@ type ListHeaderProps = {
 }
 
 const ListHeader = ({addressText}: ListHeaderProps) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
+
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
@@ -38,7 +39,7 @@ const ListHeader = ({addressText}: ListHeaderProps) => {
           accessibilityLabel="Wijzig het adres"
           icon={
             <Icon size={24}>
-              <Edit fill={color.pressable.default.background} />
+              <Edit {...iconProps} />
             </Icon>
           }
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
@@ -91,3 +92,7 @@ export const ProjectsByDistance = ({
     />
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
+})

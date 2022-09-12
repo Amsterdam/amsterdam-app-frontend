@@ -1,8 +1,8 @@
 import SpinnerIcon from '@amsterdam/asc-assets/static/icons/Spinner.svg'
-import React, {useEffect, useRef} from 'react'
+import React, {SVGProps, useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {Row} from '@/components/ui/layout'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 const initialRotation = 0
 let stopAnimation = false
@@ -12,8 +12,8 @@ let stopAnimation = false
  * Best used through `PleaseWait` rather than by itself.
  */
 export const Spinner = () => {
+  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
-  const {color} = useTheme()
   const rotation = useRef(new Animated.Value(initialRotation)).current
 
   const startAnimation = () => {
@@ -47,11 +47,15 @@ export const Spinner = () => {
         accessible
         accessibilityLabel="Bezig…"
         style={[styles.container, {transform: [{rotate}]}]}>
-        <SpinnerIcon fill={color.text.default} />
+        <SpinnerIcon {...iconProps} />
       </Animated.View>
     </Row>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.default,
+})
 
 const createStyles = ({media}: Theme) =>
   StyleSheet.create({

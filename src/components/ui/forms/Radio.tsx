@@ -1,9 +1,9 @@
 import {useRadio} from '@react-native-aria/radio'
-import React, {ReactNode, useContext, useRef} from 'react'
+import React, {ReactNode, SVGProps, useContext, useRef} from 'react'
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
 import CircleIcon from '@/assets/icons/circle.svg'
 import {RadioContext} from '@/components/ui/forms/'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   children: ReactNode
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const Radio = (props: Props) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   const contextState = useContext(RadioContext)
@@ -29,16 +29,17 @@ export const Radio = (props: Props) => {
       <View
         style={[styles.outerCircle, isChecked && styles.outerCircleChecked]}>
         {!!isChecked && (
-          <CircleIcon
-            fill={color.control.checked.background}
-            style={styles.innerCircle}
-          />
+          <CircleIcon {...iconProps} style={styles.innerCircle} />
         )}
       </View>
       <View style={styles.text}>{props.children}</View>
     </Pressable>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.control.checked.background,
+})
 
 const outerCircleSize = 20
 const innerCircleSize = 12

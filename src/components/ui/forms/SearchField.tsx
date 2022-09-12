@@ -1,9 +1,9 @@
-import React, {forwardRef, useState} from 'react'
+import React, {forwardRef, SVGProps, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {Close, Search} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   onChangeText?: (event: string) => void
@@ -14,8 +14,9 @@ export const SearchField = forwardRef<TextInput, Props>(
   ({onChangeText, onFocus, value = '', ...otherProps}: Props, ref) => {
     const [hasFocus, setHasFocus] = useState(false)
 
-    const {color} = useTheme()
+    const iconProps = useThemable(createIconProps)
     const styles = useThemable(createStyles({hasFocus}))
+    const textInputProps = useThemable(createTextInputProps)
 
     const handleBlur = () => setHasFocus(false)
 
@@ -36,10 +37,10 @@ export const SearchField = forwardRef<TextInput, Props>(
       <View style={styles.frame}>
         <TextInput
           {...otherProps}
+          {...textInputProps}
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
-          placeholderTextColor={color.text.secondary}
           ref={ref}
           style={styles.textInput}
           textAlignVertical="top"
@@ -50,20 +51,24 @@ export const SearchField = forwardRef<TextInput, Props>(
             accessibilityHint="Maak dit zoekveld leeg"
             icon={
               <Icon>
-                <Close fill={color.text.default} />
+                <Close {...iconProps} />
               </Icon>
             }
             onPress={handleClearText}
           />
         ) : (
           <Icon size={24}>
-            <Search fill={color.text.default} />
+            <Search {...iconProps} />
           </Icon>
         )}
       </View>
     )
   },
 )
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.default,
+})
 
 const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 
@@ -96,3 +101,7 @@ const createStyles =
       },
     })
   }
+
+const createTextInputProps = ({color}: Theme): TextInputProps => ({
+  placeholderTextColor: color.text.secondary,
+})

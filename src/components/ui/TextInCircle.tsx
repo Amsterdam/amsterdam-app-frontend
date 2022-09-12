@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {Circle, Svg, Text} from 'react-native-svg'
 import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type Props = {
   backgroundColor?: string
@@ -11,7 +11,10 @@ type Props = {
 
 export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
   const {fontScale} = useContext(DeviceContext)
-  const {color, text} = useTheme()
+  const {text} = useTheme()
+
+  const circleProps = useThemable(createCircleProps(backgroundColor))
+  const textProps = useThemable(createTextProps)
 
   const scaledFontSize = (fontSize ?? text.fontSize.body) * fontScale
   const scaledSvgSize = 1.5 * scaledFontSize // The size of the circle depends on the font size
@@ -23,14 +26,13 @@ export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
       viewBox={`0 0 ${scaledSvgSize} ${scaledSvgSize}`}
       width={scaledSvgSize}>
       <Circle
+        {...circleProps}
         cx={scaledSvgSize / 2}
         cy={scaledSvgSize / 2}
-        fill={backgroundColor ?? color.box.background.emphasis}
         r={scaledSvgSize / 2}
       />
       <Text
-        fill={color.text.inverse}
-        fontFamily={text.fontWeight.bold}
+        {...textProps}
         fontSize={scaledFontSize}
         fontWeight="500"
         textAnchor="middle"
@@ -41,3 +43,14 @@ export const TextInCircle = ({backgroundColor, fontSize, label}: Props) => {
     </Svg>
   )
 }
+
+const createCircleProps =
+  (backgroundColor: Props['backgroundColor']) =>
+  ({color}: Theme) => ({
+    fill: backgroundColor ?? color.box.background.emphasis,
+  })
+
+const createTextProps = ({color, text}: Theme) => ({
+  fill: color.text.inverse,
+  fontFamily: text.fontWeight.bold,
+})

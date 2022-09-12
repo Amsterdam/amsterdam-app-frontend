@@ -1,14 +1,15 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import React, {ReactNode} from 'react'
+import React, {ReactNode, SVGProps} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
   TouchableHighlight,
+  TouchableHighlightProps,
   View,
 } from 'react-native'
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -24,8 +25,9 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
+  const touchableProps = useThemable(createTouchableProps)
 
   return (
     <TouchableHighlight
@@ -33,15 +35,19 @@ export const Checkbox = ({
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onValueChange}
-      underlayColor={color.box.background.white}>
+      {...touchableProps}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {!!value && <Checkmark fill={color.text.inverse} />}
+          {!!value && <Checkmark {...iconProps} />}
         </View>
       </FormField>
     </TouchableHighlight>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.inverse,
+})
 
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({
@@ -57,3 +63,7 @@ const createStyles = ({color}: Theme) =>
       backgroundColor: color.control.checked.background,
     },
   })
+
+const createTouchableProps = ({color}: Theme): TouchableHighlightProps => ({
+  underlayColor: color.box.background.white,
+})

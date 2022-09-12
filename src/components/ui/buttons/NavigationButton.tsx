@@ -1,13 +1,13 @@
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
-import React from 'react'
+import React, {SVGProps} from 'react'
 import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Link} from '@/components/ui/text'
 import {IconSize} from '@/components/ui/types'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   direction?: 'backward' | 'forward'
@@ -22,9 +22,8 @@ export const NavigationButton = ({
   label,
   onPress,
 }: Props) => {
-  const {color} = useTheme()
-
   const IconComponent = direction === 'forward' ? ChevronRight : ChevronLeft
+  const iconProps = useThemable(createIconProps)
 
   return (
     <Pressable onPress={onPress}>
@@ -32,13 +31,13 @@ export const NavigationButton = ({
         <Row align="between" gutter="md" valign="center">
           {direction === 'backward' && (
             <Icon size={iconSize}>
-              <IconComponent fill={color.text.link} />
+              <IconComponent {...iconProps} />
             </Icon>
           )}
           <Link label={label} level="h5" />
           {direction === 'forward' && (
             <Icon size={iconSize}>
-              <IconComponent fill={color.text.link} />
+              <IconComponent {...iconProps} />
             </Icon>
           )}
         </Row>
@@ -46,3 +45,7 @@ export const NavigationButton = ({
     </Pressable>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
+})

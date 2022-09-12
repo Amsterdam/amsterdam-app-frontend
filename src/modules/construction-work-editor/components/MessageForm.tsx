@@ -1,6 +1,7 @@
 import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React, {
   forwardRef,
+  SVGProps,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -15,16 +16,16 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useSentry} from '@/hooks'
 import {
-  setMessage,
-  setMainImage,
-  setMainImageDescription,
+  selectCurrentProjectId,
   selectMainImageDescription,
   selectMessage,
-  selectCurrentProjectId,
+  setMainImage,
+  setMainImageDescription,
+  setMessage,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewMessage} from '@/modules/construction-work-editor/types'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 const maxCharacters = {
   title: 100,
@@ -44,7 +45,9 @@ const config = {maxWidth: 1920, maxHeight: 1080}
 
 export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
+  const iconProps = useThemable(createIconProps)
   const {sendSentryErrorLog} = useSentry()
+
   const currentProjectId = useSelector(selectCurrentProjectId)
   const selectedMessage = useSelector(selectMessage(currentProjectId))
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
@@ -52,10 +55,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     selectMainImageDescription(currentProjectId),
   )
 
-  const {color} = useTheme()
-
   const form = useForm<FormData>()
-
   const {handleSubmit, setValue} = form
 
   useEffect(() => {
@@ -182,7 +182,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               <Button
                 icon={
                   <Icon size={24}>
-                    <Enlarge fill={color.pressable.default.background} />
+                    <Enlarge {...iconProps} />
                   </Icon>
                 }
                 label="Foto toevoegen"
@@ -195,4 +195,8 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       </Column>
     </FormProvider>
   )
+})
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
 })

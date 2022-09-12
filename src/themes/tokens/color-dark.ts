@@ -47,9 +47,6 @@ export const darkColorTokens: ColorTokens = {
     },
   },
   pressable: {
-    default: {
-      background: baseColor.primary.blue,
-    },
     primary: {
       default: baseColor.primary.blue,
       highlight: '#00387a',

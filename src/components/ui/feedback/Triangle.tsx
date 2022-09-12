@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Center} from '@/components/ui/layout'
 import {Direction} from '@/components/ui/types'
-import {useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   direction: Direction
@@ -17,7 +17,7 @@ const path: Record<Direction, string> = {
 }
 
 export const Triangle = ({direction}: Props) => {
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps)
   const [width, height, viewBox] = [Direction.up, Direction.down].includes(
     direction,
   )
@@ -27,11 +27,15 @@ export const Triangle = ({direction}: Props) => {
   return (
     <Center>
       <Svg {...{width, height, viewBox}} style={styles.svg}>
-        <Path d={path[direction]} fill={color.background.inverse} />
+        <Path d={path[direction]} {...iconProps} />
       </Svg>
     </Center>
   )
 }
+
+const createIconProps = ({color}: Theme) => ({
+  fill: color.background.inverse,
+})
 
 const styles = StyleSheet.create({
   svg: {
