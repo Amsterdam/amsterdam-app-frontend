@@ -21,27 +21,34 @@ const getVisitingHoursSentence = (visitingHours: VisitingHour[]) => {
   const visitingState = getVisitingState(visitingHours)
 
   if (visitingState) {
-    const {preposition, dayName, time24hr, time12hr} = visitingState
+    const {dayName, preposition, time24hr, time12hr} = visitingState
+
+    const sentence = (form: 'spoken' | 'written') =>
+      [
+        'We zijn open',
+        preposition,
+        dayName,
+        form === 'written' ? time24hr : time12hr,
+        'uur.',
+      ]
+        .filter(nonNullable)
+        .join(' ')
 
     return {
-      full: ['We zijn open', preposition, dayName, time24hr, 'uur.']
-        .filter(nonNullable)
-        .join(' '),
-      compact: ['We zijn open', preposition, dayName, time12hr, 'uur.']
-        .filter(nonNullable)
-        .join(' '),
+      spoken: sentence('spoken'),
+      written: sentence('written'),
     }
   }
 
-  return {full: '', compact: ''}
+  return {spoken: '', written: ''}
 }
 
-const getTooltipContent = (compact?: boolean) => {
+const getTooltipContent = (form: 'spoken' | 'written') => {
   const formatTime = (time: number) =>
     dayjs()
       .startOf('day')
       .hour(time)
-      .format(compact ? 'h:mm' : 'HH.mm')
+      .format(form === 'spoken' ? 'h:mm' : 'HH.mm')
 
   return [
     'De Stadsloketten zijn elke werkdag van',
@@ -66,13 +73,13 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   return (
     <Column gutter="md">
       <Row gutter="sm" valign="center">
-        {!!visitingHoursSentence.full && (
-          <Paragraph accessibilityLabel={visitingHoursSentence.compact}>
-            {visitingHoursSentence.full}
+        {!!visitingHoursSentence.written && (
+          <Paragraph accessibilityLabel={visitingHoursSentence.spoken}>
+            {visitingHoursSentence.written}
           </Paragraph>
         )}
         <IconButton
-          accessibilityLabel={accessibleText(getTooltipContent(true))}
+          accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
           accessibilityRole="none"
           icon={
             <Icon size={24}>
@@ -84,7 +91,10 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
       </Row>
       {!!tooltipIsVisible && (
         <Box insetHorizontal="lg">
-          <Tooltip placement={Placement.below} text={getTooltipContent()} />
+          <Tooltip
+            placement={Placement.below}
+            text={getTooltipContent('written')}
+          />
         </Box>
       )}
     </Column>
