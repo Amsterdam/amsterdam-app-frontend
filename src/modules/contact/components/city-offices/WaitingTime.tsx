@@ -44,15 +44,15 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
       <Column gutter="md">
         <Row gutter="md" valign="center">
           <Icon size={32}>
-            <Clock {...iconProps} />
+            <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>Actuele wachttijd {waitingTimePhrase}</Paragraph>
+          <Paragraph>Er zijn nu {queuedPhrase}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
           <Icon size={32}>
-            <PersonalLogin {...iconProps} />
+            <Clock {...iconProps} />
           </Icon>
-          <Paragraph>Momenteel {queuedPhrase}</Paragraph>
+          <Paragraph>De wachttijd is {waitingTimePhrase}</Paragraph>
         </Row>
       </Column>
     </Box>
