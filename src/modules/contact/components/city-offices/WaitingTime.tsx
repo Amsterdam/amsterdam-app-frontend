@@ -34,7 +34,10 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
     queued,
     (q: number) => (q === 0 ? 'geen' : q),
   ]} wachtende[|n]`
-  const waitingTimePhrase = simplur`${waitingTime} minu[ut|ten]`
+  const waitingTimePhrase =
+    waitingTime >= 60
+      ? 'meer dan een uur'
+      : simplur`${waitingTime} minu[ut|ten]`
 
   return (
     <Box>
