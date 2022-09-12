@@ -46,8 +46,8 @@ export const getVisitingState = (
       }
 
       return {
-        preposition,
         dayName,
+        preposition,
         time24hr: time.format('HH.mm'),
         time12hr: time.format('h:mm'),
       }

@@ -21,7 +21,7 @@ const getVisitingHoursSentence = (visitingHours: VisitingHour[]) => {
   const visitingState = getVisitingState(visitingHours)
 
   if (visitingState) {
-    const {preposition, dayName, time24hr, time12hr} = visitingState
+    const {dayName, preposition, time24hr, time12hr} = visitingState
 
     return {
       full: ['We zijn open', preposition, dayName, time24hr, 'uur.']
