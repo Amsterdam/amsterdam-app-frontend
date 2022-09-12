@@ -3,7 +3,7 @@ import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React, {SVGProps} from 'react'
 import {PressableProps} from 'react-native'
 import {Button, ButtonProps} from '@/components/ui/buttons'
-import {Theme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   followed: boolean
@@ -12,7 +12,7 @@ type Props = {
   }
 
 export const FollowButton = ({followed, onPress}: Props) => {
-  const iconProps = createIconProps(followed)
+  const iconProps = useThemable(createIconProps(followed))
 
   const buttonProps: ButtonProps = followed
     ? {
