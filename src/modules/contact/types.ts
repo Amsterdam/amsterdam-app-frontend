@@ -2,6 +2,7 @@ import {Image} from '@/types'
 
 export enum ContactEndpointName {
   getCityOffices = 'getCityOffices',
+  getWaitingTimes = 'getWaitingTimes',
 }
 
 export type CityOffice = {
@@ -54,4 +55,10 @@ type OpeningAndClosingTimes = {
 export type HoursAndMinutes = {
   hours: number
   minutes: number
+}
+
+export type WaitingTime = {
+  identifier: string
+  queued: number
+  waitingTime: number
 }

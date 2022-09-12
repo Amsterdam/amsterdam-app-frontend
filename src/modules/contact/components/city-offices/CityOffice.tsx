@@ -5,8 +5,12 @@ import {Button} from '@/components/ui/buttons'
 import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Article, Paragraph, Title} from '@/components/ui/text'
-import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
+import {Paragraph, Title} from '@/components/ui/text'
+import {
+  NameAndAddress,
+  VisitingHours,
+  WaitingTime,
+} from '@/modules/contact/components'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
@@ -33,6 +37,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
   }
 
   const {
+    identifier,
     title,
     image,
     address,
@@ -52,19 +57,20 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
           {...{address, addressContent, title}}
           toggleBottomSheet={toggleBottomSheet}
         />
-        <Column gutter="sm">
-          {visitingHoursContent ? (
-            <Article content={visitingHoursContent} />
-          ) : (
-            <VisitingHours visitingHours={visitingHours.regular} />
-          )}
-          {!!appointment && <Paragraph>{appointment.text}</Paragraph>}
-        </Column>
-        {!!appointment && (
-          <Button
-            label="Maak een afspraak"
-            onPress={() => openWebUrl(appointment.url)}
-          />
+        <VisitingHours
+          visitingHours={visitingHours.regular}
+          visitingHoursContent={visitingHoursContent}
+        />
+        {appointment ? (
+          <Column gutter="md">
+            <Paragraph>{appointment.text}</Paragraph>
+            <Button
+              label="Maak een afspraak"
+              onPress={() => openWebUrl(appointment.url)}
+            />
+          </Column>
+        ) : (
+          <WaitingTime cityOfficeId={identifier} />
         )}
         {!!directionsUrl && (
           <Button

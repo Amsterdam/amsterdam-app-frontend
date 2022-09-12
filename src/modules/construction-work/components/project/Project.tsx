@@ -105,7 +105,7 @@ export const Project = ({id}: Props) => {
   }
 
   const {images, followed, followers, meter, strides, subtitle, title} = project
-  const followersLabel = simplur`${[followers]} volger[|s]`
+  const followersPhrase = simplur`${[followers]} volger[|s]`
 
   return (
     <>
@@ -128,12 +128,12 @@ export const Project = ({id}: Props) => {
                 onPress={onPressFollowButton}
               />
               <SingleSelectable
-                label={accessibleText(followers.toString(), followersLabel)}>
+                label={accessibleText(followers.toString(), followersPhrase)}>
                 <Column>
                   <Phrase variant="small" fontWeight="bold">
                     {followers}
                   </Phrase>
-                  <Phrase variant="small">{followersLabel}</Phrase>
+                  <Phrase variant="small">{followersPhrase}</Phrase>
                 </Column>
               </SingleSelectable>
             </Row>
