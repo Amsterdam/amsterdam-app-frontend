@@ -1,6 +1,8 @@
 import {Image} from '@/types'
 
-/* City office */
+export enum ContactEndpointName {
+  getCityOffices = 'getCityOffices',
+}
 
 export type CityOffice = {
   identifier: string
@@ -8,11 +10,15 @@ export type CityOffice = {
   image: Image
   address: Address
   addressContent?: {
-    title: string
     html: string
+    title: string
   }
   coordinates: Coordinates
   directionsUrl: string
+  visitingHours: {
+    exceptions: VisitingHour[]
+    regular: VisitingHour[]
+  }
   visitingHoursContent?: string
   appointment?: {
     text: string
@@ -31,8 +37,6 @@ type Coordinates = {
   lat: number
   lon: number
 }
-
-/* Visiting hours */
 
 export type VisitingHour = {
   dayOfWeek: number

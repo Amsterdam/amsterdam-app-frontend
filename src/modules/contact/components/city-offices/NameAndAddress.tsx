@@ -4,7 +4,7 @@ import {CityOffice as CityOfficeIcon} from '@/assets/icons'
 import {SingleSelectable} from '@/components/ui'
 import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
-import {Article, Phrase, Title} from '@/components/ui/text'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
@@ -47,7 +47,8 @@ export const NameAndAddress = ({
       {!!addressContent && (
         <>
           <Title level="h5" text={addressContent.title} />
-          <Article content={addressContent.html} />
+          {/* TODO Make this either HTML or text in our database. */}
+          <Paragraph>{addressContent.html}</Paragraph>
         </>
       )}
     </Column>

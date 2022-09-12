@@ -1,5 +1,19 @@
 import {VisitingHour} from '@/modules/contact/types'
 
+export const day = {
+  wednesday: '2022-08-31',
+  thursday: '2022-09-01',
+  friday: '2022-09-02',
+  saturday: '2022-09-03',
+  sunday: '2022-09-04',
+  beforeKingsDay: '2022-04-26',
+  kingsDay: '2022-04-27',
+  beforeChristmas: '2022-12-23',
+  christmasDay: '2022-12-26',
+  dstStart: '2022-03-27',
+  dstEnd: '2022-10-30',
+}
+
 export const visitingHours: VisitingHour[] = [
   {
     dayOfWeek: 1,

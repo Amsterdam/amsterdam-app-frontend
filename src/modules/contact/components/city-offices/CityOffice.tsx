@@ -2,12 +2,12 @@ import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {SomethingWentWrong} from '@/components/ui/feedback'
-import {Column, Gutter} from '@/components/ui/layout'
+import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
+import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Article, Paragraph, Title} from '@/components/ui/text'
 import {NameAndAddress, VisitingHours} from '@/modules/contact/components'
-import {cityOffices} from '@/modules/contact/data'
+import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
 import {mapImageSources, openWebUrl} from '@/utils'
@@ -18,8 +18,14 @@ type Props = {
 
 export const CityOffice = ({toggleBottomSheet}: Props) => {
   const environment = useEnvironment()
-  const cityOfficeId =
-    useSelector(selectCityOffice) ?? cityOffices[0].identifier
+  const selectedCityOfficeId = useSelector(selectCityOffice)
+  const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
+
+  if (isLoading || !cityOffices) {
+    return <PleaseWait />
+  }
+
+  const cityOfficeId = selectedCityOfficeId ?? cityOffices[0]?.identifier
   const cityOffice = cityOffices.find(c => c.identifier === cityOfficeId)
 
   if (!cityOffice) {
@@ -33,46 +39,40 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
     appointment,
     addressContent,
     directionsUrl,
+    visitingHours,
     visitingHoursContent,
   } = cityOffice
 
   return (
     <Box>
-      <Title level="h2" text="Bezoek ons" />
-      <Gutter height="md" />
       <Column gutter="md">
+        <Title level="h2" text="Bezoek ons" />
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress
           {...{address, addressContent, title}}
           toggleBottomSheet={toggleBottomSheet}
         />
-        <Column gutter="md">
-          <Column gutter="sm">
-            {visitingHoursContent ? (
-              <Article content={visitingHoursContent} />
-            ) : (
-              <VisitingHours />
-            )}
-            {!!appointment && (
-              <Paragraph variant="small">{appointment.text}</Paragraph>
-            )}
-          </Column>
-        </Column>
-        <Column gutter="md">
-          {!!directionsUrl && (
-            <Button
-              label="Toon route"
-              onPress={() => openWebUrl(directionsUrl)}
-              variant={appointment ? 'secondary' : 'primary'}
-            />
+        <Column gutter="sm">
+          {visitingHoursContent ? (
+            <Article content={visitingHoursContent} />
+          ) : (
+            <VisitingHours visitingHours={visitingHours.regular} />
           )}
-          {!!appointment && (
-            <Button
-              label="Maak een afspraak"
-              onPress={() => openWebUrl(appointment.url)}
-            />
-          )}
+          {!!appointment && <Paragraph>{appointment.text}</Paragraph>}
         </Column>
+        {!!appointment && (
+          <Button
+            label="Maak een afspraak"
+            onPress={() => openWebUrl(appointment.url)}
+          />
+        )}
+        {!!directionsUrl && (
+          <Button
+            label="Toon route"
+            onPress={() => openWebUrl(directionsUrl)}
+            variant={appointment ? 'secondary' : 'primary'}
+          />
+        )}
       </Column>
     </Box>
   )

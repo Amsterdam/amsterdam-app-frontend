@@ -1,10 +1,11 @@
 import React from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui'
+import {PleaseWait} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {CityOfficeButton} from '@/modules/contact/components'
-import {cityOffices} from '@/modules/contact/data'
+import {useGetCityOfficesQuery} from '@/modules/contact/service'
 
 type Props = {
   toggleBottomSheet: () => void
@@ -13,6 +14,12 @@ type Props = {
 const ItemSeparator = () => <Gutter height="sm" />
 
 export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
+  const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
+
+  if (isLoading || !cityOffices) {
+    return <PleaseWait />
+  }
+
   return (
     <Box grow>
       <Title level="h3" text="Stadsloketten" />

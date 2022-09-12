@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const ModulesWarning = ({onRetry, text}: Props) => (
-  <Box insetHorizontal="md" insetVertical="xxxl">
+  <Box>
     <Attention warning>
       <Phrase fontWeight="bold">Fout</Phrase>
       <Paragraph variant="small">{text}</Paragraph>

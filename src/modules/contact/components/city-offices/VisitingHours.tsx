@@ -7,12 +7,17 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
+import {VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, dayjs, nonNullable} from '@/utils'
 
-const getVisitingHoursSentence = () => {
-  const visitingState = getVisitingState()
+type Props = {
+  visitingHours: VisitingHour[]
+}
+
+const getVisitingHoursSentence = (visitingHours: VisitingHour[]) => {
+  const visitingState = getVisitingState(visitingHours)
 
   if (visitingState) {
     const {preposition, dayName, time24hr, time12hr} = visitingState
@@ -48,10 +53,10 @@ const getTooltipContent = (compact?: boolean) => {
   ].join(' ')
 }
 
-export const VisitingHours = () => {
+export const VisitingHours = ({visitingHours}: Props) => {
   const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
-  const visitingHoursSentence = getVisitingHoursSentence()
+  const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
 
   return (
     <Column gutter="md">
