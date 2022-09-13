@@ -1,5 +1,5 @@
+import {BottomSheetFlatList} from '@gorhom/bottom-sheet'
 import React from 'react'
-import {FlatList} from 'react-native'
 import {Box} from '@/components/ui'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
@@ -24,9 +24,10 @@ export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
     <Box grow>
       <Title level="h3" text="Stadsloketten" />
       <Gutter height="md" />
-      <FlatList
+      <BottomSheetFlatList
         data={cityOffices}
         ItemSeparatorComponent={ItemSeparator}
+        ListFooterComponent={<Gutter height="lg" />}
         keyExtractor={i => i.identifier}
         renderItem={({item}) => (
           <CityOfficeButton
