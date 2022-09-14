@@ -1,3 +1,12 @@
+export enum WasteGuideEndpointName {
+  getGarbageCollectionAreaByLocation = 'getGarbageCollectionAreaByLocation',
+}
+
+export type WasteGuideQueryArg = {
+  lat: number | string
+  lon: number | string
+}
+
 export type WasteGuideResponse = {
   features: WasteGuideResponseFeature[]
   type: string
