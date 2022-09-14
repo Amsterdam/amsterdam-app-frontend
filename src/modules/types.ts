@@ -1,4 +1,5 @@
 import {Slice} from '@reduxjs/toolkit'
+import {ReactNode} from 'react'
 import {ModuleSlug} from '@/modules/slugs'
 
 /**
@@ -12,6 +13,7 @@ export type ModuleClientConfig = {
   requiresFirebaseToken?: boolean
   slug: ModuleSlug
   state: Slice[]
+  BadgeValue?: ReactNode
 }
 
 /**
