@@ -6,8 +6,8 @@ export enum ContactEndpointName {
 }
 
 export enum ContactEndpointUrl {
-  cityOffices = '/city-offices',
-  waitingTimes = '/waiting-times',
+  cityOffices = 'city-offices',
+  waitingTimes = 'waiting-times',
 }
 
 export type CityOffice = {
