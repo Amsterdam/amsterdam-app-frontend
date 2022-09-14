@@ -23,7 +23,7 @@ export const SelectCityOffice = () => {
       <BottomSheetFlatList
         data={cityOffices}
         ItemSeparatorComponent={ItemSeparator}
-        keyExtractor={i => i.identifier}
+        keyExtractor={cityOffice => cityOffice.identifier}
         ListFooterComponent={<Gutter height="lg" />}
         renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
       />

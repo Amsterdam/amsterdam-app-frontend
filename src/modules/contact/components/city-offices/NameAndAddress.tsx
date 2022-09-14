@@ -11,9 +11,9 @@ import {toggleBottomSheet} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
-type Props = Pick<CityOffice, 'title' | 'address' | 'addressContent'>
+type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
-export const NameAndAddress = ({title, address, addressContent}: Props) => {
+export const NameAndAddress = ({address, addressContent, title}: Props) => {
   const dispatch = useDispatch()
   const iconProps = useThemable(createIconProps)
 
