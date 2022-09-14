@@ -10,7 +10,7 @@ import {Placement} from '@/components/ui/types'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils'
 import {Theme, useThemable} from '@/themes'
-import {dayjs, nonNullable} from '@/utils'
+import {accessibleText, dayjs, nonNullable} from '@/utils'
 
 type Props = {
   visitingHours: VisitingHour[]
@@ -91,6 +91,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
       {!!isTooltipVisible && (
         <Box insetHorizontal="lg">
           <Tooltip
+            accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
             placement={Placement.below}
             text={getTooltipContent('written')}
           />
