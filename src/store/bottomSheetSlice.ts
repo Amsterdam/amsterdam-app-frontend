@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
 type BottomSheetState = {
@@ -11,22 +11,23 @@ export const bottomSheetSlice = createSlice({
     isExpanded: false,
   } as BottomSheetState,
   reducers: {
-    setBottomSheetIsExpanded: (
-      state,
-      {payload: isExpanded}: PayloadAction<boolean>,
-    ) => ({
+    closeBottomSheet: state => ({
       ...state,
-      isExpanded,
+      isExpanded: false,
     }),
-    toggleBottomSheetIsExpanded: state => ({
+    expandBottomSheet: state => ({
+      ...state,
+      isExpanded: true,
+    }),
+    toggleBottomSheet: state => ({
       ...state,
       isExpanded: !state.isExpanded,
     }),
   },
 })
 
-export const {setBottomSheetIsExpanded, toggleBottomSheetIsExpanded} =
+export const {closeBottomSheet, expandBottomSheet, toggleBottomSheet} =
   bottomSheetSlice.actions
 
-export const selectBottomSheetIsExpanded = (state: RootState) =>
+export const selectIsBottomSheetExpanded = (state: RootState) =>
   state.bottomSheet.isExpanded

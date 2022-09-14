@@ -1,11 +1,15 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import {useCallback, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {selectBottomSheetIsExpanded, setBottomSheetIsExpanded} from '@/store'
+import {
+  closeBottomSheet,
+  expandBottomSheet,
+  selectIsBottomSheetExpanded,
+} from '@/store'
 
 export const useBottomSheet = () => {
   const dispatch = useDispatch()
-  const isExpanded = useSelector(selectBottomSheetIsExpanded)
+  const isExpanded = useSelector(selectIsBottomSheetExpanded)
   const ref = useRef<BottomSheet>(null)
 
   const expand = useCallback(() => {
@@ -24,8 +28,8 @@ export const useBottomSheet = () => {
     (snapPointIndex: number) => {
       const newIsExpanded = snapPointIndex !== -1
 
-      if (isExpanded !== newIsExpanded) {
-        dispatch(setBottomSheetIsExpanded(newIsExpanded))
+      if (newIsExpanded !== isExpanded) {
+        dispatch(newIsExpanded ? expandBottomSheet() : closeBottomSheet())
       }
     },
     [dispatch, isExpanded],

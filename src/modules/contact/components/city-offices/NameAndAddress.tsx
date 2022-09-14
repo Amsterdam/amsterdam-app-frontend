@@ -7,7 +7,7 @@ import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/types'
-import {toggleBottomSheetIsExpanded} from '@/store'
+import {toggleBottomSheet} from '@/store'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -21,7 +21,7 @@ export const NameAndAddress = ({title, address, addressContent}: Props) => {
     <Column gutter="md">
       <IconWithTitleButton
         icon={<CityOfficeIcon {...iconProps} />}
-        onPress={() => dispatch(toggleBottomSheetIsExpanded())}
+        onPress={() => dispatch(toggleBottomSheet())}
         text={
           <SingleSelectable
             accessibilityLabel={accessibleText(
