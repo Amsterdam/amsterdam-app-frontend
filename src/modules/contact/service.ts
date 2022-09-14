@@ -19,6 +19,7 @@ export const contactApi = baseApi.injectEndpoints({
       query: () => {
         return `/${contactModule.slug}/${ContactEndpointUrl.waitingTimes}`
       },
+      keepUnusedDataFor: 1,
       transformResponse: (response: {result: WaitingTime[]}) => response.result,
     }),
   }),
