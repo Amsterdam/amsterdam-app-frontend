@@ -1,6 +1,6 @@
-import {SingleSelectable} from '_components/ui'
 import React from 'react'
 import {AccessibilityProps, StyleSheet} from 'react-native'
+import {SingleSelectable} from '@/components/ui'
 import {Triangle} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
