@@ -1,5 +1,4 @@
 export * from './useAppState'
-export * from './useFetch'
 export * from './useForegroundPushNotificationHandler'
 export * from './useInitSentry'
 export * from './useModules'

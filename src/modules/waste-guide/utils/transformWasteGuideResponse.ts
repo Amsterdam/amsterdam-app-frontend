@@ -9,11 +9,11 @@ import {Address} from '@/types'
 import {formatDatesTimes, formatSentence} from '@/utils'
 
 export const transformWasteGuideResponse = (
-  wasteGuideResponse: WasteGuideResponse | undefined,
+  wasteGuideResponse: WasteGuideResponse,
   address: Address | undefined,
   environment: EnvironmentConfig,
 ): WasteGuide | undefined =>
-  wasteGuideResponse?.features?.reduce<WasteGuide>((acc, feature) => {
+  wasteGuideResponse.features?.reduce<WasteGuide>((acc, feature) => {
     const {
       aanbiedwijze,
       frequentie,
