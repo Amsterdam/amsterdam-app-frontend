@@ -5,11 +5,6 @@ export enum ContactEndpointName {
   getWaitingTimes = 'getWaitingTimes',
 }
 
-export enum ContactEndpointUrl {
-  cityOffices = 'city-offices',
-  waitingTimes = 'waiting-times',
-}
-
 export type CityOffice = {
   identifier: string
   title: string
