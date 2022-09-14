@@ -8,20 +8,20 @@ import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {setSelectedCityOffice} from '@/modules/contact/slice'
 import {CityOffice} from '@/modules/contact/types'
+import {setBottomSheetIsExpanded} from '@/store'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
   cityOffice: CityOffice
-  toggleBottomSheet: () => void
 }
 
-export const CityOfficeButton = ({cityOffice, toggleBottomSheet}: Props) => {
+export const CityOfficeButton = ({cityOffice}: Props) => {
   const dispatch = useDispatch()
   const iconProps = useThemable(createIconProps)
 
   const selectCityOffice = (identifier: CityOffice['identifier']) => {
     dispatch(setSelectedCityOffice(identifier))
-    toggleBottomSheet()
+    dispatch(setBottomSheetIsExpanded(false))
   }
 
   return (
