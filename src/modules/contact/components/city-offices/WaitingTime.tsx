@@ -1,5 +1,4 @@
 import React, {SVGProps} from 'react'
-import simplur from 'simplur'
 import {Clock, PersonalLogin} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {PleaseWait} from '@/components/ui/feedback'
@@ -7,6 +6,10 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {useGetWaitingTimesQuery} from '@/modules/contact/service'
+import {
+  getQueuedPhrase,
+  getWaitingTimePhrase,
+} from '@/modules/contact/utils/getPhrase'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -30,14 +33,6 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   }
 
   const {queued, waitingTime} = waitingTimesForCityOffice
-  const queuedPhrase = simplur`${[
-    queued,
-    (q: number) => (q === 0 ? 'geen' : q),
-  ]} wachtende[|n]`
-  const waitingTimePhrase =
-    waitingTime >= 60
-      ? 'meer dan een uur'
-      : simplur`${waitingTime} minu[ut|ten]`
 
   return (
     <Box>
@@ -46,13 +41,13 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon size={32}>
             <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>Er zijn nu {queuedPhrase}</Paragraph>
+          <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
           <Icon size={32}>
             <Clock {...iconProps} />
           </Icon>
-          <Paragraph>De wachttijd is {waitingTimePhrase}</Paragraph>
+          <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
         </Row>
       </Column>
     </Box>
