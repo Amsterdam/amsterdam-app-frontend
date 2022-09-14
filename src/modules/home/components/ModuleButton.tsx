@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps, useCallback} from 'react'
+import React, {ElementType, SVGProps, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -8,7 +8,7 @@ import {SwipeToDelete} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/text'
+import {Phrase, Title} from '@/components/ui/text'
 import {icons} from '@/modules/home/config'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -18,6 +18,7 @@ import {Theme, useThemable} from '@/themes'
 type ButtonVariants = 'primary' | 'tertiary'
 
 type Props = {
+  BadgeValue?: ElementType
   iconName: string
   label: string
   slug: ModuleSlug
@@ -25,6 +26,7 @@ type Props = {
 }
 
 export const ModuleButton = ({
+  BadgeValue,
   iconName,
   label,
   slug,
@@ -60,6 +62,11 @@ export const ModuleButton = ({
               level="h5"
               text={label}
             />
+            {!!BadgeValue && (
+              <Phrase>
+                <BadgeValue />
+              </Phrase>
+            )}
           </Row>
         </Pressable>
       </SwipeToDelete>
