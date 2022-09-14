@@ -1,3 +1,4 @@
+import {module as contactModule} from '@/modules/contact'
 import {
   CityOffice,
   ContactEndpointName,
@@ -9,14 +10,15 @@ export const contactApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ContactEndpointName.getCityOffices]: builder.query<CityOffice[], void>({
       query: () => {
-        return '/city/offices'
+        return `/${contactModule.slug}/city-offices`
       },
       transformResponse: (response: {result: CityOffice[]}) => response.result,
     }),
     [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
       query: () => {
-        return '/waiting_times'
+        return `/${contactModule.slug}/waiting-times`
       },
+      keepUnusedDataFor: 1,
       transformResponse: (response: {result: WaitingTime[]}) => response.result,
     }),
   }),
