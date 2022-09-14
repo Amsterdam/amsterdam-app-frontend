@@ -30,7 +30,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   }
 
   const {queued, waitingTime} = waitingTimesForCityOffice
-  const queuedPhrase = simplur`${[
+  const queuedPhrase = simplur`Er ${[queued]} [is|zijn] nu ${[
     queued,
     (q: number) => (q === 0 ? 'geen' : q),
   ]} wachtende[|n]`
@@ -46,7 +46,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon size={32}>
             <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>Er zijn nu {queuedPhrase}</Paragraph>
+          <Paragraph>{queuedPhrase}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
           <Icon size={32}>
