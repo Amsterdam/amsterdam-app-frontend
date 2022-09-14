@@ -13,6 +13,17 @@ type Props = {
   cityOfficeId: string
 }
 
+const replaceZero = (q: number) => (q === 0 ? 'geen' : q.toString())
+
+const getQueuedPhrase = (queued: number) =>
+  simplur`Er ${[queued]} [is|zijn] nu ${[queued, replaceZero]} wachtende[|n]`
+
+const getWaitingTimePhrase = (waitingTime: number) =>
+  'De wachttijd is ' +
+  (waitingTime >= 60
+    ? 'meer dan een uur'
+    : simplur`${waitingTime} minu[ut|ten]`)
+
 export const WaitingTime = ({cityOfficeId}: Props) => {
   const {data: waitingTimes, isLoading} = useGetWaitingTimesQuery()
   const iconProps = useThemable(createIconProps)
@@ -30,14 +41,6 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   }
 
   const {queued, waitingTime} = waitingTimesForCityOffice
-  const queuedPhrase = simplur`Er ${[queued]} [is|zijn] nu ${[
-    queued,
-    (q: number) => (q === 0 ? 'geen' : q),
-  ]} wachtende[|n]`
-  const waitingTimePhrase =
-    waitingTime >= 60
-      ? 'meer dan een uur'
-      : simplur`${waitingTime} minu[ut|ten]`
 
   return (
     <Box>
@@ -46,13 +49,13 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon size={32}>
             <PersonalLogin {...iconProps} />
           </Icon>
-          <Paragraph>{queuedPhrase}</Paragraph>
+          <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
           <Icon size={32}>
             <Clock {...iconProps} />
           </Icon>
-          <Paragraph>De wachttijd is {waitingTimePhrase}</Paragraph>
+          <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
         </Row>
       </Column>
     </Box>
