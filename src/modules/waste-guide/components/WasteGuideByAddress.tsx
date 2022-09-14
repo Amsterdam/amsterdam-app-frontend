@@ -1,13 +1,12 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box, SingleSelectable, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
-import {useFetch} from '@/hooks'
 import {AddressModalName} from '@/modules/address/routes'
 import {selectAddress} from '@/modules/address/slice'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
@@ -19,49 +18,34 @@ import {
   WasteGuideContainers,
 } from '@/modules/waste-guide/components'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {
-  WasteGuide,
-  WasteGuideResponse,
-  WasteType,
-} from '@/modules/waste-guide/types'
+import {useGetGarbageCollectionAreaByLocationQuery} from '@/modules/waste-guide/service'
+import {WasteType} from '@/modules/waste-guide/types'
 import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
 import {useEnvironment} from '@/store'
 
 export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)
   const address = temp ?? primary
-  const [wasteGuide, setWasteGuide] = useState<WasteGuide | undefined>(
-    undefined,
-  )
+
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
 
-  const wasteGuideEndpoint = useFetch<WasteGuideResponse>({
-    onLoad: false,
-    options: {},
-    url: 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
-  })
-
-  useEffect(() => {
-    // eslint-disable-next-line no-void
-    void wasteGuideEndpoint.fetchData({
+  const {data, isLoading} = useGetGarbageCollectionAreaByLocationQuery(
+    {
       lon: address?.centroid[0] ?? '',
       lat: address?.centroid[1] ?? '',
-    })
-  }, [address]) // eslint-disable-line react-hooks/exhaustive-deps
+    },
+    {skip: !address},
+  )
 
   const environment = useEnvironment()
-  useEffect(() => {
-    setWasteGuide(
-      transformWasteGuideResponse(
-        wasteGuideEndpoint.data,
-        address,
-        environment,
-      ),
-    )
-  }, [address, wasteGuideEndpoint.data, environment])
+
+  const wasteGuide = useMemo(
+    () => data && transformWasteGuideResponse(data, address, environment),
+    [address, data, environment],
+  )
 
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
@@ -69,6 +53,10 @@ export const WasteGuideByAddress = () => {
     navigation.navigate(AddressModalName.addressForm, {
       addressIsTemporary: true,
     })
+  }
+
+  if (isLoading) {
+    return <PleaseWait />
   }
 
   if (!address) {
