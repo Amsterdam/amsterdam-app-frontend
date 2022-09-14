@@ -3,16 +3,16 @@ import {useCallback, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
   closeBottomSheet,
-  expandBottomSheet,
-  selectIsBottomSheetExpanded,
+  openBottomSheet,
+  selectIsBottomSheetOpen,
 } from '@/store'
 
 export const useBottomSheet = () => {
   const dispatch = useDispatch()
-  const isExpanded = useSelector(selectIsBottomSheetExpanded)
+  const isOpen = useSelector(selectIsBottomSheetOpen)
   const ref = useRef<BottomSheet>(null)
 
-  const expand = useCallback(() => {
+  const open = useCallback(() => {
     ref.current?.expand()
   }, [])
 
@@ -21,18 +21,18 @@ export const useBottomSheet = () => {
   }, [])
 
   useEffect(() => {
-    isExpanded ? expand() : close()
-  }, [close, expand, isExpanded])
+    isOpen ? open() : close()
+  }, [close, isOpen, open])
 
   const onChange = useCallback(
     (snapPointIndex: number) => {
-      const newIsExpanded = snapPointIndex !== -1
+      const newIsOpen = snapPointIndex !== -1
 
-      if (newIsExpanded !== isExpanded) {
-        dispatch(newIsExpanded ? expandBottomSheet() : closeBottomSheet())
+      if (newIsOpen !== isOpen) {
+        dispatch(newIsOpen ? openBottomSheet() : closeBottomSheet())
       }
     },
-    [dispatch, isExpanded],
+    [dispatch, isOpen],
   )
 
   return {
