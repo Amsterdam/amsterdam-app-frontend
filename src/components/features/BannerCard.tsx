@@ -20,7 +20,7 @@ export const BannerCard = ({imageSource, onPress, subtitle, title}: Props) => (
       <Column gutter="md">
         {!!imageSource && <Image source={imageSource} />}
         {/* Skip re-reading main title */}
-        <SingleSelectable label={subtitle}>
+        <SingleSelectable accessibilityLabel={subtitle}>
           <Title level={3} text={title} />
           <Title level={3} subtitle text={subtitle} />
         </SingleSelectable>

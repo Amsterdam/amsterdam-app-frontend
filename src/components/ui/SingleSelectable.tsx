@@ -3,23 +3,13 @@ import {StyleSheet, View, ViewProps} from 'react-native'
 
 type Props = {
   children: ReactNode
-  label?: string
 } & ViewProps
 
 /**
  * Groups its children into a single selectable component for screen readers.
  */
-export const SingleSelectable = ({
-  children,
-  label,
-  style,
-  ...otherProps
-}: Props) => (
-  <View
-    accessible
-    accessibilityLabel={label}
-    style={[style, styles.singleSelectable]}
-    {...otherProps}>
+export const SingleSelectable = ({children, style, ...otherProps}: Props) => (
+  <View accessible style={[style, styles.singleSelectable]} {...otherProps}>
     {children}
   </View>
 )
