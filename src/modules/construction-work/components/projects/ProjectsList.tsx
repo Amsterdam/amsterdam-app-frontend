@@ -57,7 +57,7 @@ const ListItem = ({
     const traits = getProjectTraits?.(project)
     const {followed, meter, recent_articles, strides} = traits
 
-    const numOfUnreadArticles = excludeListItemsFromList(
+    const numOfUnreadArticles = excludeListItemsFromList<string>(
       recent_articles?.map(r => r.identifier) ?? [],
       readArticles.map(r => r.id),
     ).length
