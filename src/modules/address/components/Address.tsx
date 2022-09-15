@@ -63,7 +63,7 @@ export const Address = () => {
               }
               accessibilityLabel={`${
                 isTooltipVisible ? 'Verberg' : 'Toon'
-              } uitleg over het opslaan van uw adres.`}
+              } uitleg`}
               onPress={() => setTooltipVisible(!isTooltipVisible)}
             />
           </Row>

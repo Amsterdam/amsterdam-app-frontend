@@ -23,7 +23,9 @@ export const WritingGuide = () => (
         const step = (index + 1).toString()
 
         return (
-          <SingleSelectable label={accessibleText(step, tip)} key={tip}>
+          <SingleSelectable
+            accessibilityLabel={accessibleText(step, tip)}
+            key={tip}>
             <Row gutter="md">
               <Phrase fontWeight="bold">{step}</Phrase>
               <Paragraph>{tip}</Paragraph>

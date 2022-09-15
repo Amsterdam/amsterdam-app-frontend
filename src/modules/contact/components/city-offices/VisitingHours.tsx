@@ -62,7 +62,7 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 }
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
-  const [tooltipIsVisible, setTooltipIsVisible] = useState(false)
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const iconProps = useThemable(createIconProps)
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
 
@@ -79,19 +79,19 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           </Paragraph>
         )}
         <IconButton
-          accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-          accessibilityRole="none"
           icon={
             <Icon size={24}>
               <QuestionMarkSolid {...iconProps} />
             </Icon>
           }
-          onPress={() => setTooltipIsVisible(!tooltipIsVisible)}
+          accessibilityLabel={`${isTooltipVisible ? 'Verberg' : 'Toon'} uitleg`}
+          onPress={() => setIsTooltipVisible(!isTooltipVisible)}
         />
       </Row>
-      {!!tooltipIsVisible && (
+      {!!isTooltipVisible && (
         <Box insetHorizontal="lg">
           <Tooltip
+            accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
             placement={Placement.below}
             text={getTooltipContent('written')}
           />

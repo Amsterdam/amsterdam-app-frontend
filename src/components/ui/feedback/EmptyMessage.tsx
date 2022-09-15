@@ -11,7 +11,7 @@ export const EmptyMessage = ({text}: Props) => {
   const title = 'Helaas…'
 
   return (
-    <SingleSelectable label={accessibleText(title, text)}>
+    <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
       <Title level="h1" text={title} />
       <Paragraph>{text}</Paragraph>
     </SingleSelectable>

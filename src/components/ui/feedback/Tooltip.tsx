@@ -1,5 +1,6 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {AccessibilityProps, StyleSheet} from 'react-native'
+import {SingleSelectable} from '@/components/ui'
 import {Triangle} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
@@ -10,14 +11,19 @@ import {Theme, useThemable} from '@/themes'
 type Props = {
   placement: Placement
   text: string | string[]
-}
+} & Pick<AccessibilityProps, 'accessibilityLabel'>
 
-const TooltipContent = ({text}: Pick<Props, 'text'>) => {
+const TooltipContent = ({
+  accessibilityLabel,
+  text,
+}: Pick<Props, 'accessibilityLabel' | 'text'>) => {
   const styles = useThemable(createStyles)
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
-    <View style={styles.tooltip}>
+    <SingleSelectable
+      accessibilityLabel={accessibilityLabel}
+      style={styles.tooltip}>
       <Column gutter="sm">
         {paragraphs.map(paragraph => (
           <Paragraph color="inverse" variant="small" key={paragraph}>
@@ -25,11 +31,11 @@ const TooltipContent = ({text}: Pick<Props, 'text'>) => {
           </Paragraph>
         ))}
       </Column>
-    </View>
+    </SingleSelectable>
   )
 }
 
-export const Tooltip = ({placement, text}: Props) => {
+export const Tooltip = ({accessibilityLabel, placement, text}: Props) => {
   const props = {direction: mapPlacementToDirection(placement)}
 
   return (
@@ -37,7 +43,7 @@ export const Tooltip = ({placement, text}: Props) => {
       {placement === Placement.after && <Triangle {...props} />}
       <Column>
         {placement === Placement.below && <Triangle {...props} />}
-        <TooltipContent text={text} />
+        <TooltipContent {...{accessibilityLabel, text}} />
         {placement === Placement.above && <Triangle {...props} />}
       </Column>
       {placement === Placement.before && <Triangle {...props} />}

@@ -128,7 +128,10 @@ export const Project = ({id}: Props) => {
                 onPress={onPressFollowButton}
               />
               <SingleSelectable
-                label={accessibleText(followers.toString(), followersPhrase)}>
+                accessibilityLabel={accessibleText(
+                  followers.toString(),
+                  followersPhrase,
+                )}>
                 <Column>
                   <Phrase variant="small" fontWeight="bold">
                     {followers}
@@ -145,8 +148,8 @@ export const Project = ({id}: Props) => {
                 {...{meter, strides}}
               />
               <SingleSelectable
-                accessibilityRole="header"
-                label={accessibleText(title, subtitle)}>
+                accessibilityLabel={accessibleText(title, subtitle)}
+                accessibilityRole="header">
                 <Column gutter="sm">
                   {!!title && <Title text={title} />}
                   {!!subtitle && <Title level="h4" text={subtitle} />}
