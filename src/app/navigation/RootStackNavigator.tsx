@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
+import React, {useMemo} from 'react'
 import {screenOptions} from '@/app/navigation'
 import {clientModules} from '@/modules'
 import {module as homeModule} from '@/modules/home'
@@ -31,22 +31,26 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
+
+  const ModuleStacks = useMemo(
+    () =>
+      clientModules.map(({slug}) => {
+        const stack = getModuleStack(slug)
+
+        return stack ? (
+          <Stack.Screen component={stack} key={slug} name={slug} />
+        ) : null
+      }),
+    [],
+  )
+
   return (
     <Stack.Navigator
       initialRouteName={homeModule.slug}
       screenOptions={{
         headerShown: false,
       }}>
-      {clientModules.map(module => {
-        const stack = getModuleStack(module.slug)
-        return stack ? (
-          <Stack.Screen
-            component={stack}
-            key={module.slug}
-            name={module.slug}
-          />
-        ) : null
-      })}
+      {ModuleStacks}
       <Stack.Group
         screenOptions={{presentation: 'modal', ...screenOptions(theme)}}>
         {Object.entries(modals).map(([key, route]) => (
