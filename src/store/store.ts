@@ -18,6 +18,7 @@ import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
 import {authSlice} from '@/store/authSlice'
+import {bottomSheetSlice} from '@/store/bottomSheetSlice'
 import {environmentSlice} from '@/store/environmentSlice'
 import {modulesSlice} from '@/store/modulesSlice'
 import {themeSlice} from '@/themes/slice'
@@ -64,6 +65,7 @@ const rootReducer = combineReducers({
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   alert: alertSlice.reducer,
   auth: authSlice.reducer,
+  bottomSheet: bottomSheetSlice.reducer,
   contact: persistReducer(contactPersistConfig, contactSlice.reducer),
   environment: persistReducer(
     environmentPersistConfig,
@@ -98,6 +100,7 @@ export const store = configureStore({
         warnAfter: 256,
       },
     }).concat([baseApi.middleware, sentryLoggerMiddleware])
+
     if (__DEV__) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const createDebugger = require('redux-flipper').default
@@ -108,6 +111,6 @@ export const store = configureStore({
   },
 })
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
+
 export type AppDispatch = typeof store.dispatch

@@ -7,13 +7,9 @@ import {Title} from '@/components/ui/text'
 import {CityOfficeButton} from '@/modules/contact/components'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 
-type Props = {
-  toggleBottomSheet: () => void
-}
-
 const ItemSeparator = () => <Gutter height="sm" />
 
-export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
+export const SelectCityOffice = () => {
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
 
   if (isLoading || !cityOffices) {
@@ -27,14 +23,9 @@ export const SelectCityOffice = ({toggleBottomSheet}: Props) => {
       <BottomSheetFlatList
         data={cityOffices}
         ItemSeparatorComponent={ItemSeparator}
+        keyExtractor={cityOffice => cityOffice.identifier}
         ListFooterComponent={<Gutter height="lg" />}
-        keyExtractor={i => i.identifier}
-        renderItem={({item}) => (
-          <CityOfficeButton
-            cityOffice={item}
-            toggleBottomSheet={toggleBottomSheet}
-          />
-        )}
+        renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
       />
     </Box>
   )

@@ -1,9 +1,16 @@
 import BottomSheet from '@gorhom/bottom-sheet'
-import {useCallback, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {
+  closeBottomSheet,
+  openBottomSheet,
+  selectIsBottomSheetOpen,
+} from '@/store'
 
 export const useBottomSheet = () => {
+  const dispatch = useDispatch()
+  const isOpen = useSelector(selectIsBottomSheetOpen)
   const ref = useRef<BottomSheet>(null)
-  const [isOpen, setIsOpen] = useState(false)
 
   const open = useCallback(() => {
     ref.current?.expand()
@@ -13,20 +20,23 @@ export const useBottomSheet = () => {
     ref.current?.close()
   }, [])
 
-  const toggle = useCallback(() => {
-    isOpen ? close() : open()
-  }, [isOpen, open, close])
+  useEffect(() => {
+    isOpen ? open() : close()
+  }, [close, isOpen, open])
 
-  const onChange = useCallback((index: number) => {
-    setIsOpen(index === 0)
-  }, [])
+  const onChange = useCallback(
+    (snapPointIndex: number) => {
+      const newIsOpen = snapPointIndex !== -1
+
+      if (newIsOpen !== isOpen) {
+        dispatch(newIsOpen ? openBottomSheet() : closeBottomSheet())
+      }
+    },
+    [dispatch, isOpen],
+  )
 
   return {
-    close,
-    isOpen,
     onChange,
-    open,
     ref,
-    toggle,
   }
 }

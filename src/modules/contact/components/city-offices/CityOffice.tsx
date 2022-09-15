@@ -16,11 +16,7 @@ import {selectCityOffice} from '@/modules/contact/slice'
 import {useEnvironment} from '@/store'
 import {mapImageSources, openWebUrl} from '@/utils'
 
-type Props = {
-  toggleBottomSheet: () => void
-}
-
-export const CityOffice = ({toggleBottomSheet}: Props) => {
+export const CityOffice = () => {
   const environment = useEnvironment()
   const selectedCityOfficeId = useSelector(selectCityOffice)
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
@@ -53,10 +49,7 @@ export const CityOffice = ({toggleBottomSheet}: Props) => {
       <Column gutter="md">
         <Title level="h2" text="Bezoek ons" />
         <Image source={mapImageSources(image.sources, environment)} />
-        <NameAndAddress
-          {...{address, addressContent, title}}
-          toggleBottomSheet={toggleBottomSheet}
-        />
+        <NameAndAddress {...{address, addressContent, title}} />
         <VisitingHours
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}

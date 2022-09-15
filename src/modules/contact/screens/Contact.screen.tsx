@@ -16,7 +16,7 @@ const Backdrop = (props: BottomSheetBackdropProps) => (
 )
 
 export const ContactScreen = () => {
-  const {onChange, ref, toggle} = useBottomSheet()
+  const {onChange, ref} = useBottomSheet()
 
   return (
     <Screen
@@ -27,11 +27,11 @@ export const ContactScreen = () => {
           enablePanDownToClose
           index={-1}
           snapPoints={['87.5%']}>
-          <SelectCityOffice toggleBottomSheet={toggle} />
+          <SelectCityOffice />
         </BottomSheet>
       }>
       <ContactOptions />
-      <CityOffice toggleBottomSheet={toggle} />
+      <CityOffice />
     </Screen>
   )
 }
