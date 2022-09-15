@@ -8,7 +8,7 @@ import {SwipeToDelete} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Phrase, Title} from '@/components/ui/text'
+import {Title} from '@/components/ui/text'
 import {icons} from '@/modules/home/config'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -64,11 +64,7 @@ export const ModuleButton = ({
                 text={label}
               />
             </Row>
-            {!!BadgeValue && (
-              <Phrase>
-                <BadgeValue />
-              </Phrase>
-            )}
+            {!!BadgeValue && <BadgeValue />}
           </Row>
         </Pressable>
       </SwipeToDelete>
