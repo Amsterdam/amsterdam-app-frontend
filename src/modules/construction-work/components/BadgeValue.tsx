@@ -6,7 +6,6 @@ import {selectAddress} from '@/modules/address/slice'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
-import {excludeListItemsFromList} from '@/utils'
 
 export const BadgeValue = () => {
   const {primary: address} = useSelector(selectAddress)
@@ -26,24 +25,26 @@ export const BadgeValue = () => {
     sortBy: 'meter',
   })
 
-  const totalRecentAndUnreadArticles = useMemo(
+  const unreadArticlesLength = useMemo(
     () =>
       projects
         ?.filter(project => project.followed)
         ?.reduce((total, {recent_articles}) => {
+          const recentArticlesIds =
+            recent_articles?.map(r => r.identifier) ?? []
+          const readArticlesIds = readArticles.map(r => r.id)
+
           return (
-            excludeListItemsFromList(
-              recent_articles?.map(r => r.identifier) ?? [],
-              readArticles.map(r => r.id),
-            ).length + total
+            recentArticlesIds.filter(id => !readArticlesIds.includes(id))
+              .length + total
           )
         }, 0),
     [projects, readArticles],
   )
 
-  if (!totalRecentAndUnreadArticles) {
+  if (!unreadArticlesLength) {
     return <Spinner />
   }
 
-  return <Badge value={totalRecentAndUnreadArticles} />
+  return <Badge value={unreadArticlesLength} />
 }

@@ -29,11 +29,7 @@ import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
-import {
-  accessibleText,
-  excludeListItemsFromList,
-  mapImageSources,
-} from '@/utils'
+import {accessibleText, mapImageSources} from '@/utils'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 
@@ -57,18 +53,19 @@ const ListItem = ({
     const traits = getProjectTraits?.(project)
     const {followed, meter, recent_articles, strides} = traits
 
-    const numOfUnreadArticles = excludeListItemsFromList<string>(
-      recent_articles?.map(r => r.identifier) ?? [],
-      readArticles.map(r => r.id),
+    const recentArticlesIds = recent_articles?.map(r => r.identifier) ?? []
+    const readArticlesIds = readArticles.map(r => r.id)
+    const unreadArticlesLength = recentArticlesIds.filter(
+      id => !readArticlesIds.includes(id),
     ).length
 
     projectTraits = (
       <ProjectTraits
         accessibilityLabel={accessibleText(
-          getAccessibleFollowingText(!!followed, numOfUnreadArticles),
+          getAccessibleFollowingText(!!followed, unreadArticlesLength),
           getAccessibleDistanceText(meter, strides),
         )}
-        numOfUnreadArticles={numOfUnreadArticles}
+        unreadArticlesLength={unreadArticlesLength}
         {...traits}
       />
     )

@@ -10,14 +10,14 @@ import {ProjectsItem} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = Partial<ProjectsItem> & {
-  numOfUnreadArticles?: number
+  unreadArticlesLength?: number
 } & ViewProps
 
 export const ProjectTraits = ({
   followed,
   meter,
-  numOfUnreadArticles,
   strides,
+  unreadArticlesLength,
   ...viewProps
 }: Props) => {
   const iconProps = useThemable(createIconProps)
@@ -30,9 +30,9 @@ export const ProjectTraits = ({
     <View {...viewProps}>
       <Row gutter="md" wrap>
         {!!followed &&
-          (numOfUnreadArticles ? (
-            <Trait label={simplur`${[numOfUnreadArticles]} Bericht[|en]`}>
-              <Badge value={numOfUnreadArticles} />
+          (unreadArticlesLength ? (
+            <Trait label={simplur`${[unreadArticlesLength]} Bericht[|en]`}>
+              <Badge value={unreadArticlesLength} />
             </Trait>
           ) : (
             <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />
