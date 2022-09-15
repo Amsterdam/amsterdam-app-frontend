@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {Badge} from '@/components/ui'
-import {Spinner} from '@/components/ui/feedback'
 import {selectAddress} from '@/modules/address/slice'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
@@ -42,9 +41,9 @@ export const BadgeValue = () => {
     [projects, readArticles],
   )
 
-  if (!unreadArticlesLength) {
-    return <Spinner />
+  if (unreadArticlesLength) {
+    return <Badge value={unreadArticlesLength} />
   }
 
-  return <Badge value={unreadArticlesLength} />
+  return null
 }
