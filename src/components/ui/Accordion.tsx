@@ -12,7 +12,7 @@ type Props = {
   title: string
 }
 
-export const Accordion = ({children, title = 'Grofvuil'}: Props) => {
+export const Accordion = ({children, title}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const iconProps = useThemable(createIconProps)
   return (
