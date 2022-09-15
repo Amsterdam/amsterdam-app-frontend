@@ -40,12 +40,14 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({icon, isForEmployees, slug, title}) => {
+        {modules.map(({BadgeValue, icon, isForEmployees, slug, title}) => {
           if (isForEmployees && !constructionWorkEditorId) {
             return
           }
+
           return (
             <ModuleButton
+              BadgeValue={BadgeValue}
               iconName={icon}
               key={slug}
               label={title}

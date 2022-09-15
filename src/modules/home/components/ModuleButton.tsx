@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps, useCallback} from 'react'
+import React, {ElementType, SVGProps, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -18,6 +18,7 @@ import {Theme, useThemable} from '@/themes'
 type ButtonVariants = 'primary' | 'tertiary'
 
 type Props = {
+  BadgeValue?: ElementType
   iconName: string
   label: string
   slug: ModuleSlug
@@ -25,6 +26,7 @@ type Props = {
 }
 
 export const ModuleButton = ({
+  BadgeValue,
   iconName,
   label,
   slug,
@@ -49,17 +51,20 @@ export const ModuleButton = ({
           inset="md"
           onPress={() => navigation.navigate(slug)}
           variant={variant}>
-          <Row gutter="md" valign="center">
-            {!!ModuleIcon && (
-              <Icon size={24}>
-                <ModuleIcon {...iconProps} />
-              </Icon>
-            )}
-            <Title
-              color={variant === 'primary' ? 'inverse' : 'default'}
-              level="h5"
-              text={label}
-            />
+          <Row align="between" valign="center">
+            <Row gutter="md">
+              {!!ModuleIcon && (
+                <Icon size={24}>
+                  <ModuleIcon {...iconProps} />
+                </Icon>
+              )}
+              <Title
+                color={variant === 'primary' ? 'inverse' : 'default'}
+                level="h5"
+                text={label}
+              />
+            </Row>
+            {!!BadgeValue && <BadgeValue />}
           </Row>
         </Pressable>
       </SwipeToDelete>

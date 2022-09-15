@@ -1,10 +1,12 @@
 import {Slice} from '@reduxjs/toolkit'
+import {ElementType} from 'react'
 import {ModuleSlug} from '@/modules/slugs'
 
 /**
  * The client part of a module’s configuration.
  */
 export type ModuleClientConfig = {
+  BadgeValue?: ElementType
   isCore?: boolean
   isForEmployees?: boolean
   linking: Record<string, string>
