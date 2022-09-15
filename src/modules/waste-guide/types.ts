@@ -1,5 +1,5 @@
 export enum WasteGuideEndpointName {
-  getGarbageCollectionAreaByLocation = 'getGarbageCollectionAreaByLocation',
+  getGarbageCollectionArea = 'getGarbageCollectionArea',
 }
 
 export type WasteGuideQueryArg = {
