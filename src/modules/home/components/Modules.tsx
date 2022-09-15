@@ -1,10 +1,11 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
-import {ModuleSlug} from '@/modules/slugs'
 
 export const Modules = () => {
   const {
@@ -13,6 +14,7 @@ export const Modules = () => {
     refetchModules,
     selectedModules: modules,
   } = useModules()
+  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
 
   if (modulesLoading) {
     return <PleaseWait grow />
@@ -38,22 +40,20 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        <ModuleButton
-          iconName="announcement"
-          key="construction-work-editor"
-          label="Plaats berichten"
-          slug={ModuleSlug['construction-work-editor']}
-          variant="primary"
-        />
-        {modules.map(({icon, isForEmployees, slug, title}) => (
-          <ModuleButton
-            iconName={icon}
-            key={slug}
-            label={title}
-            slug={slug}
-            variant={isForEmployees ? 'primary' : 'tertiary'}
-          />
-        ))}
+        {modules.map(({icon, isForEmployees, slug, title}) => {
+          if (isForEmployees && !constructionWorkEditorId) {
+            return
+          }
+          return (
+            <ModuleButton
+              iconName={icon}
+              key={slug}
+              label={title}
+              slug={slug}
+              variant={isForEmployees ? 'primary' : 'tertiary'}
+            />
+          )
+        })}
       </Column>
     </Box>
   )
