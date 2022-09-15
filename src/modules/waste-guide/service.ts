@@ -15,8 +15,8 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       query: params => ({
         url: generateRequestUrl({
           params,
+          path: '/waste-guide/search',
         }),
-        api: 'garbageCollectionAreaUrl',
       }),
       transformResponse: (response: {result: WasteGuideResponse}) =>
         response.result,
