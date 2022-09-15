@@ -9,7 +9,6 @@ export type EnvironmentConfig = {
   apiUrl: string
   atlasUrl: string
   bulkyWasteFormUrl: string
-  garbageCollectionAreaUrl: string
   modulesApiUrl: string
   signalsBaseUrl: string
 }
@@ -26,7 +25,6 @@ enum ApiUrls {
 enum ExternalApiUrls {
   atlasProd = 'https://api.data.amsterdam.nl/atlas',
   bulkyWasteFormProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-  garbageCollectionAreaProd = 'https://api.data.amsterdam.nl/afvalophaalgebieden/search/',
   signalsBaseAcc = 'https://acc.app.meldingen.amsterdam.nl',
   signalsBaseProd = 'https://app.meldingen.amsterdam.nl',
 }
@@ -36,7 +34,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    garbageCollectionAreaUrl: ExternalApiUrls.garbageCollectionAreaProd,
     modulesApiUrl: ApiUrls.modulesApiLocal,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
@@ -44,7 +41,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiAcc,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    garbageCollectionAreaUrl: ExternalApiUrls.garbageCollectionAreaProd,
     modulesApiUrl: ApiUrls.modulesApiAcc,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
@@ -52,7 +48,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiProd,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    garbageCollectionAreaUrl: ExternalApiUrls.garbageCollectionAreaProd,
     modulesApiUrl: ApiUrls.modulesApiProd,
     signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
   },
@@ -60,7 +55,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiLocal,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    garbageCollectionAreaUrl: ExternalApiUrls.garbageCollectionAreaProd,
     modulesApiUrl: ApiUrls.modulesApiLocal,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
