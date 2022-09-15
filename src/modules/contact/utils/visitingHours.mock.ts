@@ -1,6 +1,7 @@
 import {VisitingHour} from '@/modules/contact/types'
 
 export const day = {
+  monday: '2022-08-29',
   wednesday: '2022-08-31',
   thursday: '2022-09-01',
   friday: '2022-09-02',
