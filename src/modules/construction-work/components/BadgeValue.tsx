@@ -17,7 +17,7 @@ export const BadgeValue = () => {
     adres: addressText,
   } = address ?? {centroid: [0, 0]}
 
-  const projects = useGetProjectsQuery({
+  const {data: projects} = useGetProjectsQuery({
     address: lat && lon ? '' : addressText,
     articles_max_age: articlesMaxAgeInDays,
     fields: ['followed', 'recent_articles'],
@@ -28,7 +28,7 @@ export const BadgeValue = () => {
 
   const totalRecentAndUnreadArticles = useMemo(
     () =>
-      projects.data
+      projects
         ?.filter(project => project.followed)
         ?.reduce((total, {recent_articles}) => {
           return (
@@ -38,7 +38,7 @@ export const BadgeValue = () => {
             ).length + total
           )
         }, 0),
-    [projects.data, readArticles],
+    [projects, readArticles],
   )
 
   if (!totalRecentAndUnreadArticles) {
