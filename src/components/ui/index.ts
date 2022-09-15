@@ -1,3 +1,4 @@
+export * from './Accordion'
 export * from './Badge'
 export * from './Box'
 export * from './DescriptionList'
