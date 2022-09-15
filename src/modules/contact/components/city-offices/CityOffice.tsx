@@ -59,6 +59,7 @@ export const CityOffice = () => {
           <Column gutter="md">
             <Paragraph>{appointment.text}</Paragraph>
             <Button
+              accessibilityRole="link"
               label="Maak een afspraak"
               onPress={() => openWebUrl(appointment.url)}
             />
@@ -70,6 +71,7 @@ export const CityOffice = () => {
         )}
         {!!directionsUrl && (
           <Button
+            accessibilityRole="link"
             label="Toon route"
             onPress={() => openWebUrl(directionsUrl)}
             variant={appointment ? 'secondary' : 'primary'}
