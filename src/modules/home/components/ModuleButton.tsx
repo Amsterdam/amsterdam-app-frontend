@@ -51,17 +51,19 @@ export const ModuleButton = ({
           inset="md"
           onPress={() => navigation.navigate(slug)}
           variant={variant}>
-          <Row gutter="md" valign="center">
-            {!!ModuleIcon && (
-              <Icon size={24}>
-                <ModuleIcon {...iconProps} />
-              </Icon>
-            )}
-            <Title
-              color={variant === 'primary' ? 'inverse' : 'default'}
-              level="h5"
-              text={label}
-            />
+          <Row align="between" valign="center">
+            <Row gutter="md">
+              {!!ModuleIcon && (
+                <Icon size={24}>
+                  <ModuleIcon {...iconProps} />
+                </Icon>
+              )}
+              <Title
+                color={variant === 'primary' ? 'inverse' : 'default'}
+                level="h5"
+                text={label}
+              />
+            </Row>
             {!!BadgeValue && (
               <Phrase>
                 <BadgeValue />
