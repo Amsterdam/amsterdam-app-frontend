@@ -1,7 +1,5 @@
 export enum WasteGuideRouteName {
   bulkyWasteAppointment = 'BulkyWasteAppointment',
-  recyclingGuide = 'RecyclingGuide',
-  reportNotCollected = 'ReportNotCollected',
   wasteGuide = 'WasteGuide',
   wasteGuideCollectionPoints = 'WasteGuideCollectionPoints',
   wasteGuideContainers = 'WasteGuideContainers',
@@ -11,8 +9,6 @@ export enum WasteGuideRouteName {
 
 export type WasteGuideStackParams = {
   [WasteGuideRouteName.bulkyWasteAppointment]: {appointmentUrl: string}
-  [WasteGuideRouteName.recyclingGuide]: undefined
-  [WasteGuideRouteName.reportNotCollected]: undefined
   [WasteGuideRouteName.wasteGuide]: undefined
   [WasteGuideRouteName.wasteGuideCollectionPoints]: undefined
   [WasteGuideRouteName.wasteGuideContainers]: undefined
