@@ -24,6 +24,7 @@ import QuestionMark from './question-mark.svg'
 import Search from './search.svg'
 import Settings from './settings.svg'
 import Strides from './strides.svg'
+import TwoPersons from './two-persons.svg'
 import Whatsapp from './whatsapp.svg'
 
 export {
@@ -53,5 +54,6 @@ export {
   Search,
   Settings,
   Strides,
+  TwoPersons,
   Whatsapp,
 }
