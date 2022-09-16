@@ -8,7 +8,7 @@ import {generateRequestUrl} from '@/utils'
 
 export const wasteGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [WasteGuideEndpointName.getGarbageCollectionAreaByLocation]: builder.query<
+    [WasteGuideEndpointName.getGarbageCollectionArea]: builder.query<
       WasteGuideResponse,
       WasteGuideQueryArg
     >({
@@ -25,4 +25,4 @@ export const wasteGuideApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetGarbageCollectionAreaByLocationQuery} = wasteGuideApi
+export const {useGetGarbageCollectionAreaQuery} = wasteGuideApi

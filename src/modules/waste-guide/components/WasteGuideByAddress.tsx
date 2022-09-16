@@ -18,7 +18,7 @@ import {
   WasteGuideContainers,
 } from '@/modules/waste-guide/components'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {useGetGarbageCollectionAreaByLocationQuery} from '@/modules/waste-guide/service'
+import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {WasteType} from '@/modules/waste-guide/types'
 import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
 import {useEnvironment} from '@/store'
@@ -32,7 +32,7 @@ export const WasteGuideByAddress = () => {
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
 
-  const {data, isLoading} = useGetGarbageCollectionAreaByLocationQuery(
+  const {data, isLoading} = useGetGarbageCollectionAreaQuery(
     {
       lon: address?.centroid[0] ?? '',
       lat: address?.centroid[1] ?? '',

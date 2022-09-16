@@ -1,9 +1,8 @@
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
-import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
 import React, {SVGProps, useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import {ChevronDown, ChevronUp} from '@/assets/icons'
 import {Icon} from '@/components/ui/media'
 import {Article, Title} from '@/components/ui/text'
 import {

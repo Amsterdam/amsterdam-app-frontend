@@ -1,7 +1,6 @@
-import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
 import React, {SVGProps} from 'react'
 import {useDispatch} from 'react-redux'
-import {CityOffice as CityOfficeIcon} from '@/assets/icons'
+import {ChevronDown, CityOffice as CityOfficeIcon} from '@/assets/icons'
 import {SingleSelectable} from '@/components/ui'
 import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
