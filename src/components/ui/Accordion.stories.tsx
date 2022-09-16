@@ -9,7 +9,13 @@ export default {
 
 export const Default: ComponentStory<typeof Accordion> = args => (
   <Accordion {...args}>
-    <Paragraph>Lorem ipsum...</Paragraph>
+    <Paragraph>
+      Een accordeon is een klikbare verticaal gestapelde lijst van koppen om
+      bijbehorende inhoud te verbergen of te vertonen. Je toont inhoud op een
+      progressieve manier aan gebruikers. Ze zijn geschikt zodra gebruikers op
+      zoek zijn naar essentiële inhoud op 1 pagina. Door niet essentiële inhoud
+      te verbergen, kunnen gebruikers focussen op de primaire inhoud.
+    </Paragraph>
   </Accordion>
 )
 

@@ -1,5 +1,5 @@
 import React, {ReactNode, SVGProps, useState} from 'react'
-import {ChevronDown} from '@/assets/icons'
+import {ChevronDown, ChevronUp} from '@/assets/icons'
 import {Box} from '@/components/ui/Box'
 import {Pressable} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
@@ -14,7 +14,9 @@ type Props = {
 
 export const Accordion = ({children, title}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
+  const Chevron = isOpen ? ChevronUp : ChevronDown
   const iconProps = useThemable(createIconProps)
+
   return (
     <Box>
       <Column gutter="sm">
@@ -22,7 +24,7 @@ export const Accordion = ({children, title}: Props) => {
           <Row align="between" valign="center">
             <Title color="link" level="h5" text={title} />
             <Icon>
-              <ChevronDown {...iconProps} />
+              <Chevron {...iconProps} />
             </Icon>
           </Row>
         </Pressable>
