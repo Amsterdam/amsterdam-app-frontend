@@ -1,6 +1,5 @@
-import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
-import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import React, {SVGProps} from 'react'
+import {ChevronLeft, ChevronRight} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'

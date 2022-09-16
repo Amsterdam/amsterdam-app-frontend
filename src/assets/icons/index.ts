@@ -4,6 +4,8 @@ import BellInactive from './bell-inactive.svg'
 import BulkyWaste from './bulky-waste.svg'
 import Checkmark from './checkmark.svg'
 import ChevronDown from './chevron-down.svg'
+import ChevronLeft from './chevron-left.svg'
+import ChevronRight from './chevron-right.svg'
 import ChevronUp from './chevron-up.svg'
 import Circle from './circle.svg'
 import CityOffice from './city-office.svg'
@@ -34,6 +36,8 @@ export {
   BulkyWaste,
   Checkmark,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   Circle,
   CityOffice,
