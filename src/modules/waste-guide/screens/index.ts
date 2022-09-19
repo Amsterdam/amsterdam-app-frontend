@@ -1,4 +1,6 @@
 export * from './BulkyWasteAppointment.screen'
+export * from './RecyclingGuide.screen'
+export * from './ReportNotCollected.screen'
 export * from './WasteGuideCollectionPoints.screen'
 export * from './WasteGuideContainers.screen'
 export * from './WasteGuideFeedback.screen'

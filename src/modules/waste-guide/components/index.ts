@@ -1,4 +1,6 @@
 export * from './AddressFormTeaser'
+export * from './RecyclingGuideBanner'
+export * from './ReportNotCollectedBanner'
 export * from './WasteGuideByAddress'
 export * from './WasteGuideByAddressDetails'
 export * from './WasteGuideByAddressNoDetails'

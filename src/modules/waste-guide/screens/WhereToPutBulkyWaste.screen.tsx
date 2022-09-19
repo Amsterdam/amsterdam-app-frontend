@@ -1,6 +1,8 @@
 import React from 'react'
+import {ImageSourcePropType} from 'react-native'
 import {Box, Text, Title} from '@/components/ui'
-import {Gutter, Screen} from '@/components/ui/layout'
+import {Gutter, Row, Screen} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 
 export const WhereToPutBulkyWasteScreen = () => (
   <Screen>
@@ -13,6 +15,14 @@ export const WhereToPutBulkyWasteScreen = () => (
       </Text>
     </Box>
     <Box>
+      <Row>
+        <Image
+          customAspectRatio={632 / 196}
+          source={
+            require('@/assets/images/grofafval-buiten.png') as ImageSourcePropType
+          }
+        />
+      </Row>
       <Gutter height="md" />
       <Title level={2} text="Grof afval dat we ophalen" />
       <Text>
@@ -22,6 +32,14 @@ export const WhereToPutBulkyWasteScreen = () => (
       </Text>
     </Box>
     <Box>
+      <Row>
+        <Image
+          customAspectRatio={632 / 196}
+          source={
+            require('@/assets/images/grofafval-afvalpunt.png') as ImageSourcePropType
+          }
+        />
+      </Row>
       <Gutter height="md" />
       <Title level={2} text="Dit mag weggebracht worden naar een afvalpunt" />
       <Text>
