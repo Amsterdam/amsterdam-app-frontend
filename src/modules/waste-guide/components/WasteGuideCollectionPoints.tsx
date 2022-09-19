@@ -1,9 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {ImageSourcePropType} from 'react-native'
 import {Box, Text, Title} from '@/components/ui'
 import {TextButton} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
+import {Image} from '@/components/ui/media'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -31,6 +33,14 @@ export const WasteGuideCollectionPoints = () => {
               navigation.navigate(
                 WasteGuideRouteName.wasteGuideCollectionPoints,
               )
+            }
+          />
+        </Row>
+        <Row>
+          <Image
+            customAspectRatio={638 / 220}
+            source={
+              require('@/assets/images/placeholder-map-collection-points.jpg') as ImageSourcePropType
             }
           />
         </Row>
