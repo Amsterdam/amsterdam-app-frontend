@@ -21,8 +21,14 @@ export const Accordion = ({children, title}: Props) => {
     <Box>
       <Column gutter="sm">
         <Pressable onPress={() => setIsOpen(!isOpen)}>
-          <Row align="between" valign="center">
-            <Title color="link" level="h5" text={title} />
+          <Row align="between" gutter="sm" valign="center">
+            <Title
+              color="link"
+              ellipsizeMode="tail"
+              level="h5"
+              numberOfLines={1}
+              text={title}
+            />
             <Icon>
               <Chevron {...iconProps} />
             </Icon>
