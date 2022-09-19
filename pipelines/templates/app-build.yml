@@ -59,6 +59,8 @@ steps:
       SENTRY_DIST: $(BUILD_NUMBER)
       AUTH_PASSWORD: $(AUTH_PASSWORD)
       AUTH_SHARED_SECRET: $(AUTH_SHARED_SECRET)
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: "180"
+      FASTLANE_XCODE_LIST_TIMEOUT: "180"
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
