@@ -1,4 +1,3 @@
-import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import React from 'react'
 import {Accordion} from './Accordion'
@@ -6,11 +5,6 @@ import {Paragraph} from './text'
 
 export default {
   component: Accordion,
-  parameters: {
-    viewport: {
-      viewports: INITIAL_VIEWPORTS,
-    },
-  },
 } as ComponentMeta<typeof Accordion>
 
 const paragraphText =
@@ -33,9 +27,4 @@ Default.args = {
 
 LongTitle.args = {
   title: 'De titel moet zo kort als mogelijk zijn, maar ook duidelijk en',
-}
-LongTitle.parameters = {
-  viewport: {
-    defaultViewport: 'iphonex',
-  },
 }
