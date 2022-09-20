@@ -28,7 +28,7 @@ describe('isOpenForVisiting', () => {
       isOpenForVisiting(visitingHours, dayjs(`${day.thursday}T20:00:00.000`)),
     ).toEqual(false)
   })
-  it('handles a Saturday during opening time', () => {
+  it('handles a Saturday during a week day’s opening time', () => {
     expect(
       isOpenForVisiting(visitingHours, dayjs(`${day.saturday}T09:00:00.000`)),
     ).toEqual(false)
