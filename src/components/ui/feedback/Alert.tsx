@@ -73,15 +73,17 @@ export const Alert = () => {
             </Row>
           </SingleSelectable>
           {closeType === CloseType.withButton && (
-            <IconButton
-              accessibilityHint="Sluit melding"
-              icon={
-                <Icon size={24}>
-                  <Close {...iconProps} />
-                </Icon>
-              }
-              onPress={() => dispatch(setAlertVisibility(false))}
-            />
+            <View>
+              <IconButton
+                accessibilityHint="Sluit melding"
+                icon={
+                  <Icon size={24}>
+                    <Close {...iconProps} />
+                  </Icon>
+                }
+                onPress={() => dispatch(setAlertVisibility(false))}
+              />
+            </View>
           )}
         </Row>
       </View>
