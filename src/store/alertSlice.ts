@@ -3,14 +3,14 @@ import {LayoutAnimation} from 'react-native'
 import {RootState} from '@/store'
 import {CloseType, Variant} from '@/types'
 
-type Content =
+export type Content =
   | {
       title?: string
       text: string
     }
   | undefined
 
-type AlertSliceState = {
+export type AlertSliceState = {
   closeType?: CloseType
   content?: Content
   isVisible: boolean
