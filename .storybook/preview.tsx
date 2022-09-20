@@ -1,3 +1,4 @@
+import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import React, {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {RootProvider} from '@/providers'
@@ -31,6 +32,10 @@ export const parameters = {
     ],
   },
   controls: {expanded: true},
+  viewport: {
+    viewports: INITIAL_VIEWPORTS,
+    defaultViewport: 'iphonex',
+  },
 }
 
 export const decorators = [

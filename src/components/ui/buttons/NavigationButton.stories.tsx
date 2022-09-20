@@ -1,17 +1,8 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import React from 'react'
 import {NavigationButton} from './NavigationButton'
-import {Canvas} from '@/../.storybook/components'
 
 export default {
   component: NavigationButton,
-  decorators: [
-    Story => (
-      <Canvas maxWidth="300px">
-        <Story />
-      </Canvas>
-    ),
-  ],
   argTypes: {
     onPress: {
       action: 'onPress',
