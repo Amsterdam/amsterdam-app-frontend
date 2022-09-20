@@ -21,6 +21,7 @@ export const Image = ({
   customAspectRatio,
   ...otherProps
 }: Props) => {
+  const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
   const createdStyles = useMemo(
@@ -28,7 +29,6 @@ export const Image = ({
     [aspectRatio, customAspectRatio, width],
   )
   const styles = useThemable(createdStyles)
-  const {height: windowHeight, width: windowWidth} = useWindowDimensions()
 
   useEffect(() => {
     // reset saved width on every window size change, so the image is allowed to grow bigger
@@ -42,7 +42,7 @@ export const Image = ({
     [setWidth],
   )
 
-  return <ImageRN style={[styles.image]} onLayout={onLayout} {...otherProps} />
+  return <ImageRN onLayout={onLayout} style={[styles.image]} {...otherProps} />
 }
 
 const createStyles =
@@ -55,11 +55,13 @@ const createStyles =
   ) =>
   ({media}: Theme) => {
     const aspectRatioValue = customAspectRatio ?? media.aspectRatio[aspectRatio]
+
     return StyleSheet.create({
       image: {
         width: undefined,
         maxWidth: '100%',
-        height: width ? width / aspectRatioValue : undefined,
+        height:
+          width && aspectRatioValue > 0 ? width / aspectRatioValue : undefined,
         flex: 1,
         aspectRatio: aspectRatioValue,
         resizeMode: 'cover',
