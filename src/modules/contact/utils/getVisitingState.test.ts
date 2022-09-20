@@ -1,5 +1,5 @@
 import {getVisitingState} from './getVisitingState'
-import {day, visitingHours} from './getVisitingState.mock'
+import {day, visitingHours} from './visitingHours.mock'
 import {Preposition} from '@/types'
 import {dayjs} from '@/utils'
 

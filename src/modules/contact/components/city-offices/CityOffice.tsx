@@ -13,6 +13,7 @@ import {
 } from '@/modules/contact/components'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
+import {isOpenForVisiting} from '@/modules/contact/utils'
 import {useEnvironment} from '@/store'
 import {mapImageSources, openWebUrl} from '@/utils'
 
@@ -63,7 +64,9 @@ export const CityOffice = () => {
             />
           </Column>
         ) : (
-          <WaitingTime cityOfficeId={identifier} />
+          isOpenForVisiting(visitingHours.regular) && (
+            <WaitingTime cityOfficeId={identifier} />
+          )
         )}
         {!!directionsUrl && (
           <Button

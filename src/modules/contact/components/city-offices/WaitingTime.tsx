@@ -1,5 +1,5 @@
 import React, {SVGProps} from 'react'
-import {Clock, PersonalLogin} from '@/assets/icons'
+import {Clock, TwoPersons} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
@@ -39,7 +39,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
       <Column gutter="md">
         <Row gutter="md" valign="center">
           <Icon size={32}>
-            <PersonalLogin {...iconProps} />
+            <TwoPersons {...iconProps} />
           </Icon>
           <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
