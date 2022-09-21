@@ -1,8 +1,7 @@
 declare module '*.svg' {
-  import {CSSProperties, FC} from 'react'
-  import {ViewStyle} from 'react-native'
+  import {FC} from 'react'
+  import {SvgProps} from '@/types'
 
-  type SvgProps = {fill?: string; style?: ViewStyle | CSSProperties}
   const content: FC<SvgProps>
   export default content // eslint-disable-line import/no-default-export
 }
