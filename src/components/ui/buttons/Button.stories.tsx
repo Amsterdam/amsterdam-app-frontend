@@ -70,7 +70,7 @@ export const __WithIcon: ComponentStory<typeof Button & typeof Row> = ({
   align,
 }) => (
   <Row align={align}>
-    <Button icon={<Phone fill="white" />} label="Bel ons" />
+    <Button icon={Phone} label="Bel ons" />
   </Row>
 )
 

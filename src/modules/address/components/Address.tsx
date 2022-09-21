@@ -101,11 +101,7 @@ export const Address = () => {
               variant="primary"
             />
             <Button
-              icon={
-                <Icon size={24}>
-                  <Remove {...iconProps} />
-                </Icon>
-              }
+              icon={Remove}
               label="Verwijder adres"
               onPress={removeAddressAndShowAlert}
               variant="tertiary"
