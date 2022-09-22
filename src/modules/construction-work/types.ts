@@ -15,6 +15,7 @@ export enum ProjectsEndpointName {
   getProjects = 'getProjects',
   getProjectsByText = 'getProjectsByText',
   getProjectWarning = 'getProjectWarning',
+  getProjectsFollowedArticles = 'getProjectsFollowedArticles',
   unfollowProject = 'unfollowProject',
 }
 
@@ -214,4 +215,11 @@ export type ProjectWarning = {
 
 export type ProjectWarningIdQueryArg = {
   id: string
+}
+
+export type ProjectsFollowedArticlesResponse = {
+  projects: Record<string, string[]>
+}
+export type ProjectsFollowedArticlesQueryArg = {
+  'article-max-age': number
 }

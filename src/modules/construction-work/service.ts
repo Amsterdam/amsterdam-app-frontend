@@ -9,6 +9,8 @@ import {
   ProjectIdQueryArg,
   ProjectsByTextQueryArg,
   ProjectsEndpointName,
+  ProjectsFollowedArticlesQueryArg,
+  ProjectsFollowedArticlesResponse,
   ProjectsItem,
   ProjectsQueryArg,
   ProjectWarning,
@@ -83,6 +85,25 @@ export const projectsApi = baseApi.injectEndpoints({
         response.result,
     }),
 
+    [ProjectsEndpointName.getProjectsFollowedArticles]: builder.query<
+      ProjectsFollowedArticlesResponse,
+      ProjectsFollowedArticlesQueryArg | void
+    >({
+      query: params => {
+        const path = '/projects/followed/articles'
+        if (params) {
+          return generateRequestUrl({
+            path,
+            params,
+          })
+        }
+        return path
+      },
+      transformResponse: (response: {
+        result: ProjectsFollowedArticlesResponse
+      }) => response.result,
+    }),
+
     [ProjectsEndpointName.getProjectsByText]: builder.query<
       ProjectsItem[],
       ProjectsByTextQueryArg & FieldsQueryArg
@@ -131,5 +152,6 @@ export const {
   useGetProjectWarningQuery,
   useGetProjectsByTextQuery,
   useGetProjectsQuery,
+  useGetProjectsFollowedArticlesQuery,
   useUnfollowProjectMutation,
 } = projectsApi
