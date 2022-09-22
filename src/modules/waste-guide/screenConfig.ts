@@ -6,8 +6,6 @@ import {
 } from '@/modules/waste-guide/routes'
 import {
   BulkyWasteAppointmentScreen,
-  RecyclingGuideScreen,
-  ReportNotCollectedScreen,
   WasteGuideCollectionPointsScreen,
   WasteGuideContainersScreen,
   WasteGuideFeedbackScreen,
@@ -24,20 +22,6 @@ export const screenConfig: StackNavigationRoutes<
     name: WasteGuideRouteName.bulkyWasteAppointment,
     options: {
       headerTitle: 'Afspraak grof afval ophalen',
-    },
-  },
-  [WasteGuideRouteName.recyclingGuide]: {
-    component: RecyclingGuideScreen,
-    name: WasteGuideRouteName.recyclingGuide,
-    options: {
-      headerTitle: 'Afvalscheidingswijzer',
-    },
-  },
-  [WasteGuideRouteName.reportNotCollected]: {
-    component: ReportNotCollectedScreen,
-    name: WasteGuideRouteName.reportNotCollected,
-    options: {
-      headerTitle: 'Melding doen',
     },
   },
   [WasteGuideRouteName.wasteGuide]: {
