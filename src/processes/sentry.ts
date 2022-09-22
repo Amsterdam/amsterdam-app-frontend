@@ -2,15 +2,15 @@ import {BUILD_NUMBER} from '@env'
 import {NavigationContainerRef} from '@react-navigation/native'
 import {Action, isRejectedWithValue} from '@reduxjs/toolkit'
 import {
-  init,
-  ReactNavigationInstrumentation,
-  ReactNativeTracing,
   addBreadcrumb,
-  setTag,
-  captureException,
-  setExtra,
-  setUser,
   Breadcrumb,
+  captureException,
+  init,
+  ReactNativeTracing,
+  ReactNavigationInstrumentation,
+  setExtra,
+  setTag,
+  setUser,
 } from '@sentry/react-native'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'

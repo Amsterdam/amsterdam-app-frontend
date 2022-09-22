@@ -1,5 +1,5 @@
 import {baseApi} from '@/services/init'
-import {ResponseAddress, BagResponse, Address} from '@/types'
+import {Address, BagResponse, ResponseAddress} from '@/types'
 import {generateRequestUrl} from '@/utils'
 
 const addressPath = '/search/adres/'
