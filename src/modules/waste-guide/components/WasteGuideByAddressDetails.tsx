@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {Box, DescriptionList, Title} from '@/components/ui'
-import {Button, TextButton} from '@/components/ui/buttons'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {DescriptionList} from '@/components/ui'
+import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -24,69 +24,52 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
       StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
     >()
 
-  const {
-    appointmentUrl,
-    collectionDays,
-    howToOffer,
-    remark,
-    title,
-    whenToPutOut,
-  } = details
+  const {appointmentUrl, collectionDays, howToOffer, remark, whenToPutOut} =
+    details
 
   return (
-    <Box>
-      <Title level={2} text={title} />
-      <Gutter height="md" />
-      <DescriptionList
-        items={[
-          {
-            label: 'Hoe',
-            value: howToOffer,
-          },
-          {
-            label: collectionDays?.includes(' en ')
-              ? 'Ophaaldagen'
-              : 'Ophaaldag',
-            value: collectionDays,
-          },
-          {
-            label: 'Buiten zetten',
-            value: whenToPutOut,
-          },
-          {
-            label: 'Opmerking',
-            value: remark,
-          },
-        ]}
-      />
-      {!!appointmentUrl && (
-        <>
-          <Gutter height="md" />
-          <Column halign="start">
-            <Button
-              accessibilityRole="link"
-              label="Maak een afspraak"
-              onPress={() =>
-                navigation.navigate(WasteGuideRouteName.bulkyWasteAppointment, {
-                  appointmentUrl,
-                })
-              }
-            />
-          </Column>
-        </>
-      )}
+    <Column gutter="sm">
+      <Column gutter="md">
+        <DescriptionList
+          items={[
+            {
+              label: 'Hoe',
+              value: howToOffer,
+            },
+            {
+              label: collectionDays?.includes(' en ')
+                ? 'Ophaaldagen'
+                : 'Ophaaldag',
+              value: collectionDays,
+            },
+            {
+              label: 'Buiten zetten',
+              value: whenToPutOut,
+            },
+            {
+              label: 'Opmerking',
+              value: remark,
+            },
+          ]}
+        />
+        {!!appointmentUrl && (
+          <Button
+            accessibilityRole="link"
+            label="Haal mijn grofvuil op"
+            onPress={() =>
+              navigation.navigate(WasteGuideRouteName.bulkyWasteAppointment, {
+                appointmentUrl,
+              })
+            }
+          />
+        )}
+      </Column>
       {!!footerLink && (
-        <>
-          <Gutter height="md" />
-          <Row align="start">
-            <TextButton
-              direction="forward"
-              label={footerLink.text}
-              onPress={footerLink.onPress}
-            />
-          </Row>
-        </>
+        <NavigationButton
+          label={footerLink.text}
+          onPress={footerLink.onPress}
+        />
       )}
-    </Box>
+    </Column>
   )
 }

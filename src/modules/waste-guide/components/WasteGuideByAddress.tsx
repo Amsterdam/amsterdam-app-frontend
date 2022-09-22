@@ -1,31 +1,33 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useMemo} from 'react'
+import React, {SVGProps, useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box, SingleSelectable, Text, Title} from '@/components/ui'
-import {TextButton} from '@/components/ui/buttons'
+import {Edit, Location} from '@/assets/icons'
+import {Accordion, Box} from '@/components/ui'
+import {Button, IconButton, TextButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {selectAddress} from '@/modules/address/slice'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
-  AddressFormTeaser,
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
-  WasteGuideCollectionPoints,
-  WasteGuideContainers,
 } from '@/modules/waste-guide/components'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {WasteType} from '@/modules/waste-guide/types'
 import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
 import {useEnvironment} from '@/store'
+import {Theme, useThemable} from '@/themes'
 
 export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)
   const address = temp ?? primary
+  const iconProps = useThemable(createIconProps)
 
   const navigation =
     useNavigation<
@@ -61,66 +63,106 @@ export const WasteGuideByAddress = () => {
 
   if (!address) {
     return (
-      <AddressFormTeaser
-        text="Vul hieronder uw adres in. Dan ziet u wat u moet doen met uw afval."
-        title="Uw adres"
-      />
+      <Box>
+        <Column gutter="sm">
+          <Paragraph>
+            Vul uw adres in zodat we de juiste informatie kunnen tonen.
+          </Paragraph>
+          <Row>
+            <Button
+              icon={Location}
+              label="Vul uw adres in"
+              onPress={navigateToAddressForm}
+            />
+          </Row>
+        </Column>
+      </Box>
     )
   }
 
   return (
     <Column gutter="md">
       <Box>
-        <Column gutter="sm">
-          <SingleSelectable>
-            <Text>Afvalinformatie voor</Text>
-            <Title text={address.adres} />
-          </SingleSelectable>
-          <Row align="start">
-            <TextButton
-              direction="backward"
-              emphasis
-              label="Verander adres"
-              onPress={navigateToAddressForm}
-            />
-          </Row>
-        </Column>
+        <Row gutter="sm" valign="center">
+          <Phrase>{address.adres}</Phrase>
+          <IconButton
+            icon={
+              <Icon>
+                <Edit {...iconProps} />
+              </Icon>
+            }
+            onPress={navigateToAddressForm}
+          />
+        </Row>
       </Box>
       {wasteGuideLength === undefined ? (
         <Box>
-          <Title level={4} text="Gegevens ophalen…" />
+          <Title level="h4" text="Gegevens ophalen…" />
           <PleaseWait />
         </Box>
       ) : wasteGuideLength === 0 ? (
         <WasteGuideByAddressNoDetails address={address} />
       ) : (
-        <>
+        <Column gutter="md">
           {wasteGuide?.[WasteType.Bulky] && (
-            <Column gutter="md">
-              <WasteGuideByAddressDetails
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                details={wasteGuide[WasteType.Bulky]!}
-                footerLink={{
-                  onPress: () =>
-                    navigation.navigate(
-                      WasteGuideRouteName.whereToPutBulkyWaste,
-                    ),
-                  text: 'Grof afval: buiten zetten of naar een afvalpunt?',
-                }}
-              />
-              <WasteGuideCollectionPoints />
-            </Column>
+            <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
+              <Column gutter="md">
+                <WasteGuideByAddressDetails
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  details={wasteGuide[WasteType.Bulky]!}
+                  footerLink={{
+                    onPress: () =>
+                      navigation.navigate(
+                        WasteGuideRouteName.whereToPutBulkyWaste,
+                      ),
+                    text: 'Grof afval: buiten zetten of naar een afvalpunt?',
+                  }}
+                />
+              </Column>
+            </Accordion>
           )}
           {wasteGuide?.[WasteType.Household] && (
-            <Column gutter="md">
-              {wasteGuide[WasteType.Bulky] && <Gutter height="md" />}
-              <WasteGuideByAddressDetails
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                details={wasteGuide[WasteType.Household]!}
-              />
-              <WasteGuideContainers />
-            </Column>
+            <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
+              <Column gutter="md">
+                <WasteGuideByAddressDetails
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  details={wasteGuide[WasteType.Household]!}
+                />
+              </Column>
+            </Accordion>
           )}
+          <Accordion title="Containers in de buurt">
+            <Column gutter="md">
+              <Paragraph>
+                Zoekt u een container voor glas, papier, textiel, plastic
+                verpakkingen of restafval?
+              </Paragraph>
+              <Button
+                label="Toon containers in de buurt"
+                onPress={() =>
+                  navigation.navigate(WasteGuideRouteName.wasteGuideContainers)
+                }
+                variant="secondary"
+              />
+            </Column>
+          </Accordion>
+          <Accordion title="Afvalpunten">
+            <Column gutter="md">
+              <Paragraph>
+                Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
+                afval en spullen voor de kringloop kwijt.
+              </Paragraph>
+              <Button
+                label="Toon dichtsbijzijnde afvalpunt "
+                onPress={() =>
+                  navigation.navigate(
+                    WasteGuideRouteName.wasteGuideCollectionPoints,
+                  )
+                }
+                variant="secondary"
+              />
+            </Column>
+          </Accordion>
           <Box>
             <TextButton
               direction="forward"
@@ -130,8 +172,12 @@ export const WasteGuideByAddress = () => {
               }
             />
           </Box>
-        </>
+        </Column>
       )}
     </Column>
   )
 }
+
+const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
+  fill: color.text.link,
+})
