@@ -64,6 +64,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
           <Gutter height="md" />
           <Column halign="start">
             <Button
+              accessibilityRole="link"
               label="Maak een afspraak"
               onPress={() =>
                 navigation.navigate(WasteGuideRouteName.bulkyWasteAppointment, {
