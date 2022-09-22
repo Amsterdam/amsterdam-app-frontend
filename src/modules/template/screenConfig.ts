@@ -7,7 +7,7 @@ import {
 } from '@/modules/template/routes'
 import {TemplateScreen} from '@/modules/template/screens'
 
-export const templateScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   TemplateStackParams,
   TemplateRouteName
 > = {

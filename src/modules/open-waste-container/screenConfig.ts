@@ -6,7 +6,7 @@ import {
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
 
-export const openWasteContainerScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   OpenWasteContainerStackParams,
   OpenWasteContainerRouteName
 > = {

@@ -6,7 +6,7 @@ import {
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
 
-export const reportProblemScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   ReportProblemStackParams,
   ReportProblemRouteName
 > = {

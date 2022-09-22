@@ -6,7 +6,7 @@ import {
 } from '@/modules/contact/routes'
 import {ContactScreen} from '@/modules/contact/screens'
 
-export const contactScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   ContactStackParams,
   ContactRouteName
 > = {

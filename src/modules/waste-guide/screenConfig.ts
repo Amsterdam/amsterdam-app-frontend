@@ -15,7 +15,7 @@ import {
   WhereToPutBulkyWasteScreen,
 } from '@/modules/waste-guide/screens'
 
-export const wasteGuideScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   WasteGuideStackParams,
   WasteGuideRouteName
 > = {

@@ -13,7 +13,7 @@ import {
   WritingGuideScreen,
 } from '@/modules/construction-work-editor/screens'
 
-export const constructionWorkEditorScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   ConstructionWorkEditorStackParams,
   ConstructionWorkEditorRouteName
 > = {

@@ -2,13 +2,13 @@ import React from 'react'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {HeaderLogo, HeaderNavigation} from '@/modules/home/components'
 import {
-  HomeStackParams,
-  HomeRouteName,
   HomeModalParams,
+  HomeRouteName,
+  HomeStackParams,
 } from '@/modules/home/routes'
 import {AdminScreen, HomeScreen, SettingsScreen} from '@/modules/home/screens'
 
-export const homeScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   HomeStackParams,
   HomeRouteName
 > = {
