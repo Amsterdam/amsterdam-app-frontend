@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react'
+import React, {useState} from 'react'
 import {
   GestureResponderEvent,
   Pressable,
@@ -8,11 +8,12 @@ import {
 } from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
+import {SvgProps} from '@/types'
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
-  icon?: ReactNode
+  icon?: React.FC<SvgProps>
   label?: string
   numberOfLines?: number
   variant?: 'primary' | 'secondary' | 'tertiary'
@@ -20,13 +21,14 @@ export type ButtonProps = {
 
 export const Button = ({
   ellipsizeMode,
-  icon,
+  icon: IconComponent,
   label,
   numberOfLines,
   variant = 'primary',
   ...otherProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
+  const {color} = useTheme()
   const styles = useThemable(createStyles(variant, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
@@ -47,7 +49,15 @@ export const Button = ({
       style={styles.button}
       {...otherProps}>
       <Row gutter="sm" valign="center">
-        {!!icon && <Icon size={24}>{icon}</Icon>}
+        {!!IconComponent && (
+          <Icon size={24}>
+            <IconComponent
+              fill={
+                variant === 'primary' ? color.text.inverse : color.text.link
+              }
+            />
+          </Icon>
+        )}
         {!!label && (
           <Text
             ellipsizeMode={ellipsizeMode}

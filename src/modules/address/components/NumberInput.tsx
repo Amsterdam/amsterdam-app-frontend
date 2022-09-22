@@ -1,4 +1,4 @@
-import React, {SVGProps, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -11,9 +11,8 @@ import {ChevronUp} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {useTheme} from '@/themes'
 import {BagResponseContent} from '@/types'
 
 type Props = {
@@ -47,7 +46,6 @@ export const NumberInput = ({
   street,
 }: Props) => {
   const {size} = useTheme()
-  const iconProps = useThemable(createIconProps)
 
   const windowHeight = Dimensions.get('window').height
   const moveUpAnim = useRef(new Animated.Value(1)).current
@@ -71,11 +69,7 @@ export const NumberInput = ({
       <Column gutter="sm">
         <Row align="start">
           <Button
-            icon={
-              <Icon>
-                <ChevronUp {...iconProps} />
-              </Icon>
-            }
+            icon={ChevronUp}
             label={street}
             onPress={() => changeIsStreetSelected(false)}
             variant="tertiary"
@@ -112,8 +106,4 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-})
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
 })

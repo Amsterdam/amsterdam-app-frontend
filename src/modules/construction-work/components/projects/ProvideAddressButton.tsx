@@ -1,13 +1,12 @@
 import Location from '@amsterdam/asc-assets/static/icons/Location.svg'
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps} from 'react'
+import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Gutter, Row} from '@/components/ui/layout'
 import {AddressModalName} from '@/modules/address/routes'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {Theme, useThemable} from '@/themes'
 
 export const ProvideAddressButton = () => {
   const navigation =
@@ -15,14 +14,12 @@ export const ProvideAddressButton = () => {
       StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
     >()
 
-  const iconProps = useThemable(createIconProps)
-
   return (
     <>
       <Gutter height="lg" />
       <Row align="start">
         <Button
-          icon={<Location {...iconProps} />}
+          icon={Location}
           label="Vul uw adres in"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
         />
@@ -31,7 +28,3 @@ export const ProvideAddressButton = () => {
     </>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.inverse,
-})

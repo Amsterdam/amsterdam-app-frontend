@@ -109,6 +109,10 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 - Optimise the markup through [SVGOMG](https://jakearchibald.github.io/svgomg/) with the default options. We aim for minimal SVG markup and usage of `path` elements only.
 - Import the icon from within the app repository.
 
+## Typescript
+
+- Global types are defined in `src/custom.d.ts`
+
 ## More documentation
 
 - [Build documentation](./.docs/build.md)
