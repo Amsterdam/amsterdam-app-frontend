@@ -1,3 +1,4 @@
+import {NavigationContainer} from '@react-navigation/native'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import React, {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
@@ -40,10 +41,12 @@ export const parameters = {
 
 export const decorators = [
   (Story: FC) => (
-    <SafeAreaProvider>
-      <RootProvider>
-        <Story />
-      </RootProvider>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <RootProvider>
+          <Story />
+        </RootProvider>
+      </SafeAreaProvider>
+    </NavigationContainer>
   ),
 ]
