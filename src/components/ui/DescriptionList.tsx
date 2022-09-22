@@ -1,6 +1,7 @@
 import React from 'react'
-import {SingleSelectable, Text} from '@/components/ui/'
-import {Gutter} from '@/components/ui/layout'
+import {SingleSelectable} from '@/components/ui/'
+import {Column} from '@/components/ui/layout'
+import {Paragraph, Phrase} from '@/components/ui/text'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]
@@ -15,16 +16,13 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
   const nonEmptyItems = items.filter(item => item.value)
 
   return (
-    <>
-      {nonEmptyItems.map(({label, value}, index) => (
+    <Column gutter="md">
+      {nonEmptyItems.map(({label, value}) => (
         <SingleSelectable key={label}>
-          <Text secondary small>
-            {label}
-          </Text>
-          <Text>{value}</Text>
-          {index < nonEmptyItems.length - 1 && <Gutter height="md" />}
+          <Phrase fontWeight="bold">{label}</Phrase>
+          <Paragraph>{value}</Paragraph>
         </SingleSelectable>
       ))}
-    </>
+    </Column>
   )
 }
