@@ -15,6 +15,7 @@ export const Modules = () => {
     selectedModules: modules,
   } = useModules()
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
+  const isEmployee = !!constructionWorkEditorId
 
   if (modulesLoading) {
     return <PleaseWait grow />
@@ -37,25 +38,29 @@ export const Modules = () => {
     )
   }
 
+  const activeModules = modules.filter(m => m.status === 1)
+
   return (
     <Box grow>
       <Column gutter="md">
-        {modules.map(({BadgeValue, icon, isForEmployees, slug, title}) => {
-          if (isForEmployees && !constructionWorkEditorId) {
-            return
-          }
+        {activeModules.map(
+          ({BadgeValue, icon, isForEmployees, slug, title}) => {
+            if (isForEmployees && !isEmployee) {
+              return
+            }
 
-          return (
-            <ModuleButton
-              BadgeValue={BadgeValue}
-              iconName={icon}
-              key={slug}
-              label={title}
-              slug={slug}
-              variant={isForEmployees ? 'primary' : 'tertiary'}
-            />
-          )
-        })}
+            return (
+              <ModuleButton
+                BadgeValue={BadgeValue}
+                iconName={icon}
+                key={slug}
+                label={title}
+                slug={slug}
+                variant={isForEmployees ? 'primary' : 'tertiary'}
+              />
+            )
+          },
+        )}
       </Column>
     </Box>
   )
