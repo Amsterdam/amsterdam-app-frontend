@@ -10,7 +10,7 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {ProjectsList} from '@/modules/construction-work/components/projects'
-import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useSortProjects} from '@/modules/construction-work/hooks'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
@@ -61,7 +61,7 @@ export const ProjectsByDistance = ({
 }: Props) => {
   const result = useGetProjectsQuery({
     address: lat && lon ? '' : addressText,
-    articles_max_age: articlesMaxAgeInDays,
+    articles_max_age: recentArticleMaxAge,
     fields: [
       'followed',
       'identifier',

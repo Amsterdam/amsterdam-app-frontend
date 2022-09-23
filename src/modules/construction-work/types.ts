@@ -220,6 +220,7 @@ export type ProjectWarningIdQueryArg = {
 export type ProjectsFollowedArticlesResponse = {
   projects: Record<string, string[]>
 }
+
 export type ProjectsFollowedArticlesQueryArg = {
   'article-max-age': number
 }

@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {Badge} from '@/components/ui'
-import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useGetProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 
@@ -9,7 +9,7 @@ export const BadgeValue = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
   const {data} = useGetProjectsFollowedArticlesQuery({
-    'article-max-age': articlesMaxAgeInDays,
+    'article-max-age': recentArticleMaxAge,
   })
   const projects = data?.projects
 

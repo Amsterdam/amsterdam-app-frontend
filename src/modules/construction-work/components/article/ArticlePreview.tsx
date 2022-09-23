@@ -6,7 +6,7 @@ import {Hero} from '@/components/ui/Hero'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Link, Paragraph} from '@/components/ui/text'
-import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {useEnvironment} from '@/store'
@@ -46,7 +46,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 
   const isNewAndUnreadArticle = useMemo(() => {
     return (
-      getDateDiffInDays(article.publication_date) <= articlesMaxAgeInDays &&
+      getDateDiffInDays(article.publication_date) <= recentArticleMaxAge &&
       !readArticles.find(readArticle => readArticle.id === article.identifier)
     )
   }, [article.identifier, article.publication_date, readArticles])

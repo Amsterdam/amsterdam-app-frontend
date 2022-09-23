@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
+  addReadArticle,
   deleteReadArticle,
   ReadArticle,
-  addReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {Articles} from '@/modules/construction-work/types'
@@ -16,7 +16,7 @@ export const useMarkArticleAsRead = () => {
 
   const deleteOldArticles = useCallback(() => {
     readArticles.forEach(readArticle => {
-      getDateDiffInDays(readArticle.publicationDate) > articlesMaxAgeInDays &&
+      getDateDiffInDays(readArticle.publicationDate) > recentArticleMaxAge &&
         dispatch(deleteReadArticle(readArticle.id))
     })
   }, [dispatch, readArticles])
@@ -24,7 +24,7 @@ export const useMarkArticleAsRead = () => {
   const markAsRead = useCallback(
     (article: ReadArticle) => {
       deleteOldArticles()
-      if (getDateDiffInDays(article.publicationDate) > articlesMaxAgeInDays) {
+      if (getDateDiffInDays(article.publicationDate) > recentArticleMaxAge) {
         return
       }
       if (readArticles.find(readArticle => readArticle.id === article.id)) {
