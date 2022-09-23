@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import React from 'react'
 import {screenOptions} from '@/app/navigation'
-import {templateScreenConfig} from '@/modules/template/screenConfig'
+import {screenConfig} from '@/modules/template/screenConfig'
 import {useTheme} from '@/themes'
 
 const Stack = createStackNavigator()
@@ -11,9 +11,9 @@ export const TemplateStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={templateScreenConfig.Home.name}
+      initialRouteName={screenConfig.Home.name}
       screenOptions={screenOptions(theme)}>
-      {Object.entries(templateScreenConfig).map(([key, route]) => (
+      {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen key={key} {...route} />
       ))}
     </Stack.Navigator>

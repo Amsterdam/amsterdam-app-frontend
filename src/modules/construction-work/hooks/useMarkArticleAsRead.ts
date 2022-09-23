@@ -2,9 +2,9 @@ import {useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {articlesMaxAgeInDays} from '@/modules/construction-work/config'
 import {
+  addReadArticle,
   deleteReadArticle,
   ReadArticle,
-  addReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {Articles} from '@/modules/construction-work/types'

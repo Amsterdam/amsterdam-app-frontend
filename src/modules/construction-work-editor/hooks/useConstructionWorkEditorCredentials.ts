@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {setCredentials} from '@/store'

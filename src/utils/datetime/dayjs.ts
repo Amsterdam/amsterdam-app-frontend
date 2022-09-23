@@ -1,9 +1,10 @@
 // eslint-disable-next-line no-restricted-imports
 import dayjsFn, {ConfigType} from 'dayjs'
-export {Dayjs} from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import 'dayjs/locale/nl'
+
+export {Dayjs} from 'dayjs'
 
 const defaultTimezone = 'Europe/Amsterdam'
 

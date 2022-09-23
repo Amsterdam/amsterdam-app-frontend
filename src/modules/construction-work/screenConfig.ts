@@ -12,7 +12,7 @@ import {
   ProjectWarningScreen,
 } from '@/modules/construction-work/screens'
 
-export const constructionWorkScreenConfig: StackNavigationRoutes<
+export const screenConfig: StackNavigationRoutes<
   ConstructionWorkStackParams,
   ConstructionWorkRouteName
 > = {

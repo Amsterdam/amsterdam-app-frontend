@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, StyleProp, ViewStyle, View} from 'react-native'
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/KeyboardAvoidingView'

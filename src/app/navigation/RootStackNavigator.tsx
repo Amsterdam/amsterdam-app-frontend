@@ -7,9 +7,9 @@ import {module as homeModule} from '@/modules/home'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
-  ModuleStackParams,
-  modals,
   ModalParams,
+  modals,
+  ModuleStackParams,
 } from '@/modules/stacks'
 import {useTheme} from '@/themes'
 
