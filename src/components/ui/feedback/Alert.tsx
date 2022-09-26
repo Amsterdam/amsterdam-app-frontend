@@ -14,7 +14,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux'
 import {Box, SingleSelectable} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
@@ -66,10 +66,10 @@ export const Alert = () => {
                   <IconComponent {...iconProps} />
                 </Icon>
               )}
-              <View>
+              <Column>
                 {!!content?.title && <Title level="h4" text={content?.title} />}
                 <Paragraph>{content?.text}</Paragraph>
-              </View>
+              </Column>
             </Row>
           </SingleSelectable>
           {closeType === CloseType.withButton && (
