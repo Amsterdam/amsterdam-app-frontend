@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Edit, Location} from '@/assets/icons'
 import {Accordion, Box} from '@/components/ui'
-import {Button, IconButton, TextButton} from '@/components/ui/buttons'
+import {Button, IconButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -163,15 +163,6 @@ export const WasteGuideByAddress = () => {
               />
             </Column>
           </Accordion>
-          <Box>
-            <TextButton
-              direction="forward"
-              label="Kloppen de dagen of tijden niet?"
-              onPress={() =>
-                navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
-              }
-            />
-          </Box>
         </Column>
       )}
     </Column>
