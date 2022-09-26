@@ -7,7 +7,7 @@ import {Edit, Location} from '@/assets/icons'
 import {Accordion, Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Figure, Icon} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
@@ -18,6 +18,8 @@ import {
   BulkyWasteNotCollected,
   ContainersNearby,
   HouseholdWasteByTheRoad,
+  WasteGuide,
+  WasteGuideBackground,
 } from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideByAddressDetails,
@@ -69,120 +71,133 @@ export const WasteGuideByAddress = () => {
 
   if (!address) {
     return (
-      <Box>
-        <Column gutter="md">
-          <Paragraph>
-            Vul uw adres in zodat we de juiste informatie kunnen tonen.
-          </Paragraph>
-          <Row>
-            <Button
-              icon={Location}
-              label="Vul uw adres in"
-              onPress={navigateToAddressForm}
-            />
-          </Row>
-        </Column>
-      </Box>
+      <Column align="between" grow>
+        <Box>
+          <Column gutter="md">
+            <Paragraph>
+              Vul uw adres in zodat we de juiste informatie kunnen tonen.
+            </Paragraph>
+            <Row>
+              <Button
+                icon={Location}
+                label="Vul uw adres in"
+                onPress={navigateToAddressForm}
+              />
+            </Row>
+          </Column>
+        </Box>
+        <Figure height={192}>
+          <WasteGuideBackground />
+        </Figure>
+      </Column>
     )
   }
 
   return (
-    <Column gutter="sm">
-      <Box>
-        <Row gutter="sm" valign="center">
-          <Phrase>{address.adres}</Phrase>
-          <IconButton
-            icon={
-              <Icon>
-                <Edit {...iconProps} />
-              </Icon>
-            }
-            onPress={navigateToAddressForm}
-          />
-        </Row>
-      </Box>
-      {wasteGuideLength === undefined ? (
+    <Column align="between" gutter="sm" grow>
+      <Column grow>
         <Box>
-          <Title level="h4" text="Gegevens ophalen…" />
-          <PleaseWait />
+          <Row gutter="sm" valign="center">
+            <Phrase>{address.adres}</Phrase>
+            <IconButton
+              icon={
+                <Icon>
+                  <Edit {...iconProps} />
+                </Icon>
+              }
+              onPress={navigateToAddressForm}
+            />
+          </Row>
         </Box>
-      ) : wasteGuideLength === 0 ? (
-        <WasteGuideByAddressNoDetails address={address} />
-      ) : (
-        <Column>
-          <Box insetHorizontal="md">
-            {wasteGuide?.[WasteType.Bulky] && (
-              <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
-                <Column gutter="md">
-                  <WasteGuideByAddressDetails
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    details={wasteGuide[WasteType.Bulky]!}
-                    footerLink={{
-                      onPress: () =>
-                        navigation.navigate(
-                          WasteGuideRouteName.whereToPutBulkyWaste,
-                        ),
-                      text: 'Grof afval: buiten zetten of naar een afvalpunt?',
-                    }}
-                    illustration={<BulkyWasteCollected />}
-                  />
-                </Column>
-              </Accordion>
-            )}
-            {wasteGuide?.[WasteType.Household] && (
-              <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
-                <Column gutter="md">
-                  <WasteGuideByAddressDetails
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    details={wasteGuide[WasteType.Household]!}
-                    illustration={<HouseholdWasteByTheRoad />}
-                  />
-                </Column>
-              </Accordion>
-            )}
-            <Accordion title="Containers in de buurt">
-              <Column gutter="md">
-                <Figure height={192}>
-                  <ContainersNearby />
-                </Figure>
-                <Paragraph>
-                  Zoekt u een container voor glas, papier, textiel, plastic
-                  verpakkingen of restafval?
-                </Paragraph>
-                <Button
-                  label="Toon containers in de buurt"
-                  onPress={() =>
-                    navigation.navigate(
-                      WasteGuideRouteName.wasteGuideContainers,
-                    )
-                  }
-                  variant="secondary"
-                />
-              </Column>
-            </Accordion>
-            <Accordion title="Afvalpunten">
-              <Column gutter="md">
-                <Figure height={192}>
-                  <BulkyWasteNotCollected />
-                </Figure>
-                <Paragraph>
-                  Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
-                  afval en spullen voor de kringloop kwijt.
-                </Paragraph>
-                <Button
-                  label="Toon dichtstbijzijnde afvalpunt"
-                  onPress={() =>
-                    navigation.navigate(
-                      WasteGuideRouteName.wasteGuideCollectionPoints,
-                    )
-                  }
-                  variant="secondary"
-                />
-              </Column>
-            </Accordion>
+        {wasteGuideLength === undefined ? (
+          <Box>
+            <Title level="h4" text="Gegevens ophalen…" />
+            <PleaseWait />
           </Box>
-        </Column>
-      )}
+        ) : wasteGuideLength === 0 ? (
+          <WasteGuideByAddressNoDetails address={address} />
+        ) : (
+          <Column>
+            <Box insetHorizontal="md">
+              {wasteGuide?.[WasteType.Bulky] && (
+                <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
+                  <Column gutter="md">
+                    <WasteGuideByAddressDetails
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      details={wasteGuide[WasteType.Bulky]!}
+                      footerLink={{
+                        onPress: () =>
+                          navigation.navigate(
+                            WasteGuideRouteName.whereToPutBulkyWaste,
+                          ),
+                        text: 'Grof afval: buiten zetten of naar een afvalpunt?',
+                      }}
+                      illustration={<BulkyWasteCollected />}
+                    />
+                  </Column>
+                </Accordion>
+              )}
+              {wasteGuide?.[WasteType.Household] && (
+                <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
+                  <Column gutter="md">
+                    <WasteGuideByAddressDetails
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      details={wasteGuide[WasteType.Household]!}
+                      illustration={<HouseholdWasteByTheRoad />}
+                    />
+                  </Column>
+                </Accordion>
+              )}
+              <Accordion title="Containers in de buurt">
+                <Column gutter="md">
+                  <Figure height={192}>
+                    <ContainersNearby />
+                  </Figure>
+                  <Paragraph>
+                    Zoekt u een container voor glas, papier, textiel, plastic
+                    verpakkingen of restafval?
+                  </Paragraph>
+                  <Button
+                    label="Toon containers in de buurt"
+                    onPress={() =>
+                      navigation.navigate(
+                        WasteGuideRouteName.wasteGuideContainers,
+                      )
+                    }
+                    variant="secondary"
+                  />
+                </Column>
+              </Accordion>
+              <Accordion title="Afvalpunten">
+                <Column gutter="md">
+                  <Figure height={192}>
+                    <BulkyWasteNotCollected />
+                  </Figure>
+                  <Paragraph>
+                    Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
+                    afval en spullen voor de kringloop kwijt.
+                  </Paragraph>
+                  <Button
+                    label="Toon dichtstbijzijnde afvalpunt"
+                    onPress={() =>
+                      navigation.navigate(
+                        WasteGuideRouteName.wasteGuideCollectionPoints,
+                      )
+                    }
+                    variant="secondary"
+                  />
+                </Column>
+              </Accordion>
+            </Box>
+          </Column>
+        )}
+      </Column>
+      <>
+        <Gutter height="xxxl" />
+        <Figure height={192}>
+          <WasteGuide />
+        </Figure>
+      </>
     </Column>
   )
 }
