@@ -34,7 +34,7 @@ export const Accordion = ({children, title}: Props) => {
             </Icon>
           </Row>
         </Pressable>
-        {!!isOpen && <Box insetHorizontal="sm">{children}</Box>}
+        {!!isOpen && children}
       </Column>
     </Box>
   )
