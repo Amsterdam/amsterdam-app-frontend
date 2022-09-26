@@ -15,7 +15,7 @@ const blacklist = [
   'Overige motoren',
   'Stenen, zand en aarde',
   'Autobanden',
-  'Glasplaten en spiegels.',
+  'Glasplaten en spiegels',
 ]
 
 const whitelist = [
@@ -27,7 +27,7 @@ const whitelist = [
   'Tuinafval',
   'Tapijten en vloerbedekking',
   'Planken',
-  'Grote electrische apparaten zoals een koelkast of wasmachine',
+  'Grote elektrische apparaten, zoals een koelkast of wasmachine',
 ]
 
 type UnlistedItemsProps = {

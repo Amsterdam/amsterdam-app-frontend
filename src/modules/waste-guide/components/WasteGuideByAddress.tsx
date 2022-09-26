@@ -153,7 +153,7 @@ export const WasteGuideByAddress = () => {
                 afval en spullen voor de kringloop kwijt.
               </Paragraph>
               <Button
-                label="Toon dichtsbijzijnde afvalpunt "
+                label="Toon dichtstbijzijnde afvalpunt"
                 onPress={() =>
                   navigation.navigate(
                     WasteGuideRouteName.wasteGuideCollectionPoints,

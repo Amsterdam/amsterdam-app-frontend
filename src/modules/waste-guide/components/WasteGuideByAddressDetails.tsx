@@ -55,7 +55,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
         {!!appointmentUrl && (
           <Button
             accessibilityRole="link"
-            label="Haal mijn grofvuil op"
+            label="Haal mijn grof afval op"
             onPress={() =>
               navigation.navigate(WasteGuideRouteName.bulkyWasteAppointment, {
                 appointmentUrl,

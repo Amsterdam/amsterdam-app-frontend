@@ -33,7 +33,7 @@ LongTitle.args = {
 
 export const Multiple: ComponentStory<typeof Accordion> = () => (
   <>
-    {['Grofvuil', 'Restafval', 'Containers in de buurt', 'Afvalpunten'].map(
+    {['Grof afval', 'Restafval', 'Containers in de buurt', 'Afvalpunten'].map(
       title => (
         <Accordion title={title}>
           <Paragraph>
