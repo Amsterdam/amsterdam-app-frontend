@@ -81,7 +81,7 @@ export const WasteGuideByAddress = () => {
   }
 
   return (
-    <Column gutter="md">
+    <Column gutter="sm">
       <Box>
         <Row gutter="sm" valign="center">
           <Phrase>{address.adres}</Phrase>
