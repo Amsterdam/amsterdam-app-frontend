@@ -64,7 +64,7 @@ export const WasteGuideByAddress = () => {
   if (!address) {
     return (
       <Box>
-        <Column gutter="sm">
+        <Column gutter="md">
           <Paragraph>
             Vul uw adres in zodat we de juiste informatie kunnen tonen.
           </Paragraph>
