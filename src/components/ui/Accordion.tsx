@@ -18,9 +18,9 @@ export const Accordion = ({children, title}: Props) => {
   const iconProps = useThemable(createIconProps)
 
   return (
-    <Box>
-      <Column gutter="sm">
-        <Pressable onPress={() => setIsOpen(!isOpen)}>
+    <Column>
+      <Pressable onPress={() => setIsOpen(!isOpen)}>
+        <Box>
           <Row align="between" gutter="sm" valign="center">
             <Title
               color="link"
@@ -33,10 +33,10 @@ export const Accordion = ({children, title}: Props) => {
               <Chevron {...iconProps} />
             </Icon>
           </Row>
-        </Pressable>
-        {!!isOpen && children}
-      </Column>
-    </Box>
+        </Box>
+      </Pressable>
+      {!!isOpen && <Box insetHorizontal="md">{children}</Box>}
+    </Column>
   )
 }
 
