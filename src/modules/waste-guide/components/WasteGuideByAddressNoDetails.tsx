@@ -3,9 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
-import {Box, Text, Title} from '@/components/ui'
+import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
+import {Paragraph, Title} from '@/components/ui/text'
 import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {Address} from '@/types'
@@ -55,17 +56,18 @@ export const WasteGuideByAddressNoDetails = ({address}: Props) => {
         }
 
   return (
-    <Box>
-      <Title level={2} text={content.title} />
-      <Text>{content.text}</Text>
-      <Gutter height="md" />
-      <Row align="start">
-        <Button
-          label={content.button.label}
-          onPress={content.button.onPress}
-          variant={content.button.secondary ? 'secondary' : undefined}
-        />
-      </Row>
+    <Box insetHorizontal="md">
+      <Column gutter="sm">
+        <Title level="h2" text={content.title} />
+        <Paragraph>{content.text}</Paragraph>
+        <Row align="start">
+          <Button
+            label={content.button.label}
+            onPress={content.button.onPress}
+            variant={content.button.secondary ? 'secondary' : undefined}
+          />
+        </Row>
+      </Column>
     </Box>
   )
 }
