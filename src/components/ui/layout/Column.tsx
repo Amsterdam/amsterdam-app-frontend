@@ -7,20 +7,22 @@ import {
   mapCrossAxisAlignment,
   mapMainAxisAlignment,
 } from '@/components/ui/layout'
+import {layoutStyles} from '@/styles'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
+  grow?: boolean
   gutter?: keyof SpacingTokens
   halign?: CrossAxisAlignment
 }
 
-export const Column = ({align, children, gutter, halign}: Props) => {
+export const Column = ({align, children, grow, gutter, halign}: Props) => {
   const styles = createStyles({align, halign})
 
   return (
-    <View style={styles.column}>
+    <View style={[styles.column, grow && layoutStyles.grow]}>
       {gutter ? (
         <ChildrenWithGutters gutter={gutter} prop="height">
           {children}
