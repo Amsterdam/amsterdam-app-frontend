@@ -8,11 +8,17 @@ import {Accordion, Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Figure, Icon} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {selectAddress} from '@/modules/address/slice'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
+import {
+  BulkyWasteCollected,
+  BulkyWasteNotCollected,
+  ContainersNearby,
+  HouseholdWasteByTheRoad,
+} from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideByAddressDetails,
   WasteGuideByAddressNoDetails,
@@ -118,6 +124,7 @@ export const WasteGuideByAddress = () => {
                         ),
                       text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                     }}
+                    illustration={<BulkyWasteCollected />}
                   />
                 </Column>
               </Accordion>
@@ -128,12 +135,16 @@ export const WasteGuideByAddress = () => {
                   <WasteGuideByAddressDetails
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     details={wasteGuide[WasteType.Household]!}
+                    illustration={<HouseholdWasteByTheRoad />}
                   />
                 </Column>
               </Accordion>
             )}
             <Accordion title="Containers in de buurt">
               <Column gutter="md">
+                <Figure height={192}>
+                  <ContainersNearby />
+                </Figure>
                 <Paragraph>
                   Zoekt u een container voor glas, papier, textiel, plastic
                   verpakkingen of restafval?
@@ -151,6 +162,9 @@ export const WasteGuideByAddress = () => {
             </Accordion>
             <Accordion title="Afvalpunten">
               <Column gutter="md">
+                <Figure height={192}>
+                  <BulkyWasteNotCollected />
+                </Figure>
                 <Paragraph>
                   Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
                   afval en spullen voor de kringloop kwijt.

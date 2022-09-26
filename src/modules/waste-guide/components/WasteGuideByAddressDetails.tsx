@@ -1,11 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {ReactNode} from 'react'
 import {DescriptionList} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
-import BulkyWasteCollectedImage from '@/modules/waste-guide/assets/images/bulky-waste-collected.svg'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -18,9 +17,14 @@ type Props = {
     text: string
     onPress: () => void
   }
+  illustration?: ReactNode
 }
 
-export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
+export const WasteGuideByAddressDetails = ({
+  details,
+  footerLink,
+  illustration,
+}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
@@ -32,9 +36,7 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   return (
     <Column gutter="sm">
       <Column gutter="md">
-        <Figure height={200}>
-          <BulkyWasteCollectedImage />
-        </Figure>
+        {!!illustration && <Figure height={192}>{illustration}</Figure>}
         <DescriptionList
           items={[
             {
