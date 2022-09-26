@@ -26,14 +26,17 @@ export const screenConfig: StackNavigationRoutes<
   },
   [ConstructionWorkEditorRouteName.createMessage]: {
     component: CreateMessageScreen,
+    isForEmployees: true,
     name: ConstructionWorkEditorRouteName.createMessage,
   },
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: {
     component: AddMainImageToMessageScreen,
+    isForEmployees: true,
     name: ConstructionWorkEditorRouteName.addMainImageToMessage,
   },
   [ConstructionWorkEditorRouteName.confirmMessage]: {
     component: ConfirmMessageScreen,
+    isForEmployees: true,
     name: ConstructionWorkEditorRouteName.confirmMessage,
   },
 }

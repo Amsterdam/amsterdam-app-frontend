@@ -6,6 +6,7 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: React.ComponentType<any>
+    isForEmployees?: boolean
     name: keyof R
     options?: StackNavigationOptions
     title?: string
