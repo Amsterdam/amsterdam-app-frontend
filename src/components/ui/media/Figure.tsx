@@ -44,7 +44,7 @@ const createStyles =
       },
       image: {
         maxWidth: '100%',
-        height,
+        minHeight: height,
         aspectRatio: media.aspectRatio[aspectRatio],
       },
     })
