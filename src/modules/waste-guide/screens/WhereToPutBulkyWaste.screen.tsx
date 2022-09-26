@@ -36,6 +36,7 @@ type UnlistedItemsProps = {
 
 const UnlistedItems = ({list}: UnlistedItemsProps) => {
   const styles = useThemable(createStyles)
+
   return (
     <Box insetHorizontal="sm">
       {list.map((item, index) => (
@@ -50,37 +51,35 @@ const UnlistedItems = ({list}: UnlistedItemsProps) => {
   )
 }
 
-export const WhereToPutBulkyWasteScreen = () => {
-  return (
-    <Screen>
-      <Box>
-        <Column gutter="sm">
-          <Title text="Buiten zetten of naar een afvalpunt?" />
-          <Paragraph>
-            Grof afval zijn grote spullen die niet in een vuilniszak of
-            ondergrondse afvalcontainer passen. We halen niet alle grote spullen
-            op. Sommige dingen moet u zelf wegbrengen naar een Afvalpunt. Voor
-            bewoners is dit gratis.
-          </Paragraph>
-        </Column>
-      </Box>
-      <Box>
-        <Title level="h2" text="Grof afval dat we ophalen" />
-        <Paragraph>Grote spullen uit uw woning halen we op, zoals:</Paragraph>
-        <UnlistedItems list={whitelist} />
-      </Box>
-      <Box>
-        <Title level="h2" text="Dit grof afval halen we niet op" />
-        <Column gutter="sm">
-          <Paragraph>
-            Deze spullen moet u zelf wegbrengen naar een Afvalpunt.
-          </Paragraph>
-          <UnlistedItems list={blacklist} />
-        </Column>
-      </Box>
-    </Screen>
-  )
-}
+export const WhereToPutBulkyWasteScreen = () => (
+  <Screen>
+    <Box>
+      <Column gutter="sm">
+        <Title text="Buiten zetten of naar een afvalpunt?" />
+        <Paragraph>
+          Grof afval zijn grote spullen die niet in een vuilniszak of
+          ondergrondse afvalcontainer passen. We halen niet alle grote spullen
+          op. Sommige dingen moet u zelf wegbrengen naar een Afvalpunt. Voor
+          bewoners is dit gratis.
+        </Paragraph>
+      </Column>
+    </Box>
+    <Box>
+      <Title level="h2" text="Grof afval dat we ophalen" />
+      <Paragraph>Grote spullen uit uw woning halen we op, zoals:</Paragraph>
+      <UnlistedItems list={whitelist} />
+    </Box>
+    <Box>
+      <Title level="h2" text="Dit grof afval halen we niet op" />
+      <Column gutter="sm">
+        <Paragraph>
+          Deze spullen moet u zelf wegbrengen naar een Afvalpunt.
+        </Paragraph>
+        <UnlistedItems list={blacklist} />
+      </Column>
+    </Box>
+  </Screen>
+)
 
 const createStyles = ({size}: Theme) =>
   StyleSheet.create({

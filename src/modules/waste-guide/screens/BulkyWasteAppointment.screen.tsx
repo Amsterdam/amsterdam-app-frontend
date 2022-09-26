@@ -14,13 +14,11 @@ type Props = {
   >
 }
 
-export const BulkyWasteAppointmentScreen = ({route}: Props) => {
-  return (
-    <Screen scroll={false}>
-      <WebView
-        sliceFromTop={{portrait: 162, landscape: 208}}
-        url={route?.params?.appointmentUrl ?? ''}
-      />
-    </Screen>
-  )
-}
+export const BulkyWasteAppointmentScreen = ({route}: Props) => (
+  <Screen scroll={false}>
+    <WebView
+      sliceFromTop={{portrait: 162, landscape: 208}}
+      url={route?.params?.appointmentUrl ?? ''}
+    />
+  </Screen>
+)
