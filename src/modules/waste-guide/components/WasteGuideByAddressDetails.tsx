@@ -4,6 +4,8 @@ import React from 'react'
 import {DescriptionList} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
+import {Figure} from '@/components/ui/media'
+import BulkyWasteCollectedImage from '@/modules/waste-guide/assets/images/bulky-waste-collected.svg'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -30,6 +32,9 @@ export const WasteGuideByAddressDetails = ({details, footerLink}: Props) => {
   return (
     <Column gutter="sm">
       <Column gutter="md">
+        <Figure height={200}>
+          <BulkyWasteCollectedImage />
+        </Figure>
         <DescriptionList
           items={[
             {
