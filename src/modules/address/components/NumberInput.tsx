@@ -71,7 +71,10 @@ export const NumberInput = ({
           <Button
             icon={ChevronUp}
             label={street}
-            onPress={() => changeIsStreetSelected(false)}
+            onPress={() => {
+              changeNumber('')
+              changeIsStreetSelected(false)
+            }}
             variant="tertiary"
           />
         </Row>
