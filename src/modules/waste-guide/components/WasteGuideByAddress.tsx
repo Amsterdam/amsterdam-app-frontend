@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {SVGProps, useMemo} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Edit, Location} from '@/assets/icons'
@@ -19,6 +20,7 @@ import {
   PlayingNearContainersImage,
   PuttingBulkyWasteAtTheRoadsideImage,
   PuttingHouseHoldWasteAtTheRoadsideImage,
+  RowOfCanalHouseFacadesImage,
   TwoPeopleBringingHouseholdWasteImage,
 } from '@/modules/waste-guide/assets/images'
 import {
@@ -36,6 +38,7 @@ export const WasteGuideByAddress = () => {
   const {primary, temp} = useSelector(selectAddress)
   const address = temp ?? primary
   const iconProps = useThemable(createIconProps)
+  const styles = createStyles()
 
   const navigation =
     useNavigation<
@@ -86,6 +89,9 @@ export const WasteGuideByAddress = () => {
             </Row>
           </Column>
         </Box>
+        <View style={styles.wideImageContainer}>
+          <RowOfCanalHouseFacadesImage />
+        </View>
         <Figure height={256}>
           <TwoPeopleBringingHouseholdWasteImage />
         </Figure>
@@ -205,3 +211,17 @@ export const WasteGuideByAddress = () => {
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })
+
+const createStyles = () => {
+  const height = 192
+
+  return StyleSheet.create({
+    wideImageContainer: {
+      width: (1743 / 202) * height,
+      height,
+      alignSelf: 'center',
+      position: 'relative',
+      top: 80,
+    },
+  })
+}
