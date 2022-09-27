@@ -37,7 +37,7 @@ export const Modules = () => {
   if (!availableModules.length) {
     return (
       <Box>
-        <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
+        <EmptyMessage text="Alle modules staan uit of zijn inactief. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
       </Box>
     )
   }
