@@ -30,9 +30,11 @@ export const Modules = () => {
     )
   }
 
-  const activeModules = modules.filter(m => m.status === 1)
+  const availableModules = modules.filter(
+    m => m.status === 1 && (!m.isForEmployees || isEmployee),
+  )
 
-  if (!activeModules.length) {
+  if (!availableModules.length) {
     return (
       <Box>
         <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
@@ -43,23 +45,17 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {activeModules.map(
-          ({BadgeValue, icon, isForEmployees, slug, title}) => {
-            if (isForEmployees && !isEmployee) {
-              return
-            }
-
-            return (
-              <ModuleButton
-                BadgeValue={BadgeValue}
-                iconName={icon}
-                key={slug}
-                label={title}
-                slug={slug}
-                variant={isForEmployees ? 'primary' : 'tertiary'}
-              />
-            )
-          },
+        {availableModules.map(
+          ({BadgeValue, icon, isForEmployees, slug, title}) => (
+            <ModuleButton
+              BadgeValue={BadgeValue}
+              iconName={icon}
+              key={slug}
+              label={title}
+              slug={slug}
+              variant={isForEmployees ? 'primary' : 'tertiary'}
+            />
+          ),
         )}
       </Column>
     </Box>
