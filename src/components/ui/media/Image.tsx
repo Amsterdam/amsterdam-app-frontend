@@ -3,6 +3,7 @@ import {
   Image as ImageRN,
   ImageProps as ImageRNProps,
   LayoutChangeEvent,
+  Platform,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
@@ -61,7 +62,9 @@ const createStyles =
         width: undefined,
         maxWidth: '100%',
         height:
-          width && aspectRatioValue > 0 ? width / aspectRatioValue : undefined,
+          Platform.OS === 'android' && width && aspectRatioValue > 0
+            ? width / aspectRatioValue
+            : undefined,
         flex: 1,
         aspectRatio: aspectRatioValue,
         resizeMode: 'cover',
