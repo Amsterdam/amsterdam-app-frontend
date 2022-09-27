@@ -1,29 +1,14 @@
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui'
-import {Column, Row, Screen} from '@/components/ui/layout'
+import {Column, Screen} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {List, Paragraph, Title} from '@/components/ui/text'
 import {
   BringingBulkyWasteByCarImage,
   PuttingBulkyWasteAtTheRoadsideImage,
 } from '@/modules/waste-guide/assets/images'
-import {Theme, useThemable} from '@/themes'
 
-const blacklist = [
-  'Karton (U kunt karton ook kwijt in de papiercontainer)',
-  'Bouw- en sloopafval',
-  'Tuintegels',
-  'Klein chemisch afval',
-  'Kleine elektrische apparaten',
-  'Auto-onderdelen',
-  'Overige motoren',
-  'Stenen, zand en aarde',
-  'Autobanden',
-  'Glasplaten en spiegels',
-]
-
-const whitelist = [
+const collected = [
   'Banken',
   'Stoelen',
   'Kasten',
@@ -35,26 +20,18 @@ const whitelist = [
   'Grote elektrische apparaten, zoals een koelkast of wasmachine',
 ]
 
-type UnlistedItemsProps = {
-  list: string[]
-}
-
-const UnlistedItems = ({list}: UnlistedItemsProps) => {
-  const styles = useThemable(createStyles)
-
-  return (
-    <Box insetHorizontal="sm">
-      {list.map((item, index) => (
-        <View key={`${index}-${item}`} style={styles.itemContainer}>
-          <Row gutter="sm">
-            <Phrase>{'\u2022'}</Phrase>
-            <Phrase>{item}</Phrase>
-          </Row>
-        </View>
-      ))}
-    </Box>
-  )
-}
+const notCollected = [
+  'Karton (U kunt karton ook kwijt in de papiercontainer)',
+  'Bouw- en sloopafval',
+  'Tuintegels',
+  'Klein chemisch afval',
+  'Kleine elektrische apparaten',
+  'Auto-onderdelen',
+  'Overige motoren',
+  'Stenen, zand en aarde',
+  'Autobanden',
+  'Glasplaten en spiegels',
+]
 
 export const WhereToPutBulkyWasteScreen = () => (
   <Screen>
@@ -79,7 +56,7 @@ export const WhereToPutBulkyWasteScreen = () => (
               Grote spullen uit uw woning halen we op, zoals:
             </Paragraph>
           </Column>
-          <UnlistedItems list={whitelist} />
+          <List items={collected} />
         </Column>
         <Column gutter="md">
           <Figure height={192}>
@@ -91,16 +68,9 @@ export const WhereToPutBulkyWasteScreen = () => (
               Deze spullen moet u zelf wegbrengen naar een Afvalpunt.
             </Paragraph>
           </Column>
-          <UnlistedItems list={blacklist} />
+          <List items={notCollected} />
         </Column>
       </Column>
     </Box>
   </Screen>
 )
-
-const createStyles = ({size}: Theme) =>
-  StyleSheet.create({
-    itemContainer: {
-      marginBottom: size.spacing.sm,
-    },
-  })

@@ -1,5 +1,6 @@
 export * from './Article'
 export * from './Link'
+export * from './List'
 export * from './Paragraph'
 export * from './Phrase'
 export * from './ScreenTitle'
