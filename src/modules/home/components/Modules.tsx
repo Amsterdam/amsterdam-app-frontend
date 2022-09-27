@@ -30,15 +30,15 @@ export const Modules = () => {
     )
   }
 
-  if (!modules.length) {
+  const activeModules = modules.filter(m => m.status === 1)
+
+  if (!activeModules.length) {
     return (
       <Box>
         <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
       </Box>
     )
   }
-
-  const activeModules = modules.filter(m => m.status === 1)
 
   return (
     <Box grow>
