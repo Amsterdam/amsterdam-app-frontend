@@ -14,12 +14,12 @@ import {AddressModalName} from '@/modules/address/routes'
 import {selectAddress} from '@/modules/address/slice'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
-  BulkyWasteCollected,
-  BulkyWasteNotCollected,
-  ContainersNearby,
-  HouseholdWasteByTheRoad,
-  WasteGuide,
-  WasteGuideBackground,
+  BringingBulkyWasteByCarImage,
+  BulkyAndHouseholdWasteImage,
+  PlayingNearContainersImage,
+  PuttingBulkyWasteAtTheRoadsideImage,
+  PuttingHouseHoldWasteAtTheRoadsideImage,
+  TwoPeopleBringingHouseholdWasteImage,
 } from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideByAddressDetails,
@@ -86,8 +86,8 @@ export const WasteGuideByAddress = () => {
             </Row>
           </Column>
         </Box>
-        <Figure height={192}>
-          <WasteGuideBackground />
+        <Figure height={256}>
+          <TwoPeopleBringingHouseholdWasteImage />
         </Figure>
       </Column>
     )
@@ -132,7 +132,7 @@ export const WasteGuideByAddress = () => {
                           ),
                         text: 'Grof afval: buiten zetten of naar een afvalpunt?',
                       }}
-                      illustration={<BulkyWasteCollected />}
+                      illustration={<PuttingBulkyWasteAtTheRoadsideImage />}
                     />
                   </Column>
                 </Accordion>
@@ -143,7 +143,7 @@ export const WasteGuideByAddress = () => {
                     <WasteGuideByAddressDetails
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       details={wasteGuide[WasteType.Household]!}
-                      illustration={<HouseholdWasteByTheRoad />}
+                      illustration={<PuttingHouseHoldWasteAtTheRoadsideImage />}
                     />
                   </Column>
                 </Accordion>
@@ -151,7 +151,7 @@ export const WasteGuideByAddress = () => {
               <Accordion title="Containers in de buurt">
                 <Column gutter="md">
                   <Figure height={192}>
-                    <ContainersNearby />
+                    <PlayingNearContainersImage />
                   </Figure>
                   <Paragraph>
                     Zoekt u een container voor glas, papier, textiel, plastic
@@ -171,7 +171,7 @@ export const WasteGuideByAddress = () => {
               <Accordion title="Afvalpunten">
                 <Column gutter="md">
                   <Figure height={192}>
-                    <BulkyWasteNotCollected />
+                    <BringingBulkyWasteByCarImage />
                   </Figure>
                   <Paragraph>
                     Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
@@ -195,7 +195,7 @@ export const WasteGuideByAddress = () => {
       <>
         <Gutter height="xxxl" />
         <Figure height={192}>
-          <WasteGuide />
+          <BulkyAndHouseholdWasteImage />
         </Figure>
       </>
     </Column>

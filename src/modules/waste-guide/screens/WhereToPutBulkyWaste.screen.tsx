@@ -5,8 +5,8 @@ import {Column, Row, Screen} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
-  BulkyWasteCollected,
-  BulkyWasteNotCollected,
+  BringingBulkyWasteByCarImage,
+  PuttingBulkyWasteAtTheRoadsideImage,
 } from '@/modules/waste-guide/assets/images'
 import {Theme, useThemable} from '@/themes'
 
@@ -71,7 +71,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         </Column>
         <Column gutter="md">
           <Figure height={192}>
-            <BulkyWasteCollected />
+            <PuttingBulkyWasteAtTheRoadsideImage />
           </Figure>
           <Column gutter="sm">
             <Title level="h3" text="Grof afval dat we ophalen" />
@@ -83,7 +83,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         </Column>
         <Column gutter="md">
           <Figure height={192}>
-            <BulkyWasteNotCollected />
+            <BringingBulkyWasteByCarImage />
           </Figure>
           <Column gutter="sm">
             <Title level="h3" text="Dit grof afval halen we niet op" />
