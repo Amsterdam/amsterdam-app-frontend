@@ -72,7 +72,7 @@ export const CityOffice = () => {
         {!!directionsUrl && (
           <Button
             accessibilityRole="link"
-            label="Toon route"
+            label="Bekijk route"
             onPress={() => openWebUrl(directionsUrl)}
             variant={appointment ? 'secondary' : 'primary'}
           />

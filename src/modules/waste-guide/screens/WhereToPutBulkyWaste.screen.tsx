@@ -38,7 +38,7 @@ export const WhereToPutBulkyWasteScreen = () => (
     <Box>
       <Column gutter="lg">
         <Column gutter="sm">
-          <Title text="Buiten zetten of naar een afvalpunt?" />
+          <Title text="Buiten zetten of naar een Afvalpunt?" />
           <Paragraph>
             Grof afval zijn grote spullen die niet in een vuilniszak of
             ondergrondse afvalcontainer passen. We halen niet alle grote spullen

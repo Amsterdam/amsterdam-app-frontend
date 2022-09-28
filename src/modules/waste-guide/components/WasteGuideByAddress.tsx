@@ -136,7 +136,7 @@ export const WasteGuideByAddress = () => {
                           navigation.navigate(
                             WasteGuideRouteName.whereToPutBulkyWaste,
                           ),
-                        text: 'Grof afval: buiten zetten of naar een afvalpunt?',
+                        text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
                       }}
                       illustration={<PuttingBulkyWasteAtTheRoadsideImage />}
                     />
@@ -164,7 +164,7 @@ export const WasteGuideByAddress = () => {
                     verpakkingen of restafval?
                   </Paragraph>
                   <Button
-                    label="Toon containers in de buurt"
+                    label="Bekijk containers in de buurt"
                     onPress={() =>
                       navigation.navigate(
                         WasteGuideRouteName.wasteGuideContainers,
@@ -184,7 +184,7 @@ export const WasteGuideByAddress = () => {
                     afval en spullen voor de kringloop kwijt.
                   </Paragraph>
                   <Button
-                    label="Toon dichtstbijzijnde afvalpunt"
+                    label="Bekijk Afvalpunten op de kaart"
                     onPress={() =>
                       navigation.navigate(
                         WasteGuideRouteName.wasteGuideCollectionPoints,

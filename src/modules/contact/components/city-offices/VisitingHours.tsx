@@ -84,7 +84,9 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               <QuestionMarkSolid {...iconProps} />
             </Icon>
           }
-          accessibilityLabel={`${isTooltipVisible ? 'Verberg' : 'Toon'} uitleg`}
+          accessibilityLabel={`${
+            isTooltipVisible ? 'Verberg' : 'Bekijk'
+          } uitleg`}
           onPress={() => setIsTooltipVisible(!isTooltipVisible)}
         />
       </Row>

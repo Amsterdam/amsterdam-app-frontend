@@ -62,7 +62,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
             <Title text="Maak een bericht" />
             <Row align="start">
               <Button
-                label="Toon schrijftips"
+                label="Bekijk schrijftips"
                 onPress={() => {
                   navigation.navigate(
                     ConstructionWorkEditorModalName.writingGuide,
