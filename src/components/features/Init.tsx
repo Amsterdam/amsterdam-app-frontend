@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useMemo} from 'react'
 import {
   useAppState,
   useInitSentry,
@@ -17,24 +17,29 @@ export const Init = ({children}: Props) => {
   const {registerDevice, unregisterDevice} = useRegisterDevice()
   const {selectedModules} = useModules()
 
-  useAppState({
-    onForeground: () => {
-      if (selectedModules.some(module => module.requiresFirebaseToken)) {
-        getPushNotificationsPermission()
-          .then(registerDevice)
-          .catch((error: unknown) => {
-            sendSentryErrorLog(
-              'Register device for push notifications failed',
-              'Init.tsx',
-              {error},
-            )
-          })
-      } else {
-        // eslint-disable-next-line no-void
-        void unregisterDevice(undefined)
-      }
-    },
-  })
+  const onAppstate = useMemo(
+    () => ({
+      onForeground: () => {
+        if (selectedModules.some(module => module.requiresFirebaseToken)) {
+          getPushNotificationsPermission()
+            .then(registerDevice)
+            .catch((error: unknown) => {
+              sendSentryErrorLog(
+                'Register device for push notifications failed',
+                'Init.tsx',
+                {error},
+              )
+            })
+        } else {
+          // eslint-disable-next-line no-void
+          void unregisterDevice(undefined)
+        }
+      },
+    }),
+    [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice],
+  )
+
+  useAppState(onAppstate)
 
   useConstructionWorkEditorCredentials()
 
