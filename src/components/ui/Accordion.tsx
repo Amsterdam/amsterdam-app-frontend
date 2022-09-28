@@ -29,7 +29,7 @@ export const Accordion = ({children, title}: Props) => {
               numberOfLines={1}
               text={title}
             />
-            <Icon>
+            <Icon size={24}>
               <Chevron {...iconProps} />
             </Icon>
           </Row>
