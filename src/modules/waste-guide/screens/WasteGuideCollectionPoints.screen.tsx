@@ -4,7 +4,7 @@ import {RootStackParams} from '@/app/navigation'
 import {WebView} from '@/components/ui'
 import {Screen} from '@/components/ui/layout'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {coordinatesSquare} from '@/modules/waste-guide/utils'
+import {getSquareMapArea} from '@/modules/waste-guide/utils'
 
 type Props = {
   route: RouteProp<RootStackParams, WasteGuideRouteName.wasteGuideContainers>
@@ -15,7 +15,7 @@ const locationTypes = [14324]
 
 export const WasteGuideCollectionPointsScreen = ({route}: Props) => {
   const {lon, lat} = route.params
-  const urlParams = coordinatesSquare(lon, lat, 0.05)
+  const urlParams = getSquareMapArea(lon, lat, 0.1)
   const url = urlParams
     ? `${baseUrl}#${urlParams.join('/')}/topo/${locationTypes.join(',')}//`
     : baseUrl
