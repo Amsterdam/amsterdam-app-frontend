@@ -53,6 +53,7 @@ export const addressApi = baseApi.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {useGetAddressQuery, useGetBagQuery} = addressApi
