@@ -19,7 +19,10 @@ export const Accordion = ({children, title}: Props) => {
 
   return (
     <Column>
-      <Pressable onPress={() => setIsOpen(!isOpen)}>
+      <Pressable
+        accessibilityRole="togglebutton"
+        accessibilityState={{expanded: isOpen}}
+        onPress={() => setIsOpen(!isOpen)}>
         <Box>
           <Row align="between" gutter="sm" valign="center">
             <Title

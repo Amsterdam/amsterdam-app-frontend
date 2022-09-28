@@ -111,6 +111,7 @@ export const WasteGuideByAddress = () => {
           <Row gutter="sm" valign="center">
             <Phrase>{address.adres}</Phrase>
             <IconButton
+              accessibilityLabel="Wijzig adres"
               icon={
                 <Icon>
                   <Edit {...iconProps} />

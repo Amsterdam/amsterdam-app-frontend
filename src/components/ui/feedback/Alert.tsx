@@ -59,6 +59,7 @@ export const Alert = () => {
       <View style={styles.view}>
         <Row align="between">
           <SingleSelectable
+            accessibilityRole="alert"
             accessibilityLabel={accessibleText(content?.title, content?.text)}>
             <Row gutter="md">
               {!!withIcon && (

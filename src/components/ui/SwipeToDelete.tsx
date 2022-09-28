@@ -13,16 +13,15 @@ type Props = {
 }
 
 type DeleteButtonProps = {
-  accessible: boolean
   onPress: () => void
 }
 
-const DeleteButton = ({accessible, onPress}: DeleteButtonProps) => {
+const DeleteButton = ({onPress}: DeleteButtonProps) => {
   const iconProps = useThemable(createIconProps)
 
   return (
     <Pressable
-      accessible={accessible}
+      accessibilityElementsHidden
       inset="md"
       onPress={onPress}
       variant="negative">
@@ -48,9 +47,7 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
 
   return (
     <Swipeable
-      renderRightActions={() => (
-        <DeleteButton accessible={isSwipeOpen} onPress={onEvent} />
-      )}
+      renderRightActions={() => <DeleteButton onPress={onEvent} />}
       onSwipeableRightOpen={onSwipeableRightOpen}>
       {children}
     </Swipeable>

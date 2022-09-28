@@ -25,7 +25,7 @@ export const NavigationButton = ({
   const iconProps = useThemable(createIconProps)
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable accessibilityRole="link" onPress={onPress}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row align="between" gutter="md" valign="center">
           {direction === 'backward' && (

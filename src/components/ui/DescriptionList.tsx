@@ -2,6 +2,7 @@ import React from 'react'
 import {SingleSelectable} from '@/components/ui/'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Phrase} from '@/components/ui/text'
+import {accessibleText} from '@/utils'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]
@@ -18,7 +19,9 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
   return (
     <Column gutter="md">
       {nonEmptyItems.map(({label, value}) => (
-        <SingleSelectable key={label}>
+        <SingleSelectable
+          accessibilityLabel={accessibleText(label, value)}
+          key={label}>
           <Phrase fontWeight="bold">{label}</Phrase>
           <Paragraph>{value}</Paragraph>
         </SingleSelectable>
