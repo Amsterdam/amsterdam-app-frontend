@@ -11,7 +11,7 @@ export type WasteGuideStackParams = {
   [WasteGuideRouteName.bulkyWasteAppointment]: {appointmentUrl: string}
   [WasteGuideRouteName.wasteGuide]: undefined
   [WasteGuideRouteName.wasteGuideCollectionPoints]: undefined
-  [WasteGuideRouteName.wasteGuideContainers]: undefined
+  [WasteGuideRouteName.wasteGuideContainers]: {lon: number; lat: number}
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
   [WasteGuideRouteName.whereToPutBulkyWaste]: undefined
 }

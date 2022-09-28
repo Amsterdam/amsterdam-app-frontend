@@ -168,6 +168,10 @@ export const WasteGuideByAddress = () => {
                     onPress={() =>
                       navigation.navigate(
                         WasteGuideRouteName.wasteGuideContainers,
+                        {
+                          lon: address.centroid[1],
+                          lat: address.centroid[0],
+                        },
                       )
                     }
                     variant="secondary"
