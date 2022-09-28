@@ -99,6 +99,11 @@ export const WasteGuideByAddress = () => {
     )
   }
 
+  const addressCoordinates = {
+    lon: address.centroid[1],
+    lat: address.centroid[0],
+  }
+
   return (
     <Column align="between" gutter="sm" grow>
       <Column grow>
@@ -168,10 +173,7 @@ export const WasteGuideByAddress = () => {
                     onPress={() =>
                       navigation.navigate(
                         WasteGuideRouteName.wasteGuideContainers,
-                        {
-                          lon: address.centroid[1],
-                          lat: address.centroid[0],
-                        },
+                        addressCoordinates,
                       )
                     }
                     variant="secondary"
@@ -192,6 +194,7 @@ export const WasteGuideByAddress = () => {
                     onPress={() =>
                       navigation.navigate(
                         WasteGuideRouteName.wasteGuideCollectionPoints,
+                        addressCoordinates,
                       )
                     }
                     variant="secondary"
