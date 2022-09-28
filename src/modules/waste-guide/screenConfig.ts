@@ -42,7 +42,7 @@ export const screenConfig: StackNavigationRoutes<
     component: WasteGuideCollectionPointsScreen,
     name: WasteGuideRouteName.wasteGuideCollectionPoints,
     options: {
-      headerTitle: 'Afvalpunten in de buurt',
+      headerTitle: 'Afvalpunten op de kaart',
     },
   },
   [WasteGuideRouteName.wasteGuideContainers]: {
