@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode} from 'react'
+import React, {ReactNode, useContext} from 'react'
 import {DescriptionList} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
-import {Column} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {
@@ -11,6 +11,7 @@ import {
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
 import {WasteGuideDetails} from '@/modules/waste-guide/types'
+import {DeviceContext} from '@/providers'
 
 type Props = {
   details: WasteGuideDetails
@@ -31,12 +32,15 @@ export const WasteGuideByAddressDetails = ({
       StackNavigationProp<WasteGuideStackParams, WasteGuideRouteName.wasteGuide>
     >()
 
+  const {isLandscape} = useContext(DeviceContext)
+  const Track = isLandscape ? Row : Column
+
   const {appointmentUrl, collectionDays, howToOffer, remark, whenToPutOut} =
     details
 
   return (
     <Column gutter="sm">
-      <Column gutter="md">
+      <Track gutter="md">
         {!!illustration && <Figure height={192}>{illustration}</Figure>}
         {appointmentUrl ? (
           <Column gutter="md">
@@ -77,7 +81,7 @@ export const WasteGuideByAddressDetails = ({
             ]}
           />
         )}
-      </Column>
+      </Track>
       {!!footerLink && (
         <NavigationButton
           label={footerLink.text}

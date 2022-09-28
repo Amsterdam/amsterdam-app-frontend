@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps, useMemo} from 'react'
+import React, {SVGProps, useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -31,19 +31,24 @@ import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {WasteType} from '@/modules/waste-guide/types'
 import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
+import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {Theme, useThemable} from '@/themes'
 
 export const WasteGuideByAddress = () => {
-  const {primary, temp} = useSelector(selectAddress)
-  const address = temp ?? primary
-  const iconProps = useThemable(createIconProps)
-  const styles = createStyles()
-
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
+
+  const {primary, temp} = useSelector(selectAddress)
+  const address = temp ?? primary
+
+  const {isLandscape} = useContext(DeviceContext)
+  const Track = isLandscape ? Row : Column
+
+  const iconProps = useThemable(createIconProps)
+  const styles = createStyles(isLandscape)
 
   const {data, isLoading} = useGetGarbageCollectionAreaQuery(
     {
@@ -161,46 +166,50 @@ export const WasteGuideByAddress = () => {
                 </Accordion>
               )}
               <Accordion title="Containers in de buurt">
-                <Column gutter="md">
+                <Track gutter="md">
                   <Figure height={192}>
                     <PlayingNearContainersImage />
                   </Figure>
-                  <Paragraph>
-                    Zoekt u een container voor glas, papier, textiel, plastic
-                    verpakkingen of restafval?
-                  </Paragraph>
-                  <Button
-                    label="Bekijk containers in de buurt"
-                    onPress={() =>
-                      navigation.navigate(
-                        WasteGuideRouteName.wasteGuideContainers,
-                        addressCoordinates,
-                      )
-                    }
-                    variant="secondary"
-                  />
-                </Column>
+                  <Column gutter="md">
+                    <Paragraph>
+                      Zoekt u een container voor glas, papier, textiel, plastic
+                      verpakkingen of restafval?
+                    </Paragraph>
+                    <Button
+                      label="Bekijk containers in de buurt"
+                      onPress={() =>
+                        navigation.navigate(
+                          WasteGuideRouteName.wasteGuideContainers,
+                          addressCoordinates,
+                        )
+                      }
+                      variant="secondary"
+                    />
+                  </Column>
+                </Track>
               </Accordion>
               <Accordion title="Afvalpunten">
-                <Column gutter="md">
+                <Track gutter="md">
                   <Figure height={192}>
                     <BringingBulkyWasteByCarImage />
                   </Figure>
-                  <Paragraph>
-                    Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch
-                    afval en spullen voor de kringloop kwijt.
-                  </Paragraph>
-                  <Button
-                    label="Bekijk Afvalpunten op de kaart"
-                    onPress={() =>
-                      navigation.navigate(
-                        WasteGuideRouteName.wasteGuideCollectionPoints,
-                        addressCoordinates,
-                      )
-                    }
-                    variant="secondary"
-                  />
-                </Column>
+                  <Column gutter="md">
+                    <Paragraph>
+                      Op een Afvalpunt kunt u gratis uw grof afval, klein
+                      chemisch afval en spullen voor de kringloop kwijt.
+                    </Paragraph>
+                    <Button
+                      label="Bekijk Afvalpunten op de kaart"
+                      onPress={() =>
+                        navigation.navigate(
+                          WasteGuideRouteName.wasteGuideCollectionPoints,
+                          addressCoordinates,
+                        )
+                      }
+                      variant="secondary"
+                    />
+                  </Column>
+                </Track>
               </Accordion>
             </Box>
           </Column>
@@ -220,7 +229,7 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })
 
-const createStyles = () => {
+const createStyles = (isLandscape: boolean) => {
   const height = 192
 
   return StyleSheet.create({
@@ -230,6 +239,8 @@ const createStyles = () => {
       alignSelf: 'center',
       position: 'relative',
       top: 80,
+      zIndex: -1,
+      marginTop: isLandscape ? -160 : undefined,
     },
   })
 }
