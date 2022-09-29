@@ -9,8 +9,8 @@ type Props = {
 } & ViewProps
 
 /**
- * Horizontally centers a media object.
- * Applies the aspect ratio and height to the object.
+ * Horizontally centers media content, e.g. an image or video.
+ * Applies the aspect ratio and height to the content.
  */
 export const Figure = ({
   aspectRatio = 'default',
@@ -26,7 +26,7 @@ export const Figure = ({
 
   return (
     <View {...otherProps} style={styles.figure}>
-      <View style={styles.image}>{children}</View>
+      <View style={styles.content}>{children}</View>
     </View>
   )
 }
@@ -42,7 +42,7 @@ const createStyles =
         flexDirection: 'row',
         justifyContent: 'center',
       },
-      image: {
+      content: {
         maxWidth: '100%',
         minHeight: height,
         aspectRatio: media.aspectRatio[aspectRatio],
