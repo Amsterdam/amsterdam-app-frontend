@@ -20,6 +20,7 @@ export const modulesApi = baseApi.injectEndpoints({
         response.result,
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {useGetModulesForAppQuery} = modulesApi

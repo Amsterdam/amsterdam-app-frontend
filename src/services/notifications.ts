@@ -28,6 +28,7 @@ export const notificationsApi = baseApi.injectEndpoints({
         response.result,
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {useAddNotificationMutation, useGetNotificationsQuery} =

@@ -36,6 +36,7 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {useRegisterDeviceMutation, useUnregisterDeviceMutation} =
