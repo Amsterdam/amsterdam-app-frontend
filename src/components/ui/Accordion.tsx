@@ -2,17 +2,34 @@ import React, {ReactNode, SVGProps, useState} from 'react'
 import {ChevronDown, ChevronUp} from '@/assets/icons'
 import {Box} from '@/components/ui/Box'
 import {Pressable} from '@/components/ui/buttons'
-import {Column, Row} from '@/components/ui/layout'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
-type Props = {
+type AccordionProps = {
   children: ReactNode
   title: string
 }
 
-export const Accordion = ({children, title}: Props) => {
+type PanelProps = {
+  isOpen: boolean
+} & Pick<AccordionProps, 'children'>
+
+const Panel = ({children, isOpen}: PanelProps) => {
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <>
+      <Box insetHorizontal="md">{children}</Box>
+      <Gutter height="md" />
+    </>
+  )
+}
+
+export const Accordion = ({children, title}: AccordionProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const Chevron = isOpen ? ChevronUp : ChevronDown
   const iconProps = useThemable(createIconProps)
@@ -38,7 +55,7 @@ export const Accordion = ({children, title}: Props) => {
           </Row>
         </Box>
       </Pressable>
-      {!!isOpen && <Box insetHorizontal="md">{children}</Box>}
+      <Panel {...{children, isOpen}} />
     </Column>
   )
 }
