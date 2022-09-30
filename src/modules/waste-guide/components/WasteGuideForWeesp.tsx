@@ -10,10 +10,8 @@ export const WasteGuideForWeesp = () => (
   <Box>
     <Column gutter="md">
       <Paragraph>
-        In Weesp wordt het afval niet opgehaald door Gemeente Amsterdam, maar
-        door de GAD.
+        In Weesp haalt de GAD het afval op. Kijk op hun website hoe dat werkt.
       </Paragraph>
-      <Paragraph>Bekijk hun website voor meer informatie.</Paragraph>
     </Column>
     <Gutter height="lg" />
     <Row align="start">
