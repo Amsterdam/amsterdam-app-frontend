@@ -77,41 +77,44 @@ export const Address = () => {
           )}
         </Column>
         {primaryAddress ? (
-          <Column>
-            <Paragraph>{primaryAddress.adres}</Paragraph>
-            <Paragraph>
-              {[
-                primaryAddress.postcode.substring(0, 4),
-                primaryAddress.postcode.substring(4, 6),
-                primaryAddress.woonplaats.toUpperCase(),
-              ].join(' ')}
-            </Paragraph>
+          <Column gutter="md">
+            <Column>
+              <Paragraph>{primaryAddress.adres}</Paragraph>
+              <Paragraph>
+                {[
+                  primaryAddress.postcode.substring(0, 4),
+                  primaryAddress.postcode.substring(4, 6),
+                  primaryAddress.woonplaats.toUpperCase(),
+                ].join(' ')}
+              </Paragraph>
+            </Column>
+            <Row gutter="md">
+              <Button
+                label="Wijzig adres"
+                onPress={() =>
+                  navigation.navigate(AddressModalName.addressForm)
+                }
+                variant="primary"
+              />
+              <Button
+                icon={Remove}
+                label="Verwijder adres"
+                onPress={removeAddressAndShowAlert}
+                variant="tertiary"
+              />
+            </Row>
           </Column>
         ) : (
-          <Paragraph>
-            Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
-            die buurt.
-          </Paragraph>
-        )}
-        {primaryAddress ? (
-          <Row gutter="md">
-            <Button
-              label="Wijzig adres"
+          <Column gutter="md">
+            <Paragraph>
+              Vul een straatnaam en huisnummer in zodat u informatie krijgt uit
+              die buurt.
+            </Paragraph>
+            <AddButton
+              accessibilityLabel="Voeg adres toe"
               onPress={() => navigation.navigate(AddressModalName.addressForm)}
-              variant="primary"
             />
-            <Button
-              icon={Remove}
-              label="Verwijder adres"
-              onPress={removeAddressAndShowAlert}
-              variant="tertiary"
-            />
-          </Row>
-        ) : (
-          <AddButton
-            accessibilityLabel="Voeg adres toe"
-            onPress={() => navigation.navigate(AddressModalName.addressForm)}
-          />
+          </Column>
         )}
       </Column>
     </Box>
