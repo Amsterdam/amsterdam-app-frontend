@@ -3,16 +3,15 @@ import React from 'react'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text'
 import {openWebUrl} from '@/utils'
 
 export const WasteGuideForWeesp = () => (
   <Box>
     <Column gutter="md">
-      <Title text="GAD" />
       <Paragraph>
         In Weesp wordt het afval niet opgehaald door Gemeente Amsterdam, maar
-        door de GAD (Grond- en Afvalstoffen Dienst).
+        door de GAD.
       </Paragraph>
       <Paragraph>Bekijk hun website voor meer informatie.</Paragraph>
     </Column>
