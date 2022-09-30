@@ -1,9 +1,8 @@
 import React from 'react'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
-import {Attention} from '@/components/ui/feedback'
+import {Warning} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
-import {Paragraph, Phrase} from '@/components/ui/text'
 
 type Props = {
   onRetry?: () => void
@@ -12,11 +11,8 @@ type Props = {
 
 export const ModulesWarning = ({onRetry, text}: Props) => (
   <Box>
-    <Attention warning>
-      <Phrase fontWeight="bold">Fout</Phrase>
-      <Paragraph variant="small">{text}</Paragraph>
-    </Attention>
+    <Warning title="Fout" text={text} />
     <Gutter height="md" />
-    {!!onRetry && <Button label="Opnieuw proberen" onPress={onRetry} />}
+    {!!onRetry && <Button label="Probeer opnieuw" onPress={onRetry} />}
   </Box>
 )
