@@ -1,7 +1,7 @@
 import React, {ReactNode, SVGProps, useState} from 'react'
 import {ChevronDown, ChevronUp} from '@/assets/icons'
-import {Box} from '@/components/ui/Box'
 import {Pressable} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers/Box'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'

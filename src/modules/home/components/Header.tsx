@@ -2,7 +2,7 @@ import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types
 import React, {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {HeaderContent, HeaderContentForHome} from '@/modules/home/components'
 import {HomeRouteName} from '@/modules/home/routes'
 

@@ -1,6 +1,6 @@
 import React, {SVGProps} from 'react'
 import {Clock, TwoPersons} from '@/assets/icons'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'

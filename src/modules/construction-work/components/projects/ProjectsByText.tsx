@@ -1,6 +1,6 @@
 import React from 'react'
 import simplur from 'simplur'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {ProjectsList} from '@/modules/construction-work/components/projects'

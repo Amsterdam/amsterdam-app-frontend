@@ -1,11 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useContext} from 'react'
-import {DescriptionList} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {DescriptionList, Paragraph} from '@/components/ui/text'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,

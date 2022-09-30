@@ -1,14 +1,14 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import HeroImage from '@/assets/images/project-warning-hero.svg'
+import ProjectWarningFallbackImageSource from '@/modules/construction-work/assets/images/project-warning-fallback-image.svg'
 import {Theme, useThemable} from '@/themes'
 
-export const Hero = () => {
+export const ProjectWarningFallbackImage = () => {
   const styles = useThemable(createStyles)
 
   return (
     <View style={styles.aspectRatio}>
-      <HeroImage />
+      <ProjectWarningFallbackImageSource />
     </View>
   )
 }

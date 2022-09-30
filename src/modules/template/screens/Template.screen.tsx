@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 

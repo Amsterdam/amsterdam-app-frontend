@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'

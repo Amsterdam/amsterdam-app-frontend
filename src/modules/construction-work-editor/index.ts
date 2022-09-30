@@ -1,4 +1,4 @@
-import {ConstructionWorkEditorRouteName} from './routes'
+import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 

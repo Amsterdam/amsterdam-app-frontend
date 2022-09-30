@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Warning} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 

@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
-import {Box} from '@/components/ui'
-import {Hero} from '@/components/ui/Hero'
+import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Link, Paragraph} from '@/components/ui/text'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/components/project/ProjectWarningFallbackImage'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
@@ -81,7 +81,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 {imageSources && Object.keys(imageSources[0]).length ? (
                   <Image aspectRatio="wide" source={imageSources} />
                 ) : (
-                  <Hero />
+                  <ProjectWarningFallbackImage />
                 )}
               </View>
             </Column>

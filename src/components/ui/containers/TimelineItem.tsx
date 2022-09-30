@@ -3,12 +3,12 @@ import React, {SVGProps, useLayoutEffect, useRef, useState} from 'react'
 import {Animated, Easing, View} from 'react-native'
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 import {ChevronDown, ChevronUp} from '@/assets/icons'
-import {Icon} from '@/components/ui/media'
-import {Article, Title} from '@/components/ui/text'
 import {
   maxHeight,
   timelineStyles,
-} from '@/components/ui/timeline/timelineStyles'
+} from '@/components/ui/containers/timelineStyles'
+import {Icon} from '@/components/ui/media'
+import {Article, Title} from '@/components/ui/text'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 

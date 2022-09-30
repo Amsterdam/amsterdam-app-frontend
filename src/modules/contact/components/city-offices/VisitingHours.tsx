@@ -1,7 +1,7 @@
 import React, {SVGProps, useState} from 'react'
 import {QuestionMarkSolid} from '@/assets/icons'
-import {Box} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'

@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Stepper} from '@/components/ui'
+import {Stepper} from '@/components/ui/containers'
 
 export default {
   component: Stepper,

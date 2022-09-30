@@ -3,9 +3,8 @@ import React, {useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import HeroImage from '@/assets/images/project-warning-hero.svg'
-import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Alert} from '@/components/ui/feedback'
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
@@ -24,6 +23,7 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
+import HeroImage from '@/modules/construction-work/assets/images/project-warning-fallback-image.svg'
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'

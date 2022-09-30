@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, SingleSelectable} from '@/components/ui'
+import {Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {accessibleText} from '@/utils'

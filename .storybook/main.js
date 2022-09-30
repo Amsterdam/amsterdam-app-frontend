@@ -4,7 +4,7 @@ const alias = require('../.config/alias.js')
 const {presets} = require('../babel.config.js')
 
 module.exports = {
-  stories: ['../src'],
+  stories: ['../src/components/ui'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-links',

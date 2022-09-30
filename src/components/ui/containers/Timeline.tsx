@@ -1,5 +1,5 @@
 import React from 'react'
-import {TimelineItem} from '@/components/ui/timeline/TimelineItem'
+import {TimelineItem} from '@/components/ui/containers/TimelineItem'
 import {TimelineItem as TimelineItemType} from '@/types'
 
 type Props = {

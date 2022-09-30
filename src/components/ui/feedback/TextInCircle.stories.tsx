@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {TextInCircle} from '@/components/ui'
+import {TextInCircle} from '@/components/ui/feedback'
 import {Phrase} from '@/components/ui/text'
 
 export default {

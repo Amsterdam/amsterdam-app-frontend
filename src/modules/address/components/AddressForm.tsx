@@ -11,7 +11,7 @@ import React, {
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {BagResponseContent} from '@/modules/address'
 import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'

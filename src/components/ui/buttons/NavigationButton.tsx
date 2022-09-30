@@ -1,7 +1,7 @@
 import React, {SVGProps} from 'react'
 import {ChevronLeft, ChevronRight} from '@/assets/icons'
-import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Link} from '@/components/ui/text'

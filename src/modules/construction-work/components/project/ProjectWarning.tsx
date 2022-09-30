@@ -1,11 +1,14 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {Box, Hero} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
+import {
+  ProjectContacts,
+  ProjectWarningFallbackImage,
+} from '@/modules/construction-work/components/project'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectQuery,
@@ -72,7 +75,7 @@ export const ProjectWarning = ({id}: Props) => {
           source={mapWarningImageSources(mainImage.sources, environment)}
         />
       ) : (
-        <Hero />
+        <ProjectWarningFallbackImage />
       )}
       <Box>
         <Column gutter="md">

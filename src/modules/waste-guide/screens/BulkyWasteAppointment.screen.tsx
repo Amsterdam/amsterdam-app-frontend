@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
 import React from 'react'
-import {WebView} from '@/components/ui'
+import {WebView} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {
   WasteGuideRouteName,

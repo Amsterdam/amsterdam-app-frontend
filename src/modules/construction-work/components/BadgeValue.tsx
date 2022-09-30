@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {Badge} from '@/components/ui'
+import {Badge} from '@/components/ui/feedback'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useGetProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'

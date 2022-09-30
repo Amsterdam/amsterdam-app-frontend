@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {SkipInScreenReader} from '@/components/ui/SkipInScreenReader'
+import {SkipInScreenReader} from '@/components/ui/containers/SkipInScreenReader'
 import {MainAxisPosition, Row} from '@/components/ui/layout'
 import {layoutStyles} from '@/styles'
 

@@ -5,7 +5,7 @@ import {
 } from '@storybook/react'
 import React from 'react'
 import {Strides} from '@/assets/icons'
-import {Badge, Trait} from '@/components/ui'
+import {Badge, Trait} from '@/components/ui/feedback'
 
 export default {
   component: Trait,

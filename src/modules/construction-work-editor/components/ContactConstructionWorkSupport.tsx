@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {openMailUrl} from '@/utils'

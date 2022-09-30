@@ -1,5 +1,5 @@
 import React, {useContext, useMemo} from 'react'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'

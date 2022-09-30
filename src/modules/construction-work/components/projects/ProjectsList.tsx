@@ -6,7 +6,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {
   EmptyMessage,
   PleaseWait,

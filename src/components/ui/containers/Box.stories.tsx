@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Phrase} from '@/components/ui/text'
 
 export default {

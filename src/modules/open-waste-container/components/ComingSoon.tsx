@@ -1,6 +1,6 @@
 import React from 'react'
 import {ImageSourcePropType} from 'react-native'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'

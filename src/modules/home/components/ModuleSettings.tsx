@@ -1,7 +1,7 @@
 import React, {SVGProps, useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'

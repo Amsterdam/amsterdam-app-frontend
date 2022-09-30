@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import {Badge, BadgeProps} from '@/components/ui'
+import {Badge, BadgeProps} from '@/components/ui/feedback'
 import {Row} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'
 
