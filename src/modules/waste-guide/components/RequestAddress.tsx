@@ -46,10 +46,10 @@ export const RequestAddress = () => {
           </Row>
         </Column>
       </Box>
-      <View style={styles.image}>
+      <View style={styles.rowOfCanalHouseFacadesImage}>
         <RowOfCanalHouseFacadesImage />
       </View>
-      <Figure height={256}>
+      <Figure height={256} style={styles.twoPeopleBringingHouseholdWasteImage}>
         <TwoPeopleBringingHouseholdWasteImage />
       </Figure>
     </Column>
@@ -58,16 +58,20 @@ export const RequestAddress = () => {
 
 const createStyles = (isLandscape: boolean) => {
   const height = 192
+  const rowOfCanalHouseFacadesImageAspectRatio = 1743 / 202
 
   return StyleSheet.create({
-    image: {
-      width: (1743 / 202) * height,
+    rowOfCanalHouseFacadesImage: {
+      width: height * rowOfCanalHouseFacadesImageAspectRatio,
       height,
       alignSelf: 'center',
       position: 'relative',
       top: 80,
       zIndex: -1,
       marginTop: isLandscape ? -160 : undefined,
+    },
+    twoPeopleBringingHouseholdWasteImage: {
+      marginTop: isLandscape ? -32 : undefined,
     },
   })
 }

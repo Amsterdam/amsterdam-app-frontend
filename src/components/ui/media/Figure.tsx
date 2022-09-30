@@ -16,6 +16,7 @@ export const Figure = ({
   aspectRatio = 'default',
   height,
   children,
+  style,
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
@@ -25,7 +26,7 @@ export const Figure = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <View {...otherProps} style={styles.figure}>
+    <View {...otherProps} style={[styles.figure, style]}>
       <View style={styles.content}>{children}</View>
     </View>
   )
