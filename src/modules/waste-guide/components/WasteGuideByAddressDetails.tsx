@@ -40,7 +40,11 @@ export const WasteGuideByAddressDetails = ({
 
   return (
     <Track gutter="md">
-      {!!illustration && <Figure height={192}>{illustration}</Figure>}
+      {!!illustration && (
+        <Column>
+          <Figure height={192}>{illustration}</Figure>
+        </Column>
+      )}
       <Column gutter="md">
         {appointmentUrl ? (
           <>
