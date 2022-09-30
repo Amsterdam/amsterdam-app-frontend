@@ -1,11 +1,11 @@
 import ExternalLink from '@amsterdam/asc-assets/static/icons/ExternalLink.svg'
-import {Address} from '_modules/address'
 import React from 'react'
 import {Linking} from 'react-native'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {Address} from '@/modules/address'
 
 type Props = {
   address: Address
