@@ -70,7 +70,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
     <Column grow>
       {wasteGuideLength === undefined ? (
         <Box>
-          <Title level="h4" text="Gegevens ophalen…" />
+          <Title level="h4" text="Gegevens ophalen …" />
           <PleaseWait />
         </Box>
       ) : wasteGuideLength === 0 ? (

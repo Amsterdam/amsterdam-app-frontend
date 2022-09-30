@@ -8,11 +8,11 @@ type Props = {
 }
 
 export const EmptyMessage = ({text}: Props) => {
-  const title = 'Helaas…'
+  const title = 'Helaas …'
 
   return (
     <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
-      <Title level="h1" text={title} />
+      <Title level="h3" text={title} />
       <Paragraph>{text}</Paragraph>
     </SingleSelectable>
   )

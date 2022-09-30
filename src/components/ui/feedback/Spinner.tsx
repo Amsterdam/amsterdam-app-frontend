@@ -45,7 +45,7 @@ export const Spinner = () => {
     <Row align="center">
       <Animated.View
         accessible
-        accessibilityLabel="Bezig…"
+        accessibilityLabel="Bezig …"
         style={[styles.container, {transform: [{rotate}]}]}>
         <SpinnerIcon {...iconProps} />
       </Animated.View>

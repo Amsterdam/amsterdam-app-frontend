@@ -100,7 +100,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
               maxCharacters={maxCharacters.title}
               name="title"
               numberOfLines={3}
-              placeholder="Voer een tekst in…"
+              placeholder="Voer een tekst in …"
               rules={{
                 maxLength: {
                   value: maxCharacters.title,
