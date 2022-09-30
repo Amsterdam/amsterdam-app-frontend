@@ -1,4 +1,3 @@
-export * from './AddressFormTeaser'
 export * from './AddressTitle'
 export * from './RequestAddress'
 export * from './WasteGuide'
