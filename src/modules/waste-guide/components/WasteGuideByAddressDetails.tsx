@@ -39,11 +39,11 @@ export const WasteGuideByAddressDetails = ({
     details
 
   return (
-    <Column gutter="sm">
-      <Track gutter="md">
-        {!!illustration && <Figure height={192}>{illustration}</Figure>}
+    <Track gutter="md">
+      {!!illustration && <Figure height={192}>{illustration}</Figure>}
+      <Column gutter="md">
         {appointmentUrl ? (
-          <Column gutter="md">
+          <>
             <Paragraph>
               Maak een afspraak, dan komen we het grof afval bij u ophalen.
             </Paragraph>
@@ -56,7 +56,7 @@ export const WasteGuideByAddressDetails = ({
                 })
               }
             />
-          </Column>
+          </>
         ) : (
           <DescriptionList
             items={[
@@ -81,13 +81,13 @@ export const WasteGuideByAddressDetails = ({
             ]}
           />
         )}
-      </Track>
-      {!!footerLink && (
-        <NavigationButton
-          label={footerLink.text}
-          onPress={footerLink.onPress}
-        />
-      )}
-    </Column>
+        {!!footerLink && (
+          <NavigationButton
+            label={footerLink.text}
+            onPress={footerLink.onPress}
+          />
+        )}
+      </Column>
+    </Track>
   )
 }
