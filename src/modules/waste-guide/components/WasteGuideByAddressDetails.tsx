@@ -14,7 +14,7 @@ import {WasteGuideDetails} from '@/modules/waste-guide/types'
 import {DeviceContext} from '@/providers'
 
 type Props = {
-  details: WasteGuideDetails
+  details: WasteGuideDetails | undefined
   footerLink?: {
     text: string
     onPress: () => void
@@ -34,6 +34,10 @@ export const WasteGuideByAddressDetails = ({
 
   const {isLandscape} = useContext(DeviceContext)
   const Track = isLandscape ? Row : Column
+
+  if (!details) {
+    return null
+  }
 
   const {appointmentUrl, collectionDays, howToOffer, remark, whenToPutOut} =
     details

@@ -139,8 +139,7 @@ export const WasteGuideByAddress = () => {
               {wasteGuide?.[WasteType.Bulky] && (
                 <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
                   <WasteGuideByAddressDetails
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    details={wasteGuide[WasteType.Bulky]!}
+                    details={wasteGuide[WasteType.Bulky]}
                     footerLink={{
                       onPress: () =>
                         navigation.navigate(
@@ -155,8 +154,7 @@ export const WasteGuideByAddress = () => {
               {wasteGuide?.[WasteType.Household] && (
                 <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
                   <WasteGuideByAddressDetails
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    details={wasteGuide[WasteType.Household]!}
+                    details={wasteGuide[WasteType.Household]}
                     illustration={<PuttingHouseHoldWasteAtTheRoadsideImage />}
                   />
                 </Accordion>
