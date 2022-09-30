@@ -8,7 +8,7 @@ export enum WasteGuideRouteName {
 }
 
 export type WasteGuideStackParams = {
-  [WasteGuideRouteName.bulkyWasteAppointment]: {appointmentUrl: string}
+  [WasteGuideRouteName.bulkyWasteAppointment]: {url: string}
   [WasteGuideRouteName.wasteGuide]: undefined
   [WasteGuideRouteName.wasteGuideCollectionPoints]: {lon: number; lat: number}
   [WasteGuideRouteName.wasteGuideContainers]: {lon: number; lat: number}

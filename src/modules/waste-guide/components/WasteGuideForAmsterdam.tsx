@@ -16,7 +16,7 @@ import {
   HouseholdWasteToContainerImage,
   PlayingNearContainersImage,
 } from '@/modules/waste-guide/assets/images'
-import {WasteGuideByAddressDetails} from '@/modules/waste-guide/components'
+import {WasteGuideDetails} from '@/modules/waste-guide/components'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {WasteGuide, WasteType} from '@/modules/waste-guide/types'
 import {DeviceContext} from '@/providers'
@@ -44,7 +44,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
     <Box insetHorizontal="md">
       {wasteGuide[WasteType.Bulky] && (
         <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
-          <WasteGuideByAddressDetails
+          <WasteGuideDetails
             details={wasteGuide[WasteType.Bulky]}
             footerLink={{
               onPress: () =>
@@ -57,7 +57,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
       )}
       {wasteGuide[WasteType.Household] && (
         <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
-          <WasteGuideByAddressDetails
+          <WasteGuideDetails
             details={wasteGuide[WasteType.Household]}
             illustration={
               wasteGuide[WasteType.Household]?.howToOffer?.includes(

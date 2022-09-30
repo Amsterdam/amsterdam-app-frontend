@@ -23,7 +23,7 @@ type Props = {
   address: Address
 }
 
-export const WasteGuideByAddress = ({address}: Props) => {
+export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const Track = isLandscape && !address ? Row : Column
 

@@ -10,11 +10,11 @@ import {
   WasteGuideRouteName,
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
-import {WasteGuideDetails} from '@/modules/waste-guide/types'
+import {WasteGuideDetails as WasteGuideDetailsType} from '@/modules/waste-guide/types'
 import {DeviceContext} from '@/providers'
 
 type Props = {
-  details: WasteGuideDetails | undefined
+  details: WasteGuideDetailsType | undefined
   footerLink?: {
     text: string
     onPress: () => void
@@ -22,7 +22,7 @@ type Props = {
   illustration?: ReactNode
 }
 
-export const WasteGuideByAddressDetails = ({
+export const WasteGuideDetails = ({
   details,
   footerLink,
   illustration,
@@ -60,7 +60,7 @@ export const WasteGuideByAddressDetails = ({
               label="Haal mijn grof afval op"
               onPress={() =>
                 navigation.navigate(WasteGuideRouteName.bulkyWasteAppointment, {
-                  appointmentUrl,
+                  url: appointmentUrl,
                 })
               }
             />

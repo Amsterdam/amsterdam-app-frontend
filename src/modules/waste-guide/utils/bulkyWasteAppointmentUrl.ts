@@ -1,7 +1,7 @@
 import {EnvironmentConfig} from '@/environment'
 import {Address} from '@/modules/address'
 
-export const appointmentUrl = (
+export const bulkyWasteAppointmentUrl = (
   opmerking: string,
   address: Address | undefined,
   environment: EnvironmentConfig,

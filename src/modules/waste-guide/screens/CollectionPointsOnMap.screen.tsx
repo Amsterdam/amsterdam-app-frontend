@@ -13,7 +13,7 @@ type Props = {
 const baseUrl = 'https://kaart.amsterdam.nl/afvalpunten'
 const locationTypes = [14324]
 
-export const WasteGuideCollectionPointsScreen = ({route}: Props) => {
+export const CollectionPointsOnMapScreen = ({route}: Props) => {
   const {lon, lat} = route.params
   const urlParams = getSquareMapArea(lon, lat, 0.1)
   const url = urlParams

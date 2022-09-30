@@ -6,8 +6,8 @@ import {
 } from '@/modules/waste-guide/routes'
 import {
   BulkyWasteAppointmentScreen,
-  WasteGuideCollectionPointsScreen,
-  WasteGuideContainersScreen,
+  CollectionPointsOnMapScreen,
+  ContainersOnMapScreen,
   WasteGuideFeedbackScreen,
   WasteGuideScreen,
   WhereToPutBulkyWasteScreen,
@@ -39,14 +39,14 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
   [WasteGuideRouteName.wasteGuideCollectionPoints]: {
-    component: WasteGuideCollectionPointsScreen,
+    component: CollectionPointsOnMapScreen,
     name: WasteGuideRouteName.wasteGuideCollectionPoints,
     options: {
       headerTitle: 'Afvalpunten op de kaart',
     },
   },
   [WasteGuideRouteName.wasteGuideContainers]: {
-    component: WasteGuideContainersScreen,
+    component: ContainersOnMapScreen,
     name: WasteGuideRouteName.wasteGuideContainers,
     options: {
       headerTitle: 'Containers in de buurt',
