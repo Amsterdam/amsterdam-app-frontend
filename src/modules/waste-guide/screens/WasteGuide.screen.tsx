@@ -12,14 +12,21 @@ export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
   const {primary, temp} = useSelector(selectAddress)
   const address = temp ?? primary
-  const withHorizontalInset = !!isPortrait || !!address
+
+  if (!address) {
+    return (
+      <Screen
+        scroll={false}
+        withLeftInset={isPortrait}
+        withRightInset={isPortrait}>
+        <RequestAddress />
+      </Screen>
+    )
+  }
 
   return (
-    <Screen
-      scroll={!!address}
-      withLeftInset={withHorizontalInset}
-      withRightInset={withHorizontalInset}>
-      {address ? <WasteGuideByAddress address={address} /> : <RequestAddress />}
+    <Screen>
+      <WasteGuideByAddress address={address} />
     </Screen>
   )
 }
