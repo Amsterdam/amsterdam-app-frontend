@@ -43,7 +43,7 @@ export const WasteGuideByAddressDetails = ({
     details
 
   return (
-    <Track gutter="md" reverse={isLandscape}>
+    <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
       {!!illustration && (
         <Column>
           <Figure height={192}>{illustration}</Figure>
@@ -51,7 +51,7 @@ export const WasteGuideByAddressDetails = ({
       )}
       <Column gutter="md">
         {appointmentUrl ? (
-          <>
+          <Column gutter="md">
             <Paragraph>
               Maak een afspraak, dan komen we het grof afval bij u ophalen.
             </Paragraph>
@@ -64,7 +64,7 @@ export const WasteGuideByAddressDetails = ({
                 })
               }
             />
-          </>
+          </Column>
         ) : (
           <DescriptionList
             items={[

@@ -21,7 +21,7 @@ export const WasteGuideByAddressNoDetails = () => {
         <EmptyMessage text="We hebben geen afvalinformatie gevonden voor dit adres." />
         <Row align="start">
           <Button
-            label="Hier klopt iets niet"
+            label="Dit klopt niet"
             onPress={() =>
               navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
             }

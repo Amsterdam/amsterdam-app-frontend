@@ -111,7 +111,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
               </Accordion>
             )}
             <Accordion title="Containers in de buurt">
-              <Track gutter="md" reverse={isLandscape}>
+              <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
                 <Figure height={192}>
                   <PlayingNearContainersImage />
                 </Figure>
@@ -134,7 +134,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
               </Track>
             </Accordion>
             <Accordion title="Afvalpunten">
-              <Track gutter="md" reverse={isLandscape}>
+              <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
                 <Figure height={192}>
                   <BulkyWasteByCarImage />
                 </Figure>

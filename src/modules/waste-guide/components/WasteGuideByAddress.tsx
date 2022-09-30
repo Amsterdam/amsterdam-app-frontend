@@ -17,7 +17,7 @@ type Props = {
 
 export const WasteGuideByAddress = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
-  const Track = isLandscape ? Row : Column
+  const Track = isLandscape && !address ? Row : Column
 
   const forWeesp = address.woonplaats === 'Weesp'
   const WasteGuideForCity = forWeesp
