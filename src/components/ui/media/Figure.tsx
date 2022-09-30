@@ -1,7 +1,7 @@
-import {ImageAspectRatioTokens} from '_themes/tokens'
 import React, {useMemo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
+import {ImageAspectRatioTokens} from '@/themes/tokens'
 
 type Props = {
   aspectRatio?: keyof ImageAspectRatioTokens

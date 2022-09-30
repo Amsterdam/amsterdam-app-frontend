@@ -1,17 +1,17 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '_app/navigation'
-import {AddressModalName} from '_modules/address/routes'
-import {module as wasteGuideModule} from '_modules/waste-guide'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {RootStackParams} from '@/app/navigation'
 import {Location} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {AddressModalName} from '@/modules/address/routes'
+import {module} from '@/modules/waste-guide'
 import {
   RowOfCanalHouseFacadesImage,
   TwoPeopleBringingHouseholdWasteImage,
@@ -21,9 +21,7 @@ import {Device, DeviceContext} from '@/providers'
 export const RequestAddress = () => {
   const insets = useSafeAreaInsets()
   const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
-    >()
+    useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
 
   const {isLandscape} = useContext(DeviceContext)
   const styles = createStyles(insets, isLandscape)

@@ -1,7 +1,7 @@
-import {Column, Row} from '_components/ui/layout'
-import {Phrase} from '_components/ui/text/Phrase'
 import React, {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {Column, Row} from '@/components/ui/layout'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme, useThemable} from '@/themes'
 
 enum Marker {
