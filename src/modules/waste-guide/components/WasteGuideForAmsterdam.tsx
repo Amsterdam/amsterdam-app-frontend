@@ -74,7 +74,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
           <PleaseWait />
         </Box>
       ) : wasteGuideLength === 0 ? (
-        <WasteGuideByAddressNoDetails address={address} />
+        <WasteGuideByAddressNoDetails />
       ) : (
         <Column>
           <Box insetHorizontal="md">
