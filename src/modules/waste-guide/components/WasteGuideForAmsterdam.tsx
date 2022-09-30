@@ -11,10 +11,11 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
-  BringingBulkyWasteByCarImage,
+  BulkyWasteAtRoadsideImage,
+  BulkyWasteByCarImage,
+  HouseHoldWasteAtRoadsideImage,
+  HouseholdWasteToContainerImage,
   PlayingNearContainersImage,
-  PuttingBulkyWasteAtTheRoadsideImage,
-  PuttingHouseHoldWasteAtTheRoadsideImage,
 } from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideByAddressDetails,
@@ -89,7 +90,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
                       ),
                     text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
                   }}
-                  illustration={<PuttingBulkyWasteAtTheRoadsideImage />}
+                  illustration={<BulkyWasteAtRoadsideImage />}
                 />
               </Accordion>
             )}
@@ -97,7 +98,15 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
               <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
                 <WasteGuideByAddressDetails
                   details={wasteGuide[WasteType.Household]}
-                  illustration={<PuttingHouseHoldWasteAtTheRoadsideImage />}
+                  illustration={
+                    wasteGuide[WasteType.Household]?.howToOffer?.includes(
+                      'container',
+                    ) ? (
+                      <HouseholdWasteToContainerImage />
+                    ) : (
+                      <HouseHoldWasteAtRoadsideImage />
+                    )
+                  }
                 />
               </Accordion>
             )}
@@ -127,7 +136,7 @@ export const WasteGuideForAmsterdam = ({address}: Props) => {
             <Accordion title="Afvalpunten">
               <Track gutter="md" reverse={isLandscape}>
                 <Figure height={192}>
-                  <BringingBulkyWasteByCarImage />
+                  <BulkyWasteByCarImage />
                 </Figure>
                 <Column gutter="md">
                   <Paragraph>

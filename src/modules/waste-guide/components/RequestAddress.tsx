@@ -13,8 +13,8 @@ import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
 import {
-  RowOfCanalHouseFacadesImage,
-  TwoPeopleBringingHouseholdWasteImage,
+  CanalHouseFacadesImage,
+  WasteGuideHomeImage,
 } from '@/modules/waste-guide/assets/images'
 import {Device, DeviceContext} from '@/providers'
 
@@ -49,10 +49,10 @@ export const RequestAddress = () => {
         </Box>
       </View>
       <View style={styles.rowOfCanalHouseFacadesImage}>
-        <RowOfCanalHouseFacadesImage />
+        <CanalHouseFacadesImage />
       </View>
       <Figure height={256} style={styles.twoPeopleBringingHouseholdWasteImage}>
-        <TwoPeopleBringingHouseholdWasteImage />
+        <WasteGuideHomeImage />
       </Figure>
     </Column>
   )

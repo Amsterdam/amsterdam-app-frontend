@@ -1,19 +1,21 @@
-import BringingBulkyWasteByCarImage from './bringing-bulky-waste-by-car.svg'
-import BringingHouseholdWasteToAContainerImage from './bringing-household-waste-to-a-container.svg'
 import BulkyAndHouseholdWasteImage from './bulky-and-household-waste.svg'
+import BulkyWasteAtRoadsideImage from './bulky-waste-at-roadside.svg'
+import BulkyWasteByCarImage from './bulky-waste-by-car.svg'
+import CanalHouseFacadesImage from './canal-house-facades.svg'
+import HouseHoldWasteAtRoadsideImage from './household-waste-at-roadside.svg'
+import HouseholdWasteToContainerImage from './household-waste-to-container.svg'
 import PlayingNearContainersImage from './playing-near-containers.svg'
-import PuttingBulkyWasteAtTheRoadsideImage from './putting-bulky-waste-at-the-roadside.svg'
-import PuttingHouseHoldWasteAtTheRoadsideImage from './putting-household-waste-at-the-roadside.svg'
-import RowOfCanalHouseFacadesImage from './row-of-canal-house-facades.svg'
-import TwoPeopleBringingHouseholdWasteImage from './two-people-bringing-household-waste.svg'
+import WasteGuideHomeImage from './waste-guide-home.svg'
+import WasteGuideNotFoundImage from './waste-guide-not-found.svg'
 
 export {
-  BringingBulkyWasteByCarImage,
-  BringingHouseholdWasteToAContainerImage,
   BulkyAndHouseholdWasteImage,
+  BulkyWasteAtRoadsideImage,
+  BulkyWasteByCarImage,
+  CanalHouseFacadesImage,
+  HouseHoldWasteAtRoadsideImage,
+  HouseholdWasteToContainerImage,
   PlayingNearContainersImage,
-  PuttingBulkyWasteAtTheRoadsideImage,
-  PuttingHouseHoldWasteAtTheRoadsideImage,
-  RowOfCanalHouseFacadesImage,
-  TwoPeopleBringingHouseholdWasteImage,
+  WasteGuideHomeImage,
+  WasteGuideNotFoundImage,
 }

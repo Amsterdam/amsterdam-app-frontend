@@ -4,8 +4,8 @@ import {Column, Screen} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {List, Paragraph, Title} from '@/components/ui/text'
 import {
-  BringingBulkyWasteByCarImage,
-  PuttingBulkyWasteAtTheRoadsideImage,
+  BulkyWasteAtRoadsideImage,
+  BulkyWasteByCarImage,
 } from '@/modules/waste-guide/assets/images'
 
 const collected = [
@@ -48,7 +48,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         </Column>
         <Column gutter="md">
           <Figure height={192}>
-            <PuttingBulkyWasteAtTheRoadsideImage />
+            <BulkyWasteAtRoadsideImage />
           </Figure>
           <Column gutter="sm">
             <Title level="h3" text="Grof afval dat we ophalen" />
@@ -60,7 +60,7 @@ export const WhereToPutBulkyWasteScreen = () => (
         </Column>
         <Column gutter="md">
           <Figure height={192}>
-            <BringingBulkyWasteByCarImage />
+            <BulkyWasteByCarImage />
           </Figure>
           <Column gutter="sm">
             <Title level="h3" text="Dit grof afval halen we niet op" />
