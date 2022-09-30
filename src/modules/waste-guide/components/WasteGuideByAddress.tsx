@@ -138,31 +138,27 @@ export const WasteGuideByAddress = () => {
             <Box insetHorizontal="md">
               {wasteGuide?.[WasteType.Bulky] && (
                 <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
-                  <Column gutter="md">
-                    <WasteGuideByAddressDetails
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      details={wasteGuide[WasteType.Bulky]!}
-                      footerLink={{
-                        onPress: () =>
-                          navigation.navigate(
-                            WasteGuideRouteName.whereToPutBulkyWaste,
-                          ),
-                        text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
-                      }}
-                      illustration={<PuttingBulkyWasteAtTheRoadsideImage />}
-                    />
-                  </Column>
+                  <WasteGuideByAddressDetails
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    details={wasteGuide[WasteType.Bulky]!}
+                    footerLink={{
+                      onPress: () =>
+                        navigation.navigate(
+                          WasteGuideRouteName.whereToPutBulkyWaste,
+                        ),
+                      text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
+                    }}
+                    illustration={<PuttingBulkyWasteAtTheRoadsideImage />}
+                  />
                 </Accordion>
               )}
               {wasteGuide?.[WasteType.Household] && (
                 <Accordion title={wasteGuide[WasteType.Household]?.title ?? ''}>
-                  <Column gutter="md">
-                    <WasteGuideByAddressDetails
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      details={wasteGuide[WasteType.Household]!}
-                      illustration={<PuttingHouseHoldWasteAtTheRoadsideImage />}
-                    />
-                  </Column>
+                  <WasteGuideByAddressDetails
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    details={wasteGuide[WasteType.Household]!}
+                    illustration={<PuttingHouseHoldWasteAtTheRoadsideImage />}
+                  />
                 </Accordion>
               )}
               <Accordion title="Containers in de buurt">
