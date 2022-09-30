@@ -19,20 +19,18 @@ export const WasteGuideByAddress = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const Track = isLandscape ? Row : Column
 
+  const forWeesp = address.woonplaats === 'Weesp'
+  const WasteGuideForCity = forWeesp
+    ? WasteGuideForWeesp
+    : WasteGuideForAmsterdam
+
   return (
-    <Track
-      align="between"
-      grow
-      gutter={address.woonplaats === 'Weesp' ? 'md' : 'xxxl'}>
+    <Track align="between" grow gutter={forWeesp ? 'md' : 'xxxl'}>
       <Column>
         <Box>
           <AddressTitle adres={address.adres} />
         </Box>
-        {address.woonplaats === 'Weesp' ? (
-          <WasteGuideForWeesp />
-        ) : (
-          <WasteGuideForAmsterdam address={address} />
-        )}
+        <WasteGuideForCity address={address} />
       </Column>
       <Column align="center">
         <Figure height={192}>
