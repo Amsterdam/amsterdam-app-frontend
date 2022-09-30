@@ -8,6 +8,7 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
 import {ProjectsList} from '@/modules/construction-work/components/projects'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
@@ -15,7 +16,6 @@ import {useSortProjects} from '@/modules/construction-work/hooks'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
 import {Theme, useThemable} from '@/themes'
-import {Address} from '@/types'
 
 type ListHeaderProps = {
   addressText: string

@@ -7,9 +7,9 @@ import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
+import {Address} from '@/modules/address'
 import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {Address} from '@/types'
 
 type Props = {
   address: Address

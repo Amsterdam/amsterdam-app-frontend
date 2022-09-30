@@ -1,5 +1,5 @@
 import {EnvironmentConfig} from '@/environment'
-import {Address} from '@/types'
+import {Address} from '@/modules/address'
 
 export const appointmentUrl = (
   opmerking: string,

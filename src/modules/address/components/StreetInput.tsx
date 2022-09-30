@@ -2,9 +2,9 @@ import React, {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms'
+import {BagResponseContent} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
-import {BagResponseContent} from '@/types'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
