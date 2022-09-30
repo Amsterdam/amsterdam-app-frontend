@@ -45,13 +45,12 @@ export const WasteGuide = ({address}: Props) => {
     return <PleaseWait />
   }
 
-  const hasWasteGuide = Object.keys(wasteGuide).length > 0
-
   const forWeesp = address.woonplaats === 'Weesp'
   const WasteGuideForCity = forWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
 
+  const hasWasteGuide = Object.keys(wasteGuide).length > 0
   const Image = hasWasteGuide
     ? BulkyAndHouseholdWasteImage
     : WasteGuideNotFoundImage
@@ -63,7 +62,7 @@ export const WasteGuide = ({address}: Props) => {
         <Box>
           <AddressTitle adres={address.adres} />
         </Box>
-        {hasWasteGuide ? (
+        {hasWasteGuide || forWeesp ? (
           <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
         ) : (
           <WasteGuideNotFound />
