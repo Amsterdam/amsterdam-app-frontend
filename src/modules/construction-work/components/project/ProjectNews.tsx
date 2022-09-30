@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect} from 'react'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'

@@ -12,8 +12,8 @@ import {
   View,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box, SingleSelectable} from '@/components/ui'
 import {IconButton} from '@/components/ui/buttons'
+import {Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -59,6 +59,7 @@ export const Alert = () => {
       <View style={styles.view}>
         <Row align="between">
           <SingleSelectable
+            accessibilityRole="alert"
             accessibilityLabel={accessibleText(content?.title, content?.text)}>
             <Row gutter="md">
               {!!withIcon && (

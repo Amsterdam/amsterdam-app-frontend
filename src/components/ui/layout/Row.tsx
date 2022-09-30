@@ -14,11 +14,19 @@ type Props = {
   children: ReactNode
   gutter?: keyof SpacingTokens
   valign?: CrossAxisAlignment
+  reverse?: boolean
   wrap?: boolean
 }
 
-export const Row = ({align, children, gutter, valign, wrap}: Props) => {
-  const styles = createStyles({align, valign})
+export const Row = ({
+  align,
+  children,
+  gutter,
+  valign,
+  reverse,
+  wrap,
+}: Props) => {
+  const styles = createStyles({align, reverse, valign})
 
   return (
     <View style={[styles.row, wrap && styles.wrap]}>
@@ -33,10 +41,10 @@ export const Row = ({align, children, gutter, valign, wrap}: Props) => {
   )
 }
 
-const createStyles = ({align, valign}: Partial<Props>) =>
+const createStyles = ({align, reverse, valign}: Partial<Props>) =>
   StyleSheet.create({
     row: {
-      flexDirection: 'row',
+      flexDirection: reverse ? 'row-reverse' : 'row',
       flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),

@@ -1,6 +1,6 @@
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet'
 import React from 'react'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Gutter} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'

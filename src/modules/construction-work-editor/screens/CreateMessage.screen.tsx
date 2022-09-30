@@ -3,8 +3,8 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useLayoutEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Box} from '@/components/ui'
 import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {MessageForm} from '@/modules/construction-work-editor/components'
@@ -62,7 +62,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
             <Title text="Maak een bericht" />
             <Row align="start">
               <Button
-                label="Toon schrijftips"
+                label="Bekijk schrijftips"
                 onPress={() => {
                   navigation.navigate(
                     ConstructionWorkEditorModalName.writingGuide,

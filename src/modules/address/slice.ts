@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Address} from '@/modules/address/types'
 import {RootState} from '@/store'
-import {Address} from '@/types'
 
 type AddressState = {
   primary?: Address

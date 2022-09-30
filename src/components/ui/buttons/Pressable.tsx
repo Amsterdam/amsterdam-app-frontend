@@ -4,7 +4,7 @@ import {
   PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
-import {Box, BoxProps} from '@/components/ui'
+import {Box, BoxProps} from '@/components/ui/containers'
 import {Theme, useThemable} from '@/themes'
 
 type ButtonVariants = 'primary' | 'tertiary' | 'negative'

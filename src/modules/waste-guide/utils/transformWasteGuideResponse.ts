@@ -1,11 +1,11 @@
 import {EnvironmentConfig} from '@/environment'
+import {Address} from '@/modules/address'
 import {
   mapWasteType,
   WasteGuide,
   WasteGuideResponse,
 } from '@/modules/waste-guide/types'
-import {appointmentUrl} from '@/modules/waste-guide/utils'
-import {Address} from '@/types'
+import {bulkyWasteAppointmentUrl} from '@/modules/waste-guide/utils'
 import {formatDatesTimes, formatSentence} from '@/utils'
 
 export const transformWasteGuideResponse = (
@@ -36,7 +36,7 @@ export const transformWasteGuideResponse = (
 
     acc[mapWasteType(type)] = {
       appointmentUrl: opmerking
-        ? appointmentUrl(opmerking, address, environment)
+        ? bulkyWasteAppointmentUrl(opmerking, address, environment)
         : undefined,
       collectionDays: collectionDays
         ? formatSentence(collectionDays)

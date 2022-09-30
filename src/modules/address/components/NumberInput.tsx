@@ -11,9 +11,9 @@ import {ChevronUp} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
+import {BagResponseContent} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
-import {BagResponseContent} from '@/types'
 
 type Props = {
   bagList: BagResponseContent | null | undefined

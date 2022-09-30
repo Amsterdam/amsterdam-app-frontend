@@ -4,8 +4,7 @@ import React, {ElementType, SVGProps, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {SwipeToDelete} from '@/components/ui'
-import {Pressable} from '@/components/ui/buttons'
+import {Pressable, SwipeToDelete} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
@@ -14,6 +13,7 @@ import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store'
 import {Theme, useThemable} from '@/themes'
+import {accessibleText} from '@/utils'
 
 type ButtonVariants = 'primary' | 'tertiary'
 
@@ -48,6 +48,7 @@ export const ModuleButton = ({
     <View style={styles.swipeToDeleteContainer}>
       <SwipeToDelete onEvent={onDelete}>
         <Pressable
+          accessibilityLabel={accessibleText(label)}
           inset="md"
           onPress={() => navigation.navigate(slug)}
           variant={variant}>

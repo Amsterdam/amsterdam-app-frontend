@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {PressableProps, StyleSheet, View} from 'react-native'
-import {Box} from '@/components/ui'
 import {Pressable} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'

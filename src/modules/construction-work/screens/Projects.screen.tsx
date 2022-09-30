@@ -1,6 +1,6 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {Box} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {selectAddress} from '@/modules/address/slice'
 import {

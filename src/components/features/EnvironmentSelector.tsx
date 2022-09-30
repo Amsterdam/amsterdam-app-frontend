@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {TextInput} from '@/components/ui/forms'
 import {Grid, GridCell} from '@/components/ui/layout'
 import {Environment, EnvironmentConfig, environments} from '@/environment'

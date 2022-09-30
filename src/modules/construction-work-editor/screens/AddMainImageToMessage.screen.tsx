@@ -4,8 +4,8 @@ import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {FormField} from '@/components/features/FormField'
-import {Box} from '@/components/ui'
 import {NavigationButton} from '@/components/ui/buttons'
+import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {ImagePreview} from '@/modules/construction-work-editor/components'
@@ -100,7 +100,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
               maxCharacters={maxCharacters.title}
               name="title"
               numberOfLines={3}
-              placeholder="Voer een tekst in…"
+              placeholder="Voer een tekst in …"
               rules={{
                 maxLength: {
                   value: maxCharacters.title,

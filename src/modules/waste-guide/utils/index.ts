@@ -1,2 +1,3 @@
-export * from './appointmentUrl'
+export * from './bulkyWasteAppointmentUrl'
+export * from './getSquareMapArea'
 export * from './transformWasteGuideResponse'

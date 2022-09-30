@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
-import {Box, Text} from '@/components/ui'
+import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
+import {Paragraph} from '@/components/ui/text'
 
 export const TemplateScreen: FC = () => {
   // const navigation =
@@ -9,7 +10,7 @@ export const TemplateScreen: FC = () => {
   return (
     <Screen>
       <Box>
-        <Text>Hallo, ik ben een module! 🎉</Text>
+        <Paragraph>Hallo, ik ben een module! 🎉</Paragraph>
       </Box>
     </Screen>
   )
