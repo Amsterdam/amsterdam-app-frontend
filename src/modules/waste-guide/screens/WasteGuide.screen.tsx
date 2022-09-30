@@ -9,14 +9,15 @@ import {
 import {DeviceContext} from '@/providers'
 
 export const WasteGuideScreen = () => {
-  const {isLandscape} = useContext(DeviceContext)
+  const {isPortrait} = useContext(DeviceContext)
   const {primary, temp} = useSelector(selectAddress)
   const address = temp ?? primary
 
-  const shouldScroll = [primary, temp].some(a => a !== undefined) || isLandscape
-
   return (
-    <Screen scroll={shouldScroll}>
+    <Screen
+      scroll={!!address}
+      withLeftInset={isPortrait}
+      withRightInset={isPortrait}>
       {address ? <WasteGuideByAddress address={address} /> : <RequestAddress />}
     </Screen>
   )

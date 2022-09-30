@@ -5,6 +5,7 @@ import {AddressModalName} from '_modules/address/routes'
 import {module as wasteGuideModule} from '_modules/waste-guide'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Location} from '@/assets/icons'
 import {Box} from '@/components/ui'
 import {Button} from '@/components/ui/buttons'
@@ -15,37 +16,40 @@ import {
   RowOfCanalHouseFacadesImage,
   TwoPeopleBringingHouseholdWasteImage,
 } from '@/modules/waste-guide/assets/images'
-import {DeviceContext} from '@/providers'
+import {Device, DeviceContext} from '@/providers'
 
 export const RequestAddress = () => {
+  const insets = useSafeAreaInsets()
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
 
   const {isLandscape} = useContext(DeviceContext)
-  const styles = createStyles(isLandscape)
+  const styles = createStyles(insets, isLandscape)
 
   return (
     <Column align="between" grow>
-      <Box>
-        <Column gutter="md">
-          <Paragraph>
-            Vul uw adres in zodat we de juiste informatie kunnen tonen.
-          </Paragraph>
-          <Row>
-            <Button
-              icon={Location}
-              label="Vul uw adres in"
-              onPress={() =>
-                navigation.navigate(AddressModalName.addressForm, {
-                  addressIsTemporary: true,
-                })
-              }
-            />
-          </Row>
-        </Column>
-      </Box>
+      <View style={styles.horizontalInset}>
+        <Box>
+          <Column gutter="md">
+            <Paragraph>
+              Vul uw adres in zodat we de juiste informatie kunnen tonen.
+            </Paragraph>
+            <Row>
+              <Button
+                icon={Location}
+                label="Vul uw adres in"
+                onPress={() =>
+                  navigation.navigate(AddressModalName.addressForm, {
+                    addressIsTemporary: true,
+                  })
+                }
+              />
+            </Row>
+          </Column>
+        </Box>
+      </View>
       <View style={styles.rowOfCanalHouseFacadesImage}>
         <RowOfCanalHouseFacadesImage />
       </View>
@@ -56,11 +60,18 @@ export const RequestAddress = () => {
   )
 }
 
-const createStyles = (isLandscape: boolean) => {
+const createStyles = (
+  insets: EdgeInsets,
+  isLandscape: Device['isLandscape'],
+) => {
   const height = 192
   const rowOfCanalHouseFacadesImageAspectRatio = 1743 / 202
 
   return StyleSheet.create({
+    horizontalInset: {
+      paddingLeft: isLandscape ? insets.left : undefined,
+      paddingRight: isLandscape ? insets.right : undefined,
+    },
     rowOfCanalHouseFacadesImage: {
       width: height * rowOfCanalHouseFacadesImageAspectRatio,
       height,
@@ -69,6 +80,7 @@ const createStyles = (isLandscape: boolean) => {
       top: 80,
       zIndex: -1,
       marginTop: isLandscape ? -160 : undefined,
+      marginLeft: isLandscape ? -insets.left : undefined,
     },
     twoPeopleBringingHouseholdWasteImage: {
       marginTop: isLandscape ? -32 : undefined,

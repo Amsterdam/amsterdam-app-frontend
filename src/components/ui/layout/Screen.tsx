@@ -33,21 +33,28 @@ const Wrapper = ({
   return <>{children}</>
 }
 
+type WithInsetProps = {
+  withBottomInset?: boolean
+  withLeftInset?: boolean
+  withRightInset?: boolean
+  withTopInset?: boolean
+}
+
 type Props = {
   children: ReactNode
   keyboardAware?: boolean
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
-  withBottomInset?: boolean
-  withTopInset?: boolean
-}
+} & WithInsetProps
 
 export const Screen = ({
   children,
   stickyFooter,
   stickyHeader,
   withBottomInset = true,
+  withLeftInset = true,
+  withRightInset = true,
   withTopInset = false,
   ...wrapperProps
 }: Props) => {
@@ -56,6 +63,8 @@ export const Screen = ({
     hasStickyFooter: !!stickyFooter,
     hasStickyHeader: !!stickyHeader,
     withBottomInset,
+    withLeftInset,
+    withRightInset,
     withTopInset,
   })
 
@@ -83,18 +92,20 @@ const createStyles = (
     hasStickyFooter,
     hasStickyHeader,
     withBottomInset,
+    withLeftInset,
+    withRightInset,
     withTopInset,
-  }: Pick<Props, 'withBottomInset' | 'withTopInset'> & {
+  }: {
     hasStickyFooter: boolean
     hasStickyHeader: boolean
-  },
+  } & WithInsetProps,
 ) => {
   return StyleSheet.create({
     screen: {
       flex: 1,
       paddingBottom: withBottomInset && hasStickyFooter ? bottom : 0,
-      paddingLeft: left,
-      paddingRight: right,
+      paddingLeft: withLeftInset ? left : 0,
+      paddingRight: withRightInset ? right : 0,
       paddingTop: withTopInset && hasStickyHeader ? top : 0,
     },
     keyboardAwareScrollView: {
