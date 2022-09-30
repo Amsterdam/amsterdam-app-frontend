@@ -1,18 +1,16 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {SVGProps, useContext, useMemo} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Edit, Location} from '@/assets/icons'
+import {Edit} from '@/assets/icons'
 import {Accordion, Box} from '@/components/ui'
 import {Button, IconButton} from '@/components/ui/buttons'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Figure, Icon} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
-import {selectAddress} from '@/modules/address/slice'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {
   BringingBulkyWasteByCarImage,
@@ -20,8 +18,6 @@ import {
   PlayingNearContainersImage,
   PuttingBulkyWasteAtTheRoadsideImage,
   PuttingHouseHoldWasteAtTheRoadsideImage,
-  RowOfCanalHouseFacadesImage,
-  TwoPeopleBringingHouseholdWasteImage,
 } from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideByAddressDetails,
@@ -35,20 +31,20 @@ import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
 import {Theme, useThemable} from '@/themes'
 
-export const WasteGuideByAddress = () => {
+type Props = {
+  address: Address
+}
+
+export const WasteGuideByAddress = ({address}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
     >()
 
-  const {primary, temp} = useSelector(selectAddress)
-  const address = temp ?? primary
-
   const {isLandscape} = useContext(DeviceContext)
   const Track = isLandscape ? Row : Column
 
   const iconProps = useThemable(createIconProps)
-  const styles = createStyles(isLandscape)
 
   const {data, isLoading} = useGetGarbageCollectionAreaQuery(
     {
@@ -67,41 +63,8 @@ export const WasteGuideByAddress = () => {
 
   const wasteGuideLength = wasteGuide && Object.keys(wasteGuide).length
 
-  const navigateToAddressForm = () => {
-    navigation.navigate(AddressModalName.addressForm, {
-      addressIsTemporary: true,
-    })
-  }
-
   if (isLoading) {
     return <PleaseWait />
-  }
-
-  if (!address) {
-    return (
-      <Column align="between" grow>
-        <Box>
-          <Column gutter="md">
-            <Paragraph>
-              Vul uw adres in zodat we de juiste informatie kunnen tonen.
-            </Paragraph>
-            <Row>
-              <Button
-                icon={Location}
-                label="Vul uw adres in"
-                onPress={navigateToAddressForm}
-              />
-            </Row>
-          </Column>
-        </Box>
-        <View style={styles.wideImageContainer}>
-          <RowOfCanalHouseFacadesImage />
-        </View>
-        <Figure height={256}>
-          <TwoPeopleBringingHouseholdWasteImage />
-        </Figure>
-      </Column>
-    )
   }
 
   const addressCoordinates = {
@@ -122,7 +85,11 @@ export const WasteGuideByAddress = () => {
                   <Edit {...iconProps} />
                 </Icon>
               }
-              onPress={navigateToAddressForm}
+              onPress={() =>
+                navigation.navigate(AddressModalName.addressForm, {
+                  addressIsTemporary: true,
+                })
+              }
             />
           </Row>
         </Box>
@@ -222,19 +189,3 @@ export const WasteGuideByAddress = () => {
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })
-
-const createStyles = (isLandscape: boolean) => {
-  const height = 192
-
-  return StyleSheet.create({
-    wideImageContainer: {
-      width: (1743 / 202) * height,
-      height,
-      alignSelf: 'center',
-      position: 'relative',
-      top: 80,
-      zIndex: -1,
-      marginTop: isLandscape ? -160 : undefined,
-    },
-  })
-}
