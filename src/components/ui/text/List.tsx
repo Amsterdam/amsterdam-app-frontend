@@ -5,8 +5,8 @@ import {StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 
 enum Marker {
-  checkmark = '\u221a', // TODO Correct code point
-  square = '\u25aa', // TODO Correct code point
+  checkmark = '\u221a',
+  square = '\u2022',
 }
 
 type ListProps = {
