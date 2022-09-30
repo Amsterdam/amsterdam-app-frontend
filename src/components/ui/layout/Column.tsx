@@ -16,10 +16,18 @@ type Props = {
   grow?: boolean
   gutter?: keyof SpacingTokens
   halign?: CrossAxisAlignment
+  reverse?: boolean
 }
 
-export const Column = ({align, children, grow, gutter, halign}: Props) => {
-  const styles = createStyles({align, halign})
+export const Column = ({
+  align,
+  children,
+  grow,
+  gutter,
+  halign,
+  reverse,
+}: Props) => {
+  const styles = createStyles({align, halign, reverse})
 
   return (
     <View style={[styles.column, grow && layoutStyles.grow]}>
@@ -34,9 +42,10 @@ export const Column = ({align, children, grow, gutter, halign}: Props) => {
   )
 }
 
-const createStyles = ({align, halign}: Pick<Props, 'align' | 'halign'>) =>
+const createStyles = ({align, halign, reverse}: Partial<Props>) =>
   StyleSheet.create({
     column: {
+      flexDirection: reverse ? 'column-reverse' : 'column',
       alignItems: mapCrossAxisAlignment(halign),
       flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
