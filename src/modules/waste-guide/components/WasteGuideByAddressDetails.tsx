@@ -39,7 +39,7 @@ export const WasteGuideByAddressDetails = ({
     details
 
   return (
-    <Track gutter="md">
+    <Track gutter="md" reverse={isLandscape}>
       {!!illustration && (
         <Column>
           <Figure height={192}>{illustration}</Figure>

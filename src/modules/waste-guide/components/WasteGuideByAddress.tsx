@@ -166,7 +166,7 @@ export const WasteGuideByAddress = () => {
                 </Accordion>
               )}
               <Accordion title="Containers in de buurt">
-                <Track gutter="md">
+                <Track gutter="md" reverse={isLandscape}>
                   <Figure height={192}>
                     <PlayingNearContainersImage />
                   </Figure>
@@ -189,7 +189,7 @@ export const WasteGuideByAddress = () => {
                 </Track>
               </Accordion>
               <Accordion title="Afvalpunten">
-                <Track gutter="md">
+                <Track gutter="md" reverse={isLandscape}>
                   <Figure height={192}>
                     <BringingBulkyWasteByCarImage />
                   </Figure>
