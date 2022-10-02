@@ -25,7 +25,6 @@ type Props = {
 
 export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
-  const Track = isLandscape && !address ? Row : Column
 
   const {data, isLoading} = useGetGarbageCollectionAreaQuery(
     {
@@ -45,30 +44,33 @@ export const WasteGuide = ({address}: Props) => {
     return <PleaseWait />
   }
 
-  const forWeesp = address.woonplaats === 'Weesp'
-  const WasteGuideForCity = forWeesp
+  const cityIsWeesp = address.woonplaats === 'Weesp'
+  const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
 
   const hasWasteGuide = Object.keys(wasteGuide).length > 0
-  const Image = hasWasteGuide
-    ? BulkyAndHouseholdWasteImage
-    : WasteGuideNotFoundImage
-  const imageHeight = hasWasteGuide ? 192 : 256
+  const Image =
+    hasWasteGuide || cityIsWeesp
+      ? BulkyAndHouseholdWasteImage
+      : WasteGuideNotFoundImage
+  const imageHeight = hasWasteGuide || cityIsWeesp ? 192 : 256
+
+  const Track = isLandscape && (!address || cityIsWeesp) ? Row : Column
 
   return (
-    <Track align="between" grow gutter={forWeesp ? 'md' : 'xxxl'}>
+    <Track align="between" grow gutter={cityIsWeesp ? 'md' : 'xxxl'}>
       <Column>
         <Box>
           <StreetAddressWithEditButton address={address.adres} />
         </Box>
-        {hasWasteGuide || forWeesp ? (
+        {hasWasteGuide || cityIsWeesp ? (
           <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
         ) : (
           <WasteGuideNotFound />
         )}
       </Column>
-      <Column align="center">
+      <Column align={cityIsWeesp ? 'end' : 'center'}>
         <Figure height={imageHeight}>
           <Image />
         </Figure>
