@@ -51,7 +51,13 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
                 navigation.navigate(WasteGuideRouteName.whereToPutBulkyWaste),
               text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
             }}
-            illustration={<BulkyWasteAtRoadsideImage />}
+            illustration={
+              wasteGuide[WasteType.Bulky]?.getsCollected ? (
+                <BulkyWasteAtRoadsideImage />
+              ) : (
+                <BulkyWasteByCarImage />
+              )
+            }
           />
         </Accordion>
       )}
