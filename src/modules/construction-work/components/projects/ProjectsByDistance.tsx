@@ -38,7 +38,7 @@ const ListHeader = ({addressText}: ListHeaderProps) => {
         <IconButton
           accessibilityLabel="Wijzig het adres"
           icon={
-            <Icon size={24}>
+            <Icon>
               <Edit {...iconProps} />
             </Icon>
           }

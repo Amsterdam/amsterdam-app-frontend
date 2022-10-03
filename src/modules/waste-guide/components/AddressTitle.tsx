@@ -26,7 +26,7 @@ export const AddressTitle = ({adres}: Props) => {
     <Row gutter="sm" valign="center">
       <Phrase>{adres}</Phrase>
       <IconButton
-        accessibilityLabel="Wijzig adres"
+        accessibilityLabel="Wijzig het adres"
         icon={
           <Icon>
             <Edit {...iconProps} />
