@@ -27,7 +27,12 @@ export const BadgeValue = () => {
   )
 
   if (unreadArticlesLength) {
-    return <Badge value={unreadArticlesLength} />
+    return (
+      <Badge
+        accessibilityLabel={`${unreadArticlesLength} ongelezen berichten`}
+        value={unreadArticlesLength}
+      />
+    )
   }
 
   return null
