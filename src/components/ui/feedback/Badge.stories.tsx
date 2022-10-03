@@ -1,12 +1,13 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {ComponentMeta} from '@storybook/react'
 import {Badge} from './Badge'
 
 export default {
   component: Badge,
-} as ComponentMeta<typeof Badge>
-
-export const Default: ComponentStoryObj<typeof Badge> = {
   args: {
     value: 3,
   },
-}
+} as ComponentMeta<typeof Badge>
+
+export const Small = {}
+
+export const Large = {args: {size: 'large'}}
