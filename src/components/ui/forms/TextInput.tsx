@@ -1,4 +1,3 @@
-import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import React, {forwardRef, SVGProps, useEffect, useState} from 'react'
 import {
   Platform,
@@ -8,6 +7,7 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
+import {Close} from '@/assets/icons'
 import {Column} from '@/components/ui//layout'
 import {IconButton} from '@/components/ui/buttons'
 import {Label} from '@/components/ui/forms'

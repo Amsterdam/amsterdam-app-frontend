@@ -1,6 +1,5 @@
 import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
 import {useNavigation} from '@react-navigation/core'
 import React, {SVGProps, useEffect} from 'react'
 import {
@@ -12,6 +11,7 @@ import {
   View,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import {Close} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
