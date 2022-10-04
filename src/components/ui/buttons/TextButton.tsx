@@ -2,10 +2,10 @@ import ChevronDown from '@amsterdam/asc-assets/static/icons/ChevronDown.svg'
 import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
 import ChevronRight from '@amsterdam/asc-assets/static/icons/ChevronRight.svg'
 import ChevronUp from '@amsterdam/asc-assets/static/icons/ChevronUp.svg'
-import Cancel from '@amsterdam/asc-assets/static/icons/Close.svg'
 import Remove from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
 import React, {SVGProps, useContext, useState} from 'react'
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native'
+import {Close} from '@/assets/icons'
 import {Row} from '@/components/ui/layout'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable, useTheme} from '@/themes'
@@ -50,7 +50,7 @@ export const TextButton = ({
         {direction === 'down' && <ChevronDown {...iconProps} />}
         {direction === 'forward' && <ChevronRight {...iconProps} />}
         {direction === 'up' && <ChevronUp {...iconProps} />}
-        {icon === 'cancel' && <Cancel {...iconProps} />}
+        {icon === 'cancel' && <Close {...iconProps} />}
         {icon === 'remove' && <Remove {...iconProps} />}
         <Text
           style={[

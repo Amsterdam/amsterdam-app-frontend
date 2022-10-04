@@ -3,9 +3,9 @@ import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import React, {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {RootProvider} from '@/providers'
+import {baseColor} from '@/themes/tokens/base-color'
 // eslint-disable-next-line no-restricted-imports
 import './preview.css'
-import {baseColor} from '@/tokens'
 
 export const parameters = {
   backgrounds: {

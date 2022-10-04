@@ -2,7 +2,6 @@ import {
   borderTokens,
   BorderTokens,
   ColorTokens,
-  darkColorTokens,
   lightColorTokens,
   MediaTokens,
   mediaTokens,
@@ -12,36 +11,22 @@ import {
   textTokens,
 } from '@/themes/tokens'
 
-export type SharedTheme = {
+export type Theme = {
+  id: string
   border: BorderTokens
+  color: ColorTokens
   media: MediaTokens
   size: SizeTokens
   text: TextTokens
 }
 
-export type Theme = {
-  id: string
-  color: ColorTokens
-} & SharedTheme
+export const themeId = 'light'
 
-export const lightThemeId = 'light'
-export const darkThemeId = 'dark'
-
-const sharedTokens: SharedTheme = {
+export const lightTheme: Theme = {
+  id: themeId,
   border: borderTokens,
+  color: lightColorTokens,
   media: mediaTokens,
   size: sizeTokens,
   text: textTokens,
-}
-
-export const lightTheme: Theme = {
-  id: lightThemeId,
-  color: lightColorTokens,
-  ...sharedTokens,
-}
-
-export const darkTheme: Theme = {
-  id: darkThemeId,
-  color: darkColorTokens,
-  ...sharedTokens,
 }
