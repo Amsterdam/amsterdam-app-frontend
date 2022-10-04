@@ -8,13 +8,3 @@ export const isEmptyObject = (
   }
   return true
 }
-
-/**
- * If input is an object (including array), returns a stringified version, otherwise passes through the input as-is.
- */
-export const stringifyIfObject = (input: unknown) => {
-  if (typeof input === 'object' && input !== null) {
-    return JSON.stringify(input)
-  }
-  return input
-}
