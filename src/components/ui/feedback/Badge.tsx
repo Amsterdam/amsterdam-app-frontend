@@ -14,10 +14,11 @@ export type BadgeProps = {
    * The value to display in the badge.
    */
   value: number
-} & Pick<AccessibilityProps, 'accessible'>
+} & Pick<AccessibilityProps, 'accessible' | 'accessibilityLabel'>
 
 export const Badge = ({
   accessible,
+  accessibilityLabel,
   scalesWithFont = true,
   value,
 }: BadgeProps) => {
@@ -27,7 +28,11 @@ export const Badge = ({
   return (
     <Row align="start">
       <View style={styles.circle}>
-        <Text accessible={accessible} numberOfLines={1} style={styles.text}>
+        <Text
+          accessible={accessible}
+          accessibilityLabel={accessibilityLabel}
+          numberOfLines={1}
+          style={styles.text}>
           {formatNumber(value)}
         </Text>
       </View>

@@ -13,7 +13,6 @@ import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
 
 type ButtonVariants = 'primary' | 'tertiary'
 
@@ -48,7 +47,6 @@ export const ModuleButton = ({
     <View style={styles.swipeToDeleteContainer}>
       <SwipeToDelete onEvent={onDelete}>
         <Pressable
-          accessibilityLabel={accessibleText(label)}
           inset="md"
           onPress={() => navigation.navigate(slug)}
           variant={variant}>
