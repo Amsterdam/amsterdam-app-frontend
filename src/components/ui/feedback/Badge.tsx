@@ -3,14 +3,11 @@ import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Device, DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
+import {OmitUndefined} from '@/types'
 import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
-  /**
-   * Whether the icon scales with text being zoomed in or out.
-   */
-  scalesWithFont?: boolean
-  variant?: 'default' | 'on-icon'
+  variant?: 'default' | 'small' | 'on-icon'
   /**
    * The value to display in the badge.
    */
@@ -20,12 +17,11 @@ export type BadgeProps = {
 export const Badge = ({
   accessible,
   accessibilityLabel,
-  scalesWithFont = true,
   value,
   variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale, scalesWithFont, variant))
+  const styles = useThemable(createStyles(fontScale, variant))
 
   return (
     <Row align="start">
@@ -42,19 +38,38 @@ export const Badge = ({
   )
 }
 
+type BatchSizes = {
+  [x in OmitUndefined<BadgeProps['variant']>]: {
+    diameter: number
+    font: number
+  }
+}
+
+const batchSizes: BatchSizes = {
+  default: {
+    diameter: 22,
+    font: 14,
+  },
+  'on-icon': {
+    diameter: 16,
+    font: 12,
+  },
+  small: {
+    diameter: 16,
+    font: 12,
+  },
+}
+
 const createStyles =
   (
     fontScale: Device['fontScale'],
-    scalesWithFont: BadgeProps['scalesWithFont'],
-    variant: BadgeProps['variant'],
+    variant: OmitUndefined<BadgeProps['variant']>,
   ) =>
   ({color, size, text}: Theme) => {
-    const diameter = variant === 'default' ? 22 : 16
+    const {diameter, font} = batchSizes[variant]
+    const scalesWithFont = variant !== 'on-icon'
     const minWidth = diameter * (scalesWithFont ? fontScale : 1)
-    const fontSize =
-      variant === 'default'
-        ? text.fontSize.body
-        : 14 / (scalesWithFont ? 1 : fontScale)
+    const fontSize = font / (scalesWithFont ? 1 : fontScale)
     const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
 
     return StyleSheet.create({
