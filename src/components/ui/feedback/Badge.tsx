@@ -74,24 +74,23 @@ const createStyles =
     const scalesWithFont = variant !== 'on-icon'
     const scaleFactor = scalesWithFont ? fontScale : 1
 
-    const fontSize = textSize * scaleFactor
-    const lineHeight = diameter * scaleFactor
-    const minWidth = diameter * scaleFactor
+    const scaledDiameter = diameter * scaleFactor
+    const scaledTextSize = textSize * scaleFactor
 
     return StyleSheet.create({
       circle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        minWidth, // Prevent the circle becoming a vertical oval
+        minWidth: scaledDiameter, // Prevent the circle becoming a vertical oval
         paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
         paddingEnd: size.spacing.xs,
-        borderRadius: minWidth / 2,
+        borderRadius: scaledDiameter / 2,
         backgroundColor: color.pressable.secondary.background,
       },
       text: {
         fontFamily: text.fontWeight.bold,
-        fontSize,
-        lineHeight,
+        fontSize: scaledTextSize,
+        lineHeight: scaledDiameter,
         color: color.text.inverse,
       },
     })
