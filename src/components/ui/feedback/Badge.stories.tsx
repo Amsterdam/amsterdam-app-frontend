@@ -8,10 +8,10 @@ export default {
   },
 } as ComponentMeta<typeof Badge>
 
-export const Small = {}
+export const Default = {}
 
-export const Large = {
+export const Small = {
   args: {
-    variant: 'default',
+    variant: 'small',
   },
 }
