@@ -3,34 +3,34 @@ import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Device, DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
+import {OmitUndefined} from '@/types'
 import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
   /**
-   * Whether the icon scales with text being zoomed in or out.
-   */
-  scalesWithFont?: boolean
-  /**
    * The value to display in the badge.
    */
   value: number
-} & Pick<AccessibilityProps, 'accessible' | 'accessibilityLabel'>
+  /**
+   * Which variant of the badge to display..
+   */
+  variant?: 'default' | 'on-icon' | 'small'
+} & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const Badge = ({
-  accessible,
   accessibilityLabel,
-  scalesWithFont = true,
   value,
+  variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale, scalesWithFont))
+  const styles = useThemable(createStyles(fontScale, variant))
 
   return (
     <Row align="start">
       <View style={styles.circle}>
         <Text
-          accessible={accessible}
           accessibilityLabel={accessibilityLabel}
+          accessible={!!variantConfig[variant]}
           numberOfLines={1}
           style={styles.text}>
           {formatNumber(value)}
@@ -40,31 +40,57 @@ export const Badge = ({
   )
 }
 
+type VariantConfig = {
+  [v in OmitUndefined<BadgeProps['variant']>]: {
+    accessible?: boolean
+    diameter: number
+    text: number
+  }
+}
+
+const variantConfig: VariantConfig = {
+  default: {
+    diameter: 22,
+    text: 14,
+  },
+  'on-icon': {
+    accessible: false,
+    diameter: 16,
+    text: 12,
+  },
+  small: {
+    diameter: 16,
+    text: 12,
+  },
+}
+
 const createStyles =
   (
     fontScale: Device['fontScale'],
-    scalesWithFont: BadgeProps['scalesWithFont'],
+    variant: OmitUndefined<BadgeProps['variant']>,
   ) =>
   ({color, size, text}: Theme) => {
-    const diameter = 16
-    const minWidth = diameter * (scalesWithFont ? fontScale : 1)
-    const fontSize = 12 / (scalesWithFont ? 1 : fontScale)
-    const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
+    const {diameter, text: textSize} = variantConfig[variant]
+    const scalesWithFont = variant !== 'on-icon'
+    const scaleFactor = scalesWithFont ? fontScale : 1
+
+    const scaledDiameter = diameter * scaleFactor
+    const scaledTextSize = textSize * scaleFactor
 
     return StyleSheet.create({
       circle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        minWidth, // Prevent the circle becoming a vertical oval
+        minWidth: scaledDiameter, // Prevent the circle becoming a vertical oval
         paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
         paddingEnd: size.spacing.xs,
-        borderRadius: minWidth / 2,
+        borderRadius: scaledDiameter / 2,
         backgroundColor: color.pressable.secondary.background,
       },
       text: {
         fontFamily: text.fontWeight.bold,
-        fontSize,
-        lineHeight,
+        fontSize: scaledTextSize,
+        lineHeight: scaledDiameter,
         color: color.text.inverse,
       },
     })
