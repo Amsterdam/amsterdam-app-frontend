@@ -31,7 +31,7 @@ export const ProjectTraits = ({
         {!!followed &&
           (unreadArticlesLength ? (
             <Trait label={simplur`${[unreadArticlesLength]} Bericht[|en]`}>
-              <Badge value={unreadArticlesLength} />
+              <Badge value={unreadArticlesLength} variant="small" />
             </Trait>
           ) : (
             <Trait icon={<Checkmark {...iconProps} />} label="Volgend" />

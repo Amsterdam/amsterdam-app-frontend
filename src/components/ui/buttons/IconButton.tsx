@@ -11,10 +11,6 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   /**
-   * Whether the badge value scales with text being zoomed in or out.
-   */
-  badgeScalesWithFont?: boolean
-  /**
    * The value for a badge to be displayed on top of the icon.
    */
   badgeValue?: BadgeProps['value']
@@ -24,12 +20,7 @@ type Props = {
   icon: ReactNode
 } & Omit<PressableRNProps, 'style'>
 
-export const IconButton = ({
-  badgeScalesWithFont,
-  badgeValue,
-  icon,
-  ...props
-}: Props) => {
+export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
 
   return (
@@ -38,11 +29,7 @@ export const IconButton = ({
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>
-            <Badge
-              accessible={false}
-              scalesWithFont={badgeScalesWithFont}
-              value={badgeValue}
-            />
+            <Badge accessible={false} value={badgeValue} variant="on-icon" />
           </View>
         ) : null}
       </Pressable>

@@ -30,8 +30,6 @@ export const BadgeValue = () => {
     return (
       <Badge
         accessibilityLabel={`${unreadArticlesLength} ongelezen berichten`}
-        scalesWithFont
-        size="large"
         value={unreadArticlesLength}
       />
     )
