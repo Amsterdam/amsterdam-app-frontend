@@ -10,7 +10,7 @@ export type BadgeProps = {
    * Whether the icon scales with text being zoomed in or out.
    */
   scalesWithFont?: boolean
-  size?: 'small' | 'large'
+  variant?: 'default' | 'on-icon'
   /**
    * The value to display in the badge.
    */
@@ -21,11 +21,11 @@ export const Badge = ({
   accessible,
   accessibilityLabel,
   scalesWithFont = true,
-  size: badgeSize = 'small',
   value,
+  variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale, scalesWithFont, badgeSize))
+  const styles = useThemable(createStyles(fontScale, scalesWithFont, variant))
 
   return (
     <Row align="start">
@@ -46,13 +46,15 @@ const createStyles =
   (
     fontScale: Device['fontScale'],
     scalesWithFont: BadgeProps['scalesWithFont'],
-    badgeSize: BadgeProps['size'],
+    variant: BadgeProps['variant'],
   ) =>
   ({color, size, text}: Theme) => {
-    const diameter = badgeSize === 'small' ? 16 : 22
+    const diameter = variant === 'default' ? 22 : 16
     const minWidth = diameter * (scalesWithFont ? fontScale : 1)
     const fontSize =
-      badgeSize === 'small' ? 12 : 14 / (scalesWithFont ? 1 : fontScale)
+      variant === 'default'
+        ? text.fontSize.body
+        : 14 / (scalesWithFont ? 1 : fontScale)
     const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
 
     return StyleSheet.create({
