@@ -9,7 +9,7 @@ export const ComingSoon = () => (
   <Column>
     <Image
       source={
-        require('../assets/images/open-waste-container-coming-soon.jpg') as ImageSourcePropType
+        require('@/modules/open-waste-container/assets/images/open-waste-container-coming-soon.jpg') as ImageSourcePropType
       }
     />
     <Box insetHorizontal="md" insetVertical="lg">
