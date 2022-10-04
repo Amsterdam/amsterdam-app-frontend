@@ -10,4 +10,8 @@ export default {
 
 export const Small = {}
 
-export const Large = {args: {size: 'large'}}
+export const Large = {
+  args: {
+    variant: 'default',
+  },
+}

@@ -38,25 +38,25 @@ export const Badge = ({
   )
 }
 
-type BatchSizes = {
-  [x in OmitUndefined<BadgeProps['variant']>]: {
+type BadgeSize = {
+  [v in OmitUndefined<BadgeProps['variant']>]: {
     diameter: number
-    font: number
+    text: number
   }
 }
 
-const batchSizes: BatchSizes = {
+const badgeSize: BadgeSize = {
   default: {
     diameter: 22,
-    font: 14,
+    text: 14,
   },
   'on-icon': {
     diameter: 16,
-    font: 12,
+    text: 12,
   },
   small: {
     diameter: 16,
-    font: 12,
+    text: 12,
   },
 }
 
@@ -66,11 +66,13 @@ const createStyles =
     variant: OmitUndefined<BadgeProps['variant']>,
   ) =>
   ({color, size, text}: Theme) => {
-    const {diameter, font} = batchSizes[variant]
+    const {diameter, text: textSize} = badgeSize[variant]
     const scalesWithFont = variant !== 'on-icon'
-    const minWidth = diameter * (scalesWithFont ? fontScale : 1)
-    const fontSize = font / (scalesWithFont ? 1 : fontScale)
-    const lineHeight = diameter / (scalesWithFont ? 1 : fontScale)
+    const scaleFactor = scalesWithFont ? fontScale : 1
+
+    const fontSize = textSize * scaleFactor
+    const lineHeight = diameter * scaleFactor
+    const minWidth = diameter * scaleFactor
 
     return StyleSheet.create({
       circle: {
