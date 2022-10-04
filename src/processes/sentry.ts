@@ -8,9 +8,9 @@ import {
   init,
   ReactNativeTracing,
   ReactNavigationInstrumentation,
-  setExtra,
   setTag,
   setUser,
+  withScope,
 } from '@sentry/react-native'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
@@ -20,7 +20,6 @@ import {RootStackParams} from '@/app/navigation'
 import {Environment} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes'
 import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
-import {stringifyIfObject} from '@/utils'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -108,10 +107,11 @@ export const getSendSentryErrorLog =
   (message, filename, data) => {
     devLog('sendSentryErrorLog', message, filename, data)
     const extraData = logData ? data : undefined
-    Object.entries({filename, ...extraData}).forEach(([key, value]) => {
-      setExtra(key, stringifyIfObject(value))
+
+    withScope(scope => {
+      scope.setContext('data', {filename, ...extraData})
+      captureException(new Error(message))
     })
-    captureException(new Error(message))
   }
 
 /**
@@ -155,12 +155,23 @@ export const sentryLoggerMiddleware: Middleware =
         ).baseQueryMeta?.request?.url ?? '',
       )
       if (!url.startsWith('http://localhost')) {
+        const endpoint = (action.meta.arg as {endpointName: string})
+          .endpointName
+        const status =
+          (action.payload as {originalStatus: string})?.originalStatus ??
+          'unknown'
+        setTag('endpoint', endpoint)
+        setTag('status', status)
         getSendSentryErrorLog(!!consent)(error, 'sentry.ts', {
           ...action,
+          endpoint,
+          status,
           url,
 
           dataWithDangerousSentryScrubbingOverride,
         })
+        setTag('endpoint', undefined)
+        setTag('status', undefined)
       }
     }
     return next(action)
