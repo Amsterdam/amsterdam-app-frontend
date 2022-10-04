@@ -120,6 +120,7 @@ const createStyles =
           variant === Variant.success
             ? color.severity.positive
             : color.severity.negative,
-        padding: size.spacing.md,
+        paddingHorizontal: size.spacing.lg,
+        paddingVertical: size.spacing.md,
       },
     })
