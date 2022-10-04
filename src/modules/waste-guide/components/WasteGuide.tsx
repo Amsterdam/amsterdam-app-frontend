@@ -4,12 +4,12 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Address} from '@/modules/address'
+import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
   BulkyAndHouseholdWasteImage,
   WasteGuideNotFoundImage,
 } from '@/modules/waste-guide/assets/images'
 import {
-  AddressTitle,
   WasteGuideForAmsterdam,
   WasteGuideForWeesp,
   WasteGuideNotFound,
@@ -60,7 +60,7 @@ export const WasteGuide = ({address}: Props) => {
     <Track align="between" grow gutter={forWeesp ? 'md' : 'xxxl'}>
       <Column>
         <Box>
-          <AddressTitle adres={address.adres} />
+          <StreetAddressWithEditButton address={address.adres} />
         </Box>
         {hasWasteGuide || forWeesp ? (
           <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
