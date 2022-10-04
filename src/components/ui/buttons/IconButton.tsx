@@ -29,7 +29,7 @@ export const IconButton = ({badgeValue, icon, ...props}: Props) => {
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>
-            <Badge accessible={false} value={badgeValue} variant="on-icon" />
+            <Badge value={badgeValue} variant="on-icon" />
           </View>
         ) : null}
       </Pressable>
