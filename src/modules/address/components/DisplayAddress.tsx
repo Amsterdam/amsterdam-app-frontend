@@ -33,8 +33,8 @@ export const DisplayAddress = ({address}: Props) => {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
-        variant: AlertVariant.success,
         isVisible: true,
+        variant: AlertVariant.success,
       }),
     )
   }

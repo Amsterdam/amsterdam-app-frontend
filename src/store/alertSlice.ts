@@ -19,10 +19,10 @@ export type AlertSliceState = {
 }
 
 const initialState: AlertSliceState = {
-  closeType: AlertCloseType?.withoutButton,
+  closeType: AlertCloseType.withoutButton,
   content: undefined,
   isVisible: false,
-  variant: AlertVariant?.default,
+  variant: AlertVariant.default,
   withIcon: false,
 }
 

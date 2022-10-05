@@ -1,7 +1,7 @@
 import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {SVGProps, useEffect} from 'react'
+import React, {ElementType, SVGProps, useEffect} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -44,6 +44,7 @@ type AlertVariantConfig = {
     backgroundColor: string
     borderColor: string
     borderWidth: number
+    icon: ElementType
   }
 }
 
@@ -51,8 +52,13 @@ export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
-  const {closeType, content, isVisible, variant, withIcon} =
-    useSelector(selectAlert)
+  const {
+    closeType,
+    content,
+    isVisible,
+    variant = AlertVariant.default,
+    withIcon,
+  } = useSelector(selectAlert)
 
   const iconProps = useThemable(createIconProps)
   const variantConfig = useThemable(createVariantConfig)
@@ -71,7 +77,7 @@ export const Alert = () => {
     return null
   }
 
-  const IconComponent = variant === AlertVariant.success ? Checkmark : AlertIcon
+  const IconComponent = variantConfig[variant].icon
 
   const alertComponent = (
     <Box>
@@ -126,10 +132,7 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 })
 
 const createStyles =
-  (
-    variant: AlertVariant = AlertVariant.default,
-    variantConfig: AlertVariantConfig,
-  ) =>
+  (variant: AlertVariant, variantConfig: AlertVariantConfig) =>
   ({size}: Theme) => {
     const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
 
@@ -149,15 +152,18 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     backgroundColor: color.box.background.alert,
     borderColor: color.box.background.alert,
     borderWidth: 2,
+    icon: AlertIcon,
   },
   [AlertVariant.failure]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.negative,
     borderWidth: 2,
+    icon: AlertIcon,
   },
   [AlertVariant.success]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.positive,
     borderWidth: 2,
+    icon: Checkmark,
   },
 })

@@ -72,7 +72,6 @@ export const useRegisterConstructionWorkEditorId = (
           content: {
             text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
           },
-          variant: AlertVariant.default,
           isVisible: true,
         }),
       )
