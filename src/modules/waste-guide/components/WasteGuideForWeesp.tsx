@@ -2,8 +2,7 @@ import ExternalLink from '@amsterdam/asc-assets/static/icons/ExternalLink.svg'
 import React from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 
@@ -17,13 +16,12 @@ export const WasteGuideForWeesp = ({address}: Props) => {
     [address.postcode, address.huisnummer, address.bag_toevoeging].join(':')
 
   return (
-    <Box>
+    <Column gutter="lg">
       <Column gutter="md">
         <Paragraph>
           In Weesp haalt de GAD het afval op. Kijk op hun website hoe dat werkt.
         </Paragraph>
       </Column>
-      <Gutter height="lg" />
       <Row align="start">
         <Button
           accessibilityRole="link"
@@ -35,6 +33,6 @@ export const WasteGuideForWeesp = ({address}: Props) => {
           }}
         />
       </Row>
-    </Box>
+    </Column>
   )
 }

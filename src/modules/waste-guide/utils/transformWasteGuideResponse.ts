@@ -18,6 +18,7 @@ export const transformWasteGuideResponse = (
       aanbiedwijze,
       frequentie,
       ophaaldag,
+      ophalen,
       opmerking,
       tijd_tot,
       tijd_vanaf,
@@ -41,6 +42,7 @@ export const transformWasteGuideResponse = (
       collectionDays: collectionDays
         ? formatSentence(collectionDays)
         : undefined,
+      getsCollected: ophalen === 'ja',
       howToOffer: aanbiedwijze ? formatSentence(aanbiedwijze) : undefined,
       remark: opmerking ? formatSentence(opmerking) : undefined,
       title: wasteLabel[type],

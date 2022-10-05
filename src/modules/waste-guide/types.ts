@@ -22,7 +22,7 @@ type WasteGuideResponseProperties = {
   frequentie?: string | null
   mutatie: string
   ophaaldag: string | null
-  ophalen: string
+  ophalen?: 'ja' | 'nee'
   opmerking: string | null
   stadsdeel_code: string
   stadsdeel_id: string
@@ -49,6 +49,7 @@ export type WasteGuide = {
 export type WasteGuideDetails = {
   appointmentUrl: string | undefined
   collectionDays: string | undefined
+  getsCollected: boolean
   howToOffer: string | undefined
   remark: string | undefined
   title: string

@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
-import {Accordion, Box} from '@/components/ui/containers'
+import {Accordion} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
@@ -41,7 +41,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
   }
 
   return (
-    <Box insetHorizontal="md">
+    <>
       {wasteGuide[WasteType.Bulky] && (
         <Accordion title={wasteGuide[WasteType.Bulky]?.title ?? ''}>
           <WasteGuideDetails
@@ -51,7 +51,13 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
                 navigation.navigate(WasteGuideRouteName.whereToPutBulkyWaste),
               text: 'Grof afval: buiten zetten of naar een Afvalpunt?',
             }}
-            illustration={<BulkyWasteAtRoadsideImage />}
+            illustration={
+              wasteGuide[WasteType.Bulky]?.getsCollected ? (
+                <BulkyWasteAtRoadsideImage />
+              ) : (
+                <BulkyWasteByCarImage />
+              )
+            }
           />
         </Accordion>
       )}
@@ -72,7 +78,10 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Accordion>
       )}
       <Accordion title="Containers in de buurt">
-        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+        <Track
+          gutter={isLandscape ? 'xl' : 'md'}
+          reverse={isLandscape}
+          align="between">
           <Figure height={192}>
             <PlayingNearContainersImage />
           </Figure>
@@ -95,7 +104,10 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Track>
       </Accordion>
       <Accordion title="Afvalpunten">
-        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+        <Track
+          gutter={isLandscape ? 'xl' : 'md'}
+          reverse={isLandscape}
+          align="between">
           <Figure height={192}>
             <BulkyWasteByCarImage />
           </Figure>
@@ -117,6 +129,6 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
           </Column>
         </Track>
       </Accordion>
-    </Box>
+    </>
   )
 }
