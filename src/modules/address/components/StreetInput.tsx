@@ -36,11 +36,12 @@ export const StreetInput = ({
         ref={inputStreetRef}
         value={street}
       />
-      {!isStreetSelected && street.length >= streetLengthThreshold ? (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          style={styles.flex}>
-          {bagList?.map(bagItem => (
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        style={styles.flex}>
+        {(!isStreetSelected &&
+          street.length >= streetLengthThreshold &&
+          bagList?.map(bagItem => (
             <SuggestionButton
               key={bagItem.uri}
               label={bagItem._display}
@@ -48,9 +49,9 @@ export const StreetInput = ({
                 selectStreet(bagItem._display)
               }}
             />
-          ))}
-        </KeyboardAwareScrollView>
-      ) : null}
+          ))) ??
+          null}
+      </KeyboardAwareScrollView>
     </>
   )
 }
