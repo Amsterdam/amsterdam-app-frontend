@@ -1,7 +1,14 @@
 import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {ElementType, SVGProps, useEffect} from 'react'
+import React, {
+  ElementType,
+  FC,
+  Fragment,
+  ReactNode,
+  SVGProps,
+  useEffect,
+} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -79,52 +86,54 @@ export const Alert = () => {
 
   const IconComponent = variantConfig[variant].icon
 
-  const alertComponent = (
-    <Box>
-      <View style={styles.view}>
-        <Row align="between">
-          <SingleSelectable
-            accessibilityRole="alert"
-            accessibilityLabel={accessibleText(content?.title, content?.text)}>
-            <Row gutter="md">
-              {!!withIcon && (
-                <Icon size={24}>
-                  <IconComponent {...iconProps} />
-                </Icon>
-              )}
-              <Column>
-                {!!content?.title && <Title level="h4" text={content?.title} />}
-                <Paragraph>{content?.text}</Paragraph>
-              </Column>
-            </Row>
-          </SingleSelectable>
-          {closeType === AlertCloseType.withButton && (
-            <View>
-              <IconButton
-                accessibilityHint="Sluit melding"
-                icon={
+  const WrapperComponent: FC<{children: ReactNode}> =
+    closeType === AlertCloseType.withButton
+      ? props => <Pressable onPress={() => dispatch(resetAlert())} {...props} />
+      : Fragment
+
+  return (
+    <WrapperComponent>
+      <Box>
+        <View style={styles.view}>
+          <Row align="between">
+            <SingleSelectable
+              accessibilityRole="alert"
+              accessibilityLabel={accessibleText(
+                content?.title,
+                content?.text,
+              )}>
+              <Row gutter="md">
+                {!!withIcon && (
                   <Icon size={24}>
-                    <Close {...iconProps} />
+                    <IconComponent {...iconProps} />
                   </Icon>
-                }
-                onPress={() => dispatch(setAlertVisibility(false))}
-              />
-            </View>
-          )}
-        </Row>
-      </View>
-    </Box>
+                )}
+                <Column>
+                  {!!content?.title && (
+                    <Title level="h4" text={content?.title} />
+                  )}
+                  <Paragraph>{content?.text}</Paragraph>
+                </Column>
+              </Row>
+            </SingleSelectable>
+            {closeType === AlertCloseType.withButton && (
+              <View>
+                <IconButton
+                  accessibilityHint="Sluit melding"
+                  icon={
+                    <Icon size={24}>
+                      <Close {...iconProps} />
+                    </Icon>
+                  }
+                  onPress={() => dispatch(setAlertVisibility(false))}
+                />
+              </View>
+            )}
+          </Row>
+        </View>
+      </Box>
+    </WrapperComponent>
   )
-
-  if (closeType === AlertCloseType.withoutButton) {
-    return (
-      <Pressable onPress={() => dispatch(resetAlert())}>
-        {alertComponent}
-      </Pressable>
-    )
-  }
-
-  return alertComponent
 }
 
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
