@@ -41,6 +41,7 @@ import {
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
 import {openWasteContainerModals} from '@/modules/open-waste-container/screenConfig'
+import {RedirectsStack} from '@/modules/redirects/Stack'
 import {ReportProblemStack} from '@/modules/report-problem/Stack'
 import {
   ReportProblemModalParams,
@@ -94,6 +95,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['open-waste-container']]: OpenWasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
+  [ModuleSlug.redirects]: RedirectsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 
