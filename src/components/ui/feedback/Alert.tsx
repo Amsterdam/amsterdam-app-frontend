@@ -39,6 +39,14 @@ export enum AlertVariant {
   information = 'information',
 }
 
+type AlertVariantConfig = {
+  [v in AlertVariant]: {
+    backgroundColor: string
+    borderColor: string
+    borderWidth: number
+  }
+}
+
 export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
@@ -47,7 +55,8 @@ export const Alert = () => {
     useSelector(selectAlert)
 
   const iconProps = useThemable(createIconProps)
-  const styles = useThemable(createStyles(variant))
+  const variantConfig = useThemable(createVariantConfig)
+  const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
     return navigation.addListener('blur', () => {
@@ -117,20 +126,38 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 })
 
 const createStyles =
-  (variant?: AlertVariant) =>
-  ({color, size}: Theme) =>
-    StyleSheet.create({
+  (
+    variant: AlertVariant = AlertVariant.information,
+    variantConfig: AlertVariantConfig,
+  ) =>
+  ({size}: Theme) => {
+    const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
+
+    return StyleSheet.create({
       view: {
-        backgroundColor:
-          variant === AlertVariant.information
-            ? color.box.background.alert
-            : color.box.background.white,
-        borderWidth: variant === AlertVariant.information ? 0 : 2,
-        borderColor:
-          variant === AlertVariant.success
-            ? color.severity.positive
-            : color.severity.negative,
+        backgroundColor,
+        borderWidth,
+        borderColor,
         paddingHorizontal: size.spacing.lg,
         paddingVertical: size.spacing.md,
       },
     })
+  }
+
+const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
+  [AlertVariant.success]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.positive,
+    borderWidth: 2,
+  },
+  [AlertVariant.failure]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.negative,
+    borderWidth: 2,
+  },
+  [AlertVariant.information]: {
+    backgroundColor: color.box.background.alert,
+    borderColor: color.box.background.alert,
+    borderWidth: 2,
+  },
+})
