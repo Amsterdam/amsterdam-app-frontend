@@ -51,9 +51,13 @@ export const RequestAddress = () => {
       <View style={styles.rowOfCanalHouseFacadesImage}>
         <CanalHouseFacadesImage />
       </View>
-      <Figure height={256} style={styles.twoPeopleBringingHouseholdWasteImage}>
-        <WasteGuideHomeImage />
-      </Figure>
+      <Box>
+        <Figure
+          height={256}
+          style={styles.twoPeopleBringingHouseholdWasteImage}>
+          <WasteGuideHomeImage />
+        </Figure>
+      </Box>
     </Column>
   )
 }

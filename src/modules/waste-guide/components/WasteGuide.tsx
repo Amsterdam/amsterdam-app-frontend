@@ -59,22 +59,25 @@ export const WasteGuide = ({address}: Props) => {
   const Track = isLandscape && (!address || cityIsWeesp) ? Row : Column
 
   return (
-    <Track align="between" grow gutter={cityIsWeesp ? 'md' : 'xxxl'}>
-      <Column>
-        <Box>
+    <Box grow>
+      <Track
+        align="between"
+        grow
+        gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
+        <Column gutter="md">
           <StreetAddressWithEditButton address={address.adres} />
-        </Box>
-        {hasWasteGuide || cityIsWeesp ? (
-          <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
-        ) : (
-          <WasteGuideNotFound />
-        )}
-      </Column>
-      <Column align={cityIsWeesp ? 'end' : 'center'}>
-        <Figure height={imageHeight}>
-          <Image />
-        </Figure>
-      </Column>
-    </Track>
+          {hasWasteGuide || cityIsWeesp ? (
+            <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
+          ) : (
+            <WasteGuideNotFound />
+          )}
+        </Column>
+        <Column align={cityIsWeesp ? 'end' : 'center'}>
+          <Figure height={imageHeight}>
+            <Image />
+          </Figure>
+        </Column>
+      </Track>
+    </Box>
   )
 }
