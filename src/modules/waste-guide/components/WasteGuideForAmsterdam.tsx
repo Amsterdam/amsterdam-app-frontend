@@ -78,7 +78,10 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Accordion>
       )}
       <Accordion title="Containers in de buurt">
-        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+        <Track
+          gutter={isLandscape ? 'xl' : 'md'}
+          reverse={isLandscape}
+          align="between">
           <Figure height={192}>
             <PlayingNearContainersImage />
           </Figure>
@@ -101,7 +104,10 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Track>
       </Accordion>
       <Accordion title="Afvalpunten">
-        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+        <Track
+          gutter={isLandscape ? 'xl' : 'md'}
+          reverse={isLandscape}
+          align="between">
           <Figure height={192}>
             <BulkyWasteByCarImage />
           </Figure>
