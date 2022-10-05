@@ -34,9 +34,9 @@ export enum AlertCloseType {
 }
 
 export enum AlertVariant {
-  success = 'success',
+  default = 'default',
   failure = 'failure',
-  information = 'information',
+  success = 'success',
 }
 
 type AlertVariantConfig = {
@@ -127,7 +127,7 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 
 const createStyles =
   (
-    variant: AlertVariant = AlertVariant.information,
+    variant: AlertVariant = AlertVariant.default,
     variantConfig: AlertVariantConfig,
   ) =>
   ({size}: Theme) => {
@@ -145,9 +145,9 @@ const createStyles =
   }
 
 const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
-  [AlertVariant.success]: {
-    backgroundColor: color.box.background.white,
-    borderColor: color.severity.positive,
+  [AlertVariant.default]: {
+    backgroundColor: color.box.background.alert,
+    borderColor: color.box.background.alert,
     borderWidth: 2,
   },
   [AlertVariant.failure]: {
@@ -155,9 +155,9 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     borderColor: color.severity.negative,
     borderWidth: 2,
   },
-  [AlertVariant.information]: {
-    backgroundColor: color.box.background.alert,
-    borderColor: color.box.background.alert,
+  [AlertVariant.success]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.positive,
     borderWidth: 2,
   },
 })

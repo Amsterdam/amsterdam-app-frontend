@@ -22,7 +22,7 @@ const initialState: AlertSliceState = {
   closeType: AlertCloseType?.withoutButton,
   content: undefined,
   isVisible: false,
-  variant: AlertVariant?.information,
+  variant: AlertVariant?.default,
   withIcon: false,
 }
 

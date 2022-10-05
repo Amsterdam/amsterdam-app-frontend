@@ -66,6 +66,6 @@ Default.args = {
     text,
   },
   isVisible: true,
-  variant: AlertVariant.information,
+  variant: AlertVariant.default,
   withIcon: false,
 }
