@@ -1,6 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
-import {AlertCloseType, AlertVariant} from '@/components/ui/feedback'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {RootState} from '@/store'
 
 export type Content =

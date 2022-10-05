@@ -1,7 +1,11 @@
 import {ComponentMeta, Story} from '@storybook/react'
 import React, {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {Alert, AlertCloseType, AlertVariant} from '@/components/ui/feedback'
+import {Alert} from '@/components/ui/feedback'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {AlertSliceState, Content, setAlert} from '@/store/alertSlice'
 
 const title = 'Title'

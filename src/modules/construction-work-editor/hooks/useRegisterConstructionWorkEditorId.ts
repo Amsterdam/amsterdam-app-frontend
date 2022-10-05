@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AlertVariant} from '@/components/ui/feedback'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {
   useConstructionWorkEditor,

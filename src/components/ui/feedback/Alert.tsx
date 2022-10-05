@@ -14,12 +14,16 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Close} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
+import {
+  AlertCloseType,
+  AlertVariant,
+  AlertVariantConfig,
+} from '@/components/ui/feedback/Alert.types'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
-import {SvgProps} from '@/types'
 import {accessibleText} from '@/utils'
 
 if (
@@ -27,26 +31,6 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
-}
-
-export enum AlertCloseType {
-  withButton = 'withButton',
-  withoutButton = 'withoutButton',
-}
-
-export enum AlertVariant {
-  default = 'default',
-  failure = 'failure',
-  success = 'success',
-}
-
-type AlertVariantConfig = {
-  [v in AlertVariant]: {
-    backgroundColor: string
-    borderColor: string
-    borderWidth: number
-    icon: FC<SvgProps>
-  }
 }
 
 export const Alert = () => {
