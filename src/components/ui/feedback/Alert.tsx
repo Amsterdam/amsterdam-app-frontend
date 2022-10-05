@@ -1,14 +1,7 @@
 import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {
-  ElementType,
-  FC,
-  Fragment,
-  ReactNode,
-  SVGProps,
-  useEffect,
-} from 'react'
+import React, {FC, Fragment, ReactNode, SVGProps, useEffect} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -26,6 +19,7 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
+import {SvgProps} from '@/types'
 import {accessibleText} from '@/utils'
 
 if (
@@ -51,7 +45,7 @@ type AlertVariantConfig = {
     backgroundColor: string
     borderColor: string
     borderWidth: number
-    icon: ElementType
+    icon: FC<SvgProps>
   }
 }
 
