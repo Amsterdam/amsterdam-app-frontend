@@ -26,13 +26,10 @@ type Props = {
 export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
 
-  const {data, isLoading} = useGetGarbageCollectionAreaQuery(
-    {
-      lon: address?.centroid[0] ?? '',
-      lat: address?.centroid[1] ?? '',
-    },
-    {skip: !address},
-  )
+  const {data, isLoading} = useGetGarbageCollectionAreaQuery({
+    lon: address?.centroid[0] ?? '',
+    lat: address?.centroid[1] ?? '',
+  })
 
   const environment = useEnvironment()
   const wasteGuide = useMemo(
@@ -56,7 +53,7 @@ export const WasteGuide = ({address}: Props) => {
       : WasteGuideNotFoundImage
   const imageHeight = hasWasteGuide || cityIsWeesp ? 192 : 256
 
-  const Track = isLandscape && (!address || cityIsWeesp) ? Row : Column
+  const Track = isLandscape && cityIsWeesp ? Row : Column
 
   return (
     <Box grow>
