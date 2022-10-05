@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {SVGProps} from 'react'
+import {AccessibilityProps} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Edit} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
@@ -12,10 +13,15 @@ import {module as wasteGuideModule} from '@/modules/waste-guide'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
-  adres: string
-}
+  address: string
+  isTemporary?: boolean
+} & Pick<AccessibilityProps, 'accessibilityLabel'>
 
-export const AddressTitle = ({adres}: Props) => {
+export const StreetAddressWithEditButton = ({
+  accessibilityLabel,
+  address,
+  isTemporary = false,
+}: Props) => {
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
@@ -24,9 +30,9 @@ export const AddressTitle = ({adres}: Props) => {
 
   return (
     <Row gutter="sm" valign="center">
-      <Phrase>{adres}</Phrase>
+      <Phrase accessibilityLabel={accessibilityLabel}>{address}</Phrase>
       <IconButton
-        accessibilityLabel="Wijzig adres"
+        accessibilityLabel="Wijzig het adres"
         icon={
           <Icon>
             <Edit {...iconProps} />
@@ -34,7 +40,7 @@ export const AddressTitle = ({adres}: Props) => {
         }
         onPress={() =>
           navigation.navigate(AddressModalName.addressForm, {
-            addressIsTemporary: true,
+            addressIsTemporary: isTemporary,
           })
         }
       />

@@ -1,4 +1,3 @@
-export * from './AddressTitle'
 export * from './RequestAddress'
 export * from './WasteGuide'
 export * from './WasteGuideDetails'
