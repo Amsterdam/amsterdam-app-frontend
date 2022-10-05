@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {AlertVariant} from '@/components/ui/feedback'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {
   useConstructionWorkEditor,
@@ -13,7 +14,6 @@ import {
 import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
 import {setAlert, setAlertVisibility} from '@/store'
-import {Variant} from '@/types'
 
 export const useRegisterConstructionWorkEditorId = (
   deeplinkId: string | undefined,
@@ -72,7 +72,7 @@ export const useRegisterConstructionWorkEditorId = (
           content: {
             text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
           },
-          variant: Variant.information,
+          variant: AlertVariant.information,
           isVisible: true,
         }),
       )
@@ -106,7 +106,7 @@ export const useRegisterConstructionWorkEditorId = (
           content: {
             text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
           },
-          variant: Variant.failure,
+          variant: AlertVariant.failure,
           isVisible: true,
         }),
       )

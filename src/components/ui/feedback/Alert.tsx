@@ -19,7 +19,6 @@ import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
-import {CloseType, Variant} from '@/types'
 import {accessibleText} from '@/utils'
 
 if (
@@ -27,6 +26,17 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
+}
+
+export enum AlertCloseType {
+  withButton = 'withButton',
+  withoutButton = 'withoutButton',
+}
+
+export enum AlertVariant {
+  success = 'success',
+  failure = 'failure',
+  information = 'information',
 }
 
 export const Alert = () => {
@@ -52,7 +62,7 @@ export const Alert = () => {
     return null
   }
 
-  const IconComponent = variant === Variant.success ? Checkmark : AlertIcon
+  const IconComponent = variant === AlertVariant.success ? Checkmark : AlertIcon
 
   const alertComponent = (
     <Box>
@@ -73,7 +83,7 @@ export const Alert = () => {
               </Column>
             </Row>
           </SingleSelectable>
-          {closeType === CloseType.withButton && (
+          {closeType === AlertCloseType.withButton && (
             <View>
               <IconButton
                 accessibilityHint="Sluit melding"
@@ -91,7 +101,7 @@ export const Alert = () => {
     </Box>
   )
 
-  if (closeType === CloseType.withoutButton) {
+  if (closeType === AlertCloseType.withoutButton) {
     return (
       <Pressable onPress={() => dispatch(resetAlert())}>
         {alertComponent}
@@ -107,17 +117,17 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 })
 
 const createStyles =
-  (variant?: Variant) =>
+  (variant?: AlertVariant) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       view: {
         backgroundColor:
-          variant === Variant.information
+          variant === AlertVariant.information
             ? color.box.background.alert
             : color.box.background.white,
-        borderWidth: variant === Variant.information ? 0 : 2,
+        borderWidth: variant === AlertVariant.information ? 0 : 2,
         borderColor:
-          variant === Variant.success
+          variant === AlertVariant.success
             ? color.severity.positive
             : color.severity.negative,
         paddingHorizontal: size.spacing.lg,

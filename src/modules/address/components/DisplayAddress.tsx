@@ -5,6 +5,7 @@ import React from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
+import {AlertVariant} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
@@ -12,7 +13,6 @@ import {AddressModalName} from '@/modules/address/routes'
 import {removePrimaryAddress} from '@/modules/address/slice'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store'
-import {Variant} from '@/types'
 
 type Props = {
   address: Address
@@ -33,7 +33,7 @@ export const DisplayAddress = ({address}: Props) => {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
-        variant: Variant.success,
+        variant: AlertVariant.success,
         isVisible: true,
       }),
     )

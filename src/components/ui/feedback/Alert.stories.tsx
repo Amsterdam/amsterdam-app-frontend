@@ -1,9 +1,8 @@
 import {ComponentMeta, Story} from '@storybook/react'
 import React, {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {Alert} from '@/components/ui/feedback'
+import {Alert, AlertCloseType, AlertVariant} from '@/components/ui/feedback'
 import {AlertSliceState, Content, setAlert} from '@/store/alertSlice'
-import {CloseType, Variant} from '@/types'
 
 const title = 'Title'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'
@@ -27,7 +26,7 @@ export default {
   component: Alert,
   argTypes: {
     closeType: {
-      options: CloseType,
+      options: AlertCloseType,
       control: {type: 'radio'},
     },
     content: {
@@ -43,7 +42,7 @@ export default {
       },
     },
     variant: {
-      options: Variant,
+      options: AlertVariant,
       control: {
         type: 'radio',
       },
@@ -61,12 +60,12 @@ const AlertStory: Story<AlertSliceState> = ({...alertState}) => {
 
 export const Default = AlertStory.bind({})
 Default.args = {
-  closeType: CloseType.withoutButton,
+  closeType: AlertCloseType.withoutButton,
   content: {
     title,
     text,
   },
   isVisible: true,
-  variant: Variant.information,
+  variant: AlertVariant.information,
   withIcon: false,
 }
