@@ -3,10 +3,10 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect, useLayoutEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {Title} from '@/components/ui/text'
+import {Link, Title} from '@/components/ui/text'
 import {MessageForm} from '@/modules/construction-work-editor/components'
 import {
   selectMainImage,
@@ -87,8 +87,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
         />
       </Box>
       <Row align="end">
-        <NavigationButton
-          iconSize={16}
+        <Link
           label="Volgende"
           onPress={() =>
             formRef.current?.handleSubmit(() => {
@@ -101,6 +100,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                   )
             })
           }
+          variant="forward"
         />
       </Row>
     </Screen>
