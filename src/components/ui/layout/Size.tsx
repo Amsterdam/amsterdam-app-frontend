@@ -37,5 +37,8 @@ export const Size = ({
 
 const createStyles = (sizeProps: SizeProps) =>
   StyleSheet.create({
-    view: {...sizeProps},
+    view: {
+      justifyContent: 'center',
+      ...sizeProps,
+    },
   })
