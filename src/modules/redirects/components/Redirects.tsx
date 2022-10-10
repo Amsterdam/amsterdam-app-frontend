@@ -1,5 +1,4 @@
 import React from 'react'
-import {PressableProps} from 'react-native'
 import {
   Car,
   Card,
@@ -16,101 +15,101 @@ import {Theme, useThemable} from '@/themes'
 import {SvgProps} from '@/types'
 import {accessibleText, openWebUrl} from '@/utils'
 
-type Redirect = {
-  key: string
-  icon: React.ReactNode
+type RedirectResponse = {
+  icon:
+    | 'car'
+    | 'card'
+    | 'collaborate'
+    | 'document-text'
+    | 'housing'
+    | 'login'
+    | 'person-desk'
+    | 'stadspas'
+  link: string
   text: string
   title: string
-} & Partial<Pick<PressableProps, 'accessibilityRole' | 'onPress'>>
+}
 
-const createRedirects = (iconProps: SvgProps): Redirect[] => [
+const mockJSON: RedirectResponse[] = [
   {
-    accessibilityRole: 'link',
-    icon: <Car {...iconProps} />,
-    key: 'car',
-    onPress: () => openWebUrl('https://www.amsterdam.nl/parkeren-verkeer/'),
+    icon: 'car',
+    link: 'https://www.amsterdam.nl/parkeren-verkeer/',
     text: 'Alles over parkeren en verkeer in de stad.',
     title: 'Parkeren',
   },
   {
-    accessibilityRole: 'link',
-    icon: <Login {...iconProps} />,
-    key: 'login',
-    onPress: () => openWebUrl('https://aanmeldenparkeren.amsterdam.nl/'),
+    icon: 'login',
+    link: 'https://aanmeldenparkeren.amsterdam.nl/',
     text: 'Bezoekers- of kraskaart-vergunning? Geef hier parkeertijd van uw bezoek door.',
     title: 'Parkeertijd bezoek doorgeven',
   },
   {
-    accessibilityRole: 'link',
-    icon: <Card {...iconProps} />,
-    key: 'card',
-    onPress: () =>
-      openWebUrl(
-        'https://www.amsterdam.nl/veelgevraagd/?productid=%7B5D0CD50F-C487-484A-9F6F-FACBD33D6DEF%7D',
-      ),
+    icon: 'card',
+    link: 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B5D0CD50F-C487-484A-9F6F-FACBD33D6DEF%7D',
     text: 'U kunt uw rijbewijs online verlengen via de RDW.',
     title: 'Rijbewijs verlengen',
   },
   {
-    accessibilityRole: 'link',
-    icon: <DocumentText {...iconProps} />,
-    key: 'document-text',
-    onPress: () =>
-      openWebUrl('https://www.amsterdam.nl/burgerzaken/akten-uittreksels/'),
+    icon: 'document-text',
+    link: 'https://www.amsterdam.nl/burgerzaken/akten-uittreksels/',
     text: 'Geboorte-, huwelijks- en andere akten, uittreksel, VOG.',
     title: 'Akten, uittreksels en verklaringen',
   },
   {
-    accessibilityRole: 'link',
-    icon: <Housing {...iconProps} />,
-    key: 'housing',
-    onPress: () =>
-      openWebUrl('https://www.amsterdam.nl/burgerzaken/verhuizing-doorgeven/'),
+    icon: 'housing',
+    link: 'https://www.amsterdam.nl/burgerzaken/verhuizing-doorgeven/',
     text: 'Naar en binnen Amsterdam.',
     title: 'Verhuizing doorgeven',
   },
   {
-    accessibilityRole: 'link',
-    icon: <PersonDesk {...iconProps} />,
-    key: 'persondesk',
-    onPress: () =>
-      openWebUrl('https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/'),
+    icon: 'person-desk',
+    link: 'https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/',
     text: 'Bekijk voor welke onderwerpen u een afspraak kunt maken.',
     title: 'Afspraak maken op Stadsloket',
   },
   {
-    accessibilityRole: 'link',
-    icon: <Collaborate {...iconProps} />,
-    key: 'collaborate',
-    onPress: () =>
-      openWebUrl(
-        'https://www.amsterdam.nl/werk-inkomen/hulp-bij-laag-inkomen/',
-      ),
+    icon: 'collaborate',
+    link: 'https://www.amsterdam.nl/werk-inkomen/hulp-bij-laag-inkomen/',
     text: 'Regelingen bij laag inkomen / Pak je kans.',
     title: 'Hulp bij een laag inkomen',
   },
   {
-    accessibilityRole: 'link',
-    icon: <Stadspas {...iconProps} />,
-    key: 'stadspas',
-    onPress: () => openWebUrl('https://www.amsterdam.nl/stadspas/'),
+    icon: 'stadspas',
+    link: 'https://www.amsterdam.nl/stadspas/',
     text: 'Voor Amsterdammers met een laag inkomen.',
     title: 'Stadspas',
   },
 ]
 
+export const icons: {[i in RedirectResponse['icon']]: React.ElementType} = {
+  car: Car,
+  card: Card,
+  collaborate: Collaborate,
+  'document-text': DocumentText,
+  housing: Housing,
+  login: Login,
+  'person-desk': PersonDesk,
+  stadspas: Stadspas,
+}
+
 export const Redirects = () => {
   const iconProps = useThemable(createIconProps)
-  const redirects = createRedirects(iconProps)
-
   return (
     <Column gutter="sm">
-      {redirects.map(redirect => (
-        <IconWithTitleButton
-          accessibilityLabel={accessibleText(redirect.title, redirect.text)}
-          {...redirect}
-        />
-      ))}
+      {mockJSON.map(redirect => {
+        const {icon, link, text, title} = redirect
+        const Icon = icons[icon]
+        return (
+          <IconWithTitleButton
+            {...redirect}
+            accessibilityLabel={accessibleText(title, text)}
+            accessibilityRole="link"
+            icon={<Icon {...iconProps} />}
+            key={icon}
+            onPress={() => openWebUrl(link)}
+          />
+        )
+      })}
     </Column>
   )
 }
