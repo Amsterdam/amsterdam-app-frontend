@@ -31,16 +31,20 @@ const LinkIcon = ({direction}: LinkIconProps) => {
   )
 }
 
-export const Link = ({label, onPress, variant = 'default'}: Props) => (
-  <Pressable onPress={onPress}>
-    <Row gutter="sm">
-      {variant === 'backward' && <LinkIcon direction={Direction.left} />}
-      {variant === 'default' && <LinkIcon direction={Direction.right} />}
-      <Phrase color="link">{label}</Phrase>
-      {variant === 'forward' && <LinkIcon direction={Direction.right} />}
-    </Row>
-  </Pressable>
-)
+export const Link = ({label, onPress, variant = 'default'}: Props) => {
+  const {text} = useTheme()
+
+  return (
+    <Pressable hitSlop={(48 - 1.4 * text.fontSize.body) / 2} onPress={onPress}>
+      <Row gutter="xs">
+        {variant === 'backward' && <LinkIcon direction={Direction.left} />}
+        {variant === 'default' && <LinkIcon direction={Direction.right} />}
+        <Phrase color="link">{label}</Phrase>
+        {variant === 'forward' && <LinkIcon direction={Direction.right} />}
+      </Row>
+    </Pressable>
+  )
+}
 
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
