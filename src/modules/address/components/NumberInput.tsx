@@ -86,11 +86,12 @@ export const NumberInput = ({
           value={number}
         />
       </Column>
-      {!isNumberSelected && number.length ? (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          style={styles.flex}>
-          {bagList?.map(bagItem => (
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        style={styles.flex}>
+        {(!isNumberSelected &&
+          number.length > 0 &&
+          bagList?.map(bagItem => (
             <SuggestionButton
               key={bagItem.uri}
               label={getNumberFromAddress(bagItem._display)}
@@ -98,9 +99,9 @@ export const NumberInput = ({
                 selectNumber(getNumberFromAddress(bagItem._display))
               }}
             />
-          ))}
-        </KeyboardAwareScrollView>
-      ) : null}
+          ))) ??
+          null}
+      </KeyboardAwareScrollView>
     </Animated.View>
   )
 }
