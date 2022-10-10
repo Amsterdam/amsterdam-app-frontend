@@ -9,5 +9,5 @@ export default {
 export const Default: ComponentStory<typeof Link> = args => <Link {...args} />
 Default.args = {
   label: 'Klik mij ik ben een link',
-  level: 'h4',
+  variant: 'default',
 }
