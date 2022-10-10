@@ -2,10 +2,10 @@ import React, {ReactNode, SVGProps, useState} from 'react'
 import {ChevronDown, ChevronUp} from '@/assets/icons'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers/Box'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column, Gutter, Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 
 type AccordionProps = {
   children: ReactNode
@@ -33,6 +33,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const Chevron = isOpen ? ChevronUp : ChevronDown
   const iconProps = useThemable(createIconProps)
+  const {text} = useTheme()
 
   return (
     <Column>
@@ -42,17 +43,19 @@ export const Accordion = ({children, title}: AccordionProps) => {
         }`}
         onPress={() => setIsOpen(!isOpen)}>
         <Box>
-          <Row align="between" gutter="sm" valign="center">
+          <Row align="between" gutter="md" valign="start">
             <Title
               color="link"
               ellipsizeMode="tail"
               level="h5"
-              numberOfLines={1}
+              numberOfLines={3}
               text={title}
             />
-            <Icon size={24}>
-              <Chevron {...iconProps} />
-            </Icon>
+            <Size height={text.fontSize.h5 * text.lineHeight.h5}>
+              <Icon size={24}>
+                <Chevron {...iconProps} />
+              </Icon>
+            </Size>
           </Row>
         </Box>
       </Pressable>
