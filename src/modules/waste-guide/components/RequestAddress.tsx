@@ -48,16 +48,16 @@ export const RequestAddress = () => {
           </Column>
         </Box>
       </View>
-      <View style={styles.rowOfCanalHouseFacadesImage}>
-        <CanalHouseFacadesImage />
+      <View style={styles.positioningContext}>
+        <View style={styles.rowOfCanalHouseFacadesImage}>
+          <CanalHouseFacadesImage />
+        </View>
+        <Box>
+          <Figure height={256}>
+            <WasteGuideHomeImage />
+          </Figure>
+        </Box>
       </View>
-      <Box>
-        <Figure
-          height={256}
-          style={styles.twoPeopleBringingHouseholdWasteImage}>
-          <WasteGuideHomeImage />
-        </Figure>
-      </Box>
     </Column>
   )
 }
@@ -74,18 +74,17 @@ const createStyles = (
       paddingLeft: isLandscape ? insets.left : undefined,
       paddingRight: isLandscape ? insets.right : undefined,
     },
+    positioningContext: {
+      position: 'relative',
+      zIndex: -1,
+    },
     rowOfCanalHouseFacadesImage: {
+      position: 'absolute',
+      bottom: isLandscape ? 144 : 224,
       width: height * rowOfCanalHouseFacadesImageAspectRatio,
       height,
       alignSelf: 'center',
-      position: 'relative',
-      top: 80,
-      zIndex: -1,
-      marginTop: isLandscape ? -160 : undefined,
       marginLeft: isLandscape ? -insets.left : undefined,
-    },
-    twoPeopleBringingHouseholdWasteImage: {
-      marginTop: isLandscape ? -32 : undefined,
     },
   })
 }
