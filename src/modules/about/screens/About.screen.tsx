@@ -3,7 +3,7 @@ import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 
-export const TemplateScreen: FC = () => {
+export const AboutScreen: FC = () => {
   // const navigation =
   //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
