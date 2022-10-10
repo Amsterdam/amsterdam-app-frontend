@@ -80,8 +80,8 @@ const createStyles =
     const buttonHeight = 48 // Design system requirement
     const borderWidth =
       border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
-    const labelFontSize = text.fontSize.small
-    const labelLineHeight = text.lineHeight.small
+    const labelFontSize = text.fontSize.body
+    const labelLineHeight = text.lineHeight.body
 
     const backgroundColor = () => {
       if (variant === 'primary') {
