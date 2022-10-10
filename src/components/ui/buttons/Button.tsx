@@ -141,7 +141,7 @@ const createStyles =
       label: {
         flexShrink: 1,
         color: labelColor(),
-        fontFamily: text.fontWeight.bold,
+        fontFamily: text.fontWeight.regular,
         fontSize: labelFontSize,
         lineHeight: labelLineHeight * labelFontSize,
       },
