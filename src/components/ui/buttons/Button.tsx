@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {SVGProps, useState} from 'react'
 import {
   GestureResponderEvent,
   Pressable,
@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {Theme, useThemable} from '@/themes'
 import {SvgProps} from '@/types'
 
 export type ButtonProps = {
@@ -28,7 +28,7 @@ export const Button = ({
   ...otherProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
-  const {color} = useTheme()
+  const iconProps = useThemable(createIconProps(variant))
   const styles = useThemable(createStyles(variant, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
@@ -51,11 +51,7 @@ export const Button = ({
       <Row gutter="sm" valign="center">
         {!!IconComponent && (
           <Icon size={24}>
-            <IconComponent
-              fill={
-                variant === 'primary' ? color.text.inverse : color.text.link
-              }
-            />
+            <IconComponent {...iconProps} />
           </Icon>
         )}
         {!!label && (
@@ -71,13 +67,19 @@ export const Button = ({
   )
 }
 
+const createIconProps =
+  (variant: ButtonProps['variant']) =>
+  ({color}: Theme): SVGProps<unknown> => ({
+    fill: color.text[variant === 'primary' ? 'inverse' : 'link'],
+  })
+
 // TODO Improve color tokens
 const createStyles =
   (variant: ButtonProps['variant'], pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
     const buttonHeight = 48 // Design system requirement
     const borderWidth =
-      variant === 'secondary' && pressed ? border.width.lg : border.width.md
+      border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
     const labelFontSize = text.fontSize.small
     const labelLineHeight = text.lineHeight.small
 
@@ -133,8 +135,9 @@ const createStyles =
         backgroundColor: backgroundColor(),
         borderColor: borderColor(),
         borderStyle: 'solid',
-        borderWidth: borderWidth,
+        borderWidth,
       },
+      // TODO Use `Phrase` instead, after merging line height branch
       label: {
         flexShrink: 1,
         color: labelColor(),
