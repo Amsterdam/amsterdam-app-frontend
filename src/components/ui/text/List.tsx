@@ -25,7 +25,9 @@ const ListItem = ({text, marker}: ListItemProps) => {
   return (
     <Row gutter="sm">
       <View style={styles.marker}>
-        <Phrase>{Marker[marker]}</Phrase>
+        <Phrase accessible={false} importantForAccessibility="no">
+          {Marker[marker]}
+        </Phrase>
       </View>
       <Phrase>{text}</Phrase>
     </Row>
