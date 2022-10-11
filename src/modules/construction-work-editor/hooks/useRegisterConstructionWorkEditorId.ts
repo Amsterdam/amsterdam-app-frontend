@@ -1,6 +1,9 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {
   useConstructionWorkEditor,
@@ -13,7 +16,7 @@ import {
 } from '@/modules/construction-work-editor/slice'
 import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
-import {setAlert, setAlertVisibility} from '@/store'
+import {resetAlert, setAlert} from '@/store'
 
 export const useRegisterConstructionWorkEditorId = (
   deeplinkId: string | undefined,
@@ -69,10 +72,12 @@ export const useRegisterConstructionWorkEditorId = (
     ) {
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
           },
-          isVisible: true,
+          variant: AlertVariant.default,
+          withIcon: false,
         }),
       )
       dispatch(setHasSeenWelcomeMessage())
@@ -92,7 +97,7 @@ export const useRegisterConstructionWorkEditorId = (
 
   useEffect(() => {
     if (deeplinkId) {
-      isFailed && setAlertVisibility(false)
+      isFailed && resetAlert()
       setConstructionWorkEditorCredentials(deeplinkId)
       dispatch(addConstructionWorkEditorId(deeplinkId))
     }
@@ -102,11 +107,12 @@ export const useRegisterConstructionWorkEditorId = (
     if (isFailed) {
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
           },
           variant: AlertVariant.failure,
-          isVisible: true,
+          withIcon: false,
         }),
       )
     }

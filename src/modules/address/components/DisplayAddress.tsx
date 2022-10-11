@@ -5,7 +5,10 @@ import React from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
-import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
@@ -29,12 +32,13 @@ export const DisplayAddress = ({address}: Props) => {
     dispatch(removePrimaryAddress())
     dispatch(
       setAlert({
+        closeType: AlertCloseType.withoutButton,
         content: {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
-        isVisible: true,
         variant: AlertVariant.success,
+        withIcon: false,
       }),
     )
   }

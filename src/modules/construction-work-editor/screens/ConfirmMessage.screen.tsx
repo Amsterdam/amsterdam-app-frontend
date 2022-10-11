@@ -6,7 +6,10 @@ import {RootStackParams} from '@/app/navigation'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Alert} from '@/components/ui/feedback'
-import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -103,23 +106,25 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       navigation.popToTop()
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Gelukt',
             text: 'Uw bericht is geplaatst.',
           },
           variant: AlertVariant.success,
-          isVisible: true,
+          withIcon: false,
         }),
       )
     } catch (error: unknown) {
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Niet gelukt',
             text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
           },
           variant: AlertVariant.failure,
-          isVisible: true,
+          withIcon: false,
         }),
       )
     }
