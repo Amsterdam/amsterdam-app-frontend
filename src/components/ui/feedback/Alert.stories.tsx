@@ -69,7 +69,6 @@ Default.args = {
     title,
     text,
   },
-  isVisible: true,
   variant: AlertVariant.default,
   withIcon: false,
 }

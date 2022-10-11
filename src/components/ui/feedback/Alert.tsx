@@ -22,9 +22,9 @@ import {
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
+import {resetAlert, selectAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {accessibleText, isEmptyObject} from '@/utils'
 
 if (
   Platform.OS === 'android' &&
@@ -37,13 +37,9 @@ export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
-  const {
-    closeType,
-    content,
-    isVisible,
-    variant = AlertVariant.default,
-    withIcon,
-  } = useSelector(selectAlert)
+  const alert = useSelector(selectAlert)
+
+  const {closeType, content, variant, withIcon} = alert
 
   const iconProps = useThemable(createIconProps)
   const variantConfig = useThemable(createVariantConfig)
@@ -58,7 +54,7 @@ export const Alert = () => {
     })
   }, [dispatch, navigation])
 
-  if (!isVisible) {
+  if (isEmptyObject(alert)) {
     return null
   }
 
@@ -72,7 +68,7 @@ export const Alert = () => {
   return (
     <WrapperComponent>
       <Box>
-        <View style={styles.view}>
+        <View style={styles?.view}>
           <Row align="between">
             <SingleSelectable
               accessibilityRole="alert"
@@ -103,7 +99,7 @@ export const Alert = () => {
                       <Close {...iconProps} />
                     </Icon>
                   }
-                  onPress={() => dispatch(setAlertVisibility(false))}
+                  onPress={() => dispatch(resetAlert())}
                 />
               </View>
             )}
@@ -121,6 +117,9 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 const createStyles =
   (variant: AlertVariant, variantConfig: AlertVariantConfig) =>
   ({size}: Theme) => {
+    if (!variant) {
+      return
+    }
     const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
 
     return StyleSheet.create({
