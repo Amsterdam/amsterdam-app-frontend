@@ -14,20 +14,13 @@ export type Content =
   | undefined
 
 export type AlertSliceState = {
-  closeType?: AlertCloseType
-  content?: Content
-  isVisible: boolean
-  variant?: AlertVariant
-  withIcon?: boolean
+  closeType: AlertCloseType
+  content: Content
+  variant: AlertVariant
+  withIcon: boolean
 }
 
-const initialState: AlertSliceState = {
-  closeType: AlertCloseType.withoutButton,
-  content: undefined,
-  isVisible: false,
-  variant: AlertVariant.default,
-  withIcon: false,
-}
+const initialState = {} as AlertSliceState
 
 export const alertSlice = createSlice({
   name: 'alert',
@@ -37,23 +30,13 @@ export const alertSlice = createSlice({
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       return initialState
     },
-    setAlert: (state, {payload: alert}: PayloadAction<AlertSliceState>) => {
+    setAlert: (state, {payload}: PayloadAction<AlertSliceState>) => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      return {
-        ...state,
-        ...alert,
-      }
-    },
-    setAlertVisibility: (
-      state,
-      {payload: isVisible}: PayloadAction<boolean>,
-    ) => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      state.isVisible = isVisible
+      return payload
     },
   },
 })
 
-export const {resetAlert, setAlert, setAlertVisibility} = alertSlice.actions
+export const {resetAlert, setAlert} = alertSlice.actions
 
 export const selectAlert = (state: RootState) => state.alert
