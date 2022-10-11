@@ -16,15 +16,16 @@ type Props = {
 
 export const IconWithTitleButton = ({
   icon,
+  onPress,
   text,
   title,
   titleIcon,
-  onPress,
+  ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} {...pressableProps}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>

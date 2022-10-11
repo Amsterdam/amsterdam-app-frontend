@@ -4,6 +4,7 @@ import {module as constructionWorkEditorModule} from './construction-work-editor
 import {module as contactModule} from './contact'
 import {module as homeModule} from './home'
 import {module as openWasteContainerModule} from './open-waste-container'
+import {module as redirectsModule} from './redirects'
 import {module as reportProblemModule} from './report-problem'
 import {module as userModule} from './user'
 import {module as wasteGuideModule} from './waste-guide'
@@ -16,6 +17,7 @@ export const clientModules = [
   constructionWorkModule,
   contactModule,
   openWasteContainerModule,
+  redirectsModule,
   reportProblemModule,
   wasteGuideModule,
 ]

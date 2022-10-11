@@ -5,6 +5,7 @@ export enum ModuleSlug {
   'contact' = 'contact',
   home = 'home',
   'open-waste-container' = 'open-waste-container',
+  redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
   'waste-guide' = 'waste-guide',
