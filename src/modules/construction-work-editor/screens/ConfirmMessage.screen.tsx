@@ -111,7 +111,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             title: 'Gelukt',
             text: 'Uw bericht is geplaatst.',
           },
-          variant: AlertVariant.success,
+          variant: AlertVariant.positive,
           withIcon: false,
         }),
       )
@@ -123,7 +123,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             title: 'Niet gelukt',
             text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
           },
-          variant: AlertVariant.failure,
+          variant: AlertVariant.negative,
           withIcon: false,
         }),
       )

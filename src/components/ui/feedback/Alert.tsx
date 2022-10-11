@@ -134,19 +134,19 @@ const createStyles =
   }
 
 const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
-  [AlertVariant.default]: {
+  [AlertVariant.information]: {
     backgroundColor: color.box.background.alert,
     borderColor: color.box.background.alert,
     borderWidth: 2,
     icon: AlertIcon,
   },
-  [AlertVariant.failure]: {
+  [AlertVariant.negative]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.negative,
     borderWidth: 2,
     icon: AlertIcon,
   },
-  [AlertVariant.success]: {
+  [AlertVariant.positive]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.positive,
     borderWidth: 2,

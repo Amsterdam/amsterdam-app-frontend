@@ -69,6 +69,6 @@ Default.args = {
     title,
     text,
   },
-  variant: AlertVariant.default,
+  variant: AlertVariant.information,
   withIcon: false,
 }

@@ -7,9 +7,9 @@ export enum AlertCloseType {
 }
 
 export enum AlertVariant {
-  default = 'default',
-  failure = 'failure',
-  success = 'success',
+  information = 'information',
+  negative = 'negative',
+  positive = 'positive',
 }
 
 export type AlertVariantConfig = {

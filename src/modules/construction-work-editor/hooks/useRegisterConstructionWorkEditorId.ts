@@ -76,7 +76,7 @@ export const useRegisterConstructionWorkEditorId = (
           content: {
             text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
           },
-          variant: AlertVariant.default,
+          variant: AlertVariant.information,
           withIcon: false,
         }),
       )
@@ -111,7 +111,7 @@ export const useRegisterConstructionWorkEditorId = (
           content: {
             text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
           },
-          variant: AlertVariant.failure,
+          variant: AlertVariant.negative,
           withIcon: false,
         }),
       )
