@@ -8,6 +8,7 @@ import ChevronRight from './chevron-right.svg'
 import ChevronUp from './chevron-up.svg'
 import Circle from './circle.svg'
 import CityOffice from './city-office.svg'
+import CityPass from './city-pass.svg'
 import Clock from './clock.svg'
 import Close from './close.svg'
 import Collaborate from './collaborate.svg'
@@ -24,7 +25,6 @@ import PersonalLogin from './personal-login.svg'
 import QuestionMarkSolid from './question-mark-solid.svg'
 import Search from './search.svg'
 import Settings from './settings.svg'
-import Stadspas from './stadspas.svg'
 import Strides from './strides.svg'
 import TwoPersons from './two-persons.svg'
 import Whatsapp from './whatsapp.svg'
@@ -40,6 +40,7 @@ export {
   ChevronUp,
   Circle,
   CityOffice,
+  CityPass,
   Clock,
   Close,
   Collaborate,
@@ -56,7 +57,6 @@ export {
   QuestionMarkSolid,
   Search,
   Settings,
-  Stadspas,
   Strides,
   TwoPersons,
   Whatsapp,
