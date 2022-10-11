@@ -1,12 +1,15 @@
-import React, {FC} from 'react'
+import React, {FC, useContext} from 'react'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Redirects} from '@/modules/redirects/components'
+import {DeviceContext} from '@/providers'
 import {openWebUrl} from '@/utils'
 
 export const RedirectsScreen: FC = () => {
+  const {isLandscape} = useContext(DeviceContext)
+
   return (
     <Screen>
       <Box>
@@ -25,10 +28,12 @@ export const RedirectsScreen: FC = () => {
               <Paragraph>
                 Kijk dan op onze website waar al onze informatie staat.
               </Paragraph>
-              <Button
-                label="Naar amsterdam.nl"
-                onPress={() => openWebUrl('https://www.amsterdam.nl')}
-              />
+              <Column halign={isLandscape ? 'start' : undefined}>
+                <Button
+                  label="Naar amsterdam.nl"
+                  onPress={() => openWebUrl('https://www.amsterdam.nl')}
+                />
+              </Column>
             </Column>
           </Column>
         </Column>
