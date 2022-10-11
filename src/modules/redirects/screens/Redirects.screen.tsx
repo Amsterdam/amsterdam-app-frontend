@@ -30,6 +30,7 @@ export const RedirectsScreen: FC = () => {
               </Paragraph>
               <Column halign={isLandscape ? 'start' : undefined}>
                 <Button
+                  accessibilityRole="link"
                   label="Naar amsterdam.nl"
                   onPress={() => openWebUrl('https://www.amsterdam.nl')}
                 />
