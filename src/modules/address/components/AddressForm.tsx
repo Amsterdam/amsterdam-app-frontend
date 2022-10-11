@@ -16,15 +16,11 @@ import {BagResponseContent} from '@/modules/address'
 import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
-import {addAddress, addTempAddress} from '@/modules/address/slice'
+import {addAddress} from '@/modules/address/slice'
 import {DeviceContext} from '@/providers'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
 
-type Props = {
-  temp?: boolean
-}
-
-export const AddressForm = ({temp}: Props) => {
+export const AddressForm = () => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
   const dispatch = useDispatch()
   const [bagList, setBagList] = useState<BagResponseContent | null | undefined>(
@@ -100,11 +96,7 @@ export const AddressForm = ({temp}: Props) => {
 
   useEffect(() => {
     if (addressData) {
-      if (temp) {
-        dispatch(addTempAddress(addressData))
-      } else {
-        dispatch(addAddress(addressData))
-      }
+      dispatch(addAddress(addressData))
       setIsAddressStored(true)
     }
   }, [addressData]) // eslint-disable-line react-hooks/exhaustive-deps

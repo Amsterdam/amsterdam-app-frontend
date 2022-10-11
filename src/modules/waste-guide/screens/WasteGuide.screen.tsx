@@ -7,8 +7,7 @@ import {DeviceContext} from '@/providers'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
-  const {primary, temp} = useSelector(selectAddress)
-  const address = temp ?? primary
+  const {primary: address} = useSelector(selectAddress)
 
   if (!address) {
     return (

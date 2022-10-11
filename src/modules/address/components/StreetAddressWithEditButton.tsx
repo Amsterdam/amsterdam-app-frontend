@@ -14,13 +14,11 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   address: string
-  isTemporary?: boolean
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const StreetAddressWithEditButton = ({
   accessibilityLabel,
   address,
-  isTemporary = false,
 }: Props) => {
   const navigation =
     useNavigation<
@@ -38,11 +36,7 @@ export const StreetAddressWithEditButton = ({
             <Edit {...iconProps} />
           </Icon>
         }
-        onPress={() =>
-          navigation.navigate(AddressModalName.addressForm, {
-            addressIsTemporary: isTemporary,
-          })
-        }
+        onPress={() => navigation.navigate(AddressModalName.addressForm)}
       />
     </Row>
   )
