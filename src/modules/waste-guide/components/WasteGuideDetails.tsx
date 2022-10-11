@@ -42,16 +42,13 @@ export const WasteGuideDetails = ({
     details
 
   return (
-    <Track
-      gutter={isLandscape ? 'xl' : 'md'}
-      reverse={isLandscape}
-      align="between">
+    <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
       {!!illustration && (
-        <Column>
+        <Column flex={1}>
           <Figure height={192}>{illustration}</Figure>
         </Column>
       )}
-      <Column gutter="md">
+      <Column flex={1} gutter="md">
         {appointmentUrl ? (
           <Column gutter="md">
             <Paragraph>
