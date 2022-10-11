@@ -1,7 +1,7 @@
 import AlertIcon from '@amsterdam/asc-assets/static/icons/Alert.svg'
 import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import {useNavigation} from '@react-navigation/core'
-import React, {SVGProps, useEffect} from 'react'
+import React, {FC, Fragment, ReactNode, SVGProps, useEffect} from 'react'
 import {
   InteractionManager,
   Platform,
@@ -14,13 +14,17 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Close} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
+import {
+  AlertCloseType,
+  AlertVariant,
+  AlertVariantConfig,
+} from '@/components/ui/feedback/Alert.types'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {resetAlert, selectAlert, setAlertVisibility} from '@/store/alertSlice'
+import {resetAlert, selectAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
-import {CloseType, Variant} from '@/types'
-import {accessibleText} from '@/utils'
+import {accessibleText, isEmptyObject} from '@/utils'
 
 if (
   Platform.OS === 'android' &&
@@ -33,11 +37,13 @@ export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
-  const {closeType, content, isVisible, variant, withIcon} =
-    useSelector(selectAlert)
+  const alert = useSelector(selectAlert)
+
+  const {closeType, content, variant, withIcon} = alert
 
   const iconProps = useThemable(createIconProps)
-  const styles = useThemable(createStyles(variant))
+  const variantConfig = useThemable(createVariantConfig)
+  const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
     return navigation.addListener('blur', () => {
@@ -48,58 +54,60 @@ export const Alert = () => {
     })
   }, [dispatch, navigation])
 
-  if (!isVisible) {
+  if (isEmptyObject(alert)) {
     return null
   }
 
-  const IconComponent = variant === Variant.success ? Checkmark : AlertIcon
+  const IconComponent = variantConfig[variant].icon
 
-  const alertComponent = (
-    <Box>
-      <View style={styles.view}>
-        <Row align="between">
-          <SingleSelectable
-            accessibilityRole="alert"
-            accessibilityLabel={accessibleText(content?.title, content?.text)}>
-            <Row gutter="md">
-              {!!withIcon && (
-                <Icon size={24}>
-                  <IconComponent {...iconProps} />
-                </Icon>
-              )}
-              <Column>
-                {!!content?.title && <Title level="h4" text={content?.title} />}
-                <Paragraph>{content?.text}</Paragraph>
-              </Column>
-            </Row>
-          </SingleSelectable>
-          {closeType === CloseType.withButton && (
-            <View>
-              <IconButton
-                accessibilityHint="Sluit melding"
-                icon={
+  const WrapperComponent: FC<{children: ReactNode}> =
+    closeType === AlertCloseType.withoutButton
+      ? props => <Pressable onPress={() => dispatch(resetAlert())} {...props} />
+      : Fragment
+
+  return (
+    <WrapperComponent>
+      <Box>
+        <View style={styles?.view}>
+          <Row align="between">
+            <SingleSelectable
+              accessibilityRole="alert"
+              accessibilityLabel={accessibleText(
+                content?.title,
+                content?.text,
+              )}>
+              <Row gutter="md">
+                {!!withIcon && (
                   <Icon size={24}>
-                    <Close {...iconProps} />
+                    <IconComponent {...iconProps} />
                   </Icon>
-                }
-                onPress={() => dispatch(setAlertVisibility(false))}
-              />
-            </View>
-          )}
-        </Row>
-      </View>
-    </Box>
+                )}
+                <Column>
+                  {!!content?.title && (
+                    <Title level="h4" text={content?.title} />
+                  )}
+                  <Paragraph>{content?.text}</Paragraph>
+                </Column>
+              </Row>
+            </SingleSelectable>
+            {closeType === AlertCloseType.withButton && (
+              <View>
+                <IconButton
+                  accessibilityHint="Sluit melding"
+                  icon={
+                    <Icon size={24}>
+                      <Close {...iconProps} />
+                    </Icon>
+                  }
+                  onPress={() => dispatch(resetAlert())}
+                />
+              </View>
+            )}
+          </Row>
+        </View>
+      </Box>
+    </WrapperComponent>
   )
-
-  if (closeType === CloseType.withoutButton) {
-    return (
-      <Pressable onPress={() => dispatch(resetAlert())}>
-        {alertComponent}
-      </Pressable>
-    )
-  }
-
-  return alertComponent
 }
 
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
@@ -107,19 +115,41 @@ const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
 })
 
 const createStyles =
-  (variant?: Variant) =>
-  ({color, size}: Theme) =>
-    StyleSheet.create({
+  (variant: AlertVariant, variantConfig: AlertVariantConfig) =>
+  ({size}: Theme) => {
+    if (!variant) {
+      return
+    }
+    const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
+
+    return StyleSheet.create({
       view: {
-        backgroundColor:
-          variant === Variant.information
-            ? color.box.background.alert
-            : color.box.background.white,
-        borderWidth: variant === Variant.information ? 0 : 2,
-        borderColor:
-          variant === Variant.success
-            ? color.severity.positive
-            : color.severity.negative,
-        padding: size.spacing.md,
+        backgroundColor,
+        borderWidth,
+        borderColor,
+        paddingHorizontal: size.spacing.lg,
+        paddingVertical: size.spacing.md,
       },
     })
+  }
+
+const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
+  [AlertVariant.information]: {
+    backgroundColor: color.box.background.alert,
+    borderColor: color.box.background.alert,
+    borderWidth: 2,
+    icon: AlertIcon,
+  },
+  [AlertVariant.negative]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.negative,
+    borderWidth: 2,
+    icon: AlertIcon,
+  },
+  [AlertVariant.positive]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.positive,
+    borderWidth: 2,
+    icon: Checkmark,
+  },
+})

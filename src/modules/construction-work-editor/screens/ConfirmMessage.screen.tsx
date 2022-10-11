@@ -6,6 +6,10 @@ import {RootStackParams} from '@/app/navigation'
 import {Button, NavigationButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Alert} from '@/components/ui/feedback'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -27,7 +31,6 @@ import HeroImage from '@/modules/construction-work/assets/images/project-warning
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'
-import {Variant} from '@/types'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -103,23 +106,25 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       navigation.popToTop()
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Gelukt',
             text: 'Uw bericht is geplaatst.',
           },
-          variant: Variant.success,
-          isVisible: true,
+          variant: AlertVariant.positive,
+          withIcon: false,
         }),
       )
     } catch (error: unknown) {
       dispatch(
         setAlert({
+          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Niet gelukt',
             text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
           },
-          variant: Variant.failure,
-          isVisible: true,
+          variant: AlertVariant.negative,
+          withIcon: false,
         }),
       )
     }

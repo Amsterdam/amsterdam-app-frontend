@@ -1,4 +1,3 @@
-export * from './alert'
 export * from './api'
 export * from './datetime'
 export * from './device'
