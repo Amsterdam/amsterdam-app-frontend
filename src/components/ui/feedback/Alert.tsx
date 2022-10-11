@@ -61,7 +61,7 @@ export const Alert = () => {
   const IconComponent = variantConfig[variant].icon
 
   const WrapperComponent: FC<{children: ReactNode}> =
-    closeType === AlertCloseType.withButton
+    closeType === AlertCloseType.withoutButton
       ? props => <Pressable onPress={() => dispatch(resetAlert())} {...props} />
       : Fragment
 
