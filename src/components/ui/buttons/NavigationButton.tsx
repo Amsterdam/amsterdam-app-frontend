@@ -4,7 +4,7 @@ import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Link} from '@/components/ui/text'
+import {Title} from '@/components/ui/text'
 import {IconSize} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
@@ -33,7 +33,7 @@ export const NavigationButton = ({
               <IconComponent {...iconProps} />
             </Icon>
           )}
-          <Link label={label} level="h5" />
+          <Title color="link" level="h5" text={label} />
           {direction === 'forward' && (
             <Icon size={iconSize}>
               <IconComponent {...iconProps} />

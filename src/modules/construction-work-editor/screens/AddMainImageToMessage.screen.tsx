@@ -4,10 +4,9 @@ import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {FormField} from '@/components/features/FormField'
-import {NavigationButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {Title} from '@/components/ui/text'
+import {Link, Title} from '@/components/ui/text'
 import {ImagePreview} from '@/modules/construction-work-editor/components'
 import {
   selectCurrentProjectId,
@@ -76,16 +75,11 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
       keyboardAware
       stickyFooter={
         <Row align="between" valign="center">
-          <NavigationButton
-            direction="backward"
-            iconSize={16}
-            label="Vorige"
-            onPress={navigation.goBack}
-          />
-          <NavigationButton
-            iconSize={16}
+          <Link label="Vorige" onPress={navigation.goBack} variant="backward" />
+          <Link
             label="Volgende"
             onPress={handleSubmit(onSubmit)}
+            variant="forward"
           />
         </Row>
       }>

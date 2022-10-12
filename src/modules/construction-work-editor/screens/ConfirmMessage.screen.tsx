@@ -3,7 +3,7 @@ import React, {useLayoutEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Alert} from '@/components/ui/feedback'
 import {
@@ -13,7 +13,7 @@ import {
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
   clearDraft,
   selectCurrentProjectId,
@@ -153,11 +153,10 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             <Button label="Plaats bericht" onPress={onSubmit} />
           </Box>
           <Row align="between" valign="center">
-            <NavigationButton
-              direction="backward"
-              iconSize={16}
+            <Link
               label="Vorige"
               onPress={navigation.goBack}
+              variant="backward"
             />
           </Row>
         </>

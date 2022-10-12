@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ReactNode, useContext} from 'react'
-import {Button, NavigationButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
-import {DescriptionList, Paragraph} from '@/components/ui/text'
+import {DescriptionList, Link, Paragraph} from '@/components/ui/text'
 import {
   WasteGuideRouteName,
   WasteGuideStackParams,
@@ -92,10 +92,7 @@ export const WasteGuideDetails = ({
           />
         )}
         {!!footerLink && (
-          <NavigationButton
-            label={footerLink.text}
-            onPress={footerLink.onPress}
-          />
+          <Link label={footerLink.text} onPress={footerLink.onPress} />
         )}
       </Column>
     </Track>

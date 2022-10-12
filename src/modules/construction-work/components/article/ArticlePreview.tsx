@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Link, Paragraph} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectWarningFallbackImage} from '@/modules/construction-work/components/project/ProjectWarningFallbackImage'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
@@ -76,7 +76,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
           </Row>
           <Box insetHorizontal="md">
             <Column gutter="sm">
-              <Link label={article.title} level="h4" />
+              <Title color="link" level="h5" text={article.title} />
               <View style={styles.image}>
                 {imageSources && Object.keys(imageSources[0]).length ? (
                   <Image aspectRatio="wide" source={imageSources} />

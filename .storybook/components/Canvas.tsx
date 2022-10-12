@@ -23,4 +23,5 @@ export const Canvas = (props: Props) => {
 
 const styles: CSSProperties = {
   display: 'flex',
+  flex: 1,
 }
