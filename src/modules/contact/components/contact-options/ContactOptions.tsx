@@ -78,7 +78,8 @@ export const ContactOptions = () => {
         <Column gutter="sm">
           <Title text="Kunnen we u helpen?" />
           <Paragraph>
-            Heeft u een vraag of wilt u iets weten? Neem contact met ons op.
+            Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact
+            met ons op.
           </Paragraph>
         </Column>
         <Column gutter="sm">
