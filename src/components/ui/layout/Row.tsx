@@ -12,6 +12,7 @@ import {SpacingTokens} from '@/themes/tokens'
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
+  flex?: number
   gutter?: keyof SpacingTokens
   valign?: CrossAxisAlignment
   reverse?: boolean
@@ -21,12 +22,13 @@ type Props = {
 export const Row = ({
   align,
   children,
+  flex,
   gutter,
   valign,
   reverse,
   wrap,
 }: Props) => {
-  const styles = createStyles({align, reverse, valign})
+  const styles = createStyles({align, flex, reverse, valign})
 
   return (
     <View style={[styles.row, wrap && styles.wrap]}>
@@ -41,10 +43,11 @@ export const Row = ({
   )
 }
 
-const createStyles = ({align, reverse, valign}: Partial<Props>) =>
+const createStyles = ({align, flex, reverse, valign}: Partial<Props>) =>
   StyleSheet.create({
     row: {
       flexDirection: reverse ? 'row-reverse' : 'row',
+      flex,
       flexShrink: 1,
       justifyContent: mapMainAxisAlignment(align),
       alignItems: mapCrossAxisAlignment(valign),

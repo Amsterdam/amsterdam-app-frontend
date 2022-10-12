@@ -78,14 +78,13 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Accordion>
       )}
       <Accordion title="Containers in de buurt">
-        <Track
-          gutter={isLandscape ? 'xl' : 'md'}
-          reverse={isLandscape}
-          align="between">
-          <Figure height={192}>
-            <PlayingNearContainersImage />
-          </Figure>
-          <Column gutter="md">
+        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+          <Column flex={1}>
+            <Figure height={192}>
+              <PlayingNearContainersImage />
+            </Figure>
+          </Column>
+          <Column flex={1} gutter="md">
             <Paragraph>
               Zoekt u een container voor glas, papier, textiel, plastic
               verpakkingen of restafval?
@@ -104,14 +103,13 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
         </Track>
       </Accordion>
       <Accordion title="Afvalpunten">
-        <Track
-          gutter={isLandscape ? 'xl' : 'md'}
-          reverse={isLandscape}
-          align="between">
-          <Figure height={192}>
-            <BulkyWasteByCarImage />
-          </Figure>
-          <Column gutter="md">
+        <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
+          <Column flex={1}>
+            <Figure height={192}>
+              <BulkyWasteByCarImage />
+            </Figure>
+          </Column>
+          <Column flex={1} gutter="md">
             <Paragraph>
               Op een Afvalpunt kunt u gratis uw grof afval, klein chemisch afval
               en spullen voor de kringloop kwijt.

@@ -1,5 +1,4 @@
 import React, {useContext} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
@@ -53,43 +52,33 @@ export const WhereToPutBulkyWasteScreen = () => {
             </Paragraph>
           </Column>
           <Track gutter="lg">
-            <View style={styles.flex1}>
-              <Column gutter="md">
-                <Figure height={192}>
-                  <BulkyWasteAtRoadsideImage />
-                </Figure>
-                <Column gutter="sm">
-                  <Title level="h3" text="Grof afval dat we ophalen" />
-                  <Paragraph>
-                    Grote spullen uit uw woning halen we op, zoals:
-                  </Paragraph>
-                </Column>
-                <List items={collected} />
+            <Column flex={1} gutter="md">
+              <Figure height={192}>
+                <BulkyWasteAtRoadsideImage />
+              </Figure>
+              <Column gutter="sm">
+                <Title level="h3" text="Grof afval dat we ophalen" />
+                <Paragraph>
+                  Grote spullen uit uw woning halen we op, zoals:
+                </Paragraph>
               </Column>
-            </View>
-            <View style={styles.flex1}>
-              <Column gutter="md">
-                <Figure height={192}>
-                  <BulkyWasteByCarImage />
-                </Figure>
-                <Column gutter="sm">
-                  <Title level="h3" text="Dit grof afval halen we niet op" />
-                  <Paragraph>
-                    Deze spullen moet u zelf wegbrengen naar een Afvalpunt.
-                  </Paragraph>
-                </Column>
-                <List items={notCollected} />
+              <List items={collected} />
+            </Column>
+            <Column flex={1} gutter="md">
+              <Figure height={192}>
+                <BulkyWasteByCarImage />
+              </Figure>
+              <Column gutter="sm">
+                <Title level="h3" text="Dit grof afval halen we niet op" />
+                <Paragraph>
+                  Deze spullen moet u zelf wegbrengen naar een Afvalpunt.
+                </Paragraph>
               </Column>
-            </View>
+              <List items={notCollected} />
+            </Column>
           </Track>
         </Column>
       </Box>
     </Screen>
   )
 }
-
-const styles = StyleSheet.create({
-  flex1: {
-    flex: 1,
-  },
-})

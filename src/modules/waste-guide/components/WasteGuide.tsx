@@ -57,11 +57,8 @@ export const WasteGuide = ({address}: Props) => {
 
   return (
     <Box grow>
-      <Track
-        align="between"
-        grow
-        gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
-        <Column gutter="md">
+      <Track grow gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
+        <Column flex={1} gutter="md">
           <StreetAddressWithEditButton address={address.adres} />
           {hasWasteGuide || cityIsWeesp ? (
             <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
@@ -69,7 +66,7 @@ export const WasteGuide = ({address}: Props) => {
             <WasteGuideNotFound />
           )}
         </Column>
-        <Column align={cityIsWeesp ? 'end' : 'center'}>
+        <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
           <Figure height={imageHeight}>
             <Image />
           </Figure>
