@@ -15,6 +15,9 @@ type Props = {
   >
 }
 
+const appointmentFormWeespUrl =
+  'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx'
+
 export const CityOfficeSelectionScreen = ({navigation}: Props) => {
   return (
     <Box>
@@ -32,11 +35,7 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
           <Flex>
             <Button
               label="Weesp"
-              onPress={() =>
-                openWebUrl(
-                  'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx',
-                )
-              }
+              onPress={() => openWebUrl(appointmentFormWeespUrl)}
               variant="secondary"
             />
           </Flex>
