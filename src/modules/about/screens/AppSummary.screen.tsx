@@ -13,7 +13,7 @@ export const AppSummaryScreen = () => {
 
   return (
     <Screen>
-      <Column gutter="md">
+      <Column gutter="lg">
         <Image source={require('../assets/header.jpeg')} />
         <Box>
           <Column gutter="xl">
