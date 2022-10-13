@@ -15,6 +15,7 @@ import Collaborate from './collaborate.svg'
 import ConstructionWork from './construction-work.svg'
 import DocumentText from './document-text.svg'
 import Edit from './edit.svg'
+import ExternalLink from './external-link.svg'
 import Housing from './housing.svg'
 import Location from './location.svg'
 import Login from './login.svg'
@@ -22,6 +23,7 @@ import Logo from './logo.svg'
 import OrganicWasteContainer from './organic-waste-container.svg'
 import PersonDesk from './person-desk.svg'
 import PersonalLogin from './personal-login.svg'
+import Phone from './phone.svg'
 import QuestionMarkSolid from './question-mark-solid.svg'
 import Search from './search.svg'
 import Settings from './settings.svg'
@@ -47,6 +49,7 @@ export {
   ConstructionWork,
   DocumentText,
   Edit,
+  ExternalLink,
   Housing,
   Location,
   Login,
@@ -54,6 +57,7 @@ export {
   OrganicWasteContainer,
   PersonalLogin,
   PersonDesk,
+  Phone,
   QuestionMarkSolid,
   Search,
   Settings,
