@@ -36,7 +36,6 @@ export const ArticleOverview = ({
   const [yearlyArticleSections, setYearlyArticleSections] = useState<
     YearlyArticleSections | undefined
   >()
-  console.log(yearlyArticleSections)
   const navigation =
     useNavigation<
       StackNavigationProp<
