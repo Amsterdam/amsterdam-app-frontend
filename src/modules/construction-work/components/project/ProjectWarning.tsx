@@ -3,12 +3,13 @@ import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
 import {
-  ProjectContacts,
-  ProjectWarningFallbackFigure,
-} from '@/modules/construction-work/components/project'
+  FigureWithCanalHouseFacadesBackground,
+  Image,
+} from '@/components/ui/media'
+import {Paragraph, Title} from '@/components/ui/text'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectQuery,
@@ -75,7 +76,11 @@ export const ProjectWarning = ({id}: Props) => {
           source={mapWarningImageSources(mainImage.sources, environment)}
         />
       ) : (
-        <ProjectWarningFallbackFigure />
+        <FigureWithCanalHouseFacadesBackground
+          height={192}
+          Image={<ProjectWarningFallbackImage />}
+          imageAspectRatio={355 / 135}
+        />
       )}
       <HorizontalSafeArea>
         <Box>
