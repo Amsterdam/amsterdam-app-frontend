@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {CanalHouseFacadesImage} from '@/assets/images'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
-import {CanalHouseFacadesImage} from '@/modules/waste-guide/assets/images'
 import {Theme, useThemable} from '@/themes'
 
 type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
