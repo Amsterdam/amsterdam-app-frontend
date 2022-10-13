@@ -59,7 +59,7 @@ export const ArticleOverview = ({
           const year = getYearOfPublicationDate(article.publication_date)
           return {
             ...result,
-            [year]: {...result[year], [article.identifier]: article},
+            [year]: {...result[year], [article.publication_date]: article},
           }
         },
         {},
