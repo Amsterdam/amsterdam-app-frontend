@@ -3,6 +3,7 @@ import {StyleSheet, View, ViewProps} from 'react-native'
 
 type SizeProps = {
   height?: number | string
+  marginRight?: number | string
   maxHeight?: number | string
   maxWidth?: number | string
   minHeight?: number | string
@@ -15,6 +16,7 @@ type Props = SizeProps & Omit<ViewProps, 'style'>
 export const Size = ({
   children,
   height,
+  marginRight,
   maxHeight,
   maxWidth,
   minHeight,
@@ -24,8 +26,16 @@ export const Size = ({
 }: Props) => {
   const styles = useMemo(
     () =>
-      createStyles({height, maxHeight, maxWidth, minHeight, minWidth, width}),
-    [height, maxHeight, maxWidth, minHeight, minWidth, width],
+      createStyles({
+        height,
+        marginRight,
+        maxHeight,
+        maxWidth,
+        minHeight,
+        minWidth,
+        width,
+      }),
+    [height, marginRight, maxHeight, maxWidth, minHeight, minWidth, width],
   )
 
   return (
