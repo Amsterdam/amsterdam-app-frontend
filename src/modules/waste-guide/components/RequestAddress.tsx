@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
+import React, {useContext} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Location} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
@@ -11,10 +12,13 @@ import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
 import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
+import {Device, DeviceContext} from '@/providers'
 
 export const RequestAddress = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
+  const {isLandscape} = useContext(DeviceContext)
+  const styles = createStyles(isLandscape)
 
   return (
     <Column align="between" grow>
@@ -38,13 +42,23 @@ export const RequestAddress = () => {
           </Column>
         </Box>
       </HorizontalSafeArea>
-      <FigureWithCanalHouseFacadesBackground
-        backgroundImageHeightFraction={0.5}
-        height={320}
-        Image={<WasteGuideHomeImage />}
-        imageAspectRatio={311 / 276}
-        imageWidth={288}
-      />
+      <View style={styles.moveFigureUp}>
+        <FigureWithCanalHouseFacadesBackground
+          backgroundImageHeightFraction={0.5}
+          height={320}
+          Image={<WasteGuideHomeImage />}
+          imageAspectRatio={311 / 276}
+          imageWidth={288}
+        />
+      </View>
     </Column>
   )
 }
+
+const createStyles = (isLandscape: Device['isLandscape']) =>
+  StyleSheet.create({
+    moveFigureUp: {
+      marginTop: isLandscape ? -80 : undefined,
+      zIndex: isLandscape ? -1 : undefined,
+    },
+  })
