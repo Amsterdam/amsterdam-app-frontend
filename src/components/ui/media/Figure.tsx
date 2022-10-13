@@ -3,7 +3,7 @@ import {StyleSheet, View, ViewProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {ImageAspectRatioTokens} from '@/themes/tokens'
 
-type Props = {
+export type FigureProps = {
   aspectRatio?: keyof ImageAspectRatioTokens
   height?: number
 } & ViewProps
@@ -18,7 +18,7 @@ export const Figure = ({
   children,
   style,
   ...otherProps
-}: Props) => {
+}: FigureProps) => {
   const createdStyles = useMemo(
     () => createStyles({aspectRatio, height}),
     [aspectRatio, height],
@@ -36,7 +36,8 @@ const createStyles =
   ({
     aspectRatio,
     height,
-  }: Required<Pick<Props, 'aspectRatio'>> & Pick<Props, 'height'>) =>
+  }: Required<Pick<FigureProps, 'aspectRatio'>> &
+    Pick<FigureProps, 'height'>) =>
   ({media}: Theme) =>
     StyleSheet.create({
       figure: {

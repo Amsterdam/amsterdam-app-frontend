@@ -1,26 +1,37 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Figure} from '@/components/ui/media/Figure'
+import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {CanalHouseFacadesImage} from '@/modules/waste-guide/assets/images'
 import {Theme, useThemable} from '@/themes'
 
+type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
+  Required<Pick<FigureProps, 'height'>>
+
 type Props = {
-  height: number
+  backgroundImageHeight?: number
   Image: ReactNode
   imageAspectRatio: number
   imageWidth?: number
-}
+} & SelectedFigureProps
 
 export const FigureWithCanalHouseFacadesBackground = ({
-  height,
+  backgroundImageHeight = 160,
   Image,
   imageAspectRatio,
   imageWidth,
+  ...figureProps
 }: Props) => {
-  const styles = useThemable(createStyles(height, imageAspectRatio, imageWidth))
+  const styles = useThemable(
+    createStyles(
+      backgroundImageHeight,
+      imageAspectRatio,
+      figureProps,
+      imageWidth,
+    ),
+  )
 
   return (
-    <Figure height={height}>
+    <Figure {...figureProps}>
       <View style={styles.backgroundImage}>
         <CanalHouseFacadesImage />
       </View>
@@ -31,12 +42,15 @@ export const FigureWithCanalHouseFacadesBackground = ({
 
 const createStyles =
   (
-    figureHeight: Props['height'],
+    backgroundImageHeight: number,
     imageAspectRatio: Props['imageAspectRatio'],
+    figureProps: SelectedFigureProps,
     requestedImageWidth: Props['imageWidth'],
   ) =>
   ({media}: Theme) => {
-    const figureWidth = figureHeight * media.aspectRatio.default
+    const {aspectRatio, height: figureHeight} = figureProps
+    const figureWidth =
+      figureHeight * media.aspectRatio[aspectRatio ?? 'default']
     const imageWidth = requestedImageWidth ?? figureWidth
     const imageHeight = imageWidth / imageAspectRatio
 
@@ -44,8 +58,8 @@ const createStyles =
       backgroundImage: {
         aspectRatio: 1743 / 202,
         position: 'absolute',
-        height: 160,
-        marginBottom: figureHeight - 160,
+        height: backgroundImageHeight,
+        marginBottom: figureHeight - backgroundImageHeight,
         alignSelf: 'center',
       },
       image: {
