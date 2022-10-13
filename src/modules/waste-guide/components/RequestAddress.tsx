@@ -49,7 +49,7 @@ export const RequestAddress = () => {
         </Box>
       </View>
       <View style={styles.positioningContext}>
-        <View style={styles.rowOfCanalHouseFacadesImage}>
+        <View style={styles.backgroundImage}>
           <CanalHouseFacadesImage />
         </View>
         <Box>
@@ -67,7 +67,7 @@ const createStyles = (
   isLandscape: Device['isLandscape'],
 ) => {
   const height = 192
-  const rowOfCanalHouseFacadesImageAspectRatio = 1743 / 202
+  const backgroundImageAspectRatio = 1743 / 202
 
   return StyleSheet.create({
     horizontalInset: {
@@ -78,10 +78,10 @@ const createStyles = (
       position: 'relative',
       zIndex: -1,
     },
-    rowOfCanalHouseFacadesImage: {
+    backgroundImage: {
       position: 'absolute',
       bottom: isLandscape ? 144 : 224,
-      width: height * rowOfCanalHouseFacadesImageAspectRatio,
+      width: height * backgroundImageAspectRatio,
       height,
       alignSelf: 'center',
       marginLeft: isLandscape ? -insets.left : undefined,
