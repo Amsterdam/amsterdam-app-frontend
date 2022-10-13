@@ -43,33 +43,22 @@ export const AccessibilityStatementScreen = () => {
             />
           </Column>
           <Column gutter="md">
-            <Paragraph>
-              Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft
-              de gemeente vaak contactgegevens, zoals uw telefoonnummer en
-              e-mailadres, van u nodig om u goed te kunnen helpen.
-            </Paragraph>
-            <Paragraph>
-              Voor aanvragen en hulp op het gebied van werk, inkomen, jeugdhulp
-              of zorg kan de gemeente gevoelige persoonsgegevens van u nodig
-              hebben, zoals financiële en medische gegevens. Ook verwerkt de
-              gemeente persoonsgegevens om bijvoorbeeld belasting te heffen,
-              fraude te bestrijden, handhavingstaken uit te voeren en om
-              uitvoering te geven aan het openbare orde- en veiligheidsbeleid.
-            </Paragraph>
-          </Column>
-          <Column gutter="md">
             <Title
               level="h2"
-              text="Algemene versus specifieke privacyverklaring"
+              text="Onderdelen die nog niet toegankelijk zijn"
             />
-            <Paragraph>
-              In de algemene privacyverklaring staat meer informatie over de
-              uitgangspunten waar de gemeente Amsterdam zich aan houdt. In de
-              specifieke privacyverklaring staat per thema meer informatie over
-              de manier waarop we uw persoonsgegevens gebruiken. Daar vindt u
-              bijvoorbeeld welke gegevens we gebruiken voor welk doel, en ook of
-              en met wie we die gegevens delen.
-            </Paragraph>
+            <List
+              items={[
+                {
+                  text: 'Deze opsomming bijwerken en aanvullen voordat we de eerste release uitbrengen.',
+                  color: 'red',
+                },
+                'Met Voice over op iOS wordt de focus niet altijd op het eerste interactieve element gezet.',
+                'Formulieren zijn niet uitsluitend met toetsenbord in te vullen.',
+                'Donkere modus wordt nog niet ondersteund.',
+                "In de Amsterdam app worden webpagina's getoond binnen een 'webview'. De webpagina's binnen de webview zijn niet volledig toegankelijk.",
+              ]}
+            />
           </Column>
         </Column>
       </Box>
