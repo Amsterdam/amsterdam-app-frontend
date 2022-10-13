@@ -1,31 +1,50 @@
 import {StackNavigationRoutes} from '@/app/navigation'
+import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {
-  TemplateModalName,
-  TemplateModalParams,
-  TemplateRouteName,
-  TemplateStackParams,
-} from '@/modules/template/routes'
-import {TemplateScreen} from '@/modules/template/screens'
+  AboutEnglishScreen,
+  AboutScreen,
+  AccessibilityStatementScreen,
+  AppSummaryScreen,
+  PrivacyStatementScreen,
+} from '@/modules/about/screens'
 
 export const screenConfig: StackNavigationRoutes<
-  TemplateStackParams,
-  TemplateRouteName
+  AboutStackParams,
+  AboutRouteName
 > = {
-  [TemplateRouteName.home]: {
-    component: TemplateScreen,
-    name: TemplateRouteName.home,
+  [AboutRouteName.about]: {
+    component: AboutScreen,
+    name: AboutRouteName.about,
     options: {
-      headerTitle: 'Template',
+      headerTitle: 'Over deze app',
     },
   },
-}
-
-export const templateModals: StackNavigationRoutes<
-  TemplateModalParams,
-  TemplateModalName
-> = {
-  [TemplateModalName.modal]: {
-    component: TemplateScreen,
-    name: TemplateModalName.modal,
+  [AboutRouteName.aboutEnglish]: {
+    component: AboutEnglishScreen,
+    name: AboutRouteName.aboutEnglish,
+    options: {
+      headerTitle: 'Over deze app',
+    },
+  },
+  [AboutRouteName.accessibilityStatement]: {
+    component: AccessibilityStatementScreen,
+    name: AboutRouteName.accessibilityStatement,
+    options: {
+      headerTitle: 'Over deze app',
+    },
+  },
+  [AboutRouteName.appSummary]: {
+    component: AppSummaryScreen,
+    name: AboutRouteName.appSummary,
+    options: {
+      headerTitle: 'Waarom deze app?',
+    },
+  },
+  [AboutRouteName.privacyStatement]: {
+    component: PrivacyStatementScreen,
+    name: AboutRouteName.privacyStatement,
+    options: {
+      headerTitle: 'Over deze app',
+    },
   },
 }

@@ -1,1 +1,5 @@
 export * from './About.screen'
+export * from './AboutEnglish.screen'
+export * from './AccessibilityStatement.screen'
+export * from './AppSummary.screen'
+export * from './PrivacyStatement.screen'

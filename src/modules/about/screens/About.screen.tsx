@@ -1,16 +1,49 @@
-import React, {FC} from 'react'
+import {StackNavigationProp} from '@react-navigation/stack'
+import React from 'react'
+import {getVersion} from 'react-native-device-info'
+import {RootStackParams} from '@/app/navigation'
+import {NavigationButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
-import {Screen} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
+import {Column, Screen} from '@/components/ui/layout'
+import {Phrase, Title} from '@/components/ui/text'
+import {AboutRouteName} from '@/modules/about/routes'
 
-export const AboutScreen: FC = () => {
-  // const navigation =
-  //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
+type Props = {
+  navigation: StackNavigationProp<RootStackParams, AboutRouteName.about>
+}
 
+export const AboutScreen = ({navigation}: Props) => {
   return (
     <Screen>
       <Box>
-        <Paragraph>Hallo, ik ben een module! 🎉</Paragraph>
+        <Column gutter="md">
+          <>
+            <Title text="Amsterdam App" />
+            <Phrase>Versie {getVersion()}</Phrase>
+          </>
+          <Column gutter="sm">
+            <NavigationButton
+              label="Waarom deze app?"
+              onPress={() => navigation.navigate(AboutRouteName.appSummary)}
+            />
+            <NavigationButton
+              label="Waarom deze app?"
+              onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
+            />
+            <NavigationButton
+              label="Waarom deze app?"
+              onPress={() =>
+                navigation.navigate(AboutRouteName.privacyStatement)
+              }
+            />
+            <NavigationButton
+              label="Waarom deze app?"
+              onPress={() =>
+                navigation.navigate(AboutRouteName.accessibilityStatement)
+              }
+            />
+          </Column>
+        </Column>
       </Box>
     </Screen>
   )
