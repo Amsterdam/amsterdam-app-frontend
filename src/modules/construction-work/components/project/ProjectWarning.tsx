@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -77,18 +77,20 @@ export const ProjectWarning = ({id}: Props) => {
       ) : (
         <ProjectWarningFallbackFigure />
       )}
-      <Box>
-        <Column gutter="md">
-          <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
-          <Title text={projectWarning.title} />
-          <Paragraph>{projectWarning.body}</Paragraph>
-        </Column>
-      </Box>
-      {project?.contacts && (
+      <HorizontalSafeArea>
         <Box>
-          <ProjectContacts contacts={project.contacts} />
+          <Column gutter="md">
+            <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
+            <Title text={projectWarning.title} />
+            <Paragraph>{projectWarning.body}</Paragraph>
+          </Column>
         </Box>
-      )}
+        {project?.contacts && (
+          <Box>
+            <ProjectContacts contacts={project.contacts} />
+          </Box>
+        )}
+      </HorizontalSafeArea>
     </>
   )
 }
