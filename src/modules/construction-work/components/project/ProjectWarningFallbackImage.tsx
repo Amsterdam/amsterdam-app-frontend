@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
-import ProjectWarningFallbackImageSource from '@/modules/construction-work/assets/images/project-warning-fallback-image.svg'
+import ProjectWarningFallbackImageSource from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {Theme, useThemable} from '@/themes'
 
 export const ProjectWarningFallbackImage = () => {
