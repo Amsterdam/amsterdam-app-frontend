@@ -1,12 +1,48 @@
-import React, {ReactNode} from 'react'
-import {View} from 'react-native'
-import {layoutStyles} from '@/styles'
+import React, {useMemo} from 'react'
+import {StyleSheet, View, ViewProps} from 'react-native'
 
-type Props = {
-  children: ReactNode
-  flex?: 'flex' | 'grow' | 'shrink'
+type FlexProps = {
+  basis?: number | string
+  flex?: number
+  grow?: number
+  shrink?: number
+  direction?: 'column' | 'row'
+  wrap?: boolean
 }
 
-export const Flex = ({children, flex = 'flex'}: Props) => (
-  <View style={layoutStyles[flex]}>{children}</View>
-)
+type Props = FlexProps & Omit<ViewProps, 'style'>
+
+export const Flex = ({
+  basis,
+  children,
+  direction,
+  flex,
+  grow,
+  shrink,
+  wrap,
+  ...viewProps
+}: Props) => {
+  const styles = useMemo(
+    () => createStyles({basis, flex, grow, shrink, direction}),
+    [basis, direction, flex, grow, shrink],
+  )
+  return (
+    <View style={[styles.view, wrap && styles.wrap]} {...viewProps}>
+      {children}
+    </View>
+  )
+}
+
+const createStyles = ({basis, flex, grow, shrink, direction}: FlexProps) =>
+  StyleSheet.create({
+    view: {
+      flexBasis: basis,
+      flexShrink: shrink,
+      flexGrow: grow,
+      flex,
+      flexDirection: direction,
+    },
+    wrap: {
+      flexWrap: 'wrap',
+    },
+  })
