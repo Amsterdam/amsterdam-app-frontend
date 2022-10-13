@@ -8,14 +8,14 @@ type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
   Required<Pick<FigureProps, 'height'>>
 
 type Props = {
-  backgroundImageHeight?: number
+  backgroundImageHeightFraction?: number
   Image: ReactNode
   imageAspectRatio: number
   imageWidth?: number
 } & SelectedFigureProps
 
 export const FigureWithCanalHouseFacadesBackground = ({
-  backgroundImageHeight = 160,
+  backgroundImageHeightFraction = 5 / 6,
   Image,
   imageAspectRatio,
   imageWidth,
@@ -23,7 +23,7 @@ export const FigureWithCanalHouseFacadesBackground = ({
 }: Props) => {
   const styles = useThemable(
     createStyles(
-      backgroundImageHeight,
+      backgroundImageHeightFraction,
       imageAspectRatio,
       figureProps,
       imageWidth,
@@ -42,7 +42,7 @@ export const FigureWithCanalHouseFacadesBackground = ({
 
 const createStyles =
   (
-    backgroundImageHeight: number,
+    backgroundImageHeightFraction: number,
     imageAspectRatio: Props['imageAspectRatio'],
     figureProps: SelectedFigureProps,
     requestedImageWidth: Props['imageWidth'],
@@ -53,6 +53,7 @@ const createStyles =
       figureHeight * media.aspectRatio[aspectRatio ?? 'default']
     const imageWidth = requestedImageWidth ?? figureWidth
     const imageHeight = imageWidth / imageAspectRatio
+    const backgroundImageHeight = figureHeight * backgroundImageHeightFraction
 
     return StyleSheet.create({
       backgroundImage: {

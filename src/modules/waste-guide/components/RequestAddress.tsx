@@ -39,6 +39,7 @@ export const RequestAddress = () => {
         </Box>
       </HorizontalSafeArea>
       <FigureWithCanalHouseFacadesBackground
+        backgroundImageHeightFraction={0.5}
         height={320}
         Image={<WasteGuideHomeImage />}
         imageAspectRatio={311 / 276}

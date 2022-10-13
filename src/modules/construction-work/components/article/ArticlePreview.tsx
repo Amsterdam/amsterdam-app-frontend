@@ -89,7 +89,6 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 ) : (
                   <FigureWithCanalHouseFacadesBackground
                     aspectRatio="wide"
-                    backgroundImageHeight={imageHeight * (5 / 6)}
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
                     imageAspectRatio={355 / 135}
