@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react'
-import {StyleSheet, View, ViewProps} from 'react-native'
+import {FlexStyle, StyleSheet, View, ViewProps} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 
 type Props = {
   apply?: boolean
-  flex?: number
-} & Omit<ViewProps, 'style'>
+} & Pick<FlexStyle, 'flex'> &
+  Omit<ViewProps, 'style'>
 
 export const HorizontalSafeArea = ({
   apply = true,

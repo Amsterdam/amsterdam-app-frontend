@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {FlexStyle, StyleSheet, View} from 'react-native'
 import {
   ChildrenWithGutters,
   CrossAxisAlignment,
@@ -12,12 +12,11 @@ import {SpacingTokens} from '@/themes/tokens'
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
-  flex?: number
   gutter?: keyof SpacingTokens
   valign?: CrossAxisAlignment
   reverse?: boolean
   wrap?: boolean
-}
+} & Pick<FlexStyle, 'flex'>
 
 export const Row = ({
   align,
