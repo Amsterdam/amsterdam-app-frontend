@@ -7,7 +7,7 @@ import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {
   ProjectContacts,
-  ProjectWarningFallbackImage,
+  ProjectWarningFallbackFigure,
 } from '@/modules/construction-work/components/project'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
@@ -75,7 +75,7 @@ export const ProjectWarning = ({id}: Props) => {
           source={mapWarningImageSources(mainImage.sources, environment)}
         />
       ) : (
-        <ProjectWarningFallbackImage />
+        <ProjectWarningFallbackFigure />
       )}
       <Box>
         <Column gutter="md">

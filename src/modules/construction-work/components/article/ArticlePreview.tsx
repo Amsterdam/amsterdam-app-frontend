@@ -5,7 +5,7 @@ import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/components/project/ProjectWarningFallbackImage'
+import {ProjectWarningFallbackFigure} from '@/modules/construction-work/components/project/ProjectWarningFallbackFigure'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
@@ -81,7 +81,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 {imageSources && Object.keys(imageSources[0]).length ? (
                   <Image aspectRatio="wide" source={imageSources} />
                 ) : (
-                  <ProjectWarningFallbackImage />
+                  <ProjectWarningFallbackFigure />
                 )}
               </View>
             </Column>

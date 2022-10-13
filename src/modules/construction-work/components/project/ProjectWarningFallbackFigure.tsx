@@ -5,7 +5,7 @@ import ProjectWarningFallbackImageSource from '@/modules/construction-work/asset
 import {CanalHouseFacadesImage} from '@/modules/waste-guide/assets/images'
 import {Theme, useThemable} from '@/themes'
 
-export const ProjectWarningFallbackImage = () => {
+export const ProjectWarningFallbackFigure = () => {
   const height = 192
   const styles = useThemable(createStyles(height))
 
