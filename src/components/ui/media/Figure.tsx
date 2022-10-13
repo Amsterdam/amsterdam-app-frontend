@@ -6,7 +6,7 @@ import {ImageAspectRatioTokens} from '@/themes/tokens'
 export type FigureProps = {
   aspectRatio?: keyof ImageAspectRatioTokens
   height?: number
-} & ViewProps
+} & Omit<ViewProps, 'style'>
 
 /**
  * Horizontally centers media content, e.g. an image or video.
@@ -16,8 +16,7 @@ export const Figure = ({
   aspectRatio = 'default',
   height,
   children,
-  style,
-  ...otherProps
+  ...viewProps
 }: FigureProps) => {
   const createdStyles = useMemo(
     () => createStyles({aspectRatio, height}),
@@ -26,7 +25,7 @@ export const Figure = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <View {...otherProps} style={[styles.figure, style]}>
+    <View {...viewProps} style={styles.figure}>
       <View style={styles.content}>{children}</View>
     </View>
   )
