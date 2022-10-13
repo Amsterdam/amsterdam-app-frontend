@@ -27,17 +27,17 @@ export const AboutScreen = ({navigation}: Props) => {
               onPress={() => navigation.navigate(AboutRouteName.appSummary)}
             />
             <NavigationButton
-              label="Waarom deze app?"
+              label="About this app"
               onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
             />
             <NavigationButton
-              label="Waarom deze app?"
+              label="Privacyverklaring"
               onPress={() =>
                 navigation.navigate(AboutRouteName.privacyStatement)
               }
             />
             <NavigationButton
-              label="Waarom deze app?"
+              label="Toegankelijkheidsverklaring"
               onPress={() =>
                 navigation.navigate(AboutRouteName.accessibilityStatement)
               }
