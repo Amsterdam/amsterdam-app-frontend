@@ -3,14 +3,17 @@ import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
+import {
+  FigureWithCanalHouseFacadesBackground,
+  Image,
+} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/components/project/ProjectWarningFallbackImage'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {useEnvironment} from '@/store'
-import {Theme, useThemable} from '@/themes'
+import {Theme, useThemable, useTheme} from '@/themes'
 import {
   formatDateToDisplay,
   getDateDiffInDays,
@@ -51,8 +54,11 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
     )
   }, [article.identifier, article.publication_date, readArticles])
 
+  const {media} = useTheme()
+  const imageWidth = 256
+  const imageHeight = imageWidth / media.aspectRatio.wide
   const styles = useThemable(
-    createStyles({isFirst, isLast}, isNewAndUnreadArticle),
+    createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
 
   return (
@@ -81,7 +87,12 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 {imageSources && Object.keys(imageSources[0]).length ? (
                   <Image aspectRatio="wide" source={imageSources} />
                 ) : (
-                  <ProjectWarningFallbackImage />
+                  <FigureWithCanalHouseFacadesBackground
+                    aspectRatio="wide"
+                    height={imageHeight}
+                    Image={<ProjectWarningFallbackImage />}
+                    imageAspectRatio={355 / 135}
+                  />
                 )}
               </View>
             </Column>
@@ -99,6 +110,7 @@ const verticalLineTopWithoutAlert = 15
 const createStyles =
   (
     {isFirst, isLast}: Partial<Props>,
+    imageWidth: number,
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
   ({color, size}: Theme) => {
@@ -115,7 +127,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       image: {
-        paddingRight: size.spacing.xxl,
+        width: imageWidth,
       },
       item: {
         paddingBottom: itemBottomInset,

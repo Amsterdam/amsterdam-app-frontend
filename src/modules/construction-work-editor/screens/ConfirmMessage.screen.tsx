@@ -27,7 +27,7 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
-import HeroImage from '@/modules/construction-work/assets/images/project-warning-fallback-image.svg'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
 import {Theme, useThemable} from '@/themes'
@@ -136,7 +136,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Image source={{uri: mainImage?.path}} />
       ) : (
         <View style={styles.placeholder}>
-          <HeroImage />
+          <ProjectWarningFallbackImage />
         </View>
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}

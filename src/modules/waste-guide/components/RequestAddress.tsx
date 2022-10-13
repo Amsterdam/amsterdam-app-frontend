@@ -2,33 +2,27 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {RootStackParams} from '@/app/navigation'
 import {Location} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
-import {Figure} from '@/components/ui/media'
+import {FigureWithCanalHouseFacadesBackground} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
-import {
-  CanalHouseFacadesImage,
-  WasteGuideHomeImage,
-} from '@/modules/waste-guide/assets/images'
+import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
 import {Device, DeviceContext} from '@/providers'
 
 export const RequestAddress = () => {
-  const insets = useSafeAreaInsets()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
-
   const {isLandscape} = useContext(DeviceContext)
-  const styles = createStyles(insets, isLandscape)
+  const styles = createStyles(isLandscape)
 
   return (
     <Column align="between" grow>
-      <View style={styles.horizontalInset}>
+      <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
             <Paragraph>
@@ -47,44 +41,24 @@ export const RequestAddress = () => {
             </Row>
           </Column>
         </Box>
-      </View>
-      <View style={styles.positioningContext}>
-        <View style={styles.rowOfCanalHouseFacadesImage}>
-          <CanalHouseFacadesImage />
-        </View>
-        <Box>
-          <Figure height={256}>
-            <WasteGuideHomeImage />
-          </Figure>
-        </Box>
+      </HorizontalSafeArea>
+      <View style={styles.moveFigureUp}>
+        <FigureWithCanalHouseFacadesBackground
+          backgroundImageHeightFraction={0.5}
+          height={320}
+          Image={<WasteGuideHomeImage />}
+          imageAspectRatio={311 / 276}
+          imageWidth={288}
+        />
       </View>
     </Column>
   )
 }
 
-const createStyles = (
-  insets: EdgeInsets,
-  isLandscape: Device['isLandscape'],
-) => {
-  const height = 192
-  const rowOfCanalHouseFacadesImageAspectRatio = 1743 / 202
-
-  return StyleSheet.create({
-    horizontalInset: {
-      paddingLeft: isLandscape ? insets.left : undefined,
-      paddingRight: isLandscape ? insets.right : undefined,
-    },
-    positioningContext: {
-      position: 'relative',
-      zIndex: -1,
-    },
-    rowOfCanalHouseFacadesImage: {
-      position: 'absolute',
-      bottom: isLandscape ? 144 : 224,
-      width: height * rowOfCanalHouseFacadesImageAspectRatio,
-      height,
-      alignSelf: 'center',
-      marginLeft: isLandscape ? -insets.left : undefined,
+const createStyles = (isLandscape: Device['isLandscape']) =>
+  StyleSheet.create({
+    moveFigureUp: {
+      marginTop: isLandscape ? -80 : undefined,
+      zIndex: isLandscape ? -1 : undefined,
     },
   })
-}

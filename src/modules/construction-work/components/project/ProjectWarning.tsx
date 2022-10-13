@@ -1,14 +1,15 @@
 import {useNavigation} from '@react-navigation/native'
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
 import {
-  ProjectContacts,
-  ProjectWarningFallbackImage,
-} from '@/modules/construction-work/components/project'
+  FigureWithCanalHouseFacadesBackground,
+  Image,
+} from '@/components/ui/media'
+import {Paragraph, Title} from '@/components/ui/text'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectQuery,
@@ -75,20 +76,26 @@ export const ProjectWarning = ({id}: Props) => {
           source={mapWarningImageSources(mainImage.sources, environment)}
         />
       ) : (
-        <ProjectWarningFallbackImage />
+        <FigureWithCanalHouseFacadesBackground
+          height={192}
+          Image={<ProjectWarningFallbackImage />}
+          imageAspectRatio={355 / 135}
+        />
       )}
-      <Box>
-        <Column gutter="md">
-          <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
-          <Title text={projectWarning.title} />
-          <Paragraph>{projectWarning.body}</Paragraph>
-        </Column>
-      </Box>
-      {project?.contacts && (
+      <HorizontalSafeArea>
         <Box>
-          <ProjectContacts contacts={project.contacts} />
+          <Column gutter="md">
+            <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
+            <Title text={projectWarning.title} />
+            <Paragraph>{projectWarning.body}</Paragraph>
+          </Column>
         </Box>
-      )}
+        {project?.contacts && (
+          <Box>
+            <ProjectContacts contacts={project.contacts} />
+          </Box>
+        )}
+      </HorizontalSafeArea>
     </>
   )
 }
