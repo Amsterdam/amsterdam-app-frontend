@@ -23,14 +23,14 @@ export const screenConfig: StackNavigationRoutes<
     component: AboutEnglishScreen,
     name: AboutRouteName.aboutEnglish,
     options: {
-      headerTitle: 'Over deze app',
+      headerTitle: 'About this app',
     },
   },
   [AboutRouteName.accessibilityStatement]: {
     component: AccessibilityStatementScreen,
     name: AboutRouteName.accessibilityStatement,
     options: {
-      headerTitle: 'Over deze app',
+      headerTitle: 'Toegankelijkheidsverklaring',
     },
   },
   [AboutRouteName.appSummary]: {
@@ -44,7 +44,7 @@ export const screenConfig: StackNavigationRoutes<
     component: PrivacyStatementScreen,
     name: AboutRouteName.privacyStatement,
     options: {
-      headerTitle: 'Over deze app',
+      headerTitle: 'Privacyverklaring',
     },
   },
 }
