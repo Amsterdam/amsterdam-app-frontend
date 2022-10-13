@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext} from 'react'
+import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Location} from '@/assets/icons'
@@ -15,14 +15,13 @@ import {
   CanalHouseFacadesImage,
   WasteGuideHomeImage,
 } from '@/modules/waste-guide/assets/images'
-import {Device, DeviceContext} from '@/providers'
 
 export const RequestAddress = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
 
-  const {isLandscape} = useContext(DeviceContext)
-  const styles = createStyles(isLandscape)
+  const figureHeight = 320
+  const styles = createStyles(figureHeight)
 
   return (
     <Column align="between" grow>
@@ -46,34 +45,35 @@ export const RequestAddress = () => {
           </Column>
         </Box>
       </HorizontalSafeArea>
-      <View style={styles.positioningContext}>
+      <Figure height={figureHeight}>
         <View style={styles.backgroundImage}>
           <CanalHouseFacadesImage />
         </View>
-        <Box>
-          <Figure height={256}>
-            <WasteGuideHomeImage />
-          </Figure>
-        </Box>
-      </View>
+        <View style={styles.image}>
+          <WasteGuideHomeImage />
+        </View>
+      </Figure>
     </Column>
   )
 }
 
-const createStyles = (isLandscape: Device['isLandscape']) => {
-  const height = 192
-  const backgroundImageAspectRatio = 1743 / 202
+const createStyles = (figureHeight: number) => {
+  const imageAspectRatio = 311 / 276
+  const imageWidth = 288
+  const imageHeight = imageWidth / imageAspectRatio
 
   return StyleSheet.create({
-    positioningContext: {
-      position: 'relative',
-      zIndex: -1,
-    },
     backgroundImage: {
+      aspectRatio: 1743 / 202,
       position: 'absolute',
-      bottom: isLandscape ? 144 : 224,
-      width: height * backgroundImageAspectRatio,
-      height,
+      height: 160,
+      marginBottom: figureHeight - 160,
+      alignSelf: 'center',
+    },
+    image: {
+      aspectRatio: imageAspectRatio,
+      height: imageHeight,
+      marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
       alignSelf: 'center',
     },
   })

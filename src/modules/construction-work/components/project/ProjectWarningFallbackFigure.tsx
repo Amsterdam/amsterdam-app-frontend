@@ -30,16 +30,17 @@ const createStyles =
 
     return StyleSheet.create({
       backgroundImage: {
-        position: 'absolute',
-        height: 192,
         aspectRatio: 1743 / 202,
-        paddingBottom: 32,
+        position: 'absolute',
+        height: 160,
+        marginBottom: figureHeight - 160,
         alignSelf: 'center',
       },
       image: {
-        height: imageHeight,
         aspectRatio: imageAspectRatio,
+        height: imageHeight,
         marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
+        alignSelf: 'center',
       },
     })
   }
