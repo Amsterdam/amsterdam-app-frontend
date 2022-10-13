@@ -2,11 +2,10 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {RootStackParams} from '@/app/navigation'
 import {Location} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
@@ -19,16 +18,15 @@ import {
 import {Device, DeviceContext} from '@/providers'
 
 export const RequestAddress = () => {
-  const insets = useSafeAreaInsets()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
 
   const {isLandscape} = useContext(DeviceContext)
-  const styles = createStyles(insets, isLandscape)
+  const styles = createStyles(isLandscape)
 
   return (
     <Column align="between" grow>
-      <View style={styles.horizontalInset}>
+      <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
             <Paragraph>
@@ -47,7 +45,7 @@ export const RequestAddress = () => {
             </Row>
           </Column>
         </Box>
-      </View>
+      </HorizontalSafeArea>
       <View style={styles.positioningContext}>
         <View style={styles.backgroundImage}>
           <CanalHouseFacadesImage />
@@ -62,18 +60,11 @@ export const RequestAddress = () => {
   )
 }
 
-const createStyles = (
-  insets: EdgeInsets,
-  isLandscape: Device['isLandscape'],
-) => {
+const createStyles = (isLandscape: Device['isLandscape']) => {
   const height = 192
   const backgroundImageAspectRatio = 1743 / 202
 
   return StyleSheet.create({
-    horizontalInset: {
-      paddingLeft: isLandscape ? insets.left : undefined,
-      paddingRight: isLandscape ? insets.right : undefined,
-    },
     positioningContext: {
       position: 'relative',
       zIndex: -1,
@@ -84,7 +75,6 @@ const createStyles = (
       width: height * backgroundImageAspectRatio,
       height,
       alignSelf: 'center',
-      marginLeft: isLandscape ? -insets.left : undefined,
     },
   })
 }
