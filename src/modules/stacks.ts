@@ -1,5 +1,7 @@
 import {ComponentType} from 'react'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation'
+import {AboutStack} from '@/modules/about/Stack'
+import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {AddressStack} from '@/modules/address/Stack'
 import {
   AddressModalParams,
@@ -70,6 +72,7 @@ import {
 import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
 
 export type ModuleRoutes =
+  | AboutRouteName
   | AddressRouteName
   | ConstructionWorkRouteName
   | ConstructionWorkEditorRouteName
@@ -81,7 +84,8 @@ export type ModuleRoutes =
   | UserRouteName
   | WasteGuideRouteName
 
-export type ModuleStackParams = AddressStackParams &
+export type ModuleStackParams = AboutStackParams &
+  AddressStackParams &
   ConstructionWorkStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
@@ -93,6 +97,7 @@ export type ModuleStackParams = AddressStackParams &
   WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
+  [ModuleSlug.about]: AboutStack,
   [ModuleSlug.address]: AddressStack,
   [ModuleSlug['construction-work']]: ConstructionWorkStack,
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,

@@ -1,3 +1,4 @@
+import {module as aboutModule} from './about'
 import {module as addressModule} from './address'
 import {module as constructionWorkModule} from './construction-work'
 import {module as constructionWorkEditorModule} from './construction-work-editor'
@@ -13,6 +14,7 @@ const coreModules = [addressModule, homeModule, userModule]
 
 export const clientModules = [
   ...coreModules,
+  aboutModule,
   constructionWorkEditorModule,
   constructionWorkModule,
   contactModule,
