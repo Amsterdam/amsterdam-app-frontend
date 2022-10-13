@@ -1,4 +1,3 @@
-import {useFocusEffect} from '@react-navigation/core'
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {Badge} from '@/components/ui/feedback'
@@ -9,7 +8,7 @@ import {selectConstructionWorkReadArticles} from '@/modules/construction-work/sl
 export const BadgeValue = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const {data, refetch} = useGetProjectsFollowedArticlesQuery({
+  const {data} = useGetProjectsFollowedArticlesQuery({
     'article-max-age': recentArticleMaxAge,
   })
   const projects = data?.projects
@@ -26,10 +25,6 @@ export const BadgeValue = () => {
       }, 0),
     [projects, readArticles],
   )
-
-  useFocusEffect(() => {
-    refetch()
-  })
 
   if (unreadArticlesLength) {
     return (
