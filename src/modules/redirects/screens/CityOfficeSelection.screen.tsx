@@ -24,7 +24,7 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
       <Column gutter="md">
         <Title text="Waar wilt u een afspraak maken?" />
         <Row gutter="md">
-          <Flex>
+          <Flex flex={1}>
             <Button
               label="Amsterdam"
               onPress={() =>
@@ -32,7 +32,7 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
               }
             />
           </Flex>
-          <Flex>
+          <Flex flex={1}>
             <Button
               label="Weesp"
               onPress={() => openWebUrl(appointmentFormWeespUrl)}
