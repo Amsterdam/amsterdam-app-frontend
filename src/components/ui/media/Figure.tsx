@@ -43,6 +43,7 @@ const createStyles =
       figure: {
         flexDirection: 'row',
         justifyContent: 'center',
+        overflow: 'hidden',
       },
       content: {
         maxWidth: '100%',
