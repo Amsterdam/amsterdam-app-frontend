@@ -9,7 +9,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Column, Row} from '@/components/ui/layout'
+import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
@@ -44,7 +44,7 @@ export const DisplayAddress = ({address}: Props) => {
   }
 
   return (
-    <Column gutter="md">
+    <Column gutter="sm">
       <Column>
         <Paragraph>{address.adres}</Paragraph>
         <Paragraph>
@@ -55,18 +55,26 @@ export const DisplayAddress = ({address}: Props) => {
           ].join(' ')}
         </Paragraph>
       </Column>
-      <Row gutter="md">
-        <Button
-          label="Wijzig adres"
-          onPress={() => navigation.navigate(AddressModalName.addressForm)}
-          variant="primary"
-        />
-        <Button
-          icon={Remove}
-          label="Verwijder"
-          onPress={removeAddressAndShowAlert}
-          variant="tertiary"
-        />
+      <Row gutter="md" wrap>
+        <Column>
+          <Gutter height="sm" />
+          <Button
+            label="Wijzig adres"
+            onPress={() => navigation.navigate(AddressModalName.addressForm)}
+            small
+            variant="primary"
+          />
+        </Column>
+        <Column>
+          <Gutter height="sm" />
+          <Button
+            icon={Remove}
+            label="Verwijder adres"
+            onPress={removeAddressAndShowAlert}
+            small
+            variant="secondary"
+          />
+        </Column>
       </Row>
     </Column>
   )
