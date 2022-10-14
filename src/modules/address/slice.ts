@@ -3,7 +3,7 @@ import {Address} from '@/modules/address/types'
 import {RootState} from '@/store'
 
 type AddressState = {
-  primary?: Address
+  address?: Address
 }
 
 export const addressSlice = createSlice({
@@ -11,10 +11,10 @@ export const addressSlice = createSlice({
   initialState: {} as AddressState,
   reducers: {
     addAddress: (state, {payload}: PayloadAction<Address>) => {
-      state.primary = payload
+      state.address = payload
     },
     removePrimaryAddress: state => {
-      state.primary = undefined
+      state.address = undefined
     },
   },
 })

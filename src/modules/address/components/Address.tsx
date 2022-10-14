@@ -10,7 +10,7 @@ import {
 import {selectAddress} from '@/modules/address/slice'
 
 export const Address = () => {
-  const {primary: address} = useSelector(selectAddress)
+  const {address} = useSelector(selectAddress)
 
   return (
     <Box background="white">
