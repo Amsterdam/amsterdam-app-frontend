@@ -4,12 +4,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Button} from '@/components/ui/buttons'
+import {Button, ButtonRow} from '@/components/ui/buttons'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
@@ -44,7 +44,7 @@ export const DisplayAddress = ({address}: Props) => {
   }
 
   return (
-    <Column gutter="sm">
+    <Column gutter="md">
       <Column>
         <Paragraph>{address.adres}</Paragraph>
         <Paragraph>
@@ -55,27 +55,21 @@ export const DisplayAddress = ({address}: Props) => {
           ].join(' ')}
         </Paragraph>
       </Column>
-      <Row gutter="md" wrap>
-        <Column>
-          <Gutter height="sm" />
-          <Button
-            label="Wijzig adres"
-            onPress={() => navigation.navigate(AddressModalName.addressForm)}
-            small
-            variant="primary"
-          />
-        </Column>
-        <Column>
-          <Gutter height="sm" />
-          <Button
-            icon={Remove}
-            label="Verwijder adres"
-            onPress={removeAddressAndShowAlert}
-            small
-            variant="secondary"
-          />
-        </Column>
-      </Row>
+      <ButtonRow>
+        <Button
+          label="Wijzig adres"
+          onPress={() => navigation.navigate(AddressModalName.addressForm)}
+          small
+          variant="primary"
+        />
+        <Button
+          icon={Remove}
+          label="Verwijder adres"
+          onPress={removeAddressAndShowAlert}
+          small
+          variant="secondary"
+        />
+      </ButtonRow>
     </Column>
   )
 }

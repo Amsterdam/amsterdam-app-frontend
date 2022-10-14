@@ -1,5 +1,6 @@
 export * from './AddButton'
 export * from './Button'
+export * from './ButtonRow'
 export * from './CloseModalButton'
 export * from './FollowButton'
 export * from './IconButton'
