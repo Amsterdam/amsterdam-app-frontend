@@ -13,7 +13,7 @@ export const RedirectsScreen: FC = () => {
   return (
     <Screen>
       <Box>
-        <Column gutter="lg">
+        <Column gutter="md">
           <Column gutter="xs">
             <Title text="Direct regelen" />
             <Paragraph>
