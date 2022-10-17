@@ -143,6 +143,7 @@ export const AppointmentOverviewScreen = () => {
                     <Column gutter="md">
                       {externalLinks.map(({label, url}) => (
                         <Link
+                          key={label}
                           label={label}
                           onPress={() => openWebUrl(url)}
                           variant="external"
