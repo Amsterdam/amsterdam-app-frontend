@@ -1,3 +1,3 @@
-export * from './AppointmentOverview.screen'
-export * from './CityOfficeSelection.screen'
+export * from './MakeAppointment.screen'
 export * from './Redirects.screen'
+export * from './SelectCity.screen'

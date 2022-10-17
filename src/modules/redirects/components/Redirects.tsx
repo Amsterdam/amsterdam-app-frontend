@@ -68,7 +68,7 @@ const redirects: RedirectResponse[] = [
   },
   {
     icon: 'person-desk',
-    internalLink: RedirectsRouteName.cityOfficeSelection,
+    internalLink: RedirectsRouteName.selectCity,
     text: 'Bekijk voor welke onderwerpen u een afspraak kunt maken.',
     title: 'Afspraak maken op Stadsloket',
   },

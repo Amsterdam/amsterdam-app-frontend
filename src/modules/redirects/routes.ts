@@ -1,11 +1,11 @@
 export enum RedirectsRouteName {
-  appointmentOverview = 'AppointmentOverview',
-  cityOfficeSelection = 'CityOfficeSelection',
+  makeAppointment = 'makeAppointment',
+  selectCity = 'SelectCity',
   redirects = 'Redirects',
 }
 
 export type RedirectsStackParams = {
-  [RedirectsRouteName.appointmentOverview]: undefined
-  [RedirectsRouteName.cityOfficeSelection]: undefined
+  [RedirectsRouteName.makeAppointment]: undefined
+  [RedirectsRouteName.selectCity]: undefined
   [RedirectsRouteName.redirects]: undefined
 }

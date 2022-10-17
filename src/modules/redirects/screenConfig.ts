@@ -4,25 +4,18 @@ import {
   RedirectsStackParams,
 } from '@/modules/redirects/routes'
 import {
-  AppointmentOverviewScreen,
-  CityOfficeSelectionScreen,
+  MakeAppointmentScreen,
   RedirectsScreen,
+  SelectCityScreen,
 } from '@/modules/redirects/screens'
 
 export const screenConfig: StackNavigationRoutes<
   RedirectsStackParams,
   RedirectsRouteName
 > = {
-  [RedirectsRouteName.appointmentOverview]: {
-    component: AppointmentOverviewScreen,
-    name: RedirectsRouteName.appointmentOverview,
-    options: {
-      headerTitle: 'Afspraak maken op Stadsloket',
-    },
-  },
-  [RedirectsRouteName.cityOfficeSelection]: {
-    component: CityOfficeSelectionScreen,
-    name: RedirectsRouteName.cityOfficeSelection,
+  [RedirectsRouteName.makeAppointment]: {
+    component: MakeAppointmentScreen,
+    name: RedirectsRouteName.makeAppointment,
     options: {
       headerTitle: 'Afspraak maken op Stadsloket',
     },
@@ -32,6 +25,13 @@ export const screenConfig: StackNavigationRoutes<
     name: RedirectsRouteName.redirects,
     options: {
       headerTitle: 'Direct regelen',
+    },
+  },
+  [RedirectsRouteName.selectCity]: {
+    component: SelectCityScreen,
+    name: RedirectsRouteName.selectCity,
+    options: {
+      headerTitle: 'Afspraak maken op Stadsloket',
     },
   },
 }

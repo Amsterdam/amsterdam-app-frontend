@@ -11,14 +11,14 @@ import {openWebUrl} from '@/utils'
 type Props = {
   navigation: StackNavigationProp<
     RootStackParams,
-    RedirectsRouteName.cityOfficeSelection
+    RedirectsRouteName.selectCity
   >
 }
 
 const appointmentFormWeespUrl =
   'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx'
 
-export const CityOfficeSelectionScreen = ({navigation}: Props) => {
+export const SelectCityScreen = ({navigation}: Props) => {
   return (
     <Screen>
       <Box>
@@ -30,7 +30,7 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
                 accessibilityRole="link"
                 label="Amsterdam"
                 onPress={() =>
-                  navigation.navigate(RedirectsRouteName.appointmentOverview)
+                  navigation.navigate(RedirectsRouteName.makeAppointment)
                 }
               />
             </Column>

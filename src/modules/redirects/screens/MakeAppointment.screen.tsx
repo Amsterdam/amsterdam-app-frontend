@@ -102,7 +102,7 @@ const sections: Section[] = [
   },
 ]
 
-export const AppointmentOverviewScreen = () => {
+export const MakeAppointmentScreen = () => {
   return (
     <Screen>
       <Box>
