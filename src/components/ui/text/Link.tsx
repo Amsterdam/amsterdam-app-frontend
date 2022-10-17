@@ -1,6 +1,4 @@
 import React, {SVGProps} from 'react'
-import {View} from 'react-native'
-import {StyleSheet} from 'react-native'
 import {ChevronLeft, ChevronRight, ExternalLink} from '@/assets/icons'
 import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
@@ -20,8 +18,6 @@ type LinkIconProps = {
   external?: boolean
 }
 
-const iconWidth = 16
-
 const LinkIcon = ({direction, external}: LinkIconProps) => {
   const ChevronIcon = external
     ? ExternalLink
@@ -30,16 +26,13 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
     : ChevronRight
   const iconProps = useThemable(createIconProps)
   const {text} = useTheme()
-  const styles = createStyles()
 
   return (
-    <View style={styles.iconWrapper}>
-      <Size height={1.4 * text.fontSize.body}>
-        <Icon size={iconWidth}>
-          <ChevronIcon {...iconProps} />
-        </Icon>
-      </Size>
-    </View>
+    <Size height={1.4 * text.fontSize.body}>
+      <Icon>
+        <ChevronIcon {...iconProps} />
+      </Icon>
+    </Size>
   )
 }
 
@@ -57,9 +50,7 @@ export const Link = ({label, onPress, variant = 'default'}: Props) => {
       <Row gutter="xs">
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
         {variant === 'default' && <LinkIcon direction={Direction.right} />}
-        <Size marginRight={iconWidth} maxWidth="100%">
-          <Phrase color="link">{label} </Phrase>
-        </Size>
+        <Phrase color="link">{label}</Phrase>
         {variant === 'forward' && <LinkIcon direction={Direction.right} />}
         {variant === 'external' && <LinkIcon external />}
       </Row>
@@ -70,10 +61,3 @@ export const Link = ({label, onPress, variant = 'default'}: Props) => {
 const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
   fill: color.text.link,
 })
-
-const createStyles = () =>
-  StyleSheet.create({
-    iconWrapper: {
-      left: -iconWidth,
-    },
-  })
