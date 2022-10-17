@@ -31,6 +31,6 @@ const createStyles =
   ({size}: Theme) =>
     StyleSheet.create({
       compensateMargin: {
-        marginBottom: size.spacing[gutter] * -1,
+        marginBottom: -size.spacing[gutter],
       },
     })
