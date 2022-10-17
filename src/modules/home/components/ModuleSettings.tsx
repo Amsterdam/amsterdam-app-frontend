@@ -79,7 +79,12 @@ export const ModuleSettings = () => {
                 label={
                   <Column gutter="sm">
                     <Row gutter="sm" valign="center">
-                      {!!iconName && <Icon name={iconName} size={24} />}
+                      {/* TODO Remove fallback after updating icon name in database. */}
+                      {iconName === 'projects' ? (
+                        <Icon name="construction-work" size={24} />
+                      ) : (
+                        !!iconName && <Icon name={iconName} size={24} />
+                      )}
                       <Title level="h5" text={title} />
                     </Row>
                     <Paragraph variant="small">{description}</Paragraph>

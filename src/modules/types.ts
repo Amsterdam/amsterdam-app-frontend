@@ -22,7 +22,7 @@ export type ModuleClientConfig = {
  */
 export type ModuleServerConfig = {
   description: string
-  icon: IconName
+  icon: IconName | 'projects'
   slug: ModuleSlug
   status: number
   title: string
