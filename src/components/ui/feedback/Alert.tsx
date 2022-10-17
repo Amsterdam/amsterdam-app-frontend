@@ -39,7 +39,7 @@ export const Alert = () => {
   const {closeType, content, variant, withIcon} = alert
 
   const variantConfig = useThemable(createVariantConfig)
-  const iconName = variantConfig[variant].iconName
+  const iconName = variantConfig[variant ?? AlertVariant.information].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
