@@ -42,6 +42,10 @@ import {
 } from '@/modules/open-waste-container/routes'
 import {openWasteContainerModals} from '@/modules/open-waste-container/screenConfig'
 import {RedirectsStack} from '@/modules/redirects/Stack'
+import {
+  RedirectsRouteName,
+  RedirectsStackParams,
+} from '@/modules/redirects/routes'
 import {ReportProblemStack} from '@/modules/report-problem/Stack'
 import {
   ReportProblemModalParams,
@@ -72,6 +76,7 @@ export type ModuleRoutes =
   | ContactRouteName
   | HomeRouteName
   | OpenWasteContainerRouteName
+  | RedirectsRouteName
   | ReportProblemRouteName
   | UserRouteName
   | WasteGuideRouteName
@@ -82,6 +87,7 @@ export type ModuleStackParams = AddressStackParams &
   ContactStackParams &
   HomeStackParams &
   OpenWasteContainerStackParams &
+  RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
   WasteGuideStackParams

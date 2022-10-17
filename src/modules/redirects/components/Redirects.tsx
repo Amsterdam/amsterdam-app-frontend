@@ -1,4 +1,7 @@
+import {useNavigation} from '@react-navigation/core'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {RootStackParams} from '@/app/navigation'
 import {
   Car,
   Card,
@@ -11,6 +14,7 @@ import {
 } from '@/assets/icons'
 import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
+import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {Theme, useThemable} from '@/themes'
 import {SvgProps} from '@/types'
 import {accessibleText, openWebUrl} from '@/utils'
@@ -25,9 +29,10 @@ type RedirectResponse = {
     | 'login'
     | 'person-desk'
     | 'city-pass'
+  internalLink?: RedirectsRouteName
   text: string
   title: string
-  url: string
+  url?: string
 }
 
 const redirects: RedirectResponse[] = [
@@ -63,9 +68,9 @@ const redirects: RedirectResponse[] = [
   },
   {
     icon: 'person-desk',
+    internalLink: RedirectsRouteName.selectCity,
     text: 'Bekijk voor welke onderwerpen u een afspraak kunt maken.',
     title: 'Afspraak maken op Stadsloket',
-    url: 'https://www.amsterdam.nl/contact/afspraak-maken-stadsloket/',
   },
   {
     icon: 'collaborate',
@@ -94,10 +99,14 @@ export const icons: {[i in RedirectResponse['icon']]: React.ElementType} = {
 
 export const Redirects = () => {
   const iconProps = useThemable(createIconProps)
+  const navigation =
+    useNavigation<
+      StackNavigationProp<RootStackParams, RedirectsRouteName.redirects>
+    >()
 
   return (
     <Column>
-      {redirects.map(({icon, text, title, url}) => {
+      {redirects.map(({icon, internalLink, text, title, url}) => {
         const Icon = icons[icon]
 
         return (
@@ -106,7 +115,11 @@ export const Redirects = () => {
             accessibilityRole="link"
             icon={<Icon {...iconProps} />}
             key={icon}
-            onPress={() => openWebUrl(url)}
+            onPress={() =>
+              internalLink
+                ? navigation.navigate(internalLink)
+                : url && openWebUrl(url)
+            }
             text={text}
             title={title}
           />

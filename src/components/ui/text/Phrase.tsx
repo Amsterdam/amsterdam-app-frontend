@@ -53,6 +53,7 @@ const createStyles =
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
+        flexShrink: 1,
         color: color.text[textColor],
         fontFamily: text.fontWeight[fontWeight],
         fontSize: text.fontSize[variant],

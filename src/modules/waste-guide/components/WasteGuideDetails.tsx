@@ -89,7 +89,11 @@ export const WasteGuideDetails = ({
           />
         )}
         {!!footerLink && (
-          <Link label={footerLink.text} onPress={footerLink.onPress} />
+          <Link
+            label={footerLink.text}
+            onPress={footerLink.onPress}
+            variant="forward"
+          />
         )}
       </Column>
     </Track>
