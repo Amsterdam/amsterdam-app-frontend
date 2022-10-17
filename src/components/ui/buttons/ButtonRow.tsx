@@ -15,8 +15,8 @@ export const ButtonRow = ({children}: Props) => {
   return (
     <View style={styles.compensateMargin}>
       <Row gutter={gutter} wrap>
-        {children.map(Button => (
-          <Column>
+        {children.map((Button, index) => (
+          <Column key={index}>
             {Button}
             <Gutter height={gutter} />
           </Column>
