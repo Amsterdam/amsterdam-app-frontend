@@ -13,7 +13,7 @@ import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
-import {removePrimaryAddress} from '@/modules/address/slice'
+import {removeAddress} from '@/modules/address/slice'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store'
 
@@ -29,7 +29,7 @@ export const DisplayAddress = ({address}: Props) => {
     >()
 
   const removeAddressAndShowAlert = () => {
-    dispatch(removePrimaryAddress())
+    dispatch(removeAddress())
     dispatch(
       setAlert({
         closeType: AlertCloseType.withoutButton,

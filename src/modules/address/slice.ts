@@ -13,12 +13,12 @@ export const addressSlice = createSlice({
     addAddress: (state, {payload}: PayloadAction<Address>) => {
       state.address = payload
     },
-    removePrimaryAddress: state => {
+    removeAddress: state => {
       state.address = undefined
     },
   },
 })
 
-export const {addAddress, removePrimaryAddress} = addressSlice.actions
+export const {addAddress, removeAddress} = addressSlice.actions
 
 export const selectAddress = (state: RootState) => state.address
