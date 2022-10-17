@@ -2,12 +2,12 @@ import React, {useMemo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 
 type SizeProps = {
-  height?: number | string
-  maxHeight?: number | string
-  maxWidth?: number | string
-  minHeight?: number | string
-  minWidth?: number | string
-  width?: number | string
+  height?: number
+  maxHeight?: number
+  maxWidth?: number
+  minHeight?: number
+  minWidth?: number
+  width?: number
 }
 
 type Props = SizeProps & Omit<ViewProps, 'style'>
