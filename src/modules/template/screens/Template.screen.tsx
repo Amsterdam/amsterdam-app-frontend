@@ -1,11 +1,10 @@
-import React, {FC} from 'react'
+import React from 'react'
 import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 
-export const TemplateScreen: FC = () => {
-  // const navigation =
-  //   useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
+export const TemplateScreen = () => {
+  // const navigation = useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
   return (
     <Screen>

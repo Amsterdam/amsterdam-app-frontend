@@ -96,7 +96,7 @@ export const Redirects = () => {
   const iconProps = useThemable(createIconProps)
 
   return (
-    <Column gutter="sm">
+    <Column>
       {redirects.map(({icon, text, title, url}) => {
         const Icon = icons[icon]
 
