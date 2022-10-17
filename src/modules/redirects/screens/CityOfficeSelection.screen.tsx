@@ -3,7 +3,7 @@ import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
-import {Column, Flex, Row, Screen} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {openWebUrl} from '@/utils'
@@ -25,7 +25,7 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
         <Column gutter="md">
           <Title text="Waar wilt u een afspraak maken?" />
           <Row gutter="md">
-            <Flex flex={1}>
+            <Column flex={1}>
               <Button
                 accessibilityRole="link"
                 label="Amsterdam"
@@ -33,15 +33,15 @@ export const CityOfficeSelectionScreen = ({navigation}: Props) => {
                   navigation.navigate(RedirectsRouteName.appointmentOverview)
                 }
               />
-            </Flex>
-            <Flex flex={1}>
+            </Column>
+            <Column flex={1}>
               <Button
                 accessibilityRole="link"
                 label="Weesp"
                 onPress={() => openWebUrl(appointmentFormWeespUrl)}
                 variant="secondary"
               />
-            </Flex>
+            </Column>
           </Row>
         </Column>
       </Box>

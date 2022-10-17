@@ -2,7 +2,7 @@ import React from 'react'
 import {Phone} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {Accordion, Box, SingleSelectable} from '@/components/ui/containers'
-import {Column, Flex, Screen} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {Link, Paragraph, Title} from '@/components/ui/text'
 import {openPhoneUrl, openWebUrl} from '@/utils'
 
@@ -127,7 +127,7 @@ export const AppointmentOverviewScreen = () => {
                       <Paragraph>
                         Afspraak maken kan alleen telefonisch
                       </Paragraph>
-                      <Flex direction="row" shrink={1}>
+                      <Row>
                         <Button
                           accessibilityLabel="Bel veertien nul twintig"
                           icon={Phone}
@@ -136,7 +136,7 @@ export const AppointmentOverviewScreen = () => {
                             openPhoneUrl('14020')
                           }}
                         />
-                      </Flex>
+                      </Row>
                     </Column>
                   )}
                   {!!externalLinks?.length && (
