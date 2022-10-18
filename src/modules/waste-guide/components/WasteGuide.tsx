@@ -27,8 +27,8 @@ export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
 
   const {data, isLoading} = useGetGarbageCollectionAreaQuery({
-    lon: address?.centroid[0] ?? '',
-    lat: address?.centroid[1] ?? '',
+    lon: address?.centroid?.[0] ?? '',
+    lat: address?.centroid?.[1] ?? '',
   })
 
   const environment = useEnvironment()
