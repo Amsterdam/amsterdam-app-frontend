@@ -20,7 +20,7 @@ export const ProjectsScreen = () => {
   const isSearching = useSelector(selectConstructionWorkIsSearching)
   const searchText = useSelector(selectConstructionWorkSearchText)
 
-  const hasAddress = !!address
+  const hasAddress = !!address.adres
   const hasSearchText = !!searchText
 
   return (
