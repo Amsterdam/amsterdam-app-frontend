@@ -35,7 +35,7 @@ type Props = {
 
 export const Project = ({id}: Props) => {
   const environment = useEnvironment()
-  const {address} = useSelector(selectAddress)
+  const address = useSelector(selectAddress)
 
   const navigation =
     useNavigation<

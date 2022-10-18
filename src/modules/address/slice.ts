@@ -2,20 +2,14 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Address} from '@/modules/address/types'
 import {RootState} from '@/store'
 
-type AddressState = {
-  address?: Address
-}
+const initialState = {} as Address
 
 export const addressSlice = createSlice({
   name: 'address',
-  initialState: {} as AddressState,
+  initialState,
   reducers: {
-    addAddress: (state, {payload}: PayloadAction<Address>) => {
-      state.address = payload
-    },
-    removeAddress: state => {
-      state.address = undefined
-    },
+    addAddress: (state, {payload}: PayloadAction<Address>) => payload,
+    removeAddress: () => initialState,
   },
 })
 

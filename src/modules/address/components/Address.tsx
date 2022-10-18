@@ -10,13 +10,17 @@ import {
 import {selectAddress} from '@/modules/address/slice'
 
 export const Address = () => {
-  const {address} = useSelector(selectAddress)
+  const address = useSelector(selectAddress)
 
   return (
     <Box background="white">
       <Column gutter="md">
         <BoxTitle />
-        {address ? <DisplayAddress address={address} /> : <RequestAddress />}
+        {address.adres ? (
+          <DisplayAddress address={address} />
+        ) : (
+          <RequestAddress />
+        )}
       </Column>
     </Box>
   )
