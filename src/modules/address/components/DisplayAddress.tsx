@@ -4,12 +4,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Button, ButtonRow} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Column} from '@/components/ui/layout'
+import {ButtonRow, Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'

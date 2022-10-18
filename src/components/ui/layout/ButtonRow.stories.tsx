@@ -1,7 +1,7 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import React from 'react'
-import {Button} from './Button'
-import {ButtonRow} from '@/components/ui/buttons/ButtonRow'
+import {Button} from '../buttons/Button'
+import {ButtonRow} from '@/components/ui/layout/ButtonRow'
 
 export default {
   component: ButtonRow,
