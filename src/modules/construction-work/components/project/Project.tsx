@@ -46,9 +46,9 @@ export const Project = ({id}: Props) => {
     >()
 
   const addressParam: AddressQueryArg = {
-    address: address?.centroid[1] ? undefined : address?.adres,
-    lat: address?.centroid[1],
-    lon: address?.centroid[0],
+    address: address?.centroid?.[1] ? undefined : address?.adres,
+    lat: address?.centroid?.[1],
+    lon: address?.centroid?.[0],
   }
 
   const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})

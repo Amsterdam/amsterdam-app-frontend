@@ -36,8 +36,8 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
   const Track = isLandscape ? Row : Column
 
   const addressCoordinates = {
-    lon: address.centroid[1],
-    lat: address.centroid[0],
+    lon: address.centroid?.[1],
+    lat: address.centroid?.[0],
   }
 
   return (
