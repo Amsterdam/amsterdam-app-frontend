@@ -33,9 +33,7 @@ export const RequestAddress = () => {
                 icon={Location}
                 label="Vul uw adres in"
                 onPress={() =>
-                  navigation.navigate(AddressModalName.addressForm, {
-                    addressIsTemporary: true,
-                  })
+                  navigation.navigate(AddressModalName.addressForm)
                 }
               />
             </Row>

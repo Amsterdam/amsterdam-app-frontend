@@ -16,6 +16,7 @@ export type ButtonProps = {
   icon?: React.FC<SvgProps>
   label?: string
   numberOfLines?: number
+  small?: boolean
   variant?: 'primary' | 'secondary' | 'tertiary'
 } & Omit<PressableProps, 'style'>
 
@@ -24,12 +25,13 @@ export const Button = ({
   icon: IconComponent,
   label,
   numberOfLines,
+  small,
   variant = 'primary',
   ...otherProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
   const iconProps = useThemable(createIconProps(variant))
-  const styles = useThemable(createStyles(variant, isPressed))
+  const styles = useThemable(createStyles({small, variant}, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
     setIsPressed(true)
@@ -75,13 +77,13 @@ const createIconProps =
 
 // TODO Improve color tokens
 const createStyles =
-  (variant: ButtonProps['variant'], pressed: boolean) =>
+  ({small, variant}: Partial<ButtonProps>, pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
     const buttonHeight = 48 // Design system requirement
     const borderWidth =
       border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
-    const labelFontSize = text.fontSize.body
-    const labelLineHeight = text.lineHeight.body
+    const labelFontSize = text.fontSize[small ? 'small' : 'body']
+    const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
 
     const backgroundColor = () => {
       if (variant === 'primary') {

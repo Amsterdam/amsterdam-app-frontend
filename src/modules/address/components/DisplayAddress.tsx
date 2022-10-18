@@ -9,11 +9,11 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Column, Row} from '@/components/ui/layout'
+import {ButtonRow, Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
-import {removePrimaryAddress} from '@/modules/address/slice'
+import {removeAddress} from '@/modules/address/slice'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store'
 
@@ -29,7 +29,7 @@ export const DisplayAddress = ({address}: Props) => {
     >()
 
   const removeAddressAndShowAlert = () => {
-    dispatch(removePrimaryAddress())
+    dispatch(removeAddress())
     dispatch(
       setAlert({
         closeType: AlertCloseType.withoutButton,
@@ -55,19 +55,21 @@ export const DisplayAddress = ({address}: Props) => {
           ].join(' ')}
         </Paragraph>
       </Column>
-      <Row gutter="md">
+      <ButtonRow>
         <Button
           label="Wijzig adres"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
+          small
           variant="primary"
         />
         <Button
           icon={Remove}
-          label="Verwijder"
+          label="Verwijder adres"
           onPress={removeAddressAndShowAlert}
-          variant="tertiary"
+          small
+          variant="secondary"
         />
-      </Row>
+      </ButtonRow>
     </Column>
   )
 }

@@ -16,11 +16,11 @@ import {
 } from '@/modules/construction-work/slice'
 
 export const ProjectsScreen = () => {
-  const {primary: address} = useSelector(selectAddress)
+  const address = useSelector(selectAddress)
   const isSearching = useSelector(selectConstructionWorkIsSearching)
   const searchText = useSelector(selectConstructionWorkSearchText)
 
-  const hasAddress = !!address
+  const hasAddress = !!address.adres
   const hasSearchText = !!searchText
 
   return (

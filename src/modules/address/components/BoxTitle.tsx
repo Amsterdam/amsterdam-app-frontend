@@ -31,7 +31,7 @@ export const BoxTitle = () => {
   return (
     <Column gutter="xs">
       <Row gutter="sm" valign="center">
-        <Title text="Adres" />
+        <Title level="h2" text="Adres" />
         <IconButton
           icon={
             <Icon size={24}>

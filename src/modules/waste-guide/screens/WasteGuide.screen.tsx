@@ -7,10 +7,9 @@ import {DeviceContext} from '@/providers'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
-  const {primary, temp} = useSelector(selectAddress)
-  const address = temp ?? primary
+  const address = useSelector(selectAddress)
 
-  if (!address) {
+  if (!address.adres) {
     return (
       <Screen
         scroll={false}

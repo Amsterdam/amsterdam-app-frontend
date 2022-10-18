@@ -7,5 +7,5 @@ export enum AddressModalName {
 }
 
 export type AddressModalParams = {
-  [AddressModalName.addressForm]: {addressIsTemporary?: boolean} | undefined
+  [AddressModalName.addressForm]: undefined
 }

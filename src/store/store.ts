@@ -26,7 +26,6 @@ import {themeSlice} from '@/themes/slice'
 const addressPersistConfig = {
   key: 'address',
   storage: AsyncStorage,
-  blacklist: ['temp'],
 }
 
 const contactPersistConfig = {
