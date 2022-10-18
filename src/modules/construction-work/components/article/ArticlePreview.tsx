@@ -55,7 +55,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   }, [article.identifier, article.publication_date, readArticles])
 
   const {media} = useTheme()
-  const imageWidth = 256
+  const imageWidth = media.figureHeight.lg
   const imageHeight = imageWidth / media.aspectRatio.wide
   const styles = useThemable(
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),

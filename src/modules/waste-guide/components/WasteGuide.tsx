@@ -18,6 +18,7 @@ import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {transformWasteGuideResponse} from '@/modules/waste-guide/utils'
 import {DeviceContext} from '@/providers'
 import {useEnvironment} from '@/store'
+import {useTheme} from '@/themes'
 
 type Props = {
   address: Address
@@ -25,6 +26,7 @@ type Props = {
 
 export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
+  const {media} = useTheme()
 
   const {data, isLoading} = useGetGarbageCollectionAreaQuery({
     lon: address?.centroid?.[0] ?? '',
@@ -51,7 +53,8 @@ export const WasteGuide = ({address}: Props) => {
     hasWasteGuide || cityIsWeesp
       ? BulkyAndHouseholdWasteImage
       : WasteGuideNotFoundImage
-  const imageHeight = hasWasteGuide || cityIsWeesp ? 192 : 256
+  const imageHeight =
+    media.figureHeight[hasWasteGuide || cityIsWeesp ? 'md' : 'lg']
 
   const Track = isLandscape && cityIsWeesp ? Row : Column
 
