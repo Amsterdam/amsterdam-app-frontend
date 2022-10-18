@@ -1,21 +1,22 @@
-import React, {ReactNode} from 'react'
+import React, {Children, ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
-  children: ReactNode[]
+  children: ReactNode
 }
 
 export const ButtonRow = ({children}: Props) => {
+  const childrenArray = Children.toArray(children)
   const gutter: keyof SpacingTokens = 'md'
   const styles = useThemable(createStyles(gutter))
 
   return (
     <View style={styles.compensateMargin}>
       <Row gutter={gutter} wrap>
-        {children.map((Button, index) => (
+        {childrenArray.map((Button, index) => (
           <Column key={index}>
             {Button}
             <Gutter height={gutter} />
