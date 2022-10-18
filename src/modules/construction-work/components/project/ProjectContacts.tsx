@@ -1,5 +1,3 @@
-import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
-import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
 import React from 'react'
 import {View} from 'react-native'
 import {Button} from '@/components/ui/buttons'
@@ -35,7 +33,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
                   'Bel',
                   ...(formatPhoneNumber(phone) ?? '').split(' '),
                 )}
-                icon={Phone}
+                iconName="phone"
                 label={formatPhoneNumber(phone)}
                 onPress={() => {
                   openPhoneUrl(phone)
@@ -51,7 +49,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
                   email,
                 )}
                 ellipsizeMode="tail"
-                icon={Email}
+                iconName="email"
                 label={email}
                 numberOfLines={1}
                 onPress={() => {

@@ -1,4 +1,4 @@
-import React, {SVGProps, useState} from 'react'
+import React, {useState} from 'react'
 import {
   GestureResponderEvent,
   Pressable,
@@ -7,13 +7,12 @@ import {
   Text,
 } from 'react-native'
 import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Icon, IconName} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
-import {SvgProps} from '@/types'
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
-  icon?: React.FC<SvgProps>
+  iconName?: IconName
   label?: string
   numberOfLines?: number
   small?: boolean
@@ -22,7 +21,7 @@ export type ButtonProps = {
 
 export const Button = ({
   ellipsizeMode,
-  icon: IconComponent,
+  iconName,
   label,
   numberOfLines,
   small,
@@ -30,7 +29,6 @@ export const Button = ({
   ...otherProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
-  const iconProps = useThemable(createIconProps(variant))
   const styles = useThemable(createStyles({small, variant}, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
@@ -51,10 +49,12 @@ export const Button = ({
       style={styles.button}
       {...otherProps}>
       <Row gutter="sm" valign="center">
-        {!!IconComponent && (
-          <Icon size={24}>
-            <IconComponent {...iconProps} />
-          </Icon>
+        {!!iconName && (
+          <Icon
+            color={variant === 'primary' ? 'inverse' : 'link'}
+            name={iconName}
+            size={24}
+          />
         )}
         {!!label && (
           <Text
@@ -68,12 +68,6 @@ export const Button = ({
     </Pressable>
   )
 }
-
-const createIconProps =
-  (variant: ButtonProps['variant']) =>
-  ({color}: Theme): SVGProps<unknown> => ({
-    fill: color.text[variant === 'primary' ? 'inverse' : 'link'],
-  })
 
 // TODO Improve color tokens
 const createStyles =

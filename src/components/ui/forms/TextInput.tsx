@@ -1,4 +1,4 @@
-import React, {forwardRef, SVGProps, useEffect, useState} from 'react'
+import React, {forwardRef, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {Close} from '@/assets/icons'
 import {Column} from '@/components/ui//layout'
 import {IconButton} from '@/components/ui/buttons'
 import {Label} from '@/components/ui/forms'
@@ -40,7 +39,6 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
-    const iconProps = useThemable(createIconProps)
     const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
     const textInputProps = useThemable(createTextInputProps)
 
@@ -86,11 +84,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             <View>
               <IconButton
                 accessibilityHint="Maak dit tekstveld leeg"
-                icon={
-                  <Icon size={24}>
-                    <Close {...iconProps} />
-                  </Icon>
-                }
+                icon={<Icon name="close" size={24} />}
                 onPress={handleClearText}
               />
             </View>
@@ -100,10 +94,6 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     )
   },
 )
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.default,
-})
 
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>

@@ -1,11 +1,10 @@
-import React, {ReactNode, SVGProps, useState} from 'react'
-import {ChevronDown, ChevronUp} from '@/assets/icons'
+import React, {ReactNode, useState} from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers/Box'
 import {Column, Gutter, Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type AccordionProps = {
   children: ReactNode
@@ -31,8 +30,7 @@ const Panel = ({children, isOpen}: PanelProps) => {
 
 export const Accordion = ({children, title}: AccordionProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const Chevron = isOpen ? ChevronUp : ChevronDown
-  const iconProps = useThemable(createIconProps)
+  const iconName = isOpen ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
   return (
@@ -52,9 +50,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
               text={title}
             />
             <Size height={text.fontSize.h5 * text.lineHeight.h5}>
-              <Icon size={24}>
-                <Chevron {...iconProps} />
-              </Icon>
+              <Icon color="link" name={iconName} size={24} />
             </Size>
           </Row>
         </Box>
@@ -63,7 +59,3 @@ export const Accordion = ({children, title}: AccordionProps) => {
     </Column>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

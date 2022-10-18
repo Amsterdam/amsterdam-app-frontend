@@ -1,19 +1,18 @@
 import React, {ReactNode} from 'react'
 import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Icon, IconName} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
 
 type Props = {
   /**
    * Allows a custom visualization for the trait.
-   * Use a small component here.
+   * Use a small component here. Not rendered if an icon name is provided.
    */
   children?: ReactNode
   /**
-   * The icon to visually support the trait label.
-   * Use either an icon or a child component.
+   * The name of the icon to visually support the trait label.
    */
-  icon?: ReactNode
+  iconName?: IconName
   /**
    * The label identifying the trait.
    * Should be one or a few words.
@@ -21,10 +20,9 @@ type Props = {
   label: string
 }
 
-export const Trait = ({children, icon, label}: Props) => (
+export const Trait = ({children, iconName, label}: Props) => (
   <Row gutter="sm" valign="center">
-    {!!icon && <Icon size={16}>{icon}</Icon>}
-    {children}
+    {iconName ? <Icon name={iconName} /> : children}
     <Phrase variant="small">{label}</Phrase>
   </Row>
 )

@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {SVGProps, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {RootStackParams} from '@/app/navigation'
-import {QuestionMarkSolid} from '@/assets/icons'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'
@@ -11,7 +10,6 @@ import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
 import {module as userModule} from '@/modules/user'
-import {Theme, useThemable} from '@/themes'
 
 export const BoxTitle = () => {
   const navigation =
@@ -20,7 +18,6 @@ export const BoxTitle = () => {
     >()
 
   const [isTooltipVisible, setTooltipVisible] = useState(false)
-  const iconProps = useThemable(createIconProps)
 
   useEffect(() => {
     return navigation.addListener('blur', () => {
@@ -33,11 +30,7 @@ export const BoxTitle = () => {
       <Row gutter="sm" valign="center">
         <Title level="h2" text="Adres" />
         <IconButton
-          icon={
-            <Icon size={24}>
-              <QuestionMarkSolid {...iconProps} />
-            </Icon>
-          }
+          icon={<Icon color="link" name="question-mark-solid" size={24} />}
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
@@ -55,7 +48,3 @@ export const BoxTitle = () => {
     </Column>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

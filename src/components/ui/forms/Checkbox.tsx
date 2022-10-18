@@ -1,5 +1,4 @@
-import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import React, {ReactNode, SVGProps} from 'react'
+import React, {ReactNode} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
 } from 'react-native'
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -25,7 +25,6 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
-  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
   const touchableProps = useThemable(createTouchableProps)
 
@@ -38,16 +37,12 @@ export const Checkbox = ({
       {...touchableProps}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {!!value && <Checkmark {...iconProps} />}
+          {!!value && <Icon color="inverse" name="checkmark" size={24} />}
         </View>
       </FormField>
     </TouchableHighlight>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.inverse,
-})
 
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({

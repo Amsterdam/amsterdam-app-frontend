@@ -1,5 +1,4 @@
-import React, {SVGProps} from 'react'
-import {Clock, TwoPersons} from '@/assets/icons'
+import React from 'react'
 import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
@@ -10,7 +9,6 @@ import {
   getQueuedPhrase,
   getWaitingTimePhrase,
 } from '@/modules/contact/utils/getPhrase'
-import {Theme, useThemable} from '@/themes'
 
 type Props = {
   cityOfficeId: string
@@ -18,7 +16,6 @@ type Props = {
 
 export const WaitingTime = ({cityOfficeId}: Props) => {
   const {data: waitingTimes, isLoading} = useGetWaitingTimesQuery()
-  const iconProps = useThemable(createIconProps)
 
   if (isLoading || !waitingTimes) {
     return <PleaseWait />
@@ -38,22 +35,14 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
     <Box>
       <Column gutter="md">
         <Row gutter="md" valign="center">
-          <Icon size={32}>
-            <TwoPersons {...iconProps} />
-          </Icon>
+          <Icon name="two-persons" size={32} />
           <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
-          <Icon size={32}>
-            <Clock {...iconProps} />
-          </Icon>
+          <Icon name="clock" size={32} />
           <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
         </Row>
       </Column>
     </Box>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.default,
-})

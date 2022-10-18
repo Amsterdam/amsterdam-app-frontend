@@ -7,7 +7,6 @@ import {
   TextInput as TextInputRN,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {ChevronUp} from '@/assets/icons'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
@@ -69,7 +68,7 @@ export const NumberInput = ({
       <Column gutter="sm">
         <Row align="start">
           <Button
-            icon={ChevronUp}
+            iconName="chevron-up"
             label={street}
             onPress={() => {
               changeNumber('')

@@ -3,23 +3,23 @@ import {PressableProps, StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Icon, IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
-  icon: ReactNode
+  iconName: IconName
   text: string | ReactNode
   title: string
-  titleIcon?: ReactNode
+  titleIconName?: IconName
 } & Omit<PressableProps, 'children'>
 
 export const IconWithTitleButton = ({
-  icon,
+  iconName,
   onPress,
   text,
   title,
-  titleIcon,
+  titleIconName,
   ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
@@ -29,12 +29,12 @@ export const IconWithTitleButton = ({
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>
-            <Icon size={32}>{icon}</Icon>
+            <Icon color="link" name={iconName} size={32} />
           </View>
           <Column>
             <Row gutter="sm" valign="center">
               <Title color="link" level="h5" text={title} />
-              {!!titleIcon && <Icon size={16}>{titleIcon}</Icon>}
+              {!!titleIconName && <Icon color="link" name={titleIconName} />}
             </Row>
             {typeof text === 'string' ? (
               <Paragraph variant="small">{text}</Paragraph>

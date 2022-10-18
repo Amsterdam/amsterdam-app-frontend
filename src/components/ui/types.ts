@@ -5,7 +5,7 @@ export enum Direction {
   right = 'right',
 }
 
-export type IconSize = 16 | 20 | 24 | 32
+export type IconSize = 12 | 16 | 20 | 24 | 32
 
 export enum Placement {
   above = 'above',

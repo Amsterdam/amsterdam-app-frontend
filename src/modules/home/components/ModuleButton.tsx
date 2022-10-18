@@ -1,14 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ElementType, SVGProps, useCallback} from 'react'
+import React, {ElementType, useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable, SwipeToDelete} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Icon, IconName} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {icons} from '@/modules/home/config'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store'
@@ -18,7 +17,7 @@ type ButtonVariants = 'primary' | 'tertiary'
 
 type Props = {
   BadgeValue?: ElementType
-  iconName: string
+  iconName: IconName | 'projects'
   label: string
   slug: ModuleSlug
   variant?: ButtonVariants
@@ -35,9 +34,8 @@ export const ModuleButton = ({
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, HomeRouteName>>()
 
-  const ModuleIcon = icons[iconName]
-  const iconProps = useThemable(createIconProps(variant))
   const styles = useThemable(createStyles)
+  const iconColor = variant === 'primary' ? 'inverse' : 'default'
 
   const onDelete = useCallback(() => {
     dispatch(toggleModule(slug))
@@ -52,16 +50,15 @@ export const ModuleButton = ({
           variant={variant}>
           <Row align="between" valign="center">
             <Row gutter="md">
-              {!!ModuleIcon && (
-                <Icon size={24}>
-                  <ModuleIcon {...iconProps} />
-                </Icon>
+              {/* TODO Remove fallback after updating icon name in database. */}
+              {iconName === 'projects' ? (
+                <Icon color={iconColor} name="construction-work" size={24} />
+              ) : (
+                !!iconName && (
+                  <Icon color={iconColor} name={iconName} size={24} />
+                )
               )}
-              <Title
-                color={variant === 'primary' ? 'inverse' : 'default'}
-                level="h5"
-                text={label}
-              />
+              <Title color={iconColor} level="h5" text={label} />
             </Row>
             {!!BadgeValue && <BadgeValue />}
           </Row>
@@ -70,12 +67,6 @@ export const ModuleButton = ({
     </View>
   )
 }
-
-const createIconProps =
-  (variant: ButtonVariants) =>
-  ({color}: Theme): SVGProps<unknown> => ({
-    fill: variant === 'tertiary' ? color.text.default : color.text.inverse,
-  })
 
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({

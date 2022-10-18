@@ -341,7 +341,7 @@ PODS:
     - React
   - react-native-flipper (0.153.0):
     - React-Core
-  - react-native-netinfo (9.3.2):
+  - react-native-netinfo (9.3.5):
     - React-Core
   - react-native-restart (0.0.24):
     - React-Core
@@ -447,7 +447,7 @@ PODS:
     - RNNotifee/NotifeeCore (= 4.1.0)
   - RNNotifee/NotifeeCore (4.1.0):
     - React-Core
-  - RNReanimated (2.10.0):
+  - RNReanimated (2.11.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -477,14 +477,14 @@ PODS:
   - RNScreens (3.13.1):
     - React-Core
     - React-RCTImage
-  - RNSentry (4.5.0):
+  - RNSentry (4.6.1):
     - React-Core
-    - Sentry (= 7.25.1)
+    - Sentry (= 7.27.1)
   - RNSVG (12.4.4):
     - React-Core
-  - Sentry (7.25.1):
-    - Sentry/Core (= 7.25.1)
-  - Sentry/Core (7.25.1)
+  - Sentry (7.27.1):
+    - Sentry/Core (= 7.27.1)
+  - Sentry/Core (7.27.1)
   - SocketRocket (0.6.0)
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
@@ -738,7 +738,7 @@ SPEC CHECKSUMS:
   React-logger: f79dd3cc0f9b44f5611c6c7862badd891a862cf8
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
   react-native-flipper: 88dd2735e76e6fb79f8714124bf9315f1e05a7e6
-  react-native-netinfo: 687904c63baa828543bb6e94c265977e0ac70f14
+  react-native-netinfo: 85b2a435c4d3705c08b0c42ff2d6ef6b9622ea0a
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
@@ -762,11 +762,11 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
-  RNReanimated: 5bdcbcc3a72aedeee7bb099604262403aa75a1e5
+  RNReanimated: 0b526872227be310b94848393c9db37003f5ee88
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
-  RNSentry: a034d0e81e3d3c04b770dd2df953fe634d372d22
+  RNSentry: f8591057d48d4f6d64196a76cbca67895667b033
   RNSVG: ecd661f380a07ba690c9c5929c475a44f432d674
-  Sentry: dd29c18c32b0af9269949f079cf631d581ca76ca
+  Sentry: bc644307e2eb6a4c9c55cf117a80b895bb2a25a7
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 17cd9a50243093b547c1e539c749928dd68152da

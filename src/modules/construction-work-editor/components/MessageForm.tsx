@@ -1,4 +1,3 @@
-import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React, {
   forwardRef,
   useCallback,
@@ -176,7 +175,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             </Paragraph>
             <Row align="start">
               <Button
-                icon={Enlarge}
+                iconName="enlarge"
                 label="Foto toevoegen"
                 onPress={handleSubmit(pickImage)}
                 variant="secondary"

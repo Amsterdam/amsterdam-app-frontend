@@ -1,11 +1,9 @@
-import TrashBin from '@amsterdam/asc-assets/static/icons/TrashBin.svg'
-import React, {ReactNode, SVGProps, useState} from 'react'
+import React, {ReactNode, useState} from 'react'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
-import {Theme, useThemable} from '@/themes'
 
 type Props = {
   children: ReactNode
@@ -16,26 +14,20 @@ type DeleteButtonProps = {
   onPress: () => void
 }
 
-const DeleteButton = ({onPress}: DeleteButtonProps) => {
-  const iconProps = useThemable(createIconProps)
-
-  return (
-    <Pressable
-      accessibilityElementsHidden
-      inset="md"
-      onPress={onPress}
-      variant="negative">
-      <Row align="end" valign="center" gutter="sm">
-        <Phrase color="inverse" variant="small">
-          Verwijder
-        </Phrase>
-        <Icon size={24}>
-          <TrashBin {...iconProps} />
-        </Icon>
-      </Row>
-    </Pressable>
-  )
-}
+const DeleteButton = ({onPress}: DeleteButtonProps) => (
+  <Pressable
+    accessibilityElementsHidden
+    inset="md"
+    onPress={onPress}
+    variant="negative">
+    <Row align="end" gutter="sm" valign="center">
+      <Phrase color="inverse" variant="small">
+        Verwijder
+      </Phrase>
+      <Icon color="inverse" name="trash-bin" size={24} />
+    </Row>
+  </Pressable>
+)
 
 export const SwipeToDelete = ({children, onEvent}: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
@@ -53,7 +45,3 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
     </Swipeable>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.inverse,
-})

@@ -1,11 +1,10 @@
-import React, {SVGProps} from 'react'
-import {ChevronLeft, ChevronRight, ExternalLink} from '@/assets/icons'
+import React from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Direction} from '@/components/ui/types'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   label: string
@@ -19,19 +18,16 @@ type LinkIconProps = {
 }
 
 const LinkIcon = ({direction, external}: LinkIconProps) => {
-  const ChevronIcon = external
-    ? ExternalLink
-    : direction === Direction.left
-    ? ChevronLeft
-    : ChevronRight
-  const iconProps = useThemable(createIconProps)
   const {text} = useTheme()
+  const iconName = external
+    ? 'external-link'
+    : direction === Direction.left
+    ? 'chevron-left'
+    : 'chevron-right'
 
   return (
     <Size height={1.4 * text.fontSize.body}>
-      <Icon>
-        <ChevronIcon {...iconProps} />
-      </Icon>
+      <Icon color="link" name={iconName} />
     </Size>
   )
 }
@@ -57,7 +53,3 @@ export const Link = ({label, onPress, variant = 'default'}: Props) => {
     </Pressable>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})

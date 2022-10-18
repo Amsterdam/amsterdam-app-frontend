@@ -1,13 +1,10 @@
-import Email from '@amsterdam/asc-assets/static/icons/Email.svg'
-import Phone from '@amsterdam/asc-assets/static/icons/Phone.svg'
-import React, {Key, ReactNode, SVGProps} from 'react'
+import React, {Key} from 'react'
 import {PressableProps} from 'react-native'
-import {PersonalLogin, Whatsapp} from '@/assets/icons'
 import {IconWithTitleButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
+import {IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {Theme, useThemable} from '@/themes'
 import {
   accessibleText,
   formatPhoneNumber,
@@ -17,19 +14,17 @@ import {
 
 type ContactOption = {
   key: Key
-  icon: ReactNode
+  iconName: IconName
   text: string
   title: string
 } & Partial<
   Pick<PressableProps, 'accessibilityLabel' | 'accessibilityRole' | 'onPress'>
 >
 
-const createContactOptions = (
-  iconProps: SVGProps<unknown>,
-): ContactOption[] => [
+const contactOptions: ContactOption[] = [
   {
     accessibilityRole: 'link',
-    icon: <Email {...iconProps} />,
+    iconName: 'email',
     key: 'email',
     onPress: () =>
       openWebUrl(
@@ -41,7 +36,7 @@ const createContactOptions = (
   {
     accessibilityLabel: 'Bel veertien nul twintig',
     accessibilityRole: 'button',
-    icon: <Phone {...iconProps} />,
+    iconName: 'phone',
     key: 'phone',
     onPress: () => openPhoneUrl('+3114020'),
     text: 'Gemiddeld 5 minuten wachten',
@@ -51,7 +46,7 @@ const createContactOptions = (
     accessibilityLabel:
       'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
     accessibilityRole: 'button',
-    icon: <Whatsapp {...iconProps} />,
+    iconName: 'whatsapp',
     key: 'whatsapp',
     onPress: () => openWebUrl('https://wa.me/31644440655'),
     text: 'Reactie binnen 2 uur',
@@ -60,7 +55,7 @@ const createContactOptions = (
   {
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
     accessibilityRole: 'link',
-    icon: <PersonalLogin {...iconProps} />,
+    iconName: 'person',
     key: 'mijn-amsterdam',
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
     text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
@@ -68,36 +63,27 @@ const createContactOptions = (
   },
 ]
 
-export const ContactOptions = () => {
-  const iconProps = useThemable(createIconProps)
-  const contactOptions = createContactOptions(iconProps)
-
-  return (
-    <Box>
-      <Column gutter="md">
-        <Column gutter="sm">
-          <Title text="Kunnen we u helpen?" />
-          <Paragraph>
-            Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact
-            met ons op.
-          </Paragraph>
-        </Column>
-        <Column gutter="sm">
-          {contactOptions.map(props => (
-            <IconWithTitleButton
-              accessibilityLabel={accessibleText(
-                props.accessibilityLabel ?? props.title,
-                props.text,
-              )}
-              {...props}
-            />
-          ))}
-        </Column>
+export const ContactOptions = () => (
+  <Box>
+    <Column gutter="md">
+      <Column gutter="sm">
+        <Title text="Kunnen we u helpen?" />
+        <Paragraph>
+          Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met
+          ons op.
+        </Paragraph>
       </Column>
-    </Box>
-  )
-}
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})
+      <Column gutter="sm">
+        {contactOptions.map(props => (
+          <IconWithTitleButton
+            accessibilityLabel={accessibleText(
+              props.accessibilityLabel ?? props.title,
+              props.text,
+            )}
+            {...props}
+          />
+        ))}
+      </Column>
+    </Column>
+  </Box>
+)

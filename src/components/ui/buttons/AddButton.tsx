@@ -1,26 +1,18 @@
-import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
-import React, {SVGProps} from 'react'
+import React from 'react'
 import {PressableProps, StyleSheet} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
 export const AddButton = (props: PressableProps) => {
-  const iconProps = useThemable(createIconProps)
   const styles = useThemable(createStyles)
 
   return (
     <Pressable style={styles.button} {...props}>
-      <Icon scalesWithFont={false} size={24}>
-        <Enlarge {...iconProps} />
-      </Icon>
+      <Icon color="link" name="enlarge" scalesWithFont={false} size={24} />
     </Pressable>
   )
 }
-
-const createIconProps = ({color}: Theme): SVGProps<unknown> => ({
-  fill: color.text.link,
-})
 
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({

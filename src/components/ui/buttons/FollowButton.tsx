@@ -1,5 +1,3 @@
-import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
-import Enlarge from '@amsterdam/asc-assets/static/icons/Enlarge.svg'
 import React from 'react'
 import {PressableProps} from 'react-native'
 import {Button, ButtonProps} from '@/components/ui/buttons'
@@ -13,12 +11,12 @@ type Props = {
 export const FollowButton = ({followed, onPress}: Props) => {
   const buttonProps: ButtonProps = followed
     ? {
-        icon: Checkmark,
+        iconName: 'checkmark',
         label: 'Volgend',
         variant: 'primary',
       }
     : {
-        icon: Enlarge,
+        iconName: 'enlarge',
         label: 'Volgen',
         variant: 'secondary',
       }
