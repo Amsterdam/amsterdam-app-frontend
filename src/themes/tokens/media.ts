@@ -11,5 +11,13 @@ export const mediaTokens = {
   figureHeight: {
     md: 192,
     lg: 256,
+    xl: 320,
+  },
+  imageAspectRatio: {
+    projectWarningFallback: 355 / 135,
+    wasteGuideHome: 311 / 275,
+  },
+  imageWidth: {
+    wasteGuideHome: 288,
   },
 }

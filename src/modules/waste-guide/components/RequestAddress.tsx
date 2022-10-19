@@ -12,11 +12,13 @@ import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
 import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
 import {Device, DeviceContext} from '@/providers'
+import {useTheme} from '@/themes'
 
 export const RequestAddress = () => {
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
   const {isLandscape} = useContext(DeviceContext)
+  const {media} = useTheme()
   const styles = createStyles(isLandscape)
 
   return (
@@ -42,10 +44,10 @@ export const RequestAddress = () => {
       <View style={styles.moveFigureUp}>
         <FigureWithCanalHouseFacadesBackground
           backgroundImageHeightFraction={0.5}
-          height={320}
+          height={media.figureHeight.xl}
           Image={<WasteGuideHomeImage />}
-          imageAspectRatio={311 / 276}
-          imageWidth={288}
+          imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
+          imageWidth={media.imageWidth.wasteGuideHome}
         />
       </View>
     </Column>

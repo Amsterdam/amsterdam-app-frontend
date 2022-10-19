@@ -141,7 +141,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <FigureWithCanalHouseFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={355 / 135}
+          imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
         />
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}

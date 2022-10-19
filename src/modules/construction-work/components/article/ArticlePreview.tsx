@@ -91,7 +91,9 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                     aspectRatio="wide"
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
-                    imageAspectRatio={355 / 135}
+                    imageAspectRatio={
+                      media.imageAspectRatio.projectWarningFallback
+                    }
                   />
                 )}
               </View>

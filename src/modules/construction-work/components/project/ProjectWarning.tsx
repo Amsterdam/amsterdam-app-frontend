@@ -82,7 +82,7 @@ export const ProjectWarning = ({id}: Props) => {
         <FigureWithCanalHouseFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={355 / 135}
+          imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
         />
       )}
       <HorizontalSafeArea>
