@@ -89,6 +89,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsFollowedArticlesResponse,
       ProjectsFollowedArticlesQueryArg | void
     >({
+      providesTags: ['Articles'],
       query: params => {
         const path = '/projects/followed/articles'
         if (params) {
