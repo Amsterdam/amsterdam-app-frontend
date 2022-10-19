@@ -74,7 +74,7 @@ export const Redirects = () => {
     >()
 
   return (
-    <Column gutter="sm">
+    <Column gutter="md">
       {redirects.map(({iconName, routeName, text, title, url}) => (
         <IconWithTitleButton
           accessibilityLabel={accessibleText(title, text)}

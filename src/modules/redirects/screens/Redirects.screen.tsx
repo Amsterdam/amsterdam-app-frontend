@@ -7,7 +7,7 @@ import {Redirects, ReferToWebsite} from '@/modules/redirects/components'
 export const RedirectsScreen = () => (
   <Screen>
     <Box>
-      <Column gutter="md">
+      <Column gutter="lg">
         <Column gutter="xs">
           <Title text="Direct regelen" />
           <Paragraph>

@@ -65,7 +65,7 @@ const contactOptions: ContactOption[] = [
 
 export const ContactOptions = () => (
   <Box>
-    <Column gutter="md">
+    <Column gutter="lg">
       <Column gutter="sm">
         <Title text="Kunnen we u helpen?" />
         <Paragraph>
@@ -73,7 +73,7 @@ export const ContactOptions = () => (
           ons op.
         </Paragraph>
       </Column>
-      <Column gutter="sm">
+      <Column gutter="md">
         {contactOptions.map(props => (
           <IconWithTitleButton
             accessibilityLabel={accessibleText(
