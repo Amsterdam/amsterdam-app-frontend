@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
-import {IconWithTitleButton} from '@/components/ui/buttons'
+import {TopTaskButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
@@ -76,7 +76,7 @@ export const Redirects = () => {
   return (
     <Column gutter="md">
       {redirects.map(({iconName, routeName, text, title, url}) => (
-        <IconWithTitleButton
+        <TopTaskButton
           accessibilityLabel={accessibleText(title, text)}
           accessibilityRole="link"
           key={iconName}

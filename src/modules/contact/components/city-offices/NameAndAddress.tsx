@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
-import {IconWithTitleButton} from '@/components/ui/buttons'
+import {TopTaskButton} from '@/components/ui/buttons'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
@@ -15,7 +15,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
 
   return (
     <Column gutter="md">
-      <IconWithTitleButton
+      <TopTaskButton
         iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
         text={

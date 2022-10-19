@@ -1,6 +1,6 @@
 import React, {Key} from 'react'
 import {PressableProps} from 'react-native'
-import {IconWithTitleButton} from '@/components/ui/buttons'
+import {TopTaskButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
@@ -75,7 +75,7 @@ export const ContactOptions = () => (
       </Column>
       <Column gutter="md">
         {contactOptions.map(props => (
-          <IconWithTitleButton
+          <TopTaskButton
             accessibilityLabel={accessibleText(
               props.accessibilityLabel ?? props.title,
               props.text,
