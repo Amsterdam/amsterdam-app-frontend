@@ -1,6 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useLayoutEffect, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
@@ -12,7 +11,10 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
+import {
+  FigureWithCanalHouseFacadesBackground,
+  Image,
+} from '@/components/ui/media'
 import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
   clearDraft,
@@ -30,7 +32,6 @@ import {
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
-import {Theme, useThemable} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -51,7 +52,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     selectMainImageDescription(currentProjectId),
   )
   const project = useSelector(selectProject(currentProjectId))
-  const styles = useThemable(createStyles)
 
   const [addWarning] = useAddProjectWarningMutation()
   const [addProjectWarningImage] = useAddProjectWarningImageMutation()
@@ -135,9 +135,11 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       {mainImage ? (
         <Image source={{uri: mainImage?.path}} />
       ) : (
-        <View style={styles.placeholder}>
-          <ProjectWarningFallbackImage />
-        </View>
+        <FigureWithCanalHouseFacadesBackground
+          height={192}
+          Image={<ProjectWarningFallbackImage />}
+          imageAspectRatio={355 / 135}
+        />
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}
     </Column>
@@ -196,10 +198,3 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     </Screen>
   )
 }
-
-const createStyles = ({media}: Theme) =>
-  StyleSheet.create({
-    placeholder: {
-      aspectRatio: media.aspectRatio.wide,
-    },
-  })
