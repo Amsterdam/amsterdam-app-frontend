@@ -38,7 +38,7 @@ const contactOptions: ContactOption[] = [
     accessibilityRole: 'button',
     iconName: 'phone',
     key: 'phone',
-    onPress: () => openPhoneUrl('+3114020'),
+    onPress: () => openPhoneUrl('14020'),
     text: 'Gemiddeld 5 minuten wachten',
     title: 'Bel 14 020',
   },
