@@ -49,16 +49,29 @@ export const AccessibilityStatementScreen = () => {
             />
             <List
               items={[
-                {
-                  text: 'Deze opsomming bijwerken en aanvullen voordat we de eerste release uitbrengen.',
-                  color: 'red',
-                },
                 'Met Voice over op iOS wordt de focus niet altijd op het eerste interactieve element gezet.',
                 'Formulieren zijn niet uitsluitend met toetsenbord in te vullen.',
                 'Donkere modus wordt nog niet ondersteund.',
                 "In de Amsterdam app worden webpagina's getoond binnen een 'webview'. De webpagina's binnen de webview zijn niet volledig toegankelijk.",
               ]}
             />
+          </Column>
+          <Column gutter="md">
+            <Title level="h2" text="Werkt iets niet?" />
+            <Paragraph>
+              Komt u nog een scherm tegen die u niet kunt lezen of gebruiken?
+              Meld het ons via ons contactformulier/email(wordt nog besloten).
+            </Paragraph>
+          </Column>
+          <Column gutter="md">
+            <Title level="h2" text="Wat kunt u van ons verwachten?" />
+            <Paragraph>
+              Binnen [X werkdagen] krijgt u een ontvangstbevestiging.
+            </Paragraph>
+            <Paragraph>
+              We informeren u over de voortgang en de uitkomst.
+            </Paragraph>
+            <Paragraph>Binnen [X weken] is uw verzoek afgehandeld.</Paragraph>
           </Column>
         </Column>
       </Box>
