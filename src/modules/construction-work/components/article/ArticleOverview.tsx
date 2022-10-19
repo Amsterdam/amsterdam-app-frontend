@@ -14,7 +14,7 @@ import {
 import {useGetArticlesQuery} from '@/modules/construction-work/service'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {getYearOfPublicationDate, isEmptyObject} from '@/utils'
+import {dayjs, getYearOfPublicationDate, isEmptyObject} from '@/utils'
 
 type Props = {
   limit?: number
@@ -59,7 +59,7 @@ export const ArticleOverview = ({
           const year = getYearOfPublicationDate(article.publication_date)
           return {
             ...result,
-            [year]: {...result[year], [article.publication_date]: article},
+            [year]: {...result[year], [article.identifier]: article},
           }
         },
         {},
@@ -112,24 +112,30 @@ export const ArticleOverview = ({
                   <View style={styles.line} />
                 </View>
               )}
-              {Object.values(articlesPerYear).map(article => (
-                <ArticlePreview
-                  article={article}
-                  isFirst={
-                    articles.findIndex(
-                      a => a.identifier === article.identifier,
-                    ) === 0
-                  }
-                  isLast={
-                    articles.findIndex(
-                      a => a.identifier === article.identifier,
-                    ) ===
-                    articles.length - 1
-                  }
-                  key={article.identifier}
-                  onPress={() => navigateToArticle(article)}
-                />
-              ))}
+              {Object.values(articlesPerYear)
+                .sort((a, b) =>
+                  dayjs(a.publication_date).isBefore(b.publication_date)
+                    ? 1
+                    : -1,
+                )
+                .map(article => (
+                  <ArticlePreview
+                    article={article}
+                    isFirst={
+                      articles.findIndex(
+                        a => a.identifier === article.identifier,
+                      ) === 0
+                    }
+                    isLast={
+                      articles.findIndex(
+                        a => a.identifier === article.identifier,
+                      ) ===
+                      articles.length - 1
+                    }
+                    key={article.identifier}
+                    onPress={() => navigateToArticle(article)}
+                  />
+                ))}
             </View>
           ))}
       </Column>
