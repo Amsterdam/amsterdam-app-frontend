@@ -74,14 +74,20 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
     <Screen
       keyboardAware
       stickyFooter={
-        <Row align="between" valign="center">
-          <Link label="Vorige" onPress={navigation.goBack} variant="backward" />
-          <Link
-            label="Volgende"
-            onPress={handleSubmit(onSubmit)}
-            variant="forward"
-          />
-        </Row>
+        <Box>
+          <Row align="between" valign="center">
+            <Link
+              label="Vorige"
+              onPress={navigation.goBack}
+              variant="backward"
+            />
+            <Link
+              label="Volgende"
+              onPress={handleSubmit(onSubmit)}
+              variant="forward"
+            />
+          </Row>
+        </Box>
       }>
       <Box>
         <Column gutter="md">

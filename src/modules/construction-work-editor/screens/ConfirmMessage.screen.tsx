@@ -150,15 +150,17 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       stickyFooter={
         <>
           <Box>
-            <Button label="Plaats bericht" onPress={onSubmit} />
+            <Column gutter="md">
+              <Button label="Plaats bericht" onPress={onSubmit} />
+              <Row align="between" valign="center">
+                <Link
+                  label="Vorige"
+                  onPress={navigation.goBack}
+                  variant="backward"
+                />
+              </Row>
+            </Column>
           </Box>
-          <Row align="between" valign="center">
-            <Link
-              label="Vorige"
-              onPress={navigation.goBack}
-              variant="backward"
-            />
-          </Row>
         </>
       }>
       <Box>
