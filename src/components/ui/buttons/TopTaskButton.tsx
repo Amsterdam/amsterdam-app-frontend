@@ -14,7 +14,7 @@ type Props = {
   titleIconName?: IconName
 } & Omit<PressableProps, 'children'>
 
-export const IconWithTitleButton = ({
+export const TopTaskButton = ({
   iconName,
   onPress,
   text,
