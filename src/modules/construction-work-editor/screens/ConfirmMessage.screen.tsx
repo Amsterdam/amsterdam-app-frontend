@@ -32,6 +32,7 @@ import {
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
+import {useTheme} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -56,6 +57,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const [addWarning] = useAddProjectWarningMutation()
   const [addProjectWarningImage] = useAddProjectWarningImageMutation()
   const [addNotification] = useAddNotificationMutation()
+
+  const {media} = useTheme()
 
   useLayoutEffect(() => {
     project &&
@@ -136,7 +139,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Image source={{uri: mainImage?.path}} />
       ) : (
         <FigureWithCanalHouseFacadesBackground
-          height={192}
+          height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={355 / 135}
         />
