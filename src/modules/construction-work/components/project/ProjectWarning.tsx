@@ -17,6 +17,7 @@ import {
 } from '@/modules/construction-work/service'
 import {ProjectWarningImage} from '@/modules/construction-work/types'
 import {useEnvironment} from '@/store'
+import {useTheme} from '@/themes'
 import {formatDate, mapWarningImageSources} from '@/utils'
 
 type Props = {
@@ -25,6 +26,8 @@ type Props = {
 
 export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
+  const {media} = useTheme()
+
   const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
     undefined,
   )
@@ -77,9 +80,9 @@ export const ProjectWarning = ({id}: Props) => {
         />
       ) : (
         <FigureWithCanalHouseFacadesBackground
-          height={192}
+          height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={355 / 135}
+          imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
         />
       )}
       <HorizontalSafeArea>

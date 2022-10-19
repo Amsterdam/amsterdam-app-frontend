@@ -86,23 +86,25 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
           ref={formRef}
         />
       </Box>
-      <Row align="end">
-        <Link
-          label="Volgende"
-          onPress={() =>
-            formRef.current?.handleSubmit(() => {
-              mainImage
-                ? navigation.navigate(
-                    ConstructionWorkEditorRouteName.addMainImageToMessage,
-                  )
-                : navigation.navigate(
-                    ConstructionWorkEditorRouteName.confirmMessage,
-                  )
-            })
-          }
-          variant="forward"
-        />
-      </Row>
+      <Box>
+        <Row align="end">
+          <Link
+            label="Volgende"
+            onPress={() =>
+              formRef.current?.handleSubmit(() => {
+                mainImage
+                  ? navigation.navigate(
+                      ConstructionWorkEditorRouteName.addMainImageToMessage,
+                    )
+                  : navigation.navigate(
+                      ConstructionWorkEditorRouteName.confirmMessage,
+                    )
+              })
+            }
+            variant="forward"
+          />
+        </Row>
+      </Box>
     </Screen>
   )
 }
