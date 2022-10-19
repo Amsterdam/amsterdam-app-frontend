@@ -37,7 +37,7 @@ export const MakeAppointmentScreen = () => (
                           iconName="phone"
                           label="Bel 14 020"
                           onPress={() => {
-                            openPhoneUrl('14020')
+                            openPhoneUrl('+3114020')
                           }}
                         />
                       </Row>
