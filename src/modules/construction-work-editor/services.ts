@@ -25,7 +25,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       ProjectWarningResponse,
       NewMessage
     >({
-      invalidatesTags: ['Articles'],
+      invalidatesTags: ['Articles', 'Projects'],
       query(body) {
         return {
           url: '/project/warning',
@@ -39,7 +39,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
 
     [ConstructionWorkEditorEndpointName.addProjectWarningImage]:
       builder.mutation<MutationResponse, ProjectWarningImageQueryArg>({
-        invalidatesTags: ['Articles'],
+        invalidatesTags: ['Articles', 'Projects'],
         query(body) {
           return {
             url: '/project/warning/image',
