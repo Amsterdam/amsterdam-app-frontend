@@ -42,15 +42,15 @@ export const AboutTheAppDutchScreen = () => {
                   <Title level="h5" text="Werk aan de weg" />
                   <Paragraph>
                     De gemeente werkt vaak aan de straten, bruggen, kades of
-                    gebouwen. In 'Werkzaaamheden’ ziet u de projecten bij u in
-                    de buurt. U kunt een project volgen in de app. Als u een
+                    gebouwen. In ‘Werkzaamheden’ ziet u de projecten bij u in de
+                    buurt. U kunt een project volgen in de app. Als u een
                     project volgt, dan bent u altijd op de hoogte van de
                     werkzaamheden.
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
                   <Icon name="alert" size={32} />
-                  <Title level="h5" text="Melding maken " />
+                  <Title level="h5" text="Melding maken" />
                   <Paragraph>
                     Is de container voor afval vol? Doet de lantaarnpaal het
                     niet? Of ligt er troep op straat? Dat kunt u allemaal melden

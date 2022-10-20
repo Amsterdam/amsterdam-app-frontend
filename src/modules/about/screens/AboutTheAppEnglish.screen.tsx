@@ -20,10 +20,10 @@ export const AboutTheAppEnglishScreen = () => {
           <Box>
             <Column gutter="lg">
               <Column gutter="sm">
-                <Title text="1 app for all the citizens of Amsterdam" />
+                <Title text="One app for all citizens of Amsterdam" />
                 <Paragraph variant="intro">
-                  With the Amsterdam app you quickly get information tailored
-                  for you. You can easily arrange topics like:
+                  The Amsterdam app quickly provides information tailored to
+                  you. Take care of affairs with ease, like:
                 </Paragraph>
               </Column>
               <Track gutter="lg">
@@ -31,30 +31,29 @@ export const AboutTheAppEnglishScreen = () => {
                   <Icon name="trash-bin" size={32} />
                   <Title level="h5" text="Waste information" />
                   <Paragraph>
-                    If you enter your address (optional) you can lookup where to
-                    deposit your bulky (oversized) waste. It also helps you
-                    where to find the nearest waste or glass containers
+                    You can enter your address to look up where to dispose of
+                    bulky (oversized) waste. This also helps to locate the
+                    nearest waste and glass containers.
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
                   <Icon name="construction-work" size={32} />
                   <Title level="h5" text="Road work" />
                   <Paragraph>
-                    The municipality often has maintenance on streets, quays,
-                    bridges and buildings. In 'Werkzaamheden' you can see the
-                    projects of your area. You can follow a project in the app.
-                    If you follow a project, you are always up to date with any
-                    activities.
+                    The City often performs maintenance on streets, bridges,
+                    quays, and buildings. ‘Werkzaamheden’ lists the projects in
+                    your area. You can follow a project in the app. If you do
+                    so, we keep you up-to-date with any construction work.
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
                   <Icon name="alert" size={32} />
                   <Title level="h5" text="Report it" />
                   <Paragraph>
-                    Is the waste container full, the lamppost not working or
-                    rubbish on the street? You can report all of that within the
-                    app. We will solve these problems for you as soon as
-                    possible.
+                    Is a waste container full, a lamppost not working, or is
+                    rubbish lying on the street? You can report any of that
+                    within the app. We will take care of these problems as
+                    quickly as possible.
                   </Paragraph>
                 </Column>
               </Track>
@@ -68,19 +67,19 @@ export const AboutTheAppEnglishScreen = () => {
               <Column gutter="sm">
                 <Title
                   level="h2"
-                  text="1 app for all the citizens of Amsterdam and Weesp"
+                  text="One app for all citizens of Amsterdam and Weesp"
                 />
                 <Paragraph>
-                  We make one app for all the people who live in Amsterdam and
-                  Weesp. The app is designed so that anyone can use it.
+                  We make one app for everyone living in Amsterdam or Weesp. The
+                  app has been designed to be usable for anyone.
                 </Paragraph>
               </Column>
               <Column gutter="sm">
                 <Title level="h2" text="More topics in the future" />
                 <Paragraph>
-                  This version of the Amsterdam app has topics that will benefit
-                  everyone. This is the start of many more topics and languages
-                  to come. This is how we keep improving the app.
+                  This version of the Amsterdam app offers topics that benefit
+                  everyone. It is the start of more features and languages to
+                  come. We’ll keep improving the app this way.
                 </Paragraph>
               </Column>
             </Track>
