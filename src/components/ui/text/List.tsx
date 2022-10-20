@@ -47,7 +47,6 @@ const createStyles =
   ({text}: Theme) =>
     StyleSheet.create({
       marker: {
-        flexDirection: 'row',
         alignItems: 'center',
         width: text.lineHeight.body * text.fontSize.body, // TODO Change in line height branch
       },
