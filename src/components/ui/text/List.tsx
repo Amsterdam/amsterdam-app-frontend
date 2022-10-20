@@ -29,7 +29,7 @@ const ListItem = ({text, marker}: ListItemProps) => {
           {Marker[marker]}
         </Phrase>
       </View>
-      <Phrase isListed>{text}</Phrase>
+      <Phrase>{text}</Phrase>
     </Row>
   )
 }

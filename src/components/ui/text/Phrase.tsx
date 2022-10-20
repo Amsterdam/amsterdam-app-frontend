@@ -14,10 +14,6 @@ type Props = {
    */
   fontWeight?: 'bold' | 'regular'
   /**
-   * Determines if the phrase is listed
-   */
-  isListed?: boolean
-  /**
    * Which variation of a phrase to display.
    */
   variant?: ParagraphVariants
@@ -32,7 +28,6 @@ export const Phrase = ({
   children,
   color = 'default',
   fontWeight = 'regular',
-  isListed,
   variant = 'body',
   ...otherProps
 }: Props) => {
@@ -43,7 +38,7 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text style={[isListed && styles.isListed, styles.text]} {...otherProps}>
+    <Text style={styles.text} {...otherProps}>
       {children}
     </Text>
   )
@@ -57,10 +52,6 @@ const createStyles =
   }: Required<Pick<Props, 'color' | 'fontWeight' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
-      isListed: {
-        flex: 1,
-        flexWrap: 'wrap',
-      },
       text: {
         flexShrink: 1,
         color: color.text[textColor],
