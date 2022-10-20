@@ -25,7 +25,7 @@ export const ProjectsByText = ({searchText}: Props) => {
   const result = useGetProjectsByTextQuery({
     fields: ['identifier', 'images', 'subtitle', 'title'],
     text: searchText,
-    queryFields: ['subtitle', 'title'],
+    queryFields: ['title', 'subtitle'],
   })
 
   return (
