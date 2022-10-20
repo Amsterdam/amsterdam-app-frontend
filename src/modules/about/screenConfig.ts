@@ -1,10 +1,10 @@
 import {StackNavigationRoutes} from '@/app/navigation'
 import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {
-  AboutEnglishScreen,
   AboutScreen,
+  AboutTheAppDutchScreen,
+  AboutTheAppEnglishScreen,
   AccessibilityStatementScreen,
-  AppSummaryScreen,
   PrivacyStatementScreen,
 } from '@/modules/about/screens'
 
@@ -19,8 +19,15 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Over deze app',
     },
   },
+  [AboutRouteName.appSummary]: {
+    component: AboutTheAppDutchScreen,
+    name: AboutRouteName.appSummary,
+    options: {
+      headerTitle: 'Waarom deze app?',
+    },
+  },
   [AboutRouteName.aboutEnglish]: {
-    component: AboutEnglishScreen,
+    component: AboutTheAppEnglishScreen,
     name: AboutRouteName.aboutEnglish,
     options: {
       headerTitle: 'About this app',
@@ -31,13 +38,6 @@ export const screenConfig: StackNavigationRoutes<
     name: AboutRouteName.accessibilityStatement,
     options: {
       headerTitle: 'Toegankelijkheidsverklaring',
-    },
-  },
-  [AboutRouteName.appSummary]: {
-    component: AppSummaryScreen,
-    name: AboutRouteName.appSummary,
-    options: {
-      headerTitle: 'Waarom deze app?',
     },
   },
   [AboutRouteName.privacyStatement]: {

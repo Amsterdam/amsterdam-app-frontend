@@ -5,7 +5,7 @@ import {Column, Screen} from '@/components/ui/layout'
 import {Icon, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 
-export const AboutEnglishScreen = () => (
+export const AboutTheAppEnglishScreen = () => (
   <Screen>
     <Column gutter="md">
       <Image source={require('@/modules/about/assets/traffic-cycling.jpeg')} />
