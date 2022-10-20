@@ -56,7 +56,8 @@ export const DisplayAddress = ({address}: Props) => {
       </Column>
       <ButtonRow>
         <Button
-          label="Wijzig adres"
+          iconName="edit"
+          label="Wijzig"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
           small
           variant="primary"
