@@ -49,7 +49,7 @@ export const AccessibilityStatementScreen = () => {
             />
             <List
               items={[
-                'Met Voice over op iOS wordt de focus niet altijd op het eerste interactieve element gezet.',
+                'Met VoiceOver op iOS wordt de focus niet altijd op het eerste interactieve element gezet.',
                 'Formulieren zijn niet uitsluitend met toetsenbord in te vullen.',
                 'Donkere modus wordt nog niet ondersteund.',
                 "In de Amsterdam app worden webpagina's getoond binnen een 'webview'. De webpagina's binnen de webview zijn niet volledig toegankelijk.",
