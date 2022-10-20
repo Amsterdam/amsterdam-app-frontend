@@ -8,7 +8,7 @@ import {Paragraph, Title} from '@/components/ui/text'
 export const AboutEnglishScreen = () => (
   <Screen>
     <Column gutter="md">
-      <Image source={require('@/modules/about/assets/header.jpeg')} />
+      <Image source={require('@/modules/about/assets/traffic-cycling.jpeg')} />
       <Box>
         <Column gutter="lg">
           <Column gutter="sm">
@@ -46,7 +46,9 @@ export const AboutEnglishScreen = () => (
               solve these problems for you as soon as possible.
             </Paragraph>
           </Column>
-          <Image source={require('@/modules/about/assets/article.jpeg')} />
+          <Image
+            source={require('@/modules/about/assets/people-in-park.jpeg')}
+          />
           <Column gutter="sm">
             <Title
               level="h2"
