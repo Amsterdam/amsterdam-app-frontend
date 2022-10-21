@@ -6,13 +6,33 @@ import {SpacingTokens} from '@/themes/tokens'
 
 export type BoxProps = {
   children: ReactNode
+  /**
+   * Whether the box has a background color, setting it apart from its surroundings.
+   * In light mode, it is white – only to be used on light grey (settings) screens.
+   */
   distinct?: boolean
+  /**
+   * Whether the box grows to fill its parent container.
+   */
   grow?: boolean
+  /**
+   * The amount of inner whitespace.
+   */
   inset?: keyof SpacingTokens
+  /**
+   * The amount of inner whitespace at the left and right.
+   */
   insetHorizontal?: keyof SpacingTokens
+  /**
+   * The amount of inner whitespace at the top and bottom.
+   */
   insetVertical?: keyof SpacingTokens
 } & Omit<ViewProps, 'style'>
 
+/**
+ * Visually groups its content.
+ * Allows to set insets and a background colour.
+ */
 export const Box = ({
   children,
   distinct,

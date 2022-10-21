@@ -11,6 +11,10 @@ export const parameters = {
   backgrounds: {
     values: [
       {
+        name: 'neutral-grey1',
+        value: baseColor.neutral.grey1,
+      },
+      {
         name: 'primary-blue',
         value: baseColor.primary.blue,
       },
