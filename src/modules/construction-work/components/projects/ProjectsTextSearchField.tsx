@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native'
 import debounce from 'lodash.debounce'
 import React, {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
@@ -11,6 +12,8 @@ import {
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()
+  const navigation = useNavigation()
+
   const searchText = useSelector(selectConstructionWorkSearchText)
 
   /**
@@ -47,11 +50,15 @@ export const ProjectsTextSearchField = () => {
     [setSearchTextValue, storeSearchTextInState],
   )
 
-  // Reset search data on start
-  useEffect(() => {
-    dispatch(setIsSearching(false))
-    dispatch(setSearchText(''))
-  }, [dispatch])
+  /**
+   * Clears search state when navigating out of this module.
+   */
+  useEffect(() =>
+    navigation.addListener('beforeRemove', () => {
+      dispatch(setIsSearching(false))
+      dispatch(setSearchText(''))
+    }),
+  )
 
   return (
     <SearchField
