@@ -8,7 +8,7 @@ jobs:
   - job: "Build_Android"
     timeoutInMinutes: 90
     pool:
-      vmImage: macOS-11
+      vmImage: macOS-12
     variables:
       - group: React Native Variables
       - group: device-authorization
@@ -23,7 +23,7 @@ jobs:
   - job: "Build_iOS"
     timeoutInMinutes: 90
     pool:
-      vmImage: macOS-11
+      vmImage: macOS-12
     variables:
       - group: React Native Variables
       - group: device-authorization
@@ -38,6 +38,6 @@ jobs:
   - job: "Build_Storybook"
     timeoutInMinutes: 30
     pool:
-      vmImage: macOS-11
+      vmImage: macOS-12
     steps:
       - template: ./templates/storybook-build.yml
