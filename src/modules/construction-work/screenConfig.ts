@@ -5,10 +5,10 @@ import {
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {
+  ConstructionWorkScreen,
   ProjectBodyScreen,
   ProjectNewsScreen,
   ProjectScreen,
-  ProjectsScreen,
   ProjectWarningScreen,
 } from '@/modules/construction-work/screens'
 
@@ -16,9 +16,9 @@ export const screenConfig: StackNavigationRoutes<
   ConstructionWorkStackParams,
   ConstructionWorkRouteName
 > = {
-  [ConstructionWorkRouteName.projects]: {
-    component: ProjectsScreen,
-    name: ConstructionWorkRouteName.projects,
+  [ConstructionWorkRouteName.constructionWork]: {
+    component: ConstructionWorkScreen,
+    name: ConstructionWorkRouteName.constructionWork,
     options: {
       headerTitle: 'Werkzaamheden',
     },

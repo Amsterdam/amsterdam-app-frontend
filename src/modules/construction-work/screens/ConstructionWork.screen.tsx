@@ -18,7 +18,7 @@ import {
   setSearchText,
 } from '@/modules/construction-work/slice'
 
-export const ProjectsScreen = () => {
+export const ConstructionWorkScreen = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
