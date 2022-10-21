@@ -5,8 +5,8 @@ import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 export type BoxProps = {
-  background?: 'emphasis' | 'grey' | 'invalid' | 'white'
   children: ReactNode
+  distinct?: boolean
   grow?: boolean
   inset?: keyof SpacingTokens
   insetHorizontal?: keyof SpacingTokens
@@ -14,8 +14,8 @@ export type BoxProps = {
 } & Omit<ViewProps, 'style'>
 
 export const Box = ({
-  background,
   children,
+  distinct,
   grow,
   inset = 'md',
   insetHorizontal,
@@ -23,7 +23,7 @@ export const Box = ({
   ...otherProps
 }: BoxProps) => {
   const styles = useThemable(
-    createStyles({background, inset, insetHorizontal, insetVertical}),
+    createStyles({distinct: distinct, inset, insetHorizontal, insetVertical}),
   )
 
   return (
@@ -34,11 +34,11 @@ export const Box = ({
 }
 
 const createStyles =
-  ({background, inset, insetHorizontal, insetVertical}: Partial<BoxProps>) =>
+  ({distinct, inset, insetHorizontal, insetVertical}: Partial<BoxProps>) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       box: {
-        backgroundColor: background && color.box.background[background],
+        backgroundColor: distinct ? color.box.background.white : undefined,
         padding:
           inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
         paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],

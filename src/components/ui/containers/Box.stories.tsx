@@ -13,5 +13,5 @@ export const Default: ComponentStory<typeof Box> = args => (
   </Box>
 )
 Default.args = {
-  background: 'grey',
+  distinct: false,
 }
