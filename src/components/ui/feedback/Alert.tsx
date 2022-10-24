@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {FC, Fragment, ReactNode, useEffect} from 'react'
-import {Platform, Pressable, StyleSheet, UIManager, View} from 'react-native'
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  StyleSheet,
+  UIManager,
+  View,
+} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
@@ -47,7 +54,17 @@ export const Alert = () => {
 
   const WrapperComponent: FC<{children: ReactNode}> =
     closeType === AlertCloseType.withoutButton
-      ? props => <Pressable onPress={() => dispatch(resetAlert())} {...props} />
+      ? props => (
+          <Pressable
+            onPress={() => {
+              LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
+              dispatch(resetAlert())
+            }}
+            {...props}
+          />
+        )
       : Fragment
 
   return (

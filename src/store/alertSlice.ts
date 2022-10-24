@@ -26,10 +26,7 @@ export const alertSlice = createSlice({
   name: 'alert',
   initialState,
   reducers: {
-    resetAlert: () => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-      return initialState
-    },
+    resetAlert: () => initialState,
     setAlert: (state, {payload}: PayloadAction<AlertSliceState>) => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       return payload
