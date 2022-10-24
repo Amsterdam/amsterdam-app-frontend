@@ -15,7 +15,7 @@ import {
   selectConstructionWorkSearchText,
 } from '@/modules/construction-work/slice'
 
-export const ProjectsScreen = () => {
+export const ConstructionWorkScreen = () => {
   const address = useSelector(selectAddress)
   const isSearching = useSelector(selectConstructionWorkIsSearching)
   const searchText = useSelector(selectConstructionWorkSearchText)

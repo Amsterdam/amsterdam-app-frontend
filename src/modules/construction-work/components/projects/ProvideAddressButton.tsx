@@ -10,7 +10,10 @@ import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 export const ProvideAddressButton = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParams, ConstructionWorkRouteName.projects>
+      StackNavigationProp<
+        RootStackParams,
+        ConstructionWorkRouteName.constructionWork
+      >
     >()
 
   return (

@@ -72,7 +72,7 @@ export const ArticleOverview = ({
     return navigation.addListener('blur', () => {
       const {index, routes} = navigation.getState()
       if (
-        routes[index].name === ConstructionWorkRouteName.projects &&
+        routes[index].name === ConstructionWorkRouteName.constructionWork &&
         articles
       ) {
         markMultipleAsRead(articles)
