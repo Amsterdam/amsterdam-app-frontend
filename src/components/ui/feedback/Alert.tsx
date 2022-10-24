@@ -1,13 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {FC, Fragment, ReactNode, useEffect} from 'react'
-import {
-  InteractionManager,
-  Platform,
-  Pressable,
-  StyleSheet,
-  UIManager,
-  View,
-} from 'react-native'
+import {Platform, Pressable, StyleSheet, UIManager, View} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IconButton} from '@/components/ui/buttons'
 import {Box, SingleSelectable} from '@/components/ui/containers'
@@ -43,11 +36,8 @@ export const Alert = () => {
   const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
-    return navigation.addListener('blur', () => {
-      const task = InteractionManager.runAfterInteractions(() => {
-        dispatch(resetAlert())
-      })
-      return () => task.cancel()
+    return navigation.addListener('beforeRemove', () => {
+      dispatch(resetAlert())
     })
   }, [dispatch, navigation])
 
