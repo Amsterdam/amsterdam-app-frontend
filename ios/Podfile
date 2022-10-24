@@ -43,6 +43,7 @@ target 'AmsterdamApp' do
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
     apply_flipper_fix(installer) 
+    apply_xcode_14_fix(installer)
   end
 end
 # Fix for https://github.com/facebook/react-native/issues/34332
@@ -56,6 +57,16 @@ def apply_flipper_fix(installer)
           # https://github.com/cipolleschi/react-native/blob/f3db6cc52792e3006a16408df4ae40f3aee19a86/scripts/cocoapods/flipper.rb#L87
           config.build_settings['OTHER_CFLAGS'] = "$(inherited) -DFB_SONARKIT_ENABLED=1"
         end
+      end
+    end
+  end
+end
+# Fix for https://github.com/facebook/react-native/issues/34673 should be solved in react native 0.70.3 and higher
+def apply_xcode_14_fix(installer)
+  installer.pods_project.targets.each do |target|
+    if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+      target.build_configurations.each do |config|
+          config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
       end
     end
   end
