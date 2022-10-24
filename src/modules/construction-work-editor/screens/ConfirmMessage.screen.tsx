@@ -43,7 +43,6 @@ type Props = {
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
-  const [hasAlert, setHasAlert] = useState(true)
   const [isPushNotificationChecked, setPushNotificationChecked] =
     useState(false)
   const currentProjectId = useSelector(selectCurrentProjectId)
@@ -102,22 +101,9 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
       dispatch(clearDraft())
 
-      // Before navigating to the screen where the Alert (showSuccessfullySentMessageAlert)
-      // is shown, we have to remove the Alert in this component.
-      setHasAlert(false)
-
-      navigation.popToTop()
-      dispatch(
-        setAlert({
-          closeType: AlertCloseType.withoutButton,
-          content: {
-            title: 'Gelukt',
-            text: 'Uw bericht is geplaatst.',
-          },
-          variant: AlertVariant.positive,
-          withIcon: false,
-        }),
-      )
+      navigation.navigate(ConstructionWorkEditorRouteName.authorizedProjects, {
+        showSuccessfullySentMessageAlert: true,
+      })
     } catch (error: unknown) {
       dispatch(
         setAlert({
@@ -151,7 +137,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   return (
     <Screen
       scroll
-      stickyHeader={!!hasAlert && <Alert />}
+      stickyHeader={<Alert />}
       stickyFooter={
         <>
           <Box>
