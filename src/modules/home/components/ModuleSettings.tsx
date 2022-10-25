@@ -73,7 +73,7 @@ export const ModuleSettings = () => {
           }
 
           return (
-            <Box background="white" key={slug}>
+            <Box distinct key={slug}>
               <Switch
                 accessibilityLabel={accessibleText(title, description)}
                 label={

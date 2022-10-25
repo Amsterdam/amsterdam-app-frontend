@@ -13,7 +13,7 @@ export const Address = () => {
   const address = useSelector(selectAddress)
 
   return (
-    <Box background="white">
+    <Box distinct>
       <Column gutter="md">
         <BoxTitle />
         {address.adres ? (
