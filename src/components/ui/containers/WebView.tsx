@@ -16,9 +16,10 @@ export const WebView = ({sliceFromTop, url, urlParams}: WebViewProps) => {
   const {isPortrait} = useContext(DeviceContext)
 
   const params = new URLSearchParams(urlParams)
-  const urlWithParams = Object.keys(params).length
-    ? url + '?' + params.toString()
-    : url
+  const urlWithParams =
+    urlParams && Object.keys(urlParams).length
+      ? url + '?' + params.toString()
+      : url
 
   return (
     <WebViewRN
