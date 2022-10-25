@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {FC, Fragment, ReactNode, useEffect} from 'react'
 import {
-  InteractionManager,
+  LayoutAnimation,
   Platform,
   Pressable,
   StyleSheet,
@@ -43,11 +43,8 @@ export const Alert = () => {
   const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(() => {
-    return navigation.addListener('blur', () => {
-      const task = InteractionManager.runAfterInteractions(() => {
-        dispatch(resetAlert())
-      })
-      return () => task.cancel()
+    return navigation.addListener('beforeRemove', () => {
+      dispatch(resetAlert())
     })
   }, [dispatch, navigation])
 
@@ -57,7 +54,17 @@ export const Alert = () => {
 
   const WrapperComponent: FC<{children: ReactNode}> =
     closeType === AlertCloseType.withoutButton
-      ? props => <Pressable onPress={() => dispatch(resetAlert())} {...props} />
+      ? props => (
+          <Pressable
+            onPress={() => {
+              LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut,
+              )
+              dispatch(resetAlert())
+            }}
+            {...props}
+          />
+        )
       : Fragment
 
   return (
