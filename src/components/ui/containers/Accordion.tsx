@@ -36,7 +36,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
   return (
     <Column>
       <Pressable
-        accessibilityHint={`Dubbeltik om de inhoud te ${
+        accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
           isOpen ? 'verbergen' : 'bekijken'
         }`}
         onPress={() => setIsOpen(!isOpen)}>
