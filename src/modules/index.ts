@@ -9,6 +9,7 @@ import {module as redirectsModule} from './redirects'
 import {module as reportProblemModule} from './report-problem'
 import {module as userModule} from './user'
 import {module as wasteGuideModule} from './waste-guide'
+import {module as welcomeModule} from './welcome'
 
 const coreModules = [addressModule, homeModule, userModule]
 
@@ -22,4 +23,5 @@ export const clientModules = [
   redirectsModule,
   reportProblemModule,
   wasteGuideModule,
+  welcomeModule,
 ]
