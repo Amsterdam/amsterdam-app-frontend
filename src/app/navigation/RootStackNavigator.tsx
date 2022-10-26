@@ -2,8 +2,8 @@ import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useMemo} from 'react'
 import {screenOptions} from '@/app/navigation'
-import {clientModules} from '@/modules'
-import {module as homeModule} from '@/modules/home'
+import {PleaseWait} from '@/components/ui/feedback'
+import {useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -31,6 +31,7 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
+  const {clientModules, selectedModulesBySlug} = useModules()
 
   const ModuleStacks = useMemo(
     () =>
@@ -41,12 +42,20 @@ export const RootStackNavigator = () => {
           <Stack.Screen component={stack} key={slug} name={slug} />
         ) : null
       }),
-    [],
+    [clientModules],
   )
+
+  if (!selectedModulesBySlug.length || !clientModules.length) {
+    return <PleaseWait />
+  }
 
   return (
     <Stack.Navigator
-      initialRouteName={homeModule.slug}
+      initialRouteName={
+        selectedModulesBySlug.includes(ModuleSlug.welcome)
+          ? ModuleSlug.welcome
+          : ModuleSlug.home
+      }
       screenOptions={{
         headerShown: false,
       }}>
