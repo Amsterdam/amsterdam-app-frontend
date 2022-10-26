@@ -3,6 +3,9 @@ package nl.amsterdam.app;
 // Needed by react-navigation:
 import android.os.Bundle;
 
+// Required for splashscreen
+import com.zoontek.rnbootsplash.RNBootSplash;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -44,6 +47,7 @@ public class MainActivity extends ReactActivity {
   // Needed by react-navigation:
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    RNBootSplash.init(this); // initialize the splashscreen
     super.onCreate(null);
   }
 }

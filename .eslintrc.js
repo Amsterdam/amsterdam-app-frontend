@@ -30,6 +30,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
+    'no-void': ['error', {allowAsStatement: true}],
     semi: ['error', 'never'],
     'no-restricted-imports': [
       'error',
