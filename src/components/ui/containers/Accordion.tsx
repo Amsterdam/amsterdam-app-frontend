@@ -48,6 +48,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
               level="h5"
               numberOfLines={3}
               text={title}
+              weight="extraBold"
             />
             <Size height={text.fontSize.h5 * text.lineHeight.h5}>
               <Icon color="link" name={iconName} size={24} />
