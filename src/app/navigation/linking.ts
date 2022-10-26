@@ -97,7 +97,6 @@ export const linking: LinkingOptions<RootStackParams> = {
         name: 'Default Channel',
       })
       if (message.notification) {
-        // eslint-disable-next-line no-void
         void notifee.displayNotification({
           title: message.notification.title,
           body: message.notification.body,

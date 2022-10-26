@@ -65,10 +65,8 @@ export const Project = ({id}: Props) => {
         return
       }
       if (isFollowed) {
-        // eslint-disable-next-line no-void
         void unfollowProject({project_id: project.identifier})
       } else {
-        // eslint-disable-next-line no-void
         void followProject({project_id: project.identifier})
         requestPushNotificationsPermission()
           .then(registerDevice)

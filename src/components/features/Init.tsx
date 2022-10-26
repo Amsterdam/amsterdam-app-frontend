@@ -31,7 +31,6 @@ export const Init = ({children}: Props) => {
               )
             })
         } else {
-          // eslint-disable-next-line no-void
           void unregisterDevice(undefined)
         }
       },
