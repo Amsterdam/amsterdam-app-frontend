@@ -10,7 +10,7 @@ export const screenConfig: StackNavigationRoutes<
     component: WelcomeScreen,
     name: WelcomeRouteName.welcome,
     options: {
-      headerTitle: 'Welcome',
+      headerShown: false,
     },
   },
 }
