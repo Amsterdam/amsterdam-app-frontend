@@ -1,5 +1,5 @@
 import React from 'react'
-import {useWindowDimensions} from 'react-native'
+import {Platform, useWindowDimensions} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
@@ -94,6 +94,9 @@ const createStyles: (
       ? text.lineHeight.intro * text.fontSize.intro
       : text.lineHeight.body * text.fontSize.body
 
+    const platformDependentFontWeight =
+      Platform.OS === 'android' ? 'normal' : undefined // By default Android sets this to 'bold' which breaks the font family
+
     return {
       margins: {
         marginTop: 0,
@@ -105,13 +108,13 @@ const createStyles: (
       },
       titleLevel3: {
         fontFamily: text.fontWeight.bold,
-        fontWeight: 'normal', // By default Android sets this to 'bold' which breaks the font family
+        fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
       },
       titleLevel4: {
         fontFamily: text.fontWeight.bold,
-        fontWeight: 'normal', // By default Android sets this to 'bold' which breaks the font family
+        fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h4,
         lineHeight: text.lineHeight.h4 * text.fontSize.h4,
       },
