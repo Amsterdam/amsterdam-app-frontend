@@ -1,4 +1,4 @@
-export type ParagraphVariants = 'body' | 'intro' | 'small'
+export type ParagraphVariants = 'body' | 'intro' | 'quote' | 'small'
 
 type FormTextTokens = {
   input: number
@@ -7,6 +7,7 @@ type FormTextTokens = {
 type ParagraphTokens = {
   body: number
   intro: number
+  quote: number
   small: number
 }
 
@@ -42,6 +43,7 @@ export const textTokens: TextTokens = {
     h5: 18,
     h6: 16,
     intro: 22,
+    quote: 24,
     small: 16,
   },
   fontWeight: {
@@ -60,6 +62,7 @@ export const textTokens: TextTokens = {
     h5: 1.4,
     h6: 1.4,
     intro: 1.6,
+    quote: 1.3,
     small: 1.5,
   },
 }
