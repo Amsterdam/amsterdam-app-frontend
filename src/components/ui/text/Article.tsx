@@ -62,7 +62,7 @@ export const Article = ({content, isIntro}: Props) => {
     h4: {...styles.titleLevel4, ...styles.titleMargins},
     img: styles.margins,
     li: {...styles.paragraph},
-    ol: styles.margins,
+    ol: {...styles.margins, ...styles.paragraph},
     p: {...styles.paragraph, ...styles.margins},
     ul: styles.margins,
   }
