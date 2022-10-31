@@ -27,7 +27,6 @@ export const WasteGuideForWeesp = ({address}: Props) => {
           iconName="external-link"
           label="Ga naar GAD.nl"
           onPress={() => {
-            // eslint-disable-next-line no-void
             void Linking.openURL(gadUrl)
           }}
         />

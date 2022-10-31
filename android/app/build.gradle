@@ -312,6 +312,9 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    // required for splashscreen
+    implementation "androidx.core:core-splashscreen:1.0.0"
+
     // Firebase
     implementation 'com.google.firebase:firebase-core:9.6.1'
 

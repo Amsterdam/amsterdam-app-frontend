@@ -39,7 +39,6 @@ export const ModuleSettings = () => {
           )
         })
     } else {
-      // eslint-disable-next-line no-void
       void unregisterDevice(undefined)
     }
   }, [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice])

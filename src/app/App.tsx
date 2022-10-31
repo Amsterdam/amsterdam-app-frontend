@@ -6,6 +6,7 @@ import {
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
 import React from 'react'
 import {StatusBar} from 'react-native'
+import RNBootSplash from 'react-native-bootsplash'
 import {
   initialWindowMetrics,
   SafeAreaProvider,
@@ -37,6 +38,7 @@ const AppComponent = () => {
           ref={navigation}
           onReady={() => {
             registerNavigationContainer(navigation)
+            void RNBootSplash.hide({fade: true})
           }}>
           <RootProvider>
             <PersistGate loading={null} persistor={persistor}>

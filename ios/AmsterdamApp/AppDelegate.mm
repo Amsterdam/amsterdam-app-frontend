@@ -1,5 +1,8 @@
 #import "AppDelegate.h"
 
+// required for splashscreen
+#import "RNBootSplash.h"
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -58,6 +61,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  // show splashscreen
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
+
   return YES;
 }
 
