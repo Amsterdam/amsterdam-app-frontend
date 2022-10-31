@@ -20,7 +20,7 @@ export const AboutTheAppEnglishScreen = () => {
           <Box>
             <Column gutter="lg">
               <Column gutter="sm">
-                <Title text="One app for all citizens of Amsterdam" />
+                <Title text="1 app for all citizens of Amsterdam" />
                 <Paragraph variant="intro">
                   The Amsterdam app quickly provides information tailored to
                   you. Take care of affairs with ease, like:
@@ -67,10 +67,10 @@ export const AboutTheAppEnglishScreen = () => {
               <Column gutter="sm">
                 <Title
                   level="h2"
-                  text="One app for all citizens of Amsterdam and Weesp"
+                  text="1 app for all citizens of Amsterdam and Weesp"
                 />
                 <Paragraph>
-                  We make one app for everyone living in Amsterdam or Weesp. The
+                  We make 1 app for everyone living in Amsterdam or Weesp. The
                   app has been designed to be usable for anyone.
                 </Paragraph>
               </Column>
