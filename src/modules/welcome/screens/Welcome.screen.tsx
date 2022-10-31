@@ -16,22 +16,24 @@ type Props = {
   navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
 }
 
-enum CustomAspectRatio {
+enum ImageAspectRatio {
   landscape = 5 / 3,
   portrait = 4 / 5,
 }
 
 export const WelcomeScreen = ({navigation}: Props) => {
+  const {isPortrait} = useContext(DeviceContext)
+  const sizeProps = createSizeProps({isPortrait})
+  const styles = createStyles({isPortrait})
+  const imageWithQuote = useSelectImageWithQuote()
+
+  useTransparentStatusBar()
+
   useMemo(() => {
     setTimeout(() => {
       navigation.navigate(ModuleSlug.home)
     }, 5000)
   }, [navigation])
-  const {isPortrait} = useContext(DeviceContext)
-  const sizeProps = createSizeProps({isPortrait})
-  const styles = createStyles({isPortrait})
-  const imageWithQuote = useSelectImageWithQuote()
-  useTransparentStatusBar()
 
   return (
     <Screen scroll={false} withBottomInset={false} withLeftInset={false}>
@@ -41,8 +43,8 @@ export const WelcomeScreen = ({navigation}: Props) => {
             <Image
               customAspectRatio={
                 isPortrait
-                  ? CustomAspectRatio.portrait
-                  : CustomAspectRatio.landscape
+                  ? ImageAspectRatio.portrait
+                  : ImageAspectRatio.landscape
               }
               source={
                 isPortrait
