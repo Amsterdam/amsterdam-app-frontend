@@ -26,13 +26,11 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       NewMessage
     >({
       invalidatesTags: ['Articles', 'Projects'],
-      query(body) {
-        return {
-          url: '/project/warning',
-          method: 'POST',
-          body,
-        }
-      },
+      query: body => ({
+        url: '/project/warning',
+        method: 'POST',
+        body,
+      }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
     }),
@@ -40,13 +38,11 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
     [ConstructionWorkEditorEndpointName.addProjectWarningImage]:
       builder.mutation<MutationResponse, ProjectWarningImageQueryArg>({
         invalidatesTags: ['Articles', 'Projects'],
-        query(body) {
-          return {
-            url: '/project/warning/image',
-            method: 'POST',
-            body,
-          }
-        },
+        query: body => ({
+          url: '/project/warning/image',
+          method: 'POST',
+          body,
+        }),
       }),
   }),
   overrideExisting: true,

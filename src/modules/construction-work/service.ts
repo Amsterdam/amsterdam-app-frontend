@@ -27,13 +27,11 @@ export const projectsApi = baseApi.injectEndpoints({
       FollowProjectBody
     >({
       invalidatesTags: ['Projects'],
-      query(body) {
-        return {
-          url: '/projects/follow',
-          method: 'POST',
-          body,
-        }
-      },
+      query: body => ({
+        url: '/projects/follow',
+        method: 'POST',
+        body,
+      }),
     }),
 
     [ProjectsEndpointName.getArticles]: builder.query<
@@ -109,12 +107,11 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsItem[],
       ProjectsByTextQueryArg & FieldsQueryArg
     >({
-      query: params => {
-        return generateRequestUrl({
+      query: params =>
+        generateRequestUrl({
           path: '/projects/search',
           params: formatQueryParams(params),
-        })
-      },
+        }),
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -133,13 +130,11 @@ export const projectsApi = baseApi.injectEndpoints({
       FollowProjectBody
     >({
       invalidatesTags: ['Projects'],
-      query(body) {
-        return {
-          url: '/projects/follow',
-          method: 'DELETE',
-          body,
-        }
-      },
+      query: body => ({
+        url: '/projects/follow',
+        method: 'DELETE',
+        body,
+      }),
     }),
   }),
   overrideExisting: true,

@@ -27,15 +27,17 @@ export const useInitSentry = () => {
     setSentryUserData(consent)
   }, [consent])
 
-  useEffect(() => {
-    return NetInfo.addEventListener(({isConnected, isInternetReachable}) => {
-      captureSentryBreadcrumb(
-        'Internet connection change',
-        {isConnected, isInternetReachable},
-        BreadcrumbCategory.internetConnection,
-      )
-    })
-  }, [captureSentryBreadcrumb])
+  useEffect(
+    () =>
+      NetInfo.addEventListener(({isConnected, isInternetReachable}) => {
+        captureSentryBreadcrumb(
+          'Internet connection change',
+          {isConnected, isInternetReachable},
+          BreadcrumbCategory.internetConnection,
+        )
+      }),
+    [captureSentryBreadcrumb],
+  )
 
   useEffect(() => {
     setSentryBackEndEnvironment(environment)

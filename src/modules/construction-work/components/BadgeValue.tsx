@@ -16,13 +16,13 @@ export const BadgeValue = () => {
   const unreadArticlesLength = useMemo(
     () =>
       projects &&
-      Object.keys(projects).reduce((total, projectId) => {
-        return (
+      Object.keys(projects).reduce(
+        (total, projectId) =>
           projects[projectId].filter(
             id => !readArticles.map(r => r.id).includes(id),
-          ).length + total
-        )
-      }, 0),
+          ).length + total,
+        0,
+      ),
     [projects, readArticles],
   )
 

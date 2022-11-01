@@ -10,13 +10,11 @@ export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     addNotification: builder.mutation<Notification, NotificationQueryArg>({
       invalidatesTags: ['Notifications'],
-      query(body) {
-        return {
-          url: '/notification',
-          method: 'POST',
-          body,
-        }
-      },
+      query: body => ({
+        url: '/notification',
+        method: 'POST',
+        body,
+      }),
     }),
     getNotifications: builder.query<Notification[], NotificationsQueryArg>({
       providesTags: ['Notifications'],

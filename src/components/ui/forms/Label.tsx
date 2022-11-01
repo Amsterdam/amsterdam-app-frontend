@@ -7,13 +7,11 @@ type Props = {
   text: string
 }
 
-export const Label = ({isAccessible, text}: Props) => {
-  return (
-    <View
-      accessibilityElementsHidden={!isAccessible} // in case of iOS
-      importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
-    >
-      <Paragraph>{text}</Paragraph>
-    </View>
-  )
-}
+export const Label = ({isAccessible, text}: Props) => (
+  <View
+    accessibilityElementsHidden={!isAccessible} // in case of iOS
+    importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
+  >
+    <Paragraph>{text}</Paragraph>
+  </View>
+)

@@ -1,3 +1,1 @@
-export const formatNumber = (number = 0) => {
-  return number.toLocaleString('nl-NL')
-}
+export const formatNumber = (number = 0) => number.toLocaleString('nl-NL')

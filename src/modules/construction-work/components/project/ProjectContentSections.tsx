@@ -7,15 +7,13 @@ type Props = {
   sections: Section[]
 }
 
-export const ProjectContentSections = ({sections}: Props) => {
-  return (
-    <>
-      {sections.map(section => (
-        <Column gutter="sm" key={section.title}>
-          <Title level="h2" text={section.title} />
-          <Article content={section.html} />
-        </Column>
-      ))}
-    </>
-  )
-}
+export const ProjectContentSections = ({sections}: Props) => (
+  <>
+    {sections.map(section => (
+      <Column gutter="sm" key={section.title}>
+        <Title level="h2" text={section.title} />
+        <Article content={section.html} />
+      </Column>
+    ))}
+  </>
+)

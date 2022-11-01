@@ -19,33 +19,31 @@ export const FormField = ({
   name,
   placeholder,
   rules,
-}: Props) => {
-  return (
-    <Controller
-      rules={rules}
-      render={({field: {onChange, value}, fieldState: {error}}) => (
-        <>
-          <Column gutter="xs">
-            <TextInput
-              accessibilityLabel={label}
-              label={label}
-              multiline={!!numberOfLines}
-              numberOfLines={numberOfLines ?? 1}
-              onChangeText={onChange}
-              placeholder={placeholder}
-              value={value as string}
-              warning={!!error}
-            />
-          </Column>
-          <CharactersLeftDisplay
-            maxCharacters={maxCharacters}
-            numOfCharacters={(value as string).length}
+}: Props) => (
+  <Controller
+    rules={rules}
+    render={({field: {onChange, value}, fieldState: {error}}) => (
+      <>
+        <Column gutter="xs">
+          <TextInput
+            accessibilityLabel={label}
+            label={label}
+            multiline={!!numberOfLines}
+            numberOfLines={numberOfLines ?? 1}
+            onChangeText={onChange}
+            placeholder={placeholder}
+            value={value as string}
+            warning={!!error}
           />
-          {!!error && <Paragraph color="warning">{error.message}</Paragraph>}
-        </>
-      )}
-      name={name}
-      defaultValue={defaultValue as string}
-    />
-  )
-}
+        </Column>
+        <CharactersLeftDisplay
+          maxCharacters={maxCharacters}
+          numOfCharacters={(value as string).length}
+        />
+        {!!error && <Paragraph color="warning">{error.message}</Paragraph>}
+      </>
+    )}
+    name={name}
+    defaultValue={defaultValue as string}
+  />
+)

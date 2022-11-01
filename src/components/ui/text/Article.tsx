@@ -23,13 +23,11 @@ const transformRules = [
   },
 ]
 
-const transformContent = (content: string) => {
-  // Applies all transform rules to the content.
-  return transformRules.reduce(
+const transformContent = (content: string) =>
+  transformRules.reduce(
     (result, {find, replace}) => result.replace(find, replace),
     content,
   )
-}
 
 const computeEmbeddedMaxWidth =
   (size: SizeTokens) => (contentWidth: number, tagName: string) => {

@@ -99,8 +99,8 @@ const createStyles = (
     hasStickyFooter: boolean
     hasStickyHeader: boolean
   } & WithInsetProps,
-) => {
-  return StyleSheet.create({
+) =>
+  StyleSheet.create({
     screen: {
       flex: 1,
       paddingBottom: withBottomInset && hasStickyFooter ? bottom : 0,
@@ -117,4 +117,3 @@ const createStyles = (
       paddingTop: withTopInset && !hasStickyHeader ? top : 0,
     },
   })
-}

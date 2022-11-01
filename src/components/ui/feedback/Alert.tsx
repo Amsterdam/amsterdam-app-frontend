@@ -42,12 +42,14 @@ export const Alert = () => {
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  useEffect(() => {
-    return navigation.addListener('beforeRemove', () => {
-      //triggers only when moving back in navigation stack
-      dispatch(resetAlert())
-    })
-  }, [dispatch, navigation])
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', () => {
+        //triggers only when moving back in navigation stack
+        dispatch(resetAlert())
+      }),
+    [dispatch, navigation],
+  )
 
   useEffect(() => {
     dispatch(resetAlert()) // triggers when navigation navigates to new screen

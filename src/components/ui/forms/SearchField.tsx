@@ -62,8 +62,8 @@ const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 
 const createStyles =
   ({hasFocus: hasFocus}: {hasFocus: boolean} & Partial<Props>) =>
-  ({color, size, text}: Theme) => {
-    return StyleSheet.create({
+  ({color, size, text}: Theme) =>
+    StyleSheet.create({
       frame: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -88,7 +88,6 @@ const createStyles =
         lineHeight: text.fontSize.body * text.lineHeight.input,
       },
     })
-  }
 
 const createTextInputProps = ({color}: Theme): TextInputProps => ({
   placeholderTextColor: color.text.secondary,

@@ -13,27 +13,23 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
       MutationResponse,
       DeviceRegistrationQueryArg
     >({
-      query(body) {
-        return {
-          url: '/device/register',
-          method: 'POST',
-          body: {
-            os: Platform.OS,
-            ...body,
-          },
-        }
-      },
+      query: body => ({
+        url: '/device/register',
+        method: 'POST',
+        body: {
+          os: Platform.OS,
+          ...body,
+        },
+      }),
     }),
     [DeviceRegistrationEndpointName.unregisterDevice]: builder.mutation<
       MutationResponse,
       undefined
     >({
-      query() {
-        return {
-          url: '/device/register',
-          method: 'DELETE',
-        }
-      },
+      query: () => ({
+        url: '/device/register',
+        method: 'DELETE',
+      }),
     }),
   }),
   overrideExisting: true,

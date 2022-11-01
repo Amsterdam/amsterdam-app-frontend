@@ -15,39 +15,35 @@ type Props = {
 
 const versionNumber = getVersionNumber(isDevApp)
 
-export const AboutScreen = ({navigation}: Props) => {
-  return (
-    <Screen>
-      <Box>
-        <Column gutter="md">
-          <>
-            <Title text="Amsterdam App" />
-            <Phrase>Versie {versionNumber}</Phrase>
-          </>
-          <Column gutter="sm">
-            <NavigationButton
-              label="Waarom deze app?"
-              onPress={() => navigation.navigate(AboutRouteName.appSummary)}
-            />
-            <NavigationButton
-              label="About this app"
-              onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
-            />
-            <NavigationButton
-              label="Privacyverklaring"
-              onPress={() =>
-                navigation.navigate(AboutRouteName.privacyStatement)
-              }
-            />
-            <NavigationButton
-              label="Toegankelijkheidsverklaring"
-              onPress={() =>
-                navigation.navigate(AboutRouteName.accessibilityStatement)
-              }
-            />
-          </Column>
+export const AboutScreen = ({navigation}: Props) => (
+  <Screen>
+    <Box>
+      <Column gutter="md">
+        <>
+          <Title text="Amsterdam App" />
+          <Phrase>Versie {versionNumber}</Phrase>
+        </>
+        <Column gutter="sm">
+          <NavigationButton
+            label="Waarom deze app?"
+            onPress={() => navigation.navigate(AboutRouteName.appSummary)}
+          />
+          <NavigationButton
+            label="About this app"
+            onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
+          />
+          <NavigationButton
+            label="Privacyverklaring"
+            onPress={() => navigation.navigate(AboutRouteName.privacyStatement)}
+          />
+          <NavigationButton
+            label="Toegankelijkheidsverklaring"
+            onPress={() =>
+              navigation.navigate(AboutRouteName.accessibilityStatement)
+            }
+          />
         </Column>
-      </Box>
-    </Screen>
-  )
-}
+      </Column>
+    </Box>
+  </Screen>
+)

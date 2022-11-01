@@ -25,14 +25,11 @@ type Props = {
   street: string
 }
 
-const getNumberFromAddress = (text: string) => {
-  return (
-    text
-      .split(' ')
-      .reverse()
-      .find(el => el.match(/^[0-9]/)) || ''
-  )
-}
+const getNumberFromAddress = (text: string) =>
+  text
+    .split(' ')
+    .reverse()
+    .find(el => el.match(/^[0-9]/)) || ''
 
 export const NumberInput = ({
   bagList,

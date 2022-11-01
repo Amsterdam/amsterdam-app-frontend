@@ -47,12 +47,12 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 
   const imageSources = getImageSources()
 
-  const isNewAndUnreadArticle = useMemo(() => {
-    return (
+  const isNewAndUnreadArticle = useMemo(
+    () =>
       getDateDiffInDays(article.publication_date) <= recentArticleMaxAge &&
-      !readArticles.find(readArticle => readArticle.id === article.identifier)
-    )
-  }, [article.identifier, article.publication_date, readArticles])
+      !readArticles.find(readArticle => readArticle.id === article.identifier),
+    [article.identifier, article.publication_date, readArticles],
+  )
 
   const {media} = useTheme()
   const imageWidth = media.figureHeight.lg
