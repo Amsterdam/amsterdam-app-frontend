@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  plugins: ['import', 'jsx-expressions'],
+  plugins: ['import', 'jsx-expressions', 'prefer-arrow-functions'],
   extends: [
     '@react-native-community',
     'plugin:storybook/recommended',
@@ -50,6 +50,12 @@ module.exports = {
               'Import dayjs from @/utils/datetime to prevent timezone issues.',
           },
         ],
+      },
+    ],
+    'prefer-arrow-functions/prefer-arrow-functions': [
+      'error',
+      {
+        returnStyle: 'implicit',
       },
     ],
   },
