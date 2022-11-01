@@ -58,7 +58,7 @@
 		B12AB5ECD661CF7F7D25E413 /* Pods-AmsterdamApp.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devrelease.xcconfig"; sourceTree = "<group>"; };
 		CE65206046154C95B4A2E932 /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AmsterdamSans-Bold.otf"; path = "../src/assets/fonts/AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		D76C6CCC2729820200E1460A = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; sourceTree = "<group>"; };
+		D76C6CCC2729820200E1460A /*  */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; sourceTree = "<group>"; };
 		DFC95A086219933539042EB5 /* Pods-AmsterdamApp.devdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devdebug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devdebug.xcconfig"; sourceTree = "<group>"; };
 		E4F505E5473892CBAEF29FA2 /* Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp-AmsterdamAppTests/Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-AmsterdamApp-AmsterdamAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp-AmsterdamAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +105,7 @@
 		13B07FAE1A68108700A75B9A /* AmsterdamApp */ = {
 			isa = PBXGroup;
 			children = (
-				D76C6CCC2729820200E1460A,
+				D76C6CCC2729820200E1460A /*  */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				315F40D229098DCA009B5A4A /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
