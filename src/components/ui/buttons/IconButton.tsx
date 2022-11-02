@@ -1,12 +1,14 @@
-import React, {ReactNode} from 'react'
+import React, {ReactElement} from 'react'
 import {
   Pressable,
   PressableProps as PressableRNProps,
   StyleSheet,
   View,
 } from 'react-native'
+import {config} from '@/components/ui/config'
 import {Badge, BadgeProps} from '@/components/ui/feedback'
 import {Row} from '@/components/ui/layout'
+import {IconProps} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -17,15 +19,16 @@ type Props = {
   /**
    * The icon component to use for the button.
    */
-  icon: ReactNode
+  icon: ReactElement<IconProps>
 } & Omit<PressableRNProps, 'style'>
 
 export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
+  const hitSlop = (config.minTouchSize - (icon.props.size ?? 16)) / 2
 
   return (
     <Row align="start" valign="center">
-      <Pressable accessibilityRole="button" {...props}>
+      <Pressable accessibilityRole="button" hitSlop={hitSlop} {...props}>
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>
