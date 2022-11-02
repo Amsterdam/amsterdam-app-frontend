@@ -7,12 +7,13 @@ import {Column, Screen} from '@/components/ui/layout'
 import {Phrase, Title} from '@/components/ui/text'
 import {AboutRouteName} from '@/modules/about/routes'
 import {getVersionNumber} from '@/modules/about/utils'
+import {isDevApp} from '@/processes'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, AboutRouteName.about>
 }
 
-const versionNumber = getVersionNumber()
+const versionNumber = getVersionNumber(isDevApp)
 
 export const AboutScreen = ({navigation}: Props) => {
   return (
