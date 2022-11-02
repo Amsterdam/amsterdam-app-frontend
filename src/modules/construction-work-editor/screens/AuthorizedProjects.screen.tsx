@@ -1,4 +1,5 @@
 import {RouteProp} from '@react-navigation/core'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -14,13 +15,17 @@ import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-edito
 import {setAlert} from '@/store'
 
 type Props = {
+  navigation: StackNavigationProp<
+    RootStackParams,
+    ConstructionWorkEditorRouteName.authorizedProjects
+  >
   route: RouteProp<
     RootStackParams,
     ConstructionWorkEditorRouteName.authorizedProjects
   >
 }
 
-export const AuthorizedProjectsScreen = ({route}: Props) => {
+export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const deeplinkId = route.params?.id ?? undefined
 
@@ -39,8 +44,9 @@ export const AuthorizedProjectsScreen = ({route}: Props) => {
           withIcon: false,
         }),
       )
+      navigation.setParams({showSuccessfullySentMessageAlert: false})
     }
-  }, [dispatch, route.params?.showSuccessfullySentMessageAlert])
+  }, [dispatch, navigation, route.params?.showSuccessfullySentMessageAlert])
 
   return (
     <Screen scroll={false} stickyHeader={<Alert />}>
