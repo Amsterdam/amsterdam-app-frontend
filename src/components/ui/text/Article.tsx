@@ -23,6 +23,9 @@ const transformRules = [
   },
 ]
 
+/**
+ * Applies all transform rules to the content.
+ */
 const transformContent = (content: string) =>
   transformRules.reduce(
     (result, {find, replace}) => result.replace(find, replace),
