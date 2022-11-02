@@ -44,9 +44,14 @@ export const Alert = () => {
 
   useEffect(() => {
     return navigation.addListener('beforeRemove', () => {
+      //triggers only when moving back in navigation stack
       dispatch(resetAlert())
     })
   }, [dispatch, navigation])
+
+  useEffect(() => {
+    dispatch(resetAlert()) // triggers when navigation navigates to new screen
+  }, [dispatch])
 
   if (isEmptyObject(alert)) {
     return null
