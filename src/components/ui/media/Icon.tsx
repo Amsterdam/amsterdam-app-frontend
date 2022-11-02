@@ -20,20 +20,19 @@ export type IconProps = {
   scalesWithFont?: boolean
   /**
    * The size of the icon.
-   * Must be one of the allowed sizes.
    */
-  size?: IconSize
+  size?: keyof typeof IconSize
 }
 
 export const Icon = ({
   color = 'default',
   name,
   scalesWithFont = true,
-  size = 16,
+  size = 'md',
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useContext(DeviceContext)
-  const scaledSize = size * (scalesWithFont ? fontScale : 1)
+  const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
 
   return (
     <Svg

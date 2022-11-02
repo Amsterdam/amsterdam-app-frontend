@@ -28,7 +28,7 @@ export const AboutTheAppDutchScreen = () => {
               </Column>
               <Track gutter="lg">
                 <Column gutter="sm">
-                  <Icon name="trash-bin" size={32} />
+                  <Icon name="trash-bin" size="xl" />
                   <Title level="h5" text="Informatie over afval" />
                   <Paragraph>
                     U kunt uw adres invullen. Dan ziet u wanneer u grofvuil
@@ -38,7 +38,7 @@ export const AboutTheAppDutchScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="construction-work" size={32} />
+                  <Icon name="construction-work" size="xl" />
                   <Title level="h5" text="Werk aan de weg" />
                   <Paragraph>
                     De gemeente werkt vaak aan de straten, bruggen, kades of
@@ -49,7 +49,7 @@ export const AboutTheAppDutchScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="alert" size={32} />
+                  <Icon name="alert" size="xl" />
                   <Title level="h5" text="Melding maken" />
                   <Paragraph>
                     Is de container voor afval vol? Doet de lantaarnpaal het

@@ -9,7 +9,7 @@ import {ScreenTitle} from '@/components/ui/text'
 
 type Props = Pick<StackHeaderProps, 'back' | 'navigation' | 'options' | 'route'>
 
-const chevronSize = 20
+const chevronSize = 'ml'
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
   const title = getHeaderTitle(options, '')

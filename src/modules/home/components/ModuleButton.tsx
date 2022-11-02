@@ -52,10 +52,10 @@ export const ModuleButton = ({
             <Row gutter="md">
               {/* TODO Remove fallback after updating icon name in database. */}
               {iconName === 'projects' ? (
-                <Icon color={iconColor} name="construction-work" size={24} />
+                <Icon color={iconColor} name="construction-work" size="lg" />
               ) : (
                 !!iconName && (
-                  <Icon color={iconColor} name={iconName} size={24} />
+                  <Icon color={iconColor} name={iconName} size="lg" />
                 )
               )}
               <Title color={iconColor} level="h5" text={label} />

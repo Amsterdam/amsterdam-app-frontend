@@ -30,7 +30,7 @@ export const BoxTitle = () => {
       <Row gutter="sm" valign="center">
         <Title level="h2" text="Adres" />
         <IconButton
-          icon={<Icon color="link" name="question-mark-solid" size={24} />}
+          icon={<Icon color="link" name="question-mark-solid" size="lg" />}
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}

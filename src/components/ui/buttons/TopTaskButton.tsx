@@ -29,7 +29,7 @@ export const TopTaskButton = ({
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>
-            <Icon color="link" name={iconName} size={32} />
+            <Icon color="link" name={iconName} size="xl" />
           </View>
           <Column>
             <Row gutter="sm" valign="center">

@@ -10,6 +10,6 @@ export const Default: ComponentStoryObj<typeof Icon> = {
     color: 'default',
     name: 'announcement',
     scalesWithFont: true,
-    size: 32,
+    size: 'lg',
   },
 }

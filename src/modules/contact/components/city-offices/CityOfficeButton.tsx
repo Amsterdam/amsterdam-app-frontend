@@ -25,7 +25,7 @@ export const CityOfficeButton = ({cityOffice}: Props) => {
     <Pressable onPress={() => selectCityOffice(cityOffice.identifier)}>
       <Box>
         <Row gutter="md">
-          <Icon color="link" name="city-office" size={24} />
+          <Icon color="link" name="city-office" size="lg" />
           <Title color="link" level="h5" text={cityOffice.title} />
         </Row>
       </Box>

@@ -56,13 +56,13 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         style={styles.header}>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (
-            <Icon color="inverse" name="checkmark" size={12} />
+            <Icon color="inverse" name="checkmark" size="sm" />
           )}
         </View>
         <View style={styles.title}>
           <Title level="h5" text={item.title} />
         </View>
-        <Icon name={iconName} size={12} />
+        <Icon name={iconName} size="sm" />
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.body, {maxHeight: fadeAnim}]}>
         {item.content.map(c => (

@@ -8,14 +8,14 @@ import {IconSize} from '@/components/ui/types'
 
 type Props = {
   direction?: 'backward' | 'forward'
-  iconSize?: IconSize
+  iconSize?: keyof typeof IconSize
   label: string
   onPress: () => void
 }
 
 export const NavigationButton = ({
   direction = 'forward',
-  iconSize = 24,
+  iconSize = 'lg',
   label,
   onPress,
 }: Props) => (

@@ -9,6 +9,7 @@ import {config} from '@/components/ui/config'
 import {Badge, BadgeProps} from '@/components/ui/feedback'
 import {Row} from '@/components/ui/layout'
 import {IconProps} from '@/components/ui/media'
+import {IconSize} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -24,7 +25,7 @@ type Props = {
 
 export const IconButton = ({badgeValue, icon, ...props}: Props) => {
   const styles = useThemable(createStyles)
-  const hitSlop = (config.minTouchSize - (icon.props.size ?? 16)) / 2
+  const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
   return (
     <Row align="start" valign="center">

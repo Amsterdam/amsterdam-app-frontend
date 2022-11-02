@@ -15,7 +15,7 @@ type Props = {
   title: string
 }
 
-const closeIconSize = 20
+const closeIconSize = 'ml'
 
 export const ModalHeader = ({title}: Props) => {
   const {isLandscape, isTablet} = useContext(DeviceContext)

@@ -51,7 +51,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
               weight="extraBold"
             />
             <Size height={text.fontSize.h5 * text.lineHeight.h5}>
-              <Icon color="link" name={iconName} size={24} />
+              <Icon color="link" name={iconName} size="lg" />
             </Size>
           </Row>
         </Box>
