@@ -2,7 +2,6 @@ import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useMemo} from 'react'
 import {screenOptions} from '@/app/navigation'
-import {PleaseWait} from '@/components/ui/feedback'
 import {useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {
@@ -31,7 +30,7 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {clientModules, isLoading, selectedModulesBySlug} = useModules()
+  const {clientModules} = useModules()
 
   const ModuleStacks = useMemo(
     () =>
@@ -45,17 +44,9 @@ export const RootStackNavigator = () => {
     [clientModules],
   )
 
-  if (isLoading) {
-    return <PleaseWait grow />
-  }
-
   return (
     <Stack.Navigator
-      initialRouteName={
-        selectedModulesBySlug.includes(ModuleSlug.welcome)
-          ? ModuleSlug.welcome
-          : ModuleSlug.home
-      }
+      initialRouteName={ModuleSlug.welcome}
       screenOptions={{
         headerShown: false,
       }}>
