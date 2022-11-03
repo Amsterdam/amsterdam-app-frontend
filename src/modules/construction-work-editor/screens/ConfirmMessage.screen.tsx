@@ -82,7 +82,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             description: mainImageDescription ?? 'Vervangende afbeelding',
             data: mainImage.data,
           },
-        })
+        }).unwrap()
       }
 
       if (
@@ -96,7 +96,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           body: message.title,
           project_identifier: project.id,
           warning_identifier: warningResponse.warning_identifier,
-        })
+        }).unwrap()
       }
 
       dispatch(clearDraft())
