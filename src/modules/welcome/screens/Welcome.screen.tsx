@@ -25,7 +25,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait} = useContext(DeviceContext)
   const sizeProps = createSizeProps({isPortrait})
   const styles = createStyles({isPortrait})
-  const imageWithQuote = useSelectImageWithQuote()
+  const {imageLandscape, imagePortrait, quote} = useSelectImageWithQuote()
 
   useTransparentStatusBar()
 
@@ -46,19 +46,15 @@ export const WelcomeScreen = ({navigation}: Props) => {
                   ? ImageAspectRatio.portrait
                   : ImageAspectRatio.landscape
               }
-              source={
-                isPortrait
-                  ? imageWithQuote.imagePortrait
-                  : imageWithQuote.imageLandscape
-              }
+              source={isPortrait ? imagePortrait : imageLandscape}
             />
           </Size>
           <Size {...sizeProps.quote}>
             <Center>
               <Size {...sizeProps.quoteInner}>
                 <Paragraph
-                  accessibilityLabel={`Quote, ${imageWithQuote.quote}`}
-                  variant="quote">{`"${imageWithQuote.quote}"`}</Paragraph>
+                  accessibilityLabel={`Quote, ${quote}`}
+                  variant="quote">{`"${quote}"`}</Paragraph>
               </Size>
             </Center>
           </Size>
