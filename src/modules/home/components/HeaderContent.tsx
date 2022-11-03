@@ -6,6 +6,7 @@ import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
+import {IconSize} from '@/components/ui/types'
 
 type Props = Pick<StackHeaderProps, 'back' | 'navigation' | 'options' | 'route'>
 
@@ -47,6 +48,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sideColumn: {
-    minWidth: chevronSize,
+    minWidth: IconSize[chevronSize],
   },
 })

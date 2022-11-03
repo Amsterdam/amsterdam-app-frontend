@@ -8,6 +8,7 @@ import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
+import {IconSize} from '@/components/ui/types'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 
@@ -44,7 +45,7 @@ export const ModalHeader = ({title}: Props) => {
 const createStyles = ({size}: Theme) =>
   StyleSheet.create({
     balanceCenterAlignment: {
-      width: closeIconSize,
+      width: IconSize[closeIconSize],
     },
     nudgeVerticalAlignment: {
       flexShrink: 1,
