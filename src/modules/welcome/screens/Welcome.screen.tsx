@@ -3,7 +3,7 @@ import React, {useContext, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
-import {Center, Screen, Size, SizeProps} from '@/components/ui/layout'
+import {Screen, Size} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {useTransparentStatusBar} from '@/hooks'
@@ -11,21 +11,18 @@ import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
 import {DeviceContext} from '@/providers'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
 }
 
-enum ImageAspectRatio {
-  landscape = 5 / 3,
-  portrait = 4 / 5,
-}
+const quoteWidth = 288
 
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait} = useContext(DeviceContext)
-  const sizeProps = createSizeProps({isPortrait})
-  const styles = createStyles({isPortrait})
   const {imageLandscape, imagePortrait, quote} = useSelectImageWithQuote()
+  const styles = useThemable(createStyles(isPortrait))
 
   useTransparentStatusBar()
 
@@ -38,60 +35,38 @@ export const WelcomeScreen = ({navigation}: Props) => {
   return (
     <Screen scroll={false} withBottomInset={false} withLeftInset={false}>
       <Pressable onPress={() => navigation.navigate(ModuleSlug.home)}>
-        <View style={styles.container}>
-          <Size {...sizeProps.image}>
-            <Image
-              customAspectRatio={
-                isPortrait
-                  ? ImageAspectRatio.portrait
-                  : ImageAspectRatio.landscape
-              }
-              source={isPortrait ? imagePortrait : imageLandscape}
-            />
-          </Size>
-          <Size {...sizeProps.quote}>
-            <Center>
-              <Size {...sizeProps.quoteInner}>
-                <Paragraph
-                  accessibilityLabel={`Quote, ${quote}`}
-                  variant="quote">{`“${quote}”`}</Paragraph>
-              </Size>
-            </Center>
-          </Size>
+        <View style={styles.track}>
+          <View style={styles.image}>
+            <Image source={isPortrait ? imagePortrait : imageLandscape} />
+          </View>
+          <View style={styles.quote}>
+            <Size maxWidth={quoteWidth}>
+              <Paragraph
+                accessibilityLabel={`Quote, ${quote}`}
+                variant="quote">{`“${quote}”`}</Paragraph>
+            </Size>
+          </View>
         </View>
       </Pressable>
     </Screen>
   )
 }
 
-enum ScreenPortion {
-  image = '75%',
-  quote = '25%',
-}
-
-const createSizeProps = ({
-  isPortrait,
-}: {
-  isPortrait: boolean
-}): Record<'image' | 'quote' | 'quoteInner', Partial<SizeProps>> => ({
-  image: {
-    height: isPortrait ? ScreenPortion.image : '100%',
-    width: isPortrait ? '100%' : ScreenPortion.image,
-  },
-  quote: {
-    height: isPortrait ? ScreenPortion.quote : '100%',
-    width: isPortrait ? '100%' : ScreenPortion.quote,
-  },
-  quoteInner: {
-    maxWidth: '78%', // Derived from the design
-  },
-})
-
-const createStyles = ({isPortrait}: {isPortrait: boolean}) =>
-  StyleSheet.create({
-    container: {
-      flexDirection: isPortrait ? 'column' : 'row',
-      height: '100%',
-      width: '100%',
-    },
-  })
+const createStyles =
+  (isPortrait: boolean) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
+      image: {
+        [isPortrait ? 'height' : 'width']: '75%',
+      },
+      quote: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: size.spacing.lg,
+      },
+      track: {
+        flexDirection: isPortrait ? 'column' : 'row',
+        height: '100%',
+      },
+    })
