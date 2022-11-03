@@ -19,6 +19,8 @@ type Props = {
 
 const quoteWidth = 288
 
+const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
+
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait} = useContext(DeviceContext)
   const {imageLandscape, imagePortrait, quote} = useSelectImageWithQuote()
@@ -28,13 +30,13 @@ export const WelcomeScreen = ({navigation}: Props) => {
 
   useMemo(() => {
     setTimeout(() => {
-      navigation.navigate(ModuleSlug.home)
+      navigation.reset(navigationResetParam)
     }, 5000)
   }, [navigation])
 
   return (
     <Screen scroll={false} withBottomInset={false} withLeftInset={false}>
-      <Pressable onPress={() => navigation.navigate(ModuleSlug.home)}>
+      <Pressable onPress={() => navigation.reset(navigationResetParam)}>
         <View style={styles.track}>
           <View style={styles.image}>
             <Image source={isPortrait ? imagePortrait : imageLandscape} />
