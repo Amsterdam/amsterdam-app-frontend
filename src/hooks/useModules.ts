@@ -80,6 +80,7 @@ export const useModules = () => {
 
   return {
     clientModules,
+    isLoading,
     modulesLoading,
     modulesError: error,
     refetchModules: retriesRemaining === 0 ? refetch : undefined,
