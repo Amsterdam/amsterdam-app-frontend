@@ -31,7 +31,7 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {clientModules, selectedModulesBySlug} = useModules()
+  const {clientModules, isLoading, selectedModulesBySlug} = useModules()
 
   const ModuleStacks = useMemo(
     () =>
@@ -45,8 +45,8 @@ export const RootStackNavigator = () => {
     [clientModules],
   )
 
-  if (!selectedModulesBySlug.length || !clientModules.length) {
-    return <PleaseWait />
+  if (isLoading) {
+    return <PleaseWait grow />
   }
 
   return (
