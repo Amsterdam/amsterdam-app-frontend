@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, {useContext} from 'react'
+import {ImageURISource} from 'react-native'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon, Image} from '@/components/ui/media'
@@ -14,7 +14,9 @@ export const AboutTheAppDutchScreen = () => {
     <Screen withLeftInset={false} withRightInset={false}>
       <Column gutter="lg">
         <Image
-          source={require('@/modules/about/assets/traffic-cycling.jpeg')}
+          source={
+            require('@/modules/about/assets/traffic-cycling.jpeg') as ImageURISource
+          }
         />
         <HorizontalSafeArea>
           <Box>
@@ -62,7 +64,11 @@ export const AboutTheAppDutchScreen = () => {
             </Column>
           </Box>
         </HorizontalSafeArea>
-        <Image source={require('@/modules/about/assets/people-in-park.jpeg')} />
+        <Image
+          source={
+            require('@/modules/about/assets/people-in-park.jpeg') as ImageURISource
+          }
+        />
         <HorizontalSafeArea>
           <Box>
             <Track gutter="lg">
