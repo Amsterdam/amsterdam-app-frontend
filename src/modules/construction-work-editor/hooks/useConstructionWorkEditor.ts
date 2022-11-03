@@ -17,16 +17,18 @@ export const useConstructionWorkEditor = () => {
     constructionWorkEditorId ? {id: constructionWorkEditorId} : skipToken,
   )
 
-  const selectAuthProjects = useMemo(() => {
-    return createSelector(
-      (result: {data?: ProjectsItem[]}) => result.data,
-      data =>
-        data?.filter(
-          project =>
-            projectManager?.projects.includes(project.identifier) ?? [],
-        ),
-    )
-  }, [projectManager?.projects])
+  const selectAuthProjects = useMemo(
+    () =>
+      createSelector(
+        (result: {data?: ProjectsItem[]}) => result.data,
+        data =>
+          data?.filter(
+            project =>
+              projectManager?.projects.includes(project.identifier) ?? [],
+          ),
+      ),
+    [projectManager?.projects],
+  )
 
   const {
     isError: isGetProjectsError,

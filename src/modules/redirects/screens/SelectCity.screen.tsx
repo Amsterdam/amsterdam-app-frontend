@@ -18,33 +18,31 @@ type Props = {
 const appointmentFormWeespUrl =
   'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx'
 
-export const SelectCityScreen = ({navigation}: Props) => {
-  return (
-    <Screen>
-      <Box>
-        <Column gutter="md">
-          <Title text="Waar wilt u een afspraak maken?" />
-          <Row gutter="md">
-            <Column flex={1}>
-              <Button
-                accessibilityRole="link"
-                label="Amsterdam"
-                onPress={() =>
-                  navigation.navigate(RedirectsRouteName.makeAppointment)
-                }
-              />
-            </Column>
-            <Column flex={1}>
-              <Button
-                accessibilityRole="link"
-                label="Weesp"
-                onPress={() => openWebUrl(appointmentFormWeespUrl)}
-                variant="secondary"
-              />
-            </Column>
-          </Row>
-        </Column>
-      </Box>
-    </Screen>
-  )
-}
+export const SelectCityScreen = ({navigation}: Props) => (
+  <Screen>
+    <Box>
+      <Column gutter="md">
+        <Title text="Waar wilt u een afspraak maken?" />
+        <Row gutter="md">
+          <Column flex={1}>
+            <Button
+              accessibilityRole="link"
+              label="Amsterdam"
+              onPress={() =>
+                navigation.navigate(RedirectsRouteName.makeAppointment)
+              }
+            />
+          </Column>
+          <Column flex={1}>
+            <Button
+              accessibilityRole="link"
+              label="Weesp"
+              onPress={() => openWebUrl(appointmentFormWeespUrl)}
+              variant="secondary"
+            />
+          </Column>
+        </Row>
+      </Column>
+    </Box>
+  </Screen>
+)

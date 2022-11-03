@@ -68,17 +68,19 @@ export const ArticleOverview = ({
     }
   }, [articles])
 
-  useEffect(() => {
-    return navigation.addListener('blur', () => {
-      const {index, routes} = navigation.getState()
-      if (
-        routes[index].name === ConstructionWorkRouteName.constructionWork &&
-        articles
-      ) {
-        markMultipleAsRead(articles)
-      }
-    })
-  }, [articles, markMultipleAsRead, navigation])
+  useEffect(
+    () =>
+      navigation.addListener('blur', () => {
+        const {index, routes} = navigation.getState()
+        if (
+          routes[index].name === ConstructionWorkRouteName.constructionWork &&
+          articles
+        ) {
+          markMultipleAsRead(articles)
+        }
+      }),
+    [articles, markMultipleAsRead, navigation],
+  )
 
   const navigateToArticle = (article: ArticleSummary) => {
     if (article.type === 'news') {

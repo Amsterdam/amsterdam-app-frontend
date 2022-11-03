@@ -9,12 +9,10 @@ type Props = {
 export const CharactersLeftDisplay = ({
   maxCharacters,
   numOfCharacters,
-}: Props) => {
-  return (
-    <Paragraph
-      accessibilityLabel={`U heeft ${numOfCharacters} van de maximaal ${maxCharacters} tekens ingevoerd`}
-      color={
-        numOfCharacters > maxCharacters ? 'warning' : 'default'
-      }>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>
-  )
-}
+}: Props) => (
+  <Paragraph
+    accessibilityLabel={`U heeft ${numOfCharacters} van de maximaal ${maxCharacters} tekens ingevoerd`}
+    color={
+      numOfCharacters > maxCharacters ? 'warning' : 'default'
+    }>{`${numOfCharacters}/${maxCharacters}`}</Paragraph>
+)

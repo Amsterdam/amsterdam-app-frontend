@@ -4,9 +4,7 @@ import {baseApi} from '@/services'
 export const templateApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     doSomething: builder.query<Template, void>({
-      query: () => {
-        return '/template'
-      },
+      query: () => '/template',
     }),
   }),
   overrideExisting: true,

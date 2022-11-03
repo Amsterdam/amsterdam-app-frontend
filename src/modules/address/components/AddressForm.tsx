@@ -40,11 +40,10 @@ export const AddressForm = () => {
       StackNavigationProp<RootStackParams, AddressModalName.addressForm>
     >()
 
-  const removeWeespSuffix = (streetName: string) => {
-    return streetName.includes('Weesp')
+  const removeWeespSuffix = (streetName: string) =>
+    streetName.includes('Weesp')
       ? streetName.replace(/ \(Weesp\)/g, '')
       : streetName
-  }
 
   const getAddress = useCallback(() => {
     if (number) {

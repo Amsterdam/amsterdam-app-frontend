@@ -19,11 +19,13 @@ export const BoxTitle = () => {
 
   const [isTooltipVisible, setTooltipVisible] = useState(false)
 
-  useEffect(() => {
-    return navigation.addListener('blur', () => {
-      isTooltipVisible && setTooltipVisible(false)
-    })
-  }, [isTooltipVisible, navigation])
+  useEffect(
+    () =>
+      navigation.addListener('blur', () => {
+        isTooltipVisible && setTooltipVisible(false)
+      }),
+    [isTooltipVisible, navigation],
+  )
 
   return (
     <Column gutter="xs">

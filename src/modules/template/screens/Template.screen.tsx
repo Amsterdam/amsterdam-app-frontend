@@ -1,10 +1,16 @@
+import {useNavigation} from '@react-navigation/native'
+import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
+import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {TemplateRouteName} from '@/modules/template/routes'
 
 export const TemplateScreen = () => {
-  // const navigation = useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParams, TemplateRouteName>>()
 
   return (
     <Screen>

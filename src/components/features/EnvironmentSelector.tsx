@@ -31,20 +31,18 @@ export const EnvironmentSelector = () => {
     <>
       <Box>
         <Grid>
-          {Object.keys(environments).map(env => {
-            return (
-              <GridCell key={env}>
-                <Button
-                  label={env}
-                  onPress={() => {
-                    dispatch(setEnvironment(env as Environment))
-                    dispatch(baseApi.util.resetApiState())
-                  }}
-                  variant={environment === env ? 'secondary' : 'primary'}
-                />
-              </GridCell>
-            )
-          })}
+          {Object.keys(environments).map(env => (
+            <GridCell key={env}>
+              <Button
+                label={env}
+                onPress={() => {
+                  dispatch(setEnvironment(env as Environment))
+                  dispatch(baseApi.util.resetApiState())
+                }}
+                variant={environment === env ? 'secondary' : 'primary'}
+              />
+            </GridCell>
+          ))}
         </Grid>
       </Box>
       {environment === Environment.custom && (

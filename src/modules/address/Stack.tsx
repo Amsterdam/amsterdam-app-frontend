@@ -1,3 +1,1 @@
-export const AddressStack = () => {
-  return null
-}
+export const AddressStack = () => null

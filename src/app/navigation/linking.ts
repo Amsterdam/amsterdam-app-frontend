@@ -52,7 +52,7 @@ export const linking: LinkingOptions<RootStackParams> = {
   config: {
     screens: moduleLinkings,
   },
-  async getInitialURL() {
+  getInitialURL: async () => {
     try {
       const url = await Linking.getInitialURL()
 
@@ -70,7 +70,7 @@ export const linking: LinkingOptions<RootStackParams> = {
     }
   },
 
-  subscribe(listener: (deeplink: string) => void) {
+  subscribe: (listener: (deeplink: string) => void) => {
     // First, you may want to do the default deep link handling
     const onReceiveURL = ({url}: {url: string}) => listener(url)
 

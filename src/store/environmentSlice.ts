@@ -34,6 +34,5 @@ export const selectEnvironment = (state: RootState) =>
 
 export const selectEnvironmentConfig = (state: RootState) => state.environment
 
-export const useEnvironment = (): EnvironmentConfig => {
-  return useSelector(selectEnvironment)
-}
+export const useEnvironment = (): EnvironmentConfig =>
+  useSelector(selectEnvironment)
