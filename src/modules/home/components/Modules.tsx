@@ -31,7 +31,7 @@ export const Modules = () => {
   }
 
   const availableModules = modules.filter(
-    m => m.status === 1 && (!m.isForEmployees || isEmployee),
+    m => m.status === 1 && (!m.isForEmployees || isEmployee) && !m.hiddenInMenu,
   )
 
   if (!availableModules.length) {
