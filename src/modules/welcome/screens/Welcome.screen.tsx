@@ -54,7 +54,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
               <Size {...sizeProps.quoteInner}>
                 <Paragraph
                   accessibilityLabel={`Quote, ${quote}`}
-                  variant="quote">{`"${quote}"`}</Paragraph>
+                  variant="quote">{`“${quote}”`}</Paragraph>
               </Size>
             </Center>
           </Size>
