@@ -1,13 +1,13 @@
 import {useMemo} from 'react'
 import {ImageURISource} from 'react-native'
 
-type ImageWithQuotes = {
+type ImageWithQuote = {
   quote: string
   imagePortrait: ImageURISource
   imageLandscape: ImageURISource
 }
 
-const imagesWithQuotes: ImageWithQuotes[] = [
+const imagesWithQuote: ImageWithQuote[] = [
   {
     quote: 'Om te kunnen scoren heb je een goal nodig',
     imagePortrait:
@@ -26,6 +26,6 @@ const imagesWithQuotes: ImageWithQuotes[] = [
 
 export const useSelectImageWithQuote = () =>
   useMemo(
-    () => imagesWithQuotes[Math.floor(Math.random() * imagesWithQuotes.length)],
+    () => imagesWithQuote[Math.floor(Math.random() * imagesWithQuote.length)],
     [],
   )
