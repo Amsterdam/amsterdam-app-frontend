@@ -35,11 +35,11 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
     <Box>
       <Column gutter="md">
         <Row gutter="md" valign="center">
-          <Icon name="two-persons" size={32} />
+          <Icon name="two-persons" size="xl" />
           <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
         <Row gutter="md" valign="center">
-          <Icon name="clock" size={32} />
+          <Icon name="clock" size="xl" />
           <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
         </Row>
       </Column>

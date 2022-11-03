@@ -18,5 +18,5 @@ export const Default: ComponentStory<typeof Icon> = args => (
 
 Default.args = {
   name: 'person',
-  size: 24,
+  size: 'lg',
 }

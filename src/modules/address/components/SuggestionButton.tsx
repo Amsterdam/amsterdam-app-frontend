@@ -12,7 +12,7 @@ type Props = {
 export const SuggestionButton = ({label, onPress}: Props) => (
   <Pressable accessibilityRole="button" insetVertical="md" onPress={onPress}>
     <Row gutter="sm">
-      <Icon color="link" name="location" size={24} />
+      <Icon color="link" name="location" size="lg" />
       <Phrase color="link" ellipsizeMode="tail" numberOfLines={1}>
         {label}
       </Phrase>

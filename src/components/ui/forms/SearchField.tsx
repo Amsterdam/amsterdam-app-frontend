@@ -51,7 +51,7 @@ export const SearchField = forwardRef<TextInput, Props>(
             onPress={handleClearText}
           />
         ) : (
-          <Icon name="search" size={24} />
+          <Icon name="search" size="lg" />
         )}
       </View>
     )

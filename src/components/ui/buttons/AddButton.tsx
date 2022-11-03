@@ -9,7 +9,7 @@ export const AddButton = (props: PressableProps) => {
 
   return (
     <Pressable style={styles.button} {...props}>
-      <Icon color="link" name="enlarge" scalesWithFont={false} size={24} />
+      <Icon color="link" name="enlarge" scalesWithFont={false} size="lg" />
     </Pressable>
   )
 }

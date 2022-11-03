@@ -24,7 +24,7 @@ const DeleteButton = ({onPress}: DeleteButtonProps) => (
       <Phrase color="inverse" variant="small">
         Verwijder
       </Phrase>
-      <Icon color="inverse" name="trash-bin" size={24} />
+      <Icon color="inverse" name="trash-bin" size="lg" />
     </Row>
   </Pressable>
 )

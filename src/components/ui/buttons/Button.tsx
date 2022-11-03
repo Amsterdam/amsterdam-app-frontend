@@ -53,7 +53,7 @@ export const Button = ({
           <Icon
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
-            size={24}
+            size="lg"
           />
         )}
         {!!label && (

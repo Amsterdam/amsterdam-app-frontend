@@ -80,9 +80,9 @@ export const ModuleSettings = () => {
                     <Row gutter="sm" valign="center">
                       {/* TODO Remove fallback after updating icon name in database. */}
                       {iconName === 'projects' ? (
-                        <Icon name="construction-work" size={24} />
+                        <Icon name="construction-work" size="lg" />
                       ) : (
-                        !!iconName && <Icon name={iconName} size={24} />
+                        !!iconName && <Icon name={iconName} size="lg" />
                       )}
                       <Title level="h5" text={title} />
                     </Row>

@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {Image as ImageType} from 'react-native-image-crop-picker'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon, Image} from '@/components/ui/media'
+import {IconSize} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
   onPress: () => void
 }
 
-const iconSize = 24
+const iconSize = 'lg'
 
 export const ImagePreview = ({image, onPress}: Props) => {
   const styles = useThemable(createStyles)
@@ -31,6 +32,7 @@ export const ImagePreview = ({image, onPress}: Props) => {
 
 const createStyles = ({color, size}: Theme) => {
   const buttonContainerPadding = size.spacing.sm
+
   return StyleSheet.create({
     button: {
       justifyContent: 'center',
@@ -43,7 +45,7 @@ const createStyles = ({color, size}: Theme) => {
       bottom: size.spacing.sm,
       right: size.spacing.sm,
       backgroundColor: color.background.cutout,
-      borderRadius: (iconSize + buttonContainerPadding * 2) / 2,
+      borderRadius: (IconSize[iconSize] + buttonContainerPadding * 2) / 2,
       padding: buttonContainerPadding,
     },
   })

@@ -28,7 +28,7 @@ export const AboutTheAppEnglishScreen = () => {
               </Column>
               <Track gutter="lg">
                 <Column gutter="sm">
-                  <Icon name="trash-bin" size={32} />
+                  <Icon name="trash-bin" size="xl" />
                   <Title level="h5" text="Waste information" />
                   <Paragraph>
                     You can enter your address to look up where to dispose of
@@ -37,7 +37,7 @@ export const AboutTheAppEnglishScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="construction-work" size={32} />
+                  <Icon name="construction-work" size="xl" />
                   <Title level="h5" text="Road work" />
                   <Paragraph>
                     The City often performs maintenance on streets, bridges,
@@ -47,7 +47,7 @@ export const AboutTheAppEnglishScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="alert" size={32} />
+                  <Icon name="alert" size="xl" />
                   <Title level="h5" text="Report it" />
                   <Paragraph>
                     Is a waste container full, a lamppost not working, or is
