@@ -70,6 +70,8 @@ import {
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
 import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
+import {WelcomeStack} from '@/modules/welcome/Stack'
+import {WelcomeRouteName, WelcomeStackParams} from '@/modules/welcome/routes'
 
 export type ModuleRoutes =
   | AboutRouteName
@@ -83,6 +85,7 @@ export type ModuleRoutes =
   | ReportProblemRouteName
   | UserRouteName
   | WasteGuideRouteName
+  | WelcomeRouteName
 
 export type ModuleStackParams = AboutStackParams &
   AddressStackParams &
@@ -94,7 +97,8 @@ export type ModuleStackParams = AboutStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
-  WasteGuideStackParams
+  WasteGuideStackParams &
+  WelcomeStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
@@ -108,6 +112,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
+  [ModuleSlug.welcome]: WelcomeStack,
 }
 
 export type ModalParams = AddressModalParams &

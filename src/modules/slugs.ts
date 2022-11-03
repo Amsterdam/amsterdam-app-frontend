@@ -10,4 +10,5 @@ export enum ModuleSlug {
   'report-problem' = 'report-problem',
   user = 'user',
   'waste-guide' = 'waste-guide',
+  welcome = 'welcome',
 }

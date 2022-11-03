@@ -79,6 +79,7 @@ export const useModules = () => {
     isLoading || (isSuccess && postProcessedModules.modules.length === 0)
 
   return {
+    clientModules,
     modulesLoading,
     modulesError: error,
     refetchModules: retriesRemaining === 0 ? refetch : undefined,
