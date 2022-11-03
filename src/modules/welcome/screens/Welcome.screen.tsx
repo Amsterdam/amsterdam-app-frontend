@@ -29,9 +29,10 @@ export const WelcomeScreen = ({navigation}: Props) => {
   useTransparentStatusBar()
 
   useMemo(() => {
-    setTimeout(() => {
-      navigation.reset(navigationResetParam)
-    }, 5000)
+    return () =>
+      setTimeout(() => {
+        navigation.reset(navigationResetParam)
+      }, 5000)
   }, [navigation])
 
   return (
