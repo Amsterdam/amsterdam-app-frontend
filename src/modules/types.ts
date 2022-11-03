@@ -10,7 +10,7 @@ export type ModuleClientConfig = {
   BadgeValue?: ElementType
   isCore?: boolean
   isForEmployees?: boolean
-  hiddenInMenu: boolean
+  hiddenInMenu?: boolean
   linking: Record<string, string>
   name: string
   requiresFirebaseToken?: boolean
