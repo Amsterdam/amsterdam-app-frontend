@@ -127,9 +127,7 @@ const createStyles: (
   }
 
 const createFontList = ({text}: Theme): string[] => [
-  text.fontWeight.bold,
   text.fontWeight.extraBold,
-  text.fontWeight.light,
   text.fontWeight.regular,
 ]
 
