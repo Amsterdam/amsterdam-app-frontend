@@ -11,5 +11,4 @@ Default.args = {
   color: 'default',
   level: 'h1',
   text: 'Jouw typograaf biedt mij zulke exquise schreven!',
-  weight: 'bold',
 }
