@@ -1,7 +1,8 @@
 import React from 'react'
 import {Box, SingleSelectable} from '@/components/ui/containers'
-import {Column, Row} from '@/components/ui/layout'
+import {Column, Row, Size} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
+import {useTheme} from '@/themes'
 import {accessibleText} from '@/utils'
 
 const tips = [
@@ -15,24 +16,30 @@ const tips = [
   'Geen spoed maar wel belangrijk? Overleg met de redactie over een nieuwsbericht op amsterdam.nl of projectpagina.',
 ]
 
-export const WritingGuide = () => (
-  <Box>
-    <Column gutter="md">
-      <Title text="Schrijftips" />
-      {tips.map((tip, index) => {
-        const step = (index + 1).toString()
+export const WritingGuide = () => {
+  const {text} = useTheme()
 
-        return (
-          <SingleSelectable
-            accessibilityLabel={accessibleText(step, tip)}
-            key={tip}>
-            <Row gutter="md">
-              <Phrase fontWeight="bold">{step}</Phrase>
-              <Paragraph>{tip}</Paragraph>
-            </Row>
-          </SingleSelectable>
-        )
-      })}
-    </Column>
-  </Box>
-)
+  return (
+    <Box>
+      <Column gutter="md">
+        <Title text="Schrijftips" />
+        {tips.map((tip, index) => {
+          const step = (index + 1).toString()
+
+          return (
+            <SingleSelectable
+              accessibilityLabel={accessibleText(step, tip)}
+              key={tip}>
+              <Row gutter="md">
+                <Size height={text.fontSize.body * text.lineHeight.body}>
+                  <Phrase fontWeight="bold">{step}</Phrase>
+                </Size>
+                <Paragraph>{tip}</Paragraph>
+              </Row>
+            </SingleSelectable>
+          )
+        })}
+      </Column>
+    </Box>
+  )
+}
