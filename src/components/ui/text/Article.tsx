@@ -108,13 +108,13 @@ const createStyles: (
         lineHeight,
       },
       titleLevel3: {
-        fontFamily: text.fontWeight.bold,
+        fontFamily: text.fontWeight.extraBold,
         fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
       },
       titleLevel4: {
-        fontFamily: text.fontWeight.bold,
+        fontFamily: text.fontWeight.extraBold,
         fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h4,
         lineHeight: text.lineHeight.h4 * text.fontSize.h4,

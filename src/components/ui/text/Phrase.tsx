@@ -12,7 +12,7 @@ type Props = {
   /**
    * Allows the phrase to convey more emphasis.
    */
-  fontWeight?: 'bold' | 'regular'
+  fontWeight?: 'extraBold' | 'regular'
   /**
    * Which variation of a phrase to display.
    */

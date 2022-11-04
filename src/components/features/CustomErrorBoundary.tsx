@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontWeight: '800',
     textAlign: 'center',
   },
 })
