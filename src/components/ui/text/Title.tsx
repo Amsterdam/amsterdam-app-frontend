@@ -14,7 +14,7 @@ export const Title = ({
   color = 'default',
   level = 'h1',
   text,
-  weight = 'extraBold',
+  weight = 'bold',
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(

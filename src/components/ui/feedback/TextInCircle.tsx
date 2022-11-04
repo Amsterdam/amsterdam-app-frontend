@@ -52,5 +52,5 @@ const createCircleProps =
 
 const createTextProps = ({color, text}: Theme) => ({
   fill: color.text.inverse,
-  fontFamily: text.fontWeight.extraBold,
+  fontFamily: text.fontWeight.bold,
 })

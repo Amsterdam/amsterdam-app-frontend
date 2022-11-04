@@ -27,7 +27,7 @@ export const WritingGuide = () => (
             accessibilityLabel={accessibleText(step, tip)}
             key={tip}>
             <Row gutter="md">
-              <Phrase fontWeight="extraBold">{step}</Phrase>
+              <Phrase fontWeight="bold">{step}</Phrase>
               <Paragraph>{tip}</Paragraph>
             </Row>
           </SingleSelectable>

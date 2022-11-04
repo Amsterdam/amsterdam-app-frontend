@@ -44,10 +44,7 @@ const createStyles =
       text: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily:
-          variant === 'quote'
-            ? text.fontWeight.extraBold
-            : text.fontWeight.regular,
+        fontFamily: text.fontWeight[variant === 'quote' ? 'bold' : 'normal'],
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant] * text.fontSize[variant],
       },

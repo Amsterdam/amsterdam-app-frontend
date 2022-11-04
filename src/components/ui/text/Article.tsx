@@ -83,7 +83,7 @@ export const Article = ({content, isIntro}: Props) => {
 
 const createBaseStyle = ({color, text}: Theme) => ({
   color: color.text.default,
-  fontFamily: text.fontWeight.regular,
+  fontFamily: text.fontWeight.normal,
 })
 
 const createStyles: (
@@ -108,13 +108,13 @@ const createStyles: (
         lineHeight,
       },
       titleLevel3: {
-        fontFamily: text.fontWeight.extraBold,
+        fontFamily: text.fontWeight.bold,
         fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
       },
       titleLevel4: {
-        fontFamily: text.fontWeight.extraBold,
+        fontFamily: text.fontWeight.bold,
         fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h4,
         lineHeight: text.lineHeight.h4 * text.fontSize.h4,
@@ -127,8 +127,8 @@ const createStyles: (
   }
 
 const createFontList = ({text}: Theme): string[] => [
-  text.fontWeight.extraBold,
-  text.fontWeight.regular,
+  text.fontWeight.bold,
+  text.fontWeight.normal,
 ]
 
 const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({

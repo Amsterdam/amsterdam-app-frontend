@@ -15,14 +15,14 @@ export const Default: ComponentStoryObj<typeof Phrase> = {
   args: {
     children: 'Phrase content',
     color: 'default',
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     variant: 'body',
   },
 }
 
 export const Pattern: ComponentStory<typeof Phrase> = () => (
   <View>
-    <Phrase variant="small" fontWeight="regular">
+    <Phrase fontWeight="normal" variant="small">
       14
     </Phrase>
     <Phrase variant="small">volgers</Phrase>
