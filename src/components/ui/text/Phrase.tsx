@@ -1,7 +1,7 @@
 import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {FontWeights, ParagraphVariants} from '@/themes/tokens'
+import {FontWeight, ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
@@ -12,7 +12,7 @@ type Props = {
   /**
    * Allows the phrase to convey more emphasis.
    */
-  fontWeight?: keyof FontWeights
+  fontWeight?: keyof typeof FontWeight
   /**
    * Which variation of a phrase to display.
    */

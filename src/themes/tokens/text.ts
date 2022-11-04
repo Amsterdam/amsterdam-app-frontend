@@ -20,14 +20,14 @@ export type TitleTokensPerLevel = {
   h6: number
 }
 
-export type FontWeights = {
-  bold: string
-  normal: string
+export enum FontWeight {
+  bold = 'AmsterdamSans-ExtraBold',
+  normal = 'AmsterdamSans-Regular',
 }
 
 export type TextTokens = {
   fontSize: ParagraphTokens & TitleTokensPerLevel
-  fontWeight: FontWeights
+  fontWeight: typeof FontWeight
   lineHeight: FormTextTokens & ParagraphTokens & TitleTokensPerLevel
 }
 
@@ -45,8 +45,8 @@ export const textTokens: TextTokens = {
     small: 16,
   },
   fontWeight: {
-    bold: 'AmsterdamSans-ExtraBold',
-    normal: 'AmsterdamSans-Regular',
+    bold: FontWeight.bold,
+    normal: FontWeight.normal,
   },
   lineHeight: {
     input: 1.4,

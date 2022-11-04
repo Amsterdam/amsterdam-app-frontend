@@ -1,13 +1,13 @@
 import React, {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {FontWeights, TitleTokensPerLevel} from '@/themes/tokens'
+import {FontWeight, TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {
   color?: keyof Theme['color']['text']
   level?: keyof TitleTokensPerLevel
   text: string
-  weight?: keyof FontWeights
+  weight?: keyof typeof FontWeight
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
