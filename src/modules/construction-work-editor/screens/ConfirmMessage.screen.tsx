@@ -176,7 +176,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               />
               {!!isPushNotificationChecked && (
                 <Column gutter="xs">
-                  <Phrase fontWeight="bold">{project.title}</Phrase>
+                  <Title level="h5" text={project.title} />
                   <Phrase>{message.title}</Phrase>
                 </Column>
               )}

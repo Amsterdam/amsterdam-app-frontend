@@ -131,7 +131,7 @@ export const Project = ({id}: Props) => {
                   followersPhrase,
                 )}>
                 <Column>
-                  <Phrase variant="small" fontWeight="bold">
+                  <Phrase emphasis="strong" variant="small">
                     {followers}
                   </Phrase>
                   <Phrase variant="small">{followersPhrase}</Phrase>

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Attention} from '@/components/ui/feedback/Attention'
-import {Paragraph, Phrase} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
 
 type Props = {
   text: string
@@ -9,7 +9,7 @@ type Props = {
 
 export const Warning = ({text, title}: Props) => (
   <Attention warning>
-    <Phrase fontWeight="bold">{title}</Phrase>
+    <Title level="h5" text={title} />
     <Paragraph variant="small">{text}</Paragraph>
   </Attention>
 )

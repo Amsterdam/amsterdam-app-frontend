@@ -1,25 +1,23 @@
 import React, {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {FontWeights, TitleTokensPerLevel} from '@/themes/tokens'
+import {TitleTokensPerLevel} from '@/themes/tokens'
 
 type Props = {
   color?: keyof Theme['color']['text']
   level?: keyof TitleTokensPerLevel
   text: string
-  weight?: keyof FontWeights
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
   color = 'default',
   level = 'h1',
   text,
-  weight = 'bold',
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({color, level, weight}),
-    [color, level, weight],
+    () => createStyles({color, level}),
+    [color, level],
   )
   const styles = useThemable(createdStyles)
 
@@ -32,17 +30,13 @@ export const Title = ({
 
 // TODO Transition text color
 const createStyles =
-  ({
-    color: textColor,
-    level,
-    weight,
-  }: Required<Pick<Props, 'color' | 'level' | 'weight'>>) =>
+  ({color: textColor, level}: Required<Pick<Props, 'color' | 'level'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily: text.fontWeight[weight],
+        fontFamily: text.fontFamily.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level] * text.fontSize[level],
       },
