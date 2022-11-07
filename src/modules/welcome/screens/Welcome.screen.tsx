@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useContext, useMemo} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
@@ -28,12 +28,14 @@ export const WelcomeScreen = ({navigation}: Props) => {
 
   useTransparentStatusBar()
 
-  useMemo(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       navigation.reset(navigationResetParam)
     }, 5000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+    }
   }, [navigation])
 
   return (
