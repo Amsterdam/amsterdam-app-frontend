@@ -15,9 +15,11 @@ export const mediaTokens = {
   },
   imageAspectRatio: {
     projectWarningFallback: 355 / 135,
+    twoPersonsWalking: 240 / 270,
     wasteGuideHome: 311 / 275,
   },
   imageWidth: {
+    twoPersonsWalking: 224,
     wasteGuideHome: 288,
   },
 }
