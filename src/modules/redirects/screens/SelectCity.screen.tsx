@@ -68,6 +68,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
             imageAlign="start"
             imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
             imageWidth={media.imageWidth.twoPersonsWalking}
+            withWeesp
           />
         </View>
       </Column>
