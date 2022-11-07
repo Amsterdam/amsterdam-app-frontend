@@ -48,6 +48,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
           <View style={styles.quote}>
             <Size maxWidth={quoteWidth}>
               <Paragraph
+                allowFontScaling={false}
                 accessibilityLabel={`Quote, ${quote}`}
                 variant="quote">{`“${quote}”`}</Paragraph>
             </Size>
