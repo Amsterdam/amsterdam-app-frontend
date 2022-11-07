@@ -126,7 +126,7 @@ const createStyles =
         padding: 0, // Override an Android default
         paddingTop: 0,
         color: color.text.default,
-        fontFamily: text.fontWeight.normal,
+        fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
       },
     })

@@ -22,7 +22,7 @@ export type TitleTokensPerLevel = {
 
 export enum FontWeight {
   bold = 'AmsterdamSans-ExtraBold',
-  normal = 'AmsterdamSans-Regular',
+  regular = 'AmsterdamSans-Regular',
 }
 
 export type TextTokens = {
@@ -46,7 +46,7 @@ export const textTokens: TextTokens = {
   },
   fontWeight: {
     bold: FontWeight.bold,
-    normal: FontWeight.normal,
+    regular: FontWeight.regular,
   },
   lineHeight: {
     input: 1.4,

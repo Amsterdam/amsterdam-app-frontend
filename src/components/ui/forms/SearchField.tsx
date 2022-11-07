@@ -83,7 +83,7 @@ const createStyles =
         flex: 1,
         padding: 0, // Override an Android default
         color: color.text.default,
-        fontFamily: text.fontWeight.normal,
+        fontFamily: text.fontWeight.regular,
         fontSize: text.fontSize.body,
         lineHeight: text.fontSize.body * text.lineHeight.input,
       },

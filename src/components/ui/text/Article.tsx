@@ -83,7 +83,7 @@ export const Article = ({content, isIntro}: Props) => {
 
 const createBaseStyle = ({color, text}: Theme) => ({
   color: color.text.default,
-  fontFamily: text.fontWeight.normal,
+  fontFamily: text.fontWeight.regular,
 })
 
 const createStyles: (
@@ -128,7 +128,7 @@ const createStyles: (
 
 const createFontList = ({text}: Theme): string[] => [
   text.fontWeight.bold,
-  text.fontWeight.normal,
+  text.fontWeight.regular,
 ]
 
 const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({
