@@ -2,7 +2,10 @@ import React, {useContext, useMemo} from 'react'
 import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
-import {Figure} from '@/components/ui/media'
+import {
+  Figure,
+  FigureWithCanalHouseFacadesBackground,
+} from '@/components/ui/media'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
@@ -59,8 +62,8 @@ export const WasteGuide = ({address}: Props) => {
   const Track = isLandscape && cityIsWeesp ? Row : Column
 
   return (
-    <Box grow>
-      <Track grow gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
+    <Track grow gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
+      <Box grow>
         <Column flex={1} gutter="md">
           <StreetAddressWithEditButton address={address.adres} />
           {hasWasteGuide || cityIsWeesp ? (
@@ -69,12 +72,24 @@ export const WasteGuide = ({address}: Props) => {
             <WasteGuideNotFound />
           )}
         </Column>
-        <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
-          <Figure height={imageHeight}>
-            <Image />
-          </Figure>
-        </Column>
-      </Track>
-    </Box>
+      </Box>
+      {hasWasteGuide || cityIsWeesp ? (
+        <Box grow>
+          <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
+            <Figure height={imageHeight}>
+              <Image />
+            </Figure>
+          </Column>
+        </Box>
+      ) : (
+        <FigureWithCanalHouseFacadesBackground
+          backgroundImageHeightFraction={0.5}
+          height={media.figureHeight.xl}
+          Image={<WasteGuideNotFoundImage />}
+          imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
+          imageWidth={media.imageWidth.wasteGuideHome}
+        />
+      )}
+    </Track>
   )
 }
