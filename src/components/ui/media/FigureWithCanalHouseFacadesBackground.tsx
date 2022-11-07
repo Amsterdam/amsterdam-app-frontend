@@ -1,6 +1,9 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {CanalHouseFacadesImage} from '@/assets/images'
+import {
+  CanalHouseAndWeespCityHallFacadesImage,
+  CanalHouseFacadesImage,
+} from '@/assets/images'
 import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {Theme, useThemable} from '@/themes'
@@ -14,6 +17,7 @@ type Props = {
   imageAlign?: 'start' | 'center' | 'end'
   imageAspectRatio: number
   imageWidth?: number
+  withWeesp?: boolean
 } & SelectedFigureProps
 
 export const FigureWithCanalHouseFacadesBackground = ({
@@ -22,6 +26,7 @@ export const FigureWithCanalHouseFacadesBackground = ({
   imageAlign = 'center',
   imageAspectRatio,
   imageWidth,
+  withWeesp = false,
   ...figureProps
 }: Props) => {
   const styles = useThemable(
@@ -34,10 +39,14 @@ export const FigureWithCanalHouseFacadesBackground = ({
     ),
   )
 
+  const BackgroundImage = withWeesp
+    ? CanalHouseAndWeespCityHallFacadesImage
+    : CanalHouseFacadesImage
+
   return (
     <Figure {...figureProps}>
       <View style={styles.backgroundImage}>
-        <CanalHouseFacadesImage />
+        <BackgroundImage />
       </View>
       <View style={styles.image}>{Image}</View>
     </Figure>
