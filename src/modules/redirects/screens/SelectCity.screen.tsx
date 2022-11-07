@@ -65,6 +65,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
             backgroundImageHeightFraction={0.5}
             height={media.figureHeight.xl}
             Image={<TwoPeopleWalking />}
+            imageAlign="start"
             imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
             imageWidth={media.imageWidth.twoPersonsWalking}
           />
