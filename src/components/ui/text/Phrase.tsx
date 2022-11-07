@@ -1,7 +1,7 @@
 import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {FontFamily, ParagraphVariants} from '@/themes/tokens'
+import {Emphasis, ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
@@ -12,7 +12,7 @@ type Props = {
   /**
    * Allows the phrase to convey more emphasis.
    */
-  fontWeight?: keyof typeof FontFamily
+  emphasis?: keyof typeof Emphasis
   /**
    * Which variation of a phrase to display.
    */
@@ -27,13 +27,13 @@ type Props = {
 export const Phrase = ({
   children,
   color = 'default',
-  fontWeight = 'regular',
+  emphasis = 'default',
   variant = 'body',
   ...otherProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({color, fontWeight, variant}),
-    [color, fontWeight, variant],
+    () => createStyles({color, emphasis, variant}),
+    [color, emphasis, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -47,15 +47,16 @@ export const Phrase = ({
 const createStyles =
   ({
     color: textColor,
-    fontWeight,
+    emphasis,
     variant,
-  }: Required<Pick<Props, 'color' | 'fontWeight' | 'variant'>>) =>
+  }: Required<Pick<Props, 'color' | 'emphasis' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily: text.fontFamily[fontWeight],
+        fontFamily:
+          text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
       },

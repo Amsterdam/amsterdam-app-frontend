@@ -20,6 +20,11 @@ export type TitleTokensPerLevel = {
   h6: number
 }
 
+export enum Emphasis {
+  default = 'default',
+  strong = 'strong',
+}
+
 export enum FontFamily {
   bold = 'AmsterdamSans-ExtraBold',
   regular = 'AmsterdamSans-Regular',

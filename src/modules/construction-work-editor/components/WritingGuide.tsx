@@ -32,7 +32,7 @@ export const WritingGuide = () => {
               key={tip}>
               <Row gutter="md">
                 <Size height={text.fontSize.body * text.lineHeight.body}>
-                  <Phrase fontWeight="bold">{step}</Phrase>
+                  <Phrase emphasis="strong">{step}</Phrase>
                 </Size>
                 <Paragraph>{tip}</Paragraph>
               </Row>
