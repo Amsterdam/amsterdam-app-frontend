@@ -88,7 +88,7 @@ const createStyles =
         backgroundColor: color.pressable.secondary.background,
       },
       text: {
-        fontFamily: text.fontWeight.bold,
+        fontFamily: text.fontFamily.bold,
         fontSize: scaledTextSize,
         lineHeight: scaledDiameter,
         color: color.text.inverse,

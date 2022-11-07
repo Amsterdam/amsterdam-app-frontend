@@ -36,7 +36,7 @@ const createStyles =
       title: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily: text.fontWeight.bold,
+        fontFamily: text.fontFamily.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level] * text.fontSize[level],
       },

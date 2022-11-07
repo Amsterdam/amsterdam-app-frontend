@@ -1,7 +1,7 @@
 import React, {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
-import {FontWeight, ParagraphVariants} from '@/themes/tokens'
+import {FontFamily, ParagraphVariants} from '@/themes/tokens'
 
 type Props = {
   children: ReactNode
@@ -12,7 +12,7 @@ type Props = {
   /**
    * Allows the phrase to convey more emphasis.
    */
-  fontWeight?: keyof typeof FontWeight
+  fontWeight?: keyof typeof FontFamily
   /**
    * Which variation of a phrase to display.
    */
@@ -27,7 +27,7 @@ type Props = {
 export const Phrase = ({
   children,
   color = 'default',
-  fontWeight = 'normal',
+  fontWeight = 'regular',
   variant = 'body',
   ...otherProps
 }: Props) => {
@@ -55,7 +55,7 @@ const createStyles =
       text: {
         flexShrink: 1,
         color: color.text[textColor],
-        fontFamily: text.fontWeight[fontWeight],
+        fontFamily: text.fontFamily[fontWeight],
         fontSize: text.fontSize[variant],
         lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
       },
