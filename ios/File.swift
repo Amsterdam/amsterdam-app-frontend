@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  StadsApp
+//  AmsterdamApp
 //
 //  Created by Werk on 21/09/2021.
 //

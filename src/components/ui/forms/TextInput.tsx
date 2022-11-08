@@ -1,103 +1,137 @@
-import Close from '@amsterdam/asc-assets/static/icons/Close.svg'
-import React, {forwardRef, useState} from 'react'
+import React, {forwardRef, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
   TextInput as TextInputRN,
+  TextInputProps,
   TextInputProps as TextInputRNProps,
-  TouchableOpacity,
   View,
 } from 'react-native'
-import {color, font, size} from '../../../tokens'
-import {Label} from '../index'
-import {Gutter} from '../layout'
+import {Column} from '@/components/ui//layout'
+import {IconButton} from '@/components/ui/buttons'
+import {Label} from '@/components/ui/forms'
+import {Icon} from '@/components/ui/media'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   label: string
   numberOfLines?: number
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  placeholder?: string
   warning?: boolean
 } & TextInputRNProps
 
-const textLineHeight = font.height.p1
-const inputPadding = size.spacing.sm
+export const TextInput = forwardRef<TextInputRN, Props>(
+  (
+    {
+      label,
+      numberOfLines,
+      onChangeText,
+      onFocus,
+      placeholder = '',
+      warning,
+      value: valueProp = '',
+      ...otherProps
+    }: Props,
+    ref,
+  ) => {
+    const [hasFocus, setHasFocus] = useState(false)
+    const [value, setValue] = useState(valueProp)
 
-export const TextInput = forwardRef((props: Props, ref: any) => {
-  const [hasFocus, setFocus] = useState(false)
-  const [value, setValue] = useState('')
+    const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
+    const textInputProps = useThemable(createTextInputProps)
 
-  const {onChangeText} = props
+    useEffect(() => {
+      setValue(valueProp)
+    }, [valueProp])
 
-  const handleChangeText = (text: string) => {
-    setValue(text)
-    onChangeText && onChangeText(text)
+    const handleBlur = () => setHasFocus(false)
+
+    const handleChangeText = (text: string) => {
+      setValue(text)
+      onChangeText?.(text)
+    }
+
+    const handleClearText = () => {
+      setValue('')
+      onChangeText?.('')
+    }
+
+    const handleFocus = () => {
+      setHasFocus(true)
+      onFocus?.()
+    }
+
+    return (
+      <Column gutter="sm">
+        <Label isAccessible={!otherProps.accessibilityLabel} text={label} />
+        <View style={styles.frame}>
+          <TextInputRN
+            {...otherProps}
+            {...textInputProps}
+            placeholder={placeholder}
+            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
+            onBlur={handleBlur}
+            onChangeText={handleChangeText}
+            onFocus={handleFocus}
+            ref={ref}
+            style={styles.textInput}
+            textAlignVertical="top"
+            value={value}
+          />
+          {value ? (
+            <View>
+              <IconButton
+                accessibilityHint="Maak dit tekstveld leeg"
+                icon={<Icon name="close" size="lg" />}
+                onPress={handleClearText}
+              />
+            </View>
+          ) : null}
+        </View>
+      </Column>
+    )
+  },
+)
+
+const createStyles =
+  ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
+  ({color, size, text}: Theme) => {
+    const borderWidth = hasFocus || warning ? 2 : 1
+    const paddingHorizontal = size.spacing.md - (borderWidth - 1)
+    const paddingVertical = size.spacing.sm - (borderWidth - 1)
+    const textLineHeight = text.fontSize.body * text.lineHeight.body
+
+    return StyleSheet.create({
+      frame: {
+        flexDirection: 'row',
+        paddingHorizontal,
+        paddingVertical,
+        backgroundColor: color.box.background.white,
+        borderStyle: 'solid',
+        borderColor: warning
+          ? color.control.warning.border
+          : hasFocus
+          ? color.control.focus.border
+          : color.control.default.border,
+        borderWidth,
+      },
+      textInput: {
+        minHeight:
+          Platform.OS === 'ios' && numberOfLines
+            ? numberOfLines * textLineHeight + 2 * paddingVertical
+            : 'auto',
+        flex: 1,
+        padding: 0, // Override an Android default
+        paddingTop: 0,
+        color: color.text.default,
+        fontFamily: text.fontFamily.regular,
+        fontSize: text.fontSize.body,
+      },
+    })
   }
 
-  const handleClearText = () => {
-    setValue('')
-    onChangeText && onChangeText('')
-  }
-
-  const styles = StyleSheet.create({
-    clearButton: {
-      alignSelf: 'stretch',
-      padding: inputPadding,
-    },
-    searchSection: {
-      flexDirection: 'row',
-      backgroundColor: color.background.white,
-      borderColor: hasFocus
-        ? color.control.focus.border
-        : color.control.default.border,
-      borderStyle: 'solid',
-      borderWidth: hasFocus ? 2 : 1,
-    },
-    textInput: {
-      flex: 1,
-      padding: inputPadding,
-      color: color.font.regular,
-      fontFamily: font.weight.regular,
-      fontSize: font.size.p1,
-      lineHeight: textLineHeight,
-      minHeight:
-        Platform.OS === 'ios' && props.numberOfLines
-          ? props.numberOfLines * textLineHeight + 2 * inputPadding
-          : 'auto',
-    },
-    warning: {
-      borderColor: color.border.invalid,
-      borderWidth: 2,
-    },
-  })
-
-  return (
-    <View>
-      <Label isAccessible={!props.accessibilityLabel} text={props.label} />
-      <Gutter height="sm" />
-      <View style={[styles.searchSection, props.warning && styles.warning]}>
-        <TextInputRN
-          {...props}
-          onBlur={() => setFocus(false)}
-          onChangeText={text => handleChangeText(text)}
-          onFocus={props.onFocus ? props.onFocus : () => setFocus(true)}
-          numberOfLines={
-            Platform.OS === 'ios' ? undefined : props.numberOfLines
-          }
-          ref={ref}
-          style={styles.textInput}
-          value={props.value ?? value}
-        />
-        {value ? (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityHint="Verwijder uw invoertekst"
-            onPress={handleClearText}
-            style={styles.clearButton}>
-            <Close fill={color.font.regular} height={20} width={20} />
-          </TouchableOpacity>
-        ) : null}
-      </View>
-    </View>
-  )
+const createTextInputProps = ({color}: Theme): TextInputProps => ({
+  placeholderTextColor: color.text.secondary,
 })

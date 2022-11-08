@@ -1,33 +1,32 @@
+import {baseApi} from '@/services/init'
 import {
-  NotificationQueryArg,
   Notification,
-  Notifications,
+  NotificationQueryArg,
   NotificationsQueryArg,
-} from '../types'
-import {formatQueryParams, generateRequestUrl} from '../utils'
-import {baseApi} from './init'
+} from '@/types'
+import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     addNotification: builder.mutation<Notification, NotificationQueryArg>({
       invalidatesTags: ['Notifications'],
-      query(body) {
-        return {
-          url: '/notification',
-          method: 'POST',
-          body,
-        }
-      },
+      query: body => ({
+        url: '/notification',
+        method: 'POST',
+        body,
+      }),
     }),
-    getNotifications: builder.query<Notifications, NotificationsQueryArg>({
+    getNotifications: builder.query<Notification[], NotificationsQueryArg>({
       providesTags: ['Notifications'],
       query: params => {
         const q = formatQueryParams(params)
-        return generateRequestUrl('/notifications', q)
+        return generateRequestUrl({path: '/notifications', params: q})
       },
-      transformResponse: (response: {result: Notifications}) => response.result,
+      transformResponse: (response: {result: Notification[]}) =>
+        response.result,
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {useAddNotificationMutation, useGetNotificationsQuery} =

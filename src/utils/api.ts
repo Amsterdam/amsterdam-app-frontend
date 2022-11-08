@@ -1,12 +1,18 @@
-import {getEnvironment} from '../environment'
 import {
-  ListQueryArg,
+  FieldsQueryArg,
   ProjectIdsQueryArg,
   ProjectsByTextQueryArg,
   ProjectsQueryArg,
-} from '../types'
+} from '@/modules/construction-work/types'
+import {ListQueryArg} from '@/types'
 
-export const generateRequestUrl = (url: string, params = {}) => {
+type Signature = {
+  baseUrl?: string
+  path?: string
+  params: Record<string, string[] | string | number | boolean>
+}
+
+export const generateRequestUrl = ({params = {}, path}: Signature) => {
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
     .flatMap(([key, value]) =>
@@ -15,12 +21,12 @@ export const generateRequestUrl = (url: string, params = {}) => {
 
   const scalarParams = Object.entries(params)
     .filter(([, value]) => Boolean(value) && !Array.isArray(value))
-    .flatMap(([key, value]) => `${key}=${value}`)
+    .flatMap(([key, value]) => `${key}=${value as string}`)
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
-  const requestURL = [getEnvironment().apiUrl + url, queryParams]
-    .filter(Boolean)
-    .join('?')
+
+  const requestURL = [path, queryParams].join('?')
+
   return requestURL
 }
 
@@ -37,7 +43,11 @@ export const formatQueryParams = ({
   sortOrder,
   ...rest
 }: Partial<
-  ListQueryArg & ProjectIdsQueryArg & ProjectsByTextQueryArg & ProjectsQueryArg
+  ListQueryArg &
+    ProjectIdsQueryArg &
+    ProjectsByTextQueryArg &
+    FieldsQueryArg &
+    ProjectsQueryArg
 >) => ({
   ...(districtId && {'district-id': districtId}),
   ...(fields && {fields: fields.join(',')}),

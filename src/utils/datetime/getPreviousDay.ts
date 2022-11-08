@@ -1,4 +1,4 @@
-import {days} from './days'
+import {days} from '@/utils/datetime/days'
 
 /**
  * Returns the name of the previous day.

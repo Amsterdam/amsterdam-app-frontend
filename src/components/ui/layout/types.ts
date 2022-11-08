@@ -13,4 +13,5 @@ export type MainAxisAlignment =
   | 'evenly'
   | 'start'
 
+// TODO Rename to `before` and `after` to match `Position` enum
 export type MainAxisPosition = 'start' | 'end'

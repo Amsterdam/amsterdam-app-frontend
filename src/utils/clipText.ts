@@ -1,4 +1,4 @@
-export const clipText = (text: string = '', separators: string[]) => {
+export const clipText = (text = '', separators: string[]) => {
   let clippedText = text
   separators.map(separator => {
     const pos = clippedText.indexOf(separator)

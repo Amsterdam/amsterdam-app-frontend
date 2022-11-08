@@ -1,4 +1,4 @@
-import {formatDatesTimes} from '../'
+import {formatDatesTimes} from '@/utils/datetime/formatDatesTimes'
 
 test('no valid day names', () =>
   expect(

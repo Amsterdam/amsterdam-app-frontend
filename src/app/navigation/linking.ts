@@ -2,9 +2,12 @@ import notifee from '@notifee/react-native'
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
+import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
-import {PushNotificationData} from '../../types'
-import {routes, tabs} from './routes'
+import {RootStackParams} from '@/app/navigation/RootStackNavigator'
+import {moduleLinkings} from '@/modules/utils'
+import {devLog} from '@/processes'
+import {PushNotificationData} from '@/types'
 
 const appPrefix = 'amsterdam://'
 
@@ -44,20 +47,12 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 }
 
-export const linking = {
+export const linking: LinkingOptions<RootStackParams> = {
   prefixes: [appPrefix],
   config: {
-    screens: {
-      [tabs.menu.name]: {
-        screens: {
-          [routes.projectNews.name]: 'news/:id',
-          [routes.projectManager.name]: 'project-manager/:id',
-          [routes.projectWarning.name]: 'warning/:id',
-        },
-      },
-    },
+    screens: moduleLinkings,
   },
-  async getInitialURL() {
+  getInitialURL: async () => {
     try {
       const url = await Linking.getInitialURL()
 
@@ -71,18 +66,18 @@ export const linking = {
         createRoutWithPrefixFromDataObject(initialNotification.data)
       return routeWithPrefix ?? null
     } catch (error) {
-      console.log(error)
+      devLog(error)
     }
   },
 
-  subscribe(listener: (deeplink: string) => void) {
+  subscribe: (listener: (deeplink: string) => void) => {
     // First, you may want to do the default deep link handling
     const onReceiveURL = ({url}: {url: string}) => listener(url)
 
     // Listen to incoming links from deep linking
     const subscription = Linking.addEventListener('url', onReceiveURL)
 
-    const onMessageReceived = async (
+    const onMessageReceived = (
       message: FirebaseMessagingTypes.RemoteMessage,
     ) => {
       const routeWithPrefix =
@@ -102,7 +97,7 @@ export const linking = {
         name: 'Default Channel',
       })
       if (message.notification) {
-        notifee.displayNotification({
+        void notifee.displayNotification({
           title: message.notification.title,
           body: message.notification.body,
           android: {

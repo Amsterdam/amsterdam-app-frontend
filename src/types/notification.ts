@@ -1,4 +1,4 @@
-import {ListQueryArg} from '.'
+import {ListQueryArg} from '@/types'
 
 export type NotificationQueryArg = {
   title: string
@@ -13,13 +13,11 @@ export type Notification = NotificationQueryArg & {
   publication_date: string
 }
 
-export type Notifications = Notification[]
-
 export type NotificationsQueryArg = {
   projectIds: string[]
 } & Partial<ListQueryArg>
 
-export type FrontEndNotification = Notification & {
+export type NotificationWithProjectTitleAndReadState = Notification & {
   isRead?: boolean
   projectTitle: string
 }

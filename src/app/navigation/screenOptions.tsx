@@ -1,46 +1,26 @@
-import ChevronLeft from '@amsterdam/asc-assets/static/icons/ChevronLeft.svg'
-import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs'
 import {StackNavigationOptions} from '@react-navigation/stack'
-import React from 'react'
-import {StyleSheet, View} from 'react-native'
-import {color, size} from '../../tokens'
+import {Header} from '@/modules/home/components'
+import {Theme} from '@/themes'
 
-export const stackScreenOptions: StackNavigationOptions = {
-  cardStyle: {
-    backgroundColor: color.background.app,
-  },
-  headerBackAccessibilityLabel: 'Terug',
-  headerBackImage: () => (
-    <View style={styles.headerBackImage}>
-      <ChevronLeft width={20} height={20} fill={color.font.regular} />
-    </View>
-  ),
-  headerBackTitleVisible: false,
-  headerStyle: {
-    backgroundColor: color.background.white,
-    borderBottomColor: color.border.default,
-    borderBottomWidth: 1,
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-  headerLeftContainerStyle: {
-    paddingStart: size.spacing.md,
-  },
-  headerRightContainerStyle: {
-    paddingEnd: size.spacing.md,
-  },
-  headerTitleAlign: 'center',
+export type CustomScreenOptions = {
+  screenType: keyof Theme['color']['screen']['background']
 }
 
-export const tabScreenOptions: BottomTabNavigationOptions = {
-  headerShown: false,
+const defaultOptions: CustomScreenOptions = {
+  screenType: 'default',
 }
 
-const styles = StyleSheet.create({
-  headerBackImage: {
-    marginLeft: -size.spacing.md,
-    paddingHorizontal: size.spacing.md + size.spacing.sm,
-    paddingStart: size.spacing.md,
-    paddingVertical: size.spacing.md - size.spacing.sm,
-  },
-})
+export const screenOptions: (
+  theme: Theme,
+  options?: CustomScreenOptions,
+) => StackNavigationOptions = ({color}, options) => {
+  const customOptions = {...defaultOptions, ...options}
+
+  return {
+    cardStyle: {
+      backgroundColor: color.screen.background[customOptions.screenType],
+    },
+    header: Header,
+    headerMode: 'screen',
+  }
+}

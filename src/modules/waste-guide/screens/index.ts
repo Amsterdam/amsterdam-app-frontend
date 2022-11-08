@@ -1,0 +1,6 @@
+export * from './BulkyWasteAppointment.screen'
+export * from './CollectionPointsOnMap.screen'
+export * from './ContainersOnMap.screen'
+export * from './WasteGuide.screen'
+export * from './WasteGuideFeedback.screen'
+export * from './WhereToPutBulkyWaste.screen'

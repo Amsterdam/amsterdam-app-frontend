@@ -1,121 +1,122 @@
 # Amsterdam App
 
-We’re creating a native app for Amsterdam citizens to receive information and interact with the municipality – much an
-alternative to the web presences of [amsterdam.nl](https://www.amsterdam/nl)
-and [Mijn Amsterdam](https://mijn.amsterdam.nl).
+We are creating a native app for citizens, entrepreneurs, and visitors of the City of Amsterdam to provide information, allow communication, and streamline transactions.
 
-***
 ## Installation
 
-The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your
-development environment. To summarize:
+The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a good overview of how to set up your development environment. Specific instructions for this project:
 
-- Clone repo: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app`.
+- Clone the repository
+  - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
+  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`
+- Set Node version
+  - Install the used node version:
+    - Linux/MacOS: `nvm install`
+    - Windows: `nvm install $(Get-Content .nvmrc)`
+  - Select the used node version
+    - Linux/MacOS: `nvm use`
+    - Windows: `nvm use $(Get-Content .nvmrc)`
 - Install Node dependencies: `npm i`.
-- Install XCode dependencies: `cd amsterdam-app && pod install && cd ..`.
-- Start [Metro](https://facebook.github.io/metro/), the JavaScript bundler for React Native: `npm start`. Or, more
-  specifically:
-    - Start the iOS-phone emulator: `npm run ios:phone`.
-    - Start the iOS-tablet emulator: `npm run ios:tablet`.
-    - Start the Android-phone emulator: `npm run android:phone`.
-    - Start the Android-tablet emulator: `npm run android:phone`.
-        - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager
-- We recommend installing this [React Native debugger](https://github.com/jhen0409/react-native-debugger) additionally:
-  `brew install --cask react-native-debugger`.
+- For iOS development, install other dependencies:
+  - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or <https://rubygems.org/>
+  - Go to `/ios`
+  - Install bundler (Ruby gem manager): `gem install bundler:2.2.33`
+  - Install/update the gems with bundler: `bundle update`
+  - Install pods: `pod install`
+- Get the necessary files and add them to the project
+  - See "Secret files" below
+- To run the app on a simulator/emulator
+  - Start the iOS phone simulator: `npm run ios:phone:dev`
+  - Start the Android phone emulator: `npm run android:phone:dev`
+  - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
+    - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
+- We recommend installing the [React Native debugger](https://github.com/jhen0409/react-native-debugger)
+  - For Mac via Homebrew: `brew install --cask react-native-debugger`
 
 ### Secret files
-Secret files included are:
-- android/app/google-services.json
 
-### Environment Variables
-Currently, we use these environment variables. Store these in a file called '.env' and save in the root of the React Native codebase. Ask one of the developers to acquire them.
-- AUTH_PASSWORD
-- AUTH_SHARED_SECRET
-***
-## Release automation (CI/CD)
+To build the app locally, you need these files. These files contain credentials or API keys, so they are not part of the repo.
 
-With Azure DevOps and [Fastlane](https://fastlane.tools/) we created a CI/CD pipeline.
-
-### Azure DevOps
-The configuration of the pipeline is in azure-pipelines.yml. From here we run fastlane for iOS and for Android. The pipeline has access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard.
-
-### Fastlane
-Fastlane handles most importantly building, signing and releasing our app. We do this for iOS and Android separately. Both folders have a fastlane folder. Most importantly here is the Fastfile. It encompasses a pipeline that work with consecutive fastlane-actions. Sometimes they use environment variables or files, set up in de Azure pipeline.
-#### **Release-notes**
-Right now, it is only possible to add release-notes manually.
-
-#### **Version-name**
-Manually change version-name (iOS and Android) if you need to
-
-**[Configuration of the pipeline](README-build.md)**
-
-***
-## Release manually
-
-Follow the steps below to release a new version of the app into the (test) stores.
-
-### Android
-
-- Add your account to Gemeente Amsterdam’s developer account. To get access, send an e-mail to
-  the [web team](mailto:webteamcommunicatiebureau@amsterdam.nl).
-- Go to the [Google Play console](https://play.google.com/console/), log in, and verify that you have access to this
-  app.
-- Click on the app, then on “Internal test” on the left.
-- Click the button "Create new release" in the upper-right. Follow the instructions to sign the app and, once done,
-  upload your signed app bundle.
-- Add release notes to the textarea at the bottom.
-- Click “Save” and continue to "Review and publish".
-- Select your test audience in the tab "Testers" testers. At the bottom, copy the link of the test app in the Play
-  Store, and include it in an e-mail to your testers to allow downloading the new version of the app.
-
-### iOS
-
-- In Xcode, change the version in the “General” tab of your target.
-- In the “Signing & Capabilities” tab, change “Bundle identifier for Signing (Release)” to:
-  `org.reactjs.native.undefined.StadsApp`.
-- Make sure the Build configuration is "Release" (Menu: Product > Scheme > Edit scheme)
-- Make a backup of the app: Product -> Archive.
-- Go to Window -> Organiser and select your archive. Click "Distribute App".
-- Choose "App store connect", then "Upload".
-- Select all distribution options and after that: "Automatically manage signing".
-- Upload.
-- Choose "No".
-- The app is getting prepared. All the testers will receive an e-mail about the new release which they can download in
-  TestFlight.
-- Afterwards, turn the build configuration back to "Debug" for further development.
-
-#### **2 types of testrelease:**
-There are 2 types of testreleases. One for the Scrum-team for development and testing purposes and one for the stakeholders. The version of the Scrum-team release has a digit extra, so 4 in total.
-
-#### Stakeholders
-- Version number is 0.\[sprint\]
-- Once uploaded to App Store connect, go to Testflight and add the group "Stadsapp-stakholders"
-
-#### Scrum-team
-- These are testreleases solely for the Scrum-team.
-- Build number gets incremented each time a new release is done
-- Version number is 0.\[sprint\]
-------------------------------------------
+- `android/app/google-services.json` (Prod Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app))
+- `android/app/src/dev/google-services.json` (Dev Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev))
+- `ios/GoogleService-Info-Prod.plist` (Prod Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app) and rename it)
+- `ios/GoogleService-Info-Test.plist` (Dev Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev) and rename it)
+- `android/sentry.properties` (Sentry config/key for Android)
+- `ios/sentry.properties` (Sentry config/key for iOS)
+- `.env` (environment variables to be used in the JS, see `.env.example`)
 
 ## Git
-We work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+- We rebase feature branches – don’t merge `main` or `develop` back into them.
+- We largely work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
 
 ### Release
-- Branch from develop and call it release/\[version-number\]
-- Once reviewed, pull branch into main and tag it with its version-number
 
-------------------------------------------
+- Branch from develop and call it release/\[version-number\].
+- Once reviewed, pull branch into main and tag it with its version number.
 
-## Deep-links
-Deep links are links from outside the app that will open the app and trigger something
-- giving managers access: amsterdam://omgevingsmanager/home/:id (id is generated by our backend)
+## Push notifications
 
--------------------------------------------
+To test push notifications locally, do the following:
+
+1. Log into Chrome with the Team Communicare account
+2. Go to <https://developers.google.com/oauthplayground/>
+3. Fill in for scope: `https://www.googleapis.com/auth/firebase.messaging`
+4. Select Team Communicare account
+5. Click button ‘Exchange authorization code for tokens’ and get the `access_token`
+6. Open your Postman app
+7. Set header: `Authorization: Bearer /[access_token/]`
+8. Enter body of this signature, where `token` is the Firebase token of your device (see code):
+
+```json
+{
+  "message": {
+    "token": "alovelyfcmtoken",
+    "data": {
+      "linkSourceid": "f296eba1-189f-477e-8302-44ffc369f032",
+      "type": "WarningCreatedByProjectManager"
+    },
+    "notification": {
+      "body": "Er is nieuws over een project!",
+      "title": "Nieuws-update Bullebak"
+    }
+  }
+}
+```
+
+## Deeplinks
+
+These are links from outside the app that will open the app and trigger something:
+
+- Authorizing project managers: `amsterdam://project-manager/:id` (`id` is generated by our backend).
+
 ## Keep your code secure
-We use detect-secrets to scan the codebase for secrets. This results in a .secrets.baseline file in the root of the project:
-- https://github.com/Yelp/detect-secrets
 
--------------------------------------------
-## Tips and tricks
+Add new files containing API keys or credentials to `.gitignore`. These files may not be pushed to the repo.
 
-1. To see what's in the async store, type `showAsyncStorageContentInDev()` in the React Native Debugger console.
+We use `detect-secrets` to scan the codebase for secrets. This results in a .secrets.baseline file in the root of the project:
+
+- <https://github.com/Yelp/detect-secrets>
+
+## Storybook
+
+- Run locally with `npm run storybook`
+- [Production URL] (<https://amsterdam.github.io/amsterdam-app-storybook>)
+
+## Icons
+
+- When creating an icon, please copy the SVG code from [ASC](https://amsterdam.github.io/amsterdam-styled-components) and add it to the assets folder.
+- Optimise the markup through [SVGOMG](https://jakearchibald.github.io/svgomg/) with the default options. We aim for minimal SVG markup and usage of `path` elements only.
+- Import the icon from within the app repository.
+
+## Typescript
+
+- Global types are defined in `src/custom.d.ts`
+
+## More documentation
+
+- [Build documentation](./.docs/build.md)
+- [Troubleshooting](./.docs/frequently-solved-problems.md)
+- [Sentry](./.docs/sentry.md)
+- [Running on Device](./.docs/running-on-device.md)
+- [Testing features](./.docs/testing-features.md)

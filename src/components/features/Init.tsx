@@ -1,31 +1,46 @@
-import {useContext, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {SettingsContext} from '../../providers'
-import {setCredentials} from '../../store/authSlice'
-import {encryptWithAES} from '../../utils'
+import React, {ReactNode, useMemo} from 'react'
+import {
+  useAppState,
+  useInitSentry,
+  useModules,
+  useRegisterDevice,
+  useSentry,
+} from '@/hooks'
+import {useConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks'
+import {getPushNotificationsPermission} from '@/processes'
 
-export const Init = () => {
-  const dispatch = useDispatch()
-  const {removeSetting, settings} = useContext(SettingsContext)
-  const projectManager = settings?.['project-manager']
+type Props = {children: ReactNode}
 
-  useEffect(() => {
-    removeSetting('temp')
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+export const Init = ({children}: Props) => {
+  useInitSentry()
+  const {sendSentryErrorLog} = useSentry()
+  const {registerDevice, unregisterDevice} = useRegisterDevice()
+  const {selectedModules} = useModules()
 
-  useEffect(() => {
-    if (projectManager) {
-      const {id} = projectManager
-      dispatch(
-        setCredentials({
-          managerToken: encryptWithAES({
-            password: process.env.AUTH_PASSWORD ?? '',
-            salt: id,
-          }),
-        }),
-      )
-    }
-  }, [projectManager, dispatch])
+  const onAppstate = useMemo(
+    () => ({
+      onForeground: () => {
+        if (selectedModules.some(module => module.requiresFirebaseToken)) {
+          getPushNotificationsPermission()
+            .then(registerDevice)
+            .catch((error: unknown) => {
+              sendSentryErrorLog(
+                'Register device for push notifications failed',
+                'Init.tsx',
+                {error},
+              )
+            })
+        } else {
+          void unregisterDevice(undefined)
+        }
+      },
+    }),
+    [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice],
+  )
 
-  return null
+  useAppState(onAppstate)
+
+  useConstructionWorkEditorCredentials()
+
+  return <>{children}</>
 }

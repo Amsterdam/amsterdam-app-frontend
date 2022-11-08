@@ -1,13 +1,13 @@
 import React, {useContext} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
-import {DeviceContext} from '../../../providers'
+import {DeviceContext} from '@/providers'
 
 type Props = ViewProps
 
 export const Grid = ({children}: Props) => {
-  const device = useContext(DeviceContext)
+  const {isLandscape} = useContext(DeviceContext)
 
-  return <View style={device.isLandscape && styles.grid}>{children}</View>
+  return <View style={!!isLandscape && styles.grid}>{children}</View>
 }
 
 const styles = StyleSheet.create({

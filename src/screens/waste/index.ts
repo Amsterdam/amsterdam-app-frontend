@@ -1,5 +1,0 @@
-export * from './RecyclingGuideBanner'
-export * from './ReportNotCollectedBanner'
-export * from './WasteGuideScreen'
-export * from './WasteMenuScreen'
-export * from './WhereToPutBulkyWasteScreen'

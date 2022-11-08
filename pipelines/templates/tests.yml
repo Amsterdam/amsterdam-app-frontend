@@ -1,0 +1,33 @@
+jobs:
+  - job: "Tests"
+    timeoutInMinutes: 15
+    pool:
+      vmImage: "macos-11"
+    steps:
+      - template: ./install-node.yml
+      - script: npm ci
+        displayName: Install Dependencies
+      - script: npm run typescript
+        displayName: Run Type Check
+      - script: npm run test-ci
+        displayName: Run Unit Tests
+        condition: succeededOrFailed()
+      - script: npm run lint
+        displayName: Run Linter
+        condition: succeededOrFailed()
+      - task: PublishTestResults@2
+        displayName: "Publish Jest Unit Test Results"
+        inputs:
+          testResultsFiles: .jest/jestTestResults.trx
+          testResultsFormat: VSTest
+          mergeTestResults: true
+          testRunTitle: "Jest Unit Tests - $(Build.SourceBranch)"
+          failTaskOnFailedTests: true
+        condition: succeededOrFailed()
+      - task: PublishCodeCoverageResults@1
+        displayName: "Publish code coverage from Jest tests"
+        inputs:
+          codeCoverageTool: Cobertura
+          summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml"
+          failIfCoverageEmpty: true
+        condition: succeededOrFailed()

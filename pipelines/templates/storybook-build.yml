@@ -1,0 +1,17 @@
+steps:
+  - template: ./install-node.yml
+  - script: npm ci
+    displayName: 'Install node dependencies'
+  - script: npm run lint
+    displayName: 'Run lint'
+  - script: npm run typescript
+    displayName: 'Run typescript checks'
+  - script: npm run test
+    displayName: 'Run unit tests'
+  - script: npm run storybook:build
+    displayName: Build storybook
+  - template: ./save-version-info.yml
+    parameters: 
+      isStorybook: true
+  - publish: $(System.DefaultWorkingDirectory)/storybook-static
+    artifact: storybook-build

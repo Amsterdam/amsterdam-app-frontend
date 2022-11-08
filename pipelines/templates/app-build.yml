@@ -1,0 +1,79 @@
+parameters:
+- name: platform
+  type: string
+  default: "ios"
+
+steps:
+  # Set up environment
+  - template: ./install-node.yml
+  - script: npm ci
+    displayName: 'Install node dependencies'
+  - task: UseRubyVersion@0
+    displayName: 'Set Ruby version'
+    inputs:
+      versionSpec: '~> 3.0'
+      addToPath: true
+  - script: |
+      gem install bundler:2.2.33
+    displayName: "Install bundler"
+  - task: JavaToolInstaller@0
+    displayName: 'Install Java SDK'
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+    condition: eq('${{ parameters.platform }}', 'android')
+
+  # Tests
+  - script: npm run lint
+    displayName: 'Run lint'
+  - script: npm run typescript
+    displayName: 'Run TypeScript checks'
+  - script: npm run test
+    displayName: 'Run unit tests'
+
+  # Version info
+  - template: ./save-version-info.yml
+
+  # Download and move secure files
+  - template: ./copy-files.yml
+    parameters: 
+      platform: ${{ parameters.platform }}
+  - template: ./copy-android-files.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'android')
+  - template: ./copy-ios-files.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'ios')
+
+  # Install gems and run Fastlane
+  - script: |
+      bundle install
+      bundle exec fastlane buildApps
+    displayName: "Build ${{ parameters.platform }}"
+    workingDirectory: ${{ parameters.platform }}
+    env:
+      VERSION: $(VERSION)
+      BUILD_NUMBER: $(BUILD_NUMBER)
+      SENTRY_RELEASE: "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
+      SENTRY_DIST: $(BUILD_NUMBER)
+      AUTH_PASSWORD: $(AUTH_PASSWORD)
+      AUTH_SHARED_SECRET: $(AUTH_SHARED_SECRET)
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: "180"
+      FASTLANE_XCODE_LIST_TIMEOUT: "180"
+
+  # Handle artifacts
+  - template: ./copy-generic-artifacts.yml
+    parameters:
+      platform: ${{ parameters.platform }}
+  - template: ./copy-android-artifacts.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'android')
+  - template: ./copy-ios-artifacts.yml
+    parameters: 
+      condition: eq('${{ parameters.platform }}', 'ios')
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifacts'
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: ${{ parameters.platform }}-build

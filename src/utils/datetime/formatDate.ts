@@ -1,14 +1,12 @@
-import 'intl'
-import 'intl/locale-data/jsonp/nl-NL'
+import {dayjs} from '@/utils/datetime/dayjs'
 
+/**
+ * Converts string to date
+ */
 export const formatDate = (date: string | number) => {
-  const jsDate = new Date(date)
+  if (date === null || date === undefined) {
+    return ''
+  }
 
-  const formattedDate = new Intl.DateTimeFormat('nl-NL', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(jsDate)
-
-  return formattedDate
+  return dayjs(date).format('D MMMM YYYY')
 }

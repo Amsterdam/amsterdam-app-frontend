@@ -1,0 +1,7 @@
+trigger: none
+
+pr:
+  - develop
+
+extends:
+  template: ./templates/tests.yml

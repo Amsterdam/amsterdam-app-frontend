@@ -1,14 +1,15 @@
-import Checkmark from '@amsterdam/asc-assets/static/icons/Checkmark.svg'
 import React, {ReactNode} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
   TouchableHighlight,
+  TouchableHighlightProps,
   View,
 } from 'react-native'
-import {color} from '../../../tokens'
-import {FormField} from '../forms'
-import {MainAxisPosition} from '../layout/types'
+import {FormField} from '@/components/ui/forms'
+import {MainAxisPosition} from '@/components/ui/layout'
+import {Icon} from '@/components/ui/media'
+import {Theme, useThemable} from '@/themes'
 
 type Props = {
   label: ReactNode
@@ -24,33 +25,40 @@ export const Checkbox = ({
   onValueChange,
   value,
 }: Props) => {
+  const styles = useThemable(createStyles)
+  const touchableProps = useThemable(createTouchableProps)
+
   return (
     <TouchableHighlight
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onValueChange}
-      underlayColor={color.background.white}>
+      {...touchableProps}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {value && <Checkmark fill={color.font.inverse} />}
+          {!!value && <Icon color="inverse" name="checkmark" />}
         </View>
       </FormField>
     </TouchableHighlight>
   )
 }
 
-const styles = StyleSheet.create({
-  checkbox: {
-    width: 24,
-    height: 24,
-    padding: 4,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: color.control.default.border,
-    backgroundColor: color.control.default.background,
-  },
-  checked: {
-    backgroundColor: color.control.checked.background,
-    borderColor: color.control.checked.background,
-  },
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    checkbox: {
+      width: 24,
+      aspectRatio: 1,
+      padding: 2,
+      borderWidth: 2,
+      borderColor: color.control.checked.background,
+      backgroundColor: color.control.default.background,
+    },
+    checked: {
+      backgroundColor: color.control.checked.background,
+    },
+  })
+
+const createTouchableProps = ({color}: Theme): TouchableHighlightProps => ({
+  underlayColor: color.box.background.white,
 })

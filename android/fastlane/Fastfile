@@ -15,61 +15,156 @@
 
 default_platform(:android)
 
+puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
+puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
+
+# The path to the folder with the AAB/APK files (artifact staging directory)
+# we only set this in the release pipelines, this is a default to prevent errors during the build pipeline
+app_build_path = ""
+
+if ENV["ARTIFACT_FOLDER"]
+  app_build_path = ENV["ARTIFACT_FOLDER"]
+end
+
+apps = [
+  {
+    :name => "amsterdam-test",
+    :task => "bundle",
+    :app_identifier => "nl.amsterdam.app.dev",
+    :build_type => "Release",
+    :flavor => "dev",
+    :distribute_to_stakeholders => false,
+    :distribute_to_production => false,
+    :apk_path => "/apk/dev/release/app-dev-release.apk", 
+    :aab_path => "/bundle/devRelease/app-dev-release.aab"
+  },
+  {
+    :name => "amsterdam",
+    :task => "bundle",
+    :app_identifier => "nl.amsterdam.app",
+    :build_type => "Release",
+    :flavor => "prod",
+    :distribute_to_stakeholders => true,
+    :distribute_to_production => true,
+    :apk_path => "/apk/prod/release/app-prod-release.apk", 
+    :aab_path => "/bundle/prodRelease/app-prod-release.aab"
+  },
+]
+
+def parseVersionNumber(fullVersionNumber)
+  if fullVersionNumber
+    return fullVersionNumber.match /(?<version>\d+\.\d+\.\d+)\.(?<build>\d+)/
+  else
+    UI.user_error!("ERROR: parseVersionNumber failed")
+  end
+end
+
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
 
-  lane :bump_version_code do
-    path = '../app/build.gradle'
-    re = /versionCode\s+(\d+)/ 
-  
-    s = File.read(path)
-    versionCode = s[re, 1].to_i
-    s[re, 1] = (versionCode + 1).to_s
-  
-    f = File.new(path, 'w')
-    f.write(s)
-    f.close
-  end
-
-  desc "Submit a new Beta Build"
-  lane :beta do
+  desc "Build dev and prod version of the app"
+  lane :buildApps do
     keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
     keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
     keystore_alias = "key0"
-    apk_path = "#{File.expand_path(File.dirname(__FILE__))}/../app/build/outputs/apk/release/app-release.apk"
-
 
     if File.exists?(keystore_path)
-      system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk
+      # this will create a file on the path set in the AppFile (json_key_file)
+      system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk/aab
 
-      gradle(
-        task: 'clean assembleRelease',
-        print_command: false,
-        properties: {
-          "android.injected.signing.store.file" => keystore_path,
-          "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],     
-          "android.injected.signing.key.alias" => "key0",
-          "android.injected.signing.key.password" => ENV["KEYSTORE_PASSWORD"]
-      })
-
-      system("keytool -list -printcert -jarfile #{apk_path}") # this is the debug certificate which was used to sign the apk
+      apps.each do |app|
+        gradle(
+          task: app[:task],
+          build_type: app[:build_type],
+          flavor: app[:flavor],
+          print_command: false,
+          properties: {
+            "android.injected.signing.store.file" => keystore_path,
+            "android.injected.signing.store.password" => keystore_password,     
+            "android.injected.signing.key.alias" => keystore_alias,
+            "android.injected.signing.key.password" => keystore_password
+        })
+      end
 
     else
-      puts "ERROR: #{keystore_path} does not exist"
+      UI.user_error!("ERROR: #{keystore_path} does not exist")
     end
 
-    if File.exists?(apk_path)
-      upload_to_play_store(
-      package_name: 'com.stadsapp',
-      track: 'internal',
-      apk: apk_path
-    )
-    else
-      puts "ERROR: #{apk_path} does not exist"
-    end
+  end
 
+  lane :distributeInternal do
+    apps.each do |app|
+      isAab = app[:task] == "bundle"
+      full_apk_path = "#{app_build_path}#{app[:apk_path]}"
+      full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+      final_path = isAab ? full_aab_path : full_apk_path
+      puts "Upload to Play Store for #{final_path}"
+      if File.exists?(final_path)
+        upload_to_play_store(
+          package_name: app[:app_identifier],
+          track: 'internal',
+          aab: isAab ? full_aab_path : nil,
+          apk: !isAab ? full_apk_path : nil,
+          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+        )
+      else
+        UI.user_error!("ERROR: #{final_path} does not exist")
+      end
+    end
+  end
+
+  lane :distributeStakeholders do
+    apps.each do |app|
+      if app[:distribute_to_stakeholders]
+        isAab = app[:task] == "bundle"
+        full_apk_path = "#{app_build_path}#{app[:apk_path]}"
+        full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+        final_path = isAab ? full_aab_path : full_apk_path
+        puts "Upload to Play Store for #{final_path}"
+        if File.exists?(final_path)
+          upload_to_play_store(
+            package_name: app[:app_identifier],
+            track: "internal",
+            track_promote_to: "alpha",
+            aab: isAab ? full_aab_path : nil,
+            apk: !isAab ? full_apk_path : nil,
+            validate_only: false,
+            skip_upload_apk: true,
+            skip_upload_aab: true,
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
+            version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          )
+        else
+          UI.user_error!("ERROR: #{final_path} does not exist")
+        end
+      end
+    end
+  end
+  
+  lane :distributeProduction do
+    apps.each do |app|
+      if app[:distribute_to_production]
+        # Note: we only submit AABs for a production release (this is mandatory)
+        full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+        puts "Upload to Play Store for #{full_aab_path}"
+        if File.exists?(full_aab_path)
+          upload_to_play_store(
+            package_name: app[:app_identifier],
+            track: "alpha",
+            track_promote_to: "production",
+            track_promote_release_status: "draft", # prepare the rollout but do not actually start the rollout
+            aab: full_aab_path,
+            skip_upload_apk: true,
+            skip_upload_aab: true,
+            validate_only: false,
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
+            version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          )
+        else
+          UI.user_error!("ERROR: #{full_aab_path} does not exist")
+        end
+      end
+    end
   end
 end

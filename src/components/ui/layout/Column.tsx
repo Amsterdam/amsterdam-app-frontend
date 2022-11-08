@@ -1,28 +1,37 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Spacing} from '../../../tokens'
-import {CrossAxisAlignment, MainAxisAlignment} from './types'
-import {mapCrossAxisAlignment, mapMainAxisAlignment} from './utils'
-import {ChildrenWithGutters} from './'
+import {FlexStyle, StyleSheet, View} from 'react-native'
+import {
+  ChildrenWithGutters,
+  CrossAxisAlignment,
+  MainAxisAlignment,
+  mapCrossAxisAlignment,
+  mapMainAxisAlignment,
+} from '@/components/ui/layout'
+import {layoutStyles} from '@/styles'
+import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
   align?: MainAxisAlignment
   children: ReactNode
-  gutter?: keyof Spacing
+  grow?: boolean
+  gutter?: keyof SpacingTokens
   halign?: CrossAxisAlignment
-}
+  reverse?: boolean
+} & Pick<FlexStyle, 'flex'>
 
-export const Column = ({align, children, gutter, halign}: Props) => {
-  const styles = StyleSheet.create({
-    column: {
-      flexGrow: 1,
-      justifyContent: mapMainAxisAlignment(align),
-      alignItems: mapCrossAxisAlignment(halign),
-    },
-  })
+export const Column = ({
+  align,
+  children,
+  flex,
+  grow,
+  gutter,
+  halign,
+  reverse,
+}: Props) => {
+  const styles = createStyles({align, flex, halign, reverse})
 
   return (
-    <View style={styles.column}>
+    <View style={[styles.column, grow && layoutStyles.grow]}>
       {gutter ? (
         <ChildrenWithGutters gutter={gutter} prop="height">
           {children}
@@ -33,3 +42,14 @@ export const Column = ({align, children, gutter, halign}: Props) => {
     </View>
   )
 }
+
+const createStyles = ({align, flex, halign, reverse}: Partial<Props>) =>
+  StyleSheet.create({
+    column: {
+      flexDirection: reverse ? 'column-reverse' : 'column',
+      alignItems: mapCrossAxisAlignment(halign),
+      flex,
+      flexShrink: 1,
+      justifyContent: mapMainAxisAlignment(align),
+    },
+  })

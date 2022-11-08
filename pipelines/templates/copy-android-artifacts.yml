@@ -1,0 +1,17 @@
+parameters:
+  - name: condition
+    type: string
+
+steps:
+  - task: CopyFiles@2
+    displayName: "Android: copy APKs"
+    inputs:
+      contents: "android/app/build/outputs/**/**.apk"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: ${{ parameters.condition }}
+  - task: CopyFiles@2
+    displayName: "Android: copy AABs"
+    inputs:
+      contents: "android/app/build/outputs/**/**.aab"
+      targetFolder: $(Build.ArtifactStagingDirectory)
+    condition: ${{ parameters.condition }}

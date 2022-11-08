@@ -6,13 +6,7 @@ export const openMailUrl = (emailAddress: string, subject?: string) => {
     mailUrl += `?subject=${subject}`
   }
 
-  Linking.canOpenURL(mailUrl)
-    .then(supported => {
-      if (!supported) {
-        Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      } else {
-        return Linking.openURL(mailUrl)
-      }
-    })
-    .catch(err => console.log(err))
+  Linking.openURL(mailUrl).catch(() => {
+    Alert.alert('Sorry, deze functie is niet beschikbaar.')
+  })
 }

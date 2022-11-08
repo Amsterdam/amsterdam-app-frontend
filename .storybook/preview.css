@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "AmsterdamSans-ExtraBold";
+  src: url('../src/assets/fonts/AmsterdamSans-ExtraBold.otf');
+  font-weight: 700 900;
+}
+
+@font-face {
+  font-family: "AmsterdamSans-Regular";
+  src: url('../src/assets/fonts/AmsterdamSans-Regular.otf');
+}
+
+:root {
+  --highlight-color: rgba(0, 0, 0, .125);
+}
+
+.highlight-layout {
+  background: repeating-linear-gradient(135deg, var(--highlight-color), var(--highlight-color) 1px, transparent 1px, transparent 7px);
+  border: 1px solid var(--highlight-color);
+}
