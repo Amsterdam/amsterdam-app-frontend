@@ -33,7 +33,7 @@ const redirects: RedirectResponse[] = [
     iconName: 'card',
     text: 'U kunt uw rijbewijs online verlengen via de RDW.',
     title: 'Rijbewijs verlengen',
-    url: 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B5D0CD50F-C487-484A-9F6F-FACBD33D6DEF%7D',
+    url: 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B1783FA78-6E93-4B39-8257-BAABD81D4A54%7D',
   },
   {
     iconName: 'document-text',
