@@ -71,7 +71,7 @@ const createStyles =
 
     return StyleSheet.create({
       backgroundImage: {
-        aspectRatio: 1743 / 202,
+        aspectRatio: media.imageAspectRatio.facades,
         position: 'absolute',
         height: backgroundImageHeight,
         marginBottom: figureHeight - backgroundImageHeight,
