@@ -51,7 +51,7 @@ export const useModules = () => {
         serverModules,
       })
       if (retriesRemaining > 0) {
-        refetch()
+        void refetch()
         setRetriesRemaining(v => v - 1)
       }
     } else {
@@ -69,7 +69,7 @@ export const useModules = () => {
   useAppState({
     onForeground: () => {
       setRetriesRemaining(MAX_RETRIES)
-      refetch()
+      void refetch()
     },
   })
 
