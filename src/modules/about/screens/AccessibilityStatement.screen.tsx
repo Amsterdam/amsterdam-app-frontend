@@ -1,8 +1,12 @@
 import React, {useContext} from 'react'
+import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
-import {Column, Screen} from '@/components/ui/layout'
+import {Column, Row, Screen} from '@/components/ui/layout'
 import {List, Paragraph, Title} from '@/components/ui/text'
 import {DeviceContext} from '@/providers'
+import {accessibleText, openMailUrl} from '@/utils'
+
+const appEmail = 'app@amsterdam.nl'
 
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useContext(DeviceContext)
@@ -60,18 +64,33 @@ export const AccessibilityStatementScreen = () => {
             <Title level="h2" text="Werkt iets niet?" />
             <Paragraph>
               Komt u nog een scherm tegen die u niet kunt lezen of gebruiken?
-              Meld het ons via ons contactformulier/email(wordt nog besloten).
+              Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
+            <Row>
+              <Button
+                accessibilityLabel={accessibleText(
+                  'Stuur een e-mail naar',
+                  'app@amsterdam.nl',
+                )}
+                ellipsizeMode="tail"
+                iconName="email"
+                label={appEmail}
+                numberOfLines={1}
+                onPress={() => {
+                  openMailUrl(appEmail, 'Iets werkt niet in de Amsterdam app')
+                }}
+              />
+            </Row>
           </Column>
           <Column gutter="md">
             <Title level="h2" text="Wat kunt u van ons verwachten?" />
             <Paragraph>
-              Binnen [X werkdagen] krijgt u een ontvangstbevestiging.
+              Binnen 5 werkdagen krijgt u een ontvangstbevestiging.
             </Paragraph>
             <Paragraph>
               We informeren u over de voortgang en de uitkomst.
             </Paragraph>
-            <Paragraph>Binnen [X weken] is uw verzoek afgehandeld.</Paragraph>
+            <Paragraph>Binnen 2 weken is uw verzoek afgehandeld.</Paragraph>
           </Column>
         </Column>
       </Box>
