@@ -59,12 +59,18 @@ export const Article = ({content, isIntro}: Props) => {
   const html = transformContent(content)
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
-    h3: {...styles.titleLevel3, ...styles.titleMargins},
-    h4: {...styles.titleLevel4, ...styles.titleMargins},
+    b: styles.boldText,
+    h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
+    h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
+    h3: {...styles.boldText, ...styles.titleLevel3, ...styles.titleMargins},
+    h4: {...styles.boldText, ...styles.titleLevel4, ...styles.titleMargins},
+    h5: {...styles.boldText, ...styles.titleLevel5, ...styles.titleMargins},
+    h6: {...styles.boldText, ...styles.titleLevel6, ...styles.titleMargins},
     img: styles.margins,
     li: {...styles.paragraph},
     ol: {...styles.paragraph, ...styles.margins},
     p: {...styles.paragraph, ...styles.margins},
+    strong: styles.boldText,
     ul: styles.margins,
   }
 
@@ -108,17 +114,33 @@ const createStyles: (
         fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
         lineHeight,
       },
-      titleLevel3: {
+      boldText: {
         fontFamily: text.fontFamily.bold,
         fontWeight: platformDependentFontWeight,
+      },
+      titleLevel1: {
+        fontSize: text.fontSize.h1,
+        lineHeight: text.lineHeight.h1 * text.fontSize.h1,
+      },
+      titleLevel2: {
+        fontSize: text.fontSize.h2,
+        lineHeight: text.lineHeight.h2 * text.fontSize.h2,
+      },
+      titleLevel3: {
         fontSize: text.fontSize.h3,
         lineHeight: text.lineHeight.h3 * text.fontSize.h3,
       },
       titleLevel4: {
-        fontFamily: text.fontFamily.bold,
-        fontWeight: platformDependentFontWeight,
         fontSize: text.fontSize.h4,
         lineHeight: text.lineHeight.h4 * text.fontSize.h4,
+      },
+      titleLevel5: {
+        fontSize: text.fontSize.h5,
+        lineHeight: text.lineHeight.h5 * text.fontSize.h5,
+      },
+      titleLevel6: {
+        fontSize: text.fontSize.h6,
+        lineHeight: text.lineHeight.h6 * text.fontSize.h6,
       },
       titleMargins: {
         marginTop: 0,
