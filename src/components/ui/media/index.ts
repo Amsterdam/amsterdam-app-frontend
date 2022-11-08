@@ -1,5 +1,5 @@
 export * from './Figure'
-export * from './FigureWithCanalHouseFacadesBackground'
+export * from './FigureWithFacadesBackground'
 export * from './Icon'
 export * from './iconPaths'
 export * from './Image'

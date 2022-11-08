@@ -5,7 +5,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {FigureWithCanalHouseFacadesBackground} from '@/components/ui/media'
+import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {TwoPeopleWalking} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
@@ -61,7 +61,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
           </Box>
         </HorizontalSafeArea>
         <View style={styles.moveFigureUp}>
-          <FigureWithCanalHouseFacadesBackground
+          <FigureWithFacadesBackground
             backgroundImageHeightFraction={0.5}
             height={media.figureHeight.xl}
             Image={<TwoPeopleWalking />}

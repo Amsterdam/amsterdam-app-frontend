@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {
-  CanalHouseAndWeespCityHallFacadesImage,
-  CanalHouseFacadesImage,
+  AmsterdamAndWeespFacadesImage,
+  AmsterdamFacadesImage,
 } from '@/assets/images'
 import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
@@ -20,7 +20,7 @@ type Props = {
   withWeesp?: boolean
 } & SelectedFigureProps
 
-export const FigureWithCanalHouseFacadesBackground = ({
+export const FigureWithFacadesBackground = ({
   backgroundImageHeightFraction = 5 / 6,
   Image,
   imageAlign = 'center',
@@ -40,8 +40,8 @@ export const FigureWithCanalHouseFacadesBackground = ({
   )
 
   const BackgroundImage = withWeesp
-    ? CanalHouseAndWeespCityHallFacadesImage
-    : CanalHouseFacadesImage
+    ? AmsterdamAndWeespFacadesImage
+    : AmsterdamFacadesImage
 
   return (
     <Figure {...figureProps}>

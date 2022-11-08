@@ -6,7 +6,7 @@ import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
-import {FigureWithCanalHouseFacadesBackground} from '@/components/ui/media'
+import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
@@ -40,7 +40,7 @@ export const RequestAddress = () => {
         </Box>
       </HorizontalSafeArea>
       <View style={styles.moveFigureUp}>
-        <FigureWithCanalHouseFacadesBackground
+        <FigureWithFacadesBackground
           backgroundImageHeightFraction={0.5}
           height={media.figureHeight.xl}
           Image={<WasteGuideHomeImage />}
