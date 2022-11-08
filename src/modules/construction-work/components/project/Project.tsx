@@ -4,7 +4,11 @@ import React, {useCallback, useLayoutEffect} from 'react'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
 import {FollowButton} from '@/components/ui/buttons'
-import {Box, SingleSelectable} from '@/components/ui/containers'
+import {
+  Box,
+  HorizontalSafeArea,
+  SingleSelectable,
+} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
@@ -113,55 +117,57 @@ export const Project = ({id}: Props) => {
           source={mapImageSources(images[0].sources, environment)}
         />
       )}
-      <Column gutter="md">
-        <Box>
-          <Column gutter="lg">
-            <Row gutter="md" valign="center">
-              <FollowButton
-                accessibilityLabel={
-                  followed ? 'Ontvolg dit project' : 'Volg dit project'
-                }
-                disabled={isUpdatingFollow || isUpdatingUnfollow}
-                followed={followed}
-                onPress={onPressFollowButton}
-              />
-              <SingleSelectable
-                accessibilityLabel={accessibleText(
-                  followers.toString(),
-                  followersPhrase,
-                )}>
-                <Column>
-                  <Phrase emphasis="strong" variant="small">
-                    {followers}
-                  </Phrase>
-                  <Phrase variant="small">{followersPhrase}</Phrase>
-                </Column>
-              </SingleSelectable>
-            </Row>
-            <Column gutter="md">
-              <ProjectTraits
-                accessibilityLabel={accessibleText(
-                  getAccessibleDistanceText(meter, strides),
-                )}
-                {...{meter, strides}}
-              />
-              <SingleSelectable
-                accessibilityLabel={accessibleText(title, subtitle)}
-                accessibilityRole="header">
-                <Column gutter="sm">
-                  {!!title && <Title text={title} />}
-                  {!!subtitle && <Title level="h4" text={subtitle} />}
-                </Column>
-              </SingleSelectable>
+      <HorizontalSafeArea>
+        <Column gutter="md">
+          <Box>
+            <Column gutter="lg">
+              <Row gutter="md" valign="center">
+                <FollowButton
+                  accessibilityLabel={
+                    followed ? 'Ontvolg dit project' : 'Volg dit project'
+                  }
+                  disabled={isUpdatingFollow || isUpdatingUnfollow}
+                  followed={followed}
+                  onPress={onPressFollowButton}
+                />
+                <SingleSelectable
+                  accessibilityLabel={accessibleText(
+                    followers.toString(),
+                    followersPhrase,
+                  )}>
+                  <Column>
+                    <Phrase emphasis="strong" variant="small">
+                      {followers}
+                    </Phrase>
+                    <Phrase variant="small">{followersPhrase}</Phrase>
+                  </Column>
+                </SingleSelectable>
+              </Row>
+              <Column gutter="md">
+                <ProjectTraits
+                  accessibilityLabel={accessibleText(
+                    getAccessibleDistanceText(meter, strides),
+                  )}
+                  {...{meter, strides}}
+                />
+                <SingleSelectable
+                  accessibilityLabel={accessibleText(title, subtitle)}
+                  accessibilityRole="header">
+                  <Column gutter="sm">
+                    {!!title && <Title text={title} />}
+                    {!!subtitle && <Title level="h4" text={subtitle} />}
+                  </Column>
+                </SingleSelectable>
+              </Column>
             </Column>
-          </Column>
-          <Gutter height="lg" />
-          <ProjectBodyMenu project={project} />
-        </Box>
-        <Box>
-          <ArticleOverview projectIds={[id]} title="Nieuws" />
-        </Box>
-      </Column>
+            <Gutter height="lg" />
+            <ProjectBodyMenu project={project} />
+          </Box>
+          <Box>
+            <ArticleOverview projectIds={[id]} title="Nieuws" />
+          </Box>
+        </Column>
+      </HorizontalSafeArea>
     </Column>
   )
 }
