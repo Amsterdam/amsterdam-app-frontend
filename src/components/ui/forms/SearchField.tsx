@@ -10,11 +10,11 @@ type Props = {
 } & TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
-  ({onChangeText, onFocus, value = '', ...otherProps}: Props, ref) => {
+  ({onChangeText, onFocus, value = '', ...textInputProps}: Props, ref) => {
     const [hasFocus, setHasFocus] = useState(false)
 
     const styles = useThemable(createStyles({hasFocus}))
-    const textInputProps = useThemable(createTextInputProps)
+    const themedTextInputProps = useThemable(createTextInputProps)
 
     const handleBlur = () => setHasFocus(false)
 
@@ -34,8 +34,8 @@ export const SearchField = forwardRef<TextInput, Props>(
     return (
       <View style={styles.frame}>
         <TextInput
-          {...otherProps}
           {...textInputProps}
+          {...themedTextInputProps}
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}

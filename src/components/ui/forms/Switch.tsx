@@ -17,7 +17,7 @@ export const Switch = ({
   labelPosition = 'start',
   onValueChange,
   value,
-  ...otherProps
+  ...switchProps
 }: Props) => {
   const {color} = useTheme()
 
@@ -32,7 +32,7 @@ export const Switch = ({
         }}
         thumbColor={color.control.default.background}
         value={value}
-        {...otherProps}
+        {...switchProps}
       />
     </FormField>
   )

@@ -32,7 +32,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
       placeholder = '',
       warning,
       value: valueProp = '',
-      ...otherProps
+      ...textInputProps
     }: Props,
     ref,
   ) => {
@@ -40,7 +40,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     const [value, setValue] = useState(valueProp)
 
     const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
-    const textInputProps = useThemable(createTextInputProps)
+    const themedTextInputProps = useThemable(createTextInputProps)
 
     useEffect(() => {
       setValue(valueProp)
@@ -65,11 +65,11 @@ export const TextInput = forwardRef<TextInputRN, Props>(
 
     return (
       <Column gutter="sm">
-        <Label isAccessible={!otherProps.accessibilityLabel} text={label} />
+        <Label isAccessible={!textInputProps.accessibilityLabel} text={label} />
         <View style={styles.frame}>
           <TextInputRN
-            {...otherProps}
             {...textInputProps}
+            {...themedTextInputProps}
             placeholder={placeholder}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             onBlur={handleBlur}

@@ -7,9 +7,9 @@ import {StyleSheet, View, ViewProps} from 'react-native'
 export const SingleSelectable = ({
   children,
   style,
-  ...otherProps
+  ...viewProps
 }: ViewProps) => (
-  <View accessible style={[style, styles.singleSelectable]} {...otherProps}>
+  <View accessible style={[style, styles.singleSelectable]} {...viewProps}>
     {children}
   </View>
 )

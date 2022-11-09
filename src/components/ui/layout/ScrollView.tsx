@@ -13,7 +13,7 @@ export const ScrollView = ({
   children,
   grow,
   withBottomInset = false,
-  ...otherProps
+  ...scrollViewProps
 }: Props) => {
   const insets = useSafeAreaInsets()
   return (
@@ -22,7 +22,7 @@ export const ScrollView = ({
       keyboardShouldPersistTaps={!!grow && 'handled'}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       style={[withBottomInset && {paddingBottom: insets.bottom}]}
-      {...otherProps}>
+      {...scrollViewProps}>
       {children}
     </RNScrollView>
   )

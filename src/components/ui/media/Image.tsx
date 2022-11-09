@@ -46,7 +46,7 @@ export const Image = ({
   aspectRatio = 'default',
   customAspectRatio,
   source,
-  ...otherProps
+  ...imageProps
 }: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
@@ -74,7 +74,7 @@ export const Image = ({
       onLayout={onLayout}
       source={addCacheToImageSource(source)}
       style={[styles.image]}
-      {...otherProps}
+      {...imageProps}
     />
   )
 }

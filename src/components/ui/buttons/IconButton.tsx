@@ -23,13 +23,16 @@ type Props = {
   icon: ReactElement<IconProps>
 } & Omit<PressableRNProps, 'style'>
 
-export const IconButton = ({badgeValue, icon, ...props}: Props) => {
+export const IconButton = ({badgeValue, icon, ...pressableProps}: Props) => {
   const styles = useThemable(createStyles)
   const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
   return (
     <Row align="start" valign="center">
-      <Pressable accessibilityRole="button" hitSlop={hitSlop} {...props}>
+      <Pressable
+        accessibilityRole="button"
+        hitSlop={hitSlop}
+        {...pressableProps}>
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>
