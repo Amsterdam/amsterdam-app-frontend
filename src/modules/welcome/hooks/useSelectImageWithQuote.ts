@@ -27,7 +27,7 @@ const imagesWithQuote: ImageWithQuote[] = [
       require('@/modules/welcome/assets/prinsengracht-landscape.jpg') as ImageURISource,
     imagePortrait:
       require('@/modules/welcome/assets/prinsengracht-portrait.jpg') as ImageURISource,
-    quote: 'Onze stad is altijd beweging',
+    quote: 'Onze stad is altijd in beweging',
   },
   {
     imageLandscape:
