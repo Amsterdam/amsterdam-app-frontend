@@ -19,17 +19,23 @@ type ImageProps = {
 
 type Props = ImageProps & Omit<ImageRNProps, 'style'>
 
-const addIOSCacheToSource = (
+/**
+ * Updates the image source to force using a cached version of the image.
+ * If this is not present, it fetches the image normally.
+ * iOS only.
+ * @see https://reactnative.dev/docs/images#cache-control-ios-only
+ */
+const addCacheToImageSource = (
   source: ImageSourcePropType,
 ): ImageSourcePropType => {
   if (typeof source === 'number') {
     return source
   }
+
   if (Array.isArray(source)) {
-    return source.map<ImageURISource>(
-      imageSource => addIOSCacheToSource(imageSource) as ImageURISource,
-    )
+    return source.map(s => addCacheToImageSource(s) as ImageURISource)
   }
+
   return {
     cache: 'force-cache',
     ...source,
@@ -66,7 +72,7 @@ export const Image = ({
   return (
     <ImageRN
       onLayout={onLayout}
-      source={addIOSCacheToSource(source)}
+      source={addCacheToImageSource(source)}
       style={[styles.image]}
       {...otherProps}
     />
