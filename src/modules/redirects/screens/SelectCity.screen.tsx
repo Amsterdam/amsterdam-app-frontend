@@ -1,6 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
@@ -9,7 +8,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {TwoPeopleWalking} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {Device, DeviceContext} from '@/providers'
+import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 import {openWebUrl} from '@/utils'
 
@@ -26,7 +25,6 @@ const appointmentFormWeespUrl =
 export const SelectCityScreen = ({navigation}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
-  const styles = createStyles(isLandscape)
 
   return (
     <Screen
@@ -60,26 +58,16 @@ export const SelectCityScreen = ({navigation}: Props) => {
             </Column>
           </Box>
         </HorizontalSafeArea>
-        <View style={styles.moveFigureUp}>
-          <FigureWithFacadesBackground
-            backgroundImageHeightFraction={0.5}
-            height={media.figureHeight.xl}
-            Image={<TwoPeopleWalking />}
-            imageAlign="start"
-            imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
-            imageWidth={media.imageWidth.twoPersonsWalking}
-            withWeesp
-          />
-        </View>
+        <FigureWithFacadesBackground
+          backgroundImageHeightFraction={0.5}
+          height={media.figureHeight.xl}
+          Image={<TwoPeopleWalking />}
+          imageAlign="start"
+          imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
+          imageWidth={media.imageWidth.twoPersonsWalking}
+          withWeesp
+        />
       </Column>
     </Screen>
   )
 }
-
-const createStyles = (isLandscape: Device['isLandscape']) =>
-  StyleSheet.create({
-    moveFigureUp: {
-      marginTop: isLandscape ? -80 : undefined,
-      zIndex: isLandscape ? -1 : undefined,
-    },
-  })
