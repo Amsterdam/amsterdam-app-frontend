@@ -1,7 +1,7 @@
 trigger: none
 
 pr:
-  - develop
+  - main
 
 extends:
   template: ./templates/tests.yml
