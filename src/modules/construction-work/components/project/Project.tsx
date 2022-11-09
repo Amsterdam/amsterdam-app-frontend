@@ -106,7 +106,7 @@ export const Project = ({id}: Props) => {
   const followersPhrase = simplur`${[followers]} volger[|s]`
 
   return (
-    <>
+    <Column>
       {!!images.length && (
         <Image
           aspectRatio="wide"
@@ -162,6 +162,6 @@ export const Project = ({id}: Props) => {
           <ArticleOverview projectIds={[id]} title="Nieuws" />
         </Box>
       </Column>
-    </>
+    </Column>
   )
 }
