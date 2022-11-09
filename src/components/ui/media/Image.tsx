@@ -2,6 +2,8 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import {
   Image as ImageRN,
   ImageProps as ImageRNProps,
+  ImageSourcePropType,
+  ImageURISource,
   LayoutChangeEvent,
   Platform,
   StyleSheet,
@@ -17,9 +19,33 @@ type ImageProps = {
 
 type Props = ImageProps & Omit<ImageRNProps, 'style'>
 
+/**
+ * Updates the image source to force using a cached version of the image.
+ * If this is not present, it fetches the image normally.
+ * iOS only.
+ * @see https://reactnative.dev/docs/images#cache-control-ios-only
+ */
+const addCacheToImageSource = (
+  source: ImageSourcePropType,
+): ImageSourcePropType => {
+  if (typeof source === 'number') {
+    return source
+  }
+
+  if (Array.isArray(source)) {
+    return source.map(s => addCacheToImageSource(s) as ImageURISource)
+  }
+
+  return {
+    cache: 'force-cache',
+    ...source,
+  }
+}
+
 export const Image = ({
   aspectRatio = 'default',
   customAspectRatio,
+  source,
   ...otherProps
 }: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
@@ -43,7 +69,14 @@ export const Image = ({
     [setWidth],
   )
 
-  return <ImageRN onLayout={onLayout} style={[styles.image]} {...otherProps} />
+  return (
+    <ImageRN
+      onLayout={onLayout}
+      source={addCacheToImageSource(source)}
+      style={[styles.image]}
+      {...otherProps}
+    />
+  )
 }
 
 const createStyles =
