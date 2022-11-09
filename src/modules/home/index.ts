@@ -5,6 +5,13 @@ export const module: ModuleClientConfig = {
   isCore: true,
   linking: {},
   name: 'HomeModule',
+  screenOptions: {
+    cardStyleInterpolator: ({current}) => ({
+      cardStyle: {
+        opacity: current.progress,
+      },
+    }),
+  },
   slug: ModuleSlug.home,
   state: [],
 }
