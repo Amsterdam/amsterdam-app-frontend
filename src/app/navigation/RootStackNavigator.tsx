@@ -35,11 +35,16 @@ export const RootStackNavigator = () => {
 
   const ModuleStacks = useMemo(
     () =>
-      clientModules.map(({slug}) => {
+      clientModules.map(({screenOptions: options, slug}) => {
         const stack = getModuleStack(slug)
 
         return stack ? (
-          <Stack.Screen component={stack} key={slug} name={slug} />
+          <Stack.Screen
+            component={stack}
+            key={slug}
+            options={options}
+            name={slug}
+          />
         ) : null
       }),
     [clientModules],
