@@ -1,6 +1,10 @@
 import React, {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {CanalHouseFacadesImage} from '@/assets/images'
+import {
+  AmsterdamAndWeespFacadesImage,
+  AmsterdamFacadesImage,
+} from '@/assets/images'
+import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {Theme, useThemable} from '@/themes'
 
@@ -10,30 +14,39 @@ type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
 type Props = {
   backgroundImageHeightFraction?: number
   Image: ReactNode
+  imageAlign?: 'start' | 'center' | 'end'
   imageAspectRatio: number
   imageWidth?: number
+  withWeesp?: boolean
 } & SelectedFigureProps
 
-export const FigureWithCanalHouseFacadesBackground = ({
+export const FigureWithFacadesBackground = ({
   backgroundImageHeightFraction = 5 / 6,
   Image,
+  imageAlign = 'center',
   imageAspectRatio,
   imageWidth,
+  withWeesp = false,
   ...figureProps
 }: Props) => {
   const styles = useThemable(
     createStyles(
       backgroundImageHeightFraction,
+      imageAlign,
       imageAspectRatio,
       figureProps,
       imageWidth,
     ),
   )
 
+  const BackgroundImage = withWeesp
+    ? AmsterdamAndWeespFacadesImage
+    : AmsterdamFacadesImage
+
   return (
     <Figure {...figureProps}>
       <View style={styles.backgroundImage}>
-        <CanalHouseFacadesImage />
+        <BackgroundImage />
       </View>
       <View style={styles.image}>{Image}</View>
     </Figure>
@@ -43,6 +56,7 @@ export const FigureWithCanalHouseFacadesBackground = ({
 const createStyles =
   (
     backgroundImageHeightFraction: number,
+    imageAlign: Props['imageAlign'],
     imageAspectRatio: Props['imageAspectRatio'],
     figureProps: SelectedFigureProps,
     requestedImageWidth: Props['imageWidth'],
@@ -57,7 +71,7 @@ const createStyles =
 
     return StyleSheet.create({
       backgroundImage: {
-        aspectRatio: 1743 / 202,
+        aspectRatio: media.imageAspectRatio.facades,
         position: 'absolute',
         height: backgroundImageHeight,
         marginBottom: figureHeight - backgroundImageHeight,
@@ -67,7 +81,7 @@ const createStyles =
         aspectRatio: imageAspectRatio,
         height: imageHeight,
         marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
-        alignSelf: 'center',
+        alignSelf: mapSelfAlignment(imageAlign),
       },
     })
   }

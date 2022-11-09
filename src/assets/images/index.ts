@@ -1,3 +1,4 @@
-import CanalHouseFacadesImage from './canal-house-facades.svg'
+import AmsterdamAndWeespFacadesImage from './amsterdam-and-weesp-facades.svg'
+import AmsterdamFacadesImage from './amsterdam-facades.svg'
 
-export {CanalHouseFacadesImage}
+export {AmsterdamAndWeespFacadesImage, AmsterdamFacadesImage}

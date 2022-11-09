@@ -3,10 +3,7 @@ import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
-import {
-  FigureWithCanalHouseFacadesBackground,
-  Image,
-} from '@/components/ui/media'
+import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
@@ -87,7 +84,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 {imageSources && Object.keys(imageSources[0]).length ? (
                   <Image aspectRatio="wide" source={imageSources} />
                 ) : (
-                  <FigureWithCanalHouseFacadesBackground
+                  <FigureWithFacadesBackground
                     aspectRatio="wide"
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}

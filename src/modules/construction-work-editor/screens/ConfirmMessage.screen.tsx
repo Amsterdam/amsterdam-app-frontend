@@ -11,10 +11,7 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
-import {
-  FigureWithCanalHouseFacadesBackground,
-  Image,
-} from '@/components/ui/media'
+import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
 import {
   clearDraft,
@@ -124,7 +121,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       {mainImage ? (
         <Image source={{uri: mainImage?.path}} />
       ) : (
-        <FigureWithCanalHouseFacadesBackground
+        <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
