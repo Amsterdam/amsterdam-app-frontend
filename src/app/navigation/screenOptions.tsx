@@ -5,12 +5,12 @@ import {Theme} from '@/themes'
 
 export type CustomScreenOptions = {
   screenType?: keyof Theme['color']['screen']['background']
-  isModal?: boolean
+  isBelowStatusBar?: boolean
 }
 
 const defaultOptions: CustomScreenOptions = {
   screenType: 'default',
-  isModal: false,
+  isBelowStatusBar: false,
 }
 
 export const screenOptions: (
@@ -24,7 +24,9 @@ export const screenOptions: (
       backgroundColor: customOptions.screenType
         ? color.screen.background[customOptions.screenType]
         : undefined,
-      paddingTop: customOptions.isModal ? StatusBar.currentHeight : undefined,
+      paddingTop: customOptions.isBelowStatusBar
+        ? StatusBar.currentHeight
+        : undefined,
     },
     header: Header,
     headerMode: 'screen',
