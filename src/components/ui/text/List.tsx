@@ -1,8 +1,10 @@
 import React, {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme, useThemable} from '@/themes'
+import {accessibleText} from '@/utils'
 
 enum Marker {
   checkmark = '\u221a',
@@ -35,11 +37,13 @@ const ListItem = ({text, marker}: ListItemProps) => {
 }
 
 export const List = ({items, marker = 'square'}: ListProps) => (
-  <Column gutter="md">
-    {items.map(text => (
-      <ListItem key={text} {...{marker, text}} />
-    ))}
-  </Column>
+  <SingleSelectable accessibilityLabel={accessibleText(...items)}>
+    <Column gutter="md">
+      {items.map(text => (
+        <ListItem key={text} {...{marker, text}} />
+      ))}
+    </Column>
+  </SingleSelectable>
 )
 
 const createStyles =
