@@ -21,9 +21,9 @@ export const screenOptions: (
 
   return {
     cardStyle: {
-      backgroundColor:
-        customOptions.screenType &&
-        color.screen.background[customOptions.screenType],
+      backgroundColor: customOptions.screenType
+        ? color.screen.background[customOptions.screenType]
+        : undefined,
       paddingTop: customOptions.isModal ? StatusBar.currentHeight : undefined,
     },
     header: Header,
