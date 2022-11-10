@@ -33,6 +33,7 @@ const AppComponent = () => {
         <StatusBar
           backgroundColor={lightColorTokens.screen.background.default}
           barStyle="dark-content"
+          translucent
         />
         <NavigationContainer
           linking={linking}
