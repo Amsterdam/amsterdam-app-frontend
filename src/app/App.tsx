@@ -13,9 +13,8 @@ import {
 } from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {CustomErrorBoundary} from '@/app'
+import {CustomErrorBoundary, Init} from '@/app'
 import {linking, RootStackNavigator, RootStackParams} from '@/app/navigation'
-import {Init} from '@/components/features'
 import {ErrorWithRestart} from '@/components/ui/feedback'
 import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
@@ -27,6 +26,7 @@ const persistor = persistStore(store)
 const AppComponent = () => {
   const navigation = useNavigationContainerRef<RootStackParams>()
   useFlipper(navigation)
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <CustomErrorBoundary>
