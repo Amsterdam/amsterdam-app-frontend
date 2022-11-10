@@ -14,7 +14,6 @@ import {ImageAspectRatioTokens} from '@/themes/tokens'
 
 type ImageProps = {
   aspectRatio?: keyof ImageAspectRatioTokens
-  customAspectRatio?: number
 }
 
 type Props = ImageProps & Omit<ImageRNProps, 'style'>
@@ -44,7 +43,6 @@ const addCacheToImageSource = (
 
 export const Image = ({
   aspectRatio = 'default',
-  customAspectRatio,
   source,
   ...imageProps
 }: Props) => {
@@ -52,8 +50,8 @@ export const Image = ({
   const [width, setWidth] = useState<number | undefined>(undefined)
 
   const createdStyles = useMemo(
-    () => createStyles({aspectRatio, customAspectRatio}, width),
-    [aspectRatio, customAspectRatio, width],
+    () => createStyles({aspectRatio}, width),
+    [aspectRatio, width],
   )
   const styles = useThemable(createdStyles)
 
@@ -81,14 +79,11 @@ export const Image = ({
 
 const createStyles =
   (
-    {
-      aspectRatio,
-      customAspectRatio,
-    }: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>,
+    {aspectRatio}: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>,
     width: number | undefined,
   ) =>
   ({media}: Theme) => {
-    const aspectRatioValue = customAspectRatio ?? media.aspectRatio[aspectRatio]
+    const aspectRatioValue = media.aspectRatio[aspectRatio]
 
     return StyleSheet.create({
       image: {
