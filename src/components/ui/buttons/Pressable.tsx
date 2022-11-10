@@ -17,10 +17,12 @@ export type PressableProps = {
 
 export const Pressable = ({
   children,
+  inset = 'no',
+  insetHorizontal,
+  insetVertical,
   variant = 'tertiary',
   ...pressableProps
 }: PressableProps) => {
-  const {inset = 'no', insetHorizontal, insetVertical} = pressableProps
   const styles = useThemable(createStyles(variant))
 
   return (
