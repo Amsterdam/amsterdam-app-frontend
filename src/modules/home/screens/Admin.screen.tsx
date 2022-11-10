@@ -1,6 +1,6 @@
 import React from 'react'
-import {EnvironmentSelector} from '@/components/features'
 import {Screen} from '@/components/ui/layout'
+import {EnvironmentSelector} from '@/modules/home/components'
 import {isDevApp} from '@/processes'
 
 export const AdminScreen = () => (
