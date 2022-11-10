@@ -7,7 +7,7 @@ import React, {
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
-import {FormField} from '@/components/features/FormField'
+import {TextInputField} from '@/components/features/TextInputField'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -134,7 +134,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     <FormProvider {...form}>
       <Column gutter="xl">
         <Column gutter="md">
-          <FormField
+          <TextInputField
             label="Wat is de titel van je bericht?"
             maxCharacters={maxCharacters.title}
             numberOfLines={3}
@@ -148,7 +148,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               required: 'Vul een titel in',
             }}
           />
-          <FormField
+          <TextInputField
             label="Wat is de tekst van je bericht?"
             maxCharacters={maxCharacters.body}
             name="body"

@@ -11,7 +11,7 @@ type Props = {
   placeholder: string
 } & UseControllerProps
 
-export const FormField = ({
+export const TextInputField = ({
   defaultValue = '',
   label,
   maxCharacters,

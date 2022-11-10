@@ -3,7 +3,7 @@ import React, {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {FormField} from '@/components/features/FormField'
+import {TextInputField} from '@/components/features/TextInputField'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Link, Title} from '@/components/ui/text'
@@ -94,7 +94,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
           <Title text="Foto toevoegen" />
           <ImagePreview image={image} onPress={resetAndGoBack} />
           <FormProvider {...form}>
-            <FormField
+            <TextInputField
               defaultValue={imageDescription ?? ''}
               label="Beschrijf kort wat er op de foto staat"
               maxCharacters={maxCharacters.title}
