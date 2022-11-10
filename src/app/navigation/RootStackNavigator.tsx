@@ -52,7 +52,10 @@ export const RootStackNavigator = () => {
       }}>
       {ModuleStacks}
       <Stack.Group
-        screenOptions={{presentation: 'modal', ...screenOptions(theme)}}>
+        screenOptions={{
+          presentation: 'modal',
+          ...screenOptions(theme, {isModal: true}),
+        }}>
         {Object.entries(modals).map(([key, route]) => (
           <Stack.Screen key={key} {...route} />
         ))}
