@@ -19,7 +19,7 @@ export const Paragraph = ({
   children,
   color = 'default',
   variant = 'body',
-  ...otherProps
+  ...textProps
 }: Props) => {
   const createdStyles = useMemo(
     () => createStyles({color, variant}),
@@ -31,7 +31,7 @@ export const Paragraph = ({
     <Text
       accessibilityRole={color === 'warning' ? 'alert' : 'none'}
       style={styles.text}
-      {...otherProps}>
+      {...textProps}>
       {children}
     </Text>
   )

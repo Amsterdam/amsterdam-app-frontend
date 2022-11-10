@@ -26,19 +26,19 @@ export const Button = ({
   numberOfLines,
   small,
   variant = 'primary',
-  ...otherProps
+  ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
   const styles = useThemable(createStyles({small, variant}, isPressed))
 
   const mergeOnPressIn = (e: GestureResponderEvent) => {
     setIsPressed(true)
-    otherProps.onPressIn?.(e)
+    pressableProps.onPressIn?.(e)
   }
 
   const mergeOnPressOut = (e: GestureResponderEvent) => {
     setIsPressed(false)
-    otherProps.onPressOut?.(e)
+    pressableProps.onPressOut?.(e)
   }
 
   return (
@@ -47,7 +47,7 @@ export const Button = ({
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
       style={styles.button}
-      {...otherProps}>
+      {...pressableProps}>
       <Row gutter="sm" valign="center">
         {!!iconName && (
           <Icon

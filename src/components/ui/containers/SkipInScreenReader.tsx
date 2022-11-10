@@ -9,11 +9,11 @@ type Props = {
  * Hides its content from screen readers.
  * Make sure the content is made accessible elsewhere.
  */
-export const SkipInScreenReader = ({children, ...otherProps}: Props) => (
+export const SkipInScreenReader = ({children, ...viewProps}: Props) => (
   <View
     accessibilityElementsHidden
     importantForAccessibility="no-hide-descendants"
-    {...otherProps}>
+    {...viewProps}>
     {children}
   </View>
 )

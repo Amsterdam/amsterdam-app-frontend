@@ -29,7 +29,7 @@ export const Phrase = ({
   color = 'default',
   emphasis = 'default',
   variant = 'body',
-  ...otherProps
+  ...textProps
 }: Props) => {
   const createdStyles = useMemo(
     () => createStyles({color, emphasis, variant}),
@@ -38,7 +38,7 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text style={styles.text} {...otherProps}>
+    <Text style={styles.text} {...textProps}>
       {children}
     </Text>
   )

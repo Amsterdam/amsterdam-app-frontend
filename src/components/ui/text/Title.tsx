@@ -13,7 +13,7 @@ export const Title = ({
   color = 'default',
   level = 'h1',
   text,
-  ...otherProps
+  ...textProps
 }: Props) => {
   const createdStyles = useMemo(
     () => createStyles({color, level}),
@@ -22,7 +22,7 @@ export const Title = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text accessibilityRole="header" style={styles.title} {...otherProps}>
+    <Text accessibilityRole="header" style={styles.title} {...textProps}>
       {text}
     </Text>
   )

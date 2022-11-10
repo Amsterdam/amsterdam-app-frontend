@@ -17,17 +17,19 @@ export type PressableProps = {
 
 export const Pressable = ({
   children,
+  inset = 'no',
+  insetHorizontal,
+  insetVertical,
   variant = 'tertiary',
-  ...otherProps
+  ...pressableProps
 }: PressableProps) => {
-  const {inset = 'no', insetHorizontal, insetVertical} = otherProps
   const styles = useThemable(createStyles(variant))
 
   return (
     <PressableRN
       accessibilityRole="button"
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
-      {...otherProps}>
+      {...pressableProps}>
       <Box {...{inset, insetHorizontal, insetVertical}}>{children}</Box>
     </PressableRN>
   )
