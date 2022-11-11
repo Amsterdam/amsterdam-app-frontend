@@ -1,5 +1,5 @@
 import React, {useContext, useMemo} from 'react'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure, FigureWithFacadesBackground} from '@/components/ui/media'
@@ -60,16 +60,18 @@ export const WasteGuide = ({address}: Props) => {
 
   return (
     <Track grow gutter={isLandscape || cityIsWeesp ? 'md' : 'xxxl'}>
-      <Box grow>
-        <Column flex={1} gutter="md">
-          <StreetAddressWithEditButton address={address.adres} />
-          {hasContent ? (
-            <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
-          ) : (
-            <WasteGuideNotFound />
-          )}
-        </Column>
-      </Box>
+      <HorizontalSafeArea>
+        <Box grow>
+          <Column flex={1} gutter="md">
+            <StreetAddressWithEditButton address={address.adres} />
+            {hasContent ? (
+              <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
+            ) : (
+              <WasteGuideNotFound />
+            )}
+          </Column>
+        </Box>
+      </HorizontalSafeArea>
       {hasContent ? (
         <Box grow>
           <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
@@ -85,6 +87,7 @@ export const WasteGuide = ({address}: Props) => {
           Image={<WasteGuideNotFoundImage />}
           imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
           imageWidth={media.imageWidth.wasteGuideHome}
+          moveUp={isLandscape ? 128 : undefined}
         />
       )}
     </Track>

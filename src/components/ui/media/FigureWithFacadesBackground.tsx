@@ -93,8 +93,11 @@ const createStyles =
         marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
         alignSelf: mapSelfAlignment(imageAlign),
       },
-      moveUp: {
-        marginTop: moveUp ? moveUp * -1 : undefined,
-      },
+      moveUp: moveUp
+        ? {
+            marginTop: -moveUp,
+            zIndex: -1,
+          }
+        : {},
     })
   }
