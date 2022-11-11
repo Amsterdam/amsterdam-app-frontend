@@ -49,28 +49,28 @@ export const WasteGuide = ({address}: Props) => {
     : WasteGuideForAmsterdam
 
   const hasWasteGuide = Object.keys(wasteGuide).length > 0
-  const Image =
-    hasWasteGuide || cityIsWeesp
-      ? BulkyAndHouseholdWasteImage
-      : WasteGuideNotFoundImage
-  const imageHeight =
-    media.figureHeight[hasWasteGuide || cityIsWeesp ? 'md' : 'lg']
+  const hasContent = hasWasteGuide || cityIsWeesp
+
+  const Image = hasContent
+    ? BulkyAndHouseholdWasteImage
+    : WasteGuideNotFoundImage
+  const imageHeight = media.figureHeight[hasContent ? 'md' : 'lg']
 
   const Track = isLandscape && cityIsWeesp ? Row : Column
 
   return (
-    <Track grow gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
+    <Track grow gutter={isLandscape || cityIsWeesp ? 'md' : 'xxxl'}>
       <Box grow>
         <Column flex={1} gutter="md">
           <StreetAddressWithEditButton address={address.adres} />
-          {hasWasteGuide || cityIsWeesp ? (
+          {hasContent ? (
             <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
           ) : (
             <WasteGuideNotFound />
           )}
         </Column>
       </Box>
-      {hasWasteGuide || cityIsWeesp ? (
+      {hasContent ? (
         <Box grow>
           <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
             <Figure height={imageHeight}>
