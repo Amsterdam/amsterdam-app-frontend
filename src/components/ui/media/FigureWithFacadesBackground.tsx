@@ -51,7 +51,7 @@ export const FigureWithFacadesBackground = ({
     : AmsterdamFacadesImage
 
   return (
-    <View style={styles.moveUp}>
+    <View style={styles.figure}>
       <Figure {...figureProps}>
         <View style={styles.backgroundImage}>
           <BackgroundImage />
@@ -84,20 +84,19 @@ const createStyles =
         aspectRatio: media.imageAspectRatio.facades,
         position: 'absolute',
         height: backgroundImageHeight,
-        marginBottom: figureHeight - backgroundImageHeight,
         alignSelf: 'center',
       },
+      figure: {
+        position: 'relative',
+        marginTop: moveUp ? -moveUp : undefined,
+        zIndex: moveUp ? -1 : undefined,
+      },
       image: {
+        position: 'absolute',
+        bottom: 0,
         aspectRatio: imageAspectRatio,
         height: imageHeight,
-        marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
         alignSelf: mapSelfAlignment(imageAlign),
       },
-      moveUp: moveUp
-        ? {
-            marginTop: -moveUp,
-            zIndex: -1,
-          }
-        : {},
     })
   }
