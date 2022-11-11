@@ -17,6 +17,11 @@ type Props = {
   imageAlign?: 'start' | 'center' | 'end'
   imageAspectRatio: number
   imageWidth?: number
+  /**
+   * The number of pixels by which to move the figure up, sliding behind the content above it.
+   * This is especially useful on landscape devices.
+   */
+  moveUp?: number
   withWeesp?: boolean
 } & SelectedFigureProps
 
@@ -26,6 +31,7 @@ export const FigureWithFacadesBackground = ({
   imageAlign = 'center',
   imageAspectRatio,
   imageWidth,
+  moveUp,
   withWeesp = false,
   ...figureProps
 }: Props) => {
@@ -35,6 +41,7 @@ export const FigureWithFacadesBackground = ({
       imageAlign,
       imageAspectRatio,
       figureProps,
+      moveUp,
       imageWidth,
     ),
   )
@@ -44,12 +51,14 @@ export const FigureWithFacadesBackground = ({
     : AmsterdamFacadesImage
 
   return (
-    <Figure {...figureProps}>
-      <View style={styles.backgroundImage}>
-        <BackgroundImage />
-      </View>
-      <View style={styles.image}>{Image}</View>
-    </Figure>
+    <View style={styles.moveUp}>
+      <Figure {...figureProps}>
+        <View style={styles.backgroundImage}>
+          <BackgroundImage />
+        </View>
+        <View style={styles.image}>{Image}</View>
+      </Figure>
+    </View>
   )
 }
 
@@ -59,6 +68,7 @@ const createStyles =
     imageAlign: Props['imageAlign'],
     imageAspectRatio: Props['imageAspectRatio'],
     figureProps: SelectedFigureProps,
+    moveUp: Props['moveUp'],
     requestedImageWidth: Props['imageWidth'],
   ) =>
   ({media}: Theme) => {
@@ -82,6 +92,9 @@ const createStyles =
         height: imageHeight,
         marginTop: figureHeight - imageHeight, // Absolute positioning with `bottom: 0` doesn’t seem to work.
         alignSelf: mapSelfAlignment(imageAlign),
+      },
+      moveUp: {
+        marginTop: moveUp ? moveUp * -1 : undefined,
       },
     })
   }
