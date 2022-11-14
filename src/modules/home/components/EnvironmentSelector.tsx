@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {TextInput} from '@/components/ui/forms'
-import {Grid, GridCell} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout'
 import {Environment, EnvironmentConfig, environments} from '@/environment'
 import {isDevApp} from '@/processes'
 import {baseApi} from '@/services'
@@ -30,51 +30,42 @@ export const EnvironmentSelector = () => {
   return isDevApp ? (
     <>
       <Box>
-        <Grid>
+        <Column gutter="md">
           {Object.keys(environments).map(env => (
-            <GridCell key={env}>
-              <Button
-                label={env}
-                onPress={() => {
-                  dispatch(setEnvironment(env as Environment))
-                  dispatch(baseApi.util.resetApiState())
-                }}
-                variant={environment === env ? 'secondary' : 'primary'}
-              />
-            </GridCell>
+            <Button
+              key={env}
+              label={env}
+              onPress={() => {
+                dispatch(setEnvironment(env as Environment))
+                dispatch(baseApi.util.resetApiState())
+              }}
+              variant={environment === env ? 'secondary' : 'primary'}
+            />
           ))}
-        </Grid>
+        </Column>
       </Box>
       {environment === Environment.custom && (
         <Box>
-          <Grid>
-            <GridCell>
-              <TextInput
-                label="apiUrl"
-                onChangeText={text =>
-                  setCustomUrls(v => ({...v, apiUrl: text}))
-                }
-                value={customUrls?.apiUrl ?? ''}
-              />
-            </GridCell>
-            <GridCell>
-              <TextInput
-                label="modulesApiUrl"
-                onChangeText={text =>
-                  setCustomUrls(v => ({...v, modulesApiUrl: text}))
-                }
-                value={customUrls?.modulesApiUrl ?? ''}
-              />
-            </GridCell>
-            <GridCell>
-              <Button
-                label="Go!"
-                onPress={() => {
-                  dispatch(setCustomEnvironment(customUrls))
-                }}
-              />
-            </GridCell>
-          </Grid>
+          <Column gutter="md">
+            <TextInput
+              label="apiUrl"
+              onChangeText={text => setCustomUrls(v => ({...v, apiUrl: text}))}
+              value={customUrls?.apiUrl ?? ''}
+            />
+            <TextInput
+              label="modulesApiUrl"
+              onChangeText={text =>
+                setCustomUrls(v => ({...v, modulesApiUrl: text}))
+              }
+              value={customUrls?.modulesApiUrl ?? ''}
+            />
+            <Button
+              label="Go!"
+              onPress={() => {
+                dispatch(setCustomEnvironment(customUrls))
+              }}
+            />
+          </Column>
         </Box>
       )}
     </>
