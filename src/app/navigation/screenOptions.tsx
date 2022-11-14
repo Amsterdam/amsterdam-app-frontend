@@ -8,27 +8,18 @@ export type CustomScreenOptions = {
   isBelowStatusBar?: boolean
 }
 
-const defaultOptions: CustomScreenOptions = {
-  screenType: 'default',
-  isBelowStatusBar: false,
-}
-
 export const screenOptions: (
   theme: Theme,
   options?: CustomScreenOptions,
-) => StackNavigationOptions = ({color}, options) => {
-  const customOptions = {...defaultOptions, ...options}
+) => StackNavigationOptions = (
+  {color}: Theme,
+  {screenType = 'default', isBelowStatusBar = false}: CustomScreenOptions = {},
+): StackNavigationOptions => ({
+  cardStyle: {
+    backgroundColor: color.screen.background[screenType],
+    paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
+  },
+  header: Header,
+  headerMode: 'screen',
+})
 
-  return {
-    cardStyle: {
-      backgroundColor: customOptions.screenType
-        ? color.screen.background[customOptions.screenType]
-        : undefined,
-      paddingTop: customOptions.isBelowStatusBar
-        ? StatusBar.currentHeight
-        : undefined,
-    },
-    header: Header,
-    headerMode: 'screen',
-  }
-}
