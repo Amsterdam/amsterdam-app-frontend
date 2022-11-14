@@ -21,7 +21,7 @@ export const WasteGuideScreen = () => {
   }
 
   return (
-    <Screen>
+    <Screen withLeftInset={isPortrait} withRightInset={isPortrait}>
       <WasteGuide address={address} />
     </Screen>
   )

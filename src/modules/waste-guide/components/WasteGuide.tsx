@@ -1,5 +1,5 @@
 import React, {useContext, useMemo} from 'react'
-import {Box} from '@/components/ui/containers'
+import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure, FigureWithFacadesBackground} from '@/components/ui/media'
@@ -49,28 +49,30 @@ export const WasteGuide = ({address}: Props) => {
     : WasteGuideForAmsterdam
 
   const hasWasteGuide = Object.keys(wasteGuide).length > 0
-  const Image =
-    hasWasteGuide || cityIsWeesp
-      ? BulkyAndHouseholdWasteImage
-      : WasteGuideNotFoundImage
-  const imageHeight =
-    media.figureHeight[hasWasteGuide || cityIsWeesp ? 'md' : 'lg']
+  const hasContent = hasWasteGuide || cityIsWeesp
+
+  const Image = hasContent
+    ? BulkyAndHouseholdWasteImage
+    : WasteGuideNotFoundImage
+  const imageHeight = media.figureHeight[hasContent ? 'md' : 'lg']
 
   const Track = isLandscape && cityIsWeesp ? Row : Column
 
   return (
-    <Track grow gutter={cityIsWeesp || isLandscape ? 'md' : 'xxxl'}>
-      <Box grow>
-        <Column flex={1} gutter="md">
-          <StreetAddressWithEditButton address={address.adres} />
-          {hasWasteGuide || cityIsWeesp ? (
-            <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
-          ) : (
-            <WasteGuideNotFound />
-          )}
-        </Column>
-      </Box>
-      {hasWasteGuide || cityIsWeesp ? (
+    <Track grow gutter={isLandscape || cityIsWeesp ? 'md' : 'xxxl'}>
+      <HorizontalSafeArea>
+        <Box grow>
+          <Column flex={1} gutter="md">
+            <StreetAddressWithEditButton address={address.adres} />
+            {hasContent ? (
+              <WasteGuideForCity address={address} wasteGuide={wasteGuide} />
+            ) : (
+              <WasteGuideNotFound />
+            )}
+          </Column>
+        </Box>
+      </HorizontalSafeArea>
+      {hasContent ? (
         <Box grow>
           <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
             <Figure height={imageHeight}>
@@ -85,6 +87,7 @@ export const WasteGuide = ({address}: Props) => {
           Image={<WasteGuideNotFoundImage />}
           imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
           imageWidth={media.imageWidth.wasteGuideHome}
+          moveUp={isLandscape ? 128 : undefined}
         />
       )}
     </Track>
