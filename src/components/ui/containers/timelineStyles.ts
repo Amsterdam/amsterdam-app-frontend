@@ -65,6 +65,7 @@ export const timelineStyles = (
     title: {
       marginLeft: tokens.body.insetLeft,
       marginRight: size.spacing.xs,
+      flexShrink: 1,
     },
   })
 }

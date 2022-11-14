@@ -60,7 +60,12 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           )}
         </View>
         <View style={styles.title}>
-          <Title level="h5" text={item.title} />
+          <Title
+            ellipsizeMode="tail"
+            numberOfLines={1}
+            level="h5"
+            text={item.title}
+          />
         </View>
         <Icon name={iconName} size="sm" />
       </TouchableWithoutFeedback>
