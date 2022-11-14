@@ -28,6 +28,8 @@ export const timelineStyles = (
       width: 2,
     },
   }
+  const spaceBetweenIndicators =
+    tokens.indicator.inset + tokens.indicator.size / 2
 
   return StyleSheet.create({
     body: {
@@ -53,11 +55,11 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: firstItem ? tokens.indicator.inset + tokens.indicator.size / 2 : 0,
+      top: firstItem ? spaceBetweenIndicators : 0,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
-      height: lastItem ? tokens.indicator.inset : '100%',
+      height: lastItem ? spaceBetweenIndicators : '100%',
       backgroundColor: tokens.line.color,
     },
     title: {
