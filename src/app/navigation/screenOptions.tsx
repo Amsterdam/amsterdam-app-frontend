@@ -1,26 +1,27 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
+import {StatusBar} from 'react-native'
 import {Header} from '@/modules/home/components'
 import {Theme} from '@/themes'
 
 export type CustomScreenOptions = {
-  screenType: keyof Theme['color']['screen']['background']
-}
-
-const defaultOptions: CustomScreenOptions = {
-  screenType: 'default',
+  screenType?: keyof Theme['color']['screen']['background']
+  /**
+   * Determines if the card should be placed below the status bar
+   */
+  isBelowStatusBar?: boolean
 }
 
 export const screenOptions: (
   theme: Theme,
   options?: CustomScreenOptions,
-) => StackNavigationOptions = ({color}, options) => {
-  const customOptions = {...defaultOptions, ...options}
-
-  return {
-    cardStyle: {
-      backgroundColor: color.screen.background[customOptions.screenType],
-    },
-    header: Header,
-    headerMode: 'screen',
-  }
-}
+) => StackNavigationOptions = (
+  {color}: Theme,
+  {screenType = 'default', isBelowStatusBar = false}: CustomScreenOptions = {},
+): StackNavigationOptions => ({
+  cardStyle: {
+    backgroundColor: color.screen.background[screenType],
+    paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
+  },
+  header: Header,
+  headerMode: 'screen',
+})

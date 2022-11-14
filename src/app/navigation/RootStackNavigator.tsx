@@ -1,6 +1,7 @@
 import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
 import React, {useMemo} from 'react'
+import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
@@ -52,7 +53,12 @@ export const RootStackNavigator = () => {
       }}>
       {ModuleStacks}
       <Stack.Group
-        screenOptions={{presentation: 'modal', ...screenOptions(theme)}}>
+        screenOptions={{
+          presentation: 'modal',
+          ...screenOptions(theme, {
+            isBelowStatusBar: Platform.OS === 'android',
+          }),
+        }}>
         {Object.entries(modals).map(([key, route]) => (
           <Stack.Screen key={key} {...route} />
         ))}

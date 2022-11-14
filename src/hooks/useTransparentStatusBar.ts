@@ -7,11 +7,9 @@ export const useTransparentStatusBar = () => {
     if (Platform.OS !== 'android') {
       return
     }
-    StatusBar.setTranslucent(true)
     StatusBar.setBackgroundColor('transparent')
 
     return () => {
-      StatusBar.setTranslucent(false)
       StatusBar.setBackgroundColor(lightColorTokens.screen.background.default)
     }
   })
