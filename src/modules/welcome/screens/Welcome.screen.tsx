@@ -23,7 +23,7 @@ const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait} = useContext(DeviceContext)
-  const {imageLandscape, imagePortrait, quote} = useSelectImageWithQuote()
+  const {image54, image916, quote} = useSelectImageWithQuote()
   const styles = useThemable(createStyles(isPortrait))
 
   useTransparentStatusBar()
@@ -43,7 +43,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
       <Pressable onPress={() => navigation.reset(navigationResetParam)}>
         <View style={styles.track}>
           <View style={styles.image}>
-            <Image source={isPortrait ? imagePortrait : imageLandscape} />
+            <Image source={isPortrait ? image916 : image54} />
           </View>
           <View style={styles.quote}>
             <Size maxWidth={quoteWidth}>
