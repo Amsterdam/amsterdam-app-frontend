@@ -1,3 +1,4 @@
+import {StackNavigationOptions} from '@react-navigation/stack'
 import {Slice} from '@reduxjs/toolkit'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
@@ -13,6 +14,7 @@ export type ModuleClientConfig = {
   hiddenInMenu?: boolean
   linking: Record<string, string>
   name: string
+  screenOptions?: StackNavigationOptions
   requiresFirebaseToken?: boolean
   slug: ModuleSlug
   state: Slice[]
