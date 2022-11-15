@@ -31,7 +31,7 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {clientModules} = useModules()
+  const {clientModules, userDisabledModulesBySlug} = useModules()
 
   const ModuleStacks = useMemo(
     () =>
@@ -47,7 +47,11 @@ export const RootStackNavigator = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ModuleSlug.welcome}
+      initialRouteName={
+        userDisabledModulesBySlug.includes(ModuleSlug.welcome)
+          ? ModuleSlug.home
+          : ModuleSlug.welcome
+      }
       screenOptions={{
         headerShown: false,
       }}>

@@ -34,13 +34,13 @@ export const useModules = () => {
     refetch,
   } = useGetModulesForAppQuery()
   const {sendSentryErrorLog} = useSentry()
-  const {disabledModules: disabledModulesBySlug} = useSelector(
+  const {disabledModules: userDisabledModulesBySlug} = useSelector(
     selectDisabledModules,
   )
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
-    () => postProcessModules(disabledModulesBySlug, serverModules),
-    [disabledModulesBySlug, serverModules],
+    () => postProcessModules(userDisabledModulesBySlug, serverModules),
+    [userDisabledModulesBySlug, serverModules],
   )
 
   useEffect(() => {
@@ -80,6 +80,7 @@ export const useModules = () => {
 
   return {
     clientModules,
+    userDisabledModulesBySlug,
     modulesLoading,
     modulesError: error,
     refetchModules: retriesRemaining === 0 ? refetch : undefined,
