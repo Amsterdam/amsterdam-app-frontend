@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native'
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
 import React from 'react'
-import {StatusBar} from 'react-native'
+import {StatusBar, StyleSheet} from 'react-native'
 import RNBootSplash from 'react-native-bootsplash'
 import {
   initialWindowMetrics,
@@ -28,7 +28,9 @@ const AppComponent = () => {
   useFlipper(navigation)
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+    <SafeAreaProvider
+      initialMetrics={initialWindowMetrics}
+      style={styles.appContainer}>
       <CustomErrorBoundary>
         <StatusBar
           backgroundColor={lightColorTokens.screen.background.default}
@@ -58,3 +60,9 @@ const AppComponent = () => {
 }
 
 export const App = SentryWrap(AppComponent)
+
+const styles = StyleSheet.create({
+  appContainer: {
+    backgroundColor: lightColorTokens.screen.background.default, // Needed to prevent black flashing screen between splash screen and welcome screen when using dark-mode on iOS
+  },
+})
