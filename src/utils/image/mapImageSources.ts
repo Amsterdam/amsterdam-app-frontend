@@ -18,7 +18,7 @@ export const mapImageSources = (
     const imageSource: ImageURISource = {
       uri: environment.apiUrl + '/image?id=' + source.image_id,
       width,
-      height: Math.floor(width / mediaTokens.aspectRatio.wide),
+      height: Math.floor(width / mediaTokens.aspectRatio['extra-wide']),
     }
 
     return imageSource
@@ -39,7 +39,7 @@ export const mapWarningImageSources = (
     const imageSource: ImageURISource = {
       uri: environment.apiUrl + '/image?id=' + source.image_id,
       width,
-      height: Math.floor(width / mediaTokens.aspectRatio.wide),
+      height: Math.floor(width / mediaTokens.aspectRatio['extra-wide']),
     }
 
     return imageSource
