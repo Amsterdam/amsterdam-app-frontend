@@ -13,6 +13,11 @@ export enum IconSize {
   xl = 32,
 }
 
+export enum Orientation {
+  landscape = 'landscape',
+  portrait = 'portrait',
+}
+
 export enum Placement {
   above = 'above',
   below = 'below',
