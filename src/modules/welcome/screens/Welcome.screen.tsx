@@ -45,7 +45,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
   }, [navigation])
 
   return (
-    <Screen scroll={false} withBottomInset={false} withLeftInset={false}>
+    <Screen scroll={false} withBottomInset={isPortrait} withLeftInset={false}>
       <Track grow>
         <AspectRatio
           aspectRatio={isPortrait ? 'wide' : 'narrow'}
@@ -53,7 +53,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
           <Image source={isPortrait ? image916 : image54} />
         </AspectRatio>
         <Column flex={1}>
-          <Box grow>
+          <Box grow insetHorizontal="xl" insetVertical="md">
             <Center grow>
               <Size maxWidth={quoteWidth}>
                 <Paragraph
