@@ -13,7 +13,7 @@ export type FigureProps = {
  * Applies the aspect ratio and height to the content.
  */
 export const Figure = ({
-  aspectRatio = 'default',
+  aspectRatio = 'wide',
   height,
   children,
   ...viewProps

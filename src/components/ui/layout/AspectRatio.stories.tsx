@@ -17,6 +17,6 @@ export const Default: ComponentStory<typeof AspectRatio> = args => (
 )
 
 Default.args = {
-  aspectRatio: 'default',
+  aspectRatio: 'wide',
   orientation: 'landscape',
 }
