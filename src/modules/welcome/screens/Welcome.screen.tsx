@@ -37,7 +37,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.reset(navigationResetParam)
-    }, 500000)
+    }, 5000)
 
     return () => {
       clearTimeout(timer)
