@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useCallback, useState} from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers/Box'
 import {Column, Gutter, Row, Size} from '@/components/ui/layout'
@@ -8,6 +8,8 @@ import {useTheme} from '@/themes'
 
 type AccordionProps = {
   children: ReactNode
+  initialExpansionState?: boolean
+  onExpansionStateChange?: (state: boolean) => void
   title: string
 }
 
@@ -28,19 +30,32 @@ const Panel = ({children, isOpen}: PanelProps) => {
   )
 }
 
-export const Accordion = ({children, title}: AccordionProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const Accordion = ({
+  initialExpansionState,
+  onExpansionStateChange,
+  children,
+  title,
+}: AccordionProps) => {
+  const [isOpen, setIsOpen] = useState(!!initialExpansionState)
   const iconName = isOpen ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
+  const handleStateChange = useCallback(
+    (state: boolean) => {
+      setIsOpen(state)
+      onExpansionStateChange && onExpansionStateChange(state)
+    },
+    [onExpansionStateChange],
+  )
+
   return (
-    <Column>
+    <Column grow>
       <Pressable
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
           isOpen ? 'verbergen' : 'bekijken'
         }`}
         accessibilityState={{expanded: isOpen}}
-        onPress={() => setIsOpen(!isOpen)}>
+        onPress={() => handleStateChange(!isOpen)}>
         <Box>
           <Row align="between" gutter="md" valign="start">
             <Title
