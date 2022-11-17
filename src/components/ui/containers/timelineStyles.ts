@@ -6,6 +6,7 @@ export const maxHeight = 1200
 export const timelineStyles = (
   theme: Theme,
   isCurrent: boolean,
+  isExpanded: boolean,
   firstItem?: boolean,
   lastItem?: boolean,
 ) => {
@@ -28,8 +29,6 @@ export const timelineStyles = (
       width: 2,
     },
   }
-  const spaceBetweenIndicators =
-    tokens.indicator.inset + tokens.indicator.size / 2
 
   return StyleSheet.create({
     body: {
@@ -55,11 +54,11 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: firstItem ? spaceBetweenIndicators : 0,
+      top: firstItem ? tokens.indicator.inset + tokens.indicator.size / 2 : 0,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
-      height: lastItem ? spaceBetweenIndicators : '100%',
+      height: lastItem && !isExpanded ? '50%' : '100%',
       backgroundColor: tokens.line.color,
     },
     title: {
