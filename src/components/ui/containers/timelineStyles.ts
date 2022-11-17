@@ -21,7 +21,6 @@ export const timelineStyles = (
         active: color.background.emphasis,
         inactive: color.background.inactive,
       },
-      inset: size.spacing.sm,
       size: size.spacing.lg,
     },
     line: {
@@ -36,14 +35,14 @@ export const timelineStyles = (
     },
     header: {
       flexDirection: 'row',
-      alignItems: 'center',
-      paddingVertical: tokens.indicator.inset,
+      justifyContent: 'space-between',
     },
     indicator: {
       width: tokens.indicator.size,
       aspectRatio: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: size.spacing.md,
       backgroundColor: isCurrent
         ? tokens.indicator.backgroundColor.active
         : tokens.indicator.backgroundColor.inactive,
@@ -54,11 +53,14 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: firstItem ? tokens.indicator.inset + tokens.indicator.size / 2 : 0,
+      top: firstItem ? size.spacing.md + tokens.indicator.size : 0,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
-      height: lastItem && !isExpanded ? '50%' : '100%',
+      height:
+        lastItem && !isExpanded
+          ? size.spacing.md + tokens.indicator.size
+          : '100%',
       backgroundColor: tokens.line.color,
     },
     title: {
