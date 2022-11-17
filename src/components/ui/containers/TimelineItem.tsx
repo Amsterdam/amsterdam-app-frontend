@@ -18,11 +18,11 @@ type Props = {
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const [expanded, setExpanded] = useState(isCurrent)
-  const iconName = expanded ? 'chevron-up' : 'chevron-down'
+  const [isExpanded, setExpanded] = useState(isCurrent)
+  const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
 
   const theme = useTheme()
-  const styles = timelineStyles(theme, isCurrent, isFirst, isLast)
+  const styles = timelineStyles(theme, isCurrent, isExpanded, isFirst, isLast)
   const fadeAnim = useRef(new Animated.Value(0)).current
 
   useLayoutEffect(() => {
@@ -32,7 +32,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   }, [fadeAnim, isCurrent])
 
   const toggleExpand = () => {
-    if (expanded) {
+    if (isExpanded) {
       Animated.timing(fadeAnim, {
         easing: Easing.bezier(0, 1, 0, 1),
         toValue: 0,
@@ -44,7 +44,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         useNativeDriver: false,
       }).start()
     }
-    setExpanded(!expanded)
+    setExpanded(!isExpanded)
   }
 
   return (
@@ -62,7 +62,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         <View style={styles.title}>
           <Title
             ellipsizeMode="tail"
-            numberOfLines={1}
+            numberOfLines={3}
             level="h5"
             text={item.title}
           />
