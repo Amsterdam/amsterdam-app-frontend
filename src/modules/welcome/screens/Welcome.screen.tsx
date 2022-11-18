@@ -1,6 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
 import {RootStackParams} from '@/app/navigation'
+import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {
   AspectRatio,
@@ -46,25 +47,27 @@ export const WelcomeScreen = ({navigation}: Props) => {
 
   return (
     <Screen scroll={false} withBottomInset={isPortrait} withLeftInset={false}>
-      <Track grow>
-        <AspectRatio
-          aspectRatio={isPortrait ? 'wide' : 'narrow'}
-          orientation={isPortrait ? 'portrait' : 'landscape'}>
-          <Image source={isPortrait ? image916 : image54} />
-        </AspectRatio>
-        <Column flex={1}>
-          <Box grow insetHorizontal="xl" insetVertical="md">
-            <Center grow>
-              <Size maxWidth={quoteWidth}>
-                <Paragraph
-                  allowFontScaling={false}
-                  accessibilityLabel={`Quote, ${quote}`}
-                  variant="quote">{`“${quote}”`}</Paragraph>
-              </Size>
-            </Center>
-          </Box>
-        </Column>
-      </Track>
+      <Pressable onPress={() => navigation.reset(navigationResetParam)}>
+        <Track flex={1}>
+          <AspectRatio
+            aspectRatio={isPortrait ? 'wide' : 'narrow'}
+            orientation={isPortrait ? 'portrait' : 'landscape'}>
+            <Image source={isPortrait ? image916 : image54} />
+          </AspectRatio>
+          <Column flex={1}>
+            <Box grow insetHorizontal="xl" insetVertical="md">
+              <Center grow>
+                <Size maxWidth={quoteWidth}>
+                  <Paragraph
+                    allowFontScaling={false}
+                    accessibilityLabel={`Quote, ${quote}`}
+                    variant="quote">{`“${quote}”`}</Paragraph>
+                </Size>
+              </Center>
+            </Box>
+          </Column>
+        </Track>
+      </Pressable>
     </Screen>
   )
 }
