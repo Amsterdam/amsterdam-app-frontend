@@ -3,12 +3,15 @@ import {ImageURISource} from 'react-native'
 
 type ImageWithQuote = {
   quote: string
+  image4x5: ImageURISource
   image5x4: ImageURISource
   image9x16: ImageURISource
 }
 
 const imagesWithQuote: ImageWithQuote[] = [
   {
+    image4x5:
+      require('@/modules/welcome/assets/images/62225.wees-jezelf.4x5.md.jpg') as ImageURISource,
     image5x4:
       require('@/modules/welcome/assets/images/62225.wees-jezelf.5x4.md.jpg') as ImageURISource,
     image9x16:
@@ -16,6 +19,8 @@ const imagesWithQuote: ImageWithQuote[] = [
     quote: 'Wees jezelf als geen ander',
   },
   {
+    image4x5:
+      require('@/modules/welcome/assets/images/45795.zorgen-goed.4x5.md.jpg') as ImageURISource,
     image5x4:
       require('@/modules/welcome/assets/images/45795.zorgen-goed.5x4.md.jpg') as ImageURISource,
     image9x16:
@@ -23,6 +28,8 @@ const imagesWithQuote: ImageWithQuote[] = [
     quote: 'We zorgen goed voor onze stad en voor elkaar',
   },
   {
+    image4x5:
+      require('@/modules/welcome/assets/images/68418.in-beweging.4x5.md.jpg') as ImageURISource,
     image5x4:
       require('@/modules/welcome/assets/images/68418.in-beweging.5x4.md.jpg') as ImageURISource,
     image9x16:
@@ -30,6 +37,8 @@ const imagesWithQuote: ImageWithQuote[] = [
     quote: 'Onze stad is altijd in beweging',
   },
   {
+    image4x5:
+      require('@/modules/welcome/assets/images/67800.komen-tegen.4x5.md.jpg') as ImageURISource,
     image5x4:
       require('@/modules/welcome/assets/images/67800.komen-tegen.5x4.md.jpg') as ImageURISource,
     image9x16:
@@ -37,6 +46,8 @@ const imagesWithQuote: ImageWithQuote[] = [
     quote: 'Onderweg komen we elkaar tegen',
   },
   {
+    image4x5:
+      require('@/modules/welcome/assets/images/42711.scoren-goal.4x5.md.jpg') as ImageURISource,
     image5x4:
       require('@/modules/welcome/assets/images/42711.scoren-goal.5x4.md.jpg') as ImageURISource,
     image9x16:

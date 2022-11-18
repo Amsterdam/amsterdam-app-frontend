@@ -6,6 +6,7 @@ export type Device = {
   isLandscape: boolean
   isPortrait: boolean
   isTablet: boolean
+  isTallPhone: boolean
 } & ScaledSize
 
 const initialValue: Device = {
@@ -14,6 +15,7 @@ const initialValue: Device = {
   isLandscape: false,
   isPortrait: true,
   isTablet: false,
+  isTallPhone: true,
   scale: 1,
   width: 360,
 }
@@ -33,6 +35,7 @@ export const DeviceProvider = ({children}: Props) => {
       isLandscape: window.height < window.width,
       isPortrait: window.height >= window.width,
       isTablet: isTablet(),
+      isTallPhone: window.height / window.width > 2,
       ...window,
     })
   }, [window])

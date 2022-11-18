@@ -21,10 +21,10 @@ const quoteWidth = 288
 const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
-  const {isPortrait} = useContext(DeviceContext)
+  const {isPortrait, isTallPhone} = useContext(DeviceContext)
   const Track = isPortrait ? Column : Row
 
-  const {image5x4, image9x16, quote} = useSelectImageWithQuote()
+  const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 
   useTransparentStatusBar()
 
@@ -47,9 +47,13 @@ export const WelcomeScreen = ({navigation}: Props) => {
       <Pressable onPress={() => navigation.reset(navigationResetParam)}>
         <Track flex={1}>
           <AspectRatio
-            aspectRatio={isPortrait ? 'wide' : 'narrow'}
+            aspectRatio={isPortrait && isTallPhone ? 'wide' : 'narrow'}
             orientation={isPortrait ? 'portrait' : 'landscape'}>
-            <Image source={isPortrait ? image9x16 : image5x4} />
+            <Image
+              source={
+                isPortrait ? (isTallPhone ? image9x16 : image4x5) : image5x4
+              }
+            />
           </AspectRatio>
           <Row align="center" valign="center">
             <Box inset="xl">
