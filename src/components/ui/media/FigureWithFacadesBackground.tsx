@@ -73,8 +73,7 @@ const createStyles =
   ) =>
   ({media}: Theme) => {
     const {aspectRatio, height: figureHeight} = figureProps
-    const figureWidth =
-      figureHeight * media.aspectRatio[aspectRatio ?? 'default']
+    const figureWidth = figureHeight * media.aspectRatio[aspectRatio ?? 'wide']
     const imageWidth = requestedImageWidth ?? figureWidth
     const imageHeight = imageWidth / imageAspectRatio
     const backgroundImageHeight = figureHeight * backgroundImageHeightFraction

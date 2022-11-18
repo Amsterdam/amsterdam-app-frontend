@@ -41,11 +41,7 @@ const addCacheToImageSource = (
   }
 }
 
-export const Image = ({
-  aspectRatio = 'default',
-  source,
-  ...imageProps
-}: Props) => {
+export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 

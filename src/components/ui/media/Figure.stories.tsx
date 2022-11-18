@@ -13,6 +13,6 @@ export const Default: ComponentStory<typeof Figure> = args => (
   </Figure>
 )
 Default.args = {
-  aspectRatio: 'default',
+  aspectRatio: 'wide',
   height: 256,
 }

@@ -53,7 +53,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
 
   const {media} = useTheme()
   const imageWidth = media.figureHeight.lg
-  const imageHeight = imageWidth / media.aspectRatio.wide
+  const imageHeight = imageWidth / media.aspectRatio.extraWide
   const styles = useThemable(
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
@@ -82,10 +82,10 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
               <Title color="link" level="h5" text={article.title} />
               <View style={styles.image}>
                 {imageSources && Object.keys(imageSources[0]).length ? (
-                  <Image aspectRatio="wide" source={imageSources} />
+                  <Image aspectRatio="extraWide" source={imageSources} />
                 ) : (
                   <FigureWithFacadesBackground
-                    aspectRatio="wide"
+                    aspectRatio="extraWide"
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
                     imageAspectRatio={

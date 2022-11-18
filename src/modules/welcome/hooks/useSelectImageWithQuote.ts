@@ -3,44 +3,55 @@ import {ImageURISource} from 'react-native'
 
 type ImageWithQuote = {
   quote: string
-  imagePortrait: ImageURISource
-  imageLandscape: ImageURISource
+  image4x5: ImageURISource
+  image5x4: ImageURISource
+  image9x16: ImageURISource
 }
 
 const imagesWithQuote: ImageWithQuote[] = [
   {
-    imageLandscape:
-      require('@/modules/welcome/assets/albert-cuijp-markt-landscape.jpg') as ImageURISource,
-    imagePortrait:
-      require('@/modules/welcome/assets/albert-cuijp-markt-portrait.jpg') as ImageURISource,
+    image4x5:
+      require('@/modules/welcome/assets/images/62225.wees-jezelf.4x5.md.jpg') as ImageURISource,
+    image5x4:
+      require('@/modules/welcome/assets/images/62225.wees-jezelf.5x4.md.jpg') as ImageURISource,
+    image9x16:
+      require('@/modules/welcome/assets/images/62225.wees-jezelf.9x16.md.jpg') as ImageURISource,
     quote: 'Wees jezelf als geen ander',
   },
   {
-    imageLandscape:
-      require('@/modules/welcome/assets/mercatorplein-landscape.jpg') as ImageURISource,
-    imagePortrait:
-      require('@/modules/welcome/assets/mercatorplein-portrait.jpg') as ImageURISource,
+    image4x5:
+      require('@/modules/welcome/assets/images/45795.zorgen-goed.4x5.md.jpg') as ImageURISource,
+    image5x4:
+      require('@/modules/welcome/assets/images/45795.zorgen-goed.5x4.md.jpg') as ImageURISource,
+    image9x16:
+      require('@/modules/welcome/assets/images/45795.zorgen-goed.9x16.md.jpg') as ImageURISource,
     quote: 'We zorgen goed voor onze stad en voor elkaar',
   },
   {
-    imageLandscape:
-      require('@/modules/welcome/assets/prinsengracht-landscape.jpg') as ImageURISource,
-    imagePortrait:
-      require('@/modules/welcome/assets/prinsengracht-portrait.jpg') as ImageURISource,
+    image4x5:
+      require('@/modules/welcome/assets/images/68418.in-beweging.4x5.md.jpg') as ImageURISource,
+    image5x4:
+      require('@/modules/welcome/assets/images/68418.in-beweging.5x4.md.jpg') as ImageURISource,
+    image9x16:
+      require('@/modules/welcome/assets/images/68418.in-beweging.9x16.md.jpg') as ImageURISource,
     quote: 'Onze stad is altijd in beweging',
   },
   {
-    imageLandscape:
-      require('@/modules/welcome/assets/tramhalte-landscape.jpg') as ImageURISource,
-    imagePortrait:
-      require('@/modules/welcome/assets/tramhalte-portrait.jpg') as ImageURISource,
+    image4x5:
+      require('@/modules/welcome/assets/images/67800.komen-tegen.4x5.md.jpg') as ImageURISource,
+    image5x4:
+      require('@/modules/welcome/assets/images/67800.komen-tegen.5x4.md.jpg') as ImageURISource,
+    image9x16:
+      require('@/modules/welcome/assets/images/67800.komen-tegen.9x16.md.jpg') as ImageURISource,
     quote: 'Onderweg komen we elkaar tegen',
   },
   {
-    imageLandscape:
-      require('@/modules/welcome/assets/voetbal-landscape.jpg') as ImageURISource,
-    imagePortrait:
-      require('@/modules/welcome/assets/voetbal-portrait.jpg') as ImageURISource,
+    image4x5:
+      require('@/modules/welcome/assets/images/42711.scoren-goal.4x5.md.jpg') as ImageURISource,
+    image5x4:
+      require('@/modules/welcome/assets/images/42711.scoren-goal.5x4.md.jpg') as ImageURISource,
+    image9x16:
+      require('@/modules/welcome/assets/images/42711.scoren-goal.9x16.md.jpg') as ImageURISource,
     quote: 'Om te kunnen scoren heb je een goal nodig',
   },
 ]

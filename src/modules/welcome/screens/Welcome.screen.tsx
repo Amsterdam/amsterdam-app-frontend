@@ -1,9 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useContext, useEffect} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
-import {Screen, Size} from '@/components/ui/layout'
+import {Box} from '@/components/ui/containers'
+import {AspectRatio, Column, Row, Screen, Size} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {useTransparentStatusBar} from '@/hooks'
@@ -11,7 +11,6 @@ import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
 import {DeviceContext} from '@/providers'
-import {Theme, useThemable} from '@/themes'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
@@ -22,9 +21,10 @@ const quoteWidth = 288
 const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
-  const {isPortrait} = useContext(DeviceContext)
-  const {imageLandscape, imagePortrait, quote} = useSelectImageWithQuote()
-  const styles = useThemable(createStyles(isPortrait))
+  const {isPortrait, isTallPhone} = useContext(DeviceContext)
+  const Track = isPortrait ? Column : Row
+
+  const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 
   useTransparentStatusBar()
 
@@ -39,41 +39,34 @@ export const WelcomeScreen = ({navigation}: Props) => {
   }, [navigation])
 
   return (
-    <Screen scroll={false} withBottomInset={false} withLeftInset={false}>
+    <Screen
+      scroll={false}
+      withBottomInset={false}
+      withLeftInset={false}
+      withRightInset={false}>
       <Pressable onPress={() => navigation.reset(navigationResetParam)}>
-        <View style={styles.track}>
-          <View style={styles.image}>
-            <Image source={isPortrait ? imagePortrait : imageLandscape} />
-          </View>
-          <View style={styles.quote}>
-            <Size maxWidth={quoteWidth}>
-              <Paragraph
-                allowFontScaling={false}
-                accessibilityLabel={`Quote, ${quote}`}
-                variant="quote">{`“${quote}”`}</Paragraph>
-            </Size>
-          </View>
-        </View>
+        <Track flex={1}>
+          <AspectRatio
+            aspectRatio={isPortrait && isTallPhone ? 'wide' : 'narrow'}
+            orientation={isPortrait ? 'portrait' : 'landscape'}>
+            <Image
+              source={
+                isPortrait ? (isTallPhone ? image9x16 : image4x5) : image5x4
+              }
+            />
+          </AspectRatio>
+          <Row align="center" valign="center">
+            <Box inset="xl">
+              <Size maxWidth={quoteWidth}>
+                <Paragraph
+                  allowFontScaling={false}
+                  accessibilityLabel={`Citaat, ${quote}`}
+                  variant="quote">{`“${quote}”`}</Paragraph>
+              </Size>
+            </Box>
+          </Row>
+        </Track>
       </Pressable>
     </Screen>
   )
 }
-
-const createStyles =
-  (isPortrait: boolean) =>
-  ({size}: Theme) =>
-    StyleSheet.create({
-      image: {
-        [isPortrait ? 'height' : 'width']: '75%',
-      },
-      quote: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: size.spacing.lg,
-      },
-      track: {
-        flexDirection: isPortrait ? 'column' : 'row',
-        height: '100%',
-      },
-    })
