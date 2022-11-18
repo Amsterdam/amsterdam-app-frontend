@@ -3,7 +3,7 @@ export type ImageAspectRatioTokens = typeof mediaTokens.aspectRatio
 
 export const mediaTokens = {
   aspectRatio: {
-    'extra-wide': 940 / 415, // These are the width and height of the project images on amsterdam.nl
+    extraWide: 940 / 415, // These are the width and height of the project images on amsterdam.nl
     narrow: 5 / 4,
     square: 1,
     wide: 16 / 9,
