@@ -3,14 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
-import {
-  AspectRatio,
-  Center,
-  Column,
-  Row,
-  Screen,
-  Size,
-} from '@/components/ui/layout'
+import {AspectRatio, Column, Row, Screen, Size} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
 import {useTransparentStatusBar} from '@/hooks'
@@ -46,7 +39,11 @@ export const WelcomeScreen = ({navigation}: Props) => {
   }, [navigation])
 
   return (
-    <Screen scroll={false} withBottomInset={isPortrait} withLeftInset={false}>
+    <Screen
+      scroll={false}
+      withBottomInset={false}
+      withLeftInset={false}
+      withRightInset={false}>
       <Pressable onPress={() => navigation.reset(navigationResetParam)}>
         <Track flex={1}>
           <AspectRatio
@@ -54,18 +51,16 @@ export const WelcomeScreen = ({navigation}: Props) => {
             orientation={isPortrait ? 'portrait' : 'landscape'}>
             <Image source={isPortrait ? image916 : image54} />
           </AspectRatio>
-          <Column flex={1}>
-            <Box grow insetHorizontal="xl" insetVertical="md">
-              <Center grow>
-                <Size maxWidth={quoteWidth}>
-                  <Paragraph
-                    allowFontScaling={false}
-                    accessibilityLabel={`Quote, ${quote}`}
-                    variant="quote">{`“${quote}”`}</Paragraph>
-                </Size>
-              </Center>
+          <Row align="center" valign="center">
+            <Box inset="xl">
+              <Size maxWidth={quoteWidth}>
+                <Paragraph
+                  allowFontScaling={false}
+                  accessibilityLabel={`Citaat, ${quote}`}
+                  variant="quote">{`“${quote}”`}</Paragraph>
+              </Size>
             </Box>
-          </Column>
+          </Row>
         </Track>
       </Pressable>
     </Screen>
