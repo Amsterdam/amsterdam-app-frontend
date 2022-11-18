@@ -1,5 +1,8 @@
 import React, {useContext} from 'react'
-import {WebView as WebViewRN, WebViewProps} from 'react-native-webview'
+import {
+  WebView as WebViewRN,
+  WebViewProps as WebViewRNProps,
+} from 'react-native-webview'
 import {PleaseWait} from '@/components/ui/feedback'
 import {DeviceContext} from '@/providers'
 
@@ -10,7 +13,7 @@ export type Props = {
   }
   url: string
   urlParams?: Record<string, string>
-} & WebViewProps
+} & WebViewRNProps
 
 export const WebView = ({
   sliceFromTop,
