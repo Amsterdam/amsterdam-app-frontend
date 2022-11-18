@@ -6,7 +6,7 @@ import {
 import {PleaseWait} from '@/components/ui/feedback'
 import {DeviceContext} from '@/providers'
 
-export type Props = {
+type Props = {
   sliceFromTop?: {
     portrait: number
     landscape: number
