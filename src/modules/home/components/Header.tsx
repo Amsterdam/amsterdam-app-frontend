@@ -12,15 +12,15 @@ export const Header = (props: Props) => {
   const {route} = props
   const isHome = route.name === HomeRouteName.home
 
-  const {left = 0, right = 0, top = 0} = useSafeAreaInsets()
+  const {top = 0, left = 0, right = 0} = useSafeAreaInsets()
   const styles = useMemo(
     () =>
       createStyles({
-        left,
         top,
+        left,
         right,
       }),
-    [left, top, right],
+    [top, left, right],
   )
 
   return (
@@ -32,7 +32,7 @@ export const Header = (props: Props) => {
   )
 }
 
-const createStyles = ({left, right, top}: Omit<EdgeInsets, 'bottom'>) =>
+const createStyles = ({top, left, right}: Omit<EdgeInsets, 'bottom'>) =>
   StyleSheet.create({
     header: {
       paddingTop: top,
