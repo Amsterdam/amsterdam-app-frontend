@@ -30,7 +30,9 @@ export const Pressable = ({
       accessibilityRole="button"
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
       {...pressableProps}>
-      <Box {...{inset, insetHorizontal, insetVertical}}>{children}</Box>
+      <Box grow {...{inset, insetHorizontal, insetVertical}}>
+        {children}
+      </Box>
     </PressableRN>
   )
 }
@@ -40,6 +42,7 @@ const createStyles =
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
+        flex: 1,
         backgroundColor: color.pressable[variant].default,
       },
       pressed: {
