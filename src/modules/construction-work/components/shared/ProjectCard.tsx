@@ -1,6 +1,6 @@
 import React, {ReactElement, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
-import {Gutter} from '@/components/ui/layout'
+import {AspectRatio, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {Theme, useThemable} from '@/themes'
@@ -40,7 +40,9 @@ export const ProjectCard = ({
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
         {!!imageSource && (
           <>
-            <Image aspectRatio="wide" source={imageSource} />
+            <AspectRatio aspectRatio="wide">
+              <Image source={imageSource} />
+            </AspectRatio>
             <Gutter height="sm" />
           </>
         )}
