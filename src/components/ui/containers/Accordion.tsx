@@ -39,6 +39,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
           isOpen ? 'verbergen' : 'bekijken'
         }`}
+        accessibilityState={{expanded: isOpen}}
         onPress={() => setIsOpen(!isOpen)}>
         <Box>
           <Row align="between" gutter="md" valign="start">
