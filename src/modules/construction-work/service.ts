@@ -74,7 +74,7 @@ export const projectsApi = baseApi.injectEndpoints({
         if (params) {
           return generateRequestUrl({
             path: '/projects',
-            params: formatQueryParams(params),
+            params: formatQueryParams({...params, page_size: 1000}),
           })
         }
         return '/projects'
@@ -110,7 +110,7 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params =>
         generateRequestUrl({
           path: '/projects/search',
-          params: formatQueryParams(params),
+          params: formatQueryParams({...params, page_size: 1000}),
         }),
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
