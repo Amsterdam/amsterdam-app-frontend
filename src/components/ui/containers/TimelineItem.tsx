@@ -30,7 +30,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         </View>
         <Accordion
           key={item.title}
-          title={item.title + item.title}
+          title={item.title}
           initiallyExpanded={isCurrent}
           onChangeExpanded={state => setIsExpanded(state)}>
           {item.content.map(c => (
