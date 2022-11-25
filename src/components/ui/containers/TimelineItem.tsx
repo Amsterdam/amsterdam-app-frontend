@@ -31,8 +31,8 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
         <Accordion
           key={item.title}
           title={item.title + item.title}
-          initialExpansionState={isCurrent}
-          onExpansionStateChange={state => setIsExpanded(state)}>
+          initiallyExpanded={isCurrent}
+          onChangeExpanded={state => setIsExpanded(state)}>
           {item.content.map(c => (
             <React.Fragment key={c.title}>
               <Article content={c.body.html} />

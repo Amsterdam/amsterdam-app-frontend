@@ -8,8 +8,8 @@ import {useTheme} from '@/themes'
 
 type AccordionProps = {
   children: ReactNode
-  initialExpansionState?: boolean
-  onExpansionStateChange?: (state: boolean) => void
+  initiallyExpanded?: boolean
+  onChangeExpanded?: (state: boolean) => void
   title: string
 }
 
@@ -31,21 +31,21 @@ const Panel = ({children, isExpanded}: PanelProps) => {
 }
 
 export const Accordion = ({
-  initialExpansionState,
-  onExpansionStateChange,
+  initiallyExpanded,
+  onChangeExpanded,
   children,
   title,
 }: AccordionProps) => {
-  const [isExpanded, setIsExpanded] = useState(!!initialExpansionState)
+  const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
   const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
   const handleStateChange = useCallback(
     (state: boolean) => {
       setIsExpanded(state)
-      onExpansionStateChange?.(state)
+      onChangeExpanded?.(state)
     },
-    [onExpansionStateChange],
+    [onChangeExpanded],
   )
 
   return (
