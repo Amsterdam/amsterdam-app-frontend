@@ -13,7 +13,10 @@ type Props = {
   }
   url: string
   urlParams?: Record<string, string>
-} & WebViewRNProps
+} & Omit<
+  WebViewRNProps,
+  'renderLoading' | 'source' | 'startInLoadingState' | 'style'
+>
 
 export const WebView = ({
   sliceFromTop,
