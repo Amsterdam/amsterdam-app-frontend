@@ -43,7 +43,7 @@ export const Accordion = ({
   const handleStateChange = useCallback(
     (state: boolean) => {
       setIsOpen(state)
-      onExpansionStateChange && onExpansionStateChange(state)
+      onExpansionStateChange?.(state)
     },
     [onExpansionStateChange],
   )
