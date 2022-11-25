@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode, useCallback, useState} from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers/Box'
 import {Column, Gutter, Row, Size} from '@/components/ui/layout'
@@ -8,15 +8,17 @@ import {useTheme} from '@/themes'
 
 type AccordionProps = {
   children: ReactNode
+  initiallyExpanded?: boolean
+  onChangeExpanded?: (state: boolean) => void
   title: string
 }
 
 type PanelProps = {
-  isOpen: boolean
+  isExpanded: boolean
 } & Pick<AccordionProps, 'children'>
 
-const Panel = ({children, isOpen}: PanelProps) => {
-  if (!isOpen) {
+const Panel = ({children, isExpanded}: PanelProps) => {
+  if (!isExpanded) {
     return null
   }
 
@@ -28,19 +30,32 @@ const Panel = ({children, isOpen}: PanelProps) => {
   )
 }
 
-export const Accordion = ({children, title}: AccordionProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const iconName = isOpen ? 'chevron-up' : 'chevron-down'
+export const Accordion = ({
+  initiallyExpanded,
+  onChangeExpanded,
+  children,
+  title,
+}: AccordionProps) => {
+  const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
+  const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
+  const handleStateChange = useCallback(
+    (state: boolean) => {
+      setIsExpanded(state)
+      onChangeExpanded?.(state)
+    },
+    [onChangeExpanded],
+  )
+
   return (
-    <Column>
+    <Column grow>
       <Pressable
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
-          isOpen ? 'verbergen' : 'bekijken'
+          isExpanded ? 'verbergen' : 'bekijken'
         }`}
-        accessibilityState={{expanded: isOpen}}
-        onPress={() => setIsOpen(!isOpen)}>
+        accessibilityState={{expanded: isExpanded}}
+        onPress={() => handleStateChange(!isExpanded)}>
         <Box>
           <Row align="between" gutter="md" valign="start">
             <Title
@@ -56,7 +71,7 @@ export const Accordion = ({children, title}: AccordionProps) => {
           </Row>
         </Box>
       </Pressable>
-      <Panel {...{children, isOpen}} />
+      <Panel {...{children, isExpanded}} />
     </Column>
   )
 }
