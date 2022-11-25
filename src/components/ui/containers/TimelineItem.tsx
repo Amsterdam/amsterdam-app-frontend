@@ -15,7 +15,7 @@ type Props = {
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const [isExpanded, setExpanded] = useState(isCurrent)
+  const [isExpanded, setIsExpanded] = useState(isCurrent)
 
   const theme = useTheme()
   const styles = timelineStyles(theme, isCurrent, isExpanded, isFirst, isLast)
@@ -32,7 +32,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           key={item.title}
           title={item.title + item.title}
           initialExpansionState={isCurrent}
-          onExpansionStateChange={state => setExpanded(state)}>
+          onExpansionStateChange={state => setIsExpanded(state)}>
           {item.content.map(c => (
             <React.Fragment key={c.title}>
               <Article content={c.body.html} />

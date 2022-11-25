@@ -14,11 +14,11 @@ type AccordionProps = {
 }
 
 type PanelProps = {
-  isOpen: boolean
+  isExpanded: boolean
 } & Pick<AccordionProps, 'children'>
 
-const Panel = ({children, isOpen}: PanelProps) => {
-  if (!isOpen) {
+const Panel = ({children, isExpanded}: PanelProps) => {
+  if (!isExpanded) {
     return null
   }
 
@@ -36,13 +36,13 @@ export const Accordion = ({
   children,
   title,
 }: AccordionProps) => {
-  const [isOpen, setIsOpen] = useState(!!initialExpansionState)
-  const iconName = isOpen ? 'chevron-up' : 'chevron-down'
+  const [isExpanded, setIsExpanded] = useState(!!initialExpansionState)
+  const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
   const handleStateChange = useCallback(
     (state: boolean) => {
-      setIsOpen(state)
+      setIsExpanded(state)
       onExpansionStateChange?.(state)
     },
     [onExpansionStateChange],
@@ -52,10 +52,10 @@ export const Accordion = ({
     <Column grow>
       <Pressable
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
-          isOpen ? 'verbergen' : 'bekijken'
+          isExpanded ? 'verbergen' : 'bekijken'
         }`}
-        accessibilityState={{expanded: isOpen}}
-        onPress={() => handleStateChange(!isOpen)}>
+        accessibilityState={{expanded: isExpanded}}
+        onPress={() => handleStateChange(!isExpanded)}>
         <Box>
           <Row align="between" gutter="md" valign="start">
             <Title
@@ -71,7 +71,7 @@ export const Accordion = ({
           </Row>
         </Box>
       </Pressable>
-      <Panel {...{children, isOpen}} />
+      <Panel {...{children, isExpanded}} />
     </Column>
   )
 }
