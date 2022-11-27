@@ -90,11 +90,7 @@
 	<string>De Amsterdam app wil toegang tot je foto’s</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>AmsterdamSans-Bold.otf</string>
-		<string>AmsterdamSans-BoldItalic.otf</string>
 		<string>AmsterdamSans-ExtraBold.otf</string>
-		<string>AmsterdamSans-Italic.otf</string>
-		<string>AmsterdamSans-Light.otf</string>
 		<string>AmsterdamSans-Regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>

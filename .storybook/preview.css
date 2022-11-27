@@ -1,12 +1,12 @@
 @font-face {
   font-family: "AmsterdamSans-ExtraBold";
-  src: url('../src/assets/fonts/AmsterdamSans-ExtraBold.otf');
+  src: url('../src/assets/fonts/AmsterdamSans-ExtraBold.woff2');
   font-weight: 700 900;
 }
 
 @font-face {
   font-family: "AmsterdamSans-Regular";
-  src: url('../src/assets/fonts/AmsterdamSans-Regular.otf');
+  src: url('../src/assets/fonts/AmsterdamSans-Regular.woff2');
 }
 
 :root {
