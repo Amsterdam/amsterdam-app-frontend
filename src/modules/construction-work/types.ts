@@ -92,7 +92,8 @@ export type ProjectsItem = {
   last_seen: string
   meter: number
   modification_date: string
-  project_type: string
+  page: number
+  page_size: number
   publication_date: string
   // only present when sent 'articles_max_age' in request body
   recent_articles?: RecentArticle[]
