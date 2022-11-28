@@ -14,7 +14,7 @@ export const HeaderLogo = () => (
 
 const styles = StyleSheet.create({
   view: {
-    width: 102,
-    height: 30,
+    width: 115,
+    height: 40,
   },
 })

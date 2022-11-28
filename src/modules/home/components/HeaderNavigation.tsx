@@ -24,7 +24,7 @@ export const HeaderNavigation = () => {
     <Row gutter="md">
       {!!isDevApp && (
         <IconButton
-          accessibilityLabel="Omgeving selecteren"
+          accessibilityLabel="Selecteer omgeving"
           icon={<Icon name="api" {...iconProps} />}
           onPress={() => navigation.navigate(HomeRouteName.admin)}
         />
