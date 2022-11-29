@@ -55,7 +55,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
               }
             />
           </AspectRatio>
-          <Row align="center" valign="center">
+          <Row align="center" flex={1} valign="center">
             <Box inset="xl">
               <Size maxWidth={quoteWidth}>
                 <Paragraph
