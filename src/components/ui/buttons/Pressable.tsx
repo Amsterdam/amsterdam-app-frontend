@@ -11,19 +11,24 @@ type ButtonVariants = 'primary' | 'tertiary' | 'negative'
 
 export type PressableProps = {
   children: ReactNode
+  /**
+   * Whether the button grows to fill its parent container.
+   */
+  grow?: boolean
   variant?: ButtonVariants
 } & Omit<PressableRNProps, 'style'> &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
 export const Pressable = ({
   children,
+  grow,
   inset = 'no',
   insetHorizontal,
   insetVertical,
   variant = 'tertiary',
   ...pressableProps
 }: PressableProps) => {
-  const styles = useThemable(createStyles(variant))
+  const styles = useThemable(createStyles(grow, variant))
 
   return (
     <PressableRN
@@ -38,11 +43,11 @@ export const Pressable = ({
 }
 
 const createStyles =
-  (variant: ButtonVariants) =>
+  (grow: PressableProps['grow'], variant: ButtonVariants) =>
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
-        flex: 1,
+        flex: grow ? 1 : undefined,
         backgroundColor: color.pressable[variant].default,
       },
       pressed: {
