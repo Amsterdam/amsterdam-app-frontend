@@ -55,16 +55,16 @@ export const WelcomeScreen = ({navigation}: Props) => {
               }
             />
           </AspectRatio>
-          <Row align="center" flex={1} valign="center">
-            <Box inset="xl">
+          <Box grow>
+            <Row align="center" flex={1} valign="center">
               <Size maxWidth={quoteWidth}>
                 <Paragraph
                   allowFontScaling={false}
                   accessibilityLabel={`Citaat, ${quote}`}
                   variant="quote">{`“${quote}”`}</Paragraph>
               </Size>
-            </Box>
-          </Row>
+            </Row>
+          </Box>
         </Track>
       </Pressable>
     </Screen>
