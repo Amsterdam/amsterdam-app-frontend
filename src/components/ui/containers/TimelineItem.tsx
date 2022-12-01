@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {View} from 'react-native'
 import {Accordion, Box} from '@/components/ui/containers'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Article, Title} from '@/components/ui/text'
+import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 
@@ -19,7 +20,15 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const [isExpanded, setIsExpanded] = useState(isCurrent)
 
   const theme = useTheme()
-  const styles = timelineStyles(theme, isCurrent, isExpanded, isFirst, isLast)
+  const {fontScale} = useContext(DeviceContext)
+  const styles = timelineStyles(
+    theme,
+    fontScale,
+    isCurrent,
+    isExpanded,
+    isFirst,
+    isLast,
+  )
 
   const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
 

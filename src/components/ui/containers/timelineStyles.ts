@@ -5,6 +5,7 @@ export const maxHeight = 1200
 
 export const timelineStyles = (
   theme: Theme,
+  fontScale: number,
   isCurrent: boolean,
   isExpanded: boolean,
   firstItem?: boolean,
@@ -21,7 +22,7 @@ export const timelineStyles = (
         active: color.background.emphasis,
         inactive: color.background.inactive,
       },
-      size: size.spacing.lg,
+      size: size.spacing.lg * fontScale,
     },
     line: {
       color: color.background.inactive,
