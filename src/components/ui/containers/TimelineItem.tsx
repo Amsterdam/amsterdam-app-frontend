@@ -24,7 +24,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const styles = timelineStyles(
     theme,
     fontScale,
-    isCurrent,
+    item.progress === 'Aankomend',
     isExpanded,
     isFirst,
     isLast,
