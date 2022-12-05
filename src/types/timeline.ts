@@ -14,7 +14,7 @@ type TimeLineContent = {
 export type TimelineItem = {
   collapsed: boolean
   content: TimeLineContent[]
-  progress: 'Afgelopen' | 'Huidig' | 'Toekomst'
+  progress: 'Afgelopen' | 'Huidig' | 'Aankomend'
   subitems?: TimelineSubItem[]
   title: string
 }
