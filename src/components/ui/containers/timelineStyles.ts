@@ -6,7 +6,7 @@ export const maxHeight = 1200
 export const timelineStyles = (
   theme: Theme,
   fontScale: number,
-  isCurrent: boolean,
+  isUpcoming: boolean,
   isExpanded: boolean,
   firstItem?: boolean,
   lastItem?: boolean,
@@ -44,9 +44,9 @@ export const timelineStyles = (
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: size.spacing.md,
-      backgroundColor: isCurrent
-        ? tokens.indicator.backgroundColor.active
-        : tokens.indicator.backgroundColor.inactive,
+      backgroundColor: isUpcoming
+        ? tokens.indicator.backgroundColor.inactive
+        : tokens.indicator.backgroundColor.active,
       borderRadius: tokens.indicator.size / 2,
     },
     item: {
