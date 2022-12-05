@@ -10,12 +10,12 @@ import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
 
 type Props = {
-  isFirst?: boolean
-  isLast?: boolean
+  isBeforeUpcoming: boolean
+  isLast: boolean
   item: TimelineItemType
 }
 
-export const TimelineItem = ({isFirst, isLast, item}: Props) => {
+export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
   const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
   const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
@@ -25,14 +25,14 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const styles = timelineStyles(
     theme,
     fontScale,
+    isBeforeUpcoming,
     item.progress === 'Aankomend',
     isExpanded,
-    isFirst,
     isLast,
   )
 
   return (
-    <View style={styles.item}>
+    <View>
       <View style={styles.header}>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (

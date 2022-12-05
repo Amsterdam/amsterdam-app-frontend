@@ -6,10 +6,10 @@ export const maxHeight = 1200
 export const timelineStyles = (
   theme: Theme,
   fontScale: number,
+  isBeforeUpcoming: boolean,
   isUpcoming: boolean,
   isExpanded: boolean,
-  firstItem?: boolean,
-  lastItem?: boolean,
+  lastItem: boolean,
 ) => {
   const {color, size} = theme
 
@@ -18,15 +18,10 @@ export const timelineStyles = (
       insetLeft: size.spacing.md,
     },
     indicator: {
-      backgroundColor: {
-        active: color.background.emphasis,
-        inactive: color.background.inactive,
-      },
       size: size.spacing.lg * fontScale,
     },
     line: {
-      color: color.background.inactive,
-      width: 2 * fontScale,
+      width: 4 * fontScale,
     },
   }
 
@@ -39,30 +34,28 @@ export const timelineStyles = (
       justifyContent: 'space-between',
     },
     indicator: {
+      position: 'relative',
       width: tokens.indicator.size,
       aspectRatio: 1,
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: size.spacing.md,
       backgroundColor: isUpcoming
-        ? tokens.indicator.backgroundColor.inactive
-        : tokens.indicator.backgroundColor.active,
+        ? color.background.inactive
+        : color.background.emphasis,
       borderRadius: tokens.indicator.size / 2,
-    },
-    item: {
-      overflow: 'hidden',
     },
     line: {
       position: 'absolute',
-      top: firstItem ? size.spacing.md + tokens.indicator.size : 0,
+      top: size.spacing.md,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
-      height:
-        lastItem && !isExpanded
-          ? size.spacing.md + tokens.indicator.size
-          : '100%',
-      backgroundColor: tokens.line.color,
+      height: lastItem && !isExpanded ? size.spacing.md : '100%',
+      backgroundColor:
+        isUpcoming || isBeforeUpcoming
+          ? color.background.inactive
+          : color.background.emphasis,
     },
     title: {
       marginLeft: tokens.body.insetLeft,
