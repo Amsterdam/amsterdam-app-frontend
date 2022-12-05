@@ -17,7 +17,8 @@ type Props = {
 
 export const TimelineItem = ({isFirst, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const [isExpanded, setIsExpanded] = useState(isCurrent)
+  const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
+  const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
 
   const theme = useTheme()
   const {fontScale} = useContext(DeviceContext)
@@ -29,8 +30,6 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
     isFirst,
     isLast,
   )
-
-  const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
 
   return (
     <View style={styles.item}>
@@ -44,7 +43,7 @@ export const TimelineItem = ({isFirst, isLast, item}: Props) => {
           <Accordion
             key={item.title}
             title={item.title}
-            initiallyExpanded={isCurrent}
+            initiallyExpanded={!!isCurrent}
             onChangeExpanded={state => setIsExpanded(state)}>
             {item.content.map(c => (
               <React.Fragment key={c.title}>
