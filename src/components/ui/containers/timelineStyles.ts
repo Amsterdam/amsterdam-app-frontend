@@ -26,7 +26,7 @@ export const timelineStyles = (
     },
     line: {
       color: color.background.inactive,
-      width: 2,
+      width: 2 * fontScale,
     },
   }
 
