@@ -6,28 +6,33 @@ import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {useTheme} from '@/themes'
 
+const AccordionPanel = ({
+  children,
+}: Required<Pick<AccordionProps, 'children'>>) => (
+  <>
+    <Box insetHorizontal="md">{children}</Box>
+    <Gutter height="md" />
+  </>
+)
+
+type AccordionTitleProps = {
+  icon?: ReactNode
+} & Pick<AccordionProps, 'title'>
+
+const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
+  <Box distinct grow>
+    <Row align="between" gutter="md" valign="start">
+      <Title color="link" level="h5" text={title} />
+      {icon}
+    </Row>
+  </Box>
+)
+
 type AccordionProps = {
-  children: ReactNode
+  children: ReactNode | undefined
   initiallyExpanded?: boolean
   onChangeExpanded?: (state: boolean) => void
   title: string
-}
-
-type PanelProps = {
-  isExpanded: boolean
-} & Pick<AccordionProps, 'children'>
-
-const Panel = ({children, isExpanded}: PanelProps) => {
-  if (!isExpanded) {
-    return null
-  }
-
-  return (
-    <>
-      <Box insetHorizontal="md">{children}</Box>
-      <Gutter height="md" />
-    </>
-  )
 }
 
 export const Accordion = ({
@@ -37,6 +42,7 @@ export const Accordion = ({
   title,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
+  const isExpandable = children !== undefined
   const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
@@ -48,6 +54,10 @@ export const Accordion = ({
     [onChangeExpanded],
   )
 
+  if (!isExpandable) {
+    return <AccordionTitle title={title} />
+  }
+
   return (
     <Column grow>
       <Pressable
@@ -56,16 +66,20 @@ export const Accordion = ({
         }`}
         accessibilityState={{expanded: isExpanded}}
         onPress={() => handleStateChange(!isExpanded)}>
-        <Box>
-          <Row align="between" gutter="md" valign="start">
-            <Title color="link" level="h5" text={title} />
+        <AccordionTitle
+          icon={
             <Size height={text.fontSize.h5 * text.lineHeight.h5}>
               <Icon color="link" name={iconName} size="lg" />
             </Size>
-          </Row>
-        </Box>
+          }
+          title={`${title} (${isExpandable.toString()})`}
+        />
       </Pressable>
-      <Panel {...{children, isExpanded}} />
+      {!!isExpanded && (
+        <AccordionPanel>
+          <>{children}</>
+        </AccordionPanel>
+      )}
     </Column>
   )
 }

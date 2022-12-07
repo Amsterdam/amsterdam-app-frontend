@@ -1,10 +1,9 @@
 import React, {useContext, useState} from 'react'
 import {View} from 'react-native'
-import {Accordion, Box} from '@/components/ui/containers'
+import {Accordion} from '@/components/ui/containers'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
-import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Article, Title} from '@/components/ui/text'
+import {Article} from '@/components/ui/text'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
@@ -39,25 +38,17 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
             <Icon color="inverse" name="checkmark" size="sm" />
           )}
         </View>
-        {itemHasContent ? (
-          <Accordion
-            key={item.title}
-            title={item.title}
-            initiallyExpanded={!!isCurrent}
-            onChangeExpanded={state => setIsExpanded(state)}>
-            {item.content.map(c => (
-              <React.Fragment key={c.title}>
-                <Article content={c.body.html} />
-              </React.Fragment>
-            ))}
-          </Accordion>
-        ) : (
-          <Row flex={1}>
-            <Box>
-              <Title color="link" level="h5" text={item.title} />
-            </Box>
-          </Row>
-        )}
+        <Accordion
+          initiallyExpanded={!!isCurrent}
+          key={item.title}
+          onChangeExpanded={state => setIsExpanded(state)}
+          title={item.title}>
+          {itemHasContent
+            ? item.content.map(({title, body: {html}}) => (
+                <Article content={html} key={title} />
+              ))
+            : undefined}
+        </Accordion>
       </View>
       <View style={styles.line} />
     </View>
