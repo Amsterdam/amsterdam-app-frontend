@@ -20,7 +20,7 @@ type AccordionTitleProps = {
 } & Pick<AccordionProps, 'title'>
 
 const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
-  <Box distinct grow>
+  <Box grow>
     <Row align="between" gutter="md" valign="start">
       <Title color="link" level="h5" text={title} />
       {icon}
@@ -72,7 +72,7 @@ export const Accordion = ({
               <Icon color="link" name={iconName} size="lg" />
             </Size>
           }
-          title={`${title} (${isExpandable.toString()})`}
+          title={title}
         />
       </Pressable>
       {!!isExpanded && (
