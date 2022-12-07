@@ -10,7 +10,7 @@ export const Timeline = ({items}: Props) => (
   <>
     {items.map((item, index) => (
       <TimelineItem
-        isFirst={index === 0}
+        isBeforeUpcoming={items[index + 1]?.progress === 'Aankomend'}
         isLast={index === items.length - 1}
         item={item}
         key={item.title + index.toString()}
