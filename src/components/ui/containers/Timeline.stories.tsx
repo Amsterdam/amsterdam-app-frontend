@@ -47,7 +47,7 @@ export const Default: ComponentStoryObj<typeof Timeline> = {
             },
           },
         ],
-        progress: 'Toekomst',
+        progress: 'Aankomend',
         title: 'Titel 3',
       },
     ],
