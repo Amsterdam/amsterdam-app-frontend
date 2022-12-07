@@ -32,6 +32,7 @@ export const timelineStyles = (
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'flex-start',
     },
     indicator: {
       position: 'relative',
