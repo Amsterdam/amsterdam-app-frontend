@@ -1,3 +1,4 @@
+import { expect } from 'detox';
 import { defineFeature, loadFeature } from 'jest-cucumber';
 
 const feature = loadFeature('e2e/features/poc.feature');
@@ -19,7 +20,7 @@ defineFeature(feature, (test) => {
       });
   
       when('ik open de contact pagina', async () => {
-        await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(5000);
+        await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(10000);
         await element(by.text('Contact')).tap();
       });
   
@@ -36,7 +37,7 @@ defineFeature(feature, (test) => {
     test('Contactgegevens opzoeken van het stadsloket waar ik als Amsterdammer naar toe wil', ({ given, when, then }) => {
       given('ik ben op de contactpagina', async () => {
         await device.launchApp({ newInstance: true });
-        await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(5000);
+        await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(10000);
         await element(by.text('Contact')).tap();
       });
   
@@ -47,6 +48,7 @@ defineFeature(feature, (test) => {
         await element(by.id('bezoek')).swipe('up');
         await element(by.text('Amstel 1')).tap();
         await element(by.text('Stadsloket Nieuw-West')).tap();
+        await expect(element(by.text('Stadsloket Nieuw-West'))).toBeVisible()
       });
   
       then('ik zie contactgegevens en informatie van het betreffende stadsloket', async () => {

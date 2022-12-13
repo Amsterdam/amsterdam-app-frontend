@@ -6,7 +6,7 @@ module.exports = {
   ],
   testMatch: ['<rootDir>/e2e/features/steps/**/*.steps.js'],
   // testMatch: ['<rootDir>/e2e/**/*.test.js'],
-  testTimeout: 120000,
+  testTimeout: 300000,
   maxWorkers: 1,
   globalSetup: 'detox/runners/jest/globalSetup',
   globalTeardown: 'detox/runners/jest/globalTeardown',

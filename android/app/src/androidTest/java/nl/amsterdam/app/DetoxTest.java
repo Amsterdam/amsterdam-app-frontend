@@ -1,4 +1,4 @@
-package com.nl.amsterdam.app; // (1)
+package nl.amsterdam.app; // (1)
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;

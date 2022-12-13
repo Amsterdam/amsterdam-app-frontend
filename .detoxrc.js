@@ -28,6 +28,15 @@ module.exports = {
         8081
       ]
     },
+    'android.debug': {
+      type: 'android.apk',
+      binaryPath: 'android/app/build/outputs/apk/prod/debug/app-prod-debug.apk',
+      testBinaryPath: 'android/app/build/outputs/apk/androidTest/prod/debug/app-prod-debug-androidTest.apk',
+      build: 'cd android ; ./gradlew assembleProdDebug assembleAndroidTest -DtestBuildType=debug ; cd -',
+      reversePorts: [
+        8081
+      ]
+    },
     'android.release': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/prod/debug/app-prod-debug.apk',
