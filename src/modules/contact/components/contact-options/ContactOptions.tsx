@@ -18,11 +18,15 @@ type ContactOption = {
   text: string
   title: string
 } & Partial<
-  Pick<PressableProps, 'accessibilityLabel' | 'accessibilityRole' | 'onPress'>
+  Pick<
+    PressableProps,
+    'accessibilityHint' | 'accessibilityLabel' | 'accessibilityRole' | 'onPress'
+  >
 >
 
 const contactOptions: ContactOption[] = [
   {
+    accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
     accessibilityRole: 'link',
     iconName: 'email',
@@ -52,6 +56,7 @@ const contactOptions: ContactOption[] = [
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
   {
+    accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
     accessibilityRole: 'link',
     iconName: 'person',
