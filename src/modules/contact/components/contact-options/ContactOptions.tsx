@@ -18,11 +18,16 @@ type ContactOption = {
   text: string
   title: string
 } & Partial<
-  Pick<PressableProps, 'accessibilityLabel' | 'accessibilityRole' | 'onPress'>
+  Pick<
+    PressableProps,
+    'accessibilityHint' | 'accessibilityLabel' | 'accessibilityRole' | 'onPress'
+  >
 >
 
 const contactOptions: ContactOption[] = [
   {
+    accessibilityHint: 'Opent een link naar een formulier.',
+    accessibilityLabel: 'Gebruik ons contactformulier',
     accessibilityRole: 'link',
     iconName: 'email',
     key: 'email',
@@ -35,7 +40,6 @@ const contactOptions: ContactOption[] = [
   },
   {
     accessibilityLabel: 'Bel veertien nul twintig',
-    accessibilityRole: 'button',
     iconName: 'phone',
     key: 'phone',
     onPress: () => openPhoneUrl('14020'),
@@ -45,7 +49,6 @@ const contactOptions: ContactOption[] = [
   {
     accessibilityLabel:
       'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-    accessibilityRole: 'button',
     iconName: 'whatsapp',
     key: 'whatsapp',
     onPress: () => openWebUrl('https://wa.me/31644440655'),
@@ -53,6 +56,7 @@ const contactOptions: ContactOption[] = [
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
   {
+    accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
     accessibilityRole: 'link',
     iconName: 'person',
@@ -76,11 +80,11 @@ export const ContactOptions = () => (
       <Column gutter="md">
         {contactOptions.map(props => (
           <TopTaskButton
+            {...props}
             accessibilityLabel={accessibleText(
               props.accessibilityLabel ?? props.title,
               props.text,
             )}
-            {...props}
           />
         ))}
       </Column>

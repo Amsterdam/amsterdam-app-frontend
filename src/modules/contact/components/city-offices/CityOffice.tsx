@@ -59,6 +59,7 @@ export const CityOffice = () => {
           <Column gutter="md">
             <Paragraph>{appointment.text}</Paragraph>
             <Button
+              accessibilityHint="Opent een link naar een formulier."
               accessibilityRole="link"
               label="Maak een afspraak"
               onPress={() => openWebUrl(appointment.url)}
@@ -71,6 +72,7 @@ export const CityOffice = () => {
         )}
         {!!directionsUrl && (
           <Button
+            accessibilityHint="Opent een link naar Google Maps."
             accessibilityRole="link"
             label="Bekijk route"
             onPress={() => openWebUrl(directionsUrl)}
