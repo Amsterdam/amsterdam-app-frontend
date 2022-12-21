@@ -76,11 +76,11 @@ export const ContactOptions = () => (
       <Column gutter="md">
         {contactOptions.map(props => (
           <TopTaskButton
+            {...props}
             accessibilityLabel={accessibleText(
               props.accessibilityLabel ?? props.title,
               props.text,
             )}
-            {...props}
           />
         ))}
       </Column>
