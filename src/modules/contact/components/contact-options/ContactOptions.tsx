@@ -35,7 +35,6 @@ const contactOptions: ContactOption[] = [
   },
   {
     accessibilityLabel: 'Bel veertien nul twintig',
-    accessibilityRole: 'button',
     iconName: 'phone',
     key: 'phone',
     onPress: () => openPhoneUrl('14020'),
@@ -45,7 +44,6 @@ const contactOptions: ContactOption[] = [
   {
     accessibilityLabel:
       'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-    accessibilityRole: 'button',
     iconName: 'whatsapp',
     key: 'whatsapp',
     onPress: () => openWebUrl('https://wa.me/31644440655'),
