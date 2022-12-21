@@ -16,6 +16,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
   return (
     <Column gutter="md">
       <TopTaskButton
+        accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
         text={

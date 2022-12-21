@@ -23,6 +23,7 @@ type ContactOption = {
 
 const contactOptions: ContactOption[] = [
   {
+    accessibilityLabel: 'Gebruik ons contactformulier',
     accessibilityRole: 'link',
     iconName: 'email',
     key: 'email',
