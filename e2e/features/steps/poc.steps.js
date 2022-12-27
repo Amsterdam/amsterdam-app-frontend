@@ -14,7 +14,7 @@ defineFeature(feature, (test) => {
     //   });
 
     test('De contactpagina openen', ({ given, when, then }) => {
-      given('ik ben op de navigatiepagina', async () => {
+      given('ik ben op de homepagina', async () => {
         await device.launchApp({ newInstance: true });
         
       });
