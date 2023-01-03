@@ -86,8 +86,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
           </Column>
           <Column flex={1} gutter="md">
             <Paragraph>
-              Zoekt u een container voor glas, papier, textiel, plastic
-              verpakkingen of restafval?
+              Zoekt u een container voor glas, papier, textiel of restafval?
             </Paragraph>
             <Button
               label="Bekijk containers in de buurt"
