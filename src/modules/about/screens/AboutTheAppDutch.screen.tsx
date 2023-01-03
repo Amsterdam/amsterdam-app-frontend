@@ -11,7 +11,10 @@ export const AboutTheAppDutchScreen = () => {
   const Track = isLandscape ? Row : Column
 
   return (
-    <Screen withLeftInset={false} withRightInset={false}>
+    <Screen
+      withLeftInset={false}
+      withRightInset={false}
+      testID="AboutScreenAboutTheAppDutch">
       <Column gutter="lg">
         <Image
           source={

@@ -20,12 +20,13 @@ export const TopTaskButton = ({
   text,
   title,
   titleIconName,
+  testID = '',
   ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={onPress} {...pressableProps}>
+    <Pressable onPress={onPress} testID={testID} {...pressableProps}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>
@@ -33,11 +34,18 @@ export const TopTaskButton = ({
           </View>
           <Column>
             <Row gutter="sm" valign="center">
-              <Title color="link" level="h5" text={title} />
+              <Title
+                color="link"
+                level="h5"
+                text={title}
+                testID={`${testID}'Title`}
+              />
               {!!titleIconName && <Icon color="link" name={titleIconName} />}
             </Row>
             {typeof text === 'string' ? (
-              <Paragraph variant="small">{text}</Paragraph>
+              <Paragraph variant="small" testID={`${testID}'Text`}>
+                {text}
+              </Paragraph>
             ) : (
               text
             )}

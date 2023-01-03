@@ -32,7 +32,8 @@ export const ContactScreen = () => {
             <SelectCityOffice />
           </HorizontalSafeArea>
         </BottomSheet>
-      }>
+      }
+      testID="ContactScreenContact">
       <ContactOptions />
       <CityOffice />
     </Screen>

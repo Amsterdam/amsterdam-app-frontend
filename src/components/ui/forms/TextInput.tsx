@@ -32,6 +32,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
       placeholder = '',
       warning,
       value: valueProp = '',
+      testID = '',
       ...textInputProps
     }: Props,
     ref,
@@ -79,6 +80,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             style={styles.textInput}
             textAlignVertical="top"
             value={value}
+            testID={testID}
           />
           {value ? (
             <View>
@@ -86,6 +88,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
                 accessibilityHint="Maak dit tekstveld leeg"
                 icon={<Icon name="close" size="lg" />}
                 onPress={handleClearText}
+                testID={`${testID}ButtonClear`}
               />
             </View>
           ) : null}

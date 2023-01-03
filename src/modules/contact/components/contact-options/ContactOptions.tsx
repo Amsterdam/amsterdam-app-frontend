@@ -17,6 +17,7 @@ type ContactOption = {
   iconName: IconName
   text: string
   title: string
+  testID: string
 } & Partial<
   Pick<
     PressableProps,
@@ -37,6 +38,7 @@ const contactOptions: ContactOption[] = [
       ),
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
+    testID: 'ContactButtonContactform',
   },
   {
     accessibilityLabel: 'Bel veertien nul twintig',
@@ -45,6 +47,7 @@ const contactOptions: ContactOption[] = [
     onPress: () => openPhoneUrl('14020'),
     text: 'Gemiddeld 5 minuten wachten',
     title: 'Bel 14 020',
+    testID: 'ContactButtonPhone',
   },
   {
     accessibilityLabel:
@@ -54,6 +57,7 @@ const contactOptions: ContactOption[] = [
     onPress: () => openWebUrl('https://wa.me/31644440655'),
     text: 'Reactie binnen 2 uur',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
+    testID: 'ContactButtonWhatsapp',
   },
   {
     accessibilityHint: 'Opent een link naar een website.',
@@ -64,6 +68,7 @@ const contactOptions: ContactOption[] = [
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
     text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
     title: 'Mijn Amsterdam',
+    testID: 'ContactButtonMyAmsterdam',
   },
 ]
 
@@ -71,8 +76,8 @@ export const ContactOptions = () => (
   <Box>
     <Column gutter="lg">
       <Column gutter="sm">
-        <Title text="Kunnen we u helpen?" />
-        <Paragraph>
+        <Title text="Kunnen we u helpen?" testID="ContactTitleContactOptions" />
+        <Paragraph testID="ContactTextContactOptions">
           Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met
           ons op.
         </Paragraph>

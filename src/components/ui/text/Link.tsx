@@ -9,6 +9,7 @@ import {useTheme} from '@/themes'
 type Props = {
   label: string
   onPress: () => void
+  testID?: string | undefined
   variant?: 'backward' | 'default' | 'external' | 'forward'
 }
 
@@ -32,7 +33,7 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
   )
 }
 
-export const Link = ({label, onPress, variant = 'default'}: Props) => {
+export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
   const {text} = useTheme()
 
   return (
@@ -42,7 +43,8 @@ export const Link = ({label, onPress, variant = 'default'}: Props) => {
         variant === 'external' ? label + ', opent in webbrowser' : label
       }
       hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
-      onPress={onPress}>
+      onPress={onPress}
+      testID={testID}>
       <Row gutter="sm">
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
         {variant === 'default' && <LinkIcon direction={Direction.right} />}

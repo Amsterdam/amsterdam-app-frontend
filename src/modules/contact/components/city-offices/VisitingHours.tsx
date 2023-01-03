@@ -71,7 +71,9 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
     <Column gutter="md">
       <Row gutter="sm" valign="center">
         {!!visitingHoursSentence.written && (
-          <Paragraph accessibilityLabel={visitingHoursSentence.spoken}>
+          <Paragraph
+            accessibilityLabel={visitingHoursSentence.spoken}
+            testID="ContactTextVisitingHours">
             {visitingHoursSentence.written}
           </Paragraph>
         )}
@@ -81,6 +83,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
           onPress={() => setIsTooltipVisible(!isTooltipVisible)}
+          testID="ContactButtonVisitingHoursDetails"
         />
       </Row>
       {!!isTooltipVisible && (

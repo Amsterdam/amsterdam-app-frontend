@@ -31,6 +31,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
               />
             }
             onPress={navigation.goBack}
+            testID="HeaderButtonBack"
           />
         )}
       </View>

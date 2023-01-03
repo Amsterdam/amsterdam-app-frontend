@@ -11,6 +11,7 @@ type Props = {
   iconSize?: keyof typeof IconSize
   label: string
   onPress: () => void
+  testID?: string | undefined
 }
 
 export const NavigationButton = ({
@@ -18,8 +19,9 @@ export const NavigationButton = ({
   iconSize = 'lg',
   label,
   onPress,
+  testID,
 }: Props) => (
-  <Pressable accessibilityRole="link" onPress={onPress}>
+  <Pressable accessibilityRole="link" onPress={onPress} testID={testID}>
     <Box insetHorizontal="md" insetVertical="sm">
       <Row align="between" gutter="md" valign="center">
         {direction === 'backward' && (

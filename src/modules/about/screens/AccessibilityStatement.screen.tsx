@@ -11,7 +11,7 @@ const appEmail = 'app@amsterdam.nl'
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useContext(DeviceContext)
   return (
-    <Screen>
+    <Screen testID="AboutScreenAccessibilityStatement">
       <Box>
         <Column gutter="lg">
           <Column gutter="md">
@@ -79,6 +79,7 @@ export const AccessibilityStatementScreen = () => {
                 onPress={() => {
                   openMailUrl(appEmail, 'Iets werkt niet in de Amsterdam app')
                 }}
+                testID="AboutButtonEmailSomethingBroken"
               />
             </Row>
           </Column>

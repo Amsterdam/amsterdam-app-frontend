@@ -8,9 +8,16 @@ import {CityOffice} from '@/modules/contact/types'
 import {toggleBottomSheet} from '@/store'
 import {accessibleText} from '@/utils'
 
-type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
+type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'> & {
+  testID: string
+}
 
-export const NameAndAddress = ({address, addressContent, title}: Props) => {
+export const NameAndAddress = ({
+  address,
+  addressContent,
+  title,
+  testID,
+}: Props) => {
   const dispatch = useDispatch()
 
   return (
@@ -36,6 +43,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
         }
         title={title}
         titleIconName="chevron-down"
+        testID={testID}
       />
       {!!addressContent && (
         <>
