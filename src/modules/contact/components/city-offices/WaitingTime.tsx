@@ -15,7 +15,11 @@ type Props = {
 }
 
 export const WaitingTime = ({cityOfficeId}: Props) => {
-  const {data: waitingTimes, isLoading} = useGetWaitingTimesQuery()
+  const {data: waitingTimes, isLoading, isError} = useGetWaitingTimesQuery()
+
+  if (isError) {
+    return null
+  }
 
   if (isLoading || !waitingTimes) {
     return <PleaseWait />
