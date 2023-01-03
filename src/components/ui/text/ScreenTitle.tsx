@@ -12,5 +12,6 @@ export const ScreenTitle = ({text}: Props) => (
     level="h5"
     numberOfLines={1}
     text={text}
+    testID="HeaderTitle"
   />
 )

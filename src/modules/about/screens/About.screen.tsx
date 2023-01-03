@@ -15,31 +15,35 @@ type Props = {
 const versionNumber = getVersionNumber()
 
 export const AboutScreen = ({navigation}: Props) => (
-  <Screen>
+  <Screen testID="AboutScreenAbout">
     <Box>
       <Column gutter="md">
         <>
-          <Title text="Amsterdam App" />
-          <Phrase>Versie {versionNumber}</Phrase>
+          <Title text="Amsterdam App" testID="AboutTitleAmsterdam" />
+          <Phrase testID="AboutTextVersion">Versie {versionNumber}</Phrase>
         </>
         <Column gutter="sm">
           <NavigationButton
             label="Waarom deze app?"
             onPress={() => navigation.navigate(AboutRouteName.appSummary)}
+            testID="AboutButtonAboutTheAppDutch"
           />
           <NavigationButton
             label="About this app"
             onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
+            testID="AboutButtonAboutTheAppEnglish"
           />
           <NavigationButton
             label="Privacyverklaring"
             onPress={() => navigation.navigate(AboutRouteName.privacyStatement)}
+            testID="AboutButtonPrivacyStatement"
           />
           <NavigationButton
             label="Toegankelijkheidsverklaring"
             onPress={() =>
               navigation.navigate(AboutRouteName.accessibilityStatement)
             }
+            testID="AboutButtonAccessibilityStatement"
           />
         </Column>
       </Column>

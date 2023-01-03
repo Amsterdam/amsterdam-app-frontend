@@ -46,6 +46,7 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
+  testID?: string
 } & WithInsetProps
 
 export const Screen = ({
@@ -56,6 +57,7 @@ export const Screen = ({
   withLeftInset = true,
   withRightInset = true,
   withTopInset = false,
+  testID,
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
@@ -69,7 +71,7 @@ export const Screen = ({
   })
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.screen} testID={testID}>
       {stickyHeader}
       <Wrapper
         keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}

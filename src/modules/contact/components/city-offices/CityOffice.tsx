@@ -48,21 +48,27 @@ export const CityOffice = () => {
   return (
     <Box>
       <Column gutter="md">
-        <Title level="h2" text="Bezoek ons" />
+        <Title level="h2" text="Bezoek ons" testID="ContactTitleVisit" />
         <Image source={mapImageSources(image.sources, environment)} />
-        <NameAndAddress {...{address, addressContent, title}} />
+        <NameAndAddress
+          {...{address, addressContent, title}}
+          testID="ContactButtonCurrentCityOffice"
+        />
         <VisitingHours
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}
         />
         {appointment ? (
           <Column gutter="md">
-            <Paragraph>{appointment.text}</Paragraph>
+            <Paragraph testID="ContactTextAppointment">
+              {appointment.text}
+            </Paragraph>
             <Button
               accessibilityHint="Opent een link naar een formulier."
               accessibilityRole="link"
               label="Maak een afspraak"
               onPress={() => openWebUrl(appointment.url)}
+              testID="ContactButtonMakeAppointment"
             />
           </Column>
         ) : (
@@ -77,6 +83,7 @@ export const CityOffice = () => {
             label="Bekijk route"
             onPress={() => openWebUrl(directionsUrl)}
             variant={appointment ? 'secondary' : 'primary'}
+            testID="ContactButtonRoute"
           />
         )}
       </Column>
