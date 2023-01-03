@@ -8,11 +8,15 @@ class ContactPage extends Page {
      * define selectors using getter methods
      */
     get header () {
-        return $('~Kunnen we u helpen?');
+        return element(by.text('Kunnen we u helpen?'));
     }
 
     get headerParagraph () {
         return $('~Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met ons op.')
+    }
+
+    get contactLink () {
+        return element(by.text());
     }
     
     get stadsLoketCentrum () {

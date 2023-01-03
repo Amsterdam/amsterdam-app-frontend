@@ -1,7 +1,9 @@
 import { expect } from 'detox';
 import { defineFeature, loadFeature } from 'jest-cucumber';
+import homePage from '../pageobjects/home.page';
+import contactPage from '../pageobjects/contact.page';
 
-const feature = loadFeature('e2e/features/poc.feature');
+const feature = loadFeature('e2e/features/contact.feature');
 
 const welkomstPage = require('../pageobjects/welkomst.page');
 const NavPage = require('../pageobjects/nav.page')
@@ -9,23 +11,23 @@ const NavPage = require('../pageobjects/nav.page')
 defineFeature(feature, (test) => {
     
 
-    // beforeEach(async () => {
-    //     await device.launchApp({ newInstance: true });
-    //   });
+    beforeEach(async () => {
+        await device.launchApp({ newInstance: true });
+      });
+
 
     test('De contactpagina openen', ({ given, when, then }) => {
       given('ik ben op de homepagina', async () => {
-        await device.launchApp({ newInstance: true });
-        
+        await waitFor(homePage.gemeenteLogo).toBeVisible().withTimeout(10000);
       });
   
-      when('ik open de contact pagina', async () => {
-        await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(10000);
-        await element(by.text('Contact')).tap();
+      when('ik open de \'contact\' module', async () => {
+        await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000);
+        await element(homePage.contactModule).tap();
       });
   
       then('de contact pagina opent', async () => {
-        await waitFor(element(by.text('Kunnen we u helpen?'))).toBeVisible().withTimeout(5000);
+        await waitFor(contactPage.header).toBeVisible().withTimeout(5000);
         //await waitFor(element(by.text('Kunnen we u helpen?'))).toBeVisible().whileElement(by.text('Bekijk route')).scroll(100, 'down');
        //await element(by.text('Amstel 1')).scrollTo('bottom');
         await element(by.id('bezoek')).swipe('up');
@@ -36,7 +38,6 @@ defineFeature(feature, (test) => {
 
     test('Contactgegevens opzoeken van het stadsloket waar ik als Amsterdammer naar toe wil', ({ given, when, then }) => {
       given('ik ben op de contactpagina', async () => {
-        await device.launchApp({ newInstance: true });
         await waitFor(element(by.text('Contact'))).toBeVisible().withTimeout(10000);
         await element(by.text('Contact')).tap();
       });
