@@ -2,7 +2,7 @@
 
 class HomePage {
     get gemeenteLogo() {
-        return element(by.label('Gemeente Amsterdam'));
+        return element(by.label('~Gemeente Amsterdam'));
     }
 
     get afvalWijzerModule() {
@@ -62,7 +62,7 @@ class HomePage {
                 await this.overDezeAppModule.tap();
                 break;
                 default:
-                assert.fail(`The entered section ${module} is an invalid module`);
+                assert.fail(`The entered section ${module} is an invaltext module`);
         }
     }
 }

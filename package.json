@@ -23,7 +23,9 @@
     "postinstall": "patch-package",
     "detox:build:ios": "detox build --configuration ios.sim.debug",
     "detox:test:ios": "detox test --configuration ios.sim.debug",
-    "detox:test:cucumber:ios": "DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js"
+    "detox:test:cucumber:ios": "DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js",
+    "detox:build:android": "detox build --configuration android.emu.debug",
+    "detox:test:android": "detox test --configuration android.emu.debug"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.3",
@@ -91,6 +93,7 @@
     "babel-loader": "^8.2.5",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-react-native-web": "^0.18.4",
+    "chai": "^4.3.7",
     "css-loader": "^5.2.7",
     "detox": "^20.0.3",
     "detox-recorder": "^1.0.151",
