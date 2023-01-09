@@ -1,9 +1,8 @@
+// import {expect as chaiExpect} from 'chai'
 import {expect} from 'detox'
-import {expect as chaiExpect} from 'chai'
 import {defineFeature, loadFeature} from 'jest-cucumber'
-import homePage from '../pageobjects/home.page'
 import contactPage from '../pageobjects/contact.page'
-
+import homePage from '../pageobjects/home.page'
 
 const feature = loadFeature('e2e/features/contact.feature')
 
@@ -11,7 +10,7 @@ defineFeature(feature, test => {
   beforeEach(async () => {
     await device.launchApp({newInstance: true})
   })
-  
+
   test('De contactpagina openen', ({given, when, then}) => {
     given('ik ben op de homepagina', async () => {
       //await waitFor(homePage.gemeenteLogo).toBeVisible().withTimeout(10000);
@@ -142,7 +141,7 @@ defineFeature(feature, test => {
     given,
     when,
     then,
-    and
+    and,
   }) => {
     given('ik ben op de contactpagina', async () => {
       await device.launchApp({newInstance: true})
@@ -156,23 +155,46 @@ defineFeature(feature, test => {
       await contactPage.ContactButtonCityOfficeWeesp.tap()
     })
     then('ik zie een adres van het stadsloket', async () => {
-    await expect(element(by.label('Nieuwstraat 70a, 1380 BD, Weesp'))).toExist()
+      await expect(
+        element(by.label('Nieuwstraat 70a, 1380 BD, Weesp')),
+      ).toExist()
     })
-    and('ik zie openingstijden, Bekijk routeknop en Maak een afspraakknop', async () => {
-      await expect(element(by.label('Openingstijden Sociaal loket, altijd met afspraak:'))).toExist()
-      await expect(element(by.label('Openingstijden Sociaal loket, altijd met afspraak:'))).toExist()
-      await expect(element(by.text('maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur'))).toExist()
-      await expect(element(by.text('woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.'))).toExist()
-      await expect(contactPage.ContactButtonMakeAppointment).toExist()
-      //await expect(element(by.id('ContactButtonMakeAppointment'))).toHaveLabel('Opent een link naar een formulier.')
-      //await element(by.id('ContactButtonMakeAppointment')).swipe('up')
-      await contactPage.ContactButtonCurrentCityOffice.swipe('up')
-      // await contactPage.ContactButtonMakeAppointment.tap()
-      // await device.launchApp({newInstance: false});
-      await expect(contactPage.ContactButtonRoute).toExist()
-      // await contactPage.ContactButtonRoute.tap()
-      // await device.launchApp({newInstance: false});
-      await expect(contactPage.HeaderTitle).toBeVisible()
-    })
+    and(
+      'ik zie openingstijden, Bekijk routeknop en Maak een afspraakknop',
+      async () => {
+        await expect(
+          element(
+            by.label('Openingstijden Sociaal loket, altijd met afspraak:'),
+          ),
+        ).toExist()
+        await expect(
+          element(
+            by.label('Openingstijden Sociaal loket, altijd met afspraak:'),
+          ),
+        ).toExist()
+        await expect(
+          element(
+            by.text('maandag, dinsdag, donderdag en vrijdag 8.30-11.00 uur'),
+          ),
+        ).toExist()
+        await expect(
+          element(
+            by.text(
+              'woensdag op Papelaan 99 (als onderdeel van Weesper MOP) 9.30-11.30 uur.',
+            ),
+          ),
+        ).toExist()
+        await expect(contactPage.ContactButtonMakeAppointment).toExist()
+        //await expect(element(by.id('ContactButtonMakeAppointment'))).toHaveLabel('Opent een link naar een formulier.')
+        //await element(by.id('ContactButtonMakeAppointment')).swipe('up')
+        await contactPage.ContactButtonCurrentCityOffice.swipe('up')
+        // await contactPage.ContactButtonMakeAppointment.tap()
+        // await device.launchApp({newInstance: false});
+        await expect(contactPage.ContactButtonRoute).toExist()
+        // await contactPage.ContactButtonRoute.tap()
+        // await device.launchApp({newInstance: false});
+        await expect(contactPage.HeaderTitle).toBeVisible()
+      },
+    )
   })
 })

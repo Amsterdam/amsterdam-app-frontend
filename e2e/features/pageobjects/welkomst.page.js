@@ -1,20 +1,19 @@
-const Page = require('./page');
+const Page = require('./page')
 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
 class WelkomstPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get welkomstSchermId () {
-        return $('~Amsterdam');
-    }
+  /**
+   * define selectors using getter methods
+   */
+  get welkomstSchermId() {
+    // return $('~Amsterdam')
+  }
 
-    async welkomClick () {
-        await this.welkomstSchermId.click();
-    }
+  async welkomClick() {
+    await this.welkomstSchermId.click()
+  }
 }
 
-
-module.exports = new WelkomstPage();
+module.exports = new WelkomstPage()

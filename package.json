@@ -98,6 +98,7 @@
     "detox": "^20.0.3",
     "detox-recorder": "^1.0.151",
     "eslint": "^8.26.0",
+    "eslint-plugin-detox": "^1.0.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-expressions": "github:oberonamsterdam/eslint-plugin-jsx-expressions",
     "eslint-plugin-prefer-arrow-functions": "^3.1.4",

@@ -1,40 +1,34 @@
-
-const Page = require('./page');
+const Page = require('./page')
 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
 class NavPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get gemeenteLogo () {
-        return $('XCUIElementTypeButton[@name="Afvalwijzer"]');
-    }
+  /**
+   * define selectors using getter methods
+   */
+  get gemeenteLogo() {
+    // return $('XCUIElementTypeButton[@name="Afvalwijzer"]')
+  }
 
-    // get contact () {
-    //     //return $('XCUIElementTypeButton[@name="Afvalwijzer"]');
-    //     return $('XCUIElementTypeButton[@name="Contact"]')
-    // }
+  // get contact () {
+  //     //return $('XCUIElementTypeButton[@name="Afvalwijzer"]');
+  //     return $('XCUIElementTypeButton[@name="Contact"]')
+  // }
 
-    // async contactClick () {
+  // async contactClick () {
 
-    //     // await this.contact.waitForClickable();
-    //     // await this.contact.click();
-    // }
- 
-    get contactBtn () {
-        return $('//XCUIElementTypeButton[@name="Contact"]');
-    } 
+  //     // await this.contact.waitForClickable();
+  //     // await this.contact.click();
+  // }
 
-  
-     async contactClick () {
+  get contactBtn() {
+    // return $('//XCUIElementTypeButton[@name="Contact"]')
+  }
 
-       await this.contactBtn.click();
-    }
-    
-    
+  async contactClick() {
+    await this.contactBtn.click()
+  }
 }
 
-
-module.exports = new NavPage();
+module.exports = new NavPage()
