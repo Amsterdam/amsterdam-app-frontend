@@ -2,65 +2,66 @@
 
 We decided to use [Detox](https://wix.github.io/Detox/).
 
-## TestID's
+To allow the test library to consistently interact with components, we assign test identifiers to them through a `testID` prop.
 
-To be able to interact with app components consistently it is best to assign testID's to the components that we want to interact with.
+We decided to go with this naming convention for the test identifiers:
 
-### Naming convention
+`[ModuleKey][ComponentType][ComponentKey]([SubComponentType][SubComponentKey])?`
 
-We decided to go with this naming convention for components:
+Examples:
+- `ContactTextInputName` 
+- `ContactTextInputNameButtonClear`
 
-`[Module][ComponentType][Which]([SubComponentType][SubComponentWhich])?`
+## Module key
 
-Examples of this are:
-`ContactTextInputName` and
-`ContactTextInputNameButtonClear`
-
-### Explained per part
-
-#### `[Module]`
-
-The name of the module this component is part of.
+The name of the module in which the component appears.
 
 Examples:
 
 - `About`
 - `Contact`
+- `WasteGuide`
 
-#### `[ComponentType]`
+### Exceptions
 
-General type of the component, mainly to describe what kind of interaction can be done.
+We replace the module key with `Header` for components in the app header, as these components are displayed on screens for various modules.
+
+
+## Component type
+
+The general type of the component. This indicates the kinds of interaction that can occur.
 
 Examples:
 
 - `Button`
 - `Text`
-- `Title`
 - `TextInput`
 
-Note:
-Make them not too specific, `Button` is preferred over `TopTaskButton`.
+Don’t make these too specific: instead of `TopTaskButton`, we just use `Button`.
 
-#### `[Which]`
+## Component key
 
-Describe which component of component type it is on the page.
+Identifies the specific instance of a component type.
 
-#### `[SubComponentType]`
+Examples:
+- A button to edit an address: `[Module]ButtonEditAddress`
+- The title of a city office: `[Module]TitleCityOffice`
 
-Optional. Same type as `ComponentType`, however this is of a subcomponent.
-Must be used together with `SubComponentWhich`. See [Subcomponents](#subcomponents).
+## Subcomponent type
 
-#### `[SubComponentWhich]`
+Optional.
+Same type as `ComponentType`.
+Use together with `SubComponentKey`.
 
-Optional. Same type as `Which`, however this is of a subcomponent.
-Must be used together with `SubComponentWhich`. See [Subcomponents](#subcomponents).
+Subcomponents are components that are part of a larger interaction component, with which users must be able to interact individually.
 
-### Subcomponents
+Example: the ‘cross’ icon in an input field must be pressed to clear its value, separately from the input field itself.
 
-Subcomponents are components that are part of a larger interaction component but users should also be able to interact with them individually.
+## Subcomponent key
 
-An example of a subcomponent is the 'clear input text cross' inside an input field. It is part of a larger interaction component but you also need to be able to interact with it individually.
+Optional.
+Same type as `ComponentKey`.
+Use together with `SubComponentType`.
 
-### Exceptions
-
-- elements in the `Header`, as they are added automatically to multiple screens, giving them screen specific testID's is hard, therefor they can have `Header` as name of the module
+Example:
+- [Module]TextInputAddressButtonClear
