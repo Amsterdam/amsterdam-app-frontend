@@ -1,4 +1,5 @@
 const Page = require('./page')
+import packageJSON from '../../../package.json'
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -30,6 +31,20 @@ class AboutPage extends Page {
   get AboutButtonAccessibilityStatement() {
     return element(by.id('ContactTextContactOptions'))
   }
+
+  get AppVersion() {
+    const buildNumber = parseInt(
+      require('child_process')
+        .execSync('git rev-list --count HEAD')
+        .toString()
+        .trim(),
+      10,
+    )
+    const versionNo = packageJSON.version
+    const appVersion = 'Versie ' + versionNo + '.' + buildNumber
+    return appVersion
+  }
+  
 }
 
 module.exports = new AboutPage()
