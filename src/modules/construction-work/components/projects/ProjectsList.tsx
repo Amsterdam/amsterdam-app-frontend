@@ -32,6 +32,7 @@ import {useTheme} from '@/themes'
 import {accessibleText, mapImageSources} from '@/utils'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
+const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
 type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
@@ -153,11 +154,15 @@ export const ProjectsList = ({
       )}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
+      style={styles.gridView}
     />
   )
 }
 
 const styles = StyleSheet.create({
+  gridView: {
+    marginTop: -UNINTENDED_SPACING_FROM_RN_SUPER_GRID,
+  },
   itemContainer: {
     justifyContent: 'flex-start',
   },
