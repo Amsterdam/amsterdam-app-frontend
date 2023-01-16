@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
-import {Gutter, Row} from '@/components/ui/layout'
+import {Row} from '@/components/ui/layout'
 import {AddressModalName} from '@/modules/address/routes'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
@@ -17,16 +17,12 @@ export const ProvideAddressButton = () => {
     >()
 
   return (
-    <>
-      <Gutter height="lg" />
-      <Row align="start">
-        <Button
-          iconName="location"
-          label="Vul uw adres in"
-          onPress={() => navigation.navigate(AddressModalName.addressForm)}
-        />
-      </Row>
-      <Gutter height="md" />
-    </>
+    <Row align="start">
+      <Button
+        iconName="location"
+        label="Vul uw adres in"
+        onPress={() => navigation.navigate(AddressModalName.addressForm)}
+      />
+    </Row>
   )
 }

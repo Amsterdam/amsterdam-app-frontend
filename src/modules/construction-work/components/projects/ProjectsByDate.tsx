@@ -1,5 +1,10 @@
 import React from 'react'
-import {ProjectsList} from '@/modules/construction-work/components/projects'
+import {
+  ProjectsList,
+  ProjectsListHeader,
+  ProvideAddressButton,
+  SearchFieldNavigator,
+} from '@/modules/construction-work/components/projects'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useSortProjects} from '@/modules/construction-work/hooks'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
@@ -30,6 +35,12 @@ export const ProjectsByDate = () => {
         followed,
         recent_articles,
       })}
+      listHeader={
+        <ProjectsListHeader>
+          <SearchFieldNavigator />
+          <ProvideAddressButton />
+        </ProjectsListHeader>
+      }
     />
   )
 }
