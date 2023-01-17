@@ -62,6 +62,7 @@ export const ProjectsTextSearchField = () => {
 
   return (
     <SearchField
+      autoFocus
       blurOnSubmit={true}
       onChangeText={setSearchData}
       onEndEditing={() => dispatch(setIsSearching(!!searchText))}
