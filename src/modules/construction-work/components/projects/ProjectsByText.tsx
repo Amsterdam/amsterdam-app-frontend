@@ -26,7 +26,7 @@ export const ProjectsByText = () => {
       : skipToken,
   )
 
-  const resultsLabel = result.data?.length
+  const resultsLabel = result.data
     ? simplur`${result.data?.length} zoekresulta[at|ten]`
     : 'Type ten minste drie letters om te zoeken.'
 
