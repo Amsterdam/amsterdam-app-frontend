@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import RNRestart from 'react-native-restart'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
@@ -24,8 +25,13 @@ export const EnvironmentSelector = () => {
       modulesApiUrl:
         custom?.modulesApiUrl ?? environments[Environment.custom].modulesApiUrl,
     })
-    dispatch(baseApi.util.resetApiState())
-  }, [custom?.apiUrl, custom?.modulesApiUrl, dispatch])
+    if (Object.keys(customUrls).length) {
+      dispatch(baseApi.util.resetApiState())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [custom, custom?.apiUrl, custom?.modulesApiUrl, dispatch])
+
+  useEffect(() => () => RNRestart.Restart(), [])
 
   return isDevApp ? (
     <>
