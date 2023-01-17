@@ -145,9 +145,7 @@ export const ProjectsList = ({
           <PleaseWait />
         ) : searchText !== '' ? (
           <ListEmptyMessage text={noResultsMessage} />
-        ) : (
-          <ListEmptyMessage text="Begin met typen" />
-        )
+        ) : null
       }
       ListHeaderComponent={listHeader}
       renderItem={({item}) => (

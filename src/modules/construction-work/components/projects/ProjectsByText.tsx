@@ -26,6 +26,10 @@ export const ProjectsByText = () => {
       : skipToken,
   )
 
+  const resultsLabel = result.data?.length
+    ? simplur`${result.data?.length} zoekresulta[at|ten]`
+    : 'Type ten minste drie letters om te zoeken.'
+
   return (
     <ProjectsList
       {...result}
@@ -33,9 +37,7 @@ export const ProjectsByText = () => {
       listHeader={
         <ProjectsListHeader>
           <ProjectsTextSearchField />
-          <Paragraph>{simplur`${
-            result.data?.length ?? 0
-          } zoekresulta[at|ten]`}</Paragraph>
+          <Paragraph>{resultsLabel}</Paragraph>
         </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
