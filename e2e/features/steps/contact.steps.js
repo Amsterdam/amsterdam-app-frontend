@@ -1,7 +1,7 @@
+import {expect} from 'detox'
 import {loadFeatures, autoBindSteps} from 'jest-cucumber'
 import contactPage from '../pageobjects/contact.page'
 import homePage from '../pageobjects/home.page'
-import {expect} from 'detox'
 
 const features = loadFeatures('e2e/features/contact.feature')
 
@@ -10,9 +10,22 @@ const contactSteps = ({given, when, then, and}) => {
     await device.launchApp({newInstance: true})
   })
 
-  given(/ik ben op de homepagina/, async () => {
-    await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
-  })
+  given(
+    /ik ben op de homepagina - wacht totdat flashscreen verdwijnt/,
+    async () => {
+      await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
+    },
+  )
+
+  given(
+    /ik ben op de homepagina - klik zodat flashscreen verdwijnt/,
+    async () => {
+      await waitFor(element(by.traits(['button'])))
+        .toBeVisible()
+        .withTimeout(10000)
+      await element(by.traits(['button'])).tap()
+    },
+  )
 
   when(/ik open de 'contact' module/, async () => {
     await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
