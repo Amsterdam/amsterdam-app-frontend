@@ -1,5 +1,5 @@
-const Page = require('./page')
 import packageJSON from '../../../package.json'
+const Page = require('./page')
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -44,7 +44,6 @@ class AboutPage extends Page {
     const appVersion = 'Versie ' + versionNo + '.' + buildNumber
     return appVersion
   }
-  
 }
 
 module.exports = new AboutPage()
