@@ -102,15 +102,17 @@ type Props = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   isError: boolean
   isLoading: boolean
+  searchText?: string | undefined
   listHeader?: JSX.Element
   noResultsMessage?: string
 }
 
 export const ProjectsList = ({
-  data = [],
+  data,
   getProjectTraits,
   isError,
   isLoading,
+  searchText = undefined,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
 }: Props) => {
@@ -126,10 +128,6 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
   if (isError) {
     return <SomethingWentWrong />
   }
@@ -137,12 +135,20 @@ export const ProjectsList = ({
   return (
     <FlatGrid
       contentContainerStyle={{paddingBottom}}
-      data={data}
+      data={data ?? []}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={<ListEmptyMessage text={noResultsMessage} />}
+      ListEmptyComponent={
+        isLoading ? (
+          <PleaseWait />
+        ) : searchText !== '' ? (
+          <ListEmptyMessage text={noResultsMessage} />
+        ) : (
+          <ListEmptyMessage text="Begin met typen" />
+        )
+      }
       ListHeaderComponent={listHeader}
       renderItem={({item}) => (
         <ListItem
