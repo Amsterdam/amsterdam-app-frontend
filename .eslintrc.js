@@ -7,7 +7,7 @@ module.exports = {
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
   ],
-  ignorePatterns: ['!.storybook'],
+  ignorePatterns: ['!.storybook', '!.*', 'node_modules'],
   rules: {
     'import/no-default-export': 'error',
     'import/order': [
