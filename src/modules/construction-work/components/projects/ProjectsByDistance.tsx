@@ -1,8 +1,11 @@
 import React from 'react'
-import {Box} from '@/components/ui/containers'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
-import {ProjectsList} from '@/modules/construction-work/components/projects'
+import {
+  ProjectsList,
+  ProjectsListHeader,
+  SearchFieldNavigator,
+} from '@/modules/construction-work/components/projects'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useSortProjects} from '@/modules/construction-work/hooks'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
@@ -46,12 +49,13 @@ export const ProjectsByDistance = ({
         strides,
       })}
       listHeader={
-        <Box>
+        <ProjectsListHeader>
+          <SearchFieldNavigator />
           <StreetAddressWithEditButton
             accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}
             address={`Dichtbij ${addressText}`}
           />
-        </Box>
+        </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden dichtbij dit adres."
     />

@@ -32,6 +32,7 @@ import {useTheme} from '@/themes'
 import {accessibleText, mapImageSources} from '@/utils'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
+const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
 type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
@@ -101,15 +102,17 @@ type Props = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   isError: boolean
   isLoading: boolean
+  searchText?: string | undefined
   listHeader?: JSX.Element
   noResultsMessage?: string
 }
 
 export const ProjectsList = ({
-  data = [],
+  data,
   getProjectTraits,
   isError,
   isLoading,
+  searchText = undefined,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
 }: Props) => {
@@ -125,10 +128,6 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
   if (isError) {
     return <SomethingWentWrong />
   }
@@ -136,12 +135,18 @@ export const ProjectsList = ({
   return (
     <FlatGrid
       contentContainerStyle={{paddingBottom}}
-      data={data}
+      data={data ?? []}
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
-      ListEmptyComponent={<ListEmptyMessage text={noResultsMessage} />}
+      ListEmptyComponent={
+        isLoading ? (
+          <PleaseWait />
+        ) : searchText !== '' ? (
+          <ListEmptyMessage text={noResultsMessage} />
+        ) : null
+      }
       ListHeaderComponent={listHeader}
       renderItem={({item}) => (
         <ListItem
@@ -153,11 +158,15 @@ export const ProjectsList = ({
       )}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
+      style={styles.gridView}
     />
   )
 }
 
 const styles = StyleSheet.create({
+  gridView: {
+    marginTop: -UNINTENDED_SPACING_FROM_RN_SUPER_GRID,
+  },
   itemContainer: {
     justifyContent: 'flex-start',
   },

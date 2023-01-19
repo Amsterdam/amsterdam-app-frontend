@@ -2,6 +2,7 @@ import {ProjectBody} from '@/modules/construction-work/types'
 
 export enum ConstructionWorkRouteName {
   constructionWork = 'ConstructionWork',
+  search = 'ConstructionWorkSearch',
   project = 'Project',
   projectBody = 'ProjectBody',
   projectNews = 'ProjectNews',
@@ -10,6 +11,7 @@ export enum ConstructionWorkRouteName {
 
 export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.constructionWork]: undefined
+  [ConstructionWorkRouteName.search]: undefined
   [ConstructionWorkRouteName.project]: {id: string}
   [ConstructionWorkRouteName.projectBody]: {
     body: ProjectBody

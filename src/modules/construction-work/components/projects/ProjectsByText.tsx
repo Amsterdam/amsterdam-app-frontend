@@ -1,37 +1,44 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import React from 'react'
+import {useSelector} from 'react-redux'
 import simplur from 'simplur'
-import {Box} from '@/components/ui/containers'
-import {Gutter} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {ProjectsList} from '@/modules/construction-work/components/projects'
+import {
+  ProjectsList,
+  ProjectsListHeader,
+  ProjectsTextSearchField,
+} from '@/modules/construction-work/components/projects'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/service'
+import {selectConstructionWorkSearchText} from '@/modules/construction-work/slice'
 
-type ListHeaderProps = {
-  results: number
-}
+export const ProjectsByText = () => {
+  const searchText = useSelector(selectConstructionWorkSearchText)
 
-const ListHeader = ({results}: ListHeaderProps) => (
-  <Box insetHorizontal="md">
-    <Paragraph>{simplur`${results} zoekresulta[at|ten]`}</Paragraph>
-    <Gutter height="lg" />
-  </Box>
-)
+  const hasSearchText = !!searchText
 
-type Props = {
-  searchText: string
-}
+  const result = useGetProjectsByTextQuery(
+    hasSearchText
+      ? {
+          fields: ['identifier', 'images', 'subtitle', 'title'],
+          text: searchText,
+          queryFields: ['title', 'subtitle'],
+        }
+      : skipToken,
+  )
 
-export const ProjectsByText = ({searchText}: Props) => {
-  const result = useGetProjectsByTextQuery({
-    fields: ['identifier', 'images', 'subtitle', 'title'],
-    text: searchText,
-    queryFields: ['title', 'subtitle'],
-  })
+  const resultsLabel =
+    result.data && simplur`${result.data?.length} zoekresulta[at|ten]`
 
   return (
     <ProjectsList
       {...result}
-      listHeader={<ListHeader results={result.data?.length ?? 0} />}
+      searchText={searchText}
+      listHeader={
+        <ProjectsListHeader>
+          <ProjectsTextSearchField />
+          {!!resultsLabel && <Paragraph>{resultsLabel}</Paragraph>}
+        </ProjectsListHeader>
+      }
       noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
     />
   )

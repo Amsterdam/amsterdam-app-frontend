@@ -6,6 +6,7 @@ import {
 } from '@/modules/construction-work/routes'
 import {
   ConstructionWorkScreen,
+  ConstructionWorkSearchScreen,
   ProjectBodyScreen,
   ProjectNewsScreen,
   ProjectScreen,
@@ -21,6 +22,13 @@ export const screenConfig: StackNavigationRoutes<
     name: ConstructionWorkRouteName.constructionWork,
     options: {
       headerTitle: 'Werkzaamheden',
+    },
+  },
+  [ConstructionWorkRouteName.search]: {
+    component: ConstructionWorkSearchScreen,
+    name: ConstructionWorkRouteName.search,
+    options: {
+      headerTitle: 'Zoek in werkzaamheden',
     },
   },
   [ConstructionWorkRouteName.project]: {
