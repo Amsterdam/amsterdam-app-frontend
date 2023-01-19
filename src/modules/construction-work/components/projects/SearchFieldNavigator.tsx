@@ -15,6 +15,7 @@ export const SearchFieldNavigator = () => {
     <SearchField
       onFocus={() => navigation.navigate(ConstructionWorkRouteName.search)}
       placeholder="Zoek in werkzaamheden"
+      testID="ConstructionWorkTextInputNavigator"
     />
   )
 }

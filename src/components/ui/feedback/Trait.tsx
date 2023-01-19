@@ -18,11 +18,21 @@ type Props = {
    * Should be one or a few words.
    */
   label: string
+  testIDIcon?: string
+  testIDLabel?: string
 }
 
-export const Trait = ({children, iconName, label}: Props) => (
+export const Trait = ({
+  children,
+  iconName,
+  label,
+  testIDIcon,
+  testIDLabel,
+}: Props) => (
   <Row gutter="sm" valign="center">
-    {iconName ? <Icon name={iconName} /> : children}
-    <Phrase variant="small">{label}</Phrase>
+    {iconName ? <Icon name={iconName} testID={testIDIcon} /> : children}
+    <Phrase testID={testIDLabel} variant="small">
+      {label}
+    </Phrase>
   </Row>
 )

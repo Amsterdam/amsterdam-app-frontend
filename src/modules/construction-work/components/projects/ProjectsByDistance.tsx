@@ -54,6 +54,8 @@ export const ProjectsByDistance = ({
           <StreetAddressWithEditButton
             accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}
             address={`Dichtbij ${addressText}`}
+            testIDLabel="ConstructionWorkTextAddress"
+            testIDButton="ConstructionWorkButtonEditAddress"
           />
         </ProjectsListHeader>
       }

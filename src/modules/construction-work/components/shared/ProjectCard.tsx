@@ -37,11 +37,15 @@ export const ProjectCard = ({
           kicker?.props.accessibilityLabel ?? undefined,
         )}
         onPress={onPress}
-        style={({pressed}) => [styles.pressable, pressed && styles.pressed]}>
+        style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
+        testID="ConstructionWorkCardProject">
         {!!imageSource && (
           <>
             <AspectRatio aspectRatio="wide">
-              <Image source={imageSource} />
+              <Image
+                source={imageSource}
+                testID="ConstructionWorkCardProjectImageMain"
+              />
             </AspectRatio>
             <Gutter height="sm" />
           </>
@@ -52,8 +56,17 @@ export const ProjectCard = ({
             <Gutter height="xs" />
           </>
         )}
-        <Title color="link" level="h4" text={title} />
-        {!!subtitle && <Paragraph>{subtitle}</Paragraph>}
+        <Title
+          color="link"
+          level="h4"
+          testID="ConstructionWorkCardProjectTextTitle"
+          text={title}
+        />
+        {!!subtitle && (
+          <Paragraph testID="ConstructionWorkCardProjectTextSubtitle">
+            {subtitle}
+          </Paragraph>
+        )}
         {/*TODO Replace with better `Grid` gutters */}
         <Gutter height="sm" />
       </Pressable>

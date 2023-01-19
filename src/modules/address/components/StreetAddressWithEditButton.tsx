@@ -12,11 +12,15 @@ import {module as wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   address: string
+  testIDButton: string
+  testIDLabel: string
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const StreetAddressWithEditButton = ({
   accessibilityLabel,
   address,
+  testIDButton,
+  testIDLabel,
 }: Props) => {
   const navigation =
     useNavigation<
@@ -25,11 +29,14 @@ export const StreetAddressWithEditButton = ({
 
   return (
     <Row gutter="sm" valign="center">
-      <Phrase accessibilityLabel={accessibilityLabel}>{address}</Phrase>
+      <Phrase accessibilityLabel={accessibilityLabel} testID={testIDLabel}>
+        {address}
+      </Phrase>
       <IconButton
         accessibilityLabel="Wijzig het adres"
         icon={<Icon color="link" name="edit" />}
         onPress={() => navigation.navigate(AddressModalName.addressForm)}
+        testID={testIDButton}
       />
     </Row>
   )
