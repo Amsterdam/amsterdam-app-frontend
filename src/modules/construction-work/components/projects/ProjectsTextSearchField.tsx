@@ -62,7 +62,7 @@ export const ProjectsTextSearchField = () => {
       autoFocus
       blurOnSubmit={true}
       onChangeText={setSearchData}
-      placeholder="Zoek in werkzaamheden"
+      placeholder="Type drie letters of meer …"
       value={searchTextValue}
     />
   )
