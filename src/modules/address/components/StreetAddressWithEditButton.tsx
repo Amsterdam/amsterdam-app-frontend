@@ -12,8 +12,8 @@ import {module as wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   address: string
-  testIDButton: string
-  testIDLabel: string
+  testIDButton?: string | undefined
+  testIDLabel?: string | undefined
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const StreetAddressWithEditButton = ({
