@@ -1,20 +1,22 @@
 Feature: Contact
 
   #POC scenario's:
-  @matchers @text @id @actions @scrolling @verticalscrolling
+  @included
   Scenario: De contactpagina openen
-    Given ik ben op de homepagina
+    Given ik ben op de homepagina - wacht totdat splashscreen verdwijnt
     When ik open de 'contact' module
     Then de contact pagina opent
 
+  @included
   Scenario: Contactgegevens opzoeken van het stadsloket waar ik als Amsterdammer naar toe wil
     Given ik ben op de contactpagina
     When ik verander het stadsloket naar stadsloket Nieuw-West
     Then ik zie contactgegevens en informatie van het betreffende stadsloket
 
   #Nieuwe scenario's:
+  @included
   Scenario: Op de contactpagina zie ik een overzicht met contactmogelijkheden
-   Given ik ben op de homepagina
+   Given ik ben op de homepagina - klik zodat splashscreen verdwijnt
     When ik open de 'contact' module
     Then zie ik de volgende links:
 #      | Gebruik ons contactformulier, Reactie binnen 1 werkdag  |
@@ -27,6 +29,7 @@ Feature: Contact
 # Scenario: Ik kan contact opnemen met de gemeente via Whatsapp.
 # Scenario: Ik kan navigeren naar het de website van Mijn Amsterdam.
 
+  @included
   Scenario: Op de contactpagina zie ik een informerende titel en tekst over de pagina
     Given ik ben op de contactpagina
     Then zie ik de volgende titel en tekst
@@ -37,38 +40,35 @@ Feature: Contact
       Neem op werkdagen contact met ons op.
       """
 
-
-  Scenario: Op de contactpagina vind ik informatie over de stadsloketten die ik kan bezoeken
+  @included
+  Scenario Outline: Op de contactpagina vind ik informatie over de stadsloketten die ik kan bezoeken
     Given ik ben op de contactpagina
     When ik klik op het stadsloket
     Then zie ik een lijst met stadsloketten 
-      | stadsloket |  
-      | Centrum    |  
-      | Nieuw-West | 
-      | Noord      | 
-      | Oost       | 
-      | West       | 
-      | Zuid       | 
-      | Zuidoost   | 
-      | Weesp      |
-   # When ik selecteer een stadsloket <stadsloket>
-  #  Then ik zie een het adres <adres> van stadsloket <stadsloket> 
-  #  And ik zie de bijbehorende informatie van het stadsloket:
-  #    * Openingstijden 
-  #    * Aantal wachtenden 
-  #    * Wachttijd 
-  #    * Bekijk routeknop
- # Examples:
- #     | stadsloket | adres                                       | 
- #     | Centrum    | Amstel 1 1011 PN Amsterdam                  | 
- #     | Nieuw-West | Osdorpplein 946 1068 TD Amsterdam           |
-    #  | Noord      | Buikslotermeerplein 2000 1025 XL Amsterdam  |
-    #  | Oost       | Oranje-Vrijstaatplein 2 1093 NG Amsterdam   |
-    #  | West       | Bos en Lommerplein 250 1055 EK Amsterdam    |
-    #  | Zuid       | President Kennedylaan 923 1079 MZ Amsterdam |
-    #  | Zuidoost   | Anton de Komplein 150 1102 CW Amsterdam     |
-    #  | Weesp      | Nieuwstraat 70a 1380 BD Weesp               |
+   #   | stadsloket |  
+   #   | Centrum    |  
+   #   | Nieuw-West | 
+   #   | Noord      | 
+   #   | Oost       | 
+   #   | West       | 
+   #   | Zuid       | 
+   #   | Zuidoost   | 
+   #   | Weesp      |
+  When ik selecteer een stadsloket <stadsloket>
+  Then het juiste stadsloket wordt getoond <titel>
+  And de bekijk routeknop wordt getoond
+   Examples:
+       | stadsloket | adres                                       | titel                 |
+       | Centrum    | Amstel 1 1011 PN Amsterdam                  | Stadsloket Centrum    |
+       | Nieuw-West | Osdorpplein 946 1068 TD Amsterdam           | Stadsloket Nieuw-West |
+       | Noord      | Buikslotermeerplein 2000 1025 XL Amsterdam  | Stadsloket Noord      |
+       | Oost       | Oranje-Vrijstaatplein 2 1093 NG Amsterdam   | Stadsloket Oost       |
+       | West       | Bos en Lommerplein 250 1055 EK Amsterdam    | Stadsloket West       |
+       | Zuid       | President Kennedylaan 923 1079 MZ Amsterdam | Stadsloket Zuid       |  
+       | Zuidoost   | Anton de Komplein 150 1102 CW Amsterdam     | Stadsloket Zuidoost   |
+       | Weesp      | Nieuwstraat 70a 1380 BD Weesp               | Stadsloket Weesp      |
 
+  @included
   Scenario: Als ik Weesp als stadsloket selecteer kan ik een afspraak maken 
     Given ik ben op de contactpagina
     When ik selecteer stadsloket Weesp

@@ -29,7 +29,7 @@ class AboutPage extends Page {
   }
 
   get AboutButtonAccessibilityStatement() {
-    return element(by.id('ContactTextContactOptions'))
+    return element(by.id('AboutButtonAccessibilityStatement'))
   }
 
   get AppVersion() {
@@ -43,6 +43,98 @@ class AboutPage extends Page {
     const versionNo = packageJSON.version
     const appVersion = 'Versie ' + versionNo + '.' + buildNumber
     return appVersion
+  }
+
+  get AboutWaaromDezeAppPageHeaderTitle() {
+    return element(by.text('1 app voor alle Amsterdammers'))
+  }
+
+  get AboutWaaromDezeAppPageIntroText() {
+    return element(
+      by.text(
+        'Met de Amsterdam app krijgt u snel informatie die voor u belangrijk is. En u kunt zaken makkelijk regelen. Zoals:',
+      ),
+    )
+  }
+
+  get AboutParagraphTitleInformatieOverAfval() {
+    return element(by.text('Informatie over afval'))
+  }
+
+  get AboutParagraphTitleWerkAanDeWeg() {
+    return element(by.text('Werk aan de weg'))
+  }
+
+  get AboutParagraphTitleMeldingMaken() {
+    return element(by.text('Melding maken'))
+  }
+
+  get AboutParagraphTitle1AppVoorNL() {
+    return element(by.text('1 app voor alle Amsterdammers en Weespers'))
+  }
+
+  get AboutParagraphTitleOnderwerpenToekomst() {
+    return element(by.text('Nog meer onderwerpen in de toekomst'))
+  }
+
+  get AboutWhyThisAppPageHeaderTitle() {
+    return element(by.text('1 app for all citizens of Amsterdam'))
+  }
+
+  get AboutWhyThisAppPageIntroText() {
+    return element(
+      by.text(
+        'The Amsterdam app quickly provides information tailored to you. Take care of affairs with ease, like:',
+      ),
+    )
+  }
+
+  get AboutParagraphTitleWasteInformation() {
+    return element(by.text('Waste information'))
+  }
+
+  get AboutParagraphTitleRoadWork() {
+    return element(by.text('Road Work'))
+  }
+
+  get AboutParagraphTitleReportIt() {
+    return element(by.text('Report it'))
+  }
+
+  get AboutParagraphTitle1AppVoorEN() {
+    return element(by.text('Waste information'))
+  }
+
+  get AboutParagraphTitleTopicsFuture() {
+    return element(by.text('More topics in the future'))
+  }
+
+  get AboutPrivacyPageHeaderTitle() {
+    return element(by.text('Samenvatting privacyverklaring gemeente Amsterdam'))
+  }
+
+  get AboutPrivacyPageFirstParagraph() {
+    return element(
+      by.text(
+        'Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de gemeente vaak contactgegevens, zoals uw telefoonnummer en e-mailadres, van u nodig om u goed te kunnen helpen.',
+      ),
+    )
+  }
+
+  get AboutParagraphTitlePersoonsgegevens() {
+    return element(by.text('Het verwerken van persoonsgegevens'))
+  }
+
+  get AboutParagraphTitlePrivacyverklaring() {
+    return element(by.text('Algemene versus specifieke privacyverklaring'))
+  }
+
+  get AboutButtonGeneralPrivacyStatement() {
+    return element(by.id('AboutButtonGeneralPrivacyStatement'))
+  }
+
+  get AboutButtonEmailSomethingBroken() {
+    return element(by.id('AboutButtonEmailSomethingBroken'))
   }
 }
 

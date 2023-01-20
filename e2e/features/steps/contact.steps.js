@@ -3,7 +3,9 @@ import {loadFeatures, autoBindSteps} from 'jest-cucumber'
 import contactPage from '../pageobjects/contact.page'
 import homePage from '../pageobjects/home.page'
 
-const features = loadFeatures('e2e/features/contact.feature')
+const features = loadFeatures('e2e/features/contact.feature', {
+  tagFilter: '@included and not @excluded',
+})
 
 const contactSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
@@ -11,19 +13,20 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   given(
-    /ik ben op de homepagina - wacht totdat flashscreen verdwijnt/,
+    /ik ben op de homepagina - wacht totdat splashscreen verdwijnt/,
     async () => {
       await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
     },
   )
 
   given(
-    /ik ben op de homepagina - klik zodat flashscreen verdwijnt/,
+    /ik ben op de homepagina - klik zodat splashscreen verdwijnt/,
     async () => {
-      await waitFor(element(by.traits(['button'])))
+      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
         .toBeVisible()
         .withTimeout(10000)
-      await element(by.traits(['button'])).tap()
+      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await expect(homePage.contactModule).toExist()
     },
   )
 
@@ -39,7 +42,10 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op de contactpagina/, async () => {
-    await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
+    await waitFor(element(by.id('WelcomePressableImageAndQuote')))
+      .toBeVisible(50)
+      .withTimeout(10000)
+    await element(by.id('WelcomePressableImageAndQuote')).tap()
     await homePage.contactModule.tap()
     await waitFor(contactPage.HeaderTitle).toBeVisible().withTimeout(5000)
   })
@@ -81,14 +87,25 @@ const contactSteps = ({given, when, then, and}) => {
     )
   })
 
-  when(/ik klik op het stadsloket/, async t => {
+  when(/ik klik op het stadsloket/, async () => {
     await contactPage.ContactTitleVisit.swipe('up', 'fast', 0.2)
     await contactPage.ContactButtonCurrentCityOffice.tap()
   })
 
   then(/zie ik een lijst met stadsloketten/, async table => {
+    //console.log(table[3].stadsloket)
+    //const Oost = table[0].stadsloket
+    //contactPage.checkStadsloketList(Oost)
     // const stadsloketArr = table;
     // stadsloketArr.forEach((element => contactPage.checkStadsloketList(element.stadsloket)))
+    //contactPage.checkStadsloketList('Centrum')
+    // contactPage.checkStadsloketList('Nieuw-West')
+    // contactPage.checkStadsloketList('Noord')
+    // contactPage.checkStadsloketList('Oost')
+    // contactPage.checkStadsloketList('West')
+    // contactPage.checkStadsloketList('Zuid')
+    // contactPage.checkStadsloketList('ZuidOost')
+    // contactPage.checkStadsloketList('Weesp')
     await expect(contactPage.ContactButtonCityOfficeCentrum).toExist()
     await expect(contactPage.ContactButtonCityOfficeNW).toExist()
     await expect(contactPage.ContactButtonCityOfficeNoord).toExist()
@@ -97,6 +114,27 @@ const contactSteps = ({given, when, then, and}) => {
     await expect(contactPage.ContactButtonCityOfficeZuid).toExist()
     await expect(contactPage.ContactButtonCityOfficeZO).toExist()
     await expect(contactPage.ContactButtonCityOfficeWeesp).toExist()
+  })
+
+  when(/^ik selecteer een stadsloket (.*)$/, async stadsloket => {
+    await contactPage.clickStadsloket(stadsloket)
+    // await expect(contactPage.ContactButtonCurrentCityOffice).toHaveLabel(adres)
+  })
+
+  then(/^het juiste stadsloket wordt getoond (.*)$/, async titel => {
+    //await expect(contactPage.ContactButtonCurrentCityOfficeTitle).toExist()
+    await expect(contactPage.ContactButtonCurrentCityOfficeTitle).toHaveText(
+      titel,
+    )
+  })
+
+  and(/de bekijk routeknop wordt getoond/, async () => {
+    await waitFor(contactPage.ContactButtonCurrentCityOffice)
+      .toBeVisible()
+      .withTimeout(10000)
+    await new Promise(r => setTimeout(r, 2000))
+    await contactPage.ContactButtonCurrentCityOffice.swipe('up')
+    await expect(contactPage.ContactButtonRoute).toBeVisible()
   })
 
   when(/ik selecteer stadsloket Weesp/, async () => {
