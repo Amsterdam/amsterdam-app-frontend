@@ -41,6 +41,10 @@ class ContactPage extends Page {
     return element(by.id('ContactButtonCurrentCityOffice'))
   }
 
+  get ContactButtonCurrentCityOfficeTitle() {
+    return element(by.id('ContactButtonCurrentCityOfficeTitle'))
+  }
+
   get ContactTextVisitingHours() {
     return element(by.id('ContactTextVisitingHours'))
   }
@@ -160,7 +164,7 @@ class ContactPage extends Page {
       case 'Zuid':
         await this.ContactButtonCityOfficeZuid.tap()
         break
-      case 'ZuidOost':
+      case 'Zuidoost':
         await this.ContactButtonCityOfficeZO.tap()
         break
       case 'Weesp':
