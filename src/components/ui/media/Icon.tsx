@@ -22,6 +22,7 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
+  testID?: string
 }
 
 export const Icon = ({
@@ -29,6 +30,7 @@ export const Icon = ({
   name,
   scalesWithFont = true,
   size = 'md',
+  testID,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useContext(DeviceContext)
@@ -39,7 +41,8 @@ export const Icon = ({
       fillRule="evenodd"
       height={scaledSize}
       viewBox="0 0 32 32"
-      width={scaledSize}>
+      width={scaledSize}
+      testID={testID}>
       <Path d={IconPath[name]} fill={colorTokens.text[color]} />
     </Svg>
   )

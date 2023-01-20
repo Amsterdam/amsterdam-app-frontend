@@ -7,6 +7,7 @@ import {OmitUndefined} from '@/types'
 import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
+  testID?: string | undefined
   /**
    * The value to display in the badge.
    */
@@ -19,6 +20,7 @@ export type BadgeProps = {
 
 export const Badge = ({
   accessibilityLabel,
+  testID,
   value,
   variant = 'default',
 }: BadgeProps) => {
@@ -32,7 +34,8 @@ export const Badge = ({
           accessibilityLabel={accessibilityLabel}
           accessible={!!variantConfig[variant]}
           numberOfLines={1}
-          style={styles.text}>
+          style={styles.text}
+          testID={testID}>
           {formatNumber(value)}
         </Text>
       </View>

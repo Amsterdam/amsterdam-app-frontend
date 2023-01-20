@@ -88,12 +88,13 @@ const ListItem = ({
 }
 
 type ListEmptyMessageProps = {
+  testID: string
   text: string
 }
 
-const ListEmptyMessage = ({text}: ListEmptyMessageProps) => (
+const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
   <Box insetHorizontal="md">
-    <EmptyMessage text={text} />
+    <EmptyMessage testID={testID} text={text} />
   </Box>
 )
 
@@ -144,7 +145,10 @@ export const ProjectsList = ({
         isLoading ? (
           <PleaseWait />
         ) : searchText !== '' ? (
-          <ListEmptyMessage text={noResultsMessage} />
+          <ListEmptyMessage
+            testID="ConstructionWorkTextEmptyMessage"
+            text={noResultsMessage}
+          />
         ) : null
       }
       ListHeaderComponent={listHeader}
@@ -159,6 +163,7 @@ export const ProjectsList = ({
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
       style={styles.gridView}
+      testID="ConstructionWorkListProjects"
     />
   )
 }

@@ -21,19 +21,43 @@ export const ProjectTraits = ({
   }
 
   return (
-    <View {...viewProps}>
+    <View {...viewProps} testID="ConstructionWorkViewProjectTraits">
       <Row gutter="md" wrap>
         {!!followed &&
           (unreadArticlesLength ? (
-            <Trait label={simplur`${[unreadArticlesLength]} Bericht[|en]`}>
-              <Badge value={unreadArticlesLength} variant="small" />
+            <Trait
+              label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
+              testIDIcon="ConstructionWorkViewProjectTraitsIconMessages"
+              testIDLabel="ConstructionWorkViewProjectTraitsTextMessages">
+              <Badge
+                testID="ConstructionWorkViewProjectTraitsBadgeMessages"
+                value={unreadArticlesLength}
+                variant="small"
+              />
             </Trait>
           ) : (
-            <Trait iconName="checkmark" label="Volgend" />
+            <Trait
+              iconName="checkmark"
+              label="Volgend"
+              testIDIcon="ConstructionWorkViewProjectTraitsIconFollowing"
+              testIDLabel="ConstructionWorkViewProjectTraitsTextFollowing"
+            />
           ))}
-        {!!meter && <Trait iconName="location" label={`${meter} meter`} />}
+        {!!meter && (
+          <Trait
+            iconName="location"
+            label={`${meter} meter`}
+            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceByMeters"
+            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceByMeters"
+          />
+        )}
         {!!strides && (
-          <Trait iconName="strides" label={simplur`${strides} stap[|pen]`} />
+          <Trait
+            iconName="strides"
+            label={simplur`${strides} stap[|pen]`}
+            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceBySteps"
+            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceBySteps"
+          />
         )}
       </Row>
     </View>
