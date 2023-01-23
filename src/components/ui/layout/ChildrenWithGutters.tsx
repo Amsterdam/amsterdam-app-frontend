@@ -16,8 +16,9 @@ export const ChildrenWithGutters = ({children, gutter, prop}: Props) => {
       {childrenArray.map((child, index: number) => (
         <Fragment
           key={
-            typeof child === 'object' && (child as Record<string, string>).key
-              ? (child as Record<string, string>).key
+            typeof child === 'object' &&
+            (child as unknown as Record<string, string>).key
+              ? (child as unknown as Record<string, string>).key
               : `child-${index}`
           }>
           {child}
