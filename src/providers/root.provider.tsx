@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {Provider as StoreProvider} from 'react-redux'
 import {useForegroundPushNotificationHandler} from '@/hooks'
 import {DeviceProvider} from '@/providers'

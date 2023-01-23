@@ -1,4 +1,3 @@
-import React from 'react'
 import {Spinner} from '@/components/ui/feedback'
 import {Center} from '@/components/ui/layout'
 

@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react'
+import {ReactNode, useState} from 'react'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'

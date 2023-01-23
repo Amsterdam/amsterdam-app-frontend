@@ -1,5 +1,4 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {NavigationButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'

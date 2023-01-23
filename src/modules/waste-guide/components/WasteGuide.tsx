@@ -1,4 +1,4 @@
-import React, {useContext, useMemo} from 'react'
+import {useContext, useMemo} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'

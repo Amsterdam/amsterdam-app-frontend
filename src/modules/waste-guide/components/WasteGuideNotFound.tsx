@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {EmptyMessage} from '@/components/ui/feedback'

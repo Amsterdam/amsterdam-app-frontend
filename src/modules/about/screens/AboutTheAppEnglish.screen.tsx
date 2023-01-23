@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {ImageURISource} from 'react-native'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'

@@ -1,4 +1,3 @@
-import React from 'react'
 import {useDispatch} from 'react-redux'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'

@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback} from 'react'
+import {useCallback} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
 import {RootStackParams} from '@/app/navigation'
 import {WebView} from '@/components/ui/containers'

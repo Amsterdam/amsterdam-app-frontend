@@ -1,5 +1,4 @@
 import {RouteProp} from '@react-navigation/core'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {WebView} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'

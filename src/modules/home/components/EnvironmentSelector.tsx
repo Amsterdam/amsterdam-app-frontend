@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import RNRestart from 'react-native-restart'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'

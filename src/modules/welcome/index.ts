@@ -8,6 +8,7 @@ export const module: ModuleClientConfig = {
   screenOptions: {
     cardStyleInterpolator: ({current}) => ({
       cardStyle: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         opacity: current.progress,
       },
     }),

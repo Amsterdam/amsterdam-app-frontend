@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useLayoutEffect, useState} from 'react'
+import {useLayoutEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
@@ -13,6 +13,7 @@ import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {
   clearDraft,
   selectCurrentProjectId,
@@ -26,7 +27,6 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {useAddNotificationMutation} from '@/services'
 import {resetAlert, setAlert} from '@/store'
 import {useTheme} from '@/themes'

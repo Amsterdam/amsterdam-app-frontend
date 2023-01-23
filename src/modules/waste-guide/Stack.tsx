@@ -1,5 +1,4 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
 import {screenOptions} from '@/app/navigation'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {screenConfig} from '@/modules/waste-guide/screenConfig'

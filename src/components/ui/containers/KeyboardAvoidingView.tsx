@@ -1,5 +1,5 @@
 import {useHeaderHeight} from '@react-navigation/elements'
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {
   KeyboardAvoidingView as RNKeyboardAvoidingView,
   Platform,

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {PressableProps, StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'

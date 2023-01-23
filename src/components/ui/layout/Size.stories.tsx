@@ -1,5 +1,4 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import React from 'react'
 import {Canvas} from '.storybook/components'
 import {Size} from '@/components/ui/layout/'
 import {Phrase} from '@/components/ui/text'

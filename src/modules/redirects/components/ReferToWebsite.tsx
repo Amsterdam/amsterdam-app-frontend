@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'

@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {View, ViewProps} from 'react-native'
 
 type Props = {

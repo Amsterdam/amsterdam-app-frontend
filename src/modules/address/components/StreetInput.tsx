@@ -1,4 +1,4 @@
-import React, {Ref} from 'react'
+import {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms'

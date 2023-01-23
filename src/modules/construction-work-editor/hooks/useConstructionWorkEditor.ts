@@ -2,10 +2,10 @@ import {createSelector} from '@reduxjs/toolkit'
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
-import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
 import {ProjectsItem} from '@/modules/construction-work/types'
+import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 
 export const useConstructionWorkEditor = () => {
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)

@@ -1,5 +1,4 @@
 import {RouteProp} from '@react-navigation/native'
-import React from 'react'
 import {Screen} from '@/components/ui/layout'
 import {Project} from '@/modules/construction-work/components/project'
 import {

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {layoutStyles} from '@/styles'
 import {Theme, useThemable} from '@/themes'

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Controller, UseControllerProps} from 'react-hook-form'
 import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
 import {Column} from '@/components/ui/layout'

@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useLayoutEffect, useRef} from 'react'
+import {useEffect, useLayoutEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'

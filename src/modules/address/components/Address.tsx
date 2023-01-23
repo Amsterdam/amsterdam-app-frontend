@@ -1,4 +1,3 @@
-import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'

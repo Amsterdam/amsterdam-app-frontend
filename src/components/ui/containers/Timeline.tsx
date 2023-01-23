@@ -1,4 +1,3 @@
-import React from 'react'
 import {TimelineItem} from '@/components/ui/containers/TimelineItem'
 import {TimelineItem as TimelineItemType} from '@/types'
 

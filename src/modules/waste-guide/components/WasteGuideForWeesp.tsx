@@ -1,4 +1,3 @@
-import React from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'

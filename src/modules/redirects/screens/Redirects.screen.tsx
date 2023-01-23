@@ -1,4 +1,3 @@
-import React from 'react'
 import {Box} from '@/components/ui/containers'
 import {Column, Screen} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'

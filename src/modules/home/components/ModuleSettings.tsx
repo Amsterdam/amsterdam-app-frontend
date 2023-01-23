@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {useDispatch, useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'

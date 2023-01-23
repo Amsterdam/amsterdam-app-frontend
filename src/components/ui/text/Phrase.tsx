@@ -1,4 +1,4 @@
-import React, {ReactNode, useMemo} from 'react'
+import {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens'
