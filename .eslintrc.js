@@ -6,6 +6,7 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
+    'plugin:react/jsx-runtime',
   ],
   ignorePatterns: ['!.storybook', '!.*', 'node_modules'],
   rules: {
