@@ -1,5 +1,5 @@
-import {expect} from 'detox'
-import {loadFeatures, autoBindSteps} from 'jest-cucumber'
+import { expect } from 'detox'
+import { autoBindSteps, loadFeatures } from 'jest-cucumber'
 import contactPage from '../pageobjects/contact.page'
 import homePage from '../pageobjects/home.page'
 
@@ -13,14 +13,14 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   given(
-    /ik ben op de homepagina - wacht totdat splashscreen verdwijnt/,
+    /ik ben op de homepagina - wacht totdat welkomstscherm verdwijnt/,
     async () => {
       await waitFor(homePage.contactModule).toBeVisible().withTimeout(10000)
     },
   )
 
   given(
-    /ik ben op de homepagina - klik zodat splashscreen verdwijnt/,
+    /ik ben op de homepagina - klik zodat welkomstscherm verdwijnt/,
     async () => {
       await waitFor(element(by.id('WelcomePressableImageAndQuote')))
         .toBeVisible()
@@ -93,19 +93,6 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   then(/zie ik een lijst met stadsloketten/, async table => {
-    //console.log(table[3].stadsloket)
-    //const Oost = table[0].stadsloket
-    //contactPage.checkStadsloketList(Oost)
-    // const stadsloketArr = table;
-    // stadsloketArr.forEach((element => contactPage.checkStadsloketList(element.stadsloket)))
-    //contactPage.checkStadsloketList('Centrum')
-    // contactPage.checkStadsloketList('Nieuw-West')
-    // contactPage.checkStadsloketList('Noord')
-    // contactPage.checkStadsloketList('Oost')
-    // contactPage.checkStadsloketList('West')
-    // contactPage.checkStadsloketList('Zuid')
-    // contactPage.checkStadsloketList('ZuidOost')
-    // contactPage.checkStadsloketList('Weesp')
     await expect(contactPage.ContactButtonCityOfficeCentrum).toExist()
     await expect(contactPage.ContactButtonCityOfficeNW).toExist()
     await expect(contactPage.ContactButtonCityOfficeNoord).toExist()
@@ -132,7 +119,7 @@ const contactSteps = ({given, when, then, and}) => {
     await waitFor(contactPage.ContactButtonCurrentCityOffice)
       .toBeVisible()
       .withTimeout(10000)
-    await new Promise(r => setTimeout(r, 2000))
+    await new Promise(r => setTimeout(r, 2000)) //explicit timeout, otherwise swipe functionality doesn't work
     await contactPage.ContactButtonCurrentCityOffice.swipe('up')
     await expect(contactPage.ContactButtonRoute).toBeVisible()
   })
@@ -169,14 +156,8 @@ const contactSteps = ({given, when, then, and}) => {
         ),
       ).toExist()
       await expect(contactPage.ContactButtonMakeAppointment).toExist()
-      //await expect(element(by.id('ContactButtonMakeAppointment'))).toHaveLabel('Opent een link naar een formulier.')
-      //await element(by.id('ContactButtonMakeAppointment')).swipe('up')
       await contactPage.ContactButtonCurrentCityOffice.swipe('up', 'fast', 0.5)
-      // await contactPage.ContactButtonMakeAppointment.tap()
-      // await device.launchApp({newInstance: false});
       await expect(contactPage.ContactButtonRoute).toExist()
-      // await contactPage.ContactButtonRoute.tap()
-      // await device.launchApp({newInstance: false});
       await expect(contactPage.HeaderTitle).toBeVisible()
     },
   )

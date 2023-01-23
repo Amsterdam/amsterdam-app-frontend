@@ -3,7 +3,7 @@ Feature: Contact
   #POC scenario's:
   @included
   Scenario: De contactpagina openen
-    Given ik ben op de homepagina - wacht totdat splashscreen verdwijnt
+    Given ik ben op de homepagina - wacht totdat welkomstscherm verdwijnt
     When ik open de 'contact' module
     Then de contact pagina opent
 
@@ -16,7 +16,7 @@ Feature: Contact
   #Nieuwe scenario's:
   @included
   Scenario: Op de contactpagina zie ik een overzicht met contactmogelijkheden
-   Given ik ben op de homepagina - klik zodat splashscreen verdwijnt
+   Given ik ben op de homepagina - klik zodat welkomstscherm verdwijnt
     When ik open de 'contact' module
     Then zie ik de volgende links:
 #      | Gebruik ons contactformulier, Reactie binnen 1 werkdag  |

@@ -23,6 +23,7 @@ const aboutSteps = ({given, when, then, and}) => {
     await expect(aboutPage.HeaderTitle).toHaveText('Over deze app')
     await expect(aboutPage.AboutTitleAmsterdam).toHaveText('Amsterdam App')
   })
+  
   then(/ik zie het versie nummer/, async () => {
     await expect(aboutPage.AboutTextVersion).toBeVisible()
     await expect(aboutPage.AboutTextVersion).toHaveText(aboutPage.AppVersion)
