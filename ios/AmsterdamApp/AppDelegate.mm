@@ -14,10 +14,12 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  // show splashscreen
-  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
+  [super application:application didFinishLaunchingWithOptions:launchOptions];
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  // show splashscreen
+  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:self.window.rootViewController.view];
+
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
