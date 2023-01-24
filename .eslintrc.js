@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  plugins: ['import', 'jsx-expressions', 'prefer-arrow-functions'],
+  plugins: ['import', 'jsx-expressions', 'prefer-arrow-functions', 'detox'],
   extends: [
     '@react-native-community',
     'plugin:storybook/recommended',

@@ -38,12 +38,12 @@ export const TopTaskButton = ({
                 color="link"
                 level="h5"
                 text={title}
-                testID={`${testID}'Title`}
+                testID={`${testID}Title`}
               />
               {!!titleIconName && <Icon color="link" name={titleIconName} />}
             </Row>
             {typeof text === 'string' ? (
-              <Paragraph variant="small" testID={`${testID}'Text`}>
+              <Paragraph variant="small" testID={`${testID}Text`}>
                 {text}
               </Paragraph>
             ) : (
