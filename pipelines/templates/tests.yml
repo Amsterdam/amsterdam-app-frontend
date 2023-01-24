@@ -2,7 +2,7 @@ jobs:
   - job: "Tests"
     timeoutInMinutes: 15
     pool:
-      vmImage: "macos-11"
+      vmImage: "macos-12"
     steps:
       - template: ./install-node.yml
       - script: npm ci
