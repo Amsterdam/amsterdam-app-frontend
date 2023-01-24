@@ -1,5 +1,5 @@
-import { expect } from 'detox'
-import { autoBindSteps, loadFeatures } from 'jest-cucumber'
+import {expect} from 'detox'
+import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import contactPage from '../pageobjects/contact.page'
 import homePage from '../pageobjects/home.page'
 
