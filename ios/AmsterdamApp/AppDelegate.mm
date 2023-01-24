@@ -3,6 +3,9 @@
 // required for splashscreen
 #import "RNBootSplash.h"
 
+// required for firebase
+#import <Firebase.h>
+
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -18,6 +21,9 @@
 
   // show splashscreen
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:self.window.rootViewController.view];
+
+  // initialize firebase
+  [FIRApp configure];
 
   return YES;
 }
