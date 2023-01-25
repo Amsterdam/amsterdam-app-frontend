@@ -40,9 +40,9 @@ export const Icon = ({
     <Svg
       fillRule="evenodd"
       height={scaledSize}
+      testID={testID}
       viewBox="0 0 32 32"
-      width={scaledSize}
-      testID={testID}>
+      width={scaledSize}>
       <Path d={IconPath[name]} fill={colorTokens.text[color]} />
     </Svg>
   )

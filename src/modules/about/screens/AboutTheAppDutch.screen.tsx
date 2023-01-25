@@ -12,9 +12,9 @@ export const AboutTheAppDutchScreen = () => {
 
   return (
     <Screen
+      testID="AboutScreenAboutTheAppDutch"
       withLeftInset={false}
-      withRightInset={false}
-      testID="AboutScreenAboutTheAppDutch">
+      withRightInset={false}>
       <Column gutter="lg">
         <Image
           source={

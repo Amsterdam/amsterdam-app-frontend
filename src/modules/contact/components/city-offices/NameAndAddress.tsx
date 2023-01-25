@@ -26,6 +26,7 @@ export const NameAndAddress = ({
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
+        testID={testID}
         text={
           <SingleSelectable
             accessibilityLabel={accessibleText(
@@ -43,7 +44,6 @@ export const NameAndAddress = ({
         }
         title={title}
         titleIconName="chevron-down"
-        testID={testID}
       />
       {!!addressContent && (
         <>

@@ -11,7 +11,7 @@ export const ScreenTitle = ({text}: Props) => (
     ellipsizeMode="middle"
     level="h5"
     numberOfLines={1}
-    text={text}
     testID="HeaderTitle"
+    text={text}
   />
 )
