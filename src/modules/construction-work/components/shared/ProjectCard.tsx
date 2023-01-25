@@ -11,6 +11,7 @@ type Props = {
   kicker?: ReactElement
   onPress: () => void
   subtitle?: string
+  testID?: string
   title: string
   width?: number
 }
@@ -20,6 +21,7 @@ export const ProjectCard = ({
   kicker,
   onPress,
   subtitle,
+  testID,
   title,
   width,
 }: Props) => {
@@ -38,7 +40,7 @@ export const ProjectCard = ({
         )}
         onPress={onPress}
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
-        testID="ConstructionWorkCardProject">
+        testID={testID}>
         {!!imageSource && (
           <>
             <AspectRatio aspectRatio="wide">
