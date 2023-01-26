@@ -20,6 +20,7 @@ type Props = {
   iconName: IconName | 'projects'
   label: string
   slug: ModuleSlug
+  testID?: string | undefined
   variant?: ButtonVariants
 }
 
@@ -28,6 +29,7 @@ export const ModuleButton = ({
   iconName,
   label,
   slug,
+  testID,
   variant = 'tertiary',
 }: Props) => {
   const dispatch = useDispatch()
@@ -42,7 +44,7 @@ export const ModuleButton = ({
   }, [slug, dispatch])
 
   return (
-    <View style={styles.swipeToDeleteContainer}>
+    <View style={styles.swipeToDeleteContainer} testID={testID}>
       <SwipeToDelete onEvent={onDelete}>
         <Pressable
           inset="md"

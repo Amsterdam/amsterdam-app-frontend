@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
@@ -53,6 +54,7 @@ export const Modules = () => {
               key={slug}
               label={title}
               slug={slug}
+              testID={`HomeModuleButton${pascalCase(slug)}`}
               variant={isForEmployees ? 'primary' : 'tertiary'}
             />
           ),

@@ -19,7 +19,7 @@ export const AboutScreen = ({navigation}: Props) => (
     <Box>
       <Column gutter="md">
         <>
-          <Title text="Amsterdam App" testID="AboutTitleAmsterdam" />
+          <Title testID="AboutTitleAmsterdam" text="Amsterdam App" />
           <Phrase testID="AboutTextVersion">Versie {versionNumber}</Phrase>
         </>
         <Column gutter="sm">

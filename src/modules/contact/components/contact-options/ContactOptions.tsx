@@ -15,9 +15,9 @@ import {
 type ContactOption = {
   key: Key
   iconName: IconName
+  testID: string
   text: string
   title: string
-  testID: string
 } & Partial<
   Pick<
     PressableProps,
@@ -36,18 +36,18 @@ const contactOptions: ContactOption[] = [
       openWebUrl(
         'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
       ),
+    testID: 'ContactButtonContactform',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
-    testID: 'ContactButtonContactform',
   },
   {
     accessibilityLabel: 'Bel veertien nul twintig',
     iconName: 'phone',
     key: 'phone',
     onPress: () => openPhoneUrl('14020'),
+    testID: 'ContactButtonPhone',
     text: 'Gemiddeld 5 minuten wachten',
     title: 'Bel 14 020',
-    testID: 'ContactButtonPhone',
   },
   {
     accessibilityLabel:
@@ -55,9 +55,9 @@ const contactOptions: ContactOption[] = [
     iconName: 'whatsapp',
     key: 'whatsapp',
     onPress: () => openWebUrl('https://wa.me/31644440655'),
+    testID: 'ContactButtonWhatsapp',
     text: 'Reactie binnen 2 uur',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
-    testID: 'ContactButtonWhatsapp',
   },
   {
     accessibilityHint: 'Opent een link naar een website.',
@@ -66,9 +66,9 @@ const contactOptions: ContactOption[] = [
     iconName: 'person',
     key: 'mijn-amsterdam',
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
+    testID: 'ContactButtonMyAmsterdam',
     text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
     title: 'Mijn Amsterdam',
-    testID: 'ContactButtonMyAmsterdam',
   },
 ]
 
@@ -76,7 +76,7 @@ export const ContactOptions = () => (
   <Box>
     <Column gutter="lg">
       <Column gutter="sm">
-        <Title text="Kunnen we u helpen?" testID="ContactTitleContactOptions" />
+        <Title testID="ContactTitleContactOptions" text="Kunnen we u helpen?" />
         <Paragraph testID="ContactTextContactOptions">
           Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met
           ons op.

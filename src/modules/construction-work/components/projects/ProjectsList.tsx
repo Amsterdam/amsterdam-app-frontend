@@ -82,6 +82,7 @@ const ListItem = ({
         })
       }
       subtitle={project.subtitle ?? undefined}
+      testID={`ConstructionWorkCardProject${project.identifier}`}
       title={project.title}
     />
   )

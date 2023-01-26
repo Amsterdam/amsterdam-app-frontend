@@ -48,7 +48,7 @@ export const CityOffice = () => {
   return (
     <Box>
       <Column gutter="md">
-        <Title level="h2" text="Bezoek ons" testID="ContactTitleVisit" />
+        <Title level="h2" testID="ContactTitleVisit" text="Bezoek ons" />
         <Image source={mapImageSources(image.sources, environment)} />
         <NameAndAddress
           {...{address, addressContent, title}}
@@ -82,8 +82,8 @@ export const CityOffice = () => {
             accessibilityRole="link"
             label="Bekijk route"
             onPress={() => openWebUrl(directionsUrl)}
-            variant={appointment ? 'secondary' : 'primary'}
             testID="ContactButtonRoute"
+            variant={appointment ? 'secondary' : 'primary'}
           />
         )}
       </Column>

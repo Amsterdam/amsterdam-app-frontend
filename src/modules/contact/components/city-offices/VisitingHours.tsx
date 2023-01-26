@@ -78,10 +78,10 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           </Paragraph>
         )}
         <IconButton
-          icon={<Icon color="link" name="question-mark-solid" size="lg" />}
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
+          icon={<Icon color="link" name="question-mark-solid" size="lg" />}
           onPress={() => setIsTooltipVisible(!isTooltipVisible)}
           testID="ContactButtonVisitingHoursDetails"
         />

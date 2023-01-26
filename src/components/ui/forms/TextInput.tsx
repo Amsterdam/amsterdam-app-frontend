@@ -78,9 +78,9 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             onFocus={handleFocus}
             ref={ref}
             style={styles.textInput}
+            testID={testID}
             textAlignVertical="top"
             value={value}
-            testID={testID}
           />
           {value ? (
             <View>
