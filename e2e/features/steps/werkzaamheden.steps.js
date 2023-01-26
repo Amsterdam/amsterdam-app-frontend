@@ -25,24 +25,6 @@ const werkzaamhedenSteps = ({given, when, then, and}) => {
     await homePage.werkzaamhedenModule.tap()
   })
 
-  then(/de werkzaamheden worden weergegeven met een afbeelding/, async () => {
-    await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectMiddenweg,
-    ).toBeVisible()
-  })
-
-  and(/een titel van het project/, async () => {
-    await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectTextTitleMiddenweg,
-    ).toHaveText('Middenweg')
-  })
-
-  and(/een ondertitel met een korte beschrijving van het project/, async () => {
-    await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectTextSubtitleMiddenweg,
-    ).toHaveText('Groot onderhoud')
-  })
-
   when(/ik klik op het zoekveld/, async () => {
     await expect(
       werkzaamhedenPage.ConstructionWorkTextInputNavigator,

@@ -11,25 +11,6 @@ class WerkzaamhedenPage extends Page {
     return element(by.id(''))
   }
 
-  get ConstructionWorkCardProjectMiddenweg() {
-    return element(by.id('ConstructionWorkCardProjectMiddenweg'))
-    //ConstructionWorkCardProjectImageMain'
-  }
-
-  get ConstructionWorkCardProjectTextTitleMiddenweg() {
-    return element(by.id('ConstructionWorkCardProjectTextTitleMiddenweg'))
-  }
-
-  get ConstructionWorkCardProjectTextSubtitleMiddenweg() {
-    return element(
-      by.id('ConstructionWorkCardProjectTextSubtitleGroot' + ' ' + 'onderhoud'),
-    )
-  }
-
-  get ConstructionWorkListProjects() {
-    return element(by.id('ConstructionWorkListProjects'))
-  }
-
   get ConstructionWorkTextInputNavigator() {
     return element(by.id('ConstructionWorkTextInputNavigator'))
   }
