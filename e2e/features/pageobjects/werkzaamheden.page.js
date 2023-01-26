@@ -28,7 +28,7 @@ class WerkzaamhedenPage extends Page {
     return element(
       by
         .id('ConstructionWorkCardProject1270981')
-        .withDescendant('ConstructionWorkCardProjectTextSubtitle'),
+        .withDescendant(by.id('ConstructionWorkCardProjectTextSubtitle')),
     )
   }
 
