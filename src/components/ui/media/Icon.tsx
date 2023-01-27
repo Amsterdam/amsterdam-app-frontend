@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import {ViewProps} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {IconName, IconPath} from '@/components/ui/media'
 import {IconSize} from '@/components/ui/types'
@@ -22,7 +23,7 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
-  testID?: string | undefined
+  testID?: ViewProps['testID']
 }
 
 export const Icon = ({

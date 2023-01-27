@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React from 'react'
-import {AccessibilityProps} from 'react-native'
+import {AccessibilityProps, ViewProps} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
@@ -12,8 +12,8 @@ import {module as wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   address: string
-  testIDButton?: string | undefined
-  testIDLabel?: string | undefined
+  testIDButton?: ViewProps['testID']
+  testIDLabel?: ViewProps['testID']
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const StreetAddressWithEditButton = ({

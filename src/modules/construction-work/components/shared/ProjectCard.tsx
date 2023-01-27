@@ -1,5 +1,10 @@
 import React, {ReactElement, useMemo} from 'react'
-import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
+import {
+  ImageSourcePropType,
+  Pressable,
+  StyleSheet,
+  ViewProps,
+} from 'react-native'
 import {AspectRatio, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -11,7 +16,7 @@ type Props = {
   kicker?: ReactElement
   onPress: () => void
   subtitle?: string
-  testID?: string | undefined
+  testID?: ViewProps['testID']
   title: string
   width?: number
 }

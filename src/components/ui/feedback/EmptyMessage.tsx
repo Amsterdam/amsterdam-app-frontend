@@ -1,10 +1,11 @@
 import React from 'react'
+import {ViewProps} from 'react-native'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Paragraph, Title} from '@/components/ui/text'
 import {accessibleText} from '@/utils'
 
 type Props = {
-  testID?: string | undefined
+  testID?: ViewProps['testID']
   text: string
 }
 

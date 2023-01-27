@@ -1,4 +1,5 @@
 import React from 'react'
+import {ViewProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
@@ -9,7 +10,7 @@ import {useTheme} from '@/themes'
 type Props = {
   label: string
   onPress: () => void
-  testID?: string | undefined
+  testID?: ViewProps['testID']
   variant?: 'backward' | 'default' | 'external' | 'forward'
 }
 

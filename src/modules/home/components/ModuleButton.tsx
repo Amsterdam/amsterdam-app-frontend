@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {ElementType, useCallback} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewProps} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable, SwipeToDelete} from '@/components/ui/buttons'
@@ -20,7 +20,7 @@ type Props = {
   iconName: IconName | 'projects'
   label: string
   slug: ModuleSlug
-  testID?: string | undefined
+  testID?: ViewProps['testID']
   variant?: ButtonVariants
 }
 

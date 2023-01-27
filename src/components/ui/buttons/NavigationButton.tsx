@@ -1,4 +1,5 @@
 import React from 'react'
+import {ViewProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
@@ -11,7 +12,7 @@ type Props = {
   iconSize?: keyof typeof IconSize
   label: string
   onPress: () => void
-  testID?: string | undefined
+  testID?: ViewProps['testID']
 }
 
 export const NavigationButton = ({

@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
+import {StyleProp, StyleSheet, View, ViewProps, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/containers'
@@ -46,7 +46,7 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
-  testID?: string | undefined
+  testID?: ViewProps['testID']
 } & WithInsetProps
 
 export const Screen = ({
