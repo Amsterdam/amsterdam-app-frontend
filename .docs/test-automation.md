@@ -26,7 +26,6 @@ Examples:
 
 We replace the module key with `Header` for components in the app header, as these components are displayed on screens for various modules.
 
-
 ## Component type
 
 The general type of the component. This indicates the kinds of interaction that can occur.

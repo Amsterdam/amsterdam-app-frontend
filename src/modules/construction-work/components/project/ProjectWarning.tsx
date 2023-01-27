@@ -74,29 +74,29 @@ export const ProjectWarning = ({id}: Props) => {
           accessible
           accessibilityLabel={mainImage.description}
           source={mapWarningImageSources(mainImage.sources, environment)}
-          testID={`ConstructionWorkProjectWarningImage${projectWarning.identifier}`}
+          testID={`ConstructionWorkProjectArticleImage${projectWarning.identifier}`}
         />
       ) : (
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
-          testID={`ConstructionWorkProjectWarningFallbackImage${projectWarning.identifier}`}
+          testID={`ConstructionWorkProjectArticleImage${projectWarning.identifier}`}
         />
       )}
       <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
             <Paragraph
-              testID={`ConstructionWorkProjectWarningDate${projectWarning.identifier}`}>
+              testID={`ConstructionWorkProjectArticleDate${projectWarning.identifier}`}>
               {formatDate(projectWarning.publication_date)}
             </Paragraph>
             <Title
-              testID={`ConstructionWorkProjectWarningTitle${projectWarning.identifier}`}
+              testID={`ConstructionWorkProjectArticleTitle${projectWarning.identifier}`}
               text={projectWarning.title}
             />
             <Paragraph
-              testID={`ConstructionWorkProjectWarningBody${projectWarning.identifier}`}>
+              testID={`ConstructionWorkProjectArticleBody${projectWarning.identifier}`}>
               {projectWarning.body}
             </Paragraph>
           </Column>

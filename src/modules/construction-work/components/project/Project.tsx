@@ -130,7 +130,7 @@ export const Project = ({id}: Props) => {
                   disabled={isUpdatingFollow || isUpdatingUnfollow}
                   followed={followed}
                   onPress={onPressFollowButton}
-                  testID="ConstructionWorkProjectButtonFollow"
+                  testID="ConstructionWorkProjectFollowButton"
                 />
                 <SingleSelectable
                   accessibilityLabel={accessibleText(
@@ -140,13 +140,13 @@ export const Project = ({id}: Props) => {
                   <Column>
                     <Phrase
                       emphasis="strong"
-                      testID="ConstructionWorkProjectTextFollowersNumber"
+                      testID="ConstructionWorkProjectFollowersNumber"
                       variant="small">
                       {followers}
                     </Phrase>
                     <Phrase
                       variant="small"
-                      testID="ConstructionWorkProjectTextFollowersLabel">
+                      testID="ConstructionWorkProjectFollowersText">
                       {followersPhrase}
                     </Phrase>
                   </Column>
@@ -165,14 +165,14 @@ export const Project = ({id}: Props) => {
                   <Column gutter="sm">
                     {!!title && (
                       <Title
-                        testID="ConstructionWorkProjectTextTitle"
+                        testID="ConstructionWorkProjectTitle"
                         text={title}
                       />
                     )}
                     {!!subtitle && (
                       <Title
                         level="h4"
-                        testID="ConstructionWorkProjectTextSubtitle"
+                        testID="ConstructionWorkProjectSubtitle"
                         text={subtitle}
                       />
                     )}

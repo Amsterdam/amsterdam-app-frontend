@@ -27,10 +27,10 @@ export const ProjectTraits = ({
           (unreadArticlesLength ? (
             <Trait
               label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
-              testIDIcon="ConstructionWorkProjectTraitIconArticles"
-              testIDLabel="ConstructionWorkProjectTraitTextArticles">
+              testIDIcon="ConstructionWorkProjectTraitArticlesIcon"
+              testIDLabel="ConstructionWorkProjectTraitArticlesText">
               <Badge
-                testID="ConstructionWorkProjectTraitBadgeArticles"
+                testID="ConstructionWorkProjectTraitArticlesBadge"
                 value={unreadArticlesLength}
                 variant="small"
               />
@@ -39,24 +39,24 @@ export const ProjectTraits = ({
             <Trait
               iconName="checkmark"
               label="Volgend"
-              testIDIcon="ConstructionWorkProjectTraitIconFollowing"
-              testIDLabel="ConstructionWorkProjectTraitTextFollowing"
+              testIDIcon="ConstructionWorkProjectTraitFollowingIcon"
+              testIDLabel="ConstructionWorkProjectTraitFollowingText"
             />
           ))}
         {!!meter && (
           <Trait
             iconName="location"
             label={`${meter} meter`}
-            testIDIcon="ConstructionWorkProjectTraitIconDistanceInMeters"
-            testIDLabel="ConstructionWorkProjectTraitTextDistanceInMeters"
+            testIDIcon="ConstructionWorkProjectTraitMetersIcon"
+            testIDLabel="ConstructionWorkProjectTraitMetersText"
           />
         )}
         {!!strides && (
           <Trait
             iconName="strides"
             label={simplur`${strides} stap[|pen]`}
-            testIDIcon="ConstructionWorkProjectTraitIconDistanceInSteps"
-            testIDLabel="ConstructionWorkProjectTraitTextDistanceInSteps"
+            testIDIcon="ConstructionWorkProjectTraitStepsIcon"
+            testIDLabel="ConstructionWorkProjectTraitStepsIcon"
           />
         )}
       </Row>

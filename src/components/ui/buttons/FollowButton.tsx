@@ -24,7 +24,7 @@ export const FollowButton = ({followed, onPress, testID}: Props) => {
   return (
     <Button
       onPress={() => onPress(followed)}
-      testID={testID ? `${testID}Button` : undefined}
+      testID={testID}
       {...buttonProps}
     />
   )

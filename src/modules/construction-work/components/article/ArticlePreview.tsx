@@ -108,6 +108,7 @@ export const ArticlePreview = ({
                     imageAspectRatio={
                       media.imageAspectRatio.projectWarningFallback
                     }
+                    testID={`ConstructionWorkProjectArticlePreviewImage${article.identifier}`}
                   />
                 )}
               </View>

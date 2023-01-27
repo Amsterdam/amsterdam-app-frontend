@@ -36,24 +36,24 @@ export const ProjectBodyMenu = ({project}: Props) => {
         ...(project.body.what ?? []),
         ...(project.body.where ?? []),
       ],
-      testID: 'ConstructionWorkProjectButtonAbout',
+      testID: 'ConstructionWorkProjectAboutButton',
       title: ProjectBodyTitles.about,
     },
     {
       sections: project.body.when ?? [],
       timeline: project.body.timeline,
-      testID: 'ConstructionWorkProjectButtonPlanning',
+      testID: 'ConstructionWorkProjectPlanningButton',
       title: ProjectBodyTitles.planning,
     },
     {
       sections: project.body.work,
-      testID: 'ConstructionWorkProjectButtonWork',
+      testID: 'ConstructionWorkProjectWorkButton',
       title: ProjectBodyTitles.work,
     },
     {
       sections: project.body.contact,
       contacts: project.contacts,
-      testID: 'ConstructionWorkProjectButtonContact',
+      testID: 'ConstructionWorkProjectContactButton',
       title: ProjectBodyTitles.contact,
     },
   ]
