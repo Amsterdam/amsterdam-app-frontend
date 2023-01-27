@@ -21,16 +21,16 @@ export const ProjectTraits = ({
   }
 
   return (
-    <View {...viewProps} testID="ConstructionWorkViewProjectTraits">
+    <View {...viewProps}>
       <Row gutter="md" wrap>
         {!!followed &&
           (unreadArticlesLength ? (
             <Trait
               label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
-              testIDIcon="ConstructionWorkViewProjectTraitsIconMessages"
-              testIDLabel="ConstructionWorkViewProjectTraitsTextMessages">
+              testIDIcon="ConstructionWorkProjectTraitIconArticles"
+              testIDLabel="ConstructionWorkProjectTraitTextArticles">
               <Badge
-                testID="ConstructionWorkViewProjectTraitsBadgeMessages"
+                testID="ConstructionWorkProjectTraitBadgeArticles"
                 value={unreadArticlesLength}
                 variant="small"
               />
@@ -39,24 +39,24 @@ export const ProjectTraits = ({
             <Trait
               iconName="checkmark"
               label="Volgend"
-              testIDIcon="ConstructionWorkViewProjectTraitsIconFollowing"
-              testIDLabel="ConstructionWorkViewProjectTraitsTextFollowing"
+              testIDIcon="ConstructionWorkProjectTraitIconFollowing"
+              testIDLabel="ConstructionWorkProjectTraitTextFollowing"
             />
           ))}
         {!!meter && (
           <Trait
             iconName="location"
             label={`${meter} meter`}
-            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceByMeters"
-            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceByMeters"
+            testIDIcon="ConstructionWorkProjectTraitIconDistanceInMeters"
+            testIDLabel="ConstructionWorkProjectTraitTextDistanceInMeters"
           />
         )}
         {!!strides && (
           <Trait
             iconName="strides"
             label={simplur`${strides} stap[|pen]`}
-            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceBySteps"
-            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceBySteps"
+            testIDIcon="ConstructionWorkProjectTraitIconDistanceInSteps"
+            testIDLabel="ConstructionWorkProjectTraitTextDistanceInSteps"
           />
         )}
       </Row>

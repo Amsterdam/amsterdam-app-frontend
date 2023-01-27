@@ -115,6 +115,7 @@ export const Project = ({id}: Props) => {
         <Image
           aspectRatio="wide"
           source={mapImageSources(images[0].sources, environment)}
+          testID="ConstructionWorkProjectImage"
         />
       )}
       <HorizontalSafeArea>
@@ -129,6 +130,7 @@ export const Project = ({id}: Props) => {
                   disabled={isUpdatingFollow || isUpdatingUnfollow}
                   followed={followed}
                   onPress={onPressFollowButton}
+                  testID="ConstructionWorkProjectButtonFollow"
                 />
                 <SingleSelectable
                   accessibilityLabel={accessibleText(
@@ -136,10 +138,17 @@ export const Project = ({id}: Props) => {
                     followersPhrase,
                   )}>
                   <Column>
-                    <Phrase emphasis="strong" variant="small">
+                    <Phrase
+                      emphasis="strong"
+                      testID="ConstructionWorkProjectTextFollowersNumber"
+                      variant="small">
                       {followers}
                     </Phrase>
-                    <Phrase variant="small">{followersPhrase}</Phrase>
+                    <Phrase
+                      variant="small"
+                      testID="ConstructionWorkProjectTextFollowersLabel">
+                      {followersPhrase}
+                    </Phrase>
                   </Column>
                 </SingleSelectable>
               </Row>
@@ -154,8 +163,19 @@ export const Project = ({id}: Props) => {
                   accessibilityLabel={accessibleText(title, subtitle)}
                   accessibilityRole="header">
                   <Column gutter="sm">
-                    {!!title && <Title text={title} />}
-                    {!!subtitle && <Title level="h4" text={subtitle} />}
+                    {!!title && (
+                      <Title
+                        testID="ConstructionWorkProjectTextTitle"
+                        text={title}
+                      />
+                    )}
+                    {!!subtitle && (
+                      <Title
+                        level="h4"
+                        testID="ConstructionWorkProjectTextSubtitle"
+                        text={subtitle}
+                      />
+                    )}
                   </Column>
                 </SingleSelectable>
               </Column>

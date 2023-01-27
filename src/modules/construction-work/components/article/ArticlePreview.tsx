@@ -80,16 +80,26 @@ export const ArticlePreview = ({
                 <Paragraph>Nieuw</Paragraph>
               </View>
             )}
-            <Paragraph>
+            <Paragraph
+              testID={`ConstructionWorkProjectArticlePreviewDate${article.identifier}`}>
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
           </Row>
           <Box insetHorizontal="md">
             <Column gutter="sm">
-              <Title color="link" level="h5" text={article.title} />
+              <Title
+                color="link"
+                level="h5"
+                testID={`ConstructionWorkProjectArticlePreviewTitle${article.identifier}`}
+                text={article.title}
+              />
               <View style={styles.image}>
                 {imageSources && Object.keys(imageSources[0]).length ? (
-                  <Image aspectRatio="extraWide" source={imageSources} />
+                  <Image
+                    aspectRatio="extraWide"
+                    source={imageSources}
+                    testID={`ConstructionWorkProjectArticlePreviewImage${article.identifier}`}
+                  />
                 ) : (
                   <FigureWithFacadesBackground
                     aspectRatio="extraWide"

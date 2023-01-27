@@ -58,16 +58,30 @@ export const ProjectNews = ({id}: Props) => {
         <Image
           aspectRatio="wide"
           source={mapImageSources(news.images[0].sources, environment)}
+          testID={`ConstructionWorkProjectNewsImage${news.identifier}`}
         />
       ) : null}
       {!!news && (
         <HorizontalSafeArea>
           <Box>
             <Column gutter="md">
-              <Paragraph>{formatDate(news.publication_date)}</Paragraph>
-              <Title text={news.title} />
-              <Article content={news.body?.preface.html} isIntro />
-              <Article content={news.body?.content.html} />
+              <Paragraph
+                testID={`ConstructionWorkProjectNewsDate${news.identifier}`}>
+                {formatDate(news.publication_date)}
+              </Paragraph>
+              <Title
+                testID={`ConstructionWorkProjectNewsTitle${news.identifier}`}
+                text={news.title}
+              />
+              <Article
+                content={news.body?.preface.html}
+                isIntro
+                testID={`ConstructionWorkProjectNewsIntro${news.identifier}`}
+              />
+              <Article
+                content={news.body?.content.html}
+                testID={`ConstructionWorkProjectNewsBody${news.identifier}`}
+              />
             </Column>
           </Box>
         </HorizontalSafeArea>
