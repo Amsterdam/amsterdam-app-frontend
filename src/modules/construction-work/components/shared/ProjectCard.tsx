@@ -11,7 +11,7 @@ type Props = {
   kicker?: ReactElement
   onPress: () => void
   subtitle?: string
-  testID?: string
+  testID?: string | undefined
   title: string
   width?: number
 }

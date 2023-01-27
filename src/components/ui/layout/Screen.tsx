@@ -46,7 +46,7 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
-  testID?: string
+  testID?: string | undefined
 } & WithInsetProps
 
 export const Screen = ({

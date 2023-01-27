@@ -22,7 +22,7 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
-  testID?: string
+  testID?: string | undefined
 }
 
 export const Icon = ({
