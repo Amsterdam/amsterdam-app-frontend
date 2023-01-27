@@ -21,7 +21,7 @@ export const NavigationButton = ({
   onPress,
   testID,
 }: Props) => (
-  <Pressable accessibilityRole="link" onPress={onPress} testID={testID}>
+  <Pressable accessibilityRole="link" {...{onPress, testID}}>
     <Box insetHorizontal="md" insetVertical="sm">
       <Row align="between" gutter="md" valign="center">
         {direction === 'backward' && (

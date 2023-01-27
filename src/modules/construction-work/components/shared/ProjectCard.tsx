@@ -38,9 +38,8 @@ export const ProjectCard = ({
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
           kicker?.props.accessibilityLabel ?? undefined,
         )}
-        onPress={onPress}
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
-        testID={testID}>
+        {...{onPress, testID}}>
         {!!imageSource && (
           <>
             <AspectRatio aspectRatio="wide">
