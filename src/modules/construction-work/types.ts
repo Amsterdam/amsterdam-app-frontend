@@ -1,3 +1,4 @@
+import {ViewProps} from 'react-native'
 import {
   Image,
   ListQueryArg,
@@ -171,6 +172,7 @@ export type ProjectNews = {
 export type ProjectBody = {
   contacts?: ProjectContact[]
   sections?: Section[]
+  testID?: ViewProps['testID']
   timeline?: Timeline
   title: string
 }

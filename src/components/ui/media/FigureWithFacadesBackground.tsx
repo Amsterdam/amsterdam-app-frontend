@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewProps} from 'react-native'
 import {
   AmsterdamAndWeespFacadesImage,
   AmsterdamFacadesImage,
@@ -22,6 +22,7 @@ type Props = {
    * This is especially useful on landscape devices.
    */
   moveUp?: number
+  testID?: ViewProps['testID']
   withWeesp?: boolean
 } & SelectedFigureProps
 
@@ -32,6 +33,7 @@ export const FigureWithFacadesBackground = ({
   imageAspectRatio,
   imageWidth,
   moveUp,
+  testID,
   withWeesp = false,
   ...figureProps
 }: Props) => {
@@ -51,7 +53,7 @@ export const FigureWithFacadesBackground = ({
     : AmsterdamFacadesImage
 
   return (
-    <View style={styles.figure}>
+    <View style={styles.figure} testID={testID}>
       <Figure {...figureProps}>
         <View style={styles.backgroundImage}>
           <BackgroundImage />

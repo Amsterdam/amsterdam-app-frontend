@@ -1,5 +1,5 @@
 import React from 'react'
-import {Platform, TextStyle, useWindowDimensions} from 'react-native'
+import {Platform, TextStyle, useWindowDimensions, ViewProps} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
@@ -10,6 +10,7 @@ import {SizeTokens} from '@/themes/tokens'
 type Props = {
   content: string | undefined
   isIntro?: boolean
+  testID?: ViewProps['testID']
 }
 
 const transformRules = [

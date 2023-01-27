@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {Pressable, StyleSheet, View} from 'react-native'
+import {Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
@@ -23,9 +23,16 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
+  testID?: ViewProps['testID']
 }
 
-export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
+export const ArticlePreview = ({
+  article,
+  isFirst,
+  isLast,
+  onPress,
+  testID,
+}: Props) => {
   const environment = useEnvironment()
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
@@ -59,7 +66,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
   )
 
   return (
-    <View style={styles.item}>
+    <View style={styles.item} testID={testID}>
       <View style={styles.line} />
       <Pressable
         accessibilityRole="button"

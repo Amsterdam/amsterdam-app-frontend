@@ -5,6 +5,7 @@ import {
   PressableProps,
   StyleSheet,
   Text,
+  ViewProps,
 } from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
@@ -16,6 +17,7 @@ export type ButtonProps = {
   label?: string
   numberOfLines?: number
   small?: boolean
+  testID?: ViewProps['testID']
   variant?: 'primary' | 'secondary' | 'tertiary'
 } & Omit<PressableProps, 'style'>
 
@@ -25,6 +27,7 @@ export const Button = ({
   label,
   numberOfLines,
   small,
+  testID,
   variant = 'primary',
   ...pressableProps
 }: ButtonProps) => {
@@ -47,6 +50,7 @@ export const Button = ({
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
       style={styles.button}
+      testID={testID}
       {...pressableProps}>
       <Row gutter="sm" valign="center">
         {!!iconName && (
@@ -54,13 +58,15 @@ export const Button = ({
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
             size="lg"
+            testID={testID ? `${testID}Icon` : undefined}
           />
         )}
         {!!label && (
           <Text
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
-            style={styles.label}>
+            style={styles.label}
+            testID={testID ? `${testID}Label` : undefined}>
             {label}
           </Text>
         )}
