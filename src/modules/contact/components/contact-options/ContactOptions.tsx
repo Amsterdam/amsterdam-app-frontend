@@ -15,13 +15,16 @@ import {
 type ContactOption = {
   key: Key
   iconName: IconName
-  testID: string
   text: string
   title: string
 } & Partial<
   Pick<
     PressableProps,
-    'accessibilityHint' | 'accessibilityLabel' | 'accessibilityRole' | 'onPress'
+    | 'accessibilityHint'
+    | 'accessibilityLabel'
+    | 'accessibilityRole'
+    | 'testID'
+    | 'onPress'
   >
 >
 
