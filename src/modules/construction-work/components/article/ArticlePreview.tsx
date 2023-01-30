@@ -65,8 +65,11 @@ export const ArticlePreview = ({
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
 
+  const createTestID = (suffix = '') =>
+    testID ? [testID, suffix, article.identifier].join() : undefined
+
   return (
-    <View style={styles.item} testID={testID}>
+    <View style={styles.item} testID={createTestID()}>
       <View style={styles.line} />
       <Pressable
         accessibilityRole="button"
@@ -80,8 +83,7 @@ export const ArticlePreview = ({
                 <Paragraph>Nieuw</Paragraph>
               </View>
             )}
-            <Paragraph
-              testID={`ConstructionWorkProjectArticlePreviewDate${article.identifier}`}>
+            <Paragraph testID={createTestID('Date')}>
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
           </Row>
@@ -90,7 +92,7 @@ export const ArticlePreview = ({
               <Title
                 color="link"
                 level="h5"
-                testID={`ConstructionWorkProjectArticlePreviewTitle${article.identifier}`}
+                testID={createTestID('Title')}
                 text={article.title}
               />
               <View style={styles.image}>
@@ -98,7 +100,7 @@ export const ArticlePreview = ({
                   <Image
                     aspectRatio="extraWide"
                     source={imageSources}
-                    testID={`ConstructionWorkProjectArticlePreviewImage${article.identifier}`}
+                    testID={createTestID('Image')}
                   />
                 ) : (
                   <FigureWithFacadesBackground
@@ -108,7 +110,7 @@ export const ArticlePreview = ({
                     imageAspectRatio={
                       media.imageAspectRatio.projectWarningFallback
                     }
-                    testID={`ConstructionWorkProjectArticlePreviewImage${article.identifier}`}
+                    testID={createTestID('Image')}
                   />
                 )}
               </View>
