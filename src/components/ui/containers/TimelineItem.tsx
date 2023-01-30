@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import {useContext, useState} from 'react'
 import {View} from 'react-native'
 import {Accordion} from '@/components/ui/containers'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'

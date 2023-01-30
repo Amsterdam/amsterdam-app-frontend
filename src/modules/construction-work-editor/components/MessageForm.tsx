@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-} from 'react'
+import {forwardRef, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'

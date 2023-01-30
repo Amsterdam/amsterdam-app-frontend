@@ -1,5 +1,4 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import React from 'react'
 import {Attention} from '@/components/ui/feedback'
 import {Paragraph} from '@/components/ui/text'
 

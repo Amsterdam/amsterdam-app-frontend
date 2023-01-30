@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Alert, PleaseWait} from '@/components/ui/feedback'

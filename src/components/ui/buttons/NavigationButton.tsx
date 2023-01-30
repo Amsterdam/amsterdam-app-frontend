@@ -1,4 +1,3 @@
-import React from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'

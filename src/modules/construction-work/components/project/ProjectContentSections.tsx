@@ -1,4 +1,3 @@
-import React from 'react'
 import {Column} from '@/components/ui/layout'
 import {Article, Title} from '@/components/ui/text'
 import {Section} from '@/types'

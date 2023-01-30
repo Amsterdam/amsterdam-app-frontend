@@ -1,6 +1,6 @@
 import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'

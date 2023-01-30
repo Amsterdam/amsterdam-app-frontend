@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import debounce from 'lodash.debounce'
-import React, {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {SearchField} from '@/components/ui/forms'
 import {config} from '@/modules/construction-work/components/projects'

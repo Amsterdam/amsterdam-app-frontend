@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core'
-import React, {FC, Fragment, ReactNode, useEffect} from 'react'
+import {FC, Fragment, ReactNode, useEffect} from 'react'
 import {
   LayoutAnimation,
   Platform,

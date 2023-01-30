@@ -1,4 +1,4 @@
-import React, {ReactElement, useMemo} from 'react'
+import {ReactElement, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {AspectRatio, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'

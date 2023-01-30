@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {SpinnerIcon} from '@/assets/icons'
 import {Row} from '@/components/ui/layout'

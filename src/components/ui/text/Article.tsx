@@ -1,4 +1,3 @@
-import React from 'react'
 import {Platform, TextStyle, useWindowDimensions} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,

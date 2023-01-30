@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useCallback, useLayoutEffect} from 'react'
+import {useCallback, useLayoutEffect} from 'react'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
 import {FollowButton} from '@/components/ui/buttons'

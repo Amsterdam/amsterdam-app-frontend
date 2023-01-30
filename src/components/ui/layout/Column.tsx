@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, View} from 'react-native'
 import {
   ChildrenWithGutters,

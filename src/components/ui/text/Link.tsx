@@ -1,4 +1,3 @@
-import React from 'react'
 import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'

@@ -1,5 +1,4 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
 import {screenOptions} from '@/app/navigation'
 import {UserRouteName} from '@/modules/user/routes'
 import {screenConfig} from '@/modules/user/screenConfig'

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'

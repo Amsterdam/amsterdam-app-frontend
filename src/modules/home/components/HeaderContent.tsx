@@ -1,6 +1,5 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
-import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'

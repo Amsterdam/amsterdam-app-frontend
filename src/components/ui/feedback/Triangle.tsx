@@ -1,4 +1,3 @@
-import React from 'react'
 import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Center} from '@/components/ui/layout'

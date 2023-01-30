@@ -8,11 +8,7 @@ steps:
   - template: ./install-node.yml
   - script: npm ci
     displayName: 'Install node dependencies'
-  - task: UseRubyVersion@0
-    displayName: 'Set Ruby version'
-    inputs:
-      versionSpec: '~> 3.0'
-      addToPath: true
+  - template: ./install-ruby.yml
   - script: |
       gem install bundler:2.2.33
     displayName: "Install bundler"
@@ -48,7 +44,9 @@ steps:
 
   # Install gems and run Fastlane
   - script: |
-      bundle install
+      bundle install  
+    displayName: "Install Ruby gems"
+  - script: |
       bundle exec fastlane buildApps
     displayName: "Build ${{ parameters.platform }}"
     workingDirectory: ${{ parameters.platform }}

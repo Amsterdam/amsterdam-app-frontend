@@ -10,9 +10,9 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 import {addressSlice} from '@/modules/address/slice'
+import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
-import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {contactSlice} from '@/modules/contact/slice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'

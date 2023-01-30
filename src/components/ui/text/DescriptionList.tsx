@@ -1,4 +1,3 @@
-import React from 'react'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'

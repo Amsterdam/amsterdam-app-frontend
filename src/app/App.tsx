@@ -4,7 +4,6 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native'
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
-import React from 'react'
 import {StatusBar, StyleSheet} from 'react-native'
 import RNBootSplash from 'react-native-bootsplash'
 import {

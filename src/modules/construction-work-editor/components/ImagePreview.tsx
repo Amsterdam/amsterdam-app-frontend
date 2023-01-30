@@ -1,4 +1,3 @@
-import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Image as ImageType} from 'react-native-image-crop-picker'
 import {IconButton} from '@/components/ui/buttons'

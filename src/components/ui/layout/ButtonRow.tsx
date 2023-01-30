@@ -1,4 +1,4 @@
-import React, {Children, ReactNode} from 'react'
+import {Children, ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Theme, useThemable} from '@/themes'

@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {NavigationButton} from '@/components/ui/buttons'
 import {
   ConstructionWorkRouteName,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'

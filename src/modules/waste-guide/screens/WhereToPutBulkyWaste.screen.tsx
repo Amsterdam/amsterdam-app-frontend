@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'

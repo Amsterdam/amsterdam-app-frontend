@@ -1,4 +1,3 @@
-import React from 'react'
 import {View, ViewProps} from 'react-native'
 import simplur from 'simplur'
 import {Badge, Trait} from '@/components/ui/feedback'

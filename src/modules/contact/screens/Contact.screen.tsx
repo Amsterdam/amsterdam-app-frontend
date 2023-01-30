@@ -2,7 +2,6 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet'
-import React from 'react'
 import {HorizontalSafeArea} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {

@@ -1,5 +1,5 @@
 import {RouteProp, useNavigation} from '@react-navigation/native'
-import React, {useLayoutEffect} from 'react'
+import {useLayoutEffect} from 'react'
 import {Box, Timeline} from '@/components/ui/containers'
 import {Column, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'

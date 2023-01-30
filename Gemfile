@@ -1,5 +1,5 @@
 source "https://rubygems.org"
 
-ruby '~> 3.0.4'
+ruby File.read(File.join(__dir__, '.ruby-version')).strip
 gem "fastlane"
 gem "cocoapods"

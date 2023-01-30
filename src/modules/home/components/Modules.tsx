@@ -1,5 +1,4 @@
 import {pascalCase} from 'pascal-case'
-import React from 'react'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'

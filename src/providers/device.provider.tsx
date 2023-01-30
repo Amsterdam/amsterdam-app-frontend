@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useEffect, useState} from 'react'
+import {createContext, ReactNode, useEffect, useState} from 'react'
 import {ScaledSize, useWindowDimensions} from 'react-native'
 import {isTablet} from 'react-native-device-info'
 

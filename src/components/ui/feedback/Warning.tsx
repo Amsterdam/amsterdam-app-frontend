@@ -1,4 +1,3 @@
-import React from 'react'
 import {Attention} from '@/components/ui/feedback/Attention'
 import {Paragraph, Title} from '@/components/ui/text'
 

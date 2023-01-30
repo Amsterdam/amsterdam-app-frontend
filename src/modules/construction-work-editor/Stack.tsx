@@ -1,5 +1,4 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
 import {useSelector} from 'react-redux'
 import {screenOptions, StackNavigationRoutes} from '@/app/navigation'
 import {

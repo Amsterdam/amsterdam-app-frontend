@@ -1,4 +1,4 @@
-import React, {Key} from 'react'
+import {Key} from 'react'
 import {PressableProps} from 'react-native'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'

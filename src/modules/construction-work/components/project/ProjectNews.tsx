@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useEffect, useLayoutEffect} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'

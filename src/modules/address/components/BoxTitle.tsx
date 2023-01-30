@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'

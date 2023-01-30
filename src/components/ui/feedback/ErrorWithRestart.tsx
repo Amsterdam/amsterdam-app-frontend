@@ -1,4 +1,3 @@
-import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import RNRestart from 'react-native-restart'
 import {Button} from '@/components/ui/buttons'

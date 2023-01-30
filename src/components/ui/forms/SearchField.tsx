@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from 'react'
+import {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'

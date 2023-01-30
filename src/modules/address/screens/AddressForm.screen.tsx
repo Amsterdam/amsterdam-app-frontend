@@ -1,4 +1,3 @@
-import React from 'react'
 import {ModalHeader} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
 import {AddressForm} from '@/modules/address/components'

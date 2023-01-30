@@ -1,4 +1,3 @@
-import React from 'react'
 import {StackNavigationRoutes} from '@/app/navigation'
 import {HeaderLogo, HeaderNavigation} from '@/modules/home/components'
 import {
