@@ -1,0 +1,643 @@
+diff --git a/node_modules/@react-native-community/cli-platform-android/.DS_Store b/node_modules/@react-native-community/cli-platform-android/.DS_Store
+new file mode 100644
+index 0000000..96ade92
+Binary files /dev/null and b/node_modules/@react-native-community/cli-platform-android/.DS_Store differ
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/.DS_Store b/node_modules/@react-native-community/cli-platform-android/build/.DS_Store
+new file mode 100644
+index 0000000..826996e
+Binary files /dev/null and b/node_modules/@react-native-community/cli-platform-android/build/.DS_Store differ
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts
+index 733ff9c..a21ce67 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts
+@@ -1,9 +1,9 @@
+ import { Config } from '@react-native-community/cli-types';
+ export interface BuildFlags {
+-    mode: string;
+-    variant: string;
++    mode?: string;
++    variant?: string;
+     activeArchOnly?: boolean;
+-    packager: boolean;
++    packager?: boolean;
+     port: number;
+     terminal: string;
+     tasks?: Array<string>;
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts.map
+index 29d8c40..6fd0e5c 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/commands/buildAndroid/index.ts"],"names":[],"mappings":"AAMA,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAQzD,MAAM,WAAW,UAAU;IACzB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,CAAC;IAChB,cAAc,CAAC,EAAE,OAAO,CAAC;IACzB,QAAQ,EAAE,OAAO,CAAC;IAClB,IAAI,EAAE,MAAM,CAAC;IACb,QAAQ,EAAE,MAAM,CAAC;IACjB,KAAK,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;IACtB,WAAW,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;CAC7B;AAED,wBAAsB,WAAW,CAAC,IAAI,EAAE,UAAU,EAAE,MAAM,EAAE,MAAM,iBAoBjE;AAED,iBAAe,YAAY,CACzB,KAAK,EAAE,KAAK,CAAC,MAAM,CAAC,EACpB,MAAM,EAAE,MAAM,EACd,IAAI,EAAE,UAAU,iBAgDjB;AAED,wBAAgB,KAAK,CAAC,UAAU,EAAE,MAAM,EAAE,EAAE,SAAS,EAAE,MAAM,QAa5D;AAED,eAAO,MAAM,OAAO;;;;;;;;;;;;;;;;;;;;;;;;;IA2CnB,CAAC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAEF,wBAKE"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/commands/buildAndroid/index.ts"],"names":[],"mappings":"AAMA,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAQzD,MAAM,WAAW,UAAU;IACzB,IAAI,CAAC,EAAE,MAAM,CAAC;IACd,OAAO,CAAC,EAAE,MAAM,CAAC;IACjB,cAAc,CAAC,EAAE,OAAO,CAAC;IACzB,QAAQ,CAAC,EAAE,OAAO,CAAC;IACnB,IAAI,EAAE,MAAM,CAAC;IACb,QAAQ,EAAE,MAAM,CAAC;IACjB,KAAK,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;IACtB,WAAW,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;CAC7B;AAED,wBAAsB,WAAW,CAAC,IAAI,EAAE,UAAU,EAAE,MAAM,EAAE,MAAM,iBAoBjE;AAED,iBAAe,YAAY,CACzB,KAAK,EAAE,KAAK,CAAC,MAAM,CAAC,EACpB,MAAM,EAAE,MAAM,EACd,IAAI,EAAE,UAAU,iBAiDjB;AAED,wBAAgB,KAAK,CAAC,UAAU,EAAE,MAAM,EAAE,EAAE,SAAS,EAAE,MAAM,QAa5D;AAED,eAAO,MAAM,OAAO;;;;;;;;;;;;;;;;;;;;;;;;;IA0CnB,CAAC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAEF,wBAKE"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js
+index 0d8018b..1af0879 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js
+@@ -21,10 +21,10 @@ function _execa() {
+   return data;
+ }
+ var _getAndroidProject = require("../../config/getAndroidProject");
+-var _runOnAllDevices = require("../runAndroid/runOnAllDevices");
+ var _adb = _interopRequireDefault(require("../runAndroid/adb"));
+ var _getAdbPath = _interopRequireDefault(require("../runAndroid/getAdbPath"));
+ var _startServerInNewWindow = require("./startServerInNewWindow");
++var _getTaskNames = require("../runAndroid/getTaskNames");
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ async function runPackager(args, config) {
+   if (!args.packager) {
+@@ -50,12 +50,10 @@ async function buildAndroid(_argv, config, args) {
+   if (args.variant) {
+     _cliTools().logger.warn('"variant" flag is deprecated and will be removed in future release. Please switch to "mode" flag.');
+   }
+-  const mode = args.variant || args.mode;
+   if (args.tasks && args.mode) {
+     _cliTools().logger.warn('Both "tasks" and "mode" parameters were passed to "build" command. Using "tasks" for building the app.');
+   }
+-  const tasks = args.tasks || ['assemble' + (0, _runOnAllDevices.toPascalCase)(mode)];
+-  let gradleArgs = (0, _runOnAllDevices.getTaskNames)(androidProject.appName, tasks);
++  let gradleArgs = (0, _getTaskNames.getTaskNames)(androidProject.appName, args.mode || args.variant, args.tasks, 'assemble');
+   if (args.extraParams) {
+     gradleArgs = [...gradleArgs, ...args.extraParams];
+   }
+@@ -92,8 +90,7 @@ function build(gradleArgs, sourceDir) {
+ }
+ const options = [{
+   name: '--mode <string>',
+-  description: "Specify your app's build variant",
+-  default: 'debug'
++  description: "Specify your app's build variant"
+ }, {
+   name: '--variant <string>',
+   description: "Specify your app's build variant. Deprecated! Use 'mode' instead"
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js.map
+index a0867c1..ee2ed35 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/buildAndroid/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["runPackager","args","config","packager","result","isPackagerRunning","port","logger","info","warn","startServerInNewWindow","terminal","reactNativePath","error","message","buildAndroid","_argv","androidProject","getAndroidProject","variant","mode","tasks","toPascalCase","gradleArgs","getTaskNames","appName","extraParams","activeArchOnly","adbPath","getAdbPath","devices","adb","getDevices","architectures","map","device","getCPU","filter","arch","index","array","indexOf","length","join","push","build","sourceDir","process","chdir","cmd","platform","startsWith","debug","execa","sync","stdio","cwd","CLIError","options","name","description","default","env","RCT_METRO_PORT","parse","Number","getDefaultUserTerminal","val","split","func"],"sources":["../../../src/commands/buildAndroid/index.ts"],"sourcesContent":["import {\n  CLIError,\n  getDefaultUserTerminal,\n  isPackagerRunning,\n  logger,\n} from '@react-native-community/cli-tools';\nimport {Config} from '@react-native-community/cli-types';\nimport execa from 'execa';\nimport {getAndroidProject} from '../../config/getAndroidProject';\nimport {getTaskNames, toPascalCase} from '../runAndroid/runOnAllDevices';\nimport adb from '../runAndroid/adb';\nimport getAdbPath from '../runAndroid/getAdbPath';\nimport {startServerInNewWindow} from './startServerInNewWindow';\n\nexport interface BuildFlags {\n  mode: string;\n  variant: string;\n  activeArchOnly?: boolean;\n  packager: boolean;\n  port: number;\n  terminal: string;\n  tasks?: Array<string>;\n  extraParams?: Array<string>;\n}\n\nexport async function runPackager(args: BuildFlags, config: Config) {\n  if (!args.packager) {\n    return;\n  }\n  const result = await isPackagerRunning(args.port);\n  if (result === 'running') {\n    logger.info('JS server already running.');\n  } else if (result === 'unrecognized') {\n    logger.warn('JS server not recognized, continuing with build...');\n  } else {\n    // result == 'not_running'\n    logger.info('Starting JS server...');\n    try {\n      startServerInNewWindow(args.port, args.terminal, config.reactNativePath);\n    } catch (error) {\n      logger.warn(\n        `Failed to automatically start the packager server. Please run \"react-native start\" manually. Error details: ${error.message}`,\n      );\n    }\n  }\n}\n\nasync function buildAndroid(\n  _argv: Array<string>,\n  config: Config,\n  args: BuildFlags,\n) {\n  const androidProject = getAndroidProject(config);\n\n  if (args.variant) {\n    logger.warn(\n      '\"variant\" flag is deprecated and will be removed in future release. Please switch to \"mode\" flag.',\n    );\n  }\n\n  const mode = args.variant || args.mode;\n\n  if (args.tasks && args.mode) {\n    logger.warn(\n      'Both \"tasks\" and \"mode\" parameters were passed to \"build\" command. Using \"tasks\" for building the app.',\n    );\n  }\n\n  const tasks = args.tasks || ['assemble' + toPascalCase(mode)];\n\n  let gradleArgs = getTaskNames(androidProject.appName, tasks);\n\n  if (args.extraParams) {\n    gradleArgs = [...gradleArgs, ...args.extraParams];\n  }\n\n  if (args.activeArchOnly) {\n    const adbPath = getAdbPath();\n    const devices = adb.getDevices(adbPath);\n    const architectures = devices\n      .map((device) => {\n        return adb.getCPU(adbPath, device);\n      })\n      .filter(\n        (arch, index, array) => arch != null && array.indexOf(arch) === index,\n      );\n    if (architectures.length > 0) {\n      logger.info(`Detected architectures ${architectures.join(', ')}`);\n      // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.\n      // Can be removed when 0.67 no longer needs to be supported.\n      gradleArgs.push(\n        '-PreactNativeDebugArchitectures=' + architectures.join(','),\n      );\n      gradleArgs.push('-PreactNativeArchitectures=' + architectures.join(','));\n    }\n  }\n  await runPackager(args, config);\n  return build(gradleArgs, androidProject.sourceDir);\n}\n\nexport function build(gradleArgs: string[], sourceDir: string) {\n  process.chdir(sourceDir);\n  const cmd = process.platform.startsWith('win') ? 'gradlew.bat' : './gradlew';\n  logger.info('Building the app...');\n  logger.debug(`Running command \"${cmd} ${gradleArgs.join(' ')}\"`);\n  try {\n    execa.sync(cmd, gradleArgs, {\n      stdio: 'inherit',\n      cwd: sourceDir,\n    });\n  } catch (error) {\n    throw new CLIError('Failed to build the app.', error);\n  }\n}\n\nexport const options = [\n  {\n    name: '--mode <string>',\n    description: \"Specify your app's build variant\",\n    default: 'debug',\n  },\n  {\n    name: '--variant <string>',\n    description:\n      \"Specify your app's build variant. Deprecated! Use 'mode' instead\",\n  },\n  {\n    name: '--no-packager',\n    description: 'Do not launch packager while building',\n  },\n  {\n    name: '--port <number>',\n    default: process.env.RCT_METRO_PORT || 8081,\n    parse: Number,\n  },\n  {\n    name: '--terminal <string>',\n    description:\n      'Launches the Metro Bundler in a new window using the specified terminal path.',\n    default: getDefaultUserTerminal(),\n  },\n  {\n    name: '--tasks <list>',\n    description:\n      'Run custom Gradle tasks. By default it\\'s \"assembleDebug\". Will override passed mode and variant arguments.',\n    parse: (val: string) => val.split(','),\n  },\n  {\n    name: '--active-arch-only',\n    description:\n      'Build native libraries only for the current device architecture for debug builds.',\n    default: false,\n  },\n  {\n    name: '--extra-params <string>',\n    description: 'Custom properties passed to gradle build command',\n    parse: (val: string) => val.split(' '),\n  },\n];\n\nexport default {\n  name: 'build-android',\n  description: 'builds your app',\n  func: buildAndroid,\n  options: options,\n};\n"],"mappings":"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"}
+\ No newline at end of file
++{"version":3,"names":["runPackager","args","config","packager","result","isPackagerRunning","port","logger","info","warn","startServerInNewWindow","terminal","reactNativePath","error","message","buildAndroid","_argv","androidProject","getAndroidProject","variant","tasks","mode","gradleArgs","getTaskNames","appName","extraParams","activeArchOnly","adbPath","getAdbPath","devices","adb","getDevices","architectures","map","device","getCPU","filter","arch","index","array","indexOf","length","join","push","build","sourceDir","process","chdir","cmd","platform","startsWith","debug","execa","sync","stdio","cwd","CLIError","options","name","description","default","env","RCT_METRO_PORT","parse","Number","getDefaultUserTerminal","val","split","func"],"sources":["../../../src/commands/buildAndroid/index.ts"],"sourcesContent":["import {\n  CLIError,\n  getDefaultUserTerminal,\n  isPackagerRunning,\n  logger,\n} from '@react-native-community/cli-tools';\nimport {Config} from '@react-native-community/cli-types';\nimport execa from 'execa';\nimport {getAndroidProject} from '../../config/getAndroidProject';\nimport adb from '../runAndroid/adb';\nimport getAdbPath from '../runAndroid/getAdbPath';\nimport {startServerInNewWindow} from './startServerInNewWindow';\nimport {getTaskNames} from '../runAndroid/getTaskNames';\n\nexport interface BuildFlags {\n  mode?: string;\n  variant?: string;\n  activeArchOnly?: boolean;\n  packager?: boolean;\n  port: number;\n  terminal: string;\n  tasks?: Array<string>;\n  extraParams?: Array<string>;\n}\n\nexport async function runPackager(args: BuildFlags, config: Config) {\n  if (!args.packager) {\n    return;\n  }\n  const result = await isPackagerRunning(args.port);\n  if (result === 'running') {\n    logger.info('JS server already running.');\n  } else if (result === 'unrecognized') {\n    logger.warn('JS server not recognized, continuing with build...');\n  } else {\n    // result == 'not_running'\n    logger.info('Starting JS server...');\n    try {\n      startServerInNewWindow(args.port, args.terminal, config.reactNativePath);\n    } catch (error) {\n      logger.warn(\n        `Failed to automatically start the packager server. Please run \"react-native start\" manually. Error details: ${error.message}`,\n      );\n    }\n  }\n}\n\nasync function buildAndroid(\n  _argv: Array<string>,\n  config: Config,\n  args: BuildFlags,\n) {\n  const androidProject = getAndroidProject(config);\n\n  if (args.variant) {\n    logger.warn(\n      '\"variant\" flag is deprecated and will be removed in future release. Please switch to \"mode\" flag.',\n    );\n  }\n\n  if (args.tasks && args.mode) {\n    logger.warn(\n      'Both \"tasks\" and \"mode\" parameters were passed to \"build\" command. Using \"tasks\" for building the app.',\n    );\n  }\n\n  let gradleArgs = getTaskNames(\n    androidProject.appName,\n    args.mode || args.variant,\n    args.tasks,\n    'assemble',\n  );\n\n  if (args.extraParams) {\n    gradleArgs = [...gradleArgs, ...args.extraParams];\n  }\n\n  if (args.activeArchOnly) {\n    const adbPath = getAdbPath();\n    const devices = adb.getDevices(adbPath);\n    const architectures = devices\n      .map((device) => {\n        return adb.getCPU(adbPath, device);\n      })\n      .filter(\n        (arch, index, array) => arch != null && array.indexOf(arch) === index,\n      );\n    if (architectures.length > 0) {\n      logger.info(`Detected architectures ${architectures.join(', ')}`);\n      // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.\n      // Can be removed when 0.67 no longer needs to be supported.\n      gradleArgs.push(\n        '-PreactNativeDebugArchitectures=' + architectures.join(','),\n      );\n      gradleArgs.push('-PreactNativeArchitectures=' + architectures.join(','));\n    }\n  }\n  await runPackager(args, config);\n  return build(gradleArgs, androidProject.sourceDir);\n}\n\nexport function build(gradleArgs: string[], sourceDir: string) {\n  process.chdir(sourceDir);\n  const cmd = process.platform.startsWith('win') ? 'gradlew.bat' : './gradlew';\n  logger.info('Building the app...');\n  logger.debug(`Running command \"${cmd} ${gradleArgs.join(' ')}\"`);\n  try {\n    execa.sync(cmd, gradleArgs, {\n      stdio: 'inherit',\n      cwd: sourceDir,\n    });\n  } catch (error) {\n    throw new CLIError('Failed to build the app.', error);\n  }\n}\n\nexport const options = [\n  {\n    name: '--mode <string>',\n    description: \"Specify your app's build variant\",\n  },\n  {\n    name: '--variant <string>',\n    description:\n      \"Specify your app's build variant. Deprecated! Use 'mode' instead\",\n  },\n  {\n    name: '--no-packager',\n    description: 'Do not launch packager while building',\n  },\n  {\n    name: '--port <number>',\n    default: process.env.RCT_METRO_PORT || 8081,\n    parse: Number,\n  },\n  {\n    name: '--terminal <string>',\n    description:\n      'Launches the Metro Bundler in a new window using the specified terminal path.',\n    default: getDefaultUserTerminal(),\n  },\n  {\n    name: '--tasks <list>',\n    description:\n      'Run custom Gradle tasks. By default it\\'s \"assembleDebug\". Will override passed mode and variant arguments.',\n    parse: (val: string) => val.split(','),\n  },\n  {\n    name: '--active-arch-only',\n    description:\n      'Build native libraries only for the current device architecture for debug builds.',\n    default: false,\n  },\n  {\n    name: '--extra-params <string>',\n    description: 'Custom properties passed to gradle build command',\n    parse: (val: string) => val.split(' '),\n  },\n];\n\nexport default {\n  name: 'build-android',\n  description: 'builds your app',\n  func: buildAndroid,\n  options: options,\n};\n"],"mappings":"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"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts
+new file mode 100644
+index 0000000..3f0f883
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts
+@@ -0,0 +1,3 @@
++import type { BuildFlags } from '../buildAndroid';
++export declare function getTaskNames(appName: string, mode: string | undefined, tasks: BuildFlags['tasks'], taskPrefix: 'assemble' | 'install'): Array<string>;
++//# sourceMappingURL=getTaskNames.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts.map
+new file mode 100644
+index 0000000..ca43d5a
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"getTaskNames.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/getTaskNames.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,UAAU,EAAC,MAAM,iBAAiB,CAAC;AAEhD,wBAAgB,YAAY,CAC1B,OAAO,EAAE,MAAM,EACf,IAAI,oBAA8B,EAClC,KAAK,EAAE,UAAU,CAAC,OAAO,CAAC,EAC1B,UAAU,EAAE,UAAU,GAAG,SAAS,GACjC,KAAK,CAAC,MAAM,CAAC,CAMf"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js
+new file mode 100644
+index 0000000..410121f
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js
+@@ -0,0 +1,13 @@
++"use strict";
++
++Object.defineProperty(exports, "__esModule", {
++  value: true
++});
++exports.getTaskNames = getTaskNames;
++var _toPascalCase = require("./toPascalCase");
++function getTaskNames(appName, mode = 'debug', tasks, taskPrefix) {
++  const appTasks = tasks || [taskPrefix + (0, _toPascalCase.toPascalCase)(mode)];
++  return appName ? appTasks.map(command => `${appName}:${command}`) : appTasks;
++}
++
++//# sourceMappingURL=getTaskNames.js.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js.map
+new file mode 100644
+index 0000000..15cbaaa
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/getTaskNames.js.map
+@@ -0,0 +1 @@
++{"version":3,"names":["getTaskNames","appName","mode","tasks","taskPrefix","appTasks","toPascalCase","map","command"],"sources":["../../../src/commands/runAndroid/getTaskNames.ts"],"sourcesContent":["import {toPascalCase} from './toPascalCase';\nimport type {BuildFlags} from '../buildAndroid';\n\nexport function getTaskNames(\n  appName: string,\n  mode: BuildFlags['mode'] = 'debug',\n  tasks: BuildFlags['tasks'],\n  taskPrefix: 'assemble' | 'install',\n): Array<string> {\n  const appTasks = tasks || [taskPrefix + toPascalCase(mode)];\n\n  return appName\n    ? appTasks.map((command) => `${appName}:${command}`)\n    : appTasks;\n}\n"],"mappings":";;;;;;AAAA;AAGO,SAASA,YAAY,CAC1BC,OAAe,EACfC,IAAwB,GAAG,OAAO,EAClCC,KAA0B,EAC1BC,UAAkC,EACnB;EACf,MAAMC,QAAQ,GAAGF,KAAK,IAAI,CAACC,UAAU,GAAG,IAAAE,0BAAY,EAACJ,IAAI,CAAC,CAAC;EAE3D,OAAOD,OAAO,GACVI,QAAQ,CAACE,GAAG,CAAEC,OAAO,IAAM,GAAEP,OAAQ,IAAGO,OAAQ,EAAC,CAAC,GAClDH,QAAQ;AACd"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts
+index 19eb83c..fd2b0a6 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts
+@@ -6,7 +6,9 @@ export interface Flags extends BuildFlags {
+     mainActivity: string;
+     deviceId?: string;
+     listDevices?: boolean;
++    binaryPath?: string;
+ }
++export declare type AndroidProject = NonNullable<Config['project']['android']>;
+ /**
+  * Starts the app on a connected Android emulator or device.
+  */
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts.map
+index 9ba1f30..5b86459 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/index.ts"],"names":[],"mappings":"AASA,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAWzD,OAAO,EAAqB,UAAU,EAAU,MAAM,iBAAiB,CAAC;AAExE,MAAM,WAAW,KAAM,SAAQ,UAAU;IACvC,KAAK,EAAE,MAAM,CAAC;IACd,WAAW,EAAE,MAAM,CAAC;IACpB,YAAY,EAAE,MAAM,CAAC;IACrB,QAAQ,CAAC,EAAE,MAAM,CAAC;IAClB,WAAW,CAAC,EAAE,OAAO,CAAC;CACvB;AAID;;GAEG;AACH,iBAAe,UAAU,CAAC,KAAK,EAAE,KAAK,CAAC,MAAM,CAAC,EAAE,MAAM,EAAE,MAAM,EAAE,IAAI,EAAE,KAAK,iBAK1E;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA2KD,wBAoCE"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/index.ts"],"names":[],"mappings":"AAQA,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAazD,OAAO,EAAqB,UAAU,EAAU,MAAM,iBAAiB,CAAC;AAExE,MAAM,WAAW,KAAM,SAAQ,UAAU;IACvC,KAAK,EAAE,MAAM,CAAC;IACd,WAAW,EAAE,MAAM,CAAC;IACpB,YAAY,EAAE,MAAM,CAAC;IACrB,QAAQ,CAAC,EAAE,MAAM,CAAC;IAClB,WAAW,CAAC,EAAE,OAAO,CAAC;IACtB,UAAU,CAAC,EAAE,MAAM,CAAC;CACrB;AAED,oBAAY,cAAc,GAAG,WAAW,CAAC,MAAM,CAAC,SAAS,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC;AAEvE;;GAEG;AACH,iBAAe,UAAU,CAAC,KAAK,EAAE,KAAK,CAAC,MAAM,CAAC,EAAE,MAAM,EAAE,MAAM,EAAE,IAAI,EAAE,KAAK,iBAuB1E;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAuID,wBAyCE"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
+index b4c74ce..be47f71 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js
+@@ -4,13 +4,6 @@ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+ exports.default = void 0;
+-function _execa() {
+-  const data = _interopRequireDefault(require("execa"));
+-  _execa = function () {
+-    return data;
+-  };
+-  return data;
+-}
+ function _fs() {
+   const data = _interopRequireDefault(require("fs"));
+   _fs = function () {
+@@ -22,6 +15,7 @@ var _adb = _interopRequireDefault(require("./adb"));
+ var _runOnAllDevices = _interopRequireDefault(require("./runOnAllDevices"));
+ var _tryRunAdbReverse = _interopRequireDefault(require("./tryRunAdbReverse"));
+ var _tryLaunchAppOnDevice = _interopRequireDefault(require("./tryLaunchAppOnDevice"));
++var _tryInstallAppOnDevice = _interopRequireDefault(require("./tryInstallAppOnDevice"));
+ var _getAdbPath = _interopRequireDefault(require("./getAdbPath"));
+ function _cliTools() {
+   const data = require("@react-native-community/cli-tools");
+@@ -40,6 +34,13 @@ function _chalk() {
+   };
+   return data;
+ }
++function _path() {
++  const data = _interopRequireDefault(require("path"));
++  _path = function () {
++    return data;
++  };
++  return data;
++}
+ var _buildAndroid = require("../buildAndroid");
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ /**
+@@ -54,6 +55,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+  * Starts the app on a connected Android emulator or device.
+  */
+ async function runAndroid(_argv, config, args) {
++  if (args.binaryPath) {
++    if (args.tasks) {
++      throw new (_cliTools().CLIError)('binary-path and tasks were specified, but they are not compatible. Specify only one');
++    }
++    args.binaryPath = _path().default.isAbsolute(args.binaryPath) ? args.binaryPath : _path().default.join(config.root, args.binaryPath);
++    if (args.binaryPath && !_fs().default.existsSync(args.binaryPath)) {
++      throw new (_cliTools().CLIError)('binary-path was specified, but the file was not found.');
++    }
++  }
+   const androidProject = (0, _getAndroidProject.getAndroidProject)(config);
+   await (0, _buildAndroid.runPackager)(args, config);
+   return buildAndRun(args, androidProject);
+@@ -124,7 +134,22 @@ function runOnSpecificDevice(args, adbPath, androidProject) {
+       if (args.extraParams) {
+         gradleArgs = [...gradleArgs, ...args.extraParams];
+       }
+-      (0, _buildAndroid.build)(gradleArgs, androidProject.sourceDir);
++      if (args.port) {
++        gradleArgs.push(`-PreactNativeDevServerPort=${args.port}`);
++      }
++      if (args.activeArchOnly) {
++        const architecture = _adb.default.getCPU(adbPath, deviceId);
++        if (architecture !== null) {
++          _cliTools().logger.info(`Detected architecture ${architecture}`);
++          // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.
++          // Can be removed when 0.67 no longer needs to be supported.
++          gradleArgs.push(`-PreactNativeDebugArchitectures=${architecture}`);
++          gradleArgs.push(`-PreactNativeArchitectures=${architecture}`);
++        }
++      }
++      if (!args.binaryPath) {
++        (0, _buildAndroid.build)(gradleArgs, androidProject.sourceDir);
++      }
+       installAndLaunchOnDevice(args, deviceId, adbPath, androidProject);
+     } else {
+       _cliTools().logger.error(`Could not find device with the id: "${deviceId}". Please choose one of the following:`, ...devices);
+@@ -133,48 +158,9 @@ function runOnSpecificDevice(args, adbPath, androidProject) {
+     _cliTools().logger.error('No Android device or emulator connected.');
+   }
+ }
+-function tryInstallAppOnDevice(args, adbPath, device, androidProject) {
+-  try {
+-    // "app" is usually the default value for Android apps with only 1 app
+-    const {
+-      appName,
+-      sourceDir
+-    } = androidProject;
+-    const variant = (args.mode || 'debug').toLowerCase();
+-    const buildDirectory = `${sourceDir}/${appName}/build/outputs/apk/${variant}`;
+-    const apkFile = getInstallApkName(appName, adbPath, variant, device, buildDirectory);
+-    const pathToApk = `${buildDirectory}/${apkFile}`;
+-    const adbArgs = ['-s', device, 'install', '-r', '-d', pathToApk];
+-    _cliTools().logger.info(`Installing the app on the device "${device}"...`);
+-    _cliTools().logger.debug(`Running command "cd android && adb -s ${device} install -r -d ${pathToApk}"`);
+-    _execa().default.sync(adbPath, adbArgs, {
+-      stdio: 'inherit'
+-    });
+-  } catch (error) {
+-    throw new (_cliTools().CLIError)('Failed to install the app on the device.', error);
+-  }
+-}
+-function getInstallApkName(appName, adbPath, variant, device, buildDirectory) {
+-  const availableCPUs = _adb.default.getAvailableCPUs(adbPath, device);
+-
+-  // check if there is an apk file like app-armeabi-v7a-debug.apk
+-  for (const availableCPU of availableCPUs.concat('universal')) {
+-    const apkName = `${appName}-${availableCPU}-${variant}.apk`;
+-    if (_fs().default.existsSync(`${buildDirectory}/${apkName}`)) {
+-      return apkName;
+-    }
+-  }
+-
+-  // check if there is a default file like app-debug.apk
+-  const apkName = `${appName}-${variant}.apk`;
+-  if (_fs().default.existsSync(`${buildDirectory}/${apkName}`)) {
+-    return apkName;
+-  }
+-  throw new (_cliTools().CLIError)('Could not find the correct install APK file.');
+-}
+ function installAndLaunchOnDevice(args, selectedDevice, adbPath, androidProject) {
+   (0, _tryRunAdbReverse.default)(args.port, selectedDevice);
+-  tryInstallAppOnDevice(args, adbPath, selectedDevice, androidProject);
++  (0, _tryInstallAppOnDevice.default)(args, adbPath, selectedDevice, androidProject);
+   (0, _tryLaunchAppOnDevice.default)(selectedDevice, androidProject.packageName, adbPath, args);
+ }
+ var _default = {
+@@ -200,6 +186,9 @@ var _default = {
+     name: '--list-devices',
+     description: 'Lists all available Android devices and simulators and let you choose one to run the app',
+     default: false
++  }, {
++    name: '--binary-path <string>',
++    description: 'Path relative to project root where pre-built .apk binary lives.'
+   }]
+ };
+ exports.default = _default;
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js.map
+index 2807805..a1af2aa 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/index.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["runAndroid","_argv","config","args","androidProject","getAndroidProject","runPackager","buildAndRun","defaultPort","getAvailableDevicePort","port","adbPath","getAdbPath","devices","adb","getDevices","CLIError","some","d","includes","toString","process","chdir","sourceDir","cmd","platform","startsWith","listDevices","deviceId","logger","warn","device","listAndroidDevices","connected","runOnSpecificDevice","emulator","info","result","tryLaunchEmulator","readableName","success","chalk","dim","error","runOnAllDevices","length","indexOf","gradleArgs","extraParams","build","installAndLaunchOnDevice","tryInstallAppOnDevice","appName","variant","mode","toLowerCase","buildDirectory","apkFile","getInstallApkName","pathToApk","adbArgs","debug","execa","sync","stdio","availableCPUs","getAvailableCPUs","availableCPU","concat","apkName","fs","existsSync","selectedDevice","tryRunAdbReverse","tryLaunchAppOnDevice","packageName","name","description","func","options","default"],"sources":["../../../src/commands/runAndroid/index.ts"],"sourcesContent":["/**\n * Copyright (c) Facebook, Inc. and its affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\nimport execa from 'execa';\nimport fs from 'fs';\nimport {Config} from '@react-native-community/cli-types';\nimport adb from './adb';\nimport runOnAllDevices from './runOnAllDevices';\nimport tryRunAdbReverse from './tryRunAdbReverse';\nimport tryLaunchAppOnDevice from './tryLaunchAppOnDevice';\nimport getAdbPath from './getAdbPath';\nimport {logger, CLIError} from '@react-native-community/cli-tools';\nimport {getAndroidProject} from '../../config/getAndroidProject';\nimport listAndroidDevices from './listAndroidDevices';\nimport tryLaunchEmulator from './tryLaunchEmulator';\nimport chalk from 'chalk';\nimport {build, runPackager, BuildFlags, options} from '../buildAndroid';\n\nexport interface Flags extends BuildFlags {\n  appId: string;\n  appIdSuffix: string;\n  mainActivity: string;\n  deviceId?: string;\n  listDevices?: boolean;\n}\n\ntype AndroidProject = NonNullable<Config['project']['android']>;\n\n/**\n * Starts the app on a connected Android emulator or device.\n */\nasync function runAndroid(_argv: Array<string>, config: Config, args: Flags) {\n  const androidProject = getAndroidProject(config);\n\n  await runPackager(args, config);\n  return buildAndRun(args, androidProject);\n}\n\nconst defaultPort = 5552;\nasync function getAvailableDevicePort(\n  port: number = defaultPort,\n): Promise<number> {\n  /**\n   * The default value is 5554 for the first virtual device instance running on your machine. A virtual device normally occupies a pair of adjacent ports: a console port and an adb port. The console of the first virtual device running on a particular machine uses console port 5554 and adb port 5555. Subsequent instances use port numbers increasing by two. For example, 5556/5557, 5558/5559, and so on. The range is 5554 to 5682, allowing for 64 concurrent virtual devices.\n   */\n  const adbPath = getAdbPath();\n  const devices = adb.getDevices(adbPath);\n  if (port > 5682) {\n    throw new CLIError('Failed to launch emulator...');\n  }\n  if (devices.some((d) => d.includes(port.toString()))) {\n    return await getAvailableDevicePort(port + 2);\n  }\n  return port;\n}\n\n// Builds the app and runs it on a connected emulator / device.\nasync function buildAndRun(args: Flags, androidProject: AndroidProject) {\n  process.chdir(androidProject.sourceDir);\n  const cmd = process.platform.startsWith('win') ? 'gradlew.bat' : './gradlew';\n\n  const adbPath = getAdbPath();\n  if (args.listDevices) {\n    if (args.deviceId) {\n      logger.warn(\n        'Both \"deviceId\" and \"list-devices\" parameters were passed to \"run\" command. We will list available devices and let you choose from one',\n      );\n    }\n\n    const device = await listAndroidDevices();\n    if (!device) {\n      throw new CLIError(\n        'Failed to select device, please try to run app without \"list-devices\" command.',\n      );\n    }\n\n    if (device.connected) {\n      return runOnSpecificDevice(\n        {...args, deviceId: device.deviceId},\n        adbPath,\n        androidProject,\n      );\n    }\n\n    const port = await getAvailableDevicePort();\n    const emulator = `emulator-${port}`;\n    logger.info('Launching emulator...');\n    const result = await tryLaunchEmulator(adbPath, device.readableName, port);\n    if (result.success) {\n      logger.info('Successfully launched emulator.');\n      return runOnSpecificDevice(\n        {...args, deviceId: emulator},\n        adbPath,\n        androidProject,\n      );\n    }\n    throw new CLIError(\n      `Failed to launch emulator. Reason: ${chalk.dim(result.error || '')}`,\n    );\n  }\n  if (args.deviceId) {\n    return runOnSpecificDevice(args, adbPath, androidProject);\n  } else {\n    return runOnAllDevices(args, cmd, adbPath, androidProject);\n  }\n}\n\nfunction runOnSpecificDevice(\n  args: Flags,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  const devices = adb.getDevices(adbPath);\n  const {deviceId} = args;\n  if (devices.length > 0 && deviceId) {\n    if (devices.indexOf(deviceId) !== -1) {\n      // using '-x lint' in order to ignore linting errors while building the apk\n      let gradleArgs = ['build', '-x', 'lint'];\n      if (args.extraParams) {\n        gradleArgs = [...gradleArgs, ...args.extraParams];\n      }\n      build(gradleArgs, androidProject.sourceDir);\n      installAndLaunchOnDevice(args, deviceId, adbPath, androidProject);\n    } else {\n      logger.error(\n        `Could not find device with the id: \"${deviceId}\". Please choose one of the following:`,\n        ...devices,\n      );\n    }\n  } else {\n    logger.error('No Android device or emulator connected.');\n  }\n}\n\nfunction tryInstallAppOnDevice(\n  args: Flags,\n  adbPath: string,\n  device: string,\n  androidProject: AndroidProject,\n) {\n  try {\n    // \"app\" is usually the default value for Android apps with only 1 app\n    const {appName, sourceDir} = androidProject;\n    const variant = (args.mode || 'debug').toLowerCase();\n    const buildDirectory = `${sourceDir}/${appName}/build/outputs/apk/${variant}`;\n    const apkFile = getInstallApkName(\n      appName,\n      adbPath,\n      variant,\n      device,\n      buildDirectory,\n    );\n\n    const pathToApk = `${buildDirectory}/${apkFile}`;\n    const adbArgs = ['-s', device, 'install', '-r', '-d', pathToApk];\n    logger.info(`Installing the app on the device \"${device}\"...`);\n    logger.debug(\n      `Running command \"cd android && adb -s ${device} install -r -d ${pathToApk}\"`,\n    );\n    execa.sync(adbPath, adbArgs, {stdio: 'inherit'});\n  } catch (error) {\n    throw new CLIError('Failed to install the app on the device.', error);\n  }\n}\n\nfunction getInstallApkName(\n  appName: string,\n  adbPath: string,\n  variant: string,\n  device: string,\n  buildDirectory: string,\n) {\n  const availableCPUs = adb.getAvailableCPUs(adbPath, device);\n\n  // check if there is an apk file like app-armeabi-v7a-debug.apk\n  for (const availableCPU of availableCPUs.concat('universal')) {\n    const apkName = `${appName}-${availableCPU}-${variant}.apk`;\n    if (fs.existsSync(`${buildDirectory}/${apkName}`)) {\n      return apkName;\n    }\n  }\n\n  // check if there is a default file like app-debug.apk\n  const apkName = `${appName}-${variant}.apk`;\n  if (fs.existsSync(`${buildDirectory}/${apkName}`)) {\n    return apkName;\n  }\n\n  throw new CLIError('Could not find the correct install APK file.');\n}\n\nfunction installAndLaunchOnDevice(\n  args: Flags,\n  selectedDevice: string,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  tryRunAdbReverse(args.port, selectedDevice);\n  tryInstallAppOnDevice(args, adbPath, selectedDevice, androidProject);\n  tryLaunchAppOnDevice(\n    selectedDevice,\n    androidProject.packageName,\n    adbPath,\n    args,\n  );\n}\n\nexport default {\n  name: 'run-android',\n  description:\n    'builds your app and starts it on a connected Android emulator or device',\n  func: runAndroid,\n  options: [\n    ...options,\n    {\n      name: '--appId <string>',\n      description:\n        'Specify an applicationId to launch after build. If not specified, `package` from AndroidManifest.xml will be used.',\n      default: '',\n    },\n    {\n      name: '--appIdSuffix <string>',\n      description: 'Specify an applicationIdSuffix to launch after build.',\n      default: '',\n    },\n    {\n      name: '--main-activity <string>',\n      description: 'Name of the activity to start',\n      default: 'MainActivity',\n    },\n    {\n      name: '--deviceId <string>',\n      description:\n        'builds your app and starts it on a specific device/simulator with the ' +\n        'given device id (listed by running \"adb devices\" on the command line).',\n    },\n    {\n      name: '--list-devices',\n      description:\n        'Lists all available Android devices and simulators and let you choose one to run the app',\n      default: false,\n    },\n  ],\n};\n"],"mappings":"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"}
+\ No newline at end of file
++{"version":3,"names":["runAndroid","_argv","config","args","binaryPath","tasks","CLIError","path","isAbsolute","join","root","fs","existsSync","androidProject","getAndroidProject","runPackager","buildAndRun","defaultPort","getAvailableDevicePort","port","adbPath","getAdbPath","devices","adb","getDevices","some","d","includes","toString","process","chdir","sourceDir","cmd","platform","startsWith","listDevices","deviceId","logger","warn","device","listAndroidDevices","connected","runOnSpecificDevice","emulator","info","result","tryLaunchEmulator","readableName","success","chalk","dim","error","runOnAllDevices","length","indexOf","gradleArgs","extraParams","push","activeArchOnly","architecture","getCPU","build","installAndLaunchOnDevice","selectedDevice","tryRunAdbReverse","tryInstallAppOnDevice","tryLaunchAppOnDevice","packageName","name","description","func","options","default"],"sources":["../../../src/commands/runAndroid/index.ts"],"sourcesContent":["/**\n * Copyright (c) Facebook, Inc. and its affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\nimport fs from 'fs';\nimport {Config} from '@react-native-community/cli-types';\nimport adb from './adb';\nimport runOnAllDevices from './runOnAllDevices';\nimport tryRunAdbReverse from './tryRunAdbReverse';\nimport tryLaunchAppOnDevice from './tryLaunchAppOnDevice';\nimport tryInstallAppOnDevice from './tryInstallAppOnDevice';\nimport getAdbPath from './getAdbPath';\nimport {logger, CLIError} from '@react-native-community/cli-tools';\nimport {getAndroidProject} from '../../config/getAndroidProject';\nimport listAndroidDevices from './listAndroidDevices';\nimport tryLaunchEmulator from './tryLaunchEmulator';\nimport chalk from 'chalk';\nimport path from 'path';\nimport {build, runPackager, BuildFlags, options} from '../buildAndroid';\n\nexport interface Flags extends BuildFlags {\n  appId: string;\n  appIdSuffix: string;\n  mainActivity: string;\n  deviceId?: string;\n  listDevices?: boolean;\n  binaryPath?: string;\n}\n\nexport type AndroidProject = NonNullable<Config['project']['android']>;\n\n/**\n * Starts the app on a connected Android emulator or device.\n */\nasync function runAndroid(_argv: Array<string>, config: Config, args: Flags) {\n  if (args.binaryPath) {\n    if (args.tasks) {\n      throw new CLIError(\n        'binary-path and tasks were specified, but they are not compatible. Specify only one',\n      );\n    }\n\n    args.binaryPath = path.isAbsolute(args.binaryPath)\n      ? args.binaryPath\n      : path.join(config.root, args.binaryPath);\n\n    if (args.binaryPath && !fs.existsSync(args.binaryPath)) {\n      throw new CLIError(\n        'binary-path was specified, but the file was not found.',\n      );\n    }\n  }\n\n  const androidProject = getAndroidProject(config);\n\n  await runPackager(args, config);\n  return buildAndRun(args, androidProject);\n}\n\nconst defaultPort = 5552;\nasync function getAvailableDevicePort(\n  port: number = defaultPort,\n): Promise<number> {\n  /**\n   * The default value is 5554 for the first virtual device instance running on your machine. A virtual device normally occupies a pair of adjacent ports: a console port and an adb port. The console of the first virtual device running on a particular machine uses console port 5554 and adb port 5555. Subsequent instances use port numbers increasing by two. For example, 5556/5557, 5558/5559, and so on. The range is 5554 to 5682, allowing for 64 concurrent virtual devices.\n   */\n  const adbPath = getAdbPath();\n  const devices = adb.getDevices(adbPath);\n  if (port > 5682) {\n    throw new CLIError('Failed to launch emulator...');\n  }\n  if (devices.some((d) => d.includes(port.toString()))) {\n    return await getAvailableDevicePort(port + 2);\n  }\n  return port;\n}\n\n// Builds the app and runs it on a connected emulator / device.\nasync function buildAndRun(args: Flags, androidProject: AndroidProject) {\n  process.chdir(androidProject.sourceDir);\n  const cmd = process.platform.startsWith('win') ? 'gradlew.bat' : './gradlew';\n\n  const adbPath = getAdbPath();\n  if (args.listDevices) {\n    if (args.deviceId) {\n      logger.warn(\n        'Both \"deviceId\" and \"list-devices\" parameters were passed to \"run\" command. We will list available devices and let you choose from one',\n      );\n    }\n\n    const device = await listAndroidDevices();\n    if (!device) {\n      throw new CLIError(\n        'Failed to select device, please try to run app without \"list-devices\" command.',\n      );\n    }\n\n    if (device.connected) {\n      return runOnSpecificDevice(\n        {...args, deviceId: device.deviceId},\n        adbPath,\n        androidProject,\n      );\n    }\n\n    const port = await getAvailableDevicePort();\n    const emulator = `emulator-${port}`;\n    logger.info('Launching emulator...');\n    const result = await tryLaunchEmulator(adbPath, device.readableName, port);\n    if (result.success) {\n      logger.info('Successfully launched emulator.');\n      return runOnSpecificDevice(\n        {...args, deviceId: emulator},\n        adbPath,\n        androidProject,\n      );\n    }\n    throw new CLIError(\n      `Failed to launch emulator. Reason: ${chalk.dim(result.error || '')}`,\n    );\n  }\n  if (args.deviceId) {\n    return runOnSpecificDevice(args, adbPath, androidProject);\n  } else {\n    return runOnAllDevices(args, cmd, adbPath, androidProject);\n  }\n}\n\nfunction runOnSpecificDevice(\n  args: Flags,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  const devices = adb.getDevices(adbPath);\n  const {deviceId} = args;\n  if (devices.length > 0 && deviceId) {\n    if (devices.indexOf(deviceId) !== -1) {\n      // using '-x lint' in order to ignore linting errors while building the apk\n      let gradleArgs = ['build', '-x', 'lint'];\n\n      if (args.extraParams) {\n        gradleArgs = [...gradleArgs, ...args.extraParams];\n      }\n\n      if (args.port) {\n        gradleArgs.push(`-PreactNativeDevServerPort=${args.port}`);\n      }\n\n      if (args.activeArchOnly) {\n        const architecture = adb.getCPU(adbPath, deviceId);\n\n        if (architecture !== null) {\n          logger.info(`Detected architecture ${architecture}`);\n          // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.\n          // Can be removed when 0.67 no longer needs to be supported.\n          gradleArgs.push(`-PreactNativeDebugArchitectures=${architecture}`);\n          gradleArgs.push(`-PreactNativeArchitectures=${architecture}`);\n        }\n      }\n\n      if (!args.binaryPath) {\n        build(gradleArgs, androidProject.sourceDir);\n      }\n\n      installAndLaunchOnDevice(args, deviceId, adbPath, androidProject);\n    } else {\n      logger.error(\n        `Could not find device with the id: \"${deviceId}\". Please choose one of the following:`,\n        ...devices,\n      );\n    }\n  } else {\n    logger.error('No Android device or emulator connected.');\n  }\n}\n\nfunction installAndLaunchOnDevice(\n  args: Flags,\n  selectedDevice: string,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  tryRunAdbReverse(args.port, selectedDevice);\n  tryInstallAppOnDevice(args, adbPath, selectedDevice, androidProject);\n  tryLaunchAppOnDevice(\n    selectedDevice,\n    androidProject.packageName,\n    adbPath,\n    args,\n  );\n}\n\nexport default {\n  name: 'run-android',\n  description:\n    'builds your app and starts it on a connected Android emulator or device',\n  func: runAndroid,\n  options: [\n    ...options,\n    {\n      name: '--appId <string>',\n      description:\n        'Specify an applicationId to launch after build. If not specified, `package` from AndroidManifest.xml will be used.',\n      default: '',\n    },\n    {\n      name: '--appIdSuffix <string>',\n      description: 'Specify an applicationIdSuffix to launch after build.',\n      default: '',\n    },\n    {\n      name: '--main-activity <string>',\n      description: 'Name of the activity to start',\n      default: 'MainActivity',\n    },\n    {\n      name: '--deviceId <string>',\n      description:\n        'builds your app and starts it on a specific device/simulator with the ' +\n        'given device id (listed by running \"adb devices\" on the command line).',\n    },\n    {\n      name: '--list-devices',\n      description:\n        'Lists all available Android devices and simulators and let you choose one to run the app',\n      default: false,\n    },\n    {\n      name: '--binary-path <string>',\n      description:\n        'Path relative to project root where pre-built .apk binary lives.',\n    },\n  ],\n};\n"],"mappings":"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"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.d.ts.map
+index 5f6add7..5ed716c 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.d.ts.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"listAndroidDevices.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/listAndroidDevices.ts"],"names":[],"mappings":"AASA,aAAK,UAAU,GAAG;IAChB,QAAQ,EAAE,MAAM,GAAG,SAAS,CAAC;IAC7B,YAAY,EAAE,MAAM,CAAC;IACrB,SAAS,EAAE,OAAO,CAAC;IACnB,IAAI,EAAE,UAAU,GAAG,OAAO,CAAC;CAC5B,CAAC;AA+DF,iBAAe,kBAAkB,oCA6ChC;AAED,eAAe,kBAAkB,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"listAndroidDevices.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/listAndroidDevices.ts"],"names":[],"mappings":"AAUA,aAAK,UAAU,GAAG;IAChB,QAAQ,EAAE,MAAM,GAAG,SAAS,CAAC;IAC7B,YAAY,EAAE,MAAM,CAAC;IACrB,SAAS,EAAE,OAAO,CAAC;IACnB,IAAI,EAAE,UAAU,GAAG,OAAO,CAAC;CAC5B,CAAC;AA2DF,iBAAe,kBAAkB,oCA6ChC;AAED,eAAe,kBAAkB,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js
+index 8cb99ec..a13c32a 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js
+@@ -14,6 +14,7 @@ function _child_process() {
+ var _adb = _interopRequireDefault(require("./adb"));
+ var _getAdbPath = _interopRequireDefault(require("./getAdbPath"));
+ var _tryLaunchEmulator = require("./tryLaunchEmulator");
++var _toPascalCase = require("./toPascalCase");
+ function _os() {
+   const data = _interopRequireDefault(require("os"));
+   _os = function () {
+@@ -43,10 +44,6 @@ function _cliTools() {
+   return data;
+ }
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+-function toPascalCase(value) {
+-  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;
+-}
+-
+ /**
+  *
+  * @param deviceId string
+@@ -81,7 +78,7 @@ async function promptForDeviceSelection(allDevices) {
+     name: 'device',
+     message: 'Select the device / emulator you want to use',
+     choices: allDevices.map(d => ({
+-      title: `${_chalk().default.bold(`${toPascalCase(d.type)}`)} ${_chalk().default.green(`${d.readableName}`)} (${d.connected ? 'connected' : 'disconnected'})`,
++      title: `${_chalk().default.bold(`${(0, _toPascalCase.toPascalCase)(d.type)}`)} ${_chalk().default.green(`${d.readableName}`)} (${d.connected ? 'connected' : 'disconnected'})`,
+       value: d
+     })),
+     min: 1
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js.map
+index 1633382..3c786b7 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/listAndroidDevices.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["toPascalCase","value","toUpperCase","slice","getEmulatorName","deviceId","adbPath","getAdbPath","buffer","execSync","toString","split","os","EOL","replace","trim","getPhoneName","promptForDeviceSelection","allDevices","length","CLIError","device","prompts","type","name","message","choices","map","d","title","chalk","bold","green","readableName","connected","min","listAndroidDevices","devices","adb","getDevices","forEach","includes","emulatorData","phoneData","emulators","getEmulators","emulatorName","some","undefined","selectedDevice"],"sources":["../../../src/commands/runAndroid/listAndroidDevices.ts"],"sourcesContent":["import {execSync} from 'child_process';\nimport adb from './adb';\nimport getAdbPath from './getAdbPath';\nimport {getEmulators} from './tryLaunchEmulator';\nimport os from 'os';\nimport prompts from 'prompts';\nimport chalk from 'chalk';\nimport {CLIError} from '@react-native-community/cli-tools';\n\ntype DeviceData = {\n  deviceId: string | undefined;\n  readableName: string;\n  connected: boolean;\n  type: 'emulator' | 'phone';\n};\n\nfunction toPascalCase(value: string) {\n  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;\n}\n\n/**\n *\n * @param deviceId string\n * @returns name of Android emulator\n */\nfunction getEmulatorName(deviceId: string) {\n  const adbPath = getAdbPath();\n  const buffer = execSync(`${adbPath} -s ${deviceId} emu avd name`);\n\n  // 1st line should get us emu name\n  return buffer\n    .toString()\n    .split(os.EOL)[0]\n    .replace(/(\\r\\n|\\n|\\r)/gm, '')\n    .trim();\n}\n\n/**\n *\n * @param deviceId string\n * @returns Android device name in readable format\n */\nfunction getPhoneName(deviceId: string) {\n  const adbPath = getAdbPath();\n  const buffer = execSync(\n    `${adbPath} -s ${deviceId} shell getprop | grep ro.product.model`,\n  );\n  return buffer\n    .toString()\n    .replace(/\\[ro\\.product\\.model\\]:\\s*\\[(.*)\\]/, '$1')\n    .trim();\n}\n\nasync function promptForDeviceSelection(\n  allDevices: Array<DeviceData>,\n): Promise<DeviceData | undefined> {\n  if (!allDevices.length) {\n    throw new CLIError(\n      'No devices and/or emulators connected. Please create emulator with Android Studio or connect Android device.',\n    );\n  }\n  const {device} = await prompts({\n    type: 'select',\n    name: 'device',\n    message: 'Select the device / emulator you want to use',\n    choices: allDevices.map((d) => ({\n      title: `${chalk.bold(`${toPascalCase(d.type)}`)} ${chalk.green(\n        `${d.readableName}`,\n      )} (${d.connected ? 'connected' : 'disconnected'})`,\n      value: d,\n    })),\n    min: 1,\n  });\n\n  return device;\n}\n\nasync function listAndroidDevices() {\n  const adbPath = getAdbPath();\n  const devices = adb.getDevices(adbPath);\n\n  let allDevices: Array<DeviceData> = [];\n\n  devices.forEach((deviceId) => {\n    if (deviceId.includes('emulator')) {\n      const emulatorData: DeviceData = {\n        deviceId,\n        readableName: getEmulatorName(deviceId),\n        connected: true,\n        type: 'emulator',\n      };\n      allDevices = [...allDevices, emulatorData];\n    } else {\n      const phoneData: DeviceData = {\n        deviceId,\n        readableName: getPhoneName(deviceId),\n        type: 'phone',\n        connected: true,\n      };\n      allDevices = [...allDevices, phoneData];\n    }\n  });\n\n  const emulators = getEmulators();\n\n  // Find not booted ones:\n  emulators.forEach((emulatorName) => {\n    // skip those already booted\n    if (allDevices.some((device) => device.readableName === emulatorName)) {\n      return;\n    }\n    const emulatorData: DeviceData = {\n      deviceId: undefined,\n      readableName: emulatorName,\n      type: 'emulator',\n      connected: false,\n    };\n    allDevices = [...allDevices, emulatorData];\n  });\n\n  const selectedDevice = await promptForDeviceSelection(allDevices);\n  return selectedDevice;\n}\n\nexport default listAndroidDevices;\n"],"mappings":"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"}
+\ No newline at end of file
++{"version":3,"names":["getEmulatorName","deviceId","adbPath","getAdbPath","buffer","execSync","toString","split","os","EOL","replace","trim","getPhoneName","promptForDeviceSelection","allDevices","length","CLIError","device","prompts","type","name","message","choices","map","d","title","chalk","bold","toPascalCase","green","readableName","connected","value","min","listAndroidDevices","devices","adb","getDevices","forEach","includes","emulatorData","phoneData","emulators","getEmulators","emulatorName","some","undefined","selectedDevice"],"sources":["../../../src/commands/runAndroid/listAndroidDevices.ts"],"sourcesContent":["import {execSync} from 'child_process';\nimport adb from './adb';\nimport getAdbPath from './getAdbPath';\nimport {getEmulators} from './tryLaunchEmulator';\nimport {toPascalCase} from './toPascalCase';\nimport os from 'os';\nimport prompts from 'prompts';\nimport chalk from 'chalk';\nimport {CLIError} from '@react-native-community/cli-tools';\n\ntype DeviceData = {\n  deviceId: string | undefined;\n  readableName: string;\n  connected: boolean;\n  type: 'emulator' | 'phone';\n};\n\n/**\n *\n * @param deviceId string\n * @returns name of Android emulator\n */\nfunction getEmulatorName(deviceId: string) {\n  const adbPath = getAdbPath();\n  const buffer = execSync(`${adbPath} -s ${deviceId} emu avd name`);\n\n  // 1st line should get us emu name\n  return buffer\n    .toString()\n    .split(os.EOL)[0]\n    .replace(/(\\r\\n|\\n|\\r)/gm, '')\n    .trim();\n}\n\n/**\n *\n * @param deviceId string\n * @returns Android device name in readable format\n */\nfunction getPhoneName(deviceId: string) {\n  const adbPath = getAdbPath();\n  const buffer = execSync(\n    `${adbPath} -s ${deviceId} shell getprop | grep ro.product.model`,\n  );\n  return buffer\n    .toString()\n    .replace(/\\[ro\\.product\\.model\\]:\\s*\\[(.*)\\]/, '$1')\n    .trim();\n}\n\nasync function promptForDeviceSelection(\n  allDevices: Array<DeviceData>,\n): Promise<DeviceData | undefined> {\n  if (!allDevices.length) {\n    throw new CLIError(\n      'No devices and/or emulators connected. Please create emulator with Android Studio or connect Android device.',\n    );\n  }\n  const {device} = await prompts({\n    type: 'select',\n    name: 'device',\n    message: 'Select the device / emulator you want to use',\n    choices: allDevices.map((d) => ({\n      title: `${chalk.bold(`${toPascalCase(d.type)}`)} ${chalk.green(\n        `${d.readableName}`,\n      )} (${d.connected ? 'connected' : 'disconnected'})`,\n      value: d,\n    })),\n    min: 1,\n  });\n\n  return device;\n}\n\nasync function listAndroidDevices() {\n  const adbPath = getAdbPath();\n  const devices = adb.getDevices(adbPath);\n\n  let allDevices: Array<DeviceData> = [];\n\n  devices.forEach((deviceId) => {\n    if (deviceId.includes('emulator')) {\n      const emulatorData: DeviceData = {\n        deviceId,\n        readableName: getEmulatorName(deviceId),\n        connected: true,\n        type: 'emulator',\n      };\n      allDevices = [...allDevices, emulatorData];\n    } else {\n      const phoneData: DeviceData = {\n        deviceId,\n        readableName: getPhoneName(deviceId),\n        type: 'phone',\n        connected: true,\n      };\n      allDevices = [...allDevices, phoneData];\n    }\n  });\n\n  const emulators = getEmulators();\n\n  // Find not booted ones:\n  emulators.forEach((emulatorName) => {\n    // skip those already booted\n    if (allDevices.some((device) => device.readableName === emulatorName)) {\n      return;\n    }\n    const emulatorData: DeviceData = {\n      deviceId: undefined,\n      readableName: emulatorName,\n      type: 'emulator',\n      connected: false,\n    };\n    allDevices = [...allDevices, emulatorData];\n  });\n\n  const selectedDevice = await promptForDeviceSelection(allDevices);\n  return selectedDevice;\n}\n\nexport default listAndroidDevices;\n"],"mappings":"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"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts
+index eff6b81..9fb4164 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts
+@@ -6,9 +6,7 @@
+  *
+  */
+ import { Config } from '@react-native-community/cli-types';
+-import { Flags } from '.';
+-export declare function getTaskNames(appName: string, commands: Array<string>): Array<string>;
+-export declare function toPascalCase(value: string): string;
++import type { Flags } from '.';
+ declare type AndroidProject = NonNullable<Config['project']['android']>;
+ declare function runOnAllDevices(args: Flags, cmd: string, adbPath: string, androidProject: AndroidProject): Promise<void>;
+ export default runOnAllDevices;
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts.map
+index 7ed4973..3ed28ea 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"runOnAllDevices.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/runOnAllDevices.ts"],"names":[],"mappings":"AAAA;;;;;;GAMG;AAIH,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAMzD,OAAO,EAAC,KAAK,EAAC,MAAM,GAAG,CAAC;AAExB,wBAAgB,YAAY,CAC1B,OAAO,EAAE,MAAM,EACf,QAAQ,EAAE,KAAK,CAAC,MAAM,CAAC,GACtB,KAAK,CAAC,MAAM,CAAC,CAIf;AAED,wBAAgB,YAAY,CAAC,KAAK,EAAE,MAAM,UAEzC;AAED,aAAK,cAAc,GAAG,WAAW,CAAC,MAAM,CAAC,SAAS,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC;AAEhE,iBAAe,eAAe,CAC5B,IAAI,EAAE,KAAK,EACX,GAAG,EAAE,MAAM,EACX,OAAO,EAAE,MAAM,EACf,cAAc,EAAE,cAAc,iBAyE/B;AA6BD,eAAe,eAAe,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"runOnAllDevices.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/runOnAllDevices.ts"],"names":[],"mappings":"AAAA;;;;;;GAMG;AAIH,OAAO,EAAC,MAAM,EAAC,MAAM,mCAAmC,CAAC;AAQzD,OAAO,KAAK,EAAC,KAAK,EAAC,MAAM,GAAG,CAAC;AAE7B,aAAK,cAAc,GAAG,WAAW,CAAC,MAAM,CAAC,SAAS,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC;AAEhE,iBAAe,eAAe,CAC5B,IAAI,EAAE,KAAK,EACX,GAAG,EAAE,MAAM,EACX,OAAO,EAAE,MAAM,EACf,cAAc,EAAE,cAAc,iBAuF/B;AA6BD,eAAe,eAAe,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js
+index 546356e..f1275fe 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js
+@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
+   value: true
+ });
+ exports.default = void 0;
+-exports.getTaskNames = getTaskNames;
+-exports.toPascalCase = toPascalCase;
+ function _chalk() {
+   const data = _interopRequireDefault(require("chalk"));
+   _chalk = function () {
+@@ -31,6 +29,8 @@ var _adb = _interopRequireDefault(require("./adb"));
+ var _tryRunAdbReverse = _interopRequireDefault(require("./tryRunAdbReverse"));
+ var _tryLaunchAppOnDevice = _interopRequireDefault(require("./tryLaunchAppOnDevice"));
+ var _tryLaunchEmulator = _interopRequireDefault(require("./tryLaunchEmulator"));
++var _tryInstallAppOnDevice = _interopRequireDefault(require("./tryInstallAppOnDevice"));
++var _getTaskNames = require("./getTaskNames");
+ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ /**
+  * Copyright (c) Facebook, Inc. and its affiliates.
+@@ -40,12 +40,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+  *
+  */
+ 
+-function getTaskNames(appName, commands) {
+-  return appName ? commands.map(command => `${appName}:${command}`) : commands;
+-}
+-function toPascalCase(value) {
+-  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;
+-}
+ async function runOnAllDevices(args, cmd, adbPath, androidProject) {
+   let devices = _adb.default.getDevices(adbPath);
+   if (devices.length === 0) {
+@@ -59,38 +53,45 @@ async function runOnAllDevices(args, cmd, adbPath, androidProject) {
+       _cliTools().logger.warn('Please launch an emulator manually or connect a device. Otherwise app may fail to launch.');
+     }
+   }
++  if (args.variant) {
++    _cliTools().logger.warn('"variant" flag is deprecated and will be removed in future release. Please switch to "mode" flag.');
++  }
+   try {
+-    const tasks = args.tasks || ['install' + toPascalCase(args.mode ?? 'debug')];
+-    let gradleArgs = getTaskNames(androidProject.appName, tasks);
+-    if (args.extraParams) {
+-      gradleArgs = [...gradleArgs, ...args.extraParams];
+-    }
+-    if (args.port != null) {
+-      gradleArgs.push('-PreactNativeDevServerPort=' + args.port);
+-    }
+-    if (args.activeArchOnly) {
+-      const architectures = devices.map(device => {
+-        return _adb.default.getCPU(adbPath, device);
+-      }).filter((arch, index, array) => arch != null && array.indexOf(arch) === index);
+-      if (architectures.length > 0) {
+-        _cliTools().logger.info(`Detected architectures ${architectures.join(', ')}`);
+-        // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.
+-        // Can be removed when 0.67 no longer needs to be supported.
+-        gradleArgs.push('-PreactNativeDebugArchitectures=' + architectures.join(','));
+-        gradleArgs.push('-PreactNativeArchitectures=' + architectures.join(','));
++    if (!args.binaryPath) {
++      let gradleArgs = (0, _getTaskNames.getTaskNames)(androidProject.appName, args.mode || args.variant, args.tasks, 'install');
++      if (args.extraParams) {
++        gradleArgs = [...gradleArgs, ...args.extraParams];
++      }
++      if (args.port != null) {
++        gradleArgs.push('-PreactNativeDevServerPort=' + args.port);
+       }
++      if (args.activeArchOnly) {
++        const architectures = devices.map(device => {
++          return _adb.default.getCPU(adbPath, device);
++        }).filter((arch, index, array) => arch != null && array.indexOf(arch) === index);
++        if (architectures.length > 0) {
++          _cliTools().logger.info(`Detected architectures ${architectures.join(', ')}`);
++          // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.
++          // Can be removed when 0.67 no longer needs to be supported.
++          gradleArgs.push('-PreactNativeDebugArchitectures=' + architectures.join(','));
++          gradleArgs.push('-PreactNativeArchitectures=' + architectures.join(','));
++        }
++      }
++      _cliTools().logger.info('Installing the app...');
++      _cliTools().logger.debug(`Running command "cd android && ${cmd} ${gradleArgs.join(' ')}"`);
++      await (0, _execa().default)(cmd, gradleArgs, {
++        stdio: ['inherit', 'inherit', 'pipe'],
++        cwd: androidProject.sourceDir
++      });
+     }
+-    _cliTools().logger.info('Installing the app...');
+-    _cliTools().logger.debug(`Running command "cd android && ${cmd} ${gradleArgs.join(' ')}"`);
+-    await (0, _execa().default)(cmd, gradleArgs, {
+-      stdio: ['inherit', 'inherit', 'pipe'],
+-      cwd: androidProject.sourceDir
+-    });
+   } catch (error) {
+     throw createInstallError(error);
+   }
+   (devices.length > 0 ? devices : [undefined]).forEach(device => {
+     (0, _tryRunAdbReverse.default)(args.port, device);
++    if (args.binaryPath && device) {
++      (0, _tryInstallAppOnDevice.default)(args, adbPath, device, androidProject);
++    }
+     (0, _tryLaunchAppOnDevice.default)(device, androidProject.packageName, adbPath, args);
+   });
+ }
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js.map
+index 07b9612..969e8ee 100644
+--- a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js.map
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/runOnAllDevices.js.map
+@@ -1 +1 @@
+-{"version":3,"names":["getTaskNames","appName","commands","map","command","toPascalCase","value","toUpperCase","slice","runOnAllDevices","args","cmd","adbPath","androidProject","devices","adb","getDevices","length","logger","info","result","tryLaunchEmulator","success","error","chalk","dim","warn","tasks","mode","gradleArgs","extraParams","port","push","activeArchOnly","architectures","device","getCPU","filter","arch","index","array","indexOf","join","debug","execa","stdio","cwd","sourceDir","createInstallError","undefined","forEach","tryRunAdbReverse","tryLaunchAppOnDevice","packageName","stderr","toString","docs","message","underline","log","includes","bold","CLIError"],"sources":["../../../src/commands/runAndroid/runOnAllDevices.ts"],"sourcesContent":["/**\n * Copyright (c) Facebook, Inc. and its affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\n\nimport chalk from 'chalk';\nimport execa from 'execa';\nimport {Config} from '@react-native-community/cli-types';\nimport {logger, CLIError} from '@react-native-community/cli-tools';\nimport adb from './adb';\nimport tryRunAdbReverse from './tryRunAdbReverse';\nimport tryLaunchAppOnDevice from './tryLaunchAppOnDevice';\nimport tryLaunchEmulator from './tryLaunchEmulator';\nimport {Flags} from '.';\n\nexport function getTaskNames(\n  appName: string,\n  commands: Array<string>,\n): Array<string> {\n  return appName\n    ? commands.map((command) => `${appName}:${command}`)\n    : commands;\n}\n\nexport function toPascalCase(value: string) {\n  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;\n}\n\ntype AndroidProject = NonNullable<Config['project']['android']>;\n\nasync function runOnAllDevices(\n  args: Flags,\n  cmd: string,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  let devices = adb.getDevices(adbPath);\n  if (devices.length === 0) {\n    logger.info('Launching emulator...');\n    const result = await tryLaunchEmulator(adbPath);\n    if (result.success) {\n      logger.info('Successfully launched emulator.');\n      devices = adb.getDevices(adbPath);\n    } else {\n      logger.error(\n        `Failed to launch emulator. Reason: ${chalk.dim(result.error || '')}.`,\n      );\n      logger.warn(\n        'Please launch an emulator manually or connect a device. Otherwise app may fail to launch.',\n      );\n    }\n  }\n\n  try {\n    const tasks = args.tasks || [\n      'install' + toPascalCase(args.mode ?? 'debug'),\n    ];\n    let gradleArgs = getTaskNames(androidProject.appName, tasks);\n\n    if (args.extraParams) {\n      gradleArgs = [...gradleArgs, ...args.extraParams];\n    }\n\n    if (args.port != null) {\n      gradleArgs.push('-PreactNativeDevServerPort=' + args.port);\n    }\n\n    if (args.activeArchOnly) {\n      const architectures = devices\n        .map((device) => {\n          return adb.getCPU(adbPath, device);\n        })\n        .filter(\n          (arch, index, array) => arch != null && array.indexOf(arch) === index,\n        );\n      if (architectures.length > 0) {\n        logger.info(`Detected architectures ${architectures.join(', ')}`);\n        // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.\n        // Can be removed when 0.67 no longer needs to be supported.\n        gradleArgs.push(\n          '-PreactNativeDebugArchitectures=' + architectures.join(','),\n        );\n        gradleArgs.push(\n          '-PreactNativeArchitectures=' + architectures.join(','),\n        );\n      }\n    }\n\n    logger.info('Installing the app...');\n    logger.debug(\n      `Running command \"cd android && ${cmd} ${gradleArgs.join(' ')}\"`,\n    );\n\n    await execa(cmd, gradleArgs, {\n      stdio: ['inherit', 'inherit', 'pipe'],\n      cwd: androidProject.sourceDir,\n    });\n  } catch (error) {\n    throw createInstallError(error);\n  }\n\n  (devices.length > 0 ? devices : [undefined]).forEach(\n    (device: string | void) => {\n      tryRunAdbReverse(args.port, device);\n      tryLaunchAppOnDevice(device, androidProject.packageName, adbPath, args);\n    },\n  );\n}\n\nfunction createInstallError(error: Error & {stderr: string}) {\n  const stderr = (error.stderr || '').toString();\n  const docs = 'https://reactnative.dev/docs/environment-setup';\n  let message = `Make sure you have the Android development environment set up: ${chalk.underline.dim(\n    docs,\n  )}`;\n\n  // Pass the error message from the command to stdout because we pipe it to\n  // parent process so it's not visible\n  logger.log(stderr);\n\n  // Handle some common failures and make the errors more helpful\n  if (stderr.includes('No connected devices')) {\n    message =\n      'Make sure you have an Android emulator running or a device connected';\n  } else if (\n    stderr.includes('licences have not been accepted') ||\n    stderr.includes('accept the SDK license')\n  ) {\n    message = `Please accept all necessary Android SDK licenses using Android SDK Manager: \"${chalk.bold(\n      '$ANDROID_HOME/tools/bin/sdkmanager --licenses',\n    )}\"`;\n  }\n\n  return new CLIError(`Failed to install the app. ${message}.`, error);\n}\n\nexport default runOnAllDevices;\n"],"mappings":"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"}
+\ No newline at end of file
++{"version":3,"names":["runOnAllDevices","args","cmd","adbPath","androidProject","devices","adb","getDevices","length","logger","info","result","tryLaunchEmulator","success","error","chalk","dim","warn","variant","binaryPath","gradleArgs","getTaskNames","appName","mode","tasks","extraParams","port","push","activeArchOnly","architectures","map","device","getCPU","filter","arch","index","array","indexOf","join","debug","execa","stdio","cwd","sourceDir","createInstallError","undefined","forEach","tryRunAdbReverse","tryInstallAppOnDevice","tryLaunchAppOnDevice","packageName","stderr","toString","docs","message","underline","log","includes","bold","CLIError"],"sources":["../../../src/commands/runAndroid/runOnAllDevices.ts"],"sourcesContent":["/**\n * Copyright (c) Facebook, Inc. and its affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\n\nimport chalk from 'chalk';\nimport execa from 'execa';\nimport {Config} from '@react-native-community/cli-types';\nimport {logger, CLIError} from '@react-native-community/cli-tools';\nimport adb from './adb';\nimport tryRunAdbReverse from './tryRunAdbReverse';\nimport tryLaunchAppOnDevice from './tryLaunchAppOnDevice';\nimport tryLaunchEmulator from './tryLaunchEmulator';\nimport tryInstallAppOnDevice from './tryInstallAppOnDevice';\nimport {getTaskNames} from './getTaskNames';\nimport type {Flags} from '.';\n\ntype AndroidProject = NonNullable<Config['project']['android']>;\n\nasync function runOnAllDevices(\n  args: Flags,\n  cmd: string,\n  adbPath: string,\n  androidProject: AndroidProject,\n) {\n  let devices = adb.getDevices(adbPath);\n  if (devices.length === 0) {\n    logger.info('Launching emulator...');\n    const result = await tryLaunchEmulator(adbPath);\n    if (result.success) {\n      logger.info('Successfully launched emulator.');\n      devices = adb.getDevices(adbPath);\n    } else {\n      logger.error(\n        `Failed to launch emulator. Reason: ${chalk.dim(result.error || '')}.`,\n      );\n      logger.warn(\n        'Please launch an emulator manually or connect a device. Otherwise app may fail to launch.',\n      );\n    }\n  }\n  if (args.variant) {\n    logger.warn(\n      '\"variant\" flag is deprecated and will be removed in future release. Please switch to \"mode\" flag.',\n    );\n  }\n\n  try {\n    if (!args.binaryPath) {\n      let gradleArgs = getTaskNames(\n        androidProject.appName,\n        args.mode || args.variant,\n        args.tasks,\n        'install',\n      );\n\n      if (args.extraParams) {\n        gradleArgs = [...gradleArgs, ...args.extraParams];\n      }\n\n      if (args.port != null) {\n        gradleArgs.push('-PreactNativeDevServerPort=' + args.port);\n      }\n\n      if (args.activeArchOnly) {\n        const architectures = devices\n          .map((device) => {\n            return adb.getCPU(adbPath, device);\n          })\n          .filter(\n            (arch, index, array) =>\n              arch != null && array.indexOf(arch) === index,\n          );\n\n        if (architectures.length > 0) {\n          logger.info(`Detected architectures ${architectures.join(', ')}`);\n          // `reactNativeDebugArchitectures` was renamed to `reactNativeArchitectures` in 0.68.\n          // Can be removed when 0.67 no longer needs to be supported.\n          gradleArgs.push(\n            '-PreactNativeDebugArchitectures=' + architectures.join(','),\n          );\n          gradleArgs.push(\n            '-PreactNativeArchitectures=' + architectures.join(','),\n          );\n        }\n      }\n\n      logger.info('Installing the app...');\n      logger.debug(\n        `Running command \"cd android && ${cmd} ${gradleArgs.join(' ')}\"`,\n      );\n\n      await execa(cmd, gradleArgs, {\n        stdio: ['inherit', 'inherit', 'pipe'],\n        cwd: androidProject.sourceDir,\n      });\n    }\n  } catch (error) {\n    throw createInstallError(error);\n  }\n\n  (devices.length > 0 ? devices : [undefined]).forEach(\n    (device: string | void) => {\n      tryRunAdbReverse(args.port, device);\n      if (args.binaryPath && device) {\n        tryInstallAppOnDevice(args, adbPath, device, androidProject);\n      }\n      tryLaunchAppOnDevice(device, androidProject.packageName, adbPath, args);\n    },\n  );\n}\n\nfunction createInstallError(error: Error & {stderr: string}) {\n  const stderr = (error.stderr || '').toString();\n  const docs = 'https://reactnative.dev/docs/environment-setup';\n  let message = `Make sure you have the Android development environment set up: ${chalk.underline.dim(\n    docs,\n  )}`;\n\n  // Pass the error message from the command to stdout because we pipe it to\n  // parent process so it's not visible\n  logger.log(stderr);\n\n  // Handle some common failures and make the errors more helpful\n  if (stderr.includes('No connected devices')) {\n    message =\n      'Make sure you have an Android emulator running or a device connected';\n  } else if (\n    stderr.includes('licences have not been accepted') ||\n    stderr.includes('accept the SDK license')\n  ) {\n    message = `Please accept all necessary Android SDK licenses using Android SDK Manager: \"${chalk.bold(\n      '$ANDROID_HOME/tools/bin/sdkmanager --licenses',\n    )}\"`;\n  }\n\n  return new CLIError(`Failed to install the app. ${message}.`, error);\n}\n\nexport default runOnAllDevices;\n"],"mappings":"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"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts
+new file mode 100644
+index 0000000..f3ece4e
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts
+@@ -0,0 +1,2 @@
++export declare function toPascalCase(value: string): string;
++//# sourceMappingURL=toPascalCase.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts.map
+new file mode 100644
+index 0000000..276c92a
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"toPascalCase.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/toPascalCase.ts"],"names":[],"mappings":"AAAA,wBAAgB,YAAY,CAAC,KAAK,EAAE,MAAM,UAEzC"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js
+new file mode 100644
+index 0000000..daf875a
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js
+@@ -0,0 +1,11 @@
++"use strict";
++
++Object.defineProperty(exports, "__esModule", {
++  value: true
++});
++exports.toPascalCase = toPascalCase;
++function toPascalCase(value) {
++  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;
++}
++
++//# sourceMappingURL=toPascalCase.js.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js.map
+new file mode 100644
+index 0000000..0187f9f
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/toPascalCase.js.map
+@@ -0,0 +1 @@
++{"version":3,"names":["toPascalCase","value","toUpperCase","slice"],"sources":["../../../src/commands/runAndroid/toPascalCase.ts"],"sourcesContent":["export function toPascalCase(value: string) {\n  return value !== '' ? value[0].toUpperCase() + value.slice(1) : value;\n}\n"],"mappings":";;;;;;AAAO,SAASA,YAAY,CAACC,KAAa,EAAE;EAC1C,OAAOA,KAAK,KAAK,EAAE,GAAGA,KAAK,CAAC,CAAC,CAAC,CAACC,WAAW,EAAE,GAAGD,KAAK,CAACE,KAAK,CAAC,CAAC,CAAC,GAAGF,KAAK;AACvE"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts
+new file mode 100644
+index 0000000..50f248b
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts
+@@ -0,0 +1,4 @@
++import type { AndroidProject, Flags } from './';
++declare function tryInstallAppOnDevice(args: Flags, adbPath: string, device: string, androidProject: AndroidProject): void;
++export default tryInstallAppOnDevice;
++//# sourceMappingURL=tryInstallAppOnDevice.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts.map
+new file mode 100644
+index 0000000..6e4e34f
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"tryInstallAppOnDevice.d.ts","sourceRoot":"","sources":["../../../src/commands/runAndroid/tryInstallAppOnDevice.ts"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAC,cAAc,EAAE,KAAK,EAAC,MAAM,IAAI,CAAC;AAE9C,iBAAS,qBAAqB,CAC5B,IAAI,EAAE,KAAK,EACX,OAAO,EAAE,MAAM,EACf,MAAM,EAAE,MAAM,EACd,cAAc,EAAE,cAAc,QA+B/B;AA4BD,eAAe,qBAAqB,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js
+new file mode 100644
+index 0000000..ea4dd25
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js
+@@ -0,0 +1,77 @@
++"use strict";
++
++Object.defineProperty(exports, "__esModule", {
++  value: true
++});
++exports.default = void 0;
++function _execa() {
++  const data = _interopRequireDefault(require("execa"));
++  _execa = function () {
++    return data;
++  };
++  return data;
++}
++function _fs() {
++  const data = _interopRequireDefault(require("fs"));
++  _fs = function () {
++    return data;
++  };
++  return data;
++}
++function _cliTools() {
++  const data = require("@react-native-community/cli-tools");
++  _cliTools = function () {
++    return data;
++  };
++  return data;
++}
++var _adb = _interopRequireDefault(require("./adb"));
++function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
++function tryInstallAppOnDevice(args, adbPath, device, androidProject) {
++  try {
++    // "app" is usually the default value for Android apps with only 1 app
++    const {
++      appName,
++      sourceDir
++    } = androidProject;
++    const variant = (args.mode || 'debug').toLowerCase();
++    let pathToApk;
++    if (!args.binaryPath) {
++      const buildDirectory = `${sourceDir}/${appName}/build/outputs/apk/${variant}`;
++      const apkFile = getInstallApkName(appName, adbPath, variant, device, buildDirectory);
++      pathToApk = `${buildDirectory}/${apkFile}`;
++    } else {
++      pathToApk = args.binaryPath;
++    }
++    const adbArgs = ['-s', device, 'install', '-r', '-d', pathToApk];
++    _cliTools().logger.info(`Installing the app on the device "${device}"...`);
++    _cliTools().logger.debug(`Running command "cd android && adb -s ${device} install -r -d ${pathToApk}"`);
++    _execa().default.sync(adbPath, adbArgs, {
++      stdio: 'inherit'
++    });
++  } catch (error) {
++    throw new (_cliTools().CLIError)('Failed to install the app on the device.', error);
++  }
++}
++function getInstallApkName(appName, adbPath, variant, device, buildDirectory) {
++  const availableCPUs = _adb.default.getAvailableCPUs(adbPath, device);
++
++  // check if there is an apk file like app-armeabi-v7a-debug.apk
++  for (const availableCPU of availableCPUs.concat('universal')) {
++    const apkName = `${appName}-${availableCPU}-${variant}.apk`;
++    if (_fs().default.existsSync(`${buildDirectory}/${apkName}`)) {
++      return apkName;
++    }
++  }
++
++  // check if there is a default file like app-debug.apk
++  const apkName = `${appName}-${variant}.apk`;
++  if (_fs().default.existsSync(`${buildDirectory}/${apkName}`)) {
++    return apkName;
++  }
++  throw new (_cliTools().CLIError)('Could not find the correct install APK file.');
++}
++var _default = tryInstallAppOnDevice;
++exports.default = _default;
++
++//# sourceMappingURL=tryInstallAppOnDevice.js.map
+\ No newline at end of file
+diff --git a/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js.map b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js.map
+new file mode 100644
+index 0000000..fceb3de
+--- /dev/null
++++ b/node_modules/@react-native-community/cli-platform-android/build/commands/runAndroid/tryInstallAppOnDevice.js.map
+@@ -0,0 +1 @@
++{"version":3,"names":["tryInstallAppOnDevice","args","adbPath","device","androidProject","appName","sourceDir","variant","mode","toLowerCase","pathToApk","binaryPath","buildDirectory","apkFile","getInstallApkName","adbArgs","logger","info","debug","execa","sync","stdio","error","CLIError","availableCPUs","adb","getAvailableCPUs","availableCPU","concat","apkName","fs","existsSync"],"sources":["../../../src/commands/runAndroid/tryInstallAppOnDevice.ts"],"sourcesContent":["import execa from 'execa';\nimport fs from 'fs';\nimport {logger, CLIError} from '@react-native-community/cli-tools';\n\nimport adb from './adb';\nimport type {AndroidProject, Flags} from './';\n\nfunction tryInstallAppOnDevice(\n  args: Flags,\n  adbPath: string,\n  device: string,\n  androidProject: AndroidProject,\n) {\n  try {\n    // \"app\" is usually the default value for Android apps with only 1 app\n    const {appName, sourceDir} = androidProject;\n    const variant = (args.mode || 'debug').toLowerCase();\n\n    let pathToApk;\n    if (!args.binaryPath) {\n      const buildDirectory = `${sourceDir}/${appName}/build/outputs/apk/${variant}`;\n      const apkFile = getInstallApkName(\n        appName,\n        adbPath,\n        variant,\n        device,\n        buildDirectory,\n      );\n      pathToApk = `${buildDirectory}/${apkFile}`;\n    } else {\n      pathToApk = args.binaryPath;\n    }\n\n    const adbArgs = ['-s', device, 'install', '-r', '-d', pathToApk];\n    logger.info(`Installing the app on the device \"${device}\"...`);\n    logger.debug(\n      `Running command \"cd android && adb -s ${device} install -r -d ${pathToApk}\"`,\n    );\n    execa.sync(adbPath, adbArgs, {stdio: 'inherit'});\n  } catch (error) {\n    throw new CLIError('Failed to install the app on the device.', error);\n  }\n}\n\nfunction getInstallApkName(\n  appName: string,\n  adbPath: string,\n  variant: string,\n  device: string,\n  buildDirectory: string,\n) {\n  const availableCPUs = adb.getAvailableCPUs(adbPath, device);\n\n  // check if there is an apk file like app-armeabi-v7a-debug.apk\n  for (const availableCPU of availableCPUs.concat('universal')) {\n    const apkName = `${appName}-${availableCPU}-${variant}.apk`;\n    if (fs.existsSync(`${buildDirectory}/${apkName}`)) {\n      return apkName;\n    }\n  }\n\n  // check if there is a default file like app-debug.apk\n  const apkName = `${appName}-${variant}.apk`;\n  if (fs.existsSync(`${buildDirectory}/${apkName}`)) {\n    return apkName;\n  }\n\n  throw new CLIError('Could not find the correct install APK file.');\n}\n\nexport default tryInstallAppOnDevice;\n"],"mappings":";;;;;;AAAA;EAAA;EAAA;IAAA;EAAA;EAAA;AAAA;AACA;EAAA;EAAA;IAAA;EAAA;EAAA;AAAA;AACA;EAAA;EAAA;IAAA;EAAA;EAAA;AAAA;AAEA;AAAwB;AAGxB,SAASA,qBAAqB,CAC5BC,IAAW,EACXC,OAAe,EACfC,MAAc,EACdC,cAA8B,EAC9B;EACA,IAAI;IACF;IACA,MAAM;MAACC,OAAO;MAAEC;IAAS,CAAC,GAAGF,cAAc;IAC3C,MAAMG,OAAO,GAAG,CAACN,IAAI,CAACO,IAAI,IAAI,OAAO,EAAEC,WAAW,EAAE;IAEpD,IAAIC,SAAS;IACb,IAAI,CAACT,IAAI,CAACU,UAAU,EAAE;MACpB,MAAMC,cAAc,GAAI,GAAEN,SAAU,IAAGD,OAAQ,sBAAqBE,OAAQ,EAAC;MAC7E,MAAMM,OAAO,GAAGC,iBAAiB,CAC/BT,OAAO,EACPH,OAAO,EACPK,OAAO,EACPJ,MAAM,EACNS,cAAc,CACf;MACDF,SAAS,GAAI,GAAEE,cAAe,IAAGC,OAAQ,EAAC;IAC5C,CAAC,MAAM;MACLH,SAAS,GAAGT,IAAI,CAACU,UAAU;IAC7B;IAEA,MAAMI,OAAO,GAAG,CAAC,IAAI,EAAEZ,MAAM,EAAE,SAAS,EAAE,IAAI,EAAE,IAAI,EAAEO,SAAS,CAAC;IAChEM,kBAAM,CAACC,IAAI,CAAE,qCAAoCd,MAAO,MAAK,CAAC;IAC9Da,kBAAM,CAACE,KAAK,CACT,yCAAwCf,MAAO,kBAAiBO,SAAU,GAAE,CAC9E;IACDS,gBAAK,CAACC,IAAI,CAAClB,OAAO,EAAEa,OAAO,EAAE;MAACM,KAAK,EAAE;IAAS,CAAC,CAAC;EAClD,CAAC,CAAC,OAAOC,KAAK,EAAE;IACd,MAAM,KAAIC,oBAAQ,EAAC,0CAA0C,EAAED,KAAK,CAAC;EACvE;AACF;AAEA,SAASR,iBAAiB,CACxBT,OAAe,EACfH,OAAe,EACfK,OAAe,EACfJ,MAAc,EACdS,cAAsB,EACtB;EACA,MAAMY,aAAa,GAAGC,YAAG,CAACC,gBAAgB,CAACxB,OAAO,EAAEC,MAAM,CAAC;;EAE3D;EACA,KAAK,MAAMwB,YAAY,IAAIH,aAAa,CAACI,MAAM,CAAC,WAAW,CAAC,EAAE;IAC5D,MAAMC,OAAO,GAAI,GAAExB,OAAQ,IAAGsB,YAAa,IAAGpB,OAAQ,MAAK;IAC3D,IAAIuB,aAAE,CAACC,UAAU,CAAE,GAAEnB,cAAe,IAAGiB,OAAQ,EAAC,CAAC,EAAE;MACjD,OAAOA,OAAO;IAChB;EACF;;EAEA;EACA,MAAMA,OAAO,GAAI,GAAExB,OAAQ,IAAGE,OAAQ,MAAK;EAC3C,IAAIuB,aAAE,CAACC,UAAU,CAAE,GAAEnB,cAAe,IAAGiB,OAAQ,EAAC,CAAC,EAAE;IACjD,OAAOA,OAAO;EAChB;EAEA,MAAM,KAAIN,oBAAQ,EAAC,8CAA8C,CAAC;AACpE;AAAC,eAEcvB,qBAAqB;AAAA"}
+\ No newline at end of file

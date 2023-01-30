@@ -48,7 +48,9 @@ steps:
 
   # Install gems and run Fastlane
   - script: |
-      bundle install
+      bundle install  
+    displayName: "Install Ruby gems"
+  - script: |
       bundle exec fastlane buildApps
     displayName: "Build ${{ parameters.platform }}"
     workingDirectory: ${{ parameters.platform }}

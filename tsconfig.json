@@ -36,5 +36,6 @@
     ".storybook/**/*.ts",
     ".storybook/*.tsx",
     "__tests__/"
-  ]
+  ],
+  "extends": "@tsconfig/react-native/tsconfig.json"
 }
