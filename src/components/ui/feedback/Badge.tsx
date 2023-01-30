@@ -1,19 +1,14 @@
 import React, {useContext} from 'react'
-import {
-  AccessibilityProps,
-  StyleSheet,
-  Text,
-  View,
-  ViewProps,
-} from 'react-native'
+import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout'
+import {TestID} from '@/components/ui/types'
 import {Device, DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 import {OmitUndefined} from '@/types'
 import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
-  testID?: ViewProps['testID']
+  testID?: TestID
   /**
    * The value to display in the badge.
    */

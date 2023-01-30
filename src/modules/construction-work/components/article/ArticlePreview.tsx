@@ -1,10 +1,11 @@
 import React, {useMemo} from 'react'
-import {Pressable, StyleSheet, View, ViewProps} from 'react-native'
+import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
@@ -23,7 +24,7 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
-  testID?: ViewProps['testID']
+  testID?: TestID
 }
 
 export const ArticlePreview = ({

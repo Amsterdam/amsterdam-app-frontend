@@ -1,11 +1,12 @@
 import React, {ReactNode} from 'react'
-import {StyleSheet, View, ViewProps} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {
   AmsterdamAndWeespFacadesImage,
   AmsterdamFacadesImage,
 } from '@/assets/images'
 import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
@@ -22,7 +23,7 @@ type Props = {
    * This is especially useful on landscape devices.
    */
   moveUp?: number
-  testID?: ViewProps['testID']
+  testID?: TestID
   withWeesp?: boolean
 } & SelectedFigureProps
 

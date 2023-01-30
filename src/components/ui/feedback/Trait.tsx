@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react'
-import {ViewProps} from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 
 type Props = {
   /**
@@ -19,7 +19,7 @@ type Props = {
    * Should be one or a few words.
    */
   label: string
-  testID?: ViewProps['testID']
+  testID?: TestID
 }
 
 export const Trait = ({children, iconName, label, testID}: Props) => (

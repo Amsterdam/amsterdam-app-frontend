@@ -5,10 +5,10 @@ import {
   PressableProps,
   StyleSheet,
   Text,
-  ViewProps,
 } from 'react-native'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 export type ButtonProps = {
@@ -17,7 +17,7 @@ export type ButtonProps = {
   label?: string
   numberOfLines?: number
   small?: boolean
-  testID?: ViewProps['testID']
+  testID?: TestID
   variant?: 'primary' | 'secondary' | 'tertiary'
 } & Omit<PressableProps, 'style'>
 

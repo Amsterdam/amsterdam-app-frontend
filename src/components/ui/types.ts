@@ -1,3 +1,5 @@
+import {ViewProps} from 'react-native'
+
 export enum Direction {
   up = 'up',
   down = 'down',
@@ -24,3 +26,5 @@ export enum Placement {
   before = 'before',
   after = 'after',
 }
+
+export type TestID = ViewProps['testID']
