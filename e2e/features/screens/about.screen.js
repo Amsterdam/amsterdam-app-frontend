@@ -1,5 +1,5 @@
 import packageJSON from '../../../package.json'
-const Screen = require('./screen')
+import Screen from './screen'
 
 /**
  * sub screen containing specific selectors and methods for a specific screen

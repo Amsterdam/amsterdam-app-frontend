@@ -1,4 +1,4 @@
-const Screen = require('./screen')
+import Screen from './screen'
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -32,4 +32,4 @@ class ConstructionWorkScreen extends Screen {
   }
 }
 
-module.exports = new ConstructionWorkScreen()
+export default new ConstructionWorkScreen()
