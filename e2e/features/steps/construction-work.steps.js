@@ -1,49 +1,49 @@
 import {expect} from 'detox'
 import {autoBindSteps, loadFeatures} from 'jest-cucumber'
-import homePage from '../pageobjects/home.page'
-import werkzaamhedenPage from '../pageobjects/werkzaamheden.page'
+import ConstructionWorkScreen from '../screens/construction-work.screen'
+import HomeScreen from '../screens/home.screen'
 
 const features = loadFeatures(
-  'e2e/features/werkzaamheden.overzichtspagina.feature',
+  'e2e/features/construction-work-projects-overview.feature',
   {
     tagFilter: '@included and not @excluded',
   },
 )
 
-const werkzaamhedenSteps = ({given, when, then, and}) => {
+const constructionWorkSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
     await device.launchApp({newInstance: true})
   })
 
-  given(/ik ben op de werkzaamheden pagina/, async () => {
+  given(/ik ben op het werkzaamheden scherm/, async () => {
     await waitFor(element(by.id('WelcomePressableImageAndQuote')))
       .toBeVisible()
       .withTimeout(10000)
     await element(by.id('WelcomePressableImageAndQuote')).tap()
-    await expect(homePage.werkzaamhedenModule).toExist()
-    await homePage.werkzaamhedenModule.tap()
+    await expect(HomeScreen.werkzaamhedenModule).toExist()
+    await HomeScreen.werkzaamhedenModule.tap()
   })
 
   then(/de werkzaamheden worden weergegeven met een afbeelding/, async () => {
     await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectMiddenweg,
+      ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg,
     ).toBeVisible()
   })
 
   and(/een titel van het project/, async () => {
     await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectTextTitleMiddenweg,
+      ConstructionWorkScreen.ConstructionWorkCardProjectTextTitleMiddenweg,
     ).toBeVisible()
   })
 
   and(/een ondertitel met een korte beschrijving van het project/, async () => {
     await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectTextSubtitleMiddenweg,
+      ConstructionWorkScreen.ConstructionWorkCardProjectTextSubtitleMiddenweg,
     ).toBeVisible()
     await expect(
-      werkzaamhedenPage.ConstructionWorkCardProjectTextSubtitleMiddenweg,
+      ConstructionWorkScreen.ConstructionWorkCardProjectTextSubtitleMiddenweg,
     ).toHaveLabel('Middenweg, Groot onderhoud')
   })
 }
 
-autoBindSteps(features, [werkzaamhedenSteps])
+autoBindSteps(features, [constructionWorkSteps])

@@ -1,10 +1,6 @@
 import assert from 'chai'
 
-class HomePage {
-  get gemeenteLogo() {
-    return element(by.label('~Gemeente Amsterdam'))
-  }
-
+class HomeScreen {
   get afvalWijzerModule() {
     return element(by.text('Afvalwijzer'))
   }
@@ -33,7 +29,7 @@ class HomePage {
     return element(by.text('Over deze app'))
   }
 
-  async verifyHomePage() {
+  async verifyHomeScreen() {
     await expect(this.gemeenteLogo).toBeVisible()
   }
 
@@ -66,4 +62,4 @@ class HomePage {
   }
 }
 
-export default new HomePage()
+export default new HomeScreen()

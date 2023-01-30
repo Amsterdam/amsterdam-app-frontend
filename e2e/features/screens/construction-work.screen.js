@@ -1,19 +1,14 @@
-const Page = require('./page')
+const Screen = require('./screen')
 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class WerkzaamhedenPage extends Page {
+class ConstructionWorkScreen extends Screen {
   /**
    * define selectors using getter methods
    */
-  get WerkzaamhedenModule() {
-    return element(by.id(''))
-  }
-
   get ConstructionWorkCardProjectMiddenweg() {
     return element(by.id('ConstructionWorkCardProject1270981'))
-    //ConstructionWorkCardProjectImageMain'
   }
 
   get ConstructionWorkCardProjectTextTitleMiddenweg() {
@@ -37,4 +32,4 @@ class WerkzaamhedenPage extends Page {
   }
 }
 
-module.exports = new WerkzaamhedenPage()
+module.exports = new ConstructionWorkScreen()

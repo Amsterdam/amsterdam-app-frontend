@@ -1,8 +1,8 @@
 /**
  * main page object containing all methods, selectors and functionality
- * that is shared across all page objects
+ * that is shared across all screen objects
  */
-module.exports = class Page {
+module.exports = class Screen {
   get HeaderTitle() {
     return element(by.id('HeaderTitle'))
   }
