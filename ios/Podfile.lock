@@ -510,7 +510,7 @@ PODS:
   - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (4.13.0):
+  - RNSentry (4.14.0):
     - React-Core
     - Sentry/HybridSDK (= 7.31.5)
   - RNSVG (13.7.0):
@@ -812,7 +812,7 @@ SPEC CHECKSUMS:
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
   RNReanimated: 2c1a20521293333aa28b6bb33bc6cd89c7c11066
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
-  RNSentry: acebe4104a6f5915ae871eb59dc73f13dcc92ef7
+  RNSentry: 7e90aec2633d2fdad8aeb839c9915e4376fd27d1
   RNSVG: d787d64ca06b9158e763ad2638a8c4edce00782a
   Sentry: 4c9babff9034785067c896fd580b1f7de44da020
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
