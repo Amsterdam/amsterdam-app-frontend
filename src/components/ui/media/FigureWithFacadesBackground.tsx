@@ -28,7 +28,7 @@ type Props = {
 } & SelectedFigureProps
 
 export const FigureWithFacadesBackground = ({
-  backgroundImageHeightFraction = 5 / 6,
+  backgroundImageHeightFraction = 3 / 4,
   Image,
   imageAlign = 'center',
   imageAspectRatio,
