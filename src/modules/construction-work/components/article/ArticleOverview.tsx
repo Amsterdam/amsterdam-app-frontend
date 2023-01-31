@@ -103,7 +103,11 @@ export const ArticleOverview = ({
     !isEmptyObject(yearlyArticleSections) ? (
     <View style={styles.list}>
       <Column gutter="sm">
-        <Title level="h2" text={title} />
+        <Title
+          level="h2"
+          testID="ConstructionWorkProjectArticlesTitle"
+          text={title}
+        />
         {Object.entries(yearlyArticleSections)
           .reverse()
           .map(([year, articlesPerYear], index) => (
@@ -136,6 +140,7 @@ export const ArticleOverview = ({
                     }
                     key={article.identifier}
                     onPress={() => navigateToArticle(article)}
+                    testID={`ConstructionWorkProjectArticlePreview${article.identifier}`}
                   />
                 ))}
             </View>

@@ -3,6 +3,7 @@ import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {AspectRatio, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -11,7 +12,7 @@ type Props = {
   kicker?: ReactElement
   onPress: () => void
   subtitle?: string
-  testID?: string
+  testID?: TestID
   title: string
   width?: number
 }
@@ -38,9 +39,8 @@ export const ProjectCard = ({
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
           kicker?.props.accessibilityLabel ?? undefined,
         )}
-        onPress={onPress}
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
-        testID={testID}>
+        {...{onPress, testID}}>
         {!!imageSource && (
           <>
             <AspectRatio aspectRatio="wide">

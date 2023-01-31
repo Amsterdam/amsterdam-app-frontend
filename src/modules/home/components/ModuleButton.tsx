@@ -8,6 +8,7 @@ import {Pressable, SwipeToDelete} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store'
@@ -20,7 +21,7 @@ type Props = {
   iconName: IconName | 'projects'
   label: string
   slug: ModuleSlug
-  testID?: string | undefined
+  testID?: TestID
   variant?: ButtonVariants
 }
 

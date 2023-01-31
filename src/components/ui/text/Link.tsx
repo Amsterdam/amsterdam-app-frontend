@@ -2,13 +2,13 @@ import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {Direction} from '@/components/ui/types'
+import {Direction, TestID} from '@/components/ui/types'
 import {useTheme} from '@/themes'
 
 type Props = {
   label: string
   onPress: () => void
-  testID?: string | undefined
+  testID?: TestID
   variant?: 'backward' | 'default' | 'external' | 'forward'
 }
 
@@ -42,8 +42,7 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
         variant === 'external' ? label + ', opent in webbrowser' : label
       }
       hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
-      onPress={onPress}
-      testID={testID}>
+      {...{onPress, testID}}>
       <Row gutter="sm">
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
         {variant === 'default' && <LinkIcon direction={Direction.right} />}

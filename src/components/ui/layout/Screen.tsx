@@ -4,6 +4,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {KeyboardAvoidingView} from '@/components/ui/containers'
 import {Gutter, ScrollView} from '@/components/ui/layout'
+import {TestID} from '@/components/ui/types'
 
 type WrapperProps = Pick<Props, 'children' | 'keyboardAware' | 'scroll'> & {
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
@@ -46,7 +47,7 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
-  testID?: string
+  testID?: TestID
 } & WithInsetProps
 
 export const Screen = ({

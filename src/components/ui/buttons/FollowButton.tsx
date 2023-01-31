@@ -7,7 +7,7 @@ type Props = {
     onPress: (followed: boolean) => void
   }
 
-export const FollowButton = ({followed, onPress}: Props) => {
+export const FollowButton = ({followed, onPress, testID}: Props) => {
   const buttonProps: ButtonProps = followed
     ? {
         iconName: 'checkmark',
@@ -20,5 +20,11 @@ export const FollowButton = ({followed, onPress}: Props) => {
         variant: 'secondary',
       }
 
-  return <Button onPress={() => onPress(followed)} {...buttonProps} />
+  return (
+    <Button
+      onPress={() => onPress(followed)}
+      testID={testID}
+      {...buttonProps}
+    />
+  )
 }

@@ -25,6 +25,7 @@ export const Button = ({
   label,
   numberOfLines,
   small,
+  testID,
   variant = 'primary',
   ...pressableProps
 }: ButtonProps) => {
@@ -47,6 +48,7 @@ export const Button = ({
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
       style={styles.button}
+      testID={testID}
       {...pressableProps}>
       <Row gutter="sm" valign="center">
         {!!iconName && (
@@ -54,13 +56,15 @@ export const Button = ({
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
             size="lg"
+            testID={testID ? `${testID}Icon` : undefined}
           />
         )}
         {!!label && (
           <Text
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
-            style={styles.label}>
+            style={styles.label}
+            testID={testID ? `${testID}Label` : undefined}>
             {label}
           </Text>
         )}

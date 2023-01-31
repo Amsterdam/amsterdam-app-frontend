@@ -26,7 +26,7 @@ export const TopTaskButton = ({
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={onPress} testID={testID} {...pressableProps}>
+    <Pressable {...{onPress, testID}} {...pressableProps}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>

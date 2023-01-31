@@ -5,6 +5,7 @@ import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
@@ -23,9 +24,16 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
+  testID?: TestID
 }
 
-export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
+export const ArticlePreview = ({
+  article,
+  isFirst,
+  isLast,
+  onPress,
+  testID,
+}: Props) => {
   const environment = useEnvironment()
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
@@ -58,8 +66,11 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
 
+  const createTestID = (suffix = '') =>
+    testID ? [testID, suffix, article.identifier].join() : undefined
+
   return (
-    <View style={styles.item}>
+    <View style={styles.item} testID={createTestID()}>
       <View style={styles.line} />
       <Pressable
         accessibilityRole="button"
@@ -73,16 +84,25 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                 <Paragraph>Nieuw</Paragraph>
               </View>
             )}
-            <Paragraph>
+            <Paragraph testID={createTestID('Date')}>
               {formatDateToDisplay(article.publication_date)}
             </Paragraph>
           </Row>
           <Box insetHorizontal="md">
             <Column gutter="sm">
-              <Title color="link" level="h5" text={article.title} />
+              <Title
+                color="link"
+                level="h5"
+                testID={createTestID('Title')}
+                text={article.title}
+              />
               <View style={styles.image}>
                 {imageSources && Object.keys(imageSources[0]).length ? (
-                  <Image aspectRatio="extraWide" source={imageSources} />
+                  <Image
+                    aspectRatio="extraWide"
+                    source={imageSources}
+                    testID={createTestID('Image')}
+                  />
                 ) : (
                   <FigureWithFacadesBackground
                     aspectRatio="extraWide"
@@ -91,6 +111,7 @@ export const ArticlePreview = ({article, isFirst, isLast, onPress}: Props) => {
                     imageAspectRatio={
                       media.imageAspectRatio.projectWarningFallback
                     }
+                    testID={createTestID('Image')}
                   />
                 )}
               </View>
