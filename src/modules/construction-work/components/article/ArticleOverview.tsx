@@ -140,7 +140,7 @@ export const ArticleOverview = ({
                     }
                     key={article.identifier}
                     onPress={() => navigateToArticle(article)}
-                    testID={`ConstructionWorkProjectArticlePreview${article.identifier}`}
+                    testID={`ConstructionWorkProjectArticle${article.identifier}Preview`}
                   />
                 ))}
             </View>
