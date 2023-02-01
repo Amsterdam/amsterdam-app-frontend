@@ -67,7 +67,7 @@ export const ArticlePreview = ({
   )
 
   const createTestID = (suffix = '') =>
-    testID ? [testID, suffix, article.identifier].join() : undefined
+    testID ? [testID, suffix].join('') : undefined
 
   return (
     <View style={styles.item} testID={createTestID()}>
