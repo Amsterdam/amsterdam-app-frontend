@@ -29,12 +29,6 @@ const redirects: RedirectResponse[] = [
     url: 'https://aanmeldenparkeren.amsterdam.nl/',
   },
   {
-    iconName: 'card',
-    text: 'U kunt uw rijbewijs online verlengen via de RDW.',
-    title: 'Rijbewijs verlengen',
-    url: 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B1783FA78-6E93-4B39-8257-BAABD81D4A54%7D',
-  },
-  {
     iconName: 'document-text',
     text: 'Geboorte-, huwelijks- en andere akten, uittreksel, VOG.',
     title: 'Akten, uittreksels en verklaringen',
