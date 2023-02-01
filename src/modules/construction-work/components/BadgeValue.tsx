@@ -1,5 +1,6 @@
 import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
+import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useGetProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
@@ -29,7 +30,7 @@ export const BadgeValue = () => {
   if (unreadArticlesLength) {
     return (
       <Badge
-        accessibilityLabel={`${unreadArticlesLength} ongelezen berichten`}
+        accessibilityLabel={simplur`${unreadArticlesLength} ongelezen bericht[|en]`}
         value={unreadArticlesLength}
       />
     )
