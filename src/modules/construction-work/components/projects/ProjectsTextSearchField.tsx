@@ -63,6 +63,7 @@ export const ProjectsTextSearchField = () => {
       blurOnSubmit={true}
       onChangeText={setSearchData}
       placeholder="Type drie letters of meer …"
+      testID="ConstructionWorkProjectsTextSearchField"
       value={searchTextValue}
     />
   )
