@@ -1,10 +1,10 @@
 import {assert} from 'chai'
-const Page = require('./page')
+import Screen from './screen'
 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class ContactPage extends Page {
+class ContactScreen extends Screen {
   /**
    * define selectors using getter methods
    */
@@ -176,4 +176,4 @@ class ContactPage extends Page {
   }
 }
 
-module.exports = new ContactPage()
+export default new ContactScreen()

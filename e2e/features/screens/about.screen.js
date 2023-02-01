@@ -1,10 +1,10 @@
 import packageJSON from '../../../package.json'
-const Page = require('./page')
+import Screen from './screen'
 
 /**
- * sub page containing specific selectors and methods for a specific page
+ * sub screen containing specific selectors and methods for a specific screen
  */
-class AboutPage extends Page {
+class AboutScreen extends Screen {
   /**
    * define selectors using getter methods
    */
@@ -45,11 +45,11 @@ class AboutPage extends Page {
     return appVersion
   }
 
-  get AboutWaaromDezeAppPageHeaderTitle() {
+  get AboutWaaromDezeAppScreenHeaderTitle() {
     return element(by.text('1 app voor alle Amsterdammers'))
   }
 
-  get AboutWaaromDezeAppPageIntroText() {
+  get AboutWaaromDezeAppScreenIntroText() {
     return element(
       by.text(
         'Met de Amsterdam app krijgt u snel informatie die voor u belangrijk is. En u kunt zaken makkelijk regelen. Zoals:',
@@ -77,11 +77,11 @@ class AboutPage extends Page {
     return element(by.text('Nog meer onderwerpen in de toekomst'))
   }
 
-  get AboutWhyThisAppPageHeaderTitle() {
+  get AboutWhyThisAppScreenHeaderTitle() {
     return element(by.text('1 app for all citizens of Amsterdam'))
   }
 
-  get AboutWhyThisAppPageIntroText() {
+  get AboutWhyThisAppScreenIntroText() {
     return element(
       by.text(
         'The Amsterdam app quickly provides information tailored to you. Take care of affairs with ease, like:',
@@ -109,11 +109,11 @@ class AboutPage extends Page {
     return element(by.text('More topics in the future'))
   }
 
-  get AboutPrivacyPageHeaderTitle() {
+  get AboutPrivacyScreenHeaderTitle() {
     return element(by.text('Samenvatting privacyverklaring gemeente Amsterdam'))
   }
 
-  get AboutPrivacyPageFirstParagraph() {
+  get AboutPrivacyScreenFirstParagraph() {
     return element(
       by.text(
         'Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de gemeente vaak contactgegevens, zoals uw telefoonnummer en e-mailadres, van u nodig om u goed te kunnen helpen.',
@@ -138,4 +138,4 @@ class AboutPage extends Page {
   }
 }
 
-module.exports = new AboutPage()
+module.exports = new AboutScreen()
