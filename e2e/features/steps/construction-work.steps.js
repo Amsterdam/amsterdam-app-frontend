@@ -9,7 +9,10 @@ const features = loadFeatures('e2e/features/construction-work.feature', {
 
 const constructionWorkSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
-    await device.launchApp({newInstance: true})
+    await device.launchApp({
+      newInstance: true,
+      permissions: {notifications: 'YES'},
+    })
   })
 
   given(/ik ben op het werkzaamheden scherm/, async () => {
@@ -107,6 +110,37 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   then(/ik ben op het homescherm/, async () => {
     await expect(HomeScreen.HomeModuleButtonConstructionWork).toBeVisible()
+  })
+
+  and(/ik open het project Stadhouderskade/, async () => {
+    await ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg.swipe(
+      'up',
+      'fast',
+      0.5,
+    )
+    waitFor(
+      ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade,
+    ).toBeVisible(10)
+    await ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade.tap()
+    await waitFor(ConstructionWorkScreen.HeaderTitle)
+      .toBeVisible()
+      .withTimeout(2000)
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+      'Stadhouderskade',
+    )
+  })
+
+  when(/ik volg een project/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
+    ).toHaveLabel('Volgen')
+    await ConstructionWorkScreen.ConstructionWorkProjectFollowButton.tap()
+  })
+
+  then(/het project krijgt de status 'volgend'/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
+    ).toHaveLabel('Volgend')
   })
 }
 

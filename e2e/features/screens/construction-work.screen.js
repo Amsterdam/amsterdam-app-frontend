@@ -27,6 +27,10 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
+  get ConstructionWorkCardProjectStadhouderskade() {
+    return element(by.id('ConstructionWorkCardProject1265107'))
+  }
+
   get ConstructionWorkListProjects() {
     return element(by.id('ConstructionWorkListProjects'))
   }
@@ -41,6 +45,10 @@ class ConstructionWorkScreen extends Screen {
 
   get ConstructionWorkCardProjectAmstel() {
     return element(by.id('ConstructionWorkCardProject1271843'))
+  }
+
+  get ConstructionWorkProjectFollowButton() {
+    return element(by.id('ConstructionWorkProjectFollowButton'))
   }
 }
 
