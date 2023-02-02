@@ -27,8 +27,16 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
+  get ConstructionWorkCardProjectStadhouderskade() {
+    return element(by.id('ConstructionWorkCardProject1265107'))
+  }
+
   get ConstructionWorkListProjects() {
     return element(by.id('ConstructionWorkListProjects'))
+  }
+
+  get ConstructionWorkProjectFollowButton() {
+    return element(by.id('ConstructionWorkProjectFollowButton'))
   }
 }
 
