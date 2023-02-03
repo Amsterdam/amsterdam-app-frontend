@@ -15,7 +15,9 @@ const contactSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het homescherm - wacht totdat welkomstscherm verdwijnt/,
     async () => {
-      await waitFor(HomeScreen.contactModule).toBeVisible().withTimeout(10000)
+      await waitFor(HomeScreen.HomeModuleButtonContact)
+        .toBeVisible()
+        .withTimeout(10000)
     },
   )
 
@@ -26,13 +28,15 @@ const contactSteps = ({given, when, then, and}) => {
         .toBeVisible()
         .withTimeout(10000)
       await element(by.id('WelcomePressableImageAndQuote')).tap()
-      await expect(HomeScreen.contactModule).toExist()
+      await expect(HomeScreen.HomeModuleButtonContact).toExist()
     },
   )
 
   when(/ik open de 'contact' module/, async () => {
-    await waitFor(HomeScreen.contactModule).toBeVisible().withTimeout(10000)
-    await HomeScreen.contactModule.tap()
+    await waitFor(HomeScreen.HomeModuleButtonContact)
+      .toBeVisible()
+      .withTimeout(10000)
+    await HomeScreen.HomeModuleButtonContact.tap()
     await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
   })
 
@@ -46,7 +50,7 @@ const contactSteps = ({given, when, then, and}) => {
       .toBeVisible(50)
       .withTimeout(10000)
     await element(by.id('WelcomePressableImageAndQuote')).tap()
-    await HomeScreen.contactModule.tap()
+    await HomeScreen.HomeModuleButtonContact.tap()
     await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
   })
 

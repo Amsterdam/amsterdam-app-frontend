@@ -3,12 +3,9 @@ import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import ConstructionWorkScreen from '../screens/construction-work.screen'
 import HomeScreen from '../screens/home.screen'
 
-const features = loadFeatures(
-  'e2e/features/construction-work-projects-overview.feature',
-  {
-    tagFilter: '@included and not @excluded',
-  },
-)
+const features = loadFeatures('e2e/features/construction-work.feature', {
+  tagFilter: '@included and not @excluded',
+})
 
 const constructionWorkSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
@@ -20,8 +17,11 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       .toBeVisible()
       .withTimeout(10000)
     await element(by.id('WelcomePressableImageAndQuote')).tap()
-    await expect(HomeScreen.werkzaamhedenModule).toExist()
-    await HomeScreen.werkzaamhedenModule.tap()
+    await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
+      .toBeVisible()
+      .withTimeout(2000)
+    await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
+    await HomeScreen.HomeModuleButtonConstructionWork.tap()
   })
 
   then(/de werkzaamheden worden weergegeven met een afbeelding/, async () => {
@@ -43,6 +43,31 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     await expect(
       ConstructionWorkScreen.ConstructionWorkCardProjectTextSubtitleMiddenweg,
     ).toHaveLabel('Middenweg, Groot onderhoud')
+  })
+
+  when(/ik klik op het zoekveld/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkTextInputNavigator,
+    ).toBeVisible()
+    await ConstructionWorkScreen.ConstructionWorkTextInputNavigator.tap()
+  })
+
+  then(
+    /wordt er een nieuw scherm 'Zoek in werkzaamheden' geopend/,
+    async () => {
+      await waitFor(ConstructionWorkScreen.HeaderTitle)
+        .toBeVisible()
+        .withTimeout(2000)
+      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+        'Zoek in werkzaamheden',
+      )
+    },
+  )
+
+  and(/wordt er een zoekveld getoond/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField,
+    ).toBeVisible()
   })
 }
 

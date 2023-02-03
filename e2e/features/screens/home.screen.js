@@ -1,32 +1,41 @@
 import assert from 'chai'
 
 class HomeScreen {
-  get afvalWijzerModule() {
-    return element(by.text('Afvalwijzer'))
+  // HomeModuleButtonAbout,
+  // constructionWorkEditorModule,
+  // HomeModuleButtonConstructionWork,
+  // HomeModuleButtonContact,
+  // HomeModuleButtonOpenWasteContainer,
+  // HomeModuleButtonRedirects,
+  // HomeModuleButtonReportProblem,
+  // HomeModuleButtonWasteGuide,
+  // welcomeModule,
+  get HomeModuleButtonWasteGuide() {
+    return element(by.id('HomeModuleButtonWasteGuide'))
   }
 
-  get gftContainerOpenen() {
-    return element(by.text('Gft-container openen'))
+  get HomeModuleButtonOpenWasteContainer() {
+    return element(by.id('HomeModuleButtonOpenWasteContainer'))
   }
 
-  get werkzaamhedenModule() {
-    return element(by.text('Werkzaamheden'))
+  get HomeModuleButtonConstructionWork() {
+    return element(by.id('HomeModuleButtonConstructionWork'))
   }
 
-  get meldingDoenModule() {
-    return element(by.text('Melding doen'))
+  get HomeModuleButtonReportProblem() {
+    return element(by.id('HomeModuleButtonReportProblem'))
   }
 
-  get contactModule() {
-    return element(by.text('Contact'))
+  get HomeModuleButtonContact() {
+    return element(by.id('HomeModuleButtonContact'))
   }
 
-  get directRegelenModule() {
-    return element(by.text('Direct regelen'))
+  get HomeModuleButtonRedirects() {
+    return element(by.id('HomeModuleButtonRedirects'))
   }
 
-  get overDezeAppModule() {
-    return element(by.text('Over deze app'))
+  get HomeModuleButtonAbout() {
+    return element(by.id('HomeModuleButtonAbout'))
   }
 
   async verifyHomeScreen() {
@@ -36,28 +45,28 @@ class HomeScreen {
   async tapModule(module) {
     switch (module) {
       case 'Afvalwijzer':
-        await this.afvalWijzerModule.tap()
+        await this.HomeModuleButtonWasteGuide.tap()
         break
       case 'Gft-container openen':
-        await this.gftContainerOpenen.tap()
+        await this.HomeModuleButtonOpenWasteContainer.tap()
         break
       case 'Werkzaamheden':
-        await this.werkzaamhedenModule.tap()
+        await this.HomeModuleButtonConstructionWork.tap()
         break
       case 'Melding doen':
-        await this.meldingDoenModule.tap()
+        await this.HomeModuleButtonReportProblem.tap()
         break
       case 'Contact':
-        await this.contactModule.tap()
+        await this.HomeModuleButtonContact.tap()
         break
       case 'Direct regelen':
-        await this.animationSection.tap()
+        await this.HomeModuleButtonRedirectsn.tap()
         break
       case 'Over deze app':
-        await this.overDezeAppModule.tap()
+        await this.HomeModuleButtonAbout.tap()
         break
       default:
-        assert.fail(`The entered section ${module} is an invaltext module`)
+        assert.fail(`The entered section ${module} is an invalid module`)
     }
   }
 }

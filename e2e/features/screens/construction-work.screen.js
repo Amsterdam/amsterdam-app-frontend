@@ -30,6 +30,14 @@ class ConstructionWorkScreen extends Screen {
   get ConstructionWorkListProjects() {
     return element(by.id('ConstructionWorkListProjects'))
   }
+
+  get ConstructionWorkTextInputNavigator() {
+    return element(by.id('ConstructionWorkTextInputNavigator'))
+  }
+
+  get ConstructionWorkProjectsTextSearchField() {
+    return element(by.id('ConstructionWorkProjectsTextSearchField'))
+  }
 }
 
 export default new ConstructionWorkScreen()
