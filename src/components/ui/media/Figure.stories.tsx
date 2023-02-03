@@ -1,5 +1,4 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import React from 'react'
 import {Figure} from './Figure'
 import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
 

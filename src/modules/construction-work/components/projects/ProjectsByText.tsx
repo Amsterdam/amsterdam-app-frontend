@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
-import React from 'react'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
 import {Paragraph} from '@/components/ui/text'

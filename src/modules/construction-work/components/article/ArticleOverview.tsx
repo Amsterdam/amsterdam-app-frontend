@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -103,7 +103,11 @@ export const ArticleOverview = ({
     !isEmptyObject(yearlyArticleSections) ? (
     <View style={styles.list}>
       <Column gutter="sm">
-        <Title level="h2" text={title} />
+        <Title
+          level="h2"
+          testID="ConstructionWorkProjectArticlesTitle"
+          text={title}
+        />
         {Object.entries(yearlyArticleSections)
           .reverse()
           .map(([year, articlesPerYear], index) => (
@@ -136,6 +140,7 @@ export const ArticleOverview = ({
                     }
                     key={article.identifier}
                     onPress={() => navigateToArticle(article)}
+                    testID={`ConstructionWorkProjectArticle${article.identifier}Preview`}
                   />
                 ))}
             </View>

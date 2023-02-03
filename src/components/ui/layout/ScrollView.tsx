@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {ScrollView as RNScrollView, ScrollViewProps} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {layoutStyles} from '@/styles'

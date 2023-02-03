@@ -1,4 +1,3 @@
-import React from 'react'
 import {PressableProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'

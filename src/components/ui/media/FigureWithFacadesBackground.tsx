@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {
   AmsterdamAndWeespFacadesImage,
@@ -6,6 +6,7 @@ import {
 } from '@/assets/images'
 import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
@@ -22,6 +23,7 @@ type Props = {
    * This is especially useful on landscape devices.
    */
   moveUp?: number
+  testID?: TestID
   withWeesp?: boolean
 } & SelectedFigureProps
 
@@ -32,6 +34,7 @@ export const FigureWithFacadesBackground = ({
   imageAspectRatio,
   imageWidth,
   moveUp,
+  testID,
   withWeesp = false,
   ...figureProps
 }: Props) => {
@@ -51,7 +54,7 @@ export const FigureWithFacadesBackground = ({
     : AmsterdamFacadesImage
 
   return (
-    <View style={styles.figure}>
+    <View style={styles.figure} testID={testID}>
       <Figure {...figureProps}>
         <View style={styles.backgroundImage}>
           <BackgroundImage />

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {

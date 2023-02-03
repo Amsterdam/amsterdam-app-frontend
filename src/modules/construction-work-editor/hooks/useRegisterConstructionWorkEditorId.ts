@@ -5,6 +5,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useRegisterDevice, useSentry} from '@/hooks'
+import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {
   useConstructionWorkEditor,
   useSetConstructionWorkEditorCredentials,
@@ -14,7 +15,6 @@ import {
   selectConstructionWorkEditorHasSeenWelcomeMessage,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
-import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
 import {resetAlert, setAlert} from '@/store'
 

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {ReactNode, useContext} from 'react'
+import {ReactNode, useContext} from 'react'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Figure} from '@/components/ui/media'

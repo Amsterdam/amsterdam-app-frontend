@@ -1,5 +1,4 @@
 import {createStackNavigator} from '@react-navigation/stack'
-import React from 'react'
 import {screenOptions} from '@/app/navigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {screenConfig} from '@/modules/construction-work/screenConfig'

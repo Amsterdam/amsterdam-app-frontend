@@ -1,4 +1,3 @@
-import React from 'react'
 import {View} from 'react-native'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
@@ -22,8 +21,18 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
     {contacts.map(({address, email, name, phone, position}) => (
       <Column gutter="md" key={name + email}>
         <View>
-          {!!name && <Title level="h3" text={name} />}
-          {!!position && <Paragraph>{capitalizeString(position)}</Paragraph>}
+          {!!name && (
+            <Title
+              level="h3"
+              testID="ConstructionWorkProjectContactTitle"
+              text={name}
+            />
+          )}
+          {!!position && (
+            <Paragraph testID="ConstructionWorkProjectContactJobTitle">
+              {capitalizeString(position)}
+            </Paragraph>
+          )}
         </View>
         {!!phone && (
           <Row>
@@ -37,6 +46,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
               onPress={() => {
                 openPhoneUrl(phone)
               }}
+              testID="ConstructionWorkProjectContactPhone"
             />
           </Row>
         )}
@@ -54,10 +64,15 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
               onPress={() => {
                 openMailUrl(email, emailSubject)
               }}
+              testID="ConstructionWorkProjectContactEmail"
             />
           </Row>
         )}
-        {!!address && <Paragraph>{address}</Paragraph>}
+        {!!address && (
+          <Paragraph testID="ConstructionWorkProjectContactAddress">
+            {address}
+          </Paragraph>
+        )}
       </Column>
     ))}
   </Column>

@@ -1,4 +1,3 @@
-import React from 'react'
 import {Button} from '@/components/ui/buttons'
 import {Accordion, Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'

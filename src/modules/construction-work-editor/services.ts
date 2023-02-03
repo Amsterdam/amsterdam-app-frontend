@@ -1,3 +1,4 @@
+import {ProjectIdQueryArg} from '@/modules/construction-work/types'
 import {
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
@@ -5,7 +6,6 @@ import {
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
-import {ProjectIdQueryArg} from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
 import {MutationResponse} from '@/types'
 import {generateRequestUrl} from '@/utils'

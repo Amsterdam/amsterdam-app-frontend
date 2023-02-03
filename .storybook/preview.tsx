@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
-import React, {FC} from 'react'
+import {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {RootProvider} from '@/providers'
 import {baseColor} from '@/themes/tokens/base-color'

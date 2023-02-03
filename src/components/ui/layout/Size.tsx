@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 
 export type SizeProps = {

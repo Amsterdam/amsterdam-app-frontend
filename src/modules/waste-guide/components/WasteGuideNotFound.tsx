@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {EmptyMessage} from '@/components/ui/feedback'
@@ -11,7 +10,7 @@ import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 export const WasteGuideNotFound = () => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParams, typeof ModuleSlug['waste-guide']>
+      StackNavigationProp<RootStackParams, (typeof ModuleSlug)['waste-guide']>
     >()
 
   return (

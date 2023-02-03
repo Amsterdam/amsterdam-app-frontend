@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens'

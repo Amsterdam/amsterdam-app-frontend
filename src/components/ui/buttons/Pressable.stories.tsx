@@ -1,5 +1,4 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import React from 'react'
 import {Pressable} from './Pressable'
 import {Paragraph} from '@/components/ui/text'
 

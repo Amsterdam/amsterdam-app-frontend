@@ -9,6 +9,12 @@ import {
   AddressStackParams,
 } from '@/modules/address/routes'
 import {addressModals} from '@/modules/address/screenConfig'
+import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
+import {
+  ConstructionWorkRouteName,
+  ConstructionWorkStackParams,
+} from '@/modules/construction-work/routes'
+import {constructionWorkModals} from '@/modules/construction-work/screenConfig'
 import {ConstructionWorkEditorStack} from '@/modules/construction-work-editor/Stack'
 import {
   ConstructionWorkEditorModalParams,
@@ -16,12 +22,6 @@ import {
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
 import {constructionWorkEditorModals} from '@/modules/construction-work-editor/screenConfig'
-import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
-import {constructionWorkModals} from '@/modules/construction-work/screenConfig'
 import {ContactStack} from '@/modules/contact/Stack'
 import {
   ContactModalParams,

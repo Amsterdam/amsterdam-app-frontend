@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import {useEffect, useLayoutEffect, useState} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -74,20 +74,31 @@ export const ProjectWarning = ({id}: Props) => {
           accessible
           accessibilityLabel={mainImage.description}
           source={mapWarningImageSources(mainImage.sources, environment)}
+          testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       ) : (
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
+          testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       )}
       <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
-            <Paragraph>{formatDate(projectWarning.publication_date)}</Paragraph>
-            <Title text={projectWarning.title} />
-            <Paragraph>{projectWarning.body}</Paragraph>
+            <Paragraph
+              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Date`}>
+              {formatDate(projectWarning.publication_date)}
+            </Paragraph>
+            <Title
+              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Title`}
+              text={projectWarning.title}
+            />
+            <Paragraph
+              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Body`}>
+              {projectWarning.body}
+            </Paragraph>
           </Column>
         </Box>
         {project?.contacts && (

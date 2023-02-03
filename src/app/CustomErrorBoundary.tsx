@@ -1,4 +1,4 @@
-import React, {Component, ReactNode} from 'react'
+import {Component, ReactNode} from 'react'
 import {Pressable, StyleSheet, Text} from 'react-native'
 import RNRestart from 'react-native-restart'
 import {SafeAreaView} from 'react-native-safe-area-context'

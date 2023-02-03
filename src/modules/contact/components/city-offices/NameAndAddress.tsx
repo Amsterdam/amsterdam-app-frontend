@@ -1,4 +1,3 @@
-import React from 'react'
 import {useDispatch} from 'react-redux'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {SingleSelectable} from '@/components/ui/containers'
@@ -26,7 +25,6 @@ export const NameAndAddress = ({
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
-        testID={testID}
         text={
           <SingleSelectable
             accessibilityLabel={accessibleText(
@@ -42,8 +40,8 @@ export const NameAndAddress = ({
             </Phrase>
           </SingleSelectable>
         }
-        title={title}
         titleIconName="chevron-down"
+        {...{title, testID}}
       />
       {!!addressContent && (
         <>

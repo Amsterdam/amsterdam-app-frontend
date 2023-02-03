@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useLayoutEffect} from 'react'
+import {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'

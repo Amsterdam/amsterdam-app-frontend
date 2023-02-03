@@ -1,4 +1,3 @@
-import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'

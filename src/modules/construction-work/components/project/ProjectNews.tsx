@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useEffect, useLayoutEffect} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -58,16 +58,30 @@ export const ProjectNews = ({id}: Props) => {
         <Image
           aspectRatio="wide"
           source={mapImageSources(news.images[0].sources, environment)}
+          testID={`ConstructionWorkProjectArticle${news.identifier}Image`}
         />
       ) : null}
       {!!news && (
         <HorizontalSafeArea>
           <Box>
             <Column gutter="md">
-              <Paragraph>{formatDate(news.publication_date)}</Paragraph>
-              <Title text={news.title} />
-              <Article content={news.body?.preface.html} isIntro />
-              <Article content={news.body?.content.html} />
+              <Paragraph
+                testID={`ConstructionWorkProjectArticle${news.identifier}Date`}>
+                {formatDate(news.publication_date)}
+              </Paragraph>
+              <Title
+                testID={`ConstructionWorkProjectArticle${news.identifier}Title`}
+                text={news.title}
+              />
+              <Article
+                content={news.body?.preface.html}
+                isIntro
+                testID={`ConstructionWorkProjectArticle${news.identifier}Intro`}
+              />
+              <Article
+                content={news.body?.content.html}
+                testID={`ConstructionWorkProjectArticle${news.identifier}Body`}
+              />
             </Column>
           </Box>
         </HorizontalSafeArea>

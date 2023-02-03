@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Orientation} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {PressableProps, StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
@@ -26,7 +26,7 @@ export const TopTaskButton = ({
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable onPress={onPress} testID={testID} {...pressableProps}>
+    <Pressable {...{onPress, testID}} {...pressableProps}>
       <Box insetHorizontal="md" insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>

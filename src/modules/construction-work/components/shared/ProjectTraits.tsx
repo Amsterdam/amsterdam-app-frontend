@@ -1,4 +1,3 @@
-import React from 'react'
 import {View, ViewProps} from 'react-native'
 import simplur from 'simplur'
 import {Badge, Trait} from '@/components/ui/feedback'
@@ -21,16 +20,15 @@ export const ProjectTraits = ({
   }
 
   return (
-    <View {...viewProps} testID="ConstructionWorkViewProjectTraits">
+    <View {...viewProps}>
       <Row gutter="md" wrap>
         {!!followed &&
           (unreadArticlesLength ? (
             <Trait
               label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
-              testIDIcon="ConstructionWorkViewProjectTraitsIconMessages"
-              testIDLabel="ConstructionWorkViewProjectTraitsTextMessages">
+              testID="ConstructionWorkProjectTraitArticles">
               <Badge
-                testID="ConstructionWorkViewProjectTraitsBadgeMessages"
+                testID="ConstructionWorkProjectTraitArticlesBadge"
                 value={unreadArticlesLength}
                 variant="small"
               />
@@ -39,24 +37,21 @@ export const ProjectTraits = ({
             <Trait
               iconName="checkmark"
               label="Volgend"
-              testIDIcon="ConstructionWorkViewProjectTraitsIconFollowing"
-              testIDLabel="ConstructionWorkViewProjectTraitsTextFollowing"
+              testID="ConstructionWorkProjectTraitFollowing"
             />
           ))}
         {!!meter && (
           <Trait
             iconName="location"
             label={`${meter} meter`}
-            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceByMeters"
-            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceByMeters"
+            testID="ConstructionWorkProjectTraitMeters"
           />
         )}
         {!!strides && (
           <Trait
             iconName="strides"
             label={simplur`${strides} stap[|pen]`}
-            testIDIcon="ConstructionWorkViewProjectTraitsIconDistanceBySteps"
-            testIDLabel="ConstructionWorkViewProjectTraitsTextDistanceBySteps"
+            testID="ConstructionWorkProjectTraitSteps"
           />
         )}
       </Row>

@@ -1,4 +1,3 @@
-import React from 'react'
 import {PressableProps, StyleSheet} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'

@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
@@ -28,12 +27,6 @@ const redirects: RedirectResponse[] = [
     text: 'Bezoekers- of kraskaart-vergunning? Geef hier parkeertijd van uw bezoek door.',
     title: 'Parkeertijd bezoek doorgeven',
     url: 'https://aanmeldenparkeren.amsterdam.nl/',
-  },
-  {
-    iconName: 'card',
-    text: 'U kunt uw rijbewijs online verlengen via de RDW.',
-    title: 'Rijbewijs verlengen',
-    url: 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B1783FA78-6E93-4B39-8257-BAABD81D4A54%7D',
   },
   {
     iconName: 'document-text',

@@ -1,4 +1,4 @@
-import React, {Key} from 'react'
+import {Key} from 'react'
 import {PressableProps} from 'react-native'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
@@ -15,13 +15,16 @@ import {
 type ContactOption = {
   key: Key
   iconName: IconName
-  testID: string
   text: string
   title: string
 } & Partial<
   Pick<
     PressableProps,
-    'accessibilityHint' | 'accessibilityLabel' | 'accessibilityRole' | 'onPress'
+    | 'accessibilityHint'
+    | 'accessibilityLabel'
+    | 'accessibilityRole'
+    | 'testID'
+    | 'onPress'
   >
 >
 

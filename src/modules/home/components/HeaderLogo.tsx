@@ -1,4 +1,3 @@
-import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Logo} from '@/modules/home/assets/icons'
 

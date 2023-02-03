@@ -1,5 +1,4 @@
 import {RouteProp} from '@react-navigation/core'
-import React from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {CloseModalButton} from '@/components/ui/buttons'
 import {ModalHeader} from '@/components/ui/containers'

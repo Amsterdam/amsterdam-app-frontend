@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react'
+import {forwardRef, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
@@ -71,16 +71,13 @@ export const TextInput = forwardRef<TextInputRN, Props>(
           <TextInputRN
             {...textInputProps}
             {...themedTextInputProps}
-            placeholder={placeholder}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             onBlur={handleBlur}
             onChangeText={handleChangeText}
             onFocus={handleFocus}
-            ref={ref}
             style={styles.textInput}
-            testID={testID}
             textAlignVertical="top"
-            value={value}
+            {...{placeholder, ref, testID, value}}
           />
           {value ? (
             <View>

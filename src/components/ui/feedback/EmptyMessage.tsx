@@ -1,10 +1,10 @@
-import React from 'react'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Paragraph, Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import {accessibleText} from '@/utils'
 
 type Props = {
-  testID?: string | undefined
+  testID?: TestID
   text: string
 }
 

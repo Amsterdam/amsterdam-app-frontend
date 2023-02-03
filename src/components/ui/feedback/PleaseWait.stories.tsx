@@ -1,5 +1,4 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import React from 'react'
 import {Canvas} from '.storybook/components'
 import {PleaseWait} from '@/components/ui/feedback'
 
