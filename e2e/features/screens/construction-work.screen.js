@@ -38,6 +38,10 @@ class ConstructionWorkScreen extends Screen {
   get ConstructionWorkProjectsTextSearchField() {
     return element(by.id('ConstructionWorkProjectsTextSearchField'))
   }
+
+  get ConstructionWorkCardProjectAmstel() {
+    return element(by.id('ConstructionWorkCardProject1271843'))
+  }
 }
 
 export default new ConstructionWorkScreen()
