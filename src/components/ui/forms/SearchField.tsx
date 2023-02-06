@@ -52,7 +52,12 @@ export const SearchField = forwardRef<TextInput, Props>(
             testID="ConstructionWorkSearchFieldButtonClear"
           />
         ) : (
-          <Icon name="search" size="lg" />
+          <IconButton
+            accessibilityHint="Activeer dit zoekveld"
+            icon={<Icon name="search" size="lg" />}
+            onPress={handleFocus}
+            testID="ConstructionWorkSearchFieldButtonSearch"
+          />
         )}
       </View>
     )
