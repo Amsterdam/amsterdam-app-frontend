@@ -9,9 +9,6 @@ export const modulesApi = baseApi.injectEndpoints({
       providesTags: ['Modules'],
       query: () => ({
         api: 'modulesApiUrl',
-        headers: {
-          appVersion,
-        },
         url: '/modules_for_app',
       }),
       transformResponse: (response: {result: ModuleServerConfig[]}) =>
