@@ -8,7 +8,9 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
     component: ComponentType<any>
     isForEmployees?: boolean
     name: keyof R
-    options?: StackNavigationOptions
+    options?: StackNavigationOptions & {
+      accessibilityLanguage?: string
+    }
     title?: string
   }
 >

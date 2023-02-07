@@ -7,12 +7,16 @@ import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
 import {IconSize} from '@/components/ui/types'
 
-type Props = Pick<StackHeaderProps, 'back' | 'navigation' | 'options' | 'route'>
+type Props = Pick<
+  StackHeaderProps & {options: {accessibilityLanguage?: string}},
+  'back' | 'navigation' | 'options' | 'route'
+>
 
 const chevronSize = 'ml'
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
   const title = getHeaderTitle(options, '')
+  const {accessibilityLanguage} = options
 
   return (
     <Row gutter="lg" valign="center">
@@ -35,7 +39,10 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
         )}
       </View>
       <View style={styles.middleColumn}>
-        <ScreenTitle text={title} />
+        <ScreenTitle
+          text={title}
+          accessibilityLanguage={accessibilityLanguage}
+        />
       </View>
       <View style={styles.sideColumn} />
     </Row>
