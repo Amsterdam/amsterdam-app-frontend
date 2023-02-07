@@ -3,12 +3,9 @@ import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import ConstructionWorkScreen from '../screens/construction-work.screen'
 import HomeScreen from '../screens/home.screen'
 
-const features = loadFeatures(
-  'e2e/features/construction-work-follow-projects.feature',
-  {
-    tagFilter: '@included and not @excluded',
-  },
-)
+const features = loadFeatures('e2e/features/construction-work.feature', {
+  tagFilter: '@included and not @excluded',
+})
 
 const constructionWorkSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
@@ -74,6 +71,45 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     await expect(
       ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField,
     ).toBeVisible()
+  })
+  given(
+    /ik ben op de de werkzaamheden detail pagina van project Middenweg/,
+    async () => {
+      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
+        .toBeVisible()
+        .withTimeout(10000)
+      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
+        .toBeVisible()
+        .withTimeout(2000)
+      await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
+      await HomeScreen.HomeModuleButtonConstructionWork.tap()
+      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+        'Werkzaamheden',
+      )
+      await ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg.tap()
+      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Middenweg')
+    },
+  )
+
+  when(/ik klik op de terug knop/, async () => {
+    await ConstructionWorkScreen.HeaderButtonBack.tap()
+  })
+
+  then(/ik ben in het werkzaamheden scherm/, async () => {
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+  })
+
+  when(/ik klik op project Amstel/, async () => {
+    await ConstructionWorkScreen.ConstructionWorkCardProjectAmstel.tap()
+  })
+
+  then(/ik ben op het detailscherm van project Amstel/, async () => {
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Amstel')
+  })
+
+  then(/ik ben op het homescherm/, async () => {
+    await expect(HomeScreen.HomeModuleButtonConstructionWork).toBeVisible()
   })
 
   and(/ik open het project Stadhouderskade/, async () => {
