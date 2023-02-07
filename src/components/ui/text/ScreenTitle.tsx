@@ -1,11 +1,13 @@
 import {Title} from '@/components/ui/text'
 
 type Props = {
+  accessibilityLanguage?: string
   text: string
 }
 
-export const ScreenTitle = ({text}: Props) => (
+export const ScreenTitle = ({accessibilityLanguage, text}: Props) => (
   <Title
+    accessibilityLanguage={accessibilityLanguage}
     allowFontScaling={false}
     ellipsizeMode="middle"
     level="h5"
