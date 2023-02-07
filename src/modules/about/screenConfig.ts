@@ -30,8 +30,8 @@ export const screenConfig: StackNavigationRoutes<
     component: AboutTheAppEnglishScreen,
     name: AboutRouteName.aboutEnglish,
     options: {
-      headerTitle: 'About this app',
       accessibilityLanguage: 'en-US',
+      headerTitle: 'About this app',
     },
   },
   [AboutRouteName.accessibilityStatement]: {

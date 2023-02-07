@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {ImageURISource} from 'react-native'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
@@ -26,10 +26,10 @@ export const AboutTheAppEnglishScreen = () => {
             <Column gutter="lg">
               <Column gutter="sm">
                 <Title
-                  text="1 app for all citizens of Amsterdam"
                   accessibilityLanguage="en-US"
+                  text="1 app for all citizens of Amsterdam"
                 />
-                <Paragraph variant="intro" accessibilityLanguage="en-US">
+                <Paragraph accessibilityLanguage="en-US" variant="intro">
                   The Amsterdam app quickly provides information tailored to
                   you. Take care of affairs with ease, like:
                 </Paragraph>
@@ -38,9 +38,9 @@ export const AboutTheAppEnglishScreen = () => {
                 <Column gutter="sm">
                   <Icon name="trash-bin" size="xl" />
                   <Title
+                    accessibilityLanguage="en-US"
                     level="h5"
                     text="Waste information"
-                    accessibilityLanguage="en-US"
                   />
                   <Paragraph accessibilityLanguage="en-US">
                     You can enter your address to look up where to dispose of
@@ -51,9 +51,9 @@ export const AboutTheAppEnglishScreen = () => {
                 <Column gutter="sm">
                   <Icon name="construction-work" size="xl" />
                   <Title
+                    accessibilityLanguage="en-US"
                     level="h5"
                     text="Road work"
-                    accessibilityLanguage="en-US"
                   />
                   <Paragraph accessibilityLanguage="en-US">
                     The City often performs maintenance on streets, bridges,
@@ -65,9 +65,9 @@ export const AboutTheAppEnglishScreen = () => {
                 <Column gutter="sm">
                   <Icon name="alert" size="xl" />
                   <Title
+                    accessibilityLanguage="en-US"
                     level="h5"
                     text="Report it"
-                    accessibilityLanguage="en-US"
                   />
                   <Paragraph accessibilityLanguage="en-US">
                     Is a waste container full, a lamppost not working, or is
@@ -90,9 +90,9 @@ export const AboutTheAppEnglishScreen = () => {
             <Track gutter="lg">
               <Column gutter="sm">
                 <Title
+                  accessibilityLanguage="en-US"
                   level="h2"
                   text="1 app for all citizens of Amsterdam and Weesp"
-                  accessibilityLanguage="en-US"
                 />
                 <Paragraph accessibilityLanguage="en-US">
                   We make 1 app for everyone living in Amsterdam or Weesp. The
@@ -101,9 +101,9 @@ export const AboutTheAppEnglishScreen = () => {
               </Column>
               <Column gutter="sm">
                 <Title
+                  accessibilityLanguage="en-US"
                   level="h2"
                   text="More topics in the future"
-                  accessibilityLanguage="en-US"
                 />
                 <Paragraph accessibilityLanguage="en-US">
                   This version of the Amsterdam app offers topics that benefit
