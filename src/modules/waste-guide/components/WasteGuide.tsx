@@ -82,9 +82,9 @@ export const WasteGuide = ({address}: Props) => {
         </Box>
       ) : (
         <FigureWithFacadesBackground
-          Image={<WasteGuideNotFoundImage />}
           backgroundImageHeightFraction={0.5}
           height={media.figureHeight.xl}
+          Image={<WasteGuideNotFoundImage />}
           imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
           imageWidth={media.imageWidth.wasteGuideHome}
           moveUp={isLandscape ? 128 : undefined}

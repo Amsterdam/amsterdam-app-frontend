@@ -136,6 +136,12 @@ export const ProjectsList = ({
 
   return (
     <FlatGrid
+      contentContainerStyle={{paddingBottom}}
+      data={data ?? []}
+      itemContainerStyle={styles.itemContainer}
+      itemDimension={itemDimension}
+      keyboardDismissMode="on-drag"
+      keyExtractor={project => project.identifier}
       ListEmptyComponent={
         isLoading ? (
           <PleaseWait />
@@ -147,12 +153,6 @@ export const ProjectsList = ({
         ) : null
       }
       ListHeaderComponent={listHeader}
-      contentContainerStyle={{paddingBottom}}
-      data={data ?? []}
-      itemContainerStyle={styles.itemContainer}
-      itemDimension={itemDimension}
-      keyExtractor={project => project.identifier}
-      keyboardDismissMode="on-drag"
       renderItem={({item}) => (
         <ListItem
           getProjectTraits={getProjectTraits}

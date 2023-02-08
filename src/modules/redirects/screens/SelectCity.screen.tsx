@@ -59,9 +59,9 @@ export const SelectCityScreen = ({navigation}: Props) => {
           </Box>
         </HorizontalSafeArea>
         <FigureWithFacadesBackground
-          Image={<TwoPeopleWalking />}
           backgroundImageHeightFraction={0.5}
           height={media.figureHeight.xl}
+          Image={<TwoPeopleWalking />}
           imageAlign="start"
           imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
           imageWidth={media.imageWidth.twoPersonsWalking}

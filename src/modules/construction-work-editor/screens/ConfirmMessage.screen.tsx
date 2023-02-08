@@ -122,8 +122,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Image source={{uri: mainImage?.path}} />
       ) : (
         <FigureWithFacadesBackground
-          Image={<ProjectWarningFallbackImage />}
           height={media.figureHeight.md}
+          Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
         />
       )}

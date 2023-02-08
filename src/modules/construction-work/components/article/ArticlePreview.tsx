@@ -105,9 +105,9 @@ export const ArticlePreview = ({
                   />
                 ) : (
                   <FigureWithFacadesBackground
-                    Image={<ProjectWarningFallbackImage />}
                     aspectRatio="extraWide"
                     height={imageHeight}
+                    Image={<ProjectWarningFallbackImage />}
                     imageAspectRatio={
                       media.imageAspectRatio.projectWarningFallback
                     }

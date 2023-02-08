@@ -20,10 +20,10 @@ export const SelectCityOffice = () => {
       <Title level="h3" text="Stadsloketten" />
       <Gutter height="md" />
       <BottomSheetFlatList
-        ItemSeparatorComponent={ItemSeparator}
-        ListFooterComponent={<Gutter height="lg" />}
         data={cityOffices}
+        ItemSeparatorComponent={ItemSeparator}
         keyExtractor={cityOffice => cityOffice.identifier}
+        ListFooterComponent={<Gutter height="lg" />}
         renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
       />
     </Box>

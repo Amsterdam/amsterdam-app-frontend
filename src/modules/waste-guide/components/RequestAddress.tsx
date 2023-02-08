@@ -38,9 +38,9 @@ export const RequestAddress = () => {
         </Box>
       </HorizontalSafeArea>
       <FigureWithFacadesBackground
-        Image={<WasteGuideHomeImage />}
         backgroundImageHeightFraction={0.5}
         height={media.figureHeight.xl}
+        Image={<WasteGuideHomeImage />}
         imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
         imageWidth={media.imageWidth.wasteGuideHome}
         moveUp={isLandscape ? 80 : undefined}

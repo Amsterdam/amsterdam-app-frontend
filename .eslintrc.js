@@ -65,7 +65,12 @@ module.exports = {
         returnStyle: 'implicit',
       },
     ],
-    'react/jsx-sort-props': ['error'],
+    'react/jsx-sort-props': [
+      'error',
+      {
+        ignoreCase: true,
+      },
+    ],
   },
   overrides: [
     {

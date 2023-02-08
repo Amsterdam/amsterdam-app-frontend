@@ -71,6 +71,11 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
 
   return (
     <FlatGrid
+      data={authorizedProjects}
+      itemContainerStyle={styles.itemContainer}
+      itemDimension={itemDimension}
+      keyboardDismissMode="on-drag"
+      keyExtractor={project => project.identifier}
       ListEmptyComponent={ListEmptyMessage}
       ListFooterComponent={ContactConstructionWorkSupport}
       ListFooterComponentStyle={{
@@ -79,11 +84,6 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
           size.spacing.lg,
         ),
       }}
-      data={authorizedProjects}
-      itemContainerStyle={styles.itemContainer}
-      itemDimension={itemDimension}
-      keyExtractor={project => project.identifier}
-      keyboardDismissMode="on-drag"
       renderItem={({item}) => (
         <ListItem navigation={navigation} project={item} />
       )}
