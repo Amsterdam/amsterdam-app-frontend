@@ -43,6 +43,7 @@ export const projectsApi = baseApi.injectEndpoints({
         const q = formatQueryParams(params)
         return generateRequestUrl({path: '/articles', params: q})
       },
+      keepUnusedDataFor: 1,
       transformResponse: (response: {result: Articles}) => response.result,
     }),
 
