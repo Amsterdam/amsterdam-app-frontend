@@ -7,6 +7,7 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
+// eslint-disable-next-line no-restricted-imports
 import {version as appVersion} from '@/../package.json'
 import {EnvironmentConfig} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types'

@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
-import {version as appVersion} from '@/../package.json'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
 
