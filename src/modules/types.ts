@@ -9,13 +9,13 @@ import {ModuleSlug} from '@/modules/slugs'
  */
 export type ModuleClientConfig = {
   BadgeValue?: ElementType
+  hiddenInMenu?: boolean
   isCore?: boolean
   isForEmployees?: boolean
-  hiddenInMenu?: boolean
   linking: Record<string, string>
   name: string
-  screenOptions?: StackNavigationOptions
   requiresFirebaseToken?: boolean
+  screenOptions?: StackNavigationOptions
   slug: ModuleSlug
   state: Slice[]
 }

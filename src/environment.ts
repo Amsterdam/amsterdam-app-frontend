@@ -1,8 +1,8 @@
 export enum Environment {
-  development = 'Development',
   acceptance = 'Acceptance',
-  production = 'Production',
   custom = 'Custom',
+  development = 'Development',
+  production = 'Production',
 }
 
 export type EnvironmentConfig = {
@@ -14,11 +14,11 @@ export type EnvironmentConfig = {
 }
 
 enum ApiUrls {
-  apiLocal = 'http://localhost:8000/api/v1',
   apiAcc = 'https://api-test-backend.luscinia-solutions.com/api/v1',
+  apiLocal = 'http://localhost:8000/api/v1',
   apiProd = 'https://api-backend.luscinia-solutions.com/api/v1',
-  modulesApiLocal = 'http://localhost:9000/api/v1',
   modulesApiAcc = 'https://api-test-modules.luscinia-solutions.com/api/v1',
+  modulesApiLocal = 'http://localhost:9000/api/v1',
   modulesApiProd = 'https://api-modules.luscinia-solutions.com/api/v1',
 }
 

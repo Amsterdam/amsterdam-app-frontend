@@ -1,10 +1,10 @@
 import {ViewProps} from 'react-native'
 
 export enum Direction {
-  up = 'up',
   down = 'down',
   left = 'left',
   right = 'right',
+  up = 'up',
 }
 
 export enum IconSize {
@@ -22,9 +22,9 @@ export enum Orientation {
 
 export enum Placement {
   above = 'above',
-  below = 'below',
-  before = 'before',
   after = 'after',
+  before = 'before',
+  below = 'below',
 }
 
 export type TestID = ViewProps['testID']

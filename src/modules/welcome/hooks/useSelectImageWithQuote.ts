@@ -2,10 +2,10 @@ import {useMemo} from 'react'
 import {ImageURISource} from 'react-native'
 
 type ImageWithQuote = {
-  quote: string
   image4x5: ImageURISource
   image5x4: ImageURISource
   image9x16: ImageURISource
+  quote: string
 }
 
 const imagesWithQuote: ImageWithQuote[] = [

@@ -6,24 +6,24 @@ export enum ConstructionWorkEditorEndpointName {
 }
 
 export type ConstructionWorkEditor = {
-  id?: string
   hasSeenWelcomeMessage: boolean
+  id?: string
   projects: string[]
 }
 
 export type ConstructionWorkEditorResponse = {
-  identifier: string
   email: string
+  identifier: string
   projects: string[]
 }
 
 export type ProjectWarningImageQueryArg = {
-  project_warning_id: string
   image: {
-    main: boolean
-    description: string
     data: string
+    description: string
+    main: boolean
   }
+  project_warning_id: string
 }
 
 export type ProjectWarningResponse = {
@@ -31,8 +31,8 @@ export type ProjectWarningResponse = {
 }
 
 export type NewMessage = {
-  title: string
   body: string
   project_identifier: string
   project_manager_id: string
+  title: string
 }

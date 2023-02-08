@@ -4,11 +4,11 @@ export type Image = {
 }
 
 export type ImageSources = {
-  orig: ImageSource
   '220px': ImageSource
   '460px': ImageSource
   '700px': ImageSource
   '80px': ImageSource
+  orig: ImageSource
 }
 
 export type ImageSource = {

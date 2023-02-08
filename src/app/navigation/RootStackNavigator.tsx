@@ -20,7 +20,7 @@ type ModuleParams<
   ModuleSlug,
   | undefined
   | {screen?: RouteName}
-  | {screen: RouteName; params: ParamList[RouteName]}
+  | {params: ParamList[RouteName]; screen: RouteName}
 >
 
 export type RootStackParams = ModuleParams<ModuleStackParams> &

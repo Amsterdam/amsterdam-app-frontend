@@ -2,11 +2,11 @@ import {ProjectBody} from '@/modules/construction-work/types'
 
 export enum ConstructionWorkRouteName {
   constructionWork = 'ConstructionWork',
-  search = 'ConstructionWorkSearch',
   project = 'Project',
   projectBody = 'ProjectBody',
   projectNews = 'ProjectNews',
   projectWarning = 'ProjectWarning',
+  search = 'ConstructionWorkSearch',
 }
 
 export type ConstructionWorkStackParams = {

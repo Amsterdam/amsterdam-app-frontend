@@ -1,10 +1,10 @@
 import {ListQueryArg} from '@/types'
 
 export type NotificationQueryArg = {
-  title: string
   body: string
-  project_identifier: string
   news_identifier?: string
+  project_identifier: string
+  title: string
   warning_identifier?: string
 }
 
@@ -23,8 +23,8 @@ export type NotificationWithProjectTitleAndReadState = Notification & {
 }
 
 export type PushNotificationData = {
-  type?: string
   linkSourceid?: string
+  type?: string
 }
 
 export type PushNotification = {

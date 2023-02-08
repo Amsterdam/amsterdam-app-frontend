@@ -13,8 +13,8 @@ import {
 } from '@/utils'
 
 type ContactOption = {
-  key: Key
   iconName: IconName
+  key: Key
   text: string
   title: string
 } & Partial<

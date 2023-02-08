@@ -16,8 +16,8 @@ import {useTheme} from '@/themes'
 
 type Props = {
   bagList: BagResponseContent | null | undefined
-  changeNumber: (text: string) => void
   changeIsStreetSelected: (choice: boolean) => void
+  changeNumber: (text: string) => void
   isNumberSelected: boolean
   keyboardType: KeyboardTypeOptions | undefined
   number: string

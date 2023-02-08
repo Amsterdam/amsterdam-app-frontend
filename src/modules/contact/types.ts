@@ -6,32 +6,32 @@ export enum ContactEndpointName {
 }
 
 export type CityOffice = {
-  identifier: string
-  title: string
-  image: Image
   address: Address
   addressContent?: {
     html: string
     title: string
   }
+  appointment?: {
+    text: string
+    url: string
+  }
   coordinates: Coordinates
   directionsUrl: string
+  identifier: string
+  image: Image
+  title: string
   visitingHours: {
     exceptions: VisitingHour[]
     regular: VisitingHour[]
   }
   visitingHoursContent?: string
-  appointment?: {
-    text: string
-    url: string
-  }
 }
 
 type Address = {
+  city: string
+  postalCode: string
   streetName: string
   streetNumber: string
-  postalCode: string
-  city: string
 }
 
 type Coordinates = {
@@ -48,8 +48,8 @@ export type ExceptionDate = {
 } & Partial<OpeningAndClosingTimes>
 
 type OpeningAndClosingTimes = {
-  opening: HoursAndMinutes
   closing: HoursAndMinutes
+  opening: HoursAndMinutes
 }
 
 export type HoursAndMinutes = {

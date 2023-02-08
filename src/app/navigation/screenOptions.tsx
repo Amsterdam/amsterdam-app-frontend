@@ -4,11 +4,11 @@ import {Header} from '@/modules/home/components'
 import {Theme} from '@/themes'
 
 export type CustomScreenOptions = {
-  screenType?: keyof Theme['color']['screen']['background']
   /**
    * Determines if the card should be placed below the status bar
    */
   isBelowStatusBar?: boolean
+  screenType?: keyof Theme['color']['screen']['background']
 }
 
 export const screenOptions: (

@@ -35,8 +35,8 @@ export type AddressQueryArg = {
 }
 
 export type BagResponse = {
-  label: string
   content: BagResponseContent
+  label: string
   total_results: number
 }
 

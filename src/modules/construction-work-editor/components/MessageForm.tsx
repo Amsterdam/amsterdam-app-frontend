@@ -24,8 +24,8 @@ const maxCharacters = {
 }
 
 type FormData = {
-  title: string
   body: string
+  title: string
 }
 
 type Props = {

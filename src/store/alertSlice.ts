@@ -8,8 +8,8 @@ import {RootState} from '@/store'
 
 export type Content =
   | {
-      title?: string
       text: string
+      title?: string
     }
   | undefined
 

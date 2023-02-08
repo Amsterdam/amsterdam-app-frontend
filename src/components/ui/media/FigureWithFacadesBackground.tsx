@@ -13,8 +13,8 @@ type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
   Required<Pick<FigureProps, 'height'>>
 
 type Props = {
-  backgroundImageHeightFraction?: number
   Image: ReactNode
+  backgroundImageHeightFraction?: number
   imageAlign?: 'start' | 'center' | 'end'
   imageAspectRatio: number
   imageWidth?: number
