@@ -1,106 +1,72 @@
-# Test Automation
+# Test automation
 
-We decided to use [Detox](https://wix.github.io/Detox/).
+We use [Detox](https://wix.github.io/Detox/) to automatically test usage scenarios for regressions.
 
-To allow the test library to consistently interact with components, we assign test identifiers to them through a `testID` prop.
+To allow the test library to consistently target components, we assign test identifiers to them through a `testID` prop. Most of our components accept this, reused from React Native’s `ViewPort` props.
 
-We decided to go with this naming convention for the test identifiers:
+## Naming convention
 
-`[ModuleName][ComponentType][ComponentName]([SubComponentType][SubComponentName])?`
+A naming convention ensures that these identifiers are in fact unique and makes them easy to use and locate. We use the English language, upper camel case, and concatenate all parts without separators.
 
-`[ModuleName][ComponentName]([SubComponentName])?[SubComponentType]`
+### Regular target components
 
-1. Naam van de module – ‘Contact’
-2. Component types tussenliggende niveaus – ‘ContactOptions’
-3. Component type van het target – ‘Button’
-4. Specifieke tekst: titel, button label – ‘Maak afspraak’ – niet te precies want het precieze label kan aangepast worden, zoek de essentie
-5. Identifiers van concepten in lijsten of detailpagina’s – ‘235253253’
-6. Subcomponenten – bijv. Input Field en Input Clear Icon, Button Icon en Button Label
+For regular target components, we construct a test identifier as follows:
 
-Alles in het Engels.
+1. `[ModuleSlug]`
+2. `([ComponentName])` (one or more)
+3. `[TargetComponentType]`
+4. `([TargetComponentLabel])` (zero or one)
 
-Zonder minnetjes
+Examples: `ConstructionWorkImage`, `HomeModuleButtonWasteGuide`, `ContactContactOptionsButtonWhatsapp`.
 
-Contact  ButtonCall
+### Target components in a list
 
-Een knop: `[ModuleName]([ComponentName])+[TargetComponentType]([TargetLabel])`
-Bijv. `ContactContactOptionsButtonWhatsapp`
+For items in a list, we include the item’s unique database identifier:
 
-Een project in een lijst: `[ModuleName]([ComponentName])+([ConceptIdentifier])[TargetComponentType]` 
-Bijv. `ConstructionWorkProjectCard14Title`
+1. `[ModuleSlug]`
+2. `([ComponentName])` (one or more)
+3. `[ItemIdentifier]`
+4. `[TargetComponentType]` (zero or one)
 
-Zoekveld werkzaamheden
-`ConstructionWorkSearchFieldInput`, `ConstructionWorkSearchFieldButtonSearch`, `ConstructionWorkSearchFieldButtonClear`
+Example: `ConstructionWorkProjectCard2345Title`.
 
-Component types:
-- Button
-- Input
-- Checkbox
-- Radio
-- Select
-- Title
-- Subtitle
-- Paragraph
-- …
+## Module slug
 
+This is the human-readable identifier of the module in which the target component appears. This matches the slug defined in the modules backend, and the name of the directory used for it in the app’s code repository, but converted to upper camel case.
 
-ConceptIdentifier alleen in lijsten
+Examples: `Address`, `ConstructionWork`, `Contact`, `WasteGuide`.
 
-Streepjes tussen de onderdelen, maar namen van componenten PascalCase houden (bijv. ArticleOverview)
+Components in the app’s header use `Header` instead of a module slug, because these components appear in most modules.
 
-Examples:
-- `ContactTextInputName` 
-- `ContactTextInputNameButtonClear`
+## Component name
 
-## Module key
+The name of one or more components in the hierarchy between the module and the target component. These are generally feature or container components like an overview, a card or a named section of the screen. Try to use the exact component names here to prevent confusion. 
 
-The name of the module in which the component appears.
+Examples: `ArticleOverview`, `ContactOptions`, `ProjectCard`.
 
-Examples:
+## Item identifier
 
-- `About`
-- `Contact`
-- `WasteGuide`
+In overviews or lists, we alle distinguisihing between the individual items by adding their database identifier, e.g.  `ConstructionWorkProjectCard1234` and `ConstructionWorkProjectCard567Date`.
 
-### Exceptions
+## Target component type
 
-We replace the module key with `Header` for components in the app header, as these components are displayed on screens for various modules.
+The general type of the target component. We’re not too specific here: a `Pressable` or a `TopTaskButton` will just be called a `Button`. 
 
-## Component type
+Keep close to these options: `Button`, `Input`, `Checkbox`, `Radio`, `Select`, `Title`, `Subtitle`, `Paragraph`, `Date`, `Icon`, and `Image`.
 
-The general type of the component. This indicates the kinds of interaction that can occur.
+## Target component label
+
+This identifies the specific instance of a component type, usually by rephrasing its label or text. One situation in which we use this is to distinguish a couple of related buttons.
 
 Examples:
+- A button to edit an address: `…ButtonEditAddress`
+- The title of a city office: `…TitleCityOffice`
 
-- `Button`
-- `Text`
-- `TextInput`
+## Automatic subcomponent suffixes
 
-Don’t make these too specific: instead of `TopTaskButton`, we just use `Button`.
+Components that render subcomponents themselves may add these component types to the end of their test identifier.
 
-## Component key
+Example: a `TopTaskButton` renders a title and a text, resulting in test identifiers like `CityOfficeButton`, `CityOfficeButtonTitle`, and `CityOfficeButtonText`.
 
-Identifies the specific instance of a component type.
+Another example: a search field with search and clear buttons inside may have test identifiers like `ConstructionWorkSearchFieldInput`, `ConstructionWorkSearchFieldButtonSearch`, and `ConstructionWorkSearchFieldButtonClear`.
 
-Examples:
-- A button to edit an address: `[Module]ButtonEditAddress`
-- The title of a city office: `[Module]TitleCityOffice`
-
-## Subcomponent type
-
-Optional.
-Same type as `ComponentType`.
-Use together with `SubComponentName`.
-
-Subcomponents are components that are part of a larger interaction component, with which users must be able to interact individually.
-
-Example: the ‘cross’ icon in an input field must be pressed to clear its value, separately from the input field itself.
-
-## Subcomponent key
-
-Optional.
-Same type as `ComponentName`.
-Use together with `SubComponentType`.
-
-Example:
-- [Module]TextInputAddressButtonClear
