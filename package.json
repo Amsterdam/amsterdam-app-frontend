@@ -88,7 +88,6 @@
         "@types/react-native-crypto-js": "^1.0.0",
         "@types/react-native-dotenv": "^0.2.0",
         "@types/react-test-renderer": "^18.0.0",
-        "@typescript-eslint/parser": "^5.51.0",
         "babel-jest": "^29.4.1",
         "babel-loader": "^8.3.0",
         "babel-plugin-module-resolver": "^5.0.0",

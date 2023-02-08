@@ -9,7 +9,6 @@ module.exports = {
   ],
   extends: [
     '@react-native-community',
-    'plugin:typescript-sort-keys/recommended',
     'plugin:storybook/recommended',
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
@@ -100,17 +99,16 @@ module.exports = {
     },
     {
       files: ['*.ts', '*.tsx'],
-
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:typescript-sort-keys/recommended',
       ],
       rules: {
         'jsx-expressions/strict-logical-expressions': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
       },
-
       parserOptions: {
         project: ['./tsconfig.json'],
       },
@@ -127,5 +125,4 @@ module.exports = {
     'react-native/react-native': true,
     'jest/globals': true,
   },
-  parser: '@typescript-eslint/parser',
 }
