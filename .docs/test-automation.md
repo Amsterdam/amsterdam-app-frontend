@@ -6,7 +6,47 @@ To allow the test library to consistently interact with components, we assign te
 
 We decided to go with this naming convention for the test identifiers:
 
-`[ModuleKey][ComponentType][ComponentKey]([SubComponentType][SubComponentKey])?`
+`[ModuleName][ComponentType][ComponentName]([SubComponentType][SubComponentName])?`
+
+`[ModuleName][ComponentName]([SubComponentName])?[SubComponentType]`
+
+1. Naam van de module – ‘Contact’
+2. Component types tussenliggende niveaus – ‘ContactOptions’
+3. Component type van het target – ‘Button’
+4. Specifieke tekst: titel, button label – ‘Maak afspraak’ – niet te precies want het precieze label kan aangepast worden, zoek de essentie
+5. Identifiers van concepten in lijsten of detailpagina’s – ‘235253253’
+6. Subcomponenten – bijv. Input Field en Input Clear Icon, Button Icon en Button Label
+
+Alles in het Engels.
+
+Zonder minnetjes
+
+Contact  ButtonCall
+
+Een knop: `[ModuleName]([ComponentName])+[TargetComponentType]([TargetLabel])`
+Bijv. `ContactContactOptionsButtonWhatsapp`
+
+Een project in een lijst: `[ModuleName]([ComponentName])+([ConceptIdentifier])[TargetComponentType]` 
+Bijv. `ConstructionWorkProjectCard14Title`
+
+Zoekveld werkzaamheden
+`ConstructionWorkSearchFieldInput`, `ConstructionWorkSearchFieldButtonSearch`, `ConstructionWorkSearchFieldButtonClear`
+
+Component types:
+- Button
+- Input
+- Checkbox
+- Radio
+- Select
+- Title
+- Subtitle
+- Paragraph
+- …
+
+
+ConceptIdentifier alleen in lijsten
+
+Streepjes tussen de onderdelen, maar namen van componenten PascalCase houden (bijv. ArticleOverview)
 
 Examples:
 - `ContactTextInputName` 
@@ -50,7 +90,7 @@ Examples:
 
 Optional.
 Same type as `ComponentType`.
-Use together with `SubComponentKey`.
+Use together with `SubComponentName`.
 
 Subcomponents are components that are part of a larger interaction component, with which users must be able to interact individually.
 
@@ -59,7 +99,7 @@ Example: the ‘cross’ icon in an input field must be pressed to clear its val
 ## Subcomponent key
 
 Optional.
-Same type as `ComponentKey`.
+Same type as `ComponentName`.
 Use together with `SubComponentType`.
 
 Example:
