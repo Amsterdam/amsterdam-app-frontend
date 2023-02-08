@@ -7,6 +7,8 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {getUniqueId} from 'react-native-device-info'
+// eslint-disable-next-line no-restricted-imports
+import {version as appVersion} from '@/../package.json'
 import {EnvironmentConfig} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
@@ -62,6 +64,8 @@ const dynamicBaseQuery: BaseQueryFn<
 
         deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
           headers.set('DeviceAuthorization', deviceAuthorizationToken)
+
+        headers.set('appVersion', appVersion)
 
         return headers
       },
