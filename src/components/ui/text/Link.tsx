@@ -37,10 +37,10 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
 
   return (
     <Pressable
-      accessibilityRole="link"
       accessibilityLabel={
         variant === 'external' ? label + ', opent in webbrowser' : label
       }
+      accessibilityRole="link"
       hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
       {...{onPress, testID}}>
       <Row gutter="sm">

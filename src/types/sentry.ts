@@ -1,6 +1,6 @@
 export enum BreadcrumbCategory {
-  internetConnection = 'internetConnection',
   default = 'default',
+  internetConnection = 'internetConnection',
 }
 
 export type CaptureBreadcrumb = (

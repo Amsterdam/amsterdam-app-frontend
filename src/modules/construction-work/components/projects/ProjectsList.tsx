@@ -104,9 +104,9 @@ type Props = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   isError: boolean
   isLoading: boolean
-  searchText?: string | undefined
   listHeader?: JSX.Element
   noResultsMessage?: string
+  searchText?: string | undefined
 }
 
 export const ProjectsList = ({

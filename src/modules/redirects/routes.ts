@@ -1,7 +1,7 @@
 export enum RedirectsRouteName {
   makeAppointment = 'makeAppointment',
-  selectCity = 'SelectCity',
   redirects = 'Redirects',
+  selectCity = 'SelectCity',
 }
 
 export type RedirectsStackParams = {

@@ -21,8 +21,8 @@ export const KeyboardAvoidingView = ({children}: Props) => {
   return (
     <RNKeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-      keyboardVerticalOffset={getHeaderHeight() + size.spacing.md}>
+      keyboardVerticalOffset={getHeaderHeight() + size.spacing.md}
+      style={styles.container}>
       {children}
     </RNKeyboardAvoidingView>
   )

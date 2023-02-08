@@ -2,9 +2,9 @@ import {useEffect, useState} from 'react'
 import {AppState, AppStateStatus} from 'react-native'
 
 type AppStateHandlers = {
+  onBackground?: () => void
   onChange?: (nextAppState: AppStateStatus) => void
   onForeground?: () => void
-  onBackground?: () => void
   onInactive?: () => void
 }
 

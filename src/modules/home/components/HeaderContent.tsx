@@ -40,8 +40,8 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
       </View>
       <View style={styles.middleColumn}>
         <ScreenTitle
-          text={title}
           accessibilityLanguage={accessibilityLanguage}
+          text={title}
         />
       </View>
       <View style={styles.sideColumn} />

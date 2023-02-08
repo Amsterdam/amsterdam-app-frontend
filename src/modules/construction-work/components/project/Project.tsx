@@ -145,8 +145,8 @@ export const Project = ({id}: Props) => {
                       {followers}
                     </Phrase>
                     <Phrase
-                      variant="small"
-                      testID="ConstructionWorkProjectFollowersText">
+                      testID="ConstructionWorkProjectFollowersText"
+                      variant="small">
                       {followersPhrase}
                     </Phrase>
                   </Column>

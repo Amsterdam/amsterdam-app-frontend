@@ -3,6 +3,6 @@ import {Warning} from '@/components/ui/feedback'
 
 export const SomethingWentWrong = () => (
   <Box>
-    <Warning title="Sorry …" text="Er ging iets mis." />
+    <Warning text="Er ging iets mis." title="Sorry …" />
   </Box>
 )

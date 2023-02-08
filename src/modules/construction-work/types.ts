@@ -13,9 +13,9 @@ export enum ProjectsEndpointName {
   getArticles = 'getArticles',
   getProject = 'getProject',
   getProjectNews = 'getProjectNews',
+  getProjectWarning = 'getProjectWarning',
   getProjects = 'getProjects',
   getProjectsByText = 'getProjectsByText',
-  getProjectWarning = 'getProjectWarning',
   getProjectsFollowedArticles = 'getProjectsFollowedArticles',
   unfollowProject = 'unfollowProject',
 }
@@ -32,8 +32,8 @@ export type ArticleSummary = {
 export type Articles = ArticleSummary[]
 
 export type ArticleApiResponse = {
-  status: boolean
   result: ArticleSummary[]
+  status: boolean
 }
 
 export type ArticleQueryArg = {
@@ -117,9 +117,9 @@ export type ProjectTitles = Pick<
 
 export type ProjectsQueryArg = {
   articles_max_age: number
-  projectType: 'brug' | 'kade'
   districtId: number
   fields: string[]
+  projectType: 'brug' | 'kade'
 }
 
 export type ProjectsByTextQueryArg = {
@@ -186,21 +186,21 @@ export type ProjectIdsQueryArg = {
 }
 
 export type ProjectWarningImageSources = {
+  height: number
   image_id: string
   mime_type: string
   width: number
-  height: number
 }[]
 
 export type ProjectWarningImage = {
-  main: boolean
   aspect_ratio: number
-  description: string
   coordinates: {
-    lon: number
     lat: number
+    lon: number
   }
+  description: string
   landscape: boolean
+  main: boolean
   sources: ProjectWarningImageSources
 }
 

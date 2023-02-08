@@ -13,8 +13,8 @@ type Props = {
   align?: MainAxisAlignment
   children: ReactNode
   gutter?: keyof SpacingTokens
-  valign?: CrossAxisAlignment
   reverse?: boolean
+  valign?: CrossAxisAlignment
   wrap?: boolean
 } & Pick<FlexStyle, 'flex'>
 

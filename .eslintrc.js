@@ -1,6 +1,12 @@
 module.exports = {
   root: true,
-  plugins: ['import', 'jsx-expressions', 'prefer-arrow-functions', 'detox'],
+  plugins: [
+    'detox',
+    'import',
+    'jsx-expressions',
+    'prefer-arrow-functions',
+    'typescript-sort-keys',
+  ],
   extends: [
     '@react-native-community',
     'plugin:storybook/recommended',
@@ -59,6 +65,12 @@ module.exports = {
         returnStyle: 'implicit',
       },
     ],
+    'react/jsx-sort-props': [
+      'error',
+      {
+        ignoreCase: true,
+      },
+    ],
   },
   overrides: [
     {
@@ -92,17 +104,16 @@ module.exports = {
     },
     {
       files: ['*.ts', '*.tsx'],
-
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:typescript-sort-keys/recommended',
       ],
       rules: {
         'jsx-expressions/strict-logical-expressions': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
       },
-
       parserOptions: {
         project: ['./tsconfig.json'],
       },

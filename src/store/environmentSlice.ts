@@ -5,8 +5,8 @@ import {isDevApp} from '@/processes'
 import {RootState} from '@/store'
 
 type EnvironmentState = {
-  environment: Environment
   custom?: Partial<EnvironmentConfig>
+  environment: Environment
 }
 
 export const environmentSlice = createSlice({

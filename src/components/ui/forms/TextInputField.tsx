@@ -20,7 +20,8 @@ export const TextInputField = ({
   rules,
 }: Props) => (
   <Controller
-    rules={rules}
+    defaultValue={defaultValue as string}
+    name={name}
     render={({field: {onChange, value}, fieldState: {error}}) => (
       <>
         <Column gutter="xs">
@@ -42,7 +43,6 @@ export const TextInputField = ({
         {!!error && <Paragraph color="warning">{error.message}</Paragraph>}
       </>
     )}
-    name={name}
-    defaultValue={defaultValue as string}
+    rules={rules}
   />
 )

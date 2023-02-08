@@ -15,8 +15,8 @@ import {DeviceContext} from '@/providers'
 type Props = {
   details: WasteGuideDetailsType | undefined
   footerLink?: {
-    text: string
     onPress: () => void
+    text: string
   }
   illustration?: ReactNode
 }

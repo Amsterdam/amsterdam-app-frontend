@@ -7,8 +7,8 @@ export type Timeline = {
 }
 
 type TimeLineContent = {
-  title: string
   body: RichText
+  title: string
 }
 
 export type TimelineItem = {

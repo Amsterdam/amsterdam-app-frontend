@@ -20,7 +20,7 @@ type ModuleParams<
   ModuleSlug,
   | undefined
   | {screen?: RouteName}
-  | {screen: RouteName; params: ParamList[RouteName]}
+  | {params: ParamList[RouteName]; screen: RouteName}
 >
 
 export type RootStackParams = ModuleParams<ModuleStackParams> &
@@ -42,8 +42,8 @@ export const RootStackNavigator = () => {
           <Stack.Screen
             component={stack}
             key={slug}
-            options={options}
             name={slug}
+            options={options}
           />
         ) : null
       }),

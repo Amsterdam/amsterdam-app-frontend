@@ -8,8 +8,8 @@ import {DeviceContext} from '@/providers'
 
 type Props = {
   sliceFromTop?: {
-    portrait: number
     landscape: number
+    portrait: number
   }
   url: string
   urlParams?: Record<string, string>

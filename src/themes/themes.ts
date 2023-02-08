@@ -12,9 +12,9 @@ import {
 } from '@/themes/tokens'
 
 export type Theme = {
-  id: string
   border: BorderTokens
   color: ColorTokens
+  id: string
   media: MediaTokens
   size: SizeTokens
   text: TextTokens

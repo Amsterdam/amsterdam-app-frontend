@@ -9,9 +9,9 @@ export type ProjectIdAndTitle = {id: string; title: string}
 export type MessageDraft = {
   mainImage?: Image
   mainImageDescription?: string
+  message?: NewMessage
   notification?: NotificationQueryArg
   project?: ProjectIdAndTitle
-  message?: NewMessage
 }
 
 type MessageDraftState = Record<string, MessageDraft> & {
@@ -35,7 +35,7 @@ export const messageDraftSlice = createSlice({
       state,
       {
         payload: {projectId, mainImage},
-      }: PayloadAction<{projectId: string; mainImage: Image | undefined}>,
+      }: PayloadAction<{mainImage: Image | undefined; projectId: string}>,
     ) => {
       state[projectId] = {
         ...state[projectId],
@@ -47,8 +47,8 @@ export const messageDraftSlice = createSlice({
       {
         payload: {projectId, mainImageDescription},
       }: PayloadAction<{
-        projectId: string
         mainImageDescription: string | undefined
+        projectId: string
       }>,
     ) => {
       state[projectId] = {
@@ -60,7 +60,7 @@ export const messageDraftSlice = createSlice({
       state,
       {
         payload: {projectId, notification},
-      }: PayloadAction<{projectId: string; notification: NotificationQueryArg}>,
+      }: PayloadAction<{notification: NotificationQueryArg; projectId: string}>,
     ) => {
       state[projectId] = {
         ...state[projectId],
@@ -81,7 +81,7 @@ export const messageDraftSlice = createSlice({
       state,
       {
         payload: {projectId, message},
-      }: PayloadAction<{projectId: string; message: NewMessage}>,
+      }: PayloadAction<{message: NewMessage; projectId: string}>,
     ) => {
       state[projectId] = {
         ...state[projectId],

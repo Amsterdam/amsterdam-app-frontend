@@ -80,11 +80,8 @@ export const Alert = () => {
         <View style={styles?.view}>
           <Row align="between">
             <SingleSelectable
-              accessibilityRole="alert"
-              accessibilityLabel={accessibleText(
-                content?.title,
-                content?.text,
-              )}>
+              accessibilityLabel={accessibleText(content?.title, content?.text)}
+              accessibilityRole="alert">
               <Row gutter="md">
                 {!!withIcon && <Icon color="link" name={iconName} size="lg" />}
                 <Column>

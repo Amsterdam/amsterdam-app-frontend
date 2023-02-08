@@ -77,11 +77,6 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
       keyboardDismissMode="on-drag"
       keyExtractor={project => project.identifier}
       ListEmptyComponent={ListEmptyMessage}
-      renderItem={({item}) => (
-        <ListItem navigation={navigation} project={item} />
-      )}
-      scrollIndicatorInsets={{right: Number.MIN_VALUE}}
-      spacing={size.spacing.md}
       ListFooterComponent={ContactConstructionWorkSupport}
       ListFooterComponentStyle={{
         paddingBottom: Math.max(
@@ -89,6 +84,11 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
           size.spacing.lg,
         ),
       }}
+      renderItem={({item}) => (
+        <ListItem navigation={navigation} project={item} />
+      )}
+      scrollIndicatorInsets={{right: Number.MIN_VALUE}}
+      spacing={size.spacing.md}
     />
   )
 }

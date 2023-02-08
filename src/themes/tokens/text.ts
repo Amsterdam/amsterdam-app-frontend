@@ -31,8 +31,8 @@ export enum FontFamily {
 }
 
 export type TextTokens = {
-  fontSize: ParagraphTokens & TitleTokensPerLevel
   fontFamily: typeof FontFamily
+  fontSize: ParagraphTokens & TitleTokensPerLevel
   lineHeight: FormTextTokens & ParagraphTokens & TitleTokensPerLevel
 }
 

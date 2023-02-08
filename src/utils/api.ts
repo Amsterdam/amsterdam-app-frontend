@@ -8,8 +8,8 @@ import {ListQueryArg} from '@/types'
 
 type Signature = {
   baseUrl?: string
-  path?: string
   params: Record<string, string[] | string | number | boolean>
+  path?: string
 }
 
 export const generateRequestUrl = ({params = {}, path}: Signature) => {

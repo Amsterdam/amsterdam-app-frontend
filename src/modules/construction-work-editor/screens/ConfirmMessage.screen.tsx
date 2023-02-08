@@ -134,7 +134,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   return (
     <Screen
       scroll
-      stickyHeader={<Alert />}
       stickyFooter={
         <>
           <Box>
@@ -150,7 +149,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             </Column>
           </Box>
         </>
-      }>
+      }
+      stickyHeader={<Alert />}>
       <Box>
         <Column gutter="lg">
           <Column gutter="md">

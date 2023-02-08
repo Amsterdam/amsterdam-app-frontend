@@ -6,8 +6,8 @@ import {adjustHoursAndMinutes, dayjs, Dayjs, formatDayName} from '@/utils'
 type VisitingState = {
   dayName?: string
   preposition: Preposition
-  time24hr: string
   time12hr: string
+  time24hr: string
 }
 
 /**

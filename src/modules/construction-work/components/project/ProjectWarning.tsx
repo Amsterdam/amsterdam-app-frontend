@@ -71,8 +71,8 @@ export const ProjectWarning = ({id}: Props) => {
     <>
       {mainImage ? (
         <Image
-          accessible
           accessibilityLabel={mainImage.description}
+          accessible
           source={mapWarningImageSources(mainImage.sources, environment)}
           testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />

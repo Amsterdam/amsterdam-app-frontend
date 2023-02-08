@@ -15,7 +15,7 @@ export const ErrorWithRestart = () => {
       <Screen scroll={false} withTopInset>
         <Box inset="lg">
           <Column gutter="md">
-            <Warning title="Sorry …" text="Er is iets misgegaan met de app." />
+            <Warning text="Er is iets misgegaan met de app." title="Sorry …" />
             <Button
               label="Herstart de app"
               onPress={() => RNRestart.Restart()}
