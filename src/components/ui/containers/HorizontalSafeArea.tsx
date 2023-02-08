@@ -30,6 +30,7 @@ const createStyles = ({apply, flex}: Props, insets: EdgeInsets) =>
   StyleSheet.create({
     insets: {
       flex,
+      flexGrow: 1,
       paddingLeft: apply ? insets.left : undefined,
       paddingRight: apply ? insets.right : undefined,
     },
