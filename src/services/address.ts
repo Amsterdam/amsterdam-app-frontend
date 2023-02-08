@@ -1,5 +1,6 @@
 import {Address, BagResponse, ResponseAddress} from '@/modules/address'
 import {baseApi} from '@/services/init'
+import {CacheTimeout} from '@/types'
 import {generateRequestUrl} from '@/utils'
 
 const addressPath = '/search/adres/'
@@ -14,6 +15,7 @@ export const addressApi = baseApi.injectEndpoints({
           path: addressPath,
         }),
         api: 'atlasUrl',
+        keepUnusedDataFor: CacheTimeout.day,
       }),
       transformResponse: (response: ResponseAddress) => {
         const address = response.results[0]
@@ -46,6 +48,7 @@ export const addressApi = baseApi.injectEndpoints({
           path: bagPath,
         }),
         api: 'atlasUrl',
+        keepUnusedDataFor: CacheTimeout.day,
       }),
     }),
   }),
