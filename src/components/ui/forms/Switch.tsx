@@ -26,11 +26,11 @@ export const Switch = ({
       <SwitchRN
         ios_backgroundColor={color.control.switch.background}
         onValueChange={onValueChange}
+        thumbColor={color.control.default.background}
         trackColor={{
           false: color.control.switch.off,
           true: color.control.switch.on,
         }}
-        thumbColor={color.control.default.background}
         value={value}
         {...switchProps}
       />

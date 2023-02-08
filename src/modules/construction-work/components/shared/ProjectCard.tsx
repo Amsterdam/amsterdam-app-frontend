@@ -32,13 +32,13 @@ export const ProjectCard = ({
   return (
     <>
       <Pressable
-        accessibilityRole="button"
         accessibilityLabel={accessibleText(
           title,
           subtitle,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
           kicker?.props.accessibilityLabel ?? undefined,
         )}
+        accessibilityRole="button"
         style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
         {...{onPress, testID}}>
         {!!imageSource && (

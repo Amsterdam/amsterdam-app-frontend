@@ -38,11 +38,11 @@ const AppComponent = () => {
         />
         <NavigationContainer
           linking={linking}
-          ref={navigation}
           onReady={() => {
             registerNavigationContainer(navigation)
             void RNBootSplash.hide({fade: true})
-          }}>
+          }}
+          ref={navigation}>
           <RootProvider>
             <PersistGate loading={null} persistor={persistor}>
               <Init>

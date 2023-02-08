@@ -15,8 +15,8 @@ type Props = {
 
 export const WritingGuideScreen = ({route}: Props) => (
   <Screen
-    stickyHeader={<ModalHeader title={route.params.projectTitle} />}
-    stickyFooter={<CloseModalButton label="Aan de slag!" />}>
+    stickyFooter={<CloseModalButton label="Aan de slag!" />}
+    stickyHeader={<ModalHeader title={route.params.projectTitle} />}>
     <WritingGuide />
   </Screen>
 )

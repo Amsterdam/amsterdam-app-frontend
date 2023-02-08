@@ -31,7 +31,6 @@ export const ProjectsByText = () => {
   return (
     <ProjectsList
       {...result}
-      searchText={searchText}
       listHeader={
         <ProjectsListHeader>
           <ProjectsTextSearchField />
@@ -39,6 +38,7 @@ export const ProjectsByText = () => {
         </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
+      searchText={searchText}
     />
   )
 }

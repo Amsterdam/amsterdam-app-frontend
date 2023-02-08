@@ -122,8 +122,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Image source={{uri: mainImage?.path}} />
       ) : (
         <FigureWithFacadesBackground
-          height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
+          height={media.figureHeight.md}
           imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
         />
       )}
@@ -134,7 +134,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   return (
     <Screen
       scroll
-      stickyHeader={<Alert />}
       stickyFooter={
         <>
           <Box>
@@ -150,7 +149,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             </Column>
           </Box>
         </>
-      }>
+      }
+      stickyHeader={<Alert />}>
       <Box>
         <Column gutter="lg">
           <Column gutter="md">

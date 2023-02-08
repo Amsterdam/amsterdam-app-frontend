@@ -42,8 +42,8 @@ export const RootStackNavigator = () => {
           <Stack.Screen
             component={stack}
             key={slug}
-            options={options}
             name={slug}
+            options={options}
           />
         ) : null
       }),

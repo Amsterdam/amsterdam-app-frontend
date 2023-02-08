@@ -25,7 +25,7 @@ const TooltipContent = ({
       style={styles.tooltip}>
       <Column gutter="sm">
         {paragraphs.map(paragraph => (
-          <Paragraph color="inverse" variant="small" key={paragraph}>
+          <Paragraph color="inverse" key={paragraph} variant="small">
             {paragraph}
           </Paragraph>
         ))}

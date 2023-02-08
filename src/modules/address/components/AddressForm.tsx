@@ -115,8 +115,8 @@ export const AddressForm = () => {
       ) : (
         <NumberInput
           bagList={bagList}
-          changeNumber={changeNumber}
           changeIsStreetSelected={setIsStreetSelected}
+          changeNumber={changeNumber}
           isNumberSelected={isNumberSelected}
           keyboardType="numeric"
           number={number}

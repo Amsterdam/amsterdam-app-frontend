@@ -132,8 +132,8 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           <TextInputField
             label="Wat is de titel van je bericht?"
             maxCharacters={maxCharacters.title}
-            numberOfLines={3}
             name="title"
+            numberOfLines={3}
             placeholder="Voer een titel in …"
             rules={{
               maxLength: {

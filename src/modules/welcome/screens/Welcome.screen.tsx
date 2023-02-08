@@ -62,8 +62,8 @@ export const WelcomeScreen = ({navigation}: Props) => {
             <Row align="center" flex={1} valign="center">
               <Size maxWidth={quoteWidth}>
                 <Paragraph
-                  allowFontScaling={false}
                   accessibilityLabel={`Citaat, ${quote}`}
+                  allowFontScaling={false}
                   variant="quote">{`“${quote}”`}</Paragraph>
               </Size>
             </Row>

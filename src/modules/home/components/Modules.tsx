@@ -24,8 +24,8 @@ export const Modules = () => {
   if (modulesError) {
     return (
       <ModulesWarning
-        text="Er is iets misgegaan bij het ophalen van de modules."
         onRetry={refetchModules}
+        text="Er is iets misgegaan bij het ophalen van de modules."
       />
     )
   }
