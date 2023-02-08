@@ -1,8 +1,15 @@
 module.exports = {
   root: true,
-  plugins: ['import', 'jsx-expressions', 'prefer-arrow-functions', 'detox'],
+  plugins: [
+    'detox',
+    'import',
+    'jsx-expressions',
+    'prefer-arrow-functions',
+    'typescript-sort-keys',
+  ],
   extends: [
     '@react-native-community',
+    'plugin:typescript-sort-keys/recommended',
     'plugin:storybook/recommended',
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
@@ -120,4 +127,5 @@ module.exports = {
     'react-native/react-native': true,
     'jest/globals': true,
   },
+  parser: '@typescript-eslint/parser',
 }
