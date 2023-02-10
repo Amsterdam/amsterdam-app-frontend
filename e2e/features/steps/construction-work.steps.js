@@ -120,7 +120,8 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     )
     waitFor(
       ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade,
-    ).toBeVisible(10)
+    ).toBeVisible(70)
+    await new Promise(r => setTimeout(r, 1000)) //explicit timeout, otherwise swipe functionality doesn't work
     await ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade.tap()
     await waitFor(ConstructionWorkScreen.HeaderTitle)
       .toBeVisible()
@@ -132,15 +133,64 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   when(/ik volg een project/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
-    ).toHaveLabel('Volgen')
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
+    ).toHaveText('Volgen')
     await ConstructionWorkScreen.ConstructionWorkProjectFollowButton.tap()
   })
 
   then(/het project krijgt de status 'volgend'/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
-    ).toHaveLabel('Volgend')
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
+    ).toHaveText('Volgend')
+    await ConstructionWorkScreen.HeaderButtonBack.tap()
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+    await ConstructionWorkScreen.ConstructionWorkCardProjectBijlmerSportpark.swipe(
+      'down',
+      'fast',
+      1.0,
+    )
+    await waitFor(
+      ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade,
+    )
+      .toBeVisible()
+      .withTimeout(2000)
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingLabel,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingIcon,
+    ).toBeVisible()
+  })
+
+  when(/ik ontvolg een project/, async () => {
+    await ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade.tap()
+    await waitFor(ConstructionWorkScreen.HeaderTitle)
+      .toBeVisible()
+      .withTimeout(2000)
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+      'Stadhouderskade',
+    )
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
+    ).toHaveText('Volgend')
+    await ConstructionWorkScreen.ConstructionWorkProjectFollowButton.tap()
+  })
+
+  then(/de status 'volgend' verdwijnt/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
+    ).toHaveText('Volgen')
+    await ConstructionWorkScreen.HeaderButtonBack.tap()
+    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade,
+    ).not.toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingLabel,
+    ).not.toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingIcon,
+    ).not.toBeVisible()
   })
 }
 

@@ -26,3 +26,12 @@ Feature: Werkzaamheden Module
         Then ik ben in het werkzaamheden scherm
         When ik klik op de terug knop
         Then ik ben op het homescherm
+
+    @included
+    Scenario: Ik kan een project volgen en ontvolgen
+        Given ik ben op het werkzaamheden scherm
+        And ik open het project Stadhouderskade
+        When ik volg een project
+        Then het project krijgt de status 'volgend'
+        When ik ontvolg een project
+        Then de status 'volgend' verdwijnt
