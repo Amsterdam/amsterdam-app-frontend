@@ -21,7 +21,7 @@ Examples: `ConstructionWorkImage`, `HomeModuleButtonWasteGuide`, `ContactContact
 
 ### Target components in a list
 
-For items in a list, we include the item’s unique database identifier:
+For items in a list, we include a unique identifier for the item itself, either its id in the database or something generated in the rendering code:
 
 1. `[ModuleSlug]`
 2. `([ComponentName])` (one or more)
