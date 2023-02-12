@@ -46,7 +46,7 @@ Examples: `ArticleOverview`, `ContactOptions`, `ProjectCard`.
 
 ## Item identifier
 
-In overviews or lists, we allow distinguishing between the individual items by adding their database identifier, e.g.  `ConstructionWorkProjectCard1234` and `ConstructionWorkProjectCard567Date`.
+In overviews or lists, we allow distinguishing between the individual items by adding their database identifier, e.g. `ConstructionWorkProjectCard1234` and `ConstructionWorkProjectCard567Date`.
 
 ## Target component type
 
