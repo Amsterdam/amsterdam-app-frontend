@@ -1,6 +1,6 @@
 # Test automation
 
-We use [Detox](https://wix.github.io/Detox/) to automatically test usage scenarios for regressions.
+We use [Detox](https://wix.github.io/Detox/) to automatically test end-to-end regression tests.
 
 To allow the test library to consistently target components, we assign test identifiers to them through a `testID` prop. Most of our components accept this, reused from React Native’s `ViewPort` props.
 
