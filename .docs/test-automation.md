@@ -50,7 +50,7 @@ In overviews or lists, we alle distinguisihing between the individual items by a
 
 ## Target component type
 
-The general type of the target component. We’re not too specific here: a `Pressable` or a `TopTaskButton` will just be called a `Button`. 
+The general type of the target component. We’re not too specific here: e.g. a `TopTaskButton` will just be called a `Button`. 
 
 Keep close to these options: `Button`, `Input`, `Checkbox`, `Radio`, `Select`, `Title`, `Subtitle`, `Paragraph`, `Date`, `Icon`, and `Image`.
 
