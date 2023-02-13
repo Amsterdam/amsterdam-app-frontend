@@ -13,9 +13,9 @@ module.exports = {
     'ios.debug': {
       type: 'ios.app',
       binaryPath:
-        'ios/build/Build/Products/Debug-iphonesimulator/Amsterdam.app',
+        'ios/build/Build/Products/DevDebug-iphonesimulator/Amsterdam test.app',
       build:
-        'xcodebuild -workspace ios/AmsterdamApp.xcworkspace -scheme AmsterdamApp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
+        'xcodebuild -workspace ios/AmsterdamApp.xcworkspace -scheme "AmsterdamApp Test" -configuration DevDebug -sdk iphonesimulator -derivedDataPath ios/build',
     },
     'ios.release': {
       type: 'ios.app',
