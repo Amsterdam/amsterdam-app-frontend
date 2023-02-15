@@ -36,4 +36,7 @@ module.exports = {
     ],
   ],
   testTimeout: 30000,
+  transformIgnorePatterns: [
+    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@sentry)',
+  ],
 }
