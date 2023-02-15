@@ -7,7 +7,7 @@ import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation/RootStackNavigator'
 import {devLog} from '@/processes'
 import {PushNotificationData} from '@/types'
-import {moduleLinkings} from '@/utils'
+import {moduleLinkings} from '@/utils/moduleLinkings'
 
 const appPrefix = 'amsterdam://'
 
