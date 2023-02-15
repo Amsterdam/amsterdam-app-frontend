@@ -3,6 +3,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {useRefetchInterval} from '@/hooks'
 import {useGetWaitingTimesQuery} from '@/modules/contact/service'
 import {
   getQueuedPhrase,
@@ -13,8 +14,16 @@ type Props = {
   cityOfficeId: string
 }
 
+const refetchInterval = 1000 * 15
+
 export const WaitingTime = ({cityOfficeId}: Props) => {
-  const {data: waitingTimes, isLoading, isError} = useGetWaitingTimesQuery()
+  const {
+    data: waitingTimes,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetWaitingTimesQuery()
+  useRefetchInterval(refetch, refetchInterval)
 
   if (isError) {
     return null
