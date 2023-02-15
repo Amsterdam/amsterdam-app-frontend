@@ -1,4 +1,4 @@
-export enum CacheTimeout {
+export enum CacheLifetime {
   none = 0,
   second = 1,
   minute = 60,

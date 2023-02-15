@@ -7,7 +7,7 @@ import {
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {baseApi} from '@/services'
-import {CacheTimeout, MutationResponse} from '@/types'
+import {CacheLifetime, MutationResponse} from '@/types'
 import {generateRequestUrl} from '@/utils'
 
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
@@ -17,7 +17,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       ProjectIdQueryArg
     >({
       query: params => generateRequestUrl({path: '/project/manager', params}),
-      keepUnusedDataFor: CacheTimeout.second,
+      keepUnusedDataFor: CacheLifetime.second,
       transformResponse: (response: {
         result: [ConstructionWorkEditorResponse]
       }) => response.result[0],

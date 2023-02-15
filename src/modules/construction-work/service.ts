@@ -17,7 +17,7 @@ import {
   ProjectWarningIdQueryArg,
 } from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
-import {CacheTimeout, MutationResponse, SortListQueryArg} from '@/types'
+import {CacheLifetime, MutationResponse, SortListQueryArg} from '@/types'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -43,7 +43,7 @@ export const projectsApi = baseApi.injectEndpoints({
         const q = formatQueryParams(params)
         return generateRequestUrl({path: '/articles', params: q})
       },
-      keepUnusedDataFor: CacheTimeout.minute,
+      keepUnusedDataFor: CacheLifetime.minute,
       transformResponse: (response: {result: Articles}) => response.result,
     }),
 
@@ -53,7 +53,7 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       providesTags: ['Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: Project}) => response.result,
     }),
 
@@ -62,7 +62,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectIdQueryArg
     >({
       query: params => generateRequestUrl({path: '/project/news', params}),
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
@@ -82,7 +82,7 @@ export const projectsApi = baseApi.injectEndpoints({
         }
         return '/projects'
       },
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -102,7 +102,7 @@ export const projectsApi = baseApi.injectEndpoints({
         }
         return path
       },
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {
         result: ProjectsFollowedArticlesResponse
       }) => response.result,
@@ -118,7 +118,7 @@ export const projectsApi = baseApi.injectEndpoints({
           path: '/projects/search',
           params: formatQueryParams({...params, page_size: 1000}),
         }),
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -128,7 +128,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectWarningIdQueryArg
     >({
       query: params => generateRequestUrl({path: '/project/warning', params}),
-      keepUnusedDataFor: CacheTimeout.week,
+      keepUnusedDataFor: CacheLifetime.week,
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,
     }),

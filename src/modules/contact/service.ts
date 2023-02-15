@@ -5,18 +5,18 @@ import {
   WaitingTime,
 } from '@/modules/contact/types'
 import {baseApi} from '@/services'
-import {CacheTimeout} from '@/types'
+import {CacheLifetime} from '@/types'
 
 export const contactApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ContactEndpointName.getCityOffices]: builder.query<CityOffice[], void>({
       query: () => `/${contactModule.slug}/city-offices`,
-      keepUnusedDataFor: CacheTimeout.hour,
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: CityOffice[]}) => response.result,
     }),
     [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
       query: () => `/${contactModule.slug}/waiting-times`,
-      keepUnusedDataFor: CacheTimeout.none,
+      keepUnusedDataFor: CacheLifetime.none,
       transformResponse: (response: {result: WaitingTime[]}) => response.result,
     }),
   }),
