@@ -4,6 +4,7 @@ import {
   WasteGuideResponse,
 } from '@/modules/waste-guide/types'
 import {baseApi} from '@/services'
+import {CacheLifetime} from '@/types'
 import {generateRequestUrl} from '@/utils'
 
 export const wasteGuideApi = baseApi.injectEndpoints({
@@ -18,6 +19,7 @@ export const wasteGuideApi = baseApi.injectEndpoints({
           path: '/waste-guide/search',
         }),
       }),
+      keepUnusedDataFor: CacheLifetime.day,
       transformResponse: (response: {result: WasteGuideResponse}) =>
         response.result,
     }),

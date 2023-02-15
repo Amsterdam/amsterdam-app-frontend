@@ -17,7 +17,7 @@ import {
   ProjectWarningIdQueryArg,
 } from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
-import {MutationResponse, SortListQueryArg} from '@/types'
+import {CacheLifetime, MutationResponse, SortListQueryArg} from '@/types'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -26,7 +26,7 @@ export const projectsApi = baseApi.injectEndpoints({
       MutationResponse,
       FollowProjectBody
     >({
-      invalidatesTags: ['Projects'],
+      invalidatesTags: ['FollowedProjects'],
       query: body => ({
         url: '/projects/follow',
         method: 'POST',
@@ -43,6 +43,7 @@ export const projectsApi = baseApi.injectEndpoints({
         const q = formatQueryParams(params)
         return generateRequestUrl({path: '/articles', params: q})
       },
+      keepUnusedDataFor: CacheLifetime.minute,
       transformResponse: (response: {result: Articles}) => response.result,
     }),
 
@@ -52,6 +53,7 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       providesTags: ['Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: Project}) => response.result,
     }),
 
@@ -60,6 +62,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectIdQueryArg
     >({
       query: params => generateRequestUrl({path: '/project/news', params}),
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: NewsArticle}) => response.result,
     }),
 
@@ -69,7 +72,7 @@ export const projectsApi = baseApi.injectEndpoints({
         ProjectsQueryArg & AddressQueryArg & FieldsQueryArg & SortListQueryArg
       > | void
     >({
-      providesTags: ['Projects'],
+      providesTags: ['FollowedProjects', 'Projects'],
       query: params => {
         if (params) {
           return generateRequestUrl({
@@ -79,6 +82,7 @@ export const projectsApi = baseApi.injectEndpoints({
         }
         return '/projects'
       },
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -87,7 +91,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsFollowedArticlesResponse,
       ProjectsFollowedArticlesQueryArg | void
     >({
-      providesTags: ['Articles'],
+      providesTags: ['Articles', 'FollowedProjects'],
       query: params => {
         const path = '/projects/followed/articles'
         if (params) {
@@ -98,6 +102,7 @@ export const projectsApi = baseApi.injectEndpoints({
         }
         return path
       },
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {
         result: ProjectsFollowedArticlesResponse
       }) => response.result,
@@ -107,11 +112,13 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsItem[],
       ProjectsByTextQueryArg & FieldsQueryArg
     >({
+      providesTags: ['Projects'],
       query: params =>
         generateRequestUrl({
           path: '/projects/search',
           params: formatQueryParams({...params, page_size: 1000}),
         }),
+      keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -121,6 +128,7 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectWarningIdQueryArg
     >({
       query: params => generateRequestUrl({path: '/project/warning', params}),
+      keepUnusedDataFor: CacheLifetime.week,
       transformResponse: (response: {result: ProjectWarning}) =>
         response.result,
     }),
@@ -129,7 +137,7 @@ export const projectsApi = baseApi.injectEndpoints({
       MutationResponse,
       FollowProjectBody
     >({
-      invalidatesTags: ['Projects'],
+      invalidatesTags: ['FollowedProjects'],
       query: body => ({
         url: '/projects/follow',
         method: 'DELETE',

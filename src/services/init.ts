@@ -78,5 +78,11 @@ export const baseApi = createApi({
   baseQuery: dynamicBaseQuery,
   endpoints: () => ({}),
   reducerPath: 'api',
-  tagTypes: ['Articles', 'Modules', 'Notifications', 'Projects'],
+  tagTypes: [
+    'Articles',
+    'FollowedProjects',
+    'Modules',
+    'Notifications',
+    'Projects',
+  ],
 })
