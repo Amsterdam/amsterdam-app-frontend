@@ -18,7 +18,7 @@ export const AboutTheAppDutchScreen = () => {
       <Column gutter="lg">
         <Image
           source={
-            require('@/modules/about/assets/traffic-cycling.1280.50.jpg') as ImageURISource
+            require('@/modules/about/assets/images/traffic-cycling.1280.50.jpg') as ImageURISource
           }
         />
         <HorizontalSafeArea>
@@ -69,7 +69,7 @@ export const AboutTheAppDutchScreen = () => {
         </HorizontalSafeArea>
         <Image
           source={
-            require('@/modules/about/assets/people-in-park.1280.50.jpg') as ImageURISource
+            require('@/modules/about/assets/images/people-in-park.1280.50.jpg') as ImageURISource
           }
         />
         <HorizontalSafeArea>
