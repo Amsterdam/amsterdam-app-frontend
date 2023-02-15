@@ -5,9 +5,9 @@ import messaging, {
 import {LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation/RootStackNavigator'
-import {moduleLinkings} from '@/modules/utils'
 import {devLog} from '@/processes'
 import {PushNotificationData} from '@/types'
+import {moduleLinkings} from '@/utils/moduleLinkings'
 
 const appPrefix = 'amsterdam://'
 
