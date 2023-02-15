@@ -39,9 +39,9 @@ export const lightColorTokens = {
       border: baseColor.primary.black,
     },
     switch: {
-      background: baseColor.neutral.grey4,
-      off: baseColor.neutral.grey4,
-      on: baseColor.support.valid,
+      background: baseColor.neutral.grey3,
+      off: baseColor.neutral.grey3,
+      on: baseColor.primary.blue,
     },
     warning: {
       border: baseColor.support.invalid,
