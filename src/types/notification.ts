@@ -13,10 +13,6 @@ export type Notification = NotificationQueryArg & {
   publication_date: string
 }
 
-export type NotificationsQueryArg = {
-  projectIds: string[]
-} & Partial<ListQueryArg>
-
 export type NotificationWithProjectTitleAndReadState = Notification & {
   isRead?: boolean
   projectTitle: string
