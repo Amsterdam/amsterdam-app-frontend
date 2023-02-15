@@ -59,7 +59,7 @@ export const Accordion = ({
   }
 
   return (
-    <Column grow>
+    <Column>
       <Pressable
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
           isExpanded ? 'verbergen' : 'bekijken'

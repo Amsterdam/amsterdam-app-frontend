@@ -60,7 +60,7 @@ export const WasteGuide = ({address}: Props) => {
 
   return (
     <Track grow gutter={isLandscape || cityIsWeesp ? 'md' : 'xxxl'}>
-      <HorizontalSafeArea>
+      <HorizontalSafeArea flex={1}>
         <Box grow>
           <Column flex={1} gutter="md">
             <StreetAddressWithEditButton address={address.adres} />
