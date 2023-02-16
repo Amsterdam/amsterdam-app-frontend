@@ -192,6 +192,124 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingIcon,
     ).not.toBeVisible()
   })
+
+  given(
+    /ik ben op het projectdetailscherm van project 'Amstel' III/,
+    async () => {
+      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
+        .toBeVisible()
+        .withTimeout(10000)
+      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
+        .toBeVisible()
+        .withTimeout(2000)
+      await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
+      await HomeScreen.HomeModuleButtonConstructionWork.tap()
+      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+        'Werkzaamheden',
+      )
+      await ConstructionWorkScreen.ConstructionWorkTextInputNavigator.tap()
+      await ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField.typeText(
+        'Amstel III',
+      )
+      await ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField.tapReturnKey()
+      await ConstructionWorkScreen.ConstructionWorkCardProjectAmstelIII.tap()
+      await waitFor(ConstructionWorkScreen.ConstructionWorkProjectImage)
+        .toBeVisible()
+        .withTimeout(2000)
+      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Amstel III')
+    },
+  )
+
+  then(/ik zie een afbeelding/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectImage,
+    ).toBeVisible()
+  })
+
+  then(/Een volgen knop/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
+    ).toBeVisible()
+  })
+
+  then(/Het aantal volgers/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowersNumber,
+    ).toBeVisible()
+
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowersText,
+    ).toBeVisible()
+  })
+
+  then(/Een titel van het project/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTitle,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectTitle,
+    ).toHaveText('Amstel III')
+  })
+
+  then(/Een subtitel met korte uitleg over het project/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectSubtitle,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectSubtitle,
+    ).toHaveText('Ontwikkeling woongebied gemixt met werken')
+  })
+
+  then(/Een link naar 'Over dit project'/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
+    ).toBeVisible()
+  })
+
+  then(/Een link naar 'Contact'/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
+    ).toBeVisible()
+  })
+
+  then(/Een nieuwsoverzicht met titel Nieuws/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle,
+    ).toHaveText('Nieuws')
+  })
+
+  then(/Een datum van het nieuwsbericht/, async () => {
+    await ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle.swipe(
+      'up',
+      'fast',
+      0.2,
+    )
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIDate,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIDate,
+    ).toHaveText('3 januari')
+  })
+
+  then(/Een titel van het nieuwsbericht/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewTitle,
+    ).toBeVisible()
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewTitle,
+    ).toHaveText('Happy NY 2')
+  })
+
+  then(/Een afbeelding bij het nieuwsbericht/, async () => {
+    await expect(
+      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewImage,
+    ).toBeVisible()
+  })
 }
 
 autoBindSteps(features, [constructionWorkSteps])

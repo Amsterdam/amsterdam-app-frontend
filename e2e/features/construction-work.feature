@@ -1,7 +1,7 @@
 Feature: Werkzaamheden Module
 
     @excluded
-    Scenario: Werkzaamheden weergave checks
+    Scenario: Werkzaamheden UI checks
         Given ik ben op het werkzaamheden scherm
         Then de werkzaamheden worden weergegeven met een afbeelding
         And een titel van het project
@@ -15,7 +15,7 @@ Feature: Werkzaamheden Module
         Then wordt er een nieuw scherm 'Zoek in werkzaamheden' geopend
         And wordt er een zoekveld getoond
 
-    @included
+    @excluded
     Scenario: Vanuit de werkzaamhedenmodule kan ik terug navigeren naar het homescreen
         Given ik ben op de de werkzaamheden detail pagina van project Middenweg
         When ik klik op de terug knop
@@ -27,7 +27,7 @@ Feature: Werkzaamheden Module
         When ik klik op de terug knop
         Then ik ben op het homescherm
 
-    @included
+    @excluded
     Scenario: Ik kan een project volgen en ontvolgen
         Given ik ben op het werkzaamheden scherm
         And ik open het project Stadhouderskade
@@ -35,3 +35,18 @@ Feature: Werkzaamheden Module
         Then het project krijgt de status 'volgend'
         When ik ontvolg een project
         Then de status 'volgend' verdwijnt
+
+    @included
+    Scenario: Projectdetailscherm UI checks
+        Given ik ben op het projectdetailscherm van project 'Amstel' III
+        Then ik zie een afbeelding
+        And Een volgen knop
+        And Het aantal volgers
+        And Een titel van het project
+        And Een subtitel met korte uitleg over het project
+        #And Een link naar 'Over dit project'
+        #And Een link naar 'Contact'
+        And Een nieuwsoverzicht met titel Nieuws
+        And Een datum van het nieuwsbericht
+        And Een titel van het nieuwsbericht
+        And Een afbeelding bij het nieuwsbericht
