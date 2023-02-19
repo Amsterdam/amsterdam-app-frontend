@@ -1,12 +1,12 @@
 import {useContext, useMemo} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
-import {Figure, FigureWithFacadesBackground} from '@/components/ui/media'
+import {Column} from '@/components/ui/layout'
+import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
-  BulkyAndHouseholdWasteImage,
+  HouseholdWasteToContainerImage,
   WasteGuideNotFoundImage,
 } from '@/modules/waste-guide/assets/images'
 import {
@@ -51,17 +51,10 @@ export const WasteGuide = ({address}: Props) => {
   const hasWasteGuide = Object.keys(wasteGuide).length > 0
   const hasContent = hasWasteGuide || cityIsWeesp
 
-  const Image = hasContent
-    ? BulkyAndHouseholdWasteImage
-    : WasteGuideNotFoundImage
-  const imageHeight = media.figureHeight[hasContent ? 'md' : 'lg']
-
-  const Track = isLandscape && cityIsWeesp ? Row : Column
-
   return (
-    <Track grow gutter={isLandscape || cityIsWeesp ? 'md' : 'xxxl'}>
+    <Column grow gutter="md">
       <HorizontalSafeArea flex={1}>
-        <Box grow>
+        <Box>
           <Column flex={1} gutter="md">
             <StreetAddressWithEditButton address={address.adres} />
             {hasContent ? (
@@ -73,23 +66,22 @@ export const WasteGuide = ({address}: Props) => {
         </Box>
       </HorizontalSafeArea>
       {hasContent ? (
-        <Box grow>
-          <Column align={cityIsWeesp ? 'end' : 'center'} flex={1}>
-            <Figure height={imageHeight}>
-              <Image />
-            </Figure>
-          </Column>
-        </Box>
+        <FigureWithFacadesBackground
+          height={media.figureHeight.lg}
+          Image={<HouseholdWasteToContainerImage />}
+          imageAspectRatio={media.imageAspectRatio.illustrationLandscape}
+          imageWidth={media.imageWidth.illustrationWide}
+          moveUp={isLandscape ? 128 : undefined}
+        />
       ) : (
         <FigureWithFacadesBackground
-          backgroundImageHeightFraction={0.5}
-          height={media.figureHeight.xl}
+          height={media.figureHeight.lg}
           Image={<WasteGuideNotFoundImage />}
-          imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
-          imageWidth={media.imageWidth.wasteGuideHome}
+          imageAspectRatio={media.imageAspectRatio.illustrationPortrait}
+          imageWidth={media.imageWidth.illustrationNarrow}
           moveUp={isLandscape ? 128 : undefined}
         />
       )}
-    </Track>
+    </Column>
   )
 }

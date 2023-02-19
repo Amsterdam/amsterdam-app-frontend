@@ -45,7 +45,7 @@ export const WasteGuideDetails = ({
     <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
       {!!illustration && (
         <Column flex={1}>
-          <Figure height={192}>{illustration}</Figure>
+          <Figure height={128}>{illustration}</Figure>
         </Column>
       )}
       <Column flex={1} gutter="md">

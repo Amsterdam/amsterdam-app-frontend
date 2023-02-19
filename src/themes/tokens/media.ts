@@ -15,11 +15,13 @@ export const mediaTokens = {
   },
   imageAspectRatio: {
     facades: 2048 / 256,
+    illustrationLandscape: 512 / 256,
+    illustrationPortrait: 256 / 512,
     twoPersonsWalking: 240 / 270,
-    wasteGuideHome: 311 / 275,
   },
   imageWidth: {
+    illustrationNarrow: 128,
+    illustrationWide: 320,
     twoPersonsWalking: 224,
-    wasteGuideHome: 288,
   },
 }
