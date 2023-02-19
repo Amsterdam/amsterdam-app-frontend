@@ -25,7 +25,7 @@ For items in a list, we include a unique identifier for the item itself, either 
 
 1. `[ModuleSlug]`
 2. `([ComponentName])` (one or more)
-3. `[ItemIdentifier]`
+3. `[TargetComponentIdentifier]`
 4. `[TargetComponentType]` (zero or one)
 
 Example: `ConstructionWorkProjectCard2345Title`.
@@ -44,7 +44,7 @@ The name of one or more components in the hierarchy between the module and the t
 
 Examples: `ArticleOverview`, `ContactOptions`, `ProjectCard`.
 
-## Item identifier
+## Target component identifier
 
 In overviews or lists, we allow distinguishing between the individual items by adding their database identifier, e.g. `ConstructionWorkProjectCard1234` and `ConstructionWorkProjectCard567Date`.
 
