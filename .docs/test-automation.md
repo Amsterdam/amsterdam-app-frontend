@@ -68,5 +68,5 @@ Targeting components that render other components may result in multiple test id
 
 Example: a `TopTaskButton` renders an icon, a title and a text. If such a component is given a `testID="CityOfficeButton"`, it will set it but also add `CityOfficeButtonTitle` and `CityOfficeButtonText` to the `Title` and `Paragraph` components it renders.
 
-Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldButtonSearch` or `ConstructionWorkSearchFieldButtonClear`.
+Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldInputButtonSearch` or `ConstructionWorkSearchFieldInputButtonClear`.
 
