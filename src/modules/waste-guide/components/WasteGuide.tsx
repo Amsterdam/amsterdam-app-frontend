@@ -52,7 +52,7 @@ export const WasteGuide = ({address}: Props) => {
   const hasContent = hasWasteGuide || cityIsWeesp
 
   return (
-    <Column grow gutter="md">
+    <Column grow gutter="xl">
       <HorizontalSafeArea flex={1}>
         <Box>
           <Column flex={1} gutter="md">
@@ -71,7 +71,6 @@ export const WasteGuide = ({address}: Props) => {
           Image={<HouseholdWasteToContainerImage />}
           imageAspectRatio={media.illustrationAspectRatio.landscape}
           imageWidth={media.illustrationWidth.wide}
-          moveUp={isLandscape ? 128 : undefined}
         />
       ) : (
         <FigureWithFacadesBackground
