@@ -17,11 +17,9 @@ export const mediaTokens = {
     facades: 2048 / 256,
     illustrationLandscape: 512 / 256,
     illustrationPortrait: 256 / 512,
-    twoPersonsWalking: 240 / 270,
   },
   imageWidth: {
     illustrationNarrow: 128,
     illustrationWide: 320,
-    twoPersonsWalking: 224,
   },
 }

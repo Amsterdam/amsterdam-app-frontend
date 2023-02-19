@@ -4,7 +4,6 @@ import {
   AmsterdamAndWeespFacadesImage,
   AmsterdamFacadesImage,
 } from '@/assets/images'
-import {mapSelfAlignment} from '@/components/ui/layout'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
@@ -15,7 +14,6 @@ type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
 type Props = {
   Image: ReactNode
   backgroundImageHeightFraction?: number
-  imageAlign?: 'start' | 'center' | 'end'
   imageAspectRatio: number
   imageWidth?: number
   /**
@@ -30,7 +28,6 @@ type Props = {
 export const FigureWithFacadesBackground = ({
   backgroundImageHeightFraction = 3 / 4,
   Image,
-  imageAlign = 'center',
   imageAspectRatio,
   imageWidth,
   moveUp,
@@ -41,7 +38,6 @@ export const FigureWithFacadesBackground = ({
   const styles = useThemable(
     createStyles(
       backgroundImageHeightFraction,
-      imageAlign,
       imageAspectRatio,
       figureProps,
       moveUp,
@@ -68,7 +64,6 @@ export const FigureWithFacadesBackground = ({
 const createStyles =
   (
     backgroundImageHeightFraction: number,
-    imageAlign: Props['imageAlign'],
     imageAspectRatio: Props['imageAspectRatio'],
     figureProps: SelectedFigureProps,
     moveUp: Props['moveUp'],
@@ -98,7 +93,7 @@ const createStyles =
         bottom: 0,
         aspectRatio: imageAspectRatio,
         height: imageHeight,
-        alignSelf: mapSelfAlignment(imageAlign),
+        alignSelf: 'center',
       },
     })
   }
