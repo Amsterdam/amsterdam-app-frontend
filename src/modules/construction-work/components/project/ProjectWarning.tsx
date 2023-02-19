@@ -80,7 +80,7 @@ export const ProjectWarning = ({id}: Props) => {
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={media.aspectRatio.wide}
+          imageAspectRatio={media.aspectRatio.extraWide}
           testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       )}
