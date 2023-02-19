@@ -13,13 +13,13 @@ export const mediaTokens = {
     lg: 256,
     xl: 320,
   },
-  imageAspectRatio: {
+  illustrationAspectRatio: {
     facades: 2048 / 256,
-    illustrationLandscape: 512 / 256,
-    illustrationPortrait: 256 / 512,
+    landscape: 512 / 256,
+    portrait: 256 / 512,
   },
-  imageWidth: {
-    illustrationNarrow: 128,
-    illustrationWide: 320,
+  illustrationWidth: {
+    narrow: 128,
+    wide: 320,
   },
 }

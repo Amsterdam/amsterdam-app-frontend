@@ -69,16 +69,16 @@ export const WasteGuide = ({address}: Props) => {
         <FigureWithFacadesBackground
           height={media.figureHeight.lg}
           Image={<HouseholdWasteToContainerImage />}
-          imageAspectRatio={media.imageAspectRatio.illustrationLandscape}
-          imageWidth={media.imageWidth.illustrationWide}
+          imageAspectRatio={media.illustrationAspectRatio.landscape}
+          imageWidth={media.illustrationWidth.wide}
           moveUp={isLandscape ? 128 : undefined}
         />
       ) : (
         <FigureWithFacadesBackground
           height={media.figureHeight.lg}
           Image={<WasteGuideNotFoundImage />}
-          imageAspectRatio={media.imageAspectRatio.illustrationPortrait}
-          imageWidth={media.imageWidth.illustrationNarrow}
+          imageAspectRatio={media.illustrationAspectRatio.portrait}
+          imageWidth={media.illustrationWidth.narrow}
           moveUp={isLandscape ? 128 : undefined}
         />
       )}

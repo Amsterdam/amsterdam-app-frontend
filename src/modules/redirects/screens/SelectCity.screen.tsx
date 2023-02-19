@@ -61,8 +61,8 @@ export const SelectCityScreen = ({navigation}: Props) => {
         <FigureWithFacadesBackground
           height={media.figureHeight.xl}
           Image={<PeopleAtCityOffice />}
-          imageAspectRatio={media.imageAspectRatio.illustrationLandscape}
-          imageWidth={media.imageWidth.illustrationWide}
+          imageAspectRatio={media.illustrationAspectRatio.landscape}
+          imageWidth={media.illustrationWidth.wide}
           withWeesp
         />
       </Column>

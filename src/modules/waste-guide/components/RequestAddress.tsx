@@ -40,8 +40,8 @@ export const RequestAddress = () => {
       <FigureWithFacadesBackground
         height={media.figureHeight.lg}
         Image={<HouseholdWasteToContainerImage />}
-        imageAspectRatio={media.imageAspectRatio.illustrationLandscape}
-        imageWidth={media.imageWidth.illustrationWide}
+        imageAspectRatio={media.illustrationAspectRatio.landscape}
+        imageWidth={media.illustrationWidth.wide}
         moveUp={isLandscape ? 128 : undefined}
       />
     </Column>
