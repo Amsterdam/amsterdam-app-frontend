@@ -15,7 +15,6 @@ export const mediaTokens = {
   },
   imageAspectRatio: {
     facades: 2048 / 256,
-    projectWarningFallback: 355 / 135,
     twoPersonsWalking: 240 / 270,
     wasteGuideHome: 311 / 275,
   },

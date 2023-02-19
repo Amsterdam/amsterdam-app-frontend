@@ -108,9 +108,7 @@ export const ArticlePreview = ({
                     aspectRatio="extraWide"
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
-                    imageAspectRatio={
-                      media.imageAspectRatio.projectWarningFallback
-                    }
+                    imageAspectRatio={media.aspectRatio.wide}
                     testID={createTestID('Image')}
                   />
                 )}
