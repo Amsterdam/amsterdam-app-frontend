@@ -14,10 +14,10 @@ For regular target components, we construct a test identifier as follows:
 
 1. `[ModuleSlug]`
 2. `([ComponentName])` (one or more)
-3. `[TargetComponentType]`
-4. `([TargetComponentLabel])` (zero or one)
+3. `([TargetComponentLabel])` (zero or one)
+4. `[TargetComponentType]`
 
-Examples: `ConstructionWorkImage`, `HomeModuleButtonWasteGuide`, `ContactContactOptionsButtonWhatsapp`.
+Examples: `ConstructionWorkImage`, `HomeWasteGuideModuleButton`, `ContactContactOptionsWhatsappButton`.
 
 ### Target components in a list
 
@@ -48,19 +48,19 @@ Examples: `ArticleOverview`, `ContactOptions`, `ProjectCard`.
 
 In overviews or lists, we allow distinguishing between the individual items by adding their database identifier, e.g. `ConstructionWorkProjectCard1234` and `ConstructionWorkProjectCard567Date`.
 
-## Target component type
-
-The general type of the target component. We’re not too specific here: e.g. a `TopTaskButton` will just be called a `Button`. 
-
-Keep close to these options: `Button`, `Input`, `Checkbox`, `Radio`, `Select`, `Title`, `Subtitle`, `Paragraph`, `Date`, `Icon`, and `Image`.
-
 ## Target component label
 
 This identifies the specific instance of a component type, usually by rephrasing its label or text. One situation in which we use this is to distinguish a couple of related buttons.
 
 Examples:
-- A button to edit an address: `…ButtonEditAddress`
-- The title of a city office: `…TitleCityOffice`
+- A button to edit an address: `…EditAddressButton`
+- The title of a city office: `…CityOfficeTitle`
+
+## Target component type
+
+The general type of the target component. We’re not too specific here: e.g. a `TopTaskButton` will just be called a `Button`.
+
+Keep close to these options: `Button`, `Input`, `Checkbox`, `Radio`, `Select`, `Title`, `Subtitle`, `Paragraph`, `Date`, `Icon`, and `Image`.
 
 ## Generated test identifiers
 
@@ -68,5 +68,5 @@ Targeting components that render other components may result in multiple test id
 
 Example: a `TopTaskButton` renders an icon, a title and a text. If such a component is given a `testID="CityOfficeButton"`, it will set it but also add `CityOfficeButtonTitle` and `CityOfficeButtonText` to the `Title` and `Paragraph` components it renders.
 
-Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldInputButtonSearch` or `ConstructionWorkSearchFieldInputButtonClear`.
+Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldInputSearchButton` or `ConstructionWorkSearchFieldInputClearButton`.
 
