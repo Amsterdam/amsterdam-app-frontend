@@ -2,6 +2,7 @@ import {expect} from 'detox'
 import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import ConstructionWorkScreen from '../screens/construction-work.screen'
 import HomeScreen from '../screens/home.screen'
+import WelcomeScreen from '../screens/welcome.screen'
 
 const features = loadFeatures('e2e/features/construction-work.feature', {
   tagFilter: '@included and not @excluded',
@@ -16,10 +17,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op het werkzaamheden scherm/, async () => {
-    await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-      .toBeVisible()
-      .withTimeout(10000)
-    await element(by.id('WelcomePressableImageAndQuote')).tap()
+    await WelcomeScreen.tapWelcomeScreen()
     await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
       .toBeVisible()
       .withTimeout(2000)
@@ -75,10 +73,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   given(
     /ik ben op de de werkzaamheden detail pagina van project Middenweg/,
     async () => {
-      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-        .toBeVisible()
-        .withTimeout(10000)
-      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await WelcomeScreen.tapWelcomeScreen()
       await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
         .toBeVisible()
         .withTimeout(2000)
@@ -196,14 +191,10 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het projectdetailscherm van project 'Amstel' III/,
     async () => {
-      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-        .toBeVisible()
-        .withTimeout(10000)
-      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await WelcomeScreen.tapWelcomeScreen()
       await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
         .toBeVisible()
         .withTimeout(2000)
-      await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
       await HomeScreen.HomeModuleButtonConstructionWork.tap()
       await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
         'Werkzaamheden',

@@ -2,6 +2,7 @@ import {expect} from 'detox'
 import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import ContactScreen from '../screens/contact.screen'
 import HomeScreen from '../screens/home.screen'
+import WelcomeScreen from '../screens/welcome.screen'
 
 const features = loadFeatures('e2e/features/contact.feature', {
   tagFilter: '@included and not @excluded',
@@ -24,10 +25,7 @@ const contactSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het homescherm - klik zodat welkomstscherm verdwijnt/,
     async () => {
-      await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-        .toBeVisible()
-        .withTimeout(10000)
-      await element(by.id('WelcomePressableImageAndQuote')).tap()
+      await WelcomeScreen.tapWelcomescreen()
       await expect(HomeScreen.HomeModuleButtonContact).toExist()
     },
   )
@@ -46,10 +44,7 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op het contactscherm/, async () => {
-    await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-      .toBeVisible(50)
-      .withTimeout(10000)
-    await element(by.id('WelcomePressableImageAndQuote')).tap()
+    await WelcomeScreen.tapWelcomeScreen()
     await HomeScreen.HomeModuleButtonContact.tap()
     await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
   })
