@@ -1,66 +1,58 @@
-# Test Automation
+# Test automation
 
-We decided to use [Detox](https://wix.github.io/Detox/).
+We use [Detox](https://wix.github.io/Detox/) to automatically perform end-to-end regression tests.
 
-To allow the test library to consistently interact with components, we assign test identifiers to them through a `testID` prop.
+To allow the test library to consistently target components, we assign test identifiers to them through a `testID` prop. Most of our components accept this, reused from React Native’s `ViewPort` props.
 
-We decided to go with this naming convention for the test identifiers:
+## Naming convention
 
-`[ModuleKey][ComponentType][ComponentKey]([SubComponentType][SubComponentKey])?`
+A naming convention ensures that these identifiers are in fact unique and makes them easy to use and locate.
 
-Examples:
-- `ContactTextInputName` 
-- `ContactTextInputNameButtonClear`
+We construct the name for a test identifier as follows:
 
-## Module key
+1. Module slug
+2. Parent component name (optional)
+3. Component identifier (optional)
+4. Component type
 
-The name of the module in which the component appears.
+We use the English language, upper camel case, and concatenate all parts without separators.
 
-Examples:
+Examples: `ConstructionWorkImage`, `HomeWasteGuideModuleButton`, `ContactContactOptionsWhatsappButton`, `ConstructionWorkProject789Image`
 
-- `About`
-- `Contact`
-- `WasteGuide`
+### 1. Module slug
 
-### Exceptions
+This is the human-readable identifier of the module in which the component appears. It matches the slug defined in the modules backend, and the name of the directory used for it in the app’s code repository, but converted to upper camel case.
 
-We replace the module key with `Header` for components in the app header, as these components are displayed on screens for various modules.
+Examples: `Address`, `ConstructionWork`, `Contact`, `WasteGuide`.
 
-## Component type
+Components in the app’s header use `Header` instead of a module slug, because these components appear in most modules.
 
-The general type of the component. This indicates the kinds of interaction that can occur.
+### 2. Parent component name
 
-Examples:
+The name of one or more components in the hierarchy between the module and the component. These are generally feature or container components like an overview, a card or a named section of the screen. Try to use the exact component names here to prevent confusion. 
 
-- `Button`
-- `Text`
-- `TextInput`
+Examples: `ArticleOverview`, `ContactOptions`, `AboutTheApp`.
 
-Don’t make these too specific: instead of `TopTaskButton`, we just use `Button`.
+### 3. Component identifier
 
-## Component key
-
-Identifies the specific instance of a component type.
+This identifies the specific instance of a component type, usually by rephrasing its label or text. One situation in which we use this is to distinguish a couple of related buttons.
 
 Examples:
-- A button to edit an address: `[Module]ButtonEditAddress`
-- The title of a city office: `[Module]TitleCityOffice`
+- A button to edit an address: `…EditAddressButton`
+- The title of a city office: `…CityOfficeTitle`
 
-## Subcomponent type
+For items in a list, we use their existing identifiers received from the database, or something similar generated in the rendering code, e.g. `ConstructionWorkProject123Title` and `ConstructionWorkProject456Title`.
 
-Optional.
-Same type as `ComponentType`.
-Use together with `SubComponentKey`.
+### 4. Component type
 
-Subcomponents are components that are part of a larger interaction component, with which users must be able to interact individually.
+The general type of the component. We’re not too specific here: e.g. a `TopTaskButton` will just be called a `Button`.
 
-Example: the ‘cross’ icon in an input field must be pressed to clear its value, separately from the input field itself.
+Keep close to these options: `Button`, `Input`, `Checkbox`, `Radio`, `Select`, `Title`, `Subtitle`, `Paragraph`, `Date`, `Icon`, and `Image`.
 
-## Subcomponent key
+## Generated test identifiers
 
-Optional.
-Same type as `ComponentKey`.
-Use together with `SubComponentType`.
+Some components render child components, and they also may need to be targeted. These components add a suffix to allow matching not only themselves, but their child components as well.
 
-Example:
-- [Module]TextInputAddressButtonClear
+Example: a `TopTaskButton` renders an icon, a title and a text. If such a component is given a `testID="CityOfficeButton"`, it will set it, but also add `CityOfficeButtonTitle` and `CityOfficeButtonText` to the `Title` and `Paragraph` components it renders.
+
+Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldInputSearchButton` or `ConstructionWorkSearchFieldInputClearButton`.
