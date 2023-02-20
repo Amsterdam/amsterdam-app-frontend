@@ -23,12 +23,19 @@ When faced with an unclear error during the native build, some options are:
 
 ### iOS specific
 
+Occasionally a build fails because of outdated data in the build folder. When building with XCode, there is an option to clear the build folder: CMND+SHIFT+K. Alternatively, you can usually find the path to the build folder in the build/error logs and manually delete the folder.
+
 - Remove `ios/Pods` and `Podfile.lock`
 - In `/ios`:
   - `bundle update` (update Ruby gems, including Cocoapods)
   - `pod install --repo-update` (install Pods and force downloading the latest versions of the repos)
 
-Occasionally a build fails because of outdated data in the build folder. When building with XCode, there is an option to clear the build folder: CMND+SHIFT+K. Alternatively, you can usually find the path to the build folder in the build/error logs and manually delete the folder.
+---
+
+After you've reinstalled npm packages and pods, it can happen that pods have been downgraded. Whenever this is the case, do the following:
+
+- Run `pod repo update` (Updates the local clone of pods + versions)
+- If some pods are still downgraded, run `pod update` (Updates the pods to the latest version possible)
 
 ## Sentry pod issue
 
