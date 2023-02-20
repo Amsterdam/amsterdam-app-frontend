@@ -34,7 +34,7 @@ Occasionally a build fails because of outdated data in the build folder. When bu
 
 After you've reinstalled npm packages and pods, it can happen that pods have been downgraded. Whenever this is the case, do the following:
 
-- Run `pod update repo` (Updates the local clone of pods + versions)
+- Run `pod repo update` (Updates the local clone of pods + versions)
 - If some pods are still downgraded, run `pod update` (Updates the pods to the latest version possible)
 
 ## Sentry pod issue
