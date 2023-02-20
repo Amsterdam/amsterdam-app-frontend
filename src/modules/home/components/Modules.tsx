@@ -6,6 +6,7 @@ import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
+import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {
   const {
@@ -31,13 +32,13 @@ export const Modules = () => {
   }
 
   const availableModules = modules.filter(
-    m => m.status === 1 && (!m.isForEmployees || isEmployee) && !m.hiddenInMenu,
+    m => (!m.isForEmployees || isEmployee) && !m.hiddenInMenu,
   )
 
   if (!availableModules.length) {
     return (
       <Box>
-        <EmptyMessage text="Alle modules staan uit of zijn inactief. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
+        <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
       </Box>
     )
   }
@@ -46,9 +47,10 @@ export const Modules = () => {
     <Box grow>
       <Column gutter="md">
         {availableModules.map(
-          ({BadgeValue, icon, isForEmployees, slug, title}) => (
+          ({BadgeValue, icon, isForEmployees, slug, status, title}) => (
             <ModuleButton
               BadgeValue={BadgeValue}
+              disabled={status === ModuleStatus.inactive}
               iconName={icon}
               key={slug}
               label={title}

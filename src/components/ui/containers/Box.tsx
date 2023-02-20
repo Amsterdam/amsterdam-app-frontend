@@ -5,6 +5,8 @@ import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 export type BoxProps = {
+  borderColor?: keyof Theme['color']['border']
+  borderStyle?: 'dashed' | 'dotted' | 'solid'
   children: ReactNode
   /**
    * Whether the box has a background color, setting it apart from its surroundings.
@@ -34,6 +36,8 @@ export type BoxProps = {
  * Allows to set insets and a background colour.
  */
 export const Box = ({
+  borderColor,
+  borderStyle,
   children,
   distinct,
   grow,
@@ -43,7 +47,14 @@ export const Box = ({
   ...viewProps
 }: BoxProps) => {
   const styles = useThemable(
-    createStyles({distinct: distinct, inset, insetHorizontal, insetVertical}),
+    createStyles({
+      borderColor,
+      borderStyle,
+      distinct: distinct,
+      inset,
+      insetHorizontal,
+      insetVertical,
+    }),
   )
 
   return (
@@ -54,11 +65,21 @@ export const Box = ({
 }
 
 const createStyles =
-  ({distinct, inset, insetHorizontal, insetVertical}: Partial<BoxProps>) =>
+  ({
+    borderColor,
+    borderStyle,
+    distinct,
+    inset,
+    insetHorizontal,
+    insetVertical,
+  }: Partial<BoxProps>) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       box: {
         backgroundColor: distinct ? color.box.background.white : undefined,
+        borderColor: borderColor ? color.border[borderColor] : undefined,
+        borderStyle: borderStyle,
+        borderWidth: borderStyle ? 1 : undefined,
         padding:
           inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
         paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],

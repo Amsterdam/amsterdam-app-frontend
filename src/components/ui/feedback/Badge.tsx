@@ -8,25 +8,30 @@ import {OmitUndefined} from '@/types'
 import {formatNumber} from '@/utils'
 
 export type BadgeProps = {
+  /**
+   * Which color variant of the badge to display.
+   */
+  colorVariant?: 'default' | 'inactive'
   testID?: TestID
   /**
    * The value to display in the badge.
    */
   value: number
   /**
-   * Which variant of the badge to display..
+   * Which variant of the badge to display.
    */
   variant?: 'default' | 'on-icon' | 'small'
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const Badge = ({
   accessibilityLabel,
+  colorVariant = 'default',
   testID,
   value,
   variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useContext(DeviceContext)
-  const styles = useThemable(createStyles(fontScale, variant))
+  const styles = useThemable(createStyles(colorVariant, fontScale, variant))
 
   return (
     <Row align="start">
@@ -70,6 +75,7 @@ const variantConfig: VariantConfig = {
 
 const createStyles =
   (
+    colorVariant: BadgeProps['colorVariant'],
     fontScale: Device['fontScale'],
     variant: OmitUndefined<BadgeProps['variant']>,
   ) =>
@@ -89,7 +95,10 @@ const createStyles =
         paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
         paddingEnd: size.spacing.xs,
         borderRadius: scaledDiameter / 2,
-        backgroundColor: color.pressable.secondary.background,
+        backgroundColor:
+          colorVariant === 'inactive'
+            ? color.background.inactive
+            : color.pressable.secondary.background,
       },
       text: {
         fontFamily: text.fontFamily.bold,

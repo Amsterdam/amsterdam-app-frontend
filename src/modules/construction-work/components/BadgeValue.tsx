@@ -6,7 +6,11 @@ import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useGetProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 
-export const BadgeValue = () => {
+type Props = {
+  inactive?: boolean
+}
+
+export const BadgeValue = ({inactive}: Props) => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
   const {data} = useGetProjectsFollowedArticlesQuery({
@@ -31,6 +35,7 @@ export const BadgeValue = () => {
     return (
       <Badge
         accessibilityLabel={simplur`${unreadArticlesLength} ongelezen bericht[|en]`}
+        colorVariant={inactive ? 'inactive' : 'default'}
         value={unreadArticlesLength}
       />
     )
