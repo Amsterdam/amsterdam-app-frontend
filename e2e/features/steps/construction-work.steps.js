@@ -18,11 +18,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   given(/ik ben op het werkzaamheden scherm/, async () => {
     await WelcomeScreen.tapWelcomeScreen()
-    await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
-      .toBeVisible()
-      .withTimeout(2000)
-    await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
-    await HomeScreen.HomeModuleButtonConstructionWork.tap()
+    await HomeScreen.tapModule('Werkzaamheden')
   })
 
   then(/de werkzaamheden worden weergegeven met een afbeelding/, async () => {
@@ -74,14 +70,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     /ik ben op de de werkzaamheden detail pagina van project Middenweg/,
     async () => {
       await WelcomeScreen.tapWelcomeScreen()
-      await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
-        .toBeVisible()
-        .withTimeout(2000)
-      await expect(HomeScreen.HomeModuleButtonConstructionWork).toExist()
-      await HomeScreen.HomeModuleButtonConstructionWork.tap()
-      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
-        'Werkzaamheden',
-      )
+      await HomeScreen.tapModule('Werkzaamheden')
       await ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg.tap()
       await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Middenweg')
     },
@@ -192,10 +181,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     /ik ben op het projectdetailscherm van project 'Amstel' III/,
     async () => {
       await WelcomeScreen.tapWelcomeScreen()
-      await waitFor(HomeScreen.HomeModuleButtonConstructionWork)
-        .toBeVisible()
-        .withTimeout(2000)
-      await HomeScreen.HomeModuleButtonConstructionWork.tap()
+      await HomeScreen.tapModule('Werkzaamheden')
       await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
         'Werkzaamheden',
       )

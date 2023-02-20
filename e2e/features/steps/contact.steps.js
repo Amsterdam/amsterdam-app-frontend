@@ -31,11 +31,7 @@ const contactSteps = ({given, when, then, and}) => {
   )
 
   when(/ik open de 'contact' module/, async () => {
-    await waitFor(HomeScreen.HomeModuleButtonContact)
-      .toBeVisible()
-      .withTimeout(10000)
-    await HomeScreen.HomeModuleButtonContact.tap()
-    await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
+    HomeScreen.tapModule('Contact')
   })
 
   then(/de contact module opent/, async () => {
@@ -45,8 +41,7 @@ const contactSteps = ({given, when, then, and}) => {
 
   given(/ik ben op het contactscherm/, async () => {
     await WelcomeScreen.tapWelcomeScreen()
-    await HomeScreen.HomeModuleButtonContact.tap()
-    await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
+    await HomeScreen.tapModule('Contact')
   })
 
   when(/ik verander het stadsloket naar stadsloket Nieuw-West/, async () => {
