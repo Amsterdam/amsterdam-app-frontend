@@ -6,7 +6,7 @@ import {Column, Row} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {TestID} from '@/components/ui/types'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
@@ -108,9 +108,7 @@ export const ArticlePreview = ({
                     aspectRatio="extraWide"
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
-                    imageAspectRatio={
-                      media.imageAspectRatio.projectWarningFallback
-                    }
+                    imageAspectRatio={media.aspectRatio.extraWide}
                     testID={createTestID('Image')}
                   />
                 )}

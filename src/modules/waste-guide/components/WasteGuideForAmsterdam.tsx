@@ -14,7 +14,7 @@ import {
   BulkyWasteByCarImage,
   HouseHoldWasteAtRoadsideImage,
   HouseholdWasteToContainerImage,
-  PlayingNearContainersImage,
+  HouseholdWasteToThreeContainersImage,
 } from '@/modules/waste-guide/assets/images'
 import {WasteGuideDetails} from '@/modules/waste-guide/components'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
@@ -80,8 +80,8 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
       <Accordion title="Containers in de buurt">
         <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
           <Column flex={1}>
-            <Figure height={192}>
-              <PlayingNearContainersImage />
+            <Figure height={128}>
+              <HouseholdWasteToThreeContainersImage />
             </Figure>
           </Column>
           <Column flex={1} gutter="md">
@@ -104,7 +104,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
       <Accordion title="Afvalpunten">
         <Track gutter={isLandscape ? 'xl' : 'md'} reverse={isLandscape}>
           <Column flex={1}>
-            <Figure height={192}>
+            <Figure height={128}>
               <BulkyWasteByCarImage />
             </Figure>
           </Column>

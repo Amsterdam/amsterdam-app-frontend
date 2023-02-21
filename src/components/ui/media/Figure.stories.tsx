@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {Figure} from './Figure'
-import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
+import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
 
 export default {
   component: Figure,
@@ -8,7 +8,7 @@ export default {
 
 export const Default: ComponentStory<typeof Figure> = args => (
   <Figure {...args}>
-    <WasteGuideHomeImage />
+    <HouseholdWasteToContainerImage />
   </Figure>
 )
 Default.args = {

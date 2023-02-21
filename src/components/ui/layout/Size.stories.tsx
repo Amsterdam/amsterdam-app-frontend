@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {Canvas} from '.storybook/components'
-import {Size} from '@/components/ui/layout/'
+import {Size} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
 
 export default {

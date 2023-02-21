@@ -9,7 +9,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module} from '@/modules/waste-guide'
-import {WasteGuideHomeImage} from '@/modules/waste-guide/assets/images'
+import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 
@@ -38,12 +38,11 @@ export const RequestAddress = () => {
         </Box>
       </HorizontalSafeArea>
       <FigureWithFacadesBackground
-        backgroundImageHeightFraction={0.5}
-        height={media.figureHeight.xl}
-        Image={<WasteGuideHomeImage />}
-        imageAspectRatio={media.imageAspectRatio.wasteGuideHome}
-        imageWidth={media.imageWidth.wasteGuideHome}
-        moveUp={isLandscape ? 80 : undefined}
+        height={media.figureHeight.lg}
+        Image={<HouseholdWasteToContainerImage />}
+        imageAspectRatio={media.illustrationAspectRatio.landscape}
+        imageWidth={media.illustrationWidth.wide}
+        moveUp={isLandscape ? 128 : undefined}
       />
     </Column>
   )

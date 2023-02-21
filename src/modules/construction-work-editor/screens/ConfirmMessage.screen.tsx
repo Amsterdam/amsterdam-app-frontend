@@ -13,7 +13,7 @@ import {Checkbox} from '@/components/ui/forms'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {
   clearDraft,
   selectCurrentProjectId,
@@ -124,7 +124,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
+          imageAspectRatio={media.aspectRatio.extraWide}
         />
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}

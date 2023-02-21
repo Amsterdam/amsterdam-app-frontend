@@ -6,7 +6,7 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {TwoPeopleWalking} from '@/modules/redirects/assets/images'
+import {PeopleAtCityOffice} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
@@ -59,12 +59,10 @@ export const SelectCityScreen = ({navigation}: Props) => {
           </Box>
         </HorizontalSafeArea>
         <FigureWithFacadesBackground
-          backgroundImageHeightFraction={0.5}
           height={media.figureHeight.xl}
-          Image={<TwoPeopleWalking />}
-          imageAlign="start"
-          imageAspectRatio={media.imageAspectRatio.twoPersonsWalking}
-          imageWidth={media.imageWidth.twoPersonsWalking}
+          Image={<PeopleAtCityOffice />}
+          imageAspectRatio={media.illustrationAspectRatio.landscape}
+          imageWidth={media.illustrationWidth.wide}
           withWeesp
         />
       </Column>

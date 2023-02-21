@@ -5,7 +5,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
@@ -80,7 +80,7 @@ export const ProjectWarning = ({id}: Props) => {
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={media.imageAspectRatio.projectWarningFallback}
+          imageAspectRatio={media.aspectRatio.extraWide}
           testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       )}

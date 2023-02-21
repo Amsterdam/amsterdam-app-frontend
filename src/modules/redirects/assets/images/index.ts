@@ -1,3 +1,3 @@
-import TwoPeopleWalking from './two-people-walking.svg'
+import PeopleAtCityOffice from './people-at-city-office.svg'
 
-export {TwoPeopleWalking}
+export {PeopleAtCityOffice}
