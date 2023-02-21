@@ -116,7 +116,7 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params =>
         generateRequestUrl({
           path: '/projects/search',
-          params: formatQueryParams({...params, page_size: 10}),
+          params: formatQueryParams({...params, page_size: 1000}),
         }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
