@@ -53,7 +53,7 @@ const ModuleButtonContent = ({
           )}
           <Title color={color} level="h5" text={label} />
         </Row>
-        {!!BadgeValue && <BadgeValue inactive={disabled} />}
+        {!!BadgeValue && !disabled && <BadgeValue />}
       </Row>
       {!!disabled && <InactiveModuleMessage />}
     </Column>
