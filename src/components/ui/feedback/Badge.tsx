@@ -14,7 +14,7 @@ export type BadgeProps = {
    */
   value: number
   /**
-   * Which variant of the badge to display..
+   * Which variant of the badge to display.
    */
   variant?: 'default' | 'on-icon' | 'small'
 } & Pick<AccessibilityProps, 'accessibilityLabel'>

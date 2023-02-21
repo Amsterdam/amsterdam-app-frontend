@@ -27,9 +27,14 @@ export type ModuleServerConfig = {
   description: string
   icon: IconName | 'projects'
   slug: ModuleSlug
-  status: number
+  status: ModuleStatus
   title: string
   version: string
+}
+
+export enum ModuleStatus {
+  active = 1,
+  inactive = 0,
 }
 
 export type Module = ModuleServerConfig & ModuleClientConfig
