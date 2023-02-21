@@ -2,9 +2,10 @@ import notifee from '@notifee/react-native'
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
-import {LinkingOptions} from '@react-navigation/native'
+import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation/RootStackNavigator'
+import {ModuleSlug} from '@/modules/slugs'
 import {devLog} from '@/processes'
 import {PushNotificationData} from '@/types'
 import {moduleLinkings} from '@/utils/moduleLinkings'
@@ -69,7 +70,17 @@ export const linking: LinkingOptions<RootStackParams> = {
       devLog(error)
     }
   },
-
+  getStateFromPath: (path, config) => {
+    const defaultState = getStateFromPath(path, config)
+    if (defaultState) {
+      const {routes} = defaultState
+      const firstRouteName = ModuleSlug.home
+      if (routes?.length === 1 && routes[0].name !== firstRouteName) {
+        defaultState.routes.unshift({name: firstRouteName})
+      }
+    }
+    return defaultState
+  },
   subscribe: (listener: (deeplink: string) => void) => {
     // First, you may want to do the default deep link handling
     const onReceiveURL = ({url}: {url: string}) => listener(url)
