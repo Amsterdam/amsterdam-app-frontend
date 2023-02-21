@@ -71,15 +71,15 @@ export const linking: LinkingOptions<RootStackParams> = {
     }
   },
   getStateFromPath: (path, config) => {
-    const defaultState = getStateFromPath(path, config)
-    if (defaultState) {
-      const {routes} = defaultState
-      const firstRouteName = ModuleSlug.home
-      if (routes?.length === 1 && routes[0].name !== firstRouteName) {
-        defaultState.routes.unshift({name: firstRouteName})
+    const state = getStateFromPath(path, config)
+    if (state) {
+      const {routes} = state
+      const homeRouteName = ModuleSlug.home
+      if (routes?.length === 1 && routes[0].name !== homeRouteName) {
+        state.routes.unshift({name: homeRouteName})
       }
     }
-    return defaultState
+    return state
   },
   subscribe: (listener: (deeplink: string) => void) => {
     // First, you may want to do the default deep link handling
