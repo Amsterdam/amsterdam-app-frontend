@@ -22,14 +22,14 @@ export const EnvironmentSelector = () => {
   useEffect(() => {
     setCustomUrls({
       apiUrl: custom?.apiUrl ?? environments[Environment.custom].apiUrl,
-      modulesApiUrl:
-        custom?.modulesApiUrl ?? environments[Environment.custom].modulesApiUrl,
+      releaseApiUrl:
+        custom?.releaseApiUrl ?? environments[Environment.custom].releaseApiUrl,
     })
     if (Object.keys(customUrls).length) {
       dispatch(baseApi.util.resetApiState())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [custom, custom?.apiUrl, custom?.modulesApiUrl, dispatch])
+  }, [custom, custom?.apiUrl, custom?.releaseApiUrl, dispatch])
 
   useEffect(() => () => RNRestart.Restart(), [])
 
@@ -59,11 +59,11 @@ export const EnvironmentSelector = () => {
               value={customUrls?.apiUrl ?? ''}
             />
             <TextInput
-              label="modulesApiUrl"
+              label="releaseApiUrl"
               onChangeText={text =>
-                setCustomUrls(v => ({...v, modulesApiUrl: text}))
+                setCustomUrls(v => ({...v, releaseApiUrl: text}))
               }
-              value={customUrls?.modulesApiUrl ?? ''}
+              value={customUrls?.releaseApiUrl ?? ''}
             />
             <Button
               label="Go!"
