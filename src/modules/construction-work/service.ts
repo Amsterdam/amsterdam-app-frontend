@@ -51,7 +51,7 @@ export const projectsApi = baseApi.injectEndpoints({
       Project,
       ProjectIdQueryArg & AddressQueryArg
     >({
-      providesTags: ['Projects'],
+      providesTags: ['FollowedProjects', 'Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: Project}) => response.result,
