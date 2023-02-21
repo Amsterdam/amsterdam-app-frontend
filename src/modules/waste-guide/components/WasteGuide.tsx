@@ -54,7 +54,7 @@ export const WasteGuide = ({address}: Props) => {
   return (
     <Column grow gutter="xl">
       <HorizontalSafeArea flex={1}>
-        <Box>
+        <Box grow>
           <Column flex={1} gutter="md">
             <StreetAddressWithEditButton address={address.adres} />
             {hasContent ? (
