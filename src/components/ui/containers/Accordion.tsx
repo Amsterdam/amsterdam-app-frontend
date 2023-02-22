@@ -30,6 +30,7 @@ const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
 
 type AccordionProps = {
   children: ReactNode | undefined
+  grow?: boolean
   initiallyExpanded?: boolean
   onChangeExpanded?: (state: boolean) => void
   title: string
@@ -40,6 +41,7 @@ export const Accordion = ({
   onChangeExpanded,
   children,
   title,
+  grow,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
   const isExpandable = children !== undefined
@@ -59,7 +61,7 @@ export const Accordion = ({
   }
 
   return (
-    <Column>
+    <Column grow={grow}>
       <Pressable
         accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
           isExpanded ? 'verbergen' : 'bekijken'
