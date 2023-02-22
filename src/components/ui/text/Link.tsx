@@ -44,11 +44,11 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
       hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
       {...{onPress, testID}}>
       <Row gutter="sm">
+        {variant === 'external' && <LinkIcon external />}
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
         {variant === 'default' && <LinkIcon direction={Direction.right} />}
         <Phrase color="link">{label}</Phrase>
         {variant === 'forward' && <LinkIcon direction={Direction.right} />}
-        {variant === 'external' && <LinkIcon external />}
       </Row>
     </Pressable>
   )
