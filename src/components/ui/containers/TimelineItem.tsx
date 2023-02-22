@@ -39,6 +39,7 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           )}
         </View>
         <Accordion
+          grow
           initiallyExpanded={!!isCurrent}
           key={item.title}
           onChangeExpanded={state => setIsExpanded(state)}
