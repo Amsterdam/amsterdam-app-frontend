@@ -37,11 +37,11 @@ type AccordionProps = {
 }
 
 export const Accordion = ({
+  grow,
   initiallyExpanded,
   onChangeExpanded,
   children,
   title,
-  grow,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
   const isExpandable = children !== undefined
