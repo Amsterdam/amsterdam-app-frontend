@@ -1,13 +1,13 @@
 import {ReactNode} from 'react'
 import {FlexStyle, StyleSheet, View} from 'react-native'
 import {
-  ChildrenWithGutters,
   CrossAxisAlignment,
   MainAxisAlignment,
   mapCrossAxisAlignment,
   mapMainAxisAlignment,
 } from '@/components/ui/layout'
 import {layoutStyles} from '@/styles'
+import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
@@ -28,28 +28,25 @@ export const Column = ({
   halign,
   reverse,
 }: Props) => {
-  const styles = createStyles({align, flex, halign, reverse})
+  const styles = useThemable(
+    createStyles({align, flex, gutter, halign, reverse}),
+  )
 
   return (
-    <View style={[styles.column, grow && layoutStyles.grow]}>
-      {gutter ? (
-        <ChildrenWithGutters gutter={gutter} prop="height">
-          {children}
-        </ChildrenWithGutters>
-      ) : (
-        children
-      )}
-    </View>
+    <View style={[styles.column, grow && layoutStyles.grow]}>{children}</View>
   )
 }
 
-const createStyles = ({align, flex, halign, reverse}: Partial<Props>) =>
-  StyleSheet.create({
-    column: {
-      flexDirection: reverse ? 'column-reverse' : 'column',
-      alignItems: mapCrossAxisAlignment(halign),
-      flex,
-      flexShrink: 1,
-      justifyContent: mapMainAxisAlignment(align),
-    },
-  })
+const createStyles =
+  ({align, flex, gutter, halign, reverse}: Partial<Props>) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
+      column: {
+        flexDirection: reverse ? 'column-reverse' : 'column',
+        alignItems: mapCrossAxisAlignment(halign),
+        flex,
+        flexShrink: 1,
+        justifyContent: mapMainAxisAlignment(align),
+        rowGap: gutter && size.spacing[gutter],
+      },
+    })
