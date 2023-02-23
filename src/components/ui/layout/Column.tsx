@@ -6,7 +6,6 @@ import {
   mapCrossAxisAlignment,
   mapMainAxisAlignment,
 } from '@/components/ui/layout'
-import {layoutStyles} from '@/styles'
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
@@ -29,22 +28,21 @@ export const Column = ({
   reverse,
 }: Props) => {
   const styles = useThemable(
-    createStyles({align, flex, gutter, halign, reverse}),
+    createStyles({align, flex, grow, gutter, halign, reverse}),
   )
 
-  return (
-    <View style={[styles.column, grow && layoutStyles.grow]}>{children}</View>
-  )
+  return <View style={styles.column}>{children}</View>
 }
 
 const createStyles =
-  ({align, flex, gutter, halign, reverse}: Partial<Props>) =>
+  ({align, flex, grow, gutter, halign, reverse}: Partial<Props>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       column: {
         flexDirection: reverse ? 'column-reverse' : 'column',
         alignItems: mapCrossAxisAlignment(halign),
         flex,
+        flexGrow: grow ? 1 : undefined,
         flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         rowGap: gutter && size.spacing[gutter],

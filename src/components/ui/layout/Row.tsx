@@ -28,25 +28,23 @@ export const Row = ({
   wrap,
 }: Props) => {
   const styles = useThemable(
-    createStyles({align, flex, gutter, reverse, valign}),
+    createStyles({align, flex, gutter, reverse, valign, wrap}),
   )
 
-  return <View style={[styles.row, wrap && styles.wrap]}>{children}</View>
+  return <View style={styles.row}>{children}</View>
 }
 
 const createStyles =
-  ({align, flex, gutter, reverse, valign}: Partial<Props>) =>
+  ({align, flex, gutter, reverse, valign, wrap}: Partial<Props>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       row: {
         flexDirection: reverse ? 'row-reverse' : 'row',
+        flexWrap: wrap ? 'wrap' : undefined,
         flex,
         flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         alignItems: mapCrossAxisAlignment(valign),
         columnGap: gutter && size.spacing[gutter],
-      },
-      wrap: {
-        flexWrap: 'wrap',
       },
     })
