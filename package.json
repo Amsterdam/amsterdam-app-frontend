@@ -1,6 +1,6 @@
 {
     "name": "amsterdam-app",
-    "version": "0.30.0",
+    "version": "0.31.0",
     "private": true,
     "scripts": {
         "android:phone:dev": "react-native run-android --variant=devDebug --appIdSuffix=dev",
