@@ -10,11 +10,17 @@ import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
+  /** The vertical alignment of the items in the column. */
   align?: MainAxisAlignment
+  /** The content of the column. */
   children: ReactNode
+  /** Whether the column should grow to fill the available space. */
   grow?: boolean
+  /** The amount of vertical whitespace between the items in the column. */
   gutter?: keyof SpacingTokens
+  /** The horizontal alignment of the items in the column. */
   halign?: CrossAxisAlignment
+  /** Whether the items in the column should be reversed. */
   reverse?: boolean
 } & Pick<FlexStyle, 'flex'>
 
