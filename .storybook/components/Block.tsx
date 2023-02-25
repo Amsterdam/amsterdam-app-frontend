@@ -1,16 +1,24 @@
 import {CSSProperties} from 'react'
+import {FlexStyle} from 'react-native'
 import {baseColor} from '@/themes/tokens/base-color'
 
-export const Block = ({label}: {label?: string}) => (
-  <div style={styles}>{!!label && <span>{label}</span>}</div>
-)
+type Props = {
+  flex?: FlexStyle['flex']
+  label?: string
+}
 
-const styles: CSSProperties = {
+export const Block = ({flex, label}: Props) => {
+  const styles = createStyles(flex)
+
+  return <div style={styles}>{!!label && <span>{label}</span>}</div>
+}
+
+const createStyles = (flex: Props['flex']): CSSProperties => ({
   backgroundColor: baseColor.primary.blue,
   color: baseColor.primary.white,
   display: 'flex',
-  flex: 1,
+  flex,
   fontFamily: 'AmsterdamSans-Regular',
   justifyContent: 'center',
   padding: 32,
-}
+})

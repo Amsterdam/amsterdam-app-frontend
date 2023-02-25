@@ -17,9 +17,6 @@ export const Default: ComponentStory<typeof Row> = args => (
 )
 
 Default.args = {
-  align: 'between',
+  align: 'start',
   gutter: 'md',
-  reverse: false,
-  valign: 'stretch',
-  wrap: false,
 }
