@@ -1,19 +1,17 @@
-import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
+import {Release} from '@/types'
 
 export const modulesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getModulesForApp: builder.query<ModuleServerConfig[], void>({
+    getRelease: builder.query<Release, string>({
       providesTags: ['Modules'],
-      query: () => ({
+      query: version => ({
         api: 'modulesApiUrl',
-        url: '/modules_for_app',
+        url: `/release/${version}`,
       }),
-      transformResponse: (response: {result: ModuleServerConfig[]}) =>
-        response.result,
     }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetModulesForAppQuery} = modulesApi
+export const {useGetReleaseQuery} = modulesApi

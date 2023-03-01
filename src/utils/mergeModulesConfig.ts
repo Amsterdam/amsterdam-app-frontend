@@ -11,7 +11,9 @@ export const mergeModulesConfig = (
 
   return serverConfig
     .map(serverModule => {
-      const clientModule = clientConfig.find(m => serverModule.slug === m.slug)
+      const clientModule = clientConfig.find(
+        m => serverModule.moduleSlug === m.slug,
+      )
 
       if (clientModule) {
         return {...serverModule, ...clientModule}
