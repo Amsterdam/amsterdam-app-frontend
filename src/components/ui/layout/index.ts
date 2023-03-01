@@ -1,7 +1,6 @@
 export * from './AspectRatio'
 export * from './ButtonRow'
 export * from './Center'
-export * from './ChildrenWithGutters'
 export * from './Column'
 export * from './Gutter'
 export * from './Row'
