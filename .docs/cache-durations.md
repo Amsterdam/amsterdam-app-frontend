@@ -1,6 +1,6 @@
 # Cache durations
 
-To decrease user's data usage, we implemented caching for each endpoint.
+To decrease user's data usage, we implemented caching for each endpoint with request method `GET` .
 
 ## Durations per endpoint
 
