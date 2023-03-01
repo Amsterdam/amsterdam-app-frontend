@@ -1,12 +1,12 @@
 import {baseApi} from '@/services/init'
 import {Release} from '@/types'
 
-export const releaseApi = baseApi.injectEndpoints({
+export const modulesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getRelease: builder.query<Release, string>({
       providesTags: ['Modules'],
       query: version => ({
-        api: 'releaseApiUrl',
+        api: 'modulesApiUrl',
         url: `/release/${version}`,
       }),
     }),
@@ -14,4 +14,4 @@ export const releaseApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetReleaseQuery} = releaseApi
+export const {useGetReleaseQuery} = modulesApi
