@@ -50,7 +50,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonWasteGuide.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Afvalwijzer')
         break
       case 'Gft-container openen':
@@ -58,7 +58,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonOpenWasteContainer.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Gft-container openen')
         break
       case 'Werkzaamheden':
@@ -66,7 +66,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonConstructionWork.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Werkzaamheden')
         break
       case 'Melding doen':
@@ -74,7 +74,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonReportProblem.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Melding doen')
         break
       case 'Contact':
@@ -82,7 +82,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonContact.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Contact')
         break
       case 'Direct regelen':
@@ -90,7 +90,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonRedirects.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Direct regelen')
         break
       case 'Over deze app':
@@ -98,7 +98,7 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.HomeModuleButtonAbout.tap()
-        await waitFor(this.HeaderTitle).toBeVisible.withTimeout(2000)
+        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Over deze app')
         break
       default:
