@@ -77,12 +77,20 @@ export const projectsApi = baseApi.injectEndpoints({
         if (params) {
           return generateRequestUrl({
             path: '/projects',
-            params: formatQueryParams({...params, page_size: 1000}),
+            params: formatQueryParams({...params, page_size: 10}),
           })
         }
         return '/projects'
       },
       keepUnusedDataFor: CacheLifetime.hour,
+      serializeQueryArgs: ({endpointName}) => endpointName,
+      merge: (currentCache, newItems, otherArgs) => {
+        if (otherArgs.arg?.page === 1) {
+          return newItems
+        }
+        currentCache.push(...newItems)
+      },
+      forceRefetch: ({currentArg, previousArg}) => currentArg !== previousArg,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,
     }),
@@ -118,6 +126,7 @@ export const projectsApi = baseApi.injectEndpoints({
           path: '/projects/search',
           params: formatQueryParams({...params, page_size: 1000}),
         }),
+
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,

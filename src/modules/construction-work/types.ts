@@ -119,6 +119,7 @@ export type ProjectsQueryArg = {
   articles_max_age: number
   districtId: number
   fields: string[]
+  page: number
   projectType: 'brug' | 'kade'
 }
 
