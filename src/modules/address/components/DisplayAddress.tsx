@@ -7,7 +7,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {ButtonRow, Column} from '@/components/ui/layout'
+import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
@@ -53,7 +53,7 @@ export const DisplayAddress = ({address}: Props) => {
           ].join(' ')}
         </Paragraph>
       </Column>
-      <ButtonRow>
+      <Row gutter="md" wrap>
         <Button
           iconName="edit"
           label="Wijzig"
@@ -68,7 +68,7 @@ export const DisplayAddress = ({address}: Props) => {
           small
           variant="secondary"
         />
-      </ButtonRow>
+      </Row>
     </Column>
   )
 }

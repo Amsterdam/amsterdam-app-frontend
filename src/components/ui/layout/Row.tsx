@@ -10,11 +10,19 @@ import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
 type Props = {
+  /** The horizontal alignment of the items in the row. */
   align?: MainAxisAlignment
+  /** The content of the row. */
   children: ReactNode
+  /** The amount of horizontal whitespace between the items in the row. */
   gutter?: keyof SpacingTokens
+  /** Whether the items in the row should be reversed. */
   reverse?: boolean
+  /** The vertical alignment of the items in the row. */
   valign?: CrossAxisAlignment
+  /** The amount of vertical whitespace between the items in the row. */
+  vgutter?: keyof SpacingTokens
+  /** Whether the items in the row should wrap to the next line. */
   wrap?: boolean
 } & Pick<FlexStyle, 'flex'>
 
@@ -25,17 +33,18 @@ export const Row = ({
   gutter,
   valign,
   reverse,
+  vgutter,
   wrap,
 }: Props) => {
   const styles = useThemable(
-    createStyles({align, flex, gutter, reverse, valign, wrap}),
+    createStyles({align, flex, gutter, reverse, valign, vgutter, wrap}),
   )
 
   return <View style={styles.row}>{children}</View>
 }
 
 const createStyles =
-  ({align, flex, gutter, reverse, valign, wrap}: Partial<Props>) =>
+  ({align, flex, gutter, reverse, valign, vgutter, wrap}: Partial<Props>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       row: {
@@ -46,5 +55,9 @@ const createStyles =
         justifyContent: mapMainAxisAlignment(align),
         alignItems: mapCrossAxisAlignment(valign),
         columnGap: gutter && size.spacing[gutter],
+        rowGap:
+          (wrap && vgutter && size.spacing[vgutter]) ||
+          (wrap && gutter && size.spacing[gutter]) ||
+          undefined,
       },
     })

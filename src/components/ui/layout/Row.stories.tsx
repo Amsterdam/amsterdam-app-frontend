@@ -1,5 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {Block, Canvas} from '.storybook/components'
+import {Button} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 
 export default {
@@ -19,4 +20,25 @@ export const Default: ComponentStory<typeof Row> = args => (
 Default.args = {
   align: 'start',
   gutter: 'md',
+  wrap: false,
+}
+
+export const Wrapping: ComponentStory<typeof Button & typeof Row> = args => (
+  /**
+   * Zet `wrap` aan om de items in een rij automatisch over meerdere regels te laten vallen.
+   * De `gutter` wordt dan gebruikt als verticale ruimte tussen de items.
+   * Je kunt de verticale ruimte tussen de items ook apart instellen met `vgutter`.
+   */
+  <Canvas highlight maxWidth="24rem">
+    <Row {...args}>
+      <Button label="Wijzig adres" />
+      <Button label="Voeg adres toe" variant="secondary" />
+      <Button label="Verwijder adres" variant="secondary" />
+    </Row>
+  </Canvas>
+)
+
+Wrapping.args = {
+  gutter: 'md',
+  wrap: true,
 }
