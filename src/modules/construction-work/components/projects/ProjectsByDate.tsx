@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {
   ProjectsList,
   ProjectsListHeader,
@@ -5,10 +6,10 @@ import {
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useSortProjects} from '@/modules/construction-work/hooks'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
 
 export const ProjectsByDate = () => {
+  const [page, setPage] = useState(1)
   const result = useGetProjectsQuery({
     articles_max_age: recentArticleMaxAge,
     fields: [
@@ -20,16 +21,12 @@ export const ProjectsByDate = () => {
       'subtitle',
       'title',
     ],
-    sortBy: 'publication_date',
-    sortOrder: 'desc',
+    page,
   })
-
-  const sortedProjects = useSortProjects(result.data)
 
   return (
     <ProjectsList
       {...result}
-      data={sortedProjects}
       getProjectTraits={({followed, recent_articles}) => ({
         followed,
         recent_articles,
@@ -40,6 +37,7 @@ export const ProjectsByDate = () => {
           <ProvideAddressButton />
         </ProjectsListHeader>
       }
+      onEndReached={() => setPage(page + 1)}
     />
   )
 }

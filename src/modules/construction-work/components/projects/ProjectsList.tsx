@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {FlatGrid} from 'react-native-super-grid'
+import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui/containers'
@@ -106,6 +106,7 @@ type Props = {
   isLoading: boolean
   listHeader?: JSX.Element
   noResultsMessage?: string
+  onEndReached?: FlatGridProps<ProjectsItem>['onEndReached']
   searchText?: string | undefined
 }
 
@@ -114,6 +115,7 @@ export const ProjectsList = ({
   getProjectTraits,
   isError,
   isLoading,
+  onEndReached,
   searchText = undefined,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
@@ -153,6 +155,8 @@ export const ProjectsList = ({
         ) : null
       }
       ListHeaderComponent={listHeader}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
       renderItem={({item}) => (
         <ListItem
           getProjectTraits={getProjectTraits}

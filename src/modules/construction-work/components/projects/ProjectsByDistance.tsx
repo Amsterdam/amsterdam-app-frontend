@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
@@ -6,7 +7,6 @@ import {
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useSortProjects} from '@/modules/construction-work/hooks'
 import {useGetProjectsQuery} from '@/modules/construction-work/service'
 
 type Props = {
@@ -19,6 +19,7 @@ export const ProjectsByDistance = ({
     adres: addressText,
   },
 }: Props) => {
+  const [page, setPage] = useState(1)
   const result = useGetProjectsQuery({
     address: lat && lon ? '' : addressText,
     articles_max_age: recentArticleMaxAge,
@@ -32,15 +33,12 @@ export const ProjectsByDistance = ({
     ],
     lat,
     lon,
-    sortBy: 'meter',
+    page,
   })
-
-  const sortedProjects = useSortProjects(result.data)
 
   return (
     <ProjectsList
       {...result}
-      data={sortedProjects}
       getProjectTraits={({followed, meter, recent_articles, strides}) => ({
         followed,
         meter,
@@ -59,6 +57,7 @@ export const ProjectsByDistance = ({
         </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden dichtbij dit adres."
+      onEndReached={() => setPage(page + 1)}
     />
   )
 }
