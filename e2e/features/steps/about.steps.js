@@ -2,6 +2,7 @@ import {expect} from 'detox'
 import {autoBindSteps, loadFeatures} from 'jest-cucumber'
 import AboutScreen from '../screens/about.screen'
 import HomeScreen from '../screens/home.screen'
+import WelcomeScreen from '../screens/welcome.screen'
 
 const features = loadFeatures('e2e/features/about.feature', {
   tagFilter: '@included and not @excluded',
@@ -10,10 +11,7 @@ const features = loadFeatures('e2e/features/about.feature', {
 const aboutSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
     await device.launchApp({newInstance: true})
-    await waitFor(element(by.id('WelcomePressableImageAndQuote')))
-      .toBeVisible()
-      .withTimeout(10000)
-    await element(by.id('WelcomePressableImageAndQuote')).tap()
+    await WelcomeScreen.tapWelcomeScreen()
     await HomeScreen.tapModule('Over deze app')
   })
 
