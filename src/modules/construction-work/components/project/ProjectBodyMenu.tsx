@@ -83,6 +83,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
                 headerTitle: project.title,
               })
             }
+            testID={option.testID}
           />
         )
       })}
