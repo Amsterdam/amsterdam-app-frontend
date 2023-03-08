@@ -18,7 +18,7 @@ export const ProjectsByDate = () => {
     () => Math.floor(((index ?? 0) * itemsPerRow + 1) / pageSize) + 1,
     [index, itemsPerRow],
   )
-  const result = useInfiniteScroller('date', page, pageSize)
+  const result = useInfiniteScroller(page, pageSize)
 
   const onViewableItemsChanged = useCallback<
     NonNullable<FlatGridProps<ProjectsItem>['onViewableItemsChanged']>
@@ -32,7 +32,15 @@ export const ProjectsByDate = () => {
     }
   }, [])
 
-  console.log(page)
+  const getProjectTraits: (project: ProjectsItem) => Partial<ProjectsItem> =
+    useCallback(
+      ({followed, recent_articles}) => ({
+        followed,
+        recent_articles,
+      }),
+      [],
+    )
+
   if (!result?.data) {
     return null
   }
@@ -40,10 +48,7 @@ export const ProjectsByDate = () => {
   return (
     <ProjectsList
       {...result}
-      getProjectTraits={({followed, recent_articles}) => ({
-        followed,
-        recent_articles,
-      })}
+      getProjectTraits={getProjectTraits}
       listHeader={
         <ProjectsListHeader>
           <SearchFieldNavigator />

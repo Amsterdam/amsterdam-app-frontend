@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useSelector} from 'react-redux'
+import {Address} from '@/modules/address'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
   projectsApi,
@@ -24,13 +25,13 @@ const emptyProjectsItem = {
   score: 0,
   source_url: '',
   strides: 0,
-  subtitle: null,
-  title: 'lbgtrt',
+  subtitle: ' ',
+  title: ' ',
 }
 
 const getEmptyProjectsItems = (length: number, baseIndex: number) =>
   length > 0
-    ? new Array<ProjectsItem>(length)
+    ? Array<ProjectsItem>(length)
         .fill(emptyProjectsItem)
         .map((el, index) => ({
           ...el,
@@ -39,12 +40,25 @@ const getEmptyProjectsItems = (length: number, baseIndex: number) =>
     : []
 
 export const useInfiniteScroller = (
-  type: 'date' | 'distance',
   page = 1,
   pageSize = 10,
+  address?: Address,
 ) => {
   const reduxState = useSelector((state: RootState) => state)
+
+  const {
+    centroid: [lon = 0, lat = 0],
+    adres: addressText,
+  } = address ?? {centroid: []}
+  const addressParams = address
+    ? {
+        address: lat && lon ? '' : addressText,
+        lat,
+        lon,
+      }
+    : {}
   const queryParams = {
+    ...addressParams,
     articles_max_age: recentArticleMaxAge,
     fields: [
       'followed',
@@ -80,27 +94,31 @@ export const useInfiniteScroller = (
     currentData?.page.totalElements ??
     nextData?.page.totalElements ??
     0
+  const totalPages =
+    previousData?.page.totalPages ??
+    currentData?.page.totalPages ??
+    nextData?.page.totalPages ??
+    page + 1
 
-  const emptyPreviousElementsLength = (page - 2) * pageSize
-  const emptyNextElementsLength = totalElements - page * pageSize
-
-  const result = {
+  return {
     data: [
-      ...new Array(page + 1).reduce<ProjectsItem[]>(
-        (acc, _s, index) => [
-          ...acc,
-          ...(projectsApi.endpoints.getProjects.select({
+      ...Array(totalPages)
+        .fill({})
+        .reduce<ProjectsItem[]>((acc, _s, index) => {
+          const data = projectsApi.endpoints.getProjects.select({
             ...queryParams,
             page: index + 1,
-          })(reduxState).data?.result ?? []),
-        ],
-        [],
-      ),
-      ...getEmptyProjectsItems(emptyNextElementsLength, totalElements),
+          })(reduxState).data
+          const pageData =
+            data?.result ??
+            getEmptyProjectsItems(
+              Math.min(pageSize, totalElements - index * pageSize),
+              index * pageSize,
+            )
+          return [...acc, ...pageData]
+        }, []),
     ],
     isError: false,
     isLoading: false,
   }
-
-  return result
 }

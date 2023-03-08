@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
+import {FlatGridProps} from 'react-native-super-grid'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
@@ -6,45 +7,53 @@ import {
   ProjectsListHeader,
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
-import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useGetProjectsQuery} from '@/modules/construction-work/service'
+import {useInfiniteScroller} from '@/modules/construction-work/hooks'
+import {ProjectsItem} from '@/modules/construction-work/types'
+
+const pageSize = 20
 
 type Props = {
   address: Address
 }
 
-export const ProjectsByDistance = ({
-  address: {
-    centroid: [lon = 0, lat = 0],
-    adres: addressText,
-  },
-}: Props) => {
-  const [page, setPage] = useState(1)
-  const result = useGetProjectsQuery({
-    address: lat && lon ? '' : addressText,
-    articles_max_age: recentArticleMaxAge,
-    fields: [
-      'followed',
-      'identifier',
-      'images',
-      'recent_articles',
-      'subtitle',
-      'title',
-    ],
-    lat,
-    lon,
-    page,
-  })
+export const ProjectsByDistance = ({address}: Props) => {
+  const [itemsPerRow, setItemsPerRow] = useState(1)
+  const [index, setIndex] = useState(1)
+  const page = useMemo(
+    () => Math.floor(((index ?? 0) * itemsPerRow + 1) / pageSize) + 1,
+    [index, itemsPerRow],
+  )
+  const result = useInfiniteScroller(page, pageSize, address)
 
-  return (
-    <ProjectsList
-      {...result}
-      getProjectTraits={({followed, meter, recent_articles, strides}) => ({
+  const onViewableItemsChanged = useCallback<
+    NonNullable<FlatGridProps<ProjectsItem>['onViewableItemsChanged']>
+  >(({viewableItems}) => {
+    if (viewableItems.length > 0) {
+      const middleIndex = Math.floor(viewableItems.length / 2)
+      const foundIndex = viewableItems[middleIndex].index
+      if (foundIndex) {
+        setIndex(foundIndex)
+      }
+    }
+  }, [])
+
+  const {adres: addressText} = address
+
+  const getProjectTraits: (project: ProjectsItem) => Partial<ProjectsItem> =
+    useCallback(
+      ({followed, meter, recent_articles, strides}) => ({
         followed,
         meter,
         recent_articles,
         strides,
-      })}
+      }),
+      [],
+    )
+
+  return (
+    <ProjectsList
+      {...result}
+      getProjectTraits={getProjectTraits}
       listHeader={
         <ProjectsListHeader>
           <SearchFieldNavigator />
@@ -57,7 +66,8 @@ export const ProjectsByDistance = ({
         </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden dichtbij dit adres."
-      onEndReached={() => setPage(page + 1)}
+      onItemsPerRowChange={value => setItemsPerRow(value)}
+      onViewableItemsChanged={onViewableItemsChanged}
     />
   )
 }
