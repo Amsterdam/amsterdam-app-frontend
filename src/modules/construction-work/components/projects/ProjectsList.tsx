@@ -107,6 +107,8 @@ type Props = {
   listHeader?: JSX.Element
   noResultsMessage?: string
   onEndReached?: FlatGridProps<ProjectsItem>['onEndReached']
+  onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
+  onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']
   searchText?: string | undefined
 }
 
@@ -116,6 +118,8 @@ export const ProjectsList = ({
   isError,
   isLoading,
   onEndReached,
+  onItemsPerRowChange,
+  onViewableItemsChanged,
   searchText = undefined,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
@@ -157,6 +161,8 @@ export const ProjectsList = ({
       ListHeaderComponent={listHeader}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
+      onItemsPerRowChange={onItemsPerRowChange}
+      onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
         <ListItem
           getProjectTraits={getProjectTraits}
