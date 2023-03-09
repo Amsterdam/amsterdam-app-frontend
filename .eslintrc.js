@@ -17,6 +17,7 @@ module.exports = {
   ignorePatterns: ['!.storybook', '!.*', 'node_modules'],
   rules: {
     'import/no-default-export': 'error',
+    'import/no-cycle': 2,
     'import/order': [
       'error',
       {
