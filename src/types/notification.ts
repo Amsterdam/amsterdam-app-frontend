@@ -1,5 +1,3 @@
-import {ListQueryArg} from '@/types'
-
 export type NotificationQueryArg = {
   body: string
   news_identifier?: string
