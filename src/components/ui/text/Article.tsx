@@ -158,7 +158,8 @@ const createFontList = ({text}: Theme): string[] => [
 const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({
   ul: {
     markerBoxStyle: {
-      paddingRight: text.fontSize.body / 3,
+      paddingLeft: text.fontSize.body,
+      paddingRight: text.fontSize.body - 6,
       paddingTop: (text.lineHeight.body * text.fontSize.body) / 5,
     },
   },
