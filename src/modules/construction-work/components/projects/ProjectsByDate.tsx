@@ -55,7 +55,7 @@ export const ProjectsByDate = () => {
           <ProvideAddressButton />
         </ProjectsListHeader>
       }
-      onItemsPerRowChange={value => setItemsPerRow(value)}
+      onItemsPerRowChange={setItemsPerRow}
       onViewableItemsChanged={onViewableItemsChanged}
     />
   )
