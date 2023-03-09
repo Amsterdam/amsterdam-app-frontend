@@ -34,6 +34,7 @@ export const StreetInput = ({
         }}
         placeholder="Vul uw straatnaam in"
         ref={inputStreetRef}
+        testID="AddressStreetInputSearchField"
         value={street}
       />
       <KeyboardAwareScrollView
