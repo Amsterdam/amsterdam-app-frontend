@@ -20,9 +20,9 @@ export const useConstructionWorkEditor = () => {
   const selectAuthProjects = useMemo(
     () =>
       createSelector(
-        (result: {data?: ProjectsItem[]}) => result.data,
-        data =>
-          data?.filter(
+        (result: ProjectsItem[] | undefined) => result,
+        result =>
+          result?.filter(
             project =>
               projectManager?.projects.includes(project.identifier) ?? [],
           ),
@@ -42,7 +42,7 @@ export const useConstructionWorkEditor = () => {
     {
       selectFromResult: result => ({
         ...result,
-        authorizedProjects: selectAuthProjects(result),
+        authorizedProjects: selectAuthProjects(result.data?.result),
       }),
       skip: !projectManager,
     },
