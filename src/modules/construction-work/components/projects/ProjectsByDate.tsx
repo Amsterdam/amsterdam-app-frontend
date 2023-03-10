@@ -1,6 +1,7 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
 import {
+  config,
   ProjectsList,
   ProjectsListHeader,
   ProvideAddressButton,
@@ -9,16 +10,16 @@ import {
 import {useInfiniteScroller} from '@/modules/construction-work/hooks'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
-const pageSize = 20
-
 export const ProjectsByDate = () => {
+  const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
-  const [index, setIndex] = useState(1)
-  const page = useMemo(
-    () => Math.floor(((index ?? 0) * itemsPerRow + 1) / pageSize) + 1,
-    [index, itemsPerRow],
-  )
-  const result = useInfiniteScroller(page, pageSize)
+  const [viewableItemIndex, setViewableItemIndex] = useState(1)
+
+  const page =
+    Math.floor(
+      ((viewableItemIndex ?? 0) * itemsPerRow + 1) / projectItemListPageSize,
+    ) + 1
+  const result = useInfiniteScroller(page, projectItemListPageSize)
 
   const onViewableItemsChanged = useCallback<
     NonNullable<FlatGridProps<ProjectsItem>['onViewableItemsChanged']>
@@ -27,7 +28,7 @@ export const ProjectsByDate = () => {
       const middleIndex = Math.floor(viewableItems.length / 2)
       const foundIndex = viewableItems[middleIndex].index
       if (foundIndex) {
-        setIndex(foundIndex)
+        setViewableItemIndex(foundIndex)
       }
     }
   }, [])
