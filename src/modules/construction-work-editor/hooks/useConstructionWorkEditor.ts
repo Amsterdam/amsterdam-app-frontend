@@ -20,7 +20,7 @@ export const useConstructionWorkEditor = () => {
   const selectAuthProjects = useMemo(
     () =>
       createSelector(
-        (result: ProjectsItem[] | undefined) => result,
+        (result?: ProjectsItem[]) => result,
         result =>
           result?.filter(
             project =>
