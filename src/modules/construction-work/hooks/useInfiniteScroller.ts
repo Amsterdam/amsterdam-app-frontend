@@ -101,23 +101,25 @@ export const useInfiniteScroller = (
     page + 1
 
   return {
-    data: [
-      ...Array(totalPages)
-        .fill({})
-        .reduce<ProjectsItem[]>((acc, _s, index) => {
-          const data = projectsApi.endpoints.getProjects.select({
-            ...queryParams,
-            page: index + 1,
-          })(reduxState).data
-          const pageData =
-            data?.result ??
-            getEmptyProjectsItems(
-              Math.min(pageSize, totalElements - index * pageSize),
-              index * pageSize,
-            )
-          return [...acc, ...pageData]
-        }, []),
-    ],
+    // create an array of pages with data
+    data: Array(totalPages)
+      // fill the array with empty values
+      .fill({})
+      // map over the array and fill it with data
+      .reduce<ProjectsItem[]>((acc, _s, index) => {
+        const data = projectsApi.endpoints.getProjects.select({
+          ...queryParams,
+          page: index + 1,
+        })(reduxState).data
+        // if there is no data, fill the page with empty items
+        const pageData =
+          data?.result ??
+          getEmptyProjectsItems(
+            Math.min(pageSize, totalElements - index * pageSize),
+            index * pageSize,
+          )
+        return [...acc, ...pageData]
+      }, []),
     isError: false,
     isLoading: false,
   }
