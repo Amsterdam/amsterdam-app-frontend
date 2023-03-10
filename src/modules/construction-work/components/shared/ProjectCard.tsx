@@ -57,7 +57,6 @@ export const ProjectCard = memo(
           {!!Kicker && (
             <>
               <Kicker />
-              {/* {Kicker} */}
               <Gutter height="xs" />
             </>
           )}
