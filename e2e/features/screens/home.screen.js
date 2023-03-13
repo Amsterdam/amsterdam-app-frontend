@@ -11,32 +11,32 @@ class HomeScreen extends Screen {
   // HomeModuleButtonReportProblem,
   // HomeModuleButtonWasteGuide,
   // welcomeModule,
-  get HomeModuleButtonWasteGuide() {
-    return element(by.id('HomeModuleButtonWasteGuide'))
+  get HomeWasteGuideModuleButton() {
+    return element(by.id('HomeWasteGuideModuleButton'))
   }
 
-  get HomeModuleButtonOpenWasteContainer() {
-    return element(by.id('HomeModuleButtonOpenWasteContainer'))
+  get HomeOpenWasteContainerModuleButton() {
+    return element(by.id('HomeOpenWasteContainerModuleButton'))
   }
 
-  get HomeModuleButtonConstructionWork() {
-    return element(by.id('HomeModuleButtonConstructionWork'))
+  get HomeConstructionWorkModuleButton() {
+    return element(by.id('HomeConstructionWorkModuleButton'))
   }
 
-  get HomeModuleButtonReportProblem() {
-    return element(by.id('HomeModuleButtonReportProblem'))
+  get HomeReportProblemModuleButton() {
+    return element(by.id('HomeReportProblemModuleButton'))
   }
 
-  get HomeModuleButtonContact() {
-    return element(by.id('HomeModuleButtonContact'))
+  get HomeContactModuleButton() {
+    return element(by.id('HomeContactModuleButton'))
   }
 
-  get HomeModuleButtonRedirects() {
-    return element(by.id('HomeModuleButtonRedirects'))
+  get HomeRedirectsModuleButton() {
+    return element(by.id('HomeRedirectsModuleButton'))
   }
 
-  get HomeModuleButtonAbout() {
-    return element(by.id('HomeModuleButtonAbout'))
+  get HomeAboutModuleButton() {
+    return element(by.id('HomeAboutModuleButton'))
   }
 
   async verifyHomeScreen() {
@@ -46,63 +46,63 @@ class HomeScreen extends Screen {
   async tapModule(module) {
     switch (module) {
       case 'Afvalwijzer':
-        await waitFor(this.HomeModuleButtonWasteGuide)
+        await waitFor(this.HomeWasteGuideModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonWasteGuide.tap()
+        await this.HomeWasteGuideModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Afvalwijzer')
         break
       case 'Gft-container openen':
-        await waitFor(this.HomeModuleButtonOpenWasteContainer)
+        await waitFor(this.HomeOpenWasteContainerModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonOpenWasteContainer.tap()
+        await this.HomeOpenWasteContainerModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Gft-container openen')
         break
       case 'Werkzaamheden':
-        await waitFor(this.HomeModuleButtonConstructionWork)
+        await waitFor(this.HomeConstructionWorkModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonConstructionWork.tap()
+        await this.HomeConstructionWorkModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Werkzaamheden')
         break
       case 'Melding doen':
-        await waitFor(this.HomeModuleButtonReportProblem)
+        await waitFor(this.HomeReportProblemModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonReportProblem.tap()
+        await this.HomeReportProblemModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Melding doen')
         break
       case 'Contact':
-        await waitFor(this.HomeModuleButtonContact)
+        await waitFor(this.HomeContactModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonContact.tap()
+        await this.HomeContactModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Contact')
         break
       case 'Direct regelen':
-        await waitFor(this.HomeModuleButtonRedirects)
+        await waitFor(this.HomeRedirectsModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonRedirects.tap()
+        await this.HomeRedirectsModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Direct regelen')
         break
       case 'Over deze app':
-        await waitFor(this.HomeModuleButtonAbout)
+        await waitFor(this.HomeAboutModuleButton)
           .toBeVisible()
           .withTimeout(2000)
-        await this.HomeModuleButtonAbout.tap()
+        await this.HomeAboutModuleButton.tap()
         await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
         await expect(this.HeaderTitle).toHaveText('Over deze app')
         break
       default:
-        assert.fail(`The entered section ${module} is an invalid module`)
+        assert.fail(`The entered section ‘${module}’ is an invalid module`)
     }
   }
 }
