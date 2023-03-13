@@ -1,177 +1,170 @@
 import {assert} from 'chai'
 import Screen from './screen'
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class ContactScreen extends Screen {
-  /**
-   * define selectors using getter methods
-   */
-
-  get ContactTitleContactOptions() {
+  get contactOptionsTitle() {
     return element(by.id('ContactTitleContactOptions'))
   }
 
-  get ContactTextContactOptions() {
+  get contactOptionsIntroParagraph() {
     return element(by.id('ContactTextContactOptions'))
   }
 
-  get ContactButtonContactform() {
+  get contactFormButton() {
     return element(by.id('ContactButtonContactform'))
   }
 
-  get ContactButtonPhone() {
+  get phoneButton() {
     return element(by.id('ContactButtonPhone'))
   }
 
-  get ContactButtonWhatsapp() {
+  get whatsAppButton() {
     return element(by.id('ContactButtonWhatsapp'))
   }
 
-  get ContactButtonMyAmsterdam() {
+  get mijnAmsterdamButton() {
     return element(by.id('ContactButtonMyAmsterdam'))
   }
 
-  get ContactTitleVisit() {
+  get visitUsTitle() {
     return element(by.id('ContactTitleVisit'))
   }
 
-  get ContactButtonCurrentCityOffice() {
+  get currentCityOfficeButton() {
     return element(by.id('ContactButtonCurrentCityOffice'))
   }
 
-  get ContactButtonCurrentCityOfficeTitle() {
+  get currentCityOfficeTitle() {
     return element(by.id('ContactButtonCurrentCityOfficeTitle'))
   }
 
-  get ContactTextVisitingHours() {
+  get visitingHoursParagraph() {
     return element(by.id('ContactTextVisitingHours'))
   }
 
-  get ContactButtonVisitingHoursDetails() {
+  get visitingHoursTooltipButton() {
     return element(by.id('ContactButtonVisitingHoursDetails'))
   }
 
-  get ContactButtonRoute() {
+  get seeRouteButton() {
     return element(by.id('ContactButtonRoute'))
   }
 
-  get ContactTextAppointment() {
+  get makeAppointmentParagraph() {
     return element(by.id('ContactTextAppointment'))
   }
 
-  get ContactButtonMakeAppointment() {
+  get makeAppointmentButton() {
     return element(by.id('ContactButtonMakeAppointment'))
   }
 
-  get ContactButtonCityOfficeCentrum() {
+  get cityOfficeCentrumButton() {
     return element(
       by.id('ContactButtonCityOfficee9871a7716da02a4c20cfb06f9547005'),
     )
   }
 
-  get ContactButtonCityOfficeNW() {
+  get cityOfficeNieuwWestButton() {
     return element(
       by.id('ContactButtonCityOffice5d9637689a8b902fa1a13acdf0006d26'),
     )
   }
 
-  get ContactButtonCityOfficeNoord() {
+  get cityOfficeNoordButton() {
     return element(
       by.id('ContactButtonCityOffice081d6a38f46686905693fcd6087039f5'),
     )
   }
 
-  get ContactButtonCityOfficeOost() {
+  get cityOfficeOostButton() {
     return element(
       by.id('ContactButtonCityOffice29e3b63d09d1f0c9a9c7238064c70790'),
     )
   }
 
-  get ContactButtonCityOfficeWest() {
+  get cityOfficeWestButton() {
     return element(
       by.id('ContactButtonCityOfficeb4b178107cbc0c609d8d190bbdbdfb08'),
     )
   }
 
-  get ContactButtonCityOfficeZuid() {
+  get cityOfficeZuidButton() {
     return element(
       by.id('ContactButtonCityOfficeb887a4d081821c4245c02f07e2de3290'),
     )
   }
 
-  get ContactButtonCityOfficeZO() {
+  get cityOfficeZuidoostButton() {
     return element(
       by.id('ContactButtonCityOfficed338d28f8e6132ea2cfcf3e61785454c'),
     )
   }
 
-  get ContactButtonCityOfficeWeesp() {
+  get cityOfficeWeespButton() {
     return element(
       by.id('ContactButtonCityOffice5ae1d0dd98a417fbf6772aeec85cb40f'),
     )
   }
 
-  async checkStadsloketList(stadsloket) {
-    switch (stadsloket) {
+  async checkCityOfficesList(title) {
+    switch (title) {
       case 'Centrum':
-        await expect(this.ContactButtonCityOfficeCentrum).toExist()
+        await expect(this.cityOfficeCentrumButton).toExist()
         break
       case 'Nieuw-West':
-        await expect(this.ContactButtonCityOfficeNW).toExist()
+        await expect(this.cityOfficeNieuwWestButton).toExist()
         break
       case 'Noord':
-        await expect(this.ContactButtonCityOfficeNoord).toExist()
+        await expect(this.cityOfficeNoordButton).toExist()
         break
       case 'Oost':
-        await expect(this.ContactButtonCityOfficeOost).toExist()
+        await expect(this.cityOfficeOostButton).toExist()
         break
       case 'West':
-        await expect(this.ContactButtonCityOfficeWest).toExist()
+        await expect(this.cityOfficeWestButton).toExist()
         break
       case 'Zuid':
-        await expect(this.ContactButtonCityOfficeZuid).toExist()
+        await expect(this.cityOfficeZuidButton).toExist()
         break
-      case 'ZuidOost':
-        await expect(this.ContactButtonCityOfficeZO).toExist()
+      case 'Zuidoost':
+        await expect(this.cityOfficeZuidoostButton).toExist()
         break
       case 'Weesp':
-        await expect(this.ContactButtonCityOfficeWeesp).toExist()
+        await expect(this.cityOfficeWeespButton).toExist()
         break
       default:
-        assert.fail(`${stadsloket} is an invalid value`)
+        assert.fail(`Invalid city office title ‘${title}’`)
     }
   }
 
-  async clickStadsloket(stadsloket) {
-    switch (stadsloket) {
+  async tapCityOfficeButton(title) {
+    switch (title) {
       case 'Centrum':
-        await this.ContactButtonCityOfficeCentrum.tap()
+        await this.cityOfficeCentrumButton.tap()
         break
       case 'Nieuw-West':
-        await this.ContactButtonCityOfficeNW.tap()
+        await this.cityOfficeNieuwWestButton.tap()
         break
       case 'Noord':
-        await this.ContactButtonCityOfficeNoord.tap()
+        await this.cityOfficeNoordButton.tap()
         break
       case 'Oost':
-        await this.ContactButtonCityOfficeOost.tap()
+        await this.cityOfficeOostButton.tap()
         break
       case 'West':
-        await this.ContactButtonCityOfficeWest.tap()
+        await this.cityOfficeWestButton.tap()
         break
       case 'Zuid':
-        await this.ContactButtonCityOfficeZuid.tap()
+        await this.cityOfficeZuidButton.tap()
         break
       case 'Zuidoost':
-        await this.ContactButtonCityOfficeZO.tap()
+        await this.cityOfficeZuidoostButton.tap()
         break
       case 'Weesp':
-        await this.ContactButtonCityOfficeWeesp.tap()
+        await this.cityOfficeWeespButton.tap()
         break
       default:
-        assert.fail(`${stadsloket} is an invalid value`)
+        assert.fail(`Invalid city office title ‘${title}’`)
     }
   }
 }

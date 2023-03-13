@@ -32,7 +32,7 @@ export const ContactScreen = () => {
           </HorizontalSafeArea>
         </BottomSheet>
       }
-      testID="ContactScreenContact">
+      testID="ContactScreen">
       <ContactOptions />
       <CityOffice />
     </Screen>
