@@ -35,8 +35,8 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   then(/de contact module opent/, async () => {
-    await waitFor(ContactScreen.HeaderTitle).toBeVisible().withTimeout(5000)
-    await expect(ContactScreen.HeaderTitle).toHaveText('Contact')
+    await waitFor(ContactScreen.headerTitle).toBeVisible().withTimeout(5000)
+    await expect(ContactScreen.headerTitle).toHaveText('Contact')
   })
 
   given(/ik ben op het contactscherm/, async () => {
@@ -156,7 +156,7 @@ const contactSteps = ({given, when, then, and}) => {
         0.5,
       )
       await expect(ContactScreen.ContactButtonRoute).toExist()
-      await expect(ContactScreen.HeaderTitle).toBeVisible()
+      await expect(ContactScreen.headerTitle).toBeVisible()
     },
   )
 }

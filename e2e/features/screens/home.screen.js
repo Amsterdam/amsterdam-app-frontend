@@ -50,52 +50,52 @@ class HomeScreen extends Screen {
           .toBeVisible()
           .withTimeout(2000)
         await this.wasteGuideModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Afvalwijzer')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Afvalwijzer')
         break
       case 'Gft-container openen':
         await waitFor(this.openWasteContainerModuleButton)
           .toBeVisible()
           .withTimeout(2000)
         await this.openWasteContainerModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Gft-container openen')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Gft-container openen')
         break
       case 'Werkzaamheden':
         await waitFor(this.constructionWorkModuleButton)
           .toBeVisible()
           .withTimeout(2000)
         await this.constructionWorkModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Werkzaamheden')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Werkzaamheden')
         break
       case 'Melding doen':
         await waitFor(this.reportProblemModuleButton)
           .toBeVisible()
           .withTimeout(2000)
         await this.reportProblemModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Melding doen')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Melding doen')
         break
       case 'Contact':
         await waitFor(this.contactModuleButton).toBeVisible().withTimeout(2000)
         await this.contactModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Contact')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Contact')
         break
       case 'Direct regelen':
         await waitFor(this.redirectsModuleButton)
           .toBeVisible()
           .withTimeout(2000)
         await this.redirectsModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Direct regelen')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Direct regelen')
         break
       case 'Over deze app':
         await waitFor(this.aboutModuleButton).toBeVisible().withTimeout(2000)
         await this.aboutModuleButton.tap()
-        await waitFor(this.HeaderTitle).toBeVisible().withTimeout(2000)
-        await expect(this.HeaderTitle).toHaveText('Over deze app')
+        await waitFor(this.headerTitle).toBeVisible().withTimeout(2000)
+        await expect(this.headerTitle).toHaveText('Over deze app')
         break
       default:
         assert.fail(`The entered section ‘${module}’ is an invalid module`)

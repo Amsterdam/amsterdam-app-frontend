@@ -16,9 +16,9 @@ const aboutSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op het over deze app scherm/, async () => {
-    await expect(AboutScreen.HeaderTitle).toBeVisible()
+    await expect(AboutScreen.headerTitle).toBeVisible()
     await expect(AboutScreen.amsterdamAppTitle).toBeVisible()
-    await expect(AboutScreen.HeaderTitle).toHaveText('Over deze app')
+    await expect(AboutScreen.headerTitle).toHaveText('Over deze app')
     await expect(AboutScreen.amsterdamAppTitle).toHaveText('Amsterdam App')
   })
 
@@ -34,8 +34,8 @@ const aboutSteps = ({given, when, then, and}) => {
   })
 
   then(/ik zie een scherm met uitleg over de app/, async () => {
-    await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
-    await expect(AboutScreen.HeaderTitle).toHaveText('Waarom deze app?')
+    await waitFor(AboutScreen.headerTitle).toBeVisible().withTimeout(2000)
+    await expect(AboutScreen.headerTitle).toHaveText('Waarom deze app?')
     await waitFor(AboutScreen.aboutTheAppDutchTitle)
       .toBeVisible()
       .withTimeout(2000)
@@ -58,8 +58,8 @@ const aboutSteps = ({given, when, then, and}) => {
   })
 
   then(/ik zie een scherm met uitleg over deze app in het Engels/, async () => {
-    await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
-    await expect(AboutScreen.HeaderTitle).toHaveText('About this app')
+    await waitFor(AboutScreen.headerTitle).toBeVisible().withTimeout(2000)
+    await expect(AboutScreen.headerTitle).toHaveText('About this app')
     await waitFor(AboutScreen.aboutTheAppEnglishTitle)
       .toBeVisible()
       .withTimeout(2000)
@@ -92,8 +92,8 @@ const aboutSteps = ({given, when, then, and}) => {
   })
 
   then(/ik zie een scherm met de Privacyverklaring/, async () => {
-    await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
-    await expect(AboutScreen.HeaderTitle).toHaveText('Privacyverklaring')
+    await waitFor(AboutScreen.headerTitle).toBeVisible().withTimeout(2000)
+    await expect(AboutScreen.headerTitle).toHaveText('Privacyverklaring')
     await waitFor(AboutScreen.privacyStatementTitle)
       .toBeVisible()
       .withTimeout(2000)
@@ -114,8 +114,8 @@ const aboutSteps = ({given, when, then, and}) => {
   })
 
   then(/ik zie een scherm met de Toegankelijkheidsverklaring/, async () => {
-    await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
-    await expect(AboutScreen.HeaderTitle).toHaveText(
+    await waitFor(AboutScreen.headerTitle).toBeVisible().withTimeout(2000)
+    await expect(AboutScreen.headerTitle).toHaveText(
       'Toegankelijkheidsverklaring',
     )
   })
