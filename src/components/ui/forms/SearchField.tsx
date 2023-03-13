@@ -2,15 +2,20 @@ import {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  testID: TestID
 } & TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
-  ({onChangeText, onFocus, value = '', ...textInputProps}: Props, ref) => {
+  (
+    {onChangeText, onFocus, testID, value = '', ...textInputProps}: Props,
+    ref,
+  ) => {
     const [hasFocus, setHasFocus] = useState(false)
 
     const styles = useThemable(createStyles({hasFocus}))
@@ -41,6 +46,7 @@ export const SearchField = forwardRef<TextInput, Props>(
           onFocus={handleFocus}
           ref={ref}
           style={styles.textInput}
+          testID={testID}
           textAlignVertical="top"
           value={value}
         />
@@ -49,14 +55,14 @@ export const SearchField = forwardRef<TextInput, Props>(
             accessibilityHint="Maak dit zoekveld leeg"
             icon={<Icon name="close" />}
             onPress={handleClearText}
-            testID="ConstructionWorkSearchFieldButtonClear"
+            testID={testID ? `${testID}ClearButton` : undefined}
           />
         ) : (
           <IconButton
             accessibilityHint="Activeer dit zoekveld"
             icon={<Icon name="search" size="lg" />}
             onPress={handleFocus}
-            testID="ConstructionWorkSearchFieldButtonSearch"
+            testID={testID ? `${testID}SubmitButton` : undefined}
           />
         )}
       </View>

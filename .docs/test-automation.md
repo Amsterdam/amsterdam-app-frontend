@@ -55,4 +55,4 @@ Some components render child components, and they also may need to be targeted. 
 
 Example: a `TopTaskButton` renders an icon, a title and a text. If such a component is given a `testID="CityOfficeButton"`, it will set it, but also add `CityOfficeButtonTitle` and `CityOfficeButtonText` to the `Title` and `Paragraph` components it renders.
 
-Another example: a search field will either display a ‘search’ or a ‘clear’ icon button – so a field with `testID="ConstructionWorkSearchFieldInput"` will also render a `ConstructionWorkSearchFieldInputSearchButton` or `ConstructionWorkSearchFieldInputClearButton`.
+Another example: a search field will either display a ‘submit’ or a ‘clear’ icon button – so an instance with `testID="ConstructionWorkSearchField"` will also render a `ConstructionWorkSearchFieldSubmitButton` or `ConstructionWorkSearchFieldClearButton`.

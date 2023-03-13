@@ -44,9 +44,9 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   when(/ik klik op het zoekveld/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkTextInputNavigator,
+      ConstructionWorkScreen.ConstructionWorkNavigatorSearchField,
     ).toBeVisible()
-    await ConstructionWorkScreen.ConstructionWorkTextInputNavigator.tap()
+    await ConstructionWorkScreen.ConstructionWorkNavigatorSearchField.tap()
   })
 
   then(
@@ -185,7 +185,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
         'Werkzaamheden',
       )
-      await ConstructionWorkScreen.ConstructionWorkTextInputNavigator.tap()
+      await ConstructionWorkScreen.ConstructionWorkNavigatorSearchField.tap()
       await ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField.typeText(
         'Amstel III',
       )

@@ -79,6 +79,7 @@ export const NumberInput = ({
           onChangeText={text => changeNumber(text)}
           placeholder="Vul uw huisnummer in"
           ref={inputRef}
+          testID="AddressNumberInputSearchField"
           value={number}
         />
       </Column>
