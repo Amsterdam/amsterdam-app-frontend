@@ -7,16 +7,9 @@ import {CityOffice} from '@/modules/contact/types'
 import {toggleBottomSheet} from '@/store'
 import {accessibleText} from '@/utils'
 
-type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'> & {
-  testID: string
-}
+type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
-export const NameAndAddress = ({
-  address,
-  addressContent,
-  title,
-  testID,
-}: Props) => {
+export const NameAndAddress = ({address, addressContent, title}: Props) => {
   const dispatch = useDispatch()
 
   return (
@@ -25,6 +18,7 @@ export const NameAndAddress = ({
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
         onPress={() => dispatch(toggleBottomSheet())}
+        testID="ContactCurrentCityOfficeButton"
         text={
           <SingleSelectable
             accessibilityLabel={accessibleText(
@@ -40,8 +34,8 @@ export const NameAndAddress = ({
             </Phrase>
           </SingleSelectable>
         }
+        title={title}
         titleIconName="chevron-down"
-        {...{title, testID}}
       />
       {!!addressContent && (
         <>

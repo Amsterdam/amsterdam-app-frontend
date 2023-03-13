@@ -49,10 +49,7 @@ export const CityOffice = () => {
       <Column gutter="md">
         <Title level="h2" testID="ContactVisitUsTitle" text="Bezoek ons" />
         <Image source={mapImageSources(image.sources, environment)} />
-        <NameAndAddress
-          {...{address, addressContent, title}}
-          testID="ContactCurrentCityOfficeButton"
-        />
+        <NameAndAddress {...{address, addressContent, title}} />
         <VisitingHours
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}

@@ -97,21 +97,21 @@ const contactSteps = ({given, when, then, and}) => {
     await expect(ContactScreen.cityOfficeWeespButton).toExist()
   })
 
-  when(/^ik selecteer een stadsloket (.*)$/, async stadsloket => {
-    await ContactScreen.tapCityOfficeButton(stadsloket)
+  when(/^ik selecteer een stadsloket (.*)$/, async title => {
+    await ContactScreen.tapCityOfficeButton(title)
     // await expect(ContactScreen.ContactCurrentCityOfficeButton).toHaveLabel(adres)
   })
 
-  then(/^het juiste stadsloket wordt getoond (.*)$/, async titel => {
+  then(/^het juiste stadsloket wordt getoond (.*)$/, async title => {
     // await expect(ContactScreen.ContactCurrentCityOfficeTitle).toExist()
-    await expect(ContactScreen.currentCityOfficeTitle).toHaveText(titel)
+    await expect(ContactScreen.currentCityOfficeButtonTitle).toHaveText(title)
   })
 
   and(/de bekijk routeknop wordt getoond/, async () => {
     await waitFor(ContactScreen.currentCityOfficeButton)
       .toBeVisible()
       .withTimeout(10000)
-    await new Promise(r => setTimeout(r, 2000)) //explicit timeout, otherwise swipe functionality doesn't work
+    await new Promise(r => setTimeout(r, 2000)) // explicit timeout makes swipe functionality work
     await ContactScreen.currentCityOfficeButton.swipe('up')
     await expect(ContactScreen.seeRouteButton).toBeVisible()
   })

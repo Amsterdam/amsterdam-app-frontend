@@ -34,8 +34,8 @@ class ContactScreen extends Screen {
     return element(by.id('ContactCurrentCityOfficeButton'))
   }
 
-  get currentCityOfficeTitle() {
-    return element(by.id('ContactCurrentCityOfficeTitle'))
+  get currentCityOfficeButtonTitle() {
+    return element(by.id('ContactCurrentCityOfficeButtonTitle'))
   }
 
   get visitingHoursParagraph() {
