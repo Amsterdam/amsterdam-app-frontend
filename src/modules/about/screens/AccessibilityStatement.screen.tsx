@@ -11,24 +11,31 @@ const appEmail = 'app@amsterdam.nl'
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useContext(DeviceContext)
   return (
-    <Screen testID="AboutScreenAccessibilityStatement">
+    <Screen testID="AboutAccessibilityStatementScreen">
       <Box>
         <Column gutter="lg">
           <Column gutter="md">
             <Title
               accessibilityLabel="Toegankelijkheidsverklaring"
+              testID="AboutAccessibilityStatementTitle"
               text={`Toegankelijkheids${
                 isPortrait && !isTablet ? '-\n' : ''
               }verklaring`}
             />
-            <Paragraph variant="intro">
+            <Paragraph
+              testID="AboutAccessibilityStatementIntroParagraph"
+              variant="intro">
               De gemeente Amsterdam wil dat iedereen de Amsterdam app kan
               gebruiken.
             </Paragraph>
           </Column>
           <Column gutter="md">
-            <Title level="h2" text="Genomen maatregelen" />
-            <Paragraph>
+            <Title
+              level="h2"
+              testID="AboutAccessibilityStatementMeasuresTitle"
+              text="Genomen maatregelen"
+            />
+            <Paragraph testID="AboutAccessibilityStatementMeasuresParagraph">
               Iedereen moet apps van de overheid kunnen gebruiken. Dit doen wij
               om de Amsterdam app toegankelijk te maken en te houden voor
               iedereen:
@@ -49,6 +56,7 @@ export const AccessibilityStatementScreen = () => {
           <Column gutter="md">
             <Title
               level="h2"
+              testID="AboutAccessibilityStatementInaccessibleTitle"
               text="Onderdelen die nog niet toegankelijk zijn"
             />
             <List
@@ -58,11 +66,16 @@ export const AccessibilityStatementScreen = () => {
                 'Donkere modus wordt nog niet ondersteund.',
                 "In de Amsterdam app worden webpagina's getoond binnen een 'webview'. De webpagina's binnen de webview zijn niet volledig toegankelijk.",
               ]}
+              testID="AboutAccessibilityStatementInaccessibleList"
             />
           </Column>
           <Column gutter="md">
-            <Title level="h2" text="Werkt iets niet?" />
-            <Paragraph>
+            <Title
+              level="h2"
+              testID="AboutAccessibilityStatementSomehtingBrokenTitle"
+              text="Werkt iets niet?"
+            />
+            <Paragraph testID="AboutAccessibilityStatementSomehtingBrokenParagraph">
               Komt u nog een scherm tegen die u niet kunt lezen of gebruiken?
               Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
@@ -79,13 +92,17 @@ export const AccessibilityStatementScreen = () => {
                 onPress={() => {
                   openMailUrl(appEmail, 'Iets werkt niet in de Amsterdam app')
                 }}
-                testID="AboutButtonEmailSomethingBroken"
+                testID="AboutAccessibilityStatementSomethingBrokenButton"
               />
             </Row>
           </Column>
           <Column gutter="md">
-            <Title level="h2" text="Wat kunt u van ons verwachten?" />
-            <Paragraph>
+            <Title
+              level="h2"
+              testID="AboutAccessibilityStatementResponseExpectationsTitle"
+              text="Wat kunt u van ons verwachten?"
+            />
+            <Paragraph testID="AboutAccessibilityStatementResponseExpectationsParagraph">
               Binnen 5 werkdagen krijgt u een ontvangstbevestiging.
             </Paragraph>
             <Paragraph>

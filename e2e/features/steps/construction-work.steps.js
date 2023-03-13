@@ -52,10 +52,10 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   then(
     /wordt er een nieuw scherm 'Zoek in werkzaamheden' geopend/,
     async () => {
-      await waitFor(ConstructionWorkScreen.HeaderTitle)
+      await waitFor(ConstructionWorkScreen.headerTitle)
         .toBeVisible()
         .withTimeout(2000)
-      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+      await expect(ConstructionWorkScreen.headerTitle).toHaveText(
         'Zoek in werkzaamheden',
       )
     },
@@ -72,16 +72,16 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       await WelcomeScreen.tapWelcomeScreen()
       await HomeScreen.tapModule('Werkzaamheden')
       await ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg.tap()
-      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Middenweg')
+      await expect(ConstructionWorkScreen.headerTitle).toHaveText('Middenweg')
     },
   )
 
   when(/ik klik op de terug knop/, async () => {
-    await ConstructionWorkScreen.HeaderButtonBack.tap()
+    await ConstructionWorkScreen.headerBackButton.tap()
   })
 
   then(/ik ben in het werkzaamheden scherm/, async () => {
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText('Werkzaamheden')
   })
 
   when(/ik klik op project Amstel/, async () => {
@@ -89,11 +89,11 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   })
 
   then(/ik ben op het detailscherm van project Amstel/, async () => {
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Amstel')
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText('Amstel')
   })
 
   then(/ik ben op het homescherm/, async () => {
-    await expect(HomeScreen.HomeModuleButtonConstructionWork).toBeVisible()
+    await expect(HomeScreen.constructionWorkModuleButton).toBeVisible()
   })
 
   and(/ik open het project Stadhouderskade/, async () => {
@@ -107,10 +107,10 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     ).toBeVisible(70)
     await new Promise(r => setTimeout(r, 1000)) //explicit timeout, otherwise swipe functionality doesn't work
     await ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade.tap()
-    await waitFor(ConstructionWorkScreen.HeaderTitle)
+    await waitFor(ConstructionWorkScreen.headerTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText(
       'Stadhouderskade',
     )
   })
@@ -126,8 +126,8 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     await expect(
       ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
     ).toHaveText('Volgend')
-    await ConstructionWorkScreen.HeaderButtonBack.tap()
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+    await ConstructionWorkScreen.headerBackButton.tap()
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText('Werkzaamheden')
     await ConstructionWorkScreen.ConstructionWorkCardProjectBijlmerSportpark.swipe(
       'down',
       'fast',
@@ -148,10 +148,10 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   when(/ik ontvolg een project/, async () => {
     await ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade.tap()
-    await waitFor(ConstructionWorkScreen.HeaderTitle)
+    await waitFor(ConstructionWorkScreen.headerTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText(
       'Stadhouderskade',
     )
     await expect(
@@ -164,8 +164,8 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     await expect(
       ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
     ).toHaveText('Volgen')
-    await ConstructionWorkScreen.HeaderButtonBack.tap()
-    await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Werkzaamheden')
+    await ConstructionWorkScreen.headerBackButton.tap()
+    await expect(ConstructionWorkScreen.headerTitle).toHaveText('Werkzaamheden')
     await expect(
       ConstructionWorkScreen.ConstructionWorkCardProjectStadhouderskade,
     ).not.toBeVisible()
@@ -182,7 +182,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     async () => {
       await WelcomeScreen.tapWelcomeScreen()
       await HomeScreen.tapModule('Werkzaamheden')
-      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText(
+      await expect(ConstructionWorkScreen.headerTitle).toHaveText(
         'Werkzaamheden',
       )
       await ConstructionWorkScreen.ConstructionWorkNavigatorSearchField.tap()
@@ -194,7 +194,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       await waitFor(ConstructionWorkScreen.ConstructionWorkProjectImage)
         .toBeVisible()
         .withTimeout(2000)
-      await expect(ConstructionWorkScreen.HeaderTitle).toHaveText('Amstel III')
+      await expect(ConstructionWorkScreen.headerTitle).toHaveText('Amstel III')
     },
   )
 

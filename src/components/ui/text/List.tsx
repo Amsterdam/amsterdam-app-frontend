@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {TestID} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -14,6 +15,7 @@ enum Marker {
 type ListProps = {
   items: string[]
   marker?: keyof typeof Marker
+  testID?: TestID
 }
 
 type ListItemProps = {
@@ -36,8 +38,10 @@ const ListItem = ({text, marker}: ListItemProps) => {
   )
 }
 
-export const List = ({items, marker = 'square'}: ListProps) => (
-  <SingleSelectable accessibilityLabel={accessibleText(...items)}>
+export const List = ({items, marker = 'square', testID}: ListProps) => (
+  <SingleSelectable
+    accessibilityLabel={accessibleText(...items)}
+    testID={testID}>
     <Column gutter="md">
       {items.map(text => (
         <ListItem key={text} {...{marker, text}} />

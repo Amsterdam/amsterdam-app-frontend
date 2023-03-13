@@ -4,12 +4,17 @@ import {Link, List, Paragraph, Title} from '@/components/ui/text'
 import {openWebUrl} from '@/utils'
 
 export const PrivacyStatementScreen = () => (
-  <Screen testID="AboutScreenPrivacyStatement">
+  <Screen testID="AboutPrivacyStatementScreen">
     <Box>
       <Column gutter="lg">
         <Column gutter="md">
-          <Title text="Samenvatting privacyverklaring gemeente Amsterdam" />
-          <Paragraph variant="intro">
+          <Title
+            testID="AboutPrivacyStatementTitle"
+            text="Samenvatting privacyverklaring gemeente Amsterdam"
+          />
+          <Paragraph
+            testID="AboutPrivacyStatementIntroParagraph"
+            variant="intro">
             De gemeente voert alleen taken uit die belangrijk zijn voor haar
             inwoners en bezoekers. De gemeente gebruikt hiervoor soms
             persoonsgegevens. Als u in Amsterdam woont, houdt de gemeente
@@ -18,7 +23,7 @@ export const PrivacyStatementScreen = () => (
           </Paragraph>
         </Column>
         <Column gutter="md">
-          <Paragraph>
+          <Paragraph testID="AboutPrivacyStatementParagraph">
             Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de
             gemeente vaak contactgegevens, zoals uw telefoonnummer en
             e-mailadres, van u nodig om u goed te kunnen helpen.
@@ -33,8 +38,12 @@ export const PrivacyStatementScreen = () => (
           </Paragraph>
         </Column>
         <Column gutter="md">
-          <Title level="h2" text="Het verwerken van persoonsgegevens" />
-          <Paragraph>
+          <Title
+            level="h2"
+            testID="AboutPrivacyStatementPersonalDataTitle"
+            text="Het verwerken van persoonsgegevens"
+          />
+          <Paragraph testID="AboutPrivacyStatementPersonalDataParagraph">
             Het gebruiken van persoonsgegevens noemen we ook wel ‘verwerken’ van
             persoonsgegevens. Het hangt van het doel en de taak van de gemeente
             af welke persoonsgegevens de gemeente precies verwerkt. De
@@ -52,6 +61,7 @@ export const PrivacyStatementScreen = () => (
         <Column gutter="md">
           <Title
             level="h2"
+            testID="AboutPrivacyStatementLinksTitle"
             text="Algemene versus specifieke privacyverklaring"
           />
           <Paragraph>
@@ -67,14 +77,14 @@ export const PrivacyStatementScreen = () => (
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/privacyverklaring/')
             }
-            testID="AboutButtonGeneralPrivacyStatement"
+            testID="AboutPrivacyStatementGeneralLink"
           />
           <Link
             label="Specifieke privacyverklaring"
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/specifieke/')
             }
-            testID="AboutButtonSpecificPrivacyStatement"
+            testID="AboutPrivacyStatementSpecificLink"
           />
         </Column>
       </Column>

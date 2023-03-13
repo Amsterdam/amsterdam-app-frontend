@@ -1,38 +1,34 @@
 import packageJSON from '../../../package.json'
 import Screen from './screen'
 
-/**
- * sub screen containing specific selectors and methods for a specific screen
- */
 class AboutScreen extends Screen {
-  /**
-   * define selectors using getter methods
-   */
-  get AboutTitleAmsterdam() {
-    return element(by.id('AboutTitleAmsterdam'))
+  // Screen: About module
+
+  get amsterdamAppTitle() {
+    return element(by.id('AboutAmsterdamAppTitle'))
   }
 
-  get AboutTextVersion() {
-    return element(by.id('AboutTextVersion'))
+  get versionNumberText() {
+    return element(by.id('AboutVersionNumberText'))
   }
 
-  get AboutButtonAboutTheAppDutch() {
-    return element(by.id('AboutButtonAboutTheAppDutch'))
+  get aboutTheAppDutchButton() {
+    return element(by.id('AboutAboutTheAppDutchButton'))
   }
 
-  get AboutButtonAboutTheAppEnglish() {
-    return element(by.id('AboutButtonAboutTheAppEnglish'))
+  get aboutTheAppEnglishButton() {
+    return element(by.id('AboutAboutTheAppEnglishButton'))
   }
 
-  get AboutButtonPrivacyStatement() {
-    return element(by.id('AboutButtonPrivacyStatement'))
+  get privacyStatementButton() {
+    return element(by.id('AboutPrivacyStatementButton'))
   }
 
-  get AboutButtonAccessibilityStatement() {
-    return element(by.id('AboutButtonAccessibilityStatement'))
+  get accessibilityStatementButton() {
+    return element(by.id('AboutAccessibilityStatementButton'))
   }
 
-  get AppVersion() {
+  get releaseVersionNumber() {
     const buildNumber = parseInt(
       require('child_process')
         .execSync('git rev-list --count HEAD')
@@ -45,96 +41,96 @@ class AboutScreen extends Screen {
     return appVersion
   }
 
-  get AboutWaaromDezeAppScreenHeaderTitle() {
-    return element(by.text('1 app voor alle Amsterdammers'))
+  // Screen: About the app (Dutch)
+
+  get aboutTheAppDutchTitle() {
+    return element(by.id('AboutAboutTheAppDutchTitle'))
   }
 
-  get AboutWaaromDezeAppScreenIntroText() {
-    return element(
-      by.text(
-        'Met de Amsterdam app krijgt u snel informatie die voor u belangrijk is. En u kunt zaken makkelijk regelen. Zoals:',
-      ),
-    )
+  get aboutTheAppDutchIntroParagraph() {
+    return element(by.id('AboutAboutTheAppDutchIntroParagraph'))
   }
 
-  get AboutParagraphTitleInformatieOverAfval() {
-    return element(by.text('Informatie over afval'))
+  get aboutTheAppDutchWasteInformationTitle() {
+    return element(by.id('AboutAboutTheAppDutchWasteInformationTitle'))
   }
 
-  get AboutParagraphTitleWerkAanDeWeg() {
-    return element(by.text('Werk aan de weg'))
+  get aboutTheAppDutchRoadWorkTitle() {
+    return element(by.id('AboutAboutTheAppDutchRoadWorkTitle'))
   }
 
-  get AboutParagraphTitleMeldingMaken() {
-    return element(by.text('Melding maken'))
+  get aboutTheAppDutchReportProblemTitle() {
+    return element(by.id('AboutAboutTheAppDutchReportProblemTitle'))
   }
 
-  get AboutParagraphTitle1AppVoorNL() {
-    return element(by.text('1 app voor alle Amsterdammers en Weespers'))
+  get aboutTheAppDutch1AppTitle() {
+    return element(by.id('AboutAboutTheAppDutch1AppTitle'))
   }
 
-  get AboutParagraphTitleOnderwerpenToekomst() {
-    return element(by.text('Nog meer onderwerpen in de toekomst'))
+  get aboutTheAppDutchFutureFeaturesTitle() {
+    return element(by.id('AboutAboutTheAppDutchFutureFeaturesTitle'))
   }
 
-  get AboutWhyThisAppScreenHeaderTitle() {
-    return element(by.text('1 app for all citizens of Amsterdam'))
+  // Screen: About the app (English)
+
+  get aboutTheAppEnglishTitle() {
+    return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get AboutWhyThisAppScreenIntroText() {
-    return element(
-      by.text(
-        'The Amsterdam app quickly provides information tailored to you. Take care of affairs with ease, like:',
-      ),
-    )
+  get aboutTheAppEnglishIntroParagraph() {
+    return element(by.id('AboutAboutTheAppEnglishIntroParagraph'))
   }
 
-  get AboutParagraphTitleWasteInformation() {
-    return element(by.text('Waste information'))
+  get aboutTheAppEnglishWasteInformationTitle() {
+    return element(by.id('AboutAboutTheAppEnglishWasteInformationTitle'))
   }
 
-  get AboutParagraphTitleRoadWork() {
-    return element(by.text('Road Work'))
+  get aboutTheAppEnglishRoadWorkTitle() {
+    return element(by.id('AboutAboutTheAppEnglishRoadWorkTitle'))
   }
 
-  get AboutParagraphTitleReportIt() {
-    return element(by.text('Report it'))
+  get aboutTheAppEnglishReportProblemTitle() {
+    return element(by.id('AboutAboutTheAppEnglishReportProblemTitle'))
   }
 
-  get AboutParagraphTitle1AppVoorEN() {
-    return element(by.text('Waste information'))
+  get aboutTheAppEnglish1AppTitle() {
+    return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get AboutParagraphTitleTopicsFuture() {
-    return element(by.text('More topics in the future'))
+  get aboutTheAppEnglishFutureFeaturesTitle() {
+    return element(by.id('AboutAboutTheAppEnglishFutureFeaturesTitle'))
   }
 
-  get AboutPrivacyScreenHeaderTitle() {
-    return element(by.text('Samenvatting privacyverklaring gemeente Amsterdam'))
+  // Screen: Privacy statement
+
+  get privacyStatementTitle() {
+    return element(by.id('AboutPrivacyStatementTitle'))
   }
 
-  get AboutPrivacyScreenFirstParagraph() {
-    return element(
-      by.text(
-        'Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de gemeente vaak contactgegevens, zoals uw telefoonnummer en e-mailadres, van u nodig om u goed te kunnen helpen.',
-      ),
-    )
+  get privacyStatementParagraph() {
+    return element(by.id('AboutPrivacyStatementParagraph'))
   }
 
-  get AboutParagraphTitlePersoonsgegevens() {
-    return element(by.text('Het verwerken van persoonsgegevens'))
+  get privacyStatementPersonalDataTitle() {
+    return element(by.id('AboutPrivacyStatementPersonalDataTitle'))
   }
 
-  get AboutParagraphTitlePrivacyverklaring() {
-    return element(by.text('Algemene versus specifieke privacyverklaring'))
+  get privacyStatementLinksTitle() {
+    return element(by.id('AboutPrivacyStatementLinksTitle'))
   }
 
-  get AboutButtonGeneralPrivacyStatement() {
-    return element(by.id('AboutButtonGeneralPrivacyStatement'))
+  get privacyStatementGeneralLink() {
+    return element(by.id('AboutPrivacyStatementGeneralLink'))
   }
 
-  get AboutButtonEmailSomethingBroken() {
-    return element(by.id('AboutButtonEmailSomethingBroken'))
+  get privacyStatementSpecificLink() {
+    return element(by.id('AboutPrivacyStatementSpecificLink'))
+  }
+
+  // Screen: Accessibility statement
+
+  get accessibilityStatementSomethingBrokenButton() {
+    return element(by.id('AboutAccessibilityStatementSomethingBrokenButton'))
   }
 }
 
