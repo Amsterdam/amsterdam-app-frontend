@@ -39,20 +39,17 @@ const aboutSteps = ({given, when, then, and}) => {
     await waitFor(AboutScreen.aboutTheAppDutchTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await expect(AboutScreen.aboutTheAppDutchInformatieOverAfvalTitle)
-      .toBeVisible
-    await AboutScreen.aboutTheAppDutchInformatieOverAfvalTitle.swipe(
+    await expect(AboutScreen.aboutTheAppDutchWasteInformationTitle).toBeVisible
+    await AboutScreen.aboutTheAppDutchWasteInformationTitle.swipe(
       'up',
       'fast',
       0.3,
     )
-    await expect(AboutScreen.aboutTheAppDutchWerkAanDeWegTitle).toBeVisible()
-    await expect(AboutScreen.aboutTheAppDutchMeldingMakenTitle).toBeVisible()
-    await AboutScreen.aboutTheAppDutchMeldingMakenTitle.swipe('up')
+    await expect(AboutScreen.aboutTheAppDutchRoadWorkTitle).toBeVisible()
+    await expect(AboutScreen.aboutTheAppDutchReportProblemTitle).toBeVisible()
+    await AboutScreen.aboutTheAppDutchReportProblemTitle.swipe('up')
     await expect(AboutScreen.aboutTheAppDutch1AppTitle).toBeVisible()
-    await expect(
-      AboutScreen.aboutTheAppDutchOnderwerpenToekomstTitle,
-    ).toBeVisible()
+    await expect(AboutScreen.aboutTheAppDutchFutureFeaturesTitle).toBeVisible()
   })
 
   when(/ik klik op 'About this app'/, async () => {
@@ -84,7 +81,9 @@ const aboutSteps = ({given, when, then, and}) => {
       .toBeVisible()
       .withTimeout(2000)
     await expect(AboutScreen.aboutTheAppEnglish1AppTitle).toBeVisible()
-    await expect(AboutScreen.aboutTheAppEnglishFutureTopicsTitle).toBeVisible()
+    await expect(
+      AboutScreen.aboutTheAppEnglishFutureFeaturesTitle,
+    ).toBeVisible()
   })
 
   when(/ik klik op 'Privacyverklaring'/, async () => {

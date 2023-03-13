@@ -133,12 +133,12 @@ export const AboutTheAppEnglishScreen = () => {
                 <Title
                   accessibilityLanguage="en-US"
                   level="h2"
-                  testID="AboutAboutTheAppEnglishFutureTopicsTitle"
+                  testID="AboutAboutTheAppEnglishFutureFeaturesTitle"
                   text="More topics in the future"
                 />
                 <Paragraph
                   accessibilityLanguage="en-US"
-                  testID="AboutAboutTheAppEnglishFutureTopicsParagraph">
+                  testID="AboutAboutTheAppEnglishFutureFeaturesParagraph">
                   This version of the Amsterdam app offers topics that benefit
                   everyone. It is the start of more features and languages to
                   come. We’ll keep improving the app this way.

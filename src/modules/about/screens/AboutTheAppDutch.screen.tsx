@@ -42,14 +42,14 @@ export const AboutTheAppDutchScreen = () => {
                   <Icon
                     name="trash-bin"
                     size="xl"
-                    testID="AboutAboutTheAppDutchInformatieOverAfvalIcon"
+                    testID="AboutAboutTheAppDutchWasteInformationIcon"
                   />
                   <Title
                     level="h5"
-                    testID="AboutAboutTheAppDutchInformatieOverAfvalTitle"
+                    testID="AboutAboutTheAppDutchWasteInformationTitle"
                     text="Informatie over afval"
                   />
-                  <Paragraph testID="AboutAboutTheAppDutchInformatieOverAfvalParagraph">
+                  <Paragraph testID="AboutAboutTheAppDutchWasteInformationParagraph">
                     U kunt uw adres invullen. Dan ziet u wanneer u grofvuil
                     (grote stukken afval) aan de weg mag zetten. En u ziet ook
                     waar de dichtstbijzijnde afvalcontainer of flessencontainer
@@ -60,14 +60,14 @@ export const AboutTheAppDutchScreen = () => {
                   <Icon
                     name="construction-work"
                     size="xl"
-                    testID="AboutAboutTheAppDutchWerkAanDeWegIcon"
+                    testID="AboutAboutTheAppDutchRoadWorkIcon"
                   />
                   <Title
                     level="h5"
-                    testID="AboutAboutTheAppDutchWerkAanDeWegTitle"
+                    testID="AboutAboutTheAppDutchRoadWorkTitle"
                     text="Werk aan de weg"
                   />
-                  <Paragraph testID="AboutAboutTheAppDutchWerkAanDeWegParagraph">
+                  <Paragraph testID="AboutAboutTheAppDutchRoadWorkParagraph">
                     De gemeente werkt vaak aan de straten, bruggen, kades of
                     gebouwen. In ‘Werkzaamheden’ ziet u de projecten bij u in de
                     buurt. U kunt een project volgen in de app. Als u een
@@ -79,14 +79,14 @@ export const AboutTheAppDutchScreen = () => {
                   <Icon
                     name="alert"
                     size="xl"
-                    testID="AboutAboutTheAppDutchMeldingMakenIcon"
+                    testID="AboutAboutTheAppDutchReportProblemIcon"
                   />
                   <Title
                     level="h5"
-                    testID="AboutAboutTheAppDutchMeldingMakenTitle"
+                    testID="AboutAboutTheAppDutchReportProblemTitle"
                     text="Melding maken"
                   />
-                  <Paragraph testID="AboutAboutTheAppDutchMeldingMakenParagraph">
+                  <Paragraph testID="AboutAboutTheAppDutchReportProblemParagraph">
                     Is de container voor afval vol? Doet de lantaarnpaal het
                     niet? Of ligt er troep op straat? Dat kunt u allemaal melden
                     met de app. We lossen het probleem zo snel mogelijk voor u
@@ -120,10 +120,10 @@ export const AboutTheAppDutchScreen = () => {
               <Column gutter="sm">
                 <Title
                   level="h2"
-                  testID="AboutAboutTheAppDutchOnderwerpenToekomstTitle"
+                  testID="AboutAboutTheAppDutchFutureFeaturesTitle"
                   text="Nog meer onderwerpen in de toekomst"
                 />
-                <Paragraph testID="AboutAboutTheAppDutchOnderwerpenToekomstParagraph">
+                <Paragraph testID="AboutAboutTheAppDutchFutureFeaturesParagraph">
                   Deze versie van de Amsterdam app heeft onderwerpen waar
                   iedereen iets aan heeft. Dit is het begin. In de toekomst
                   komen er meer onderwerpen en talen bij. Zo maken we de app

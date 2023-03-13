@@ -51,24 +51,24 @@ class AboutScreen extends Screen {
     return element(by.id('AboutAboutTheAppDutchIntroParagraph'))
   }
 
-  get aboutTheAppDutchInformatieOverAfvalTitle() {
-    return element(by.id('AboutAboutTheAppDutchInformatieOverAfvalTitle'))
+  get aboutTheAppDutchWasteInformationTitle() {
+    return element(by.id('AboutAboutTheAppDutchWasteInformationTitle'))
   }
 
-  get aboutTheAppDutchWerkAanDeWegTitle() {
-    return element(by.id('AboutAboutTheAppDutchWerkAanDeWegTitle'))
+  get aboutTheAppDutchRoadWorkTitle() {
+    return element(by.id('AboutAboutTheAppDutchRoadWorkTitle'))
   }
 
-  get aboutTheAppDutchMeldingMakenTitle() {
-    return element(by.id('AboutAboutTheAppDutchMeldingMakenTitle'))
+  get aboutTheAppDutchReportProblemTitle() {
+    return element(by.id('AboutAboutTheAppDutchReportProblemTitle'))
   }
 
   get aboutTheAppDutch1AppTitle() {
     return element(by.id('AboutAboutTheAppDutch1AppTitle'))
   }
 
-  get aboutTheAppDutchOnderwerpenToekomstTitle() {
-    return element(by.id('AboutAboutTheAppDutchOnderwerpenToekomstTitle'))
+  get aboutTheAppDutchFutureFeaturesTitle() {
+    return element(by.id('AboutAboutTheAppDutchFutureFeaturesTitle'))
   }
 
   // Screen: About the app (English)
@@ -97,8 +97,8 @@ class AboutScreen extends Screen {
     return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get aboutTheAppEnglishFutureTopicsTitle() {
-    return element(by.id('AboutAboutTheAppEnglishFutureTopicsTitle'))
+  get aboutTheAppEnglishFutureFeaturesTitle() {
+    return element(by.id('AboutAboutTheAppEnglishFutureFeaturesTitle'))
   }
 
   // Screen: Privacy statement
