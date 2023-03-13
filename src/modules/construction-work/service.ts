@@ -5,7 +5,6 @@ import {
   FieldsQueryArg,
   FollowProjectBody,
   NewsArticle,
-  Paginated,
   Project,
   ProjectIdQueryArg,
   ProjectsByTextQueryArg,
@@ -18,7 +17,12 @@ import {
   ProjectWarningIdQueryArg,
 } from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
-import {CacheLifetime, MutationResponse, SortListQueryArg} from '@/types'
+import {
+  CacheLifetime,
+  MutationResponse,
+  Paginated,
+  SortListQueryArg,
+} from '@/types'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({

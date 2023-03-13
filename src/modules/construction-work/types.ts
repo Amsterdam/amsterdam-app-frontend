@@ -102,18 +102,6 @@ export type ProjectsItem = {
   title: string
 }
 
-type Page = {
-  number: number
-  size: number
-  totalElements: number
-  totalPages: number
-}
-
-export type Paginated<T> = {
-  page: Page
-  result: T[]
-}
-
 export type ProjectSummary = Pick<
   ProjectsItem,
   'identifier' | 'district_id' | 'images' | 'subtitle' | 'title'

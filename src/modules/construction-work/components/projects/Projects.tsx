@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
+import {useInfiniteScroller} from '@/hooks'
 import {
   config,
   ProjectsList,
@@ -7,17 +8,17 @@ import {
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
-import {useInfiniteScroller} from '@/modules/construction-work/hooks'
 import {
   projectsApi,
   useGetProjectsQuery,
 } from '@/modules/construction-work/service'
 import {ProjectsItem} from '@/modules/construction-work/types'
+import {InfiniteScrollerQueryParams} from '@/types'
 
 type Props = {
   HeaderButton: React.ReactNode
   getProjectTraits: (project: ProjectsItem) => Partial<ProjectsItem>
-  queryParams: Record<string, string | number | boolean | string[] | undefined>
+  queryParams: InfiniteScrollerQueryParams
 }
 
 const emptyProjectsItem = {

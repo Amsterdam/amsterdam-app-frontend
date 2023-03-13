@@ -3,8 +3,8 @@ import {QueryDefinition, skipToken} from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from 'react-redux'
-import {Paginated} from '@/modules/construction-work/types'
 import {RootState} from '@/store'
+import {InfiniteScrollerQueryParams, Paginated} from '@/types'
 
 const getEmptyItems = <T>(
   length: number,
@@ -28,14 +28,15 @@ export const useInfiniteScroller = <T>(
   useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<T>>>,
   page = 1,
   pageSize = 10,
-  queryParams: Record<
-    string,
-    string | number | boolean | string[] | undefined
-  > = {},
+  queryParams: InfiniteScrollerQueryParams = {},
 ) => {
   const reduxState = useSelector((state: RootState) => state)
 
-  const {data: previousData} = useQueryHook(
+  const {
+    data: previousData,
+    isError: isErrorPreviousPage,
+    isLoading: isLoadingPreviousPage,
+  } = useQueryHook(
     page > 1
       ? {
           ...queryParams,
@@ -43,11 +44,19 @@ export const useInfiniteScroller = <T>(
         }
       : skipToken,
   )
-  const {data: currentData} = useQueryHook({
+  const {
+    data: currentData,
+    isError: isErrorCurrentPage,
+    isLoading: isLoadingCurrentPage,
+  } = useQueryHook({
     ...queryParams,
     page,
   })
-  const {data: nextData} = useQueryHook({
+  const {
+    data: nextData,
+    isError: isErrorNextPage,
+    isLoading: isLoadingNextPage,
+  } = useQueryHook({
     ...queryParams,
     page: page + 1,
   })
@@ -87,7 +96,8 @@ export const useInfiniteScroller = <T>(
           )
         return [...acc, ...pageData]
       }, []) as T[],
-    isError: false,
-    isLoading: true,
+    isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
+    isLoading:
+      isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,
   }
 }

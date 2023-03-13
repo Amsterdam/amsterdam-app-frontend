@@ -1,5 +1,6 @@
 export * from './useAppState'
 export * from './useForegroundPushNotificationHandler'
+export * from './useInfiniteScroller'
 export * from './useInitSentry'
 export * from './useModules'
 export * from './useRefetchInterval'
