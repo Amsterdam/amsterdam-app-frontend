@@ -35,6 +35,9 @@ import {accessibleText, mapImageSources} from '@/utils'
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
+const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
+  project.identifier
+
 type ListItemProps = {
   environment: EnvironmentConfig
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
@@ -178,9 +181,6 @@ export const ProjectsList = ({
     ),
     [environment, getProjectTraits, navigation, readArticles],
   )
-
-  const keyExtractor: (item: ProjectsItem, index: number) => string =
-    useCallback(project => project.identifier, [])
 
   if (isError) {
     return <SomethingWentWrong />
