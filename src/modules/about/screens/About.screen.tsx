@@ -22,38 +22,40 @@ export const AboutScreen = ({navigation}: Props) => {
   const Track = isPortrait ? Column : Row
 
   return (
-    <Screen testID="AboutScreenAbout">
+    <Screen testID="AboutScreen">
       <Box grow>
         <Track align="between" grow gutter="xl">
           <Column flex={1} gutter="md">
             <>
-              <Title testID="AboutTitleAmsterdam" text="Amsterdam App" />
-              <Phrase testID="AboutTextVersion">Versie {versionNumber}</Phrase>
+              <Title testID="AboutAmsterdamAppTitle" text="Amsterdam App" />
+              <Phrase testID="AboutVersionNumberText">
+                Versie {versionNumber}
+              </Phrase>
             </>
             <Column gutter="sm">
               <NavigationButton
                 label="Waarom deze app?"
                 onPress={() => navigation.navigate(AboutRouteName.appSummary)}
-                testID="AboutButtonAboutTheAppDutch"
+                testID="AboutAboutTheAppDutchButton"
               />
               <NavigationButton
                 label="About this app"
                 onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
-                testID="AboutButtonAboutTheAppEnglish"
+                testID="AboutAboutTheAppEnglishButton"
               />
               <NavigationButton
                 label="Privacyverklaring"
                 onPress={() =>
                   navigation.navigate(AboutRouteName.privacyStatement)
                 }
-                testID="AboutButtonPrivacyStatement"
+                testID="AboutPrivacyStatementButton"
               />
               <NavigationButton
                 label="Toegankelijkheidsverklaring"
                 onPress={() =>
                   navigation.navigate(AboutRouteName.accessibilityStatement)
                 }
-                testID="AboutButtonAccessibilityStatement"
+                testID="AboutAccessibilityStatementButton"
               />
             </Column>
           </Column>

@@ -12,7 +12,7 @@ export const AboutTheAppEnglishScreen = () => {
 
   return (
     <Screen
-      testID="AboutScreenAboutTheAppEnglish"
+      testID="AboutAboutTheAppEnglishScreen"
       withLeftInset={false}
       withRightInset={false}>
       <Column gutter="lg">

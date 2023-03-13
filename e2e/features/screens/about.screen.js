@@ -1,35 +1,31 @@
 import packageJSON from '../../../package.json'
 import Screen from './screen'
 
-/**
- * sub screen containing specific selectors and methods for a specific screen
- */
 class AboutScreen extends Screen {
-  /**
-   * define selectors using getter methods
-   */
-  get AboutTitleAmsterdam() {
-    return element(by.id('AboutTitleAmsterdam'))
+  // Screen: About module
+
+  get AboutAmsterdamAppTitle() {
+    return element(by.id('AboutAmsterdamAppTitle'))
   }
 
-  get AboutTextVersion() {
-    return element(by.id('AboutTextVersion'))
+  get AboutVersionNumberText() {
+    return element(by.id('AboutVersionNumberText'))
   }
 
-  get AboutButtonAboutTheAppDutch() {
-    return element(by.id('AboutButtonAboutTheAppDutch'))
+  get AboutAboutTheAppDutchButton() {
+    return element(by.id('AboutAboutTheAppDutchButton'))
   }
 
-  get AboutButtonAboutTheAppEnglish() {
-    return element(by.id('AboutButtonAboutTheAppEnglish'))
+  get AboutAboutTheAppEnglishButton() {
+    return element(by.id('AboutAboutTheAppEnglishButton'))
   }
 
-  get AboutButtonPrivacyStatement() {
-    return element(by.id('AboutButtonPrivacyStatement'))
+  get AboutPrivacyStatementButton() {
+    return element(by.id('AboutPrivacyStatementButton'))
   }
 
-  get AboutButtonAccessibilityStatement() {
-    return element(by.id('AboutButtonAccessibilityStatement'))
+  get AboutAccessibilityStatementButton() {
+    return element(by.id('AboutAccessibilityStatementButton'))
   }
 
   get AppVersion() {
@@ -45,11 +41,13 @@ class AboutScreen extends Screen {
     return appVersion
   }
 
-  get AboutWaaromDezeAppScreenHeaderTitle() {
+  // Screen: About the app (Dutch)
+
+  get AboutAboutTheAppDutchTitle() {
     return element(by.text('1 app voor alle Amsterdammers'))
   }
 
-  get AboutWaaromDezeAppScreenIntroText() {
+  get AboutAboutTheAppDutchIntroParagraph() {
     return element(
       by.text(
         'Met de Amsterdam app krijgt u snel informatie die voor u belangrijk is. En u kunt zaken makkelijk regelen. Zoals:',
@@ -57,31 +55,33 @@ class AboutScreen extends Screen {
     )
   }
 
-  get AboutParagraphTitleInformatieOverAfval() {
+  get AboutAboutTheAppDutchInformatieOverAfvalTitle() {
     return element(by.text('Informatie over afval'))
   }
 
-  get AboutParagraphTitleWerkAanDeWeg() {
+  get AboutAboutTheAppDutchWerkAanDeWegTitle() {
     return element(by.text('Werk aan de weg'))
   }
 
-  get AboutParagraphTitleMeldingMaken() {
+  get AboutAboutTheAppDutchMeldingMakenTitle() {
     return element(by.text('Melding maken'))
   }
 
-  get AboutParagraphTitle1AppVoorNL() {
+  get AboutAboutTheAppDutch1AppTitle() {
     return element(by.text('1 app voor alle Amsterdammers en Weespers'))
   }
 
-  get AboutParagraphTitleOnderwerpenToekomst() {
+  get AboutAboutTheAppDutchOnderwerpenToekomstTitle() {
     return element(by.text('Nog meer onderwerpen in de toekomst'))
   }
 
-  get AboutWhyThisAppScreenHeaderTitle() {
+  // Screen: About the app (English)
+
+  get AboutAboutTheAppEnglish1AppTitle() {
     return element(by.text('1 app for all citizens of Amsterdam'))
   }
 
-  get AboutWhyThisAppScreenIntroText() {
+  get AboutAboutTheAppEnglishIntroParagraph() {
     return element(
       by.text(
         'The Amsterdam app quickly provides information tailored to you. Take care of affairs with ease, like:',
@@ -89,31 +89,29 @@ class AboutScreen extends Screen {
     )
   }
 
-  get AboutParagraphTitleWasteInformation() {
+  get AboutAboutTheAppEnglishWasteInformationTitle() {
     return element(by.text('Waste information'))
   }
 
-  get AboutParagraphTitleRoadWork() {
+  get AboutAboutTheAppEnglishRoadWorkTitle() {
     return element(by.text('Road Work'))
   }
 
-  get AboutParagraphTitleReportIt() {
+  get AboutAboutTheAppEnglishReportItTitle() {
     return element(by.text('Report it'))
   }
 
-  get AboutParagraphTitle1AppVoorEN() {
-    return element(by.text('Waste information'))
-  }
-
-  get AboutParagraphTitleTopicsFuture() {
+  get AboutAboutTheAppEnglishTopicsFutureTitle() {
     return element(by.text('More topics in the future'))
   }
 
-  get AboutPrivacyScreenHeaderTitle() {
+  // Screen: Privacy statement
+
+  get AboutPrivacyStatementTitle() {
     return element(by.text('Samenvatting privacyverklaring gemeente Amsterdam'))
   }
 
-  get AboutPrivacyScreenFirstParagraph() {
+  get AboutPrivacyStatementFirstParagraph() {
     return element(
       by.text(
         'Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de gemeente vaak contactgegevens, zoals uw telefoonnummer en e-mailadres, van u nodig om u goed te kunnen helpen.',
@@ -121,20 +119,26 @@ class AboutScreen extends Screen {
     )
   }
 
-  get AboutParagraphTitlePersoonsgegevens() {
+  get AboutPrivacyStatementPersoonsgegevensTitle() {
     return element(by.text('Het verwerken van persoonsgegevens'))
   }
 
-  get AboutParagraphTitlePrivacyverklaring() {
+  get AboutPrivacyStatementGeneralVersusSpecificTitle() {
     return element(by.text('Algemene versus specifieke privacyverklaring'))
   }
 
-  get AboutButtonGeneralPrivacyStatement() {
-    return element(by.id('AboutButtonGeneralPrivacyStatement'))
+  get AboutPrivacyStatementGeneralButton() {
+    return element(by.id('AboutPrivacyStatementGeneralButton'))
   }
 
-  get AboutButtonEmailSomethingBroken() {
-    return element(by.id('AboutButtonEmailSomethingBroken'))
+  get AboutPrivacyStatementSpecificButton() {
+    return element(by.id('AboutPrivacyStatementSpecificButton'))
+  }
+
+  // Screen: Accessibility statement
+
+  get AboutAccessibilityStatementSomethingBrokenButton() {
+    return element(by.id('AboutAccessibilityStatementSomethingBrokenButton'))
   }
 }
 

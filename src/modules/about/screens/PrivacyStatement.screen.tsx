@@ -4,7 +4,7 @@ import {Link, List, Paragraph, Title} from '@/components/ui/text'
 import {openWebUrl} from '@/utils'
 
 export const PrivacyStatementScreen = () => (
-  <Screen testID="AboutScreenPrivacyStatement">
+  <Screen testID="AboutPrivacyStatementScreen">
     <Box>
       <Column gutter="lg">
         <Column gutter="md">
@@ -67,14 +67,14 @@ export const PrivacyStatementScreen = () => (
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/privacyverklaring/')
             }
-            testID="AboutButtonGeneralPrivacyStatement"
+            testID="AboutPrivacyStatementGeneralButton"
           />
           <Link
             label="Specifieke privacyverklaring"
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/specifieke/')
             }
-            testID="AboutButtonSpecificPrivacyStatement"
+            testID="AboutPrivacyStatementSpecificButton"
           />
         </Column>
       </Column>
