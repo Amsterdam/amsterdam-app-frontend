@@ -17,112 +17,104 @@ const aboutSteps = ({given, when, then, and}) => {
 
   given(/ik ben op het over deze app scherm/, async () => {
     await expect(AboutScreen.HeaderTitle).toBeVisible()
-    await expect(AboutScreen.AboutAmsterdamAppTitle).toBeVisible()
+    await expect(AboutScreen.amsterdamAppTitle).toBeVisible()
     await expect(AboutScreen.HeaderTitle).toHaveText('Over deze app')
-    await expect(AboutScreen.AboutAmsterdamAppTitle).toHaveText('Amsterdam App')
+    await expect(AboutScreen.amsterdamAppTitle).toHaveText('Amsterdam App')
   })
 
   then(/ik zie het versie nummer/, async () => {
-    await expect(AboutScreen.AboutVersionNumberText).toBeVisible()
-    await expect(AboutScreen.AboutVersionNumberText).toHaveText(
-      AboutScreen.AppVersion,
+    await expect(AboutScreen.versionNumberText).toBeVisible()
+    await expect(AboutScreen.versionNumberText).toHaveText(
+      AboutScreen.releaseVersionNumber,
     )
   })
 
   when(/ik klik op 'Waarom deze app\?'/, async () => {
-    await AboutScreen.AboutAboutTheAppDutchButton.tap()
+    await AboutScreen.aboutTheAppDutchButton.tap()
   })
 
   then(/ik zie een scherm met uitleg over de app/, async () => {
     await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
     await expect(AboutScreen.HeaderTitle).toHaveText('Waarom deze app?')
-    await waitFor(AboutScreen.AboutAboutTheAppDutchTitle)
+    await waitFor(AboutScreen.aboutTheAppDutchTitle)
       .toBeVisible()
       .withTimeout(2000)
-    expect(AboutScreen.AboutAboutTheAppDutchInformatieOverAfvalTitle)
+    await expect(AboutScreen.aboutTheAppDutchInformatieOverAfvalTitle)
       .toBeVisible
-    await AboutScreen.AboutAboutTheAppDutchInformatieOverAfvalTitle.swipe(
+    await AboutScreen.aboutTheAppDutchInformatieOverAfvalTitle.swipe(
       'up',
       'fast',
       0.3,
     )
+    await expect(AboutScreen.aboutTheAppDutchWerkAanDeWegTitle).toBeVisible()
+    await expect(AboutScreen.aboutTheAppDutchMeldingMakenTitle).toBeVisible()
+    await AboutScreen.aboutTheAppDutchMeldingMakenTitle.swipe('up')
+    await expect(AboutScreen.aboutTheAppDutch1AppTitle).toBeVisible()
     await expect(
-      AboutScreen.AboutAboutTheAppDutchWerkAanDeWegTitle,
-    ).toBeVisible()
-    await expect(
-      AboutScreen.AboutAboutTheAppDutchMeldingMakenTitle,
-    ).toBeVisible()
-    await AboutScreen.AboutAboutTheAppDutchMeldingMakenTitle.swipe('up')
-    await expect(AboutScreen.AboutAboutTheAppDutch1AppTitle).toBeVisible()
-    await expect(
-      AboutScreen.AboutAboutTheAppDutchOnderwerpenToekomstTitle,
+      AboutScreen.aboutTheAppDutchOnderwerpenToekomstTitle,
     ).toBeVisible()
   })
 
   when(/ik klik op 'About this app'/, async () => {
-    await AboutScreen.AboutAboutTheAppEnglishButton.tap()
+    await AboutScreen.aboutTheAppEnglishButton.tap()
   })
 
   then(/ik zie een scherm met uitleg over deze app in het Engels/, async () => {
     await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
     await expect(AboutScreen.HeaderTitle).toHaveText('About this app')
-    await waitFor(AboutScreen.AboutAboutTheAppEnglishTitle)
+    await waitFor(AboutScreen.aboutTheAppEnglishTitle)
       .toBeVisible()
       .withTimeout(2000)
+    await expect(AboutScreen.aboutTheAppEnglishIntroParagraph).toBeVisible()
     await expect(
-      AboutScreen.AboutAboutTheAppEnglishIntroParagraph,
+      AboutScreen.aboutTheAppEnglishWasteInformationTitle,
     ).toBeVisible()
-    await expect(
-      AboutScreen.AboutAboutTheAppEnglishWasteInformationTitle,
-    ).toBeVisible()
-    await AboutScreen.AboutAboutTheAppEnglishWasteInformationTitle.swipe(
+    await AboutScreen.aboutTheAppEnglishWasteInformationTitle.swipe(
       'up',
       'fast',
       0.3,
     )
-    await waitFor(AboutScreen.AboutAboutTheAppEnglishRoadWorkTitle)
+    await waitFor(AboutScreen.aboutTheAppEnglishRoadWorkTitle)
       .toBeVisible()
       .withTimeout(2000)
     await expect(element(by.text('Road Work'))).toBeVisible()
-    await expect(AboutScreen.AboutAboutTheAppEnglishReportItTitle).toBeVisible()
-    await AboutScreen.AboutAboutTheAppEnglishReportItTitle.swipe('up')
-    await waitFor(AboutScreen.AboutAboutTheAppEnglish1AppTitle)
+    await expect(AboutScreen.aboutTheAppEnglishReportItTitle).toBeVisible()
+    await AboutScreen.aboutTheAppEnglishReportItTitle.swipe('up')
+    await waitFor(AboutScreen.aboutTheAppEnglish1AppTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await expect(AboutScreen.AboutAboutTheAppEnglish1AppTitle).toBeVisible()
-    await expect(
-      AboutScreen.AboutAboutTheAppEnglishTopicsFutureTitle,
-    ).toBeVisible()
+    await expect(AboutScreen.aboutTheAppEnglish1AppTitle).toBeVisible()
+    await expect(AboutScreen.aboutTheAppEnglishTopicsFutureTitle).toBeVisible()
   })
 
   when(/ik klik op 'Privacyverklaring'/, async () => {
-    await AboutScreen.AboutPrivacyStatementButton.tap()
+    await AboutScreen.privacyStatementButton.tap()
   })
 
   then(/ik zie een scherm met de Privacyverklaring/, async () => {
     await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
     await expect(AboutScreen.HeaderTitle).toHaveText('Privacyverklaring')
-    await waitFor(AboutScreen.AboutPrivacyStatementTitle)
+    await waitFor(AboutScreen.privacyStatementTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await element(AboutScreen.AboutPrivacyStatementFirstParagraph).swipe(
+    await element(AboutScreen.privacyStatementFirstParagraph).swipe(
       'up',
       'fast',
       0.5,
     )
     await expect(
-      AboutScreen.AboutPrivacyStatementPersoonsgegevensTitle,
+      AboutScreen.privacyStatementPersoonsgegevensTitle,
     ).toBeVisible()
     await expect(
-      AboutScreen.AboutPrivacyStatementAlgemeneSpecifiekeTitle,
+      AboutScreen.privacyStatementAlgemeneSpecifiekeTitle,
     ).toBeVisible()
-    await AboutScreen.AboutPrivacyStatementAlgemeneSpecifiekeTitle.swipe('up')
-    await expect(AboutScreen.AboutPrivacyStatementGeneralButton).toBeVisible()
-    await expect(AboutScreen.AboutPrivacyStatementSpecificButton).toBeVisible()
+    await AboutScreen.privacyStatementAlgemeneSpecifiekeTitle.swipe('up')
+    await expect(AboutScreen.privacyStatementGeneralButton).toBeVisible()
+    await expect(AboutScreen.privacyStatementSpecificButton).toBeVisible()
   })
 
   when(/ik klik op 'Toegankelijkheidsverklaring'/, async () => {
-    await AboutScreen.AboutAccessibilityStatementButton.tap()
+    await AboutScreen.accessibilityStatementButton.tap()
   })
 
   then(/ik zie een scherm met de Toegankelijkheidsverklaring/, async () => {
@@ -136,7 +128,7 @@ const aboutSteps = ({given, when, then, and}) => {
     await element(by.text('Genomen maatregelen')).swipe('up')
     await element(by.text('Werkt iets niet?')).swipe('up')
     await expect(
-      AboutScreen.AboutAccessibilityStatementSomethingBrokenButton,
+      AboutScreen.accessibilityStatementSomethingBrokenButton,
     ).toBeVisible()
   })
 }

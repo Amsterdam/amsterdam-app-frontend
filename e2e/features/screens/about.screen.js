@@ -4,31 +4,31 @@ import Screen from './screen'
 class AboutScreen extends Screen {
   // Screen: About module
 
-  get AboutAmsterdamAppTitle() {
+  get amsterdamAppTitle() {
     return element(by.id('AboutAmsterdamAppTitle'))
   }
 
-  get AboutVersionNumberText() {
+  get versionNumberText() {
     return element(by.id('AboutVersionNumberText'))
   }
 
-  get AboutAboutTheAppDutchButton() {
+  get aboutTheAppDutchButton() {
     return element(by.id('AboutAboutTheAppDutchButton'))
   }
 
-  get AboutAboutTheAppEnglishButton() {
+  get aboutTheAppEnglishButton() {
     return element(by.id('AboutAboutTheAppEnglishButton'))
   }
 
-  get AboutPrivacyStatementButton() {
+  get privacyStatementButton() {
     return element(by.id('AboutPrivacyStatementButton'))
   }
 
-  get AboutAccessibilityStatementButton() {
+  get accessibilityStatementButton() {
     return element(by.id('AboutAccessibilityStatementButton'))
   }
 
-  get AppVersion() {
+  get releaseVersionNumber() {
     const buildNumber = parseInt(
       require('child_process')
         .execSync('git rev-list --count HEAD')
@@ -43,93 +43,93 @@ class AboutScreen extends Screen {
 
   // Screen: About the app (Dutch)
 
-  get AboutAboutTheAppDutchTitle() {
+  get aboutTheAppDutchTitle() {
     return element(by.id('AboutAboutTheAppDutchTitle'))
   }
 
-  get AboutAboutTheAppDutchIntroParagraph() {
+  get aboutTheAppDutchIntroParagraph() {
     return element(by.id('AboutAboutTheAppDutchIntroParagraph'))
   }
 
-  get AboutAboutTheAppDutchInformatieOverAfvalTitle() {
+  get aboutTheAppDutchInformatieOverAfvalTitle() {
     return element(by.id('AboutAboutTheAppDutchInformatieOverAfvalTitle'))
   }
 
-  get AboutAboutTheAppDutchWerkAanDeWegTitle() {
+  get aboutTheAppDutchWerkAanDeWegTitle() {
     return element(by.id('AboutAboutTheAppDutchWerkAanDeWegTitle'))
   }
 
-  get AboutAboutTheAppDutchMeldingMakenTitle() {
+  get aboutTheAppDutchMeldingMakenTitle() {
     return element(by.id('AboutAboutTheAppDutchMeldingMakenTitle'))
   }
 
-  get AboutAboutTheAppDutch1AppTitle() {
+  get aboutTheAppDutch1AppTitle() {
     return element(by.id('AboutAboutTheAppDutch1AppTitle'))
   }
 
-  get AboutAboutTheAppDutchOnderwerpenToekomstTitle() {
+  get aboutTheAppDutchOnderwerpenToekomstTitle() {
     return element(by.id('AboutAboutTheAppDutchOnderwerpenToekomstTitle'))
   }
 
   // Screen: About the app (English)
 
-  get AboutAboutTheAppEnglishTitle() {
+  get aboutTheAppEnglishTitle() {
     return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get AboutAboutTheAppEnglishIntroParagraph() {
+  get aboutTheAppEnglishIntroParagraph() {
     return element(by.id('AboutAboutTheAppEnglishIntroParagraph'))
   }
 
-  get AboutAboutTheAppEnglishWasteInformationTitle() {
+  get aboutTheAppEnglishWasteInformationTitle() {
     return element(by.id('AboutAboutTheAppEnglishWasteInformationTitle'))
   }
 
-  get AboutAboutTheAppEnglishRoadWorkTitle() {
+  get aboutTheAppEnglishRoadWorkTitle() {
     return element(by.id('AboutAboutTheAppEnglishRoadWorkTitle'))
   }
 
-  get AboutAboutTheAppEnglishReportItTitle() {
+  get aboutTheAppEnglishReportItTitle() {
     return element(by.id('AboutAboutTheAppEnglishReportItTitle'))
   }
 
-  get AboutAboutTheAppEnglish1AppTitle() {
+  get aboutTheAppEnglish1AppTitle() {
     return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get AboutAboutTheAppEnglishTopicsFutureTitle() {
+  get aboutTheAppEnglishTopicsFutureTitle() {
     return element(by.id('AboutAboutTheAppEnglishTopicsFutureTitle'))
   }
 
   // Screen: Privacy statement
 
-  get AboutPrivacyStatementTitle() {
+  get privacyStatementTitle() {
     return element(by.id('AboutPrivacyStatementTitle'))
   }
 
-  get AboutPrivacyStatementFirstParagraph() {
+  get privacyStatementFirstParagraph() {
     return element(by.id('AboutPrivacyStatementFirstParagraph'))
   }
 
-  get AboutPrivacyStatementPersoonsgegevensTitle() {
+  get privacyStatementPersoonsgegevensTitle() {
     return element(by.id('AboutPrivacyStatementPersoonsgegevensTitle'))
   }
 
-  get AboutPrivacyStatementAlgemeneSpecifiekeTitle() {
+  get privacyStatementAlgemeneSpecifiekeTitle() {
     return element(by.id('AboutPrivacyStatementAlgemeneSpecifiekeTitle'))
   }
 
-  get AboutPrivacyStatementGeneralButton() {
+  get privacyStatementGeneralButton() {
     return element(by.id('AboutPrivacyStatementGeneralButton'))
   }
 
-  get AboutPrivacyStatementSpecificButton() {
+  get privacyStatementSpecificButton() {
     return element(by.id('AboutPrivacyStatementSpecificButton'))
   }
 
   // Screen: Accessibility statement
 
-  get AboutAccessibilityStatementSomethingBrokenButton() {
+  get accessibilityStatementSomethingBrokenButton() {
     return element(by.id('AboutAccessibilityStatementSomethingBrokenButton'))
   }
 }
