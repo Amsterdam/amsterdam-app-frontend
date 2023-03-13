@@ -46,6 +46,7 @@ export const SearchField = forwardRef<TextInput, Props>(
           onFocus={handleFocus}
           ref={ref}
           style={styles.textInput}
+          testID={testID}
           textAlignVertical="top"
           value={value}
         />
