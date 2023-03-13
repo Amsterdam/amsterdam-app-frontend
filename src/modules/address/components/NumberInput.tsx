@@ -79,7 +79,7 @@ export const NumberInput = ({
           onChangeText={text => changeNumber(text)}
           placeholder="Vul uw huisnummer in"
           ref={inputRef}
-          testID="AddressNumberInputSearchField"
+          testID="UserAddressNumberInputSearchField"
           value={number}
         />
       </Column>
@@ -95,6 +95,7 @@ export const NumberInput = ({
               onPress={() => {
                 selectNumber(getNumberFromAddress(bagItem._display))
               }}
+              testID="UserAddressSuggestionButton"
             />
           ))) ??
           null}
