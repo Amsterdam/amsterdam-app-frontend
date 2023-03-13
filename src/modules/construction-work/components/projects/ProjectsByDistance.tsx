@@ -1,64 +1,52 @@
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
-import {
-  ProjectsList,
-  ProjectsListHeader,
-  SearchFieldNavigator,
-} from '@/modules/construction-work/components/projects'
+import {Projects} from '@/modules/construction-work/components/projects'
+import {getProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useSortProjects} from '@/modules/construction-work/hooks'
-import {useGetProjectsQuery} from '@/modules/construction-work/service'
 
 type Props = {
   address: Address
 }
 
-export const ProjectsByDistance = ({
-  address: {
+export const ProjectsByDistance = ({address}: Props) => {
+  const {
     centroid: [lon = 0, lat = 0],
     adres: addressText,
-  },
-}: Props) => {
-  const result = useGetProjectsQuery({
-    address: lat && lon ? '' : addressText,
+  } = address ?? {centroid: []}
+
+  const addressParams = address
+    ? {
+        address: lat && lon ? '' : addressText,
+        lat,
+        lon,
+      }
+    : {}
+  const queryParams = {
+    ...addressParams,
     articles_max_age: recentArticleMaxAge,
     fields: [
       'followed',
       'identifier',
       'images',
+      'publication_date',
       'recent_articles',
       'subtitle',
       'title',
     ],
-    lat,
-    lon,
-    sortBy: 'meter',
-  })
-
-  const sortedProjects = useSortProjects(result.data)
+  }
 
   return (
-    <ProjectsList
-      {...result}
-      data={sortedProjects}
-      getProjectTraits={({followed, meter, recent_articles, strides}) => ({
-        followed,
-        meter,
-        recent_articles,
-        strides,
-      })}
-      listHeader={
-        <ProjectsListHeader>
-          <SearchFieldNavigator />
-          <StreetAddressWithEditButton
-            accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}
-            address={`Dichtbij ${addressText}`}
-            testIDButton="ConstructionWorkButtonEditAddress"
-            testIDLabel="ConstructionWorkTextAddress"
-          />
-        </ProjectsListHeader>
+    <Projects
+      getProjectTraits={getProjectTraits}
+      HeaderButton={
+        <StreetAddressWithEditButton
+          accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}
+          address={`Dichtbij ${addressText}`}
+          testIDButton="ConstructionWorkButtonEditAddress"
+          testIDLabel="ConstructionWorkTextAddress"
+        />
       }
-      noResultsMessage="We hebben geen werkzaamheden gevonden dichtbij dit adres."
+      queryParams={queryParams}
     />
   )
 }

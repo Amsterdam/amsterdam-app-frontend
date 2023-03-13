@@ -17,7 +17,12 @@ import {
   ProjectWarningIdQueryArg,
 } from '@/modules/construction-work/types'
 import {baseApi} from '@/services'
-import {CacheLifetime, MutationResponse, SortListQueryArg} from '@/types'
+import {
+  CacheLifetime,
+  MutationResponse,
+  Paginated,
+  SortListQueryArg,
+} from '@/types'
 import {formatQueryParams, generateRequestUrl} from '@/utils'
 
 export const projectsApi = baseApi.injectEndpoints({
@@ -67,7 +72,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     [ProjectsEndpointName.getProjects]: builder.query<
-      ProjectsItem[],
+      Paginated<ProjectsItem>,
       Partial<
         ProjectsQueryArg & AddressQueryArg & FieldsQueryArg & SortListQueryArg
       > | void
@@ -77,14 +82,12 @@ export const projectsApi = baseApi.injectEndpoints({
         if (params) {
           return generateRequestUrl({
             path: '/projects',
-            params: formatQueryParams({...params, page_size: 1000}),
+            params: formatQueryParams({...params}),
           })
         }
         return '/projects'
       },
       keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (response: {result: ProjectsItem[]}) =>
-        response.result,
     }),
 
     [ProjectsEndpointName.getProjectsFollowedArticles]: builder.query<
@@ -118,6 +121,7 @@ export const projectsApi = baseApi.injectEndpoints({
           path: '/projects/search',
           params: formatQueryParams({...params, page_size: 1000}),
         }),
+
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: ProjectsItem[]}) =>
         response.result,

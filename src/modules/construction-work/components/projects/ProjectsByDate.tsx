@@ -1,45 +1,26 @@
 import {
-  ProjectsList,
-  ProjectsListHeader,
+  Projects,
   ProvideAddressButton,
-  SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
+import {getBaseProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useSortProjects} from '@/modules/construction-work/hooks'
-import {useGetProjectsQuery} from '@/modules/construction-work/service'
 
-export const ProjectsByDate = () => {
-  const result = useGetProjectsQuery({
-    articles_max_age: recentArticleMaxAge,
-    fields: [
-      'followed',
-      'identifier',
-      'images',
-      'publication_date',
-      'recent_articles',
-      'subtitle',
-      'title',
-    ],
-    sortBy: 'publication_date',
-    sortOrder: 'desc',
-  })
-
-  const sortedProjects = useSortProjects(result.data)
-
-  return (
-    <ProjectsList
-      {...result}
-      data={sortedProjects}
-      getProjectTraits={({followed, recent_articles}) => ({
-        followed,
-        recent_articles,
-      })}
-      listHeader={
-        <ProjectsListHeader>
-          <SearchFieldNavigator />
-          <ProvideAddressButton />
-        </ProjectsListHeader>
-      }
-    />
-  )
+const queryParams = {
+  articles_max_age: recentArticleMaxAge,
+  fields: [
+    'followed',
+    'identifier',
+    'images',
+    'publication_date',
+    'recent_articles',
+    'subtitle',
+    'title',
+  ],
 }
+export const ProjectsByDate = () => (
+  <Projects
+    getProjectTraits={getBaseProjectTraits}
+    HeaderButton={<ProvideAddressButton />}
+    queryParams={queryParams}
+  />
+)

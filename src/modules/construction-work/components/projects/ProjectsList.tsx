@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext} from 'react'
-import {StyleSheet} from 'react-native'
+import {memo, useCallback, useContext, useMemo} from 'react'
+import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {FlatGrid} from 'react-native-super-grid'
+import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui/containers'
@@ -12,6 +12,7 @@ import {
   PleaseWait,
   SomethingWentWrong,
 } from '@/components/ui/feedback'
+import {EnvironmentConfig} from '@/environment'
 import {
   getAccessibleDistanceText,
   getAccessibleFollowingText,
@@ -34,59 +35,92 @@ import {accessibleText, mapImageSources} from '@/utils'
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
+const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
+  project.identifier
+
 type ListItemProps = {
+  environment: EnvironmentConfig
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
   project: ProjectsItem
   readArticles: ReadArticle[]
 }
 
-const ListItem = ({
-  getProjectTraits,
-  navigation,
-  project,
-  readArticles,
-}: ListItemProps) => {
-  const environment = useEnvironment()
+const ListItem = memo(
+  ({
+    environment,
+    getProjectTraits,
+    navigation,
+    project,
+    readArticles,
+  }: ListItemProps) => {
+    const parsedTraits = useMemo(() => {
+      if (getProjectTraits) {
+        const traits = getProjectTraits?.(project)
+        const {recent_articles} = traits
+        const recentArticlesIds = recent_articles?.map(r => r.identifier) ?? []
+        const readArticlesIds = readArticles.map(r => r.id)
+        const unreadArticlesLength = recentArticlesIds.filter(
+          id => !readArticlesIds.includes(id),
+        ).length
+        return {...traits, unreadArticlesLength}
+      }
+      return {} as Partial<ProjectsItem> & {unreadArticlesLength?: number}
+    }, [getProjectTraits, project, readArticles])
+    const {followed, meter, strides, unreadArticlesLength} = parsedTraits
 
-  let projectTraits
-  if (getProjectTraits) {
-    const traits = getProjectTraits?.(project)
-    const {followed, meter, recent_articles, strides} = traits
-
-    const recentArticlesIds = recent_articles?.map(r => r.identifier) ?? []
-    const readArticlesIds = readArticles.map(r => r.id)
-    const unreadArticlesLength = recentArticlesIds.filter(
-      id => !readArticlesIds.includes(id),
-    ).length
-
-    projectTraits = (
-      <ProjectTraits
-        accessibilityLabel={accessibleText(
-          getAccessibleFollowingText(!!followed, unreadArticlesLength),
-          getAccessibleDistanceText(meter, strides),
-        )}
-        unreadArticlesLength={unreadArticlesLength}
-        {...traits}
-      />
+    const additionalAccessibilityLabel =
+      getProjectTraits &&
+      accessibleText(
+        getAccessibleFollowingText(!!followed, unreadArticlesLength ?? 0),
+        getAccessibleDistanceText(meter, strides),
+      )
+    const projectTraits = useCallback(
+      () =>
+        getProjectTraits ? (
+          <ProjectTraits
+            accessibilityLabel={additionalAccessibilityLabel}
+            unreadArticlesLength={unreadArticlesLength}
+            {...parsedTraits}
+          />
+        ) : null,
+      // trick to prevent unnecessary rerenders because of parsedTraits being a new object without new values
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [
+        additionalAccessibilityLabel,
+        getProjectTraits,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        ...Object.values(parsedTraits),
+        unreadArticlesLength,
+      ],
     )
-  }
 
-  return (
-    <ProjectCard
-      imageSource={mapImageSources(project.images?.[0]?.sources, environment)}
-      kicker={projectTraits}
-      onPress={() =>
+    const onPress = useCallback(
+      () =>
         navigation.navigate(ConstructionWorkRouteName.project, {
           id: project.identifier,
-        })
-      }
-      subtitle={project.subtitle ?? undefined}
-      testID={`ConstructionWorkCardProject${project.identifier}`}
-      title={project.title}
-    />
-  )
-}
+        }),
+      [navigation, project.identifier],
+    )
+
+    const imageSource = useMemo(
+      () => mapImageSources(project.images?.[0]?.sources, environment),
+      [environment, project.images],
+    )
+
+    return (
+      <ProjectCard
+        additionalAccessibilityLabel={additionalAccessibilityLabel}
+        imageSource={imageSource}
+        Kicker={projectTraits}
+        onPress={onPress}
+        subtitle={project.subtitle ?? undefined}
+        testID={`ConstructionWorkCardProject${project.identifier}`}
+        title={project.title}
+      />
+    )
+  },
+)
 
 type ListEmptyMessageProps = {
   testID: string
@@ -106,6 +140,8 @@ type Props = {
   isLoading: boolean
   listHeader?: JSX.Element
   noResultsMessage?: string
+  onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
+  onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']
   searchText?: string | undefined
 }
 
@@ -114,6 +150,8 @@ export const ProjectsList = ({
   getProjectTraits,
   isError,
   isLoading,
+  onItemsPerRowChange,
+  onViewableItemsChanged,
   searchText = undefined,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
@@ -130,6 +168,20 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
+  const environment = useEnvironment()
+  const renderItem: ListRenderItem<ProjectsItem> = useCallback(
+    ({item}) => (
+      <ListItem
+        environment={environment}
+        getProjectTraits={getProjectTraits}
+        navigation={navigation}
+        project={item}
+        readArticles={readArticles}
+      />
+    ),
+    [environment, getProjectTraits, navigation, readArticles],
+  )
+
   if (isError) {
     return <SomethingWentWrong />
   }
@@ -141,7 +193,7 @@ export const ProjectsList = ({
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
-      keyExtractor={project => project.identifier}
+      keyExtractor={keyExtractor}
       ListEmptyComponent={
         isLoading ? (
           <PleaseWait />
@@ -153,14 +205,9 @@ export const ProjectsList = ({
         ) : null
       }
       ListHeaderComponent={listHeader}
-      renderItem={({item}) => (
-        <ListItem
-          getProjectTraits={getProjectTraits}
-          navigation={navigation}
-          project={item}
-          readArticles={readArticles}
-        />
-      )}
+      onItemsPerRowChange={onItemsPerRowChange}
+      onViewableItemsChanged={onViewableItemsChanged}
+      renderItem={renderItem}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
       style={styles.gridView}

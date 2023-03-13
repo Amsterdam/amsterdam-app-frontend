@@ -93,12 +93,9 @@ export type ProjectsItem = {
   last_seen: string
   meter: number
   modification_date: string
-  page: number
-  page_size: number
   publication_date: string
   // only present when sent 'articles_max_age' in request body
   recent_articles?: RecentArticle[]
-  score: number
   source_url: string
   strides: number
   subtitle: string | null
@@ -119,6 +116,8 @@ export type ProjectsQueryArg = {
   articles_max_age: number
   districtId: number
   fields: string[]
+  page: number
+  pageSize: number
   projectType: 'brug' | 'kade'
 }
 
