@@ -11,7 +11,7 @@ const features = loadFeatures('e2e/features/about.feature', {
 const aboutSteps = ({given, when, then, and}) => {
   beforeEach(async () => {
     await device.launchApp({newInstance: true})
-    await WelcomeScreen.tapWelcomeScreen()
+    await WelcomeScreen.tap()
     await HomeScreen.tapModule('Over deze app')
   })
 

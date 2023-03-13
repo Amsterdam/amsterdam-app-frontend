@@ -25,7 +25,7 @@ const contactSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het homescherm - klik zodat welkomstscherm verdwijnt/,
     async () => {
-      await WelcomeScreen.tapWelcomescreen()
+      await WelcomeScreen.tap()
       await expect(HomeScreen.contactModuleButton).toExist()
     },
   )
@@ -40,7 +40,7 @@ const contactSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op het contactscherm/, async () => {
-    await WelcomeScreen.tapWelcomeScreen()
+    await WelcomeScreen.tap()
     await HomeScreen.tapModule('Contact')
   })
 

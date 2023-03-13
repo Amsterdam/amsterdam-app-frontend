@@ -47,7 +47,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
       <Pressable
         grow
         onPress={() => navigation.reset(navigationResetParam)}
-        testID="WelcomePressableImageAndQuote">
+        testID="WelcomeImageAndQuoteButton">
         <Track flex={1}>
           <AspectRatio
             aspectRatio={isPortrait && isTallPhone ? 'wide' : 'narrow'}
