@@ -20,6 +20,7 @@ export const AboutTheAppEnglishScreen = () => {
           source={
             require('@/modules/about/assets/images/traffic-cycling.1280.50.jpg') as ImageURISource
           }
+          testID="AboutAboutTheAppEnglishTrafficCyclingImage"
         />
         <HorizontalSafeArea>
           <Box>
@@ -40,28 +41,40 @@ export const AboutTheAppEnglishScreen = () => {
               </Column>
               <Track gutter="lg">
                 <Column gutter="sm">
-                  <Icon name="trash-bin" size="xl" />
+                  <Icon
+                    name="trash-bin"
+                    size="xl"
+                    testID="AboutAboutTheAppEnglishWasteInformationIcon"
+                  />
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
                     testID="AboutAboutTheAppEnglishWasteInformationTitle"
                     text="Waste information"
                   />
-                  <Paragraph accessibilityLanguage="en-US">
+                  <Paragraph
+                    accessibilityLanguage="en-US"
+                    testID="AboutAboutTheAppEnglishWasteInformationParagraph">
                     You can enter your address to look up where to dispose of
                     bulky (oversized) waste. This also helps to locate the
                     nearest waste and glass containers.
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="construction-work" size="xl" />
+                  <Icon
+                    name="construction-work"
+                    size="xl"
+                    testID="AboutAboutTheAppEnglishRoadWorkIcon"
+                  />
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
                     testID="AboutAboutTheAppEnglishRoadWorkTitle"
                     text="Road work"
                   />
-                  <Paragraph accessibilityLanguage="en-US">
+                  <Paragraph
+                    accessibilityLanguage="en-US"
+                    testID="AboutAboutTheAppEnglishRoadWorkParagraph">
                     The City often performs maintenance on streets, bridges,
                     quays, and buildings. ‘Werkzaamheden’ lists the projects in
                     your area. You can follow a project in the app. If you do
@@ -69,14 +82,20 @@ export const AboutTheAppEnglishScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="alert" size="xl" />
+                  <Icon
+                    name="alert"
+                    size="xl"
+                    testID="AboutAboutTheAppEnglishReportProblemIcon"
+                  />
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
-                    testID="AboutAboutTheAppEnglishReportItTitle"
+                    testID="AboutAboutTheAppEnglishReportProblemTitle"
                     text="Report it"
                   />
-                  <Paragraph accessibilityLanguage="en-US">
+                  <Paragraph
+                    accessibilityLanguage="en-US"
+                    testID="AboutAboutTheAppEnglishReportProblemParagraph">
                     Is a waste container full, a lamppost not working, or is
                     rubbish lying on the street? You can report any of that
                     within the app. We will take care of these problems as
@@ -91,6 +110,7 @@ export const AboutTheAppEnglishScreen = () => {
           source={
             require('@/modules/about/assets/images/people-in-park.1280.50.jpg') as ImageURISource
           }
+          testID="AboutAboutTheAppEnglishPeopleInParkImage"
         />
         <HorizontalSafeArea>
           <Box>
@@ -102,7 +122,9 @@ export const AboutTheAppEnglishScreen = () => {
                   testID="AboutAboutTheAppEnglish1AppTitle"
                   text="1 app for all citizens of Amsterdam and Weesp"
                 />
-                <Paragraph accessibilityLanguage="en-US">
+                <Paragraph
+                  accessibilityLanguage="en-US"
+                  testID="AboutAboutTheAppEnglishAppParagraph">
                   We make 1 app for everyone living in Amsterdam or Weesp. The
                   app has been designed to be usable for anyone.
                 </Paragraph>
@@ -111,10 +133,12 @@ export const AboutTheAppEnglishScreen = () => {
                 <Title
                   accessibilityLanguage="en-US"
                   level="h2"
-                  testID="AboutAboutTheAppEnglishTopicsFutureTitle"
+                  testID="AboutAboutTheAppEnglishFutureTopicsTitle"
                   text="More topics in the future"
                 />
-                <Paragraph accessibilityLanguage="en-US">
+                <Paragraph
+                  accessibilityLanguage="en-US"
+                  testID="AboutAboutTheAppEnglishFutureTopicsParagraph">
                   This version of the Amsterdam app offers topics that benefit
                   everyone. It is the start of more features and languages to
                   come. We’ll keep improving the app this way.

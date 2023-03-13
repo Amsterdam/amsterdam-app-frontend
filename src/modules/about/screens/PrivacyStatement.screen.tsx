@@ -12,7 +12,9 @@ export const PrivacyStatementScreen = () => (
             testID="AboutPrivacyStatementTitle"
             text="Samenvatting privacyverklaring gemeente Amsterdam"
           />
-          <Paragraph variant="intro">
+          <Paragraph
+            testID="AboutPrivacyStatementIntroParagraph"
+            variant="intro">
             De gemeente voert alleen taken uit die belangrijk zijn voor haar
             inwoners en bezoekers. De gemeente gebruikt hiervoor soms
             persoonsgegevens. Als u in Amsterdam woont, houdt de gemeente
@@ -21,7 +23,7 @@ export const PrivacyStatementScreen = () => (
           </Paragraph>
         </Column>
         <Column gutter="md">
-          <Paragraph testID="AboutPrivacyStatementFirstParagraph">
+          <Paragraph testID="AboutPrivacyStatementParagraph">
             Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de
             gemeente vaak contactgegevens, zoals uw telefoonnummer en
             e-mailadres, van u nodig om u goed te kunnen helpen.
@@ -41,7 +43,7 @@ export const PrivacyStatementScreen = () => (
             testID="AboutPrivacyStatementPersoonsgegevensTitle"
             text="Het verwerken van persoonsgegevens"
           />
-          <Paragraph>
+          <Paragraph testID="AboutPrivacyStatementPersoonsgegevensParagraph">
             Het gebruiken van persoonsgegevens noemen we ook wel ‘verwerken’ van
             persoonsgegevens. Het hangt van het doel en de taak van de gemeente
             af welke persoonsgegevens de gemeente precies verwerkt. De
@@ -75,14 +77,14 @@ export const PrivacyStatementScreen = () => (
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/privacyverklaring/')
             }
-            testID="AboutPrivacyStatementGeneralButton"
+            testID="AboutPrivacyStatementGeneralLink"
           />
           <Link
             label="Specifieke privacyverklaring"
             onPress={() =>
               openWebUrl('https://www.amsterdam.nl/privacy/specifieke/')
             }
-            testID="AboutPrivacyStatementSpecificButton"
+            testID="AboutPrivacyStatementSpecificLink"
           />
         </Column>
       </Column>

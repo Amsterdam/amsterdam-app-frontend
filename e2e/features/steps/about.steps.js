@@ -78,13 +78,13 @@ const aboutSteps = ({given, when, then, and}) => {
       .toBeVisible()
       .withTimeout(2000)
     await expect(element(by.text('Road Work'))).toBeVisible()
-    await expect(AboutScreen.aboutTheAppEnglishReportItTitle).toBeVisible()
-    await AboutScreen.aboutTheAppEnglishReportItTitle.swipe('up')
+    await expect(AboutScreen.aboutTheAppEnglishReportProblemTitle).toBeVisible()
+    await AboutScreen.aboutTheAppEnglishReportProblemTitle.swipe('up')
     await waitFor(AboutScreen.aboutTheAppEnglish1AppTitle)
       .toBeVisible()
       .withTimeout(2000)
     await expect(AboutScreen.aboutTheAppEnglish1AppTitle).toBeVisible()
-    await expect(AboutScreen.aboutTheAppEnglishTopicsFutureTitle).toBeVisible()
+    await expect(AboutScreen.aboutTheAppEnglishFutureTopicsTitle).toBeVisible()
   })
 
   when(/ik klik op 'Privacyverklaring'/, async () => {
@@ -97,7 +97,7 @@ const aboutSteps = ({given, when, then, and}) => {
     await waitFor(AboutScreen.privacyStatementTitle)
       .toBeVisible()
       .withTimeout(2000)
-    await element(AboutScreen.privacyStatementFirstParagraph).swipe(
+    await element(AboutScreen.privacyStatementParagraph).swipe(
       'up',
       'fast',
       0.5,
@@ -109,8 +109,8 @@ const aboutSteps = ({given, when, then, and}) => {
       AboutScreen.privacyStatementAlgemeneSpecifiekeTitle,
     ).toBeVisible()
     await AboutScreen.privacyStatementAlgemeneSpecifiekeTitle.swipe('up')
-    await expect(AboutScreen.privacyStatementGeneralButton).toBeVisible()
-    await expect(AboutScreen.privacyStatementSpecificButton).toBeVisible()
+    await expect(AboutScreen.privacyStatementGeneralLink).toBeVisible()
+    await expect(AboutScreen.privacyStatementSpecificLink).toBeVisible()
   })
 
   when(/ik klik op 'Toegankelijkheidsverklaring'/, async () => {

@@ -89,16 +89,16 @@ class AboutScreen extends Screen {
     return element(by.id('AboutAboutTheAppEnglishRoadWorkTitle'))
   }
 
-  get aboutTheAppEnglishReportItTitle() {
-    return element(by.id('AboutAboutTheAppEnglishReportItTitle'))
+  get aboutTheAppEnglishReportProblemTitle() {
+    return element(by.id('AboutAboutTheAppEnglishReportProblemTitle'))
   }
 
   get aboutTheAppEnglish1AppTitle() {
     return element(by.id('AboutAboutTheAppEnglish1AppTitle'))
   }
 
-  get aboutTheAppEnglishTopicsFutureTitle() {
-    return element(by.id('AboutAboutTheAppEnglishTopicsFutureTitle'))
+  get aboutTheAppEnglishFutureTopicsTitle() {
+    return element(by.id('AboutAboutTheAppEnglishFutureTopicsTitle'))
   }
 
   // Screen: Privacy statement
@@ -107,8 +107,8 @@ class AboutScreen extends Screen {
     return element(by.id('AboutPrivacyStatementTitle'))
   }
 
-  get privacyStatementFirstParagraph() {
-    return element(by.id('AboutPrivacyStatementFirstParagraph'))
+  get privacyStatementParagraph() {
+    return element(by.id('AboutPrivacyStatementParagraph'))
   }
 
   get privacyStatementPersoonsgegevensTitle() {
@@ -119,12 +119,12 @@ class AboutScreen extends Screen {
     return element(by.id('AboutPrivacyStatementAlgemeneSpecifiekeTitle'))
   }
 
-  get privacyStatementGeneralButton() {
-    return element(by.id('AboutPrivacyStatementGeneralButton'))
+  get privacyStatementGeneralLink() {
+    return element(by.id('AboutPrivacyStatementGeneralLink'))
   }
 
-  get privacyStatementSpecificButton() {
-    return element(by.id('AboutPrivacyStatementSpecificButton'))
+  get privacyStatementSpecificLink() {
+    return element(by.id('AboutPrivacyStatementSpecificLink'))
   }
 
   // Screen: Accessibility statement

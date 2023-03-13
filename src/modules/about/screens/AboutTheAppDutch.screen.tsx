@@ -20,6 +20,7 @@ export const AboutTheAppDutchScreen = () => {
           source={
             require('@/modules/about/assets/images/traffic-cycling.1280.50.jpg') as ImageURISource
           }
+          testID="AboutAboutTheAppDutchTrafficCyclingImage"
         />
         <HorizontalSafeArea>
           <Box>
@@ -38,13 +39,17 @@ export const AboutTheAppDutchScreen = () => {
               </Column>
               <Track gutter="lg">
                 <Column gutter="sm">
-                  <Icon name="trash-bin" size="xl" />
+                  <Icon
+                    name="trash-bin"
+                    size="xl"
+                    testID="AboutAboutTheAppDutchInformatieOverAfvalIcon"
+                  />
                   <Title
                     level="h5"
                     testID="AboutAboutTheAppDutchInformatieOverAfvalTitle"
                     text="Informatie over afval"
                   />
-                  <Paragraph>
+                  <Paragraph testID="AboutAboutTheAppDutchInformatieOverAfvalParagraph">
                     U kunt uw adres invullen. Dan ziet u wanneer u grofvuil
                     (grote stukken afval) aan de weg mag zetten. En u ziet ook
                     waar de dichtstbijzijnde afvalcontainer of flessencontainer
@@ -52,13 +57,17 @@ export const AboutTheAppDutchScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="construction-work" size="xl" />
+                  <Icon
+                    name="construction-work"
+                    size="xl"
+                    testID="AboutAboutTheAppDutchWerkAanDeWegIcon"
+                  />
                   <Title
                     level="h5"
                     testID="AboutAboutTheAppDutchWerkAanDeWegTitle"
                     text="Werk aan de weg"
                   />
-                  <Paragraph>
+                  <Paragraph testID="AboutAboutTheAppDutchWerkAanDeWegParagraph">
                     De gemeente werkt vaak aan de straten, bruggen, kades of
                     gebouwen. In ‘Werkzaamheden’ ziet u de projecten bij u in de
                     buurt. U kunt een project volgen in de app. Als u een
@@ -67,13 +76,17 @@ export const AboutTheAppDutchScreen = () => {
                   </Paragraph>
                 </Column>
                 <Column gutter="sm">
-                  <Icon name="alert" size="xl" />
+                  <Icon
+                    name="alert"
+                    size="xl"
+                    testID="AboutAboutTheAppDutchMeldingMakenIcon"
+                  />
                   <Title
                     level="h5"
                     testID="AboutAboutTheAppDutchMeldingMakenTitle"
                     text="Melding maken"
                   />
-                  <Paragraph>
+                  <Paragraph testID="AboutAboutTheAppDutchMeldingMakenParagraph">
                     Is de container voor afval vol? Doet de lantaarnpaal het
                     niet? Of ligt er troep op straat? Dat kunt u allemaal melden
                     met de app. We lossen het probleem zo snel mogelijk voor u
@@ -88,6 +101,7 @@ export const AboutTheAppDutchScreen = () => {
           source={
             require('@/modules/about/assets/images/people-in-park.1280.50.jpg') as ImageURISource
           }
+          testID="AboutAboutTheAppDutchPeopleInParkImage"
         />
         <HorizontalSafeArea>
           <Box>
@@ -98,7 +112,7 @@ export const AboutTheAppDutchScreen = () => {
                   testID="AboutAboutTheAppDutch1AppTitle"
                   text="1 app voor alle Amsterdammers en Weespers"
                 />
-                <Paragraph>
+                <Paragraph testID="AboutAboutTheAppDutch1AppParagraph">
                   We maken 1 app voor alle mensen die wonen in Amsterdam en
                   Weesp. De app is zó gemaakt dat iedereen hem kan gebruiken.
                 </Paragraph>
@@ -109,7 +123,7 @@ export const AboutTheAppDutchScreen = () => {
                   testID="AboutAboutTheAppDutchOnderwerpenToekomstTitle"
                   text="Nog meer onderwerpen in de toekomst"
                 />
-                <Paragraph>
+                <Paragraph testID="AboutAboutTheAppDutchOnderwerpenToekomstParagraph">
                   Deze versie van de Amsterdam app heeft onderwerpen waar
                   iedereen iets aan heeft. Dit is het begin. In de toekomst
                   komen er meer onderwerpen en talen bij. Zo maken we de app
