@@ -16,7 +16,7 @@ const contactSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het homescherm - wacht totdat welkomstscherm verdwijnt/,
     async () => {
-      await waitFor(HomeScreen.HomeModuleButtonContact)
+      await waitFor(HomeScreen.HomeContactModuleButton)
         .toBeVisible()
         .withTimeout(10000)
     },
@@ -26,7 +26,7 @@ const contactSteps = ({given, when, then, and}) => {
     /ik ben op het homescherm - klik zodat welkomstscherm verdwijnt/,
     async () => {
       await WelcomeScreen.tapWelcomescreen()
-      await expect(HomeScreen.HomeModuleButtonContact).toExist()
+      await expect(HomeScreen.HomeContactModuleButton).toExist()
     },
   )
 

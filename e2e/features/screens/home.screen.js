@@ -2,14 +2,14 @@ import assert from 'chai'
 import Screen from './screen'
 
 class HomeScreen extends Screen {
-  // HomeModuleButtonAbout,
+  // HomeAboutModuleButton,
   // constructionWorkEditorModule,
-  // HomeModuleButtonConstructionWork,
-  // HomeModuleButtonContact,
-  // HomeModuleButtonOpenWasteContainer,
-  // HomeModuleButtonRedirects,
-  // HomeModuleButtonReportProblem,
-  // HomeModuleButtonWasteGuide,
+  // HomeConstructionWorkModuleButton,
+  // HomeContactModuleButton,
+  // HomeOpenWasteContainerModuleButton,
+  // HomeRedirectsModuleButton,
+  // HomeReportProblemModuleButton,
+  // HomeWasteGuideModuleButton,
   // welcomeModule,
   get HomeWasteGuideModuleButton() {
     return element(by.id('HomeWasteGuideModuleButton'))
