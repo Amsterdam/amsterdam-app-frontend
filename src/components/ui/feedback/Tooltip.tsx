@@ -3,29 +3,33 @@ import {SingleSelectable} from '@/components/ui/containers'
 import {Triangle} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {Placement} from '@/components/ui/types'
+import {Placement, TestID} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
   placement: Placement
+  testID?: TestID
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
 const TooltipContent = ({
   accessibilityLabel,
+  testID,
   text,
-}: Pick<Props, 'accessibilityLabel' | 'text'>) => {
+}: Pick<Props, 'accessibilityLabel' | 'testID' | 'text'>) => {
   const styles = useThemable(createStyles)
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
-    <SingleSelectable
-      accessibilityLabel={accessibilityLabel}
-      style={styles.tooltip}>
+    <SingleSelectable style={styles.tooltip} {...{accessibilityLabel, testID}}>
       <Column gutter="sm">
-        {paragraphs.map(paragraph => (
-          <Paragraph color="inverse" key={paragraph} variant="small">
+        {paragraphs.map((paragraph, index) => (
+          <Paragraph
+            color="inverse"
+            key={paragraph}
+            testID={index === 0 ? [testID, 'Paragraph'].join('') : undefined}
+            variant="small">
             {paragraph}
           </Paragraph>
         ))}
@@ -34,7 +38,12 @@ const TooltipContent = ({
   )
 }
 
-export const Tooltip = ({accessibilityLabel, placement, text}: Props) => {
+export const Tooltip = ({
+  accessibilityLabel,
+  placement,
+  testID,
+  text,
+}: Props) => {
   const props = {direction: mapPlacementToDirection(placement)}
 
   return (
@@ -42,7 +51,7 @@ export const Tooltip = ({accessibilityLabel, placement, text}: Props) => {
       {placement === Placement.after && <Triangle {...props} />}
       <Column>
         {placement === Placement.below && <Triangle {...props} />}
-        <TooltipContent {...{accessibilityLabel, text}} />
+        <TooltipContent {...{accessibilityLabel, testID, text}} />
         {placement === Placement.above && <Triangle {...props} />}
       </Column>
       {placement === Placement.before && <Triangle {...props} />}

@@ -8,17 +8,18 @@ import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
-import {IconSize} from '@/components/ui/types'
+import {IconSize, TestID} from '@/components/ui/types'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
+  testID?: TestID
   title: string
 }
 
 const closeIconSize = 'ml'
 
-export const ModalHeader = ({title}: Props) => {
+export const ModalHeader = ({testID, title}: Props) => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const styles = useThemable(createStyles)
@@ -36,6 +37,7 @@ export const ModalHeader = ({title}: Props) => {
           accessibilityLabel="Sluiten"
           icon={<Icon color="link" name="close" size={closeIconSize} />}
           onPress={navigation.goBack}
+          testID={[testID, 'CloseButton'].join('')}
         />
       </Row>
     </Box>
