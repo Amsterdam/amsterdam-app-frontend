@@ -93,7 +93,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   })
 
   then(/ik ben op het homescherm/, async () => {
-    await expect(HomeScreen.HomeConstructionWorkModuleButton).toBeVisible()
+    await expect(HomeScreen.constructionWorkModuleButton).toBeVisible()
   })
 
   and(/ik open het project Stadhouderskade/, async () => {
