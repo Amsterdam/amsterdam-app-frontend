@@ -39,6 +39,7 @@ const aboutSteps = ({given, when, then, and}) => {
     await waitFor(AboutScreen.aboutTheAppDutchTitle)
       .toBeVisible()
       .withTimeout(2000)
+    await expect(AboutScreen.aboutTheAppDutchIntroParagraph).toBeVisible()
     await expect(AboutScreen.aboutTheAppDutchWasteInformationTitle).toBeVisible
     await AboutScreen.aboutTheAppDutchWasteInformationTitle.swipe(
       'up',
