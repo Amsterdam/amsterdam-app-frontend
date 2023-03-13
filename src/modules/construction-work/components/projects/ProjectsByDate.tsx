@@ -7,6 +7,7 @@ import {
   ProvideAddressButton,
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
+import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {useInfiniteScroller} from '@/modules/construction-work/hooks'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
@@ -15,10 +16,11 @@ export const ProjectsByDate = () => {
   const [itemsPerRow, setItemsPerRow] = useState(1)
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
 
-  const page =
-    Math.floor(
-      ((viewableItemIndex ?? 0) * itemsPerRow + 1) / projectItemListPageSize,
-    ) + 1
+  const page = getCurrentPage(
+    viewableItemIndex,
+    itemsPerRow,
+    projectItemListPageSize,
+  )
   const result = useInfiniteScroller(page, projectItemListPageSize)
 
   const onViewableItemsChanged = useCallback<

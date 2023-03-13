@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
 import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
@@ -8,6 +8,7 @@ import {
   ProjectsListHeader,
   SearchFieldNavigator,
 } from '@/modules/construction-work/components/projects'
+import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {useInfiniteScroller} from '@/modules/construction-work/hooks'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
@@ -18,12 +19,11 @@ type Props = {
 export const ProjectsByDistance = ({address}: Props) => {
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
-  const [index, setIndex] = useState(1)
-  const page = useMemo(
-    () =>
-      Math.floor(((index ?? 0) * itemsPerRow + 1) / projectItemListPageSize) +
-      1,
-    [index, itemsPerRow, projectItemListPageSize],
+  const [viewableItemIndex, setViewableItemIndex] = useState(1)
+  const page = getCurrentPage(
+    viewableItemIndex,
+    itemsPerRow,
+    projectItemListPageSize,
   )
   const result = useInfiniteScroller(page, projectItemListPageSize, address)
 
@@ -34,7 +34,7 @@ export const ProjectsByDistance = ({address}: Props) => {
       const middleIndex = Math.floor(viewableItems.length / 2)
       const foundIndex = viewableItems[middleIndex].index
       if (foundIndex) {
-        setIndex(foundIndex)
+        setViewableItemIndex(foundIndex)
       }
     }
   }, [])
