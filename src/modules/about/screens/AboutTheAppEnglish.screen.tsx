@@ -27,9 +27,13 @@ export const AboutTheAppEnglishScreen = () => {
               <Column gutter="sm">
                 <Title
                   accessibilityLanguage="en-US"
+                  testID="AboutAboutTheAppEnglishTitle"
                   text="1 app for all citizens of Amsterdam"
                 />
-                <Paragraph accessibilityLanguage="en-US" variant="intro">
+                <Paragraph
+                  accessibilityLanguage="en-US"
+                  testID="AboutAboutTheAppEnglishIntroParagraph"
+                  variant="intro">
                   The Amsterdam app quickly provides information tailored to
                   you. Take care of affairs with ease, like:
                 </Paragraph>
@@ -40,6 +44,7 @@ export const AboutTheAppEnglishScreen = () => {
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
+                    testID="AboutAboutTheAppEnglishWasteInformationTitle"
                     text="Waste information"
                   />
                   <Paragraph accessibilityLanguage="en-US">
@@ -53,6 +58,7 @@ export const AboutTheAppEnglishScreen = () => {
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
+                    testID="AboutAboutTheAppEnglishRoadWorkTitle"
                     text="Road work"
                   />
                   <Paragraph accessibilityLanguage="en-US">
@@ -67,6 +73,7 @@ export const AboutTheAppEnglishScreen = () => {
                   <Title
                     accessibilityLanguage="en-US"
                     level="h5"
+                    testID="AboutAboutTheAppEnglishReportItTitle"
                     text="Report it"
                   />
                   <Paragraph accessibilityLanguage="en-US">
@@ -92,6 +99,7 @@ export const AboutTheAppEnglishScreen = () => {
                 <Title
                   accessibilityLanguage="en-US"
                   level="h2"
+                  testID="AboutAboutTheAppEnglish1AppTitle"
                   text="1 app for all citizens of Amsterdam and Weesp"
                 />
                 <Paragraph accessibilityLanguage="en-US">
@@ -103,6 +111,7 @@ export const AboutTheAppEnglishScreen = () => {
                 <Title
                   accessibilityLanguage="en-US"
                   level="h2"
+                  testID="AboutAboutTheAppEnglishTopicsFutureTitle"
                   text="More topics in the future"
                 />
                 <Paragraph accessibilityLanguage="en-US">

@@ -66,7 +66,7 @@ const aboutSteps = ({given, when, then, and}) => {
   then(/ik zie een scherm met uitleg over deze app in het Engels/, async () => {
     await waitFor(AboutScreen.HeaderTitle).toBeVisible().withTimeout(2000)
     await expect(AboutScreen.HeaderTitle).toHaveText('About this app')
-    await waitFor(AboutScreen.AboutAboutTheAppEnglish1AppTitle)
+    await waitFor(AboutScreen.AboutAboutTheAppEnglishTitle)
       .toBeVisible()
       .withTimeout(2000)
     await expect(
@@ -80,13 +80,13 @@ const aboutSteps = ({given, when, then, and}) => {
       'fast',
       0.3,
     )
-    waitFor(AboutScreen.AboutAboutTheAppEnglishRoadWorkTitle)
+    await waitFor(AboutScreen.AboutAboutTheAppEnglishRoadWorkTitle)
       .toBeVisible()
       .withTimeout(2000)
     await expect(element(by.text('Road Work'))).toBeVisible()
     await expect(AboutScreen.AboutAboutTheAppEnglishReportItTitle).toBeVisible()
     await AboutScreen.AboutAboutTheAppEnglishReportItTitle.swipe('up')
-    waitFor(AboutScreen.AboutAboutTheAppEnglish1AppTitle)
+    await waitFor(AboutScreen.AboutAboutTheAppEnglish1AppTitle)
       .toBeVisible()
       .withTimeout(2000)
     await expect(AboutScreen.AboutAboutTheAppEnglish1AppTitle).toBeVisible()
@@ -114,11 +114,9 @@ const aboutSteps = ({given, when, then, and}) => {
       AboutScreen.AboutPrivacyStatementPersoonsgegevensTitle,
     ).toBeVisible()
     await expect(
-      AboutScreen.AboutPrivacyStatementGeneralVersusSpecificTitle,
+      AboutScreen.AboutPrivacyStatementAlgemeneSpecifiekeTitle,
     ).toBeVisible()
-    await AboutScreen.AboutPrivacyStatementGeneralVersusSpecificTitle.swipe(
-      'up',
-    )
+    await AboutScreen.AboutPrivacyStatementAlgemeneSpecifiekeTitle.swipe('up')
     await expect(AboutScreen.AboutPrivacyStatementGeneralButton).toBeVisible()
     await expect(AboutScreen.AboutPrivacyStatementSpecificButton).toBeVisible()
   })

@@ -8,7 +8,10 @@ export const PrivacyStatementScreen = () => (
     <Box>
       <Column gutter="lg">
         <Column gutter="md">
-          <Title text="Samenvatting privacyverklaring gemeente Amsterdam" />
+          <Title
+            testID="AboutPrivacyStatementTitle"
+            text="Samenvatting privacyverklaring gemeente Amsterdam"
+          />
           <Paragraph variant="intro">
             De gemeente voert alleen taken uit die belangrijk zijn voor haar
             inwoners en bezoekers. De gemeente gebruikt hiervoor soms
@@ -18,7 +21,7 @@ export const PrivacyStatementScreen = () => (
           </Paragraph>
         </Column>
         <Column gutter="md">
-          <Paragraph>
+          <Paragraph testID="AboutPrivacyStatementFirstParagraph">
             Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft de
             gemeente vaak contactgegevens, zoals uw telefoonnummer en
             e-mailadres, van u nodig om u goed te kunnen helpen.
@@ -33,7 +36,11 @@ export const PrivacyStatementScreen = () => (
           </Paragraph>
         </Column>
         <Column gutter="md">
-          <Title level="h2" text="Het verwerken van persoonsgegevens" />
+          <Title
+            level="h2"
+            testID="AboutPrivacyStatementPersoonsgegevensTitle"
+            text="Het verwerken van persoonsgegevens"
+          />
           <Paragraph>
             Het gebruiken van persoonsgegevens noemen we ook wel ‘verwerken’ van
             persoonsgegevens. Het hangt van het doel en de taak van de gemeente
@@ -52,6 +59,7 @@ export const PrivacyStatementScreen = () => (
         <Column gutter="md">
           <Title
             level="h2"
+            testID="AboutPrivacyStatementAlgemeneSpecifiekeTitle"
             text="Algemene versus specifieke privacyverklaring"
           />
           <Paragraph>

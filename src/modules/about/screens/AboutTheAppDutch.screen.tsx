@@ -25,8 +25,13 @@ export const AboutTheAppDutchScreen = () => {
           <Box>
             <Column gutter="xl">
               <Column gutter="sm">
-                <Title text="1 app voor alle Amsterdammers" />
-                <Paragraph variant="intro">
+                <Title
+                  testID="AboutAboutTheAppDutchTitle"
+                  text="1 app voor alle Amsterdammers"
+                />
+                <Paragraph
+                  testID="AboutAboutTheAppDutchIntroParagraph"
+                  variant="intro">
                   Met de Amsterdam app krijgt u snel informatie die voor u
                   belangrijk is. En u kunt zaken makkelijk regelen. Zoals:
                 </Paragraph>
@@ -34,7 +39,11 @@ export const AboutTheAppDutchScreen = () => {
               <Track gutter="lg">
                 <Column gutter="sm">
                   <Icon name="trash-bin" size="xl" />
-                  <Title level="h5" text="Informatie over afval" />
+                  <Title
+                    level="h5"
+                    testID="AboutAboutTheAppDutchInformatieOverAfvalTitle"
+                    text="Informatie over afval"
+                  />
                   <Paragraph>
                     U kunt uw adres invullen. Dan ziet u wanneer u grofvuil
                     (grote stukken afval) aan de weg mag zetten. En u ziet ook
@@ -44,7 +53,11 @@ export const AboutTheAppDutchScreen = () => {
                 </Column>
                 <Column gutter="sm">
                   <Icon name="construction-work" size="xl" />
-                  <Title level="h5" text="Werk aan de weg" />
+                  <Title
+                    level="h5"
+                    testID="AboutAboutTheAppDutchWerkAanDeWegTitle"
+                    text="Werk aan de weg"
+                  />
                   <Paragraph>
                     De gemeente werkt vaak aan de straten, bruggen, kades of
                     gebouwen. In ‘Werkzaamheden’ ziet u de projecten bij u in de
@@ -55,7 +68,11 @@ export const AboutTheAppDutchScreen = () => {
                 </Column>
                 <Column gutter="sm">
                   <Icon name="alert" size="xl" />
-                  <Title level="h5" text="Melding maken" />
+                  <Title
+                    level="h5"
+                    testID="AboutAboutTheAppDutchMeldingMakenTitle"
+                    text="Melding maken"
+                  />
                   <Paragraph>
                     Is de container voor afval vol? Doet de lantaarnpaal het
                     niet? Of ligt er troep op straat? Dat kunt u allemaal melden
@@ -78,6 +95,7 @@ export const AboutTheAppDutchScreen = () => {
               <Column gutter="sm">
                 <Title
                   level="h2"
+                  testID="AboutAboutTheAppDutch1AppTitle"
                   text="1 app voor alle Amsterdammers en Weespers"
                 />
                 <Paragraph>
@@ -86,7 +104,11 @@ export const AboutTheAppDutchScreen = () => {
                 </Paragraph>
               </Column>
               <Column gutter="sm">
-                <Title level="h2" text="Nog meer onderwerpen in de toekomst" />
+                <Title
+                  level="h2"
+                  testID="AboutAboutTheAppDutchOnderwerpenToekomstTitle"
+                  text="Nog meer onderwerpen in de toekomst"
+                />
                 <Paragraph>
                   Deze versie van de Amsterdam app heeft onderwerpen waar
                   iedereen iets aan heeft. Dit is het begin. In de toekomst
