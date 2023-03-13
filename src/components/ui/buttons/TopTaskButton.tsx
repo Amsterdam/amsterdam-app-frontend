@@ -37,13 +37,13 @@ export const TopTaskButton = ({
               <Title
                 color="link"
                 level="h5"
-                testID={`${testID}Title`}
+                testID={[testID, 'Title'].join('')}
                 text={title}
               />
               {!!titleIconName && <Icon color="link" name={titleIconName} />}
             </Row>
             {typeof text === 'string' ? (
-              <Paragraph testID={`${testID}Text`} variant="small">
+              <Paragraph testID={[testID, 'Text'].join('')} variant="small">
                 {text}
               </Paragraph>
             ) : (
