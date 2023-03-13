@@ -1,78 +1,41 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {QueryDefinition, skipToken} from '@reduxjs/toolkit/dist/query'
+import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
+import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from 'react-redux'
-import {Address} from '@/modules/address'
-import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {
-  projectsApi,
-  useGetProjectsQuery,
-} from '@/modules/construction-work/service'
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {Paginated} from '@/modules/construction-work/types'
 import {RootState} from '@/store'
 
-const emptyProjectsItem = {
-  active: false,
-  content_html: '',
-  content_text: '',
-  district_id: 0,
-  district_name: '',
-  followed: false,
-  identifier: '',
-  images: null,
-  last_seen: '',
-  meter: 0,
-  modification_date: '',
-  publication_date: '',
-  score: 0,
-  source_url: '',
-  strides: 0,
-  subtitle: ' ',
-  title: ' ',
-}
-
-const getEmptyProjectsItems = (length: number, baseIndex: number) =>
+const getEmptyItems = <T>(
+  length: number,
+  baseIndex: number,
+  defaultEmptyItem: T,
+  keyName: keyof T,
+) =>
   length > 0
-    ? Array<ProjectsItem>(length)
-        .fill(emptyProjectsItem)
+    ? Array<T>(length)
+        .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
-          identifier: (index + baseIndex).toString(),
+          [keyName]: (index + baseIndex).toString(),
         }))
     : []
 
-export const useInfiniteScroller = (
+export const useInfiniteScroller = <T>(
+  defaultEmptyItem: T,
+  endpoint: ApiEndpointQuery<QueryDefinition<any, any, any, Paginated<T>>, any>,
+  keyName: keyof T,
+  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<T>>>,
   page = 1,
   pageSize = 10,
-  address?: Address,
+  queryParams: Record<
+    string,
+    string | number | boolean | string[] | undefined
+  > = {},
 ) => {
   const reduxState = useSelector((state: RootState) => state)
 
-  const {
-    centroid: [lon = 0, lat = 0],
-    adres: addressText,
-  } = address ?? {centroid: []}
-  const addressParams = address
-    ? {
-        address: lat && lon ? '' : addressText,
-        lat,
-        lon,
-      }
-    : {}
-  const queryParams = {
-    ...addressParams,
-    articles_max_age: recentArticleMaxAge,
-    fields: [
-      'followed',
-      'identifier',
-      'images',
-      'publication_date',
-      'recent_articles',
-      'subtitle',
-      'title',
-    ],
-    page_size: pageSize,
-  }
-
-  const {data: previousData} = useGetProjectsQuery(
+  const {data: previousData} = useQueryHook(
     page > 1
       ? {
           ...queryParams,
@@ -80,11 +43,11 @@ export const useInfiniteScroller = (
         }
       : skipToken,
   )
-  const {data: currentData} = useGetProjectsQuery({
+  const {data: currentData} = useQueryHook({
     ...queryParams,
     page,
   })
-  const {data: nextData} = useGetProjectsQuery({
+  const {data: nextData} = useQueryHook({
     ...queryParams,
     page: page + 1,
   })
@@ -106,21 +69,25 @@ export const useInfiniteScroller = (
       // fill the array with empty values
       .fill({})
       // map over the array and fill it with data
-      .reduce<ProjectsItem[]>((acc, _s, index) => {
-        const data = projectsApi.endpoints.getProjects.select({
+      .reduce<unknown[]>((acc, _s, index) => {
+        const data = endpoint.select({
           ...queryParams,
           page: index + 1,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
         })(reduxState).data
         // if there is no data, fill the page with empty items
         const pageData =
           data?.result ??
-          getEmptyProjectsItems(
+          getEmptyItems<T>(
             Math.min(pageSize, totalElements - index * pageSize),
             index * pageSize,
+            defaultEmptyItem,
+            keyName,
           )
         return [...acc, ...pageData]
-      }, []),
+      }, []) as T[],
     isError: false,
-    isLoading: false,
+    isLoading: true,
   }
 }
