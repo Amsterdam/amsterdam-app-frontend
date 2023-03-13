@@ -111,12 +111,12 @@ class AboutScreen extends Screen {
     return element(by.id('AboutPrivacyStatementParagraph'))
   }
 
-  get privacyStatementPersoonsgegevensTitle() {
-    return element(by.id('AboutPrivacyStatementPersoonsgegevensTitle'))
+  get privacyStatementPersonalDataTitle() {
+    return element(by.id('AboutPrivacyStatementPersonalDataTitle'))
   }
 
-  get privacyStatementAlgemeneSpecifiekeTitle() {
-    return element(by.id('AboutPrivacyStatementAlgemeneSpecifiekeTitle'))
+  get privacyStatementLinksTitle() {
+    return element(by.id('AboutPrivacyStatementLinksTitle'))
   }
 
   get privacyStatementGeneralLink() {

@@ -102,13 +102,9 @@ const aboutSteps = ({given, when, then, and}) => {
       'fast',
       0.5,
     )
-    await expect(
-      AboutScreen.privacyStatementPersoonsgegevensTitle,
-    ).toBeVisible()
-    await expect(
-      AboutScreen.privacyStatementAlgemeneSpecifiekeTitle,
-    ).toBeVisible()
-    await AboutScreen.privacyStatementAlgemeneSpecifiekeTitle.swipe('up')
+    await expect(AboutScreen.privacyStatementPersonalDataTitle).toBeVisible()
+    await expect(AboutScreen.privacyStatementLinksTitle).toBeVisible()
+    await AboutScreen.privacyStatementLinksTitle.swipe('up')
     await expect(AboutScreen.privacyStatementGeneralLink).toBeVisible()
     await expect(AboutScreen.privacyStatementSpecificLink).toBeVisible()
   })

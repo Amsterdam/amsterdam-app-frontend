@@ -40,10 +40,10 @@ export const PrivacyStatementScreen = () => (
         <Column gutter="md">
           <Title
             level="h2"
-            testID="AboutPrivacyStatementPersoonsgegevensTitle"
+            testID="AboutPrivacyStatementPersonalDataTitle"
             text="Het verwerken van persoonsgegevens"
           />
-          <Paragraph testID="AboutPrivacyStatementPersoonsgegevensParagraph">
+          <Paragraph testID="AboutPrivacyStatementPersonalDataParagraph">
             Het gebruiken van persoonsgegevens noemen we ook wel ‘verwerken’ van
             persoonsgegevens. Het hangt van het doel en de taak van de gemeente
             af welke persoonsgegevens de gemeente precies verwerkt. De
@@ -61,7 +61,7 @@ export const PrivacyStatementScreen = () => (
         <Column gutter="md">
           <Title
             level="h2"
-            testID="AboutPrivacyStatementAlgemeneSpecifiekeTitle"
+            testID="AboutPrivacyStatementLinksTitle"
             text="Algemene versus specifieke privacyverklaring"
           />
           <Paragraph>
