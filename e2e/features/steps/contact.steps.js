@@ -56,10 +56,10 @@ const contactSteps = ({given, when, then, and}) => {
       await waitFor(ContactScreen.currentCityOfficeButton)
         .toBeVisible()
         .withTimeout(3000)
-      // const attributes = await ContactScreen.ContactButtonCurrentCityOffice.getAttributes();
+      // const attributes = await ContactScreen.ContactCurrentCityOfficeButton.getAttributes();
       // console.log(attributes);
-      //await expect(ContactScreen.ContactButtonCurrentCityOffice).toHaveLabel('Stadsloket Nieuw-West Osdorpplein 946, 1068 TD, Amsterdam')
-      // await expect(ContactScreen.ContactButtonCurrentCityOffice).toHaveLabel(
+      // await expect(ContactScreen.ContactCurrentCityOfficeButton).toHaveLabel('Stadsloket Nieuw-West Osdorpplein 946, 1068 TD, Amsterdam')
+      // await expect(ContactScreen.ContactCurrentCityOfficeButton).toHaveLabel(
       //   'Tik om een ander stadsloket te selecteren.',
       // )
     },
@@ -99,11 +99,11 @@ const contactSteps = ({given, when, then, and}) => {
 
   when(/^ik selecteer een stadsloket (.*)$/, async stadsloket => {
     await ContactScreen.tapCityOfficeButton(stadsloket)
-    // await expect(ContactScreen.ContactButtonCurrentCityOffice).toHaveLabel(adres)
+    // await expect(ContactScreen.ContactCurrentCityOfficeButton).toHaveLabel(adres)
   })
 
   then(/^het juiste stadsloket wordt getoond (.*)$/, async titel => {
-    //await expect(ContactScreen.ContactButtonCurrentCityOfficeTitle).toExist()
+    // await expect(ContactScreen.ContactCurrentCityOfficeTitle).toExist()
     await expect(ContactScreen.currentCityOfficeTitle).toHaveText(titel)
   })
 

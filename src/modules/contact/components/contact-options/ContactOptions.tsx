@@ -39,7 +39,7 @@ const contactOptions: ContactOption[] = [
       openWebUrl(
         'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
       ),
-    testID: 'ContactButtonContactform',
+    testID: 'ContactContactFormButton',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
   },
@@ -48,7 +48,7 @@ const contactOptions: ContactOption[] = [
     iconName: 'phone',
     key: 'phone',
     onPress: () => openPhoneUrl('14020'),
-    testID: 'ContactButtonPhone',
+    testID: 'ContactPhoneButton',
     text: 'Gemiddeld 5 minuten wachten',
     title: 'Bel 14 020',
   },
@@ -58,7 +58,7 @@ const contactOptions: ContactOption[] = [
     iconName: 'whatsapp',
     key: 'whatsapp',
     onPress: () => openWebUrl('https://wa.me/31644440655'),
-    testID: 'ContactButtonWhatsapp',
+    testID: 'ContactWhatsAppButton',
     text: 'Reactie binnen 2 uur',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
@@ -69,7 +69,7 @@ const contactOptions: ContactOption[] = [
     iconName: 'person',
     key: 'mijn-amsterdam',
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
-    testID: 'ContactButtonMyAmsterdam',
+    testID: 'ContactMijnAmsterdamButton',
     text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
     title: 'Mijn Amsterdam',
   },
@@ -79,8 +79,8 @@ export const ContactOptions = () => (
   <Box>
     <Column gutter="lg">
       <Column gutter="sm">
-        <Title testID="ContactTitleContactOptions" text="Kunnen we u helpen?" />
-        <Paragraph testID="ContactTextContactOptions">
+        <Title testID="ContactContactOptionsTitle" text="Kunnen we u helpen?" />
+        <Paragraph testID="ContactContactOptionsText">
           Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met
           ons op.
         </Paragraph>
