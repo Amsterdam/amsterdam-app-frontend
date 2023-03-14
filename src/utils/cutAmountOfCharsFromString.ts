@@ -3,6 +3,7 @@ type Params = {
   position: 'start' | 'end'
   text: string
 }
+
 export const cutAmountOfCharsFromString = ({
   amount,
   position = 'start',

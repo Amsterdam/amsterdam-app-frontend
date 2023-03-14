@@ -6,4 +6,5 @@ class WelcomeScreen {
     await element(by.id('WelcomeImageAndQuoteButton')).tap()
   }
 }
+
 export default new WelcomeScreen()
