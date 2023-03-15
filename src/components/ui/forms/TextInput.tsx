@@ -85,7 +85,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
                 accessibilityHint="Maak dit tekstveld leeg"
                 icon={<Icon name="close" size="lg" />}
                 onPress={handleClearText}
-                testID={`${testID}ClearButton`}
+                testID={[testID, 'ClearButton'].join('')}
               />
             </View>
           ) : null}

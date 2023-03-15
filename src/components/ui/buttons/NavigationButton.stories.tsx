@@ -15,6 +15,7 @@ export const Default: ComponentStoryObj<typeof NavigationButton> = {
     label: 'Label',
   },
 }
+
 export const Previous: ComponentStoryObj<typeof NavigationButton> = {
   args: {
     direction: 'backward',

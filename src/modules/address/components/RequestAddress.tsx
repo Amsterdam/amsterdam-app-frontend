@@ -15,13 +15,14 @@ export const RequestAddress = () => {
 
   return (
     <Column gutter="md">
-      <Paragraph>
+      <Paragraph testID="UserAddressInstructionParagraph">
         Vul een straatnaam en huisnummer in zodat u informatie krijgt uit die
         buurt.
       </Paragraph>
       <AddButton
         accessibilityLabel="Voeg adres toe"
         onPress={() => navigation.navigate(AddressModalName.addressForm)}
+        testID="UserAddressAddButton"
       />
     </Column>
   )

@@ -17,6 +17,7 @@ const queryParams = {
     'title',
   ],
 }
+
 export const ProjectsByDate = () => (
   <Projects
     getProjectTraits={getBaseProjectTraits}

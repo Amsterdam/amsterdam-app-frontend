@@ -30,19 +30,21 @@ export const BoxTitle = () => {
   return (
     <Column gutter="xs">
       <Row gutter="sm" valign="center">
-        <Title level="h2" text="Adres" />
+        <Title level="h2" testID="UserAddressTitle" text="Adres" />
         <IconButton
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
           icon={<Icon color="link" name="question-mark-solid" size="lg" />}
           onPress={() => setTooltipVisible(!isTooltipVisible)}
+          testID="UserAddressTooltipButton"
         />
       </Row>
       {!!isTooltipVisible && (
         <Box insetHorizontal="md">
           <Tooltip
             placement={Placement.below}
+            testID="UserAddressTooltip"
             text="We gebruiken het adres alleen in de app om u de juiste informatie te tonen. Uw gegevens worden niet gedeeld."
           />
         </Box>
