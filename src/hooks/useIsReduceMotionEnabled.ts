@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {AccessibilityInfo} from 'react-native'
 import {useAppState} from '@/hooks/useAppState'
 
@@ -7,18 +7,16 @@ type Options = {
   callbackAfterAppStateChange?: boolean
 }
 
+export let isReduceMotionEnabled: boolean | undefined
+
 export const useIsReduceMotionEnabled = (
   {callback, callbackAfterAppStateChange = true}: Options = {},
   deps: React.DependencyList | undefined = [],
 ) => {
-  const [isReduceMotionEnabled, setIsReduceMotionEnabled] = useState<
-    boolean | undefined
-  >(undefined)
-
   useAppState({
     onForeground: () => {
       void AccessibilityInfo.isReduceMotionEnabled().then(value => {
-        setIsReduceMotionEnabled(value)
+        isReduceMotionEnabled = value
         if (callbackAfterAppStateChange) {
           callback?.(value)
         }
@@ -27,7 +25,7 @@ export const useIsReduceMotionEnabled = (
   })
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(value => {
-      setIsReduceMotionEnabled(value)
+      isReduceMotionEnabled = value
       callback?.(value)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
