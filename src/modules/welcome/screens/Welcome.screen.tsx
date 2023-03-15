@@ -56,6 +56,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
               source={
                 isPortrait ? (isTallPhone ? image9x16 : image4x5) : image5x4
               }
+              testID="WelcomeImage"
             />
           </AspectRatio>
           <Box grow>
@@ -64,6 +65,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
                 <Paragraph
                   accessibilityLabel={`Citaat, ${quote}`}
                   allowFontScaling={false}
+                  testID="WelcomeQuote"
                   variant="quote">{`“${quote}”`}</Paragraph>
               </Size>
             </Row>
