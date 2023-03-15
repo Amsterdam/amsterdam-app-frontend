@@ -4,6 +4,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
+import {isReduceMotionEnabled} from '@/hooks'
 import {RootState} from '@/store'
 
 export type Content =
@@ -27,8 +28,10 @@ export const alertSlice = createSlice({
   initialState,
   reducers: {
     resetAlert: () => initialState,
-    setAlert: (state, {payload}: PayloadAction<AlertSliceState>) => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    setAlert: (_state, {payload}: PayloadAction<AlertSliceState>) => {
+      if (!isReduceMotionEnabled) {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      }
       return payload
     },
   },

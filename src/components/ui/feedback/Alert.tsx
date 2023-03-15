@@ -19,6 +19,7 @@ import {
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useIsReduceMotionEnabled} from '@/hooks'
 import {resetAlert, selectAlert} from '@/store/alertSlice'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, isEmptyObject} from '@/utils'
@@ -55,6 +56,8 @@ export const Alert = () => {
     dispatch(resetAlert()) // triggers when navigation navigates to new screen
   }, [dispatch])
 
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
+
   if (isEmptyObject(alert)) {
     return null
   }
@@ -64,9 +67,11 @@ export const Alert = () => {
       ? props => (
           <Pressable
             onPress={() => {
-              LayoutAnimation.configureNext(
-                LayoutAnimation.Presets.easeInEaseOut,
-              )
+              if (!isReduceMotionEnabled) {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                )
+              }
               dispatch(resetAlert())
             }}
             {...props}
