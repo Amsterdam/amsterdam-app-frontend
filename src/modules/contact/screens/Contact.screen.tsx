@@ -4,6 +4,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import {HorizontalSafeArea} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
+import {useIsReduceMotionEnabled} from '@/hooks'
 import {
   CityOffice,
   ContactOptions,
@@ -18,11 +19,20 @@ const Backdrop = (props: BottomSheetBackdropProps) => (
 export const ContactScreen = () => {
   const {onChange, ref} = useBottomSheet()
 
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
+
   return (
     <Screen
       stickyFooter={
         <BottomSheet
           {...{onChange, ref}}
+          animationConfigs={
+            isReduceMotionEnabled
+              ? {
+                  duration: 0,
+                }
+              : undefined
+          }
           backdropComponent={Backdrop}
           enablePanDownToClose
           index={-1}
