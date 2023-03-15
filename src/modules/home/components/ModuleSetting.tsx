@@ -1,9 +1,11 @@
+import {pascalCase} from 'pascal-case'
 import {useDispatch} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
-import {Title, Paragraph} from '@/components/ui/text'
+import {Paragraph, Title} from '@/components/ui/text'
+import {TestID} from '@/components/ui/types'
 import {useModules} from '@/hooks'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {Module, ModuleStatus} from '@/modules/types'
@@ -14,6 +16,7 @@ type ModuleSettingContentProps = {
   description: string
   disabled: boolean
   iconName: IconName | 'projects'
+  testIDPrefix: TestID
   title: string
 }
 
@@ -21,22 +24,45 @@ const ModuleSettingContent = ({
   description,
   iconName,
   disabled,
+  testIDPrefix,
   title,
 }: ModuleSettingContentProps) => {
   const color = !disabled ? 'secondary' : undefined
+
   return (
     <Column gutter="sm">
       <Row gutter="sm" valign="center">
         {/* TODO Remove fallback after updating icon name in database. */}
         {iconName === 'projects' ? (
-          <Icon color={color} name="construction-work" size="lg" />
+          <Icon
+            color={color}
+            name="construction-work"
+            size="lg"
+            testID={[testIDPrefix, 'Icon'].join('')}
+          />
         ) : (
-          !!iconName && <Icon color={color} name={iconName} size="lg" />
+          !!iconName && (
+            <Icon
+              color={color}
+              name={iconName}
+              size="lg"
+              testID={[testIDPrefix, 'Icon'].join('')}
+            />
+          )
         )}
-        <Title color={color} level="h5" text={title} />
+        <Title
+          color={color}
+          level="h5"
+          testID={[testIDPrefix, 'Title'].join('')}
+          text={title}
+        />
       </Row>
       {disabled ? (
-        <Paragraph variant="small">{description}</Paragraph>
+        <Paragraph
+          testID={[testIDPrefix, 'Paragraph'].join('')}
+          variant="small">
+          {description}
+        </Paragraph>
       ) : (
         <InactiveModuleMessage />
       )}
@@ -46,6 +72,7 @@ const ModuleSettingContent = ({
 
 type ModuleSettingProps = {
   module: Module
+  testID?: TestID
 }
 
 export const ModuleSetting = ({
@@ -62,15 +89,16 @@ export const ModuleSetting = ({
 
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
-      description={description}
       disabled={isModuleActive}
-      iconName={iconName}
-      title={title}
+      testIDPrefix={['HomeModuleSetting', pascalCase(slug)].join('')}
+      {...{description, iconName, title}}
     />
   )
 
   return (
-    <Box distinct>
+    <Box
+      distinct
+      testID={['HomeModuleSetting', pascalCase(slug), 'Box'].join('')}>
       {isModuleActive ? (
         <Switch
           accessibilityLabel={accessibleText(title, description)}
