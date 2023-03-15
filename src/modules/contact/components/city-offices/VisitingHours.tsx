@@ -73,7 +73,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
         {!!visitingHoursSentence.written && (
           <Paragraph
             accessibilityLabel={visitingHoursSentence.spoken}
-            testID="ContactTextVisitingHours">
+            testID="ContactVisitingHoursParagraph">
             {visitingHoursSentence.written}
           </Paragraph>
         )}
@@ -83,7 +83,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           } uitleg`}
           icon={<Icon color="link" name="question-mark-solid" size="lg" />}
           onPress={() => setIsTooltipVisible(!isTooltipVisible)}
-          testID="ContactButtonVisitingHoursDetails"
+          testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
       {!!isTooltipVisible && (

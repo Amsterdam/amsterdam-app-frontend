@@ -17,7 +17,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   })
 
   given(/ik ben op het werkzaamheden scherm/, async () => {
-    await WelcomeScreen.tapWelcomeScreen()
+    await WelcomeScreen.tap()
     await HomeScreen.tapModule('Werkzaamheden')
   })
 
@@ -69,7 +69,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   given(
     /ik ben op de de werkzaamheden detail pagina van project Middenweg/,
     async () => {
-      await WelcomeScreen.tapWelcomeScreen()
+      await WelcomeScreen.tap()
       await HomeScreen.tapModule('Werkzaamheden')
       await ConstructionWorkScreen.ConstructionWorkCardProjectMiddenweg.tap()
       await expect(ConstructionWorkScreen.headerTitle).toHaveText('Middenweg')
@@ -180,7 +180,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   given(
     /ik ben op het projectdetailscherm van project 'Amstel' III/,
     async () => {
-      await WelcomeScreen.tapWelcomeScreen()
+      await WelcomeScreen.tap()
       await HomeScreen.tapModule('Werkzaamheden')
       await expect(ConstructionWorkScreen.headerTitle).toHaveText(
         'Werkzaamheden',
