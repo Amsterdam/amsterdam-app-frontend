@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react'
+import {useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -10,6 +10,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
+import {useIsReduceMotionEnabled} from '@/hooks'
 import {BagResponseContent} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
@@ -51,14 +52,22 @@ export const NumberInput = ({
   })
   const inputRef = useRef<TextInputRN | null>(null)
 
-  useEffect(() => {
-    Animated.timing(moveUpAnim, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start(() => {
-      inputRef.current?.focus()
-    })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useIsReduceMotionEnabled({
+    callback: isReduceMotionEnabled => {
+      if (!isReduceMotionEnabled) {
+        Animated.timing(moveUpAnim, {
+          toValue: 0,
+          useNativeDriver: false,
+        }).start(() => {
+          inputRef.current?.focus()
+        })
+      } else {
+        moveUpAnim.setValue(0)
+        inputRef.current?.focus()
+      }
+    },
+    callbackAfterAppStateChange: false,
+  })
 
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>

@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
-import {useModules} from '@/hooks'
+import {useIsReduceMotionEnabled, useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -32,6 +32,7 @@ const Stack = createStackNavigator<RootStackParams>()
 export const RootStackNavigator = () => {
   const theme = useTheme()
   const {clientModules, userDisabledModulesBySlug} = useModules()
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const ModuleStacks = useMemo(
     () =>
@@ -59,6 +60,7 @@ export const RootStackNavigator = () => {
       }
       screenOptions={{
         headerShown: false,
+        animationEnabled: !isReduceMotionEnabled,
       }}>
       {ModuleStacks}
       <Stack.Group
