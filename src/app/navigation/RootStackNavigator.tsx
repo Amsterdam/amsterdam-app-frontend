@@ -1,9 +1,10 @@
 import {ParamListBase} from '@react-navigation/core'
 import {createStackNavigator} from '@react-navigation/stack'
+import {forModalPresentationIOS} from '@react-navigation/stack/src/TransitionConfigs/CardStyleInterpolators'
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
-import {useModules} from '@/hooks'
+import {useIsReduceMotionEnabled, useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -32,6 +33,7 @@ const Stack = createStackNavigator<RootStackParams>()
 export const RootStackNavigator = () => {
   const theme = useTheme()
   const {clientModules, userDisabledModulesBySlug} = useModules()
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const ModuleStacks = useMemo(
     () =>
@@ -59,6 +61,7 @@ export const RootStackNavigator = () => {
       }
       screenOptions={{
         headerShown: false,
+        animationEnabled: !isReduceMotionEnabled,
       }}>
       {ModuleStacks}
       <Stack.Group
@@ -69,7 +72,14 @@ export const RootStackNavigator = () => {
           }),
         }}>
         {Object.entries(modals).map(([key, route]) => (
-          <Stack.Screen key={key} {...route} />
+          <Stack.Screen
+            key={key}
+            {...route}
+            options={{
+              cardStyleInterpolator:
+                Platform.OS === 'ios' ? forModalPresentationIOS : undefined,
+            }}
+          />
         ))}
       </Stack.Group>
     </Stack.Navigator>

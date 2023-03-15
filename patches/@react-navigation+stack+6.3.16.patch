@@ -1,0 +1,97 @@
+diff --git a/node_modules/@react-navigation/stack/src/types.tsx b/node_modules/@react-navigation/stack/src/types.tsx
+index 77f48cd..a165ae4 100644
+--- a/node_modules/@react-navigation/stack/src/types.tsx
++++ b/node_modules/@react-navigation/stack/src/types.tsx
+@@ -107,17 +107,17 @@ export type SceneProgress = {
+   /**
+    * Progress value of the current screen.
+    */
+-  current: Animated.AnimatedInterpolation;
++  current: Animated.AnimatedInterpolation<string|number>;
+   /**
+    * Progress value for the screen after this one in the stack.
+    * This can be `undefined` in case the screen animating is the last one.
+    */
+-  next?: Animated.AnimatedInterpolation;
++  next?: Animated.AnimatedInterpolation<string|number>;
+   /**
+    * Progress value for the screen before this one in the stack.
+    * This can be `undefined` in case the screen animating is the first one.
+    */
+-  previous?: Animated.AnimatedInterpolation;
++  previous?: Animated.AnimatedInterpolation<string|number>;
+ };
+ 
+ export type StackHeaderMode = 'float' | 'screen';
+@@ -377,7 +377,7 @@ export type StackCardInterpolationProps = {
+     /**
+      * Animated node representing the progress value of the current screen.
+      */
+-    progress: Animated.AnimatedInterpolation;
++    progress: Animated.AnimatedInterpolation<string|number>;
+   };
+   /**
+    * Values for the screen after this one in the stack.
+@@ -387,7 +387,7 @@ export type StackCardInterpolationProps = {
+     /**
+      * Animated node representing the progress value of the next screen.
+      */
+-    progress: Animated.AnimatedInterpolation;
++    progress: Animated.AnimatedInterpolation<string|number>;
+   };
+   /**
+    * The index of the card with this interpolation in the stack.
+@@ -396,15 +396,15 @@ export type StackCardInterpolationProps = {
+   /**
+    * Animated node representing whether the card is closing (1 - closing, 0 - not closing).
+    */
+-  closing: Animated.AnimatedInterpolation;
++  closing: Animated.AnimatedInterpolation<string|number>;
+   /**
+    * Animated node representing whether the card is being swiped (1 - swiping, 0 - not swiping).
+    */
+-  swiping: Animated.AnimatedInterpolation;
++  swiping: Animated.AnimatedInterpolation<string|number>;
+   /**
+    * Animated node representing multiplier when direction is inverted (-1 - inverted, 1 - normal).
+    */
+-  inverted: Animated.AnimatedInterpolation;
++  inverted: Animated.AnimatedInterpolation<string|number>;
+   /**
+    * Layout measurements for various items we use for animation.
+    */
+@@ -456,7 +456,7 @@ export type StackHeaderInterpolationProps = {
+     /**
+      * Animated node representing the progress value of the current screen.
+      */
+-    progress: Animated.AnimatedInterpolation;
++    progress: Animated.AnimatedInterpolation<string|number>;
+   };
+   /**
+    * Values for the screen after this one in the stack.
+@@ -466,7 +466,7 @@ export type StackHeaderInterpolationProps = {
+     /**
+      * Animated node representing the progress value of the next screen.
+      */
+-    progress: Animated.AnimatedInterpolation;
++    progress: Animated.AnimatedInterpolation<string|number>;
+   };
+   /**
+    * Layout measurements for various items we use for animation.
+diff --git a/node_modules/@react-navigation/stack/src/utils/conditional.tsx b/node_modules/@react-navigation/stack/src/utils/conditional.tsx
+index 0820c30..0b9e478 100644
+--- a/node_modules/@react-navigation/stack/src/utils/conditional.tsx
++++ b/node_modules/@react-navigation/stack/src/utils/conditional.tsx
+@@ -10,9 +10,9 @@ const { add, multiply } = Animated;
+  * @param fallback Animated Node to use if the condition is `false`
+  */
+ export default function conditional(
+-  condition: Animated.AnimatedInterpolation,
+-  main: Animated.AnimatedInterpolation,
+-  fallback: Animated.AnimatedInterpolation
++  condition: Animated.AnimatedInterpolation<string|number>,
++  main: Animated.AnimatedInterpolation<string|number>,
++  fallback: Animated.AnimatedInterpolation<string|number>
+ ) {
+   // To implement this behavior, we multiply the main node with the condition.
+   // So if condition is 0, result will be 0, and if condition is 1, result will be main node.
