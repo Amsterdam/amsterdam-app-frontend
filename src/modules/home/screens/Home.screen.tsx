@@ -17,6 +17,7 @@ export const HomeScreen = () => {
           <AddButton
             accessibilityLabel="Instellingen"
             onPress={() => navigation.navigate(HomeRouteName.settings)}
+            testID="HomeModuleSettingsButton"
           />
         </Box>
       }>

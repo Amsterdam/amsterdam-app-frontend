@@ -15,8 +15,6 @@ type Props = {
 export const Switch = ({
   label,
   labelPosition = 'start',
-  onValueChange,
-  value,
   ...switchProps
 }: Props) => {
   const {color} = useTheme()
@@ -25,13 +23,11 @@ export const Switch = ({
     <FormField {...{label, labelPosition}}>
       <SwitchRN
         ios_backgroundColor={color.control.switch.background}
-        onValueChange={onValueChange}
         thumbColor={color.control.default.background}
         trackColor={{
           false: color.control.switch.off,
           true: color.control.switch.on,
         }}
-        value={value}
         {...switchProps}
       />
     </FormField>
