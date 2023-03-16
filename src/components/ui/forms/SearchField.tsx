@@ -2,14 +2,14 @@ import {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons'
 import {Icon} from '@/components/ui/media'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-  testID: TestID
-} & TextInputProps
+} & Required<TestProps> &
+  TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
   (

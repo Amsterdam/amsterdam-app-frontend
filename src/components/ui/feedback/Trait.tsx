@@ -2,7 +2,7 @@ import {ReactNode} from 'react'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
   /**
@@ -19,8 +19,7 @@ type Props = {
    * Should be one or a few words.
    */
   label: string
-  testID?: TestID
-}
+} & TestProps
 
 export const Trait = ({children, iconName, label, testID}: Props) => (
   <Row gutter="sm" valign="center">

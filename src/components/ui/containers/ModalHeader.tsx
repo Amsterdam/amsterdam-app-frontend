@@ -8,14 +8,13 @@ import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {ScreenTitle} from '@/components/ui/text'
-import {IconSize, TestID} from '@/components/ui/types'
+import {IconSize, TestProps} from '@/components/ui/types'
 import {DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
-  testID?: TestID
   title: string
-}
+} & TestProps
 
 const closeIconSize = 'ml'
 

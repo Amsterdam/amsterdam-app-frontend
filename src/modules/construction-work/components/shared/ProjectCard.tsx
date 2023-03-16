@@ -3,7 +3,7 @@ import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {AspectRatio, Gutter} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -13,10 +13,9 @@ type Props = {
   imageSource?: ImageSourcePropType
   onPress: () => void
   subtitle?: string
-  testID?: TestID
   title: string
   width?: number
-}
+} & TestProps
 
 export const ProjectCard = memo(
   ({

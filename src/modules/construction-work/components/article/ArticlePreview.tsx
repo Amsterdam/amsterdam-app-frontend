@@ -5,7 +5,7 @@ import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
@@ -24,8 +24,7 @@ type Props = {
   isFirst: boolean
   isLast: boolean
   onPress: () => void
-  testID?: TestID
-}
+} & TestProps
 
 export const ArticlePreview = ({
   article,

@@ -3,15 +3,15 @@ import {SingleSelectable} from '@/components/ui/containers'
 import {Triangle} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {Placement, TestID} from '@/components/ui/types'
+import {Placement, TestProps} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
   placement: Placement
-  testID?: TestID
   text: string | string[]
-} & Pick<AccessibilityProps, 'accessibilityLabel'>
+} & Pick<AccessibilityProps, 'accessibilityLabel'> &
+  TestProps
 
 const TooltipContent = ({
   accessibilityLabel,

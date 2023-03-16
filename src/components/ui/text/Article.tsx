@@ -3,15 +3,14 @@ import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens} from '@/themes/tokens'
 
 type Props = {
   content: string | undefined
   isIntro?: boolean
-  testID?: TestID
-}
+} & TestProps
 
 const transformRules = [
   {

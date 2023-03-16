@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import {SingleSelectable} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
@@ -15,8 +15,7 @@ enum Marker {
 type ListProps = {
   items: string[]
   marker?: keyof typeof Marker
-  testID?: TestID
-}
+} & TestProps
 
 type ListItemProps = {
   text: string

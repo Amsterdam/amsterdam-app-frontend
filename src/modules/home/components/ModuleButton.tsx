@@ -9,7 +9,7 @@ import {Box} from '@/components/ui/containers'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -68,9 +68,8 @@ type ModuleButtonProps = {
   iconName: IconName | 'projects'
   label: string
   slug: ModuleSlug
-  testID?: TestID
   variant?: ButtonVariants
-}
+} & TestProps
 
 export const ModuleButton = ({
   BadgeValue,
