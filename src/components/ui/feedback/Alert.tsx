@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/core'
 import {FC, Fragment, ReactNode, useEffect} from 'react'
 import {
+  AccessibilityInfo,
   LayoutAnimation,
   Platform,
   Pressable,
@@ -34,13 +35,13 @@ if (
 export const Alert = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const alert = useSelector(selectAlert)
-
   const {closeType, content, variant, withIcon} = alert
-
   const variantConfig = useThemable(createVariantConfig)
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
+
   const styles = useThemable(createStyles(variant, variantConfig))
 
   useEffect(
@@ -56,7 +57,11 @@ export const Alert = () => {
     dispatch(resetAlert()) // triggers when navigation navigates to new screen
   }, [dispatch])
 
-  const isReduceMotionEnabled = useIsReduceMotionEnabled()
+  useEffect(() => {
+    if (content) {
+      AccessibilityInfo.announceForAccessibility(content.text)
+    }
+  }, [content])
 
   if (isEmptyObject(alert)) {
     return null
@@ -66,6 +71,7 @@ export const Alert = () => {
     closeType === AlertCloseType.withoutButton
       ? props => (
           <Pressable
+            accessibilityRole="button"
             onPress={() => {
               if (!isReduceMotionEnabled) {
                 LayoutAnimation.configureNext(
