@@ -1,52 +1,46 @@
 import Screen from './screen'
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class ConstructionWorkScreen extends Screen {
-  /**
-   * define selectors using getter methods
-   */
+  // Screen: Projects
 
-  //Projectcards:
-  get ConstructionWorkCardProjectMiddenweg() {
-    return element(by.id('ConstructionWorkCardProject1270981'))
+  get ConstructionWorkMiddenwegProjectCard() {
+    return element(by.id('ConstructionWork1270981ProjectCard'))
   }
 
-  get ConstructionWorkCardProjectAmstelIII() {
-    return element(by.id('ConstructionWorkCardProject976821'))
-  }
-
-  get ConstructionWorkCardProjectStadhouderskade() {
-    return element(by.id('ConstructionWorkCardProject1265107'))
-  }
-
-  get ConstructionWorkCardProjectAmstel() {
-    return element(by.id('ConstructionWorkCardProject1271843'))
-  }
-
-  get ConstructionWorkCardProjectOudezijdsVoorburgwal() {
-    return element(by.id('ConstructionWorkCardProject1275403'))
-  }
-
-  get ConstructionWorkCardProjectBijlmerSportpark() {
-    return element(by.id('ConstructionWorkCardProject1271105'))
-  }
-
-  get ConstructionWorkCardProjectTextTitleMiddenweg() {
+  get ConstructionWorkMiddenwegProjectCardTitle() {
     return element(
       by
-        .id('ConstructionWorkCardProject1270981')
-        .withDescendant(by.id('ConstructionWorkCardProjectTextTitle')),
+        .id('ConstructionWork1270981ProjectCard')
+        .withDescendant(by.id('ConstructionWorkProjectCardTitle')),
     )
   }
 
-  get ConstructionWorkCardProjectTextSubtitleMiddenweg() {
+  get ConstructionWorkMiddenwegProjectCardSubtitle() {
     return element(
       by
-        .id('ConstructionWorkCardProject1270981')
-        .withDescendant(by.id('ConstructionWorkCardProjectTextSubtitle')),
+        .id('ConstructionWork1270981ProjectCard')
+        .withDescendant(by.id('ConstructionWorkProjectCardSubtitle')),
     )
+  }
+
+  get ConstructionWorkAmstelIIIProjectCard() {
+    return element(by.id('ConstructionWork976821ProjectCard'))
+  }
+
+  get ConstructionWorkStadhouderskadeProjectCard() {
+    return element(by.id('ConstructionWork1265107ProjectCard'))
+  }
+
+  get ConstructionWorkAmstelProjectCard() {
+    return element(by.id('ConstructionWork1271843ProjectCard'))
+  }
+
+  get ConstructionWorkOudezijdsVoorburgwalProjectCard() {
+    return element(by.id('ConstructionWork1275403ProjectCard'))
+  }
+
+  get ConstructionWorkBijlmerSportparkProjectCard() {
+    return element(by.id('ConstructionWork1271105ProjectCard'))
   }
 
   get ConstructionWorkListProjects() {

@@ -115,7 +115,7 @@ const ListItem = memo(
         Kicker={projectTraits}
         onPress={onPress}
         subtitle={project.subtitle ?? undefined}
-        testID={`ConstructionWorkCardProject${project.identifier}`}
+        testID={`ConstructionWork${project.identifier}ProjectCard`}
         title={project.title}
       />
     )
