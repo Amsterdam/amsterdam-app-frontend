@@ -3,12 +3,12 @@ import {Pressable} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
   label: string
-  testID?: TestID
-} & PressableProps
+} & PressableProps &
+  TestProps
 
 export const SuggestionButton = ({label, onPress, testID}: Props) => (
   <Pressable

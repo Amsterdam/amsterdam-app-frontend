@@ -1,12 +1,11 @@
 import {SingleSelectable} from '@/components/ui/containers'
 import {Paragraph, Title} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {accessibleText} from '@/utils'
 
 type Props = {
-  testID?: TestID
   text: string
-}
+} & TestProps
 
 export const EmptyMessage = ({testID, text}: Props) => {
   const title = 'Helaas …'

@@ -5,7 +5,7 @@ import {
   AmsterdamFacadesImage,
 } from '@/assets/images'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
-import {TestID} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
@@ -21,9 +21,9 @@ type Props = {
    * This is especially useful on landscape devices.
    */
   moveUp?: number
-  testID?: TestID
   withWeesp?: boolean
-} & SelectedFigureProps
+} & SelectedFigureProps &
+  TestProps
 
 export const FigureWithFacadesBackground = ({
   backgroundImageHeightFraction = 3 / 4,

@@ -5,7 +5,7 @@ import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {TestID} from '@/components/ui/types'
+import {TestID, TestProps} from '@/components/ui/types'
 import {useModules} from '@/hooks'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {Module, ModuleStatus} from '@/modules/types'
@@ -72,8 +72,7 @@ const ModuleSettingContent = ({
 
 type ModuleSettingProps = {
   module: Module
-  testID?: TestID
-}
+} & TestProps
 
 export const ModuleSetting = ({
   module: {description, icon: iconName, slug, status, title},

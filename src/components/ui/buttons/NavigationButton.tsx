@@ -3,15 +3,14 @@ import {Box} from '@/components/ui/containers'
 import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
-import {IconSize, TestID} from '@/components/ui/types'
+import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
   direction?: 'backward' | 'forward'
   iconSize?: keyof typeof IconSize
   label: string
   onPress: () => void
-  testID?: TestID
-}
+} & TestProps
 
 export const NavigationButton = ({
   direction = 'forward',
