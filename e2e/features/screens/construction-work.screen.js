@@ -43,67 +43,69 @@ class ConstructionWorkScreen extends Screen {
     return element(by.id('ConstructionWork1271105ProjectCard'))
   }
 
-  get ConstructionWorkListProjects() {
-    return element(by.id('ConstructionWorkListProjects'))
+  get projectsList() {
+    return element(by.id('ConstructionWorkProjectsList'))
   }
 
-  get ConstructionWorkNavigatorSearchField() {
-    return element(by.id('ConstructionWorkNavigatorSearchField'))
+  get projectsNavigatorSearchField() {
+    return element(by.id('ConstructionWorkProjectsNavigatorSearchField'))
   }
 
-  get ConstructionWorkProjectsTextSearchField() {
+  get projectsTextSearchField() {
     return element(by.id('ConstructionWorkProjectsTextSearchField'))
   }
 
-  get ConstructionWorkProjectFollowButton() {
+  // Screen: Project
+
+  get projectFollowButton() {
     return element(by.id('ConstructionWorkProjectFollowButton'))
   }
 
-  get ConstructionWorkProjectTraitFollowing() {
-    return element(by.id('ConstructionWorkProjectTraitFollowing'))
-  }
-
-  get ConstructionWorkProjectTraitFollowingIcon() {
-    return element(by.id('ConstructionWorkProjectTraitFollowingIcon'))
-  }
-
-  get ConstructionWorkProjectTraitFollowingLabel() {
-    return element(by.id('ConstructionWorkProjectTraitFollowingLabel'))
-  }
-
-  get ConstructionWorkProjectFollowButtonLabel() {
-    return element(by.id('ConstructionWorkProjectFollowButtonLabel'))
-  }
-
-  get ConstructionWorkProjectFollowButtonIcon() {
+  get projectFollowButtonIcon() {
     return element(by.id('ConstructionWorkProjectFollowButtonIcon')).atIndex(0)
   }
 
-  get ConstructionWorkProjectImage() {
+  get projectFollowButtonLabel() {
+    return element(by.id('ConstructionWorkProjectFollowButtonLabel'))
+  }
+
+  get projectFollowingTrait() {
+    return element(by.id('ConstructionWorkProjectFollowingTrait'))
+  }
+
+  get projectFollowingTraitIcon() {
+    return element(by.id('ConstructionWorkProjectFollowingTraitIcon'))
+  }
+
+  get projectFollowingTraitLabel() {
+    return element(by.id('ConstructionWorkProjectFollowingTraitLabel'))
+  }
+
+  get projectImage() {
     return element(by.id('ConstructionWorkProjectImage'))
   }
 
-  get ConstructionWorkProjectFollowersNumber() {
+  get projectFollowersNumber() {
     return element(by.id('ConstructionWorkProjectFollowersNumber'))
   }
 
-  get ConstructionWorkProjectFollowersText() {
+  get projectFollowersText() {
     return element(by.id('ConstructionWorkProjectFollowersText'))
   }
 
-  get ConstructionWorkProjectTitle() {
+  get projectTitle() {
     return element(by.id('ConstructionWorkProjectTitle'))
   }
 
-  get ConstructionWorkProjectSubtitle() {
+  get projectSubtitle() {
     return element(by.id('ConstructionWorkProjectSubtitle'))
   }
 
-  get ConstructionWorkProjectArticlesTitle() {
+  get projectArticlesTitle() {
     return element(by.id('ConstructionWorkProjectArticlesTitle'))
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIDate() {
+  get projectAmstelIIIArticlePreviewDate() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewDate',
@@ -111,7 +113,7 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIPreviewTitle() {
+  get projectAmstelIIIArticlePreviewTitle() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewTitle',
@@ -119,7 +121,7 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIPreviewImage() {
+  get projectAmstelIIIArticlePreviewImage() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewImage',

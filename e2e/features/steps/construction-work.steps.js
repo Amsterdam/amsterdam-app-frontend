@@ -40,9 +40,9 @@ const constructionWorkSteps = ({given, when, then, and}) => {
 
   when(/ik klik op het zoekveld/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkNavigatorSearchField,
+      ConstructionWorkScreen.projectsNavigatorSearchField,
     ).toBeVisible()
-    await ConstructionWorkScreen.ConstructionWorkNavigatorSearchField.tap()
+    await ConstructionWorkScreen.projectsNavigatorSearchField.tap()
   })
 
   then(
@@ -58,9 +58,7 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   )
 
   and(/wordt er een zoekveld getoond/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectsTextSearchField).toBeVisible()
   })
   given(
     /ik ben op de de werkzaamheden detail pagina van project Middenweg/,
@@ -106,16 +104,16 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   })
 
   when(/ik volg een project/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
-    ).toHaveText('Volgen')
-    await ConstructionWorkScreen.ConstructionWorkProjectFollowButton.tap()
+    await expect(ConstructionWorkScreen.projectFollowButtonLabel).toHaveText(
+      'Volgen',
+    )
+    await ConstructionWorkScreen.projectFollowButton.tap()
   })
 
   then(/het project krijgt de status 'volgend'/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
-    ).toHaveText('Volgend')
+    await expect(ConstructionWorkScreen.projectFollowButtonLabel).toHaveText(
+      'Volgend',
+    )
     await ConstructionWorkScreen.headerBackButton.tap()
     await expect(ConstructionWorkScreen.headerTitle).toHaveText('Werkzaamheden')
     await ConstructionWorkScreen.bijlmerSportparkProjectCard.swipe(
@@ -127,11 +125,9 @@ const constructionWorkSteps = ({given, when, then, and}) => {
       .toBeVisible()
       .withTimeout(2000)
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingLabel,
+      ConstructionWorkScreen.projectFollowingTraitLabel,
     ).toBeVisible()
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingIcon,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowingTraitIcon).toBeVisible()
   })
 
   when(/ik ontvolg een project/, async () => {
@@ -142,44 +138,44 @@ const constructionWorkSteps = ({given, when, then, and}) => {
     await expect(ConstructionWorkScreen.headerTitle).toHaveText(
       'Stadhouderskade',
     )
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
-    ).toHaveText('Volgend')
-    await ConstructionWorkScreen.ConstructionWorkProjectFollowButton.tap()
+    await expect(ConstructionWorkScreen.projectFollowButtonLabel).toHaveText(
+      'Volgend',
+    )
+    await ConstructionWorkScreen.projectFollowButton.tap()
   })
 
   then(/de status 'volgend' verdwijnt/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButtonLabel,
-    ).toHaveText('Volgen')
+    await expect(ConstructionWorkScreen.projectFollowButtonLabel).toHaveText(
+      'Volgen',
+    )
     await ConstructionWorkScreen.headerBackButton.tap()
     await expect(ConstructionWorkScreen.headerTitle).toHaveText('Werkzaamheden')
     await expect(
       ConstructionWorkScreen.stadhouderskadeProjectCard,
     ).not.toBeVisible()
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingLabel,
+      ConstructionWorkScreen.projectFollowingTraitLabel,
     ).not.toBeVisible()
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTraitFollowingIcon,
+      ConstructionWorkScreen.projectFollowingTraitIcon,
     ).not.toBeVisible()
   })
 
   given(
-    /ik ben op het projectdetailscherm van project 'Amstel' III/,
+    /ik ben op het projectdetailscherm van project 'Amstel III'/,
     async () => {
       await WelcomeScreen.tap()
       await HomeScreen.tapModule('Werkzaamheden')
       await expect(ConstructionWorkScreen.headerTitle).toHaveText(
         'Werkzaamheden',
       )
-      await ConstructionWorkScreen.ConstructionWorkNavigatorSearchField.tap()
-      await ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField.typeText(
+      await ConstructionWorkScreen.projectsNavigatorSearchField.tap()
+      await ConstructionWorkScreen.projectsTextSearchField.typeText(
         'Amstel III',
       )
-      await ConstructionWorkScreen.ConstructionWorkProjectsTextSearchField.tapReturnKey()
+      await ConstructionWorkScreen.projectsTextSearchField.tapReturnKey()
       await ConstructionWorkScreen.amstelIIIProjectCard.tap()
-      await waitFor(ConstructionWorkScreen.ConstructionWorkProjectImage)
+      await waitFor(ConstructionWorkScreen.projectImage)
         .toBeVisible()
         .withTimeout(2000)
       await expect(ConstructionWorkScreen.headerTitle).toHaveText('Amstel III')
@@ -187,92 +183,68 @@ const constructionWorkSteps = ({given, when, then, and}) => {
   )
 
   then(/ik zie een afbeelding/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectImage,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectImage).toBeVisible()
   })
 
   then(/Een volgen knop/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowButton).toBeVisible()
   })
 
   then(/Het aantal volgers/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowersNumber,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowersNumber).toBeVisible()
 
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowersText,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowersText).toBeVisible()
   })
 
   then(/Een titel van het project/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTitle,
-    ).toBeVisible()
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectTitle,
-    ).toHaveText('Amstel III')
+    await expect(ConstructionWorkScreen.projectTitle).toBeVisible()
+    await expect(ConstructionWorkScreen.projectTitle).toHaveText('Amstel III')
   })
 
   then(/Een subtitel met korte uitleg over het project/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectSubtitle,
-    ).toBeVisible()
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectSubtitle,
-    ).toHaveText('Ontwikkeling woongebied gemixt met werken')
+    await expect(ConstructionWorkScreen.projectSubtitle).toBeVisible()
+    await expect(ConstructionWorkScreen.projectSubtitle).toHaveText(
+      'Ontwikkeling woongebied gemixt met werken',
+    )
   })
 
   then(/Een link naar 'Over dit project'/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowButton).toBeVisible()
   })
 
   then(/Een link naar 'Contact'/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectFollowButton,
-    ).toBeVisible()
+    await expect(ConstructionWorkScreen.projectFollowButton).toBeVisible()
   })
 
   then(/Een nieuwsoverzicht met titel Nieuws/, async () => {
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle,
-    ).toBeVisible()
-    await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle,
-    ).toHaveText('Nieuws')
+    await expect(ConstructionWorkScreen.projectArticlesTitle).toBeVisible()
+    await expect(ConstructionWorkScreen.projectArticlesTitle).toHaveText(
+      'Nieuws',
+    )
   })
 
   then(/Een datum van het nieuwsbericht/, async () => {
-    await ConstructionWorkScreen.ConstructionWorkProjectArticlesTitle.swipe(
-      'up',
-      'fast',
-      0.2,
-    )
+    await ConstructionWorkScreen.projectArticlesTitle.swipe('up', 'fast', 0.2)
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIDate,
+      ConstructionWorkScreen.projectAmstelIIIArticlePreviewDate,
     ).toBeVisible()
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIDate,
+      ConstructionWorkScreen.projectAmstelIIIArticlePreviewDate,
     ).toHaveText('3 januari')
   })
 
   then(/Een titel van het nieuwsbericht/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewTitle,
+      ConstructionWorkScreen.projectAmstelIIIArticlePreviewTitle,
     ).toBeVisible()
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewTitle,
+      ConstructionWorkScreen.projectAmstelIIIArticlePreviewTitle,
     ).toHaveText('Happy NY 2')
   })
 
   then(/Een afbeelding bij het nieuwsbericht/, async () => {
     await expect(
-      ConstructionWorkScreen.ConstructionWorkProjectArticleAmstelIIIPreviewImage,
+      ConstructionWorkScreen.projectAmstelIIIArticlePreviewImage,
     ).toBeVisible()
   })
 }

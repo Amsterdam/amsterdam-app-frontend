@@ -7,7 +7,6 @@ Feature: Werkzaamheden Module
         And een titel van het project
         And een ondertitel met een korte beschrijving van het project
 
-
     @excluded
     Scenario: De zoekpagina voor zoeken in werkzaamheden openen
         Given ik ben op het werkzaamheden scherm
@@ -38,7 +37,7 @@ Feature: Werkzaamheden Module
 
     @included
     Scenario: Projectdetailscherm UI checks
-        Given ik ben op het projectdetailscherm van project 'Amstel' III
+        Given ik ben op het projectdetailscherm van project 'Amstel III'
         Then ik zie een afbeelding
         And Een volgen knop
         And Het aantal volgers
