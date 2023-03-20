@@ -1,6 +1,8 @@
 import {ParamListBase} from '@react-navigation/core'
-import {createStackNavigator} from '@react-navigation/stack'
-import {forModalPresentationIOS} from '@react-navigation/stack/src/TransitionConfigs/CardStyleInterpolators'
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack'
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
@@ -77,7 +79,9 @@ export const RootStackNavigator = () => {
             {...route}
             options={{
               cardStyleInterpolator:
-                Platform.OS === 'ios' ? forModalPresentationIOS : undefined,
+                Platform.OS === 'ios'
+                  ? CardStyleInterpolators.forModalPresentationIOS
+                  : undefined,
             }}
           />
         ))}
