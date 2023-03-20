@@ -14,7 +14,7 @@ import {Theme, useThemable} from '@/themes'
 
 type Props = {
   title: string
-} & TestProps
+} & Required<Pick<TestProps, 'testID'>>
 
 const closeIconSize = 'ml'
 
@@ -36,7 +36,7 @@ export const ModalHeader = ({testID, title}: Props) => {
           accessibilityLabel="Sluiten"
           icon={<Icon color="link" name="close" size={closeIconSize} />}
           onPress={navigation.goBack}
-          testID={[testID, 'CloseButton'].join('')}
+          testID={`${testID}CloseButton`}
         />
       </Row>
     </Box>

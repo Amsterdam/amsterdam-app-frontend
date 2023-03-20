@@ -28,7 +28,7 @@ const TooltipContent = ({
           <Paragraph
             color="inverse"
             key={paragraph}
-            testID={index === 0 ? [testID, 'Paragraph'].join('') : undefined}
+            testID={testID && index === 0 ? `${testID}Paragraph` : undefined}
             variant="small">
             {paragraph}
           </Paragraph>

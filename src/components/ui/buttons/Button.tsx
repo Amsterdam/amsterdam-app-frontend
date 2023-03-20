@@ -56,7 +56,7 @@ export const Button = ({
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
             size="lg"
-            testID={testID ? [testID, 'Icon'].join('') : undefined}
+            testID={testID ? `${testID}Icon` : undefined}
           />
         )}
         {!!label && (
@@ -64,7 +64,7 @@ export const Button = ({
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
             style={styles.label}
-            testID={testID ? [testID, 'Label'].join('') : undefined}>
+            testID={testID ? `${testID}Label` : undefined}>
             {label}
           </Text>
         )}

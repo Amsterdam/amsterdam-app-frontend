@@ -38,7 +38,7 @@ const ModuleSettingContent = ({
             color={color}
             name="construction-work"
             size="lg"
-            testID={[testIDPrefix, 'Icon'].join('')}
+            testID={testIDPrefix ? `${testIDPrefix}Icon` : undefined}
           />
         ) : (
           !!iconName && (
@@ -46,20 +46,20 @@ const ModuleSettingContent = ({
               color={color}
               name={iconName}
               size="lg"
-              testID={[testIDPrefix, 'Icon'].join('')}
+              testID={testIDPrefix ? `${testIDPrefix}Icon` : undefined}
             />
           )
         )}
         <Title
           color={color}
           level="h5"
-          testID={[testIDPrefix, 'Title'].join('')}
+          testID={testIDPrefix ? `${testIDPrefix}Title` : undefined}
           text={title}
         />
       </Row>
       {disabled ? (
         <Paragraph
-          testID={[testIDPrefix, 'Paragraph'].join('')}
+          testID={testIDPrefix ? `${testIDPrefix}Paragraph` : undefined}
           variant="small">
           {description}
         </Paragraph>
@@ -89,15 +89,13 @@ export const ModuleSetting = ({
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
       disabled={isModuleActive}
-      testIDPrefix={['HomeModuleSetting', pascalCase(slug)].join('')}
+      testIDPrefix={`HomeModuleSetting${pascalCase(slug)}`}
       {...{description, iconName, title}}
     />
   )
 
   return (
-    <Box
-      distinct
-      testID={['HomeModuleSetting', pascalCase(slug), 'Box'].join('')}>
+    <Box distinct testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
       {isModuleActive ? (
         <Switch
           accessibilityLabel={accessibleText(title, description)}

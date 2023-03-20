@@ -23,7 +23,7 @@ export const CityOfficeButton = ({cityOffice}: Props) => {
   return (
     <Pressable
       onPress={() => selectCityOffice(cityOffice.identifier)}
-      testID={['ContactCityOffice', cityOffice.identifier, 'Button'].join('')}>
+      testID={`ContactCityOffice${cityOffice.identifier}Button`}>
       <Box>
         <Row gutter="md">
           <Icon color="link" name="city-office" size="lg" />
