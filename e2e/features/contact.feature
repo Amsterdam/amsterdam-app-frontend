@@ -1,6 +1,6 @@
 Feature: Contact
 
-  #POC scenario's:
+  # POC scenario's
   @included
   Scenario: De contactmodule openen
     Given ik ben op het homescherm - wacht totdat welkomstscherm verdwijnt
@@ -13,16 +13,16 @@ Feature: Contact
     When ik verander het stadsloket naar stadsloket Nieuw-West
     Then ik zie contactgegevens en informatie van het betreffende stadsloket
 
-  #Nieuwe scenario's:
+  # Nieuwe scenario's:
   @included
   Scenario: Op de contactpagina zie ik een overzicht met contactmogelijkheden
     Given ik ben op het homescherm - klik zodat welkomstscherm verdwijnt
     When ik open de 'contact' module
     Then zie ik de volgende links:
-  #      | Gebruik ons contactformulier, Reactie binnen 1 werkdag  |
-  #      | Bel 14 020            |
-  #      | WhatsApp 06 4444 0655 |
-  #      | Mijn Amsterdam        |
+  # | Gebruik ons contactformulier, Reactie binnen 1 werkdag |
+  # | Bel 14 020            |
+  # | WhatsApp 06 4444 0655 |
+  # | Mijn Amsterdam        |
   # Scenario's Excel die hier bijhoren:
   # Scenario: Ik kan navigeren naar het contactformulier op de website van de gemeente.
   # Scenario: Ik kan de gemeente bellen via de app.
@@ -45,15 +45,15 @@ Feature: Contact
     Given ik ben op het contactscherm
     When ik klik op het stadsloket
     Then zie ik een lijst met stadsloketten
-    #   | stadsloket |
-    #   | Centrum    |
-    #   | Nieuw-West |
-    #   | Noord      |
-    #   | Oost       |
-    #   | West       |
-    #   | Zuid       |
-    #   | Zuidoost   |
-    #   | Weesp      |
+    # | stadsloket |
+    # | Centrum    |
+    # | Nieuw-West |
+    # | Noord      |
+    # | Oost       |
+    # | West       |
+    # | Zuid       |
+    # | Zuidoost   |
+    # | Weesp      |
     When ik selecteer een stadsloket <stadsloket>
     Then het juiste stadsloket wordt getoond <titel>
     And de bekijk routeknop wordt getoond
@@ -82,8 +82,3 @@ Feature: Contact
 # Scenario: Ik zie uitleg over de openingstijden.
 # Scenario: Ik kan een routebeschrijving naar een Stadsloket zien.
 # Scenario: Ik kan een ander Stadsloket selecteren.
-
-
-
-
-
