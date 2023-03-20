@@ -3,11 +3,11 @@ import Screen from './screen'
 class ConstructionWorkScreen extends Screen {
   // Screen: Projects
 
-  get ConstructionWorkMiddenwegProjectCard() {
+  get middenwegProjectCard() {
     return element(by.id('ConstructionWork1270981ProjectCard'))
   }
 
-  get ConstructionWorkMiddenwegProjectCardTitle() {
+  get middenwegProjectCardTitle() {
     return element(
       by
         .id('ConstructionWork1270981ProjectCard')
@@ -15,7 +15,7 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkMiddenwegProjectCardSubtitle() {
+  get middenwegProjectCardSubtitle() {
     return element(
       by
         .id('ConstructionWork1270981ProjectCard')
@@ -23,23 +23,23 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkAmstelIIIProjectCard() {
+  get amstelIIIProjectCard() {
     return element(by.id('ConstructionWork976821ProjectCard'))
   }
 
-  get ConstructionWorkStadhouderskadeProjectCard() {
+  get stadhouderskadeProjectCard() {
     return element(by.id('ConstructionWork1265107ProjectCard'))
   }
 
-  get ConstructionWorkAmstelProjectCard() {
+  get amstelProjectCard() {
     return element(by.id('ConstructionWork1271843ProjectCard'))
   }
 
-  get ConstructionWorkOudezijdsVoorburgwalProjectCard() {
+  get oudezijdsVoorburgwalProjectCard() {
     return element(by.id('ConstructionWork1275403ProjectCard'))
   }
 
-  get ConstructionWorkBijlmerSportparkProjectCard() {
+  get bijlmerSportparkProjectCard() {
     return element(by.id('ConstructionWork1271105ProjectCard'))
   }
 
