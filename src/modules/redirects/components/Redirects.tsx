@@ -71,7 +71,7 @@ export const Redirects = () => {
       {redirects.map(({iconName, routeName, text, title, url}) => (
         <TopTaskButton
           accessibilityLabel={accessibleText(title, text)}
-          accessibilityRole="link"
+          accessibilityRole={routeName ? 'button' : 'link'}
           key={iconName}
           onPress={() =>
             routeName ? navigation.navigate(routeName) : url && openWebUrl(url)

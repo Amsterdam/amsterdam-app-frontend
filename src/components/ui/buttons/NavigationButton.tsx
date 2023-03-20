@@ -6,6 +6,7 @@ import {Title} from '@/components/ui/text'
 import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessibilityRole: 'link' | 'button'
   direction?: 'backward' | 'forward'
   iconSize?: keyof typeof IconSize
   label: string
@@ -18,8 +19,9 @@ export const NavigationButton = ({
   label,
   onPress,
   testID,
+  accessibilityRole = 'link',
 }: Props) => (
-  <Pressable accessibilityRole="link" {...{onPress, testID}}>
+  <Pressable accessibilityRole={accessibilityRole} {...{onPress, testID}}>
     <Box insetHorizontal="md" insetVertical="sm">
       <Row align="between" gutter="md" valign="center">
         {direction === 'backward' && (
