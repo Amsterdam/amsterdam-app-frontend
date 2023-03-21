@@ -39,7 +39,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
               <Row gutter="md">
                 <Column flex={1}>
                   <Button
-                    accessibilityRole="link"
+                    accessibilityRole="button"
                     label="Amsterdam"
                     onPress={() =>
                       navigation.navigate(RedirectsRouteName.makeAppointment)

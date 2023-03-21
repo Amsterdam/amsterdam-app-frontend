@@ -34,16 +34,19 @@ export const AboutScreen = ({navigation}: Props) => {
             </>
             <Column gutter="sm">
               <NavigationButton
+                accessibilityRole="button"
                 label="Waarom deze app?"
                 onPress={() => navigation.navigate(AboutRouteName.appSummary)}
                 testID="AboutAboutTheAppDutchButton"
               />
               <NavigationButton
+                accessibilityRole="button"
                 label="About this app"
                 onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
                 testID="AboutAboutTheAppEnglishButton"
               />
               <NavigationButton
+                accessibilityRole="button"
                 label="Privacyverklaring"
                 onPress={() =>
                   navigation.navigate(AboutRouteName.privacyStatement)
@@ -51,6 +54,7 @@ export const AboutScreen = ({navigation}: Props) => {
                 testID="AboutPrivacyStatementButton"
               />
               <NavigationButton
+                accessibilityRole="button"
                 label="Toegankelijkheidsverklaring"
                 onPress={() =>
                   navigation.navigate(AboutRouteName.accessibilityStatement)
