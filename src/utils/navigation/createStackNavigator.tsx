@@ -1,4 +1,5 @@
 import {ParamListBase} from '@react-navigation/core'
+// eslint-disable-next-line no-restricted-imports
 import {createStackNavigator as createStackNavigatorOriginal} from '@react-navigation/stack'
 import {useIsReduceMotionEnabled} from '@/hooks'
 

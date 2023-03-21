@@ -57,6 +57,12 @@ module.exports = {
             message:
               'Import dayjs from @/utils/datetime to prevent timezone issues.',
           },
+          {
+            name: '@react-navigation/stack',
+            importNames: ['createStackNavigator'],
+            message:
+              'Import createStackNavigator from @/utils/navigation to automatically be accessible.',
+          },
         ],
       },
     ],
