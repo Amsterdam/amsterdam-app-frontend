@@ -46,18 +46,18 @@ You can find these files in the Keepass database. To access this database:
 
 #### Files
 
-- `.env` - environment variables to be used in the JS. This should be added to the project root. Also see `.env.example`.
-- `sentry.properties` - the Sentry config/key for both platforms. This should be added to the project root.
-- `android/app/google-services.json` - production Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app))
-- `android/app/src/debug/google-services.json` - dev Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev))
-- `ios/GoogleService-Info-Prod.plist` - production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app))
-- `ios/GoogleService-Info-Test.plist` - dev Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev))
+- `.env` - Environment variables to be used in the JS. This should be added to the project root. Also see `.env.example`.
+- `sentry.properties` - The Sentry config/key for both platforms. This should be added to the project root.
+- `android/app/google-services.json` - Production Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app)).
+- `android/app/src/debug/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
+- `ios/GoogleService-Info-Prod.plist` - Production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app)).
+- `ios/GoogleService-Info-Test.plist` - Development Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev)).
 
 ## Git
 
 - We practice trunk-based development:
   - Feature branches are branched from `main`
-  - We rebase to include new changes instead of a merge
+  - We rebase to include new changes on main, instead of merging
 
 ## Push notifications
 
