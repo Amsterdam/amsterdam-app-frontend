@@ -6,7 +6,7 @@ import {Title} from '@/components/ui/text'
 import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
-  accessibilityRole: 'link' | 'button'
+  accessibilityRole?: 'link' | 'button'
   direction?: 'backward' | 'forward'
   iconSize?: keyof typeof IconSize
   label: string
