@@ -1,115 +1,111 @@
 import Screen from './screen'
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class ConstructionWorkScreen extends Screen {
-  /**
-   * define selectors using getter methods
-   */
+  // Screen: Projects
 
-  //Projectcards:
-  get ConstructionWorkCardProjectMiddenweg() {
-    return element(by.id('ConstructionWorkCardProject1270981'))
+  get middenwegProjectCard() {
+    return element(by.id('ConstructionWork1270981ProjectCard'))
   }
 
-  get ConstructionWorkCardProjectAmstelIII() {
-    return element(by.id('ConstructionWorkCardProject976821'))
-  }
-
-  get ConstructionWorkCardProjectStadhouderskade() {
-    return element(by.id('ConstructionWorkCardProject1265107'))
-  }
-
-  get ConstructionWorkCardProjectAmstel() {
-    return element(by.id('ConstructionWorkCardProject1271843'))
-  }
-
-  get ConstructionWorkCardProjectOudezijdsVoorburgwal() {
-    return element(by.id('ConstructionWorkCardProject1275403'))
-  }
-
-  get ConstructionWorkCardProjectBijlmerSportpark() {
-    return element(by.id('ConstructionWorkCardProject1271105'))
-  }
-
-  get ConstructionWorkCardProjectTextTitleMiddenweg() {
+  get middenwegProjectCardTitle() {
     return element(
       by
-        .id('ConstructionWorkCardProject1270981')
-        .withDescendant(by.id('ConstructionWorkCardProjectTextTitle')),
+        .id('ConstructionWork1270981ProjectCard')
+        .withDescendant(by.id('ConstructionWorkProjectCardTitle')),
     )
   }
 
-  get ConstructionWorkCardProjectTextSubtitleMiddenweg() {
+  get middenwegProjectCardSubtitle() {
     return element(
       by
-        .id('ConstructionWorkCardProject1270981')
-        .withDescendant(by.id('ConstructionWorkCardProjectTextSubtitle')),
+        .id('ConstructionWork1270981ProjectCard')
+        .withDescendant(by.id('ConstructionWorkProjectCardSubtitle')),
     )
   }
 
-  get ConstructionWorkListProjects() {
-    return element(by.id('ConstructionWorkListProjects'))
+  get amstelIIIProjectCard() {
+    return element(by.id('ConstructionWork976821ProjectCard'))
   }
 
-  get ConstructionWorkNavigatorSearchField() {
-    return element(by.id('ConstructionWorkNavigatorSearchField'))
+  get stadhouderskadeProjectCard() {
+    return element(by.id('ConstructionWork1265107ProjectCard'))
   }
 
-  get ConstructionWorkProjectsTextSearchField() {
+  get amstelProjectCard() {
+    return element(by.id('ConstructionWork1271843ProjectCard'))
+  }
+
+  get oudezijdsVoorburgwalProjectCard() {
+    return element(by.id('ConstructionWork1275403ProjectCard'))
+  }
+
+  get bijlmerSportparkProjectCard() {
+    return element(by.id('ConstructionWork1271105ProjectCard'))
+  }
+
+  get projectsList() {
+    return element(by.id('ConstructionWorkProjectsList'))
+  }
+
+  get projectsNavigatorSearchField() {
+    return element(by.id('ConstructionWorkProjectsNavigatorSearchField'))
+  }
+
+  get projectsTextSearchField() {
     return element(by.id('ConstructionWorkProjectsTextSearchField'))
   }
 
-  get ConstructionWorkProjectFollowButton() {
+  // Screen: Project
+
+  get projectFollowButton() {
     return element(by.id('ConstructionWorkProjectFollowButton'))
   }
 
-  get ConstructionWorkProjectTraitFollowing() {
-    return element(by.id('ConstructionWorkProjectTraitFollowing'))
-  }
-
-  get ConstructionWorkProjectTraitFollowingIcon() {
-    return element(by.id('ConstructionWorkProjectTraitFollowingIcon'))
-  }
-
-  get ConstructionWorkProjectTraitFollowingLabel() {
-    return element(by.id('ConstructionWorkProjectTraitFollowingLabel'))
-  }
-
-  get ConstructionWorkProjectFollowButtonLabel() {
-    return element(by.id('ConstructionWorkProjectFollowButtonLabel'))
-  }
-
-  get ConstructionWorkProjectFollowButtonIcon() {
+  get projectFollowButtonIcon() {
     return element(by.id('ConstructionWorkProjectFollowButtonIcon')).atIndex(0)
   }
 
-  get ConstructionWorkProjectImage() {
+  get projectFollowButtonLabel() {
+    return element(by.id('ConstructionWorkProjectFollowButtonLabel'))
+  }
+
+  get projectFollowingTrait() {
+    return element(by.id('ConstructionWorkProjectFollowingTrait'))
+  }
+
+  get projectFollowingTraitIcon() {
+    return element(by.id('ConstructionWorkProjectFollowingTraitIcon'))
+  }
+
+  get projectFollowingTraitLabel() {
+    return element(by.id('ConstructionWorkProjectFollowingTraitLabel'))
+  }
+
+  get projectImage() {
     return element(by.id('ConstructionWorkProjectImage'))
   }
 
-  get ConstructionWorkProjectFollowersNumber() {
+  get projectFollowersNumber() {
     return element(by.id('ConstructionWorkProjectFollowersNumber'))
   }
 
-  get ConstructionWorkProjectFollowersText() {
+  get projectFollowersText() {
     return element(by.id('ConstructionWorkProjectFollowersText'))
   }
 
-  get ConstructionWorkProjectTitle() {
+  get projectTitle() {
     return element(by.id('ConstructionWorkProjectTitle'))
   }
 
-  get ConstructionWorkProjectSubtitle() {
+  get projectSubtitle() {
     return element(by.id('ConstructionWorkProjectSubtitle'))
   }
 
-  get ConstructionWorkProjectArticlesTitle() {
+  get projectArticlesTitle() {
     return element(by.id('ConstructionWorkProjectArticlesTitle'))
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIDate() {
+  get projectAmstelIIIArticlePreviewDate() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewDate',
@@ -117,7 +113,7 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIPreviewTitle() {
+  get projectAmstelIIIArticlePreviewTitle() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewTitle',
@@ -125,7 +121,7 @@ class ConstructionWorkScreen extends Screen {
     )
   }
 
-  get ConstructionWorkProjectArticleAmstelIIIPreviewImage() {
+  get projectAmstelIIIArticlePreviewImage() {
     return element(
       by.id(
         'ConstructionWorkProjectArticlec817f9ee-5e56-402e-949d-2e511923f4ddPreviewImage',

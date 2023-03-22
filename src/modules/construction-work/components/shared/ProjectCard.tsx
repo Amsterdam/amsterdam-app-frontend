@@ -47,7 +47,7 @@ export const ProjectCard = memo(
               <AspectRatio aspectRatio="wide">
                 <Image
                   source={imageSource}
-                  testID="ConstructionWorkCardProjectImageMain"
+                  testID="ConstructionWorkProjectCardImage"
                 />
               </AspectRatio>
               <Gutter height="sm" />
@@ -62,11 +62,11 @@ export const ProjectCard = memo(
           <Title
             color="link"
             level="h4"
-            testID="ConstructionWorkCardProjectTextTitle"
+            testID="ConstructionWorkProjectCardTitle"
             text={title}
           />
           {!!subtitle && (
-            <Paragraph testID="ConstructionWorkCardProjectTextSubtitle">
+            <Paragraph testID="ConstructionWorkProjectCardSubtitle">
               {subtitle}
             </Paragraph>
           )}

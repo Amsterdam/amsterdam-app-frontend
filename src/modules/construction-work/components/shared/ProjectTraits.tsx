@@ -22,9 +22,9 @@ export const ProjectTraits = memo(
             (unreadArticlesLength ? (
               <Trait
                 label={simplur`${[unreadArticlesLength]} Bericht[|en]`}
-                testID="ConstructionWorkProjectTraitArticles">
+                testID="ConstructionWorkProjectArticlesTrait">
                 <Badge
-                  testID="ConstructionWorkProjectTraitArticlesBadge"
+                  testID="ConstructionWorkProjectArticlesBadge"
                   value={unreadArticlesLength}
                   variant="small"
                 />
@@ -33,21 +33,21 @@ export const ProjectTraits = memo(
               <Trait
                 iconName="checkmark"
                 label="Volgend"
-                testID="ConstructionWorkProjectTraitFollowing"
+                testID="ConstructionWorkProjectFollowingTrait"
               />
             ))}
           {!!meter && (
             <Trait
               iconName="location"
               label={`${meter} meter`}
-              testID="ConstructionWorkProjectTraitMeters"
+              testID="ConstructionWorkProjectMetersTrait"
             />
           )}
           {!!strides && (
             <Trait
               iconName="strides"
               label={simplur`${strides} stap[|pen]`}
-              testID="ConstructionWorkProjectTraitSteps"
+              testID="ConstructionWorkProjectStridesTrait"
             />
           )}
         </Row>

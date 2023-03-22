@@ -115,7 +115,7 @@ const ListItem = memo(
         Kicker={projectTraits}
         onPress={onPress}
         subtitle={project.subtitle ?? undefined}
-        testID={`ConstructionWorkCardProject${project.identifier}`}
+        testID={`ConstructionWork${project.identifier}ProjectCard`}
         title={project.title}
       />
     )
@@ -199,7 +199,7 @@ export const ProjectsList = ({
           <PleaseWait />
         ) : searchText !== '' ? (
           <ListEmptyMessage
-            testID="ConstructionWorkTextEmptyMessage"
+            testID="ConstructionWorkListEmptyMessage"
             text={noResultsMessage}
           />
         ) : null
@@ -211,7 +211,7 @@ export const ProjectsList = ({
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       spacing={size.spacing.md}
       style={styles.gridView}
-      testID="ConstructionWorkListProjects"
+      testID="ConstructionWorkProjectsList"
     />
   )
 }
