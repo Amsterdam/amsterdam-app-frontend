@@ -1,8 +1,8 @@
-import {createStackNavigator} from '@react-navigation/stack'
 import {screenOptions} from '@/app/navigation'
 import {ContactRouteName} from '@/modules/contact/routes'
 import {screenConfig} from '@/modules/contact/screenConfig'
 import {useTheme} from '@/themes'
+import {createStackNavigator} from '@/utils/navigation'
 
 const Stack = createStackNavigator()
 

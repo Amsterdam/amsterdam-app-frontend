@@ -1,12 +1,9 @@
 import {ParamListBase} from '@react-navigation/core'
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack'
+import {CardStyleInterpolators} from '@react-navigation/stack'
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
-import {useIsReduceMotionEnabled, useModules} from '@/hooks'
+import {useModules} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -15,6 +12,7 @@ import {
   ModuleStackParams,
 } from '@/modules/stacks'
 import {useTheme} from '@/themes'
+import {createStackNavigator} from '@/utils/navigation'
 
 type ModuleParams<
   ParamList extends ParamListBase,
@@ -35,7 +33,6 @@ const Stack = createStackNavigator<RootStackParams>()
 export const RootStackNavigator = () => {
   const theme = useTheme()
   const {clientModules, userDisabledModulesBySlug} = useModules()
-  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const ModuleStacks = useMemo(
     () =>
@@ -63,7 +60,6 @@ export const RootStackNavigator = () => {
       }
       screenOptions={{
         headerShown: false,
-        animationEnabled: !isReduceMotionEnabled,
       }}>
       {ModuleStacks}
       <Stack.Group
