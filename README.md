@@ -8,7 +8,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 
 - Clone the repository
   - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
-  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`
+  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git` (please check if it is up to date)
 - Set Node version
   - Install the used node version:
     - Linux/MacOS: `nvm install`
@@ -30,8 +30,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Start the Android phone emulator: `npm run android:phone:dev`
   - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
     - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
-- We recommend installing the [React Native debugger](https://github.com/jhen0409/react-native-debugger)
-  - For Mac via Homebrew: `brew install --cask react-native-debugger`
+- We recommend installing the [Flipper](https://fbflipper.com/) debugger
 
 ### Secret files
 
@@ -43,6 +42,7 @@ You can find these files in the Keepass database. To access this database:
 - Set up OneDrive and sync the file [KP Database.kpdb](https://hoofdstad.sharepoint.com/:u:/r/sites/AmsterdamApp/Shared%20Documents/General/KP%20Database.kdbx?csf=1&web=1&e=ZHO6lT)
 - Install a Keepass client (https://keepass.info/) and use it to open the `.kpdb` file
 - Request the password from a colleague
+- The files can be found in Keepass under `General` and `Signing`
 
 #### Files
 
@@ -55,9 +55,7 @@ You can find these files in the Keepass database. To access this database:
 
 ## Git
 
-- We practice trunk-based development:
-  - Feature branches are branched from `main`
-  - We rebase to include new changes on main, instead of merging
+Our workflow and approach is documented here: https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/11135/Samenwerken-aan-code
 
 ## Push notifications
 
