@@ -23,7 +23,7 @@ export const StreetInput = ({
   selectStreet,
   street,
 }: Props) => {
-  const {streetLengthThreshold} = config
+  const {addressLengthThreshold} = config
 
   return (
     <>
@@ -41,7 +41,7 @@ export const StreetInput = ({
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
         {(!isStreetSelected &&
-          street.length >= streetLengthThreshold &&
+          street.length >= addressLengthThreshold &&
           bagList?.content.map(bagItem => (
             <SuggestionButton
               key={bagItem.uri}

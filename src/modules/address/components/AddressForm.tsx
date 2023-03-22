@@ -28,7 +28,7 @@ export const AddressForm = () => {
   const address = `${street} ${number}`
 
   const inputStreetRef = useRef<TextInput | null>(null)
-  const {streetLengthThreshold} = config
+  const {addressLengthThreshold} = config
 
   const navigation =
     useNavigation<
@@ -36,27 +36,26 @@ export const AddressForm = () => {
     >()
 
   const {data: bagData} = useGetBagQuery(address, {
-    skip: address?.length < streetLengthThreshold,
+    skip: address?.length < addressLengthThreshold,
   })
 
   const bagList = useMemo(
     () =>
       bagData?.find(
-        item => item.label === 'Straatnamen' || item.label === 'Adressen',
+        ({label}) => label === 'Adressen' || label === 'Straatnamen',
       ),
     [bagData],
   )
 
-  const isCompleteAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete
-  const isAddressComplete =
-    isNumberSelected && isStreetSelected && isCompleteAddress
+  const isAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete
+  const isAddressComplete = isNumberSelected && isStreetSelected && isAddress
 
   const {data: addressData} = useGetAddressQuery(address, {
     skip: !isAddressComplete,
   })
 
   const changeNumber = (text: string) => {
-    setNumber(text.replace(/[^0-9]/gi, ''))
+    setNumber(text)
   }
 
   const changeStreet = (text: string) => {
@@ -73,7 +72,7 @@ export const AddressForm = () => {
   const selectStreet = (text: string) => {
     setStreet(removeWeespSuffix(text))
     setIsStreetSelected(true)
-    isCompleteAddress && setIsNumberSelected(true)
+    isAddress && setIsNumberSelected(true)
   }
 
   useEffect(() => {
