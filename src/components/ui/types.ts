@@ -27,8 +27,6 @@ export enum Placement {
   below = 'below',
 }
 
-export type TestID = ViewProps['testID']
-
 export type TestProps = {
-  testID?: TestID
+  testID?: ViewProps['testID']
 }
