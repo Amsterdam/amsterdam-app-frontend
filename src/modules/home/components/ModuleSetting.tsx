@@ -5,7 +5,7 @@ import {Switch} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {TestID, TestProps} from '@/components/ui/types'
+import {TestProps} from '@/components/ui/types'
 import {useModules} from '@/hooks'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {Module, ModuleStatus} from '@/modules/types'
@@ -16,15 +16,14 @@ type ModuleSettingContentProps = {
   description: string
   disabled: boolean
   iconName: IconName | 'projects'
-  testIDPrefix: TestID
   title: string
-}
+} & TestProps
 
 const ModuleSettingContent = ({
   description,
   iconName,
   disabled,
-  testIDPrefix,
+  testID,
   title,
 }: ModuleSettingContentProps) => {
   const color = !disabled ? 'secondary' : undefined
@@ -38,7 +37,7 @@ const ModuleSettingContent = ({
             color={color}
             name="construction-work"
             size="lg"
-            testID={[testIDPrefix, 'Icon'].join('')}
+            testID={testID ? `${testID}Icon` : undefined}
           />
         ) : (
           !!iconName && (
@@ -46,20 +45,20 @@ const ModuleSettingContent = ({
               color={color}
               name={iconName}
               size="lg"
-              testID={[testIDPrefix, 'Icon'].join('')}
+              testID={testID ? `${testID}Icon` : undefined}
             />
           )
         )}
         <Title
           color={color}
           level="h5"
-          testID={[testIDPrefix, 'Title'].join('')}
+          testID={testID ? `${testID}Title` : undefined}
           text={title}
         />
       </Row>
       {disabled ? (
         <Paragraph
-          testID={[testIDPrefix, 'Paragraph'].join('')}
+          testID={testID ? `${testID}Paragraph` : undefined}
           variant="small">
           {description}
         </Paragraph>
@@ -89,15 +88,13 @@ export const ModuleSetting = ({
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
       disabled={isModuleActive}
-      testIDPrefix={['HomeModuleSetting', pascalCase(slug)].join('')}
+      testID={`HomeModuleSetting${pascalCase(slug)}`}
       {...{description, iconName, title}}
     />
   )
 
   return (
-    <Box
-      distinct
-      testID={['HomeModuleSetting', pascalCase(slug), 'Box'].join('')}>
+    <Box distinct testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
       {isModuleActive ? (
         <Switch
           accessibilityLabel={accessibleText(title, description)}

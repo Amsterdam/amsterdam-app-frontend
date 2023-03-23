@@ -55,7 +55,7 @@ export const Modules = () => {
               key={slug}
               label={title}
               slug={slug}
-              testID={['Home', pascalCase(slug), 'ModuleButton'].join('')}
+              testID={`Home${pascalCase(slug)}ModuleButton`}
               variant={isForEmployees ? 'primary' : 'tertiary'}
             />
           ),

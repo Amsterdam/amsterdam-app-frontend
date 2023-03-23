@@ -5,7 +5,7 @@ import {AddressForm} from '@/modules/address/components'
 export const AddressFormScreen = () => (
   <Screen
     scroll={false}
-    stickyHeader={<ModalHeader testID="UserAddressModal" title="Adres" />}
+    stickyHeader={<ModalHeader testID="UserAddressModalHeader" title="Adres" />}
     testID="UserAddressModalScreen">
     <AddressForm />
   </Screen>

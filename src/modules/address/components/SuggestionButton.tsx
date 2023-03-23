@@ -20,13 +20,13 @@ export const SuggestionButton = ({label, onPress, testID}: Props) => (
         color="link"
         name="location"
         size="lg"
-        testID={testID ? [testID, 'Icon'].join('') : undefined}
+        testID={testID ? `${testID}Icon` : undefined}
       />
       <Phrase
         color="link"
         ellipsizeMode="tail"
         numberOfLines={1}
-        testID={testID ? [testID, 'Label'].join('') : undefined}>
+        testID={testID ? `${testID}Label` : undefined}>
         {label}
       </Phrase>
     </Row>
