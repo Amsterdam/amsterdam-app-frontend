@@ -8,7 +8,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 
 - Clone the repository
   - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
-  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git`
+  - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git` (please check if it is up to date)
 - Set Node version
   - Install the used node version:
     - Linux/MacOS: `nvm install`
@@ -19,9 +19,9 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 - Install Node dependencies: `npm i`.
 - For iOS development, install other dependencies:
   - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or <https://rubygems.org/>
-  - Go to `/ios`
   - Install bundler (Ruby gem manager): `gem install bundler:2.2.33`
   - Install/update the gems with bundler: `bundle update`
+  - Go to `/ios`
   - Install pods: `pod install`
 - Get the necessary files and add them to the project
   - See "Secret files" below
@@ -30,30 +30,32 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Start the Android phone emulator: `npm run android:phone:dev`
   - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
     - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
-- We recommend installing the [React Native debugger](https://github.com/jhen0409/react-native-debugger)
-  - For Mac via Homebrew: `brew install --cask react-native-debugger`
+- We recommend installing the [Flipper](https://fbflipper.com/) debugger
 
 ### Secret files
 
-To build the app locally, you need these files. These files contain credentials or API keys, so they are not part of the repo.
+To build the app locally, you need these files. Because they contain credentials or API keys, they are not part of the repo, but stored securely.
 
-- `android/app/google-services.json` (Prod Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app))
-- `android/app/src/dev/google-services.json` (Dev Firebase config/key for Android, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev))
-- `ios/GoogleService-Info-Prod.plist` (Prod Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app) and rename it)
-- `ios/GoogleService-Info-Test.plist` (Dev Firebase config/key for iOS, get file from [here](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev) and rename it)
-- `android/sentry.properties` (Sentry config/key for Android)
-- `ios/sentry.properties` (Sentry config/key for iOS)
-- `.env` (environment variables to be used in the JS, see `.env.example`)
+#### Keepass
+
+You can find these files in the Keepass database. To access this database:
+- Set up OneDrive and sync the file [KP Database.kpdb](https://hoofdstad.sharepoint.com/:u:/r/sites/AmsterdamApp/Shared%20Documents/General/KP%20Database.kdbx?csf=1&web=1&e=ZHO6lT)
+- Install a Keepass client (https://keepass.info/) and use it to open the `.kpdb` file
+- Request the password from a colleague
+- The files can be found in Keepass under `General` and `Signing`
+
+#### Files
+
+- `.env` - Environment variables to be used in the JS. This should be added to the project root. Also see `.env.example`.
+- `sentry.properties` - The Sentry config/key for both platforms. This should be added to the project root.
+- `android/app/google-services.json` - Production Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app)).
+- `android/app/src/debug/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
+- `ios/GoogleService-Info-Prod.plist` - Production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app)).
+- `ios/GoogleService-Info-Test.plist` - Development Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev)).
 
 ## Git
 
-- We rebase feature branches – don’t merge `main` or `develop` back into them.
-- We largely work according to [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
-
-### Release
-
-- Branch from develop and call it release/\[version-number\].
-- Once reviewed, pull branch into main and tag it with its version number.
+Our workflow and approach is documented here: https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/11135/Samenwerken-aan-code
 
 ## Push notifications
 
