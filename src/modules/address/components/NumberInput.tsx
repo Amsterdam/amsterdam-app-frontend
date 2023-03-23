@@ -11,15 +11,14 @@ import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {BagResponseContent} from '@/modules/address'
+import {BagResponse} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
 
 type Props = {
-  bagList: BagResponseContent | null | undefined
+  bagList: BagResponse | null | undefined
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
-  isNumberSelected: boolean
   keyboardType: KeyboardTypeOptions | undefined
   number: string
   selectNumber: (text: string) => void
@@ -36,7 +35,6 @@ export const NumberInput = ({
   bagList,
   changeNumber,
   changeIsStreetSelected,
-  isNumberSelected,
   keyboardType,
   number,
   selectNumber,
@@ -95,9 +93,8 @@ export const NumberInput = ({
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
-        {(!isNumberSelected &&
-          number.length > 0 &&
-          bagList?.map(bagItem => (
+        {(number.length > 0 &&
+          bagList?.content.map(bagItem => (
             <SuggestionButton
               key={bagItem.uri}
               label={getNumberFromAddress(bagItem._display)}
