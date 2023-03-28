@@ -1,6 +1,7 @@
 export * from './useAppState'
 export * from './useForegroundPushNotificationHandler'
 export * from './useInfiniteScroller'
+export * from './useInitPiwik'
 export * from './useInitSentry'
 export * from './useIsReduceMotionEnabled'
 export * from './useModules'

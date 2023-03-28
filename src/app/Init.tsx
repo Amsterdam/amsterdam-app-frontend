@@ -1,6 +1,7 @@
 import {ReactNode, useMemo} from 'react'
 import {
   useAppState,
+  useInitPiwik,
   useInitSentry,
   useModules,
   useRegisterDevice,
@@ -41,6 +42,8 @@ export const Init = ({children}: Props) => {
   useAppState(onAppstate)
 
   useConstructionWorkEditorCredentials()
+
+  useInitPiwik()
 
   return <>{children}</>
 }
