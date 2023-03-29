@@ -22,10 +22,8 @@ export const addressApi = baseApi.injectEndpoints({
         api: 'atlasUrl',
         keepUnusedDataFor: CacheLifetime.day,
       }),
-      transformResponse: (response: ResponseAddress, _meta, {city}) => {
-        const address =
-          response.results.find(r => r.woonplaats === city) ??
-          response.results[0]
+      transformResponse: ({results}: ResponseAddress, _meta, {city}) => {
+        const address = results.find(r => r.woonplaats === city) ?? results[0]
         const {
           adres,
           bag_huisletter,
