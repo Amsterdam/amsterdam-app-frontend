@@ -6,7 +6,7 @@ export type Address = {
   huisnummer: number
   postcode: string
   straatnaam: string
-  woonplaats: string
+  woonplaats: 'Amsterdam' | 'Weesp'
 }
 
 export type ApiAddress = Address & {

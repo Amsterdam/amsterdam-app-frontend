@@ -6,19 +6,26 @@ import {generateRequestUrl} from '@/utils'
 const addressPath = '/search/adres/'
 const bagPath = '/typeahead/bag/'
 
+type AddresParams = {
+  address: string
+  city: Address['woonplaats']
+}
+
 export const addressApi = baseApi.injectEndpoints({
-  endpoints: builder => ({
-    getAddress: builder.query<Address, string>({
-      query: params => ({
+  endpoints: ({query}) => ({
+    getAddress: query<Address, AddresParams>({
+      query: ({address}) => ({
         url: generateRequestUrl({
-          params: {features: 2, q: params},
+          params: {features: 2, q: address},
           path: addressPath,
         }),
         api: 'atlasUrl',
         keepUnusedDataFor: CacheLifetime.day,
       }),
-      transformResponse: (response: ResponseAddress) => {
-        const address = response.results[0]
+      transformResponse: (response: ResponseAddress, _meta, {city}) => {
+        const address =
+          response.results.find(r => r.woonplaats === city) ??
+          response.results[0]
         const {
           adres,
           bag_huisletter,
@@ -41,7 +48,7 @@ export const addressApi = baseApi.injectEndpoints({
         }
       },
     }),
-    getBag: builder.query<BagResponse[], string>({
+    getBag: query<BagResponse[], string>({
       query: address => ({
         url: generateRequestUrl({
           params: {features: 2, q: address},
