@@ -3,34 +3,58 @@ export enum WasteGuideEndpointName {
 }
 
 export type WasteGuideQueryArg = {
-  lat: number | string
-  lon: number | string
+  bagNummeraanduidingId: string
+}
+
+export type WasteGuideResponseFraction = {
+  afvalwijzerAfvalkalenderMelding: string | null
+  afvalwijzerAfvalkalenderOpmerking: string | null
+  afvalwijzerAfvalkalenderTot: string | null
+  afvalwijzerAfvalkalenderVan: string | null
+  afvalwijzerBasisroutetype: string | null
+  afvalwijzerBasisroutetypeCode: string | null
+  afvalwijzerBasisroutetypeId: string | null
+  afvalwijzerBasisroutetypeOmschrijving: string | null
+  afvalwijzerBuitenzettenTot: string | null
+  afvalwijzerBuitenzettenVanaf: string | null
+  afvalwijzerBuitenzettenVanafTot: string | null
+  afvalwijzerFractieCode: string
+  afvalwijzerFractieNaam: string
+  afvalwijzerGeometrie: {
+    afvalwijzerBuitenzetten: string | null
+    afvalwijzerButtontekst: string | null
+    afvalwijzerInstructie2: string
+    afvalwijzerInzamelgebiedCode: string | null
+    afvalwijzerInzamelgebiedNaam: string | null
+    afvalwijzerOphaaldagen2: string | null
+    afvalwijzerUrl: string
+    afvalwijzerWaar: string
+    bagNummeraanduidingId: string
+    coordinates: number[]
+    gbdBuurtCode: string
+    gbdBuurtId: string
+    type: string
+  }
+  afvalwijzerInstructie: string | null
+  afvalwijzerOphaaldagen: string | null
+  afvalwijzerPerXWeken: string | null
+  afvalwijzerRoutenaam: string | null
+  afvalwijzerRoutetypeNaam: string | null
+  gebruiksdoelWoonfunctie: false
+  huisletter: string | null
+  huisnummer: 1
+  huisnummertoevoeging: string | null
+  id: string
+  postcode: string
+  statusAdres: string
+  straatnaam: string
+  woonplaatsnaam: string
 }
 
 export type WasteGuideResponse = {
-  features: WasteGuideResponseFeature[]
-  type: string
-}
-
-type WasteGuideResponseFeature = {
-  properties: WasteGuideResponseProperties
-}
-
-type WasteGuideResponseProperties = {
-  aanbiedwijze: string
-  dataset: string
-  frequentie?: string | null
-  mutatie: string
-  ophaaldag: string | null
-  ophalen?: 'ja' | 'nee'
-  opmerking: string | null
-  stadsdeel_code: string
-  stadsdeel_id: string
-  stadsdeel_naam: string
-  tijd_tot: string | null
-  tijd_vanaf: string | null
-  type: WasteGuideResponseType
-  website?: string | null
+  _embedded: {
+    afvalwijzer: WasteGuideResponseFraction[]
+  }
 }
 
 export type WasteGuideResponseType = 'grofvuil' | 'huisvuil'
