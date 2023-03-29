@@ -1,13 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -52,12 +45,8 @@ export const AddressForm = () => {
     skip: address?.length < addressLengthThreshold,
   })
 
-  const bagList = useMemo(
-    () =>
-      bagData?.find(
-        ({label}) => label === 'Adressen' || label === 'Straatnamen',
-      ),
-    [bagData],
+  const bagList = bagData?.find(
+    ({label}) => label === 'Adressen' || label === 'Straatnamen',
   )
 
   const isAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete

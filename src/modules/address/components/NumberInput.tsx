@@ -1,4 +1,4 @@
-import {useMemo, useRef} from 'react'
+import {useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -74,10 +74,9 @@ export const NumberInput = ({
     callbackAfterAppStateChange: false,
   })
 
-  const numbersForCity = useMemo(
-    () => (bagList ? getNumbersForCity(bagList?.content, city) : []),
-    [bagList, city],
-  )
+  const numbersForCity = bagList
+    ? getNumbersForCity(bagList?.content, city)
+    : []
 
   console.log({numbersForCity, city})
 
@@ -108,16 +107,19 @@ export const NumberInput = ({
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
         {(number.length > 0 &&
-          numbersForCity.map(bagItem => (
-            <SuggestionButton
-              key={bagItem.uri}
-              label={getNumberFromAddress(bagItem._display)}
-              onPress={() => {
-                selectNumber(getNumberFromAddress(bagItem._display))
-              }}
-              testID="UserAddressSuggestionButton"
-            />
-          ))) ??
+          numbersForCity.map(bagItem => {
+            console.log(bagItem._display)
+            return (
+              <SuggestionButton
+                key={bagItem._display}
+                label={getNumberFromAddress(bagItem._display)}
+                onPress={() => {
+                  selectNumber(getNumberFromAddress(bagItem._display))
+                }}
+                testID="UserAddressSuggestionButton"
+              />
+            )
+          })) ??
           null}
       </KeyboardAwareScrollView>
     </Animated.View>
