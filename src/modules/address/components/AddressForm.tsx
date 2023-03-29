@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
@@ -9,19 +9,16 @@ import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {addAddress} from '@/modules/address/slice'
+import {AddressCity} from '@/modules/address/types'
 import {DeviceContext} from '@/providers'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
-
-const removeWeespSuffix = (streetName: string) =>
-  streetName.includes('Weesp')
-    ? streetName.replace(/ \(Weesp\)/g, '')
-    : streetName
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
   const dispatch = useDispatch()
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [isNumberSelected, setIsNumberSelected] = useState(false)
+  const [city, setCity] = useState<AddressCity>(AddressCity.Amsterdam)
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
 
@@ -35,24 +32,32 @@ export const AddressForm = () => {
       StackNavigationProp<RootStackParams, AddressModalName.addressForm>
     >()
 
+  const removeWeespSuffix = useCallback((streetName: string) => {
+    if (streetName.includes(AddressCity.Weesp)) {
+      setCity(AddressCity.Weesp)
+      return streetName.replace(/ \(Weesp\)/g, '')
+    }
+    setCity(AddressCity.Amsterdam)
+    return streetName
+  }, [])
+
   const {data: bagData} = useGetBagQuery(address, {
     skip: address?.length < addressLengthThreshold,
   })
 
-  const bagList = useMemo(
-    () =>
-      bagData?.find(
-        ({label}) => label === 'Adressen' || label === 'Straatnamen',
-      ),
-    [bagData],
+  const bagList = bagData?.find(
+    ({label}) => label === 'Adressen' || label === 'Straatnamen',
   )
 
   const isAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete
   const isAddressComplete = isNumberSelected && isStreetSelected && isAddress
 
-  const {data: addressData} = useGetAddressQuery(address, {
-    skip: !isAddressComplete,
-  })
+  const {data: addressData} = useGetAddressQuery(
+    {address, city},
+    {
+      skip: !isAddressComplete,
+    },
+  )
 
   const changeNumber = (text: string) => {
     setNumber(text)
@@ -101,6 +106,7 @@ export const AddressForm = () => {
           bagList={bagList}
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={changeNumber}
+          city={city}
           keyboardType="numeric"
           number={number}
           selectNumber={selectNumber}

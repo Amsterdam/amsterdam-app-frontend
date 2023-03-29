@@ -11,7 +11,12 @@ import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {BagResponse} from '@/modules/address'
+import {
+  Address,
+  AddressCity,
+  BagResponse,
+  BagResponseContent,
+} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
 
@@ -19,6 +24,7 @@ type Props = {
   bagList: BagResponse | null | undefined
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
+  city: Address['woonplaats']
   keyboardType: KeyboardTypeOptions | undefined
   number: string
   selectNumber: (text: string) => void
@@ -31,10 +37,18 @@ const getNumberFromAddress = (text: string) =>
     .reverse()
     .find(el => el.match(/^[0-9]/)) || ''
 
+const getNumbersForCity = (addresses: BagResponseContent, city: string) =>
+  addresses.filter(({_display}) =>
+    city === AddressCity.Weesp
+      ? _display.includes(AddressCity.Weesp)
+      : !_display.includes(AddressCity.Weesp),
+  )
+
 export const NumberInput = ({
   bagList,
   changeNumber,
   changeIsStreetSelected,
+  city,
   keyboardType,
   number,
   selectNumber,
@@ -67,6 +81,10 @@ export const NumberInput = ({
     callbackAfterAppStateChange: false,
   })
 
+  const numbersForCity = bagList
+    ? getNumbersForCity(bagList?.content, city)
+    : []
+
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>
       <Column gutter="sm">
@@ -94,9 +112,9 @@ export const NumberInput = ({
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
         {(number.length > 0 &&
-          bagList?.content.map(bagItem => (
+          numbersForCity.map(bagItem => (
             <SuggestionButton
-              key={bagItem.uri}
+              key={bagItem._display}
               label={getNumberFromAddress(bagItem._display)}
               onPress={() => {
                 selectNumber(getNumberFromAddress(bagItem._display))

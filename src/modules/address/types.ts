@@ -1,3 +1,8 @@
+export enum AddressCity {
+  Amsterdam = 'Amsterdam',
+  Weesp = 'Weesp',
+}
+
 export type Address = {
   adres: string
   bag_huisletter: string
@@ -6,7 +11,7 @@ export type Address = {
   huisnummer: number
   postcode: string
   straatnaam: string
-  woonplaats: string
+  woonplaats: AddressCity
 }
 
 export type ApiAddress = Address & {
