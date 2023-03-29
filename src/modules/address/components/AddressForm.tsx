@@ -44,6 +44,7 @@ export const AddressForm = () => {
       setCity('Weesp')
       return streetName.replace(/ \(Weesp\)/g, '')
     }
+    setCity('Amsterdam')
     return streetName
   }, [])
 
@@ -116,6 +117,7 @@ export const AddressForm = () => {
           bagList={bagList}
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={changeNumber}
+          city={city}
           keyboardType="numeric"
           number={number}
           selectNumber={selectNumber}
