@@ -11,7 +11,12 @@ import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {Address, BagResponse, BagResponseContent} from '@/modules/address'
+import {
+  Address,
+  AddressCity,
+  BagResponse,
+  BagResponseContent,
+} from '@/modules/address'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {useTheme} from '@/themes'
 
@@ -34,7 +39,9 @@ const getNumberFromAddress = (text: string) =>
 
 const getNumbersForCity = (addresses: BagResponseContent, city: string) =>
   addresses.filter(({_display}) =>
-    city === 'Weesp' ? _display.includes('Weesp') : !_display.includes('Weesp'),
+    city === AddressCity.Weesp
+      ? _display.includes(AddressCity.Weesp)
+      : !_display.includes(AddressCity.Weesp),
   )
 
 export const NumberInput = ({
@@ -78,8 +85,6 @@ export const NumberInput = ({
     ? getNumbersForCity(bagList?.content, city)
     : []
 
-  console.log({numbersForCity, city})
-
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>
       <Column gutter="sm">
@@ -107,19 +112,16 @@ export const NumberInput = ({
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
         {(number.length > 0 &&
-          numbersForCity.map(bagItem => {
-            console.log(bagItem._display)
-            return (
-              <SuggestionButton
-                key={bagItem._display}
-                label={getNumberFromAddress(bagItem._display)}
-                onPress={() => {
-                  selectNumber(getNumberFromAddress(bagItem._display))
-                }}
-                testID="UserAddressSuggestionButton"
-              />
-            )
-          })) ??
+          numbersForCity.map(bagItem => (
+            <SuggestionButton
+              key={bagItem._display}
+              label={getNumberFromAddress(bagItem._display)}
+              onPress={() => {
+                selectNumber(getNumberFromAddress(bagItem._display))
+              }}
+              testID="UserAddressSuggestionButton"
+            />
+          ))) ??
           null}
       </KeyboardAwareScrollView>
     </Animated.View>

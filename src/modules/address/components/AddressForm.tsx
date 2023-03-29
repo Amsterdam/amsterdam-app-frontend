@@ -9,7 +9,7 @@ import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {addAddress} from '@/modules/address/slice'
-import {Address} from '@/modules/address/types'
+import {Address, AddressCity} from '@/modules/address/types'
 import {DeviceContext} from '@/providers'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
 
@@ -18,7 +18,7 @@ export const AddressForm = () => {
   const dispatch = useDispatch()
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [isNumberSelected, setIsNumberSelected] = useState(false)
-  const [city, setCity] = useState<Address['woonplaats']>('Amsterdam')
+  const [city, setCity] = useState<Address['woonplaats']>(AddressCity.Amsterdam)
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
 
@@ -33,11 +33,11 @@ export const AddressForm = () => {
     >()
 
   const removeWeespSuffix = useCallback((streetName: string) => {
-    if (streetName.includes('Weesp')) {
-      setCity('Weesp')
+    if (streetName.includes(AddressCity.Weesp)) {
+      setCity(AddressCity.Weesp)
       return streetName.replace(/ \(Weesp\)/g, '')
     }
-    setCity('Amsterdam')
+    setCity(AddressCity.Amsterdam)
     return streetName
   }, [])
 

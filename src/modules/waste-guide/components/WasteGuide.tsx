@@ -3,7 +3,7 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
-import {Address} from '@/modules/address'
+import {Address, AddressCity} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
   HouseholdWasteToContainerImage,
@@ -43,7 +43,7 @@ export const WasteGuide = ({address}: Props) => {
     return <PleaseWait />
   }
 
-  const cityIsWeesp = address.woonplaats === 'Weesp'
+  const cityIsWeesp = address.woonplaats === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
