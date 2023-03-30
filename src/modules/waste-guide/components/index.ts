@@ -1,5 +1,7 @@
 export * from './RequestAddress'
+export * from './SelectContract'
 export * from './WasteGuide'
 export * from './WasteGuideForAmsterdam'
+export * from './WasteGuideForAmsterdam2'
 export * from './WasteGuideForWeesp'
 export * from './WasteGuideNotFound'
