@@ -11,7 +11,7 @@ import {
 } from '@/modules/waste-guide/assets/images'
 import {
   WasteGuideForWeesp,
-  WasteGuideForAmsterdam2,
+  WasteGuideForAmsterdam,
   WasteGuideNotFound,
 } from '@/modules/waste-guide/components'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
@@ -36,7 +36,7 @@ export const WasteGuide = ({address}: Props) => {
   const cityIsWeesp = address.woonplaats === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
-    : WasteGuideForAmsterdam2
+    : WasteGuideForAmsterdam
   const hasWasteGuide = Object.keys(wasteGuideData).length > 0
   const hasContent = hasWasteGuide || cityIsWeesp
 
