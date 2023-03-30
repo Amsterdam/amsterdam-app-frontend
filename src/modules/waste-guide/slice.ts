@@ -21,6 +21,6 @@ export const wasteGuideSlice = createSlice({
   },
 })
 
-export const {addContract} = wasteGuideSlice.actions
+export const {addContract, resetContracts} = wasteGuideSlice.actions
 
 export const selectContracts = (state: RootState) => state.wasteGuide.contracts
