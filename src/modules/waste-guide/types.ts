@@ -2,6 +2,16 @@ export enum WasteGuideEndpointName {
   getGarbageCollectionArea = 'getGarbageCollectionArea',
 }
 
+export enum ContractType {
+  contract = 'contract',
+  noContract = 'noContract',
+}
+
+export type Contract = {
+  bagNummeraanduidingId: string
+  type: ContractType
+}
+
 export type WasteGuideQueryArg = {
   bagNummeraanduidingId: string
 }
@@ -40,7 +50,7 @@ export type WasteGuideResponseFraction = {
   afvalwijzerPerXWeken: string | null
   afvalwijzerRoutenaam: string | null
   afvalwijzerRoutetypeNaam: string | null
-  gebruiksdoelWoonfunctie: false
+  gebruiksdoelWoonfunctie: boolean
   huisletter: string | null
   huisnummer: 1
   huisnummertoevoeging: string | null

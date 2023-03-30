@@ -41,7 +41,7 @@ export const addressApi = baseApi.injectEndpoints({
           bag_toevoeging,
           centroid,
           huisnummer,
-          landelijk_id,
+          bagNummeraanduidingId: landelijk_id,
           postcode,
           straatnaam,
           woonplaats,
