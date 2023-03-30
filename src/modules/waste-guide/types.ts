@@ -56,33 +56,3 @@ export type WasteGuideResponse = {
     afvalwijzer: WasteGuideResponseFraction[]
   }
 }
-
-export type WasteGuideResponseType = 'grofvuil' | 'huisvuil'
-
-export enum WasteType {
-  Bulky,
-  Household,
-}
-
-export type WasteGuide = {
-  [WasteType.Bulky]?: WasteGuideDetails
-  [WasteType.Household]?: WasteGuideDetails
-}
-
-// Make all optional and add one by one?
-export type WasteGuideDetails = {
-  appointmentUrl: string | undefined
-  collectionDays: string | undefined
-  getsCollected: boolean
-  howToOffer: string | undefined
-  remark: string | undefined
-  title: string
-  whenToPutOut: string | undefined
-}
-
-export const mapWasteType = (type: WasteGuideResponseType): WasteType => {
-  if (type === 'grofvuil') {
-    return WasteType.Bulky
-  }
-  return WasteType.Household
-}
