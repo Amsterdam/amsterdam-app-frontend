@@ -12,19 +12,24 @@ type RadioGroupProps<T> = {
   value?: T
 }
 
-export const RadioGroup = <T,>({
+type RadioValue = string | number | boolean
+
+export const RadioGroup = <T extends RadioValue>({
   options = [],
   onChange,
   value,
 }: RadioGroupProps<T>) => (
   <Column gutter="md">
-    {options.map(({label, value: optionValue}) => (
-      <Radio
-        isSelected={value === optionValue}
-        key={label}
-        label={label}
-        onPress={() => onChange(optionValue)}
-      />
-    ))}
+    {options.map(({label, value: optionValue}) => {
+      console.log({optionValue})
+      return (
+        <Radio
+          isSelected={value === optionValue}
+          key={label}
+          label={label}
+          onPress={() => onChange(optionValue)}
+        />
+      )
+    })}
   </Column>
 )

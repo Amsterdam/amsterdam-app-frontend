@@ -3,23 +3,24 @@ import {Contract} from '@/modules/waste-guide/types'
 import {RootState} from '@/store'
 
 type WasteGuideState = {
-  contract?: Contract
+  contracts?: Contract
 }
 
 const initialState: WasteGuideState = {
-  contract: undefined,
+  contracts: undefined,
 }
 
 export const wasteGuideSlice = createSlice({
   name: 'wasteGuide',
   initialState,
   reducers: {
-    setContract: (state, action: PayloadAction<Contract>) => {
-      state.contract = action.payload
+    addContract: (state, {payload}: PayloadAction<Contract>) => {
+      state.contracts = {...state.contracts, ...payload}
     },
+    resetContracts: () => initialState,
   },
 })
 
-export const {setContract} = wasteGuideSlice.actions
+export const {addContract} = wasteGuideSlice.actions
 
-export const selectContract = (state: RootState) => state.wasteGuide.contract
+export const selectContracts = (state: RootState) => state.wasteGuide.contracts

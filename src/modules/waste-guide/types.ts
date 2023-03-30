@@ -2,14 +2,8 @@ export enum WasteGuideEndpointName {
   getGarbageCollectionArea = 'getGarbageCollectionArea',
 }
 
-export enum ContractType {
-  contract = 'contract',
-  noContract = 'noContract',
-}
-
 export type Contract = {
-  bagNummeraanduidingId: string
-  type: ContractType
+  [bagNummeraanduidingId: string]: {hasContract: boolean}
 }
 
 export type WasteGuideQueryArg = {

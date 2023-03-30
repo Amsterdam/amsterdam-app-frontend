@@ -1,17 +1,16 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {RadioGroup, RadioGroupOption} from '@/components/ui/forms'
-import {selectContract, setContract} from '@/modules/waste-guide/slice'
-import {ContractType} from '@/modules/waste-guide/types'
+import {selectContracts, addContract} from '@/modules/waste-guide/slice'
 
-const contractOptions: RadioGroupOption<ContractType>[] = [
+const contractOptions: RadioGroupOption<boolean>[] = [
   {
     label:
       'Ik heb minder dan 9 zakken afval per week en betaal reinigingsrecht.',
-    value: ContractType.noContract,
+    value: false,
   },
   {
     label: 'Ik heb een contract voor mijn afval.',
-    value: ContractType.contract,
+    value: true,
   },
 ]
 
@@ -21,22 +20,23 @@ type Props = {
 
 export const SelectContract = ({bagNummeraanduidingId}: Props) => {
   const dispatch = useDispatch()
-  const contract = useSelector(selectContract)
+  const contracts = useSelector(selectContracts)
 
-  const handleChange = (value: ContractType) => {
+  const handleChange = (value: boolean) => {
     dispatch(
-      setContract({
-        bagNummeraanduidingId,
-        type: value,
+      addContract({
+        [bagNummeraanduidingId]: {
+          hasContract: value,
+        },
       }),
     )
   }
 
   return (
-    <RadioGroup<ContractType>
+    <RadioGroup<boolean>
       onChange={handleChange}
       options={contractOptions}
-      value={contract?.type}
+      value={contracts?.[bagNummeraanduidingId]?.hasContract}
     />
   )
 }
