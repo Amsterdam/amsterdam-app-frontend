@@ -29,31 +29,32 @@ export type WasteGuideResponseFraction = {
   afvalwijzerBasisroutetypeCode: string | null
   afvalwijzerBasisroutetypeId: string | null
   afvalwijzerBasisroutetypeOmschrijving: string | null
+  afvalwijzerBuitenzetten: string | null
   afvalwijzerBuitenzettenTot: string | null
   afvalwijzerBuitenzettenVanaf: string | null
   afvalwijzerBuitenzettenVanafTot: string | null
+  afvalwijzerButtontekst: string | null
   afvalwijzerFractieCode: FractionCode
   afvalwijzerFractieNaam: string
   afvalwijzerGeometrie: {
-    afvalwijzerBuitenzetten: string | null
-    afvalwijzerButtontekst: string | null
-    afvalwijzerInstructie2: string
-    afvalwijzerInzamelgebiedCode: string | null
-    afvalwijzerInzamelgebiedNaam: string | null
-    afvalwijzerOphaaldagen2: string | null
-    afvalwijzerUrl: string
-    afvalwijzerWaar: string
-    bagNummeraanduidingId: string
     coordinates: number[]
-    gbdBuurtCode: string
-    gbdBuurtId: string
     type: string
   }
   afvalwijzerInstructie: string | null
+  afvalwijzerInstructie2: string
+  afvalwijzerInzamelgebiedCode: string | null
+  afvalwijzerInzamelgebiedNaam: string | null
   afvalwijzerOphaaldagen: string | null
+  afvalwijzerOphaaldagen2: string | null
   afvalwijzerPerXWeken: string | null
   afvalwijzerRoutenaam: string | null
   afvalwijzerRoutetypeNaam: string | null
+  afvalwijzerUrl: string
+  afvalwijzerWaar: string
+  bagNummeraanduidingId: string
+  coordinates: number[]
+  gbdBuurtCode: string
+  gbdBuurtId: string
   gebruiksdoelWoonfunctie: boolean
   huisletter: string | null
   huisnummer: 1
@@ -62,6 +63,7 @@ export type WasteGuideResponseFraction = {
   postcode: string
   statusAdres: string
   straatnaam: string
+  type: string
   woonplaatsnaam: string
 }
 
