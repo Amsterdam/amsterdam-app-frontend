@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {Contract} from '@/modules/waste-guide/types'
+import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Contract, WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {RootState} from '@/store'
 
 type WasteGuideState = {
@@ -24,3 +24,11 @@ export const wasteGuideSlice = createSlice({
 export const {addContract, resetContracts} = wasteGuideSlice.actions
 
 export const selectContracts = (state: RootState) => state.wasteGuide.contracts
+
+export const selectContract = (
+  bagNummeraanduidingId: WasteGuideResponseFraction['bagNummeraanduidingId'],
+) =>
+  createSelector(
+    (state: RootState) => state.wasteGuide.contracts,
+    contracts => contracts?.[bagNummeraanduidingId],
+  )
