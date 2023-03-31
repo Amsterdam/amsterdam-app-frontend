@@ -1,3 +1,4 @@
+export * from './Fractions'
 export * from './RequestAddress'
 export * from './ReportWrongBuildingType'
 export * from './SelectContract'
