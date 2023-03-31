@@ -1,4 +1,5 @@
 export * from './RequestAddress'
+export * from './ReportWrongBuildingType'
 export * from './SelectContract'
 export * from './WasteGuide'
 export * from './WasteGuideForAmsterdam'
