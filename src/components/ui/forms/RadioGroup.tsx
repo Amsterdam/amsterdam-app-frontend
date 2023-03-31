@@ -20,16 +20,13 @@ export const RadioGroup = <T extends RadioValue>({
   value,
 }: RadioGroupProps<T>) => (
   <Column gutter="md">
-    {options.map(({label, value: optionValue}) => {
-      console.log({optionValue})
-      return (
-        <Radio
-          isSelected={value === optionValue}
-          key={label}
-          label={label}
-          onPress={() => onChange(optionValue)}
-        />
-      )
-    })}
+    {options.map(({label, value: optionValue}) => (
+      <Radio
+        isSelected={value === optionValue}
+        key={label}
+        label={label}
+        onPress={() => onChange(optionValue)}
+      />
+    ))}
   </Column>
 )
