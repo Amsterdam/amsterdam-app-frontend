@@ -2,6 +2,16 @@ export enum WasteGuideEndpointName {
   getGarbageCollectionArea = 'getGarbageCollectionArea',
 }
 
+export enum FractionCode {
+  'GA' = 'GA',
+  'GFT' = 'GFT',
+  'Glas' = 'Glas',
+  'Papier' = 'Papier',
+  'Plastic' = 'Plastic',
+  'Rest' = 'Rest',
+  'Textiel' = 'Textiel',
+}
+
 export type Contract = {
   [bagNummeraanduidingId: string]: {hasContract: boolean}
 }
@@ -22,7 +32,7 @@ export type WasteGuideResponseFraction = {
   afvalwijzerBuitenzettenTot: string | null
   afvalwijzerBuitenzettenVanaf: string | null
   afvalwijzerBuitenzettenVanafTot: string | null
-  afvalwijzerFractieCode: string
+  afvalwijzerFractieCode: FractionCode
   afvalwijzerFractieNaam: string
   afvalwijzerGeometrie: {
     afvalwijzerBuitenzetten: string | null
