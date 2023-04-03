@@ -4,7 +4,7 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {RenderHtml, Paragraph, Title} from '@/components/ui/text'
+import {Paragraph, RenderHtml, Title} from '@/components/ui/text'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectNewsQuery,

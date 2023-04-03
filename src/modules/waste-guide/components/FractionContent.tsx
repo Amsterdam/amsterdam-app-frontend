@@ -1,4 +1,4 @@
-import {RenderHtml, Phrase} from '@/components/ui/text'
+import {Phrase, RenderHtml} from '@/components/ui/text'
 
 type Props = {
   content: string | null
