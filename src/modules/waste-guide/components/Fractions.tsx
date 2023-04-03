@@ -6,6 +6,8 @@ import {
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
 
+const temporarilyDisabledFraction = FractionCode.Plastic // TODO: Remove when plastic is supported again
+
 type FractionSectionProps = {
   content: string
   label: string
@@ -64,7 +66,7 @@ type Props = {
 export const Fractions = ({wasteGuide}: Props) => (
   <Column gutter="xl">
     {wasteGuide
-      .filter(w => w.afvalwijzerFractieCode !== FractionCode.Plastic)
+      .filter(w => w.afvalwijzerFractieCode !== temporarilyDisabledFraction)
       .map(fraction => (
         <Fraction fraction={fraction} key={fraction.afvalwijzerFractieCode} />
       ))}
