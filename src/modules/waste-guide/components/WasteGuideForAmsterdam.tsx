@@ -29,13 +29,9 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
 
   return (
     <Column gutter="xl">
-      <Column gutter="xl">
-        <ReportWrongBuildingType />
-        <SelectContract bagNummeraanduidingId={address.bagNummeraanduidingId} />
-        {contract?.hasContract === false ? (
-          <Fractions wasteGuide={wasteGuide} />
-        ) : null}
-      </Column>
+      <ReportWrongBuildingType />
+      <SelectContract bagNummeraanduidingId={address.bagNummeraanduidingId} />
+      {contract?.hasContract === false && <Fractions wasteGuide={wasteGuide} />}
     </Column>
   )
 }

@@ -27,7 +27,7 @@ type FractionProps = {
 const Fraction = ({fraction}: FractionProps) => (
   <Column gutter="md">
     <Row gutter="sm">
-      <WasteFractionIcon name={fraction.afvalwijzerFractieCode} />
+      <WasteFractionIcon fractionCode={fraction.afvalwijzerFractieCode} />
       <Phrase emphasis="strong">{fraction.afvalwijzerFractieNaam}</Phrase>
     </Row>
     <Column gutter="sm">

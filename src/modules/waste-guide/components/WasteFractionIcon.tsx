@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import {View} from 'react-native'
-import {Ellipse, Path, Svg} from 'react-native-svg'
+import {Circle, Path, Svg} from 'react-native-svg'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {FractionCode} from '@/modules/waste-guide/types'
 import {DeviceContext} from '@/providers'
@@ -70,7 +70,7 @@ export const WasteFractionIcon = ({
       testID={testID}
       viewBox="0 0 24 24"
       width={scaledSize}>
-      <Ellipse cx="12" cy="12" fill={color} rx="12" ry="12" />
+      <Circle cx="12" cy="12" fill={color} r="12" />
       <Path
         d={path}
         fill={colorTokens.text[hasLightBackground ? 'default' : 'inverse']}

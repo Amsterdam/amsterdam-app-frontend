@@ -3,13 +3,13 @@ export enum WasteGuideEndpointName {
 }
 
 export enum FractionCode {
-  GA,
-  GFT,
-  Glas,
-  Papier,
-  Plastic,
-  Rest,
-  Textiel,
+  GA = 'GA',
+  GFT = 'GFT',
+  Glas = 'Glas',
+  Papier = 'Papier',
+  Plastic = 'Plastic',
+  Rest = 'Rest',
+  Textiel = 'Textiel',
 }
 
 export type Contract = {
