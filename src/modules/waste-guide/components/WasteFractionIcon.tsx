@@ -74,10 +74,10 @@ export const WasteFractionIcon = ({
       viewBox="0 0 24 24"
       width={scaledSize}>
       <Ellipse
-        cx="11.9304"
+        cx="12"
         cy="12"
         fill={fractionIconConfig[name]?.color}
-        rx="11.9304"
+        rx="12"
         ry="12"
       />
       <Path
