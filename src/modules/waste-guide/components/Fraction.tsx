@@ -63,7 +63,7 @@ export const Fraction = ({fraction}: Props) => {
   return (
     <Column gutter="lg">
       <Row gutter="sm">
-        <WasteFractionIcon name={afvalwijzerFractieCode} />
+        <WasteFractionIcon fractionCode={afvalwijzerFractieCode} />
         <Phrase emphasis="strong">{afvalwijzerFractieNaam}</Phrase>
       </Row>
       {showTimeBoundNotification(fraction) && (
