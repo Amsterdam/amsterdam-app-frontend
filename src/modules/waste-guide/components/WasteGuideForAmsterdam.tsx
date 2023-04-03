@@ -19,21 +19,23 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
     selectContract(wasteGuide[0].bagNummeraanduidingId),
   )
 
+  if (wasteGuide[0].gebruiksdoelWoonfunctie) {
+    return (
+      <Column gutter="xl">
+        <Fractions wasteGuide={wasteGuide} />
+      </Column>
+    )
+  }
+
   return (
     <Column gutter="xl">
-      {!wasteGuide[0].gebruiksdoelWoonfunctie ? (
-        <Column gutter="xl">
-          <ReportWrongBuildingType />
-          <SelectContract
-            bagNummeraanduidingId={address.bagNummeraanduidingId}
-          />
-          {contract?.hasContract === false ? (
-            <Fractions wasteGuide={wasteGuide} />
-          ) : null}
-        </Column>
-      ) : (
-        <Fractions wasteGuide={wasteGuide} />
-      )}
+      <Column gutter="xl">
+        <ReportWrongBuildingType />
+        <SelectContract bagNummeraanduidingId={address.bagNummeraanduidingId} />
+        {contract?.hasContract === false ? (
+          <Fractions wasteGuide={wasteGuide} />
+        ) : null}
+      </Column>
     </Column>
   )
 }
