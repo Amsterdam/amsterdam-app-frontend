@@ -4,7 +4,7 @@ import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Article, Paragraph} from '@/components/ui/text'
+import {RenderHtml, Paragraph} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils'
@@ -64,7 +64,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
 
   if (visitingHoursContent) {
-    return <Article content={visitingHoursContent} />
+    return <RenderHtml content={visitingHoursContent} />
   }
 
   return (

@@ -1,12 +1,12 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {Article} from './Article'
+import {RenderHtml} from './RenderHtml'
 
 export default {
-  component: Article,
-} as ComponentMeta<typeof Article>
+  component: RenderHtml,
+} as ComponentMeta<typeof RenderHtml>
 
-export const Default: ComponentStory<typeof Article> = args => (
-  <Article {...args} />
+export const Default: ComponentStory<typeof RenderHtml> = args => (
+  <RenderHtml {...args} />
 )
 Default.args = {
   content:

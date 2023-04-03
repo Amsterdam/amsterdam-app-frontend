@@ -1,4 +1,7 @@
+export * from './Fraction'
+export * from './FractionContent'
 export * from './Fractions'
+export * from './FractionSection'
 export * from './RequestAddress'
 export * from './ReportWrongBuildingType'
 export * from './SelectContract'

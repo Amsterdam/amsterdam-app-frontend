@@ -5,14 +5,20 @@ import RenderHTML, {
 } from 'react-native-render-html'
 import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable, useTheme} from '@/themes'
-import {SizeTokens} from '@/themes/tokens'
+import {SizeTokens, TextTokens} from '@/themes/tokens'
 
 type Props = {
   content: string | undefined
   isIntro?: boolean
+  transformRules?: HtmlTransformRule[]
 } & TestProps
 
-const transformRules = [
+export type HtmlTransformRule = {
+  find: RegExp
+  replace: string
+}
+
+const defaultTransformRules: HtmlTransformRule[] = [
   {
     find: /"\/publish/g,
     replace: '"https://www.amsterdam.nl/publish',
@@ -26,8 +32,11 @@ const transformRules = [
 /**
  * Applies all transform rules to the content.
  */
-const transformContent = (content: string) =>
-  transformRules.reduce(
+const transformContent = (
+  content: string,
+  additionalTransformRules: HtmlTransformRule[] = [],
+) =>
+  [...defaultTransformRules, ...additionalTransformRules].reduce(
     (result, {find, replace}) => result.replace(find, replace),
     content,
   )
@@ -44,7 +53,7 @@ const computeEmbeddedMaxWidth =
 /**
  * Renders HTML content, applying the typographic design.
  */
-export const Article = ({content, isIntro}: Props) => {
+export const RenderHtml = ({content, isIntro, transformRules}: Props) => {
   const {width} = useWindowDimensions()
   const {size} = useTheme()
   const fonts = useThemable(createFontList)
@@ -56,7 +65,7 @@ export const Article = ({content, isIntro}: Props) => {
     return null
   }
 
-  const html = transformContent(content)
+  const html = transformContent(content, transformRules)
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
     b: styles.boldText,
@@ -87,9 +96,19 @@ export const Article = ({content, isIntro}: Props) => {
   )
 }
 
+const getFontSize = (text: TextTokens, isIntro = false) =>
+  isIntro ? text.fontSize.intro : text.fontSize.body
+
+const getLineHeight = (text: TextTokens, isIntro = false) =>
+  isIntro
+    ? text.lineHeight.intro * text.fontSize.intro
+    : text.lineHeight.body * text.fontSize.body
+
 const createBaseStyle = ({color, text}: Theme) => ({
   color: color.text.default,
   fontFamily: text.fontFamily.regular,
+  fontSize: getFontSize(text),
+  lineHeight: getLineHeight(text),
 })
 
 const createStyles: (
@@ -97,9 +116,7 @@ const createStyles: (
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
   ({text}: Theme) => {
-    const lineHeight = isIntro
-      ? text.lineHeight.intro * text.fontSize.intro
-      : text.lineHeight.body * text.fontSize.body
+    const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
     const platformDependentFontWeight: TextStyle['fontWeight'] =
@@ -111,7 +128,7 @@ const createStyles: (
         marginBottom: lineHeight,
       },
       paragraph: {
-        fontSize: isIntro ? text.fontSize.intro : text.fontSize.body,
+        fontSize: getFontSize(text, isIntro),
         lineHeight,
       },
       boldText: {
