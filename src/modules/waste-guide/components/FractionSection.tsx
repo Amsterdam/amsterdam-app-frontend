@@ -1,4 +1,3 @@
-import {View} from 'react-native'
 import {Phrase} from '@/components/ui/text'
 import {FractionContent} from '@/modules/waste-guide/components'
 
@@ -13,9 +12,9 @@ export const FractionSection = ({content, label}: Props) => {
   }
 
   return (
-    <View>
-      <Phrase emphasis="strong">{label}:</Phrase>
+    <Phrase>
+      <Phrase emphasis="strong">{label}: </Phrase>
       <FractionContent content={content} />
-    </View>
+    </Phrase>
   )
 }

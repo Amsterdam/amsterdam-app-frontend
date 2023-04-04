@@ -7,7 +7,7 @@ import {
   WasteFractionIcon,
 } from '@/modules/waste-guide/components'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {compareIsoDates} from '@/utils'
+import {dayjs} from '@/utils'
 
 type Props = {
   fraction: WasteGuideResponseFraction
@@ -30,8 +30,8 @@ const showTimeBoundNotification = ({
   }
 
   return (
-    compareIsoDates(afvalwijzerAfvalkalenderVan) < 0 &&
-    compareIsoDates(afvalwijzerAfvalkalenderTot) > 0
+    dayjs().isBefore(dayjs(afvalwijzerAfvalkalenderTot)) &&
+    dayjs().isAfter(dayjs(afvalwijzerAfvalkalenderVan))
   )
 }
 
