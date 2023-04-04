@@ -9,8 +9,7 @@ export const sizeTokens = {
     md: 16,
     lg: 24,
     xl: 40,
-    xxl: 60,
-    xxxl: 80,
-    xxxxl: 120,
+    xxl: 80,
+    xxxl: 120,
   },
 }
