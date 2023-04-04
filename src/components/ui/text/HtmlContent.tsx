@@ -53,7 +53,7 @@ const computeEmbeddedMaxWidth =
 /**
  * Renders HTML content, applying the typographic design.
  */
-export const RenderHtml = ({content, isIntro, transformRules}: Props) => {
+export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const {width} = useWindowDimensions()
   const {size} = useTheme()
   const fonts = useThemable(createFontList)

@@ -1,4 +1,4 @@
-import {Phrase, RenderHtml} from '@/components/ui/text'
+import {HtmlContent, Phrase} from '@/components/ui/text'
 
 type Props = {
   content: string | null
@@ -12,7 +12,7 @@ export const FractionContent = ({content}: Props) => {
   }
 
   if (containsHtml(content)) {
-    return <RenderHtml content={content} />
+    return <HtmlContent content={content} />
   }
 
   return <Phrase>{content}</Phrase>
