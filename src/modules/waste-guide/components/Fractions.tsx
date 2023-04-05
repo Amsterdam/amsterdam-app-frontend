@@ -11,12 +11,16 @@ type Props = {
   wasteGuide: WasteGuideResponseFraction[]
 }
 
-export const Fractions = ({wasteGuide}: Props) => (
-  <Column gutter="xl">
-    {wasteGuide
-      .filter(w => w.afvalwijzerFractieCode !== temporarilyDisabledFraction)
-      .map(fraction => (
+export const Fractions = ({wasteGuide}: Props) => {
+  const fractions = wasteGuide.filter(
+    f => f.afvalwijzerFractieCode !== temporarilyDisabledFraction,
+  )
+
+  return (
+    <Column gutter="xl">
+      {fractions.map(fraction => (
         <Fraction fraction={fraction} key={fraction.afvalwijzerFractieCode} />
       ))}
-  </Column>
-)
+    </Column>
+  )
+}
