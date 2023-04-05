@@ -1,4 +1,4 @@
-import {Pressable} from 'react-native'
+import {Pressable, PressableProps} from 'react-native'
 import {Circle, Svg} from 'react-native-svg'
 import {Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
@@ -8,7 +8,7 @@ type RadioProps = {
   isSelected: boolean
   label: string
   onPress: () => void
-}
+} & PressableProps
 
 type RadioIndicatorProps = {
   checked: boolean
@@ -34,8 +34,16 @@ const RadioIndicator = ({checked}: RadioIndicatorProps) => {
   )
 }
 
-export const Radio = ({label, isSelected, onPress}: RadioProps) => (
-  <Pressable onPress={onPress}>
+export const Radio = ({
+  label,
+  isSelected,
+  onPress,
+  ...pressableProps
+}: RadioProps) => (
+  <Pressable
+    {...pressableProps}
+    accessibilityState={{selected: isSelected}}
+    onPress={onPress}>
     <Row gutter="sm" valign="center">
       <RadioIndicator checked={isSelected} />
       <Phrase>{label}</Phrase>
