@@ -1,9 +1,14 @@
-import {Column} from '@/components/ui/layout'
+import {useContext} from 'react'
+import {StyleSheet} from 'react-native'
+import {FlexStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
+import {SimpleGrid} from 'react-native-super-grid'
 import {Fraction} from '@/modules/waste-guide/components'
 import {
   FractionCode,
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
+import {DeviceContext} from '@/providers'
+import {useTheme} from '@/themes'
 
 const temporarilyDisabledFraction = FractionCode.Plastic // TODO: Remove when plastic is supported again
 
@@ -16,11 +21,33 @@ export const Fractions = ({wasteGuide}: Props) => {
     f => f.afvalwijzerFractieCode !== temporarilyDisabledFraction,
   )
 
+  const {fontScale} = useContext(DeviceContext)
+  const {size} = useTheme()
+  const itemDimension = 20 * size.spacing.md * Math.max(fontScale, 1)
+  const gutter = size.spacing.xl
+
+  const styles = createStyles(gutter)
+
   return (
-    <Column gutter="xl">
-      {fractions.map(fraction => (
-        <Fraction fraction={fraction} key={fraction.afvalwijzerFractieCode} />
-      ))}
-    </Column>
+    <SimpleGrid
+      data={fractions}
+      itemContainerStyle={styles.itemContainer}
+      itemDimension={itemDimension}
+      keyExtractor={fraction => fraction.afvalwijzerFractieCode}
+      listKey="fractions"
+      renderItem={({item}) => <Fraction fraction={item} />}
+      spacing={gutter}
+      style={styles.grid}
+    />
   )
 }
+
+const createStyles = (gutter: FlexStyle['margin']) =>
+  StyleSheet.create({
+    grid: {
+      margin: gutter && -gutter,
+    },
+    itemContainer: {
+      justifyContent: 'flex-start',
+    },
+  })
