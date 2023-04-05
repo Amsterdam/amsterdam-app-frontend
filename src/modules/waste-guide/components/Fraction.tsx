@@ -1,6 +1,6 @@
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
+import {Title} from '@/components/ui/text'
 import {
   FractionContent,
   FractionSection,
@@ -62,9 +62,9 @@ export const Fraction = ({fraction}: Props) => {
 
   return (
     <Column gutter="lg">
-      <Row gutter="sm">
+      <Row gutter="sm" valign="center">
         <WasteFractionIcon fractionCode={afvalwijzerFractieCode} />
-        <Phrase emphasis="strong">{afvalwijzerFractieNaam}</Phrase>
+        <Title level="h4" text={afvalwijzerFractieNaam} />
       </Row>
       {showTimeBoundNotification(fraction) && (
         <Attention>
