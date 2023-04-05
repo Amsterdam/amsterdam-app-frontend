@@ -6,6 +6,9 @@
 // required for firebase
 #import <Firebase.h>
 
+// required for deeplinks
+#import <React/RCTLinkingManager.h>
+
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -45,6 +48,14 @@
 - (BOOL)concurrentRootEnabled
 {
   return true;
+}
+
+// required for deeplinks
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 @end
