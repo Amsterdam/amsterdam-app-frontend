@@ -15,10 +15,12 @@ export type EnvironmentConfig = {
 
 enum ApiUrls {
   apiAcc = 'https://api-test-backend.luscinia-solutions.com/api/v1',
-  apiLocal = 'http://localhost:8000/api/v1',
+  apiCustomDefault = 'http://localhost:8000/api/v1',
+  apiDev = 'https://api-dev-backend.luscinia-solutions.com/api/v1',
   apiProd = 'https://api-backend.luscinia-solutions.com/api/v1',
   modulesApiAcc = 'https://api-test-modules.luscinia-solutions.com/api/v1',
-  modulesApiLocal = 'http://localhost:9000/api/v1',
+  modulesApiCustomDefault = 'http://localhost:9000/api/v1',
+  modulesApiDev = 'https://api-dev-modules.luscinia-solutions.com/api/v1',
   modulesApiProd = 'https://api-modules.luscinia-solutions.com/api/v1',
 }
 
@@ -31,10 +33,10 @@ enum ExternalApiUrls {
 
 export const environments: Record<Environment, EnvironmentConfig> = {
   [Environment.development]: {
-    apiUrl: ApiUrls.apiLocal,
+    apiUrl: ApiUrls.apiDev,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    modulesApiUrl: ApiUrls.modulesApiLocal,
+    modulesApiUrl: ApiUrls.modulesApiDev,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
   [Environment.acceptance]: {
@@ -52,10 +54,10 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
   },
   [Environment.custom]: {
-    apiUrl: ApiUrls.apiLocal,
+    apiUrl: ApiUrls.apiCustomDefault,
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
-    modulesApiUrl: ApiUrls.modulesApiLocal,
+    modulesApiUrl: ApiUrls.modulesApiCustomDefault,
     signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
   },
 }
