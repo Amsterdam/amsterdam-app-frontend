@@ -7,7 +7,7 @@ import {
   WasteFractionIcon,
 } from '@/modules/waste-guide/components'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {dayjs} from '@/utils'
+import {capitalizeString, dayjs} from '@/utils'
 
 type Props = {
   fraction: WasteGuideResponseFraction
@@ -56,7 +56,7 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerFractieCode,
     afvalwijzerFractieNaam,
     afvalwijzerInstructie2,
-    afvalwijzerOphaaldagen,
+    afvalwijzerOphaaldagen2,
     afvalwijzerWaar,
   } = fraction
 
@@ -73,7 +73,10 @@ export const Fraction = ({fraction}: Props) => {
       )}
       <Column gutter="md">
         <FractionSection content={afvalwijzerInstructie2} label="Hoe" />
-        <FractionSection content={afvalwijzerOphaaldagen} label="Ophaaldag" />
+        <FractionSection
+          content={capitalizeString(afvalwijzerOphaaldagen2 ?? '')}
+          label="Ophaaldag"
+        />
         <FractionSection
           content={getBuitenzettenContent(fraction)}
           label="Buitenzetten"
