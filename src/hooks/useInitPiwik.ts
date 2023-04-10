@@ -1,13 +1,23 @@
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {useEffect, useState} from 'react'
 import {useSentry} from '@/hooks'
-import {devLog} from '@/processes'
+import {devLog, isDevApp} from '@/processes'
+
+const config = {
+  acceptance: [
+    'https://dap.amsterdam.nl',
+    '9a752692-3faf-4677-8d36-08b01ce60cc4',
+  ],
+  production: [
+    'https://dap.amsterdam.nl',
+    '9a752692-3faf-4677-8d36-08b01ce60cc4',
+  ],
+}
 
 const initPiwik = async () =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
   (await PiwikProSdk.init(
-    'https://dap.amsterdam.nl/containers/',
-    'e63312c0-0efe-4c4f-bba1-3ca1f05374a8',
+    ...config[isDevApp ? 'acceptance' : 'production'],
   )) as Promise<void>
 
 export const useInitPiwik = () => {
@@ -21,8 +31,13 @@ export const useInitPiwik = () => {
           devLog('gelukt!')
         })
         .catch((e: unknown) => {
-          devLog('error', e)
-          // sendSentryErrorLog('Piwik initialization failed', 'useInitPiwik.ts')
+          if (
+            (e as {message: string}).message ===
+            'Piwik Pro SDK has been already initialized'
+          ) {
+            return
+          }
+          sendSentryErrorLog('Piwik initialization failed', 'useInitPiwik.ts')
         })
         .finally(() => setDone(true))
     }

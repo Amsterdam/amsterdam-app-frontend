@@ -4,6 +4,7 @@ import {
   useInitPiwik,
   useInitSentry,
   useModules,
+  usePiwikLogging,
   useRegisterDevice,
   useSentry,
 } from '@/hooks'
@@ -14,6 +15,7 @@ type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   useInitSentry()
+  usePiwikLogging()
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice, unregisterDevice} = useRegisterDevice()
   const {selectedModules} = useModules()

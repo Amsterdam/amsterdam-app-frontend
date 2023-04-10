@@ -13,7 +13,12 @@ import {
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 import {CustomErrorBoundary, Init} from '@/app'
-import {linking, RootStackNavigator, RootStackParams} from '@/app/navigation'
+import {
+  handleNavigationStateChange,
+  linking,
+  RootStackNavigator,
+  RootStackParams,
+} from '@/app/navigation'
 import {ErrorWithRestart} from '@/components/ui/feedback'
 import {registerNavigationContainer} from '@/processes'
 import {RootProvider} from '@/providers'
@@ -42,6 +47,7 @@ const AppComponent = () => {
             registerNavigationContainer(navigation)
             void RNBootSplash.hide({fade: true})
           }}
+          onStateChange={handleNavigationStateChange}
           ref={navigation}>
           <RootProvider>
             <PersistGate loading={null} persistor={persistor}>

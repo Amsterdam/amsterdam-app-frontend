@@ -1,3 +1,4 @@
+export * from './handleNavigationStateChange'
 export * from './linking'
 export * from './RootStackNavigator'
 export * from './screenOptions'
