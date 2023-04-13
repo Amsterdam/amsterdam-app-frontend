@@ -55,6 +55,10 @@ A short overview of the app build process in the Amsterdam-App-Frontend pipeline
 - create a txt file with the version and build number
 - publish all created artifacts (AABs, IPAs and version.txt) in a folder
 
+#### Notes/gotchas
+
+- *Specifying an exact version is not recommended on Microsoft-Hosted agents*: Amsterdam-App-Frontend builds will show this warning due to the pinned Ruby version. We can safely ignore these warnings: the version is pinned intentionally to match our local development environment. This will prevent potential version mismatch warnings/errors with the version in the lock file.
+
 ### Releases
 
 A completed, successful run will trigger a release, which will use Fastlane to distribute the apps to the stores.
@@ -78,7 +82,7 @@ If you have the project up and running via the instructions in the main README, 
 
 - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or https://rubygems.org/
 - Go to `/android` 
-- Install bundler (Ruby gem manager): `gem install bundler:2.2.33`
+- Install bundler (Ruby gem manager): `gem install bundler:2.4.12`
 - Install/update the gems with bundler: `bundle update`
 
 To set up/fix/update fastlane for iOS, follow the same steps in the iOS folder.

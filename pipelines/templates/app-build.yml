@@ -6,11 +6,8 @@ parameters:
 steps:
   # Set up environment
   - template: ./install-node.yml
-  - script: npm ci
-    displayName: 'Install node dependencies'
   - template: ./install-ruby.yml
-  - script: |
-      gem install bundler:2.2.33
+  - script: gem install bundler:2.4.12
     displayName: "Install bundler"
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
@@ -19,6 +16,8 @@ steps:
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
+  - script: npm ci
+    displayName: 'Install node dependencies'
 
   # Tests
   - script: npm run lint
