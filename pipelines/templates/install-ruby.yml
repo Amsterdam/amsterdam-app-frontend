@@ -1,9 +1,11 @@
 # Install ruby based on version in .ruby-version
 steps:
   - script: echo "##vso[task.setvariable variable=rubyVersion]$(cat '$(System.DefaultWorkingDirectory)/.ruby-version')"
-    displayName: Read required ruby version
+    displayName: Read required Ruby version
   - task: UseRubyVersion@0
     displayName: 'Set Ruby version'
     inputs:
-      versionSpec: $(rubyVersion)
+      versionSpec: '>= $(rubyVersion)'
       addToPath: true
+  - script: ruby -v
+    displayName: Output Ruby version
