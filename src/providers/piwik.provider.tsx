@@ -2,6 +2,7 @@ import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {createContext, ReactNode} from 'react'
 import {useEffect, useState} from 'react'
 import {useSentry} from '@/hooks'
+import {isProductionApp} from '@/processes'
 import {PiwikProSdkType} from '@/types/piwik.temp'
 
 // temporary fix for typing, see: src/types/piwik.temp
@@ -12,12 +13,20 @@ enum PiwikError {
   missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
 }
 
+const PIWIK_PRO_URL = isProductionApp
+  ? process.env.PIWIK_PRO_URL
+  : process.env.PIWIK_PRO_URL_ACCEPT
+
+const PIWIK_PRO_ID = isProductionApp
+  ? process.env.PIWIK_PRO_ID
+  : process.env.PIWIK_PRO_ID_ACCEPT
+
 const initPiwik = () => {
-  if (!process.env.PIWIK_PRO_URL || !process.env.PIWIK_PRO_ID) {
+  if (!PIWIK_PRO_URL || !PIWIK_PRO_ID) {
     return Promise.reject(PiwikError.missingEnvVars)
   }
 
-  return PiwikPro.init(process.env.PIWIK_PRO_URL, process.env.PIWIK_PRO_ID)
+  return PiwikPro.init(PIWIK_PRO_URL, PIWIK_PRO_ID)
 }
 
 type PiwikContextType = PiwikProSdkType | null | undefined

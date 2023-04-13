@@ -17,6 +17,9 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
 - `AUTH_PASSWORD`: authorise project managers to send push notifications; used in the app as env var
 - `AUTH_SHARED_SECRET`: authorise project managers to send push notifications; used in the app as env var
+- `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
+- `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
+
 
 ### Secure files
 
