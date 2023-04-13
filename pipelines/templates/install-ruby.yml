@@ -5,7 +5,5 @@ steps:
   - task: UseRubyVersion@0
     displayName: 'Set Ruby version'
     inputs:
-      versionSpec: '>= $(rubyVersion)'
+      versionSpec: $(rubyVersion)
       addToPath: true
-  - script: ruby -v
-    displayName: Output Ruby version

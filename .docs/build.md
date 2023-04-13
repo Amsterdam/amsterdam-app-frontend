@@ -78,7 +78,7 @@ If you have the project up and running via the instructions in the main README, 
 
 - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or https://rubygems.org/
 - Go to `/android` 
-- Install bundler (Ruby gem manager): `gem install bundler:2.2.33`
+- Install bundler (Ruby gem manager): `gem install bundler:2.4.12`
 - Install/update the gems with bundler: `bundle update`
 
 To set up/fix/update fastlane for iOS, follow the same steps in the iOS folder.
