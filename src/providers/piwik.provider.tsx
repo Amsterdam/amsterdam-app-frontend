@@ -4,38 +4,48 @@ import {useEffect, useState} from 'react'
 import {useSentry} from '@/hooks'
 import {PiwikProSdkType} from '@/types/piwik.temp'
 
+// temporary fix for typing, see: src/types/piwik.temp
 const PiwikPro = PiwikProSdk as PiwikProSdkType
+
+enum PiwikError {
+  alreadyInitialized = 'Piwik Pro SDK has been already initialized',
+  missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
+}
 
 const initPiwik = () => {
   if (!process.env.PIWIK_PRO_URL || !process.env.PIWIK_PRO_ID) {
-    throw new Error('PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env')
+    return Promise.reject(PiwikError.missingEnvVars)
   }
 
   return PiwikPro.init(process.env.PIWIK_PRO_URL, process.env.PIWIK_PRO_ID)
 }
 
+type PiwikContextType = PiwikProSdkType | null | undefined
+
+/**
+ * The PiwikContext contains the object with all methods, to be used via the usePiwik hook only. It is undefined when not initialized and null when initilization failed.
+ */
+export const PiwikContext = createContext<PiwikContextType>(undefined)
+
 type Props = {
   children?: ReactNode
 }
 
-export const PiwikContext = createContext<PiwikProSdkType | null>(null)
-
 export const PiwikProvider = ({children}: Props) => {
   const {sendSentryErrorLog} = useSentry()
-  const [piwikInstance, setPiwikInstance] = useState<PiwikProSdkType | null>(
-    null,
-  )
+  const [piwikInstance, setPiwikInstance] = useState<PiwikContextType>()
 
   useEffect(() => {
-    if (!piwikInstance) {
+    if (piwikInstance === undefined) {
       initPiwik()
         .then(() => {
           setPiwikInstance(PiwikPro)
         })
-        .catch((error: unknown) => {
+        .catch((error: Error) => {
+          setPiwikInstance(null)
           if (
-            (error as {message: string}).message ===
-            'Piwik Pro SDK has been already initialized'
+            error.message === PiwikError.alreadyInitialized ||
+            error.message === PiwikError.missingEnvVars
           ) {
             return
           }
