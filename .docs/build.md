@@ -81,11 +81,4 @@ You can find more documentation in these files.
 
 ### Installation
 
-If you have the project up and running via the instructions in the main README, fastlane should be installed for iOS already.
-
-- Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or https://rubygems.org/
-- Go to `/android` 
-- Install bundler (Ruby gem manager): `gem install bundler:2.4.12`
-- Install/update the gems with bundler: `bundle update`
-
-To set up/fix/update fastlane for iOS, follow the same steps in the iOS folder.
+If you have the project up and running via the instructions in the main README, Fastlane should be installed already. It is installed as a Ruby gem, using bundler.
