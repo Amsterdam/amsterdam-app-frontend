@@ -1,16 +1,14 @@
-import {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons'
 import {Row, Size} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Direction, TestProps} from '@/components/ui/types'
-import {Theme, useThemable, useTheme} from '@/themes'
+import {useTheme} from '@/themes'
 
 type Props = {
   label: string
   onPress: () => void
-  variant?: 'backward' | 'default' | 'external' | 'forward' | 'underline'
+  variant?: 'backward' | 'default' | 'external' | 'forward'
 } & TestProps
 
 type LinkIconProps = {
@@ -33,20 +31,6 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
   )
 }
 
-type UnderlineWrapperProps = {
-  children: ReactNode
-  variant: Props['variant']
-}
-
-const UnderlineWrapper = ({children, variant}: UnderlineWrapperProps) => {
-  const styles = useThemable(createStyles)
-  return variant === 'underline' ? (
-    <View style={styles.underlineWrapper}>{children}</View>
-  ) : (
-    <>{children}</>
-  )
-}
-
 export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
   const {text} = useTheme()
 
@@ -62,19 +46,9 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
         {variant === 'external' && <LinkIcon external />}
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
         {variant === 'default' && <LinkIcon direction={Direction.right} />}
-        <UnderlineWrapper variant={variant}>
-          <Phrase color="link">{label}</Phrase>
-        </UnderlineWrapper>
+        <Phrase color="link">{label}</Phrase>
         {variant === 'forward' && <LinkIcon direction={Direction.right} />}
       </Row>
     </Pressable>
   )
 }
-
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    underlineWrapper: {
-      borderBottomColor: color.text.link,
-      borderBottomWidth: 2,
-    },
-  })

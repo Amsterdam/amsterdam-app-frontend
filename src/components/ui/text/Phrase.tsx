@@ -13,6 +13,7 @@ type Props = {
    * Allows the phrase to convey more emphasis.
    */
   emphasis?: keyof typeof Emphasis
+  underline?: boolean
   /**
    * Which variation of a phrase to display.
    */
@@ -28,6 +29,7 @@ export const Phrase = ({
   children,
   color = 'default',
   emphasis = 'default',
+  underline = false,
   variant = 'body',
   ...textProps
 }: Props) => {
@@ -38,7 +40,9 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text style={styles.text} {...textProps}>
+    <Text
+      style={{...styles.text, ...(underline && styles.underline)}}
+      {...textProps}>
       {children}
     </Text>
   )
@@ -59,5 +63,8 @@ const createStyles =
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
+      },
+      underline: {
+        textDecorationLine: 'underline',
       },
     })

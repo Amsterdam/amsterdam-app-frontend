@@ -1,3 +1,4 @@
+export * from './ContactCollector'
 export * from './Fraction'
 export * from './FractionContent'
 export * from './Fractions'
