@@ -1,5 +1,6 @@
 import {Column} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {openWebUrl} from '@/utils'
 
 const wrongBuildingTypeReactionFormUrl =
@@ -10,12 +11,9 @@ export const ReportWrongBuildingType = () => (
     <Phrase emphasis="strong">Dit is geen woonadres</Phrase>
     <Phrase>
       Klopt dit niet?{' '}
-      <Phrase
-        color="link"
-        onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}
-        underline>
+      <InlineLink onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}>
         Geef het door
-      </Phrase>
+      </InlineLink>
     </Phrase>
   </Column>
 )

@@ -1,5 +1,6 @@
 import {Column} from '@/components/ui/layout'
 import {Phrase, Title} from '@/components/ui/text'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {openWebUrl} from '@/utils'
 
 const wasteDisposalBusinessesUrl =
@@ -10,12 +11,9 @@ export const ContactCollector = () => (
     <Title level="h5" text="Neem contact op met uw afvalinzamelaar" />
     <Phrase>
       Of kijk voor meer informatie over bedrijfsafval op{' '}
-      <Phrase
-        color="link"
-        onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}
-        underline>
+      <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
         onze website
-      </Phrase>
+      </InlineLink>
     </Phrase>
   </Column>
 )
