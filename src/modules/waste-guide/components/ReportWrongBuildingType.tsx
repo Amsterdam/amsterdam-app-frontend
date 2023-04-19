@@ -2,7 +2,7 @@ import {Column} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
 import {openWebUrl} from '@/utils'
 
-const reactionFormUrl =
+const wrongBuildingTypeReactionFormUrl =
   'https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/'
 
 export const ReportWrongBuildingType = () => (
@@ -12,7 +12,7 @@ export const ReportWrongBuildingType = () => (
       Klopt dit niet?{' '}
       <Phrase
         color="link"
-        onPress={() => openWebUrl(reactionFormUrl)}
+        onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}
         underline>
         Geef het door
       </Phrase>
