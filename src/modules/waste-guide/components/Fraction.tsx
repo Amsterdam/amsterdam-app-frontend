@@ -13,7 +13,7 @@ import {
   WasteGuideResponseFraction,
   WasteGuideUrl,
 } from '@/modules/waste-guide/types'
-import {ContainerMapUrl} from '@/modules/waste-guide/utils'
+import {getContainerMapUrl} from '@/modules/waste-guide/utils'
 import {capitalizeString, dayjs} from '@/utils'
 
 type Props = {
@@ -72,7 +72,7 @@ export const Fraction = ({fraction}: Props) => {
   // Remove once the API includes the url as a single property
   const containerMapUrl = useMemo(() => {
     if (afvalwijzerUrl && afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl) {
-      return ContainerMapUrl(address.centroid, afvalwijzerFractieCode)
+      return getContainerMapUrl(address.centroid, afvalwijzerFractieCode)
     }
   }, [afvalwijzerUrl, address.centroid, afvalwijzerFractieCode])
 
@@ -98,9 +98,9 @@ export const Fraction = ({fraction}: Props) => {
           label="Buitenzetten"
         />
         <FractionSection
-          containerMapUrl={containerMapUrl}
           content={afvalwijzerWaar}
           label="Waar"
+          link={containerMapUrl}
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (

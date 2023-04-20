@@ -1,1 +1,1 @@
-export * from './containerMapUrl'
+export * from './getContainerMapUrl'

@@ -12,7 +12,7 @@ const wasteTypeMapping: {[key: string]: number[]} = {
   GFT: [12496],
 }
 
-export const ContainerMapUrl = (
+export const getContainerMapUrl = (
   centroid: Address['centroid'],
   afvalwijzerFractieCode?: WasteGuideResponseFraction['afvalwijzerFractieCode'],
   offsetLocation?: boolean,
