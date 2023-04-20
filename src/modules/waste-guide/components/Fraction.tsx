@@ -1,12 +1,19 @@
+import {useMemo} from 'react'
+import {useSelector} from 'react-redux'
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {selectAddress} from '@/modules/address/slice'
 import {
   FractionContent,
   FractionSection,
   WasteFractionIcon,
 } from '@/modules/waste-guide/components'
-import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {
+  WasteGuideResponseFraction,
+  WasteGuideUrl,
+} from '@/modules/waste-guide/types'
+import {ContainerMapUrl} from '@/modules/waste-guide/utils'
 import {capitalizeString, dayjs} from '@/utils'
 
 type Props = {
@@ -50,6 +57,7 @@ const getBuitenzettenContent = ({
 }
 
 export const Fraction = ({fraction}: Props) => {
+  const address = useSelector(selectAddress)
   const {
     afvalwijzerAfvalkalenderMelding,
     afvalwijzerAfvalkalenderOpmerking,
@@ -57,8 +65,16 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerFractieNaam,
     afvalwijzerInstructie2,
     afvalwijzerOphaaldagen2,
+    afvalwijzerUrl,
     afvalwijzerWaar,
   } = fraction
+
+  // Remove once the API includes the url as a single property
+  const containerMapUrl = useMemo(() => {
+    if (afvalwijzerUrl && afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl) {
+      return ContainerMapUrl(address.centroid, afvalwijzerFractieCode)
+    }
+  }, [afvalwijzerUrl, address.centroid, afvalwijzerFractieCode])
 
   return (
     <Column gutter="md">
@@ -81,7 +97,11 @@ export const Fraction = ({fraction}: Props) => {
           content={getBuitenzettenContent(fraction)}
           label="Buitenzetten"
         />
-        <FractionSection content={afvalwijzerWaar} label="Waar" />
+        <FractionSection
+          containerMapUrl={containerMapUrl}
+          content={afvalwijzerWaar}
+          label="Waar"
+        />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
         <Attention>
