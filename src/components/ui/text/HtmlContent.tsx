@@ -1,4 +1,9 @@
-import {Platform, TextStyle, useWindowDimensions} from 'react-native'
+import {
+  GestureResponderEvent,
+  Platform,
+  TextStyle,
+  useWindowDimensions,
+} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
@@ -6,6 +11,7 @@ import RenderHTML, {
 import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens, TextTokens} from '@/themes/tokens'
+import {openUrl} from '@/utils/openUrl'
 
 type Props = {
   content: string | undefined
@@ -172,6 +178,9 @@ const createFontList = ({text}: Theme): string[] => [
 ]
 
 const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({
+  a: {
+    onPress: (_event: GestureResponderEvent, href: string) => openUrl(href),
+  },
   ul: {
     markerBoxStyle: {
       paddingLeft: text.fontSize.body,

@@ -19,6 +19,7 @@ export type ApiAddress = Address & {
   _display: string
   adresseerbaar_object_id: string
   dataset: string
+  landelijk_id: string
   status: string
   straatnaam_no_ws: string
   subtype: string
