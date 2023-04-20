@@ -52,7 +52,6 @@ export type WasteGuideResponseFraction = {
   afvalwijzerUrl: string
   afvalwijzerWaar: string
   bagNummeraanduidingId: string
-  coordinates: number[]
   gbdBuurtCode: string
   gbdBuurtId: string
   gebruiksdoelWoonfunctie: boolean
@@ -63,7 +62,6 @@ export type WasteGuideResponseFraction = {
   postcode: string
   statusAdres: string
   straatnaam: string
-  type: string
   woonplaatsnaam: string
 }
 
@@ -71,4 +69,8 @@ export type WasteGuideResponse = {
   _embedded: {
     afvalwijzer: WasteGuideResponseFraction[]
   }
+}
+
+export enum WasteGuideUrl {
+  wasteContainersUrl = 'https://kaart.amsterdam.nl/afvalcontainers',
 }
