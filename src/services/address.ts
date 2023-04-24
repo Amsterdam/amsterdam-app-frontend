@@ -48,7 +48,7 @@ export const addressApi = baseApi.injectEndpoints({
         }
       },
     }),
-    getBag: query<BagResponse[], string>({
+    getBag: query<BagResponse | undefined, string>({
       query: address => ({
         url: generateRequestUrl({
           params: {features: 2, q: address},
@@ -57,6 +57,10 @@ export const addressApi = baseApi.injectEndpoints({
         api: 'atlasUrl',
         keepUnusedDataFor: CacheLifetime.day,
       }),
+      transformResponse: (bagResponse: BagResponse[]) =>
+        bagResponse?.find(
+          ({label}) => label === 'Adressen' || label === 'Straatnamen',
+        ),
     }),
   }),
   overrideExisting: true,
