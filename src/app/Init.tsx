@@ -1,8 +1,10 @@
 import {ReactNode, useMemo} from 'react'
+import {AppStateStatus} from 'react-native'
 import {
   useAppState,
   useInitSentry,
   useModules,
+  usePiwik,
   useRegisterDevice,
   useSentry,
 } from '@/hooks'
@@ -13,6 +15,7 @@ type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   useInitSentry()
+  const piwik = usePiwik()
   const {sendSentryErrorLog} = useSentry()
   const {registerDevice, unregisterDevice} = useRegisterDevice()
   const {selectedModules} = useModules()
@@ -34,8 +37,17 @@ export const Init = ({children}: Props) => {
           void unregisterDevice(undefined)
         }
       },
+      onChange: (nextAppState: AppStateStatus) => {
+        void piwik?.trackCustomEvent('appStateChange', nextAppState)
+      },
     }),
-    [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice],
+    [
+      piwik,
+      registerDevice,
+      selectedModules,
+      sendSentryErrorLog,
+      unregisterDevice,
+    ],
   )
 
   useAppState(onAppstate)

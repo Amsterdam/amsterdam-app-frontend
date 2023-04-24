@@ -17,6 +17,9 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
 - `AUTH_PASSWORD`: authorise project managers to send push notifications; used in the app as env var
 - `AUTH_SHARED_SECRET`: authorise project managers to send push notifications; used in the app as env var
+- `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
+- `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
+
 
 ### Secure files
 
@@ -78,11 +81,4 @@ You can find more documentation in these files.
 
 ### Installation
 
-If you have the project up and running via the instructions in the main README, fastlane should be installed for iOS already.
-
-- Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or https://rubygems.org/
-- Go to `/android` 
-- Install bundler (Ruby gem manager): `gem install bundler:2.4.12`
-- Install/update the gems with bundler: `bundle update`
-
-To set up/fix/update fastlane for iOS, follow the same steps in the iOS folder.
+If you have the project up and running via the instructions in the main README, Fastlane should be installed already. It is installed as a Ruby gem, using bundler.

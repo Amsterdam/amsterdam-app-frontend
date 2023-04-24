@@ -11,6 +11,8 @@ export enum AppFlavour {
 export const appFlavour =
   AppFlavour[__DEV__ ? 'local' : isDevApp ? 'development' : 'production']
 
+export const isProductionApp = appFlavour === AppFlavour.production
+
 export const devLog = (...args: unknown[]) => {
   if (isDevApp) {
     console.log(args)

@@ -10,6 +10,7 @@ jobs:
       vmImage: macOS-12
     variables:
       - group: React Native Variables
+      - group: React Native Piwik Pro Analytics
       - group: device-authorization
       - name: lc.all
         value: 'en_US.UTF-8'
