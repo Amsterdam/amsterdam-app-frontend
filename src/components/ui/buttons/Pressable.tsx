@@ -7,7 +7,7 @@ import {
 import {Box, BoxProps} from '@/components/ui/containers'
 import {Theme, useThemable} from '@/themes'
 
-type ButtonVariants = 'primary' | 'tertiary' | 'negative'
+type PressableVariants = 'primary' | 'tertiary' | 'negative'
 
 export type PressableProps = {
   children: ReactNode
@@ -15,7 +15,7 @@ export type PressableProps = {
    * Whether the button grows to fill its parent container.
    */
   grow?: boolean
-  variant?: ButtonVariants
+  variant?: PressableVariants
 } & Omit<PressableRNProps, 'style'> &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
@@ -43,7 +43,7 @@ export const Pressable = ({
 }
 
 const createStyles =
-  (grow: PressableProps['grow'], variant: ButtonVariants) =>
+  (grow: PressableProps['grow'], variant: PressableVariants) =>
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
