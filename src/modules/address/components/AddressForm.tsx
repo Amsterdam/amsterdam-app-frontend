@@ -41,13 +41,9 @@ export const AddressForm = () => {
     return streetName
   }, [])
 
-  const {data: bagData} = useGetBagQuery(address, {
+  const {data: bagList, isLoading: isLoadingBagList} = useGetBagQuery(address, {
     skip: address?.length < addressLengthThreshold,
   })
-
-  const bagList = bagData?.find(
-    ({label}) => label === 'Adressen' || label === 'Straatnamen',
-  )
 
   const isAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete
   const isAddressComplete = isNumberSelected && isStreetSelected && isAddress
@@ -97,6 +93,7 @@ export const AddressForm = () => {
           bagList={bagList}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
+          isLoading={isLoadingBagList}
           isStreetSelected={isStreetSelected}
           selectStreet={selectStreet}
           street={street}

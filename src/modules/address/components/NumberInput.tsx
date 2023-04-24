@@ -11,13 +11,8 @@ import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {
-  Address,
-  AddressCity,
-  BagResponse,
-  BagResponseContent,
-} from '@/modules/address'
-import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {Address, BagResponse} from '@/modules/address'
+import {NumberSearchResult} from '@/modules/address/components'
 import {useTheme} from '@/themes'
 
 type Props = {
@@ -30,19 +25,6 @@ type Props = {
   selectNumber: (text: string) => void
   street: string
 }
-
-const getNumberFromAddress = (text: string) =>
-  text
-    .split(' ')
-    .reverse()
-    .find(el => el.match(/^[0-9]/)) || ''
-
-const getNumbersForCity = (addresses: BagResponseContent, city: string) =>
-  addresses.filter(({_display}) =>
-    city === AddressCity.Weesp
-      ? _display.includes(AddressCity.Weesp)
-      : !_display.includes(AddressCity.Weesp),
-  )
 
 export const NumberInput = ({
   bagList,
@@ -81,10 +63,6 @@ export const NumberInput = ({
     callbackAfterAppStateChange: false,
   })
 
-  const numbersForCity = bagList
-    ? getNumbersForCity(bagList?.content, city)
-    : []
-
   return (
     <Animated.View style={[{marginTop: y}, styles.flex]}>
       <Column gutter="sm">
@@ -111,18 +89,7 @@ export const NumberInput = ({
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
-        {(number.length > 0 &&
-          numbersForCity.map(bagItem => (
-            <SuggestionButton
-              key={bagItem._display}
-              label={getNumberFromAddress(bagItem._display)}
-              onPress={() => {
-                selectNumber(getNumberFromAddress(bagItem._display))
-              }}
-              testID="UserAddressSuggestionButton"
-            />
-          ))) ??
-          null}
+        <NumberSearchResult {...{bagList, city, selectNumber, number}} />
       </KeyboardAwareScrollView>
     </Animated.View>
   )
