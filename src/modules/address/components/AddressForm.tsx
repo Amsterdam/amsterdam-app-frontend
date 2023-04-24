@@ -41,7 +41,7 @@ export const AddressForm = () => {
     return streetName
   }, [])
 
-  const {data: bagList, isLoading: isLoadingBagData} = useGetBagQuery(address, {
+  const {data: bagList, isLoading: isLoadingBagList} = useGetBagQuery(address, {
     skip: address?.length < addressLengthThreshold,
   })
 
@@ -93,7 +93,7 @@ export const AddressForm = () => {
           bagList={bagList}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
-          isLoading={isLoadingBagData}
+          isLoading={isLoadingBagList}
           isStreetSelected={isStreetSelected}
           selectStreet={selectStreet}
           street={street}
