@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import {Accordion} from '@/components/ui/containers'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
 import {Icon} from '@/components/ui/media'
-import {Article} from '@/components/ui/text'
+import {HtmlContent} from '@/components/ui/text'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 import {TimelineItem as TimelineItemType} from '@/types'
@@ -46,7 +46,7 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           title={item.title}>
           {itemHasContent
             ? item.content.map(({title, body: {html}}) => (
-                <Article content={html} key={title} />
+                <HtmlContent content={html} key={title} />
               ))
             : undefined}
         </Accordion>

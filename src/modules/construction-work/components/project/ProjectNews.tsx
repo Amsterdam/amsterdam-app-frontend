@@ -4,7 +4,7 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
-import {Article, Paragraph, Title} from '@/components/ui/text'
+import {HtmlContent, Paragraph, Title} from '@/components/ui/text'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
 import {
   useGetProjectNewsQuery,
@@ -73,12 +73,12 @@ export const ProjectNews = ({id}: Props) => {
                 testID={`ConstructionWorkProjectArticle${news.identifier}Title`}
                 text={news.title}
               />
-              <Article
+              <HtmlContent
                 content={news.body?.preface.html}
                 isIntro
                 testID={`ConstructionWorkProjectArticle${news.identifier}Intro`}
               />
-              <Article
+              <HtmlContent
                 content={news.body?.content.html}
                 testID={`ConstructionWorkProjectArticle${news.identifier}Body`}
               />

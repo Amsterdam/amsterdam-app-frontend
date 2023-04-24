@@ -5,6 +5,7 @@ export enum AddressCity {
 
 export type Address = {
   adres: string
+  bagNummeraanduidingId: string
   bag_huisletter: string
   bag_toevoeging: string
   centroid: [number, number]

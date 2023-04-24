@@ -14,6 +14,7 @@ import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {contactSlice} from '@/modules/contact/slice'
+import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
@@ -59,6 +60,11 @@ const messageDraftPersistConfig = {
   storage: AsyncStorage,
 }
 
+const wasteGuidePersistConfig = {
+  key: 'wasteGuide',
+  storage: AsyncStorage,
+}
+
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
@@ -83,6 +89,7 @@ const rootReducer = combineReducers({
     constructionWorkEditorPersistConfig,
     constructionWorkEditorSlice.reducer,
   ),
+  wasteGuide: persistReducer(wasteGuidePersistConfig, wasteGuideSlice.reducer),
   theme: themeSlice.reducer,
 })
 

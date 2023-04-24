@@ -1,5 +1,5 @@
-export * from './Article'
 export * from './DescriptionList'
+export * from './HtmlContent'
 export * from './Link'
 export * from './List'
 export * from './Paragraph'
