@@ -5,7 +5,7 @@ import {RootStackParams} from '@/app/navigation'
 import {IconButton} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
-import {Paragraph, Phrase} from '@/components/ui/text'
+import {Phrase} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {module as wasteGuideModule} from '@/modules/waste-guide'
 
@@ -28,7 +28,6 @@ export const StreetAddressWithEditButton = ({
 
   return (
     <Column>
-      <Paragraph>Afvalinformatie voor dit adres</Paragraph>
       <Row gutter="sm" valign="center">
         <Phrase accessibilityLabel={accessibilityLabel} testID={testIDLabel}>
           {address}
