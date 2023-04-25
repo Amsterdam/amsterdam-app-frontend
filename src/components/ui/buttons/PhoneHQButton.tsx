@@ -1,7 +1,7 @@
-import {ButtonVariants, PhoneButton} from '@/components/ui/buttons'
+import {ButtonVariant, PhoneButton} from '@/components/ui/buttons'
 
 type Props = {
-  variant?: ButtonVariants
+  variant?: ButtonVariant
 }
 
 export const PhoneHQButton = ({variant = 'primary'}: Props) => (
