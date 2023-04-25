@@ -91,7 +91,7 @@ export const Fraction = ({fraction}: Props) => {
       <Column gutter="md">
         <FractionSection
           buttonContent={afvalwijzerButtontekst ?? undefined}
-          buttonLink={(!!afvalwijzerButtontekst && afvalwijzerUrl) || undefined}
+          buttonLink={afvalwijzerButtontekst ? afvalwijzerUrl : undefined}
           content={afvalwijzerInstructie2}
           label="Hoe"
         />
