@@ -3,12 +3,7 @@ import {Button, PhoneButton} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
 import {ProjectContact} from '@/modules/construction-work/types'
-import {
-  accessibleText,
-  capitalizeString,
-  formatPhoneNumber,
-  openMailUrl,
-} from '@/utils'
+import {accessibleText, capitalizeString, openMailUrl} from '@/utils'
 
 type Props = {
   contacts: ProjectContact[]
@@ -36,11 +31,6 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
         {!!phone && (
           <Row>
             <PhoneButton
-              accessibilityLabel={accessibleText(
-                'Bel',
-                ...(formatPhoneNumber(phone) ?? '').split(' '),
-              )}
-              label={formatPhoneNumber(phone)}
               phoneNumber={phone}
               testID="ConstructionWorkProjectContactPhone"
             />
