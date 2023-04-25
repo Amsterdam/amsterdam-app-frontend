@@ -1,6 +1,7 @@
 // Remove once the waste guide API includes this as a single property
 import {Address} from '@/modules/address'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 const wasteTypeMapping: {[key: string]: number[]} = {
   Rest: [12491],
@@ -12,20 +13,21 @@ const wasteTypeMapping: {[key: string]: number[]} = {
   GFT: [12496],
 }
 
-export const getContainerMapUrl = (
-  centroid: Address['centroid'],
-  afvalwijzerFractieCode?: WasteGuideResponseFraction['afvalwijzerFractieCode'],
-  offsetLocation?: boolean,
-) => {
-  const location = `${centroid[0].toFixed(5)}/${(
-    centroid[1] - (offsetLocation ? 0.0035 : 0)
-  ).toFixed(5)}`
-  const center = `${centroid[0].toFixed(5)},${centroid[1].toFixed(5)}`
+const baseUrl = 'https://kaart.amsterdam.nl/afvalcontainers'
 
-  const showTypes = `${(afvalwijzerFractieCode
+export const getContainerMapUrl = (
+  coordinates: Address['coordinates'],
+  afvalwijzerFractieCode?: WasteGuideResponseFraction['afvalwijzerFractieCode'],
+) => {
+  const locationTypes = `${(afvalwijzerFractieCode
     ? wasteTypeMapping[afvalwijzerFractieCode]
     : Object.values(wasteTypeMapping)
   ).join(',')}`
+  const {lon, lat} = coordinates
+  const urlParams = getSquareMapArea(lat, lon, 0.002)
+  const url = urlParams
+    ? `${baseUrl}#${urlParams.join('/')}/topo/${locationTypes}//`
+    : baseUrl
 
-  return `https://kaart.amsterdam.nl/afvalcontainers/#17/${location}/brt/${showTypes}///${center}`
+  return url
 }

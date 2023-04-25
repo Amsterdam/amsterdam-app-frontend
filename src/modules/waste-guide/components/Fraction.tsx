@@ -72,9 +72,9 @@ export const Fraction = ({fraction}: Props) => {
   // Remove once the API includes the url as a single property
   const containerMapUrl = useMemo(() => {
     if (afvalwijzerUrl && afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl) {
-      return getContainerMapUrl(address.centroid, afvalwijzerFractieCode)
+      return getContainerMapUrl(address.coordinates, afvalwijzerFractieCode)
     }
-  }, [afvalwijzerUrl, address.centroid, afvalwijzerFractieCode])
+  }, [address.coordinates, afvalwijzerFractieCode, afvalwijzerUrl])
 
   return (
     <Column gutter="md">
