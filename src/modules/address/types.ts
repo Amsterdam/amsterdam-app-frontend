@@ -8,7 +8,10 @@ export type Address = {
   bagNummeraanduidingId: string
   bag_huisletter: string
   bag_toevoeging: string
-  centroid: [number, number]
+  coordinates: {
+    lat: number
+    lon: number
+  }
   huisnummer: number
   postcode: string
   straatnaam: string
@@ -18,6 +21,7 @@ export type Address = {
 export type ApiAddress = Address & {
   _display: string
   adresseerbaar_object_id: string
+  centroid: [number, number]
   dataset: string
   landelijk_id: string
   status: string

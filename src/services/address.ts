@@ -39,7 +39,10 @@ export const addressApi = baseApi.injectEndpoints({
           adres,
           bag_huisletter,
           bag_toevoeging,
-          centroid,
+          coordinates: {
+            lat: centroid[1],
+            lon: centroid[0],
+          },
           huisnummer,
           bagNummeraanduidingId: landelijk_id,
           postcode,

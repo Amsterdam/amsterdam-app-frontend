@@ -9,16 +9,12 @@ type Props = {
 }
 
 export const ProjectsByDistance = ({address}: Props) => {
-  const {
-    centroid: [lon = 0, lat = 0],
-    adres: addressText,
-  } = address ?? {centroid: []}
+  const {adres: addressText} = address ?? {centroid: []}
 
   const addressParams = address
     ? {
-        address: lat && lon ? '' : addressText,
-        lat,
-        lon,
+        address: address.coordinates.lat ? '' : addressText,
+        ...address.coordinates,
       }
     : {}
   const queryParams = {
