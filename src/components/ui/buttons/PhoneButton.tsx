@@ -4,7 +4,7 @@ import {accessibleText, formatPhoneNumber, openPhoneUrl} from '@/utils'
 
 type Props = {
   phoneNumber: string
-} & ButtonProps
+} & Omit<ButtonProps, 'accessibilityLabel' | 'iconName' | 'label' | 'onPress'>
 
 export const PhoneButton = ({phoneNumber, ...buttonProps}: Props) => (
   <Row>
