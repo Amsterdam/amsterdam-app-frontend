@@ -1,8 +1,12 @@
 // Remove once the waste guide API includes this as a single property
 import {Address} from '@/modules/address'
-import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {FractionCode, WasteGuideUrl} from '@/modules/waste-guide/types'
+import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
-const wasteTypeMapping: {[key: string]: number[]} = {
+const wasteTypeMapping: Record<
+  Exclude<FractionCode, FractionCode.GA> | 'Brood',
+  number[]
+> = {
   Rest: [12491],
   Glas: [12492],
   Papier: [12493],
@@ -13,19 +17,28 @@ const wasteTypeMapping: {[key: string]: number[]} = {
 }
 
 export const getContainerMapUrl = (
-  centroid: Address['centroid'],
-  afvalwijzerFractieCode?: WasteGuideResponseFraction['afvalwijzerFractieCode'],
-  offsetLocation?: boolean,
+  coordinates: Address['coordinates'],
+  afvalwijzerFractieCode?: FractionCode,
 ) => {
-  const location = `${centroid[0].toFixed(5)}/${(
-    centroid[1] - (offsetLocation ? 0.0035 : 0)
-  ).toFixed(5)}`
-  const center = `${centroid[0].toFixed(5)},${centroid[1].toFixed(5)}`
+  const getLocationTypes = () => {
+    if (
+      afvalwijzerFractieCode &&
+      Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
+      afvalwijzerFractieCode !== FractionCode.GA
+    ) {
+      return wasteTypeMapping[afvalwijzerFractieCode].join(',')
+    }
 
-  const showTypes = `${(afvalwijzerFractieCode
-    ? wasteTypeMapping[afvalwijzerFractieCode]
-    : Object.values(wasteTypeMapping)
-  ).join(',')}`
+    return Object.values(wasteTypeMapping).join(',')
+  }
+  const locationTypes = getLocationTypes()
+  const {lon, lat} = coordinates
+  const urlParams = getSquareMapArea(lat, lon, 0.002)
+  const url = urlParams
+    ? `${WasteGuideUrl.wasteContainersUrl}#${urlParams.join(
+        '/',
+      )}/topo/${locationTypes}//`
+    : WasteGuideUrl.wasteContainersUrl
 
-  return `https://kaart.amsterdam.nl/afvalcontainers/#17/${location}/brt/${showTypes}///${center}`
+  return url
 }
