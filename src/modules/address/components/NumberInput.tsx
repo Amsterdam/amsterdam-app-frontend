@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
@@ -46,25 +46,19 @@ export const NumberInput = ({
   })
   const inputRef = useRef<TextInputRN | null>(null)
 
-  useIsReduceMotionEnabled({
-    callback: isReduceMotionEnabled => {
-      if (!isReduceMotionEnabled) {
-        Animated.timing(moveUpAnim, {
-          toValue: 0,
-          useNativeDriver: false,
-        }).start(() => {
-          inputRef.current?.focus()
-        })
-      } else {
-        moveUpAnim.setValue(0)
-        inputRef.current?.focus()
-      }
-    },
-    callbackAfterAppStateChange: false,
-  })
+  useEffect(() => {
+    Animated.timing(moveUpAnim, {
+      toValue: 0,
+      useNativeDriver: false,
+    }).start(() => {
+      inputRef.current?.focus()
+    })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const Wrapper = useIsReduceMotionEnabled() ? Column : Animated.View
 
   return (
-    <Animated.View style={[{marginTop: y}, styles.flex]}>
+    <Wrapper style={[{marginTop: y}, styles.flex]}>
       <Column gutter="sm">
         <Row align="start">
           <Button
@@ -91,7 +85,7 @@ export const NumberInput = ({
         style={styles.flex}>
         <NumberSearchResult {...{bagList, city, selectNumber, number}} />
       </KeyboardAwareScrollView>
-    </Animated.View>
+    </Wrapper>
   )
 }
 
