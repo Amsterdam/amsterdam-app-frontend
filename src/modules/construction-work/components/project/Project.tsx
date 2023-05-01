@@ -50,7 +50,7 @@ export const Project = ({id}: Props) => {
     >()
 
   const addressParam: AddressQueryArg = {
-    address: address.coordinates.lon ? undefined : address?.adres,
+    address: address.coordinates?.lon ? undefined : address?.adres,
     ...address.coordinates,
   }
 
