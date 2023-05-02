@@ -57,7 +57,7 @@ export const NumberSearchResult = ({
           onPress={() => {
             selectNumber(getNumberFromAddress(bagItem._display))
           }}
-          testID="UserAddressSuggestionButton"
+          testID={`AddressSearchResult${bagItem._display}Button`}
         />
       ))}
     </>

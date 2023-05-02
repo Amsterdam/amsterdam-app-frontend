@@ -53,6 +53,7 @@ export const StreetSearchResult = ({
           onPress={() => {
             selectStreet(bagItem._display)
           }}
+          testID={`AddressSearchResult${bagItem._display}Button`}
         />
       ))}
     </>
