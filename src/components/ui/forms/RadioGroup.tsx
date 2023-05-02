@@ -1,5 +1,6 @@
 import {Radio} from '@/components/ui/forms'
 import {Column} from '@/components/ui/layout'
+import {TestProps} from '@/components/ui/types'
 
 export type RadioGroupOption<T> = {
   label: string
@@ -10,13 +11,14 @@ type RadioGroupProps<T> = {
   onChange: (value: T) => void
   options: RadioGroupOption<T>[]
   value?: T
-}
+} & TestProps
 
 type RadioValue = string | number | boolean
 
 export const RadioGroup = <T extends RadioValue>({
   options = [],
   onChange,
+  testID,
   value,
 }: RadioGroupProps<T>) => (
   <Column gutter="md">
@@ -26,6 +28,9 @@ export const RadioGroup = <T extends RadioValue>({
         key={label}
         label={label}
         onPress={() => onChange(optionValue)}
+        testID={
+          testID ? `${testID}${optionValue.toString()}RadioButton` : undefined
+        }
       />
     ))}
   </Column>
