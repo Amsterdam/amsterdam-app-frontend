@@ -68,6 +68,7 @@ export const NumberInput = ({
               changeNumber('')
               changeIsStreetSelected(false)
             }}
+            testID="AddressBackToStreetSearchButton"
             variant="tertiary"
           />
         </Row>
@@ -76,7 +77,7 @@ export const NumberInput = ({
           onChangeText={text => changeNumber(text)}
           placeholder="Vul uw huisnummer in"
           ref={inputRef}
-          testID="UserAddressNumberInputSearchField"
+          testID="AddressNumberInputSearchField"
           value={number}
         />
       </Column>

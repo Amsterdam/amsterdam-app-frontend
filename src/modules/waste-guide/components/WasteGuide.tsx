@@ -3,6 +3,7 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
+import {Paragraph} from '@/components/ui/text'
 import {Address, AddressCity} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {
@@ -45,7 +46,14 @@ export const WasteGuide = ({address}: Props) => {
       <HorizontalSafeArea flex={1}>
         <Box grow>
           <Column flex={1} gutter="xl">
-            <StreetAddressWithEditButton address={address.adres} />
+            <Column>
+              <Paragraph>Afvalinformatie voor dit adres</Paragraph>
+              <StreetAddressWithEditButton
+                address={address.adres}
+                testIDButton="WasteGuideButtonEditAddress"
+                testIDLabel="WasteGuideTextAddress"
+              />
+            </Column>
             {hasContent ? (
               <WasteGuideForCity
                 address={address}
