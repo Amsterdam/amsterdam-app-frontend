@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {AccessibilityProps, ViewProps} from 'react-native'
 import {RootStackParams} from '@/app/navigation'
 import {IconButton} from '@/components/ui/buttons'
-import {Column, Row} from '@/components/ui/layout'
+import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
@@ -27,18 +27,16 @@ export const StreetAddressWithEditButton = ({
     >()
 
   return (
-    <Column>
-      <Row gutter="sm" valign="center">
-        <Phrase accessibilityLabel={accessibilityLabel} testID={testIDLabel}>
-          {address}
-        </Phrase>
-        <IconButton
-          accessibilityLabel="Wijzig het adres"
-          icon={<Icon color="link" name="edit" />}
-          onPress={() => navigation.navigate(AddressModalName.addressForm)}
-          testID={testIDButton}
-        />
-      </Row>
-    </Column>
+    <Row gutter="sm" valign="center">
+      <Phrase accessibilityLabel={accessibilityLabel} testID={testIDLabel}>
+        {address}
+      </Phrase>
+      <IconButton
+        accessibilityLabel="Wijzig het adres"
+        icon={<Icon color="link" name="edit" />}
+        onPress={() => navigation.navigate(AddressModalName.addressForm)}
+        testID={testIDButton}
+      />
+    </Row>
   )
 }

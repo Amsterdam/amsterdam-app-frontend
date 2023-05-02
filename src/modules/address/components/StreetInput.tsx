@@ -32,7 +32,7 @@ export const StreetInput = ({
       }}
       placeholder="Vul uw straatnaam of postcode in"
       ref={inputStreetRef}
-      testID="UserAddressStreetInputSearchField"
+      testID="AddressStreetInputSearchField"
       value={street}
     />
     <KeyboardAwareScrollView

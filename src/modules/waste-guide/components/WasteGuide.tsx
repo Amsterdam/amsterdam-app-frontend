@@ -48,7 +48,11 @@ export const WasteGuide = ({address}: Props) => {
           <Column flex={1} gutter="xl">
             <Column>
               <Paragraph>Afvalinformatie voor dit adres</Paragraph>
-              <StreetAddressWithEditButton address={address.adres} />
+              <StreetAddressWithEditButton
+                address={address.adres}
+                testIDButton="WasteGuideButtonEditAddress"
+                testIDLabel="WasteGuideTextAddress"
+              />
             </Column>
             {hasContent ? (
               <WasteGuideForCity
