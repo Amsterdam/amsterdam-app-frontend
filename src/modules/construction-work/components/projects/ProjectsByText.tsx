@@ -34,7 +34,11 @@ export const ProjectsByText = () => {
       listHeader={
         <ProjectsListHeader>
           <ProjectsTextSearchField />
-          {!!resultsLabel && <Paragraph>{resultsLabel}</Paragraph>}
+          {!!resultsLabel && (
+            <Paragraph testID="ConstructionWorkProjectsNumberOfSearchResultsText">
+              {resultsLabel}
+            </Paragraph>
+          )}
         </ProjectsListHeader>
       }
       noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."

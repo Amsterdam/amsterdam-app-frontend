@@ -32,6 +32,7 @@ export const RequestAddress = () => {
                 onPress={() =>
                   navigation.navigate(AddressModalName.addressForm)
                 }
+                testID="WasteGuideEnterAddressButton"
               />
             </Row>
           </Column>
