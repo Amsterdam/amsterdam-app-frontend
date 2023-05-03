@@ -44,8 +44,10 @@ export const DisplayAddress = ({address}: Props) => {
   return (
     <Column gutter="md">
       <Column>
-        <Paragraph>{address.adres}</Paragraph>
-        <Paragraph>
+        <Paragraph testID="AddressStreetnameAndNumberText">
+          {address.adres}
+        </Paragraph>
+        <Paragraph testID="AddressPostalcodeAndCityText">
           {[
             address.postcode.substring(0, 4),
             address.postcode.substring(4, 6),
@@ -59,6 +61,7 @@ export const DisplayAddress = ({address}: Props) => {
           label="Wijzig"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
           small
+          testID="AddressEditButton"
           variant="primary"
         />
         <Button
@@ -66,6 +69,7 @@ export const DisplayAddress = ({address}: Props) => {
           label="Verwijder"
           onPress={removeAddressAndShowAlert}
           small
+          testID="AddressDeleteButton"
           variant="secondary"
         />
       </Row>
