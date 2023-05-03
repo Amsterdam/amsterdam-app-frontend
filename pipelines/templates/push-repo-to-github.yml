@@ -1,0 +1,29 @@
+parameters:
+  - name: repository
+    type: string
+  - name: sshKeySecureFile
+    type: string
+  - name: sshPublicKey
+    type: string
+
+steps:
+  - checkout: self
+    fetchDepth: 0
+    fetchTags: true
+  - task: InstallSSHKey@0
+    displayName: 'Install an SSH key'
+    inputs:
+      knownHostsEntry: $(knownHostsEntry)
+      sshPublicKey: ${{ parameters.sshPublicKey }}
+      sshPassphrase: $(sshPassphrase)
+      sshKeySecureFile: ${{ parameters.sshKeySecureFile }}
+  - script: |
+      # Set Git User
+      git config --global user.email $EMAIL
+      git config --global user.name $NAME
+      # Add remote
+      git remote add github git@github.com:Amsterdam/${{ parameters.repository }}.git
+      # Push
+      git push github HEAD:refs/heads/main --follow-tags
+    displayName: 'Push to GitHub'
+
