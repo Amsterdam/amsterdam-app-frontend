@@ -6,14 +6,21 @@ type Props = {
   phoneNumber: string
 } & Omit<ButtonProps, 'iconName' | 'label' | 'onPress'>
 
-export const PhoneButton = ({phoneNumber, ...buttonProps}: Props) => (
+export const PhoneButton = ({
+  accessibilityLabel,
+  phoneNumber,
+  ...buttonProps
+}: Props) => (
   <Row>
     <Button
       {...buttonProps}
-      accessibilityLabel={accessibleText(
-        'Bel',
-        ...(formatPhoneNumber(phoneNumber) ?? '').split(' '),
-      )}
+      accessibilityLabel={
+        accessibilityLabel ||
+        accessibleText(
+          'Bel',
+          ...(formatPhoneNumber(phoneNumber) ?? '').split(' '),
+        )
+      }
       iconName="phone"
       label={formatPhoneNumber(phoneNumber)}
       onPress={() => {
