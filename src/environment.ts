@@ -15,16 +15,16 @@ export type EnvironmentConfig = {
 }
 
 enum ApiUrls {
-  apiAcc = 'https://api-test-backend.luscinia-solutions.com/api/v1',
+  apiAcc = 'https://api-test-backend.app-amsterdam.nl/api/v1',
   apiCustomDefault = 'http://localhost:8000/api/v1',
-  apiDev = 'https://api-dev-backend.luscinia-solutions.com/api/v1',
-  apiProd = 'https://api-backend.luscinia-solutions.com/api/v1',
-  modulesApiAcc = 'https://api-test-modules.luscinia-solutions.com/api/v1',
+  apiDev = 'https://api-dev-backend.app-amsterdam.nl/api/v1',
+  apiProd = 'https://api-backend.app-amsterdam.nl/api/v1',
+  modulesApiAcc = 'https://api-test-modules.app-amsterdam.nl/api/v1',
   modulesApiCustomDefault = 'http://localhost:9000/api/v1',
-  modulesApiDev = 'https://api-dev-modules.luscinia-solutions.com/api/v1',
-  modulesApiProd = 'https://api-modules.luscinia-solutions.com/api/v1',
-  wasteGuideApiAcc = 'https://api-test-waste-guide.luscinia-solutions.com/api/v1',
-  wasteGuideApiProd = 'https://api-waste-guide.luscinia-solutions.com/api/v1',
+  modulesApiDev = 'https://api-dev-modules.app-amsterdam.nl/api/v1',
+  modulesApiProd = 'https://api-modules.app-amsterdam.nl/api/v1',
+  wasteGuideApiAcc = 'https://api-test-waste-guide.app-amsterdam.nl/api/v1',
+  wasteGuideApiProd = 'https://api-waste-guide.app-amsterdam.nl/api/v1',
 }
 
 enum ExternalApiUrls {

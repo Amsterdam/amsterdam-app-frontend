@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:api.backend.luscinia-solutions.com</string>
+		<string>applinks:api.backend.app-amsterdam.nl</string>
 	</array>
 </dict>
 </plist>
