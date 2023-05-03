@@ -12,8 +12,6 @@ export default {
 
 export const Default: ComponentStoryObj<typeof PhoneButton> = {
   args: {
-    accessibilityLabel: 'Bel een telefoonnummer',
-    label: 'Bel 0610000000',
     phoneNumber: '0610000000',
   },
 }
