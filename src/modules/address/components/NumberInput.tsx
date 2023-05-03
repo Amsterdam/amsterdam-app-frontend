@@ -1,10 +1,11 @@
-import {useEffect, useRef} from 'react'
+import {ReactNode, useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
   KeyboardTypeOptions,
   StyleSheet,
   TextInput as TextInputRN,
+  View,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {Button} from '@/components/ui/buttons'
@@ -14,6 +15,26 @@ import {useIsReduceMotionEnabled} from '@/hooks'
 import {Address, BagResponse} from '@/modules/address'
 import {NumberSearchResult} from '@/modules/address/components'
 import {useTheme} from '@/themes'
+
+type WithAnimationProps = {
+  animatedInterpolation: Animated.AnimatedInterpolation<string | number>
+  children: ReactNode
+}
+
+const WithAnimation = ({
+  animatedInterpolation,
+  children,
+}: WithAnimationProps) => (
+  <>
+    {!useIsReduceMotionEnabled() ? (
+      <Animated.View style={[{marginTop: animatedInterpolation}, styles.flex]}>
+        {children}
+      </Animated.View>
+    ) : (
+      children
+    )}
+  </>
+)
 
 type Props = {
   bagList: BagResponse | null | undefined
@@ -55,38 +76,38 @@ export const NumberInput = ({
     })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const Wrapper = useIsReduceMotionEnabled() ? Column : Animated.View
-
   return (
-    <Wrapper style={[{marginTop: y}, styles.flex]}>
-      <Column gutter="sm">
-        <Row align="start">
-          <Button
-            iconName="chevron-up"
-            label={street}
-            onPress={() => {
-              changeNumber('')
-              changeIsStreetSelected(false)
-            }}
-            testID="AddressBackToStreetSearchButton"
-            variant="tertiary"
+    <WithAnimation animatedInterpolation={y}>
+      <View style={styles.flex}>
+        <Column gutter="sm">
+          <Row align="start">
+            <Button
+              iconName="chevron-up"
+              label={street}
+              onPress={() => {
+                changeNumber('')
+                changeIsStreetSelected(false)
+              }}
+              testID="AddressBackToStreetSearchButton"
+              variant="tertiary"
+            />
+          </Row>
+          <SearchField
+            keyboardType={keyboardType}
+            onChangeText={text => changeNumber(text)}
+            placeholder="Vul uw huisnummer in"
+            ref={inputRef}
+            testID="AddressNumberInputSearchField"
+            value={number}
           />
-        </Row>
-        <SearchField
-          keyboardType={keyboardType}
-          onChangeText={text => changeNumber(text)}
-          placeholder="Vul uw huisnummer in"
-          ref={inputRef}
-          testID="AddressNumberInputSearchField"
-          value={number}
-        />
-      </Column>
-      <KeyboardAwareScrollView
-        keyboardShouldPersistTaps="handled"
-        style={styles.flex}>
-        <NumberSearchResult {...{bagList, city, selectNumber, number}} />
-      </KeyboardAwareScrollView>
-    </Wrapper>
+        </Column>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          style={styles.flex}>
+          <NumberSearchResult {...{bagList, city, selectNumber, number}} />
+        </KeyboardAwareScrollView>
+      </View>
+    </WithAnimation>
   )
 }
 
