@@ -10,13 +10,15 @@ import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
 
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
+
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   iconName?: IconName
   label?: string
   numberOfLines?: number
   small?: boolean
-  variant?: 'primary' | 'secondary' | 'tertiary'
+  variant?: ButtonVariant
 } & Omit<PressableProps, 'style'>
 
 export const Button = ({

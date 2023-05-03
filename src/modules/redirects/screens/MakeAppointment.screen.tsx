@@ -1,9 +1,9 @@
-import {Button} from '@/components/ui/buttons'
+import {PhoneHQButton} from '@/components/ui/buttons'
 import {Accordion, Box, SingleSelectable} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Link, Paragraph, Title} from '@/components/ui/text'
 import {appointmentSubjects} from '@/modules/redirects/data'
-import {openPhoneUrl, openWebUrl} from '@/utils'
+import {openWebUrl} from '@/utils'
 
 export const MakeAppointmentScreen = () => (
   <Screen>
@@ -31,14 +31,7 @@ export const MakeAppointmentScreen = () => (
                         Afspraak maken kan alleen telefonisch
                       </Paragraph>
                       <Row>
-                        <Button
-                          accessibilityLabel="Bel veertien nul twintig"
-                          iconName="phone"
-                          label="Bel 14 020"
-                          onPress={() => {
-                            openPhoneUrl('14020')
-                          }}
-                        />
+                        <PhoneHQButton />
                       </Row>
                     </Column>
                   )}

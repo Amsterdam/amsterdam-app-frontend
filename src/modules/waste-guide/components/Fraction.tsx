@@ -61,6 +61,7 @@ export const Fraction = ({fraction}: Props) => {
   const {
     afvalwijzerAfvalkalenderMelding,
     afvalwijzerAfvalkalenderOpmerking,
+    afvalwijzerButtontekst,
     afvalwijzerFractieCode,
     afvalwijzerFractieNaam,
     afvalwijzerInstructie2,
@@ -88,7 +89,12 @@ export const Fraction = ({fraction}: Props) => {
         </Attention>
       )}
       <Column gutter="md">
-        <FractionSection content={afvalwijzerInstructie2} label="Hoe" />
+        <FractionSection
+          buttonContent={afvalwijzerButtontekst ?? undefined}
+          buttonLink={afvalwijzerButtontekst ? afvalwijzerUrl : undefined}
+          content={afvalwijzerInstructie2}
+          label="Hoe"
+        />
         <FractionSection
           content={capitalizeString(afvalwijzerOphaaldagen2 ?? '')}
           label="Ophaaldag"
@@ -99,8 +105,8 @@ export const Fraction = ({fraction}: Props) => {
         />
         <FractionSection
           content={afvalwijzerWaar}
+          inlineLink={containerMapUrl}
           label="Waar"
-          link={containerMapUrl}
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
