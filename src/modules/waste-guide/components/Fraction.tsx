@@ -7,6 +7,7 @@ import {selectAddress} from '@/modules/address/slice'
 import {
   FractionContent,
   FractionSection,
+  TimeboundNotification,
   WasteFractionIcon,
 } from '@/modules/waste-guide/components'
 import {
@@ -84,9 +85,9 @@ export const Fraction = ({fraction}: Props) => {
         <Title level="h4" text={afvalwijzerFractieNaam} />
       </Row>
       {showTimeBoundNotification(fraction) && (
-        <Attention>
+        <TimeboundNotification>
           <FractionContent content={afvalwijzerAfvalkalenderMelding} />
-        </Attention>
+        </TimeboundNotification>
       )}
       <Column gutter="md">
         <FractionSection
