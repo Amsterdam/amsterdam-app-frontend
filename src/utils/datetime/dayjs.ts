@@ -8,13 +8,17 @@ export {Dayjs} from 'dayjs'
 
 const defaultTimezone = 'Europe/Amsterdam'
 
-dayjsFn.locale('nl')
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
+
+dayjsFn.locale('nl')
 dayjsFn.tz.setDefault(defaultTimezone)
 
 /**
  * This function replaces the default dayjs function to make sure the timezone uses the default that is set above and the locale is set properly
  */
-export const dayjs = (date?: ConfigType) =>
-  dayjsFn(date).tz(defaultTimezone, true)
+export const dayjs = (date?: ConfigType) => {
+  const date1 = dayjsFn(date).format()
+
+  return dayjsFn(date1)
+}
