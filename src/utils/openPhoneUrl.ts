@@ -1,6 +1,7 @@
 import {Alert, Linking, Platform} from 'react-native'
+import {getSendSentryErrorLog} from '@/processes'
 
-export const openPhoneUrl = (phoneNumber: string) => {
+export const openPhoneUrl = async (phoneNumber: string) => {
   let phoneUrl = ''
 
   if (Platform.OS !== 'android') {
@@ -9,13 +10,11 @@ export const openPhoneUrl = (phoneNumber: string) => {
     phoneUrl = `tel:${phoneNumber}`
   }
 
-  Linking.canOpenURL(phoneUrl)
-    .then(supported => {
-      if (!supported) {
-        Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      } else {
-        return Linking.openURL(phoneUrl)
-      }
-    })
-    .catch(err => console.log(err))
+  try {
+    await Linking.openURL(phoneUrl)
+  } catch (error) {
+    Alert.alert('Sorry, deze functie is niet beschikbaar.')
+    const sendSentryErrorLog = getSendSentryErrorLog(true)
+    sendSentryErrorLog('openPhoneUrl error', 'openPhoneUrl.ts', {error})
+  }
 }
