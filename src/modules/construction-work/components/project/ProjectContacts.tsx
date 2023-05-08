@@ -48,7 +48,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
               label={email}
               numberOfLines={1}
               onPress={() => {
-                openMailUrl(email, emailSubject)
+                void openMailUrl(email, emailSubject)
               }}
               testID="ConstructionWorkProjectContactEmail"
             />

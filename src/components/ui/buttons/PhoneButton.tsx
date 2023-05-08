@@ -24,7 +24,7 @@ export const PhoneButton = ({
       iconName="phone"
       label={formatPhoneNumber(phoneNumber)}
       onPress={() => {
-        openPhoneUrl(phoneNumber)
+        void openPhoneUrl(phoneNumber)
       }}
     />
   </Row>
