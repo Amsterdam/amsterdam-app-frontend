@@ -25,7 +25,7 @@ export const Header = (props: Props) => {
 
   return (
     <View style={styles.header}>
-      <Box>
+      <Box distinct>
         {isHome ? <HeaderContentForHome /> : <HeaderContent {...props} />}
       </Box>
     </View>
