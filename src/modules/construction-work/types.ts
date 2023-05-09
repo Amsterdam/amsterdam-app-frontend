@@ -188,6 +188,7 @@ export type ProjectWarningImageSources = {
   height: number
   image_id: string
   mime_type: string
+  url: string
   width: number
 }[]
 
