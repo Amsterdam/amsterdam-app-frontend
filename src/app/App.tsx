@@ -21,7 +21,7 @@ const AppComponent = () => (
     style={styles.appContainer}>
     <CustomErrorBoundary>
       <StatusBar
-        backgroundColor={lightColorTokens.screen.background.default}
+        backgroundColor="transparent"
         barStyle="dark-content"
         translucent
       />
