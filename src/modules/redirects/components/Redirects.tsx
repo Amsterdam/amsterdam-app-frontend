@@ -4,8 +4,9 @@ import {RootStackParams} from '@/app/navigation'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
+import {useOpenWebUrl} from '@/hooks'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {accessibleText, openWebUrl} from '@/utils'
+import {accessibleText} from '@/utils'
 
 type RedirectResponse = {
   iconName: IconName
@@ -61,6 +62,7 @@ const redirects: RedirectResponse[] = [
 ]
 
 export const Redirects = () => {
+  const openWebUrl = useOpenWebUrl()
   const navigation =
     useNavigation<
       StackNavigationProp<RootStackParams, RedirectsRouteName.redirects>

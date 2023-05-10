@@ -3,13 +3,16 @@ import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {List, Paragraph, Title} from '@/components/ui/text'
+import {useOpenMailUrl} from '@/hooks'
 import {DeviceContext} from '@/providers'
-import {accessibleText, openMailUrl} from '@/utils'
+import {accessibleText} from '@/utils'
 
 const appEmail = 'app@amsterdam.nl'
 
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useContext(DeviceContext)
+  const openMailUrl = useOpenMailUrl()
+
   return (
     <Screen testID="AboutAccessibilityStatementScreen">
       <Box>
