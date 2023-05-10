@@ -1,7 +1,7 @@
-import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {useOpenWebUrl} from '@/hooks'
 import {Address} from '@/modules/address'
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 }
 
 export const WasteGuideForWeesp = ({address}: Props) => {
+  const openWebUrl = useOpenWebUrl()
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +
     [address.postcode, address.huisnummer, address.bag_toevoeging].join(':')
@@ -26,7 +27,7 @@ export const WasteGuideForWeesp = ({address}: Props) => {
           iconName="external-link"
           label="Ga naar GAD.nl"
           onPress={() => {
-            void Linking.openURL(gadUrl)
+            openWebUrl(gadUrl)
           }}
         />
       </Row>
