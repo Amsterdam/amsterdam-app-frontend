@@ -13,6 +13,7 @@ export const PhoneButton = ({
   ...buttonProps
 }: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
+
   return (
     <Row>
       <Button
@@ -27,7 +28,7 @@ export const PhoneButton = ({
         iconName="phone"
         label={formatPhoneNumber(phoneNumber)}
         onPress={() => {
-          void openPhoneUrl(phoneNumber)
+          openPhoneUrl(phoneNumber)
         }}
       />
     </Row>
