@@ -4,7 +4,7 @@ test('Test datum', () =>
   expect(formatDate('December 17, 1995 03:24:00')).toBe('17 december 1995'))
 
 test('ISO date year/month/day', () =>
-  expect(formatDate('2021-01-01')).toBe('1 januari 2021'))
+  expect(formatDate('2023-03-01')).toBe('1 maart 2023'))
 
 test('ISO date year/month', () =>
   expect(formatDate('2021-01')).toBe('1 januari 2021'))
