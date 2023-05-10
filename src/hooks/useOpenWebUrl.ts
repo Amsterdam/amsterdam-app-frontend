@@ -7,9 +7,9 @@ export const useOpenWebUrl = (): OpenWebUrl => {
   const {sendSentryErrorLog} = useSentry()
 
   return (url: string) => {
-    Linking.openURL(url).catch((error: unknown) => {
+    Linking.openURL(url).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog('useOpenWebUrl error', 'useOpenWebUrl.ts', {error})
+      sendSentryErrorLog('useOpenWebUrl error', 'useOpenWebUrl.ts', {url})
     })
   }
 }
