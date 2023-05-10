@@ -1,6 +1,6 @@
 jobs:
   - job: "Tests"
-    timeoutInMinutes: 15
+    timeoutInMinutes: 30
     pool:
       vmImage: "macos-12"
     steps:
