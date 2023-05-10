@@ -9,7 +9,7 @@ import RenderHTML, {
   RenderersProps,
 } from 'react-native-render-html'
 import {TestProps} from '@/components/ui/types'
-import {OpenUrl, useOpenUrl} from '@/hooks/useOpenUrl'
+import {OpenUrl, useOpenUrl} from '@/hooks'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens, TextTokens} from '@/themes/tokens'
 
