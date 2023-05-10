@@ -3,6 +3,8 @@ import {useSelector} from 'react-redux'
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {InlineLink} from '@/components/ui/text/InlineLink'
+import {useOpenWebUrl} from '@/hooks'
 import {selectAddress} from '@/modules/address/slice'
 import {
   FractionContent,
@@ -14,7 +16,10 @@ import {
   WasteGuideResponseFraction,
   WasteGuideUrl,
 } from '@/modules/waste-guide/types'
-import {getContainerMapUrl} from '@/modules/waste-guide/utils'
+import {
+  getCollectionPointsMapUrl,
+  getContainerMapUrl,
+} from '@/modules/waste-guide/utils'
 import {capitalizeString, dayjs} from '@/utils'
 
 type Props = {
@@ -58,6 +63,7 @@ const getBuitenzettenContent = ({
 }
 
 export const Fraction = ({fraction}: Props) => {
+  const openWebUrl = useOpenWebUrl()
   const address = useSelector(selectAddress)
   const {
     afvalwijzerAfvalkalenderMelding,
@@ -78,6 +84,16 @@ export const Fraction = ({fraction}: Props) => {
     }
   }, [address.coordinates, afvalwijzerFractieCode, afvalwijzerUrl])
 
+  const collectionPointsMapUrl = useMemo(() => {
+    if (
+      afvalwijzerInstructie2.includes('een Afvalpunt') &&
+      afvalwijzerUrl &&
+      afvalwijzerUrl === WasteGuideUrl.collectionPointsUrl
+    ) {
+      return getCollectionPointsMapUrl(address.coordinates)
+    }
+  }, [address.coordinates, afvalwijzerInstructie2, afvalwijzerUrl])
+
   return (
     <Column gutter="md">
       <Row gutter="sm" valign="center">
@@ -90,12 +106,19 @@ export const Fraction = ({fraction}: Props) => {
         </TimeboundNotification>
       )}
       <Column gutter="md">
-        <FractionSection
-          buttonContent={afvalwijzerButtontekst ?? undefined}
-          buttonLink={afvalwijzerButtontekst ? afvalwijzerUrl : undefined}
-          content={afvalwijzerInstructie2}
-          label="Hoe"
-        />
+        <Column gutter="sm">
+          <FractionSection
+            buttonContent={afvalwijzerButtontekst ?? undefined}
+            buttonLink={afvalwijzerButtontekst ? afvalwijzerUrl : undefined}
+            content={afvalwijzerInstructie2}
+            label="Hoe"
+          />
+          {!!collectionPointsMapUrl && (
+            <InlineLink onPress={() => openWebUrl(collectionPointsMapUrl)}>
+              Kaart met afvalpunten in de buurt
+            </InlineLink>
+          )}
+        </Column>
         <FractionSection
           content={capitalizeString(afvalwijzerOphaaldagen2 ?? '')}
           label="Ophaaldag"
