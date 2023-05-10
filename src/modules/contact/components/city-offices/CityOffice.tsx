@@ -14,12 +14,10 @@ import {
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {isOpenForVisiting} from '@/modules/contact/utils'
-import {useEnvironment} from '@/store'
 import {mapImageSources} from '@/utils'
 
 export const CityOffice = () => {
   const openWebUrl = useOpenWebUrl()
-  const environment = useEnvironment()
   const selectedCityOfficeId = useSelector(selectCityOffice)
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
 
@@ -50,7 +48,7 @@ export const CityOffice = () => {
     <Box>
       <Column gutter="md">
         <Title level="h2" testID="ContactVisitUsTitle" text="Bezoek ons" />
-        <Image source={mapImageSources(image.sources, environment)} />
+        <Image source={mapImageSources(image.sources)} />
         <NameAndAddress {...{address, addressContent, title}} />
         <VisitingHours
           visitingHours={visitingHours.regular}

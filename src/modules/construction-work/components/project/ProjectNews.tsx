@@ -10,7 +10,6 @@ import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
 } from '@/modules/construction-work/service'
-import {useEnvironment} from '@/store'
 import {formatDate, mapImageSources} from '@/utils'
 
 type Props = {
@@ -46,8 +45,6 @@ export const ProjectNews = ({id}: Props) => {
     })
   })
 
-  const environment = useEnvironment()
-
   if (newsIsLoading || projectIsLoading || !news) {
     return <PleaseWait />
   }
@@ -57,7 +54,7 @@ export const ProjectNews = ({id}: Props) => {
       {news?.images?.length ? (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(news.images[0].sources, environment)}
+          source={mapImageSources(news.images[0].sources)}
           testID={`ConstructionWorkProjectArticle${news.identifier}Image`}
         />
       ) : null}

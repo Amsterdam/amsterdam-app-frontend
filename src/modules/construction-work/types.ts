@@ -20,14 +20,23 @@ export enum ProjectsEndpointName {
   unfollowProject = 'unfollowProject',
 }
 
-export type ArticleSummary = {
+type ArticleSummaryShared = {
   identifier: string
-  image?: Image | null
-  images?: ProjectWarningImage[]
   publication_date: string
   title: string
-  type: 'news' | 'warning'
 }
+
+export type NewsArticleSummary = ArticleSummaryShared & {
+  image?: Image | null
+  type: 'news'
+}
+
+export type WarningArticleSummary = ArticleSummaryShared & {
+  images?: ProjectWarningImage[]
+  type: 'warning'
+}
+
+export type ArticleSummary = NewsArticleSummary | WarningArticleSummary
 
 export type Articles = ArticleSummary[]
 

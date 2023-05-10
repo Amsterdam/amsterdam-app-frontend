@@ -29,7 +29,6 @@ import {
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
 import {requestPushNotificationsPermission} from '@/processes'
-import {useEnvironment} from '@/store'
 import {accessibleText, mapImageSources} from '@/utils'
 
 type Props = {
@@ -37,7 +36,6 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const environment = useEnvironment()
   const address = useSelector(selectAddress)
 
   const navigation =
@@ -126,7 +124,7 @@ export const Project = ({id}: Props) => {
       {!!images.length && (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(images[0].sources, environment)}
+          source={mapImageSources(images[0].sources)}
           testID="ConstructionWorkProjectImage"
         />
       )}

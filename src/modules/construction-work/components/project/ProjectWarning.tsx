@@ -12,10 +12,12 @@ import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/service'
-import {ProjectWarningImage} from '@/modules/construction-work/types'
-import {useEnvironment} from '@/store'
+import {
+  getProjectWarningMainImageInfo,
+  ProjectWarningMainImageInfo,
+} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
 import {useTheme} from '@/themes'
-import {formatDate, mapWarningImageSources} from '@/utils'
+import {formatDate} from '@/utils'
 
 type Props = {
   id: string
@@ -25,9 +27,9 @@ export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
   const {media} = useTheme()
 
-  const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
-    undefined,
-  )
+  const [mainImage, setMainImage] = useState<
+    ProjectWarningMainImageInfo | undefined
+  >()
   const {markAsRead} = useMarkArticleAsRead()
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
@@ -41,18 +43,18 @@ export const ProjectWarning = ({id}: Props) => {
   )
 
   useEffect(() => {
-    const mainImageFromProjectWarning = projectWarning?.images?.find(
-      image => image.main,
-    )
-    mainImageFromProjectWarning && setMainImage(mainImageFromProjectWarning)
+    setMainImage(getProjectWarningMainImageInfo(projectWarning))
   }, [projectWarning])
 
   useEffect(() => {
-    projectWarning &&
-      markAsRead({
-        id: projectWarning.identifier,
-        publicationDate: projectWarning.publication_date,
-      })
+    if (!projectWarning) {
+      return
+    }
+
+    markAsRead({
+      id: projectWarning.identifier,
+      publicationDate: projectWarning.publication_date,
+    })
   }, [markAsRead, projectWarning])
 
   useLayoutEffect(() => {
@@ -60,8 +62,6 @@ export const ProjectWarning = ({id}: Props) => {
       headerTitle: project?.title ?? '',
     })
   })
-
-  const environment = useEnvironment()
 
   if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
@@ -73,7 +73,7 @@ export const ProjectWarning = ({id}: Props) => {
         <Image
           accessibilityLabel={mainImage.description}
           accessible
-          source={mapWarningImageSources(mainImage.sources, environment)}
+          source={mainImage.sources}
           testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       ) : (
