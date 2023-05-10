@@ -5,12 +5,8 @@ import {Box} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
-import {
-  accessibleText,
-  formatPhoneNumber,
-  openPhoneUrl,
-  openWebUrl,
-} from '@/utils'
+import {OpenPhoneUrl, OpenWebUrl, useOpenPhoneUrl, useOpenWebUrl} from '@/hooks'
+import {accessibleText, formatPhoneNumber} from '@/utils'
 
 type ContactOption = {
   iconName: IconName
@@ -28,7 +24,10 @@ type ContactOption = {
   >
 >
 
-const contactOptions: ContactOption[] = [
+const getContactOptions = (
+  openPhoneUrl: OpenPhoneUrl,
+  openWebUrl: OpenWebUrl,
+): ContactOption[] => [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
@@ -75,27 +74,37 @@ const contactOptions: ContactOption[] = [
   },
 ]
 
-export const ContactOptions = () => (
-  <Box>
-    <Column gutter="lg">
-      <Column gutter="sm">
-        <Title testID="ContactContactOptionsTitle" text="Kunnen we u helpen?" />
-        <Paragraph testID="ContactContactOptionsText">
-          Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact met
-          ons op.
-        </Paragraph>
-      </Column>
-      <Column gutter="md">
-        {contactOptions.map(props => (
-          <TopTaskButton
-            {...props}
-            accessibilityLabel={accessibleText(
-              props.accessibilityLabel ?? props.title,
-              props.text,
-            )}
+export const ContactOptions = () => {
+  const openPhoneUrl = useOpenPhoneUrl()
+  const openWebUrl = useOpenWebUrl()
+
+  const contactOptions = getContactOptions(openPhoneUrl, openWebUrl)
+
+  return (
+    <Box>
+      <Column gutter="lg">
+        <Column gutter="sm">
+          <Title
+            testID="ContactContactOptionsTitle"
+            text="Kunnen we u helpen?"
           />
-        ))}
+          <Paragraph testID="ContactContactOptionsText">
+            Heeft u een vraag of wilt u iets weten? Neem op werkdagen contact
+            met ons op.
+          </Paragraph>
+        </Column>
+        <Column gutter="md">
+          {contactOptions.map(props => (
+            <TopTaskButton
+              {...props}
+              accessibilityLabel={accessibleText(
+                props.accessibilityLabel ?? props.title,
+                props.text,
+              )}
+            />
+          ))}
+        </Column>
       </Column>
-    </Column>
-  </Box>
-)
+    </Box>
+  )
+}

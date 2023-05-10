@@ -5,6 +5,7 @@ import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useOpenWebUrl} from '@/hooks'
 import {
   NameAndAddress,
   VisitingHours,
@@ -14,9 +15,10 @@ import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {isOpenForVisiting} from '@/modules/contact/utils'
 import {useEnvironment} from '@/store'
-import {mapImageSources, openWebUrl} from '@/utils'
+import {mapImageSources} from '@/utils'
 
 export const CityOffice = () => {
+  const openWebUrl = useOpenWebUrl()
   const environment = useEnvironment()
   const selectedCityOfficeId = useSelector(selectCityOffice)
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()

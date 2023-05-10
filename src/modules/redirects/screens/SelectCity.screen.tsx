@@ -6,11 +6,11 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
+import {useOpenWebUrl} from '@/hooks'
 import {PeopleAtCityOffice} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
-import {openWebUrl} from '@/utils'
 
 type Props = {
   navigation: StackNavigationProp<
@@ -23,6 +23,7 @@ const appointmentFormWeespUrl =
   'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx'
 
 export const SelectCityScreen = ({navigation}: Props) => {
+  const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
 

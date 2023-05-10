@@ -3,8 +3,8 @@ import {Button, PhoneHQButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
 import {InlineLink} from '@/components/ui/text/InlineLink'
+import {useOpenWebUrl} from '@/hooks'
 import {FractionContent} from '@/modules/waste-guide/components'
-import {openWebUrl} from '@/utils'
 
 type Props = {
   buttonContent?: string
@@ -21,6 +21,8 @@ export const FractionSection = ({
   label,
   inlineLink,
 }: Props) => {
+  const openWebUrl = useOpenWebUrl()
+
   if (!content) {
     return null
   }

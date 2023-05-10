@@ -9,9 +9,9 @@ import RenderHTML, {
   RenderersProps,
 } from 'react-native-render-html'
 import {TestProps} from '@/components/ui/types'
+import {OpenUrl, useOpenUrl} from '@/hooks/useOpenUrl'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens, TextTokens} from '@/themes/tokens'
-import {openUrl} from '@/utils/openUrl'
 
 type Props = {
   content: string | undefined
@@ -60,12 +60,13 @@ const computeEmbeddedMaxWidth =
  * Renders HTML content, applying the typographic design.
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
+  const openUrl = useOpenUrl()
   const {width} = useWindowDimensions()
   const {size} = useTheme()
   const fonts = useThemable(createFontList)
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
-  const renderersProps = useThemable(createRenderersProps)
+  const renderersProps = useThemable(createRenderersProps(openUrl))
 
   if (!content) {
     return null
@@ -177,15 +178,17 @@ const createFontList = ({text}: Theme): string[] => [
   text.fontFamily.regular,
 ]
 
-const createRenderersProps = ({text}: Theme): Partial<RenderersProps> => ({
-  a: {
-    onPress: (_event: GestureResponderEvent, href: string) => openUrl(href),
-  },
-  ul: {
-    markerBoxStyle: {
-      paddingLeft: text.fontSize.body,
-      paddingRight: text.fontSize.body - 6,
-      paddingTop: (text.lineHeight.body * text.fontSize.body) / 5,
+const createRenderersProps =
+  (openUrl: OpenUrl) =>
+  ({text}: Theme): Partial<RenderersProps> => ({
+    a: {
+      onPress: (_event: GestureResponderEvent, href: string) => openUrl(href),
     },
-  },
-})
+    ul: {
+      markerBoxStyle: {
+        paddingLeft: text.fontSize.body,
+        paddingRight: text.fontSize.body - 6,
+        paddingTop: (text.lineHeight.body * text.fontSize.body) / 5,
+      },
+    },
+  })

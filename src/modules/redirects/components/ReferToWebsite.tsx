@@ -2,10 +2,11 @@ import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useOpenWebUrl} from '@/hooks'
 import {DeviceContext} from '@/providers'
-import {openWebUrl} from '@/utils'
 
 export const ReferToWebsite = () => {
+  const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useContext(DeviceContext)
 
   return (
