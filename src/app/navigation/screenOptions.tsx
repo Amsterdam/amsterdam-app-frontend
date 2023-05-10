@@ -17,11 +17,15 @@ export const screenOptions: (
 ) => StackNavigationOptions = (
   {color}: Theme,
   {screenType = 'default', isBelowStatusBar = false}: CustomScreenOptions = {},
-): StackNavigationOptions => ({
-  cardStyle: {
-    backgroundColor: color.screen.background[screenType],
-    paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
-  },
-  header: Header,
-  headerMode: 'screen',
-})
+): StackNavigationOptions => {
+  const backgroundColor = color.screen.background[screenType]
+
+  return {
+    cardStyle: {
+      backgroundColor,
+      paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
+    },
+    header: props => <Header {...props} backgroundColor={backgroundColor} />,
+    headerMode: 'screen',
+  }
+}
