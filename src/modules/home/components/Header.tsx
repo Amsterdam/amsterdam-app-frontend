@@ -1,13 +1,13 @@
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import {useMemo} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, ViewStyle} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers'
 import {HeaderContent, HeaderContentForHome} from '@/modules/home/components'
 import {HomeRouteName} from '@/modules/home/routes'
 
 type BackgroundColorProp = {
-  backgroundColor?: string
+  backgroundColor?: ViewStyle['backgroundColor']
 }
 
 type Props = BackgroundColorProp &
