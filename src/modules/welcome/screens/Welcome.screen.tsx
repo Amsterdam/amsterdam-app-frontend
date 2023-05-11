@@ -6,7 +6,6 @@ import {Box} from '@/components/ui/containers'
 import {AspectRatio, Column, Row, Screen, Size} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {useTransparentStatusBar} from '@/hooks'
 import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
@@ -25,8 +24,6 @@ export const WelcomeScreen = ({navigation}: Props) => {
   const Track = isPortrait ? Column : Row
 
   const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
-
-  useTransparentStatusBar()
 
   useEffect(() => {
     const timer = setTimeout(() => {

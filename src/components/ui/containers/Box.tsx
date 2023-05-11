@@ -9,8 +9,8 @@ export type BoxProps = {
   borderStyle?: 'dashed' | 'dotted' | 'solid'
   children: ReactNode
   /**
-   * Whether the box has a background color, setting it apart from its surroundings.
-   * In light mode, it is white – only to be used on light grey (settings) screens.
+   * Whether the box has a background color, setting it apart from its surroundings. In light mode, it is white.
+   * Only to be used when the box covers another color, like on light grey (settings) screens or in the navigation header.
    */
   distinct?: boolean
   /**
