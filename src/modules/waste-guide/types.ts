@@ -72,5 +72,6 @@ export type WasteGuideResponse = {
 }
 
 export enum WasteGuideUrl {
+  collectionPointsUrl = 'https://kaart.amsterdam.nl/afvalpunten',
   wasteContainersUrl = 'https://kaart.amsterdam.nl/afvalcontainers',
 }
