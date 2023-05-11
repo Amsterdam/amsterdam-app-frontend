@@ -38,6 +38,7 @@ export const useConstructionWorkEditor = () => {
   } = useGetProjectsQuery(
     {
       fields: ['identifier', 'subtitle', 'title', 'images'],
+      pageSize: 1000,
     },
     {
       selectFromResult: result => ({
