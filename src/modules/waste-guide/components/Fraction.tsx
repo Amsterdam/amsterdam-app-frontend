@@ -1,4 +1,3 @@
-import {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
@@ -78,21 +77,15 @@ export const Fraction = ({fraction}: Props) => {
   } = fraction
 
   // Remove once the API includes the url as a single property
-  const containerMapUrl = useMemo(() => {
-    if (afvalwijzerUrl && afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl) {
-      return getContainerMapUrl(address.coordinates, afvalwijzerFractieCode)
-    }
-  }, [address.coordinates, afvalwijzerFractieCode, afvalwijzerUrl])
+  const containerMapUrl =
+    afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl
+      ? getContainerMapUrl(address.coordinates, afvalwijzerFractieCode)
+      : undefined
 
-  const collectionPointsMapUrl = useMemo(() => {
-    if (
-      afvalwijzerInstructie2.includes('een Afvalpunt') &&
-      afvalwijzerUrl &&
-      afvalwijzerUrl === WasteGuideUrl.collectionPointsUrl
-    ) {
-      return getCollectionPointsMapUrl(address.coordinates)
-    }
-  }, [address.coordinates, afvalwijzerInstructie2, afvalwijzerUrl])
+  const collectionPointsMapUrl =
+    afvalwijzerInstructie2.includes('een Afvalpunt') &&
+    afvalwijzerUrl === WasteGuideUrl.collectionPointsUrl &&
+    getCollectionPointsMapUrl(address.coordinates)
 
   return (
     <Column gutter="md">

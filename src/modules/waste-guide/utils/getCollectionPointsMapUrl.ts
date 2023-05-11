@@ -1,5 +1,5 @@
 import {Address} from '@/modules/address'
-import {WasteGuideUrl} from '@/modules/waste-guide//types'
+import {WasteGuideUrl} from '@/modules/waste-guide/types'
 
 export const getCollectionPointsMapUrl = (
   coordinates: Address['coordinates'],
