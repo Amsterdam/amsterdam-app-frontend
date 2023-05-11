@@ -36,6 +36,7 @@ export const generateRequestUrl = ({params = {}, path}: Signature) => {
 export const formatQueryParams = ({
   districtId,
   fields,
+  pageSize,
   projectIds,
   projectType,
   queryFields,
@@ -56,5 +57,6 @@ export const formatQueryParams = ({
   ...(queryFields && {query_fields: queryFields.join(',')}),
   ...(sortBy && {'sort-by': sortBy}),
   ...(sortOrder && {'sort-order': sortOrder}),
+  ...(pageSize && {page_size: pageSize}),
   ...rest,
 })
