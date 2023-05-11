@@ -83,6 +83,10 @@ export const AddressForm = () => {
     }
   }, [addressData, dispatch, navigation])
 
+  if (isAddressComplete) {
+    return null
+  }
+
   return (
     <Box
       grow
