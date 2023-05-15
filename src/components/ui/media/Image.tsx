@@ -2,43 +2,53 @@ import {useCallback, useEffect, useMemo, useState} from 'react'
 import {
   Image as ImageRN,
   ImageProps as ImageRNProps,
-  ImageSourcePropType,
   ImageURISource,
   LayoutChangeEvent,
   Platform,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
-import {Theme, useThemable} from '@/themes'
-import {ImageAspectRatioTokens} from '@/themes/tokens'
+import FastImage, {ImageStyle as FastImageStyle} from 'react-native-fast-image'
+import {getUriForWidth} from '@/components/ui/utils/image'
+import {Theme} from '@/themes/themes'
+import {ImageAspectRatioTokens} from '@/themes/tokens/media'
+import {useThemable} from '@/themes/useThemable'
 
-type ImageProps = {
+// Image props supported by both Image and FastImage
+type SupportedImageRNProps = Omit<
+  ImageRNProps,
+  'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
+>
+
+type Props = {
   aspectRatio?: keyof ImageAspectRatioTokens
-}
+} & Omit<SupportedImageRNProps, 'style'>
 
-type Props = ImageProps & Omit<ImageRNProps, 'style'>
+type CachedIosImageProps = {
+  uriSources: ImageURISource | ImageURISource[]
+  width?: number
+} & Omit<SupportedImageRNProps, 'source'>
 
-/**
- * Updates the image source to force using a cached version of the image.
- * If this is not present, it fetches the image normally.
- * iOS only.
- * @see https://reactnative.dev/docs/images#cache-control-ios-only
- */
-const addCacheToImageSource = (
-  source: ImageSourcePropType,
-): ImageSourcePropType => {
-  if (typeof source === 'number') {
-    return source
-  }
+const CachedIosImage = ({
+  onLayout,
+  style,
+  uriSources,
+  width = 0,
+  ...imageProps
+}: CachedIosImageProps) => {
+  const uri = useMemo(
+    () => getUriForWidth(uriSources, width),
+    [uriSources, width],
+  )
 
-  if (Array.isArray(source)) {
-    return source.map(s => addCacheToImageSource(s) as ImageURISource)
-  }
-
-  return {
-    cache: 'force-cache',
-    ...source,
-  }
+  return (
+    <FastImage
+      onLayout={onLayout}
+      source={{uri}}
+      style={style as FastImageStyle}
+      {...imageProps}
+    />
+  )
 }
 
 export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
@@ -46,7 +56,7 @@ export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
   const [width, setWidth] = useState<number | undefined>(undefined)
 
   const createdStyles = useMemo(
-    () => createStyles({aspectRatio}, width),
+    () => createStyles(aspectRatio, width),
     [aspectRatio, width],
   )
   const styles = useThemable(createdStyles)
@@ -63,10 +73,23 @@ export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
     [setWidth],
   )
 
+  // RN default image caching behaviour works well on Android, but not on iOS. For iOS we use FastImage, which has improved caching, only for external images.
+  // The number type check filters out bundled images using require which do not need to be cached.
+  if (Platform.OS === 'ios' && typeof source !== 'number') {
+    return (
+      <CachedIosImage
+        onLayout={onLayout}
+        style={[styles.image]}
+        uriSources={source}
+        width={width}
+      />
+    )
+  }
+
   return (
     <ImageRN
       onLayout={onLayout}
-      source={addCacheToImageSource(source)}
+      source={source}
       style={[styles.image]}
       {...imageProps}
     />
@@ -74,10 +97,7 @@ export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
 }
 
 const createStyles =
-  (
-    {aspectRatio}: ImageProps & Required<Pick<ImageProps, 'aspectRatio'>>,
-    width: number | undefined,
-  ) =>
+  (aspectRatio: keyof ImageAspectRatioTokens, width?: number) =>
   ({media}: Theme) => {
     const aspectRatioValue = media.aspectRatio[aspectRatio]
 
