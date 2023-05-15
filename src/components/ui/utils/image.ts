@@ -21,6 +21,10 @@ export const getUriForWidth = (
   uriSources: ImageURISource | ImageURISource[],
   width: number,
 ) => {
+  if (!width) {
+    return
+  }
+
   if (!Array.isArray(uriSources)) {
     return uriSources.uri
   }
