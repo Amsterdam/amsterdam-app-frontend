@@ -108,7 +108,7 @@ describe('getUriForWidth', () => {
       'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
     )
   })
-  test('width of zero should get the smallest', () => {
+  test('width of zero returns undefined', () => {
     expect(
       getUriForWidth(
         [
@@ -125,9 +125,7 @@ describe('getUriForWidth', () => {
         ],
         0,
       ),
-    ).toBe(
-      'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
-    )
+    ).toBe(undefined)
   })
   test('all items narrower than the width param, then get the widest', () => {
     expect(
