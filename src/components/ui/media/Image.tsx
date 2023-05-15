@@ -5,6 +5,7 @@ import {
   ImageURISource,
   LayoutChangeEvent,
   Platform,
+  StyleProp,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
@@ -45,13 +46,18 @@ const CachedIosImage = ({
     <FastImage
       onLayout={onLayout}
       source={{uri}}
-      style={style as FastImageStyle}
+      style={style as StyleProp<FastImageStyle>}
       {...imageProps}
     />
   )
 }
 
-export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
+export const Image = ({
+  aspectRatio = 'wide',
+  onLayout,
+  source,
+  ...imageProps
+}: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
@@ -66,19 +72,20 @@ export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
     setWidth(undefined)
   }, [windowHeight, windowWidth])
 
-  const onLayout = useCallback(
+  const onLayoutChange = useCallback(
     (event: LayoutChangeEvent) => {
       setWidth(event.nativeEvent.layout.width)
+      onLayout?.(event)
     },
-    [setWidth],
+    [onLayout, setWidth],
   )
 
-  // RN default image caching behaviour works well on Android, but not on iOS. For iOS we use FastImage, which has improved caching, only for external images.
+  // RN default image caching behaviour works well on Android, but not on iOS. So for iOS we use FastImage, which has improved cacheing.
   // The number type check filters out bundled images using require which do not need to be cached.
   if (Platform.OS === 'ios' && typeof source !== 'number') {
     return (
       <CachedIosImage
-        onLayout={onLayout}
+        onLayout={onLayoutChange}
         style={[styles.image]}
         uriSources={source}
         width={width}
@@ -88,7 +95,7 @@ export const Image = ({aspectRatio = 'wide', source, ...imageProps}: Props) => {
 
   return (
     <ImageRN
-      onLayout={onLayout}
+      onLayout={onLayoutChange}
       source={source}
       style={[styles.image]}
       {...imageProps}
