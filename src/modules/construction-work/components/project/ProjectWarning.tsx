@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import {useEffect, useLayoutEffect, useState} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -12,10 +12,7 @@ import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/service'
-import {
-  getProjectWarningMainImageInfo,
-  ProjectWarningMainImageInfo,
-} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
+import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
 import {useTheme} from '@/themes'
 import {formatDate} from '@/utils'
 
@@ -27,9 +24,6 @@ export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
   const {media} = useTheme()
 
-  const [mainImage, setMainImage] = useState<
-    ProjectWarningMainImageInfo | undefined
-  >()
   const {markAsRead} = useMarkArticleAsRead()
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
@@ -41,10 +35,6 @@ export const ProjectWarning = ({id}: Props) => {
     },
     {skip: !projectWarning},
   )
-
-  useEffect(() => {
-    setMainImage(getProjectWarningMainImageInfo(projectWarning))
-  }, [projectWarning])
 
   useEffect(() => {
     if (!projectWarning) {
@@ -66,6 +56,8 @@ export const ProjectWarning = ({id}: Props) => {
   if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
   }
+
+  const mainImage = getProjectWarningMainImageInfo(projectWarning)
 
   return (
     <>
