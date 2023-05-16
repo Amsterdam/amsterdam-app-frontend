@@ -25,7 +25,7 @@ type Navigation = StackNavigationProp<
 
 type ListItemProps = {
   navigation: Navigation
-  project: ProjectsItem
+  project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
 }
 
 const ListItem = ({navigation, project}: ListItemProps) => {
@@ -63,7 +63,8 @@ export const AuthorizedProjects = ({initialMetrics}: Props) => {
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const {authorizedProjects} = useConstructionWorkEditor()
+  const {projectManager} = useConstructionWorkEditor()
+  const authorizedProjects = projectManager?.projects
 
   if (!authorizedProjects) {
     return null

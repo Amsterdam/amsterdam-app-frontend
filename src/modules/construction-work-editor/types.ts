@@ -1,3 +1,5 @@
+import {Image} from '@/types'
+
 export enum ConstructionWorkEditorEndpointName {
   addProjectWarning = 'addProjectWarning',
   addProjectWarningImage = 'addProjectWarningImage',
@@ -14,7 +16,12 @@ export type ConstructionWorkEditor = {
 export type ConstructionWorkEditorResponse = {
   email: string
   identifier: string
-  projects: string[]
+  projects: {
+    identifier: string
+    images: Image[]
+    subtitle: string
+    title: string
+  }[]
 }
 
 export type ProjectWarningImageQueryArg = {

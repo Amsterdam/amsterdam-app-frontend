@@ -28,12 +28,9 @@ export const useRegisterConstructionWorkEditorId = (
   const setConstructionWorkEditorCredentials =
     useSetConstructionWorkEditorCredentials()
 
-  const {
-    authorizedProjects,
-    constructionWorkEditorId,
-    isGetProjectManagerError,
-    isGetProjectsError,
-  } = useConstructionWorkEditor()
+  const {constructionWorkEditorId, isGetProjectManagerError, projectManager} =
+    useConstructionWorkEditor()
+  const authorizedProjects = projectManager?.projects
 
   const [followProject] = useFollowProjectMutation()
   const {sendSentryErrorLog} = useSentry()
@@ -89,9 +86,7 @@ export const useRegisterConstructionWorkEditorId = (
     hasSeenWelcomeMessage,
   ])
   const isFailed =
-    (!constructionWorkEditorId && !deeplinkId) ||
-    isGetProjectManagerError ||
-    isGetProjectsError
+    (!constructionWorkEditorId && !deeplinkId) || isGetProjectManagerError
   const isLoading = !isFailed && !authorizedProjects
 
   useEffect(() => {
