@@ -4,6 +4,9 @@ import {
 } from '@/modules/construction-work/types'
 import {mapWarningImageSources} from '@/utils'
 
+/**
+ * Get the sources and the description for the main warning article image.
+ */
 export const getProjectWarningMainImageInfo = (
   projectWarning?: ProjectWarning | WarningArticleSummary,
 ) => {

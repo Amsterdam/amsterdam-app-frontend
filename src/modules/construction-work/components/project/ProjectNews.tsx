@@ -51,13 +51,13 @@ export const ProjectNews = ({id}: Props) => {
 
   return (
     <>
-      {news?.images?.length ? (
+      {news?.images?.length && (
         <Image
           aspectRatio="wide"
           source={mapImageSources(news.images[0].sources)}
           testID={`ConstructionWorkProjectArticle${news.identifier}Image`}
         />
-      ) : null}
+      )}
       {!!news && (
         <HorizontalSafeArea>
           <Box>

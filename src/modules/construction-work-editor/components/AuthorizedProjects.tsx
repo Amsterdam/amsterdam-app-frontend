@@ -29,7 +29,7 @@ type ListItemProps = {
 
 const ListItem = ({navigation, project}: ListItemProps) => (
   <ProjectCard
-    imageSource={mapImageSources(project.images?.[0].sources)}
+    imageSource={mapImageSources(project.images?.[0]?.sources)}
     onPress={() =>
       navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
         projectId: project.identifier,

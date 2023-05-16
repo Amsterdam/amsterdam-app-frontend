@@ -121,7 +121,7 @@ export const Project = ({id}: Props) => {
 
   return (
     <Column>
-      {!!images.length && (
+      {images?.length && (
         <Image
           aspectRatio="wide"
           source={mapImageSources(images[0].sources)}
