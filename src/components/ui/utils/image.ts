@@ -1,4 +1,5 @@
 import {ImageURISource, PixelRatio} from 'react-native'
+import {isDevApp} from '@/processes'
 
 export const sortSourcesByWidthAscending = (
   {width: widthA = 0}: ImageURISource,
@@ -21,22 +22,27 @@ export const getUriForWidth = (
   uriSources: ImageURISource | ImageURISource[],
   width: number,
 ) => {
-  if (!width) {
-    return
-  }
-
   if (!Array.isArray(uriSources)) {
     return uriSources.uri
   }
 
-  const sortedSources = uriSources.sort(sortSourcesByWidthAscending)
+  // This prevents an issue that prevents images from being rendered when hot reloading
+  if (isDevApp && !width) {
+    width = 1000
+  }
+
+  if (!width) {
+    return
+  }
+
+  const sortedSources = [...uriSources].sort(sortSourcesByWidthAscending)
   const minWidth = PixelRatio.getPixelSizeForLayoutSize(width)
   const firstSourceLargerThanMinWidth = sortedSources.find(
     ({width: sourceWidth = 0}: ImageURISource) => sourceWidth >= minWidth,
   )
 
   if (!firstSourceLargerThanMinWidth) {
-    return sortedSources[sortedSources.length - 1]?.uri
+    return sortedSources.pop()?.uri
   }
 
   return firstSourceLargerThanMinWidth.uri
