@@ -65,6 +65,7 @@ export const Fraction = ({fraction}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const address = useSelector(selectAddress)
   const {
+    afvalwijzerAfvalkalenderFrequentie,
     afvalwijzerAfvalkalenderMelding,
     afvalwijzerAfvalkalenderOpmerking,
     afvalwijzerButtontekst,
@@ -113,7 +114,13 @@ export const Fraction = ({fraction}: Props) => {
           )}
         </Column>
         <FractionSection
-          content={capitalizeString(afvalwijzerOphaaldagen2 ?? '')}
+          content={capitalizeString(
+            afvalwijzerAfvalkalenderFrequentie
+              ? `${
+                  afvalwijzerOphaaldagen2 ?? ''
+                }, ${afvalwijzerAfvalkalenderFrequentie}`
+              : afvalwijzerOphaaldagen2 ?? '',
+          )}
           label="Ophaaldag"
         />
         <FractionSection

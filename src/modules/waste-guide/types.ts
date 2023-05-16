@@ -21,6 +21,7 @@ export type WasteGuideQueryArg = {
 }
 
 export type WasteGuideResponseFraction = {
+  afvalwijzerAfvalkalenderFrequentie: string | null
   afvalwijzerAfvalkalenderMelding: string | null
   afvalwijzerAfvalkalenderOpmerking: string | null
   afvalwijzerAfvalkalenderTot: string | null
