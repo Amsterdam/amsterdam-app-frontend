@@ -7,7 +7,11 @@ type Props = {
 }
 
 export const InlineLink = ({children, onPress}: Props) => (
-  <Phrase color="link" emphasis="strong" onPress={onPress}>
+  <Phrase
+    accessibilityRole="link"
+    color="link"
+    emphasis="strong"
+    onPress={onPress}>
     {children}
   </Phrase>
 )

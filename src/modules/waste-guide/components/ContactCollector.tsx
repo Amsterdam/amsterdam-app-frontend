@@ -17,6 +17,7 @@ export const ContactCollector = () => {
         <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
           onze website
         </InlineLink>
+        .
       </Phrase>
     </Column>
   )
