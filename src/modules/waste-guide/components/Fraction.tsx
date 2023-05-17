@@ -78,16 +78,21 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerWaar,
   } = fraction
 
-  // Remove once the API includes the url as a single property
+  // TODO: remove once the API includes the url as a single property
+  // TODO: remove centroid once standardization of address data is done
   const containerMapUrl =
     afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl
-      ? getContainerMapUrl(address.coordinates, afvalwijzerFractieCode)
+      ? getContainerMapUrl(
+          address.centroid,
+          address.coordinates,
+          afvalwijzerFractieCode,
+        )
       : undefined
 
   const collectionPointsMapUrl =
     afvalwijzerInstructie2.includes('een Afvalpunt') &&
     afvalwijzerUrl === WasteGuideUrl.collectionPointsUrl &&
-    getCollectionPointsMapUrl(address.coordinates)
+    getCollectionPointsMapUrl(address.centroid, address.coordinates)
 
   return (
     <Column gutter="md">

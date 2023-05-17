@@ -39,9 +39,10 @@ export const addressApi = baseApi.injectEndpoints({
           adres,
           bag_huisletter,
           bag_toevoeging,
+          centroid, // TODO: remove centroid once standardization of address data is done
           coordinates: {
-            lat: centroid[1],
-            lon: centroid[0],
+            lat: centroid?.[1] ?? 0,
+            lon: centroid?.[0] ?? 0,
           },
           huisnummer,
           bagNummeraanduidingId: landelijk_id,
