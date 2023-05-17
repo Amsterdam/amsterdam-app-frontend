@@ -19,7 +19,7 @@ import {
   getCollectionPointsMapUrl,
   getContainerMapUrl,
 } from '@/modules/waste-guide/utils'
-import {capitalizeString, dayjs} from '@/utils'
+import {accessibleText, capitalizeString, dayjs} from '@/utils'
 import {formatEnumeration} from '@/utils/formatEnumeration'
 
 type Props = {
@@ -93,7 +93,11 @@ export const Fraction = ({fraction}: Props) => {
     <Column gutter="md">
       <Row gutter="sm" valign="center">
         <WasteFractionIcon fractionCode={afvalwijzerFractieCode} />
-        <Title level="h4" text={afvalwijzerFractieNaam} />
+        <Title
+          accessibilityLabel={accessibleText(afvalwijzerFractieNaam)}
+          level="h4"
+          text={afvalwijzerFractieNaam}
+        />
       </Row>
       {showTimeBoundNotification(fraction) && (
         <TimeboundNotification>
