@@ -20,6 +20,7 @@ import {
   getContainerMapUrl,
 } from '@/modules/waste-guide/utils'
 import {capitalizeString, dayjs} from '@/utils'
+import {formatEnumeration} from '@/utils/formatEnumeration'
 
 type Props = {
   fraction: WasteGuideResponseFraction
@@ -117,9 +118,9 @@ export const Fraction = ({fraction}: Props) => {
           content={capitalizeString(
             afvalwijzerAfvalkalenderFrequentie
               ? `${
-                  afvalwijzerOphaaldagen2 ?? ''
+                  formatEnumeration(afvalwijzerOphaaldagen2) ?? ''
                 }, ${afvalwijzerAfvalkalenderFrequentie}`
-              : afvalwijzerOphaaldagen2 ?? '',
+              : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
           )}
           label="Ophaaldag"
         />
