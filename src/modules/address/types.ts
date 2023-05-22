@@ -8,7 +8,10 @@ export type Address = {
   bagNummeraanduidingId: string
   bag_huisletter: string
   bag_toevoeging: string
-  coordinates: {
+  // TODO: Move centroid to 'ApiAddress' once standardization of address data is done
+  centroid?: [number, number]
+  // TODO: Make coordinates required once standardization of address data is done
+  coordinates?: {
     lat: number
     lon: number
   }
@@ -21,7 +24,6 @@ export type Address = {
 export type ApiAddress = Address & {
   _display: string
   adresseerbaar_object_id: string
-  centroid: [number, number]
   dataset: string
   landelijk_id: string
   status: string
