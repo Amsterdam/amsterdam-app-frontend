@@ -12,6 +12,7 @@
     "detox:test:android": "detox test --configuration android.emu.debug",
     "detox:test:cucumber:ios": "DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js",
     "detox:test:ios": "detox test --configuration ios.sim.debug",
+    "ios:install:pods": "bundle exec pod install --project-directory=ios",
     "ios:phone:dev": "react-native run-ios --simulator='iPhone 11' --configuration='DevDebug' --scheme='AmsterdamApp Test'",
     "ios:phone:prod": "react-native run-ios --simulator='iPhone 11'",
     "ios:tablet:dev": "react-native run-ios --simulator='iPad Pro (12.9-inch) (5th generation)' --configuration='DevDebug' --scheme='AmsterdamApp Test'",
