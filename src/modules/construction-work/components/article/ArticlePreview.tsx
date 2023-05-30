@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
@@ -33,13 +33,12 @@ export const ArticlePreview = ({
   onPress,
   testID,
 }: Props) => {
-  const [isNewAndUnreadArticle, setIsNewAndUnreadArticle] = useState<
-    undefined | boolean
-  >(undefined)
+  const [isNewAndUnreadArticle, setIsNewAndUnreadArticle] =
+    useState<boolean>(false)
   const environment = useEnvironment()
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const getImageSources = () => {
+  const imageSources = useMemo(() => {
     if (article.type === 'news') {
       return mapImageSources(article.image?.sources, environment)
     }
@@ -51,9 +50,7 @@ export const ArticlePreview = ({
       environment,
     )
     return warningImageSources
-  }
-
-  const imageSources = getImageSources()
+  }, [article, environment])
 
   useEffect(() => {
     setIsNewAndUnreadArticle(
@@ -70,10 +67,6 @@ export const ArticlePreview = ({
   const styles = useThemable(
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
-
-  if (isNewAndUnreadArticle === undefined) {
-    return null
-  }
 
   return (
     <View style={styles.item} testID={testID}>
