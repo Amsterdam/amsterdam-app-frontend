@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -14,7 +14,7 @@ import {
 import {useGetArticlesQuery} from '@/modules/construction-work/service'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {Theme, useThemable} from '@/themes'
-import {dayjs, getYearOfPublicationDate, isEmptyObject} from '@/utils'
+import {getYearOfPublicationDate} from '@/utils'
 
 type Props = {
   limit?: number
@@ -24,7 +24,10 @@ type Props = {
   title: string
 }
 
-type YearlyArticleSections = Record<string, ArticleSummary[]>
+type YearlyArticleSection = {
+  data: ArticleSummary[]
+  title: string
+}
 
 export const ArticleOverview = ({
   limit,
@@ -33,9 +36,6 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
-  const [yearlyArticleSections, setYearlyArticleSections] = useState<
-    YearlyArticleSections | undefined
-  >()
   const navigation =
     useNavigation<
       StackNavigationProp<
@@ -52,21 +52,19 @@ export const ArticleOverview = ({
   })
   const {markMultipleAsRead} = useMarkArticleAsRead()
 
-  useEffect(() => {
-    if (articles) {
-      const sections = articles.reduce(
-        (result: YearlyArticleSections, article) => {
-          const year = getYearOfPublicationDate(article.publication_date)
-          return {
-            ...result,
-            [year]: {...result[year], [article.identifier]: article},
-          }
-        },
-        {},
-      )
-      setYearlyArticleSections(sections)
-    }
-  }, [articles])
+  const yearlyArticleSections = articles?.reduce(
+    (result: YearlyArticleSection[], article) => {
+      const year = getYearOfPublicationDate(article.publication_date)
+      const section = result.find(s => s.title === year)
+      if (section) {
+        section.data.push(article)
+      } else {
+        result.push({title: year, data: [article]})
+      }
+      return result
+    },
+    [] as YearlyArticleSection[],
+  )
 
   useEffect(
     () =>
@@ -94,13 +92,11 @@ export const ArticleOverview = ({
     }
   }
 
-  if (isLoading) {
+  if (isLoading || yearlyArticleSections === undefined) {
     return <PleaseWait />
   }
 
-  return articles &&
-    yearlyArticleSections &&
-    !isEmptyObject(yearlyArticleSections) ? (
+  return articles && yearlyArticleSections ? (
     <View style={styles.list}>
       <Column gutter="sm">
         <Title
@@ -108,43 +104,28 @@ export const ArticleOverview = ({
           testID="ConstructionWorkProjectArticlesTitle"
           text={title}
         />
-        {Object.entries(yearlyArticleSections)
-          .reverse()
-          .map(([year, articlesPerYear], index) => (
-            <View key={year + index.toString()}>
-              {index > 0 && (
-                <View style={styles.year}>
-                  <Paragraph>{year}</Paragraph>
-                  <View style={styles.line} />
-                </View>
-              )}
-              {Object.values(articlesPerYear)
-                .sort((a, b) =>
-                  dayjs(a.publication_date).isBefore(b.publication_date)
-                    ? 1
-                    : -1,
-                )
-                .map(article => (
-                  <ArticlePreview
-                    article={article}
-                    isFirst={
-                      articles.findIndex(
-                        a => a.identifier === article.identifier,
-                      ) === 0
-                    }
-                    isLast={
-                      articles.findIndex(
-                        a => a.identifier === article.identifier,
-                      ) ===
-                      articles.length - 1
-                    }
-                    key={article.identifier}
-                    onPress={() => navigateToArticle(article)}
-                    testID={`ConstructionWorkProjectArticle${article.identifier}Preview`}
-                  />
-                ))}
-            </View>
-          ))}
+        {yearlyArticleSections.map(({title: sectionTitle, data}, index) => (
+          <View key={sectionTitle + index.toString()}>
+            {index > 0 && (
+              <View style={styles.year}>
+                <Paragraph>{sectionTitle}</Paragraph>
+                <View style={styles.line} />
+              </View>
+            )}
+            {data.map((article, dataIndex) => (
+              <ArticlePreview
+                article={article}
+                isFirst={index === 0 && dataIndex === 0}
+                isLast={
+                  index === articles.length - 1 && dataIndex === data.length - 1
+                }
+                key={article.identifier}
+                onPress={() => navigateToArticle(article)}
+                testID={`ConstructionWorkProjectArticle${article.identifier}Preview`}
+              />
+            ))}
+          </View>
+        ))}
       </Column>
     </View>
   ) : null

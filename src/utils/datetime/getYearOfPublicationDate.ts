@@ -1,4 +1,9 @@
-import {formatDate} from '@/utils/datetime/formatDate'
+import {dayjs} from '@/utils/datetime/dayjs'
 
-export const getYearOfPublicationDate = (date: string) =>
-  formatDate(date).slice(-4)
+export const getYearOfPublicationDate = (date: string | number) => {
+  if (date === null || date === undefined) {
+    return ''
+  }
+
+  return dayjs(date).format('YYYY')
+}
