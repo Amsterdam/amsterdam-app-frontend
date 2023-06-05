@@ -8,12 +8,14 @@ export const useConstructionWorkEditor = () => {
   const {
     data: projectManager,
     isError: isGetProjectManagerError,
+    error: getProjectManagerError,
     isLoading: isGetProjectManagerLoading,
   } = useGetProjectManagerQuery(
     constructionWorkEditorId ? {id: constructionWorkEditorId} : skipToken,
   )
 
   return {
+    getProjectManagerError,
     isGetProjectManagerError,
     isGetProjectManagerLoading,
     projectManager,

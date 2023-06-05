@@ -9,6 +9,7 @@ import {ModuleSlug} from '@/modules/slugs'
  */
 export type ModuleClientConfig = {
   BadgeValue?: ElementType
+  PreRenderComponent?: ElementType
   hiddenInMenu?: boolean
   isCore?: boolean
   isForEmployees?: boolean
