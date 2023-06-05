@@ -29,7 +29,8 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const deeplinkId = route.params?.id ?? undefined
 
-  const {isFailed, isLoading} = useRegisterConstructionWorkEditorId(deeplinkId)
+  const {projectManagerError, isLoading} =
+    useRegisterConstructionWorkEditorId(deeplinkId)
 
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
@@ -48,7 +49,11 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
     }
   }, [dispatch, navigation, route.params?.showSuccessfullySentMessageAlert])
 
-  if (isFailed) {
+  if (
+    projectManagerError &&
+    'status' in projectManagerError &&
+    projectManagerError.status === 'FETCH_ERROR'
+  ) {
     return <SomethingWentWrong />
   }
 
