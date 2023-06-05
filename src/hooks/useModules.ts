@@ -38,9 +38,7 @@ export const useModules = () => {
   } = useGetReleaseQuery(releaseVersion ?? skipToken)
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
-  const {disabledModules: userDisabledModulesBySlug} = useSelector(
-    selectDisabledModules,
-  )
+  const userDisabledModulesBySlug = useSelector(selectDisabledModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
     () => postProcessModules(userDisabledModulesBySlug, serverModules),

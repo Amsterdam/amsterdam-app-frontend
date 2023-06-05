@@ -4,19 +4,18 @@ import {Box} from '@/components/ui/containers'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
+import {selectProhibitedModules} from '@/store'
 
 export const Modules = () => {
+  const prohibitedModules = useSelector(selectProhibitedModules)
   const {
     modulesError,
     modulesLoading,
     refetchModules,
     selectedModules: modules,
   } = useModules()
-  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
-  const isEmployee = !!constructionWorkEditorId
 
   if (modulesLoading) {
     return <PleaseWait grow />
@@ -32,10 +31,10 @@ export const Modules = () => {
   }
 
   const availableModules = modules.filter(
-    m => (!m.isForEmployees || isEmployee) && !m.hiddenInMenu,
+    m => !prohibitedModules.includes(m.slug) && !m.hiddenInMenu,
   )
 
-  if (!availableModules.length) {
+  if (!modules.length) {
     return (
       <Box>
         <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
