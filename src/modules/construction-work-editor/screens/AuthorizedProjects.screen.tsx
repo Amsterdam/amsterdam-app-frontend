@@ -3,7 +3,7 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Alert, PleaseWait} from '@/components/ui/feedback'
+import {Alert, PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
 import {
   AlertCloseType,
   AlertVariant,
@@ -29,7 +29,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const deeplinkId = route.params?.id ?? undefined
 
-  const {isLoading} = useRegisterConstructionWorkEditorId(deeplinkId)
+  const {isFailed, isLoading} = useRegisterConstructionWorkEditorId(deeplinkId)
 
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
@@ -47,6 +47,10 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
       navigation.setParams({showSuccessfullySentMessageAlert: false})
     }
   }, [dispatch, navigation, route.params?.showSuccessfullySentMessageAlert])
+
+  if (isFailed) {
+    return <SomethingWentWrong />
+  }
 
   return (
     <Screen scroll={false} stickyHeader={<Alert />}>
