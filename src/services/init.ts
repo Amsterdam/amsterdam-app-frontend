@@ -50,28 +50,37 @@ const dynamicBaseQuery: BaseQueryFn<
   const api = typeof args !== 'string' && args.api ? args.api : 'apiUrl'
 
   return retry(
-    fetchBaseQuery({
-      baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
-      prepareHeaders: (headers, {endpoint, getState}) => {
-        const token = selectAuthManagerToken(getState() as RootState)
+    async () => {
+      const result = await fetchBaseQuery({
+        baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
+        prepareHeaders: (headers, {endpoint, getState}) => {
+          const token = selectAuthManagerToken(getState() as RootState)
 
-        token &&
-          managerAuthorizedEndpoints.includes(endpoint) &&
-          headers.set('userauthorization', token)
+          token &&
+            managerAuthorizedEndpoints.includes(endpoint) &&
+            headers.set('userauthorization', token)
 
-        deviceIdRequestingEndpoints.includes(endpoint) &&
-          headers.set('deviceid', getUniqueId())
+          deviceIdRequestingEndpoints.includes(endpoint) &&
+            headers.set('deviceid', getUniqueId())
 
-        deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
-          headers.set('DeviceAuthorization', deviceAuthorizationToken)
+          deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
+            headers.set('DeviceAuthorization', deviceAuthorizationToken)
 
-        headers.set('releaseVersion', releaseVersion)
+          headers.set('releaseVersion', releaseVersion)
 
-        return headers
-      },
-    }),
+          return headers
+        },
+      })(args, baseQueryApi, extraOptions)
+
+      if (result.error?.status === 404) {
+        retry.fail(result.error)
+      }
+
+      return result
+    },
+
     {maxRetries: 5},
-  )(args, baseQueryApi, extraOptions)
+  )(args, baseQueryApi, extraOptions as never)
 }
 
 export const baseApi = createApi({
