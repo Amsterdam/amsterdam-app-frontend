@@ -61,12 +61,12 @@ const computeEmbeddedMaxWidth =
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const openUrl = useOpenUrl()
-  const {width} = useWindowDimensions()
+  const {width: contentWidth} = useWindowDimensions()
   const {size} = useTheme()
-  const fonts = useThemable(createFontList)
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps(openUrl))
+  const systemFonts = useThemable(createFontList)
 
   if (!content) {
     return null
@@ -93,13 +93,9 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
 
   return (
     <RenderHTML
-      baseStyle={baseStyle}
       computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
-      contentWidth={width}
-      renderersProps={renderersProps}
       source={{html}}
-      systemFonts={fonts}
-      tagsStyles={tagsStyles}
+      {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
     />
   )
 }
