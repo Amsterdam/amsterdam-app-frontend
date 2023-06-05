@@ -1,9 +1,4 @@
-import {
-  GestureResponderEvent,
-  Platform,
-  TextStyle,
-  useWindowDimensions,
-} from 'react-native'
+import {Platform, TextStyle, useWindowDimensions} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
@@ -183,7 +178,7 @@ const createRenderersProps =
   (openUrl: OpenUrl) =>
   ({text}: Theme): Partial<RenderersProps> => ({
     a: {
-      onPress: (_event: GestureResponderEvent, href: string) => openUrl(href),
+      onPress: (_event, href) => openUrl(href),
     },
     ul: {
       markerBoxStyle: {
