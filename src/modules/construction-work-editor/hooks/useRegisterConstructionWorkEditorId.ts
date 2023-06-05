@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {
@@ -6,30 +7,54 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {useRegisterDevice, useSentry} from '@/hooks'
 import {useFollowProjectMutation} from '@/modules/construction-work/service'
-import {
-  useConstructionWorkEditor,
-  useSetConstructionWorkEditorCredentials,
-} from '@/modules/construction-work-editor/hooks'
+import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {
   addConstructionWorkEditorId,
   selectConstructionWorkEditorHasSeenWelcomeMessage,
+  selectConstructionWorkEditorId,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
 import {requestPushNotificationsPermission} from '@/processes'
-import {resetAlert, setAlert} from '@/store'
+import {
+  resetAlert,
+  selectAuthManagerToken,
+  setAlert,
+  setCredentials,
+} from '@/store'
+import {encryptWithAES} from '@/utils'
 
 export const useRegisterConstructionWorkEditorId = (
   deeplinkId: string | undefined,
 ) => {
   const dispatch = useDispatch()
+  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
+  const authManagerToken = useSelector(selectAuthManagerToken)
   const hasSeenWelcomeMessage = useSelector(
     selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
-  const setConstructionWorkEditorCredentials =
-    useSetConstructionWorkEditorCredentials()
 
-  const {constructionWorkEditorId, isGetProjectManagerError, projectManager} =
-    useConstructionWorkEditor()
+  useEffect(() => {
+    if (constructionWorkEditorId) {
+      dispatch(
+        setCredentials({
+          managerToken: encryptWithAES({
+            password: process.env.AUTH_PASSWORD ?? '',
+            salt: constructionWorkEditorId,
+          }),
+        }),
+      )
+    }
+  }, [dispatch, constructionWorkEditorId])
+
+  const {
+    data: projectManager,
+    error: projectManagerError,
+    isError: isGetProjectManagerError,
+  } = useGetProjectManagerQuery(
+    constructionWorkEditorId && authManagerToken
+      ? {id: constructionWorkEditorId}
+      : skipToken,
+  )
   const authorizedProjects = projectManager?.projects
 
   const [followProject] = useFollowProjectMutation()
@@ -85,6 +110,7 @@ export const useRegisterConstructionWorkEditorId = (
     dispatch,
     hasSeenWelcomeMessage,
   ])
+
   const isFailed =
     (!constructionWorkEditorId && !deeplinkId) || isGetProjectManagerError
   const isLoading = !isFailed && !authorizedProjects
@@ -92,10 +118,9 @@ export const useRegisterConstructionWorkEditorId = (
   useEffect(() => {
     if (deeplinkId) {
       isFailed && resetAlert()
-      setConstructionWorkEditorCredentials(deeplinkId)
       dispatch(addConstructionWorkEditorId(deeplinkId))
     }
-  }, [deeplinkId, dispatch, isFailed, setConstructionWorkEditorCredentials])
+  }, [deeplinkId, dispatch, isFailed])
 
   useEffect(() => {
     if (isFailed) {
@@ -115,5 +140,6 @@ export const useRegisterConstructionWorkEditorId = (
   return {
     isLoading,
     isFailed,
+    projectManagerError,
   }
 }

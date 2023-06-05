@@ -8,7 +8,6 @@ import {
   useRegisterDevice,
   useSentry,
 } from '@/hooks'
-import {useConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks'
 import {getPushNotificationsPermission} from '@/processes'
 
 type Props = {children: ReactNode}
@@ -51,8 +50,6 @@ export const Init = ({children}: Props) => {
   )
 
   useAppState(onAppstate)
-
-  useConstructionWorkEditorCredentials()
 
   return <>{children}</>
 }
