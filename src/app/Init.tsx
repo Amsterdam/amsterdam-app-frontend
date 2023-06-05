@@ -51,5 +51,13 @@ export const Init = ({children}: Props) => {
 
   useAppState(onAppstate)
 
-  return <>{children}</>
+  return (
+    <>
+      {selectedModules.map(m => {
+        const {PreRenderComponent} = m
+        return PreRenderComponent ? <PreRenderComponent key={m.slug} /> : null
+      })}
+      {children}
+    </>
+  )
 }
