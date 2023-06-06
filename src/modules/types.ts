@@ -9,7 +9,7 @@ import {ModuleSlug} from '@/modules/slugs'
  */
 export type ModuleClientConfig = {
   /**
-   * Renders a badge on the home screen.
+   * A component for displaying a badge on the module’s button.
    */
   BadgeValue?: ElementType
   /**
