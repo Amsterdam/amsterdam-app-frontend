@@ -13,7 +13,7 @@ export type ModuleClientConfig = {
    */
   BadgeValue?: ElementType
   /**
-   * A component that will be rendered at the app's root level.
+   * A component for preprocessing purposes at the app's root level.
    */
   PreRenderComponent?: ElementType
   /**
