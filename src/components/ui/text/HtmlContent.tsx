@@ -75,6 +75,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const html = transformContent(content, transformRules)
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
+    a: {...styles.boldText, ...styles.link},
     b: styles.boldText,
     h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
     h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
@@ -122,7 +123,7 @@ const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({text}: Theme) => {
+  ({color, text}: Theme) => {
     const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
@@ -137,6 +138,10 @@ const createStyles: (
       paragraph: {
         fontSize: getFontSize(text, isIntro),
         lineHeight,
+      },
+      link: {
+        color: color.pressable.primary.default,
+        textDecorationLine: 'none',
       },
       boldText: {
         fontFamily: text.fontFamily.bold,
