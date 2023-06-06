@@ -6,11 +6,11 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: ComponentType<any>
-    isForEmployees?: boolean
     name: keyof R
     options?: StackNavigationOptions & {
       accessibilityLanguage?: string
     }
+    requiresAuthorization?: boolean
     title?: string
   }
 >

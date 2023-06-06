@@ -6,10 +6,10 @@ import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
-import {selectProhibitedModules} from '@/store'
+import {selectAuthorizedModules} from '@/store'
 
 export const Modules = () => {
-  const prohibitedModules = useSelector(selectProhibitedModules)
+  const authorizedModules = useSelector(selectAuthorizedModules)
   const {
     modulesError,
     modulesLoading,
@@ -31,7 +31,9 @@ export const Modules = () => {
   }
 
   const availableModules = modules.filter(
-    m => !prohibitedModules.includes(m.slug) && !m.hiddenInMenu,
+    m =>
+      (!m.requiresAuthorization || authorizedModules.includes(m.slug)) &&
+      !m.hiddenInMenu,
   )
 
   if (!modules.length) {
@@ -46,7 +48,7 @@ export const Modules = () => {
     <Box grow>
       <Column gutter="md">
         {availableModules.map(
-          ({BadgeValue, icon, isForEmployees, slug, status, title}) => (
+          ({BadgeValue, icon, requiresAuthorization, slug, status, title}) => (
             <ModuleButton
               BadgeValue={BadgeValue}
               disabled={status === ModuleStatus.inactive}
@@ -55,7 +57,7 @@ export const Modules = () => {
               label={title}
               slug={slug}
               testID={`Home${pascalCase(slug)}ModuleButton`}
-              variant={isForEmployees ? 'primary' : 'tertiary'}
+              variant={requiresAuthorization ? 'primary' : 'tertiary'}
             />
           ),
         )}

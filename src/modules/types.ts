@@ -25,10 +25,6 @@ export type ModuleClientConfig = {
    */
   isCore?: boolean
   /**
-   * Determines whether the module is for employees only.
-   */
-  isForEmployees?: boolean
-  /**
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links
    */
@@ -38,6 +34,10 @@ export type ModuleClientConfig = {
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
    */
   name: string
+  /**
+   * Determines whether the module requires authorization to be accessed.
+   */
+  requiresAuthorization?: boolean
   /**
    * Determines whether the module requires a Firebase token.
    */

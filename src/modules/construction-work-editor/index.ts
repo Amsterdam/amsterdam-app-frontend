@@ -5,7 +5,7 @@ import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   PreRenderComponent,
-  isForEmployees: true,
+  requiresAuthorization: true,
   linking: {
     [ConstructionWorkEditorRouteName.authorizedProjects]: 'project-manager/:id',
   },

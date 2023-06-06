@@ -2,13 +2,13 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
 type ModulesSliceState = {
+  authorizedModules: string[]
   disabledModules: string[]
-  prohibitedModules: string[]
 }
 
 const initialState: ModulesSliceState = {
   disabledModules: [],
-  prohibitedModules: [],
+  authorizedModules: [],
 }
 
 export const modulesSlice = createSlice({
@@ -30,23 +30,23 @@ export const modulesSlice = createSlice({
 
       state.disabledModules = [...(state.disabledModules ?? []), slug]
     },
-    addProhibitedModule: (state, {payload: slug}: PayloadAction<string>) => {
-      const {prohibitedModules} = state
+    addAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
+      const {authorizedModules} = state
 
-      if (prohibitedModules?.includes(slug)) {
+      if (authorizedModules?.includes(slug)) {
         return
       }
 
-      state.prohibitedModules = [...(state.prohibitedModules ?? []), slug]
+      state.authorizedModules = [...(state.authorizedModules ?? []), slug]
     },
-    removeProhibitedModule: (state, {payload: slug}: PayloadAction<string>) => {
-      const {prohibitedModules} = state
+    removeAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
+      const {authorizedModules} = state
 
-      if (!prohibitedModules?.includes(slug)) {
+      if (!authorizedModules?.includes(slug)) {
         return
       }
 
-      state.prohibitedModules = prohibitedModules.filter(
+      state.authorizedModules = authorizedModules.filter(
         moduleSlug => moduleSlug !== slug,
       )
     },
@@ -54,13 +54,13 @@ export const modulesSlice = createSlice({
 })
 
 export const {
-  addProhibitedModule,
-  removeProhibitedModule,
+  addAuthorizedModule,
+  removeAuthorizedModule,
   resetModules,
   toggleModule,
 } = modulesSlice.actions
 
 export const selectDisabledModules = (state: RootState) =>
   state.modules.disabledModules
-export const selectProhibitedModules = (state: RootState) =>
-  state.modules.prohibitedModules
+export const selectAuthorizedModules = (state: RootState) =>
+  state.modules.authorizedModules

@@ -23,7 +23,8 @@ const getPermittedScreens = (
     ? screens
     : screens.filter(
         ([, route]) =>
-          !route.hasOwnProperty('isForEmployees') || !route.isForEmployees,
+          !route.hasOwnProperty('requiresAuthorization') ||
+          !route.requiresAuthorization,
       )
 
   return permittedScreens.map(([key, route]) => (

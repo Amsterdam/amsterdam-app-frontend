@@ -48,7 +48,7 @@ export const ModuleSettings = () => {
     <Box>
       <Column gutter="sm">
         {modules.map(module => {
-          if (module.isForEmployees && !constructionWorkEditorId) {
+          if (module.requiresAuthorization && !constructionWorkEditorId) {
             return
           }
 
