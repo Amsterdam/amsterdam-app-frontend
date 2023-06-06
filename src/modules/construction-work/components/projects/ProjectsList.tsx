@@ -12,7 +12,6 @@ import {
   PleaseWait,
   SomethingWentWrong,
 } from '@/components/ui/feedback'
-import {EnvironmentConfig} from '@/environment'
 import {
   getAccessibleDistanceText,
   getAccessibleFollowingText,
@@ -28,7 +27,6 @@ import {
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {DeviceContext} from '@/providers'
-import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
 import {accessibleText, mapImageSources} from '@/utils'
 
@@ -39,7 +37,6 @@ const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
   project.identifier
 
 type ListItemProps = {
-  environment: EnvironmentConfig
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
   project: ProjectsItem
@@ -47,13 +44,7 @@ type ListItemProps = {
 }
 
 const ListItem = memo(
-  ({
-    environment,
-    getProjectTraits,
-    navigation,
-    project,
-    readArticles,
-  }: ListItemProps) => {
+  ({getProjectTraits, navigation, project, readArticles}: ListItemProps) => {
     const parsedTraits = useMemo(() => {
       if (getProjectTraits) {
         const traits = getProjectTraits?.(project)
@@ -104,8 +95,8 @@ const ListItem = memo(
     )
 
     const imageSource = useMemo(
-      () => mapImageSources(project.images?.[0]?.sources, environment),
-      [environment, project.images],
+      () => mapImageSources(project.images?.[0]?.sources),
+      [project.images],
     )
 
     return (
@@ -168,18 +159,16 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const environment = useEnvironment()
   const renderItem: ListRenderItem<ProjectsItem> = useCallback(
     ({item}) => (
       <ListItem
-        environment={environment}
         getProjectTraits={getProjectTraits}
         navigation={navigation}
         project={item}
         readArticles={readArticles}
       />
     ),
-    [environment, getProjectTraits, navigation, readArticles],
+    [getProjectTraits, navigation, readArticles],
   )
 
   if (isError) {

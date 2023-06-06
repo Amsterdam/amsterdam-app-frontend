@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Pressable, StyleSheet, View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
@@ -10,14 +10,9 @@ import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/im
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticleSummary} from '@/modules/construction-work/types'
-import {useEnvironment} from '@/store'
+import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
 import {Theme, useThemable, useTheme} from '@/themes'
-import {
-  formatDateToDisplay,
-  getDateDiffInDays,
-  mapImageSources,
-  mapWarningImageSources,
-} from '@/utils'
+import {formatDateToDisplay, getDateDiffInDays, mapImageSources} from '@/utils'
 
 type Props = {
   article: ArticleSummary
@@ -35,22 +30,12 @@ export const ArticlePreview = ({
 }: Props) => {
   const [isNewAndUnreadArticle, setIsNewAndUnreadArticle] =
     useState<boolean>(false)
-  const environment = useEnvironment()
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const imageSources = useMemo(() => {
-    if (article.type === 'news') {
-      return mapImageSources(article.image?.sources, environment)
-    }
-    const mainImageFromProjectWarning = article?.images?.find(
-      image => image.main,
-    )
-    const warningImageSources = mapWarningImageSources(
-      mainImageFromProjectWarning?.sources,
-      environment,
-    )
-    return warningImageSources
-  }, [article, environment])
+  const imageSources =
+    article.type === 'news'
+      ? mapImageSources(article.image?.sources)
+      : getProjectWarningMainImageInfo(article)?.sources
 
   useEffect(() => {
     setIsNewAndUnreadArticle(
@@ -96,7 +81,7 @@ export const ArticlePreview = ({
                 text={article.title}
               />
               <View style={styles.image}>
-                {imageSources && Object.keys(imageSources[0]).length ? (
+                {imageSources && imageSources.length > 0 ? (
                   <Image
                     aspectRatio="extraWide"
                     source={imageSources}

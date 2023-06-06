@@ -14,7 +14,6 @@ import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor
 import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {DeviceContext} from '@/providers'
-import {useEnvironment} from '@/store'
 import {useTheme} from '@/themes'
 import {mapImageSources} from '@/utils'
 
@@ -28,23 +27,19 @@ type ListItemProps = {
   project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
 }
 
-const ListItem = ({navigation, project}: ListItemProps) => {
-  const environment = useEnvironment()
-
-  return (
-    <ProjectCard
-      imageSource={mapImageSources(project.images?.[0].sources, environment)}
-      onPress={() =>
-        navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
-          projectId: project.identifier,
-          projectTitle: project.title,
-        })
-      }
-      subtitle={project.subtitle ?? undefined}
-      title={project.title}
-    />
-  )
-}
+const ListItem = ({navigation, project}: ListItemProps) => (
+  <ProjectCard
+    imageSource={mapImageSources(project.images?.[0]?.sources)}
+    onPress={() =>
+      navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
+        projectId: project.identifier,
+        projectTitle: project.title,
+      })
+    }
+    subtitle={project.subtitle ?? undefined}
+    title={project.title}
+  />
+)
 
 const ListEmptyMessage = () => (
   <Box insetHorizontal="md">

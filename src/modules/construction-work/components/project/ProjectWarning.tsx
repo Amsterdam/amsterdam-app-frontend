@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
-import {useEffect, useLayoutEffect, useState} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
@@ -12,10 +12,9 @@ import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/service'
-import {ProjectWarningImage} from '@/modules/construction-work/types'
-import {useEnvironment} from '@/store'
+import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
 import {useTheme} from '@/themes'
-import {formatDate, mapWarningImageSources} from '@/utils'
+import {formatDate} from '@/utils'
 
 type Props = {
   id: string
@@ -25,9 +24,6 @@ export const ProjectWarning = ({id}: Props) => {
   const navigation = useNavigation()
   const {media} = useTheme()
 
-  const [mainImage, setMainImage] = useState<ProjectWarningImage | undefined>(
-    undefined,
-  )
   const {markAsRead} = useMarkArticleAsRead()
 
   const {data: projectWarning, isLoading: projectWarningIsLoading} =
@@ -41,18 +37,14 @@ export const ProjectWarning = ({id}: Props) => {
   )
 
   useEffect(() => {
-    const mainImageFromProjectWarning = projectWarning?.images?.find(
-      image => image.main,
-    )
-    mainImageFromProjectWarning && setMainImage(mainImageFromProjectWarning)
-  }, [projectWarning])
+    if (!projectWarning) {
+      return
+    }
 
-  useEffect(() => {
-    projectWarning &&
-      markAsRead({
-        id: projectWarning.identifier,
-        publicationDate: projectWarning.publication_date,
-      })
+    markAsRead({
+      id: projectWarning.identifier,
+      publicationDate: projectWarning.publication_date,
+    })
   }, [markAsRead, projectWarning])
 
   useLayoutEffect(() => {
@@ -61,11 +53,11 @@ export const ProjectWarning = ({id}: Props) => {
     })
   })
 
-  const environment = useEnvironment()
-
   if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
     return <PleaseWait />
   }
+
+  const mainImage = getProjectWarningMainImageInfo(projectWarning)
 
   return (
     <>
@@ -73,7 +65,7 @@ export const ProjectWarning = ({id}: Props) => {
         <Image
           accessibilityLabel={mainImage.description}
           accessible
-          source={mapWarningImageSources(mainImage.sources, environment)}
+          source={mainImage.sources}
           testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
         />
       ) : (
