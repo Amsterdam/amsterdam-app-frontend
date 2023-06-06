@@ -29,6 +29,11 @@ const addressPersistConfig = {
   storage: AsyncStorage,
 }
 
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+}
+
 const contactPersistConfig = {
   key: 'contact',
   storage: AsyncStorage,
@@ -69,7 +74,7 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   address: persistReducer(addressPersistConfig, addressSlice.reducer),
   alert: alertSlice.reducer,
-  auth: authSlice.reducer,
+  auth: persistReducer(authPersistConfig, authSlice.reducer),
   bottomSheet: bottomSheetSlice.reducer,
   contact: persistReducer(contactPersistConfig, contactSlice.reducer),
   environment: persistReducer(

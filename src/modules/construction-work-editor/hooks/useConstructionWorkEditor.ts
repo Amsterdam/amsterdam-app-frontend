@@ -7,6 +7,7 @@ export const useConstructionWorkEditor = () => {
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const {
     data: projectManager,
+    isSuccess: isGetProjectManagerSuccess,
     isError: isGetProjectManagerError,
     error: getProjectManagerError,
     isLoading: isGetProjectManagerLoading,
@@ -18,6 +19,7 @@ export const useConstructionWorkEditor = () => {
     getProjectManagerError,
     isGetProjectManagerError,
     isGetProjectManagerLoading,
+    isGetProjectManagerSuccess,
     projectManager,
     constructionWorkEditorId,
   }
