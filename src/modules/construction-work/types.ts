@@ -139,7 +139,6 @@ export type Project = {
   active: boolean
   body: {
     contact: Section[]
-    intro: Section[]
     'more-info': Section[]
     timeline: Timeline
     what: Section[]
