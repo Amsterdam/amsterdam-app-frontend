@@ -12,7 +12,7 @@ type Props = {
   project: Project
 }
 
-enum ProjectBodyTitles {
+enum ProjectBodyTitle {
   about = 'Over dit project',
   contact = 'Contact',
   planning = 'Planning',
@@ -32,24 +32,24 @@ export const ProjectBodyMenu = ({project}: Props) => {
     {
       sections: [...project.body.what, ...project.body.where],
       testID: 'ConstructionWorkProjectAboutButton',
-      title: ProjectBodyTitles.about,
+      title: ProjectBodyTitle.about,
     },
     {
       sections: project.body.when,
       timeline: project.body.timeline,
       testID: 'ConstructionWorkProjectPlanningButton',
-      title: ProjectBodyTitles.planning,
+      title: ProjectBodyTitle.planning,
     },
     {
       sections: project.body.work,
       testID: 'ConstructionWorkProjectWorkButton',
-      title: ProjectBodyTitles.work,
+      title: ProjectBodyTitle.work,
     },
     {
       sections: project.body.contact,
       contacts: project.contacts,
       testID: 'ConstructionWorkProjectContactButton',
-      title: ProjectBodyTitles.contact,
+      title: ProjectBodyTitle.contact,
     },
   ]
 
