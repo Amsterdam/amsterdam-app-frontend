@@ -30,11 +30,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
 
   const menuOptions: ProjectBody[] = [
     {
-      sections: [
-        ...(project.body.intro ?? []),
-        ...(project.body.what ?? []),
-        ...(project.body.where ?? []),
-      ],
+      sections: [...(project.body.what ?? []), ...(project.body.where ?? [])],
       testID: 'ConstructionWorkProjectAboutButton',
       title: ProjectBodyTitles.about,
     },
