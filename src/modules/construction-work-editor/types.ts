@@ -10,7 +10,6 @@ export enum ConstructionWorkEditorEndpointName {
 export type ConstructionWorkEditor = {
   hasSeenWelcomeMessage: boolean
   id?: string
-  projects: string[]
 }
 
 export type ConstructionWorkEditorResponse = {
