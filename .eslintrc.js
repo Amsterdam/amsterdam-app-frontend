@@ -78,6 +78,7 @@ module.exports = {
         ignoreCase: true,
       },
     ],
+    'prettier/prettier': 'warn',
   },
   overrides: [
     {
