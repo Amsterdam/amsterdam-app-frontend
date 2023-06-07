@@ -21,7 +21,10 @@
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
-    "types": ["node"]
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "typeRoots": [
     "./types"
