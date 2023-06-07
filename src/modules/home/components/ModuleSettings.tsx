@@ -4,33 +4,23 @@ import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
-import {useModules, useRegisterDevice, useSentry} from '@/hooks'
+import {useModules, useRegisterDevice} from '@/hooks'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
-import {getPushNotificationsPermission} from '@/processes'
 
 export const ModuleSettings = () => {
   const {modules, modulesLoading, selectedModules} = useModules()
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
 
-  const {sendSentryErrorLog} = useSentry()
-  const {registerDevice, unregisterDevice} = useRegisterDevice()
+  const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
 
   useEffect(() => {
     if (selectedModules.some(module => module.requiresFirebaseToken)) {
-      getPushNotificationsPermission()
-        .then(registerDevice)
-        .catch((error: unknown) => {
-          sendSentryErrorLog(
-            'Register device for push notifications failed',
-            'ModuleSettings.tsx',
-            {error},
-          )
-        })
+      registerDeviceWithPermission()
     } else {
       void unregisterDevice(undefined)
     }
-  }, [registerDevice, selectedModules, sendSentryErrorLog, unregisterDevice])
+  }, [registerDeviceWithPermission, selectedModules, unregisterDevice])
 
   if (modulesLoading) {
     return <PleaseWait grow />
