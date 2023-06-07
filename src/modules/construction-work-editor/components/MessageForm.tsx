@@ -1,8 +1,14 @@
 import {forwardRef, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import ImageCropPicker from 'react-native-image-crop-picker'
+import ImageCropPicker, {
+  Options as ImageCropPickerOptions,
+} from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {TextInputField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
@@ -17,6 +23,7 @@ import {
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewMessage} from '@/modules/construction-work-editor/types'
+import {setAlert} from '@/store'
 
 const maxCharacters = {
   title: 100,
@@ -32,7 +39,28 @@ type Props = {
   onMainImageSelected: () => void
 }
 
-const config = {maxWidth: 1920, maxHeight: 1080}
+const imageCropPickerOptions: ImageCropPickerOptions = {
+  cropperCancelText: 'Annuleren',
+  cropperChooseText: 'Kiezen',
+  cropping: true,
+  height: 1080,
+  includeBase64: true,
+  mediaType: 'photo',
+  width: 1920,
+}
+
+const getAddPhotoFeedback = (code: string, viaCamera = false) => {
+  if (['E_NO_CAMERA_PERMISSION', 'E_NO_LIBRARY_PERMISSION'].includes(code)) {
+    return `Sorry, je kunt geen foto ${
+      viaCamera ? 'maken' : 'toevoegen'
+    }, omdat de app geen toestemming heeft om je ${
+      viaCamera ? 'camera' : 'fotobibliotheek'
+    } te gebruiken.`
+  }
+  return `Sorry, er is iets misgegaan. De app kan geen gebruik maken van je ${
+    viaCamera ? 'camera' : 'fotobibliotheek'
+  }.`
+}
 
 export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
@@ -68,36 +96,50 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     [constructionWorkEditorId, dispatch, currentProjectId],
   )
 
-  const pickImage = (data: FormData) => {
-    saveMessage(data)
-    ImageCropPicker.openPicker({
-      cropperCancelText: 'Annuleren',
-      cropperChooseText: 'Kiezen',
-      cropping: true,
-      height: config.maxHeight,
-      includeBase64: true,
-      mediaType: 'photo',
-      width: config.maxWidth,
-    })
-      .then(mainImage => {
-        dispatch(setMainImage({projectId: currentProjectId, mainImage}))
-        !mainImageDescription &&
+  const pickImage =
+    (viaCamera = false) =>
+    (data: FormData) => {
+      ImageCropPicker[viaCamera ? 'openCamera' : 'openPicker'](
+        imageCropPickerOptions,
+      )
+        .then(mainImage => {
+          dispatch(setMainImage({projectId: currentProjectId, mainImage}))
+          !mainImageDescription &&
+            dispatch(
+              setMainImageDescription({
+                projectId: currentProjectId,
+                mainImageDescription: undefined,
+              }),
+            )
+          onMainImageSelected()
+        })
+        .catch((error: {code: string}) => {
+          const {code} = error
+          // Picker or camera action cancelled by the user, all good
+          if (code === 'E_PICKER_CANCELLED') {
+            return
+          }
           dispatch(
-            setMainImageDescription({
-              projectId: currentProjectId,
-              mainImageDescription: undefined,
+            setAlert({
+              closeType: AlertCloseType.withoutButton,
+              content: {
+                text: getAddPhotoFeedback(code, viaCamera),
+              },
+              variant: AlertVariant.negative,
+              withIcon: false,
             }),
           )
-        onMainImageSelected()
-      })
-      .catch((error: unknown) => {
-        sendSentryErrorLog(
-          'Picking image from device failed',
-          'MessageForm.tsx',
-          {error},
-        )
-      })
-  }
+          sendSentryErrorLog(
+            viaCamera
+              ? 'Taking photo failed'
+              : 'Picking image from device failed',
+            'MessageForm.tsx',
+            {error, viaCamera},
+          )
+        })
+
+      saveMessage(data)
+    }
 
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
@@ -172,7 +214,15 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               <Button
                 iconName="enlarge"
                 label="Foto toevoegen"
-                onPress={handleSubmit(pickImage)}
+                onPress={handleSubmit(pickImage())}
+                variant="secondary"
+              />
+            </Row>
+            <Row align="start">
+              <Button
+                iconName="enlarge"
+                label="Foto maken"
+                onPress={handleSubmit(pickImage(true))}
                 variant="secondary"
               />
             </Row>

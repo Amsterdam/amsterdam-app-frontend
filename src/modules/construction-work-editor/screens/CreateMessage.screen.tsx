@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
+import {Alert} from '@/components/ui/feedback/Alert'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Link, Title} from '@/components/ui/text'
 import {MessageForm} from '@/modules/construction-work-editor/components'
@@ -57,7 +58,8 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
   return (
     <Screen
       keyboardAware
-      scroll>
+      scroll
+      stickyHeader={<Alert />}>
       <Column
         align="between"
         gutter="xl">
