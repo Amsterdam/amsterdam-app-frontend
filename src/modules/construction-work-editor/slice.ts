@@ -17,8 +17,11 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.id = id
     },
-    setHasSeenWelcomeMessage: state => {
-      state.hasSeenWelcomeMessage = true
+    setHasSeenWelcomeMessage: (
+      state,
+      {payload: hasSeen}: PayloadAction<boolean>,
+    ) => {
+      state.hasSeenWelcomeMessage = hasSeen
     },
     removeConstructionWorkEditor: () => initialState,
   },
