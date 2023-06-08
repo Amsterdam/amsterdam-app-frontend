@@ -14,3 +14,7 @@ The pipelines are configured via these files:
 This configuration uses the SSH variables, username and email address as defined in the variable group [github-authorization](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_library?itemType=VariableGroups).
 
 Note that the SHH connection to GitHub is similar to the [Storybook release config](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_release?_a=releases&definitionId=3&view=mine).
+
+## Further instructions
+
+https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/3329/Publiceer-source-code-naar-github
