@@ -12,15 +12,17 @@ export type ConstructionWorkEditor = {
   id?: string
 }
 
+export type ConstructionWorkEditorResponseProject = {
+  identifier: string
+  images: Image[]
+  subtitle: string
+  title: string
+}
+
 export type ConstructionWorkEditorResponse = {
   email: string
   identifier: string
-  projects: {
-    identifier: string
-    images: Image[]
-    subtitle: string
-    title: string
-  }[]
+  projects: ConstructionWorkEditorResponseProject[]
 }
 
 export type ProjectWarningImageQueryArg = {
