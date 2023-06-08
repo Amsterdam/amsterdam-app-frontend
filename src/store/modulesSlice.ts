@@ -28,7 +28,7 @@ export const modulesSlice = createSlice({
         }
       }
 
-      state.disabledModules = [...(state.disabledModules ?? []), slug]
+      state.disabledModules = [...state.disabledModules, slug]
     },
     addAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
       const {authorizedModules} = state
@@ -37,7 +37,7 @@ export const modulesSlice = createSlice({
         return
       }
 
-      state.authorizedModules = [...(state.authorizedModules ?? []), slug]
+      state.authorizedModules = [...state.authorizedModules, slug]
     },
     removeAuthorizedModule: (state, {payload: slug}: PayloadAction<string>) => {
       const {authorizedModules} = state
