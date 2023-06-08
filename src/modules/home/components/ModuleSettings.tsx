@@ -7,7 +7,8 @@ import {useModules, useRegisterDevice} from '@/hooks'
 import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
 
 export const ModuleSettings = () => {
-  const {modules, modulesLoading, selectedModules} = useModules()
+  const {authorizedModules, modules, modulesLoading, selectedModules} =
+    useModules()
 
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
 
@@ -34,7 +35,7 @@ export const ModuleSettings = () => {
   return (
     <Box>
       <Column gutter="sm">
-        {selectedModules.map(module => (
+        {authorizedModules.map(module => (
           <ModuleSetting key={module.slug} module={module} />
         ))}
       </Column>

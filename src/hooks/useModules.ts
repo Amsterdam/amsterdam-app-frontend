@@ -14,18 +14,23 @@ const MAX_RETRIES = 3
 
 const postProcessModules = (
   disabledModulesBySlug: string[],
-  authorizedModules: string[],
+  authorizedModulesBySlug: string[],
   serverModules?: ModuleServerConfig[],
 ) => {
   const modules = mergeModulesConfig(clientModules, serverModules)
-  const selectedModules = modules.filter(
+
+  const authorizedModules = modules.filter(
     module =>
-      (!module.requiresAuthorization ||
-        authorizedModules.includes(module.slug)) &&
-      !disabledModulesBySlug?.includes(module.slug),
+      !module.requiresAuthorization ||
+      authorizedModulesBySlug.includes(module.slug),
+  )
+
+  const selectedModules = modules.filter(
+    module => !disabledModulesBySlug?.includes(module.slug),
   )
 
   return {
+    authorizedModules,
     modules,
     selectedModules,
     selectedModulesBySlug: selectedModules.map(module => module.slug),

@@ -8,6 +8,7 @@ import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {
   const {
+    authorizedModules,
     modulesError,
     modulesLoading,
     refetchModules,
@@ -27,7 +28,9 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = modules.filter(m => !m.hiddenInMenu)
+  const availableModules = modules.filter(
+    m => !m.hiddenInMenu && authorizedModules.includes(m),
+  )
 
   if (!availableModules.length) {
     return (
