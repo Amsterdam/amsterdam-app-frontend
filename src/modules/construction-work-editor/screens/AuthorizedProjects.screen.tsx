@@ -3,14 +3,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Alert, PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
+import {Alert} from '@/components/ui/feedback'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {Screen} from '@/components/ui/layout'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
-import {useRegisterConstructionWorkEditorId} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setAlert} from '@/store'
 
@@ -29,9 +28,6 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const deeplinkId = route.params?.id ?? undefined
 
-  const {projectManagerError, isLoading} =
-    useRegisterConstructionWorkEditorId(deeplinkId)
-
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
       dispatch(
@@ -49,17 +45,9 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
     }
   }, [dispatch, navigation, route.params?.showSuccessfullySentMessageAlert])
 
-  if (
-    projectManagerError &&
-    'status' in projectManagerError &&
-    projectManagerError.status === 'FETCH_ERROR'
-  ) {
-    return <SomethingWentWrong />
-  }
-
   return (
     <Screen scroll={false} stickyHeader={<Alert />}>
-      {isLoading ? <PleaseWait /> : <AuthorizedProjects />}
+      <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>
   )
 }
