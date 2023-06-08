@@ -48,16 +48,16 @@ export const useModules = () => {
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
-  const authorizedModules = useSelector(selectAuthorizedModules)
+  const authorizedModulesBySlug = useSelector(selectAuthorizedModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
     () =>
       postProcessModules(
         userDisabledModulesBySlug,
-        authorizedModules,
+        authorizedModulesBySlug,
         serverModules,
       ),
-    [authorizedModules, userDisabledModulesBySlug, serverModules],
+    [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules],
   )
 
   useEffect(() => {
