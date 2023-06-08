@@ -66,8 +66,9 @@ export const useRegisterConstructionWorkEditor = (
 
   // Show error message if fetching failed and welcome message has not been seen yet
   useEffect(() => {
-    isGetProjectManagerError && isApiAuthorizationError(getProjectManagerError)
-    !constructionWorkEditorHasSeenWelcomeMessage &&
+    isGetProjectManagerError &&
+      isApiAuthorizationError(getProjectManagerError) &&
+      !constructionWorkEditorHasSeenWelcomeMessage &&
       showAuthorizedFeedback.error()
   }, [
     constructionWorkEditorHasSeenWelcomeMessage,
