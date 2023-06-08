@@ -4,6 +4,7 @@ import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {ModuleSlug} from '@/modules/slugs'
 import {removeAuthorizedModule, addAuthorizedModule} from '@/store'
+import {isApiAuthorizationError} from '@/utils'
 
 export const useSetModuleAuthorization = () => {
   const dispatch = useDispatch()
@@ -12,14 +13,10 @@ export const useSetModuleAuthorization = () => {
       getProjectManagerError: FetchBaseQueryError | SerializedError | undefined,
       isGetProjectManagerSuccess: boolean,
     ) => {
-      const hasUnauthenticatedError =
+      if (
         getProjectManagerError &&
-        'status' in getProjectManagerError &&
-        ([403, 404] as Array<FetchBaseQueryError['status']>).includes(
-          getProjectManagerError.status,
-        )
-
-      if (hasUnauthenticatedError) {
+        isApiAuthorizationError(getProjectManagerError)
+      ) {
         dispatch(removeAuthorizedModule(ModuleSlug['construction-work-editor']))
         return
       }

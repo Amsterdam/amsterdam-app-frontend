@@ -1,3 +1,5 @@
+import {SerializedError} from '@reduxjs/toolkit'
+import {FetchBaseQueryError} from '@reduxjs/toolkit/dist/query'
 import {
   FieldsQueryArg,
   ProjectIdsQueryArg,
@@ -60,3 +62,9 @@ export const formatQueryParams = ({
   ...(pageSize && {page_size: pageSize}),
   ...rest,
 })
+
+export const isApiAuthorizationError = (
+  error: FetchBaseQueryError | SerializedError,
+) =>
+  'status' in error &&
+  ([403, 404] as Array<FetchBaseQueryError['status']>).includes(error.status)
