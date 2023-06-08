@@ -1,42 +1,30 @@
-import {FetchBaseQueryError} from '@reduxjs/toolkit/dist/query'
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useConstructionWorkEditor'
-import {ModuleSlug} from '@/modules/slugs'
-import {addAuthorizedModule, removeAuthorizedModule} from '@/store'
+import {useSelector} from 'react-redux'
+import {useSetModuleAuthorization} from '@/modules/construction-work-editor/hooks/useSetModuleAuthorization'
+import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
+import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 
 export const PreRenderComponent = () => {
-  const dispatch = useDispatch()
+  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const {
-    constructionWorkEditorId,
-    getProjectManagerError,
-    isGetProjectManagerSuccess,
-  } = useConstructionWorkEditor()
+    isSuccess: isGetProjectManagerSuccess,
+    error: getProjectManagerError,
+    isLoading: isGetProjectManagerLoading,
+  } = useGetProjectManagerQuery(
+    constructionWorkEditorId ? {id: constructionWorkEditorId} : skipToken,
+  )
+  const {setModuleAuthorization} = useSetModuleAuthorization()
 
   useEffect(() => {
-    if (!constructionWorkEditorId) {
-      dispatch(removeAuthorizedModule(ModuleSlug['construction-work-editor']))
-      return
-    }
-    if (getProjectManagerError) {
-      if (
-        'status' in getProjectManagerError &&
-        ([403, 404] as Array<FetchBaseQueryError['status']>).includes(
-          getProjectManagerError.status,
-        )
-      ) {
-        dispatch(removeAuthorizedModule(ModuleSlug['construction-work-editor']))
-        return
-      }
-    }
-    if (isGetProjectManagerSuccess) {
-      dispatch(addAuthorizedModule(ModuleSlug['construction-work-editor']))
-    }
+    !isGetProjectManagerLoading &&
+      setModuleAuthorization(getProjectManagerError, isGetProjectManagerSuccess)
   }, [
-    constructionWorkEditorId,
+    isGetProjectManagerLoading,
     getProjectManagerError,
     isGetProjectManagerSuccess,
-    dispatch,
+    setModuleAuthorization,
   ])
+
   return null
 }
