@@ -1,18 +1,11 @@
 import {forwardRef, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import ImageCropPicker, {
-  Options as ImageCropPickerOptions,
-} from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
 import {TextInputField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
-import {useSentry} from '@/hooks'
+import {useOpenPicker} from '@/hooks/useOpenPicker'
 import {
   selectCurrentProjectId,
   selectMainImageDescription,
@@ -23,7 +16,6 @@ import {
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewMessage} from '@/modules/construction-work-editor/types'
-import {setAlert} from '@/store'
 
 const maxCharacters = {
   title: 100,
@@ -39,32 +31,8 @@ type Props = {
   onMainImageSelected: () => void
 }
 
-const imageCropPickerOptions: ImageCropPickerOptions = {
-  cropperCancelText: 'Annuleren',
-  cropperChooseText: 'Kiezen',
-  cropping: true,
-  height: 1080,
-  includeBase64: true,
-  mediaType: 'photo',
-  width: 1920,
-}
-
-const getAddPhotoFeedback = (code: string, viaCamera = false) => {
-  if (['E_NO_CAMERA_PERMISSION', 'E_NO_LIBRARY_PERMISSION'].includes(code)) {
-    return `Sorry, je kunt geen foto ${
-      viaCamera ? 'maken' : 'toevoegen'
-    }, omdat de app geen toestemming heeft om je ${
-      viaCamera ? 'camera' : 'fotobibliotheek'
-    } te gebruiken.`
-  }
-  return `Sorry, er is iets misgegaan. De app kan geen gebruik maken van je ${
-    viaCamera ? 'camera' : 'fotobibliotheek'
-  }.`
-}
-
 export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
-  const {sendSentryErrorLog} = useSentry()
 
   const currentProjectId = useSelector(selectCurrentProjectId)
   const selectedMessage = useSelector(selectMessage(currentProjectId))
@@ -96,13 +64,15 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     [constructionWorkEditorId, dispatch, currentProjectId],
   )
 
-  const pickImage =
+  const openPicker = useOpenPicker()
+
+  const pickImage = useCallback(
     (viaCamera = false) =>
-    (data: FormData) => {
-      ImageCropPicker[viaCamera ? 'openCamera' : 'openPicker'](
-        imageCropPickerOptions,
-      )
-        .then(mainImage => {
+      (data: FormData) => {
+        void openPicker(viaCamera).then(mainImage => {
+          if (!mainImage) {
+            return
+          }
           dispatch(setMainImage({projectId: currentProjectId, mainImage}))
           !mainImageDescription &&
             dispatch(
@@ -113,33 +83,18 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
             )
           onMainImageSelected()
         })
-        .catch((error: {code: string}) => {
-          const {code} = error
-          // Picker or camera action cancelled by the user, all good
-          if (code === 'E_PICKER_CANCELLED') {
-            return
-          }
-          dispatch(
-            setAlert({
-              closeType: AlertCloseType.withoutButton,
-              content: {
-                text: getAddPhotoFeedback(code, viaCamera),
-              },
-              variant: AlertVariant.negative,
-              withIcon: false,
-            }),
-          )
-          sendSentryErrorLog(
-            viaCamera
-              ? 'Taking photo failed'
-              : 'Picking image from device failed',
-            'MessageForm.tsx',
-            {error, viaCamera},
-          )
-        })
 
-      saveMessage(data)
-    }
+        saveMessage(data)
+      },
+    [
+      currentProjectId,
+      dispatch,
+      mainImageDescription,
+      onMainImageSelected,
+      openPicker,
+      saveMessage,
+    ],
+  )
 
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
