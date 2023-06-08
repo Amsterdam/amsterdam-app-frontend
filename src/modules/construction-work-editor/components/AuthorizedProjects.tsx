@@ -6,16 +6,20 @@ import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui/containers'
-import {EmptyMessage} from '@/components/ui/feedback'
+import {
+  EmptyMessage,
+  PleaseWait,
+  SomethingWentWrong,
+} from '@/components/ui/feedback'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
-import {useConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
+import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
-import {mapImageSources} from '@/utils'
+import {isApiAuthorizationError, mapImageSources} from '@/utils'
 
 type Navigation = StackNavigationProp<
   RootStackParams,
@@ -48,18 +52,32 @@ const ListEmptyMessage = () => (
 )
 
 type Props = {
+  deeplinkId?: string
   initialMetrics?: Metrics | null
 }
 
-export const AuthorizedProjects = ({initialMetrics}: Props) => {
+export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
   const navigation = useNavigation<Navigation>()
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const {projectManager} = useConstructionWorkEditor()
+  const {projectManager, isGetProjectManagerLoading, getProjectManagerError} =
+    useRegisterConstructionWorkEditor(deeplinkId)
+
   const authorizedProjects = projectManager?.projects
+
+  if (isGetProjectManagerLoading) {
+    return <PleaseWait />
+  }
+
+  if (
+    getProjectManagerError &&
+    !isApiAuthorizationError(getProjectManagerError)
+  ) {
+    return <SomethingWentWrong />
+  }
 
   if (!authorizedProjects) {
     return null
