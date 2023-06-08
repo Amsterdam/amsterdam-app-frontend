@@ -7,18 +7,22 @@ import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
 import {ModuleServerConfig} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services'
-import {selectDisabledModules} from '@/store'
+import {selectAuthorizedModules, selectDisabledModules} from '@/store'
 import {mergeModulesConfig} from '@/utils'
 
 const MAX_RETRIES = 3
 
 const postProcessModules = (
   disabledModulesBySlug: string[],
+  authorizedModules: string[],
   serverModules?: ModuleServerConfig[],
 ) => {
   const modules = mergeModulesConfig(clientModules, serverModules)
   const selectedModules = modules.filter(
-    module => !disabledModulesBySlug?.includes(module.slug),
+    module =>
+      (!module.requiresAuthorization ||
+        authorizedModules.includes(module.slug)) &&
+      !disabledModulesBySlug?.includes(module.slug),
   )
 
   return {
@@ -39,10 +43,16 @@ export const useModules = () => {
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
+  const authorizedModules = useSelector(selectAuthorizedModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
-    () => postProcessModules(userDisabledModulesBySlug, serverModules),
-    [userDisabledModulesBySlug, serverModules],
+    () =>
+      postProcessModules(
+        userDisabledModulesBySlug,
+        authorizedModules,
+        serverModules,
+      ),
+    [authorizedModules, userDisabledModulesBySlug, serverModules],
   )
 
   useEffect(() => {

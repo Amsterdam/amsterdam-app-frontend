@@ -1,15 +1,12 @@
 import {pascalCase} from 'pascal-case'
-import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
-import {selectAuthorizedModules} from '@/store'
 
 export const Modules = () => {
-  const authorizedModules = useSelector(selectAuthorizedModules)
   const {
     modulesError,
     modulesLoading,
@@ -30,11 +27,7 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = modules.filter(
-    m =>
-      (!m.requiresAuthorization || authorizedModules.includes(m.slug)) &&
-      !m.hiddenInMenu,
-  )
+  const availableModules = modules.filter(m => !m.hiddenInMenu)
 
   if (!availableModules.length) {
     return (
