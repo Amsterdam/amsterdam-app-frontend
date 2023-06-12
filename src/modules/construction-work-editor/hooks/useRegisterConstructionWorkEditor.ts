@@ -1,9 +1,9 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
-import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
 import {useSaveIdAndToken} from '@/modules/construction-work-editor/hooks/useSaveIdAndToken'
+import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {
   selectConstructionWorkEditorHasSeenWelcomeMessage,
@@ -19,6 +19,7 @@ export const useRegisterConstructionWorkEditor = (
   const constructionWorkEditorHasSeenWelcomeMessage = useSelector(
     selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
+  const dispatch = useDispatch()
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const authManagerToken = useSelector(selectAuthManagerToken)
   const showAuthorizedFeedback = useShowAuthorizedFeedback()
@@ -29,10 +30,10 @@ export const useRegisterConstructionWorkEditor = (
   // and store the id and manager token
   useEffect(() => {
     if (deeplinkId) {
-      setHasSeenWelcomeMessage(false)
+      dispatch(setHasSeenWelcomeMessage(false))
       saveIdAndToken(deeplinkId)
     }
-  }, [deeplinkId, saveIdAndToken])
+  }, [deeplinkId, dispatch, saveIdAndToken])
 
   // Get project manager from endpoint
   const {
