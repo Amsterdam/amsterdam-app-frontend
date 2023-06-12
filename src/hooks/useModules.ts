@@ -31,7 +31,8 @@ const postProcessModules = (
 
   return {
     authorizedModules,
-    modules,
+    // Be careful when using this prop. You probably want to consider authorized or selected modules instead.
+    allModulesDangerous: modules,
     selectedModules,
     selectedModulesBySlug: selectedModules.map(module => module.slug),
   }
@@ -93,7 +94,8 @@ export const useModules = () => {
   // This prevents the situation where an empty modules array is returned when isLoading is false.
   // TODO We should fix this later by handling the async nature of requests in a better way.
   const modulesLoading =
-    isLoading || (isSuccess && postProcessedModules.modules.length === 0)
+    isLoading ||
+    (isSuccess && postProcessedModules.allModulesDangerous.length === 0)
 
   return {
     clientModules,

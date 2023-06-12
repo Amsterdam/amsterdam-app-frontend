@@ -7,8 +7,7 @@ import {useModules, useRegisterDevice} from '@/hooks'
 import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
 
 export const ModuleSettings = () => {
-  const {authorizedModules, modules, modulesLoading, selectedModules} =
-    useModules()
+  const {authorizedModules, modulesLoading, selectedModules} = useModules()
 
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
 
@@ -24,7 +23,7 @@ export const ModuleSettings = () => {
     return <PleaseWait grow />
   }
 
-  if (!modules.length) {
+  if (!authorizedModules.length) {
     return (
       <ModulesWarning
         text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
