@@ -5,7 +5,7 @@ import {Button} from '@/components/ui/buttons'
 import {TextInputField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
-import {useOpenPicker} from '@/hooks/useOpenPicker'
+import {useOpenImagePicker} from '@/hooks/useOpenImagePicker'
 import {
   selectCurrentProjectId,
   selectMainImageDescription,
@@ -64,12 +64,12 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     [constructionWorkEditorId, dispatch, currentProjectId],
   )
 
-  const openPicker = useOpenPicker()
+  const openImagePicker = useOpenImagePicker()
 
   const pickImage = useCallback(
     (viaCamera = false) =>
       (data: FormData) => {
-        void openPicker(viaCamera).then(mainImage => {
+        void openImagePicker(viaCamera).then(mainImage => {
           if (!mainImage) {
             return
           }
@@ -91,7 +91,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       dispatch,
       mainImageDescription,
       onMainImageSelected,
-      openPicker,
+      openImagePicker,
       saveMessage,
     ],
   )
