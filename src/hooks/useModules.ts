@@ -31,7 +31,9 @@ const postProcessModules = (
 
   return {
     authorizedModules,
-    // Be careful when using this prop. You probably want to consider authorized or selected modules instead.
+    /**
+     * Be careful when using this prop. You probably want to consider authorized or selected modules instead.
+     */
     allModulesDangerous: modules,
     selectedModules,
     selectedModulesBySlug: selectedModules.map(module => module.slug),
