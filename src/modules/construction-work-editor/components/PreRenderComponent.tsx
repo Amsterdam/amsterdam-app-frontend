@@ -18,7 +18,7 @@ export const PreRenderComponent = () => {
 
   useEffect(() => {
     !isGetProjectManagerLoading &&
-      setModuleAuthorization(getProjectManagerError, isGetProjectManagerSuccess)
+      setModuleAuthorization(isGetProjectManagerSuccess, getProjectManagerError)
   }, [
     isGetProjectManagerLoading,
     getProjectManagerError,

@@ -10,8 +10,8 @@ export const useSetModuleAuthorization = () => {
   const dispatch = useDispatch()
   const setModuleAuthorization = useCallback(
     (
-      getProjectManagerError: FetchBaseQueryError | SerializedError | undefined,
       isGetProjectManagerSuccess: boolean,
+      getProjectManagerError: FetchBaseQueryError | SerializedError | undefined,
     ) => {
       if (
         getProjectManagerError &&
