@@ -11,6 +11,7 @@ import {
   PleaseWait,
   SomethingWentWrong,
 } from '@/components/ui/feedback'
+import {Paragraph} from '@/components/ui/text'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
@@ -80,7 +81,14 @@ export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
   }
 
   if (!authorizedProjects) {
-    return null
+    return (
+      <Box>
+        <Paragraph>
+          We hebben geen werkzaamheden gevonden. Neem contact op met de
+          redactie.
+        </Paragraph>
+      </Box>
+    )
   }
 
   return (
