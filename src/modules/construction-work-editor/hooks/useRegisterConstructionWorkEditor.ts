@@ -38,7 +38,6 @@ export const useRegisterConstructionWorkEditor = (
   // Get project manager from endpoint
   const {
     data: projectManager,
-    isSuccess: isGetProjectManagerSuccess,
     isError: isGetProjectManagerError,
     error: getProjectManagerError,
     isLoading: isGetProjectManagerLoading,
@@ -56,12 +55,12 @@ export const useRegisterConstructionWorkEditor = (
 
   // Show success message if fetching succeeded and welcome message has not been seen yet
   useEffect(() => {
-    isGetProjectManagerSuccess &&
+    projectManager &&
       !constructionWorkEditorHasSeenWelcomeMessage &&
       showAuthorizedFeedback.success()
   }, [
     constructionWorkEditorHasSeenWelcomeMessage,
-    isGetProjectManagerSuccess,
+    projectManager,
     showAuthorizedFeedback,
   ])
 
