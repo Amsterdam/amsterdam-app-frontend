@@ -67,4 +67,6 @@ export const isApiAuthorizationError = (
   error: FetchBaseQueryError | SerializedError,
 ) =>
   'status' in error &&
-  ([403, 404] as Array<FetchBaseQueryError['status']>).includes(error.status)
+  ([401, 403, 404] as Array<FetchBaseQueryError['status']>).includes(
+    error.status,
+  )
