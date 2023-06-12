@@ -25,7 +25,7 @@ const postProcessModules = (
       authorizedModulesBySlug.includes(module.slug),
   )
 
-  const selectedModules = modules.filter(
+  const selectedModules = authorizedModules.filter(
     module => !disabledModulesBySlug?.includes(module.slug),
   )
 
