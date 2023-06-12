@@ -6,33 +6,21 @@ import {
   useModules,
   usePiwik,
   useRegisterDevice,
-  useSentry,
 } from '@/hooks'
-import {useConstructionWorkEditorCredentials} from '@/modules/construction-work-editor/hooks'
-import {getPushNotificationsPermission} from '@/processes'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   useInitSentry()
   const piwik = usePiwik()
-  const {sendSentryErrorLog} = useSentry()
-  const {registerDevice, unregisterDevice} = useRegisterDevice()
+  const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
   const {selectedModules} = useModules()
 
   const onAppstate = useMemo(
     () => ({
       onForeground: () => {
         if (selectedModules.some(module => module.requiresFirebaseToken)) {
-          getPushNotificationsPermission()
-            .then(registerDevice)
-            .catch((error: unknown) => {
-              sendSentryErrorLog(
-                'Register device for push notifications failed',
-                'Init.tsx',
-                {error},
-              )
-            })
+          registerDeviceWithPermission()
         } else {
           void unregisterDevice(undefined)
         }
@@ -41,18 +29,17 @@ export const Init = ({children}: Props) => {
         void piwik?.trackCustomEvent('appStateChange', nextAppState)
       },
     }),
-    [
-      piwik,
-      registerDevice,
-      selectedModules,
-      sendSentryErrorLog,
-      unregisterDevice,
-    ],
+    [piwik, registerDeviceWithPermission, selectedModules, unregisterDevice],
   )
 
   useAppState(onAppstate)
 
-  useConstructionWorkEditorCredentials()
-
-  return <>{children}</>
+  return (
+    <>
+      {selectedModules.map(({PreRenderComponent, slug}) =>
+        PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
+      )}
+      {children}
+    </>
+  )
 }

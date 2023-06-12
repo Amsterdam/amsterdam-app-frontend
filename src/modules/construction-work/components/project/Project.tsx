@@ -13,7 +13,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column, Gutter, Row} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
-import {useRegisterDevice, useSentry} from '@/hooks'
+import {useRegisterDevice} from '@/hooks'
 import {selectAddress} from '@/modules/address/slice'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
@@ -28,7 +28,6 @@ import {
   useGetProjectQuery,
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
-import {requestPushNotificationsPermission} from '@/processes'
 import {accessibleText, mapImageSources} from '@/utils'
 
 type Props = {
@@ -70,8 +69,7 @@ export const Project = ({id}: Props) => {
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
-  const {registerDevice} = useRegisterDevice()
-  const {sendSentryErrorLog} = useSentry()
+  const {registerDeviceWithPermission} = useRegisterDevice()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -82,24 +80,10 @@ export const Project = ({id}: Props) => {
         void unfollowProject({project_id: project.identifier})
       } else {
         void followProject({project_id: project.identifier})
-        requestPushNotificationsPermission()
-          .then(registerDevice)
-          .catch((error: unknown) => {
-            sendSentryErrorLog(
-              'Register device for push notifications failed',
-              'Project.tsx',
-              {error},
-            )
-          })
+        registerDeviceWithPermission()
       }
     },
-    [
-      followProject,
-      project,
-      registerDevice,
-      sendSentryErrorLog,
-      unfollowProject,
-    ],
+    [followProject, project, registerDeviceWithPermission, unfollowProject],
   )
 
   useLayoutEffect(() => {

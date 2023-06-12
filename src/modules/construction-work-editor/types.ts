@@ -10,18 +10,19 @@ export enum ConstructionWorkEditorEndpointName {
 export type ConstructionWorkEditor = {
   hasSeenWelcomeMessage: boolean
   id?: string
-  projects: string[]
+}
+
+export type ConstructionWorkEditorResponseProject = {
+  identifier: string
+  images: Image[]
+  subtitle: string
+  title: string
 }
 
 export type ConstructionWorkEditorResponse = {
   email: string
   identifier: string
-  projects: {
-    identifier: string
-    images: Image[]
-    subtitle: string
-    title: string
-  }[]
+  projects: ConstructionWorkEditorResponseProject[]
 }
 
 export type ProjectWarningImageQueryArg = {

@@ -1,10 +1,8 @@
 import {pascalCase} from 'pascal-case'
-import {useSelector} from 'react-redux'
 import {Box} from '@/components/ui/containers'
 import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {useModules} from '@/hooks'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
 
@@ -15,8 +13,6 @@ export const Modules = () => {
     refetchModules,
     selectedModules: modules,
   } = useModules()
-  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
-  const isEmployee = !!constructionWorkEditorId
 
   if (modulesLoading) {
     return <PleaseWait grow />
@@ -31,9 +27,7 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = modules.filter(
-    m => (!m.isForEmployees || isEmployee) && !m.hiddenInMenu,
-  )
+  const availableModules = modules.filter(m => !m.hiddenInMenu)
 
   if (!availableModules.length) {
     return (
@@ -47,7 +41,7 @@ export const Modules = () => {
     <Box grow>
       <Column gutter="md">
         {availableModules.map(
-          ({BadgeValue, icon, isForEmployees, slug, status, title}) => (
+          ({BadgeValue, icon, requiresAuthorization, slug, status, title}) => (
             <ModuleButton
               BadgeValue={BadgeValue}
               disabled={status === ModuleStatus.inactive}
@@ -56,7 +50,7 @@ export const Modules = () => {
               label={title}
               slug={slug}
               testID={`Home${pascalCase(slug)}ModuleButton`}
-              variant={isForEmployees ? 'primary' : 'tertiary'}
+              variant={requiresAuthorization ? 'primary' : 'tertiary'}
             />
           ),
         )}

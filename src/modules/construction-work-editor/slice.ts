@@ -5,7 +5,6 @@ import {RootState} from '@/store'
 const initialState: ConstructionWorkEditor = {
   id: undefined,
   hasSeenWelcomeMessage: false,
-  projects: [],
 }
 
 export const constructionWorkEditorSlice = createSlice({
@@ -18,14 +17,11 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.id = id
     },
-    addConstructionWorkEditorProjects: (
+    setHasSeenWelcomeMessage: (
       state,
-      {payload: projects}: PayloadAction<string[]>,
+      {payload: hasSeen}: PayloadAction<boolean>,
     ) => {
-      state.projects = projects
-    },
-    setHasSeenWelcomeMessage: state => {
-      state.hasSeenWelcomeMessage = true
+      state.hasSeenWelcomeMessage = hasSeen
     },
     removeConstructionWorkEditor: () => initialState,
   },
@@ -33,7 +29,6 @@ export const constructionWorkEditorSlice = createSlice({
 
 export const {
   addConstructionWorkEditorId,
-  addConstructionWorkEditorProjects,
   setHasSeenWelcomeMessage,
   removeConstructionWorkEditor,
 } = constructionWorkEditorSlice.actions
@@ -44,6 +39,3 @@ export const selectConstructionWorkEditorId = ({
 export const selectConstructionWorkEditorHasSeenWelcomeMessage = ({
   constructionWorkEditor,
 }: RootState) => constructionWorkEditor.hasSeenWelcomeMessage
-export const selectConstructionWorkEditorProjects = ({
-  constructionWorkEditor,
-}: RootState) => constructionWorkEditor.projects

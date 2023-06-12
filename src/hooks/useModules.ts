@@ -7,22 +7,34 @@ import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
 import {ModuleServerConfig} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services'
-import {selectDisabledModules} from '@/store'
+import {selectAuthorizedModules, selectDisabledModules} from '@/store'
 import {mergeModulesConfig} from '@/utils'
 
 const MAX_RETRIES = 3
 
 const postProcessModules = (
   disabledModulesBySlug: string[],
+  authorizedModulesBySlug: string[],
   serverModules?: ModuleServerConfig[],
 ) => {
   const modules = mergeModulesConfig(clientModules, serverModules)
-  const selectedModules = modules.filter(
+
+  const authorizedModules = modules.filter(
+    module =>
+      !module.requiresAuthorization ||
+      authorizedModulesBySlug.includes(module.slug),
+  )
+
+  const selectedModules = authorizedModules.filter(
     module => !disabledModulesBySlug?.includes(module.slug),
   )
 
   return {
-    modules,
+    authorizedModules,
+    /**
+     * Be careful when using this prop. You probably want to consider authorized or selected modules instead.
+     */
+    allModulesDangerous: modules,
     selectedModules,
     selectedModulesBySlug: selectedModules.map(module => module.slug),
   }
@@ -38,13 +50,17 @@ export const useModules = () => {
   } = useGetReleaseQuery(releaseVersion ?? skipToken)
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
-  const {disabledModules: userDisabledModulesBySlug} = useSelector(
-    selectDisabledModules,
-  )
+  const userDisabledModulesBySlug = useSelector(selectDisabledModules)
+  const authorizedModulesBySlug = useSelector(selectAuthorizedModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
-    () => postProcessModules(userDisabledModulesBySlug, serverModules),
-    [userDisabledModulesBySlug, serverModules],
+    () =>
+      postProcessModules(
+        userDisabledModulesBySlug,
+        authorizedModulesBySlug,
+        serverModules,
+      ),
+    [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules],
   )
 
   useEffect(() => {
@@ -80,7 +96,8 @@ export const useModules = () => {
   // This prevents the situation where an empty modules array is returned when isLoading is false.
   // TODO We should fix this later by handling the async nature of requests in a better way.
   const modulesLoading =
-    isLoading || (isSuccess && postProcessedModules.modules.length === 0)
+    isLoading ||
+    (isSuccess && postProcessedModules.allModulesDangerous.length === 0)
 
   return {
     clientModules,

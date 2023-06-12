@@ -3,14 +3,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
-import {Alert, PleaseWait} from '@/components/ui/feedback'
+import {Alert} from '@/components/ui/feedback'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {Screen} from '@/components/ui/layout'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
-import {useRegisterConstructionWorkEditorId} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setAlert} from '@/store'
 
@@ -28,8 +27,6 @@ type Props = {
 export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
   const deeplinkId = route.params?.id ?? undefined
-
-  const {isLoading} = useRegisterConstructionWorkEditorId(deeplinkId)
 
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
@@ -50,7 +47,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen scroll={false} stickyHeader={<Alert />}>
-      {isLoading ? <PleaseWait /> : <AuthorizedProjects />}
+      <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>
   )
 }
