@@ -29,7 +29,7 @@ enum ImageCropPickerCustomError {
   E_NO_RESULT = 'E_NO_RESULT',
 }
 
-const permissionErrors: (ImageCropPickerError | ImageCropPickerCustomError)[] =
+const PERMISSION_ERRORS: (ImageCropPickerError | ImageCropPickerCustomError)[] =
   [
     ImageCropPickerError.E_NO_CAMERA_PERMISSION,
     ImageCropPickerError.E_NO_LIBRARY_PERMISSION,
@@ -39,7 +39,7 @@ const getAddPhotoFeedback = (
   code: ImageCropPickerError | ImageCropPickerCustomError,
   viaCamera = false,
 ) => {
-  if (permissionErrors.includes(code)) {
+  if (PERMISSION_ERRORS.includes(code)) {
     return `Sorry, je kunt geen foto ${
       viaCamera ? 'maken' : 'toevoegen'
     }, omdat de app geen toestemming heeft om je ${
