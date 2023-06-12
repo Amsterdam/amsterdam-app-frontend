@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
 import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
-import {useStoreIdAndManagerToken} from '@/modules/construction-work-editor/hooks/useStoreIdAndManagerToken'
+import {useSaveIdAndToken} from '@/modules/construction-work-editor/hooks/useSaveIdAndToken'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {
   selectConstructionWorkEditorHasSeenWelcomeMessage,
@@ -23,16 +23,16 @@ export const useRegisterConstructionWorkEditor = (
   const authManagerToken = useSelector(selectAuthManagerToken)
   const showAuthorizedFeedback = useShowAuthorizedFeedback()
   const {follow} = useFollowAuthorizedProjects()
-  const {storePersist} = useStoreIdAndManagerToken()
+  const {saveIdAndToken} = useSaveIdAndToken()
 
   // Since the user enters with a deeplink, we want to show the welcome message
   // and store the id and manager token
   useEffect(() => {
     if (deeplinkId) {
       setHasSeenWelcomeMessage(false)
-      storePersist(deeplinkId)
+      saveIdAndToken(deeplinkId)
     }
-  }, [deeplinkId, storePersist])
+  }, [deeplinkId, saveIdAndToken])
 
   // Get project manager from endpoint
   const {

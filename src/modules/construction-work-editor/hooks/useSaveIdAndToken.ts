@@ -4,9 +4,9 @@ import {addConstructionWorkEditorId} from '@/modules/construction-work-editor/sl
 import {setCredentials} from '@/store'
 import {encryptWithAES} from '@/utils'
 
-export const useStoreIdAndManagerToken = () => {
+export const useSaveIdAndToken = () => {
   const dispatch = useDispatch()
-  const storePersist = useCallback(
+  const saveIdAndToken = useCallback(
     (id: string) => {
       dispatch(addConstructionWorkEditorId(id))
       dispatch(
@@ -21,5 +21,5 @@ export const useStoreIdAndManagerToken = () => {
     [dispatch],
   )
 
-  return {storePersist}
+  return {saveIdAndToken}
 }
