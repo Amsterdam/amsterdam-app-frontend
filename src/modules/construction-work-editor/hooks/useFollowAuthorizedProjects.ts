@@ -4,8 +4,7 @@ import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {ConstructionWorkEditorResponseProject} from '@/modules/construction-work-editor/types'
 
 export const useFollowAuthorizedProjects = () => {
-  const [followProject, {isSuccess: isFollowProjectSuccess}] =
-    useFollowProjectMutation()
+  const [followProject] = useFollowProjectMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
 
   const follow = useCallback(
@@ -18,5 +17,5 @@ export const useFollowAuthorizedProjects = () => {
     [followProject, registerDeviceWithPermission],
   )
 
-  return {follow, isFollowProjectSuccess}
+  return {follow}
 }
