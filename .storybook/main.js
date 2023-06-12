@@ -33,6 +33,9 @@ module.exports = {
         'react-native-image-crop-picker': require.resolve(
           './mocks/react-native-image-crop-picker',
         ),
+        'react-native-fast-image': require.resolve(
+          './mocks/react-native-fast-image',
+        ),
         ...alias,
       },
     }
