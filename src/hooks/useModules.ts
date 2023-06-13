@@ -20,23 +20,27 @@ const postProcessModules = (
   const modules = mergeModulesConfig(clientModules, serverModules)
 
   const authorizedModules = modules.filter(
-    module =>
-      !module.requiresAuthorization ||
-      authorizedModulesBySlug.includes(module.slug),
+    ({requiresAuthorization, slug}) =>
+      !requiresAuthorization || authorizedModulesBySlug.includes(slug),
   )
 
   const selectedModules = authorizedModules.filter(
-    module => !disabledModulesBySlug?.includes(module.slug),
+    ({isCore, slug}) => isCore || !disabledModulesBySlug?.includes(slug),
   )
 
+  const selectableModules = authorizedModules.filter(({isCore}) => !isCore)
+
   return {
+    /** The modules, selected and not selected that a user may see. */
     authorizedModules,
-    /**
-     * Be careful when using this prop. You probably want to consider authorized or selected modules instead.
-     */
+    /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: modules,
+    /** Modules that a user may toggle in the settings. */
+    selectableModules,
+    /** Modules that a user has enabled in the settings. */
     selectedModules,
-    selectedModulesBySlug: selectedModules.map(module => module.slug),
+    /** Modules that a user has enabled in the settings, by slug. */
+    selectedModulesBySlug: selectedModules.map(({slug}) => slug),
   }
 }
 

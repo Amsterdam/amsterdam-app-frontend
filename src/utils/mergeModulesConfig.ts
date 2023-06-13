@@ -1,5 +1,4 @@
 import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
-import {nonNullable} from '@/utils/nonNullable'
 
 export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],
@@ -9,15 +8,19 @@ export const mergeModulesConfig = (
     return [] as Module[]
   }
 
-  return serverConfig
-    .map(serverModule => {
-      const clientModule = clientConfig.find(
-        m => serverModule.moduleSlug === m.slug,
-      )
+  const modules: Module[] = []
 
-      if (clientModule) {
-        return {...serverModule, ...clientModule}
-      }
-    })
-    .filter(nonNullable)
+  serverConfig.forEach(serverModule => {
+    const clientModule = clientConfig.find(
+      ({slug}) => serverModule.moduleSlug === slug,
+    )
+
+    if (!clientModule) {
+      return
+    }
+
+    modules.push({...clientModule, ...serverModule})
+  })
+
+  return modules
 }
