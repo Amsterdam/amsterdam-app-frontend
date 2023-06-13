@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux'
 import {version as releaseVersion} from '@/../package.json'
 import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
-import {ModuleServerConfig} from '@/modules/types'
+import {ModuleSlug} from '@/modules/slugs'
+import {Module, ModuleServerConfig} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services'
 import {selectAuthorizedModules, selectDisabledModules} from '@/store'
 import {mergeModulesConfig} from '@/utils'
@@ -24,23 +25,35 @@ const postProcessModules = (
       !requiresAuthorization || authorizedModulesBySlug.includes(slug),
   )
 
-  const selectedModules = authorizedModules.filter(
-    ({isCore, slug}) => isCore || !disabledModulesBySlug?.includes(slug),
-  )
+  const selectedModules: Module[] = []
+  const selectableModules: Module[] = []
+  const selectedModulesBySlug: ModuleSlug[] = []
 
-  const selectableModules = authorizedModules.filter(({isCore}) => !isCore)
+  authorizedModules.forEach(module => {
+    const {isCore, slug} = module
+
+    // only non-core modules may be toggled
+    if (!isCore) {
+      selectableModules.push(module)
+    }
+    // selected if the module is a core module or not disabled
+    if (isCore || !disabledModulesBySlug?.includes(slug)) {
+      selectedModules.push(module)
+      selectedModulesBySlug.push(slug)
+    }
+  })
 
   return {
-    /** The modules, selected and not selected that a user may see. */
-    authorizedModules,
     /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: modules,
+    /** The modules, selected and not selected that a user may see. */
+    authorizedModules,
     /** Modules that a user may toggle in the settings. */
     selectableModules,
     /** Modules that a user has enabled in the settings. */
     selectedModules,
     /** Modules that a user has enabled in the settings, by slug. */
-    selectedModulesBySlug: selectedModules.map(({slug}) => slug),
+    selectedModulesBySlug,
   }
 }
 
