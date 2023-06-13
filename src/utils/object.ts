@@ -8,3 +8,23 @@ export const isEmptyObject = (
   }
   return true
 }
+
+/**
+ * Check whether the input is an error object
+ */
+export const isErrorObject = (maybeError: unknown) =>
+  maybeError?.constructor === Error
+
+/**
+ * Get the value of a specific property of an object, first checking if it actually is an object. This is usefull for error handling when it is not certain what the type or content of the error is.
+ */
+export const getPropertyFromMaybeError = <T>(
+  maybeError: unknown,
+  property: string,
+) => {
+  if (!isErrorObject(maybeError)) {
+    return undefined
+  }
+
+  return (maybeError as Record<string, unknown>)[property] as T
+}

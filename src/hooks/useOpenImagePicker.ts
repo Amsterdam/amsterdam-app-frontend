@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {useSentry} from '@/hooks/useSentry'
 import {setAlert} from '@/store'
+import {getPropertyFromMaybeError} from '@/utils/object'
 
 const DEFAULT_OPTIONS: ImageCropPickerOptions = {
   cropperCancelText: 'Annuleren',
@@ -25,21 +26,16 @@ enum ImageCropPickerError {
   E_PICKER_CANCELLED = 'E_PICKER_CANCELLED',
 }
 
-enum ImageCropPickerCustomError {
-  E_NO_RESULT = 'E_NO_RESULT',
-}
-
-const PERMISSION_ERRORS: (ImageCropPickerError | ImageCropPickerCustomError)[] =
-  [
-    ImageCropPickerError.E_NO_CAMERA_PERMISSION,
-    ImageCropPickerError.E_NO_LIBRARY_PERMISSION,
-  ]
+const PERMISSION_ERRORS: ImageCropPickerError[] = [
+  ImageCropPickerError.E_NO_CAMERA_PERMISSION,
+  ImageCropPickerError.E_NO_LIBRARY_PERMISSION,
+]
 
 const getAddPhotoFeedback = (
-  code: ImageCropPickerError | ImageCropPickerCustomError,
   viaCamera = false,
+  code?: ImageCropPickerError,
 ) => {
-  if (PERMISSION_ERRORS.includes(code)) {
+  if (code && PERMISSION_ERRORS.includes(code)) {
     return `Sorry, je kunt geen foto ${
       viaCamera ? 'maken' : 'toevoegen'
     }, omdat de app geen toestemming heeft om je ${
@@ -62,21 +58,22 @@ export const useOpenImagePicker = (
 
   return async (viaCamera = false) => {
     try {
+      console.log('asfsafas')
+
       const result = await ImageCropPicker[
         viaCamera ? 'openCamera' : 'openPicker'
       ]({
         ...DEFAULT_OPTIONS,
         ...options,
       })
-      if (!result) {
-        throw new Error('NO_RESULT')
-      }
 
       return Promise.resolve(result)
     } catch (error) {
-      const {code} = error as {
-        code: ImageCropPickerError | ImageCropPickerCustomError
-      }
+      const code = getPropertyFromMaybeError<ImageCropPickerError>(
+        error,
+        'code',
+      )
+
       // Picker or camera action was cancelled by the user, all good
       if (code === ImageCropPickerError.E_PICKER_CANCELLED) {
         return
@@ -85,7 +82,7 @@ export const useOpenImagePicker = (
         setAlert({
           closeType: AlertCloseType.withoutButton,
           content: {
-            text: getAddPhotoFeedback(code, viaCamera),
+            text: getAddPhotoFeedback(viaCamera, code),
           },
           variant: AlertVariant.negative,
           withIcon: false,
