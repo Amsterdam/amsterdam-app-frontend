@@ -75,7 +75,6 @@ export const useRegisterConstructionWorkEditor = (
       showAuthorizedFeedback.success()
   }, [
     constructionWorkEditorHasSeenWelcomeMessage,
-    isGetProjectManagerSuccess,
     projectManager,
     showAuthorizedFeedback,
   ])
