@@ -2,6 +2,7 @@ import {ReactNode, useMemo} from 'react'
 import {AppStateStatus} from 'react-native'
 import {
   useAppState,
+  useForegroundPushNotificationHandler,
   useInitSentry,
   useModules,
   usePiwik,
@@ -11,6 +12,7 @@ import {
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
+  useForegroundPushNotificationHandler()
   useInitSentry()
   const piwik = usePiwik()
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
