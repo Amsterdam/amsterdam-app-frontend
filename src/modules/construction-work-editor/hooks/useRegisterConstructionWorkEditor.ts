@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
 import {useSaveIdAndToken} from '@/modules/construction-work-editor/hooks/useSaveIdAndToken'
+import {useSetModuleAuthorization} from '@/modules/construction-work-editor/hooks/useSetModuleAuthorization'
 import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {
@@ -10,6 +11,7 @@ import {
   selectConstructionWorkEditorId,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
+import {ModuleSlug} from '@/modules/slugs'
 import {selectAuthManagerToken} from '@/store'
 import {isApiAuthorizationError} from '@/utils'
 
@@ -20,6 +22,7 @@ export const useRegisterConstructionWorkEditor = (
     selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
   const dispatch = useDispatch()
+  const {setModuleAuthorization} = useSetModuleAuthorization()
   const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const authManagerToken = useSelector(selectAuthManagerToken)
   const showAuthorizedFeedback = useShowAuthorizedFeedback()
@@ -41,12 +44,24 @@ export const useRegisterConstructionWorkEditor = (
     isError: isGetProjectManagerError,
     error: getProjectManagerError,
     isLoading: isGetProjectManagerLoading,
+    isSuccess: isGetProjectManagerSuccess,
   } = useGetProjectManagerQuery(
     constructionWorkEditorId && authManagerToken
       ? {id: constructionWorkEditorId}
       : skipToken,
   )
   const authorizedProjects = projectManager?.projects
+
+  // Add to or remove module from authorized modules, depending on the response
+  useEffect(() => {
+    !isGetProjectManagerLoading &&
+      setModuleAuthorization(isGetProjectManagerSuccess, getProjectManagerError)
+  }, [
+    getProjectManagerError,
+    isGetProjectManagerLoading,
+    isGetProjectManagerSuccess,
+    setModuleAuthorization,
+  ])
 
   // Follow authorized projects
   useEffect(() => {
