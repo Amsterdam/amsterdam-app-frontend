@@ -1,3 +1,4 @@
+import {VERSION} from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {
@@ -9,11 +10,13 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist'
-import {addressSlice} from '@/modules/address/slice'
+import {persistedStateTransformers as persistedAddressStateTransformers} from '@/modules/address/persistedStateTransformers'
+import {AddressState, addressSlice} from '@/modules/address/slice'
 import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {contactSlice} from '@/modules/contact/slice'
+import {PersistedStateTransformer} from '@/modules/types'
 import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
@@ -24,9 +27,32 @@ import {environmentSlice} from '@/store/environmentSlice'
 import {modulesSlice} from '@/store/modulesSlice'
 import {themeSlice} from '@/themes/slice'
 
+const isNewer = (a: string, b: string) => a > b
+
+const getReconciler =
+  <State>(persistedStateTransformers: PersistedStateTransformer<State>[]) =>
+  (inboundState: unknown): State => {
+    let state = inboundState
+    persistedStateTransformers.forEach(
+      ({appVersion, moduleVersion, transform}) => {
+        if (
+          (appVersion && isNewer(appVersion, VERSION)) ||
+          (moduleVersion && isNewer(moduleVersion, '0'))
+        ) {
+          state = transform(state) ?? state
+        }
+      },
+    )
+
+    return state as State
+  }
+
 const addressPersistConfig = {
   key: 'address',
   storage: AsyncStorage,
+  stateReconciler: getReconciler<AddressState>(
+    persistedAddressStateTransformers,
+  ),
 }
 
 const authPersistConfig = {

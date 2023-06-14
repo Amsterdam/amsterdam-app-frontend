@@ -3,32 +3,14 @@ import {StreetAddressWithEditButton} from '@/modules/address/components'
 import {Projects} from '@/modules/construction-work/components/projects'
 import {getProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
+import {getAddressParam} from '@/utils/address'
 
 type Props = {
   address: Address
 }
 
 export const ProjectsByDistance = ({address}: Props) => {
-  const addressText = address.adres
-  // TODO: remove centroid once standardization of address data is done
-  const getAddressParam = () => {
-    if (address.coordinates) {
-      return {
-        address: address.coordinates?.lon ? undefined : addressText,
-        ...address.coordinates,
-      }
-    }
-    if (address.centroid) {
-      return {
-        address: address.centroid?.[1] ? undefined : addressText,
-        lat: address?.centroid?.[1],
-        lon: address?.centroid?.[0],
-      }
-    }
-    return {}
-  }
-
-  const addressParam = getAddressParam()
+  const addressParam = getAddressParam(address)
   const queryParams = {
     ...addressParam,
     articles_max_age: recentArticleMaxAge,
@@ -48,8 +30,8 @@ export const ProjectsByDistance = ({address}: Props) => {
       getProjectTraits={getProjectTraits}
       HeaderButton={
         <StreetAddressWithEditButton
-          accessibilityLabel={`Werkzaamheden dichtbij ${addressText}`}
-          address={`Dichtbij ${addressText}`}
+          accessibilityLabel={`Werkzaamheden dichtbij ${address.addressText}`}
+          address={`Dichtbij ${address.addressText}`}
           testIDButton="ConstructionWorkButtonEditAddress"
           testIDLabel="ConstructionWorkTextAddress"
         />

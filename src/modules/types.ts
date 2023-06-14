@@ -3,6 +3,16 @@ import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
 
+export type PersistedStateTransformer<State> = {
+  appVersion?: string
+  moduleVersion?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transform: (state: any) => State | undefined
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyPersistedStateTransformer = PersistedStateTransformer<any>
+
 /**
  * Base config for modules. This is the type of a core module; the client module config extends this config.
  */
@@ -12,6 +22,18 @@ type BaseModuleConfig = {
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
    */
   name?: string
+  /**
+   * Configuration to transform the persisted state of a module, if any, based on the app or module version
+   */
+  persistedStateTransformers?: AnyPersistedStateTransformer[]
+  /**
+   * Determines whether the module requires authorization to be accessed.
+   */
+  requiresAuthorization?: boolean
+  /**
+   * Determines whether the module requires a Firebase token.
+   */
+  requiresFirebaseToken?: boolean
   /**
    * The module’s screen options.
    * @see https://reactnavigation.org/docs/stack-navigator/#options

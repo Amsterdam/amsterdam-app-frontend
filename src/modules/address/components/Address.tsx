@@ -15,7 +15,7 @@ export const Address = () => {
     <Box distinct>
       <Column gutter="md">
         <BoxTitle />
-        {address.adres ? (
+        {address?.addressText ? (
           <DisplayAddress address={address} />
         ) : (
           <RequestAddress />

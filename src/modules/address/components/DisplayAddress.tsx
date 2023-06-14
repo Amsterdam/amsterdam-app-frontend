@@ -46,13 +46,13 @@ export const DisplayAddress = ({address}: Props) => {
     <Column gutter="md">
       <Column>
         <Paragraph testID="AddressStreetnameAndNumberText">
-          {address.adres}
+          {address.addressText}
         </Paragraph>
         <Paragraph testID="AddressPostalcodeAndCityText">
           {[
             address.postcode.substring(0, 4),
             address.postcode.substring(4, 6),
-            address.woonplaats.toUpperCase(),
+            address.city.toUpperCase(),
           ].join(' ')}
         </Paragraph>
       </Column>

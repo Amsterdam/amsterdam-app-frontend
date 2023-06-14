@@ -27,14 +27,17 @@ export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
 
+  const {addressText, bagId, city} = address
+
   const {data: wasteGuideData, isLoading} = useGetGarbageCollectionAreaQuery({
-    bagNummeraanduidingId: address.bagNummeraanduidingId,
+    bagNummeraanduidingId: bagId,
   })
 
   if (isLoading || wasteGuideData === undefined) {
     return <PleaseWait />
   }
-  const cityIsWeesp = address.woonplaats === AddressCity.Weesp
+
+  const cityIsWeesp = city === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
@@ -53,7 +56,7 @@ export const WasteGuide = ({address}: Props) => {
             <Column>
               <Paragraph>Afvalinformatie voor dit adres</Paragraph>
               <StreetAddressWithEditButton
-                address={address.adres}
+                address={addressText}
                 testIDButton="WasteGuideButtonEditAddress"
                 testIDLabel="WasteGuideTextAddress"
               />

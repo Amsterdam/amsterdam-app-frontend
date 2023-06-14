@@ -12,7 +12,7 @@ export const WasteGuideForWeesp = ({address}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +
-    [address.postcode, address.huisnummer, address.bag_toevoeging].join(':')
+    [address.postcode, address.number, address.addition].join(':')
 
   return (
     <Column gutter="lg">

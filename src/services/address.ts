@@ -8,7 +8,7 @@ const bagPath = '/typeahead/bag/'
 
 type AddresParams = {
   address: string
-  city: Address['woonplaats']
+  city: Address['city']
 }
 
 export const addressApi = baseApi.injectEndpoints({
@@ -26,9 +26,8 @@ export const addressApi = baseApi.injectEndpoints({
         const address = results.find(r => r.woonplaats === city) ?? results[0]
         const {
           adres,
-          bag_huisletter,
           bag_toevoeging,
-          centroid,
+          coordinates,
           huisnummer,
           landelijk_id,
           postcode,
@@ -36,19 +35,14 @@ export const addressApi = baseApi.injectEndpoints({
           woonplaats,
         } = address
         return {
-          adres,
-          bag_huisletter,
-          bag_toevoeging,
-          centroid, // TODO: remove centroid once standardization of address data is done
-          coordinates: {
-            lat: centroid?.[1] ?? 0,
-            lon: centroid?.[0] ?? 0,
-          },
-          huisnummer,
-          bagNummeraanduidingId: landelijk_id,
+          addressText: adres,
+          addition: bag_toevoeging,
+          bagId: landelijk_id,
+          city: woonplaats,
+          coordinates,
+          number: huisnummer,
           postcode,
-          straatnaam,
-          woonplaats,
+          street: straatnaam,
         }
       },
     }),

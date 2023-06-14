@@ -40,7 +40,7 @@ type Props = {
   bagList: BagResponse | null | undefined
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
-  city: Address['woonplaats']
+  city: Address['city']
   keyboardType: KeyboardTypeOptions | undefined
   number: string
   selectNumber: (text: string) => void
