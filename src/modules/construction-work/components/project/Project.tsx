@@ -179,12 +179,14 @@ export const Project = ({id}: Props) => {
             <Gutter height="lg" />
             <ProjectBodyMenu project={project} />
           </Box>
-          <Box>
-            <ArticleOverview
-              projectIds={[id]}
-              title="Nieuws"
-            />
-          </Box>
+          {!!project.news.length && (
+            <Box>
+              <ArticleOverview
+                projectIds={[id]}
+                title="Nieuws"
+              />
+            </Box>
+          )}
         </Column>
       </HorizontalSafeArea>
     </Column>
