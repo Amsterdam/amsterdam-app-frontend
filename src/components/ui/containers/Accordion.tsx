@@ -28,6 +28,7 @@ const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
       <Title
         color="link"
         level="h5"
+        numberOfLines={3}
         text={title}
       />
       {icon}
