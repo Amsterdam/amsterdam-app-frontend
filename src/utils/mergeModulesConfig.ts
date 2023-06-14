@@ -1,18 +1,24 @@
 import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
 
+type MergedModules = {
+  coreModules: ModuleClientConfig[]
+  modules: Module[]
+}
+
 export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],
   serverConfig?: ModuleServerConfig[],
-): Module[] => {
+): MergedModules => {
   if (!serverConfig) {
-    return [] as Module[]
+    return {coreModules: [], modules: []}
   }
 
   const modules: Module[] = []
+  const coreModules: ModuleClientConfig[] = []
 
   serverConfig.forEach(serverModule => {
     const clientModule = clientConfig.find(
-      ({slug}) => serverModule.moduleSlug === slug,
+      ({slug}) => slug === serverModule.moduleSlug,
     )
 
     if (!clientModule) {
@@ -22,5 +28,13 @@ export const mergeModulesConfig = (
     modules.push({...clientModule, ...serverModule})
   })
 
-  return modules
+  clientConfig.forEach(clientModule => {
+    if (!clientModule.isCore) {
+      return
+    }
+
+    coreModules.push(clientModule)
+  })
+
+  return {coreModules, modules}
 }

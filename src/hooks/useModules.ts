@@ -14,46 +14,51 @@ import {mergeModulesConfig} from '@/utils'
 const MAX_RETRIES = 3
 
 const postProcessModules = (
-  disabledModulesBySlug: string[],
+  userDisabledModulesBySlug: string[],
   authorizedModulesBySlug: string[],
   serverModules?: ModuleServerConfig[],
 ) => {
-  const modules = mergeModulesConfig(clientModules, serverModules)
+  const {coreModules, modules} = mergeModulesConfig(
+    clientModules,
+    serverModules,
+  )
 
   const authorizedModules = modules.filter(
     ({requiresAuthorization, slug}) =>
       !requiresAuthorization || authorizedModulesBySlug.includes(slug),
   )
 
-  const selectedModules: Module[] = []
-  const selectableModules: Module[] = []
-  const selectedModulesBySlug: ModuleSlug[] = []
+  const enabledModules: Module[] = []
+  const toggleableModules: Module[] = []
+  const enabledModulesBySlug: ModuleSlug[] = []
 
   authorizedModules.forEach(module => {
-    const {isCore, slug} = module
+    const {alwaysEnabled, slug} = module
 
-    // only non-core modules may be toggled
-    if (!isCore) {
-      selectableModules.push(module)
+    // only non-core modules that are not "alwaysEnabled" may be toggled
+    if (!alwaysEnabled) {
+      toggleableModules.push(module)
     }
-    // selected if the module is a core module or not disabled
-    if (isCore || !disabledModulesBySlug?.includes(slug)) {
-      selectedModules.push(module)
-      selectedModulesBySlug.push(slug)
+    // a module is enabled if it is "alwaysEnabled" and not disabled by the user
+    if (alwaysEnabled || !userDisabledModulesBySlug?.includes(slug)) {
+      enabledModules.push(module)
+      enabledModulesBySlug.push(slug)
     }
   })
 
   return {
     /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: modules,
-    /** The modules, selected and not selected that a user may see. */
+    /** The modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
     authorizedModules,
-    /** Modules that a user may toggle in the settings. */
-    selectableModules,
-    /** Modules that a user has enabled in the settings. */
-    selectedModules,
-    /** Modules that a user has enabled in the settings, by slug. */
-    selectedModulesBySlug,
+    /** Core modules: required for the app to function and therefor always enabled. */
+    coreModules,
+    /** Modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
+    enabledModules,
+    /** Modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
+    enabledModulesBySlug,
+    /** Modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
+    toggleableModules,
   }
 }
 

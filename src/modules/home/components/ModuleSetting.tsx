@@ -79,7 +79,7 @@ export const ModuleSetting = ({
   module: {description, icon: iconName, slug, status, title},
 }: ModuleSettingProps) => {
   const dispatch = useDispatch()
-  const {selectedModulesBySlug} = useModules()
+  const {enabledModulesBySlug} = useModules()
 
   const onChange = () => {
     dispatch(toggleModule(slug))
@@ -106,7 +106,7 @@ export const ModuleSetting = ({
           label={ModuleSettingContentComponent}
           onChange={onChange}
           testID={`HomeModuleSetting${pascalCase(slug)}Switch`}
-          value={selectedModulesBySlug.includes(slug) && isModuleActive}
+          value={enabledModulesBySlug.includes(slug) && isModuleActive}
         />
       ) : (
         ModuleSettingContentComponent

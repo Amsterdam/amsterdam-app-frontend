@@ -11,7 +11,7 @@ export const Modules = () => {
     modulesError,
     modulesLoading,
     refetchModules,
-    selectedModules: modules,
+    enabledModules: modules,
   } = useModules()
 
   if (modulesLoading) {

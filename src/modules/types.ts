@@ -17,11 +17,16 @@ export type ModuleClientConfig = {
    */
   PreRenderComponent?: ElementType
   /**
+   * If true, the user is not allowed to disable the module in the settings.
+   */
+  alwaysEnabled?: boolean
+  /**
    * Determines whether the module should be hidden on the home screen.
    */
   hiddenInMenu?: boolean
   /**
-   * Determines whether the module is a core module.
+   * Determines whether the module is a core module. A core module is essential for the app and cannot be disabled, not by the user and not remotely.
+   * A core module has no server configuration: it exists on the client only.
    */
   isCore?: boolean
   /**
@@ -33,7 +38,7 @@ export type ModuleClientConfig = {
    * The module’s route name.
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
    */
-  name: string
+  name?: string
   /**
    * Determines whether the module requires authorization to be accessed.
    */
