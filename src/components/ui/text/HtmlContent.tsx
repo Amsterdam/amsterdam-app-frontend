@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import {Platform, TextStyle, useWindowDimensions} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
@@ -66,14 +67,18 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  if (!content) {
+  const transformedContent = transformContent(content ?? '', transformRules)
+  const html = useMemo(
+    () =>
+      isScreenReaderEnabled
+        ? wrapAnchorsInParagraphs(transformedContent)
+        : transformedContent,
+    [isScreenReaderEnabled, transformedContent],
+  )
+
+  if (!html) {
     return null
   }
-
-  const transformedContent = transformContent(content, transformRules)
-  const html = isScreenReaderEnabled
-    ? wrapAnchorsInParagraphs(transformedContent)
-    : transformedContent
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
     a: {...styles.boldText, ...styles.link},
