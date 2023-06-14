@@ -58,7 +58,9 @@ export const Box = ({
   )
 
   return (
-    <View style={[styles.box, grow && layoutStyles.grow]} {...viewProps}>
+    <View
+      style={[styles.box, grow && layoutStyles.grow]}
+      {...viewProps}>
       {children}
     </View>
   )

@@ -16,7 +16,9 @@ type Props = {
 }
 
 export const ProjectNewsScreen = ({route}: Props) => (
-  <Screen withLeftInset={false} withRightInset={false}>
+  <Screen
+    withLeftInset={false}
+    withRightInset={false}>
     <ProjectNews id={route.params.id} />
   </Screen>
 )

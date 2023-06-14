@@ -17,7 +17,10 @@ export const SelectCityOffice = () => {
 
   return (
     <Box grow>
-      <Title level="h3" text="Stadsloketten" />
+      <Title
+        level="h3"
+        text="Stadsloketten"
+      />
       <Gutter height="md" />
       <BottomSheetFlatList
         data={cityOffices}

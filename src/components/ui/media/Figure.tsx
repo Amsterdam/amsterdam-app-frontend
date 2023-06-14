@@ -25,7 +25,9 @@ export const Figure = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <View {...viewProps} style={styles.figure}>
+    <View
+      {...viewProps}
+      style={styles.figure}>
       <View style={styles.content}>{children}</View>
     </View>
   )

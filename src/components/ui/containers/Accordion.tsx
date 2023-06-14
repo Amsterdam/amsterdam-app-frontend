@@ -21,8 +21,15 @@ type AccordionTitleProps = {
 
 const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
   <Box grow>
-    <Row align="between" gutter="md" valign="start">
-      <Title color="link" level="h5" text={title} />
+    <Row
+      align="between"
+      gutter="md"
+      valign="start">
+      <Title
+        color="link"
+        level="h5"
+        text={title}
+      />
       {icon}
     </Row>
   </Box>
@@ -71,7 +78,11 @@ export const Accordion = ({
         <AccordionTitle
           icon={
             <Size height={text.fontSize.h5 * text.lineHeight.h5}>
-              <Icon color="link" name={iconName} size="lg" />
+              <Icon
+                color="link"
+                name={iconName}
+                size="lg"
+              />
             </Size>
           }
           title={title}

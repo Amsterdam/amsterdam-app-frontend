@@ -28,7 +28,9 @@ const ListItem = ({text, marker}: ListItemProps) => {
   return (
     <Row gutter="sm">
       <View style={styles.marker}>
-        <Phrase accessible={false} importantForAccessibility="no">
+        <Phrase
+          accessible={false}
+          importantForAccessibility="no">
           {Marker[marker]}
         </Phrase>
       </View>
@@ -43,7 +45,10 @@ export const List = ({items, marker = 'square', testID}: ListProps) => (
     testID={testID}>
     <Column gutter="md">
       {items.map(text => (
-        <ListItem key={text} {...{marker, text}} />
+        <ListItem
+          key={text}
+          {...{marker, text}}
+        />
       ))}
     </Column>
   </SingleSelectable>

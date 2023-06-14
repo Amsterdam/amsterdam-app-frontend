@@ -27,7 +27,9 @@ const AppComponent = () => (
       />
       <RootProvider>
         <AppNavigationContainer>
-          <PersistGate loading={null} persistor={persistor}>
+          <PersistGate
+            loading={null}
+            persistor={persistor}>
             <Init>
               <ErrorBoundary fallback={<ErrorWithRestart />}>
                 <RootStackNavigator />

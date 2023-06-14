@@ -116,7 +116,9 @@ export const Project = ({id}: Props) => {
         <Column gutter="md">
           <Box>
             <Column gutter="lg">
-              <Row gutter="md" valign="center">
+              <Row
+                gutter="md"
+                valign="center">
                 <FollowButton
                   accessibilityLabel={
                     followed ? 'Ontvolg dit project' : 'Volg dit project'
@@ -178,7 +180,10 @@ export const Project = ({id}: Props) => {
             <ProjectBodyMenu project={project} />
           </Box>
           <Box>
-            <ArticleOverview projectIds={[id]} title="Nieuws" />
+            <ArticleOverview
+              projectIds={[id]}
+              title="Nieuws"
+            />
           </Box>
         </Column>
       </HorizontalSafeArea>

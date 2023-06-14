@@ -20,7 +20,9 @@ export const FormField = ({
   label,
   labelPosition = 'start',
 }: Props) => (
-  <Row gutter="md" valign="center">
+  <Row
+    gutter="md"
+    valign="center">
     {labelPosition === 'start' && <Label children={label} />}
     {children}
     {labelPosition === 'end' && <Label children={label} />}

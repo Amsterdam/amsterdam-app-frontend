@@ -20,7 +20,9 @@ export const RequestAddress = () => {
   const {media} = useTheme()
 
   return (
-    <Column align="between" grow>
+    <Column
+      align="between"
+      grow>
       <HorizontalSafeArea>
         <Box>
           <Column gutter="md">

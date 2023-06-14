@@ -54,14 +54,18 @@ export const ArticlePreview = ({
   )
 
   return (
-    <View style={styles.item} testID={testID}>
+    <View
+      style={styles.item}
+      testID={testID}>
       <View style={styles.line} />
       <Pressable
         accessibilityRole="button"
         onPress={onPress}
         style={styles.button}>
         <Column gutter="sm">
-          <Row gutter="md" valign="center">
+          <Row
+            gutter="md"
+            valign="center">
             <View style={styles.horizontalLine} />
             {!!isNewAndUnreadArticle && (
               <View style={styles.update}>

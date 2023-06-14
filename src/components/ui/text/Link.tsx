@@ -26,7 +26,10 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
 
   return (
     <Size height={1.4 * text.fontSize.body}>
-      <Icon color="link" name={iconName} />
+      <Icon
+        color="link"
+        name={iconName}
+      />
     </Size>
   )
 }

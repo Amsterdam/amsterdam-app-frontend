@@ -29,11 +29,15 @@ export const FractionSection = ({
 
   if (buttonLink) {
     return (
-      <Row gutter="xs" valign="start">
+      <Row
+        gutter="xs"
+        valign="start">
         <View>
           <Phrase emphasis="strong">{label}: </Phrase>
         </View>
-        <Row gutter="sm" wrap>
+        <Row
+          gutter="sm"
+          wrap>
           <Button
             label={buttonContent}
             onPress={() => openWebUrl(buttonLink)}

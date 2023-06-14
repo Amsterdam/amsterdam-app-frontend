@@ -75,7 +75,9 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
       keyboardAware
       stickyFooter={
         <Box>
-          <Row align="between" valign="center">
+          <Row
+            align="between"
+            valign="center">
             <Link
               label="Vorige"
               onPress={navigation.goBack}
@@ -92,7 +94,10 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
       <Box>
         <Column gutter="md">
           <Title text="Foto toevoegen" />
-          <ImagePreview image={image} onPress={resetAndGoBack} />
+          <ImagePreview
+            image={image}
+            onPress={resetAndGoBack}
+          />
           <FormProvider {...form}>
             <TextInputField
               defaultValue={imageDescription ?? ''}

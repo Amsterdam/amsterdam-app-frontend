@@ -21,7 +21,9 @@ export const Default: ComponentStoryObj<typeof Phrase> = {
 
 export const Pattern: ComponentStory<typeof Phrase> = () => (
   <View>
-    <Phrase emphasis="strong" variant="small">
+    <Phrase
+      emphasis="strong"
+      variant="small">
       14
     </Phrase>
     <Phrase variant="small">volgers</Phrase>

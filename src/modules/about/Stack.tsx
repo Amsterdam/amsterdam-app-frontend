@@ -14,7 +14,10 @@ export const AboutStack = () => {
       initialRouteName={AboutRouteName.about}
       screenOptions={screenOptions(theme)}>
       {Object.entries(screenConfig).map(([key, route]) => (
-        <Stack.Screen key={key} {...route} />
+        <Stack.Screen
+          key={key}
+          {...route}
+        />
       ))}
     </Stack.Navigator>
   )

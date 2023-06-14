@@ -17,7 +17,9 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
   return (
     <Column gutter="xl">
       {contacts.map(({address, email, name, phone, position}) => (
-        <Column gutter="md" key={name + email}>
+        <Column
+          gutter="md"
+          key={name + email}>
           <View>
             {!!name && (
               <Title

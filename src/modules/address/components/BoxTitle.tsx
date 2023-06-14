@@ -29,13 +29,25 @@ export const BoxTitle = () => {
 
   return (
     <Column gutter="xs">
-      <Row gutter="sm" valign="center">
-        <Title level="h2" testID="AddressTitle" text="Adres" />
+      <Row
+        gutter="sm"
+        valign="center">
+        <Title
+          level="h2"
+          testID="AddressTitle"
+          text="Adres"
+        />
         <IconButton
           accessibilityLabel={`${
             isTooltipVisible ? 'Verberg' : 'Bekijk'
           } uitleg`}
-          icon={<Icon color="link" name="question-mark-solid" size="lg" />}
+          icon={
+            <Icon
+              color="link"
+              name="question-mark-solid"
+              size="lg"
+            />
+          }
           onPress={() => setTooltipVisible(!isTooltipVisible)}
           testID="AddressTooltipButton"
         />

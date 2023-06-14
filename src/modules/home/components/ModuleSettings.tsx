@@ -35,7 +35,10 @@ export const ModuleSettings = () => {
     <Box>
       <Column gutter="sm">
         {authorizedModules.map(module => (
-          <ModuleSetting key={module.slug} module={module} />
+          <ModuleSetting
+            key={module.slug}
+            module={module}
+          />
         ))}
       </Column>
     </Box>

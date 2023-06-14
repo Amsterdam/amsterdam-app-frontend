@@ -46,7 +46,9 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   }, [dispatch, navigation, route.params?.showSuccessfullySentMessageAlert])
 
   return (
-    <Screen scroll={false} stickyHeader={<Alert />}>
+    <Screen
+      scroll={false}
+      stickyHeader={<Alert />}>
       <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>
   )

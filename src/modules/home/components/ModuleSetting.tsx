@@ -30,7 +30,9 @@ const ModuleSettingContent = ({
 
   return (
     <Column gutter="sm">
-      <Row gutter="sm" valign="center">
+      <Row
+        gutter="sm"
+        valign="center">
         {/* TODO Remove fallback after updating icon name in database. */}
         {iconName === 'projects' ? (
           <Icon
@@ -94,7 +96,9 @@ export const ModuleSetting = ({
   )
 
   return (
-    <Box distinct testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
+    <Box
+      distinct
+      testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
       {isModuleActive ? (
         <Switch
           accessibilityLabel={accessibleText(title, description)}

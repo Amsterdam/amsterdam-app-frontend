@@ -60,7 +60,12 @@ export const SearchField = forwardRef<TextInput, Props>(
         ) : (
           <IconButton
             accessibilityHint="Activeer dit zoekveld"
-            icon={<Icon name="search" size="lg" />}
+            icon={
+              <Icon
+                name="search"
+                size="lg"
+              />
+            }
             onPress={handleFocus}
             testID={testID ? `${testID}SubmitButton` : undefined}
           />

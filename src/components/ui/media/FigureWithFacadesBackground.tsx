@@ -50,7 +50,9 @@ export const FigureWithFacadesBackground = ({
     : AmsterdamFacadesImage
 
   return (
-    <View style={styles.figure} testID={testID}>
+    <View
+      style={styles.figure}
+      testID={testID}>
       <Figure {...figureProps}>
         <View style={styles.backgroundImage}>
           <BackgroundImage />

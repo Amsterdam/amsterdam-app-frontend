@@ -47,7 +47,11 @@ export const CityOffice = () => {
   return (
     <Box>
       <Column gutter="md">
-        <Title level="h2" testID="ContactVisitUsTitle" text="Bezoek ons" />
+        <Title
+          level="h2"
+          testID="ContactVisitUsTitle"
+          text="Bezoek ons"
+        />
         <Image source={mapImageSources(image.sources)} />
         <NameAndAddress {...{address, addressContent, title}} />
         <VisitingHours

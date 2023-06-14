@@ -37,7 +37,12 @@ export const Checkbox = ({
       {...touchableProps}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
-          {!!value && <Icon color="inverse" name="checkmark" />}
+          {!!value && (
+            <Icon
+              color="inverse"
+              name="checkmark"
+            />
+          )}
         </View>
       </FormField>
     </TouchableHighlight>

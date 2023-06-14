@@ -39,7 +39,10 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
       />
       {!!addressContent && (
         <>
-          <Title level="h5" text={addressContent.title} />
+          <Title
+            level="h5"
+            text={addressContent.title}
+          />
           {/* TODO Make this either HTML or text in our database. */}
           <Paragraph>{addressContent.html}</Paragraph>
         </>

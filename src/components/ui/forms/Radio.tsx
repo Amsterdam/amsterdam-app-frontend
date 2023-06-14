@@ -18,7 +18,10 @@ const RadioIndicator = ({checked}: RadioIndicatorProps) => {
   const {color} = useTheme()
 
   return (
-    <Svg height={24} viewBox="0 0 24 24" width={24}>
+    <Svg
+      height={24}
+      viewBox="0 0 24 24"
+      width={24}>
       <Circle
         cx={12}
         cy={12}
@@ -28,7 +31,12 @@ const RadioIndicator = ({checked}: RadioIndicatorProps) => {
         strokeWidth={2}
       />
       {!!checked && (
-        <Circle cx={12} cy={12} fill={color.control.checked.border} r={8} />
+        <Circle
+          cx={12}
+          cy={12}
+          fill={color.control.checked.border}
+          r={8}
+        />
       )}
     </Svg>
   )
@@ -44,7 +52,9 @@ export const Radio = ({
     {...pressableProps}
     accessibilityState={{selected: isSelected}}
     onPress={onPress}>
-    <Row gutter="sm" valign="center">
+    <Row
+      gutter="sm"
+      valign="center">
       <RadioIndicator checked={isSelected} />
       <Phrase>{label}</Phrase>
     </Row>

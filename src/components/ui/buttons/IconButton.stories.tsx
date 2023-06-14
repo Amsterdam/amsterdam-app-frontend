@@ -12,7 +12,10 @@ export default {
 } as ComponentMeta<typeof IconButton>
 
 export const Default: ComponentStory<typeof Icon> = args => (
-  <IconButton badgeValue={7} icon={<Icon {...args} />} />
+  <IconButton
+    badgeValue={7}
+    icon={<Icon {...args} />}
+  />
 )
 
 Default.args = {

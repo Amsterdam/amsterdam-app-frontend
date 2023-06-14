@@ -28,7 +28,9 @@ export const IconButton = ({badgeValue, icon, ...pressableProps}: Props) => {
   const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
   return (
-    <Row align="start" valign="center">
+    <Row
+      align="start"
+      valign="center">
       <Pressable
         accessibilityRole="button"
         hitSlop={hitSlop}
@@ -36,7 +38,10 @@ export const IconButton = ({badgeValue, icon, ...pressableProps}: Props) => {
         {icon}
         {badgeValue ? (
           <View style={styles.badgePosition}>
-            <Badge value={badgeValue} variant="on-icon" />
+            <Badge
+              value={badgeValue}
+              variant="on-icon"
+            />
           </View>
         ) : null}
       </Pressable>

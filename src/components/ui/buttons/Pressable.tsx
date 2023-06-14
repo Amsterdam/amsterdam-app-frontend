@@ -35,7 +35,9 @@ export const Pressable = ({
       accessibilityRole="button"
       style={({pressed}) => [styles.button, pressed && styles.pressed]}
       {...pressableProps}>
-      <Box grow {...{inset, insetHorizontal, insetVertical}}>
+      <Box
+        grow
+        {...{inset, insetHorizontal, insetVertical}}>
         {children}
       </Box>
     </PressableRN>

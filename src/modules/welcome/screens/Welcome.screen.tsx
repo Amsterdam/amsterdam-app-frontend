@@ -57,7 +57,10 @@ export const WelcomeScreen = ({navigation}: Props) => {
             />
           </AspectRatio>
           <Box grow>
-            <Row align="center" flex={1} valign="center">
+            <Row
+              align="center"
+              flex={1}
+              valign="center">
               <Size maxWidth={quoteWidth}>
                 <Paragraph
                   accessibilityLabel={`Citaat, ${quote}`}

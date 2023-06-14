@@ -8,7 +8,10 @@ export const SingleSelectable = ({
   style,
   ...viewProps
 }: ViewProps) => (
-  <View accessible style={[style, styles.singleSelectable]} {...viewProps}>
+  <View
+    accessible
+    style={[style, styles.singleSelectable]}
+    {...viewProps}>
     {children}
   </View>
 )

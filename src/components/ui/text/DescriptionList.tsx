@@ -21,7 +21,10 @@ export const DescriptionList = ({items}: DescriptionListProps) => {
         <SingleSelectable
           accessibilityLabel={accessibleText(label, value)}
           key={label}>
-          <Title level="h5" text={label} />
+          <Title
+            level="h5"
+            text={label}
+          />
           <Paragraph>{value}</Paragraph>
         </SingleSelectable>
       ))}

@@ -96,7 +96,9 @@ export const Fraction = ({fraction}: Props) => {
 
   return (
     <Column gutter="md">
-      <Row gutter="sm" valign="center">
+      <Row
+        gutter="sm"
+        valign="center">
         <WasteFractionIcon fractionCode={afvalwijzerFractieCode} />
         <Title
           accessibilityLabel={accessibleText(afvalwijzerFractieNaam)}

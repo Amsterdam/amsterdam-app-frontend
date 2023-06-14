@@ -66,7 +66,10 @@ export const TextInput = forwardRef<TextInputRN, Props>(
 
     return (
       <Column gutter="sm">
-        <Label isAccessible={!textInputProps.accessibilityLabel} text={label} />
+        <Label
+          isAccessible={!textInputProps.accessibilityLabel}
+          text={label}
+        />
         <View style={styles.frame}>
           <TextInputRN
             {...textInputProps}
@@ -83,7 +86,12 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             <View>
               <IconButton
                 accessibilityHint="Maak dit tekstveld leeg"
-                icon={<Icon name="close" size="lg" />}
+                icon={
+                  <Icon
+                    name="close"
+                    size="lg"
+                  />
+                }
                 onPress={handleClearText}
                 testID={`${testID}ClearButton`}
               />

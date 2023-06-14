@@ -42,7 +42,10 @@ export const Icon = ({
       testID={testID}
       viewBox="0 0 32 32"
       width={scaledSize}>
-      <Path d={IconPath[name]} fill={colorTokens.text[color]} />
+      <Path
+        d={IconPath[name]}
+        fill={colorTokens.text[color]}
+      />
     </Svg>
   )
 }

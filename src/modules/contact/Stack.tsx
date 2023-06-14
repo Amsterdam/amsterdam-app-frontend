@@ -15,7 +15,10 @@ export const ContactStack = () => {
       screenOptions={screenOptions(theme)}>
       <Stack.Group>
         {Object.entries(screenConfig).map(([key, route]) => (
-          <Stack.Screen key={key} {...route} />
+          <Stack.Screen
+            key={key}
+            {...route}
+          />
         ))}
       </Stack.Group>
     </Stack.Navigator>

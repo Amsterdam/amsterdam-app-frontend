@@ -35,7 +35,11 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
       <View style={styles.header}>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (
-            <Icon color="inverse" name="checkmark" size="sm" />
+            <Icon
+              color="inverse"
+              name="checkmark"
+              size="sm"
+            />
           )}
         </View>
         <Accordion
@@ -47,7 +51,10 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           {itemHasContent
             ? item.content.map(({title, body: {html}}) => (
                 <Fragment key={title}>
-                  <Title level="h5" text={title} />
+                  <Title
+                    level="h5"
+                    text={title}
+                  />
                   <HtmlContent content={html} />
                 </Fragment>
               ))

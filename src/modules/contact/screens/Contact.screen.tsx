@@ -13,7 +13,11 @@ import {
 import {useBottomSheet} from '@/modules/contact/hooks'
 
 const Backdrop = (props: BottomSheetBackdropProps) => (
-  <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />
+  <BottomSheetBackdrop
+    appearsOnIndex={0}
+    disappearsOnIndex={-1}
+    {...props}
+  />
 )
 
 export const ContactScreen = () => {

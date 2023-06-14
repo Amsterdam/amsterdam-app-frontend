@@ -13,7 +13,10 @@ export const CloseModalButton = ({label}: Props) => {
 
   return (
     <Box>
-      <Button label={label} onPress={navigation.goBack} />
+      <Button
+        label={label}
+        onPress={navigation.goBack}
+      />
     </Box>
   )
 }

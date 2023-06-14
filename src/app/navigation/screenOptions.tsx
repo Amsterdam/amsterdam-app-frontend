@@ -25,7 +25,12 @@ export const screenOptions: (
       backgroundColor,
       paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
     },
-    header: props => <Header {...props} backgroundColor={backgroundColor} />,
+    header: props => (
+      <Header
+        {...props}
+        backgroundColor={backgroundColor}
+      />
+    ),
     headerMode: 'screen',
   }
 }

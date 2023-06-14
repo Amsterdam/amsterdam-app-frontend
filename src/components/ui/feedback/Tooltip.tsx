@@ -22,7 +22,9 @@ const TooltipContent = ({
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
-    <SingleSelectable style={styles.tooltip} {...{accessibilityLabel, testID}}>
+    <SingleSelectable
+      style={styles.tooltip}
+      {...{accessibilityLabel, testID}}>
       <Column gutter="sm">
         {paragraphs.map((paragraph, index) => (
           <Paragraph

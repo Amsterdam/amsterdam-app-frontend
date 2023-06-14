@@ -43,15 +43,31 @@ const ModuleButtonContent = ({
 
   return (
     <Column gutter="sm">
-      <Row align="between" valign="center">
+      <Row
+        align="between"
+        valign="center">
         <Row gutter="md">
           {/* TODO Remove fallback after updating icon name in database. */}
           {iconName === 'projects' ? (
-            <Icon color={color} name="construction-work" size="lg" />
+            <Icon
+              color={color}
+              name="construction-work"
+              size="lg"
+            />
           ) : (
-            !!iconName && <Icon color={color} name={iconName} size="lg" />
+            !!iconName && (
+              <Icon
+                color={color}
+                name={iconName}
+                size="lg"
+              />
+            )
           )}
-          <Title color={color} level="h5" text={label} />
+          <Title
+            color={color}
+            level="h5"
+            text={label}
+          />
         </Row>
         {!!BadgeValue && !disabled && <BadgeValue />}
       </Row>
@@ -97,11 +113,16 @@ export const ModuleButton = ({
   )
 
   return disabled ? (
-    <Box borderColor="onGrey" borderStyle="dashed" grow>
+    <Box
+      borderColor="onGrey"
+      borderStyle="dashed"
+      grow>
       {ModuleButtonContentComponent}
     </Box>
   ) : (
-    <View style={styles.swipeToDeleteContainer} testID={testID}>
+    <View
+      style={styles.swipeToDeleteContainer}
+      testID={testID}>
       <SwipeToDelete onEvent={onDelete}>
         <Pressable
           inset="md"

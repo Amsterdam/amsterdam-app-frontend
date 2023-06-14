@@ -32,7 +32,9 @@ export const SelectCityScreen = ({navigation}: Props) => {
       scroll={false}
       withLeftInset={!isLandscape}
       withRightInset={!isLandscape}>
-      <Column align="between" grow>
+      <Column
+        align="between"
+        grow>
         <HorizontalSafeArea>
           <Box>
             <Column gutter="md">

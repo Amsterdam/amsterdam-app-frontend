@@ -55,7 +55,9 @@ export const DisplayAddress = ({address}: Props) => {
           ].join(' ')}
         </Paragraph>
       </Column>
-      <Row gutter="md" wrap>
+      <Row
+        gutter="md"
+        wrap>
         <Button
           iconName="edit"
           label="Wijzig"

@@ -94,10 +94,19 @@ export const Alert = () => {
               accessibilityLabel={accessibleText(content?.title, content?.text)}
               accessibilityRole="alert">
               <Row gutter="md">
-                {!!withIcon && <Icon color="link" name={iconName} size="lg" />}
+                {!!withIcon && (
+                  <Icon
+                    color="link"
+                    name={iconName}
+                    size="lg"
+                  />
+                )}
                 <Column>
                   {!!content?.title && (
-                    <Title level="h4" text={content?.title} />
+                    <Title
+                      level="h4"
+                      text={content?.title}
+                    />
                   )}
                   <Paragraph>{content?.text}</Paragraph>
                 </Column>
@@ -107,7 +116,13 @@ export const Alert = () => {
               <View>
                 <IconButton
                   accessibilityHint="Sluit melding"
-                  icon={<Icon color="link" name="close" size="lg" />}
+                  icon={
+                    <Icon
+                      color="link"
+                      name="close"
+                      size="lg"
+                    />
+                  }
                   onPress={() => dispatch(resetAlert())}
                 />
               </View>
