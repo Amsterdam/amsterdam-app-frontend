@@ -7,12 +7,8 @@ import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {
-  const {
-    modulesError,
-    modulesLoading,
-    refetchModules,
-    enabledModules: modules,
-  } = useModules()
+  const {enabledModules, modulesError, modulesLoading, refetchModules} =
+    useModules()
 
   if (modulesLoading) {
     return <PleaseWait grow />
@@ -27,7 +23,7 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = modules.filter(m => !m.hiddenInMenu)
+  const availableModules = enabledModules.filter(m => !m.hiddenInMenu)
 
   if (!availableModules.length) {
     return (

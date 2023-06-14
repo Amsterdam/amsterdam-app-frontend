@@ -35,11 +35,11 @@ const postProcessModules = (
   authorizedModules.forEach(module => {
     const {alwaysEnabled, slug} = module
 
-    // only non-core modules that are not "alwaysEnabled" may be toggled
+    // only non-core modules that are not "alwaysEnabled" may be toggled by the user
     if (!alwaysEnabled) {
       toggleableModules.push(module)
     }
-    // a module is enabled if it is "alwaysEnabled" and not disabled by the user
+    // a module is enabled if it has the property `alwaysEnabled` or if it is enabled by the user
     if (alwaysEnabled || !userDisabledModulesBySlug?.includes(slug)) {
       enabledModules.push(module)
       enabledModulesBySlug.push(slug)
