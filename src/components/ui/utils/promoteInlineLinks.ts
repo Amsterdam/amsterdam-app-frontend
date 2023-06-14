@@ -1,14 +1,14 @@
 /**
- * Adds paragraph tags around anchor tags and text content between them.
+ * Adds `div` tags around anchor tags and text content between them.
  *
  * This helps work around a bug in React Native where multiple nested text nodes get flattened, making inline links
- * inaccessible to screen readers. We wrap anchors and surrounding text in a paragraph each, to allow the screen reader
+ * inaccessible to screen readers. We wrap anchors and surrounding text in a div each, to allow the screen reader
  * picking them up and reading their text content and, for links, their role. We accept the extra whitespace
  * and the parts of the sentence being read out distinctly.
  * @see https://github.com/facebook/react-native/issues/32004
  * @see https://meliorence.github.io/react-native-render-html/docs/faq#some-anchors-a-are-not-accessible-to-screen-readers
  */
-export const wrapAnchorsInParagraphs = (html: string): string => {
+export const promoteInlineLinks = (html: string): string => {
   const fragments: string[] = []
 
   // Regular expression to match anchor tags
@@ -37,5 +37,5 @@ export const wrapAnchorsInParagraphs = (html: string): string => {
     fragments.push(remainingText)
   }
 
-  return fragments.map(fragment => `<p>${fragment.trim()}</p>`).join('')
+  return fragments.map(fragment => `<div>${fragment.trim()}</div>`).join('')
 }

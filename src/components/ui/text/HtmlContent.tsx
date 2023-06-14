@@ -4,8 +4,8 @@ import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
-import {wrapAnchorsInParagraphs} from '@/components/ui/text/wrapAnchorsInParagraphs'
 import {TestProps} from '@/components/ui/types'
+import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Theme, useThemable, useTheme} from '@/themes'
@@ -71,7 +71,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const html = useMemo(
     () =>
       isScreenReaderEnabled
-        ? wrapAnchorsInParagraphs(transformedContent)
+        ? promoteInlineLinks(transformedContent)
         : transformedContent,
     [isScreenReaderEnabled, transformedContent],
   )
