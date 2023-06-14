@@ -1,7 +1,7 @@
+// We add our custom d.ts files here, because tsc-files ignores the `includes` in tsconfig.json by design and hence will not find the custom definitions
+const definitions = ['src/custom.d.ts']
+
 module.exports = {
-  '*.{js, jsx, ts,tsx}': [
-    'eslint --cache --fix --max-warnings=0',
-    // @TODO: we would like to add a TypeScript check, but tsc is at the moment "unintegratable" (https://github.com/okonet/lint-staged/issues/825)
-    // () => 'tsc -p ./tsconfig.json --noEmit --skipLibCheck'
-  ],
+  '*.(js|jsx|ts|tsx)': 'eslint --cache --fix --max-warnings=0',
+  '*.(ts|tsx)': `npx tsc-files --noEmit ${definitions.join(' ')}`,
 }

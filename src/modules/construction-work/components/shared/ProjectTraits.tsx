@@ -17,7 +17,9 @@ export const ProjectTraits = memo(
 
     return (
       <View {...viewProps}>
-        <Row gutter="md" wrap>
+        <Row
+          gutter="md"
+          wrap>
           {!!followed &&
             (unreadArticlesLength ? (
               <Trait

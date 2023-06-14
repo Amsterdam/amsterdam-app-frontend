@@ -10,7 +10,10 @@ export default {
 } as ComponentMeta<typeof Trait>
 
 export const Default: ComponentStory<typeof Trait> = args => (
-  <Trait {...args} iconName="strides" />
+  <Trait
+    {...args}
+    iconName="strides"
+  />
 )
 Default.args = {
   label: '123 meter',

@@ -29,7 +29,9 @@ export const Size = ({
   )
 
   return (
-    <View style={styles.view} {...viewProps}>
+    <View
+      style={styles.view}
+      {...viewProps}>
       {children}
     </View>
   )

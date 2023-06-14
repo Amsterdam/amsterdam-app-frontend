@@ -16,7 +16,10 @@ export const UserStack = () => {
         screenType: 'settings',
       })}>
       {Object.entries(screenConfig).map(([key, route]) => (
-        <Stack.Screen key={key} {...route} />
+        <Stack.Screen
+          key={key}
+          {...route}
+        />
       ))}
     </Stack.Navigator>
   )

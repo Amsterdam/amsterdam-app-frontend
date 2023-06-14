@@ -24,20 +24,35 @@ export const HeaderNavigation = () => {
       {!!isDevApp && (
         <IconButton
           accessibilityLabel="Selecteer omgeving"
-          icon={<Icon name="api" {...iconProps} />}
+          icon={
+            <Icon
+              name="api"
+              {...iconProps}
+            />
+          }
           onPress={() => navigation.navigate(HomeRouteName.admin)}
           testID="HeaderEnvironmentButton"
         />
       )}
       <IconButton
         accessibilityLabel="Mijn profiel"
-        icon={<Icon name="person" {...iconProps} />}
+        icon={
+          <Icon
+            name="person"
+            {...iconProps}
+          />
+        }
         onPress={() => navigation.navigate(userModule.slug)}
         testID="HeaderUserButton"
       />
       <IconButton
         accessibilityLabel="Instellingen"
-        icon={<Icon name="settings" {...iconProps} />}
+        icon={
+          <Icon
+            name="settings"
+            {...iconProps}
+          />
+        }
         onPress={() => navigation.navigate(HomeRouteName.settings)}
         testID="HeaderModuleSettingsButton"
       />

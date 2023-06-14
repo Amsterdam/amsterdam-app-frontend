@@ -15,7 +15,10 @@ export const MakeAppointmentScreen = () => {
           <Column gutter="md">
             <SingleSelectable>
               <Title text="Afspraak maken" />
-              <Title level="h4" text="op Stadsloket in Amsterdam" />
+              <Title
+                level="h4"
+                text="op Stadsloket in Amsterdam"
+              />
             </SingleSelectable>
             <Paragraph>
               Bekijk voor welke onderwerpen u een afspraak kunt maken en wat u
@@ -25,7 +28,9 @@ export const MakeAppointmentScreen = () => {
           <>
             {appointmentSubjects.map(
               ({requiresPhoneCall, links, text, title}) => (
-                <Accordion key={title} title={title}>
+                <Accordion
+                  key={title}
+                  title={title}>
                   <Column gutter="md">
                     {!!text && <Paragraph>{text}</Paragraph>}
                     {!!requiresPhoneCall && (

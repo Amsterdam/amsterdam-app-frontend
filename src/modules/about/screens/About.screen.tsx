@@ -24,10 +24,18 @@ export const AboutScreen = ({navigation}: Props) => {
   return (
     <Screen testID="AboutScreen">
       <Box grow>
-        <Track align="between" grow gutter="xl">
-          <Column flex={1} gutter="md">
+        <Track
+          align="between"
+          grow
+          gutter="xl">
+          <Column
+            flex={1}
+            gutter="md">
             <>
-              <Title testID="AboutAmsterdamAppTitle" text="Amsterdam App" />
+              <Title
+                testID="AboutAmsterdamAppTitle"
+                text="Amsterdam App"
+              />
               <Phrase testID="AboutVersionNumberText">
                 Versie {versionNumber}
               </Phrase>
@@ -63,7 +71,9 @@ export const AboutScreen = ({navigation}: Props) => {
               />
             </Column>
           </Column>
-          <Column align="center" flex={1}>
+          <Column
+            align="center"
+            flex={1}>
             <Figure height={256}>
               <TwoPersonsHighFiveImage />
             </Figure>

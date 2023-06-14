@@ -26,24 +26,41 @@ export const TopTaskButton = ({
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable {...{onPress, testID}} {...pressableProps}>
-      <Box insetHorizontal="md" insetVertical="sm">
+    <Pressable
+      {...{onPress, testID}}
+      {...pressableProps}>
+      <Box
+        insetHorizontal="md"
+        insetVertical="sm">
         <Row gutter="md">
           <View style={styles.height}>
-            <Icon color="link" name={iconName} size="xl" />
+            <Icon
+              color="link"
+              name={iconName}
+              size="xl"
+            />
           </View>
           <Column>
-            <Row gutter="sm" valign="center">
+            <Row
+              gutter="sm"
+              valign="center">
               <Title
                 color="link"
                 level="h5"
                 testID={`${testID}Title`}
                 text={title}
               />
-              {!!titleIconName && <Icon color="link" name={titleIconName} />}
+              {!!titleIconName && (
+                <Icon
+                  color="link"
+                  name={titleIconName}
+                />
+              )}
             </Row>
             {typeof text === 'string' ? (
-              <Paragraph testID={`${testID}Text`} variant="small">
+              <Paragraph
+                testID={`${testID}Text`}
+                variant="small">
                 {text}
               </Paragraph>
             ) : (

@@ -4,7 +4,9 @@ import {Screen} from '@/components/ui/layout'
 import {Address} from '@/modules/address/components'
 
 export const UserScreen = () => (
-  <Screen stickyHeader={<Alert />} testID="UserScreen">
+  <Screen
+    stickyHeader={<Alert />}
+    testID="UserScreen">
     <Box>
       <Address />
     </Box>

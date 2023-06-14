@@ -29,11 +29,19 @@ export const Wrapping: ComponentStory<typeof Button & typeof Row> = args => (
    * De `gutter` wordt dan gebruikt als verticale ruimte tussen de items.
    * Je kunt de verticale ruimte tussen de items ook apart instellen met `vgutter`.
    */
-  <Canvas highlight maxWidth="24rem">
+  <Canvas
+    highlight
+    maxWidth="24rem">
     <Row {...args}>
       <Button label="Wijzig adres" />
-      <Button label="Voeg adres toe" variant="secondary" />
-      <Button label="Verwijder adres" variant="secondary" />
+      <Button
+        label="Voeg adres toe"
+        variant="secondary"
+      />
+      <Button
+        label="Verwijder adres"
+        variant="secondary"
+      />
     </Row>
   </Canvas>
 )

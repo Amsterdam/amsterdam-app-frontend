@@ -20,7 +20,9 @@ export const HorizontalSafeArea = ({
   )
 
   return (
-    <View style={styles.insets} {...viewProps}>
+    <View
+      style={styles.insets}
+      {...viewProps}>
       {children}
     </View>
   )

@@ -7,7 +7,10 @@ export default {
   component: Center,
   decorators: [
     Story => (
-      <Canvas height="256px" highlight maxWidth="512px">
+      <Canvas
+        height="256px"
+        highlight
+        maxWidth="512px">
         <Story />
       </Canvas>
     ),

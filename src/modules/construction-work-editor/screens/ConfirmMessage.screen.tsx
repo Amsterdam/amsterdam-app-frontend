@@ -138,8 +138,13 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <>
           <Box>
             <Column gutter="md">
-              <Button label="Plaats bericht" onPress={onSubmit} />
-              <Row align="between" valign="center">
+              <Button
+                label="Plaats bericht"
+                onPress={onSubmit}
+              />
+              <Row
+                align="between"
+                valign="center">
                 <Link
                   label="Vorige"
                   onPress={navigation.goBack}
@@ -173,7 +178,10 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               />
               {!!isPushNotificationChecked && (
                 <Column gutter="xs">
-                  <Title level="h5" text={project.title} />
+                  <Title
+                    level="h5"
+                    text={project.title}
+                  />
                   <Phrase>{message.title}</Phrase>
                 </Column>
               )}

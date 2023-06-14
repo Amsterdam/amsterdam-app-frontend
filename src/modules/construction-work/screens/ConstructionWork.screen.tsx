@@ -11,7 +11,9 @@ export const ConstructionWorkScreen = () => {
   const hasAddress = !!address.adres
 
   return (
-    <Screen scroll={false} withBottomInset={false}>
+    <Screen
+      scroll={false}
+      withBottomInset={false}>
       {hasAddress ? (
         <ProjectsByDistance address={address} />
       ) : (

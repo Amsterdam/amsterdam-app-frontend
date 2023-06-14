@@ -12,7 +12,11 @@ export const EmptyMessage = ({testID, text}: Props) => {
 
   return (
     <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
-      <Title level="h3" testID={testID} text={title} />
+      <Title
+        level="h3"
+        testID={testID}
+        text={title}
+      />
       <Paragraph>{text}</Paragraph>
     </SingleSelectable>
   )

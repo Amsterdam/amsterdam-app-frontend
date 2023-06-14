@@ -26,8 +26,16 @@ export const CityOfficeButton = ({cityOffice}: Props) => {
       testID={`ContactCityOffice${cityOffice.identifier}Button`}>
       <Box>
         <Row gutter="md">
-          <Icon color="link" name="city-office" size="lg" />
-          <Title color="link" level="h5" text={cityOffice.title} />
+          <Icon
+            color="link"
+            name="city-office"
+            size="lg"
+          />
+          <Title
+            color="link"
+            level="h5"
+            text={cityOffice.title}
+          />
         </Row>
       </Box>
     </Pressable>

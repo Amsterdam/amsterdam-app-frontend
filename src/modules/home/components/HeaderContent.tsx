@@ -19,7 +19,9 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
   const {accessibilityLanguage} = options
 
   return (
-    <Row gutter="lg" valign="center">
+    <Row
+      gutter="lg"
+      valign="center">
       <View style={styles.sideColumn}>
         {!!back && (
           <IconButton

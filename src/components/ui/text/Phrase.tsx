@@ -38,7 +38,9 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text style={styles.text} {...textProps}>
+    <Text
+      style={styles.text}
+      {...textProps}>
       {children}
     </Text>
   )

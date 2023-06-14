@@ -12,10 +12,15 @@ export const ErrorWithRestart = () => {
 
   return (
     <View style={styles.screen}>
-      <Screen scroll={false} withTopInset>
+      <Screen
+        scroll={false}
+        withTopInset>
         <Box inset="lg">
           <Column gutter="md">
-            <Warning text="Er is iets misgegaan met de app." title="Sorry …" />
+            <Warning
+              text="Er is iets misgegaan met de app."
+              title="Sorry …"
+            />
             <Button
               label="Herstart de app"
               onPress={() => RNRestart.Restart()}

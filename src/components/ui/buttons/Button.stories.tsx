@@ -52,10 +52,18 @@ export const __Alignment: ComponentStory<typeof Button & typeof Row> = ({
   align,
   gutter,
 }) => (
-  <Row align={align} gutter={gutter}>
+  <Row
+    align={align}
+    gutter={gutter}>
     <Button label="First button" />
-    <Button label="Second button" variant="secondary" />
-    <Button label="Third button" variant="tertiary" />
+    <Button
+      label="Second button"
+      variant="secondary"
+    />
+    <Button
+      label="Third button"
+      variant="tertiary"
+    />
   </Row>
 )
 

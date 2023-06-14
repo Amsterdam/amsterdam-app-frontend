@@ -11,7 +11,10 @@ export const ContactCollector = () => {
 
   return (
     <Column gutter="md">
-      <Title level="h5" text="Neem contact op met uw afvalinzamelaar" />
+      <Title
+        level="h5"
+        text="Neem contact op met uw afvalinzamelaar"
+      />
       <Phrase>
         Of kijk voor meer informatie over bedrijfsafval op{' '}
         <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>

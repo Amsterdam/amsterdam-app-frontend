@@ -27,14 +27,22 @@ export const ModalHeader = ({testID, title}: Props) => {
     <Box
       insetHorizontal="md"
       insetVertical={isLandscape && !isTablet ? 'sm' : 'md'}>
-      <Row align="between" gutter="md">
+      <Row
+        align="between"
+        gutter="md">
         <View style={styles.balanceCenterAlignment} />
         <View style={styles.nudgeVerticalAlignment}>
           <ScreenTitle text={title} />
         </View>
         <IconButton
           accessibilityLabel="Sluiten"
-          icon={<Icon color="link" name="close" size={closeIconSize} />}
+          icon={
+            <Icon
+              color="link"
+              name="close"
+              size={closeIconSize}
+            />
+          }
           onPress={navigation.goBack}
           testID={`${testID}CloseButton`}
         />

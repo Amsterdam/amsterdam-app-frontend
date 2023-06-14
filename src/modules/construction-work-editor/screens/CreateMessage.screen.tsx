@@ -55,8 +55,12 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
   }, [navigation, route.params.projectTitle])
 
   return (
-    <Screen keyboardAware scroll>
-      <Column align="between" gutter="xl">
+    <Screen
+      keyboardAware
+      scroll>
+      <Column
+        align="between"
+        gutter="xl">
         <Box>
           <Column gutter="md">
             <Title text="Maak een bericht" />

@@ -28,7 +28,10 @@ const getPermittedScreens = (
       )
 
   return permittedScreens.map(([key, route]) => (
-    <Stack.Screen key={key} {...route} />
+    <Stack.Screen
+      key={key}
+      {...route}
+    />
   ))
 }
 

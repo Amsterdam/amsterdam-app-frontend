@@ -13,8 +13,10 @@ declare module '*.png' {
 }
 
 declare module '@env' {
-  export const AUTH_TOKEN: string
-  export const PROJECT_MANAGER_TOKEN: string
-  export const VERSION: string
-  export const BUILD_NUMBER: string
+  export const VERSION: string | undefined
+  export const BUILD_NUMBER: string | undefined
+  export const AUTH_PASSWORD: string | undefined
+  export const AUTH_SHARED_SECRET: string | undefined
+  export const PIWIK_PRO_URL_ACCEPT: string | undefined
+  export const PIWIK_PRO_ID_ACCEPT: string | undefined
 }

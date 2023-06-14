@@ -21,15 +21,34 @@ export const NavigationButton = ({
   testID,
   accessibilityRole = 'link',
 }: Props) => (
-  <Pressable accessibilityRole={accessibilityRole} {...{onPress, testID}}>
-    <Box insetHorizontal="md" insetVertical="sm">
-      <Row align="between" gutter="md" valign="center">
+  <Pressable
+    accessibilityRole={accessibilityRole}
+    {...{onPress, testID}}>
+    <Box
+      insetHorizontal="md"
+      insetVertical="sm">
+      <Row
+        align="between"
+        gutter="md"
+        valign="center">
         {direction === 'backward' && (
-          <Icon color="link" name="chevron-left" size={iconSize} />
+          <Icon
+            color="link"
+            name="chevron-left"
+            size={iconSize}
+          />
         )}
-        <Title color="link" level="h5" text={label} />
+        <Title
+          color="link"
+          level="h5"
+          text={label}
+        />
         {direction === 'forward' && (
-          <Icon color="link" name="chevron-right" size={iconSize} />
+          <Icon
+            color="link"
+            name="chevron-right"
+            size={iconSize}
+          />
         )}
       </Row>
     </Box>

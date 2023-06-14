@@ -70,7 +70,12 @@ export const WasteFractionIcon = ({
       testID={testID}
       viewBox="0 0 24 24"
       width={scaledSize}>
-      <Circle cx="12" cy="12" fill={color} r="12" />
+      <Circle
+        cx="12"
+        cy="12"
+        fill={color}
+        r="12"
+      />
       <Path
         d={path}
         fill={colorTokens.text[hasLightBackground ? 'default' : 'inverse']}

@@ -21,7 +21,13 @@ export const ImagePreview = ({image, onPress}: Props) => {
       <View style={styles.buttonContainer}>
         <IconButton
           accessibilityHint="Verwijder foto"
-          icon={<Icon color="link" name="trash-bin" size={iconSize} />}
+          icon={
+            <Icon
+              color="link"
+              name="trash-bin"
+              size={iconSize}
+            />
+          }
           onPress={onPress}
         />
       </View>

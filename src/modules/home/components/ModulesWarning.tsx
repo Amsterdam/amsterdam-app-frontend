@@ -10,8 +10,16 @@ type Props = {
 
 export const ModulesWarning = ({onRetry, text}: Props) => (
   <Box>
-    <Warning text={text} title="Fout" />
+    <Warning
+      text={text}
+      title="Fout"
+    />
     <Gutter height="md" />
-    {!!onRetry && <Button label="Probeer opnieuw" onPress={onRetry} />}
+    {!!onRetry && (
+      <Button
+        label="Probeer opnieuw"
+        onPress={onRetry}
+      />
+    )}
   </Box>
 )

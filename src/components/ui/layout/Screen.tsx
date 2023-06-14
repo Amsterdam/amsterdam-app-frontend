@@ -72,7 +72,9 @@ export const Screen = ({
   })
 
   return (
-    <View style={styles.screen} testID={testID}>
+    <View
+      style={styles.screen}
+      testID={testID}>
       {stickyHeader}
       <Wrapper
         keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}

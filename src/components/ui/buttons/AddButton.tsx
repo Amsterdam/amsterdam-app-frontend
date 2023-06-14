@@ -7,8 +7,15 @@ export const AddButton = (props: PressableProps) => {
   const styles = useThemable(createStyles)
 
   return (
-    <Pressable style={styles.button} {...props}>
-      <Icon color="link" name="enlarge" scalesWithFont={false} size="lg" />
+    <Pressable
+      style={styles.button}
+      {...props}>
+      <Icon
+        color="link"
+        name="enlarge"
+        scalesWithFont={false}
+        size="lg"
+      />
     </Pressable>
   )
 }

@@ -12,7 +12,9 @@ export const ComingSoon = () => (
       }
       testID="OpenWasteContainerComingSoonImage"
     />
-    <Box insetHorizontal="md" insetVertical="lg">
+    <Box
+      insetHorizontal="md"
+      insetVertical="lg">
       <Column gutter="md">
         <Title
           testID="OpenWasteContainerComingSoonTitle"

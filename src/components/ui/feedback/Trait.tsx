@@ -22,13 +22,20 @@ type Props = {
 } & TestProps
 
 export const Trait = ({children, iconName, label, testID}: Props) => (
-  <Row gutter="sm" valign="center">
+  <Row
+    gutter="sm"
+    valign="center">
     {iconName ? (
-      <Icon name={iconName} testID={testID ? `${testID}Icon` : undefined} />
+      <Icon
+        name={iconName}
+        testID={testID ? `${testID}Icon` : undefined}
+      />
     ) : (
       children
     )}
-    <Phrase testID={testID ? `${testID}Label` : undefined} variant="small">
+    <Phrase
+      testID={testID ? `${testID}Label` : undefined}
+      variant="small">
       {label}
     </Phrase>
   </Row>

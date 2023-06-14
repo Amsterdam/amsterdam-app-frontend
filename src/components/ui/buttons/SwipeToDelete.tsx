@@ -20,11 +20,20 @@ const DeleteButton = ({onPress}: DeleteButtonProps) => (
     inset="md"
     onPress={onPress}
     variant="negative">
-    <Row align="end" gutter="sm" valign="center">
-      <Phrase color="inverse" variant="small">
+    <Row
+      align="end"
+      gutter="sm"
+      valign="center">
+      <Phrase
+        color="inverse"
+        variant="small">
         Verwijder
       </Phrase>
-      <Icon color="inverse" name="trash-bin" size="lg" />
+      <Icon
+        color="inverse"
+        name="trash-bin"
+        size="lg"
+      />
     </Row>
   </Pressable>
 )

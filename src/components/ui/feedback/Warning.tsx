@@ -8,7 +8,10 @@ type Props = {
 
 export const Warning = ({text, title}: Props) => (
   <Attention warning>
-    <Title level="h5" text={title} />
+    <Title
+      level="h5"
+      text={title}
+    />
     <Paragraph variant="small">{text}</Paragraph>
   </Attention>
 )

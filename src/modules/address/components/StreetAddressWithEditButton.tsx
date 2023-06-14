@@ -27,13 +27,22 @@ export const StreetAddressWithEditButton = ({
     >()
 
   return (
-    <Row gutter="sm" valign="center">
-      <Phrase accessibilityLabel={accessibilityLabel} testID={testIDLabel}>
+    <Row
+      gutter="sm"
+      valign="center">
+      <Phrase
+        accessibilityLabel={accessibilityLabel}
+        testID={testIDLabel}>
         {address}
       </Phrase>
       <IconButton
         accessibilityLabel="Wijzig het adres"
-        icon={<Icon color="link" name="edit" />}
+        icon={
+          <Icon
+            color="link"
+            name="edit"
+          />
+        }
         onPress={() => navigation.navigate(AddressModalName.addressForm)}
         testID={testIDButton}
       />

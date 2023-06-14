@@ -42,10 +42,14 @@ export const WasteGuide = ({address}: Props) => {
   const hasContent = hasWasteGuide || cityIsWeesp
 
   return (
-    <Column grow gutter="xl">
+    <Column
+      grow
+      gutter="xl">
       <HorizontalSafeArea flex={1}>
         <Box grow>
-          <Column flex={1} gutter="xl">
+          <Column
+            flex={1}
+            gutter="xl">
             <Column>
               <Paragraph>Afvalinformatie voor dit adres</Paragraph>
               <StreetAddressWithEditButton

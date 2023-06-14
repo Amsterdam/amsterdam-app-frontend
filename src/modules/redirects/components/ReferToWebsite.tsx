@@ -11,7 +11,10 @@ export const ReferToWebsite = () => {
 
   return (
     <Column gutter="xs">
-      <Title level="h4" text="Niet gevonden wat u zocht?" />
+      <Title
+        level="h4"
+        text="Niet gevonden wat u zocht?"
+      />
       <Column gutter="md">
         <Paragraph>
           Kijk dan op onze website waar al onze informatie staat.
