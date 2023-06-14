@@ -3,20 +3,20 @@ import {AccessibilityInfo} from 'react-native'
 import {useAppState} from '@/hooks/useAppState'
 
 type Options = {
-  callback?: (isReduceMotionEnabled: boolean) => void
+  callback?: (isScreenReaderEnabled: boolean) => void
   callbackAfterAppStateChange?: boolean
 }
 
-export let isReduceMotionEnabled: boolean | undefined
+export let isScreenReaderEnabled: boolean | undefined
 
-export const useIsReduceMotionEnabled = (
+export const useIsScreenReaderEnabled = (
   {callback, callbackAfterAppStateChange = true}: Options = {},
   deps: DependencyList | undefined = [],
 ) => {
   useAppState({
     onForeground: () => {
-      void AccessibilityInfo.isReduceMotionEnabled().then(value => {
-        isReduceMotionEnabled = value
+      void AccessibilityInfo.isScreenReaderEnabled().then(value => {
+        isScreenReaderEnabled = value
         if (callbackAfterAppStateChange) {
           callback?.(value)
         }
@@ -25,12 +25,12 @@ export const useIsReduceMotionEnabled = (
   })
 
   useEffect(() => {
-    void AccessibilityInfo.isReduceMotionEnabled().then(value => {
-      isReduceMotionEnabled = value
+    void AccessibilityInfo.isScreenReaderEnabled().then(value => {
+      isScreenReaderEnabled = value
       callback?.(value)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
-  return isReduceMotionEnabled
+  return isScreenReaderEnabled
 }

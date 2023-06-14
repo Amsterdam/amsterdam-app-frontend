@@ -3,8 +3,10 @@ import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
+import {wrapAnchorsInParagraphs} from '@/components/ui/text/wrapAnchorsInParagraphs'
 import {TestProps} from '@/components/ui/types'
 import {OpenUrl, useOpenUrl} from '@/hooks'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens, TextTokens} from '@/themes/tokens'
 
@@ -62,12 +64,16 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps(openUrl))
   const systemFonts = useThemable(createFontList)
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   if (!content) {
     return null
   }
 
-  const html = transformContent(content, transformRules)
+  const transformedContent = transformContent(content, transformRules)
+  const html = isScreenReaderEnabled
+    ? wrapAnchorsInParagraphs(transformedContent)
+    : transformedContent
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
     a: {...styles.boldText, ...styles.link},
