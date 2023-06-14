@@ -1,9 +1,9 @@
 import {RichText} from '@/types/section'
 
 export type Timeline = {
-  intro: RichText
-  items: TimelineItem[]
-  title: RichText
+  intro?: RichText
+  items?: TimelineItem[]
+  title?: RichText
 }
 
 type TimeLineContent = {
