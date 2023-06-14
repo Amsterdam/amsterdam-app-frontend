@@ -1,12 +1,11 @@
 import {forwardRef, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import ImageCropPicker from 'react-native-image-crop-picker'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button} from '@/components/ui/buttons'
 import {TextInputField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph, Title} from '@/components/ui/text'
-import {useSentry} from '@/hooks'
+import {useOpenImagePicker} from '@/hooks/useOpenImagePicker'
 import {
   selectCurrentProjectId,
   selectMainImageDescription,
@@ -32,11 +31,8 @@ type Props = {
   onMainImageSelected: () => void
 }
 
-const config = {maxWidth: 1920, maxHeight: 1080}
-
 export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const dispatch = useDispatch()
-  const {sendSentryErrorLog} = useSentry()
 
   const currentProjectId = useSelector(selectCurrentProjectId)
   const selectedMessage = useSelector(selectMessage(currentProjectId))
@@ -68,36 +64,37 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
     [constructionWorkEditorId, dispatch, currentProjectId],
   )
 
-  const pickImage = (data: FormData) => {
-    saveMessage(data)
-    ImageCropPicker.openPicker({
-      cropperCancelText: 'Annuleren',
-      cropperChooseText: 'Kiezen',
-      cropping: true,
-      height: config.maxHeight,
-      includeBase64: true,
-      mediaType: 'photo',
-      width: config.maxWidth,
-    })
-      .then(mainImage => {
-        dispatch(setMainImage({projectId: currentProjectId, mainImage}))
-        !mainImageDescription &&
-          dispatch(
-            setMainImageDescription({
-              projectId: currentProjectId,
-              mainImageDescription: undefined,
-            }),
-          )
-        onMainImageSelected()
-      })
-      .catch((error: unknown) => {
-        sendSentryErrorLog(
-          'Picking image from device failed',
-          'MessageForm.tsx',
-          {error},
-        )
-      })
-  }
+  const openImagePicker = useOpenImagePicker()
+
+  const pickImage = useCallback(
+    (viaCamera = false) =>
+      (data: FormData) => {
+        void openImagePicker(viaCamera).then(mainImage => {
+          if (!mainImage) {
+            return
+          }
+          dispatch(setMainImage({projectId: currentProjectId, mainImage}))
+          !mainImageDescription &&
+            dispatch(
+              setMainImageDescription({
+                projectId: currentProjectId,
+                mainImageDescription: undefined,
+              }),
+            )
+          onMainImageSelected()
+        })
+
+        saveMessage(data)
+      },
+    [
+      currentProjectId,
+      dispatch,
+      mainImageDescription,
+      onMainImageSelected,
+      openImagePicker,
+      saveMessage,
+    ],
+  )
 
   const onSubmitForm: SubmitHandler<FormData> = useCallback(
     data => {
@@ -172,7 +169,15 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               <Button
                 iconName="enlarge"
                 label="Foto toevoegen"
-                onPress={handleSubmit(pickImage)}
+                onPress={handleSubmit(pickImage())}
+                variant="secondary"
+              />
+            </Row>
+            <Row align="start">
+              <Button
+                iconName="enlarge"
+                label="Foto maken"
+                onPress={handleSubmit(pickImage(true))}
                 variant="secondary"
               />
             </Row>
