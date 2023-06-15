@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {NavigationButton} from '@/components/ui/buttons'
+import {Column} from '@/components/ui/layout/Column'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -59,7 +60,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
     (o.timeline && !isEmptyObject(o.timeline))
 
   return (
-    <>
+    <Column>
       {menuOptions.map(option => {
         if (!hasContentToShow(option)) {
           return null
@@ -83,6 +84,6 @@ export const ProjectBodyMenu = ({project}: Props) => {
           />
         )
       })}
-    </>
+    </Column>
   )
 }

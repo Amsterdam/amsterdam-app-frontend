@@ -10,7 +10,8 @@ import {
   SingleSelectable,
 } from '@/components/ui/containers'
 import {PleaseWait} from '@/components/ui/feedback'
-import {Column, Gutter, Row} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice} from '@/hooks'
@@ -113,79 +114,72 @@ export const Project = ({id}: Props) => {
         />
       )}
       <HorizontalSafeArea>
-        <Column gutter="md">
-          <Box>
-            <Column gutter="lg">
-              <Row
-                gutter="md"
-                valign="center">
-                <FollowButton
-                  accessibilityLabel={
-                    followed ? 'Ontvolg dit project' : 'Volg dit project'
-                  }
-                  disabled={isUpdatingFollow || isUpdatingUnfollow}
-                  followed={followed}
-                  onPress={onPressFollowButton}
-                  testID="ConstructionWorkProjectFollowButton"
-                />
-                <SingleSelectable
-                  accessibilityLabel={accessibleText(
-                    followers.toString(),
-                    followersPhrase,
-                  )}>
-                  <Column>
-                    <Phrase
-                      emphasis="strong"
-                      testID="ConstructionWorkProjectFollowersNumber"
-                      variant="small">
-                      {followers}
-                    </Phrase>
-                    <Phrase
-                      testID="ConstructionWorkProjectFollowersText"
-                      variant="small">
-                      {followersPhrase}
-                    </Phrase>
-                  </Column>
-                </SingleSelectable>
-              </Row>
-              <Column gutter="md">
-                <ProjectTraits
-                  accessibilityLabel={accessibleText(
-                    getAccessibleDistanceText(meter, strides),
-                  )}
-                  {...{meter, strides}}
-                />
-                <SingleSelectable
-                  accessibilityLabel={accessibleText(title, subtitle)}
-                  accessibilityRole="header">
-                  <Column gutter="sm">
-                    {!!title && (
-                      <Title
-                        testID="ConstructionWorkProjectTitle"
-                        text={title}
-                      />
-                    )}
-                    {!!subtitle && (
-                      <Title
-                        level="h4"
-                        testID="ConstructionWorkProjectSubtitle"
-                        text={subtitle}
-                      />
-                    )}
-                  </Column>
-                </SingleSelectable>
-              </Column>
+        <Box>
+          <Column gutter="lg">
+            <Row
+              gutter="md"
+              valign="center">
+              <FollowButton
+                accessibilityLabel={
+                  followed ? 'Ontvolg dit project' : 'Volg dit project'
+                }
+                disabled={isUpdatingFollow || isUpdatingUnfollow}
+                followed={followed}
+                onPress={onPressFollowButton}
+                testID="ConstructionWorkProjectFollowButton"
+              />
+              <SingleSelectable
+                accessibilityLabel={accessibleText(
+                  followers.toString(),
+                  followersPhrase,
+                )}>
+                <Column>
+                  <Phrase
+                    emphasis="strong"
+                    testID="ConstructionWorkProjectFollowersNumber"
+                    variant="small">
+                    {followers}
+                  </Phrase>
+                  <Phrase
+                    testID="ConstructionWorkProjectFollowersText"
+                    variant="small">
+                    {followersPhrase}
+                  </Phrase>
+                </Column>
+              </SingleSelectable>
+            </Row>
+            <Column gutter="md">
+              <ProjectTraits
+                accessibilityLabel={accessibleText(
+                  getAccessibleDistanceText(meter, strides),
+                )}
+                {...{meter, strides}}
+              />
+              <SingleSelectable
+                accessibilityLabel={accessibleText(title, subtitle)}
+                accessibilityRole="header">
+                {!!title && (
+                  <Title
+                    testID="ConstructionWorkProjectTitle"
+                    text={title}
+                  />
+                )}
+                {!!subtitle && (
+                  <Title
+                    level="h4"
+                    testID="ConstructionWorkProjectSubtitle"
+                    text={subtitle}
+                  />
+                )}
+              </SingleSelectable>
             </Column>
-            <Gutter height="lg" />
             <ProjectBodyMenu project={project} />
-          </Box>
-          <Box>
             <ArticleOverview
               projectIds={[id]}
               title="Nieuws"
             />
-          </Box>
-        </Column>
+          </Column>
+        </Box>
       </HorizontalSafeArea>
     </Column>
   )
