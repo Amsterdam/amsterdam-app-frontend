@@ -48,19 +48,22 @@ export const postProcessClientModules = (
   })
 
   return {
-    /** All non-core modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
+    /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: modules,
-    /** The non-core modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
+    /** The modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
     authorizedModules,
-    /** Non-core modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
+    /** Modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
     enabledModules,
-    /** Non-core modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
+    /** Modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
     enabledModulesBySlug,
-    /** Non-core modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
+    /** Modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
     toggleableModules,
   }
 }
 
+/**
+ * Handles the request for the serverside module configuration and returns various postprocessed lists of modules, not including core modules. It also returns the modules disabled by the user, plus the loading/error state of the endpoint and a refetch method.
+ */
 export const useModules = () => {
   const {
     data: release,

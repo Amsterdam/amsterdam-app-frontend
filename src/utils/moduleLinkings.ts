@@ -1,15 +1,17 @@
-import {PathConfigMap} from '@react-navigation/core'
+import {PathConfig, PathConfigMap} from '@react-navigation/core'
 import {RootStackParams} from '@/app/navigation'
 import {clientModules} from '@/modules'
 
-export const moduleLinkings: PathConfigMap<RootStackParams> =
-  clientModules.reduce((linkings, {linking, slug}) => {
+export const moduleLinkings = (() => {
+  const linkings: PathConfigMap<RootStackParams> = {}
+
+  clientModules.forEach(({linking, slug}) => {
     if (!linking) {
-      return linkings
+      return
     }
 
-    return {
-      ...linkings,
-      [slug]: {screens: linking},
-    }
-  }, {})
+    linkings[slug] = {screens: linking} as PathConfig<RootStackParams>
+  })
+
+  return linkings
+})()
