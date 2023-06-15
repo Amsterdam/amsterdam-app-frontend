@@ -8,7 +8,6 @@ import {
   usePiwik,
   useRegisterDevice,
 } from '@/hooks'
-import {Module, ModuleClientConfig} from '@/modules/types'
 
 type Props = {children: ReactNode}
 
@@ -17,18 +16,12 @@ export const Init = ({children}: Props) => {
   useInitSentry()
   const piwik = usePiwik()
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
-  const {coreModules, enabledModules} = useModules()
-  const coreAndEnabledModules = useMemo<(Module | ModuleClientConfig)[]>(
-    () => [...coreModules, ...enabledModules],
-    [coreModules, enabledModules],
-  )
+  const {enabledModules} = useModules()
 
   const onAppstate = useMemo(
     () => ({
       onForeground: () => {
-        if (
-          coreAndEnabledModules.some(module => module.requiresFirebaseToken)
-        ) {
+        if (enabledModules.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission()
         } else {
           void unregisterDevice(undefined)
@@ -38,19 +31,14 @@ export const Init = ({children}: Props) => {
         void piwik?.trackCustomEvent('appStateChange', nextAppState)
       },
     }),
-    [
-      coreAndEnabledModules,
-      piwik,
-      registerDeviceWithPermission,
-      unregisterDevice,
-    ],
+    [enabledModules, piwik, registerDeviceWithPermission, unregisterDevice],
   )
 
   useAppState(onAppstate)
 
   return (
     <>
-      {coreAndEnabledModules.map(({PreRenderComponent, slug}) =>
+      {enabledModules.map(({PreRenderComponent, slug}) =>
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
       )}
       {children}

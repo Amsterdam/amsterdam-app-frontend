@@ -1,9 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {BaseModuleConfig} from '@/modules/types'
 
-export const module: ModuleClientConfig = {
-  isCore: true,
-  linking: {},
+export const module: BaseModuleConfig = {
   name: 'UserModule',
   slug: ModuleSlug.user,
   state: [],

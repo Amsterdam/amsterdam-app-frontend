@@ -18,10 +18,7 @@ const postProcessModules = (
   authorizedModulesBySlug: string[],
   serverModules?: ModuleServerConfig[],
 ) => {
-  const {coreModules, modules} = mergeModulesConfig(
-    clientModules,
-    serverModules,
-  )
+  const modules = mergeModulesConfig(clientModules, serverModules)
 
   const authorizedModules = modules.filter(
     ({requiresAuthorization, slug}) =>
@@ -47,17 +44,15 @@ const postProcessModules = (
   })
 
   return {
-    /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
+    /** All non-core modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: modules,
-    /** The modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
+    /** The non-core modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
     authorizedModules,
-    /** Core modules: required for the app to function and therefor always enabled. */
-    coreModules,
-    /** Modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
+    /** Non-core modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
     enabledModules,
-    /** Modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
+    /** Non-core modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
     enabledModulesBySlug,
-    /** Modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
+    /** Non-core modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
     toggleableModules,
   }
 }
@@ -122,7 +117,6 @@ export const useModules = () => {
     (isSuccess && postProcessedModules.allModulesDangerous.length === 0)
 
   return {
-    clientModules,
     userDisabledModulesBySlug,
     modulesLoading,
     modulesError: error,

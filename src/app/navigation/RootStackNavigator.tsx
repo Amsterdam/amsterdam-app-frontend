@@ -1,9 +1,9 @@
 import {ParamListBase} from '@react-navigation/core'
 import {CardStyleInterpolators} from '@react-navigation/stack'
-import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'
+import {clientModules, coreModules} from '@/modules'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -30,26 +30,28 @@ export type RootStackParams = ModuleParams<ModuleStackParams> &
 
 const Stack = createStackNavigator<RootStackParams>()
 
+const ModuleStacks = [...coreModules, ...clientModules].map(
+  ({screenOptions: options, slug}) => {
+    const stack = getModuleStack(slug)
+
+    if (!stack) {
+      return null
+    }
+
+    return (
+      <Stack.Screen
+        component={stack}
+        key={slug}
+        name={slug}
+        options={options}
+      />
+    )
+  },
+)
+
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {clientModules, userDisabledModulesBySlug} = useModules()
-
-  const ModuleStacks = useMemo(
-    () =>
-      clientModules.map(({screenOptions: options, slug}) => {
-        const stack = getModuleStack(slug)
-
-        return stack ? (
-          <Stack.Screen
-            component={stack}
-            key={slug}
-            name={slug}
-            options={options}
-          />
-        ) : null
-      }),
-    [clientModules],
-  )
+  const {userDisabledModulesBySlug} = useModules()
 
   return (
     <Stack.Navigator

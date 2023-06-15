@@ -5,9 +5,33 @@ import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
 
 /**
- * The client part of a module’s configuration.
+ * Base config for modules. This is the type of a core module; the client module config extends this config.
  */
-export type ModuleClientConfig = {
+export type BaseModuleConfig = {
+  /**
+   * The module’s route name.
+   * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
+   */
+  name?: string
+  /**
+   * The module’s screen options.
+   * @see https://reactnavigation.org/docs/stack-navigator/#options
+   */
+  screenOptions?: StackNavigationOptions
+  /**
+   * A unique human-readable identifier for the module.
+   */
+  slug: ModuleSlug
+  /**
+   * The module’s state.
+   */
+  state: Slice[]
+}
+
+/**
+ * The client part of a non-core module’s configuration.
+ */
+export type ModuleClientConfig = BaseModuleConfig & {
   /**
    * A component for displaying a badge on the module’s button.
    */
@@ -25,20 +49,10 @@ export type ModuleClientConfig = {
    */
   hiddenInMenu?: boolean
   /**
-   * Determines whether the module is a core module. A core module is essential for the app and cannot be disabled, not by the user and not remotely.
-   * A core module has no server configuration: it exists on the client only.
-   */
-  isCore?: boolean
-  /**
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links
    */
   linking: Record<string, string>
-  /**
-   * The module’s route name.
-   * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
-   */
-  name?: string
   /**
    * Determines whether the module requires authorization to be accessed.
    */
@@ -47,19 +61,6 @@ export type ModuleClientConfig = {
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
-  /**
-   * The module’s screen options.
-   * @see https://reactnavigation.org/docs/stack-navigator/#options
-   */
-  screenOptions?: StackNavigationOptions
-  /**
-   * A unique human-readable identifier for the module.
-   */
-  slug: ModuleSlug
-  /**
-   * The module’s state.
-   */
-  state: Slice[]
 }
 
 /**
