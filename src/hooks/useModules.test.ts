@@ -15,11 +15,6 @@ const serverModuleConfigs = [
 ] as unknown as ModuleServerConfig[]
 
 describe('postProcessClientModules', () => {
-  test('handle undefined server config', () => {
-    expect(postProcessClientModules(clientModuleConfigs, [], [])).toBe(
-      undefined,
-    )
-  })
   test('returns correct allModulesDangerous', () => {
     expect(
       postProcessClientModules(clientModuleConfigs, [], [], serverModuleConfigs)

@@ -17,11 +17,8 @@ export const postProcessClientModules = (
   clientModuleConfigs: ModuleClientConfig[],
   userDisabledModulesBySlug: string[],
   authorizedModulesBySlug: string[],
-  serverModuleConfigs?: ModuleServerConfig[],
+  serverModuleConfigs: ModuleServerConfig[],
 ) => {
-  if (!serverModuleConfigs) {
-    return
-  }
   const modules = mergeModulesConfig(clientModuleConfigs, serverModuleConfigs)
 
   const authorizedModules = modules.filter(
@@ -77,16 +74,18 @@ export const useModules = () => {
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
   const authorizedModulesBySlug = useSelector(selectAuthorizedModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
-  const postProcessedModules = useMemo(
-    () =>
-      postProcessClientModules(
-        clientModules,
-        userDisabledModulesBySlug,
-        authorizedModulesBySlug,
-        serverModules,
-      ),
-    [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules],
-  )
+  const postProcessedModules = useMemo(() => {
+    if (!serverModules) {
+      return undefined
+    }
+
+    return postProcessClientModules(
+      clientModules,
+      userDisabledModulesBySlug,
+      authorizedModulesBySlug,
+      serverModules,
+    )
+  }, [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules])
 
   useEffect(() => {
     if (error) {
