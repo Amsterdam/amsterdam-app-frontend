@@ -96,7 +96,11 @@ export const ArticleOverview = ({
     return <PleaseWait />
   }
 
-  return yearlyArticleSections.length ? (
+  if (!yearlyArticleSections.length) {
+    return null
+  }
+
+  return (
     <View style={styles.list}>
       <Column gutter="sm">
         <Title
@@ -129,7 +133,7 @@ export const ArticleOverview = ({
         ))}
       </Column>
     </View>
-  ) : null
+  )
 }
 
 const yearInset = 4
