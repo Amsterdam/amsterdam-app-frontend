@@ -4,18 +4,23 @@ import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
 export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],
   serverConfig: ModuleServerConfig[],
-) =>
-  serverConfig.reduce((modules: Module[], serverModule) => {
+) => {
+  const modules: Module[] = []
+
+  serverConfig.forEach(serverModule => {
     const clientModule = clientConfig.find(
       ({slug}) => slug === serverModule.moduleSlug,
     )
 
     if (!clientModule) {
-      return modules
+      return
     }
 
-    return [...modules, {...clientModule, ...serverModule}]
-  }, [])
+    modules.push({...clientModule, ...serverModule})
+  })
+
+  return modules
+}
 
 export const postProcessModules = (
   clientModuleConfigs: ModuleClientConfig[],
