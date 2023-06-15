@@ -96,7 +96,7 @@ export const ArticleOverview = ({
     return <PleaseWait />
   }
 
-  return !!articles?.length && !!yearlyArticleSections.length ? (
+  return yearlyArticleSections.length ? (
     <View style={styles.list}>
       <Column gutter="sm">
         <Title
@@ -117,7 +117,8 @@ export const ArticleOverview = ({
                 article={article}
                 isFirst={index === 0 && dataIndex === 0}
                 isLast={
-                  index === articles.length - 1 && dataIndex === data.length - 1
+                  index === yearlyArticleSections.length - 1 &&
+                  dataIndex === data.length - 1
                 }
                 key={article.identifier}
                 onPress={() => navigateToArticle(article)}
