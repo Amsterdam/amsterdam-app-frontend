@@ -67,14 +67,17 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  const transformedContent = transformContent(content ?? '', transformRules)
-  const html = useMemo(
-    () =>
-      isScreenReaderEnabled
-        ? promoteInlineLinks(transformedContent)
-        : transformedContent,
-    [isScreenReaderEnabled, transformedContent],
-  )
+  const html = useMemo(() => {
+    if (!content) {
+      return
+    }
+
+    const transformedContent = transformContent(content, transformRules)
+
+    return isScreenReaderEnabled
+      ? promoteInlineLinks(transformedContent)
+      : transformedContent
+  }, [content, isScreenReaderEnabled, transformRules])
 
   if (!html) {
     return null
