@@ -6,19 +6,23 @@ import {version as releaseVersion} from '@/../package.json'
 import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
 import {ModuleSlug} from '@/modules/slugs'
-import {Module, ModuleServerConfig} from '@/modules/types'
+import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services'
 import {selectAuthorizedModules, selectDisabledModules} from '@/store'
 import {mergeModulesConfig} from '@/utils'
 
 const MAX_RETRIES = 3
 
-const postProcessModules = (
+export const postProcessClientModules = (
+  clientModuleConfigs: ModuleClientConfig[],
   userDisabledModulesBySlug: string[],
   authorizedModulesBySlug: string[],
-  serverModules?: ModuleServerConfig[],
+  serverModuleConfigs?: ModuleServerConfig[],
 ) => {
-  const modules = mergeModulesConfig(clientModules, serverModules)
+  if (!serverModuleConfigs) {
+    return
+  }
+  const modules = mergeModulesConfig(clientModuleConfigs, serverModuleConfigs)
 
   const authorizedModules = modules.filter(
     ({requiresAuthorization, slug}) =>
@@ -32,7 +36,7 @@ const postProcessModules = (
   authorizedModules.forEach(module => {
     const {alwaysEnabled, slug} = module
 
-    // only non-core modules that are not "alwaysEnabled" may be toggled by the user
+    // only modules that are not "alwaysEnabled" may be toggled by the user
     if (!alwaysEnabled) {
       toggleableModules.push(module)
     }
@@ -72,7 +76,8 @@ export const useModules = () => {
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(
     () =>
-      postProcessModules(
+      postProcessClientModules(
+        clientModules,
         userDisabledModulesBySlug,
         authorizedModulesBySlug,
         serverModules,
@@ -114,7 +119,7 @@ export const useModules = () => {
   // TODO We should fix this later by handling the async nature of requests in a better way.
   const modulesLoading =
     isLoading ||
-    (isSuccess && postProcessedModules.allModulesDangerous.length === 0)
+    (isSuccess && postProcessedModules?.allModulesDangerous.length === 0)
 
   return {
     userDisabledModulesBySlug,

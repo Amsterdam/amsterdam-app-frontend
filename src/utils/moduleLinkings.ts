@@ -3,10 +3,13 @@ import {RootStackParams} from '@/app/navigation'
 import {clientModules} from '@/modules'
 
 export const moduleLinkings: PathConfigMap<RootStackParams> =
-  clientModules.reduce(
-    (linkings, module) => ({
+  clientModules.reduce((linkings, {linking, slug}) => {
+    if (!linking) {
+      return linkings
+    }
+
+    return {
       ...linkings,
-      [module.slug]: {screens: module.linking},
-    }),
-    {},
-  )
+      [slug]: {screens: linking},
+    }
+  }, {})

@@ -12,5 +12,4 @@ export const module: BaseModuleConfig = {
     }),
   },
   slug: ModuleSlug.home,
-  state: [],
 }

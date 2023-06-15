@@ -14,7 +14,7 @@ export const Modules = () => {
     return <PleaseWait grow />
   }
 
-  if (modulesError) {
+  if (modulesError || !enabledModules) {
     return (
       <ModulesWarning
         onRetry={refetchModules}
@@ -23,7 +23,7 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = enabledModules.filter(m => !m.hiddenInMenu)
+  const availableModules = enabledModules?.filter(m => !m.hiddenInMenu)
 
   if (!availableModules.length) {
     return (
@@ -36,7 +36,7 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {availableModules.map(
+        {availableModules?.map(
           ({BadgeValue, icon, requiresAuthorization, slug, status, title}) => (
             <ModuleButton
               BadgeValue={BadgeValue}

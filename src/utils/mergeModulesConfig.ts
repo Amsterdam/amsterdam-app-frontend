@@ -2,12 +2,8 @@ import {Module, ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
 
 export const mergeModulesConfig = (
   clientConfig: ModuleClientConfig[],
-  serverConfig?: ModuleServerConfig[],
+  serverConfig: ModuleServerConfig[],
 ): Module[] => {
-  if (!serverConfig) {
-    return []
-  }
-
   const modules: Module[] = []
 
   serverConfig.forEach(serverModule => {

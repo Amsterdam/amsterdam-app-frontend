@@ -12,7 +12,7 @@ export const ModuleSettings = () => {
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
 
   useEffect(() => {
-    if (enabledModules.some(module => module.requiresFirebaseToken)) {
+    if (enabledModules?.some(module => module.requiresFirebaseToken)) {
       registerDeviceWithPermission()
     } else {
       void unregisterDevice(undefined)
@@ -23,7 +23,7 @@ export const ModuleSettings = () => {
     return <PleaseWait grow />
   }
 
-  if (!toggleableModules.length) {
+  if (!toggleableModules || toggleableModules.length === 0) {
     return (
       <ModulesWarning
         text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}

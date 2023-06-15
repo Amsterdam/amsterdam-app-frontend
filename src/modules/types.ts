@@ -1,5 +1,4 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
-import {Slice} from '@reduxjs/toolkit'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
@@ -22,10 +21,6 @@ export type BaseModuleConfig = {
    * A unique human-readable identifier for the module.
    */
   slug: ModuleSlug
-  /**
-   * The module’s state.
-   */
-  state: Slice[]
 }
 
 /**
@@ -52,7 +47,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links
    */
-  linking: Record<string, string>
+  linking?: Record<string, string>
   /**
    * Determines whether the module requires authorization to be accessed.
    */

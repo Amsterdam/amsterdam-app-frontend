@@ -11,5 +11,4 @@ export const module: ModuleClientConfig = {
   },
   name: 'ConstructionWorkEditorModule',
   slug: ModuleSlug['construction-work-editor'],
-  state: [],
 }

@@ -21,7 +21,7 @@ export const Init = ({children}: Props) => {
   const onAppstate = useMemo(
     () => ({
       onForeground: () => {
-        if (enabledModules.some(module => module.requiresFirebaseToken)) {
+        if (enabledModules?.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission()
         } else {
           void unregisterDevice(undefined)
@@ -38,7 +38,7 @@ export const Init = ({children}: Props) => {
 
   return (
     <>
-      {enabledModules.map(({PreRenderComponent, slug}) =>
+      {enabledModules?.map(({PreRenderComponent, slug}) =>
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
       )}
       {children}
