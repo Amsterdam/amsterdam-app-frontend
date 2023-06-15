@@ -30,7 +30,7 @@ export type RootStackParams = ModuleParams<ModuleStackParams> &
 
 const Stack = createStackNavigator<RootStackParams>()
 
-const ModuleStacks = [...coreModules, ...clientModules].map(
+const moduleStacks = [...coreModules, ...clientModules].map(
   ({screenOptions: options, slug}) => {
     const stack = getModuleStack(slug)
 
@@ -49,6 +49,19 @@ const ModuleStacks = [...coreModules, ...clientModules].map(
   },
 )
 
+const modalStacks = Object.entries(modals).map(([key, route]) => (
+  <Stack.Screen
+    key={key}
+    {...route}
+    options={{
+      cardStyleInterpolator:
+        Platform.OS === 'ios'
+          ? CardStyleInterpolators.forModalPresentationIOS
+          : undefined,
+    }}
+  />
+))
+
 export const RootStackNavigator = () => {
   const theme = useTheme()
   const {userDisabledModulesBySlug} = useModules()
@@ -63,7 +76,7 @@ export const RootStackNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      {ModuleStacks}
+      {moduleStacks}
       <Stack.Group
         screenOptions={{
           presentation: 'modal',
@@ -71,18 +84,7 @@ export const RootStackNavigator = () => {
             isBelowStatusBar: Platform.OS === 'android',
           }),
         }}>
-        {Object.entries(modals).map(([key, route]) => (
-          <Stack.Screen
-            key={key}
-            {...route}
-            options={{
-              cardStyleInterpolator:
-                Platform.OS === 'ios'
-                  ? CardStyleInterpolators.forModalPresentationIOS
-                  : undefined,
-            }}
-          />
-        ))}
+        {modalStacks}
       </Stack.Group>
     </Stack.Navigator>
   )
