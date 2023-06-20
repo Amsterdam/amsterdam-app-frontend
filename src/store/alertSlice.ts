@@ -4,6 +4,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
+import {TestProps} from '@/components/ui/types'
 import {isReduceMotionEnabled} from '@/hooks'
 import {RootState} from '@/store'
 
@@ -19,7 +20,7 @@ export type AlertSliceState = {
   content: Content
   variant: AlertVariant
   withIcon: boolean
-}
+} & TestProps
 
 const initialState = {} as AlertSliceState
 
