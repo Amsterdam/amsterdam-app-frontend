@@ -35,6 +35,7 @@ export const DisplayAddress = ({address}: Props) => {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
+        testID: 'AddressDeletedAlert',
         variant: AlertVariant.positive,
         withIcon: false,
       }),

@@ -38,7 +38,7 @@ export const Alert = () => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const alert = useSelector(selectAlert)
-  const {closeType, content, variant, withIcon} = alert
+  const {closeType, content, testID, variant, withIcon} = alert
   const variantConfig = useThemable(createVariantConfig)
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
 
@@ -88,7 +88,9 @@ export const Alert = () => {
   return (
     <WrapperComponent>
       <Box>
-        <View style={styles?.view}>
+        <View
+          style={styles?.view}
+          testID={testID}>
           <Row align="between">
             <SingleSelectable
               accessibilityLabel={accessibleText(content?.title, content?.text)}
