@@ -141,6 +141,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               <Button
                 label="Plaats bericht"
                 onPress={onSubmit}
+                testID="ConstructionWorkEditorCreateMessageSubmitButton"
               />
               <Row
                 align="between"
@@ -148,6 +149,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
                 <Link
                   label="Vorige"
                   onPress={navigation.goBack}
+                  testID="ConstructionWorkEditorCreateMessagePreviousButton"
                   variant="backward"
                 />
               </Row>
@@ -174,6 +176,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
                 onValueChange={() =>
                   setPushNotificationChecked(!isPushNotificationChecked)
                 }
+                testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckbox"
                 value={isPushNotificationChecked}
               />
               {!!isPushNotificationChecked && (
