@@ -26,9 +26,6 @@ export const timelineStyles = (
   }
 
   return StyleSheet.create({
-    body: {
-      marginLeft: tokens.indicator.size + tokens.body.insetLeft,
-    },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -57,11 +54,6 @@ export const timelineStyles = (
         isUpcoming || isBeforeUpcoming
           ? color.background.inactive
           : color.background.emphasis,
-    },
-    title: {
-      marginLeft: tokens.body.insetLeft,
-      marginRight: size.spacing.xs,
-      flexShrink: 1,
     },
   })
 }
