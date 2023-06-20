@@ -40,7 +40,7 @@ export const timelineStyles = (
       aspectRatio: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: size.spacing.md,
+      top: size.spacing.md,
       backgroundColor: isUpcoming
         ? color.background.inactive
         : color.background.emphasis,
@@ -48,11 +48,11 @@ export const timelineStyles = (
     },
     line: {
       position: 'absolute',
-      top: size.spacing.md,
+      top: size.spacing.md + tokens.indicator.size,
       left: (tokens.indicator.size - tokens.line.width) / 2,
       zIndex: -1,
       width: tokens.line.width,
-      height: lastItem && !isExpanded ? size.spacing.md : '100%',
+      height: lastItem && !isExpanded ? 0 : '100%',
       backgroundColor:
         isUpcoming || isBeforeUpcoming
           ? color.background.inactive
