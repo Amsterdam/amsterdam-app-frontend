@@ -78,24 +78,24 @@ describe('postProcessModules', () => {
       {slug: 'slug3', requiresAuthorization: true, moduleSlug: 'slug3'},
     ])
   })
-  test('returns authorizedModules, without unauthenticated modules', () => {
+  test('returns modules, without unauthenticated modules', () => {
     expect(
       postProcessModules(clientModuleConfigs, [], [], serverModuleConfigs)
-        ?.authorizedModules,
+        ?.modules,
     ).toEqual([
       {slug: 'slug0', moduleSlug: 'slug0'},
       {slug: 'slug1', moduleSlug: 'slug1'},
       {slug: 'slug2', alwaysEnabled: true, moduleSlug: 'slug2'},
     ])
   })
-  test('returns authorizedModules, with authenticated modules', () => {
+  test('returns modules, with authenticated modules', () => {
     expect(
       postProcessModules(
         clientModuleConfigs,
         [],
         ['slug3'],
         serverModuleConfigs,
-      )?.authorizedModules,
+      )?.modules,
     ).toEqual([
       {slug: 'slug0', moduleSlug: 'slug0'},
       {slug: 'slug1', moduleSlug: 'slug1'},

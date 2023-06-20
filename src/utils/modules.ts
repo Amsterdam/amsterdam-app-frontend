@@ -28,9 +28,12 @@ export const postProcessModules = (
   authorizedModulesBySlug: string[],
   serverModuleConfigs: ModuleServerConfig[],
 ) => {
-  const modules = mergeModulesConfig(clientModuleConfigs, serverModuleConfigs)
+  const mergedModules = mergeModulesConfig(
+    clientModuleConfigs,
+    serverModuleConfigs,
+  )
 
-  const authorizedModules = modules.filter(
+  const modules = mergedModules.filter(
     ({requiresAuthorization, slug}) =>
       !requiresAuthorization || authorizedModulesBySlug.includes(slug),
   )
@@ -39,7 +42,7 @@ export const postProcessModules = (
   const toggleableModules: Module[] = []
   const enabledModulesBySlug: ModuleSlug[] = []
 
-  authorizedModules.forEach(module => {
+  modules.forEach(module => {
     const {alwaysEnabled, slug} = module
 
     // only modules that are not "alwaysEnabled" may be toggled by the user
@@ -55,9 +58,9 @@ export const postProcessModules = (
 
   return {
     /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
-    allModulesDangerous: modules,
+    allModulesDangerous: mergedModules,
     /** The modules, selected and not selected that a user may see. They may be not active (remotely disabled). */
-    authorizedModules,
+    modules,
     /** Modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
     enabledModules,
     /** Modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */

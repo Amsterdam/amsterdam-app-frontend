@@ -29,7 +29,7 @@ export const useModules = () => {
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(() => {
     if (!serverModules) {
-      return undefined
+      return
     }
 
     return postProcessModules(
