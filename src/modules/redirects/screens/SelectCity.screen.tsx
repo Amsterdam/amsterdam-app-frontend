@@ -47,6 +47,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
                     onPress={() =>
                       navigation.navigate(RedirectsRouteName.makeAppointment)
                     }
+                    testID="RedirectsMakeAppointmentAmsterdamButton"
                   />
                 </Column>
                 <Column flex={1}>

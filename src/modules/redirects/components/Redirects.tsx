@@ -4,6 +4,7 @@ import {RootStackParams} from '@/app/navigation'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
+import {TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {accessibleText} from '@/utils'
@@ -14,7 +15,7 @@ type RedirectResponse = {
   text: string
   title: string
   url?: string
-}
+} & TestProps
 
 const redirects: RedirectResponse[] = [
   {
@@ -44,6 +45,7 @@ const redirects: RedirectResponse[] = [
   {
     iconName: 'person-desk',
     routeName: RedirectsRouteName.selectCity,
+    testID: 'RedirectsMakeAppointmentButton',
     text: 'Bekijk voor welke onderwerpen u een afspraak kunt maken.',
     title: 'Afspraak maken op Stadsloket',
   },
