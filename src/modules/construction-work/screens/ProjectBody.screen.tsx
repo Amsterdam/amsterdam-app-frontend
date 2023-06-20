@@ -3,6 +3,7 @@ import {useLayoutEffect} from 'react'
 import {Box, Timeline} from '@/components/ui/containers'
 import {Column, Screen} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
+import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {ProjectContacts} from '@/modules/construction-work/components/project'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {
@@ -38,6 +39,9 @@ export const ProjectBodyScreen = ({route}: Props) => {
             {!!body.contacts && <ProjectContacts contacts={body.contacts} />}
             {!!body.sections && (
               <ProjectContentSections sections={body.sections} />
+            )}
+            {body.timeline?.intro && (
+              <HtmlContent content={body.timeline.intro.html} />
             )}
             {body.timeline?.items?.length && (
               <Timeline items={body.timeline.items} />
