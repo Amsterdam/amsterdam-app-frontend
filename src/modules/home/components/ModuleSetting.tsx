@@ -106,7 +106,7 @@ export const ModuleSetting = ({
           label={ModuleSettingContentComponent}
           onChange={onChange}
           testID={`HomeModuleSetting${pascalCase(slug)}Switch`}
-          value={enabledModulesBySlug.includes(slug) && isModuleActive}
+          value={enabledModulesBySlug?.includes(slug) && isModuleActive}
         />
       ) : (
         ModuleSettingContentComponent

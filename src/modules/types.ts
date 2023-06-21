@@ -6,7 +6,7 @@ import {ModuleSlug} from '@/modules/slugs'
 /**
  * Base config for modules. This is the type of a core module; the client module config extends this config.
  */
-export type BaseModuleConfig = {
+type BaseModuleConfig = {
   /**
    * The module’s route name.
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
@@ -22,6 +22,8 @@ export type BaseModuleConfig = {
    */
   slug: ModuleSlug
 }
+
+export type CoreModuleConfig = BaseModuleConfig
 
 /**
  * The client part of a non-core module’s configuration.

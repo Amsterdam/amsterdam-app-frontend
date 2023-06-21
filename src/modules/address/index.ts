@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {BaseModuleConfig} from '@/modules/types'
+import {CoreModuleConfig} from '@/modules/types'
 
-export const module: BaseModuleConfig = {
+export const module: CoreModuleConfig = {
   name: 'AddressModule',
   slug: ModuleSlug.address,
 }
