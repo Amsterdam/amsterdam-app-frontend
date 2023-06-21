@@ -2,7 +2,9 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ConstructionWorkEditor} from '@/modules/construction-work-editor/types'
 import {RootState} from '@/store'
 
-const initialState: ConstructionWorkEditor = {
+export type ConstructionWorkEditorState = ConstructionWorkEditor
+
+const initialState: ConstructionWorkEditorState = {
   id: undefined,
   hasSeenWelcomeMessage: false,
 }

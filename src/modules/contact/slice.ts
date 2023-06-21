@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
-type ContactState = {
+export type ContactState = {
   selectedCityOfficeId?: string
 }
 

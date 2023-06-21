@@ -6,12 +6,12 @@ export type ReadArticle = {
   publicationDate: string
 }
 
-type ConstructionWorkSliceState = {
+export type ConstructionWorkState = {
   readArticles: ReadArticle[]
   searchText: string
 }
 
-const initialState: ConstructionWorkSliceState = {
+const initialState: ConstructionWorkState = {
   readArticles: [],
   searchText: '',
 }

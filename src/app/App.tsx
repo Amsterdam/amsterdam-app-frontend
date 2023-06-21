@@ -4,43 +4,46 @@ import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from 'react-native-safe-area-context'
-import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 import {CustomErrorBoundary, Init} from '@/app'
 import {AppNavigationContainer, RootStackNavigator} from '@/app/navigation'
 import {ErrorWithRestart} from '@/components/ui/feedback'
 import {RootProvider} from '@/providers'
-import {store} from '@/store'
+import {useStoreAndPersistor} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens'
 
-const persistor = persistStore(store)
+const AppComponent = () => {
+  const {store, persistor} = useStoreAndPersistor()
 
-const AppComponent = () => (
-  <SafeAreaProvider
-    initialMetrics={initialWindowMetrics}
-    style={styles.appContainer}>
-    <CustomErrorBoundary>
-      <StatusBar
-        backgroundColor="transparent"
-        barStyle="dark-content"
-        translucent
-      />
-      <RootProvider>
-        <AppNavigationContainer>
-          <PersistGate
-            loading={null}
-            persistor={persistor}>
-            <Init>
-              <ErrorBoundary fallback={<ErrorWithRestart />}>
-                <RootStackNavigator />
-              </ErrorBoundary>
-            </Init>
-          </PersistGate>
-        </AppNavigationContainer>
-      </RootProvider>
-    </CustomErrorBoundary>
-  </SafeAreaProvider>
-)
+  return (
+    <SafeAreaProvider
+      initialMetrics={initialWindowMetrics}
+      style={styles.appContainer}>
+      <CustomErrorBoundary>
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          translucent
+        />
+        {!!store && !!persistor && (
+          <RootProvider store={store}>
+            <AppNavigationContainer>
+              <PersistGate
+                loading={null}
+                persistor={persistor}>
+                <Init>
+                  <ErrorBoundary fallback={<ErrorWithRestart />}>
+                    <RootStackNavigator />
+                  </ErrorBoundary>
+                </Init>
+              </PersistGate>
+            </AppNavigationContainer>
+          </RootProvider>
+        )}
+      </CustomErrorBoundary>
+    </SafeAreaProvider>
+  )
+}
 
 export const App = SentryWrap(AppComponent)
 

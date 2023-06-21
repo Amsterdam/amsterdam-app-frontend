@@ -3,15 +3,13 @@ import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
 
-export type PersistedStateTransformer<State> = {
-  appVersion?: string
-  moduleVersion?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transform: (state: any) => State | undefined
+export type PersistedStateTransformer<OldState, State> = {
+  appVersion: string
+  transform: (state: OldState) => State | undefined
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyPersistedStateTransformer = PersistedStateTransformer<any>
+type AnyPersistedStateTransformer = PersistedStateTransformer<any, any>
 
 /**
  * Base config for modules. This is the type of a core module; the client module config extends this config.

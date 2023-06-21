@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
-type AuthState = {
+export type AuthState = {
   managerToken: string | null
 }
 

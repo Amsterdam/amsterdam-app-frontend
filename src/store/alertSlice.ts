@@ -15,21 +15,21 @@ export type Content =
     }
   | undefined
 
-export type AlertSliceState = {
+export type AlertState = {
   closeType: AlertCloseType
   content: Content
   variant: AlertVariant
   withIcon: boolean
 } & TestProps
 
-const initialState = {} as AlertSliceState
+const initialState = {} as AlertState
 
 export const alertSlice = createSlice({
   name: 'alert',
   initialState,
   reducers: {
     resetAlert: () => initialState,
-    setAlert: (_state, {payload}: PayloadAction<AlertSliceState>) => {
+    setAlert: (_state, {payload}: PayloadAction<AlertState>) => {
       if (!isReduceMotionEnabled) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       }

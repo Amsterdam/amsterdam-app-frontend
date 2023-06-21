@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
-type ModulesSliceState = {
+export type ModulesState = {
   authorizedModules: string[]
   disabledModules: string[]
 }
 
-const initialState: ModulesSliceState = {
+const initialState: ModulesState = {
   disabledModules: [],
   authorizedModules: [],
 }

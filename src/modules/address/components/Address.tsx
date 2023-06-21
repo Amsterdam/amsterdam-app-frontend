@@ -11,6 +11,8 @@ import {selectAddress} from '@/modules/address/slice'
 export const Address = () => {
   const address = useSelector(selectAddress)
 
+  console.log(address)
+
   return (
     <Box distinct>
       <Column gutter="md">

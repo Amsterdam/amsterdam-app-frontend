@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {RootState} from '@/store'
 
-type BottomSheetState = {
+export type BottomSheetState = {
   isOpen: boolean
 }
 

@@ -4,7 +4,7 @@ import {Environment, EnvironmentConfig, getEnvironment} from '@/environment'
 import {isDevApp} from '@/processes'
 import {RootState} from '@/store'
 
-type EnvironmentState = {
+export type EnvironmentState = {
   custom?: Partial<EnvironmentConfig>
   environment: Environment
 }

@@ -18,43 +18,45 @@ type OldAdressState = {
   woonplaats: AddressCity
 }
 
-export const persistedStateTransformers: PersistedStateTransformer<AddressState>[] =
-  [
-    {
-      // Transform old state using Dutch keys and centroid rather than coordinates
-      appVersion: '0.36.0',
-      transform: (oldAddressState: OldAdressState) => {
-        if (!oldAddressState) {
-          return
-        }
+export const persistedStateTransformers: PersistedStateTransformer<
+  OldAdressState,
+  AddressState
+>[] = [
+  {
+    // Transform old state using Dutch keys and centroid rather than coordinates
+    appVersion: '0.36.0',
+    transform: oldAddressState => {
+      if (!oldAddressState) {
+        return
+      }
 
-        const {
-          adres,
-          bag_toevoeging,
-          bagNummeraanduidingId,
-          woonplaats,
-          centroid,
-          coordinates,
-          huisnummer,
-          postcode,
-          straatnaam,
-        } = oldAddressState
+      const {
+        adres,
+        bag_toevoeging,
+        bagNummeraanduidingId,
+        woonplaats,
+        centroid,
+        coordinates,
+        huisnummer,
+        postcode,
+        straatnaam,
+      } = oldAddressState
 
-        return {
-          address: {
-            addressText: adres,
-            addition: bag_toevoeging,
-            bagId: bagNummeraanduidingId,
-            city: woonplaats,
-            coordinates: coordinates ?? {
-              lat: centroid?.[1] ?? 0,
-              lon: centroid?.[0] ?? 0,
-            },
-            number: huisnummer,
-            postcode,
-            street: straatnaam,
+      return {
+        address: {
+          addressText: adres,
+          addition: bag_toevoeging,
+          bagId: bagNummeraanduidingId,
+          city: woonplaats,
+          coordinates: coordinates ?? {
+            lat: centroid?.[1] ?? 0,
+            lon: centroid?.[0] ?? 0,
           },
-        }
-      },
+          number: huisnummer,
+          postcode,
+          street: straatnaam,
+        },
+      }
     },
-  ]
+  },
+]

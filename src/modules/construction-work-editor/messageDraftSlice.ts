@@ -14,7 +14,7 @@ export type MessageDraft = {
   project?: ProjectIdAndTitle
 }
 
-type MessageDraftState = Record<string, MessageDraft> & {
+export type MessageDraftState = Record<string, MessageDraft> & {
   currentProjectId: string
 }
 
