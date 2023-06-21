@@ -19,7 +19,7 @@ type Props = {
    * Should be one or a few words.
    */
   label: string
-} & TestProps
+} & Required<TestProps>
 
 export const Trait = ({children, iconName, label, testID}: Props) => (
   <Row
@@ -28,13 +28,13 @@ export const Trait = ({children, iconName, label, testID}: Props) => (
     {iconName ? (
       <Icon
         name={iconName}
-        testID={testID ? `${testID}Icon` : undefined}
+        testID={`${testID}Icon`}
       />
     ) : (
       children
     )}
     <Phrase
-      testID={testID ? `${testID}Label` : undefined}
+      testID={`${testID}Label`}
       variant="small">
       {label}
     </Phrase>

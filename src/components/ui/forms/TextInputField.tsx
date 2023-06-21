@@ -35,7 +35,7 @@ export const TextInputField = ({
             numberOfLines={numberOfLines ?? 1}
             onChangeText={onChange}
             placeholder={placeholder}
-            testID={testID ? `${testID}Input` : undefined}
+            testID={`${testID}Input`}
             value={value as string}
             warning={!!error}
           />
@@ -47,7 +47,7 @@ export const TextInputField = ({
         {!!error && (
           <Paragraph
             color="warning"
-            testID={testID ? `${testID}ErrorText` : undefined}>
+            testID={`${testID}ErrorText`}>
             {error.message}
           </Paragraph>
         )}
