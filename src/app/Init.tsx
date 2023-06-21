@@ -16,12 +16,12 @@ export const Init = ({children}: Props) => {
   useInitSentry()
   const piwik = usePiwik()
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
-  const {selectedModules} = useModules()
+  const {enabledModules} = useModules()
 
   const onAppstate = useMemo(
     () => ({
       onForeground: () => {
-        if (selectedModules.some(module => module.requiresFirebaseToken)) {
+        if (enabledModules?.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission()
         } else {
           void unregisterDevice(undefined)
@@ -31,14 +31,14 @@ export const Init = ({children}: Props) => {
         void piwik?.trackCustomEvent('appStateChange', nextAppState)
       },
     }),
-    [piwik, registerDeviceWithPermission, selectedModules, unregisterDevice],
+    [enabledModules, piwik, registerDeviceWithPermission, unregisterDevice],
   )
 
   useAppState(onAppstate)
 
   return (
     <>
-      {selectedModules.map(({PreRenderComponent, slug}) =>
+      {enabledModules?.map(({PreRenderComponent, slug}) =>
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
       )}
       {children}

@@ -5,41 +5,15 @@ import {useSelector} from 'react-redux'
 import {version as releaseVersion} from '@/../package.json'
 import {useAppState, useSentry} from '@/hooks'
 import {clientModules} from '@/modules'
-import {ModuleServerConfig} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services'
 import {selectAuthorizedModules, selectDisabledModules} from '@/store'
-import {mergeModulesConfig} from '@/utils'
+import {postProcessModules} from '@/utils/modules'
 
 const MAX_RETRIES = 3
 
-const postProcessModules = (
-  disabledModulesBySlug: string[],
-  authorizedModulesBySlug: string[],
-  serverModules?: ModuleServerConfig[],
-) => {
-  const modules = mergeModulesConfig(clientModules, serverModules)
-
-  const authorizedModules = modules.filter(
-    module =>
-      !module.requiresAuthorization ||
-      authorizedModulesBySlug.includes(module.slug),
-  )
-
-  const selectedModules = authorizedModules.filter(
-    module => !disabledModulesBySlug?.includes(module.slug),
-  )
-
-  return {
-    authorizedModules,
-    /**
-     * Be careful when using this prop. You probably want to consider authorized or selected modules instead.
-     */
-    allModulesDangerous: modules,
-    selectedModules,
-    selectedModulesBySlug: selectedModules.map(module => module.slug),
-  }
-}
-
+/**
+ * Handles the request for the serverside module configuration and returns various postprocessed lists of modules, not including core modules. It also returns the modules disabled by the user, plus the loading/error state of the endpoint and a refetch method.
+ */
 export const useModules = () => {
   const {
     data: release,
@@ -53,15 +27,18 @@ export const useModules = () => {
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
   const authorizedModulesBySlug = useSelector(selectAuthorizedModules)
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
-  const postProcessedModules = useMemo(
-    () =>
-      postProcessModules(
-        userDisabledModulesBySlug,
-        authorizedModulesBySlug,
-        serverModules,
-      ),
-    [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules],
-  )
+  const postProcessedModules = useMemo(() => {
+    if (!serverModules) {
+      return
+    }
+
+    return postProcessModules(
+      clientModules,
+      userDisabledModulesBySlug,
+      authorizedModulesBySlug,
+      serverModules,
+    )
+  }, [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules])
 
   useEffect(() => {
     if (error) {
@@ -97,10 +74,9 @@ export const useModules = () => {
   // TODO We should fix this later by handling the async nature of requests in a better way.
   const modulesLoading =
     isLoading ||
-    (isSuccess && postProcessedModules.allModulesDangerous.length === 0)
+    (isSuccess && postProcessedModules?.allModulesDangerous.length === 0)
 
   return {
-    clientModules,
     userDisabledModulesBySlug,
     modulesLoading,
     modulesError: error,

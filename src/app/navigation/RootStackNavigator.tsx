@@ -1,9 +1,9 @@
 import {ParamListBase} from '@react-navigation/core'
 import {CardStyleInterpolators} from '@react-navigation/stack'
-import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'
+import {clientModules, coreModules} from '@/modules'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
@@ -30,26 +30,41 @@ export type RootStackParams = ModuleParams<ModuleStackParams> &
 
 const Stack = createStackNavigator<RootStackParams>()
 
+const moduleStacks = [...coreModules, ...clientModules].map(
+  ({screenOptions: options, slug}) => {
+    const stack = getModuleStack(slug)
+
+    if (!stack) {
+      return null
+    }
+
+    return (
+      <Stack.Screen
+        component={stack}
+        key={slug}
+        name={slug}
+        options={options}
+      />
+    )
+  },
+)
+
+const modalStacks = Object.entries(modals).map(([key, route]) => (
+  <Stack.Screen
+    key={key}
+    {...route}
+    options={{
+      cardStyleInterpolator:
+        Platform.OS === 'ios'
+          ? CardStyleInterpolators.forModalPresentationIOS
+          : undefined,
+    }}
+  />
+))
+
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {clientModules, userDisabledModulesBySlug} = useModules()
-
-  const ModuleStacks = useMemo(
-    () =>
-      clientModules.map(({screenOptions: options, slug}) => {
-        const stack = getModuleStack(slug)
-
-        return stack ? (
-          <Stack.Screen
-            component={stack}
-            key={slug}
-            name={slug}
-            options={options}
-          />
-        ) : null
-      }),
-    [clientModules],
-  )
+  const {userDisabledModulesBySlug} = useModules()
 
   return (
     <Stack.Navigator
@@ -61,7 +76,7 @@ export const RootStackNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      {ModuleStacks}
+      {moduleStacks}
       <Stack.Group
         screenOptions={{
           presentation: 'modal',
@@ -69,18 +84,7 @@ export const RootStackNavigator = () => {
             isBelowStatusBar: Platform.OS === 'android',
           }),
         }}>
-        {Object.entries(modals).map(([key, route]) => (
-          <Stack.Screen
-            key={key}
-            {...route}
-            options={{
-              cardStyleInterpolator:
-                Platform.OS === 'ios'
-                  ? CardStyleInterpolators.forModalPresentationIOS
-                  : undefined,
-            }}
-          />
-        ))}
+        {modalStacks}
       </Stack.Group>
     </Stack.Navigator>
   )

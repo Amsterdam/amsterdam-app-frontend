@@ -7,23 +7,23 @@ import {useModules, useRegisterDevice} from '@/hooks'
 import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
 
 export const ModuleSettings = () => {
-  const {authorizedModules, modulesLoading, selectedModules} = useModules()
+  const {toggleableModules, modulesLoading, enabledModules} = useModules()
 
   const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
 
   useEffect(() => {
-    if (selectedModules.some(module => module.requiresFirebaseToken)) {
+    if (enabledModules?.some(module => module.requiresFirebaseToken)) {
       registerDeviceWithPermission()
     } else {
       void unregisterDevice(undefined)
     }
-  }, [registerDeviceWithPermission, selectedModules, unregisterDevice])
+  }, [registerDeviceWithPermission, enabledModules, unregisterDevice])
 
   if (modulesLoading) {
     return <PleaseWait grow />
   }
 
-  if (!authorizedModules.length) {
+  if (!toggleableModules || toggleableModules.length === 0) {
     return (
       <ModulesWarning
         text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
@@ -34,7 +34,7 @@ export const ModuleSettings = () => {
   return (
     <Box>
       <Column gutter="sm">
-        {authorizedModules.map(module => (
+        {toggleableModules.map(module => (
           <ModuleSetting
             key={module.slug}
             module={module}

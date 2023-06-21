@@ -3,7 +3,6 @@ import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   hiddenInMenu: true,
-  linking: {},
   name: 'WelcomeModule',
   screenOptions: {
     cardStyleInterpolator: ({current}) => ({
@@ -14,5 +13,4 @@ export const module: ModuleClientConfig = {
     }),
   },
   slug: ModuleSlug.welcome,
-  state: [],
 }

@@ -7,18 +7,14 @@ import {ModuleButton, ModulesWarning} from '@/modules/home/components'
 import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {
-  const {
-    modulesError,
-    modulesLoading,
-    refetchModules,
-    selectedModules: modules,
-  } = useModules()
+  const {enabledModules, modulesError, modulesLoading, refetchModules} =
+    useModules()
 
   if (modulesLoading) {
     return <PleaseWait grow />
   }
 
-  if (modulesError) {
+  if (modulesError || !enabledModules) {
     return (
       <ModulesWarning
         onRetry={refetchModules}
@@ -27,7 +23,7 @@ export const Modules = () => {
     )
   }
 
-  const availableModules = modules.filter(m => !m.hiddenInMenu)
+  const availableModules = enabledModules?.filter(m => !m.hiddenInMenu)
 
   if (!availableModules.length) {
     return (
@@ -40,7 +36,7 @@ export const Modules = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        {availableModules.map(
+        {availableModules?.map(
           ({BadgeValue, icon, requiresAuthorization, slug, status, title}) => (
             <ModuleButton
               BadgeValue={BadgeValue}

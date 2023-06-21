@@ -11,10 +11,9 @@ import {module as userModule} from './user'
 import {module as wasteGuideModule} from './waste-guide'
 import {module as welcomeModule} from './welcome'
 
-const coreModules = [addressModule, homeModule, userModule]
+export const coreModules = [addressModule, homeModule, userModule]
 
 export const clientModules = [
-  ...coreModules,
   aboutModule,
   constructionWorkEditorModule,
   constructionWorkModule,

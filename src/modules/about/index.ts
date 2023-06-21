@@ -2,8 +2,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
-  linking: {},
+  alwaysEnabled: true,
   name: 'AboutModule',
   slug: ModuleSlug.about,
-  state: [],
 }
