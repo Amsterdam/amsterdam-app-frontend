@@ -9,6 +9,7 @@ import {
 import {FormField} from '@/components/ui/forms'
 import {MainAxisPosition} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
+import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 
 type Props = {
@@ -16,13 +17,15 @@ type Props = {
   labelPosition?: MainAxisPosition
   onValueChange: () => void
   value: boolean
-} & Pick<AccessibilityProps, 'accessibilityLabel'>
+} & Required<TestProps> &
+  Pick<AccessibilityProps, 'accessibilityLabel'>
 
 export const Checkbox = ({
   accessibilityLabel,
   label,
   labelPosition = 'end',
   onValueChange,
+  testID,
   value,
 }: Props) => {
   const styles = useThemable(createStyles)
@@ -34,6 +37,7 @@ export const Checkbox = ({
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onValueChange}
+      testID={testID}
       {...touchableProps}>
       <FormField {...{label, labelPosition}}>
         <View style={[styles.checkbox, value && styles.checked]}>
