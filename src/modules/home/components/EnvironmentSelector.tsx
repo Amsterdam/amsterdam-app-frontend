@@ -54,15 +54,23 @@ export const EnvironmentSelector = () => {
         <Box>
           <Column gutter="md">
             <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="url"
               label="apiUrl"
               onChangeText={text => setCustomUrls(v => ({...v, apiUrl: text}))}
+              selectTextOnFocus={false}
               value={customUrls?.apiUrl ?? ''}
             />
             <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="url"
               label="modulesApiUrl"
               onChangeText={text =>
                 setCustomUrls(v => ({...v, modulesApiUrl: text}))
               }
+              selectTextOnFocus={false}
               value={customUrls?.modulesApiUrl ?? ''}
             />
             <Button
