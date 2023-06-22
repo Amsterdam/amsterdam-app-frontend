@@ -81,11 +81,13 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
             <Link
               label="Vorige"
               onPress={navigation.goBack}
+              testID="ConstructionWorkEditorAddImageToMessagePreviousButton"
               variant="backward"
             />
             <Link
               label="Volgende"
               onPress={handleSubmit(onSubmit)}
+              testID="ConstructionWorkEditorAddImageToMessageNextButton"
               variant="forward"
             />
           </Row>
@@ -113,6 +115,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
                 },
                 required: 'Vul een tekst in',
               }}
+              testID="ConstructionWorkEditorCreateMessageImageDescription"
             />
           </FormProvider>
         </Column>

@@ -77,6 +77,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                     },
                   )
                 }}
+                testID="ConstructionWorkEditorCreateMessageWritingGuideButton"
               />
             </Row>
           </Column>
@@ -107,6 +108,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                     )
               })
             }
+            testID="ConstructionWorkEditorCreateMessageNextButton"
             variant="forward"
           />
         </Row>

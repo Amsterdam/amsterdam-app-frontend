@@ -2,13 +2,15 @@ import {Controller, UseControllerProps} from 'react-hook-form'
 import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
 import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
   label: string
   maxCharacters: number
   numberOfLines?: number
   placeholder: string
-} & UseControllerProps
+} & Required<TestProps> &
+  UseControllerProps
 
 export const TextInputField = ({
   defaultValue = '',
@@ -18,6 +20,7 @@ export const TextInputField = ({
   name,
   placeholder,
   rules,
+  testID,
 }: Props) => (
   <Controller
     defaultValue={defaultValue as string}
@@ -32,6 +35,7 @@ export const TextInputField = ({
             numberOfLines={numberOfLines ?? 1}
             onChangeText={onChange}
             placeholder={placeholder}
+            testID={`${testID}Input`}
             value={value as string}
             warning={!!error}
           />
@@ -40,7 +44,13 @@ export const TextInputField = ({
           maxCharacters={maxCharacters}
           numOfCharacters={(value as string).length}
         />
-        {!!error && <Paragraph color="warning">{error.message}</Paragraph>}
+        {!!error && (
+          <Paragraph
+            color="warning"
+            testID={`${testID}ErrorText`}>
+            {error.message}
+          </Paragraph>
+        )}
       </>
     )}
     rules={rules}

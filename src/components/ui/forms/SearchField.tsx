@@ -55,7 +55,7 @@ export const SearchField = forwardRef<TextInput, Props>(
             accessibilityHint="Maak dit zoekveld leeg"
             icon={<Icon name="close" />}
             onPress={handleClearText}
-            testID={testID ? `${testID}ClearButton` : undefined}
+            testID={`${testID}ClearButton`}
           />
         ) : (
           <IconButton
@@ -67,7 +67,7 @@ export const SearchField = forwardRef<TextInput, Props>(
               />
             }
             onPress={handleFocus}
-            testID={testID ? `${testID}SubmitButton` : undefined}
+            testID={`${testID}SubmitButton`}
           />
         )}
       </View>

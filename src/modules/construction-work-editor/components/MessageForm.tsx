@@ -139,6 +139,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               },
               required: 'Vul een titel in',
             }}
+            testID="ConstructionWorkEditorCreateMessageTitle"
           />
           <TextInputField
             label="Wat is de tekst van je bericht?"
@@ -153,6 +154,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
               },
               required: 'Vul een tekst in',
             }}
+            testID="ConstructionWorkEditorCreateMessageBody"
           />
         </Column>
         <Column gutter="xs">
@@ -170,6 +172,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
                 iconName="enlarge"
                 label="Foto toevoegen"
                 onPress={handleSubmit(pickImage())}
+                testID="ConstructionWorkEditorCreateMessageAddImageButton"
                 variant="secondary"
               />
             </Row>
@@ -178,6 +181,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
                 iconName="enlarge"
                 label="Foto maken"
                 onPress={handleSubmit(pickImage(true))}
+                testID="ConstructionWorkEditorCreateMessageTakeImageButton"
                 variant="secondary"
               />
             </Row>
