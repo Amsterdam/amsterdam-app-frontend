@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {RouteProp} from '@react-navigation/native'
 import {useCallback} from 'react'
+import {useLayoutEffect} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
 import {WebView} from '@/components/ui/containers'
 import {Box} from '@/components/ui/containers'
@@ -27,10 +28,14 @@ const signalsCloseMessage = 'signals/close'
 export const ReportProblemWebViewScreen = ({route}: Props) => {
   const navigation = useNavigation()
   const environment = useEnvironment()
-  const {
-    params: {city},
-  } = route
+  const {city} = route.params
   const url = environment[`reportProblem${city}Url`]
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: `Melding doen voor ${city}`,
+    })
+  }, [navigation, city])
 
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
