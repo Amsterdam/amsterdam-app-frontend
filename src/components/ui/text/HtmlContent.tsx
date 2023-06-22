@@ -1,15 +1,13 @@
-import {
-  GestureResponderEvent,
-  Platform,
-  TextStyle,
-  useWindowDimensions,
-} from 'react-native'
+import {useMemo} from 'react'
+import {Platform, TextStyle, useWindowDimensions} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
 import {TestProps} from '@/components/ui/types'
+import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Theme, useThemable, useTheme} from '@/themes'
 import {SizeTokens, TextTokens} from '@/themes/tokens'
 
@@ -61,18 +59,29 @@ const computeEmbeddedMaxWidth =
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const openUrl = useOpenUrl()
-  const {width} = useWindowDimensions()
+  const {width: contentWidth} = useWindowDimensions()
   const {size} = useTheme()
-  const fonts = useThemable(createFontList)
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps(openUrl))
+  const systemFonts = useThemable(createFontList)
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  if (!content) {
+  const html = useMemo(() => {
+    if (!content) {
+      return
+    }
+
+    const transformedContent = transformContent(content, transformRules)
+
+    return isScreenReaderEnabled
+      ? promoteInlineLinks(transformedContent)
+      : transformedContent
+  }, [content, isScreenReaderEnabled, transformRules])
+
+  if (!html) {
     return null
   }
-
-  const html = transformContent(content, transformRules)
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = {
     a: {...styles.boldText, ...styles.link},
@@ -93,13 +102,9 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
 
   return (
     <RenderHTML
-      baseStyle={baseStyle}
       computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
-      contentWidth={width}
-      renderersProps={renderersProps}
       source={{html}}
-      systemFonts={fonts}
-      tagsStyles={tagsStyles}
+      {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
     />
   )
 }
@@ -187,7 +192,7 @@ const createRenderersProps =
   (openUrl: OpenUrl) =>
   ({text}: Theme): Partial<RenderersProps> => ({
     a: {
-      onPress: (_event: GestureResponderEvent, href: string) => openUrl(href),
+      onPress: (_event, href) => openUrl(href),
     },
     ul: {
       markerBoxStyle: {
