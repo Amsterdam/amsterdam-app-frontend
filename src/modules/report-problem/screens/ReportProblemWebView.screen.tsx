@@ -32,7 +32,7 @@ export const ReportProblemWebViewScreen = ({route}: Props) => {
   } = route
   const url = environment[`reportProblem${city}Url`]
 
-  const handleMessage = useCallback(
+  const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
         navigation.goBack()
@@ -53,11 +53,7 @@ export const ReportProblemWebViewScreen = ({route}: Props) => {
 
   return (
     <Screen scroll={false}>
-      <WebView
-        injectedJavaScript={injectedJavascript}
-        onMessage={handleMessage}
-        url={url}
-      />
+      <WebView {...{injectedJavascript, onMessage, url}} />
     </Screen>
   )
 }
