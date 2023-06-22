@@ -11,7 +11,7 @@ export const ReportProblemStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={ReportProblemRouteName.reportProblem}
+      initialRouteName={ReportProblemRouteName.reportProblemWebView}
       screenOptions={screenOptions(theme)}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

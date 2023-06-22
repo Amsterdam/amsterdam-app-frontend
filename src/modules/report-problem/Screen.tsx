@@ -10,7 +10,7 @@ import {useEnvironment} from '@/store'
 type Props = {
   navigation: StackNavigationProp<
     RootStackParams,
-    ReportProblemRouteName.reportProblem
+    ReportProblemRouteName.reportProblemWebView
   >
 }
 
@@ -22,7 +22,7 @@ const injectedJavascript = `(function() {
 
 const signalsCloseMessage = 'signals/close'
 
-export const ReportProblemScreen = ({navigation}: Props) => {
+export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   const environment = useEnvironment()
 
   const handleMessage = useCallback(

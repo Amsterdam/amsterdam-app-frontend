@@ -1,5 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation'
-import {ReportProblemScreen} from '@/modules/report-problem/Screen'
+import {ReportProblemWebViewScreen} from '@/modules/report-problem/Screen'
 import {
   ReportProblemModalParams,
   ReportProblemRouteName,
@@ -10,9 +10,9 @@ export const screenConfig: StackNavigationRoutes<
   ReportProblemStackParams,
   ReportProblemRouteName
 > = {
-  [ReportProblemRouteName.reportProblem]: {
-    component: ReportProblemScreen,
-    name: ReportProblemRouteName.reportProblem,
+  [ReportProblemRouteName.reportProblemWebView]: {
+    component: ReportProblemWebViewScreen,
+    name: ReportProblemRouteName.reportProblemWebView,
     options: {
       headerTitle: 'Melding doen',
     },
