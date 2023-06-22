@@ -10,7 +10,7 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenPhoneUrl} from '@/hooks'
+import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {City} from '@/modules/report-problem/types'
@@ -26,7 +26,6 @@ type Props = {
 export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-
   const {isPortrait} = useContext(DeviceContext)
   const Track = isPortrait ? Column : Row
 
