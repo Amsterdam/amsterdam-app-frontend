@@ -33,7 +33,10 @@ export const ReportProblemScreen = ({navigation}: Props) => {
   return (
     <Screen>
       <Box>
-        <Title text="Melding openbare ruimte en overlast" />
+        <Title
+          testID="ReportProblemScreenTitle"
+          text="Melding openbare ruimte en overlast"
+        />
         <Gutter height="md" />
         <Track gutter="lg">
           <Column
@@ -50,7 +53,8 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               <InlineLink
                 onPress={() =>
                   openWebUrl('https://meldingen.amsterdam.nl/meldingenkaart')
-                }>
+                }
+                testID="ReportProblemKnownProblemsMapLink">
                 de meldingenkaart
               </InlineLink>{' '}
               zien welke meldingen al bekend zijn bij de gemeente. Staat uw
@@ -77,6 +81,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
                     },
                   )
                 }
+                testID="ReportProblemAmsterdamButton"
               />
               <Button
                 label="Weesp"
@@ -88,6 +93,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
                     },
                   )
                 }
+                testID="ReportProblemWeespButton"
               />
             </Row>
             <Paragraph variant="small">
@@ -97,11 +103,14 @@ export const ReportProblemScreen = ({navigation}: Props) => {
                   openWebUrl(
                     'https://www.gad.nl/mijn-vraag-melding/iets-melden-of-aanvragen/',
                   )
-                }>
+                }
+                testID="ReportProblemWeespWebsiteLink">
                 de website van de GAD
               </InlineLink>{' '}
               of via telefoonnummer{' '}
-              <InlineLink onPress={() => openPhoneUrl('+31356991888')}>
+              <InlineLink
+                onPress={() => openPhoneUrl('+31356991888')}
+                testID="ReportProblemWeespPhoneLink">
                 035 699 1888
               </InlineLink>
               .

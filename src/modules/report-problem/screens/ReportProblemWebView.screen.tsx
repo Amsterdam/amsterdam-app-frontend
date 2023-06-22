@@ -60,7 +60,10 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
       <Screen>
         <Box>
           <Column gutter="md">
-            <EmptyMessage text="Plaats niet gevonden." />
+            <EmptyMessage
+              testID="ReportProblemWebViewCityNotFoundText"
+              text="Plaats niet gevonden."
+            />
             <Row align="start">
               <Link
                 label="Terug"
@@ -78,7 +81,10 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen scroll={false}>
-      <WebView {...{injectedJavascript, onMessage, url}} />
+      <WebView
+        testID="ReportProblemWebView"
+        {...{injectedJavascript, onMessage, url}}
+      />
     </Screen>
   )
 }
