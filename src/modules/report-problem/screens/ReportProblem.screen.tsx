@@ -1,11 +1,24 @@
+import {StackNavigationProp} from '@react-navigation/stack'
+import {RootStackParams} from '@/app/navigation'
+import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers/Box'
+import {Row} from '@/components/ui/layout'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {ReportProblemRouteName} from '@/modules/report-problem/routes'
+import {City} from '@/modules/report-problem/types'
 
-export const ReportProblemScreen = () => {
+type Props = {
+  navigation: StackNavigationProp<
+    RootStackParams,
+    ReportProblemRouteName.reportProblem
+  >
+}
+
+export const ReportProblemScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
 
   return (
@@ -29,6 +42,26 @@ export const ReportProblemScreen = () => {
           zien welke meldingen al bekend zijn bij de gemeente. Staat uw melding
           er niet bij? Doe dan hieronder een nieuwe melding.
         </Paragraph>
+        <Row
+          gutter="md"
+          wrap>
+          <Button
+            label="Doe een melding Amsterdam"
+            onPress={() =>
+              navigation.navigate(ReportProblemRouteName.reportProblemWebView, {
+                city: City.Amsterdam,
+              })
+            }
+          />
+          <Button
+            label="Doe een melding Weesp"
+            onPress={() =>
+              navigation.navigate(ReportProblemRouteName.reportProblemWebView, {
+                city: City.Weesp,
+              })
+            }
+          />
+        </Row>
         <Paragraph variant="small">
           Meldingen over afval en containers in Weesp doet u via{' '}
           <InlineLink
