@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {createTransform, persistReducer} from 'redux-persist'
 import {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
 import {AnyReducer, PersistedStateTransformer, ReduxConfig} from '@/store/types'
+import {versionCompare} from '@/utils/version'
 
 /**
  * Reduce an array of module configurations to an array of Redux slice configurations.
@@ -18,16 +19,6 @@ export const getConfigs = <T extends CoreModuleConfig | ModuleClientConfig>(
   }, [])
 
 /**
- * Is version A newer than version B, assuming an app version with or without build number, e.g. #.#.# or #.#.#.#
- */
-export const isNewer = (versionA?: string, versionB?: string) => {
-  if (!versionA || !versionB) {
-    return false
-  }
-  return versionA > versionB
-}
-
-/**
  * Should the persisted state transformer be executed, based on the appVersion property, which is a function or a string.
  */
 export const shouldTransform = (
@@ -40,14 +31,17 @@ export const shouldTransform = (
   if (typeof appVersion === 'function') {
     return appVersion(oldAppVersion)
   }
-
-  return oldAppVersion && !isNewer(appVersion, oldAppVersion)
+  try {
+    return versionCompare(appVersion, oldAppVersion) > 0
+  } catch {
+    return false
+  }
 }
 
 /**
  * Create the transform for a slice, to handle backward compatibility for the Redux state.
  */
-export const getStateTransform =
+const getStateTransform =
   (oldAppVersion?: string) =>
   <OldState, State>(
     key: string,
@@ -73,13 +67,10 @@ export const getStateTransform =
  * Get the reducers object to pass to Redux's configureStore
  */
 export const getReducers =
-  (reduxConfigs: (ReduxConfig | undefined)[]) => (version?: string) => {
+  (reduxConfigs: ReduxConfig[]) => (version?: string) => {
     const reducers: Record<string, AnyReducer> = {}
     const getTransforms = getStateTransform(version)
     reduxConfigs.forEach(config => {
-      if (!config) {
-        return
-      }
       const {
         key,
         persist,
