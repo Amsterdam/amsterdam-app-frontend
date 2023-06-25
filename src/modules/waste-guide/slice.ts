@@ -1,6 +1,6 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Contract, WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {RootState} from '@/store'
+import {RootState} from '@/store/types'
 
 export type WasteGuideState = {
   contracts?: Contract

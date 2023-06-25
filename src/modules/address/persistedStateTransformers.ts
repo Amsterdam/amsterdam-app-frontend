@@ -1,6 +1,6 @@
 import {AddressState} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
-import {PersistedStateTransformer} from '@/modules/types'
+import {PersistedStateTransformer} from '@/store/types'
 
 type OldAdressState = {
   adres: string

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Address} from '@/modules/address/types'
-import {RootState} from '@/store'
+import {RootState} from '@/store/types'
 
 export type AddressState = {address?: Address}
 
@@ -19,4 +19,4 @@ export const addressSlice = createSlice({
 
 export const {addAddress, removeAddress} = addressSlice.actions
 
-export const selectAddress = (state: RootState) => state.address.address
+export const selectAddress = (state: RootState) => state.address?.address

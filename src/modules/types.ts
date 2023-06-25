@@ -2,17 +2,10 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
-
-export type PersistedStateTransformer<OldState, State> = {
-  appVersion: string
-  transform: (state: OldState) => State | undefined
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyPersistedStateTransformer = PersistedStateTransformer<any, any>
+import {ReduxConfig} from '@/store/types'
 
 /**
- * Base config for modules. This is the type of a core module; the client module config extends this config.
+ * The config properties that are shared between core and non-core modules.
  */
 type BaseModuleConfig = {
   /**
@@ -21,17 +14,9 @@ type BaseModuleConfig = {
    */
   name?: string
   /**
-   * Configuration to transform the persisted state of a module, if any, based on the app or module version
+   * Configuration used to initialize the Redux state
    */
-  persistedStateTransformers?: AnyPersistedStateTransformer[]
-  /**
-   * Determines whether the module requires authorization to be accessed.
-   */
-  requiresAuthorization?: boolean
-  /**
-   * Determines whether the module requires a Firebase token.
-   */
-  requiresFirebaseToken?: boolean
+  reduxConfig?: ReduxConfig[]
   /**
    * The module’s screen options.
    * @see https://reactnavigation.org/docs/stack-navigator/#options
@@ -43,6 +28,9 @@ type BaseModuleConfig = {
   slug: ModuleSlug
 }
 
+/**
+ * The complete configuration for a core module.
+ */
 export type CoreModuleConfig = BaseModuleConfig
 
 /**

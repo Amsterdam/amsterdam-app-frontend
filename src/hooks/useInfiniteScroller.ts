@@ -3,7 +3,7 @@ import {QueryDefinition, skipToken} from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from 'react-redux'
-import {RootState} from '@/store'
+import {RootState} from '@/store/types'
 import {InfiniteScrollerQueryParams, Paginated} from '@/types'
 
 const getEmptyItems = <T>(
