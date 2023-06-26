@@ -44,11 +44,13 @@ export const parameters = {
   },
 }
 
+const store = getStore()
+
 export const decorators = [
   (Story: FC) => (
     <NavigationContainer>
       <SafeAreaProvider>
-        <RootProvider store={getStore()}>
+        <RootProvider store={store}>
           <Story />
         </RootProvider>
       </SafeAreaProvider>

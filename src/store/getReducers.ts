@@ -10,12 +10,12 @@ import {versionCompare} from '@/utils/version'
 export const getConfigs = <T extends CoreModuleConfig | ModuleClientConfig>(
   modules: T[],
 ): ReduxConfig[] =>
-  modules.reduce((result: ReduxConfig[], {reduxConfig}: T) => {
-    if (!reduxConfig) {
+  modules.reduce((result: ReduxConfig[], {reduxConfigs}: T) => {
+    if (!reduxConfigs) {
       return result
     }
 
-    return [...result, ...reduxConfig]
+    return [...result, ...reduxConfigs]
   }, [])
 
 /**
@@ -45,13 +45,13 @@ const getStateTransform =
   (oldAppVersion?: string) =>
   <OldState, State>(
     key: string,
-    persistedStateTransformers: PersistedStateTransformer<OldState, State>[],
+    transformers: PersistedStateTransformer<OldState, State>[],
   ) =>
     createTransform(
       undefined,
       (outboundState: OldState): State => {
         let state: OldState | State = outboundState
-        persistedStateTransformers.forEach(({appVersion, transform}) => {
+        transformers.forEach(({appVersion, transform}) => {
           if (shouldTransform(appVersion, oldAppVersion)) {
             return
           }
@@ -67,14 +67,14 @@ const getStateTransform =
  * Get the reducers object to pass to Redux's configureStore
  */
 export const getReducers =
-  (reduxConfigs: ReduxConfig[]) => (version?: string) => {
+  (reduxConfigss: ReduxConfig[]) => (version?: string) => {
     const reducers: Record<string, AnyReducer> = {}
     const getTransforms = getStateTransform(version)
-    reduxConfigs.forEach(config => {
+    reduxConfigss.forEach(config => {
       const {
         key,
         persist,
-        persistedStateTransformers,
+        transformers,
         slice,
         persistWhitelist: whitelist,
       } = config
@@ -85,8 +85,8 @@ export const getReducers =
         {
           key,
           storage: AsyncStorage,
-          transforms: persistedStateTransformers
-            ? [getTransforms(key, persistedStateTransformers)]
+          transforms: transformers
+            ? [getTransforms(key, transformers)]
             : undefined,
           whitelist,
         },

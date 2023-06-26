@@ -1,27 +1,30 @@
-import {isNumericString, isValidVersionString, versionCompare} from './version'
+import {isIntegerString, isValidVersionString, versionCompare} from './version'
 
-describe('isNumericString', () => {
-  test('should return true for numeric strings', () => {
-    expect(isNumericString('123')).toBe(true)
-    expect(isNumericString('-456')).toBe(true)
-    expect(isNumericString('0')).toBe(true)
-    expect(isNumericString('3.14')).toBe(true)
+describe('isIntegerString', () => {
+  test('should return true for integer strings', () => {
+    expect(isIntegerString('123')).toBe(true)
+    expect(isIntegerString('-456')).toBe(true)
+    expect(isIntegerString('0')).toBe(true)
+  })
+  test('should return true for float strings', () => {
+    expect(isIntegerString('3.14')).toBe(false)
   })
   test('should return false for non-numeric strings', () => {
-    expect(isNumericString('abc')).toBe(false)
-    expect(isNumericString('123abc')).toBe(false)
-    expect(isNumericString('abc123')).toBe(false)
-    expect(isNumericString('')).toBe(false)
+    expect(isIntegerString('1,1')).toBe(false)
+    expect(isIntegerString('abc')).toBe(false)
+    expect(isIntegerString('123abc')).toBe(false)
+    expect(isIntegerString('abc123')).toBe(false)
+    expect(isIntegerString('')).toBe(false)
   })
   test('should return false for non-string values', () => {
     // @ts-ignore
-    expect(isNumericString(123)).toBe(false)
+    expect(isIntegerString(123)).toBe(false)
     // @ts-ignore
-    expect(isNumericString(null)).toBe(false)
+    expect(isIntegerString(null)).toBe(false)
     // @ts-ignore
-    expect(isNumericString(undefined)).toBe(false)
+    expect(isIntegerString(undefined)).toBe(false)
     // @ts-ignore
-    expect(isNumericString(true)).toBe(false)
+    expect(isIntegerString(true)).toBe(false)
   })
 })
 

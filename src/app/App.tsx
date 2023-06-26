@@ -1,4 +1,5 @@
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
+import {ReactNode} from 'react'
 import {StatusBar, StyleSheet} from 'react-native'
 import {
   initialWindowMetrics,
@@ -12,38 +13,44 @@ import {RootProvider} from '@/providers'
 import {useStoreAndPersistor} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens'
 
-const AppComponent = () => {
+type StoreInitProps = {children: ReactNode}
+
+const StoreInit = ({children}: StoreInitProps) => {
   const {store, persistor} = useStoreAndPersistor()
 
+  if (!store || !persistor) {
+    return null
+  }
+
   return (
-    <SafeAreaProvider
-      initialMetrics={initialWindowMetrics}
-      style={styles.appContainer}>
-      <CustomErrorBoundary>
-        <StatusBar
-          backgroundColor="transparent"
-          barStyle="dark-content"
-          translucent
-        />
-        {!!store && !!persistor && (
-          <RootProvider store={store}>
-            <AppNavigationContainer>
-              <PersistGate
-                loading={null}
-                persistor={persistor}>
-                <Init>
-                  <ErrorBoundary fallback={<ErrorWithRestart />}>
-                    <RootStackNavigator />
-                  </ErrorBoundary>
-                </Init>
-              </PersistGate>
-            </AppNavigationContainer>
-          </RootProvider>
-        )}
-      </CustomErrorBoundary>
-    </SafeAreaProvider>
+    <RootProvider store={store}>
+      <PersistGate persistor={persistor}>{children}</PersistGate>
+    </RootProvider>
   )
 }
+
+const AppComponent = () => (
+  <SafeAreaProvider
+    initialMetrics={initialWindowMetrics}
+    style={styles.appContainer}>
+    <CustomErrorBoundary>
+      <StatusBar
+        backgroundColor="transparent"
+        barStyle="dark-content"
+        translucent
+      />
+      <StoreInit>
+        <AppNavigationContainer>
+          <Init>
+            <ErrorBoundary fallback={<ErrorWithRestart />}>
+              <RootStackNavigator />
+            </ErrorBoundary>
+          </Init>
+        </AppNavigationContainer>
+      </StoreInit>
+    </CustomErrorBoundary>
+  </SafeAreaProvider>
+)
 
 export const App = SentryWrap(AppComponent)
 

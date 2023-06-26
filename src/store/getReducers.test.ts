@@ -6,10 +6,10 @@ describe('getConfigs', () => {
     expect(
       getConfigs([
         {
-          reduxConfig: [{key: 'A', value: 1}],
+          reduxConfigs: [{key: 'A', value: 1}],
         },
         {
-          reduxConfig: [
+          reduxConfigs: [
             {key: 'B', value: 2},
             {key: 'C', value: 3},
           ],

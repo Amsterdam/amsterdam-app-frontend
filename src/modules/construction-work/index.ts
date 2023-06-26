@@ -11,7 +11,7 @@ export const module: ModuleClientConfig = {
     [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
   name: 'ConstructionWorkModule',
-  reduxConfig: [
+  reduxConfigs: [
     {
       key: 'constructionWork',
       persist: true,

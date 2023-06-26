@@ -46,7 +46,7 @@ export const DisplayAddress = ({address}: Props) => {
     <Column gutter="md">
       <Column>
         <Paragraph testID="AddressStreetnameAndNumberText">
-          {address.addressText}
+          {address.shortAddress}
         </Paragraph>
         <Paragraph testID="AddressPostalcodeAndCityText">
           {[

@@ -4,7 +4,7 @@ import {ModuleClientConfig} from '@/modules/types'
 
 export const module: ModuleClientConfig = {
   name: 'ContactModule',
-  reduxConfig: [
+  reduxConfigs: [
     {
       key: 'contact',
       persist: true,

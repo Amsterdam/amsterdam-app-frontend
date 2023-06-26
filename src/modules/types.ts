@@ -16,7 +16,7 @@ type BaseModuleConfig = {
   /**
    * Configuration used to initialize the Redux state
    */
-  reduxConfig?: ReduxConfig[]
+  reduxConfigs?: ReduxConfig[]
   /**
    * The module’s screen options.
    * @see https://reactnavigation.org/docs/stack-navigator/#options

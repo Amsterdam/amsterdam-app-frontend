@@ -12,7 +12,7 @@ export const module: ModuleClientConfig = {
     [ConstructionWorkEditorRouteName.authorizedProjects]: 'project-manager/:id',
   },
   name: 'ConstructionWorkEditorModule',
-  reduxConfig: [
+  reduxConfigs: [
     {
       key: 'constructionWorkEditor',
       persist: true,

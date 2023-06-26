@@ -9,7 +9,7 @@ export type ApiAddress = {
   bagNummeraanduidingId: string
   bag_huisletter: string
   bag_toevoeging: string
-  // TODO: Make coordinates required once standardization of address data is done
+  centroid?: [number, number]
   coordinates?: {
     lat: number
     lon: number
@@ -31,8 +31,7 @@ export type ApiAddress = {
 }
 
 export type Address = {
-  addition: string
-  addressText: string
+  addition?: string
   bagId: string
   city: AddressCity
   coordinates?: {
@@ -41,6 +40,7 @@ export type Address = {
   }
   number: number
   postcode: string
+  shortAddress: string
   street: string
 }
 

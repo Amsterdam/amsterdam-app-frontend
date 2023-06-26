@@ -1,16 +1,16 @@
 import {addressSlice} from '@/modules/address//slice'
-import {persistedStateTransformers} from '@/modules/address/persistedStateTransformers'
+import {transformers} from '@/modules/address/transformers'
 import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
 
 export const module: CoreModuleConfig = {
   name: 'AddressModule',
   slug: ModuleSlug.address,
-  reduxConfig: [
+  reduxConfigs: [
     {
       key: 'address',
       persist: true,
-      persistedStateTransformers,
+      transformers,
       slice: addressSlice,
     },
   ],

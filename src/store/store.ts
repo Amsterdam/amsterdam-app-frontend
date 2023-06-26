@@ -77,15 +77,15 @@ export const getStore = (version?: string) =>
  * Get the store and the persistor to finish initializing the Redux providers, after we have retreived the version number to handle any backward compatibility transforms during rehydration.
  */
 export const useStoreAndPersistor = () => {
-  const version = useStoreAppVersion()
+  const {loading, version} = useStoreAppVersion()
 
   return useMemo(() => {
-    if (!version) {
+    if (loading) {
       return {store: undefined, persistor: undefined}
     }
 
     const store = getStore(version)
 
     return {store, persistor: persistStore(store)}
-  }, [version])
+  }, [loading, version])
 }

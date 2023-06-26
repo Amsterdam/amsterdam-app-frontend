@@ -2,6 +2,7 @@ import {Address, BagResponse, ResponseAddress} from '@/modules/address'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types'
 import {generateRequestUrl} from '@/utils'
+import {getCoordinates} from '@/utils/address'
 
 const addressPath = '/search/adres/'
 const bagPath = '/typeahead/bag/'
@@ -26,7 +27,9 @@ export const addressApi = baseApi.injectEndpoints({
         const address = results.find(r => r.woonplaats === city) ?? results[0]
         const {
           adres,
+          bag_huisletter,
           bag_toevoeging,
+          centroid,
           coordinates,
           huisnummer,
           landelijk_id,
@@ -34,14 +37,23 @@ export const addressApi = baseApi.injectEndpoints({
           straatnaam,
           woonplaats,
         } = address
+
+        let addition: string | undefined
+        if (bag_huisletter) {
+          addition = bag_huisletter
+        }
+        if (bag_toevoeging) {
+          addition = bag_toevoeging
+        }
+
         return {
-          addressText: adres,
-          addition: bag_toevoeging,
+          addition,
           bagId: landelijk_id,
           city: woonplaats,
-          coordinates,
+          coordinates: getCoordinates(centroid, coordinates),
           number: huisnummer,
           postcode,
+          shortAddress: adres,
           street: straatnaam,
         }
       },

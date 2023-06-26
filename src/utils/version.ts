@@ -2,10 +2,8 @@ import {VERSION} from '@env'
 
 const parseIntRadix10 = (i: string) => parseInt(i, 10)
 
-export const isNumericString = (s: string) =>
-  typeof s === 'string' &&
-  new RegExp(/^-?\d+(.\d+)?$/).test(s) &&
-  !isNaN(parseFloat(s))
+export const isIntegerString = (s: string) =>
+  typeof s === 'string' && new RegExp(/^-?\d+$/).test(s)
 
 export const isValidVersionString = (s?: string): s is string => {
   if (typeof s !== 'string') {
@@ -13,7 +11,7 @@ export const isValidVersionString = (s?: string): s is string => {
   }
   const parts = s.split('.')
 
-  return parts.every(isNumericString)
+  return parts.every(isIntegerString)
 }
 
 /**

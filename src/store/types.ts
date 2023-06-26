@@ -21,6 +21,7 @@ export type PersistedStateTransformer<OldState, State> = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyPersistedStateTransformer = PersistedStateTransformer<any, any>
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySlice = Slice<any>
 
@@ -38,13 +39,13 @@ export type ReduxConfig = {
    */
   persistWhitelist?: string[]
   /**
-   * Configuration to transform the persisted state of a module, if any, based on the app or module version
-   */
-  persistedStateTransformers?: AnyPersistedStateTransformer[]
-  /**
    * The redux slice for this module
    */
   slice: AnySlice
+  /**
+   * Configuration to transform the persisted state of a module, if any, based on the app or module version
+   */
+  transformers?: AnyPersistedStateTransformer[]
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -4,7 +4,7 @@ import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 
 export const module: ModuleClientConfig = {
   name: 'WasteGuideModule',
-  reduxConfig: [
+  reduxConfigs: [
     {
       key: 'wasteGuide',
       persist: true,

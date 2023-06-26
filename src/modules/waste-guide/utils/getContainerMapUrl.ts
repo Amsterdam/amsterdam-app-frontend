@@ -16,7 +16,18 @@ const wasteTypeMapping: Record<
   GFT: [12496],
 }
 
-// TODO: remove centroid once standardization of address data is done
+const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
+  if (
+    afvalwijzerFractieCode &&
+    Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
+    afvalwijzerFractieCode !== FractionCode.GA
+  ) {
+    return wasteTypeMapping[afvalwijzerFractieCode].join(',')
+  }
+
+  return Object.values(wasteTypeMapping).join(',')
+}
+
 export const getContainerMapUrl = (
   coordinates?: Address['coordinates'],
   afvalwijzerFractieCode?: FractionCode,
@@ -24,25 +35,13 @@ export const getContainerMapUrl = (
   if (!coordinates) {
     return
   }
-  const getLocationTypes = () => {
-    if (
-      afvalwijzerFractieCode &&
-      Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
-      afvalwijzerFractieCode !== FractionCode.GA
-    ) {
-      return wasteTypeMapping[afvalwijzerFractieCode].join(',')
-    }
 
-    return Object.values(wasteTypeMapping).join(',')
-  }
-  const locationTypes = getLocationTypes()
-  const {lon, lat} = coordinates
+  const locationTypes = getLocationTypes(afvalwijzerFractieCode)
+  const {lat, lon} = coordinates
   const urlParams = getSquareMapArea(lat, lon, 0.002)
-  const url = urlParams
+  return urlParams
     ? `${WasteGuideUrl.wasteContainersUrl}#${urlParams.join(
         '/',
       )}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
-
-  return url
 }

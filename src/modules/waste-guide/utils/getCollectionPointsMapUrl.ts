@@ -1,7 +1,6 @@
 import {Address} from '@/modules/address'
 import {WasteGuideUrl} from '@/modules/waste-guide/types'
 
-// TODO: remove centroid once standardization of address data is done
 export const getCollectionPointsMapUrl = (
   coordinates?: Address['coordinates'],
 ) => {
