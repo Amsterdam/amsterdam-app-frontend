@@ -6,7 +6,7 @@ describe('transform function for old address', () => {
   test('should transform old address state to the new one (with letter addition)', () => {
     expect(
       migrations[0]({
-        adres: 'Hoofdstraat 123 b',
+        adres: 'Hoofdstraat 123-b',
         bagNummeraanduidingId: '1234567890',
         bag_huisletter: 'b',
         bag_toevoeging: '',
@@ -16,13 +16,15 @@ describe('transform function for old address', () => {
           lon: 4.88969,
         },
         huisnummer: 123,
-        postcode: '1234 AB',
+        postcode: '1234AB',
         straatnaam: 'Hoofdstraat',
         woonplaats: AddressCity.Amsterdam,
       } as unknown as PersistedState),
     ).toEqual({
       address: {
         addition: 'b',
+        addressLine1: 'Hoofdstraat 123-b',
+        addressLine2: '1234 AB AMSTERDAM',
         bagId: '1234567890',
         city: AddressCity.Amsterdam,
         coordinates: {
@@ -30,8 +32,7 @@ describe('transform function for old address', () => {
           lon: 4.88969,
         },
         number: 123,
-        postcode: '1234 AB',
-        shortAddress: 'Hoofdstraat 123 b',
+        postcode: '1234AB',
         street: 'Hoofdstraat',
       },
     })
@@ -49,13 +50,15 @@ describe('transform function for old address', () => {
           lon: 4.88969,
         },
         huisnummer: 123,
-        postcode: '1234 AB',
+        postcode: '1234AB',
         straatnaam: 'Hoofdstraat',
         woonplaats: AddressCity.Amsterdam,
       } as unknown as PersistedState),
     ).toEqual({
       address: {
         addition: '2',
+        addressLine1: 'Hoofdstraat 123-2',
+        addressLine2: '1234 AB AMSTERDAM',
         bagId: '1234567890',
         city: AddressCity.Amsterdam,
         coordinates: {
@@ -63,8 +66,7 @@ describe('transform function for old address', () => {
           lon: 4.88969,
         },
         number: 123,
-        postcode: '1234 AB',
-        shortAddress: 'Hoofdstraat 123-2',
+        postcode: '1234AB',
         street: 'Hoofdstraat',
       },
     })

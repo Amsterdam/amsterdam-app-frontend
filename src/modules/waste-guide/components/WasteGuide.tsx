@@ -27,7 +27,7 @@ export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
 
-  const {bagId, city, shortAddress} = address
+  const {addressLine1, bagId, city} = address
 
   const {data: wasteGuideData, isLoading} = useGetGarbageCollectionAreaQuery({
     bagNummeraanduidingId: bagId,
@@ -56,7 +56,7 @@ export const WasteGuide = ({address}: Props) => {
             <Column>
               <Paragraph>Afvalinformatie voor dit adres</Paragraph>
               <StreetAddressWithEditButton
-                address={shortAddress}
+                address={addressLine1}
                 testIDButton="WasteGuideButtonEditAddress"
                 testIDLabel="WasteGuideTextAddress"
               />

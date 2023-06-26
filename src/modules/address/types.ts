@@ -32,6 +32,8 @@ export type ApiAddress = {
 
 export type Address = {
   addition?: string
+  addressLine1: string
+  addressLine2: string
   bagId: string
   city: AddressCity
   coordinates?: {
@@ -40,7 +42,6 @@ export type Address = {
   }
   number: number
   postcode: string
-  shortAddress: string
   street: string
 }
 

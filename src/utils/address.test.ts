@@ -1,4 +1,4 @@
-import {getAddressParam, getCoordinates} from './address'
+import {getAddressLine2, getAddressParam, getCoordinates} from './address'
 import {AddressCity} from '@/modules/address'
 
 describe('getAddressParam', () => {
@@ -6,21 +6,22 @@ describe('getAddressParam', () => {
     const result = getAddressParam()
     expect(result).toEqual({address: undefined})
   })
-  test('should return address query arg with shortAddress when coordinates are not provided', () => {
-    const address = {
+  test('should return address query arg with addresLine1 when coordinates are not provided', () => {
+    const result = getAddressParam({
+      addressLine1: 'Hoofdstraat 123',
+      addressLine2: '1234 AB AMSTERDAM',
       bagId: '1234567890',
       city: AddressCity.Amsterdam,
       number: 123,
-      postcode: '1234 AB',
-      shortAddress: 'Hoofdstraat 123',
+      postcode: '1234AB',
       street: 'Hoofdstraat',
-    }
-    // @ts-ignore
-    const result = getAddressParam(address)
+    })
     expect(result).toEqual({address: 'Hoofdstraat 123'})
   })
   test('should return address query arg with coordinates when provided', () => {
-    const address = {
+    const result = getAddressParam({
+      addressLine1: 'Hoofdstraat 123',
+      addressLine2: '1234 AB AMSTERDAM',
       bagId: '1234567890',
       city: AddressCity.Amsterdam,
       coordinates: {
@@ -28,11 +29,9 @@ describe('getAddressParam', () => {
         lon: 4.88969,
       },
       number: 123,
-      postcode: '1234 AB',
-      shortAddress: 'Hoofdstraat 123',
+      postcode: '1234AB',
       street: 'Hoofdstraat',
-    }
-    const result = getAddressParam(address)
+    })
     expect(result).toEqual({
       lat: 52.37403,
       lon: 4.88969,
@@ -59,5 +58,22 @@ describe('getCoordinates', () => {
   })
   test('should return undefined when neither centroid nor coordinates are provided', () => {
     expect(getCoordinates()).toBe(undefined)
+  })
+})
+
+describe('getAddressLine2', () => {
+  test('should format postcode and city into address line 2', () => {
+    expect(getAddressLine2('1234AB', AddressCity.Amsterdam)).toBe(
+      '1234 AB AMSTERDAM',
+    )
+    expect(getAddressLine2('5678CD', AddressCity.Weesp)).toBe('5678 CD WEESP')
+  })
+  test('should undefined input', () => {
+    // @ts-ignore
+    expect(getAddressLine2('5678CD')).toBe('')
+    // @ts-ignore
+    expect(getAddressLine2(undefined, AddressCity.Weesp)).toBe('')
+    // @ts-ignore
+    expect(getAddressLine2()).toBe('')
   })
 })

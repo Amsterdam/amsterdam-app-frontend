@@ -1,10 +1,10 @@
-import {Address, AddressQueryArg} from '@/modules/address'
+import {Address, AddressCity, AddressQueryArg} from '@/modules/address'
 
 export const getAddressParam = (
   address?: Address,
 ): AddressQueryArg | undefined => {
   if (!address?.coordinates) {
-    return {address: address?.shortAddress}
+    return {address: address?.addressLine1}
   }
   return {
     address: undefined,
@@ -27,4 +27,12 @@ export const getCoordinates = (
   }
 
   return coordinates
+}
+
+export const getAddressLine2 = (postcode: string, city: AddressCity) => {
+  if (!postcode || !city) {
+    return ''
+  }
+
+  return `${postcode.slice(0, 4)} ${postcode.slice(4)} ${city.toUpperCase()}`
 }

@@ -13,7 +13,7 @@ export const ConstructionWorkScreen = () => {
     <Screen
       scroll={false}
       withBottomInset={false}>
-      {address?.shortAddress ? (
+      {address?.addressLine1 ? (
         <ProjectsByDistance address={address} />
       ) : (
         <ProjectsByDate />

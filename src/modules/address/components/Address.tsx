@@ -15,7 +15,7 @@ export const Address = () => {
     <Box distinct>
       <Column gutter="md">
         <BoxTitle />
-        {address?.shortAddress ? (
+        {address?.addressLine1 ? (
           <DisplayAddress address={address} />
         ) : (
           <RequestAddress />

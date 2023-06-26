@@ -30,8 +30,8 @@ export const ProjectsByDistance = ({address}: Props) => {
       getProjectTraits={getProjectTraits}
       HeaderButton={
         <StreetAddressWithEditButton
-          accessibilityLabel={`Werkzaamheden dichtbij ${address.shortAddress}`}
-          address={`Dichtbij ${address.shortAddress}`}
+          accessibilityLabel={`Werkzaamheden dichtbij ${address.addressLine1}`}
+          address={`Dichtbij ${address.addressLine1}`}
           testIDButton="ConstructionWorkButtonEditAddress"
           testIDLabel="ConstructionWorkTextAddress"
         />
