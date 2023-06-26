@@ -1,4 +1,4 @@
-import {Address, AddressCity, AddressQueryArg} from '@/modules/address'
+import {Address, AddressCity, AddressQueryArg} from '@/modules/address/types'
 
 export const getAddressParam = (
   address?: Address,

@@ -1,5 +1,5 @@
 // Remove once the waste guide API includes this as a single property
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 import {FractionCode, WasteGuideUrl} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 

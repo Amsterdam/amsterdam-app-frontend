@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '@/store/types'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type ModulesState = {
   authorizedModules: string[]
@@ -12,7 +12,7 @@ const initialState: ModulesState = {
 }
 
 export const modulesSlice = createSlice({
-  name: 'modules',
+  name: ReduxKey.modules,
   initialState,
   reducers: {
     resetModules: () => initialState,
@@ -61,6 +61,7 @@ export const {
 } = modulesSlice.actions
 
 export const selectDisabledModules = (state: RootState) =>
-  state.modules.disabledModules
+  state[ReduxKey.modules].disabledModules
+
 export const selectAuthorizedModules = (state: RootState) =>
-  state.modules.authorizedModules
+  state[ReduxKey.modules].authorizedModules

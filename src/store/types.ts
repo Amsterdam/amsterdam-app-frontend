@@ -16,6 +16,21 @@ import {EnvironmentState} from '@/store/environmentSlice'
 import {ModulesState} from '@/store/modulesSlice'
 import {ThemeState} from '@/themes/slice'
 
+export enum ReduxKey {
+  address = 'address',
+  alert = 'alert',
+  auth = 'auth',
+  bottomSheet = 'bottomSheet',
+  constructionWork = 'constructionWork',
+  constructionWorkEditor = 'constructionWorkEditor',
+  contact = 'contact',
+  environment = 'environment',
+  messageDraft = 'messageDraft',
+  modules = 'modules',
+  theme = 'theme',
+  wasteGuide = 'wasteGuide',
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySlice = Slice<any>
 
@@ -23,7 +38,7 @@ export type ReduxConfig = {
   /**
    * Key for the Redux state.
    */
-  key: string
+  key: ReduxKey
   /**
    * Configuration to transform the persisted state of a module, if any, based on the app or module version
    */
@@ -47,19 +62,19 @@ export type ReduxConfig = {
 export type AnyReducer = Reducer<any, AnyAction>
 
 export type RootState = {
-  address: AddressState
-  alert: AlertState
-  api: typeof baseApi.reducer
-  auth: AuthState
-  bottomSheet: BottomSheetState
-  constructionWork: ConstructionWorkState
-  constructionWorkEditor: ConstructionWorkEditorState
-  contact: ContactState
-  environment: EnvironmentState
-  messageDraft: MessageDraftState
-  modules: ModulesState
-  theme: ThemeState
-  wasteGuide: WasteGuideState
+  [baseApi.reducerPath]: typeof baseApi.reducer
+  [ReduxKey.address]: AddressState
+  [ReduxKey.alert]: AlertState
+  [ReduxKey.auth]: AuthState
+  [ReduxKey.bottomSheet]: BottomSheetState
+  [ReduxKey.constructionWork]: ConstructionWorkState
+  [ReduxKey.constructionWorkEditor]: ConstructionWorkEditorState
+  [ReduxKey.contact]: ContactState
+  [ReduxKey.environment]: EnvironmentState
+  [ReduxKey.messageDraft]: MessageDraftState
+  [ReduxKey.modules]: ModulesState
+  [ReduxKey.theme]: ThemeState
+  [ReduxKey.wasteGuide]: WasteGuideState
 }
 
 export type AppDispatch = typeof store.dispatch

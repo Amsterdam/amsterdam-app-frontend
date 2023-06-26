@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {TestProps} from '@/components/ui/types'
 import {isReduceMotionEnabled} from '@/hooks'
-import {RootState} from '@/store/types'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type Content =
   | {
@@ -25,7 +25,7 @@ export type AlertState = {
 const initialState = {} as AlertState
 
 export const alertSlice = createSlice({
-  name: 'alert',
+  name: ReduxKey.alert,
   initialState,
   reducers: {
     resetAlert: () => initialState,
@@ -40,4 +40,4 @@ export const alertSlice = createSlice({
 
 export const {resetAlert, setAlert} = alertSlice.actions
 
-export const selectAlert = (state: RootState) => state.alert
+export const selectAlert = (state: RootState) => state[ReduxKey.alert]

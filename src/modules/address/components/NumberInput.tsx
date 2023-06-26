@@ -12,8 +12,8 @@ import {Button} from '@/components/ui/buttons'
 import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {Address, BagResponse} from '@/modules/address'
 import {NumberSearchResult} from '@/modules/address/components'
+import {Address, BagResponse} from '@/modules/address/types'
 import {useTheme} from '@/themes'
 
 type WithAnimationProps = {

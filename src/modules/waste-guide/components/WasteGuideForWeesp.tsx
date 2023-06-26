@@ -2,7 +2,7 @@ import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {useOpenWebUrl} from '@/hooks'
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 
 type Props = {
   address: Address

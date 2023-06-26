@@ -26,17 +26,17 @@ const AppComponent = () => (
         translucent
       />
       <RootProvider>
-        <PersistGate
-          loading={null}
-          persistor={persistor}>
-          <AppNavigationContainer>
+        <AppNavigationContainer>
+          <PersistGate
+            loading={null}
+            persistor={persistor}>
             <Init>
               <ErrorBoundary fallback={<ErrorWithRestart />}>
                 <RootStackNavigator />
               </ErrorBoundary>
             </Init>
-          </AppNavigationContainer>
-        </PersistGate>
+          </PersistGate>
+        </AppNavigationContainer>
       </RootProvider>
     </CustomErrorBoundary>
   </SafeAreaProvider>

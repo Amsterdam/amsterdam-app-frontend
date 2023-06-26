@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux'
 import {Column} from '@/components/ui/layout'
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 import {
   ContactCollector,
   Fractions,

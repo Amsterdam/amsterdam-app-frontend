@@ -1,4 +1,4 @@
-import {Address, BagResponse, ResponseAddress} from '@/modules/address'
+import {Address, BagResponse, ResponseAddress} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types'
 import {generateRequestUrl} from '@/utils'

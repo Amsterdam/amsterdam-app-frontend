@@ -4,6 +4,7 @@ import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-edito
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
+import {ReduxKey} from '@/store/types'
 
 export const module: ModuleClientConfig = {
   PreRenderComponent,
@@ -14,12 +15,12 @@ export const module: ModuleClientConfig = {
   name: 'ConstructionWorkEditorModule',
   reduxConfigs: [
     {
-      key: 'constructionWorkEditor',
+      key: ReduxKey.constructionWorkEditor,
       persistVersion: 0,
       slice: constructionWorkEditorSlice,
     },
     {
-      key: 'messageDraft',
+      key: ReduxKey.messageDraft,
       persistVersion: 0,
       slice: messageDraftSlice,
     },

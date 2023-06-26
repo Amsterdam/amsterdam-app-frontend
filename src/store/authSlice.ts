@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '@/store/types'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type AuthState = {
   managerToken: string | null
 }
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: ReduxKey.auth,
   initialState: {managerToken: null} as AuthState,
   reducers: {
     setCredentials: (
@@ -21,4 +21,4 @@ export const authSlice = createSlice({
 export const {setCredentials} = authSlice.actions
 
 export const selectAuthManagerToken = (state: RootState) =>
-  state.auth.managerToken
+  state[ReduxKey.auth].managerToken

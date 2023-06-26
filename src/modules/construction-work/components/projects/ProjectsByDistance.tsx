@@ -1,5 +1,5 @@
-import {Address} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
+import {Address} from '@/modules/address/types'
 import {Projects} from '@/modules/construction-work/components/projects'
 import {getProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, getEnvironment} from '@/environment'
 import {isDevApp} from '@/processes'
-import {RootState} from '@/store/types'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type EnvironmentState = {
   custom?: Partial<EnvironmentConfig>
@@ -10,7 +10,7 @@ export type EnvironmentState = {
 }
 
 export const environmentSlice = createSlice({
-  name: 'environment',
+  name: ReduxKey.environment,
   initialState: {
     environment: isDevApp ? Environment.acceptance : Environment.production,
   } as EnvironmentState,
@@ -30,9 +30,13 @@ export const environmentSlice = createSlice({
 export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 
 export const selectEnvironment = (state: RootState) =>
-  getEnvironment(state.environment.environment, state.environment.custom)
+  getEnvironment(
+    state[ReduxKey.environment].environment,
+    state[ReduxKey.environment].custom,
+  )
 
-export const selectEnvironmentConfig = (state: RootState) => state.environment
+export const selectEnvironmentConfig = (state: RootState) =>
+  state[ReduxKey.environment]
 
 export const useEnvironment = (): EnvironmentConfig =>
   useSelector(selectEnvironment)

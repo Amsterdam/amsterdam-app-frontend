@@ -1,5 +1,5 @@
 import {getAddressLine2, getAddressParam, getCoordinates} from './address'
-import {AddressCity} from '@/modules/address'
+import {AddressCity} from '@/modules/address/types'
 
 describe('getAddressParam', () => {
   test('should return an undefined address and no coordinates when address is not provided', () => {

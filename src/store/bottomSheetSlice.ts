@@ -1,12 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {RootState} from '@/store/types'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type BottomSheetState = {
   isOpen: boolean
 }
 
 export const bottomSheetSlice = createSlice({
-  name: 'bottomSheet',
+  name: ReduxKey.bottomSheet,
   initialState: {
     isOpen: false,
   } as BottomSheetState,
@@ -30,4 +30,4 @@ export const {closeBottomSheet, openBottomSheet, toggleBottomSheet} =
   bottomSheetSlice.actions
 
 export const selectIsBottomSheetOpen = (state: RootState) =>
-  state.bottomSheet.isOpen
+  state[ReduxKey.bottomSheet].isOpen

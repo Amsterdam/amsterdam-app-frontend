@@ -1,4 +1,4 @@
-import {AddressQueryArg} from '@/modules/address'
+import {AddressQueryArg} from '@/modules/address/types'
 import {
   ArticleQueryArg,
   Articles,
