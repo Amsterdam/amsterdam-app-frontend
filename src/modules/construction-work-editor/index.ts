@@ -15,12 +15,12 @@ export const module: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: 'constructionWorkEditor',
-      persist: true,
+      persistVersion: 0,
       slice: constructionWorkEditorSlice,
     },
     {
       key: 'messageDraft',
-      persist: true,
+      persistVersion: 0,
       slice: messageDraftSlice,
     },
   ],

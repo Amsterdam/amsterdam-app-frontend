@@ -7,7 +7,7 @@ export const module: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: 'contact',
-      persist: true,
+      persistVersion: 0,
       slice: contactSlice,
     },
   ],

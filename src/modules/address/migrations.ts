@@ -1,9 +1,6 @@
+import {MigrationManifest, PersistedState} from 'redux-persist'
 import {AddressState} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
-import {
-  AnyPersistedStateTransformer,
-  PersistedStateTransformer,
-} from '@/store/types'
 import {getCoordinates} from '@/utils/address'
 
 type OldAdressState = {
@@ -22,13 +19,10 @@ type OldAdressState = {
   woonplaats: AddressCity
 }
 
-const transformOldAddressState: PersistedStateTransformer<
-  OldAdressState,
-  AddressState
-> = {
-  // Transform old state using Dutch keys and centroid rather than coordinates
-  appVersion: '0.36.0',
-  transform: oldAddressState => {
+export const migrations: MigrationManifest = {
+  0: oldAddressState => {
+    console.log('oldAddressState', oldAddressState)
+
     const {
       adres,
       bag_huisletter,
@@ -40,7 +34,7 @@ const transformOldAddressState: PersistedStateTransformer<
       huisnummer,
       postcode,
       straatnaam,
-    } = oldAddressState
+    } = oldAddressState as unknown as OldAdressState
 
     let addition: string | undefined
     if (bag_huisletter) {
@@ -50,7 +44,7 @@ const transformOldAddressState: PersistedStateTransformer<
       addition = bag_toevoeging
     }
 
-    return {
+    const addressState: AddressState = {
       address: {
         addition,
         bagId: bagNummeraanduidingId,
@@ -62,9 +56,7 @@ const transformOldAddressState: PersistedStateTransformer<
         street: straatnaam,
       },
     }
+
+    return addressState as PersistedState
   },
 }
-
-export const transformers: AnyPersistedStateTransformer[] = [
-  transformOldAddressState,
-]

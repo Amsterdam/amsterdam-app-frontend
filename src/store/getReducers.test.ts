@@ -1,4 +1,4 @@
-import {getConfigs, shouldTransform} from './getReducers'
+import {getConfigs} from './getReducers'
 import {ModuleClientConfig} from '@/modules/types'
 
 describe('getConfigs', () => {
@@ -24,24 +24,5 @@ describe('getConfigs', () => {
   })
   test('should return an empty array if no Redux configs exist', () => {
     expect(getConfigs([{}, {}] as ModuleClientConfig[])).toEqual([])
-  })
-})
-
-describe('shouldTransform', () => {
-  test('should return false when oldAppVersion is not provided', () => {
-    expect(shouldTransform('1.0.0')).toBe(false)
-  })
-  test('should execute the appVersion function and return its result', () => {
-    expect(shouldTransform(oldVersion => oldVersion === '1', '1')).toBe(true)
-    expect(shouldTransform(oldVersion => oldVersion === '1', '2')).toBe(false)
-  })
-  test('should compare versions and return the result', () => {
-    expect(shouldTransform('2', '1')).toBe(true)
-    expect(shouldTransform('1', '2')).toBe(false)
-  })
-  test('should return false on error during version comparison', () => {
-    expect(shouldTransform('STROOPWAFELS!', '1')).toBe(false)
-    // @ts-ignore
-    expect(shouldTransform(undefined, '1')).toBe(false)
   })
 })

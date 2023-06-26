@@ -1,10 +1,11 @@
-import {transformers} from './transformers'
+import {PersistedState} from 'redux-persist'
+import {migrations} from './migrations'
 import {AddressCity} from './types'
 
 describe('transform function for old address', () => {
   test('should transform old address state to the new one (with letter addition)', () => {
     expect(
-      transformers[0].transform({
+      migrations[0]({
         adres: 'Hoofdstraat 123 b',
         bagNummeraanduidingId: '1234567890',
         bag_huisletter: 'b',
@@ -18,7 +19,7 @@ describe('transform function for old address', () => {
         postcode: '1234 AB',
         straatnaam: 'Hoofdstraat',
         woonplaats: AddressCity.Amsterdam,
-      }),
+      } as unknown as PersistedState),
     ).toEqual({
       address: {
         addition: 'b',
@@ -37,7 +38,7 @@ describe('transform function for old address', () => {
   })
   test('should transform old address state to the new one (with number addition)', () => {
     expect(
-      transformers[0].transform({
+      migrations[0]({
         adres: 'Hoofdstraat 123-2',
         bagNummeraanduidingId: '1234567890',
         bag_huisletter: '',
@@ -51,7 +52,7 @@ describe('transform function for old address', () => {
         postcode: '1234 AB',
         straatnaam: 'Hoofdstraat',
         woonplaats: AddressCity.Amsterdam,
-      }),
+      } as unknown as PersistedState),
     ).toEqual({
       address: {
         addition: '2',

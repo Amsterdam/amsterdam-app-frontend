@@ -14,9 +14,9 @@ export const module: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: 'constructionWork',
-      persist: true,
-      slice: constructionWorkSlice,
+      persistVersion: 0,
       persistWhitelist: ['readArticles'],
+      slice: constructionWorkSlice,
     },
   ],
   requiresFirebaseToken: true,

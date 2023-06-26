@@ -1,5 +1,6 @@
-import {AnyAction, Reducer, Store, ThunkDispatch} from '@reduxjs/toolkit'
+import {AnyAction, Reducer} from '@reduxjs/toolkit'
 import {Slice} from '@reduxjs/toolkit'
+import {MigrationManifest} from 'redux-persist'
 import {AddressState} from '@/modules/address/slice'
 import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
@@ -7,6 +8,7 @@ import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/sl
 import {ContactState} from '@/modules/contact/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
 import {baseApi} from '@/services/init'
+import {store} from '@/store'
 import {AlertState} from '@/store/alertSlice'
 import {AuthState} from '@/store/authSlice'
 import {BottomSheetState} from '@/store/bottomSheetSlice'
@@ -14,38 +16,31 @@ import {EnvironmentState} from '@/store/environmentSlice'
 import {ModulesState} from '@/store/modulesSlice'
 import {ThemeState} from '@/themes/slice'
 
-export type PersistedStateTransformer<OldState, State> = {
-  appVersion: ((oldVersion?: string) => boolean) | string
-  transform: (state: OldState) => State | undefined
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyPersistedStateTransformer = PersistedStateTransformer<any, any>
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnySlice = Slice<any>
 
 export type ReduxConfig = {
   /**
-   * Key for the Redux state. The state will use the ModuleSlug unless overridden here.
+   * Key for the Redux state.
    */
   key: string
   /**
-   * Should (part of the) redux state of this module's slice be persisted?
+   * Configuration to transform the persisted state of a module, if any, based on the app or module version
    */
-  persist?: boolean
+  migrations?: MigrationManifest
+  /**
+   * The version of the persisted state of this module; we increment this version when we add new migrations for backward compatibility.
+   * A module's state will only be persisted if persist version is defined.
+   */
+  persistVersion?: number
   /**
    * Whitelist with the keys of the data in the redux state that should be persisted (leave undefined to persist the complete state).
    */
   persistWhitelist?: string[]
   /**
-   * The redux slice for this module
+   * A redux slice for this module.
    */
   slice: AnySlice
-  /**
-   * Configuration to transform the persisted state of a module, if any, based on the app or module version
-   */
-  transformers?: AnyPersistedStateTransformer[]
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +62,4 @@ export type RootState = {
   wasteGuide: WasteGuideState
 }
 
-export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction>
-
-export type AppStore = Store<RootState, AnyAction>
+export type AppDispatch = typeof store.dispatch

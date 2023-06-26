@@ -7,7 +7,7 @@ export const module: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: 'wasteGuide',
-      persist: true,
+      persistVersion: 0,
       slice: wasteGuideSlice,
     },
   ],

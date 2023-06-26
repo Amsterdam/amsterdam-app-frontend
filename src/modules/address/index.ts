@@ -1,5 +1,5 @@
 import {addressSlice} from '@/modules/address//slice'
-import {transformers} from '@/modules/address/transformers'
+import {migrations} from '@/modules/address/migrations'
 import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
 
@@ -9,8 +9,8 @@ export const module: CoreModuleConfig = {
   reduxConfigs: [
     {
       key: 'address',
-      persist: true,
-      transformers,
+      migrations,
+      persistVersion: 0,
       slice: addressSlice,
     },
   ],

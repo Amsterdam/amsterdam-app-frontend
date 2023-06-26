@@ -10,6 +10,9 @@ import {selectAddress} from '@/modules/address/slice'
 
 export const Address = () => {
   const address = useSelector(selectAddress)
+  const address2 = useSelector(s => s)
+
+  console.log(address2)
 
   return (
     <Box distinct>

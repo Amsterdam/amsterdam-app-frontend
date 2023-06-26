@@ -2,14 +2,13 @@ import {ReactNode} from 'react'
 import {Provider as StoreProvider} from 'react-redux'
 import {DeviceProvider} from '@/providers'
 import {PiwikProvider} from '@/providers'
-import {AppStore} from '@/store/types'
+import {store} from '@/store'
 
 type Props = {
   children: ReactNode
-  store: AppStore
 }
 
-export const RootProvider = ({children, store}: Props) => (
+export const RootProvider = ({children}: Props) => (
   <StoreProvider store={store}>
     <DeviceProvider>
       <PiwikProvider>{children}</PiwikProvider>
