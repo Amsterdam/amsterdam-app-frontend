@@ -88,19 +88,6 @@ export const getReducers =
         },
         slice.reducer,
       )
-
-      console.log(
-        'asasa',
-
-        persistReducer(
-          {
-            key,
-            storage: AsyncStorage,
-            whitelist,
-          },
-          slice.reducer,
-        ),
-      )
     })
 
     return reducers
