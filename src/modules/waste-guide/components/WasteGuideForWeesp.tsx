@@ -8,11 +8,13 @@ type Props = {
   address: Address
 }
 
-export const WasteGuideForWeesp = ({address}: Props) => {
+export const WasteGuideForWeesp = ({
+  address: {postcode, number, addition = ''},
+}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +
-    [address.postcode, address.number, address.addition].join(':')
+    [postcode, number, addition].join(':')
 
   return (
     <Column gutter="lg">

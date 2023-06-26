@@ -2,6 +2,9 @@ import {BUILD_NUMBER, VERSION} from '@env'
 import {useEffect, useState} from 'react'
 import {AsyncStorageKey, useAsyncStorage} from '@/hooks/useAsyncStorage'
 
+const CURRENT_FULL_VERSION =
+  VERSION && BUILD_NUMBER ? `${VERSION}.${BUILD_NUMBER}` : ''
+
 /**
  * Get the app version, including build number (#.#.#.#) from the async storage. Sets the current app version if necessary.
  */
@@ -17,11 +20,11 @@ export const useStoreAppVersion = () => {
       .then(setVersion)
       .finally(() => {
         setLoading(false)
-        if (!!VERSION && !!BUILD_NUMBER) {
-          void storeInAsyncStorage(`${VERSION}.${BUILD_NUMBER}`)
+        if (CURRENT_FULL_VERSION) {
+          void storeInAsyncStorage(CURRENT_FULL_VERSION)
         }
       })
   }, [getFromAsyncStorage, storeInAsyncStorage])
 
-  return {loading, version}
+  return {hasUpdated: version !== CURRENT_FULL_VERSION, loading, version}
 }
