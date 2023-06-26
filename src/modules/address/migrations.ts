@@ -35,6 +35,21 @@ export const migrations: MigrationManifest = {
       straatnaam,
     } = oldAddressState as unknown as OldAdressState
 
+    if (
+      [
+        adres,
+        bag_huisletter,
+        bag_toevoeging,
+        bagNummeraanduidingId,
+        woonplaats,
+        huisnummer,
+        postcode,
+        straatnaam,
+      ].some(item => item === undefined)
+    ) {
+      return {} as PersistedState
+    }
+
     let addition: string | undefined
     if (bag_huisletter) {
       addition = bag_huisletter
