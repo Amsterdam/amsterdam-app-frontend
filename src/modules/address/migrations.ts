@@ -21,8 +21,6 @@ type OldAdressState = {
 
 export const migrations: MigrationManifest = {
   0: oldAddressState => {
-    console.log('oldAddressState', oldAddressState)
-
     const {
       adres,
       bag_huisletter,

@@ -58,8 +58,6 @@ export const useOpenImagePicker = (
 
   return async (viaCamera = false) => {
     try {
-      console.log('asfsafas')
-
       const result = await ImageCropPicker[
         viaCamera ? 'openCamera' : 'openPicker'
       ]({
