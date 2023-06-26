@@ -26,10 +26,6 @@ export const persistedStateTransformers: PersistedStateTransformer<
     // Transform old state using Dutch keys and centroid rather than coordinates
     appVersion: '0.36.0',
     transform: oldAddressState => {
-      if (!oldAddressState) {
-        return
-      }
-
       const {
         adres,
         bag_toevoeging,
