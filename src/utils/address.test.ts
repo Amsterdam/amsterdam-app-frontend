@@ -1,4 +1,9 @@
-import {getAddressLine2, getAddressParam, getCoordinates} from './address'
+import {
+  getAddition,
+  getAddressLine2,
+  getAddressParam,
+  getCoordinates,
+} from './address'
 import {AddressCity} from '@/modules/address/types'
 
 describe('getAddressParam', () => {
@@ -36,6 +41,17 @@ describe('getAddressParam', () => {
       lat: 52.37403,
       lon: 4.88969,
     })
+  })
+})
+describe('getAddition', () => {
+  test('should return the correct addition when only bag_huisletter is provided', () => {
+    expect(getAddition('B', '')).toBe('B')
+  })
+  test('should return the correct addition when only bag_toevoeging is provided', () => {
+    expect(getAddition('', '3')).toBe('3')
+  })
+  test('should return null when both bag_huisletter and bag_toevoeging are not provided', () => {
+    expect(getAddition('', '')).toBeUndefined()
   })
 })
 

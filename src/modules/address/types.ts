@@ -10,6 +10,7 @@ export type ApiAddress = {
   bag_huisletter: string
   bag_toevoeging: string
   centroid?: [number, number]
+  // TODO: Make coordinates required once standardization of address data is done
   coordinates?: {
     lat: number
     lon: number

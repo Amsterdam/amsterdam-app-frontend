@@ -12,6 +12,14 @@ export const getAddressParam = (
   }
 }
 
+export const getAddition = (bag_huisletter: string, bag_toevoeging: string) => {
+  if (!bag_huisletter && !bag_toevoeging) {
+    return
+  }
+
+  return bag_huisletter || bag_toevoeging
+}
+
 export const getCoordinates = (
   centroid?: [number, number],
   coordinates?: Address['coordinates'],

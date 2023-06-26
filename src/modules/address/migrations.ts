@@ -1,7 +1,7 @@
 import {MigrationManifest, PersistedState} from 'redux-persist'
 import {AddressState} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
-import {getAddressLine2, getCoordinates} from '@/utils/address'
+import {getAddition, getAddressLine2, getCoordinates} from '@/utils/address'
 
 type OldAdressState = {
   adres: string
@@ -50,17 +50,9 @@ export const migrations: MigrationManifest = {
       return {} as PersistedState
     }
 
-    let addition: string | undefined
-    if (bag_huisletter) {
-      addition = bag_huisletter
-    }
-    if (bag_toevoeging) {
-      addition = bag_toevoeging
-    }
-
     const addressState: AddressState = {
       address: {
-        addition,
+        addition: getAddition(bag_huisletter, bag_toevoeging),
         addressLine1: adres,
         addressLine2: getAddressLine2(postcode, woonplaats),
         bagId: bagNummeraanduidingId,
