@@ -48,7 +48,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               personen en horeca aan ons doorgeven.
             </Paragraph>
             <Paragraph>
-              U kunt op{' '}
+              Op{' '}
               <InlineLink
                 onPress={() =>
                   openWebUrl('https://meldingen.amsterdam.nl/meldingenkaart')
@@ -56,7 +56,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
                 testID="ReportProblemKnownProblemsMapLink">
                 de meldingenkaart
               </InlineLink>{' '}
-              zien welke meldingen al bekend zijn bij de gemeente. Staat uw
+              ziet u welke meldingen al bekend zijn bij de gemeente. Staat uw
               melding er niet bij? Doe dan een nieuwe melding.
             </Paragraph>
           </Column>
@@ -67,33 +67,36 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               level="h5"
               text="Voor welke plaats wilt u een melding doen?"
             />
-            <Row
-              gutter="md"
-              wrap>
-              <Button
-                label="Amsterdam"
-                onPress={() =>
-                  navigation.navigate(
-                    ReportProblemRouteName.reportProblemWebView,
-                    {
-                      city: City.Amsterdam,
-                    },
-                  )
-                }
-                testID="ReportProblemAmsterdamButton"
-              />
-              <Button
-                label="Weesp"
-                onPress={() =>
-                  navigation.navigate(
-                    ReportProblemRouteName.reportProblemWebView,
-                    {
-                      city: City.Weesp,
-                    },
-                  )
-                }
-                testID="ReportProblemWeespButton"
-              />
+            <Row gutter="md">
+              <Column flex={isPortrait ? 1 : undefined}>
+                <Button
+                  label="Amsterdam"
+                  onPress={() =>
+                    navigation.navigate(
+                      ReportProblemRouteName.reportProblemWebView,
+                      {
+                        city: City.Amsterdam,
+                      },
+                    )
+                  }
+                  testID="ReportProblemAmsterdamButton"
+                />
+              </Column>
+              <Column flex={isPortrait ? 1 : undefined}>
+                <Button
+                  label="Weesp"
+                  onPress={() =>
+                    navigation.navigate(
+                      ReportProblemRouteName.reportProblemWebView,
+                      {
+                        city: City.Weesp,
+                      },
+                    )
+                  }
+                  testID="ReportProblemWeespButton"
+                  variant="secondary"
+                />
+              </Column>
             </Row>
             <Paragraph variant="small">
               Meldingen over afval en containers in Weesp doet u via{' '}
