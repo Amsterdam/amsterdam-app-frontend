@@ -11,6 +11,7 @@ export const addressSlice = createSlice({
   initialState,
   reducers: {
     addAddress: (state, {payload: address}: PayloadAction<Address>) => ({
+      ...state,
       address,
     }),
     removeAddress: () => initialState,

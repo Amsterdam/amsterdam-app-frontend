@@ -47,30 +47,26 @@ const getStateTransform =
     key: string,
     transformers: PersistedStateTransformer<OldState, State>[],
   ) =>
-    createTransform(
-      undefined,
-      (outboundState: OldState): State => {
-        let state: OldState | State = outboundState
-        transformers.forEach(({appVersion, transform}) => {
-          if (shouldTransform(appVersion, oldAppVersion)) {
-            return
-          }
-          state = (transform(state as OldState) || state) as State
-        })
+    createTransform(undefined, (outboundState: OldState): State => {
+      let state: OldState | State = outboundState
+      transformers.forEach(({appVersion, transform}) => {
+        if (!shouldTransform(appVersion, oldAppVersion)) {
+          return
+        }
+        state = (transform(state as OldState) || state) as State
+      })
 
-        return state as unknown as State
-      },
-      {whitelist: [key]},
-    )
+      return state as unknown as State
+    })
 
 /**
  * Get the reducers object to pass to Redux's configureStore
  */
 export const getReducers =
-  (reduxConfigss: ReduxConfig[]) => (version?: string) => {
+  (reduxConfigs: ReduxConfig[]) => (version?: string) => {
     const reducers: Record<string, AnyReducer> = {}
     const getTransforms = getStateTransform(version)
-    reduxConfigss.forEach(config => {
+    reduxConfigs.forEach(config => {
       const {
         key,
         persist,
@@ -91,6 +87,19 @@ export const getReducers =
           whitelist,
         },
         slice.reducer,
+      )
+
+      console.log(
+        'asasa',
+
+        persistReducer(
+          {
+            key,
+            storage: AsyncStorage,
+            whitelist,
+          },
+          slice.reducer,
+        ),
       )
     })
 
