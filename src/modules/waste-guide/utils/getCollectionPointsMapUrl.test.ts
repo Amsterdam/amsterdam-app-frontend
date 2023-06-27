@@ -11,3 +11,11 @@ describe('getCollectionPointsMapUrl', () => {
     expect(result).toBe(expectedUrl)
   })
 })
+
+it('should return a fallback URL when no coordinates are provided', () => {
+  const expectedUrl = `${WasteGuideUrl.collectionPointsUrl}/#13/0.00000/0.00000/brt/14324///0.00000,0.00000`
+
+  const result = getCollectionPointsMapUrl(undefined)
+
+  expect(result).toBe(expectedUrl)
+})

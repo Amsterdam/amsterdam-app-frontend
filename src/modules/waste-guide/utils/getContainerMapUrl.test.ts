@@ -26,4 +26,10 @@ describe('getContainerMapUrl', () => {
 
     expect(url).toEqual(allFractionsUrl)
   })
+
+  it('should return undefined when no coordinates are provided', () => {
+    const url = getContainerMapUrl(undefined, FractionCode.GA)
+
+    expect(url).toBeUndefined()
+  })
 })

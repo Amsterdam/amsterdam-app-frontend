@@ -4,10 +4,7 @@ import {WasteGuideUrl} from '@/modules/waste-guide/types'
 export const getCollectionPointsMapUrl = (
   coordinates?: Address['coordinates'],
 ) => {
-  if (!coordinates) {
-    return
-  }
-  const {lon, lat} = coordinates
+  const {lon = 0, lat = 0} = coordinates ?? {}
   const location = `${lat.toFixed(5)}/${lon.toFixed(5)}`
   const center = `${lat.toFixed(5)},${lon.toFixed(5)}`
 

@@ -20,7 +20,7 @@ type OldAdressState = {
 }
 
 export const migrations: MigrationManifest = {
-  // added in 0.36.0
+  // added in 0.37.0
   0: oldAddressState => {
     const {
       adres,

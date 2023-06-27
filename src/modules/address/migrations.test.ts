@@ -1,6 +1,6 @@
 import {PersistedState} from 'redux-persist'
 import {migrations} from './migrations'
-import {AddressCity} from './types'
+import {AddressCity} from '@/modules/address/types'
 
 describe('transform function for old address', () => {
   test('should transform old address state to the new one (with letter addition)', () => {
