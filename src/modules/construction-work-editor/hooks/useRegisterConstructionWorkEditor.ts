@@ -11,7 +11,6 @@ import {
   selectConstructionWorkEditorId,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {selectAuthManagerToken} from '@/store'
 import {isApiAuthorizationError} from '@/utils'
 
