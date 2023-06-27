@@ -75,9 +75,9 @@ npm-debug.log
 !.env.sample
 
 # Caches
-.jest/
-.eslintcache
-coverage/
+/.jest/
+/.eslintcache
+/coverage/
 
 # Storybook build
 storybook-static/
