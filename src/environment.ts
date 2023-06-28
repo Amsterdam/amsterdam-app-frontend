@@ -10,7 +10,8 @@ export type EnvironmentConfig = {
   atlasUrl: string
   bulkyWasteFormUrl: string
   modulesApiUrl: string
-  signalsBaseUrl: string
+  reportProblemAmsterdamUrl: string
+  reportProblemWeespUrl: string
   wasteGuideUrl: string
 }
 
@@ -30,8 +31,13 @@ enum ApiUrls {
 enum ExternalApiUrls {
   atlasProd = 'https://api.data.amsterdam.nl/atlas',
   bulkyWasteFormProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-  signalsBaseAcc = 'https://acc.app.meldingen.amsterdam.nl',
-  signalsBaseProd = 'https://app.meldingen.amsterdam.nl',
+}
+
+enum ExternalWebUrls {
+  reportProblemAmsterdamAcc = 'https://acc.app.meldingen.amsterdam.nl',
+  reportProblemAmsterdamProd = 'https://app.meldingen.amsterdam.nl',
+  reportProblemWeespAcc = 'https://acc.meldingenweesp.amsterdam.nl',
+  reportProblemWeespProd = 'https://meldingenweesp.amsterdam.nl',
 }
 
 export const environments: Record<Environment, EnvironmentConfig> = {
@@ -40,7 +46,8 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiDev,
-    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
+    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
+    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.acceptance]: {
@@ -48,7 +55,8 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiAcc,
-    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
+    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
+    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.production]: {
@@ -56,7 +64,8 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiProd,
-    signalsBaseUrl: ExternalApiUrls.signalsBaseProd,
+    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamProd,
+    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespProd,
     wasteGuideUrl: ApiUrls.wasteGuideApiProd,
   },
   [Environment.custom]: {
@@ -64,7 +73,8 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     atlasUrl: ExternalApiUrls.atlasProd,
     bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiCustomDefault,
-    signalsBaseUrl: ExternalApiUrls.signalsBaseAcc,
+    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
+    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
 }
