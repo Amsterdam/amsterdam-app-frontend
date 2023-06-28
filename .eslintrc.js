@@ -8,7 +8,7 @@ module.exports = {
     'typescript-sort-keys',
   ],
   extends: [
-    '@react-native-community',
+    '@react-native',
     'plugin:storybook/recommended',
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
