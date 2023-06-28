@@ -61,7 +61,9 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               level="h5"
               text="Voor welke plaats wilt u een melding doen?"
             />
-            <Row gutter="md">
+            <Row
+              gutter="md"
+              wrap>
               <Column flex={isPortrait ? 1 : undefined}>
                 <Button
                   label="Amsterdam"
