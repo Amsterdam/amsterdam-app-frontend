@@ -104,6 +104,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               </InlineLink>{' '}
               of via telefoonnummer{' '}
               <InlineLink
+                accessibilityLabel="Nul vijfendertig zes negen negen één acht acht acht"
                 onPress={() => openPhoneUrl('+31356991888')}
                 testID="ReportProblemWeespPhoneLink">
                 035 699 1888
