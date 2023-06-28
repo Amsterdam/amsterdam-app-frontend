@@ -8,7 +8,7 @@ export enum ReportProblemRouteName {
 export type ReportProblemStackParams = {
   [ReportProblemRouteName.reportProblem]: undefined
   [ReportProblemRouteName.reportProblemWebView]: {
-    city: keyof typeof City
+    city: City
   }
 }
 
