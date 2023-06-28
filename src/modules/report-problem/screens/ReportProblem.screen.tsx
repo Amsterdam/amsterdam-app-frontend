@@ -94,7 +94,6 @@ export const ReportProblemScreen = ({navigation}: Props) => {
                     )
                   }
                   testID="ReportProblemWeespButton"
-                  variant="secondary"
                 />
               </Column>
             </Row>

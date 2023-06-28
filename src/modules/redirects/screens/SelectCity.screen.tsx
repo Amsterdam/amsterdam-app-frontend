@@ -55,7 +55,6 @@ export const SelectCityScreen = ({navigation}: Props) => {
                     accessibilityRole="link"
                     label="Weesp"
                     onPress={() => openWebUrl(appointmentFormWeespUrl)}
-                    variant="secondary"
                   />
                 </Column>
               </Row>
