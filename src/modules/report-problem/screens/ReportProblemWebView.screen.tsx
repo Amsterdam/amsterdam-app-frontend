@@ -1,9 +1,7 @@
-import {RouteProp} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback} from 'react'
 import {useLayoutEffect} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
-import {RootStackParams} from '@/app/navigation'
+import {NavigationProps} from '@/app/navigation'
 import {Box} from '@/components/ui/containers/Box'
 import {WebView} from '@/components/ui/containers/WebView'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
@@ -11,19 +9,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
-import {ReportProblemStackParams} from '@/modules/report-problem/routes'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {useEnvironment} from '@/store'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ReportProblemRouteName.reportProblemWebView
-  >
-  route: RouteProp<
-    Pick<ReportProblemStackParams, ReportProblemRouteName.reportProblemWebView>
-  >
-}
+type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
 const injectedJavascript = `(function() {
   window.postMessage = function(data) {

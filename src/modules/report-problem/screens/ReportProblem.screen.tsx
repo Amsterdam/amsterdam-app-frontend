@@ -1,6 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useContext} from 'react'
-import {RootStackParams} from '@/app/navigation'
+import {NavigationProps} from '@/app/navigation'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -16,12 +15,7 @@ import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {City} from '@/modules/report-problem/types'
 import {DeviceContext} from '@/providers'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ReportProblemRouteName.reportProblem
-  >
-}
+type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 
 export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
