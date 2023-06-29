@@ -441,7 +441,7 @@ PODS:
     - glog
   - react-native-build-config (0.3.2):
     - React
-  - react-native-flipper (0.178.1):
+  - react-native-flipper (0.182.0):
     - React-Core
   - react-native-netinfo (9.3.7):
     - React-Core
@@ -940,7 +940,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8d754fc957255a29d93e52fc67a895045cdc8703
   React-logger: 454ffb01980778a43b0153ee98721d0275b56616
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
-  react-native-flipper: a171cbd0bbc75544b0061d8e9f035e87d5233104
+  react-native-flipper: 6e4e344a0104a34a4e189a9ef2b3b5634b516dc8
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-piwik-pro-sdk: 96a8f9dd8482760df1a634462e03119ec24310cb
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
