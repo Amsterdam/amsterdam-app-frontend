@@ -4,8 +4,7 @@ import {selectContracts, addContract} from '@/modules/waste-guide/slice'
 
 const contractOptions: RadioGroupOption<boolean>[] = [
   {
-    label:
-      'Ik heb minder dan 9 zakken afval per week en betaal reinigingsrecht.',
+    label: 'Ik heb maximaal 9 zakken afval per week en betaal reinigingsrecht.',
     value: false,
   },
   {
