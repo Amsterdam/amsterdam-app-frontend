@@ -2,8 +2,8 @@ import {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms'
-import {BagResponse} from '@/modules/address'
 import {StreetSearchResult} from '@/modules/address/components'
+import {BagResponse} from '@/modules/address/types'
 
 type Props = {
   bagList: BagResponse | null | undefined

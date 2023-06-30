@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux'
 import {Column} from '@/components/ui/layout'
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 import {
   ContactCollector,
   Fractions,
@@ -15,7 +15,10 @@ type Props = {
   wasteGuide: WasteGuideResponseFraction[]
 }
 
-export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
+export const WasteGuideForAmsterdam = ({
+  address: {bagId},
+  wasteGuide,
+}: Props) => {
   const contract = useSelector(
     selectContract(wasteGuide[0].bagNummeraanduidingId),
   )
@@ -31,7 +34,7 @@ export const WasteGuideForAmsterdam = ({address, wasteGuide}: Props) => {
   return (
     <Column gutter="xl">
       <ReportWrongBuildingType />
-      <SelectContract bagNummeraanduidingId={address.bagNummeraanduidingId} />
+      <SelectContract bagNummeraanduidingId={bagId} />
       {contract?.hasContract === false ? (
         <Fractions wasteGuide={wasteGuide} />
       ) : (

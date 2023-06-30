@@ -9,7 +9,7 @@ export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
   const address = useSelector(selectAddress)
 
-  if (!address.adres) {
+  if (!address) {
     return (
       <Screen
         scroll={false}

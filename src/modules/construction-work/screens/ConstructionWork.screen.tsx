@@ -8,17 +8,12 @@ import {
 
 export const ConstructionWorkScreen = () => {
   const address = useSelector(selectAddress)
-  const hasAddress = !!address.adres
 
   return (
     <Screen
       scroll={false}
       withBottomInset={false}>
-      {hasAddress ? (
-        <ProjectsByDistance address={address} />
-      ) : (
-        <ProjectsByDate />
-      )}
+      {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>
   )
 }

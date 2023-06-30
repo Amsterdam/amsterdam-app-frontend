@@ -14,7 +14,7 @@ import {ProjectsEndpointName} from '@/modules/construction-work/types'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {selectAuthManagerToken} from '@/store/authSlice'
 import {selectEnvironment} from '@/store/environmentSlice'
-import {RootState} from '@/store/store'
+import {RootState} from '@/store/types'
 import {DeviceRegistrationEndpointName} from '@/types'
 import {deviceAuthorizationToken} from '@/utils'
 

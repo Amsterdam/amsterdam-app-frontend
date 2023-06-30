@@ -2,17 +2,19 @@ import {Button} from '@/components/ui/buttons'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {useOpenWebUrl} from '@/hooks'
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 
 type Props = {
   address: Address
 }
 
-export const WasteGuideForWeesp = ({address}: Props) => {
+export const WasteGuideForWeesp = ({
+  address: {postcode, number, addition = ''},
+}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +
-    [address.postcode, address.huisnummer, address.bag_toevoeging].join(':')
+    [postcode, number, addition].join(':')
 
   return (
     <Column gutter="lg">

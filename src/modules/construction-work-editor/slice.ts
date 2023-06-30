@@ -1,14 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ConstructionWorkEditor} from '@/modules/construction-work-editor/types'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 
-const initialState: ConstructionWorkEditor = {
+export type ConstructionWorkEditorState = ConstructionWorkEditor
+
+const initialState: ConstructionWorkEditorState = {
   id: undefined,
   hasSeenWelcomeMessage: false,
 }
 
 export const constructionWorkEditorSlice = createSlice({
-  name: 'constructionWorkEditor',
+  name: ReduxKey.constructionWorkEditor,
   initialState,
   reducers: {
     addConstructionWorkEditorId: (
@@ -33,9 +35,9 @@ export const {
   removeConstructionWorkEditor,
 } = constructionWorkEditorSlice.actions
 
-export const selectConstructionWorkEditorId = ({
-  constructionWorkEditor,
-}: RootState) => constructionWorkEditor.id
-export const selectConstructionWorkEditorHasSeenWelcomeMessage = ({
-  constructionWorkEditor,
-}: RootState) => constructionWorkEditor.hasSeenWelcomeMessage
+export const selectConstructionWorkEditorId = (state: RootState) =>
+  state[ReduxKey.constructionWorkEditor].id
+
+export const selectConstructionWorkEditorHasSeenWelcomeMessage = (
+  state: RootState,
+) => state[ReduxKey.constructionWorkEditor].hasSeenWelcomeMessage

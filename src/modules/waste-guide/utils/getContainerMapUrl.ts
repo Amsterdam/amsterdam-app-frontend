@@ -1,5 +1,5 @@
 // Remove once the waste guide API includes this as a single property
-import {Address} from '@/modules/address'
+import {Address} from '@/modules/address/types'
 import {FractionCode, WasteGuideUrl} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
@@ -16,34 +16,32 @@ const wasteTypeMapping: Record<
   GFT: [12496],
 }
 
-// TODO: remove centroid once standardization of address data is done
+const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
+  if (
+    afvalwijzerFractieCode &&
+    Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
+    afvalwijzerFractieCode !== FractionCode.GA
+  ) {
+    return wasteTypeMapping[afvalwijzerFractieCode].join(',')
+  }
+
+  return Object.values(wasteTypeMapping).join(',')
+}
+
 export const getContainerMapUrl = (
-  centroid: Address['centroid'],
-  coordinates: Address['coordinates'],
+  coordinates?: Address['coordinates'],
   afvalwijzerFractieCode?: FractionCode,
 ) => {
-  const getLocationTypes = () => {
-    if (
-      afvalwijzerFractieCode &&
-      Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
-      afvalwijzerFractieCode !== FractionCode.GA
-    ) {
-      return wasteTypeMapping[afvalwijzerFractieCode].join(',')
-    }
+  if (!coordinates) {
+    return
+  }
 
-    return Object.values(wasteTypeMapping).join(',')
-  }
-  const locationTypes = getLocationTypes()
-  const {lon, lat} = coordinates ?? {
-    lon: centroid?.[0] ?? 0,
-    lat: centroid?.[1] ?? 0,
-  }
+  const locationTypes = getLocationTypes(afvalwijzerFractieCode)
+  const {lat, lon} = coordinates
   const urlParams = getSquareMapArea(lat, lon, 0.002)
-  const url = urlParams
+  return urlParams
     ? `${WasteGuideUrl.wasteContainersUrl}#${urlParams.join(
         '/',
       )}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
-
-  return url
 }

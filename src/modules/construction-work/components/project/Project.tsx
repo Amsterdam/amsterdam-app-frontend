@@ -30,6 +30,7 @@ import {
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
 import {accessibleText, mapImageSources} from '@/utils'
+import {getAddressParam} from '@/utils/address'
 
 type Props = {
   id: string
@@ -46,24 +47,7 @@ export const Project = ({id}: Props) => {
       >
     >()
 
-  // TODO: remove centroid once standardization of address data is done
-  const getAddressParam = () => {
-    if (address?.coordinates) {
-      return {
-        address: address.coordinates?.lon ? undefined : address?.adres,
-        ...address.coordinates,
-      }
-    }
-    if (address?.centroid) {
-      return {
-        address: address?.centroid?.[1] ? undefined : address?.adres,
-        lat: address?.centroid?.[1],
-        lon: address?.centroid?.[0],
-      }
-    }
-  }
-
-  const addressParam = getAddressParam()
+  const addressParam = getAddressParam(address)
 
   const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =

@@ -6,7 +6,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {AlertSliceState, Content, setAlert} from '@/store/alertSlice'
+import {AlertState, Content, setAlert} from '@/store/alertSlice'
 
 const title = 'Title'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'
@@ -54,7 +54,7 @@ export default {
   },
 } as ComponentMeta<typeof Alert>
 
-const AlertStory: Story<AlertSliceState> = ({...alertState}) => {
+const AlertStory: Story<AlertState> = ({...alertState}) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setAlert({...alertState}))

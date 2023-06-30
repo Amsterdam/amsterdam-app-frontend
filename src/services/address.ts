@@ -1,14 +1,47 @@
-import {Address, BagResponse, ResponseAddress} from '@/modules/address'
+import {
+  Address,
+  ApiAddress,
+  BagResponse,
+  ResponseAddress,
+} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types'
 import {generateRequestUrl} from '@/utils'
+import {getAddition, getAddressLine2, getCoordinates} from '@/utils/address'
 
 const addressPath = '/search/adres/'
 const bagPath = '/typeahead/bag/'
 
 type AddresParams = {
   address: string
-  city: Address['woonplaats']
+  city: Address['city']
+}
+
+export const transformAddressApiResponse = (address: ApiAddress): Address => {
+  const {
+    adres,
+    bag_huisletter,
+    bag_toevoeging,
+    centroid,
+    coordinates,
+    huisnummer,
+    landelijk_id,
+    postcode,
+    straatnaam,
+    woonplaats,
+  } = address
+
+  return {
+    addition: getAddition(bag_huisletter, bag_toevoeging),
+    bagId: landelijk_id,
+    city: woonplaats,
+    coordinates: getCoordinates(centroid, coordinates),
+    number: huisnummer,
+    postcode,
+    addressLine1: adres,
+    addressLine2: getAddressLine2(postcode, woonplaats),
+    street: straatnaam,
+  }
 }
 
 export const addressApi = baseApi.injectEndpoints({
@@ -24,32 +57,8 @@ export const addressApi = baseApi.injectEndpoints({
       }),
       transformResponse: ({results}: ResponseAddress, _meta, {city}) => {
         const address = results.find(r => r.woonplaats === city) ?? results[0]
-        const {
-          adres,
-          bag_huisletter,
-          bag_toevoeging,
-          centroid,
-          huisnummer,
-          landelijk_id,
-          postcode,
-          straatnaam,
-          woonplaats,
-        } = address
-        return {
-          adres,
-          bag_huisletter,
-          bag_toevoeging,
-          centroid, // TODO: remove centroid once standardization of address data is done
-          coordinates: {
-            lat: centroid?.[1] ?? 0,
-            lon: centroid?.[0] ?? 0,
-          },
-          huisnummer,
-          bagNummeraanduidingId: landelijk_id,
-          postcode,
-          straatnaam,
-          woonplaats,
-        }
+
+        return transformAddressApiResponse(address)
       },
     }),
     getBag: query<BagResponse | undefined, string>({

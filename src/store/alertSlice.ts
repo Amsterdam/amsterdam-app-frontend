@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {TestProps} from '@/components/ui/types'
 import {isReduceMotionEnabled} from '@/hooks'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type Content =
   | {
@@ -15,21 +15,21 @@ export type Content =
     }
   | undefined
 
-export type AlertSliceState = {
+export type AlertState = {
   closeType: AlertCloseType
   content: Content
   variant: AlertVariant
   withIcon: boolean
 } & TestProps
 
-const initialState = {} as AlertSliceState
+const initialState = {} as AlertState
 
 export const alertSlice = createSlice({
-  name: 'alert',
+  name: ReduxKey.alert,
   initialState,
   reducers: {
     resetAlert: () => initialState,
-    setAlert: (_state, {payload}: PayloadAction<AlertSliceState>) => {
+    setAlert: (_state, {payload}: PayloadAction<AlertState>) => {
       if (!isReduceMotionEnabled) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       }
@@ -40,4 +40,4 @@ export const alertSlice = createSlice({
 
 export const {resetAlert, setAlert} = alertSlice.actions
 
-export const selectAlert = (state: RootState) => state.alert
+export const selectAlert = (state: RootState) => state[ReduxKey.alert]

@@ -4,8 +4,8 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {Address, AddressCity} from '@/modules/address'
 import {StreetAddressWithEditButton} from '@/modules/address/components'
+import {Address, AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,
   WasteGuideNotFoundImage,
@@ -27,14 +27,17 @@ export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
 
+  const {addressLine1, bagId, city} = address
+
   const {data: wasteGuideData, isLoading} = useGetGarbageCollectionAreaQuery({
-    bagNummeraanduidingId: address.bagNummeraanduidingId,
+    bagNummeraanduidingId: bagId,
   })
 
   if (isLoading || wasteGuideData === undefined) {
     return <PleaseWait />
   }
-  const cityIsWeesp = address.woonplaats === AddressCity.Weesp
+
+  const cityIsWeesp = city === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
@@ -53,7 +56,7 @@ export const WasteGuide = ({address}: Props) => {
             <Column>
               <Paragraph>Afvalinformatie voor dit adres</Paragraph>
               <StreetAddressWithEditButton
-                address={address.adres}
+                address={addressLine1}
                 testIDButton="WasteGuideButtonEditAddress"
                 testIDLabel="WasteGuideTextAddress"
               />

@@ -1,18 +1,24 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Address} from '@/modules/address/types'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 
-const initialState = {} as Address
+export type AddressState = {address?: Address}
+
+const initialState: AddressState = {}
 
 export const addressSlice = createSlice({
-  name: 'address',
+  name: ReduxKey.address,
   initialState,
   reducers: {
-    addAddress: (state, {payload}: PayloadAction<Address>) => payload,
+    addAddress: (state, {payload: address}: PayloadAction<Address>) => ({
+      ...state,
+      address,
+    }),
     removeAddress: () => initialState,
   },
 })
 
 export const {addAddress, removeAddress} = addressSlice.actions
 
-export const selectAddress = (state: RootState) => state.address
+export const selectAddress = (state: RootState) =>
+  state[ReduxKey.address]?.address

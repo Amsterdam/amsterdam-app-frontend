@@ -1,23 +1,23 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 
 export type ReadArticle = {
   id: string
   publicationDate: string
 }
 
-type ConstructionWorkSliceState = {
+export type ConstructionWorkState = {
   readArticles: ReadArticle[]
   searchText: string
 }
 
-const initialState: ConstructionWorkSliceState = {
+const initialState: ConstructionWorkState = {
   readArticles: [],
   searchText: '',
 }
 
 export const constructionWorkSlice = createSlice({
-  name: 'constructionWork',
+  name: ReduxKey.constructionWork,
   initialState,
   reducers: {
     addReadArticle: (state, {payload: article}: PayloadAction<ReadArticle>) => {
@@ -37,10 +37,8 @@ export const constructionWorkSlice = createSlice({
 export const {addReadArticle, deleteReadArticle, setSearchText} =
   constructionWorkSlice.actions
 
-export const selectConstructionWorkReadArticles = ({
-  constructionWork,
-}: RootState) => constructionWork.readArticles
+export const selectConstructionWorkReadArticles = (state: RootState) =>
+  state[ReduxKey.constructionWork].readArticles
 
-export const selectConstructionWorkSearchText = ({
-  constructionWork,
-}: RootState) => constructionWork.searchText
+export const selectConstructionWorkSearchText = (state: RootState) =>
+  state[ReduxKey.constructionWork].searchText

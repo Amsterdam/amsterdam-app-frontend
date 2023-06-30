@@ -2,9 +2,10 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
+import {ReduxConfig} from '@/store/types'
 
 /**
- * Base config for modules. This is the type of a core module; the client module config extends this config.
+ * The config properties that are shared between core and non-core modules.
  */
 type BaseModuleConfig = {
   /**
@@ -12,6 +13,10 @@ type BaseModuleConfig = {
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
    */
   name?: string
+  /**
+   * Configuration used to initialize the Redux state
+   */
+  reduxConfigs?: ReduxConfig[]
   /**
    * The module’s screen options.
    * @see https://reactnavigation.org/docs/stack-navigator/#options
@@ -23,6 +28,9 @@ type BaseModuleConfig = {
   slug: ModuleSlug
 }
 
+/**
+ * The complete configuration for a core module.
+ */
 export type CoreModuleConfig = BaseModuleConfig
 
 /**

@@ -1,7 +1,7 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
 import {NewMessage} from '@/modules/construction-work-editor/types'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 import {NotificationQueryArg} from '@/types'
 
 export type ProjectIdAndTitle = {id: string; title: string}
@@ -14,14 +14,14 @@ export type MessageDraft = {
   project?: ProjectIdAndTitle
 }
 
-type MessageDraftState = Record<string, MessageDraft> & {
+export type MessageDraftState = Record<string, MessageDraft> & {
   currentProjectId: string
 }
 
 const initialState = {} as MessageDraftState
 
 export const messageDraftSlice = createSlice({
-  name: 'messageDraft',
+  name: ReduxKey.messageDraft,
   initialState,
   reducers: {
     clearDraft: () => initialState,
@@ -102,41 +102,41 @@ export const {
 } = messageDraftSlice.actions
 
 export const selectCurrentProjectId = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraftState) => messageDraft?.currentProjectId,
+  (state: RootState) => state[ReduxKey.messageDraft],
+  messageDraft => messageDraft?.currentProjectId,
 )
 
 export const selectMainImage = (id: string) =>
   createSelector(
-    (state: RootState) => state.messageDraft,
-    (messageDraft: MessageDraftState) => messageDraft[id]?.mainImage,
+    (state: RootState) => state[ReduxKey.messageDraft],
+    messageDraft => messageDraft[id]?.mainImage,
   )
 
 export const selectMainImageDescription = (id: string) =>
   createSelector(
-    (state: RootState) => state.messageDraft,
-    (messageDraft: MessageDraftState) => messageDraft[id]?.mainImageDescription,
+    (state: RootState) => state[ReduxKey.messageDraft],
+    messageDraft => messageDraft[id]?.mainImageDescription,
   )
 
 export const selectNotification = (id: string) =>
   createSelector(
-    (state: RootState) => state.messageDraft,
-    (messageDraft: MessageDraftState) => messageDraft[id]?.notification,
+    (state: RootState) => state[ReduxKey.messageDraft],
+    messageDraft => messageDraft[id]?.notification,
   )
 
 export const selectProject = (id: string) =>
   createSelector(
-    (state: RootState) => state.messageDraft,
-    (messageDraft: MessageDraftState) => messageDraft[id]?.project,
+    (state: RootState) => state[ReduxKey.messageDraft],
+    messageDraft => messageDraft[id]?.project,
   )
 
 export const selectProjectId = createSelector(
-  (state: RootState) => state.messageDraft,
-  (messageDraft: MessageDraftState) => messageDraft.currentProjectId,
+  (state: RootState) => state[ReduxKey.messageDraft],
+  messageDraft => messageDraft.currentProjectId,
 )
 
 export const selectMessage = (id: string) =>
   createSelector(
-    (state: RootState) => state.messageDraft,
-    (messageDraft: MessageDraftState) => messageDraft[id]?.message,
+    (state: RootState) => state[ReduxKey.messageDraft],
+    messageDraft => messageDraft[id]?.message,
   )

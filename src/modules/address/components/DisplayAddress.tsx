@@ -9,9 +9,9 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {Column, Row} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
-import {Address} from '@/modules/address'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress} from '@/modules/address/slice'
+import {Address} from '@/modules/address/types'
 import {module as userModule} from '@/modules/user'
 import {setAlert} from '@/store'
 
@@ -19,7 +19,9 @@ type Props = {
   address: Address
 }
 
-export const DisplayAddress = ({address}: Props) => {
+export const DisplayAddress = ({
+  address: {addressLine1, addressLine2},
+}: Props) => {
   const dispatch = useDispatch()
   const navigation =
     useNavigation<
@@ -46,14 +48,10 @@ export const DisplayAddress = ({address}: Props) => {
     <Column gutter="md">
       <Column>
         <Paragraph testID="AddressStreetnameAndNumberText">
-          {address.adres}
+          {addressLine1}
         </Paragraph>
         <Paragraph testID="AddressPostalcodeAndCityText">
-          {[
-            address.postcode.substring(0, 4),
-            address.postcode.substring(4, 6),
-            address.woonplaats.toUpperCase(),
-          ].join(' ')}
+          {addressLine2}
         </Paragraph>
       </Column>
       <Row

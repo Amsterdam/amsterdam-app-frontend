@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '@/store'
+import {ReduxKey, RootState} from '@/store/types'
 
-type ContactState = {
+export type ContactState = {
   selectedCityOfficeId?: string
 }
 
 export const contactSlice = createSlice({
-  name: 'contact',
+  name: ReduxKey.contact,
   initialState: {} as ContactState,
   reducers: {
     setSelectedCityOffice: (state, {payload}: PayloadAction<string>) => {
@@ -18,4 +18,4 @@ export const contactSlice = createSlice({
 export const {setSelectedCityOffice} = contactSlice.actions
 
 export const selectCityOffice = (state: RootState) =>
-  state.contact.selectedCityOfficeId
+  state[ReduxKey.contact].selectedCityOfficeId
