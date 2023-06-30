@@ -11,7 +11,6 @@ import {
   selectConstructionWorkEditorId,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {selectAuthManagerToken} from '@/store'
 import {isApiAuthorizationError} from '@/utils'
 
@@ -40,9 +39,10 @@ export const useRegisterConstructionWorkEditor = (
 
   // Get project manager from endpoint
   const {
-    data: projectManager,
+    currentData: currentProjectManager,
     isError: isGetProjectManagerError,
     error: getProjectManagerError,
+    isFetching: isGetProjectManagerFetching,
     isLoading: isGetProjectManagerLoading,
     isSuccess: isGetProjectManagerSuccess,
   } = useGetProjectManagerQuery(
@@ -50,16 +50,16 @@ export const useRegisterConstructionWorkEditor = (
       ? {id: constructionWorkEditorId}
       : skipToken,
   )
-  const authorizedProjects = projectManager?.projects
+  const authorizedProjects = currentProjectManager?.projects
 
   // Add to or remove module from authorized modules, depending on the response
   useEffect(() => {
-    !isGetProjectManagerLoading &&
+    currentProjectManager &&
       setModuleAuthorization(isGetProjectManagerSuccess, getProjectManagerError)
   }, [
-    getProjectManagerError,
-    isGetProjectManagerLoading,
+    currentProjectManager,
     isGetProjectManagerSuccess,
+    getProjectManagerError,
     setModuleAuthorization,
   ])
 
@@ -70,12 +70,12 @@ export const useRegisterConstructionWorkEditor = (
 
   // Show success message if fetching succeeded and welcome message has not been seen yet
   useEffect(() => {
-    projectManager &&
+    currentProjectManager &&
       !constructionWorkEditorHasSeenWelcomeMessage &&
       showAuthorizedFeedback.success()
   }, [
     constructionWorkEditorHasSeenWelcomeMessage,
-    projectManager,
+    currentProjectManager,
     showAuthorizedFeedback,
   ])
 
@@ -93,8 +93,9 @@ export const useRegisterConstructionWorkEditor = (
   ])
 
   return {
-    projectManager,
+    currentProjectManager,
     getProjectManagerError,
+    isGetProjectManagerFetching,
     isGetProjectManagerLoading,
   }
 }

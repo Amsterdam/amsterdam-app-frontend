@@ -64,12 +64,15 @@ export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const {projectManager, isGetProjectManagerLoading, getProjectManagerError} =
-    useRegisterConstructionWorkEditor(deeplinkId)
+  const {
+    currentProjectManager,
+    isGetProjectManagerFetching,
+    getProjectManagerError,
+  } = useRegisterConstructionWorkEditor(deeplinkId)
 
-  const authorizedProjects = projectManager?.projects
+  const authorizedProjects = currentProjectManager?.projects
 
-  if (isGetProjectManagerLoading) {
+  if (isGetProjectManagerFetching) {
     return <PleaseWait />
   }
 
