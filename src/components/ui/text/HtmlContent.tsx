@@ -95,7 +95,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   }
 
   return (
-    <View onLayout={event => onLayoutChange(event)}>
+    <View onLayout={onLayoutChange}>
       <RenderHTML
         source={{html}}
         {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
