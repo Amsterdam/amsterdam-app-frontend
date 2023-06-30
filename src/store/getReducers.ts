@@ -7,7 +7,9 @@ import {AnyReducer, ReduxKey, ReduxConfig} from '@/store/types'
 /**
  * Reduce an array of module configurations to an array of Redux slice configurations.
  */
-export const getConfigs = <T extends CoreModuleConfig | ModuleClientConfig>(
+export const getReduxConfigs = <
+  T extends CoreModuleConfig | ModuleClientConfig,
+>(
   modules: T[],
 ): ReduxConfig[] =>
   modules.reduce((result: ReduxConfig[], {reduxConfigs}: T) => {

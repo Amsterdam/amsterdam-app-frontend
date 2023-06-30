@@ -7,12 +7,12 @@ import {alertSlice} from '@/store/alertSlice'
 import {authSlice} from '@/store/authSlice'
 import {bottomSheetSlice} from '@/store/bottomSheetSlice'
 import {environmentSlice} from '@/store/environmentSlice'
-import {getConfigs, getReducers} from '@/store/getReducers'
+import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {modulesSlice} from '@/store/modulesSlice'
 import {ReduxKey, ReduxConfig} from '@/store/types'
 import {themeSlice} from '@/themes/slice'
 
-const nonModuleSlicesConfig: ReduxConfig[] = [
+const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.auth, slice: authSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
@@ -22,9 +22,9 @@ const nonModuleSlicesConfig: ReduxConfig[] = [
 ]
 
 const reducers = getReducers([
-  ...nonModuleSlicesConfig,
-  ...getConfigs(coreModules),
-  ...getConfigs(clientModules),
+  ...baseFunctionalitySlicesConfig,
+  ...getReduxConfigs(coreModules),
+  ...getReduxConfigs(clientModules),
 ])
 
 export const store = configureStore({

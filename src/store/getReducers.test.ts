@@ -1,10 +1,10 @@
-import {getConfigs} from './getReducers'
+import {getReduxConfigs} from './getReducers'
 import {ModuleClientConfig} from '@/modules/types'
 
-describe('getConfigs', () => {
+describe('getReduxConfigs', () => {
   test('should reduce an array of module configs to an array of Redux configs', () => {
     expect(
-      getConfigs([
+      getReduxConfigs([
         {
           reduxConfigs: [{key: 'A', value: 1}],
         },
@@ -23,6 +23,6 @@ describe('getConfigs', () => {
     ])
   })
   test('should return an empty array if no Redux configs exist', () => {
-    expect(getConfigs([{}, {}] as ModuleClientConfig[])).toEqual([])
+    expect(getReduxConfigs([{}, {}] as ModuleClientConfig[])).toEqual([])
   })
 })

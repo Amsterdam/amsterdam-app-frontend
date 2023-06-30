@@ -58,8 +58,7 @@ export type ReduxConfig = {
   slice: AnySlice
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyReducer = Reducer<any, AnyAction>
+export type AnyReducer = Reducer<unknown, AnyAction>
 
 export type RootState = {
   [baseApi.reducerPath]: typeof baseApi.reducer
