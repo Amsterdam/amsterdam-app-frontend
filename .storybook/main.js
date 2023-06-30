@@ -14,6 +14,11 @@ module.exports = {
   features: {
     previewCsfV3: true,
   },
+  typescript: {
+    // we have to add this to fix build errors: https://github.com/hipstersmoothie/react-docgen-typescript-plugin/issues/78#issuecomment-1409224863
+    // when we migrate to Storybook 7, we can remove this and remove react-docgen-typescript-plugin from package.json
+    reactDocgen: 'react-docgen-typescript-plugin',
+  },
   webpackFinal: config => {
     config.resolve = {
       modules: ['node_modules'],
