@@ -1,5 +1,5 @@
-import {useMemo} from 'react'
-import {Platform, TextStyle, useWindowDimensions} from 'react-native'
+import {useCallback, useMemo, useState} from 'react'
+import {LayoutChangeEvent, Platform, TextStyle, View} from 'react-native'
 import RenderHTML, {
   MixedStyleDeclaration,
   RenderersProps,
@@ -8,8 +8,8 @@ import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {Theme, useThemable, useTheme} from '@/themes'
-import {SizeTokens, TextTokens} from '@/themes/tokens'
+import {Theme, useThemable} from '@/themes'
+import {TextTokens} from '@/themes/tokens'
 
 type Props = {
   content: string | undefined
@@ -45,27 +45,21 @@ const transformContent = (
     content,
   )
 
-const computeEmbeddedMaxWidth =
-  (size: SizeTokens) => (contentWidth: number, tagName: string) => {
-    if (tagName === 'img') {
-      return contentWidth - 2 * size.spacing.md
-    }
-
-    return contentWidth
-  }
-
 /**
  * Renders HTML content, applying the typographic design.
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   const openUrl = useOpenUrl()
-  const {width: contentWidth} = useWindowDimensions()
-  const {size} = useTheme()
+  const [contentWidth, setContentWidth] = useState<number>(0)
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
   const renderersProps = useThemable(createRenderersProps(openUrl))
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+
+  const onLayoutChange = useCallback((event: LayoutChangeEvent) => {
+    setContentWidth(event.nativeEvent.layout.width)
+  }, [])
 
   const html = useMemo(() => {
     if (!content) {
@@ -101,11 +95,12 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   }
 
   return (
-    <RenderHTML
-      computeEmbeddedMaxWidth={computeEmbeddedMaxWidth(size)}
-      source={{html}}
-      {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
-    />
+    <View onLayout={onLayoutChange}>
+      <RenderHTML
+        source={{html}}
+        {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
+      />
+    </View>
   )
 }
 
