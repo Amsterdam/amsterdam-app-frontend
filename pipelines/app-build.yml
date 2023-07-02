@@ -36,21 +36,3 @@ jobs:
       - template: ./templates/app-build.yml
         parameters:
           platform: 'ios'
-  - job: "Build_Storybook"
-    timeoutInMinutes: 30
-    pool:
-      vmImage: macOS-12
-    steps:
-      - template: ./templates/storybook-build.yml
-  - job: "Push_to_github"
-    timeoutInMinutes: 30
-    pool:
-      vmImage: macOS-12
-    variables:
-      - group: github-authorization
-    steps:
-      - template: ./templates/push-repo-to-github.yml
-        parameters:
-          repository: 'amsterdam-app-frontend'
-          sshKeySecureFile: 'frontend-github-ssh'
-          sshPublicKey: $(sshPublicKeyFrontend)
