@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {wasteGuideSlice} from '@/modules/waste-guide/slice'
-import {ReduxKey} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
 
 export const module: ModuleClientConfig = {
   name: 'WasteGuideModule',

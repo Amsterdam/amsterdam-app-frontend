@@ -1,7 +1,7 @@
 import {contactSlice} from '@/modules/contact/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
-import {ReduxKey} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
 
 export const module: ModuleClientConfig = {
   name: 'ContactModule',

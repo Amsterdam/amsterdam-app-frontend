@@ -28,7 +28,7 @@ import {
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
 import {useAddNotificationMutation} from '@/services'
-import {resetAlert, setAlert} from '@/store'
+import {resetAlert, setAlert} from '@/store/alertSlice'
 import {useTheme} from '@/themes'
 
 type Props = {

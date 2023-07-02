@@ -2,7 +2,7 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media'
 import {ModuleSlug} from '@/modules/slugs'
-import {ReduxConfig} from '@/store/types'
+import {ReduxConfig} from '@/store/types/types'
 
 /**
  * The config properties that are shared between core and non-core modules.

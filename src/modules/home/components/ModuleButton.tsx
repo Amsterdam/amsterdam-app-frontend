@@ -13,7 +13,7 @@ import {TestProps} from '@/components/ui/types'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {toggleModule} from '@/store'
+import {toggleModule} from '@/store/modulesSlice'
 import {Theme, useThemable} from '@/themes'
 
 type ModuleButtonContentProps = {

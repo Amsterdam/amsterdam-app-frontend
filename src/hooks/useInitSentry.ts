@@ -6,7 +6,7 @@ import {
   setSentryBackEndEnvironment,
   setSentryUserData,
 } from '@/processes'
-import {useAppSelector} from '@/store'
+import {useAppSelector} from '@/store/hooks'
 import {BreadcrumbCategory} from '@/types'
 
 /**

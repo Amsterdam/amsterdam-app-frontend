@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ConstructionWorkEditor} from '@/modules/construction-work-editor/types'
-import {ReduxKey, RootState} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
+import {RootState} from '@/store/types/rootState'
 
 export type ConstructionWorkEditorState = ConstructionWorkEditor
 

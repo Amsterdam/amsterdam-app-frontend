@@ -11,7 +11,7 @@ import {
 import {Screen} from '@/components/ui/layout'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {setAlert} from '@/store'
+import {setAlert} from '@/store/alertSlice'
 
 type Props = {
   navigation: StackNavigationProp<

@@ -2,7 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {createMigrate, persistReducer} from 'redux-persist'
 import {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
 import {appFlavour, AppFlavour} from '@/processes'
-import {AnyReducer, ReduxKey, ReduxConfig} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
+import {AnyReducer, ReduxConfig} from '@/store/types/types'
 
 /**
  * Reduce an array of module configurations to an array of Redux slice configurations.

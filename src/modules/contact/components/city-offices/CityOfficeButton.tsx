@@ -6,7 +6,7 @@ import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {setSelectedCityOffice} from '@/modules/contact/slice'
 import {CityOffice} from '@/modules/contact/types'
-import {closeBottomSheet} from '@/store'
+import {closeBottomSheet} from '@/store/bottomSheetSlice'
 
 type Props = {
   cityOffice: CityOffice

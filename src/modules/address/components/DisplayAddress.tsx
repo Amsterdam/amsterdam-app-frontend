@@ -13,7 +13,7 @@ import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress} from '@/modules/address/slice'
 import {Address} from '@/modules/address/types'
 import {module as userModule} from '@/modules/user'
-import {setAlert} from '@/store'
+import {setAlert} from '@/store/alertSlice'
 
 type Props = {
   address: Address

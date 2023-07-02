@@ -7,7 +7,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useSentry} from '@/hooks/useSentry'
-import {setAlert} from '@/store'
+import {setAlert} from '@/store/alertSlice'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
 const DEFAULT_OPTIONS: ImageCropPickerOptions = {

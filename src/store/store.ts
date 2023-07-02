@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
-import {clientModules, coreModules} from '@/modules'
+import {clientModules, coreModules} from '@/modules/modules'
 import {sentryLoggerMiddleware} from '@/processes'
 import {baseApi} from '@/services'
 import {alertSlice} from '@/store/alertSlice'
@@ -9,7 +9,8 @@ import {bottomSheetSlice} from '@/store/bottomSheetSlice'
 import {environmentSlice} from '@/store/environmentSlice'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {modulesSlice} from '@/store/modulesSlice'
-import {ReduxKey, ReduxConfig} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxConfig} from '@/store/types/types'
 import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [

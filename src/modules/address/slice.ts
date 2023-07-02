@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Address} from '@/modules/address/types'
-import {ReduxKey, RootState} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKeys'
+import {RootState} from '@/store/types/rootState'
 
 export type AddressState = {address?: Address}
 

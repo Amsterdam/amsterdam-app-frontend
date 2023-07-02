@@ -10,7 +10,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {useEnvironment} from '@/store'
+import {useEnvironment} from '@/store/environmentSlice'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
