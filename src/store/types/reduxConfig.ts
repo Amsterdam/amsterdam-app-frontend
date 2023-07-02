@@ -1,10 +1,6 @@
-import {AnyAction, Reducer} from '@reduxjs/toolkit'
 import {Slice} from '@reduxjs/toolkit'
 import {MigrationManifest} from 'redux-persist'
 import {ReduxKey} from '@/store/types/reduxKeys'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnySlice = Slice<any>
 
 export type ReduxConfig = {
   /**
@@ -27,7 +23,6 @@ export type ReduxConfig = {
   /**
    * A redux slice for this module.
    */
-  slice: AnySlice
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  slice: Slice<any>
 }
-
-export type AnyReducer = Reducer<unknown, AnyAction>

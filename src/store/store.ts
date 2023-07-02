@@ -9,8 +9,8 @@ import {bottomSheetSlice} from '@/store/bottomSheetSlice'
 import {environmentSlice} from '@/store/environmentSlice'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {modulesSlice} from '@/store/modulesSlice'
+import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKeys'
-import {ReduxConfig} from '@/store/types/types'
 import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
