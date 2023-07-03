@@ -1,4 +1,6 @@
 steps:
+  - checkout: self
+    fetchDepth: 0
   - template: ./install-node.yml
   - script: npm ci --ignore-scripts
     displayName: 'Install node dependencies'
