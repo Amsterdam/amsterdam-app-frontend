@@ -5,7 +5,7 @@ import {AddButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
-import {module as userModule} from '@/modules/user'
+import {userModule} from '@/modules/user'
 
 export const RequestAddress = () => {
   const navigation =

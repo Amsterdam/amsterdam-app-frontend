@@ -6,7 +6,7 @@ import {Row} from '@/components/ui/layout'
 import {Icon, IconProps} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {module as userModule} from '@/modules/user'
+import {userModule} from '@/modules/user'
 import {isDevApp} from '@/processes'
 
 export const HeaderNavigation = () => {

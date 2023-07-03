@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/feedback'
 import {ProjectCard} from '@/modules/construction-work/components/shared'
 import {ProjectsItem} from '@/modules/construction-work/types'
-import {module as constructionWorkEditorModule} from '@/modules/construction-work-editor'
+import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'

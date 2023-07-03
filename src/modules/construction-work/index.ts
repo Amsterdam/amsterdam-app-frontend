@@ -5,7 +5,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module: ModuleClientConfig = {
+export const constructionWorkModule: ModuleClientConfig = {
   BadgeValue,
   linking: {
     [ConstructionWorkRouteName.projectNews]: 'news/:id',

@@ -8,14 +8,16 @@ import {Column, Row} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
-import {module} from '@/modules/waste-guide'
+import {wasteGuideModule} from '@/modules/waste-guide'
 import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 
 export const RequestAddress = () => {
   const navigation =
-    useNavigation<StackNavigationProp<RootStackParams, typeof module.slug>>()
+    useNavigation<
+      StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
+    >()
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
 

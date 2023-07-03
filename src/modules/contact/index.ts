@@ -3,7 +3,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module: ModuleClientConfig = {
+export const contactModule: ModuleClientConfig = {
   name: 'ContactModule',
   reduxConfigs: [
     {
