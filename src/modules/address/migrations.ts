@@ -3,7 +3,7 @@ import {AddressState} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
 import {getAddition, getAddressLine2, getCoordinates} from '@/utils/address'
 
-type OldAdressState = {
+type AdressStateNegative1 = {
   adres: string
   bagNummeraanduidingId: string
   bag_huisletter: string
@@ -33,7 +33,7 @@ export const migrations: MigrationManifest = {
       huisnummer,
       postcode,
       straatnaam,
-    } = oldAddressState as unknown as OldAdressState
+    } = oldAddressState as unknown as AdressStateNegative1
 
     if (
       [
