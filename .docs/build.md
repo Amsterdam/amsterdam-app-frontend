@@ -46,8 +46,13 @@ The configuration of the build pipelines (YAML) is in `/pipelines`. These YAML f
 
 The pipelines have access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard. In the pipelines we run Fastlane to create the iOS and Android builds.
 
-- Amsterdam-App-Frontend: the main app build pipeline, also builds StoryBook
-- Amsterdam-App-Frontend Tests: runs linting, TypeScript (tsc) and unit tests (triggered by opening or updating a PR)
+- **Amsterdam-App-Frontend [build]**: the main app build pipeline
+- **Amsterdam-App-Frontend [publish]**: runs jobs not directly related to the app builds:
+  - build StoryBook
+  - [publish source code to GitHub](./push-code-to-github.md)
+- **Amsterdam-App-Frontend [validate]**: runs linting, TypeScript (tsc) and unit tests
+
+The first two are triggered simultaneously by a commit to main, the last one is triggered by opening or updating a PR.
 
 A short overview of the app build process in the Amsterdam-App-Frontend pipeline. The pipeline will:
 
