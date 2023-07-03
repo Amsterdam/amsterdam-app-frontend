@@ -12,8 +12,8 @@ import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress} from '@/modules/address/slice'
 import {Address} from '@/modules/address/types'
-import {module as userModule} from '@/modules/user'
-import {setAlert} from '@/store'
+import {userModule} from '@/modules/user'
+import {setAlert} from '@/store/slices/alert'
 
 type Props = {
   address: Address

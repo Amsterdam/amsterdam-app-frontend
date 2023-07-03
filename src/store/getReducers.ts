@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {AnyAction, Reducer} from '@reduxjs/toolkit'
 import {createMigrate, persistReducer} from 'redux-persist'
 import {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
 import {appFlavour, AppFlavour} from '@/processes'
-import {AnyReducer, ReduxKey, ReduxConfig} from '@/store/types'
+import {ReduxConfig} from '@/store/types/reduxConfig'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 /**
  * Reduce an array of module configurations to an array of Redux slice configurations.
@@ -24,7 +26,7 @@ export const getReduxConfigs = <
  * Get the reducers object to pass to Redux's configureStore
  */
 export const getReducers = (reduxConfigs: ReduxConfig[]) => {
-  const reducers: Partial<Record<ReduxKey, AnyReducer>> = {}
+  const reducers: Partial<Record<ReduxKey, Reducer<unknown, AnyAction>>> = {}
   reduxConfigs.forEach(config => {
     const {
       key,

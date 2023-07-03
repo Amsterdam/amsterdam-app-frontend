@@ -12,7 +12,7 @@ import {
   selectEnvironmentConfig,
   setCustomEnvironment,
   setEnvironment,
-} from '@/store'
+} from '@/store/slices/environment'
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()

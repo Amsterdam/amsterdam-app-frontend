@@ -1,4 +1,4 @@
-import {module as contactModule} from '@/modules/contact'
+import {contactModule} from '@/modules/contact'
 import {
   CityOffice,
   ContactEndpointName,

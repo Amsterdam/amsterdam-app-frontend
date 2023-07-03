@@ -9,7 +9,7 @@ import {TestProps} from '@/components/ui/types'
 import {useModules} from '@/hooks'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {Module, ModuleStatus} from '@/modules/types'
-import {toggleModule} from '@/store'
+import {toggleModule} from '@/store/slices/modules'
 import {accessibleText} from '@/utils'
 
 type ModuleSettingContentProps = {

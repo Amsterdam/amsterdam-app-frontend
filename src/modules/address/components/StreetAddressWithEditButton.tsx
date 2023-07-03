@@ -7,7 +7,7 @@ import {Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Phrase} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
-import {module as wasteGuideModule} from '@/modules/waste-guide'
+import {wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   address: string

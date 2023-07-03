@@ -1,6 +1,6 @@
 import {PathConfig, PathConfigMap} from '@react-navigation/core'
 import {RootStackParams} from '@/app/navigation'
-import {clientModules} from '@/modules'
+import {clientModules} from '@/modules/modules'
 
 export const moduleLinkings = (() => {
   const linkings: PathConfigMap<RootStackParams> = {}

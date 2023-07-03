@@ -5,7 +5,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {setHasSeenWelcomeMessage} from '@/modules/construction-work-editor/slice'
-import {setAlert} from '@/store'
+import {setAlert} from '@/store/slices/alert'
 
 export const useShowAuthorizedFeedback = () => {
   const dispatch = useDispatch()

@@ -3,9 +3,9 @@ import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {constructionWorkSlice} from '@/modules/construction-work/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
-import {ReduxKey} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module: ModuleClientConfig = {
+export const constructionWorkModule: ModuleClientConfig = {
   BadgeValue,
   linking: {
     [ConstructionWorkRouteName.projectNews]: 'news/:id',

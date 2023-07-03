@@ -9,7 +9,7 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Title} from '@/components/ui/text'
 import {Placement} from '@/components/ui/types'
-import {module as userModule} from '@/modules/user'
+import {userModule} from '@/modules/user'
 
 export const BoxTitle = () => {
   const navigation =

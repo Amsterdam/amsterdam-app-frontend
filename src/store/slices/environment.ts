@@ -2,7 +2,8 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from 'react-redux'
 import {Environment, EnvironmentConfig, getEnvironment} from '@/environment'
 import {isDevApp} from '@/processes'
-import {ReduxKey, RootState} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKey'
+import {RootState} from '@/store/types/rootState'
 
 export type EnvironmentState = {
   custom?: Partial<EnvironmentConfig>

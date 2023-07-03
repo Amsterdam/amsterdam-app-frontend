@@ -3,7 +3,10 @@ import {FetchBaseQueryError} from '@reduxjs/toolkit/dist/query'
 import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {ModuleSlug} from '@/modules/slugs'
-import {removeAuthorizedModule, addAuthorizedModule} from '@/store'
+import {
+  removeAuthorizedModule,
+  addAuthorizedModule,
+} from '@/store/slices/modules'
 import {isApiAuthorizationError} from '@/utils'
 
 export const useSetModuleAuthorization = () => {

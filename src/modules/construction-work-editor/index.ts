@@ -4,9 +4,9 @@ import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-edito
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
-import {ReduxKey} from '@/store/types'
+import {ReduxKey} from '@/store/types/reduxKey'
 
-export const module: ModuleClientConfig = {
+export const constructionWorkEditorModule: ModuleClientConfig = {
   PreRenderComponent,
   requiresAuthorization: true,
   linking: {

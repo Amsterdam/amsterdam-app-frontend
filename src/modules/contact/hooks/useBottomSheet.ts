@@ -5,7 +5,7 @@ import {
   closeBottomSheet,
   openBottomSheet,
   selectIsBottomSheetOpen,
-} from '@/store'
+} from '@/store/slices/bottomSheet'
 
 export const useBottomSheet = () => {
   const dispatch = useDispatch()

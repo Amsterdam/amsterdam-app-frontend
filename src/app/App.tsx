@@ -10,7 +10,7 @@ import {CustomErrorBoundary, Init} from '@/app'
 import {AppNavigationContainer, RootStackNavigator} from '@/app/navigation'
 import {ErrorWithRestart} from '@/components/ui/feedback'
 import {RootProvider} from '@/providers'
-import {store} from '@/store'
+import {store} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens'
 
 const persistor = persistStore(store)

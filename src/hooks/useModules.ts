@@ -4,9 +4,12 @@ import {useSelector} from 'react-redux'
 // eslint-disable-next-line no-restricted-imports
 import {version as releaseVersion} from '@/../package.json'
 import {useAppState, useSentry} from '@/hooks'
-import {clientModules} from '@/modules'
+import {clientModules} from '@/modules/modules'
 import {useGetReleaseQuery} from '@/services'
-import {selectAuthorizedModules, selectDisabledModules} from '@/store'
+import {
+  selectAuthorizedModules,
+  selectDisabledModules,
+} from '@/store/slices/modules'
 import {postProcessModules} from '@/utils/modules'
 
 const MAX_RETRIES = 3

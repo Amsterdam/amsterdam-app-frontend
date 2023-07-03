@@ -3,7 +3,7 @@ import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
 import {screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'
-import {clientModules, coreModules} from '@/modules'
+import {clientModules, coreModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   getModuleStack,
