@@ -5,12 +5,12 @@ import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/sl
 import {ContactState} from '@/modules/contact/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
 import {baseApi} from '@/services/init'
-import {AlertState} from '@/store/alertSlice'
-import {AuthState} from '@/store/authSlice'
-import {BottomSheetState} from '@/store/bottomSheetSlice'
-import {EnvironmentState} from '@/store/environmentSlice'
-import {ModulesState} from '@/store/modulesSlice'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {AlertState} from '@/store/slices/alert'
+import {AuthState} from '@/store/slices/auth'
+import {BottomSheetState} from '@/store/slices/bottomSheet'
+import {EnvironmentState} from '@/store/slices/environment'
+import {ModulesState} from '@/store/slices/modules'
+import {ReduxKey} from '@/store/types/reduxKey'
 import {ThemeState} from '@/themes/slice'
 
 export type RootState = {

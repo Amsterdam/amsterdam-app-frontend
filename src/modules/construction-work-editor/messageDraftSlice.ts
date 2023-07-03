@@ -1,7 +1,7 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
 import {NewMessage} from '@/modules/construction-work-editor/types'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 import {NotificationQueryArg} from '@/types'
 

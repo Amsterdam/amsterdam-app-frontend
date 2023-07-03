@@ -4,7 +4,7 @@ import {createMigrate, persistReducer} from 'redux-persist'
 import {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
 import {appFlavour, AppFlavour} from '@/processes'
 import {ReduxConfig} from '@/store/types/reduxConfig'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 /**
  * Reduce an array of module configurations to an array of Redux slice configurations.

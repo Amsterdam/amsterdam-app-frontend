@@ -6,7 +6,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {AlertState, Content, setAlert} from '@/store/alertSlice'
+import {AlertState, Content, setAlert} from '@/store/slices/alert'
 
 const title = 'Title'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'

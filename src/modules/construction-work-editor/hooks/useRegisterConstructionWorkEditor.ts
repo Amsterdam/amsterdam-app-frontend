@@ -11,7 +11,7 @@ import {
   selectConstructionWorkEditorId,
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
-import {selectAuthManagerToken} from '@/store/authSlice'
+import {selectAuthManagerToken} from '@/store/slices/auth'
 import {isApiAuthorizationError} from '@/utils'
 
 export const useRegisterConstructionWorkEditor = (

@@ -9,7 +9,7 @@ import {useGetReleaseQuery} from '@/services'
 import {
   selectAuthorizedModules,
   selectDisabledModules,
-} from '@/store/modulesSlice'
+} from '@/store/slices/modules'
 import {postProcessModules} from '@/utils/modules'
 
 const MAX_RETRIES = 3

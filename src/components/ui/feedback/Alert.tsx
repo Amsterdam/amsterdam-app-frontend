@@ -21,7 +21,7 @@ import {Column, Row} from '@/components/ui/layout'
 import {Icon} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {useIsReduceMotionEnabled} from '@/hooks'
-import {resetAlert, selectAlert} from '@/store/alertSlice'
+import {resetAlert, selectAlert} from '@/store/slices/alert'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText, isEmptyObject} from '@/utils'
 

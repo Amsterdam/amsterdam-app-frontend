@@ -4,7 +4,7 @@ import {SingleSelectable} from '@/components/ui/containers'
 import {Column} from '@/components/ui/layout'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {CityOffice} from '@/modules/contact/types'
-import {toggleBottomSheet} from '@/store/bottomSheetSlice'
+import {toggleBottomSheet} from '@/store/slices/bottomSheet'
 import {accessibleText} from '@/utils'
 
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>

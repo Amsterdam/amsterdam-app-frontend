@@ -2,7 +2,7 @@ import {migrations} from '@/modules/address/migrations'
 import {addressSlice} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export const module: CoreModuleConfig = {
   name: 'AddressModule',

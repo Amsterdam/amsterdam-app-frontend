@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {TestProps} from '@/components/ui/types'
 import {isReduceMotionEnabled} from '@/hooks'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type Content =

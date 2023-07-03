@@ -1,6 +1,6 @@
 import {Slice} from '@reduxjs/toolkit'
 import {MigrationManifest} from 'redux-persist'
-import {ReduxKey} from '@/store/types/reduxKeys'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export type ReduxConfig = {
   /**
