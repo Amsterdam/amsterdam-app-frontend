@@ -1,4 +1,3 @@
-import {View} from 'react-native'
 import {useSelector} from 'react-redux'
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
@@ -107,7 +106,7 @@ export const Fraction = ({fraction}: Props) => {
           <FractionContent content={afvalwijzerAfvalkalenderMelding} />
         </TimeboundNotification>
       )}
-      <View>
+      <Column gutter="md">
         <Column gutter="sm">
           <FractionSection
             buttonContent={afvalwijzerButtontekst ?? undefined}
@@ -121,28 +120,26 @@ export const Fraction = ({fraction}: Props) => {
             </InlineLink>
           )}
         </Column>
-        <Column gutter="md">
-          <FractionSection
-            content={capitalizeString(
-              afvalwijzerAfvalkalenderFrequentie
-                ? `${
-                    formatEnumeration(afvalwijzerOphaaldagen2) ?? ''
-                  }, ${afvalwijzerAfvalkalenderFrequentie}`
-                : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
-            )}
-            label="Ophaaldag"
-          />
-          <FractionSection
-            content={getBuitenzettenContent(fraction)}
-            label="Buitenzetten"
-          />
-          <FractionSection
-            content={afvalwijzerWaar}
-            inlineLink={containerMapUrl}
-            label="Waar"
-          />
-        </Column>
-      </View>
+        <FractionSection
+          content={capitalizeString(
+            afvalwijzerAfvalkalenderFrequentie
+              ? `${
+                  formatEnumeration(afvalwijzerOphaaldagen2) ?? ''
+                }, ${afvalwijzerAfvalkalenderFrequentie}`
+              : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
+          )}
+          label="Ophaaldag"
+        />
+        <FractionSection
+          content={getBuitenzettenContent(fraction)}
+          label="Buitenzetten"
+        />
+        <FractionSection
+          content={afvalwijzerWaar}
+          inlineLink={containerMapUrl}
+          label="Waar"
+        />
+      </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
         <Attention>
           <FractionContent content={afvalwijzerAfvalkalenderOpmerking} />
