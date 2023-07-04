@@ -26,11 +26,14 @@ const customFractionTitles = {
 }
 
 // TODO: Remove when plastic is supported again
-const fractionIsDisabled = ({
+const fractionIsSupported = ({
   afvalwijzerFractieCode,
 }: WasteGuideResponseFraction) =>
   afvalwijzerFractieCode !== FractionCode.Plastic
 
+/**
+ * Sort fractions in the order set in `fractionOrder`.
+ */
 export const sortFractions = (
   a: WasteGuideResponseFraction,
   b: WasteGuideResponseFraction,
@@ -43,10 +46,20 @@ export const sortFractions = (
   return aIndex - bIndex
 }
 
+/**
+ * The title of the combined fraction in the case of "collection by appointment".
+ */
 const collectionByAppointmentTitle =
   'Gfe/t, textiel, papier/karton, glas en restafval'
+
+/**
+ * The value that `afvalwijzerBasisroutetypeCode` should have if "collection by appointment" is applicable.
+ */
 const collectionByAppointmentCode = 'THUISAFSPR'
 
+/**
+ * Adds the title as defined in `customFractionTitles` to the fraction.
+ */
 export const applyCustomFractionTitle = (
   fraction: WasteGuideResponseFraction,
 ): WasteGuideResponseFraction => ({
@@ -54,6 +67,9 @@ export const applyCustomFractionTitle = (
   afvalwijzerFractieNaam: customFractionTitles[fraction.afvalwijzerFractieCode],
 })
 
+/**
+ * Determine whether the criteria for waste collection by appointment are met.
+ */
 export const collectionByAppointmentApplies = ({
   afvalwijzerBasisroutetypeCode,
   afvalwijzerFractieCode,
@@ -65,6 +81,9 @@ export const collectionByAppointmentApplies = ({
   return afvalwijzerBasisroutetypeCode === collectionByAppointmentCode
 }
 
+/**
+ * When the criteria for waste collection by appointment are met, all fractions, except "grof afval", are combined into a single fraction, which has the date of the "rest" fraction, but a different title.
+ */
 export const getFractionsForCollectionByAppointment = (
   fractions: WasteGuideResponseFraction[],
 ) => {
@@ -87,13 +106,16 @@ export const getFractionsForCollectionByAppointment = (
   return combinedFractions
 }
 
+/**
+ * Post-process the waste fractions: filter out (temporarily) disabled fractions, rename the titles, sort them and handle the "collection by appointment" case.
+ */
 export const getFractions = (wasteGuide: WasteGuideResponseFraction[]) => {
   if (wasteGuide.find(collectionByAppointmentApplies)) {
     return getFractionsForCollectionByAppointment(wasteGuide)
   }
 
   return wasteGuide
-    .filter(fractionIsDisabled)
+    .filter(fractionIsSupported)
     .map(applyCustomFractionTitle)
     .sort(sortFractions)
 }
