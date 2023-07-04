@@ -98,7 +98,7 @@ describe('getFractionsForCollectionByAppointment', () => {
     ])
   })
 
-  test('if there is a "grof afval" fraction: it should return the "rest" fraction plus the "grof afval" fraction, in that order, with the correct titles', () => {
+  test('a "grof afval" fraction before "rest": it should return the "rest" fraction plus the "grof afval" fraction, in that order, with the correct titles', () => {
     expect(
       getFractionsForCollectionByAppointment([
         {
@@ -112,6 +112,35 @@ describe('getFractionsForCollectionByAppointment', () => {
         },
         {
           afvalwijzerFractieCode: FractionCode.Papier,
+        },
+      ] as WasteGuideResponseFraction[]),
+    ).toEqual([
+      {
+        afvalwijzerFractieCode: FractionCode.Rest,
+        afvalwijzerFractieNaam:
+          'Gfe/t, textiel, papier/karton, glas en restafval',
+      },
+      {
+        afvalwijzerFractieCode: FractionCode.GA,
+        afvalwijzerFractieNaam: 'Grof afval',
+      },
+    ])
+  })
+
+  test('a "grof afval" fraction after "rest": it should return the "rest" fraction plus the "grof afval" fraction, in that order, with the correct titles', () => {
+    expect(
+      getFractionsForCollectionByAppointment([
+        {
+          afvalwijzerFractieCode: FractionCode.GFT,
+        },
+        {
+          afvalwijzerFractieCode: FractionCode.Rest,
+        },
+        {
+          afvalwijzerFractieCode: FractionCode.Papier,
+        },
+        {
+          afvalwijzerFractieCode: FractionCode.GA,
         },
       ] as WasteGuideResponseFraction[]),
     ).toEqual([

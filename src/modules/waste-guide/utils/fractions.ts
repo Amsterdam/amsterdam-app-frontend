@@ -89,19 +89,17 @@ export const getFractionsForCollectionByAppointment = (
 ) => {
   const combinedFractions: WasteGuideResponseFraction[] = []
 
-  fractions.forEach(fraction => {
+  for (const fraction of fractions) {
     const {afvalwijzerFractieCode} = fraction
     if (afvalwijzerFractieCode === FractionCode.GA) {
       combinedFractions.push(applyCustomFractionTitle(fraction))
-      return
-    }
-    if (afvalwijzerFractieCode === FractionCode.Rest) {
+    } else if (afvalwijzerFractieCode === FractionCode.Rest) {
       combinedFractions.unshift({
         ...fraction,
         afvalwijzerFractieNaam: collectionByAppointmentTitle,
       })
     }
-  })
+  }
 
   return combinedFractions
 }
