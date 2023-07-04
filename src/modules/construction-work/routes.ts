@@ -17,8 +17,8 @@ export type ConstructionWorkStackParams = {
     body: ProjectBody
     headerTitle: string
   }
-  [ConstructionWorkRouteName.projectNews]: {id: string}
-  [ConstructionWorkRouteName.projectWarning]: {id: string}
+  [ConstructionWorkRouteName.projectNews]: {id: string; projectId?: string}
+  [ConstructionWorkRouteName.projectWarning]: {id: string; projectId?: string}
 }
 
 export enum ConstructionWorkModalName {}

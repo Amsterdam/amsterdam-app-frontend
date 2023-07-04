@@ -19,6 +19,9 @@ export const ProjectNewsScreen = ({route}: Props) => (
   <Screen
     withLeftInset={false}
     withRightInset={false}>
-    <ProjectNews id={route.params.id} />
+    <ProjectNews
+      id={route.params.id}
+      projectId={route.params.projectId}
+    />
   </Screen>
 )

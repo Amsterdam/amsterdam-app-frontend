@@ -18,9 +18,10 @@ import {formatDate} from '@/utils'
 
 type Props = {
   id: string
+  projectId?: string
 }
 
-export const ProjectWarning = ({id}: Props) => {
+export const ProjectWarning = ({id, projectId}: Props) => {
   const navigation = useNavigation()
   const {media} = useTheme()
 
@@ -31,9 +32,9 @@ export const ProjectWarning = ({id}: Props) => {
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: projectWarning?.project_identifier ?? '',
+      id: projectId ?? projectWarning?.project_identifier ?? '',
     },
-    {skip: !projectWarning},
+    {skip: !projectId && !projectWarning},
   )
 
   useEffect(() => {

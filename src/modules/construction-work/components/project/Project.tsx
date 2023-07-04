@@ -159,7 +159,7 @@ export const Project = ({id}: Props) => {
             </Column>
             <ProjectBodyMenu project={project} />
             <ArticleOverview
-              projectIds={[id]}
+              projectId={id}
               title="Nieuws"
             />
           </Column>
