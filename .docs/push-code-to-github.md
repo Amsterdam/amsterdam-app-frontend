@@ -8,7 +8,7 @@ Publishing code as open source is a best practice and for the City of Amsterdam,
 
 The pipelines are configured via these files:
 
-- `pipelines/app-build.yml` - contains the set up for the job "Push_to_github"
+- `pipelines/publish.yml` - contains the set up for the job "Push_to_github"
 - `pipelines/templates/push-repo-to-github.yml` - contains the configuration for this job
 
 This configuration uses the SSH variables, username and email address as defined in the variable group [github-authorization](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_library?itemType=VariableGroups).

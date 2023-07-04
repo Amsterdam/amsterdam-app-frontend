@@ -4,6 +4,8 @@ parameters:
   default: "ios"
 
 steps:
+  - checkout: self
+    fetchDepth: 0
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml
