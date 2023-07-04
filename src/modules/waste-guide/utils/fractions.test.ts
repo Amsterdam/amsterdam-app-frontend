@@ -10,7 +10,7 @@ import {
 } from '@/modules/waste-guide/types'
 
 describe('sortFractions', () => {
-  it('should correctly sort fractions based on fractionOrder array', () => {
+  test('should correctly sort fractions based on fractionOrder array', () => {
     const fraction1 = {
       afvalwijzerFractieCode: FractionCode.GFT,
     } as unknown as WasteGuideResponseFraction
@@ -27,7 +27,7 @@ describe('sortFractions', () => {
 
     expect(sortedFractions).toStrictEqual([fraction1, fraction3, fraction2])
   })
-  it('should not change the order if it is already correct', () => {
+  test('should not change the order if it is already correct', () => {
     const fraction1 = {
       afvalwijzerFractieCode: FractionCode.Rest,
     } as unknown as WasteGuideResponseFraction
@@ -47,7 +47,7 @@ describe('sortFractions', () => {
 })
 
 describe('collectionByAppointmentApplies', () => {
-  it('should return true if the fraction is Rest and the basis route type code is the collection by appointment code', () => {
+  test('should return true if the fraction is Rest and the afvalwijzerBasisroutetypeCode is the collection by appointment code', () => {
     expect(
       collectionByAppointmentApplies({
         afvalwijzerFractieCode: FractionCode.Rest,
@@ -56,7 +56,7 @@ describe('collectionByAppointmentApplies', () => {
     ).toBe(true)
   })
 
-  it('should return false if the fraction is not Rest', () => {
+  test('should return false if the fraction is not Rest', () => {
     expect(
       collectionByAppointmentApplies({
         afvalwijzerFractieCode: FractionCode.Plastic,
@@ -65,7 +65,7 @@ describe('collectionByAppointmentApplies', () => {
     ).toBe(false)
   })
 
-  it('should return false if the basis route type code is not the collection by appointment code', () => {
+  test('should return false if the afvalwijzerBasisroutetypeCode is not the collection by appointment code', () => {
     expect(
       collectionByAppointmentApplies({
         afvalwijzerFractieCode: FractionCode.Rest,
@@ -76,7 +76,7 @@ describe('collectionByAppointmentApplies', () => {
 })
 
 describe('getFractionsForCollectionByAppointment', () => {
-  it('should return the combined fractions only if no "grof afval" fraction', () => {
+  test('if there is no "grof afval" fraction: it should return a single fraction, which is the rest fraction with a different title', () => {
     expect(
       getFractionsForCollectionByAppointment([
         {
@@ -98,7 +98,7 @@ describe('getFractionsForCollectionByAppointment', () => {
     ])
   })
 
-  it('should return the combined fractions with the "grof afval" fraction last', () => {
+  test('if there is a "grof afval" fraction: it should return the "rest" fraction plus the "grof afval" fraction, in that order, with the correct titles', () => {
     expect(
       getFractionsForCollectionByAppointment([
         {
@@ -129,7 +129,7 @@ describe('getFractionsForCollectionByAppointment', () => {
 })
 
 describe('getFractions', () => {
-  it('should return the combined fractions for collection by appointment if applicable', () => {
+  test('should return the combined fractions for collection by appointment if applicable', () => {
     const wasteGuide = [
       {
         afvalwijzerFractieCode: FractionCode.GA,
@@ -163,7 +163,7 @@ describe('getFractions', () => {
     expect(getFractions(wasteGuide)).toEqual(expectedCombinedFractions)
   })
 
-  it('should return the filtered, mapped, and sorted fractions if collection by appointment does not apply', () => {
+  test('should return the filtered, mapped, and sorted fractions if collection by appointment does not apply', () => {
     const wasteGuide = [
       {
         afvalwijzerFractieCode: FractionCode.GFT,
