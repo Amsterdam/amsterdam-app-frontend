@@ -18,7 +18,7 @@ import {getYearOfPublicationDate} from '@/utils'
 
 type Props = {
   limit?: number
-  projectIds?: string[]
+  projectId?: string
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
   title: string
@@ -31,7 +31,7 @@ type YearlyArticleSection = {
 
 export const ArticleOverview = ({
   limit,
-  projectIds,
+  projectId,
   sortBy,
   sortOrder,
   title,
@@ -46,7 +46,7 @@ export const ArticleOverview = ({
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
     limit,
-    projectIds,
+    projectIds: projectId ? [projectId] : [],
     sortBy,
     sortOrder,
   })
@@ -84,10 +84,12 @@ export const ArticleOverview = ({
     if (article.type === 'news') {
       navigation.navigate(ConstructionWorkRouteName.projectNews, {
         id: article.identifier,
+        projectId,
       })
     } else if (article.type === 'warning') {
       navigation.navigate(ConstructionWorkRouteName.projectWarning, {
         id: article.identifier,
+        projectId,
       })
     }
   }

@@ -14,9 +14,10 @@ import {formatDate, mapImageSources} from '@/utils'
 
 type Props = {
   id: string
+  projectId?: string
 }
 
-export const ProjectNews = ({id}: Props) => {
+export const ProjectNews = ({id, projectId}: Props) => {
   const navigation = useNavigation()
   const {markAsRead} = useMarkArticleAsRead()
 
@@ -26,9 +27,9 @@ export const ProjectNews = ({id}: Props) => {
 
   const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
     {
-      id: news?.project_identifier ?? '',
+      id: projectId ?? news?.project_identifier ?? '',
     },
-    {skip: !news},
+    {skip: !projectId && !news?.project_identifier},
   )
 
   useEffect(() => {
