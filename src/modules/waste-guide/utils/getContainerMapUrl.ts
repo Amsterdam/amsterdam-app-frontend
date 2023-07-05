@@ -16,13 +16,13 @@ const wasteTypeMapping: Record<
   GFT: [12496],
 }
 
-const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
+const getLocationTypes = (fractionCode?: FractionCode) => {
   if (
-    afvalwijzerFractieCode &&
-    Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
-    afvalwijzerFractieCode !== FractionCode.GA
+    fractionCode &&
+    Object.keys(wasteTypeMapping).includes(fractionCode) &&
+    fractionCode !== FractionCode.GA
   ) {
-    return wasteTypeMapping[afvalwijzerFractieCode].join(',')
+    return wasteTypeMapping[fractionCode].join(',')
   }
 
   return Object.values(wasteTypeMapping).join(',')
@@ -30,17 +30,15 @@ const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
 
 export const getContainerMapUrl = (
   coordinates?: Address['coordinates'],
-  afvalwijzerFractieCode?: FractionCode,
+  fractionCode?: FractionCode,
 ) => {
   if (!coordinates) {
     return
   }
 
-  const locationTypes = getLocationTypes(afvalwijzerFractieCode)
+  const locationTypes = getLocationTypes(fractionCode)
   const {lat, lon} = coordinates
-  const queryParam = afvalwijzerFractieCode
-    ? `?fractie=${afvalwijzerFractieCode}`
-    : ''
+  const queryParam = fractionCode ? `?fractie=${fractionCode}` : ''
   const fragment = getSquareMapArea(lat, lon, 0.002)
 
   return fragment
