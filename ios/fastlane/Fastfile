@@ -133,6 +133,8 @@ platform :ios do
       buildLane(app)
     end
 
+    syncAppstore()
+
     cocoapods(
       clean_install: true,
       podfile: "./Podfile",
