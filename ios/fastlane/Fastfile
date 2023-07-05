@@ -66,14 +66,14 @@ platform :ios do
       )
   end
 
-  private_lane :syncCertificates do |isAppStore|
+  private_lane :syncCertificates do |options|
     apps.each do |app|
       puts "Sync certificates for #{app[:app_identifier]}"
 
       installAppStoreApiKey()
 
       match(
-        type: isAppStore ? "appstore" : "development",
+        type: options.fetch(:type, 'development'),
         generate_apple_certs: true,
         app_identifier: app[:app_identifier],
         git_branch: "main",
@@ -96,7 +96,9 @@ platform :ios do
 
   desc "Sync appstore certificates"
   lane :syncAppstore do
-    syncCertificates(true)
+    syncCertificates(
+      type: "appstore",
+    )
   end
 
   desc "Sync all certificates"
