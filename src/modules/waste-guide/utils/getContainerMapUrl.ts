@@ -38,9 +38,13 @@ export const getContainerMapUrl = (
 
   const locationTypes = getLocationTypes(afvalwijzerFractieCode)
   const {lat, lon} = coordinates
+  const queryParam = afvalwijzerFractieCode
+    ? `?fractie=${afvalwijzerFractieCode}`
+    : ''
   const urlParams = getSquareMapArea(lat, lon, 0.002)
+
   return urlParams
-    ? `${WasteGuideUrl.wasteContainersUrl}#${urlParams.join(
+    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${urlParams.join(
         '/',
       )}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
