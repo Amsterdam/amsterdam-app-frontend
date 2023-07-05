@@ -29,7 +29,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     {
       id: projectId ?? news?.project_identifier ?? '',
     },
-    {skip: !projectId && !news},
+    {skip: !projectId && !news?.project_identifier},
   )
 
   useEffect(() => {

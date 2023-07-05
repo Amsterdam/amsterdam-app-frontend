@@ -34,7 +34,7 @@ export const ProjectWarning = ({id, projectId}: Props) => {
     {
       id: projectId ?? projectWarning?.project_identifier ?? '',
     },
-    {skip: !projectId && !projectWarning},
+    {skip: !projectId && !projectWarning?.project_identifier},
   )
 
   useEffect(() => {

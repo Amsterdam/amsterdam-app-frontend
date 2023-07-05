@@ -1,27 +1,23 @@
-import {RouteProp} from '@react-navigation/native'
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/ui/layout'
 import {ProjectNews} from '@/modules/construction-work/components/project'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
-type ProjectNewsScreenRouteProp = RouteProp<
-  ConstructionWorkStackParams,
-  ConstructionWorkRouteName.projectNews
->
+type Props = NavigationProps<ConstructionWorkRouteName.projectNews>
 
-type Props = {
-  route: ProjectNewsScreenRouteProp
+export const ProjectNewsScreen = ({route}: Props) => {
+  const {
+    params: {id, projectId},
+  } = route
+
+  return (
+    <Screen
+      withLeftInset={false}
+      withRightInset={false}>
+      <ProjectNews
+        id={id}
+        projectId={projectId}
+      />
+    </Screen>
+  )
 }
-
-export const ProjectNewsScreen = ({route}: Props) => (
-  <Screen
-    withLeftInset={false}
-    withRightInset={false}>
-    <ProjectNews
-      id={route.params.id}
-      projectId={route.params.projectId}
-    />
-  </Screen>
-)
