@@ -44,8 +44,6 @@ export const getContainerMapUrl = (
   const fragment = getSquareMapArea(lat, lon, 0.002)
 
   return fragment
-    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${fragment.join(
-        '/',
-      )}/topo/${locationTypes}//`
+    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${fragment}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
 }
