@@ -64,6 +64,7 @@ steps:
       PIWIK_PRO_ID_ACCEPT: $(PIWIK_PRO_ID_ACCEPT)
       FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: "180"
       FASTLANE_XCODE_LIST_TIMEOUT: "180"
+      MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
