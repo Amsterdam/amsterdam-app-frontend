@@ -41,10 +41,10 @@ export const getContainerMapUrl = (
   const queryParam = afvalwijzerFractieCode
     ? `?fractie=${afvalwijzerFractieCode}`
     : ''
-  const urlParams = getSquareMapArea(lat, lon, 0.002)
+  const fragment = getSquareMapArea(lat, lon, 0.002)
 
-  return urlParams
-    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${urlParams.join(
+  return fragment
+    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${fragment.join(
         '/',
       )}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
