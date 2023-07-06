@@ -1,5 +1,4 @@
 import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
-import {memo} from 'react'
 import {StatusBar, StyleSheet} from 'react-native'
 import {
   initialWindowMetrics,
@@ -16,7 +15,7 @@ import {lightColorTokens} from '@/themes/tokens'
 
 const persistor = persistStore(store)
 
-const AppComponent = memo(() => (
+const AppComponent = () => (
   <SafeAreaProvider
     initialMetrics={initialWindowMetrics}
     style={styles.appContainer}>
@@ -41,7 +40,7 @@ const AppComponent = memo(() => (
       </RootProvider>
     </CustomErrorBoundary>
   </SafeAreaProvider>
-))
+)
 
 export const App = SentryWrap(AppComponent)
 
