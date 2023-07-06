@@ -26,6 +26,11 @@ if ENV["ARTIFACT_FOLDER"]
   ipa_path = ENV["ARTIFACT_FOLDER"]
 end
 
+git_url = "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates",
+if ENV["MATCH_GIT_BEARER_AUTHORIZATION"] || ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
+  git_url = "https://CloudCompetenceCenter@dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Amsterdam-App-Frontend-iOS-Certificates"
+end
+
 # Config for the test and production app
 apps = [
   {
@@ -80,10 +85,10 @@ platform :ios do
         readonly: options.fetch(:readonly, false),
         skip_provisioning_profiles: false,
         storage_mode: "git",
-        git_url: "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates",
+        git_url: git_url,
         git_full_name: "Amsterdam App",
         git_user_email: "app@amsterdam.nl",
-        force_for_new_devices: true,
+        force_for_new_devices: options.fetch(:type, 'development'),
         include_mac_in_profiles: true,
         verbose: true,
       )
