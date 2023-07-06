@@ -16,13 +16,13 @@ const wasteTypeMapping: Record<
   GFT: [12496],
 }
 
-const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
+const getLocationTypes = (fractionCode?: FractionCode) => {
   if (
-    afvalwijzerFractieCode &&
-    Object.keys(wasteTypeMapping).includes(afvalwijzerFractieCode) &&
-    afvalwijzerFractieCode !== FractionCode.GA
+    fractionCode &&
+    Object.keys(wasteTypeMapping).includes(fractionCode) &&
+    fractionCode !== FractionCode.GA
   ) {
-    return wasteTypeMapping[afvalwijzerFractieCode].join(',')
+    return wasteTypeMapping[fractionCode].join(',')
   }
 
   return Object.values(wasteTypeMapping).join(',')
@@ -30,18 +30,21 @@ const getLocationTypes = (afvalwijzerFractieCode?: FractionCode) => {
 
 export const getContainerMapUrl = (
   coordinates?: Address['coordinates'],
-  afvalwijzerFractieCode?: FractionCode,
+  fractionCode?: FractionCode,
 ) => {
   if (!coordinates) {
     return
   }
 
-  const locationTypes = getLocationTypes(afvalwijzerFractieCode)
+  const locationTypes = getLocationTypes(fractionCode)
   const {lat, lon} = coordinates
-  const urlParams = getSquareMapArea(lat, lon, 0.002)
-  return urlParams
-    ? `${WasteGuideUrl.wasteContainersUrl}#${urlParams.join(
-        '/',
-      )}/topo/${locationTypes}//`
+  // This adds a query string parameter to the url to prevent the browser from reusing a previous map url that only
+  // differs in the fragment. The parameter is ignored by the map website, as far as we know. Only links from the app
+  // to a mobile browser seem to have this ‘bug’ – links from the website to the mobile browser do not.
+  const queryParam = fractionCode ? `?fractie=${fractionCode}` : ''
+  const fragment = getSquareMapArea(lat, lon, 0.002)
+
+  return fragment
+    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${fragment}/topo/${locationTypes}//`
     : WasteGuideUrl.wasteContainersUrl
 }
