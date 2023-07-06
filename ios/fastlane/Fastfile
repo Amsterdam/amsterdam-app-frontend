@@ -26,6 +26,11 @@ if ENV["ARTIFACT_FOLDER"]
   ipa_path = ENV["ARTIFACT_FOLDER"]
 end
 
+# TF_BUILD will be true when run in a DevOps pipeline
+if ENV["TF_BUILD"]
+  setup_ci()
+end
+
 git_url = "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates"
 if ENV["MATCH_GIT_BEARER_AUTHORIZATION"] || ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
   git_url = "https://CloudCompetenceCenter@dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Amsterdam-App-Frontend-iOS-Certificates"

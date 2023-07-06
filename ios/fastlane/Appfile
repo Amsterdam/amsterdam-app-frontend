@@ -1,4 +1,5 @@
 app_identifier("nl.amsterdam.app") # The bundle identifier of your app
+username("Amsterdam App")
 
 itc_team_id("118991325") # App Store Connect Team ID
 team_id("39J4LQT4VN") # Developer Portal Team ID
