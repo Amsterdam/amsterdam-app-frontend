@@ -17,7 +17,9 @@ steps:
   - template: ./install-ruby.yml
   - script: gem install bundler:2.4.12
     displayName: "Install bundler"
-  - script: bundle install --without appBuildDependencies
+  - script: |
+      bundle config set --local without 'appBuildDependencies'
+      bundle install
     displayName: "Install Fastlane"
 
   - script: |
