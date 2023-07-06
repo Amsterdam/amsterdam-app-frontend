@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
   plugins: [
-    'detox',
     'import',
     'jsx-expressions',
     'prefer-arrow-functions',
