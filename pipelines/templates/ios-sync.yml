@@ -2,7 +2,7 @@ steps:
   - checkout: self
     path: "./s/"
     fetchDepth: 0
-  - checkout: iOS-certificates
+  - checkout: Amsterdam-App-Frontend-iOS-Certificates
   # Set up environment
   - template: ./install-ruby.yml
   - script: gem install bundler:2.4.12
