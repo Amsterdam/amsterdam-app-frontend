@@ -75,14 +75,18 @@ platform :ios do
     apps.each do |app|
       puts "Sync certificates for #{app[:app_identifier]}"
 
-      installAppStoreApiKey()
+      readonly = options.fetch(:readonly, false)
+
+      if !readonly
+        installAppStoreApiKey()
+      end
 
       match(
         type: options.fetch(:type, 'development'),
         generate_apple_certs: true,
         app_identifier: app[:app_identifier],
         git_branch: "main",
-        readonly: options.fetch(:readonly, false),
+        readonly: readonly,
         skip_provisioning_profiles: false,
         storage_mode: "git",
         git_url: git_url,
@@ -97,9 +101,7 @@ platform :ios do
 
   desc "Sync development certificates"
   lane :syncDevelopment do
-    syncCertificates(
-      readonly: false
-    )
+    syncCertificates()
   end
 
   desc "Sync appstore certificates"
@@ -113,9 +115,7 @@ platform :ios do
   desc "Sync all certificates"
   lane :syncAll do
     syncDevelopment()
-    syncAppstore(
-      readonly: false
-    )
+    syncAppstore()
   end
 
   desc "Build prod and dev version of the app"
