@@ -4,9 +4,9 @@ pr: none
 
 resources:
   repositories:
-    - repository: iOS-certificates
+    - repository: Amsterdam-App-Frontend-iOS-Certificates
       type: git
-      name: iOS-certificates
+      name: Amsterdam-App-Frontend-iOS-Certificates
 
 jobs:
   - job: "Sync_iOS_certificates"
