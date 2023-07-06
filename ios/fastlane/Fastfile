@@ -92,7 +92,7 @@ platform :ios do
     match(
       type: type,
       generate_apple_certs: true,
-      app_identifier: app[:app_identifier],
+      app_identifier: identifiers,
       git_branch: options.fetch(:type, 'development'),
       readonly: readonly,
       skip_certificate_matching: !readonly,
