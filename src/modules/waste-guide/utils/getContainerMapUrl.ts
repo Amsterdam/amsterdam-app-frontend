@@ -38,6 +38,9 @@ export const getContainerMapUrl = (
 
   const locationTypes = getLocationTypes(fractionCode)
   const {lat, lon} = coordinates
+  // This adds a query string parameter to the url to prevent the browser from reusing a previous map url that only
+  // differs in the fragment. The parameter is ignored by the map website, as far as we know. Only links from the app
+  // to a mobile browser seem to have this ‘bug’ – links from the website to the mobile browser do not.
   const queryParam = fractionCode ? `?fractie=${fractionCode}` : ''
   const fragment = getSquareMapArea(lat, lon, 0.002)
 
