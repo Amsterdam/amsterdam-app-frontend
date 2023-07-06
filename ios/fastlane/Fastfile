@@ -88,7 +88,7 @@ platform :ios do
         git_url: git_url,
         git_full_name: "Amsterdam App",
         git_user_email: "app@amsterdam.nl",
-        force_for_new_devices: options.fetch(:type, 'development'),
+        force_for_new_devices: true,
         include_mac_in_profiles: true,
         verbose: true,
       )
