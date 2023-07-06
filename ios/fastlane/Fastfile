@@ -80,20 +80,22 @@ platform :ios do
 
   private_lane :syncCertificates do |options|
     apps.each do |app|
-      puts "Sync certificates for #{app[:app_identifier]}"
-
       readonly = options.fetch(:readonly, false)
+      type = options.fetch(:type, 'development')
+
+      puts "Sync certificates for #{app[:app_identifier]} #{type}"
 
       if !readonly
         installAppStoreApiKey()
       end
 
       match(
-        type: options.fetch(:type, 'development'),
+        type: type,
         generate_apple_certs: true,
         app_identifier: app[:app_identifier],
         git_branch: app[:matchRepoBranchName],
         readonly: readonly,
+        skip_certificate_matching: !readonly,
         skip_provisioning_profiles: false,
         storage_mode: "git",
         git_url: git_url,
@@ -114,8 +116,8 @@ platform :ios do
   desc "Sync appstore certificates"
   lane :syncAppstore do |options|
     syncCertificates(
-      type: "appstore",
       **options,
+      type: "appstore",
     )
   end
 
