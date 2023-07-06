@@ -85,7 +85,7 @@ platform :ios do
         type: options.fetch(:type, 'development'),
         generate_apple_certs: true,
         app_identifier: app[:app_identifier],
-        git_branch: "main",
+        git_branch: app[:scheme],
         readonly: readonly,
         skip_provisioning_profiles: false,
         storage_mode: "git",

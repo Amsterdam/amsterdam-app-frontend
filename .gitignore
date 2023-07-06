@@ -75,6 +75,7 @@ npm-debug.log
 !.env.sample
 
 # Caches
+/.bundle/
 /.jest/
 /.eslintcache
 /coverage/

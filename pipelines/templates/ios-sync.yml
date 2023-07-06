@@ -14,15 +14,12 @@ steps:
       mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
     displayName: 'Copy AppStoreConnectApiKey'
 
-  # Set up environment
   - template: ./install-ruby.yml
   - script: gem install bundler:2.4.12
     displayName: "Install bundler"
+  - script: bundle install --without appBuildDependencies
+    displayName: "Install Fastlane"
 
-  # Install gems and run Fastlane
-  - script: |
-      bundle install
-    displayName: "Install Ruby gems"
   - script: |
       bundle exec fastlane syncAll
     displayName: "Sync all iOS certificates"
