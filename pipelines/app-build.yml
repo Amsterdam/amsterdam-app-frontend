@@ -3,6 +3,12 @@ trigger:
 
 pr: none
 
+resources:
+  repositories:
+    - repository: Amsterdam-App-Frontend-iOS-Certificates
+      type: git
+      name: Amsterdam-App-Frontend-iOS-Certificates
+
 jobs:
   - job: "Build_Android"
     timeoutInMinutes: 90
