@@ -12,7 +12,7 @@ jobs:
   - job: "Sync_iOS_certificates"
     timeoutInMinutes: 20
     pool:
-      vmImage: macOS-12
+      vmImage: macOS-13
     variables:
       - group: React Native Variables
       - group: device-authorization

@@ -73,6 +73,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "DevRelease"
+      customArchiveName = "AmsterdamAppTest"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
