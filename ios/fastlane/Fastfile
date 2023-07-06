@@ -77,6 +77,7 @@ platform :ios do
         generate_apple_certs: true,
         app_identifier: app[:app_identifier],
         git_branch: "main",
+        readonly: options.fetch(:readonly, false),
         skip_provisioning_profiles: false,
         storage_mode: "git",
         git_url: "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates",
@@ -95,9 +96,10 @@ platform :ios do
   end
 
   desc "Sync appstore certificates"
-  lane :syncAppstore do
+  lane :syncAppstore do |options|
     syncCertificates(
       type: "appstore",
+      **options,
     )
   end
 
@@ -135,7 +137,9 @@ platform :ios do
       buildLane(app)
     end
 
-    syncAppstore()
+    syncAppstore(
+      readonly: true,
+    )
 
     cocoapods(
       clean_install: true,
