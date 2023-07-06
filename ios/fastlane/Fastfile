@@ -104,6 +104,7 @@ platform :ios do
         force_for_new_devices: true,
         include_mac_in_profiles: true,
         verbose: true,
+        username: app[:scheme],
       )
     end
   end
