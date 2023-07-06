@@ -79,34 +79,35 @@ platform :ios do
   end
 
   private_lane :syncCertificates do |options|
-    apps.each do |app|
-      readonly = options.fetch(:readonly, false)
-      type = options.fetch(:type, 'development')
+    
+    readonly = options.fetch(:readonly, false)
+    type = options.fetch(:type, 'development')
 
-      puts "Sync certificates for #{app[:app_identifier]} #{type}"
+    puts "Sync certificates for #{type}"
 
-      if !readonly
-        installAppStoreApiKey()
-      end
-
-      match(
-        type: type,
-        generate_apple_certs: true,
-        app_identifier: app[:app_identifier],
-        git_branch: app[:matchRepoBranchName],
-        readonly: readonly,
-        skip_certificate_matching: !readonly,
-        skip_provisioning_profiles: false,
-        storage_mode: "git",
-        git_url: git_url,
-        git_full_name: "Amsterdam App",
-        git_user_email: "app@amsterdam.nl",
-        force_for_new_devices: true,
-        include_mac_in_profiles: true,
-        verbose: true,
-        username: app[:scheme],
-      )
+    if !readonly
+      installAppStoreApiKey()
     end
+
+    identifiers = app.map { |app| app[:app_identifier] }
+
+    match(
+      type: type,
+      generate_apple_certs: true,
+      app_identifier: app[:app_identifier],
+      git_branch: options.fetch(:type, 'development'),
+      readonly: readonly,
+      skip_certificate_matching: !readonly,
+      skip_provisioning_profiles: false,
+      storage_mode: "git",
+      git_url: git_url,
+      git_full_name: "Amsterdam App",
+      git_user_email: "app@amsterdam.nl",
+      force_for_new_devices: true,
+      include_mac_in_profiles: true,
+      verbose: true,
+    )
+
   end
 
   desc "Sync development certificates"
