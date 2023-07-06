@@ -97,7 +97,9 @@ platform :ios do
 
   desc "Sync development certificates"
   lane :syncDevelopment do
-    syncCertificates()
+    syncCertificates(
+      readonly: false
+    )
   end
 
   desc "Sync appstore certificates"
@@ -111,7 +113,9 @@ platform :ios do
   desc "Sync all certificates"
   lane :syncAll do
     syncDevelopment()
-    syncAppstore()
+    syncAppstore(
+      readonly: false
+    )
   end
 
   desc "Build prod and dev version of the app"

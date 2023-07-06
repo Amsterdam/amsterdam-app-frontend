@@ -1,0 +1,24 @@
+trigger: none
+
+pr: none
+
+resources:
+  repositories:
+    - repository: iOS-certificates
+      type: git
+      name: iOS-certificates
+
+jobs:
+  - job: "Sync_iOS_certificates"
+    timeoutInMinutes: 20
+    pool:
+      vmImage: macOS-12
+    variables:
+      - group: React Native Variables
+      - group: device-authorization
+      - name: lc.all
+        value: 'en_US.UTF-8'
+      - name: lang
+        value: 'en_US.UTF-8'
+    steps:
+      - template: ./templates/ios-sync.yml
