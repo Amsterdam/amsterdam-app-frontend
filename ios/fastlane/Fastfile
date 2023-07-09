@@ -89,6 +89,15 @@ platform :ios do
       installAppStoreApiKey()
     end
 
+    keychain_name = 'temp'
+
+    create_keychain(
+      name: keychain_name,
+      password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+      timeout: 3600,
+      lock_when_sleeps: true
+    )
+
     identifiers = apps.map { |app| app[:app_identifier] }
 
     match(
@@ -106,6 +115,8 @@ platform :ios do
       force_for_new_devices: true,
       include_mac_in_profiles: true,
       verbose: true,
+      keychain_name: keychain_name,
+      keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"]
     )
 
   end
