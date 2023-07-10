@@ -9,6 +9,7 @@ import {
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
+import {heightTokens} from '@/themes/tokens/height'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 
@@ -129,7 +130,7 @@ const getBackgroundColor = (
 const createStyles =
   ({small, variant}: Partial<ButtonProps>, pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
-    const buttonHeight = 48 // Design system requirement
+    const buttonHeight = heightTokens.button.default
     const borderWidth =
       border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
     const labelFontSize = text.fontSize[small ? 'small' : 'body']
