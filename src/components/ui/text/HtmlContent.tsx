@@ -15,7 +15,7 @@ import RenderHTML, {
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {ListItemMarker} from '@/components/ui/text/List'
+import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
