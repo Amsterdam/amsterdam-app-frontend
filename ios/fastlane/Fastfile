@@ -1,7 +1,5 @@
 default_platform(:ios)
 
-xcode_select("/Applications/Xcode_14.3.app")
-
 puts "ARTIFACT_FOLDER: #{ENV["ARTIFACT_FOLDER"]}"
 puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
 
@@ -15,6 +13,7 @@ end
 
 # TF_BUILD will be true when run in a DevOps pipeline
 if ENV["TF_BUILD"]
+  xcode_select("/Applications/Xcode_14.3.app")
   setup_ci()
 end
 
@@ -69,7 +68,7 @@ platform :ios do
     readonly = options.fetch(:readonly, false)
     type = options.fetch(:type, 'development')
 
-    puts "Sync certificates for #{type}"
+    puts "Sync certificates for #{type}, readonly: #{readonly}"
 
     if !readonly
       installAppStoreApiKey()
@@ -97,8 +96,10 @@ platform :ios do
   end
 
   desc "Sync development certificates"
-  lane :syncDevelopment do
-    syncCertificates()
+  lane :syncDevelopment do |options|
+    syncCertificates(
+      **options,
+    )
   end
 
   desc "Sync appstore certificates"
@@ -110,9 +111,13 @@ platform :ios do
   end
 
   desc "Sync all certificates"
-  lane :syncAll do
-    syncDevelopment()
-    syncAppstore()
+  lane :syncAll do |options|
+    syncDevelopment(
+      **options,
+    )
+    syncAppstore(
+      **options,
+    )
   end
 
   desc "Build prod and dev version of the app"

@@ -1,7 +1,7 @@
 steps:
   - checkout: self
     path: "./s/"
-    fetchDepth: 0
+    fetchDepth: 1
   - checkout: Amsterdam-App-Frontend-iOS-Certificates
 
   - task: DownloadSecureFile@1
@@ -18,7 +18,7 @@ steps:
   - script: gem install bundler:2.4.12
     displayName: "Install bundler"
   - script: |
-      bundle config set --local without 'appBuildDependencies'
+      bundle config set --local without 'iosAppBuildDependencies'
       bundle install
     displayName: "Install Fastlane"
 
