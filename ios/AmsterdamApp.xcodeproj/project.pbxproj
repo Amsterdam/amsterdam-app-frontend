@@ -52,7 +52,7 @@
 		BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
 		BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		D76C6CCC2729820200E1460A /*  */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; sourceTree = "<group>"; };
+		D76C6CCC2729820200E1460A = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; sourceTree = "<group>"; };
 		DFC95A086219933539042EB5 /* Pods-AmsterdamApp.devdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devdebug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devdebug.xcconfig"; sourceTree = "<group>"; };
 		E4F505E5473892CBAEF29FA2 /* Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp-AmsterdamAppTests/Pods-AmsterdamApp-AmsterdamAppTests.devrelease.xcconfig"; sourceTree = "<group>"; };
 		E969FF5DE00A928514C21C25 /* libPods-AmsterdamApp-AmsterdamAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp-AmsterdamAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +99,7 @@
 		13B07FAE1A68108700A75B9A /* AmsterdamApp */ = {
 			isa = PBXGroup;
 			children = (
-				D76C6CCC2729820200E1460A /*  */,
+				D76C6CCC2729820200E1460A,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				315F40D229098DCA009B5A4A /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -598,7 +598,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AmsterdamApp/AmsterdamApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
@@ -682,7 +682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app;
 				PRODUCT_NAME = Amsterdam;
 				PROVISIONING_PROFILE_SPECIFIER = "amsterdam-app";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "amsterdam-app";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore nl.amsterdam.app";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -699,9 +699,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AmsterdamApp/AmsterdamApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 39J4LQT4VN;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -782,6 +784,7 @@
 				PRODUCT_NAME = Amsterdam;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Amsterdam-app-provisioning-profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development nl.amsterdam.app";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -865,7 +868,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AmsterdamApp/AmsterdamApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
@@ -957,7 +960,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app.dev;
 				PRODUCT_NAME = "Amsterdam test";
 				PROVISIONING_PROFILE_SPECIFIER = "amsterdam-app-test";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "amsterdam-app-test";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore nl.amsterdam.app.dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1066,9 +1069,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AmsterdamApp/AmsterdamApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39J4LQT4VN;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 39J4LQT4VN;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1149,6 +1154,7 @@
 				PRODUCT_NAME = "Amsterdam test";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Amsterdam-app-test-provisioning-profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development nl.amsterdam.app.dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
