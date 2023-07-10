@@ -13,20 +13,17 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 
 ### Variables
 
-- `P12_PASSWORD`: password to decrypt the Apple developer certificate; used in the pipelines
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
 - `AUTH_PASSWORD`: authorise project managers to send push notifications; used in the app as env var
 - `AUTH_SHARED_SECRET`: authorise project managers to send push notifications; used in the app as env var
 - `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
 - `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
-
+- `MATCH_GIT_BEARER_AUTHORIZATION`: token used by Fastlane Match to access the Amsterdam-App-Frontend-iOS-Certificates repo
+- `MATCH_PASSWORD`: a password used to encrypt and decrypt the certificates in the Amsterdam-App-Frontend-iOS-Certificates repo
 
 ### Secure files
 
 #### iOS
-- `AppleDeveloperCertificate.p12`: Apple Developer Certificate for signing
-- `Amsterdamappprovisioningprofile.mobileprovision`: Provisioning profile for signing the production app
-- `Amsterdamapptestprovisioningprofile.mobileprovision`: Provisioning profile for signing the test app
 - `App_Store_Connect_API_Key_4B3KZ8N747.p8`: App Store Connect API key for connecting with App Store Connect API
 - `GoogleService-Info.plist`: Firebase config and API key
 
@@ -50,6 +47,7 @@ The pipelines have access to the secure files in the Azure Library, which can be
 - **Amsterdam-App-Frontend [publish]**: runs jobs not directly related to the app builds:
   - build StoryBook
   - [publish source code to GitHub](./push-code-to-github.md)
+- **Amsterdam-App-Frontend [sync]**: [iOS Fastlane Match code signing](./ios-signing.md)
 - **Amsterdam-App-Frontend [validate]**: runs linting, TypeScript (tsc) and unit tests
 
 The first two are triggered simultaneously by a commit to main, the last one is triggered by opening or updating a PR.

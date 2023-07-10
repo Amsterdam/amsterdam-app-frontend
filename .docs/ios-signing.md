@@ -32,3 +32,7 @@ Then add the profiles to the Xcode project:
     - DevDebug: `match Development nl.amsterdam.app.dev`
     - Release: `match AppStore nl.amsterdam.app`
     - DevRelease: `match AppStore nl.amsterdam.app.dev`
+
+This pipeline requires the MATCH_PASSWORD env var to be set (stored in KeePass).
+
+The env var `MATCH_GIT_BASIC_AUTHORIZATION` or `MATCH_GIT_BEARER_AUTHORIZATION` are optional. The latter is used in the pipelines to give DevOps to access to the Amsterdam-App-Frontend-iOS-Certificates repo. If omitted, the repo is accessed via SSH and a valid SSH key is required.

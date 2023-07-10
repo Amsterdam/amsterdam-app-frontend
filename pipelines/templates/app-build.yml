@@ -72,7 +72,6 @@ steps:
       FASTLANE_XCODE_LIST_TIMEOUT: "180"
       MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
       MATCH_PASSWORD: $(MATCH_PASSWORD)
-      MATCH_KEYCHAIN_PASSWORD: $(MATCH_KEYCHAIN_PASSWORD)
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
