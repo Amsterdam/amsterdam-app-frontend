@@ -8,7 +8,7 @@ type Props = {
   additionalStyles?: ViewStyle
 } & ListMarkerProp
 
-export const ListItemMarker = ({marker}: Props) => {
+export const ListItemMarker = ({additionalStyles, marker}: Props) => {
   const {fontScale} = useContext(DeviceContext)
   const styles = useMemo(
     () => createListItemMarkerStyles(fontScale),
@@ -16,7 +16,7 @@ export const ListItemMarker = ({marker}: Props) => {
   )
 
   return (
-    <View style={styles.marker}>
+    <View style={[styles.marker, additionalStyles]}>
       <Phrase
         accessible={false}
         importantForAccessibility="no">

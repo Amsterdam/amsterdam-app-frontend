@@ -7,7 +7,7 @@ type Props = {
   text: string
 } & ListMarkerProp
 
-export const ListItem = ({text, marker: marker}: Props) => (
+export const ListItem = ({text, marker}: Props) => (
   <Row>
     <ListItemMarker marker={marker} />
     <Phrase>{text}</Phrase>
