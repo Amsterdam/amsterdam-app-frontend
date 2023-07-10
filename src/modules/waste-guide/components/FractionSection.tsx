@@ -34,10 +34,12 @@ export const FractionSection = ({
         <Row
           gutter="sm"
           wrap>
-          <Button
-            label={buttonContent}
-            onPress={() => openWebUrl(buttonLink)}
-          />
+          {!!buttonContent && (
+            <Button
+              label={buttonContent}
+              onPress={() => openWebUrl(buttonLink)}
+            />
+          )}
           <PhoneHQButton variant="secondary" />
         </Row>
       </Row>
