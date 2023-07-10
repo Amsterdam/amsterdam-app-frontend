@@ -6,19 +6,18 @@ puts "VERSION_NUMBER: #{ENV["VERSION_NUMBER"]}"
 # The path to the .ipa files (artifact staging directory)
 # we only set this in the release pipelines, this is a default to prevent errors during the build pipeline
 ipa_path = ""
-
 if ENV["ARTIFACT_FOLDER"]
   ipa_path = ENV["ARTIFACT_FOLDER"]
 end
 
-# TF_BUILD will be true when run in a DevOps pipeline
+# TF_BUILD will be true when this is run in a DevOps pipeline
 if ENV["TF_BUILD"]
   xcode_select("/Applications/Xcode_14.3.app")
   setup_ci()
 end
 
+# The URL to the repo for Match
 git_url = "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates"
-
 if ENV["MATCH_GIT_BEARER_AUTHORIZATION"] || ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
   git_url = "https://CloudCompetenceCenter@dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Amsterdam-App-Frontend-iOS-Certificates"
 end
@@ -63,6 +62,9 @@ platform :ios do
       )
   end
 
+  # options
+  #   readonly: boolean (default = false)
+  #   type: 'development' | 'appstore' (default = 'development')
   private_lane :syncCertificates do |options|
     
     readonly = options.fetch(:readonly, false)
@@ -97,9 +99,7 @@ platform :ios do
 
   desc "Sync development certificates"
   lane :syncDevelopment do |options|
-    syncCertificates(
-      **options,
-    )
+    syncCertificates(options)
   end
 
   desc "Sync appstore certificates"
@@ -112,12 +112,8 @@ platform :ios do
 
   desc "Sync all certificates"
   lane :syncAll do |options|
-    syncDevelopment(
-      **options,
-    )
-    syncAppstore(
-      **options,
-    )
+    syncDevelopment(options)
+    syncAppstore(options)
   end
 
   desc "Build prod and dev version of the app"
