@@ -21,7 +21,7 @@ When faced with an unclear error during the native build, some options are:
 - Remove `package-lock.json` and `/node_modules`
 - Run `npm i`
 
-### iOS specific
+## iOS specific
 
 Occasionally a build fails because of outdated data in the build folder. When building with XCode, there is an option to clear the build folder: CMND+SHIFT+K. Alternatively, you can usually find the path to the build folder in the build/error logs and manually delete the folder.
 
@@ -30,12 +30,22 @@ Occasionally a build fails because of outdated data in the build folder. When bu
   - `bundle update` (update Ruby gems, including Cocoapods)
   - `pod install --repo-update` (install Pods and force downloading the latest versions of the repos)
 
----
-
 After you've reinstalled npm packages and pods, it can happen that pods have been downgraded. Whenever this is the case, do the following:
 
 - Run `pod repo update` (Updates the local clone of pods + versions)
 - If some pods are still downgraded, run `pod update` (Updates the pods to the latest version possible)
+
+### Archive failed
+
+During the Fastlane `build_app` task:
+
+```shell
+** ARCHIVE FAILED **
+[...]
+Exit status: 65
+```
+
+This will happen if in Xcode, in the list of "Supported Destinations" there are destinations other than iPhone and iPad, e.g. "Mac Catalyst" or "Mac designed for iPhone" (see: https://stackoverflow.com/questions/74275390/fastlane-with-xcode-14-archive-failed). If any target has any "Mac" destination, the build may fail. Known issue (sort of) for Xcode 14; seen with Xcode 14.3.
 
 ## Sentry pod issue
 
