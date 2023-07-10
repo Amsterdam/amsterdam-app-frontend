@@ -15,8 +15,7 @@ import RenderHTML, {
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {ListMarker} from '@/components/ui/text/List'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {ListItemMarker} from '@/components/ui/text/List'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
@@ -218,11 +217,8 @@ const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
 
 const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
   StyleSheet.create({
-    li: {
-      width: 30 * fontScale, // Inferred from the design system, which specifies 40px against a 24px font size.
+    marker: {
       paddingTop: 2 * fontScale, // Adjusts for whitespace in probably the library’s internal custom renderer.
-      alignItems: 'center',
-      alignSelf: 'flex-start',
     },
   })
 
@@ -231,9 +227,10 @@ const LiMarker = () => {
   const styles = createLiMarkerStyles(fontScale)
 
   return (
-    <View style={styles.li}>
-      <Phrase>{ListMarker.square}</Phrase>
-    </View>
+    <ListItemMarker
+      additionalStyles={styles.marker}
+      marker="square"
+    />
   )
 }
 
