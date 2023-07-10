@@ -1,13 +1,27 @@
-import {useCallback, useMemo, useState} from 'react'
-import {LayoutChangeEvent, Platform, TextStyle, View} from 'react-native'
+import {useCallback, useContext, useMemo, useState} from 'react'
+import {
+  LayoutChangeEvent,
+  Platform,
+  ScaledSize,
+  StyleSheet,
+  TextStyle,
+  View,
+} from 'react-native'
 import RenderHTML, {
+  CustomBlockRenderer,
+  CustomTagRendererRecord,
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {ListMarker} from '@/components/ui/text/List'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 import {OpenUrl, useOpenUrl} from '@/hooks'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {DeviceContext} from '@/providers'
 import {Theme, useThemable} from '@/themes'
 import {TextTokens} from '@/themes/tokens'
 
@@ -88,7 +102,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     h6: {...styles.boldText, ...styles.titleLevel6, ...styles.titleMargins},
     img: styles.margins,
     li: {...styles.paragraph},
-    ol: {...styles.paragraph, ...styles.margins},
+    ol: styles.margins,
     p: {...styles.paragraph, ...styles.margins},
     strong: styles.boldText,
     ul: styles.margins,
@@ -98,7 +112,14 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
     <View onLayout={onLayoutChange}>
       <RenderHTML
         source={{html}}
-        {...{baseStyle, contentWidth, renderersProps, systemFonts, tagsStyles}}
+        {...{
+          baseStyle,
+          contentWidth,
+          renderers,
+          renderersProps,
+          systemFonts,
+          tagsStyles,
+        }}
       />
     </View>
   )
@@ -184,16 +205,58 @@ const createFontList = ({text}: Theme): string[] => [
 ]
 
 const createRenderersProps =
-  (openUrl: OpenUrl) =>
-  ({text}: Theme): Partial<RenderersProps> => ({
+  (openUrl: OpenUrl) => (): Partial<RenderersProps> => ({
     a: {
       onPress: (_event, href) => openUrl(href),
     },
-    ul: {
-      markerBoxStyle: {
-        paddingLeft: text.fontSize.body,
-        paddingRight: text.fontSize.body - 6,
-        paddingTop: (text.lineHeight.body * text.fontSize.body) / 5,
-      },
+  })
+
+// An unordered list only renders its children, without the bullet point and any whitespace.
+const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
+  <TNodeChildrenRenderer {...props} />
+)
+
+const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
+  StyleSheet.create({
+    li: {
+      width: 30 * fontScale, // Inferred from the design system, which specifies 40px against a 24px font size.
+      paddingTop: 2 * fontScale, // Adjusts for whitespace in probably the library’s internal custom renderer.
+      alignItems: 'center',
+      alignSelf: 'flex-start',
     },
   })
+
+const LiMarker = () => {
+  const {fontScale} = useContext(DeviceContext)
+  const styles = createLiMarkerStyles(fontScale)
+
+  return (
+    <View style={styles.li}>
+      <Phrase>{ListMarker.square}</Phrase>
+    </View>
+  )
+}
+
+// A list item in an unordered list renders the correct bullet point encoded in the font.
+// The `Column` with the `flex` prop allows the list item children to shrink and fit the row.
+const LiRenderer: CustomBlockRenderer = props => {
+  const {TDefaultRenderer, TNodeChildrenRenderer} = props
+
+  if (props.tnode.parent?.tagName === 'ul') {
+    return (
+      <Row>
+        <LiMarker />
+        <Column flex={1}>
+          <TNodeChildrenRenderer {...props} />
+        </Column>
+      </Row>
+    )
+  }
+
+  return <TDefaultRenderer {...props} />
+}
+
+const renderers: CustomTagRendererRecord = {
+  ul: UlRenderer,
+  li: LiRenderer,
+}
