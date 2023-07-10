@@ -7,14 +7,14 @@ import {TestProps} from '@/components/ui/types'
 import {Theme, useThemable} from '@/themes'
 import {accessibleText} from '@/utils'
 
-enum Marker {
+export enum ListMarker {
   checkmark = '\u221a',
   square = '\u2022',
 }
 
 type ListProps = {
   items: string[]
-  marker?: keyof typeof Marker
+  marker?: keyof typeof ListMarker
 } & TestProps
 
 type ListItemProps = {
@@ -31,7 +31,7 @@ const ListItem = ({text, marker}: ListItemProps) => {
         <Phrase
           accessible={false}
           importantForAccessibility="no">
-          {Marker[marker]}
+          {ListMarker[marker]}
         </Phrase>
       </View>
       <Phrase>{text}</Phrase>
