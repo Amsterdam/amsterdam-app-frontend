@@ -1,0 +1,31 @@
+steps:
+  - checkout: self
+    path: "./s/"
+    fetchDepth: 1
+  - checkout: Amsterdam-App-Frontend-iOS-Certificates
+
+  - task: DownloadSecureFile@1
+    displayName: 'Download App Store Connect API Key'
+    name: AppStoreConnectApiKey
+    inputs:
+      secureFile: 'App_Store_Connect_API_Key_4B3KZ8N747.p8'
+    condition: ${{ parameters.condition }}
+  - script: |
+      mkdir -p ios/certs && cp $(AppStoreConnectApiKey.secureFilePath) ios/certs
+    displayName: 'Copy AppStoreConnectApiKey'
+
+  - template: ./install-ruby.yml
+  - script: gem install bundler:2.4.12
+    displayName: "Install bundler"
+  - script: |
+      bundle config set --local without 'iosAppBuildDependencies'
+      bundle install
+    displayName: "Install Fastlane"
+
+  - script: |
+      bundle exec fastlane syncAll
+    displayName: "Sync all iOS certificates"
+    workingDirectory: "ios"
+    env:
+      MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
+      MATCH_PASSWORD: $(MATCH_PASSWORD)

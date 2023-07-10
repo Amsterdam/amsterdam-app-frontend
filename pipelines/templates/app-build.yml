@@ -5,7 +5,9 @@ parameters:
 
 steps:
   - checkout: self
+    path: "./s/"
     fetchDepth: 0
+  - checkout: Amsterdam-App-Frontend-iOS-Certificates
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml
@@ -45,8 +47,12 @@ steps:
 
   # Install gems and run Fastlane
   - script: |
-      bundle install  
-    displayName: "Install Ruby gems"
+      bundle config set --local without 'iosAppBuildDependencies'
+    condition: eq('${{ parameters.platform }}', 'android')
+    displayName: "Set Bundler to ignore iosAppBuildDependencies"
+  - script: |
+      bundle install
+    displayName: "Bundle install Ruby gems"
   - script: |
       bundle exec fastlane buildApps
     displayName: "Build ${{ parameters.platform }}"
@@ -64,6 +70,8 @@ steps:
       PIWIK_PRO_ID_ACCEPT: $(PIWIK_PRO_ID_ACCEPT)
       FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: "180"
       FASTLANE_XCODE_LIST_TIMEOUT: "180"
+      MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
+      MATCH_PASSWORD: $(MATCH_PASSWORD)
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml

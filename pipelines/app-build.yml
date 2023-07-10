@@ -3,11 +3,17 @@ trigger:
 
 pr: none
 
+resources:
+  repositories:
+    - repository: Amsterdam-App-Frontend-iOS-Certificates
+      type: git
+      name: Amsterdam-App-Frontend-iOS-Certificates
+
 jobs:
   - job: "Build_Android"
     timeoutInMinutes: 90
     pool:
-      vmImage: macOS-12
+      vmImage: macOS-13
     variables:
       - group: React Native Variables
       - group: React Native Piwik Pro Analytics
@@ -23,7 +29,7 @@ jobs:
   - job: "Build_iOS"
     timeoutInMinutes: 90
     pool:
-      vmImage: macOS-12
+      vmImage: macOS-13
     variables:
       - group: React Native Variables
       - group: React Native Piwik Pro Analytics

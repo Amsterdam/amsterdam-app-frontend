@@ -15,6 +15,30 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
+### ios syncDevelopment
+
+```sh
+[bundle exec] fastlane ios syncDevelopment
+```
+
+Sync development certificates
+
+### ios syncAppstore
+
+```sh
+[bundle exec] fastlane ios syncAppstore
+```
+
+Sync appstore certificates
+
+### ios syncAll
+
+```sh
+[bundle exec] fastlane ios syncAll
+```
+
+Sync all certificates
+
 ### ios buildApps
 
 ```sh

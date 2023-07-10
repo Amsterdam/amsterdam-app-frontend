@@ -1,0 +1,24 @@
+trigger: none
+
+pr: none
+
+resources:
+  repositories:
+    - repository: Amsterdam-App-Frontend-iOS-Certificates
+      type: git
+      name: Amsterdam-App-Frontend-iOS-Certificates
+
+jobs:
+  - job: "Sync_iOS_certificates"
+    timeoutInMinutes: 20
+    pool:
+      vmImage: macOS-13
+    variables:
+      - group: React Native Variables
+      - group: device-authorization
+      - name: lc.all
+        value: 'en_US.UTF-8'
+      - name: lang
+        value: 'en_US.UTF-8'
+    steps:
+      - template: ./templates/ios-sync.yml
