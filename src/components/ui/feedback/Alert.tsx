@@ -23,7 +23,7 @@ import {Paragraph, Title} from '@/components/ui/text'
 import {useIsReduceMotionEnabled} from '@/hooks'
 import {resetAlert, selectAlert} from '@/store/slices/alert'
 import {Theme, useThemable} from '@/themes'
-import {accessibleText, isEmptyObject} from '@/utils'
+import {accessibleText} from '@/utils'
 
 if (
   Platform.OS === 'android' &&
@@ -63,7 +63,7 @@ export const Alert = () => {
     }
   }, [content])
 
-  if (isEmptyObject(alert)) {
+  if (!alert.content) {
     return null
   }
 
