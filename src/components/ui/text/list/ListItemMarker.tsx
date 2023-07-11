@@ -1,5 +1,6 @@
 import {useContext, useMemo} from 'react'
 import {ScaledSize, StyleSheet, View, ViewStyle} from 'react-native'
+import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ListMarkerGlyph, ListMarkerProp} from '@/components/ui/text/list/types'
 import {DeviceContext} from '@/providers'
@@ -29,7 +30,7 @@ export const ListItemMarker = ({additionalStyles, marker}: Props) => {
 const createListItemMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
   StyleSheet.create({
     marker: {
-      width: 30 * fontScale, // Inferred from the design system, which specifies 40px against a 24px font size.
+      width: config.listItemMarkerBoxWidth * fontScale,
       alignItems: 'center',
       alignSelf: 'flex-start',
     },
