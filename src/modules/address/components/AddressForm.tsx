@@ -1,10 +1,14 @@
-import {useNavigation} from '@react-navigation/native'
+import {useFocusEffect, useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation'
 import {Box} from '@/components/ui/containers'
+import {
+  AlertCloseType,
+  AlertVariant,
+} from '@/components/ui/feedback/Alert.types'
 import {NumberInput, StreetInput} from '@/modules/address/components'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
@@ -12,6 +16,7 @@ import {addAddress} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
 import {DeviceContext} from '@/providers'
 import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
+import {resetAlert, setAlert} from '@/store/slices/alert'
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
@@ -76,9 +81,25 @@ export const AddressForm = () => {
     isAddress && setIsNumberSelected(true)
   }
 
+  useFocusEffect(() => {
+    dispatch(resetAlert())
+  })
+
   useEffect(() => {
     if (addressData) {
       dispatch(addAddress(addressData))
+      dispatch(
+        setAlert({
+          closeType: AlertCloseType.withoutButton,
+          content: {
+            title: 'Gelukt',
+            text: 'Het adres is toegevoegd aan uw profiel.',
+          },
+          testID: 'AddressAddedAlert',
+          variant: AlertVariant.positive,
+          withIcon: false,
+        }),
+      )
       navigation.goBack()
     }
   }, [addressData, dispatch, navigation])
