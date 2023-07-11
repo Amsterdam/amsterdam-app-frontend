@@ -20,6 +20,7 @@ describe('transformAddressApiResponse', () => {
 
     const expectedAddress: Address = {
       addition: 'A',
+      additionLetter: 'A',
       addressLine1: 'Hoofdweg 123-A',
       addressLine2: '1234 AB AMSTERDAM',
       bagId: 'landelijk-id-123',
@@ -52,6 +53,7 @@ describe('transformAddressApiResponse', () => {
 
     const expectedAddress: Address = {
       addition: '4',
+      additionNumber: '4',
       addressLine1: 'Hoofdweg 123-4',
       addressLine2: '1234 AB AMSTERDAM',
       bagId: 'landelijk-id-123',

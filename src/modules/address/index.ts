@@ -11,7 +11,7 @@ export const addressModule: CoreModuleConfig = {
     {
       key: ReduxKey.address,
       migrations,
-      persistVersion: 0,
+      persistVersion: 1,
       slice: addressSlice,
     },
   ],

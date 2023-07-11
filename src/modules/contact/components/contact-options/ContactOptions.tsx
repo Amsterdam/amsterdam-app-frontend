@@ -6,6 +6,7 @@ import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
 import {OpenPhoneUrl, OpenWebUrl, useOpenPhoneUrl, useOpenWebUrl} from '@/hooks'
+import {useEnvironment} from '@/store/slices/environment'
 import {accessibleText, formatPhoneNumber} from '@/utils'
 
 type ContactOption = {
@@ -27,6 +28,7 @@ type ContactOption = {
 const getContactOptions = (
   openPhoneUrl: OpenPhoneUrl,
   openWebUrl: OpenWebUrl,
+  complaintUrl: string,
 ): ContactOption[] => [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
@@ -34,10 +36,7 @@ const getContactOptions = (
     accessibilityRole: 'link',
     iconName: 'email',
     key: 'email',
-    onPress: () =>
-      openWebUrl(
-        'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
-      ),
+    onPress: () => openWebUrl(complaintUrl),
     testID: 'ContactContactFormButton',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
@@ -77,8 +76,13 @@ const getContactOptions = (
 export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
+  const {complaintUrl} = useEnvironment()
 
-  const contactOptions = getContactOptions(openPhoneUrl, openWebUrl)
+  const contactOptions = getContactOptions(
+    openPhoneUrl,
+    openWebUrl,
+    complaintUrl,
+  )
 
   return (
     <Box>

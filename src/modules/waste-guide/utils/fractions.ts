@@ -46,15 +46,11 @@ export const sortFractions = (
   return aIndex - bIndex
 }
 
-/**
- * The title of the combined fraction in the case of "collection by appointment".
- */
+/** The title of the combined fraction in the case of "collection by appointment". */
 const collectionByAppointmentTitle =
   'Gfe/t, textiel, papier/karton, glas en restafval'
 
-/**
- * The value that `afvalwijzerBasisroutetypeCode` should have if "collection by appointment" is applicable.
- */
+/** The value that `afvalwijzerBasisroutetypeCode` should have if "collection by appointment" is applicable. */
 const collectionByAppointmentCode = 'THUISAFSPR'
 
 /**

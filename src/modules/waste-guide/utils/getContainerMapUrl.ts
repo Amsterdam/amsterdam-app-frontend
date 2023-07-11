@@ -1,6 +1,6 @@
 // Remove once the waste guide API includes this as a single property
 import {Address} from '@/modules/address/types'
-import {FractionCode, WasteGuideUrl} from '@/modules/waste-guide/types'
+import {FractionCode} from '@/modules/waste-guide/types'
 import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 const wasteTypeMapping: Record<
@@ -29,6 +29,7 @@ const getLocationTypes = (fractionCode?: FractionCode) => {
 }
 
 export const getContainerMapUrl = (
+  wasteContainersUrl: string,
   coordinates?: Address['coordinates'],
   fractionCode?: FractionCode,
 ) => {
@@ -45,6 +46,6 @@ export const getContainerMapUrl = (
   const fragment = getSquareMapArea(lat, lon, 0.002)
 
   return fragment
-    ? `${WasteGuideUrl.wasteContainersUrl}${queryParam}#${fragment}/topo/${locationTypes}//`
-    : WasteGuideUrl.wasteContainersUrl
+    ? `${wasteContainersUrl}${queryParam}#${fragment}/topo/${locationTypes}//`
+    : wasteContainersUrl
 }

@@ -19,6 +19,23 @@ type AddressStateNegative1 = {
   woonplaats: AddressCity
 }
 
+type AdressState0 = {
+  address?: {
+    addition?: string
+    addressLine1: string
+    addressLine2: string
+    bagId: string
+    city: AddressCity
+    coordinates?: {
+      lat: number
+      lon: number
+    }
+    number: number
+    postcode: string
+    street: string
+  }
+}
+
 export const migrations: MigrationManifest = {
   // added in 0.37.0
   0: oldAddressState => {
@@ -61,6 +78,36 @@ export const migrations: MigrationManifest = {
         number: huisnummer,
         postcode,
         street: straatnaam,
+      },
+    }
+
+    return addressState as PersistedState
+  },
+  // added in 0.38.0
+  1: oldAddressState => {
+    const {address: oldAddress} = oldAddressState as unknown as AdressState0
+
+    if (!oldAddress) {
+      return {} as PersistedState
+    }
+
+    const {addition} = oldAddress
+    let additionLetter
+    let additionNumber
+
+    if (addition) {
+      if (!isNaN(parseInt(addition, 10))) {
+        additionNumber = addition
+      } else {
+        additionLetter = addition
+      }
+    }
+
+    const addressState: AddressState = {
+      address: {
+        ...oldAddress,
+        additionLetter,
+        additionNumber,
       },
     }
 

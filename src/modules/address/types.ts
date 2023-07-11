@@ -33,6 +33,8 @@ export type ApiAddress = {
 
 export type Address = {
   addition?: string
+  additionLetter?: string
+  additionNumber?: string
   addressLine1: string
   addressLine2: string
   bagId: string

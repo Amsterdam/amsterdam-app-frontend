@@ -23,6 +23,10 @@ export const FractionSection = ({
 }: Props) => {
   const openWebUrl = useOpenWebUrl()
 
+  if (!content) {
+    return null
+  }
+
   if (buttonLink) {
     return (
       <Row
@@ -44,10 +48,6 @@ export const FractionSection = ({
         </Row>
       </Row>
     )
-  }
-
-  if (!content) {
-    return null
   }
 
   return (
