@@ -84,7 +84,7 @@ platform :ios do
       app_identifier: identifiers,
       git_branch: 'amsterdam-app',
       readonly: readonly,
-      skip_certificate_matching: !readonly,
+      skip_certificate_matching: readonly,
       skip_provisioning_profiles: false,
       storage_mode: "git",
       git_url: git_url,
