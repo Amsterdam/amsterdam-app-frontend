@@ -6,6 +6,9 @@ import {getCollectionPointsMapUrl} from '@/modules/waste-guide/utils/getCollecti
 import {getContainerMapUrl} from '@/modules/waste-guide/utils/getContainerMapUrl'
 import {useEnvironment} from '@/store/slices/environment'
 
+/**
+ * This takes care of the post processing of the `afvalwijzerUrl` property. We check if the URL matches a known URL (bulkyWasteAppointmentUrl, wasteCollectionPointsUrl or wasteContainersUrl from the environment definitions) and if so, return the respective post processesed URL.
+ */
 export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   const {
     bulkyWasteAppointmentUrl,
@@ -20,12 +23,10 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   // TODO: remove url post processing once the API includes the url as a single property
   return useMemo(
     () => ({
-      bulkyWasteAppointmentUrl: getBulkyWasteAppointmentUrl(
-        afvalwijzerFractieCode,
-        bulkyWasteAppointmentUrl,
-        afvalwijzerUrl,
-        address,
-      ),
+      bulkyWasteAppointmentUrl:
+        afvalwijzerUrl === bulkyWasteAppointmentUrl
+          ? getBulkyWasteAppointmentUrl(bulkyWasteAppointmentUrl, address)
+          : undefined,
       collectionPointsMapUrl:
         afvalwijzerInstructie2.includes('een Afvalpunt') &&
         afvalwijzerUrl === wasteCollectionPointsUrl
