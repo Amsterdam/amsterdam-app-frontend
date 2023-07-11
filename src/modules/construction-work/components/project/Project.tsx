@@ -93,7 +93,7 @@ export const Project = ({id}: Props) => {
       {!!images?.length && (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(images[0].sources)}
+          source={mapImageSources(images[0]?.sources)}
           testID="ConstructionWorkProjectImage"
         />
       )}
