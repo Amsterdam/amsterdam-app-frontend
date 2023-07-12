@@ -96,6 +96,7 @@ module.exports = {
       rules: {
         'import/no-default-export': 'off',
         'no-restricted-imports': 'off',
+        'sonarjs/no-identical-functions': 'off',
       },
     },
     {
@@ -141,6 +142,7 @@ module.exports = {
       rules: {
         'no-restricted-imports': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        'sonarjs/no-duplicate-string': 'off',
       },
     },
   ],

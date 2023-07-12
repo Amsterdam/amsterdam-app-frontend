@@ -27,9 +27,7 @@ export const generateRequestUrl = ({params = {}, path}: Signature) => {
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
 
-  const requestURL = [path, queryParams].join('?')
-
-  return requestURL
+  return [path, queryParams].join('?')
 }
 
 /**

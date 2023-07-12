@@ -5,13 +5,10 @@ type EncryptionParams = {
   salt: string
 }
 
-export const encryptWithAES = ({password, salt}: EncryptionParams): string => {
-  const ciphertext = CryptoJS.AES.encrypt(salt, password).toString()
-  return ciphertext
-}
+export const encryptWithAES = ({password, salt}: EncryptionParams): string =>
+  CryptoJS.AES.encrypt(salt, password).toString()
 
 export const decryptWithAES = ({password, salt}: EncryptionParams): string => {
   const bytes = CryptoJS.AES.decrypt(salt, password)
-  const originalText = bytes.toString(CryptoJS.enc.Utf8)
-  return originalText
+  return bytes.toString(CryptoJS.enc.Utf8)
 }
