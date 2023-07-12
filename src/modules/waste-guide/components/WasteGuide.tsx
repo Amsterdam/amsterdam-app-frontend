@@ -27,11 +27,11 @@ export const WasteGuide = ({address}: Props) => {
 
   const {addressLine1, bagId, city} = address
 
-  const {data: wasteGuideData, isLoading} = useGetGarbageCollectionAreaQuery({
+  const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery({
     bagNummeraanduidingId: bagId,
   })
 
-  if (isLoading || wasteGuideData === undefined) {
+  if (isFetching || wasteGuideData === undefined) {
     return <PleaseWait />
   }
 
