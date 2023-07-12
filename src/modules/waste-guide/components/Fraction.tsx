@@ -3,12 +3,11 @@ import {Column, Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenWebUrl} from '@/hooks'
-import {
-  FractionContent,
-  FractionSection,
-  TimeboundNotification,
-  WasteFractionIcon,
-} from '@/modules/waste-guide/components'
+import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
+import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
+import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
+import {TimeboundNotification} from '@/modules/waste-guide/components/TimeboundNotification'
+import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {accessibleText, capitalizeString, dayjs} from '@/utils'
@@ -56,8 +55,12 @@ const getBuitenzettenContent = ({
 
 export const Fraction = ({fraction}: Props) => {
   const openWebUrl = useOpenWebUrl()
-  const {bulkyWasteAppointmentUrl, collectionPointsMapUrl, containerMapUrl} =
-    useWasteGuideUrls(fraction)
+  const {
+    bulkyWasteAppointmentUrl,
+    collectionPointsMapUrl,
+    containerMapUrl,
+    seenonsUrl,
+  } = useWasteGuideUrls(fraction)
 
   const {
     afvalwijzerAfvalkalenderFrequentie,
@@ -71,6 +74,8 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerUrl,
     afvalwijzerWaar,
   } = fraction
+
+  const buttonLink = bulkyWasteAppointmentUrl ?? seenonsUrl ?? afvalwijzerUrl
 
   return (
     <Column gutter="md">
@@ -91,16 +96,19 @@ export const Fraction = ({fraction}: Props) => {
       )}
       <Column gutter="md">
         <Column gutter="sm">
-          <FractionSection
-            buttonContent={afvalwijzerButtontekst ?? undefined}
-            buttonLink={
-              afvalwijzerButtontekst
-                ? bulkyWasteAppointmentUrl ?? afvalwijzerUrl
-                : undefined
-            }
-            content={afvalwijzerInstructie2}
-            label="Hoe"
-          />
+          {afvalwijzerButtontekst && buttonLink ? (
+            <FractionButtonSection
+              content={afvalwijzerButtontekst}
+              label="Hoe"
+              link={buttonLink}
+              withPhoneButton={!seenonsUrl}
+            />
+          ) : (
+            <FractionSection
+              content={afvalwijzerInstructie2}
+              label="Hoe"
+            />
+          )}
           {!!collectionPointsMapUrl && (
             <InlineLink onPress={() => openWebUrl(collectionPointsMapUrl)}>
               Kaart met afvalpunten in de buurt
@@ -123,8 +131,8 @@ export const Fraction = ({fraction}: Props) => {
         />
         <FractionSection
           content={afvalwijzerWaar}
-          inlineLink={containerMapUrl}
           label="Waar"
+          link={containerMapUrl}
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (

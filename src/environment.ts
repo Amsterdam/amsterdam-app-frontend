@@ -14,6 +14,7 @@ export type EnvironmentConfig = {
   modulesApiUrl: string
   reportProblemAmsterdamUrl: string
   reportProblemWeespUrl: string
+  seenonsScheduleWastePickupUrl: string
   wasteCollectionPointsUrl: string
   wasteContainersUrl: string
   wasteGuideUrl: string
@@ -44,6 +45,7 @@ enum ExternalWebUrls {
   reportProblemAmsterdamProd = 'https://app.meldingen.amsterdam.nl',
   reportProblemWeespAcc = 'https://acc.meldingenweesp.amsterdam.nl',
   reportProblemWeespProd = 'https://meldingenweesp.amsterdam.nl',
+  seenonsScheduleWastePickupProd = 'https://afvalopafspraak.app.seenons.com',
   wasteCollectionPointsProd = 'https://kaart.amsterdam.nl/afvalpunten',
   wasteContainersProd = 'https://kaart.amsterdam.nl/afvalcontainers',
 }
@@ -54,6 +56,7 @@ const sharedEnvironmentConfig: Pick<
   | 'bulkyWasteAppointmentUrl'
   | 'complaintUrl'
   | 'makeAppointmentWeespUrl'
+  | 'seenonsScheduleWastePickupUrl'
   | 'wasteCollectionPointsUrl'
   | 'wasteContainersUrl'
 > = {
@@ -61,6 +64,7 @@ const sharedEnvironmentConfig: Pick<
   bulkyWasteAppointmentUrl: ExternalWebUrls.bulkyWasteAppointmentProd,
   complaintUrl: ExternalWebUrls.complaintProd,
   makeAppointmentWeespUrl: ExternalWebUrls.makeAppointmentWeespProd,
+  seenonsScheduleWastePickupUrl: ExternalWebUrls.seenonsScheduleWastePickupProd,
   wasteCollectionPointsUrl: ExternalWebUrls.wasteCollectionPointsProd,
   wasteContainersUrl: ExternalWebUrls.wasteContainersProd,
 }

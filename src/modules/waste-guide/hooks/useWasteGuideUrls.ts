@@ -12,6 +12,7 @@ import {useEnvironment} from '@/store/slices/environment'
 export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   const {
     bulkyWasteAppointmentUrl,
+    seenonsScheduleWastePickupUrl,
     wasteCollectionPointsUrl,
     wasteContainersUrl,
   } = useEnvironment()
@@ -43,6 +44,10 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
               afvalwijzerFractieCode,
             )
           : undefined,
+      seenonsUrl:
+        afvalwijzerUrl.indexOf(seenonsScheduleWastePickupUrl) === 0
+          ? afvalwijzerUrl
+          : undefined,
     }),
     [
       address,
@@ -50,6 +55,7 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
       afvalwijzerInstructie2,
       afvalwijzerUrl,
       bulkyWasteAppointmentUrl,
+      seenonsScheduleWastePickupUrl,
       wasteCollectionPointsUrl,
       wasteContainersUrl,
     ],

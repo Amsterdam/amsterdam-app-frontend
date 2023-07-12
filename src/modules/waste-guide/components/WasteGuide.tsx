@@ -10,11 +10,9 @@ import {
   HouseholdWasteToContainerImage,
   WasteGuideNotFoundImage,
 } from '@/modules/waste-guide/assets/images'
-import {
-  WasteGuideForWeesp,
-  WasteGuideForAmsterdam,
-  WasteGuideNotFound,
-} from '@/modules/waste-guide/components'
+import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
+import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
+import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
