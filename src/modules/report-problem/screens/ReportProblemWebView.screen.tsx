@@ -38,7 +38,7 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
-        navigation.navigate(HomeRouteName.home)
+        navigation.reset({index: 0, routes: [{ name:  HomeRouteName.home}]})
       }
     },
     [navigation],
