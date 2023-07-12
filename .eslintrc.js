@@ -5,6 +5,8 @@ module.exports = {
     'jsx-expressions',
     'prefer-arrow-functions',
     'typescript-sort-keys',
+    'jest',
+    'sonarjs',
   ],
   extends: [
     '@react-native',
@@ -12,11 +14,20 @@ module.exports = {
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
     'plugin:react/jsx-runtime',
+    'plugin:sonarjs/recommended',
   ],
-  ignorePatterns: ['!.storybook', '!.*', 'node_modules'],
+  ignorePatterns: [
+    '!.storybook',
+    '!.*',
+    'node_modules',
+    'android',
+    'ios',
+    'patches',
+    'pipelines',
+    'storybook-static',
+  ],
   rules: {
     'import/no-default-export': 'error',
-    'import/no-cycle': 2,
     'import/order': [
       'error',
       {
@@ -85,6 +96,7 @@ module.exports = {
       rules: {
         'import/no-default-export': 'off',
         'no-restricted-imports': 'off',
+        'sonarjs/no-identical-functions': 'off',
       },
     },
     {
@@ -130,11 +142,12 @@ module.exports = {
       rules: {
         'no-restricted-imports': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        'sonarjs/no-duplicate-string': 'off',
       },
     },
   ],
   env: {
     'react-native/react-native': true,
-    'jest/globals': true,
+    jest: true,
   },
 }

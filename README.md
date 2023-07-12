@@ -19,7 +19,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
 - Install Node dependencies: `npm i`.
 - For iOS development, install other dependencies:
   - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or <https://rubygems.org/>
-  - Install bundler (Ruby gem manager): `gem install bundler:2.4.12`
+  - Install bundler (Ruby gem manager): `gem install bundler:2.4.16`
   - Install/update the gems with bundler: `bundle update`
   - Go to `/ios`
   - Install pods: `pod install`
@@ -39,8 +39,9 @@ To build the app locally, you need these files. Because they contain credentials
 #### Keepass
 
 You can find these files in the Keepass database. To access this database:
+
 - Set up OneDrive and sync the file [KP Database.kpdb](https://hoofdstad.sharepoint.com/:u:/r/sites/AmsterdamApp/Shared%20Documents/General/KP%20Database.kdbx?csf=1&web=1&e=ZHO6lT)
-- Install a Keepass client (https://keepass.info/) and use it to open the `.kpdb` file
+- Install a [Keepass client](https://keepass.info/) and use it to open the `.kpdb` file
 - Request the password from a colleague
 - The files can be found in Keepass under `General` and `Signing`
 
@@ -55,7 +56,7 @@ You can find these files in the Keepass database. To access this database:
 
 ## Git
 
-Our workflow and approach is documented here: https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/11135/Samenwerken-aan-code
+Our workflow and approach is documented [here](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_wiki/wikis/Amsterdam-App.wiki/11135/Samenwerken-aan-code)
 
 ## Push notifications
 

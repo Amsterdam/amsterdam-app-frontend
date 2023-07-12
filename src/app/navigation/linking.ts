@@ -41,10 +41,9 @@ const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
   }
 
   if (notificationType?.routeWithPrefix) {
-    const urlFromNotification = dataObj.linkSourceid
+    return dataObj.linkSourceid
       ? `${notificationType.routeWithPrefix}/${dataObj.linkSourceid}`
       : notificationType.routeWithPrefix
-    return urlFromNotification
   }
 }
 

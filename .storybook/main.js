@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const alias = require('../.config/alias.js')
