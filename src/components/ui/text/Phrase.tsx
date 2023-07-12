@@ -14,6 +14,10 @@ type Props = {
    */
   emphasis?: keyof typeof Emphasis
   /**
+   * Whether the phrase is underlined. Use this for a link only.
+   */
+  underline?: boolean
+  /**
    * Which variation of a phrase to display.
    */
   variant?: ParagraphVariants
@@ -28,12 +32,13 @@ export const Phrase = ({
   children,
   color = 'default',
   emphasis = 'default',
+  underline = false,
   variant = 'body',
   ...textProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({color, emphasis, variant}),
-    [color, emphasis, variant],
+    () => createStyles({color, emphasis, underline, variant}),
+    [color, emphasis, underline, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -50,8 +55,9 @@ const createStyles =
   ({
     color: textColor,
     emphasis,
+    underline,
     variant,
-  }: Required<Pick<Props, 'color' | 'emphasis' | 'variant'>>) =>
+  }: Required<Pick<Props, 'color' | 'emphasis' | 'underline' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
@@ -61,5 +67,6 @@ const createStyles =
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
+        textDecorationLine: underline ? 'underline' : 'none',
       },
     })
