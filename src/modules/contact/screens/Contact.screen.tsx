@@ -29,7 +29,6 @@ export const ContactScreen = () => {
     <Screen
       stickyFooter={
         <BottomSheet
-          {...{onChange, ref}}
           animationConfigs={
             isReduceMotionEnabled
               ? {
@@ -40,6 +39,8 @@ export const ContactScreen = () => {
           backdropComponent={Backdrop}
           enablePanDownToClose
           index={-1}
+          onChange={onChange}
+          ref={ref}
           snapPoints={['87.5%']}>
           <HorizontalSafeArea flex={1}>
             <SelectCityOffice />

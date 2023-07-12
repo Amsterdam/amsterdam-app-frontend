@@ -37,7 +37,9 @@ export const Pressable = ({
       {...pressableProps}>
       <Box
         grow
-        {...{inset, insetHorizontal, insetVertical}}>
+        inset={inset}
+        insetHorizontal={insetHorizontal}
+        insetVertical={insetVertical}>
         {children}
       </Box>
     </PressableRN>

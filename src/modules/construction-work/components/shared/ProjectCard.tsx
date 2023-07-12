@@ -40,8 +40,9 @@ export const ProjectCard = memo(
             additionalAccessibilityLabel,
           )}
           accessibilityRole="button"
+          onPress={onPress}
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
-          {...{onPress, testID}}>
+          testID={testID}>
           {!!imageSource && (
             <>
               <AspectRatio aspectRatio="wide">

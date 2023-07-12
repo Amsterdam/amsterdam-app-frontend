@@ -20,7 +20,9 @@ export const Switch = ({
   const {color} = useTheme()
 
   return (
-    <FormField {...{label, labelPosition}}>
+    <FormField
+      label={label}
+      labelPosition={labelPosition}>
       <SwitchRN
         ios_backgroundColor={color.control.switch.background}
         thumbColor={color.control.default.background}

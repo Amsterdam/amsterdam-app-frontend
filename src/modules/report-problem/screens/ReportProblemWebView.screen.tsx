@@ -70,8 +70,10 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   return (
     <Screen scroll={false}>
       <WebView
+        injectedJavaScript={injectedJavaScript}
+        onMessage={onMessage}
         testID="ReportProblemWebView"
-        {...{injectedJavaScript, onMessage, url}}
+        url={url}
       />
     </Screen>
   )

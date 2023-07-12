@@ -27,7 +27,8 @@ export const TopTaskButton = ({
 
   return (
     <Pressable
-      {...{onPress, testID}}
+      onPress={onPress}
+      testID={testID}
       {...pressableProps}>
       <Box
         insetHorizontal="md"

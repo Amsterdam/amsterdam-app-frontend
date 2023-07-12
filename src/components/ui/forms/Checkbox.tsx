@@ -39,7 +39,9 @@ export const Checkbox = ({
       onPress={onValueChange}
       testID={testID}
       {...touchableProps}>
-      <FormField {...{label, labelPosition}}>
+      <FormField
+        label={label}
+        labelPosition={labelPosition}>
         <View style={[styles.checkbox, value && styles.checked]}>
           {!!value && (
             <Icon

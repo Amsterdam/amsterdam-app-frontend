@@ -113,15 +113,13 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
   return (
     <View onLayout={onLayoutChange}>
       <RenderHTML
+        baseStyle={baseStyle}
+        contentWidth={contentWidth}
+        renderers={renderers}
+        renderersProps={renderersProps}
         source={{html}}
-        {...{
-          baseStyle,
-          contentWidth,
-          renderers,
-          renderersProps,
-          systemFonts,
-          tagsStyles,
-        }}
+        systemFonts={systemFonts}
+        tagsStyles={tagsStyles}
       />
     </View>
   )

@@ -18,7 +18,8 @@ export const List = ({items, marker = 'square', testID}: Props) => (
       {items.map(text => (
         <ListItem
           key={text}
-          {...{marker, text}}
+          marker={marker}
+          text={text}
         />
       ))}
     </Column>

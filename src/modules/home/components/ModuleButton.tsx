@@ -108,7 +108,11 @@ export const ModuleButton = ({
 
   const ModuleButtonContentComponent = (
     <ModuleButtonContent
-      {...{BadgeValue, disabled, iconName, label, variant}}
+      BadgeValue={BadgeValue}
+      disabled={disabled}
+      iconName={iconName}
+      label={label}
+      variant={variant}
     />
   )
 

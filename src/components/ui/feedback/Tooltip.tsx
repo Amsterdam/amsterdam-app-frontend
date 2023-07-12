@@ -23,8 +23,9 @@ const TooltipContent = ({
 
   return (
     <SingleSelectable
+      accessibilityLabel={accessibilityLabel}
       style={styles.tooltip}
-      {...{accessibilityLabel, testID}}>
+      testID={testID}>
       <Column gutter="sm">
         {paragraphs.map((paragraph, index) => (
           <Paragraph
@@ -53,7 +54,11 @@ export const Tooltip = ({
       {placement === Placement.after && <Triangle {...props} />}
       <Column>
         {placement === Placement.below && <Triangle {...props} />}
-        <TooltipContent {...{accessibilityLabel, testID, text}} />
+        <TooltipContent
+          accessibilityLabel={accessibilityLabel}
+          testID={testID}
+          text={text}
+        />
         {placement === Placement.above && <Triangle {...props} />}
       </Column>
       {placement === Placement.before && <Triangle {...props} />}

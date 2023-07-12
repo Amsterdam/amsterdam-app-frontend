@@ -44,7 +44,8 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
       }
       accessibilityRole="link"
       hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
-      {...{onPress, testID}}>
+      onPress={onPress}
+      testID={testID}>
       <Row gutter="sm">
         {variant === 'external' && <LinkIcon external />}
         {variant === 'backward' && <LinkIcon direction={Direction.left} />}
