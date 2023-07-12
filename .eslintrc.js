@@ -7,6 +7,7 @@ module.exports = {
     'typescript-sort-keys',
     'jest',
     'sonarjs',
+    'amsterdam',
   ],
   extends: [
     '@react-native',
@@ -89,6 +90,8 @@ module.exports = {
       },
     ],
     'prettier/prettier': 'warn',
+    'react/jsx-no-explicit-spread': 'off',
+    'amsterdam/jsx-no-explicit-spread': 'error',
   },
   overrides: [
     {
