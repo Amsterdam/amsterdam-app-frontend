@@ -1,24 +1,16 @@
-import {useSelector} from 'react-redux'
 import {Attention} from '@/components/ui/feedback'
 import {Column, Row} from '@/components/ui/layout'
 import {Title} from '@/components/ui/text'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenWebUrl} from '@/hooks'
-import {selectAddress} from '@/modules/address/slice'
 import {
   FractionContent,
   FractionSection,
   TimeboundNotification,
   WasteFractionIcon,
 } from '@/modules/waste-guide/components'
-import {
-  WasteGuideResponseFraction,
-  WasteGuideUrl,
-} from '@/modules/waste-guide/types'
-import {
-  getCollectionPointsMapUrl,
-  getContainerMapUrl,
-} from '@/modules/waste-guide/utils'
+import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
+import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {accessibleText, capitalizeString, dayjs} from '@/utils'
 import {formatEnumeration} from '@/utils/formatEnumeration'
 
@@ -64,7 +56,9 @@ const getBuitenzettenContent = ({
 
 export const Fraction = ({fraction}: Props) => {
   const openWebUrl = useOpenWebUrl()
-  const address = useSelector(selectAddress)
+  const {bulkyWasteAppointmentUrl, collectionPointsMapUrl, containerMapUrl} =
+    useWasteGuideUrls(fraction)
+
   const {
     afvalwijzerAfvalkalenderFrequentie,
     afvalwijzerAfvalkalenderMelding,
@@ -77,17 +71,6 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerUrl,
     afvalwijzerWaar,
   } = fraction
-
-  // TODO: remove once the API includes the url as a single property
-  const containerMapUrl =
-    afvalwijzerUrl === WasteGuideUrl.wasteContainersUrl
-      ? getContainerMapUrl(address?.coordinates, afvalwijzerFractieCode)
-      : undefined
-
-  const collectionPointsMapUrl =
-    afvalwijzerInstructie2.includes('een Afvalpunt') &&
-    afvalwijzerUrl === WasteGuideUrl.collectionPointsUrl &&
-    getCollectionPointsMapUrl(address?.coordinates)
 
   return (
     <Column gutter="md">
@@ -110,7 +93,11 @@ export const Fraction = ({fraction}: Props) => {
         <Column gutter="sm">
           <FractionSection
             buttonContent={afvalwijzerButtontekst ?? undefined}
-            buttonLink={afvalwijzerButtontekst ? afvalwijzerUrl : undefined}
+            buttonLink={
+              afvalwijzerButtontekst
+                ? bulkyWasteAppointmentUrl ?? afvalwijzerUrl
+                : undefined
+            }
             content={afvalwijzerInstructie2}
             label="Hoe"
           />

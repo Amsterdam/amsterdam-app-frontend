@@ -1,37 +1,49 @@
-import {FractionCode, WasteGuideUrl} from '@/modules/waste-guide/types'
+import {FractionCode} from '@/modules/waste-guide/types'
 import {getContainerMapUrl} from '@/modules/waste-guide/utils/getContainerMapUrl'
 
 describe('getContainerMapUrl', () => {
   it('should return the waste containers url with all location types when no fraction code is provided', () => {
-    const url = getContainerMapUrl({lat: 52.3728, lon: 4.9003})
+    const result = getContainerMapUrl('https://url.com', {
+      lat: 52.3728,
+      lon: 4.9003,
+    })
 
-    expect(url).toEqual(
-      `${WasteGuideUrl.wasteContainersUrl}#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12491,12492,12493,12494,12495,13698,12497,12496//`,
+    expect(result).toEqual(
+      `https://url.com#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12491,12492,12493,12494,12495,13698,12497,12496//`,
     )
   })
 
   it('should return the waste containers url with the location type for the given fraction code', () => {
-    const url = getContainerMapUrl(
+    const result = getContainerMapUrl(
+      'https://url.com',
       {lat: 52.3728, lon: 4.9003},
       FractionCode.Papier,
     )
 
-    expect(url).toEqual(
-      `${WasteGuideUrl.wasteContainersUrl}?fractie=Papier#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12493//`,
+    expect(result).toEqual(
+      `https://url.com?fractie=Papier#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12493//`,
     )
   })
 
   it('should return the waste containers url with all location types when the given fraction code is not in the mapping', () => {
-    const url = getContainerMapUrl({lat: 52.3728, lon: 4.9003}, FractionCode.GA)
+    const result = getContainerMapUrl(
+      'https://url.com',
+      {lat: 52.3728, lon: 4.9003},
+      FractionCode.GA,
+    )
 
-    expect(url).toEqual(
-      `${WasteGuideUrl.wasteContainersUrl}?fractie=GA#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12491,12492,12493,12494,12495,13698,12497,12496//`,
+    expect(result).toEqual(
+      `https://url.com?fractie=GA#52.370799999999996/4.8983/52.3748/4.902299999999999/topo/12491,12492,12493,12494,12495,13698,12497,12496//`,
     )
   })
 
   it('should return undefined when no coordinates are provided', () => {
-    const url = getContainerMapUrl(undefined, FractionCode.GA)
+    const result = getContainerMapUrl(
+      'https://url.com',
+      undefined,
+      FractionCode.GA,
+    )
 
-    expect(url).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 })

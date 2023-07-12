@@ -1,10 +1,10 @@
-import {useContext, useMemo} from 'react'
+import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {FlexStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
 import {SimpleGrid} from 'react-native-super-grid'
 import {Fraction} from '@/modules/waste-guide/components'
+import {useFractions} from '@/modules/waste-guide/hooks/useFractions'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {getFractions} from '@/modules/waste-guide/utils/fractions'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
 
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export const Fractions = ({wasteGuide}: Props) => {
-  const fractions = useMemo(() => getFractions(wasteGuide), [wasteGuide])
+  const fractions = useFractions(wasteGuide)
 
   const {fontScale} = useContext(DeviceContext)
   const {size} = useTheme()

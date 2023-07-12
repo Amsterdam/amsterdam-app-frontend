@@ -86,25 +86,28 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
       : transformedContent
   }, [content, isScreenReaderEnabled, transformRules])
 
+  const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
+    () => ({
+      a: {...styles.boldText, ...styles.link},
+      b: styles.boldText,
+      h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
+      h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
+      h3: {...styles.boldText, ...styles.titleLevel3, ...styles.titleMargins},
+      h4: {...styles.boldText, ...styles.titleLevel4, ...styles.titleMargins},
+      h5: {...styles.boldText, ...styles.titleLevel5, ...styles.titleMargins},
+      h6: {...styles.boldText, ...styles.titleLevel6, ...styles.titleMargins},
+      img: styles.margins,
+      li: {...styles.paragraph},
+      ol: {...styles.paragraph, ...styles.margins},
+      p: {...styles.paragraph, ...styles.margins},
+      strong: styles.boldText,
+      ul: styles.margins,
+    }),
+    [styles],
+  )
+
   if (!html) {
     return null
-  }
-
-  const tagsStyles: Record<string, MixedStyleDeclaration> = {
-    a: {...styles.boldText, ...styles.link},
-    b: styles.boldText,
-    h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
-    h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
-    h3: {...styles.boldText, ...styles.titleLevel3, ...styles.titleMargins},
-    h4: {...styles.boldText, ...styles.titleLevel4, ...styles.titleMargins},
-    h5: {...styles.boldText, ...styles.titleLevel5, ...styles.titleMargins},
-    h6: {...styles.boldText, ...styles.titleLevel6, ...styles.titleMargins},
-    img: styles.margins,
-    li: {...styles.paragraph},
-    ol: styles.margins,
-    p: {...styles.paragraph, ...styles.margins},
-    strong: styles.boldText,
-    ul: styles.margins,
   }
 
   return (

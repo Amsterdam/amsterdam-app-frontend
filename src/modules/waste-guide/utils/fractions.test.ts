@@ -178,7 +178,6 @@ describe('getFractions', () => {
     const expectedCombinedFractions = [
       {
         afvalwijzerBasisroutetypeCode: 'THUISAFSPR',
-
         afvalwijzerFractieCode: FractionCode.Rest,
         afvalwijzerFractieNaam:
           'Gfe/t, textiel, papier/karton, glas en restafval',

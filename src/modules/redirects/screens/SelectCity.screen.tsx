@@ -10,6 +10,7 @@ import {useOpenWebUrl} from '@/hooks'
 import {PeopleAtCityOffice} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {DeviceContext} from '@/providers'
+import {useEnvironment} from '@/store/slices/environment'
 import {useTheme} from '@/themes'
 
 type Props = {
@@ -19,13 +20,11 @@ type Props = {
   >
 }
 
-const appointmentFormWeespUrl =
-  'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx'
-
 export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
+  const {makeAppointmentWeespUrl} = useEnvironment()
 
   return (
     <Screen
@@ -54,7 +53,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   <Button
                     accessibilityRole="link"
                     label="Weesp"
-                    onPress={() => openWebUrl(appointmentFormWeespUrl)}
+                    onPress={() => openWebUrl(makeAppointmentWeespUrl)}
                   />
                 </Column>
               </Row>

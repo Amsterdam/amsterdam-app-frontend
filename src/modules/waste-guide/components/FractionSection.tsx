@@ -1,5 +1,5 @@
-import {View} from 'react-native'
 import {Button, PhoneHQButton} from '@/components/ui/buttons'
+import {FauxButton} from '@/components/ui/buttons/FauxButton'
 import {Row} from '@/components/ui/layout'
 import {Phrase} from '@/components/ui/text'
 import {InlineLink} from '@/components/ui/text/InlineLink'
@@ -32,16 +32,18 @@ export const FractionSection = ({
       <Row
         gutter="xs"
         valign="start">
-        <View>
+        <FauxButton>
           <Phrase emphasis="strong">{label}: </Phrase>
-        </View>
+        </FauxButton>
         <Row
           gutter="sm"
           wrap>
-          <Button
-            label={buttonContent}
-            onPress={() => openWebUrl(buttonLink)}
-          />
+          {!!buttonContent && (
+            <Button
+              label={buttonContent}
+              onPress={() => openWebUrl(buttonLink)}
+            />
+          )}
           <PhoneHQButton variant="secondary" />
         </Row>
       </Row>

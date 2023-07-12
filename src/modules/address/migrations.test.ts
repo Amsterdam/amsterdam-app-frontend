@@ -23,6 +23,7 @@ describe('transform function for old address', () => {
     ).toEqual({
       address: {
         addition: 'b',
+        additionLetter: 'b',
         addressLine1: 'Hoofdstraat 123-b',
         addressLine2: '1234 AB AMSTERDAM',
         bagId: '1234567890',
@@ -57,6 +58,7 @@ describe('transform function for old address', () => {
     ).toEqual({
       address: {
         addition: '2',
+        additionNumber: '2',
         addressLine1: 'Hoofdstraat 123-2',
         addressLine2: '1234 AB AMSTERDAM',
         bagId: '1234567890',

@@ -53,6 +53,8 @@ export const migrations: MigrationManifest = {
     const addressState: AddressState = {
       address: {
         addition: getAddition(bag_huisletter, bag_toevoeging),
+        additionLetter: bag_huisletter || undefined,
+        additionNumber: bag_toevoeging || undefined,
         addressLine1: adres,
         addressLine2: getAddressLine2(postcode, woonplaats),
         bagId: bagNummeraanduidingId,

@@ -8,10 +8,14 @@ export enum Environment {
 export type EnvironmentConfig = {
   apiUrl: string
   atlasUrl: string
-  bulkyWasteFormUrl: string
+  bulkyWasteAppointmentUrl: string
+  complaintUrl: string
+  makeAppointmentWeespUrl: string
   modulesApiUrl: string
   reportProblemAmsterdamUrl: string
   reportProblemWeespUrl: string
+  wasteCollectionPointsUrl: string
+  wasteContainersUrl: string
   wasteGuideUrl: string
 }
 
@@ -30,48 +34,65 @@ enum ApiUrls {
 
 enum ExternalApiUrls {
   atlasProd = 'https://api.data.amsterdam.nl/atlas',
-  bulkyWasteFormProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
 }
 
 enum ExternalWebUrls {
+  bulkyWasteAppointmentProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
+  complaintProd = 'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
+  makeAppointmentWeespProd = 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx',
   reportProblemAmsterdamAcc = 'https://acc.app.meldingen.amsterdam.nl',
   reportProblemAmsterdamProd = 'https://app.meldingen.amsterdam.nl',
   reportProblemWeespAcc = 'https://acc.meldingenweesp.amsterdam.nl',
   reportProblemWeespProd = 'https://meldingenweesp.amsterdam.nl',
+  wasteCollectionPointsProd = 'https://kaart.amsterdam.nl/afvalpunten',
+  wasteContainersProd = 'https://kaart.amsterdam.nl/afvalcontainers',
+}
+
+const sharedEnvironmentConfig: Pick<
+  EnvironmentConfig,
+  | 'atlasUrl'
+  | 'bulkyWasteAppointmentUrl'
+  | 'complaintUrl'
+  | 'makeAppointmentWeespUrl'
+  | 'wasteCollectionPointsUrl'
+  | 'wasteContainersUrl'
+> = {
+  atlasUrl: ExternalApiUrls.atlasProd,
+  bulkyWasteAppointmentUrl: ExternalWebUrls.bulkyWasteAppointmentProd,
+  complaintUrl: ExternalWebUrls.complaintProd,
+  makeAppointmentWeespUrl: ExternalWebUrls.makeAppointmentWeespProd,
+  wasteCollectionPointsUrl: ExternalWebUrls.wasteCollectionPointsProd,
+  wasteContainersUrl: ExternalWebUrls.wasteContainersProd,
 }
 
 export const environments: Record<Environment, EnvironmentConfig> = {
   [Environment.development]: {
+    ...sharedEnvironmentConfig,
     apiUrl: ApiUrls.apiDev,
-    atlasUrl: ExternalApiUrls.atlasProd,
-    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiDev,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
     reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.acceptance]: {
+    ...sharedEnvironmentConfig,
     apiUrl: ApiUrls.apiAcc,
-    atlasUrl: ExternalApiUrls.atlasProd,
-    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiAcc,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
     reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.production]: {
+    ...sharedEnvironmentConfig,
     apiUrl: ApiUrls.apiProd,
-    atlasUrl: ExternalApiUrls.atlasProd,
-    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiProd,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamProd,
     reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespProd,
     wasteGuideUrl: ApiUrls.wasteGuideApiProd,
   },
   [Environment.custom]: {
+    ...sharedEnvironmentConfig,
     apiUrl: ApiUrls.apiCustomDefault,
-    atlasUrl: ExternalApiUrls.atlasProd,
-    bulkyWasteFormUrl: ExternalApiUrls.bulkyWasteFormProd,
     modulesApiUrl: ApiUrls.modulesApiCustomDefault,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
     reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,

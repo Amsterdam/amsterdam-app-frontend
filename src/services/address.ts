@@ -33,6 +33,8 @@ export const transformAddressApiResponse = (address: ApiAddress): Address => {
 
   return {
     addition: getAddition(bag_huisletter, bag_toevoeging),
+    additionLetter: bag_huisletter || undefined,
+    additionNumber: bag_toevoeging || undefined,
     bagId: landelijk_id,
     city: woonplaats,
     coordinates: getCoordinates(centroid, coordinates),
