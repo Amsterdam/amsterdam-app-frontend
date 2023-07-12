@@ -6,10 +6,10 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
+import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconName} from '@/components/ui/media'
 import {Theme, useThemable} from '@/themes'
-import {heightTokens} from '@/themes/tokens/height'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 
@@ -130,7 +130,7 @@ const getBackgroundColor = (
 const createStyles =
   ({small, variant}: Partial<ButtonProps>, pressed: boolean) =>
   ({border, color, text, size}: Theme) => {
-    const buttonHeight = heightTokens.button.default
+    const buttonHeight = config.buttonHeight
     const borderWidth =
       border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
     const labelFontSize = text.fontSize[small ? 'small' : 'body']

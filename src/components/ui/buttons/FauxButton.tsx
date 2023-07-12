@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import {View, StyleSheet} from 'react-native'
+import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text'
-import {heightTokens} from '@/themes/tokens/height'
 
 type Props = {
   children: ReactNode
@@ -15,7 +15,7 @@ export const FauxButton = ({children}: Props) => (
 
 const styles = StyleSheet.create({
   button: {
-    minHeight: heightTokens.button.default,
+    minHeight: config.buttonHeight,
     flexDirection: 'column',
     justifyContent: 'center',
   },
