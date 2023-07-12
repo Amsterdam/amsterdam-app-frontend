@@ -89,9 +89,11 @@ export const ModuleSetting = ({
 
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
+      description={description}
       disabled={isModuleActive}
+      iconName={iconName}
       testID={`HomeModuleSetting${pascalCase(slug)}`}
-      {...{description, iconName, title}}
+      title={title}
     />
   )
 

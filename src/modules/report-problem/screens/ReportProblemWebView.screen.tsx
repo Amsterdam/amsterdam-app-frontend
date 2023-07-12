@@ -1,5 +1,4 @@
-import {useCallback} from 'react'
-import {useLayoutEffect} from 'react'
+import {useCallback, useLayoutEffect} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
 import {NavigationProps} from '@/app/navigation'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,12 +8,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
+import {HomeRouteName} from '@/modules/home/routes'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {useEnvironment} from '@/store/slices/environment'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
-const injectedJavascript = `(function() {
+const injectedJavaScript = `(function() {
   window.postMessage = function(data) {
   window.ReactNativeWebView.postMessage(data);
 };
@@ -38,7 +38,7 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
-        navigation.goBack()
+        navigation.reset({index: 0, routes: [{ name:  HomeRouteName.home}]})
       }
     },
     [navigation],
@@ -71,8 +71,10 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   return (
     <Screen scroll={false}>
       <WebView
+        injectedJavaScript={injectedJavaScript}
+        onMessage={onMessage}
         testID="ReportProblemWebView"
-        {...{injectedJavascript, onMessage, url}}
+        url={url}
       />
     </Screen>
   )

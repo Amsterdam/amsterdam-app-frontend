@@ -39,7 +39,11 @@ export const StreetInput = ({
       keyboardShouldPersistTaps="handled"
       style={styles.flex}>
       <StreetSearchResult
-        {...{bagList, isLoading, isStreetSelected, selectStreet, street}}
+        bagList={bagList}
+        isLoading={isLoading}
+        isStreetSelected={isStreetSelected}
+        selectStreet={selectStreet}
+        street={street}
       />
     </KeyboardAwareScrollView>
   </>

@@ -26,8 +26,10 @@ export const Triangle = ({direction}: Props) => {
   return (
     <Center>
       <Svg
-        {...{width, height, viewBox}}
-        style={styles.svg}>
+        height={height}
+        style={styles.svg}
+        viewBox={viewBox}
+        width={width}>
         <Path
           d={path[direction]}
           {...iconProps}

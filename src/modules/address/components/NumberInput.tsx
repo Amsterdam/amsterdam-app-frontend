@@ -104,7 +104,12 @@ export const NumberInput = ({
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
-          <NumberSearchResult {...{bagList, city, selectNumber, number}} />
+          <NumberSearchResult
+            bagList={bagList}
+            city={city}
+            number={number}
+            selectNumber={selectNumber}
+          />
         </KeyboardAwareScrollView>
       </View>
     </WithAnimation>

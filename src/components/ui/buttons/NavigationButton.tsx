@@ -23,7 +23,8 @@ export const NavigationButton = ({
 }: Props) => (
   <Pressable
     accessibilityRole={accessibilityRole}
-    {...{onPress, testID}}>
+    onPress={onPress}
+    testID={testID}>
     <Box
       insetHorizontal="md"
       insetVertical="sm">

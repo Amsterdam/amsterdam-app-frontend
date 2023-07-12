@@ -76,11 +76,13 @@ export const Redirects = () => {
         <TopTaskButton
           accessibilityLabel={accessibleText(title, text)}
           accessibilityRole={routeName ? 'button' : 'link'}
+          iconName={iconName}
           key={iconName}
           onPress={() =>
             routeName ? navigation.navigate(routeName) : url && openWebUrl(url)
           }
-          {...{iconName, text, title}}
+          text={text}
+          title={title}
         />
       ))}
     </Column>

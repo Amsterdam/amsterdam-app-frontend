@@ -78,9 +78,12 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             onBlur={handleBlur}
             onChangeText={handleChangeText}
             onFocus={handleFocus}
+            placeholder={placeholder}
+            ref={ref}
             style={styles.textInput}
+            testID={testID}
             textAlignVertical="top"
-            {...{placeholder, ref, testID, value}}
+            value={value}
           />
           {value ? (
             <View>

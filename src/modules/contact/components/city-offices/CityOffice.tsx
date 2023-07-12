@@ -53,7 +53,11 @@ export const CityOffice = () => {
           text="Bezoek ons"
         />
         <Image source={mapImageSources(image.sources)} />
-        <NameAndAddress {...{address, addressContent, title}} />
+        <NameAndAddress
+          address={address}
+          addressContent={addressContent}
+          title={title}
+        />
         <VisitingHours
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}

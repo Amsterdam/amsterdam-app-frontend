@@ -120,7 +120,10 @@ type ListEmptyMessageProps = {
 
 const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
   <Box insetHorizontal="md">
-    <EmptyMessage {...{testID, text}} />
+    <EmptyMessage
+      testID={testID}
+      text={text}
+    />
   </Box>
 )
 
