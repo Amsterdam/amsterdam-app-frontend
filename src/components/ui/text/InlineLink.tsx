@@ -13,7 +13,7 @@ export const InlineLink = ({children, ...otherProps}: Props) => (
   <Phrase
     accessibilityRole="link"
     color="link"
-    emphasis="strong"
+    underline
     {...otherProps}>
     {children}
   </Phrase>

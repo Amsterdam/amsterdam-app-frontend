@@ -88,7 +88,7 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
     () => ({
-      a: {...styles.boldText, ...styles.link},
+      a: {...styles.link},
       b: styles.boldText,
       h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
       h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
@@ -162,7 +162,7 @@ const createStyles: (
       },
       link: {
         color: color.pressable.primary.default,
-        textDecorationLine: 'none',
+        textDecorationLine: 'underline',
       },
       boldText: {
         fontFamily: text.fontFamily.bold,
