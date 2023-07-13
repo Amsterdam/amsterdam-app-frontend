@@ -50,7 +50,7 @@ export type WasteGuideResponseFraction = {
   afvalwijzerPerXWeken: string | null
   afvalwijzerRoutenaam: string | null
   afvalwijzerRoutetypeNaam: string | null
-  afvalwijzerUrl: string
+  afvalwijzerUrl: string | null
   afvalwijzerWaar: string
   bagNummeraanduidingId: string
   gbdBuurtCode: string
