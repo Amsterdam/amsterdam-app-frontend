@@ -81,7 +81,7 @@ export const ArticleOverview = ({
   )
 
   const navigateToArticle = (article: ArticleSummary) => {
-    if (article.type === 'news') {
+    if (article.type === 'news' || article.type === 'work') {
       navigation.navigate(ConstructionWorkRouteName.projectNews, {
         id: article.identifier,
         projectId,
