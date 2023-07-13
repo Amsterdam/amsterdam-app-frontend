@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {QueryDefinition, skipToken} from '@reduxjs/toolkit/dist/query'
+import {
+  QueryDefinition,
+  QueryStatus,
+  skipToken,
+} from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
-import {useSelector} from 'react-redux'
-import {RootState} from '@/store/types/rootState'
+import {useAppSelector} from '@/store/hooks'
 import {InfiniteScrollerQueryParams, Paginated} from '@/types'
 
 const getEmptyItems = <T>(
@@ -30,7 +33,7 @@ export const useInfiniteScroller = <T>(
   pageSize = 10,
   queryParams: InfiniteScrollerQueryParams = {},
 ) => {
-  const reduxState = useSelector((state: RootState) => state)
+  const reduxState = useAppSelector(state => state)
 
   const {
     data: previousData,
@@ -79,21 +82,22 @@ export const useInfiniteScroller = <T>(
       .fill({})
       // map over the array and fill it with data
       .reduce<unknown[]>((acc, _s, index) => {
-        const data = endpoint.select({
+        const {data, status} = endpoint.select({
           ...queryParams,
           page: index + 1,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-        })(reduxState).data
+        })(reduxState)
         // if there is no data, fill the page with empty items
         const pageData =
-          data?.result ??
-          getEmptyItems<T>(
-            Math.min(pageSize, totalElements - index * pageSize),
-            index * pageSize,
-            defaultEmptyItem,
-            keyName,
-          )
+          data?.result && status === QueryStatus.fulfilled
+            ? data?.result
+            : getEmptyItems<T>(
+                Math.min(pageSize, totalElements - index * pageSize),
+                index * pageSize,
+                defaultEmptyItem,
+                keyName,
+              )
         return [...acc, ...pageData]
       }, []) as T[],
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
