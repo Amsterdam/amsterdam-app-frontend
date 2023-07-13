@@ -93,7 +93,7 @@ describe('getFractionsForCollectionByAppointment', () => {
       {
         afvalwijzerFractieCode: FractionCode.Rest,
         afvalwijzerFractieNaam:
-          'Gfe/t, textiel, papier/karton, glas en restafval',
+          'Restafval, papier/karton, gfe/t, glas en textiel',
       },
     ])
   })
@@ -118,7 +118,7 @@ describe('getFractionsForCollectionByAppointment', () => {
       {
         afvalwijzerFractieCode: FractionCode.Rest,
         afvalwijzerFractieNaam:
-          'Gfe/t, textiel, papier/karton, glas en restafval',
+          'Restafval, papier/karton, gfe/t, glas en textiel',
       },
       {
         afvalwijzerFractieCode: FractionCode.GA,
@@ -147,7 +147,7 @@ describe('getFractionsForCollectionByAppointment', () => {
       {
         afvalwijzerFractieCode: FractionCode.Rest,
         afvalwijzerFractieNaam:
-          'Gfe/t, textiel, papier/karton, glas en restafval',
+          'Restafval, papier/karton, gfe/t, glas en textiel',
       },
       {
         afvalwijzerFractieCode: FractionCode.GA,
@@ -180,7 +180,7 @@ describe('getFractions', () => {
         afvalwijzerBasisroutetypeCode: 'THUISAFSPR',
         afvalwijzerFractieCode: FractionCode.Rest,
         afvalwijzerFractieNaam:
-          'Gfe/t, textiel, papier/karton, glas en restafval',
+          'Restafval, papier/karton, gfe/t, glas en textiel',
       },
       {
         afvalwijzerFractieCode: FractionCode.GA,
