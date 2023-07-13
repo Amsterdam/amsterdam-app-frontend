@@ -45,7 +45,7 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
             )
           : undefined,
       seenonsUrl:
-        afvalwijzerUrl.indexOf(seenonsScheduleWastePickupUrl) === 0
+        afvalwijzerUrl?.indexOf(seenonsScheduleWastePickupUrl) === 0
           ? afvalwijzerUrl
           : undefined,
     }),
