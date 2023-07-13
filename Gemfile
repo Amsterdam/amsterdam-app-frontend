@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby File.read(File.join(__dir__, ".ruby-version")).strip
+ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
 gem "fastlane", "2.213.0"
 
