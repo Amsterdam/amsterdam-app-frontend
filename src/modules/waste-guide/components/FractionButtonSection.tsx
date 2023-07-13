@@ -5,16 +5,16 @@ import {Phrase} from '@/components/ui/text'
 import {useOpenWebUrl} from '@/hooks'
 
 type Props = {
-  content: string
-  label: string
-  link: string
+  buttonLabel: string
+  buttonUrl: string
+  sectionTitle: string
   withPhoneButton?: boolean
 }
 
 export const FractionButtonSection = ({
-  content,
-  label,
-  link,
+  buttonLabel,
+  buttonUrl,
+  sectionTitle,
   withPhoneButton = false,
 }: Props) => {
   const openWebUrl = useOpenWebUrl()
@@ -24,14 +24,14 @@ export const FractionButtonSection = ({
       gutter="xs"
       valign="start">
       <FauxButton>
-        <Phrase emphasis="strong">{label}: </Phrase>
+        <Phrase emphasis="strong">{sectionTitle}: </Phrase>
       </FauxButton>
       <Row
         gutter="sm"
         wrap>
         <Button
-          label={content}
-          onPress={() => openWebUrl(link)}
+          label={buttonLabel}
+          onPress={() => openWebUrl(buttonUrl)}
         />
         {!!withPhoneButton && <PhoneHQButton variant="secondary" />}
       </Row>

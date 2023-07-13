@@ -75,7 +75,7 @@ export const Fraction = ({fraction}: Props) => {
     afvalwijzerWaar,
   } = fraction
 
-  const buttonLink = bulkyWasteAppointmentUrl ?? seenonsUrl ?? afvalwijzerUrl
+  const buttonUrl = bulkyWasteAppointmentUrl ?? seenonsUrl ?? afvalwijzerUrl
 
   return (
     <Column gutter="md">
@@ -96,17 +96,17 @@ export const Fraction = ({fraction}: Props) => {
       )}
       <Column gutter="md">
         <Column gutter="sm">
-          {afvalwijzerButtontekst && buttonLink ? (
+          {afvalwijzerButtontekst && buttonUrl ? (
             <FractionButtonSection
-              content={afvalwijzerButtontekst}
-              label="Hoe"
-              link={buttonLink}
+              buttonLabel={afvalwijzerButtontekst}
+              buttonUrl={buttonUrl}
+              sectionTitle="Hoe"
               withPhoneButton={!seenonsUrl}
             />
           ) : (
             <FractionSection
               content={afvalwijzerInstructie2}
-              label="Hoe"
+              sectionTitle="Hoe"
             />
           )}
           {!!collectionPointsMapUrl && (
@@ -123,16 +123,16 @@ export const Fraction = ({fraction}: Props) => {
                 }, ${afvalwijzerAfvalkalenderFrequentie}`
               : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
           )}
-          label="Ophaaldag"
+          sectionTitle="Ophaaldag"
         />
         <FractionSection
           content={getBuitenzettenContent(fraction)}
-          label="Buitenzetten"
+          sectionTitle="Buitenzetten"
         />
         <FractionSection
           content={afvalwijzerWaar}
-          label="Waar"
-          link={containerMapUrl}
+          sectionTitle="Waar"
+          url={containerMapUrl}
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (

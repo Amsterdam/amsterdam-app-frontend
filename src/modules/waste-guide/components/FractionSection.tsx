@@ -5,11 +5,11 @@ import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 
 type Props = {
   content?: string | null
-  label: string
-  link?: string
+  sectionTitle: string
+  url?: string
 }
 
-export const FractionSection = ({content, label, link}: Props) => {
+export const FractionSection = ({content, sectionTitle, url}: Props) => {
   const openWebUrl = useOpenWebUrl()
 
   if (!content) {
@@ -18,10 +18,10 @@ export const FractionSection = ({content, label, link}: Props) => {
 
   return (
     <Phrase>
-      <Phrase emphasis="strong">{label}: </Phrase>
+      <Phrase emphasis="strong">{sectionTitle}: </Phrase>
       {/* Remove inlineLink once the API includes the url as a single property */}
-      {link ? (
-        <InlineLink onPress={() => openWebUrl(link)}>{content}</InlineLink>
+      {url ? (
+        <InlineLink onPress={() => openWebUrl(url)}>{content}</InlineLink>
       ) : (
         <FractionContent content={content} />
       )}
