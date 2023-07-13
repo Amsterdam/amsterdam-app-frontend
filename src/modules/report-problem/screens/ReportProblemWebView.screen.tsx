@@ -8,7 +8,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
-import {HomeRouteName} from '@/modules/home/routes'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {useEnvironment} from '@/store/slices/environment'
 
@@ -38,7 +37,7 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
-        navigation.reset({index: 0, routes: [{ name:  HomeRouteName.home}]})
+        navigation.getParent()?.goBack()
       }
     },
     [navigation],
