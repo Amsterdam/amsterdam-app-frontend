@@ -1,12 +1,10 @@
 import {useSelector} from 'react-redux'
 import {Column} from '@/components/ui/layout'
 import {Address} from '@/modules/address/types'
-import {
-  ContactCollector,
-  Fractions,
-  ReportWrongBuildingType,
-  SelectContract,
-} from '@/modules/waste-guide/components'
+import {ContactCollector} from '@/modules/waste-guide/components/ContactCollector'
+import {Fractions} from '@/modules/waste-guide/components/Fractions'
+import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
+import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
 import {selectContract} from '@/modules/waste-guide/slice'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 

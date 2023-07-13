@@ -48,7 +48,7 @@ export const sortFractions = (
 
 /** The title of the combined fraction in the case of "collection by appointment". */
 const collectionByAppointmentTitle =
-  'Gfe/t, textiel, papier/karton, glas en restafval'
+  'Restafval, papier/karton, gfe/t, glas en textiel'
 
 /** The value that `afvalwijzerBasisroutetypeCode` should have if "collection by appointment" is applicable. */
 const collectionByAppointmentCode = 'THUISAFSPR'

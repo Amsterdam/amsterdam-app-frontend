@@ -10,11 +10,9 @@ import {
   HouseholdWasteToContainerImage,
   WasteGuideNotFoundImage,
 } from '@/modules/waste-guide/assets/images'
-import {
-  WasteGuideForWeesp,
-  WasteGuideForAmsterdam,
-  WasteGuideNotFound,
-} from '@/modules/waste-guide/components'
+import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
+import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
+import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {DeviceContext} from '@/providers'
 import {useTheme} from '@/themes'
@@ -29,11 +27,11 @@ export const WasteGuide = ({address}: Props) => {
 
   const {addressLine1, bagId, city} = address
 
-  const {data: wasteGuideData, isLoading} = useGetGarbageCollectionAreaQuery({
+  const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery({
     bagNummeraanduidingId: bagId,
   })
 
-  if (isLoading || wasteGuideData === undefined) {
+  if (isFetching || wasteGuideData === undefined) {
     return <PleaseWait />
   }
 
