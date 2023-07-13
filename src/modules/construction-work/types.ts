@@ -31,12 +31,20 @@ export type NewsArticleSummary = ArticleSummaryShared & {
   type: 'news'
 }
 
+export type WorkArticleSummary = ArticleSummaryShared & {
+  image?: Image | null
+  type: 'work'
+}
+
 export type WarningArticleSummary = ArticleSummaryShared & {
   images?: ProjectWarningImage[]
   type: 'warning'
 }
 
-export type ArticleSummary = NewsArticleSummary | WarningArticleSummary
+export type ArticleSummary =
+  | NewsArticleSummary
+  | WarningArticleSummary
+  | WorkArticleSummary
 
 export type Articles = ArticleSummary[]
 

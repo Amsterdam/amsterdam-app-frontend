@@ -33,7 +33,7 @@ export const ArticlePreview = ({
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
   const imageSources =
-    article.type === 'news'
+    article.type === 'news' || article.type === 'work'
       ? mapImageSources(article.image?.sources)
       : getProjectWarningMainImageInfo(article)?.sources
 
