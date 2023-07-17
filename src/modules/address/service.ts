@@ -7,14 +7,14 @@ import {generateRequestUrl} from '@/utils/api'
 const addressPath = '/search/adres/'
 const bagPath = '/typeahead/bag/'
 
-type AddresParams = {
+type AddressParams = {
   address: string
   city: Address['city']
 }
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
-    getAddress: query<Address, AddresParams>({
+    getAddress: query<Address, AddressParams>({
       query: ({address}) => ({
         url: generateRequestUrl({
           params: {features: 2, q: address},
