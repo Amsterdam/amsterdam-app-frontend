@@ -16,7 +16,6 @@ import {Image} from '@/components/ui/media'
 import {Paragraph, Phrase, Title} from '@/components/ui/text'
 import {useRegisterDevice} from '@/hooks'
 import {selectAddress} from '@/modules/address/slice'
-import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects'
@@ -30,6 +29,7 @@ import {
   useGetProjectQuery,
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
+import {getAddressParam} from '@/modules/construction-work/utils/getAddressParam'
 import {accessibleText, mapImageSources} from '@/utils'
 
 type Props = {

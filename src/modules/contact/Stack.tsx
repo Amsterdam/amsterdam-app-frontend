@@ -1,8 +1,8 @@
 import {screenOptions} from '@/app/navigation'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {ContactRouteName} from '@/modules/contact/routes'
 import {screenConfig} from '@/modules/contact/screenConfig'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

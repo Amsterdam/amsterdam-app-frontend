@@ -1,5 +1,6 @@
 import {useSelector} from 'react-redux'
 import {screenOptions, StackNavigationRoutes} from '@/app/navigation'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
@@ -7,7 +8,6 @@ import {
 import {screenConfig} from '@/modules/construction-work-editor/screenConfig'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

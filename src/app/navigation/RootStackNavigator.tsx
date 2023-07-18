@@ -1,12 +1,12 @@
 import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
 import {RootStackParams, screenOptions} from '@/app/navigation'
+import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {useModules} from '@/hooks'
 import {clientModules, coreModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator<RootStackParams>()
 
