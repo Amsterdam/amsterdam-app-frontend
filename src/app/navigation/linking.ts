@@ -4,7 +4,7 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
-import {RootStackParams} from '@/app/navigation/RootStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {devLog} from '@/processes'
 import {PushNotificationData} from '@/types'

@@ -1,13 +1,8 @@
-import {
-  Address,
-  ApiAddress,
-  BagResponse,
-  ResponseAddress,
-} from '@/modules/address/types'
+import {Address, BagResponse, ResponseAddress} from '@/modules/address/types'
+import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {baseApi} from '@/services/init'
-import {CacheLifetime} from '@/types'
-import {generateRequestUrl} from '@/utils'
-import {getAddition, getAddressLine2, getCoordinates} from '@/utils/address'
+import {CacheLifetime} from '@/types/api'
+import {generateRequestUrl} from '@/utils/api'
 
 const addressPath = '/search/adres/'
 const bagPath = '/typeahead/bag/'
@@ -15,35 +10,6 @@ const bagPath = '/typeahead/bag/'
 type AddresParams = {
   address: string
   city: Address['city']
-}
-
-export const transformAddressApiResponse = (address: ApiAddress): Address => {
-  const {
-    adres,
-    bag_huisletter,
-    bag_toevoeging,
-    centroid,
-    coordinates,
-    huisnummer,
-    landelijk_id,
-    postcode,
-    straatnaam,
-    woonplaats,
-  } = address
-
-  return {
-    addition: getAddition(bag_huisletter, bag_toevoeging),
-    additionLetter: bag_huisletter || undefined,
-    additionNumber: bag_toevoeging || undefined,
-    bagId: landelijk_id,
-    city: woonplaats,
-    coordinates: getCoordinates(centroid, coordinates),
-    number: huisnummer,
-    postcode,
-    addressLine1: adres,
-    addressLine2: getAddressLine2(postcode, woonplaats),
-    street: straatnaam,
-  }
 }
 
 export const addressApi = baseApi.injectEndpoints({

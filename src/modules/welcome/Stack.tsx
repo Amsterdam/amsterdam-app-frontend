@@ -2,7 +2,7 @@ import {screenOptions} from '@/app/navigation'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
 import {screenConfig} from '@/modules/welcome/screenConfig'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation'
+import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

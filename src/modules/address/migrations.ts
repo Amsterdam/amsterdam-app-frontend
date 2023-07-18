@@ -1,7 +1,11 @@
 import {MigrationManifest, PersistedState} from 'redux-persist'
 import {AddressState} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
-import {getAddition, getAddressLine2, getCoordinates} from '@/utils/address'
+import {
+  getAddition,
+  getAddressLine2,
+  getCoordinates,
+} from '@/modules/address/utils/transformAddressApiResponse'
 
 type AddressStateNegative1 = {
   adres: string

@@ -7,7 +7,7 @@ import {
 import {screenConfig} from '@/modules/construction-work-editor/screenConfig'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation'
+import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

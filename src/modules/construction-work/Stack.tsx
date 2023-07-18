@@ -2,7 +2,7 @@ import {screenOptions} from '@/app/navigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {screenConfig} from '@/modules/construction-work/screenConfig'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation'
+import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator()
 

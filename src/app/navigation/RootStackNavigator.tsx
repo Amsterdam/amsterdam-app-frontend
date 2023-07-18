@@ -1,32 +1,12 @@
-import {ParamListBase} from '@react-navigation/core'
 import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
-import {screenOptions} from '@/app/navigation'
+import {RootStackParams, screenOptions} from '@/app/navigation'
 import {useModules} from '@/hooks'
 import {clientModules, coreModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
-import {
-  getModuleStack,
-  ModalParams,
-  modals,
-  ModuleStackParams,
-} from '@/modules/stacks'
+import {getModuleStack, modals} from '@/modules/stacks'
 import {useTheme} from '@/themes'
-import {createStackNavigator} from '@/utils/navigation'
-
-type ModuleParams<
-  ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = Extract<keyof ParamList, string>,
-> = Record<
-  ModuleSlug,
-  | undefined
-  | {screen?: RouteName}
-  | {params: ParamList[RouteName]; screen: RouteName}
->
-
-export type RootStackParams = ModuleParams<ModuleStackParams> &
-  ModuleStackParams &
-  ModalParams
+import {createStackNavigator} from '@/utils/navigation/createStackNavigator'
 
 const Stack = createStackNavigator<RootStackParams>()
 

@@ -72,7 +72,7 @@ module.exports = {
             name: '@react-navigation/stack',
             importNames: ['createStackNavigator'],
             message:
-              'Import createStackNavigator from @/utils/navigation to automatically be accessible.',
+              'Import createStackNavigator from @/utils/navigation/createStackNavigator to automatically be accessible.',
           },
         ],
       },
