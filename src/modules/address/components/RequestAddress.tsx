@@ -1,11 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParams} from '@/app/navigation/types'
-import {AddButton} from '@/components/ui/buttons'
-import {Column} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
 import {AddressModalName} from '@/modules/address/routes'
 import {userModule} from '@/modules/user'
+import { TopTaskButton } from '@/components/ui/buttons'
 
 export const RequestAddress = () => {
   const navigation =
@@ -14,16 +12,12 @@ export const RequestAddress = () => {
     >()
 
   return (
-    <Column gutter="md">
-      <Paragraph testID="AddressInstructionParagraph">
-        Vul een straatnaam en huisnummer in zodat u informatie krijgt uit die
-        buurt.
-      </Paragraph>
-      <AddButton
-        accessibilityLabel="Voeg adres toe"
-        onPress={() => navigation.navigate(AddressModalName.addressForm)}
-        testID="AddressAddButton"
-      />
-    </Column>
+    <TopTaskButton
+      iconName="location"
+      onPress={() => navigation.navigate(AddressModalName.addressForm)}
+      testID="AddressAddButton"
+      text="Vul een adres in"
+      title="Mijn adres"
+    />
   )
 }
