@@ -1,13 +1,14 @@
 import {useSelector} from 'react-redux'
-import {screenOptions, StackNavigationRoutes} from '@/app/navigation'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {screenOptions} from '@/app/navigation/screenOptions'
+import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
 import {screenConfig} from '@/modules/construction-work-editor/screenConfig'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 

@@ -1,8 +1,8 @@
-import {screenOptions} from '@/app/navigation'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {screenOptions} from '@/app/navigation/screenOptions'
 import {AboutRouteName} from '@/modules/about/routes'
 import {screenConfig} from '@/modules/about/screenConfig'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 

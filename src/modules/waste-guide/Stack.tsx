@@ -1,8 +1,8 @@
-import {screenOptions} from '@/app/navigation'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {screenOptions} from '@/app/navigation/screenOptions'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {screenConfig} from '@/modules/waste-guide/screenConfig'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
