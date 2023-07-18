@@ -1,7 +1,22 @@
-import {NavigationProp, RouteProp} from '@react-navigation/core'
+import {NavigationProp, ParamListBase, RouteProp} from '@react-navigation/core'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ComponentType} from 'react'
-import {RootStackParams} from '@/app/navigation/RootStackNavigator'
+import {ModuleSlug} from '@/modules/slugs'
+import {ModuleStackParams, ModalParams} from '@/modules/stacks'
+
+type ModuleParams<
+  ParamList extends ParamListBase,
+  RouteName extends keyof ParamList = Extract<keyof ParamList, string>,
+> = Record<
+  ModuleSlug,
+  | undefined
+  | {screen?: RouteName}
+  | {params: ParamList[RouteName]; screen: RouteName}
+>
+
+export type RootStackParams = ModuleParams<ModuleStackParams> &
+  ModuleStackParams &
+  ModalParams
 
 export type NavigationProps<RouteName extends keyof RootStackParams> = {
   navigation: NavigationProp<RootStackParams>

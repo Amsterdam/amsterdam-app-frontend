@@ -1,25 +1,24 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback, useLayoutEffect} from 'react'
-import {useSelector} from 'react-redux'
 import simplur from 'simplur'
-import {FollowButton} from '@/components/ui/buttons'
-import {
-  Box,
-  HorizontalSafeArea,
-  SingleSelectable,
-} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
+import {FollowButton} from '@/components/ui/buttons/FollowButton'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Image} from '@/components/ui/media'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
-import {useRegisterDevice} from '@/hooks'
-import {selectAddress} from '@/modules/address/slice'
-import {ArticleOverview} from '@/modules/construction-work/components/article'
-import {ProjectBodyMenu} from '@/modules/construction-work/components/project'
-import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects'
-import {ProjectTraits} from '@/modules/construction-work/components/shared'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
+import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {useAddress} from '@/modules/address/hooks/useAddress'
+import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
+import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
+import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
+import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
@@ -29,15 +28,16 @@ import {
   useGetProjectQuery,
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
-import {accessibleText, mapImageSources} from '@/utils'
-import {getAddressParam} from '@/utils/address'
+import {getAddressParam} from '@/modules/construction-work/utils/getAddressParam'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type Props = {
   id: string
 }
 
 export const Project = ({id}: Props) => {
-  const address = useSelector(selectAddress)
+  const address = useAddress()
 
   const navigation =
     useNavigation<

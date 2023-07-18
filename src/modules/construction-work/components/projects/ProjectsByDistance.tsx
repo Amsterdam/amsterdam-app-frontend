@@ -1,9 +1,9 @@
-import {StreetAddressWithEditButton} from '@/modules/address/components'
+import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
 import {Address} from '@/modules/address/types'
-import {Projects} from '@/modules/construction-work/components/projects'
+import {Projects} from '@/modules/construction-work/components/projects/Projects'
 import {getProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {getAddressParam} from '@/utils/address'
+import {getAddressParam} from '@/modules/construction-work/utils/getAddressParam'
 
 type Props = {
   address: Address

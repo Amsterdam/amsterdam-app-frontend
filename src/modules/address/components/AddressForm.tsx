@@ -3,19 +3,20 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {RootStackParams} from '@/app/navigation'
-import {Box} from '@/components/ui/containers'
+import {RootStackParams} from '@/app/navigation/types'
+import {Box} from '@/components/ui/containers/Box'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {NumberInput, StreetInput} from '@/modules/address/components'
+import {NumberInput} from '@/modules/address/components/NumberInput'
+import {StreetInput} from '@/modules/address/components/StreetInput'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
+import {useGetAddressQuery, useGetBagQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity} from '@/modules/address/types'
-import {DeviceContext} from '@/providers'
-import {useGetAddressQuery, useGetBagQuery} from '@/services/address'
+import {DeviceContext} from '@/providers/device.provider'
 import {resetAlert, setAlert} from '@/store/slices/alert'
 
 export const AddressForm = () => {
