@@ -9,7 +9,7 @@ import {
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
-type Props = {
+export type ColumnProps = {
   /** The vertical alignment of the items in the column. */
   align?: MainAxisAlignment
   /** The content of the column. */
@@ -32,7 +32,7 @@ export const Column = ({
   gutter,
   halign,
   reverse,
-}: Props) => {
+}: ColumnProps) => {
   const styles = useThemable(
     createStyles({align, flex, grow, gutter, halign, reverse}),
   )
@@ -41,7 +41,7 @@ export const Column = ({
 }
 
 const createStyles =
-  ({align, flex, grow, gutter, halign, reverse}: Partial<Props>) =>
+  ({align, flex, grow, gutter, halign, reverse}: Partial<ColumnProps>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       column: {

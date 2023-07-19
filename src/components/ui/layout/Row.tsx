@@ -9,7 +9,7 @@ import {
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
-type Props = {
+export type RowProps = {
   /** The horizontal alignment of the items in the row. */
   align?: MainAxisAlignment
   /** The content of the row. */
@@ -35,7 +35,7 @@ export const Row = ({
   reverse,
   vgutter,
   wrap,
-}: Props) => {
+}: RowProps) => {
   const styles = useThemable(
     createStyles({align, flex, gutter, reverse, valign, vgutter, wrap}),
   )
@@ -44,7 +44,7 @@ export const Row = ({
 }
 
 const createStyles =
-  ({align, flex, gutter, reverse, valign, vgutter, wrap}: Partial<Props>) =>
+  ({align, flex, gutter, reverse, valign, vgutter, wrap}: Partial<RowProps>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       row: {

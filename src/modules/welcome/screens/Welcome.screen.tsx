@@ -4,13 +4,12 @@ import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
-import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Size} from '@/components/ui/layout/Size'
+import {Track} from '@/components/ui/layout/Track'
 import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
@@ -26,8 +25,6 @@ const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait, isTallPhone} = useContext(DeviceContext)
-  const isScreenReaderEnabled = useIsScreenReaderEnabled()
-  const Track = isPortrait || isScreenReaderEnabled ? Column : Row
 
   const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 
