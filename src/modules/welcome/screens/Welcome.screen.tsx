@@ -6,6 +6,7 @@ import {Box} from '@/components/ui/containers'
 import {AspectRatio, Column, Row, Screen, Size} from '@/components/ui/layout'
 import {Image} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
@@ -21,7 +22,8 @@ const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait, isTallPhone} = useContext(DeviceContext)
-  const Track = isPortrait ? Column : Row
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const Track = isPortrait || isScreenReaderEnabled ? Column : Row
 
   const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 

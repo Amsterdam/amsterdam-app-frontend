@@ -9,6 +9,7 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
@@ -21,7 +22,8 @@ export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
   const {isPortrait} = useContext(DeviceContext)
-  const Track = isPortrait ? Column : Row
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const Track = isPortrait || isScreenReaderEnabled ? Column : Row
 
   return (
     <Screen>

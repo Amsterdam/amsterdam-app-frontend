@@ -4,11 +4,13 @@ import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'
 import {Icon, Image} from '@/components/ui/media'
 import {Paragraph, Title} from '@/components/ui/text'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {DeviceContext} from '@/providers'
 
 export const AboutTheAppEnglishScreen = () => {
-  const {isLandscape} = useContext(DeviceContext)
-  const Track = isLandscape ? Row : Column
+  const {isPortrait} = useContext(DeviceContext)
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const Track = isPortrait || isScreenReaderEnabled ? Column : Row
 
   return (
     <Screen
