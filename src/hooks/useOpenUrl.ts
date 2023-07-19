@@ -11,13 +11,18 @@ export const useOpenUrl = (): OpenUrl => {
     if (href.startsWith('mailto:')) {
       const [mailto, subject] = href.split('?subject=')
       const [, emailAddress] = mailto.split(':')
+
       openMailUrl(emailAddress, subject)
+
       return
     }
+
     if (href.startsWith('tel:')) {
       openPhoneUrl(href)
+
       return
     }
+
     openWebUrl(href)
   }
 }

@@ -49,6 +49,7 @@ export const postProcessModules = (
     if (!alwaysEnabled) {
       toggleableModules.push(module)
     }
+
     // a module is enabled if it has the property `alwaysEnabled` or if it is enabled by the user
     if (alwaysEnabled || !userDisabledModulesBySlug?.includes(slug)) {
       enabledModules.push(module)

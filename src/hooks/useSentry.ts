@@ -13,6 +13,7 @@ export const useSentry = (
 ): SentryHandler => {
   // TODO When we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting.
   const consent = true
+
   return useMemo(() => {
     if (consent || dangerouslyOverrideConsent) {
       return {
@@ -24,6 +25,7 @@ export const useSentry = (
         ),
       }
     }
+
     return {
       captureSentryBreadcrumb: () => null,
       sendSentryErrorLog: () => null,

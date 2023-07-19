@@ -13,6 +13,7 @@ export const getAccessibleDistanceText = (meter?: number, strides?: number) => {
     if (strides !== undefined) {
       textParts.unshift('of')
     }
+
     textParts.unshift(`${meter} meter`)
   }
 

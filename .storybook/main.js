@@ -118,11 +118,14 @@ module.exports = {
     const definePlugin = new webpack.DefinePlugin({
       __DEV__: JSON.stringify(true),
     })
+
     if (!config.plugins) {
       config.plugins = []
     }
+
     config.plugins.push(definePlugin)
     config.plugins.push(new MiniCssExtractPlugin())
+
     return config
   },
 }

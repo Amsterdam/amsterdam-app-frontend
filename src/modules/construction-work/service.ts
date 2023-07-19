@@ -46,6 +46,7 @@ export const projectsApi = baseApi.injectEndpoints({
       providesTags: ['Articles'],
       query: params => {
         const q = formatQueryParams(params)
+
         return generateRequestUrl({path: '/articles', params: q})
       },
       keepUnusedDataFor: CacheLifetime.minute,
@@ -85,6 +86,7 @@ export const projectsApi = baseApi.injectEndpoints({
             params: formatQueryParams({...params}),
           })
         }
+
         return '/projects'
       },
       keepUnusedDataFor: CacheLifetime.hour,
@@ -97,12 +99,14 @@ export const projectsApi = baseApi.injectEndpoints({
       providesTags: ['Articles', 'FollowedProjects'],
       query: params => {
         const path = '/projects/followed/articles'
+
         if (params) {
           return generateRequestUrl({
             path,
             params,
           })
         }
+
         return path
       },
       keepUnusedDataFor: CacheLifetime.hour,

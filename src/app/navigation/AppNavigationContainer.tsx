@@ -15,6 +15,7 @@ type Props = {
 
 export const AppNavigationContainer = ({children}: Props) => {
   const navigation = useNavigationContainerRef<RootStackParams>()
+
   useFlipper(navigation)
   const handleNavigationStateChange = useHandleNavigationStateChange()
 

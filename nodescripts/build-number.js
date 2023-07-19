@@ -5,4 +5,5 @@ const buildNumber = parseInt(
     .trim(),
   10,
 )
+
 console.log(buildNumber)

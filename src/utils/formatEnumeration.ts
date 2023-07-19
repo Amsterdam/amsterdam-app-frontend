@@ -4,10 +4,14 @@ export const formatEnumeration = (
   if (!enumeration) {
     return null
   }
+
   const items = enumeration.split(',').map(item => item.trim())
+
   if (items.length > 1) {
     const lastItem = items.pop() ?? ''
+
     return `${items.join(', ')} en ${lastItem}`
   }
+
   return enumeration
 }

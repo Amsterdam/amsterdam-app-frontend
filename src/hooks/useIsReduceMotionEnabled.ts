@@ -17,6 +17,7 @@ export const useIsReduceMotionEnabled = (
     onForeground: () => {
       void AccessibilityInfo.isReduceMotionEnabled().then(value => {
         isReduceMotionEnabled = value
+
         if (callbackAfterAppStateChange) {
           callback?.(value)
         }

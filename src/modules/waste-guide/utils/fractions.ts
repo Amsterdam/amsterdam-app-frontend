@@ -40,9 +40,11 @@ export const sortFractions = (
 ) => {
   const aIndex = fractionOrder.indexOf(a.afvalwijzerFractieCode)
   const bIndex = fractionOrder.indexOf(b.afvalwijzerFractieCode)
+
   if (aIndex === -1 || bIndex === -1) {
     return 0
   }
+
   return aIndex - bIndex
 }
 
@@ -87,6 +89,7 @@ export const getFractionsForCollectionByAppointment = (
 
   for (const fraction of fractions) {
     const {afvalwijzerFractieCode} = fraction
+
     if (afvalwijzerFractieCode === FractionCode.GA) {
       combinedFractions.push(applyCustomFractionTitle(fraction))
     } else if (afvalwijzerFractieCode === FractionCode.Rest) {

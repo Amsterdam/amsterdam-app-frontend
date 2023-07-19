@@ -58,6 +58,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           project_identifier: currentProjectId,
           project_manager_id: constructionWorkEditorId,
         }
+
         dispatch(setMessage({projectId: currentProjectId, message}))
       }
     },
@@ -73,6 +74,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           if (!mainImage) {
             return
           }
+
           dispatch(setMainImage({projectId: currentProjectId, mainImage}))
           !mainImageDescription &&
             dispatch(

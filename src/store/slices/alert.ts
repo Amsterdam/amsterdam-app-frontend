@@ -34,6 +34,7 @@ export const alertSlice = createSlice({
       if (!isReduceMotionEnabled) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
       }
+
       return payload
     },
   },

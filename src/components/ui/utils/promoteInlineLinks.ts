@@ -17,12 +17,14 @@ export const promoteInlineLinks = (html: string): string => {
   // Find all matches of anchor tags in the HTML string
   let match
   let lastIndex = 0
+
   while ((match = anchorRegex.exec(html))) {
     const matchIndex = match.index
     const matchText = match[0]
 
     // Add the text content between the previous match and the current match
     const textBetween = html.substring(lastIndex, matchIndex)
+
     if (textBetween.trim() !== '') {
       fragments.push(textBetween)
     }
@@ -33,6 +35,7 @@ export const promoteInlineLinks = (html: string): string => {
 
   // Add any remaining text content after the last anchor tag
   const remainingText = html.substring(lastIndex)
+
   if (remainingText.trim() !== '') {
     fragments.push(remainingText)
   }

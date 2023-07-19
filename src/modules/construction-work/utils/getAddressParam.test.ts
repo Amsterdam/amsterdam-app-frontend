@@ -4,6 +4,7 @@ import {AddressCity} from '@/modules/address/types'
 describe('getAddressParam', () => {
   test('should return an undefined address and no coordinates when address is not provided', () => {
     const result = getAddressParam()
+
     expect(result).toEqual({address: undefined})
   })
   test('should return address query arg with addresLine1 when coordinates are not provided', () => {
@@ -16,6 +17,7 @@ describe('getAddressParam', () => {
       postcode: '1234AB',
       street: 'Hoofdstraat',
     })
+
     expect(result).toEqual({address: 'Hoofdstraat 123'})
   })
   test('should return address query arg with coordinates when provided', () => {
@@ -32,6 +34,7 @@ describe('getAddressParam', () => {
       postcode: '1234AB',
       street: 'Hoofdstraat',
     })
+
     expect(result).toEqual({
       lat: 52.37403,
       lon: 4.88969,

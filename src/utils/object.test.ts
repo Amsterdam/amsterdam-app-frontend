@@ -40,10 +40,12 @@ describe('getPropertyFromMaybeError', () => {
   })
   test('undefined if property does not exist', () => {
     const error = new Error('foo')
+
     expect(getPropertyFromMaybeError(error, 'foo')).toBe(undefined)
   })
   test('return value if property does exist', () => {
     const error = new Error('foo')
+
     // @ts-ignore
     error.foo = 'bar'
     expect(getPropertyFromMaybeError(error, 'foo')).toBe('bar')

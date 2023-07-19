@@ -43,9 +43,11 @@ export const store = configureStore({
         warnAfter: 256,
       },
     }).concat([baseApi.middleware, sentryLoggerMiddleware])
+
     if (__DEV__) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const createDebugger = require('redux-flipper').default
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
       middleware.push(createDebugger())
     }

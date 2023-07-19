@@ -67,7 +67,9 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     if (!message) {
       return
     }
+
     dispatch(resetAlert())
+
     try {
       const warningResponse = await addWarning(message).unwrap()
 

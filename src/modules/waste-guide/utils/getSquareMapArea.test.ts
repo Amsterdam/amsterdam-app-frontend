@@ -5,6 +5,7 @@ describe('getSquareMapArea', () => {
     const lat = 40
     const lon = -73
     const offset = 10
+
     expect(getSquareMapArea(lat, lon, offset)).toBe('30/-83/50/-63')
   })
 
@@ -12,6 +13,7 @@ describe('getSquareMapArea', () => {
     const lat = -40
     const lon = -73
     const offset = 10
+
     expect(getSquareMapArea(lat, lon, offset)).toBe('-50/-83/-30/-63')
   })
 
@@ -19,6 +21,7 @@ describe('getSquareMapArea', () => {
     const lat = 40
     const lon = -73
     const offset = 0
+
     expect(getSquareMapArea(lat, lon, offset)).toBe('40/-73/40/-73')
   })
 
@@ -26,6 +29,7 @@ describe('getSquareMapArea', () => {
     const lat = 40.75
     const lon = -73.99
     const offset = 0.5
+
     expect(getSquareMapArea(lat, lon, offset)).toBe('40.25/-74.49/41.25/-73.49')
   })
 })

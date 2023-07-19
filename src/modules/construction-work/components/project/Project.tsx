@@ -61,6 +61,7 @@ export const Project = ({id}: Props) => {
       if (!project) {
         return
       }
+
       if (isFollowed) {
         void unfollowProject({project_id: project.identifier})
       } else {

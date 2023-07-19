@@ -48,6 +48,7 @@ export const NumberSearchResult = ({
       </Box>
     )
   }
+
   return (
     <>
       {numbersForCity.map(bagItem => (

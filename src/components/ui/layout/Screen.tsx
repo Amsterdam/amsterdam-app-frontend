@@ -26,11 +26,14 @@ const Wrapper = ({
         </KeyboardAwareScrollView>
       )
     }
+
     return <ScrollView grow>{children}</ScrollView>
   }
+
   if (keyboardAware) {
     return <KeyboardAvoidingView>{children}</KeyboardAvoidingView>
   }
+
   return <>{children}</>
 }
 

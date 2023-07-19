@@ -4,6 +4,7 @@ describe('sortSourcesByWidthAscending', () => {
   const item0 = {uri: 'uri0', width: 0}
   const item1 = {uri: 'uri1', width: 1}
   const item2 = {uri: 'uri2', width: 2}
+
   test('keep order if already ascending', () => {
     expect([item0, item1, item2].sort(sortSourcesByWidthAscending)).toEqual([
       item0,

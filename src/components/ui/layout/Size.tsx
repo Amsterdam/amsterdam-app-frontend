@@ -27,6 +27,7 @@ export const Size = ({
       createStyles({height, maxHeight, maxWidth, minHeight, minWidth, width}),
     [height, maxHeight, maxWidth, minHeight, minWidth, width],
   )
+
   return (
     <View
       style={styles.view}
