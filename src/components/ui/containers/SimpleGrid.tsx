@@ -4,6 +4,7 @@ import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 
 export const SimpleGrid: typeof SimpleGridComponent = ({...props}) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+
   return (
     <SimpleGridComponent
       {...props}
