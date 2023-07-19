@@ -74,6 +74,12 @@ module.exports = {
             message:
               'Import createStackNavigator from @/utils/navigation/createStackNavigator to automatically be accessible.',
           },
+          {
+            name: 'react-native-super-grid',
+            importNames: ['SimpleGrid'],
+            message:
+              'Import SimpleGrid from @/components/ui/containers/SimpleGrid to automatically be accessible.',
+          },
         ],
       },
     ],
