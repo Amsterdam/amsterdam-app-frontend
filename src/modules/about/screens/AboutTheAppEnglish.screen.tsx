@@ -1,11 +1,16 @@
 import {useContext} from 'react'
 import {ImageURISource} from 'react-native'
-import {Box, HorizontalSafeArea} from '@/components/ui/containers'
-import {Column, Row, Screen} from '@/components/ui/layout'
-import {Icon, Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Icon} from '@/components/ui/media/Icon'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {DeviceContext} from '@/providers'
+import {DeviceContext} from '@/providers/device.provider'
 
 export const AboutTheAppEnglishScreen = () => {
   const {isPortrait} = useContext(DeviceContext)

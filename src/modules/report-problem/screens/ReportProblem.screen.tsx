@@ -14,7 +14,7 @@ import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {City} from '@/modules/report-problem/types'
-import {DeviceContext} from '@/providers'
+import {DeviceContext} from '@/providers/device.provider'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 
