@@ -18,15 +18,15 @@ export type BoxProps = {
    */
   grow?: boolean
   /**
-   * The amount of inner whitespace.
+   * The amount of inner spacing.
    */
   inset?: keyof SpacingTokens
   /**
-   * The amount of inner whitespace at the left and right.
+   * The amount of inner spacing at the left and right.
    */
   insetHorizontal?: keyof SpacingTokens
   /**
-   * The amount of inner whitespace at the top and bottom.
+   * The amount of inner spacing at the top and bottom.
    */
   insetVertical?: keyof SpacingTokens
 } & Omit<ViewProps, 'style'>

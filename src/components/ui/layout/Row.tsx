@@ -14,18 +14,27 @@ export type RowProps = {
   align?: MainAxisAlignment
   /** The content of the row. */
   children: ReactNode
-  /** The amount of horizontal whitespace between the items in the row. */
+  /** The amount of horizontal spacing between the items in the row. */
   gutter?: keyof SpacingTokens
   /** Whether the items in the row should be reversed. */
   reverse?: boolean
   /** The vertical alignment of the items in the row. */
   valign?: CrossAxisAlignment
-  /** The amount of vertical whitespace between the items in the row. */
+  /** The amount of vertical spacing between the items in the row. */
   vgutter?: keyof SpacingTokens
   /** Whether the items in the row should wrap to the next line. */
   wrap?: boolean
 } & Pick<FlexStyle, 'flex'>
 
+/**
+ * Lays out its children horizontally.
+ *
+ * Allows specifying the amount of spacing between the items, alignment of the items in the row,
+ * whether the row should grow to fill the available space, whether the items can wrap to new lines,
+ * and whether the items should be displayed in reverse order.
+ *
+ * @example <Row align="start" gutter="md">…</Row>
+ */
 export const Row = ({
   align,
   children,

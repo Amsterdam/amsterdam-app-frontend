@@ -16,7 +16,7 @@ export type ColumnProps = {
   children: ReactNode
   /** Whether the column should grow to fill the available space. */
   grow?: boolean
-  /** The amount of vertical whitespace between the items in the column. */
+  /** The amount of vertical spacing between the items in the column. */
   gutter?: keyof SpacingTokens
   /** The horizontal alignment of the items in the column. */
   halign?: CrossAxisAlignment
@@ -24,6 +24,14 @@ export type ColumnProps = {
   reverse?: boolean
 } & Pick<FlexStyle, 'flex'>
 
+/**
+ * Lays out its children vertically.
+ *
+ * Allows specifying the amount of spacing between the items, alignment of the items in the column, whether
+ * the column should grow to fill the available space, and whether the items should be displayed in reverse order.
+ *
+ * @example <Column gutter="md" flex={1}>…</Column>
+ */
 export const Column = ({
   align,
   children,
