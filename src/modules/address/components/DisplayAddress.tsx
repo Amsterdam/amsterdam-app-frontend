@@ -1,7 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useDispatch, useSelector} from 'react-redux'
+<<<<<<< HEAD
 import {RootStackParams} from '@/app/navigation/types'
+=======
+import {RootStackParams} from '@/app/navigation'
+>>>>>>> c5c96f75 (Merge components to display or request address)
 import {Button} from '@/components/ui/buttons/Button'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {
@@ -40,6 +44,7 @@ export const DisplayAddress = () => {
   }
 
   return (
+<<<<<<< HEAD
     <Row>
       <Column flex={1}>
         <TopTaskButton
@@ -51,6 +56,16 @@ export const DisplayAddress = () => {
           title="Mijn adres"
         />
       </Column>
+=======
+    <Column gutter="md">
+      <TopTaskButton
+        iconName="location"
+        onPress={() => navigation.navigate(AddressModalName.addressForm)}
+        testID="AddressAddButton"
+        text={address === undefined ? 'Vul een adres in' : address.addressLine1}
+        title="Mijn adres"
+      />
+>>>>>>> c5c96f75 (Merge components to display or request address)
       {!!address && (
         <Row>
           <Button
