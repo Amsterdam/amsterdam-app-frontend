@@ -175,7 +175,6 @@ platform :ios do
       if File.exists?(full_ipa_path)
         upload_to_testflight(
           ipa: full_ipa_path,
-          groups: "AmsterdamApp-scrumteam",
           app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
           app_identifier: app[:app_identifier],
@@ -197,12 +196,13 @@ platform :ios do
         puts "Upload to testflight for #{full_ipa_path}"
         if File.exists?(full_ipa_path)
           upload_to_testflight(
-            ipa: full_ipa_path,
-            distribute_only: true,
-            groups: "AmsterdamApp-stakeholders",
+            app_identifier: app[:app_identifier],
             app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
             build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
-            app_identifier: app[:app_identifier],
+            ipa: full_ipa_path,
+            distribute_external: true,
+            distribute_only: true,
+            groups: "AmsterdamApp-stakeholders",
           )
         else
           UI.user_error!("ERROR: #{ipa_path} does not exist")
@@ -216,6 +216,7 @@ platform :ios do
 
     installAppStoreApiKey()
  
+    # TODO review and fix
     apps.each do |app|
       if app[:distribute_to_production]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
