@@ -45,7 +45,7 @@ export const DisplayAddress = () => {
         iconName="location"
         onPress={() => navigation.navigate(AddressModalName.addressForm)}
         testID="AddressAddButton"
-        text={address === undefined ? 'Vul een adres in' : address.addressLine1}
+        text={text={address?.addressLine1 ?? 'Vul een adres in'}}
         title="Mijn adres"
       />
       {!!address && (
