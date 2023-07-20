@@ -3,7 +3,7 @@ import {Column, ColumnProps} from '@/components/ui/layout/Column'
 import {Row, RowProps} from '@/components/ui/layout/Row'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {DeviceContext} from '@/providers/device.provider'
-import {Common} from '@/utils/types'
+import {Common} from '@/types/utils'
 
 type TrackProps = Common<ColumnProps, RowProps>
 
