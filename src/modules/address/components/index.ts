@@ -1,4 +1,3 @@
-export * from './Address'
 export * from './AddressForm'
 export * from './DisplayAddress'
 export * from './NumberInput'

@@ -6,7 +6,7 @@ import {DisplayAddress} from '@/modules/address/components/DisplayAddress'
 import {RequestAddress} from '@/modules/address/components/RequestAddress'
 import {selectAddress} from '@/modules/address/slice'
 
-export const Address = () => {
+export const LocationBox = () => {
   const address = useSelector(selectAddress)
 
   return (

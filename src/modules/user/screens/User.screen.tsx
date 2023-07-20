@@ -1,14 +1,14 @@
-import {Box} from '@/components/ui/containers'
-import {Alert} from '@/components/ui/feedback'
-import {Screen} from '@/components/ui/layout'
-import {Address} from '@/modules/address/components'
+import {Box} from '@/components/ui/containers/Box'
+import {Alert} from '@/components/ui/feedback/Alert'
+import {Screen} from '@/components/ui/layout/Screen'
+import {LocationBox} from '@/modules/address/components/LocationBox'
 
 export const UserScreen = () => (
   <Screen
     stickyHeader={<Alert />}
     testID="UserScreen">
     <Box>
-      <Address />
+      <LocationBox />
     </Box>
   </Screen>
 )
