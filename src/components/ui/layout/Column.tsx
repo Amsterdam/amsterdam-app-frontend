@@ -9,14 +9,14 @@ import {
 import {Theme, useThemable} from '@/themes'
 import {SpacingTokens} from '@/themes/tokens'
 
-type Props = {
+export type ColumnProps = {
   /** The vertical alignment of the items in the column. */
   align?: MainAxisAlignment
   /** The content of the column. */
   children: ReactNode
   /** Whether the column should grow to fill the available space. */
   grow?: boolean
-  /** The amount of vertical whitespace between the items in the column. */
+  /** The amount of vertical spacing between the items in the column. */
   gutter?: keyof SpacingTokens
   /** The horizontal alignment of the items in the column. */
   halign?: CrossAxisAlignment
@@ -24,6 +24,14 @@ type Props = {
   reverse?: boolean
 } & Pick<FlexStyle, 'flex'>
 
+/**
+ * Lays out its children vertically.
+ *
+ * Allows specifying the amount of spacing between the items, alignment of the items in the column, whether
+ * the column should grow to fill the available space, and whether the items should be displayed in reverse order.
+ *
+ * @example <Column gutter="md" flex={1}>…</Column>
+ */
 export const Column = ({
   align,
   children,
@@ -32,7 +40,7 @@ export const Column = ({
   gutter,
   halign,
   reverse,
-}: Props) => {
+}: ColumnProps) => {
   const styles = useThemable(
     createStyles({align, flex, grow, gutter, halign, reverse}),
   )
@@ -41,7 +49,7 @@ export const Column = ({
 }
 
 const createStyles =
-  ({align, flex, grow, gutter, halign, reverse}: Partial<Props>) =>
+  ({align, flex, grow, gutter, halign, reverse}: Partial<ColumnProps>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       column: {

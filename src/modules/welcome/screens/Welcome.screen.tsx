@@ -3,13 +3,17 @@ import {useContext, useEffect} from 'react'
 import {RootStackParams} from '@/app/navigation'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
-import {AspectRatio, Column, Row, Screen, Size} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {AspectRatio} from '@/components/ui/layout/AspectRatio'
+import {Row} from '@/components/ui/layout/Row'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Size} from '@/components/ui/layout/Size'
+import {Track} from '@/components/ui/layout/Track'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
-import {DeviceContext} from '@/providers'
+import {DeviceContext} from '@/providers/device.provider'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
@@ -21,7 +25,6 @@ const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
   const {isPortrait, isTallPhone} = useContext(DeviceContext)
-  const Track = isPortrait ? Column : Row
 
   const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 

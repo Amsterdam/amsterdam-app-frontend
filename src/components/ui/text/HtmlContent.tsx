@@ -211,7 +211,7 @@ const createRenderersProps =
     },
   })
 
-// An unordered list only renders its children, without the bullet point and any whitespace.
+// An unordered list only renders its children, without the bullet point and any spacing.
 const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
   <TNodeChildrenRenderer {...props} />
 )
@@ -219,7 +219,7 @@ const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
 const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
   StyleSheet.create({
     marker: {
-      paddingTop: 2 * fontScale, // Adjusts for whitespace in probably the library’s internal custom renderer.
+      paddingTop: 2 * fontScale, // Adjusts for spacing in probably the library’s internal custom renderer.
     },
   })
 
