@@ -21,6 +21,8 @@ $ cd ios
 $ bundle exec fastlane ios syncAll readonly:true
 ```
 
+This command requires the MATCH_PASSWORD env var to be set in ios/fastlane/.env (stored in KeePass).
+
 ## 3. Add the profiles to the project
 
 Then add the profiles to the Xcode project:
