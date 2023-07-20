@@ -28,6 +28,6 @@ type OmitNever<T extends Record<string, unknown>> = {
  *
  *   A & B        // => { x: string; y: string; z: string; }
  *   Common<A, B> // => { y: string; }
- *   Common<B, C> // => { y: string | number; }
+ *   Common<B, C> // => { y: string; }
  */
 export type Common<A, B> = OmitNever<Pick<A & B, keyof A & keyof B>>
