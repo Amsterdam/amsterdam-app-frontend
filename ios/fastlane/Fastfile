@@ -102,6 +102,14 @@ platform :ios do
     syncCertificates(options)
   end
 
+  desc "Sync adhoc certificates"
+  lane :syncAdhoc do |options|
+    syncCertificates(
+      **options,
+      type: "adhoc",
+    )
+  end
+
   desc "Sync appstore certificates"
   lane :syncAppstore do |options|
     syncCertificates(
@@ -113,6 +121,7 @@ platform :ios do
   desc "Sync all certificates"
   lane :syncAll do |options|
     syncDevelopment(options)
+    syncAdhoc(options)
     syncAppstore(options)
   end
 
