@@ -1,6 +1,6 @@
 import {ModalHeader} from '@/components/ui/containers'
 import {Screen} from '@/components/ui/layout'
-import {AddressForm} from '@/modules/address/components'
+import {AddressForm} from '@/modules/address/components/AddressForm'
 
 export const AddressFormScreen = () => (
   <Screen
