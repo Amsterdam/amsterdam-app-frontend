@@ -1,8 +1,9 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
-import {Button, TopTaskButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons/Button'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {
   AlertCloseType,
   AlertVariant,
@@ -10,16 +11,12 @@ import {
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {AddressModalName} from '@/modules/address/routes'
-import {removeAddress} from '@/modules/address/slice'
-import {Address} from '@/modules/address/types'
+import {removeAddress, selectAddress} from '@/modules/address/slice'
 import {userModule} from '@/modules/user'
 import {setAlert} from '@/store/slices/alert'
 
-type Props = {
-  address: Address
-}
-
-export const DisplayAddress = ({address: {addressLine1}}: Props) => {
+export const DisplayAddress = () => {
+  const address = useSelector(selectAddress)
   const dispatch = useDispatch()
   const navigation =
     useNavigation<
@@ -48,7 +45,7 @@ export const DisplayAddress = ({address: {addressLine1}}: Props) => {
         iconName="location"
         onPress={() => navigation.navigate(AddressModalName.addressForm)}
         testID="AddressAddButton"
-        text={addressLine1}
+        text={address === undefined ? 'Vul een adres in' : address.addressLine1}
         title="Mijn adres"
       />
       {!!address && (
