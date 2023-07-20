@@ -1,6 +1,5 @@
 export * from './Address'
 export * from './AddressForm'
-export * from './BoxTitle'
 export * from './DisplayAddress'
 export * from './NumberInput'
 export * from './NumberSearchResult'
