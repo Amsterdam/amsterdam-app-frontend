@@ -40,26 +40,26 @@ export const DisplayAddress = () => {
   }
 
   return (
-    <Column gutter="md">
-      <TopTaskButton
-        iconName="location"
-        onPress={() => navigation.navigate(AddressModalName.addressForm)}
-        testID="AddressAddButton"
-        text={address?.addressLine1 ?? 'Vul een adres in'}
-        title="Mijn adres"
-      />
+    <Row>
+      <Column flex={1}>
+        <TopTaskButton
+          iconName="location"
+          onPress={() => navigation.navigate(AddressModalName.addressForm)}
+          testID="AddressAddButton"
+          text={address?.addressLine1 ?? 'Vul een adres in'}
+          title="Mijn adres"
+        />
+      </Column>
       {!!address && (
         <Row>
           <Button
             iconName="trash-bin"
-            label="Verwijder"
             onPress={removeAddressAndShowAlert}
-            small
             testID="AddressDeleteButton"
-            variant="secondary"
+            variant="tertiary"
           />
         </Row>
       )}
-    </Column>
+    </Row>
   )
 }
