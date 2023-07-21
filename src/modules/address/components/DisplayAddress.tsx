@@ -49,17 +49,7 @@ export const DisplayAddress = () => {
         title="Mijn adres"
       />
       {!!address && (
-        <Row
-          gutter="md"
-          wrap>
-          <Button
-            iconName="edit"
-            label="Wijzig"
-            onPress={() => navigation.navigate(AddressModalName.addressForm)}
-            small
-            testID="AddressEditButton"
-            variant="primary"
-          />
+        <Row>
           <Button
             iconName="trash-bin"
             label="Verwijder"
