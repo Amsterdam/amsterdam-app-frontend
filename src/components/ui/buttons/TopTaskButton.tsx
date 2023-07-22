@@ -1,11 +1,15 @@
 import {ReactNode} from 'react'
 import {PressableProps, StyleSheet, View} from 'react-native'
-import {Pressable} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {Column, Row} from '@/components/ui/layout'
-import {Icon, IconName} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {IconName} from '@/components/ui/media/iconPaths'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 import {Theme, useThemable} from '@/themes'
+import {accessibleText} from '@/utils'
 
 type Props = {
   iconName: IconName
@@ -27,6 +31,10 @@ export const TopTaskButton = ({
 
   return (
     <Pressable
+      accessibilityLabel={accessibleText(
+        title,
+        typeof text === 'string' ? text : '',
+      )}
       onPress={onPress}
       testID={testID}
       {...pressableProps}>
