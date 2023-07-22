@@ -43,6 +43,7 @@ export const DisplayAddress = () => {
     <Row>
       <Column flex={1}>
         <TopTaskButton
+          accessibilityHint="Tik om het adres te wijzigen"
           iconName="location"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
           testID="AddressAddButton"
@@ -53,6 +54,7 @@ export const DisplayAddress = () => {
       {!!address && (
         <Row>
           <Button
+            accessibilityLabel="Verwijder mijn adres"
             iconName="trash-bin"
             onPress={removeAddressAndShowAlert}
             testID="AddressDeleteButton"
