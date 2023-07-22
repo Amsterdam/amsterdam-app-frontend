@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextProps} from 'react-native'
 import {Theme, useThemable} from '@/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens'
 
-type Props = {
+export type PhraseProps = {
   children: ReactNode
   /**
    * Provides an inverse text color to allow a paragraph on a dark background.
@@ -35,7 +35,7 @@ export const Phrase = ({
   underline = false,
   variant = 'body',
   ...textProps
-}: Props) => {
+}: PhraseProps) => {
   const createdStyles = useMemo(
     () => createStyles({color, emphasis, underline, variant}),
     [color, emphasis, underline, variant],
@@ -57,7 +57,9 @@ const createStyles =
     emphasis,
     underline,
     variant,
-  }: Required<Pick<Props, 'color' | 'emphasis' | 'underline' | 'variant'>>) =>
+  }: Required<
+    Pick<PhraseProps, 'color' | 'emphasis' | 'underline' | 'variant'>
+  >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
