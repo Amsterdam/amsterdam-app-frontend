@@ -26,7 +26,8 @@ export const WritingGuideScreen = ({route}: Props) => (
         testID="ConstructionWorkEditorWritingGuideModalHeader"
         title={route.params.projectTitle}
       />
-    }>
+    }
+    testID="ConstructionWorkEditorWritingGuideScreen">
     <WritingGuide />
   </Screen>
 )
