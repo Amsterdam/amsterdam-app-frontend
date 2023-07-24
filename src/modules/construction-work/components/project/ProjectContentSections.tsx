@@ -12,10 +12,12 @@ export const ProjectContentSections = ({sections}: Props) => (
       <Column
         gutter="sm"
         key={section.title}>
-        <Title
-          level="h2"
-          text={section.title}
-        />
+        {section.title.length > 0 && (
+          <Title
+            level="h2"
+            text={section.title}
+          />
+        )}
         <HtmlContent content={section.html} />
       </Column>
     ))}
