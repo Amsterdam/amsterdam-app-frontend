@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import {NavigationProps} from '@/app/navigation'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'

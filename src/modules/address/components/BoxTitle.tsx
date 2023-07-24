@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect, useState} from 'react'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Tooltip} from '@/components/ui/feedback'

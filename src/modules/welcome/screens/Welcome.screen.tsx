@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useContext, useEffect} from 'react'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Pressable} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'

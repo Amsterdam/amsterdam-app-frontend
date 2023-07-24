@@ -1,6 +1,6 @@
 import {useCallback, useLayoutEffect} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
-import {NavigationProps} from '@/app/navigation'
+import {NavigationProps} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {WebView} from '@/components/ui/containers/WebView'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'

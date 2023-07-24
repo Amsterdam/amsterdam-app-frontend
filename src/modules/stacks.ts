@@ -1,5 +1,5 @@
 import {ComponentType} from 'react'
-import {RootStackParams, StackNavigationRoutes} from '@/app/navigation'
+import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AboutStack} from '@/modules/about/Stack'
 import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {AddressStack} from '@/modules/address/Stack'

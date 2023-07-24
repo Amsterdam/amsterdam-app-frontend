@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons'
 import {Row} from '@/components/ui/layout'
 import {Icon, IconProps} from '@/components/ui/media'
