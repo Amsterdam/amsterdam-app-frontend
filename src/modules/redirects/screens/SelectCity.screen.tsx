@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useContext} from 'react'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons'
 import {Box, HorizontalSafeArea} from '@/components/ui/containers'
 import {Column, Row, Screen} from '@/components/ui/layout'

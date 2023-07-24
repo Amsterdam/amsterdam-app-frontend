@@ -1,5 +1,5 @@
 import {PathConfig, PathConfigMap} from '@react-navigation/core'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {clientModules} from '@/modules/modules'
 
 export const moduleLinkings = (() => {

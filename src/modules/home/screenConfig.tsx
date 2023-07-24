@@ -1,4 +1,4 @@
-import {StackNavigationRoutes} from '@/app/navigation'
+import {StackNavigationRoutes} from '@/app/navigation/types'
 import {HeaderLogo, HeaderNavigation} from '@/modules/home/components'
 import {
   HomeModalParams,

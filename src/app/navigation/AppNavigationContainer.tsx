@@ -5,7 +5,8 @@ import {
 } from '@react-navigation/native'
 import {ReactNode} from 'react'
 import RNBootSplash from 'react-native-bootsplash'
-import {linking, RootStackParams} from '@/app/navigation'
+import {linking} from '@/app/navigation/linking'
+import {RootStackParams} from '@/app/navigation/types'
 import {useHandleNavigationStateChange} from '@/hooks'
 import {registerNavigationContainer} from '@/processes'
 

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {TopTaskButton} from '@/components/ui/buttons'
 import {Column} from '@/components/ui/layout'
 import {IconName} from '@/components/ui/media'

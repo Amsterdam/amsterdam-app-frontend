@@ -1,7 +1,7 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useLayoutEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons'
 import {Box} from '@/components/ui/containers'
 import {Alert} from '@/components/ui/feedback'

@@ -5,7 +5,7 @@ import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers'
 import {
   EmptyMessage,

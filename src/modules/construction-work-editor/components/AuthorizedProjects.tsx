@@ -4,7 +4,7 @@ import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers'
 import {
   EmptyMessage,
