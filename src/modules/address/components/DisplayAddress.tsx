@@ -1,27 +1,22 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
-import {Button} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons/Button'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Column, Row} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {AddressModalName} from '@/modules/address/routes'
-import {removeAddress} from '@/modules/address/slice'
-import {Address} from '@/modules/address/types'
+import {removeAddress, selectAddress} from '@/modules/address/slice'
 import {userModule} from '@/modules/user'
 import {setAlert} from '@/store/slices/alert'
 
-type Props = {
-  address: Address
-}
-
-export const DisplayAddress = ({
-  address: {addressLine1, addressLine2},
-}: Props) => {
+export const DisplayAddress = () => {
+  const address = useSelector(selectAddress)
   const dispatch = useDispatch()
   const navigation =
     useNavigation<
@@ -45,35 +40,28 @@ export const DisplayAddress = ({
   }
 
   return (
-    <Column gutter="md">
-      <Column>
-        <Paragraph testID="AddressStreetnameAndNumberText">
-          {addressLine1}
-        </Paragraph>
-        <Paragraph testID="AddressPostalcodeAndCityText">
-          {addressLine2}
-        </Paragraph>
-      </Column>
-      <Row
-        gutter="md"
-        wrap>
-        <Button
-          iconName="edit"
-          label="Wijzig"
+    <Row>
+      <Column flex={1}>
+        <TopTaskButton
+          accessibilityHint="Tik om het adres te wijzigen"
+          iconName="location"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
-          small
-          testID="AddressEditButton"
-          variant="primary"
+          testID="AddressAddButton"
+          text={address?.addressLine1 ?? 'Vul een adres in'}
+          title="Mijn adres"
         />
-        <Button
-          iconName="trash-bin"
-          label="Verwijder"
-          onPress={removeAddressAndShowAlert}
-          small
-          testID="AddressDeleteButton"
-          variant="secondary"
-        />
-      </Row>
-    </Column>
+      </Column>
+      {!!address && (
+        <Row>
+          <Button
+            accessibilityLabel="Verwijder mijn adres"
+            iconName="trash-bin"
+            onPress={removeAddressAndShowAlert}
+            testID="AddressDeleteButton"
+            variant="tertiary"
+          />
+        </Row>
+      )}
+    </Row>
   )
 }

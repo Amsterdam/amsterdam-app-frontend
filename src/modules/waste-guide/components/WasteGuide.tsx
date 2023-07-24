@@ -4,7 +4,7 @@ import {PleaseWait} from '@/components/ui/feedback'
 import {Column} from '@/components/ui/layout'
 import {FigureWithFacadesBackground} from '@/components/ui/media'
 import {Paragraph} from '@/components/ui/text'
-import {StreetAddressWithEditButton} from '@/modules/address/components'
+import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,

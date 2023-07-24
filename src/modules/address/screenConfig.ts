@@ -4,7 +4,7 @@ import {
   AddressModalParams,
   AddressStackParams,
 } from '@/modules/address/routes'
-import {AddressFormScreen} from '@/modules/address/screens'
+import {AddressFormScreen} from '@/modules/address/screens/AddressForm.screen'
 
 export const screenConfig: StackNavigationRoutes<AddressStackParams> = {}
 

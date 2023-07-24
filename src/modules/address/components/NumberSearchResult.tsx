@@ -1,6 +1,6 @@
 import {Box} from '@/components/ui/containers'
 import {EmptyMessage} from '@/components/ui/feedback'
-import {SuggestionButton} from '@/modules/address/components'
+import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {
   AddressCity,
   BagResponse,
