@@ -40,6 +40,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     const {projectId, projectTitle} = route.params
+
     dispatch(
       setProject({
         id: projectId,

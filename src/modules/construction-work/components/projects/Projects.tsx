@@ -74,6 +74,7 @@ export const Projects = ({
     if (viewableItems.length > 0) {
       const middleIndex = Math.floor(viewableItems.length / 2)
       const foundIndex = viewableItems[middleIndex].index
+
       if (foundIndex) {
         setViewableItemIndex(foundIndex)
       }

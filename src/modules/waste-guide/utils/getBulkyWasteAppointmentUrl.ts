@@ -10,6 +10,7 @@ export const getBulkyWasteAppointmentUrl = (
   if (!address) {
     return bulkyWasteAppointmentUrl
   }
+
   const {additionLetter, additionNumber, number, postcode} = address
 
   return `${bulkyWasteAppointmentUrl}?GUID=${postcode},${number},${

@@ -50,6 +50,7 @@ export const useModules = () => {
         retriesRemaining,
         serverModules,
       })
+
       if (retriesRemaining > 0) {
         void refetch()
         setRetriesRemaining(v => v - 1)

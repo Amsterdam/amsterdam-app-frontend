@@ -56,9 +56,11 @@ export default {
 
 const AlertStory: Story<AlertState> = ({...alertState}) => {
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(setAlert({...alertState}))
   })
+
   return <Alert />
 }
 

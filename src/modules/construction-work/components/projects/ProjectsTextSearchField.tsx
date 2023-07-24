@@ -31,6 +31,7 @@ export const ProjectsTextSearchField = () => {
       if (text.length > 0 && text.length < 3) {
         return
       }
+
       dispatch(setSearchText(text))
     }, config.searchBoxDebounceDuration),
     [dispatch],

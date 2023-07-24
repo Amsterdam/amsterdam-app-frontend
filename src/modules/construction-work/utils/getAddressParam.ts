@@ -6,6 +6,7 @@ export const getAddressParam = (
   if (!address?.coordinates) {
     return {address: address?.addressLine1}
   }
+
   return {
     address: undefined,
     ...address.coordinates,

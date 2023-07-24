@@ -27,6 +27,7 @@ export const getReduxConfigs = <
  */
 export const getReducers = (reduxConfigs: ReduxConfig[]) => {
   const reducers: Partial<Record<ReduxKey, Reducer<unknown, AnyAction>>> = {}
+
   reduxConfigs.forEach(config => {
     const {
       key,
@@ -35,9 +36,11 @@ export const getReducers = (reduxConfigs: ReduxConfig[]) => {
       persistWhitelist: whitelist,
       persistVersion: version,
     } = config
+
     if (version === undefined) {
       reducers[key] = slice.reducer
     }
+
     reducers[key] = persistReducer(
       {
         key,

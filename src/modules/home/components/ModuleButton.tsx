@@ -35,9 +35,11 @@ const ModuleButtonContent = ({
     if (disabled) {
       return 'secondary'
     }
+
     if (variant === 'primary') {
       return 'inverse'
     }
+
     return 'default'
   }, [disabled, variant])
 

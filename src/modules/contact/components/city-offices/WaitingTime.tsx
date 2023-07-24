@@ -23,6 +23,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
     isError,
     refetch,
   } = useGetWaitingTimesQuery()
+
   useRefetchInterval(refetch, refetchInterval)
 
   if (isError) {

@@ -8,9 +8,11 @@ export const useOpenMailUrl = (): OpenMailUrl => {
 
   return (emailAddress: string, subject?: string) => {
     let mailUrl = `mailto:${emailAddress}`
+
     if (subject) {
       mailUrl += `?subject=${encodeURIComponent(subject)}`
     }
+
     Linking.openURL(mailUrl).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
       sendSentryErrorLog('useOpenMailUrl error', 'useOpenMailUrl.ts', {

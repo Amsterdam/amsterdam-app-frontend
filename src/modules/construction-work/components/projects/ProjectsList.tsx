@@ -54,8 +54,10 @@ const ListItem = memo(
         const unreadArticlesLength = recentArticlesIds.filter(
           id => !readArticlesIds.includes(id),
         ).length
+
         return {...traits, unreadArticlesLength}
       }
+
       return {} as Partial<ProjectsItem> & {unreadArticlesLength?: number}
     }, [getProjectTraits, project, readArticles])
     const {followed, meter, strides, unreadArticlesLength} = parsedTraits

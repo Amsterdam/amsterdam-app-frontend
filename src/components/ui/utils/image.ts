@@ -8,9 +8,11 @@ export const sortSourcesByWidthAscending = (
   if (widthA > widthB) {
     return 1
   }
+
   if (widthA < widthB) {
     return -1
   }
+
   return 0
 }
 

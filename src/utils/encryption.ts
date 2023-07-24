@@ -10,5 +10,6 @@ export const encryptWithAES = ({password, salt}: EncryptionParams): string =>
 
 export const decryptWithAES = ({password, salt}: EncryptionParams): string => {
   const bytes = CryptoJS.AES.decrypt(salt, password)
+
   return bytes.toString(CryptoJS.enc.Utf8)
 }

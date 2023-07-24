@@ -98,6 +98,29 @@ module.exports = {
     'prettier/prettier': 'warn',
     'react/jsx-no-explicit-spread': 'off',
     'amsterdam/jsx-no-explicit-spread': 'error',
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        prev: '*',
+        next: ['block', 'block-like', 'return'],
+      },
+      {
+        blankLine: 'always',
+        prev: ['block', 'block-like'],
+        next: '*',
+      },
+      {
+        blankLine: 'always',
+        prev: ['const', 'let', 'var'],
+        next: '*',
+      },
+      {
+        blankLine: 'any',
+        prev: ['const', 'let', 'var'],
+        next: ['const', 'let', 'var'],
+      },
+    ],
   },
   overrides: [
     {

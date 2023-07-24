@@ -25,6 +25,7 @@ export const EnvironmentSelector = () => {
       modulesApiUrl:
         custom?.modulesApiUrl ?? environments[Environment.custom].modulesApiUrl,
     })
+
     if (Object.keys(customUrls).length) {
       dispatch(baseApi.util.resetApiState())
     }

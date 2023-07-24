@@ -24,6 +24,7 @@ export const getCoordinates = (
     if (!centroid) {
       return
     }
+
     return {
       lat: centroid[1],
       lon: centroid[0],

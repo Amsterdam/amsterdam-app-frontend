@@ -78,6 +78,7 @@ export const Alert = () => {
                   LayoutAnimation.Presets.easeInEaseOut,
                 )
               }
+
               dispatch(resetAlert())
             }}
             {...props}
@@ -142,6 +143,7 @@ const createStyles =
     if (!variant) {
       return
     }
+
     const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
 
     return StyleSheet.create({

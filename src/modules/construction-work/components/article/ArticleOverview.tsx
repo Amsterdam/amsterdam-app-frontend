@@ -56,11 +56,13 @@ export const ArticleOverview = ({
     (result: YearlyArticleSection[], article) => {
       const year = getYearOfPublicationDate(article.publication_date)
       const section = result.find(s => s.title === year)
+
       if (section) {
         section.data.push(article)
       } else {
         result.push({title: year, data: [article]})
       }
+
       return result
     },
     [] as YearlyArticleSection[],
@@ -70,6 +72,7 @@ export const ArticleOverview = ({
     () =>
       navigation.addListener('blur', () => {
         const {index, routes} = navigation.getState()
+
         if (
           routes[index].name === ConstructionWorkRouteName.constructionWork &&
           articles

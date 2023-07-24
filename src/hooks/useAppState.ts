@@ -27,6 +27,7 @@ export const useAppState = ({
       } else if (appState !== 'background' && nextAppState === 'background') {
         onBackground?.()
       }
+
       onChange?.(nextAppState)
       setAppState(nextAppState)
     }

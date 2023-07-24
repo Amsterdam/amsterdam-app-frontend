@@ -40,6 +40,7 @@ describe('getCoordinates', () => {
     lat: 52.37403,
     lon: 4.88969,
   }
+
   test('should return coordinates when provided', () => {
     expect(getCoordinates([4.88969, 52.37403], coordinates)).toEqual(
       coordinates,
@@ -85,6 +86,7 @@ describe('transformAddressApiResponse', () => {
       postcode: '1234AB',
       street: 'Hoofdweg',
     }
+
     expect(transformAddressApiResponse(addressApiResponse)).toEqual(
       expectedAddress,
     )
@@ -116,6 +118,7 @@ describe('transformAddressApiResponse', () => {
       postcode: '1234AB',
       street: 'Hoofdweg',
     }
+
     expect(transformAddressApiResponse(addressApiResponse)).toEqual(
       expectedAddress,
     )

@@ -64,6 +64,7 @@ export const linking: LinkingOptions<RootStackParams> = {
       const routeWithPrefix =
         initialNotification?.data &&
         createRoutWithPrefixFromDataObject(initialNotification.data)
+
       return routeWithPrefix ?? null
     } catch (error) {
       devLog(error)
@@ -71,13 +72,16 @@ export const linking: LinkingOptions<RootStackParams> = {
   },
   getStateFromPath: (path, config) => {
     const state = getStateFromPath(path, config)
+
     if (state) {
       const {routes} = state
       const homeRouteName = ModuleSlug.home
+
       if (routes?.length === 1 && routes[0].name !== homeRouteName) {
         state.routes.unshift({name: homeRouteName})
       }
     }
+
     return state
   },
   subscribe: (listener: (deeplink: string) => void) => {
@@ -92,6 +96,7 @@ export const linking: LinkingOptions<RootStackParams> = {
     ) => {
       const routeWithPrefix =
         message?.data && createRoutWithPrefixFromDataObject(message.data)
+
       routeWithPrefix && listener(routeWithPrefix)
     }
 
@@ -106,6 +111,7 @@ export const linking: LinkingOptions<RootStackParams> = {
         id: 'default',
         name: 'Default Channel',
       })
+
       if (message.notification) {
         void notifee.displayNotification({
           title: message.notification.title,

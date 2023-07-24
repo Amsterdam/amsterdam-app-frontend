@@ -140,11 +140,14 @@ export const getModuleStack = (
   slug: ModuleSlug,
 ): ComponentType<unknown> | null => {
   const stack = stacks[slug]
+
   if (stack) {
     return stack
   }
+
   console.error(
     `Stack not found for module with slug ${slug}. Add it to @/modules/stacks.ts.`,
   )
+
   return null
 }

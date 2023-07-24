@@ -12,9 +12,11 @@ export const useForegroundPushNotificationHandler = () => {
 
   const createUrlFromDataObject = (dataObj: PushNotificationData) => {
     const notificationType = dataObj.type && pushNotificationTypes[dataObj.type]
+
     if (!notificationType) {
       return
     }
+
     if (notificationType?.route) {
       return dataObj.linkSourceid
         ? `${notificationType.route}/${dataObj.linkSourceid}`
@@ -29,7 +31,9 @@ export const useForegroundPushNotificationHandler = () => {
       if (!notification?.data) {
         return
       }
+
       const url = createUrlFromDataObject(notification.data)
+
       url && linkTo(url)
     }
 

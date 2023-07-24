@@ -52,12 +52,14 @@ export const PiwikProvider = ({children}: Props) => {
         })
         .catch((error: Error) => {
           setPiwikInstance(null)
+
           if (
             error.message === PiwikError.alreadyInitialized ||
             error.message === PiwikError.missingEnvVars
           ) {
             return
           }
+
           sendSentryErrorLog('Piwik initialization failed', 'useInitPiwik.ts', {
             error,
           })

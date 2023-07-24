@@ -42,6 +42,7 @@ const getAddPhotoFeedback = (
       viaCamera ? 'camera' : 'fotobibliotheek'
     } te gebruiken.`
   }
+
   return `Sorry, er is iets misgegaan. De app kan geen gebruik maken van je ${
     viaCamera ? 'camera' : 'fotobibliotheek'
   }.`
@@ -76,6 +77,7 @@ export const useOpenImagePicker = (
       if (code === ImageCropPickerError.E_PICKER_CANCELLED) {
         return
       }
+
       dispatch(
         setAlert({
           closeType: AlertCloseType.withoutButton,

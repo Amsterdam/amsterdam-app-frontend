@@ -41,9 +41,12 @@ export const AddressForm = () => {
   const removeWeespSuffix = useCallback((streetName: string) => {
     if (streetName.includes(AddressCity.Weesp)) {
       setCity(AddressCity.Weesp)
+
       return streetName.replace(/ \(Weesp\)/g, '')
     }
+
     setCity(AddressCity.Amsterdam)
+
     return streetName
   }, [])
 

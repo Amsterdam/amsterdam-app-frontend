@@ -49,7 +49,9 @@ export const initSentry = () => {
   if (appFlavour === AppFlavour.local) {
     return
   }
+
   const version = getVersion()
+
   init({
     dsn: 'https://39ba20d819034bc2a98af077acec8bec@o1315195.ingest.sentry.io/6567463',
     environment: appFlavour,
@@ -66,6 +68,7 @@ export const initSentry = () => {
           },
         }
       }
+
       return breadcrumb
     },
     // beforeSend: event => event, // process the event before sending it to Sentry
@@ -132,11 +135,13 @@ export const sentryLoggerMiddleware: Middleware =
       const consent = true
       let error = 'Rejected RTK action'
       let dataWithDangerousSentryScrubbingOverride
+
       if ((action.meta.arg as {endpointName: string})?.endpointName) {
         error = `${
           (action.payload as {originalStatus: string})?.originalStatus ??
           'Error'
         } for ${(action.meta.arg as {endpointName: string}).endpointName}`
+
         // temporarily log additional data for getModulesForApp
         if (
           (action.meta.arg as {endpointName: string}).endpointName ===
@@ -147,6 +152,7 @@ export const sentryLoggerMiddleware: Middleware =
           ).baseQueryMeta
         }
       }
+
       const url = sanitizeUrl(
         (
           action.meta as unknown as {
@@ -154,12 +160,14 @@ export const sentryLoggerMiddleware: Middleware =
           }
         ).baseQueryMeta?.request?.url ?? '',
       )
+
       if (!url.startsWith('http://localhost')) {
         const endpoint = (action.meta.arg as {endpointName: string})
           .endpointName
         const status =
           (action.payload as {originalStatus: string})?.originalStatus ??
           'unknown'
+
         setTag('endpoint', endpoint)
         setTag('status', status)
         getSendSentryErrorLog(!!consent)(error, 'sentry.ts', {
@@ -174,5 +182,6 @@ export const sentryLoggerMiddleware: Middleware =
         setTag('status', undefined)
       }
     }
+
     return next(action)
   }

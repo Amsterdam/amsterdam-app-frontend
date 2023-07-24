@@ -6,6 +6,7 @@ export const isEmptyObject = (
       return false
     }
   }
+
   return true
 }
 

@@ -24,12 +24,15 @@ export const useMarkArticleAsRead = () => {
   const markAsRead = useCallback(
     (article: ReadArticle) => {
       deleteOldArticles()
+
       if (getDateDiffInDays(article.publicationDate) > recentArticleMaxAge) {
         return
       }
+
       if (readArticles.find(readArticle => readArticle.id === article.id)) {
         return
       }
+
       dispatch(addReadArticle(article))
     },
     [deleteOldArticles, dispatch, readArticles],

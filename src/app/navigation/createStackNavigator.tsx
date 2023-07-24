@@ -8,6 +8,7 @@ export const createStackNavigator = <T extends ParamListBase>() => {
 
   const CustomNavigator: typeof Navigator = ({screenOptions, ...props}) => {
     const isReduceMotionEnabled = useIsReduceMotionEnabled()
+
     return (
       <Navigator
         {...props}
@@ -18,5 +19,6 @@ export const createStackNavigator = <T extends ParamListBase>() => {
       />
     )
   }
+
   return {...rest, Navigator: CustomNavigator}
 }

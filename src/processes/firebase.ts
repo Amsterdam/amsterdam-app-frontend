@@ -25,11 +25,13 @@ const mapPermissionStatus = (fcmAuthStatus: number): Permission => {
  */
 export const requestPushNotificationsPermission = async () => {
   const authStatus = await messaging().requestPermission()
+
   return mapPermissionStatus(authStatus)
 }
 
 export const getPushNotificationsPermission = async () => {
   const authStatus = await messaging().hasPermission()
+
   return mapPermissionStatus(authStatus)
 }
 

@@ -98,6 +98,7 @@ export const useInfiniteScroller = <T>(
                 defaultEmptyItem,
                 keyName,
               )
+
         return [...acc, ...pageData]
       }, []) as T[],
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,

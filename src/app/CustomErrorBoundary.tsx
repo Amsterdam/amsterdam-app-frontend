@@ -16,6 +16,7 @@ export class CustomErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: unknown) {
     devLog(error)
+
     return {hasError: true}
   }
 

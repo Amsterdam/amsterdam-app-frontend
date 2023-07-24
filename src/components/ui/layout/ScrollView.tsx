@@ -16,6 +16,7 @@ export const ScrollView = ({
   ...scrollViewProps
 }: Props) => {
   const insets = useSafeAreaInsets()
+
   return (
     <RNScrollView
       contentContainerStyle={!!grow && layoutStyles.grow}

@@ -5,6 +5,7 @@ export const shallowEqual = (
   if (!object1 || !object2) {
     return false
   }
+
   if (typeof object1 !== 'object' || typeof object2 !== 'object') {
     return false
   }

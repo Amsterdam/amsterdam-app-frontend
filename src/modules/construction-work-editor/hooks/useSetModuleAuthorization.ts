@@ -21,8 +21,10 @@ export const useSetModuleAuthorization = () => {
         isApiAuthorizationError(getProjectManagerError)
       ) {
         dispatch(removeAuthorizedModule(ModuleSlug['construction-work-editor']))
+
         return
       }
+
       if (isGetProjectManagerSuccess) {
         dispatch(addAuthorizedModule(ModuleSlug['construction-work-editor']))
       }
