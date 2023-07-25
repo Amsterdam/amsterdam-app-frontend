@@ -51,8 +51,9 @@ const createStyles =
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
-        flex: grow ? 1 : undefined,
         backgroundColor: color.pressable[variant].default,
+        flex: grow ? 1 : undefined,
+        flexShrink: grow ? 0 : 1,
       },
       pressed: {
         backgroundColor: color.pressable[variant].highlight,
