@@ -33,7 +33,7 @@ export const useInfiniteScroller = <T>(
   pageSize = 10,
   queryParams: InfiniteScrollerQueryParams = {},
 ) => {
-  const reduxState = useAppSelector(state => state)
+  const reduxApiState = useAppSelector(state => state.api)
 
   const {
     data: previousData,
@@ -87,7 +87,7 @@ export const useInfiniteScroller = <T>(
           page: index + 1,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-        })(reduxState)
+        })({api: reduxApiState})
         // if there is no data, fill the page with empty items
         const pageData =
           data?.result && status === QueryStatus.fulfilled
