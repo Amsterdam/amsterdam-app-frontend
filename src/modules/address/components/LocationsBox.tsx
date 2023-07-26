@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation'
+import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
