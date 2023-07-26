@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Sync development certificates
 
+### ios syncAdhoc
+
+```sh
+[bundle exec] fastlane ios syncAdhoc
+```
+
+Sync adhoc certificates
+
 ### ios syncAppstore
 
 ```sh

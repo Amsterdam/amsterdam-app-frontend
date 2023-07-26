@@ -2,6 +2,13 @@ trigger: none
 
 pr: none
 
+schedules:
+  - cron: '0 0 * * 1'
+    displayName: Monday certificates sync
+    branches:
+      include:
+      - main
+
 resources:
   repositories:
     - repository: Amsterdam-App-Frontend-iOS-Certificates
