@@ -27,13 +27,18 @@ export const LocationsBox = () => {
           <DisplayAddress />
         </Column>
       </Box>
-      <InlineLink
-        onPress={() => {
-          navigation.navigate(AddressModalName.privacyInfo)
-        }}
-        phraseVariant="small">
-        Hoe gebruiken we uw adres en locatie?
-      </InlineLink>
+
+      <Box
+        insetHorizontal="md"
+        insetVertical="no">
+        <InlineLink
+          onPress={() => {
+            navigation.navigate(AddressModalName.privacyInfo)
+          }}
+          phraseVariant="small">
+          Hoe gebruiken we uw adres en locatie?
+        </InlineLink>
+      </Box>
     </Column>
   )
 }
