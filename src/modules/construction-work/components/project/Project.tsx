@@ -54,7 +54,7 @@ export const Project = ({id}: Props) => {
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
-  const {registerDeviceWithPermission} = useRegisterDevice()
+  const {registerDeviceWithPermission} = useRegisterDevice(true)
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
