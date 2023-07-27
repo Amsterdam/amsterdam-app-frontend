@@ -63,8 +63,6 @@ export const StreetSearchResult = ({
     )
   }
 
-  console.log(bagList)
-
   return (
     <>
       {bagList.map(bagItem => (

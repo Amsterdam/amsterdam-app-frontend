@@ -72,6 +72,7 @@ import {
 import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
 import {WelcomeStack} from '@/modules/welcome/Stack'
 import {WelcomeRouteName, WelcomeStackParams} from '@/modules/welcome/routes'
+import {devError} from '@/processes'
 
 export type ModuleRoutes =
   | AboutRouteName
@@ -145,7 +146,7 @@ export const getModuleStack = (
     return stack
   }
 
-  console.error(
+  devError(
     `Stack not found for module with slug ${slug}. Add it to @/modules/stacks.ts.`,
   )
 
