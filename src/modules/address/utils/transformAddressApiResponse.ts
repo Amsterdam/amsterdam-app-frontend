@@ -1,11 +1,34 @@
-import {Address, AddressCity, ApiAddress} from '@/modules/address/types'
+import {
+  Address,
+  AddressCity,
+  AddressSuggestion,
+  Coordinates,
+} from '@/modules/address/types'
 
-export const getAddition = (bag_huisletter: string, bag_toevoeging: string) => {
-  if (!bag_huisletter && !bag_toevoeging) {
+export const getAddition = (
+  huisletter?: string,
+  toevoeging?: string,
+): string | undefined => {
+  if (!huisletter && !toevoeging) {
     return
   }
 
-  return bag_huisletter || bag_toevoeging
+  return huisletter || toevoeging
+}
+
+export const getAddressLine1 = (
+  address: Pick<
+    AddressSuggestion,
+    'straatnaam' | 'huisnummer' | 'huisletter' | 'huisnummertoevoeging'
+  >,
+) => {
+  if (address?.straatnaam && address?.huisnummer) {
+    return `${address.straatnaam} ${address.huisnummer}${
+      address.huisletter ?? ''
+    }${address.huisnummertoevoeging ? '-' + address.huisnummertoevoeging : ''}`
+  } else {
+    return ''
+  }
 }
 
 export const getAddressLine2 = (postcode: string, city: AddressCity) => {
@@ -16,47 +39,48 @@ export const getAddressLine2 = (postcode: string, city: AddressCity) => {
   return `${postcode.slice(0, 4)} ${postcode.slice(4)} ${city.toUpperCase()}`
 }
 
+const coordinatesRegex = /^POINT\((?<lon>\d+\.\d+) (?<lat>\d+\.\d+)\)$/
+
 export const getCoordinates = (
-  centroid?: [number, number],
-  coordinates?: Address['coordinates'],
-) => {
-  if (!coordinates) {
-    if (!centroid) {
-      return
-    }
+  centroid: AddressSuggestion['centroide_ll'],
+): Coordinates | undefined => {
+  const result = coordinatesRegex.exec(centroid)
+
+  if (result?.groups) {
+    const {lat, lon} = result.groups as {lat: string; lon: string}
 
     return {
-      lat: centroid[1],
-      lon: centroid[0],
+      lat: +lat,
+      lon: +lon,
     }
+  } else {
+    return undefined
   }
-
-  return coordinates
 }
 
-export const transformAddressApiResponse = (address: ApiAddress): Address => {
+export const transformAddressApiResponse = (
+  address: AddressSuggestion,
+): Address => {
   const {
-    adres,
-    bag_huisletter,
-    bag_toevoeging,
-    centroid,
-    coordinates,
+    huisletter,
+    huisnummertoevoeging,
+    centroide_ll,
     huisnummer,
-    landelijk_id,
+    nummeraanduiding_id,
     postcode,
     straatnaam,
-    woonplaats,
+    woonplaatsnaam,
   } = address
 
   return {
-    addition: getAddition(bag_huisletter, bag_toevoeging),
-    additionLetter: bag_huisletter || undefined,
-    additionNumber: bag_toevoeging || undefined,
-    addressLine1: adres,
-    addressLine2: getAddressLine2(postcode, woonplaats),
-    bagId: landelijk_id,
-    city: woonplaats,
-    coordinates: getCoordinates(centroid, coordinates),
+    addition: getAddition(huisletter, huisnummertoevoeging),
+    additionLetter: huisletter || undefined,
+    additionNumber: huisnummertoevoeging || undefined,
+    addressLine1: getAddressLine1(address),
+    addressLine2: getAddressLine2(postcode, woonplaatsnaam),
+    bagId: nummeraanduiding_id,
+    city: woonplaatsnaam,
+    coordinates: getCoordinates(centroide_ll),
     number: huisnummer,
     postcode,
     street: straatnaam,

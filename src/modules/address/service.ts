@@ -1,50 +1,42 @@
-import {Address, BagResponse, ResponseAddress} from '@/modules/address/types'
-import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
+import {AddressSuggestResponse} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-const addressPath = '/search/adres/'
-const bagPath = '/typeahead/bag/'
-
-type AddressParams = {
+type QueryParams = {
   address: string
-  city: Address['city']
+  city?: string
+  street?: string
 }
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
-    getAddress: query<Address, AddressParams>({
-      query: ({address}) => ({
+    getAddressSuggestions: query<
+      AddressSuggestResponse | undefined,
+      QueryParams
+    >({
+      query: ({address, city, street}) => ({
         url: generateRequestUrl({
-          params: {features: 2, q: address},
-          path: addressPath,
+          params: {
+            q: address,
+            fl: 'straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
+            fq: [
+              `type:(${street ? 'adres' : 'weg OR adres'})`,
+              `woonplaatsnaam:(${city?.toLowerCase() ?? 'amsterdam OR weesp'})`,
+              ...(street ? [`straatnaam:${street.toLowerCase()}`] : []),
+            ],
+            qf: 'exacte_match^0.5 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
+            bq: ['type:weg^1.5', 'type:adres^1'],
+            rows: 20,
+          },
+          path: '/free',
         }),
-        api: 'atlasUrl',
+        api: 'addressUrl',
         keepUnusedDataFor: CacheLifetime.day,
       }),
-      transformResponse: ({results}: ResponseAddress, _meta, {city}) => {
-        const address = results.find(r => r.woonplaats === city) ?? results[0]
-
-        return transformAddressApiResponse(address)
-      },
-    }),
-    getBag: query<BagResponse | undefined, string>({
-      query: address => ({
-        url: generateRequestUrl({
-          params: {features: 2, q: address},
-          path: bagPath,
-        }),
-        api: 'atlasUrl',
-        keepUnusedDataFor: CacheLifetime.day,
-      }),
-      transformResponse: (bagResponse: BagResponse[]) =>
-        bagResponse?.find(
-          ({label}) => label === 'Adressen' || label === 'Straatnamen',
-        ),
     }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetAddressQuery, useGetBagQuery} = addressApi
+export const {useGetAddressSuggestionsQuery} = addressApi

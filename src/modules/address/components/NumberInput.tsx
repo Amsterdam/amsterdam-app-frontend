@@ -13,7 +13,7 @@ import {SearchField} from '@/components/ui/forms'
 import {Column, Row} from '@/components/ui/layout'
 import {useIsReduceMotionEnabled} from '@/hooks'
 import {NumberSearchResult} from '@/modules/address/components/NumberSearchResult'
-import {Address, BagResponse} from '@/modules/address/types'
+import {AddressSuggestion} from '@/modules/address/types'
 import {useTheme} from '@/themes'
 
 type WithAnimationProps = {
@@ -37,13 +37,12 @@ const WithAnimation = ({
 )
 
 type Props = {
-  bagList: BagResponse | null | undefined
+  bagList: AddressSuggestion[] | null | undefined
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
-  city: Address['city']
   keyboardType: KeyboardTypeOptions | undefined
   number: string
-  selectNumber: (text: string) => void
+  selectResult: (item: AddressSuggestion) => void
   street: string
 }
 
@@ -51,10 +50,9 @@ export const NumberInput = ({
   bagList,
   changeNumber,
   changeIsStreetSelected,
-  city,
   keyboardType,
   number,
-  selectNumber,
+  selectResult,
   street,
 }: Props) => {
   const {size} = useTheme()
@@ -106,9 +104,8 @@ export const NumberInput = ({
           style={styles.flex}>
           <NumberSearchResult
             bagList={bagList}
-            city={city}
             number={number}
-            selectNumber={selectNumber}
+            selectResult={selectResult}
           />
         </KeyboardAwareScrollView>
       </View>

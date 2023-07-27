@@ -6,8 +6,8 @@ export enum Environment {
 }
 
 export type EnvironmentConfig = {
+  addressUrl: string
   apiUrl: string
-  atlasUrl: string
   bulkyWasteAppointmentUrl: string
   complaintUrl: string
   makeAppointmentWeespUrl: string
@@ -34,7 +34,7 @@ enum ApiUrls {
 }
 
 enum ExternalApiUrls {
-  atlasProd = 'https://api.data.amsterdam.nl/atlas',
+  addressProd = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1',
 }
 
 enum ExternalWebUrls {
@@ -52,7 +52,7 @@ enum ExternalWebUrls {
 
 const sharedEnvironmentConfig: Pick<
   EnvironmentConfig,
-  | 'atlasUrl'
+  | 'addressUrl'
   | 'bulkyWasteAppointmentUrl'
   | 'complaintUrl'
   | 'makeAppointmentWeespUrl'
@@ -60,7 +60,7 @@ const sharedEnvironmentConfig: Pick<
   | 'wasteCollectionPointsUrl'
   | 'wasteContainersUrl'
 > = {
-  atlasUrl: ExternalApiUrls.atlasProd,
+  addressUrl: ExternalApiUrls.addressProd,
   bulkyWasteAppointmentUrl: ExternalWebUrls.bulkyWasteAppointmentProd,
   complaintUrl: ExternalWebUrls.complaintProd,
   makeAppointmentWeespUrl: ExternalWebUrls.makeAppointmentWeespProd,

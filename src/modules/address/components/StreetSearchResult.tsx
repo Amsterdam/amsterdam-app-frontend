@@ -2,21 +2,40 @@ import {Box} from '@/components/ui/containers'
 import {EmptyMessage, Spinner} from '@/components/ui/feedback'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
-import {BagResponse} from '@/modules/address/types'
+import {AddressSuggestion} from '@/modules/address/types'
+import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
 
 type StreetSearchResultProps = {
-  bagList: BagResponse | null | undefined
+  bagList: AddressSuggestion[] | null | undefined
   isLoading: boolean
   isStreetSelected: boolean
-  selectStreet: (text: string) => void
+  selectResult: (item: AddressSuggestion) => void
   street: string
+}
+
+const showSuggestion = (suggestion: AddressSuggestion): string => {
+  if (suggestion.type === 'weg') {
+    if (suggestion.woonplaatsnaam === 'Amsterdam') {
+      return suggestion.straatnaam
+    } else {
+      return `${suggestion.straatnaam}, ${suggestion.woonplaatsnaam}`
+    }
+  }
+
+  const streetAndHouseNumber = getAddressLine1(suggestion)
+
+  if (suggestion.woonplaatsnaam === 'Amsterdam') {
+    return streetAndHouseNumber
+  } else {
+    return `${streetAndHouseNumber}, ${suggestion.woonplaatsnaam}`
+  }
 }
 
 export const StreetSearchResult = ({
   bagList,
   isLoading,
   isStreetSelected,
-  selectStreet,
+  selectResult,
   street,
 }: StreetSearchResultProps) => {
   const {addressLengthThreshold} = config
@@ -46,14 +65,14 @@ export const StreetSearchResult = ({
 
   return (
     <>
-      {bagList.content.map(bagItem => (
+      {bagList.map(bagItem => (
         <SuggestionButton
-          key={bagItem.uri}
-          label={bagItem._display}
+          key={bagItem.nummeraanduiding_id}
+          label={showSuggestion(bagItem)}
           onPress={() => {
-            selectStreet(bagItem._display)
+            selectResult(bagItem)
           }}
-          testID={`AddressSearchResult${bagItem._display}Button`}
+          testID={`AddressSearchResult${bagItem.nummeraanduiding_id}Button`}
         />
       ))}
     </>

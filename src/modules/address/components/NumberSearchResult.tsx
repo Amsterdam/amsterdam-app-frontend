@@ -1,47 +1,29 @@
 import {Box} from '@/components/ui/containers'
 import {EmptyMessage} from '@/components/ui/feedback'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {
-  AddressCity,
-  BagResponse,
-  BagResponseContent,
-} from '@/modules/address/types'
+import {AddressSuggestion} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
-  bagList: BagResponse | null | undefined
-  city: AddressCity
+  bagList: AddressSuggestion[] | null | undefined
   number: string
-  selectNumber: (text: string) => void
+  selectResult: (item: AddressSuggestion) => void
 }
 
-const getNumberFromAddress = (text: string) =>
-  text
-    .split(' ')
-    .reverse()
-    .find(el => el.match(/^[0-9]/)) || ''
-
-const getNumbersForCity = (addresses: BagResponseContent, city: string) =>
-  addresses.filter(({_display}) =>
-    city === AddressCity.Weesp
-      ? _display.includes(AddressCity.Weesp)
-      : !_display.includes(AddressCity.Weesp),
-  )
+const showSuggestion = (suggestion: AddressSuggestion): string =>
+  `${suggestion.huisnummer}${suggestion.huisletter ?? ''}${
+    suggestion.huisnummertoevoeging ? `-${suggestion.huisnummertoevoeging}` : ''
+  }`
 
 export const NumberSearchResult = ({
   bagList,
-  city,
-  selectNumber,
+  selectResult,
   number,
 }: NumberSearchResultProps) => {
-  const numbersForCity = bagList
-    ? getNumbersForCity(bagList?.content, city)
-    : []
-
   if (number.length < 1) {
     return null
   }
 
-  if (!numbersForCity.length) {
+  if (!bagList?.length) {
     return (
       <Box insetVertical="md">
         <EmptyMessage text="Huisnummer niet gevonden. Controleer het huisnummer. Of probeer een ander nummer." />
@@ -51,14 +33,14 @@ export const NumberSearchResult = ({
 
   return (
     <>
-      {numbersForCity.map(bagItem => (
+      {bagList.map(bagItem => (
         <SuggestionButton
-          key={bagItem._display}
-          label={getNumberFromAddress(bagItem._display)}
+          key={bagItem.nummeraanduiding_id}
+          label={showSuggestion(bagItem)}
           onPress={() => {
-            selectNumber(getNumberFromAddress(bagItem._display))
+            selectResult(bagItem)
           }}
-          testID={`AddressSearchResult${bagItem._display}Button`}
+          testID={`AddressSearchResult${bagItem.nummeraanduiding_id}Button`}
         />
       ))}
     </>

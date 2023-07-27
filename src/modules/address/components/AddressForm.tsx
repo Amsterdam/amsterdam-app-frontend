@@ -13,9 +13,10 @@ import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
 import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
-import {useGetAddressQuery, useGetBagQuery} from '@/modules/address/service'
+import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
-import {AddressCity} from '@/modules/address/types'
+import {AddressCity, AddressSuggestion} from '@/modules/address/types'
+import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {DeviceContext} from '@/providers/device.provider'
 import {resetAlert, setAlert} from '@/store/slices/alert'
 
@@ -23,8 +24,7 @@ export const AddressForm = () => {
   const {isLandscape, isTablet} = useContext(DeviceContext)
   const dispatch = useDispatch()
   const [isStreetSelected, setIsStreetSelected] = useState(false)
-  const [isNumberSelected, setIsNumberSelected] = useState(false)
-  const [city, setCity] = useState<AddressCity>(AddressCity.Amsterdam)
+  const [city, setCity] = useState<AddressCity | undefined>(undefined)
   const [number, setNumber] = useState<string>('')
   const [street, setStreet] = useState<string>('')
 
@@ -38,79 +38,56 @@ export const AddressForm = () => {
       StackNavigationProp<RootStackParams, AddressModalName.addressForm>
     >()
 
-  const removeWeespSuffix = useCallback((streetName: string) => {
-    if (streetName.includes(AddressCity.Weesp)) {
-      setCity(AddressCity.Weesp)
-
-      return streetName.replace(/ \(Weesp\)/g, '')
-    }
-
-    setCity(AddressCity.Amsterdam)
-
-    return streetName
-  }, [])
-
-  const {data: bagList, isLoading: isLoadingBagList} = useGetBagQuery(address, {
-    skip: address?.length < addressLengthThreshold,
-  })
-
-  const isAddress = bagList?.label === 'Adressen' // indicator from BE response that the address is complete
-  const isAddressComplete = isNumberSelected && isStreetSelected && isAddress
-
-  const {data: addressData} = useGetAddressQuery(
-    {address, city},
-    {
-      skip: !isAddressComplete,
-    },
-  )
-
-  const changeNumber = (text: string) => {
-    setNumber(text)
-  }
+  const {data: bagList, isLoading: isLoadingBagList} =
+    useGetAddressSuggestionsQuery(
+      {address, city, street: isStreetSelected ? street : undefined},
+      {
+        skip: address?.length < addressLengthThreshold,
+      },
+    )
 
   const changeStreet = (text: string) => {
     setIsStreetSelected(false)
+    setCity(undefined)
     setStreet(text)
     setNumber('')
   }
 
-  const selectNumber = (text: string) => {
-    setNumber(text)
-    setIsNumberSelected(true)
-  }
-
-  const selectStreet = (text: string) => {
-    setStreet(removeWeespSuffix(text))
-    setIsStreetSelected(true)
-    isAddress && setIsNumberSelected(true)
-  }
+  const selectResult = useCallback(
+    (item: AddressSuggestion) => {
+      if (item.type === 'weg') {
+        setIsStreetSelected(true)
+        setStreet(item.straatnaam)
+        setCity(item.woonplaatsnaam)
+      } else {
+        dispatch(addAddress(transformAddressApiResponse(item)))
+        dispatch(
+          setAlert({
+            closeType: AlertCloseType.withoutButton,
+            content: {
+              title: 'Gelukt',
+              text: 'Het adres is toegevoegd aan uw profiel.',
+            },
+            testID: 'AddressAddedAlert',
+            variant: AlertVariant.positive,
+            withIcon: false,
+          }),
+        )
+        navigation.goBack()
+      }
+    },
+    [dispatch, navigation],
+  )
 
   useFocusEffect(() => {
     dispatch(resetAlert())
   })
 
   useEffect(() => {
-    if (addressData) {
-      dispatch(addAddress(addressData))
-      dispatch(
-        setAlert({
-          closeType: AlertCloseType.withoutButton,
-          content: {
-            title: 'Gelukt',
-            text: 'Het adres is toegevoegd aan uw profiel.',
-          },
-          testID: 'AddressAddedAlert',
-          variant: AlertVariant.positive,
-          withIcon: false,
-        }),
-      )
-      navigation.goBack()
+    if (!isStreetSelected) {
+      setCity(undefined)
     }
-  }, [addressData, dispatch, navigation])
-
-  if (isAddressComplete) {
-    return null
-  }
+  }, [isStreetSelected])
 
   return (
     <Box
@@ -119,23 +96,22 @@ export const AddressForm = () => {
       insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
       {!isStreetSelected ? (
         <StreetInput
-          bagList={bagList}
+          bagList={bagList?.response.docs ?? []}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
           isLoading={isLoadingBagList}
           isStreetSelected={isStreetSelected}
-          selectStreet={selectStreet}
+          selectResult={selectResult}
           street={street}
         />
       ) : (
         <NumberInput
-          bagList={bagList}
+          bagList={bagList?.response.docs ?? []}
           changeIsStreetSelected={setIsStreetSelected}
-          changeNumber={changeNumber}
-          city={city}
+          changeNumber={setNumber}
           keyboardType="numeric"
           number={number}
-          selectNumber={selectNumber}
+          selectResult={selectResult}
           street={street}
         />
       )}
