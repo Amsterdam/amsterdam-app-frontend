@@ -15,10 +15,11 @@ export const Init = ({children}: Props) => {
   useForegroundPushNotificationHandler()
   useInitSentry()
   const piwik = usePiwik()
-  const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
+  const {registerDeviceWithPermission, unregisterDevice} =
+    useRegisterDevice(false)
   const {enabledModules} = useModules()
 
-  const onAppstate = useMemo(
+  const onAppState = useMemo(
     () => ({
       onForeground: () => {
         if (enabledModules?.some(module => module.requiresFirebaseToken)) {
@@ -34,7 +35,7 @@ export const Init = ({children}: Props) => {
     [enabledModules, piwik, registerDeviceWithPermission, unregisterDevice],
   )
 
-  useAppState(onAppstate)
+  useAppState(onAppState)
 
   return (
     <>

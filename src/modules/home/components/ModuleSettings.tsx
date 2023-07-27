@@ -9,7 +9,8 @@ import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
 export const ModuleSettings = () => {
   const {toggleableModules, modulesLoading, enabledModules} = useModules()
 
-  const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
+  const {registerDeviceWithPermission, unregisterDevice} =
+    useRegisterDevice(false)
 
   useEffect(() => {
     if (enabledModules?.some(module => module.requiresFirebaseToken)) {

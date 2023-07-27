@@ -2,6 +2,7 @@ import {useCallback} from 'react'
 import {useSentry} from '@/hooks/useSentry'
 import {
   getFcmToken,
+  getPushNotificationsPermission,
   Permission,
   requestPushNotificationsPermission,
 } from '@/processes'
@@ -10,7 +11,7 @@ import {
   useUnregisterDeviceMutation,
 } from '@/services'
 
-export const useRegisterDevice = () => {
+export const useRegisterDevice = (askPermission = true) => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
   const [unregisterDevice] = useUnregisterDeviceMutation()
   const {sendSentryErrorLog} = useSentry()
@@ -25,7 +26,11 @@ export const useRegisterDevice = () => {
   )
 
   const registerDeviceWithPermission = useCallback(() => {
-    requestPushNotificationsPermission()
+    const permissionFn = askPermission
+      ? requestPushNotificationsPermission
+      : getPushNotificationsPermission
+
+    permissionFn()
       .then(registerDevice)
       .catch((error: unknown) => {
         sendSentryErrorLog(
@@ -36,7 +41,7 @@ export const useRegisterDevice = () => {
           },
         )
       })
-  }, [registerDevice, sendSentryErrorLog])
+  }, [registerDevice, sendSentryErrorLog, askPermission])
 
   return {registerDeviceWithPermission, unregisterDevice}
 }
