@@ -35,12 +35,12 @@ export const NumberSearchResult = ({
     <>
       {bagList.map(bagItem => (
         <SuggestionButton
-          key={bagItem.nummeraanduiding_id}
+          key={bagItem.id}
           label={showSuggestion(bagItem)}
           onPress={() => {
             selectResult(bagItem)
           }}
-          testID={`AddressSearchResult${bagItem.nummeraanduiding_id}Button`}
+          testID={`AddressSearchResult${bagItem.id}Button`}
         />
       ))}
     </>

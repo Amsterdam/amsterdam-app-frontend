@@ -76,6 +76,7 @@ describe('getCoordinates', () => {
 describe('transformAddressApiResponse', () => {
   test('should transform the address API response into the correct address format, with letter addition', () => {
     const addressApiResponse = {
+      id: '123',
       centroide_ll: 'POINT(4.85284154 52.36303093)',
       huisletter: 'A',
       huisnummer: 123,
@@ -106,6 +107,7 @@ describe('transformAddressApiResponse', () => {
   })
   test('should transform the address API response into the correct address format, with number addition', () => {
     const addressApiResponse = {
+      id: '123',
       centroide_ll: 'POINT(4.85284154 52.36303093)',
       huisnummertoevoeging: '4',
       huisnummer: 123,

@@ -19,7 +19,7 @@ export const addressApi = baseApi.injectEndpoints({
         url: generateRequestUrl({
           params: {
             q: address,
-            fl: 'straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
+            fl: 'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
             fq: [
               `type:(${street ? 'adres' : 'weg OR adres'})`,
               `woonplaatsnaam:(${city?.toLowerCase() ?? 'amsterdam OR weesp'})`,

@@ -33,6 +33,7 @@ export type AddressSuggestion = {
   huisletter?: string
   huisnummer: number
   huisnummertoevoeging?: string
+  id: string
   nummeraanduiding_id: string
   postcode: string
   score: number
