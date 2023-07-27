@@ -10,7 +10,7 @@ export const ModuleSettings = () => {
   const {toggleableModules, modulesLoading, enabledModules} = useModules()
 
   const {registerDeviceWithPermission, unregisterDevice} =
-    useRegisterDevice(true)
+    useRegisterDevice(false)
 
   useEffect(() => {
     if (enabledModules?.some(module => module.requiresFirebaseToken)) {

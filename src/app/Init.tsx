@@ -15,7 +15,8 @@ export const Init = ({children}: Props) => {
   useForegroundPushNotificationHandler()
   useInitSentry()
   const piwik = usePiwik()
-  const {registerDeviceWithPermission, unregisterDevice} = useRegisterDevice()
+  const {registerDeviceWithPermission, unregisterDevice} =
+    useRegisterDevice(false)
   const {enabledModules} = useModules()
 
   const onAppState = useMemo(

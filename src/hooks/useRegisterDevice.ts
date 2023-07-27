@@ -11,7 +11,7 @@ import {
   useUnregisterDeviceMutation,
 } from '@/services'
 
-export const useRegisterDevice = (askPermission = false) => {
+export const useRegisterDevice = (askPermission = true) => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
   const [unregisterDevice] = useUnregisterDeviceMutation()
   const {sendSentryErrorLog} = useSentry()
