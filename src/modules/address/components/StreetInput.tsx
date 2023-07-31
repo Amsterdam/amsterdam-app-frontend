@@ -3,15 +3,15 @@ import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
-import {BagResponse} from '@/modules/address/types'
+import {AddressSuggestion} from '@/modules/address/types'
 
 type Props = {
-  bagList: BagResponse | null | undefined
+  bagList: AddressSuggestion[] | null | undefined
   changeStreet: (text: string) => void
   inputStreetRef: Ref<TextInput>
   isLoading: boolean
   isStreetSelected: boolean
-  selectStreet: (text: string) => void
+  selectResult: (item: AddressSuggestion) => void
   street: string
 }
 
@@ -21,7 +21,7 @@ export const StreetInput = ({
   inputStreetRef,
   isLoading,
   isStreetSelected,
-  selectStreet,
+  selectResult,
   street,
 }: Props) => (
   <>
@@ -42,7 +42,7 @@ export const StreetInput = ({
         bagList={bagList}
         isLoading={isLoading}
         isStreetSelected={isStreetSelected}
-        selectStreet={selectStreet}
+        selectResult={selectResult}
         street={street}
       />
     </KeyboardAwareScrollView>

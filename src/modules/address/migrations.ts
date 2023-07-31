@@ -1,10 +1,9 @@
 import {MigrationManifest, PersistedState} from 'redux-persist'
 import {AddressState} from '@/modules/address/slice'
-import {AddressCity} from '@/modules/address/types'
+import {Address, AddressCity} from '@/modules/address/types'
 import {
   getAddition,
   getAddressLine2,
-  getCoordinates,
 } from '@/modules/address/utils/transformAddressApiResponse'
 
 type AddressStateNegative1 = {
@@ -21,6 +20,24 @@ type AddressStateNegative1 = {
   postcode: string
   straatnaam: string
   woonplaats: AddressCity
+}
+
+export const parseCentroid = (
+  centroid?: [number, number],
+  coordinates?: Address['coordinates'],
+) => {
+  if (!coordinates) {
+    if (!centroid) {
+      return
+    }
+
+    return {
+      lat: centroid[1],
+      lon: centroid[0],
+    }
+  }
+
+  return coordinates
 }
 
 export const migrations: MigrationManifest = {
@@ -63,7 +80,7 @@ export const migrations: MigrationManifest = {
         addressLine2: getAddressLine2(postcode, woonplaats),
         bagId: bagNummeraanduidingId,
         city: woonplaats,
-        coordinates: getCoordinates(centroid, coordinates),
+        coordinates: parseCentroid(centroid, coordinates),
         number: huisnummer,
         postcode,
         street: straatnaam,

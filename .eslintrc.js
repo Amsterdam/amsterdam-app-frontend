@@ -121,6 +121,7 @@ module.exports = {
         next: ['const', 'let', 'var'],
       },
     ],
+    'no-console': 'error',
   },
   overrides: [
     {
