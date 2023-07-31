@@ -59,7 +59,9 @@ export const Alert = () => {
 
   useEffect(() => {
     if (content) {
-      AccessibilityInfo.announceForAccessibility(content.text)
+      AccessibilityInfo.announceForAccessibility(
+        accessibleText(content.title, content.text),
+      )
     }
   }, [content])
 
