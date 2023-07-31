@@ -17,13 +17,20 @@ export const LocationsBox = () => {
 
   return (
     <Column gutter="md">
-      <Box distinct>
+      <Box
+        distinct
+        insetHorizontal="no"
+        insetVertical="md">
         <Column gutter="md">
-          <Title
-            level="h2"
-            testID="AddressTitle"
-            text="Locaties"
-          />
+          <Box
+            insetHorizontal="md"
+            insetVertical="no">
+            <Title
+              level="h2"
+              testID="AddressTitle"
+              text="Adres"
+            />
+          </Box>
           <DisplayAddress />
         </Column>
       </Box>

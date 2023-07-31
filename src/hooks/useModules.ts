@@ -28,7 +28,12 @@ export const useModules = () => {
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
-  const authorizedModulesBySlug = useSelector(selectAuthorizedModules)
+  const authorizedModulesBySlug = useSelector(
+    selectAuthorizedModules,
+    (a: string[], b: string[]) =>
+      a.length === b.length &&
+      a.every((value: string, index) => value === b[index]),
+  )
   const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(() => {
     if (!serverModules) {
