@@ -87,7 +87,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot je camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string><De Amsterdam app wil toegang tot je locatie/string>
+	<string>De Amsterdam app wil toegang tot je locatie</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot je foto’s</string>
 	<key>UIAppFonts</key>
