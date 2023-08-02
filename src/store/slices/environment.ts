@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Environment, EnvironmentConfig, getEnvironment} from '@/environment'
-import {isDevApp} from '@/processes'
+import {isDevApp} from '@/processes/development'
 import {useAppSelector} from '@/store/hooks'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'

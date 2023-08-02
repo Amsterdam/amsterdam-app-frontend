@@ -18,7 +18,7 @@ import {getUniqueId, getVersion} from 'react-native-device-info'
 import type {Middleware} from '@reduxjs/toolkit'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment} from '@/environment'
-import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes'
+import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()

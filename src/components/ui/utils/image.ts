@@ -1,5 +1,5 @@
 import {ImageURISource, PixelRatio} from 'react-native'
-import {isDevApp} from '@/processes'
+import {isDevApp} from '@/processes/development'
 
 export const sortSourcesByWidthAscending = (
   {width: widthA = 0}: ImageURISource,

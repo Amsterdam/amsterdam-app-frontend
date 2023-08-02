@@ -7,7 +7,7 @@ import {Icon, IconProps} from '@/components/ui/media'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {userModule} from '@/modules/user'
-import {isDevApp} from '@/processes'
+import {isDevApp} from '@/processes/development'
 
 export const HeaderNavigation = () => {
   const navigation =
