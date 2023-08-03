@@ -6,7 +6,7 @@ import {StreetSearchResult} from '@/modules/address/components/StreetSearchResul
 import {AddressSuggestion} from '@/modules/address/types'
 
 type Props = {
-  bagList: AddressSuggestion[] | null | undefined
+  bagList: AddressSuggestion[]
   changeStreet: (text: string) => void
   inputStreetRef: Ref<TextInput>
   isLoading: boolean
