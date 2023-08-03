@@ -41,7 +41,7 @@ export const HeaderNavigation = () => {
             {...iconProps}
           />
         }
-        onPress={() => navigation.navigate(ModuleSlug.home)}
+        onPress={() => navigation.navigate(ModuleSlug.user)}
         testID="HeaderUserButton"
       />
       <IconButton
