@@ -1,6 +1,7 @@
 import {StyleSheet, View} from 'react-native'
-import {Theme, useThemable} from '@/themes'
-import {SpacingTokens} from '@/themes/tokens'
+import {Theme} from '@/themes/themes'
+import {SpacingTokens} from '@/themes/tokens/size'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   height?: keyof SpacingTokens

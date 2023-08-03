@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {Box} from '@/components/ui/containers'
-import {Phrase} from '@/components/ui/text'
+import {Box} from '@/components/ui/containers/Box'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {baseColor} from '@/themes/tokens/base-color'
 
 export default {

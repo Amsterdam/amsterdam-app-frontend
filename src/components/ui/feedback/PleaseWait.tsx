@@ -1,5 +1,5 @@
-import {Spinner} from '@/components/ui/feedback'
-import {Center} from '@/components/ui/layout'
+import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Center} from '@/components/ui/layout/Center'
 
 type Props = {
   grow?: boolean

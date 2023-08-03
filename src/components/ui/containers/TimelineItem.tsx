@@ -1,12 +1,13 @@
 import {Fragment, useContext, useState} from 'react'
 import {View} from 'react-native'
-import {Accordion} from '@/components/ui/containers'
+import {Accordion} from '@/components/ui/containers/Accordion'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
-import {Icon} from '@/components/ui/media'
-import {HtmlContent, Title} from '@/components/ui/text'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
-import {TimelineItem as TimelineItemType} from '@/types'
+import {Icon} from '@/components/ui/media/Icon'
+import {HtmlContent} from '@/components/ui/text/HtmlContent'
+import {Title} from '@/components/ui/text/Title'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
+import {TimelineItem as TimelineItemType} from '@/types/timeline'
 
 type Props = {
   isBeforeUpcoming: boolean

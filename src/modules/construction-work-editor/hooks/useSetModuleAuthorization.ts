@@ -7,7 +7,7 @@ import {
   removeAuthorizedModule,
   addAuthorizedModule,
 } from '@/store/slices/modules'
-import {isApiAuthorizationError} from '@/utils'
+import {isApiAuthorizationError} from '@/utils/api'
 
 export const useSetModuleAuthorization = () => {
   const dispatch = useDispatch()

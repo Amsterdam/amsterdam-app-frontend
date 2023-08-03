@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParams} from '@/app/navigation/types'
-import {TopTaskButton} from '@/components/ui/buttons'
-import {Column} from '@/components/ui/layout'
-import {IconName} from '@/components/ui/media'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {Column} from '@/components/ui/layout/Column'
+import {IconName} from '@/components/ui/media/iconPaths'
 import {TestProps} from '@/components/ui/types'
-import {useOpenWebUrl} from '@/hooks'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {accessibleText} from '@/utils'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type RedirectResponse = {
   iconName: IconName

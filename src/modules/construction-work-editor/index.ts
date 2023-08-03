@@ -1,4 +1,4 @@
-import {PreRenderComponent} from '@/modules/construction-work-editor/components'
+import {PreRenderComponent} from '@/modules/construction-work-editor/components/PreRenderComponent'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'

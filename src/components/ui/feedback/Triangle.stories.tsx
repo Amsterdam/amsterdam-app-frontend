@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Triangle} from '@/components/ui/feedback'
+import {Triangle} from '@/components/ui/feedback/Triangle'
 import {Direction} from '@/components/ui/types'
 
 export default {

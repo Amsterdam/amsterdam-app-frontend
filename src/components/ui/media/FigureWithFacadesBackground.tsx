@@ -6,7 +6,8 @@ import {
 } from '@/assets/images'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {TestProps} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
   Required<Pick<FigureProps, 'height'>>

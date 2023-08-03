@@ -2,19 +2,21 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
-import {ArticlePreview} from '@/modules/construction-work/components/article'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {ArticlePreview} from '@/modules/construction-work/components/article/ArticlePreview'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
 import {useGetArticlesQuery} from '@/modules/construction-work/service'
 import {ArticleSummary} from '@/modules/construction-work/types'
-import {Theme, useThemable} from '@/themes'
-import {getYearOfPublicationDate} from '@/utils'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
+import {getYearOfPublicationDate} from '@/utils/datetime/getYearOfPublicationDate'
 
 type Props = {
   limit?: number

@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {useRegisterDevice} from '@/hooks'
+import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useFollowProjectMutation} from '@/modules/construction-work/service'
 import {ConstructionWorkEditorResponseProject} from '@/modules/construction-work-editor/types'
 

@@ -1,5 +1,5 @@
 import {NavigationState, ParamListBase} from '@react-navigation/core'
-import {usePiwik} from '@/hooks'
+import {usePiwik} from '@/hooks/usePiwik'
 
 export const useHandleNavigationStateChange = () => {
   const piwik = usePiwik()

@@ -4,7 +4,7 @@ import {
   ComponentStoryObj,
 } from '@storybook/react'
 import {Button} from './Button'
-import {Row} from '@/components/ui/layout'
+import {Row} from '@/components/ui/layout/Row'
 
 export default {
   component: Button,

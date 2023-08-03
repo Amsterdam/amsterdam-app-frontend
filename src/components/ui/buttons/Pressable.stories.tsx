@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
 import {Pressable} from './Pressable'
-import {Paragraph} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export default {
   component: Pressable,

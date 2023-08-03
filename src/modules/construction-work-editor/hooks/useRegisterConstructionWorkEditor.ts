@@ -12,7 +12,7 @@ import {
   setHasSeenWelcomeMessage,
 } from '@/modules/construction-work-editor/slice'
 import {selectAuthManagerToken} from '@/store/slices/auth'
-import {isApiAuthorizationError} from '@/utils'
+import {isApiAuthorizationError} from '@/utils/api'
 
 export const useRegisterConstructionWorkEditor = (
   deeplinkId?: string | undefined,

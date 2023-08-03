@@ -10,20 +10,24 @@ import {
   View,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {IconButton} from '@/components/ui/buttons'
-import {Box, SingleSelectable} from '@/components/ui/containers'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {
   AlertCloseType,
   AlertVariant,
   AlertVariantConfig,
 } from '@/components/ui/feedback/Alert.types'
-import {Column, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
-import {useIsReduceMotionEnabled} from '@/hooks'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {resetAlert, selectAlert} from '@/store/slices/alert'
-import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 if (
   Platform.OS === 'android' &&

@@ -3,7 +3,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {ListItem} from '@/components/ui/text/list/ListItem'
 import {ListMarkerProp} from '@/components/ui/text/list/types'
 import {TestProps} from '@/components/ui/types'
-import {accessibleText} from '@/utils'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   items: string[]

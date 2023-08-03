@@ -1,7 +1,7 @@
 import {ComponentMeta, Story} from '@storybook/react'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {Alert} from '@/components/ui/feedback'
+import {Alert} from '@/components/ui/feedback/Alert'
 import {
   AlertCloseType,
   AlertVariant,

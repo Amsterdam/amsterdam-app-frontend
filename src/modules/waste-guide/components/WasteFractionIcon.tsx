@@ -3,8 +3,8 @@ import {View} from 'react-native'
 import {Circle, Path, Svg} from 'react-native-svg'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {FractionCode} from '@/modules/waste-guide/types'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
 
 type IconConfig = {
   color: string

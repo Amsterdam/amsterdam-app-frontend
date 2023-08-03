@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {Paragraph} from '../text'
 import {Accordion} from './Accordion'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export default {
   component: Accordion,

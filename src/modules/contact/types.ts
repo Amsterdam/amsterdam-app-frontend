@@ -1,4 +1,4 @@
-import {Image} from '@/types'
+import {Image} from '@/types/image'
 
 export enum ContactEndpointName {
   getCityOffices = 'getCityOffices',

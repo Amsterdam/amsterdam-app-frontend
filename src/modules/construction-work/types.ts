@@ -1,12 +1,8 @@
 import {ViewProps} from 'react-native'
-import {
-  Image,
-  ListQueryArg,
-  PageListQueryArg,
-  RichText,
-  Section,
-  Timeline,
-} from '@/types'
+import {Image} from '@/types/image'
+import {ListQueryArg, PageListQueryArg} from '@/types/list'
+import {RichText, Section} from '@/types/section'
+import {Timeline} from '@/types/timeline'
 
 export enum ProjectsEndpointName {
   followProject = 'followProject',

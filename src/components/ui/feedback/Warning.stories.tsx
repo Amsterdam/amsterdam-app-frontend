@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Warning} from '@/components/ui/feedback'
+import {Warning} from '@/components/ui/feedback/Warning'
 
 export default {
   component: Warning,

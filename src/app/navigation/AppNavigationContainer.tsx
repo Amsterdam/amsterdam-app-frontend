@@ -7,7 +7,7 @@ import {ReactNode} from 'react'
 import RNBootSplash from 'react-native-bootsplash'
 import {linking} from '@/app/navigation/linking'
 import {RootStackParams} from '@/app/navigation/types'
-import {useHandleNavigationStateChange} from '@/hooks'
+import {useHandleNavigationStateChange} from '@/hooks/useHandleNavigationStateChange'
 import {registerNavigationContainer} from '@/processes/sentry'
 
 type Props = {

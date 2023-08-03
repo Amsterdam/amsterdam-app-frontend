@@ -19,7 +19,11 @@ import type {Middleware} from '@reduxjs/toolkit'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
-import {BreadcrumbCategory, CaptureBreadcrumb, SendErrorLog} from '@/types'
+import {
+  BreadcrumbCategory,
+  CaptureBreadcrumb,
+  SendErrorLog,
+} from '@/types/sentry'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 

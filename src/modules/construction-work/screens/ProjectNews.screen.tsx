@@ -1,6 +1,6 @@
 import {NavigationProps} from '@/app/navigation/types'
-import {Screen} from '@/components/ui/layout'
-import {ProjectNews} from '@/modules/construction-work/components/project'
+import {Screen} from '@/components/ui/layout/Screen'
+import {ProjectNews} from '@/modules/construction-work/components/project/ProjectNews'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
 type Props = NavigationProps<ConstructionWorkRouteName.projectNews>

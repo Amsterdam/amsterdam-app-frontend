@@ -5,7 +5,7 @@ import {getFcmToken, getPushNotificationPermission} from '@/processes/firebase'
 import {
   useRegisterDeviceMutation,
   useUnregisterDeviceMutation,
-} from '@/services'
+} from '@/services/deviceRegistration.service'
 
 export const useRegisterDevice = (requestPermission = true) => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()

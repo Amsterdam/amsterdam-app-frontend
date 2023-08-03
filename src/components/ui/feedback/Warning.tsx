@@ -1,5 +1,6 @@
 import {Attention} from '@/components/ui/feedback/Attention'
-import {Paragraph, Title} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 
 type Props = {
   text: string

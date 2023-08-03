@@ -1,7 +1,8 @@
 import {Controller, UseControllerProps} from 'react-hook-form'
-import {CharactersLeftDisplay, TextInput} from '@/components/ui/forms'
-import {Column} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
+import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
+import {TextInput} from '@/components/ui/forms/TextInput'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {

@@ -2,12 +2,11 @@ import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {AccessibilityProps, ViewProps} from 'react-native'
 import {RootStackParams} from '@/app/navigation/types'
-import {IconButton} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Phrase} from '@/components/ui/text'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {AddressModalName} from '@/modules/address/routes'
-import {wasteGuideModule} from '@/modules/waste-guide'
 
 type Props = {
   address: string
@@ -23,7 +22,7 @@ export const StreetAddressWithEditButton = ({
 }: Props) => {
   const navigation =
     useNavigation<
-      StackNavigationProp<RootStackParams, typeof wasteGuideModule.slug>
+      StackNavigationProp<RootStackParams, AddressModalName.addressForm>
     >()
 
   return (

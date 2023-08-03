@@ -1,10 +1,13 @@
 import {ReactNode, useCallback, useState} from 'react'
-import {Pressable} from '@/components/ui/buttons'
+import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
-import {Column, Gutter, Row, Size} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Title} from '@/components/ui/text'
-import {useTheme} from '@/themes'
+import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
+import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
+import {Icon} from '@/components/ui/media/Icon'
+import {Title} from '@/components/ui/text/Title'
+import {useTheme} from '@/themes/useTheme'
 
 const AccordionPanel = ({
   children,

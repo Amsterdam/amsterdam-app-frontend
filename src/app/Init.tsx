@@ -1,13 +1,11 @@
 import {ReactNode, useMemo} from 'react'
 import {AppStateStatus} from 'react-native'
-import {
-  useAppState,
-  useForegroundPushNotificationHandler,
-  useInitSentry,
-  useModules,
-  usePiwik,
-  useRegisterDevice,
-} from '@/hooks'
+import {useAppState} from '@/hooks/useAppState'
+import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
+import {useInitSentry} from '@/hooks/useInitSentry'
+import {useModules} from '@/hooks/useModules'
+import {usePiwik} from '@/hooks/usePiwik'
+import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 
 type Props = {children: ReactNode}
 

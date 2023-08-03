@@ -1,8 +1,9 @@
 import {memo} from 'react'
 import {View, ViewProps} from 'react-native'
 import simplur from 'simplur'
-import {Badge, Trait} from '@/components/ui/feedback'
-import {Row} from '@/components/ui/layout'
+import {Badge} from '@/components/ui/feedback/Badge'
+import {Trait} from '@/components/ui/feedback/Trait'
+import {Row} from '@/components/ui/layout/Row'
 import {ProjectsItem} from '@/modules/construction-work/types'
 
 type Props = Partial<ProjectsItem> & {

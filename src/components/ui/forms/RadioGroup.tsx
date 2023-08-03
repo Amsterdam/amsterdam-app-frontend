@@ -1,5 +1,5 @@
-import {Radio} from '@/components/ui/forms'
-import {Column} from '@/components/ui/layout'
+import {Radio} from '@/components/ui/forms/Radio'
+import {Column} from '@/components/ui/layout/Column'
 import {TestProps} from '@/components/ui/types'
 
 export type RadioGroupOption<T> = {

@@ -18,11 +18,12 @@ import {Row} from '@/components/ui/layout/Row'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
-import {OpenUrl, useOpenUrl} from '@/hooks'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {DeviceContext} from '@/providers'
-import {Theme, useThemable} from '@/themes'
-import {TextTokens} from '@/themes/tokens'
+import {OpenUrl, useOpenUrl} from '@/hooks/useOpenUrl'
+import {DeviceContext} from '@/providers/device.provider'
+import {Theme} from '@/themes/themes'
+import {TextTokens} from '@/themes/tokens/text'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   content: string | undefined

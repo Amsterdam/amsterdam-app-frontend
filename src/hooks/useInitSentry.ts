@@ -1,13 +1,13 @@
 import NetInfo from '@react-native-community/netinfo'
 import {useEffect} from 'react'
-import {useSentry} from '@/hooks'
+import {useSentry} from '@/hooks/useSentry'
 import {
   initSentry,
   setSentryBackEndEnvironment,
   setSentryUserData,
 } from '@/processes/sentry'
 import {useAppSelector} from '@/store/hooks'
-import {BreadcrumbCategory} from '@/types'
+import {BreadcrumbCategory} from '@/types/sentry'
 
 /**
  * Initialize Sentry and related listeners and side effects

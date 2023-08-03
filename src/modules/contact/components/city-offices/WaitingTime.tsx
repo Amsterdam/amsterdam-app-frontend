@@ -1,9 +1,10 @@
-import {Box} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
-import {useRefetchInterval} from '@/hooks'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {useGetWaitingTimesQuery} from '@/modules/contact/service'
 import {
   getQueuedPhrase,

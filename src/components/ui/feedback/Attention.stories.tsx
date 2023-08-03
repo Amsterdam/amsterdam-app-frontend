@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Attention} from '@/components/ui/feedback'
-import {Paragraph} from '@/components/ui/text'
+import {Attention} from '@/components/ui/feedback/Attention'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export default {
   component: Attention,

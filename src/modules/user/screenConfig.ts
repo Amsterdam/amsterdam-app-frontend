@@ -4,7 +4,7 @@ import {
   UserRouteName,
   UserStackParams,
 } from '@/modules/user/routes'
-import {UserScreen} from '@/modules/user/screens'
+import {UserScreen} from '@/modules/user/screens/User.screen'
 
 export const screenConfig: StackNavigationRoutes<
   UserStackParams,

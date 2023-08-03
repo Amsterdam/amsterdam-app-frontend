@@ -1,4 +1,5 @@
-import {HtmlContent, Phrase} from '@/components/ui/text'
+import {HtmlContent} from '@/components/ui/text/HtmlContent'
+import {Phrase} from '@/components/ui/text/Phrase'
 
 type Props = {
   content: string | null

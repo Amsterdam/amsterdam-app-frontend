@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Paragraph} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 
 type Props = {
   isAccessible?: boolean

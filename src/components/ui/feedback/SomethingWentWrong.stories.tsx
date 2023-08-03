@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {SomethingWentWrong} from '@/components/ui/feedback'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 
 export default {
   component: SomethingWentWrong,

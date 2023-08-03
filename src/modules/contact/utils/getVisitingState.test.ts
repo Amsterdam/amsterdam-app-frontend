@@ -1,7 +1,7 @@
 import {getVisitingState} from './getVisitingState'
 import {day, visitingHours} from './visitingHours.mock'
-import {Preposition} from '@/types'
-import {dayjs} from '@/utils'
+import {Preposition} from '@/types/datetime'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const wrapGetVisitingState = (date: string, time: string) =>
   getVisitingState(visitingHours, dayjs(`${date}T${time}.000`))

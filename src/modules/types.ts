@@ -1,6 +1,6 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
-import {IconName} from '@/components/ui/media'
+import {IconName} from '@/components/ui/media/iconPaths'
 import {ModuleSlug} from '@/modules/slugs'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 

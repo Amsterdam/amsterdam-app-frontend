@@ -1,9 +1,9 @@
 import {BottomSheetFlatList} from '@gorhom/bottom-sheet'
-import {Box} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Gutter} from '@/components/ui/layout'
-import {Title} from '@/components/ui/text'
-import {CityOfficeButton} from '@/modules/contact/components'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Gutter} from '@/components/ui/layout/Gutter'
+import {Title} from '@/components/ui/text/Title'
+import {CityOfficeButton} from '@/modules/contact/components/city-offices/CityOfficeButton'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 
 const ItemSeparator = () => <Gutter height="sm" />

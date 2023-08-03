@@ -1,5 +1,6 @@
-import {Box} from '@/components/ui/containers'
-import {Column, Gutter} from '@/components/ui/layout'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 
 type Props = {
   children: React.ReactNode

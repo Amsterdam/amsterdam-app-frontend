@@ -12,16 +12,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
-import {userModule} from '@/modules/user'
+import {ModuleSlug} from '@/modules/slugs'
 import {setAlert} from '@/store/slices/alert'
 
 export const DisplayAddress = () => {
   const address = useSelector(selectAddress)
   const dispatch = useDispatch()
   const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, typeof userModule.slug>
-    >()
+    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug>>()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())

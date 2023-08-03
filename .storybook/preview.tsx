@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import {FC} from 'react'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import {RootProvider} from '@/providers'
+import {RootProvider} from '@/providers/root.provider'
 import {baseColor} from '@/themes/tokens/base-color'
 // eslint-disable-next-line no-restricted-imports
 import './preview.css'

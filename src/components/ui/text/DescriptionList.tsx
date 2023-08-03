@@ -1,7 +1,8 @@
-import {SingleSelectable} from '@/components/ui/containers'
-import {Column} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
-import {accessibleText} from '@/utils'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type DescriptionListProps = {
   items: DescriptionListItem[]

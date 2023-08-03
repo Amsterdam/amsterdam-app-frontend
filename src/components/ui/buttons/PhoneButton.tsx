@@ -1,7 +1,8 @@
-import {Button, ButtonProps} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {useOpenPhoneUrl} from '@/hooks'
-import {accessibleText, formatPhoneNumber} from '@/utils'
+import {Button, ButtonProps} from '@/components/ui/buttons/Button'
+import {Row} from '@/components/ui/layout/Row'
+import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 type Props = {
   phoneNumber: string

@@ -1,5 +1,5 @@
-import {Box} from '@/components/ui/containers'
-import {Warning} from '@/components/ui/feedback'
+import {Box} from '@/components/ui/containers/Box'
+import {Warning} from '@/components/ui/feedback/Warning'
 
 export const SomethingWentWrong = () => (
   <Box>

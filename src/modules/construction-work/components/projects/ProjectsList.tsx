@@ -6,29 +6,24 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
 import {useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
-import {Box} from '@/components/ui/containers'
-import {
-  EmptyMessage,
-  PleaseWait,
-  SomethingWentWrong,
-} from '@/components/ui/feedback'
-import {
-  getAccessibleDistanceText,
-  getAccessibleFollowingText,
-} from '@/modules/construction-work/components/projects'
-import {
-  ProjectCard,
-  ProjectTraits,
-} from '@/modules/construction-work/components/shared'
+import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
+import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
+import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
+import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   ReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
-import {accessibleText, mapImageSources} from '@/utils'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {mapImageSources} from '@/utils/image/mapImageSources'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16

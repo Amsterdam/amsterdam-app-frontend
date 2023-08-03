@@ -1,4 +1,4 @@
-import {Title} from '@/components/ui/text'
+import {Title} from '@/components/ui/text/Title'
 
 type Props = {
   accessibilityLanguage?: string

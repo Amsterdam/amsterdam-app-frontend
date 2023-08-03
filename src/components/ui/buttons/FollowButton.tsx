@@ -1,5 +1,5 @@
 import {PressableProps} from 'react-native'
-import {Button, ButtonProps} from '@/components/ui/buttons'
+import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
   followed: boolean

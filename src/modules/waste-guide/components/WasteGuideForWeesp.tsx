@@ -1,7 +1,8 @@
-import {Button} from '@/components/ui/buttons'
-import {Column, Row} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
+import {Button} from '@/components/ui/buttons/Button'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {Address} from '@/modules/address/types'
 
 type Props = {

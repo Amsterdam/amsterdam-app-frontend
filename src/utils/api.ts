@@ -6,7 +6,7 @@ import {
   ProjectsByTextQueryArg,
   ProjectsQueryArg,
 } from '@/modules/construction-work/types'
-import {ListQueryArg} from '@/types'
+import {ListQueryArg} from '@/types/list'
 
 type Signature = {
   baseUrl?: string

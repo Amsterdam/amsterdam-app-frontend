@@ -2,17 +2,23 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useLayoutEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
-import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {Alert} from '@/components/ui/feedback'
+import {Button} from '@/components/ui/buttons/Button'
+import {Box} from '@/components/ui/containers/Box'
+import {Alert} from '@/components/ui/feedback/Alert'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Checkbox} from '@/components/ui/forms'
-import {Column, Row, Screen} from '@/components/ui/layout'
-import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
-import {Link, Paragraph, Phrase, Title} from '@/components/ui/text'
+import {Checkbox} from '@/components/ui/forms/Checkbox'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Screen} from '@/components/ui/layout/Screen'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Image} from '@/components/ui/media/Image'
+import {Link} from '@/components/ui/text/Link'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {
   clearDraft,
@@ -27,9 +33,9 @@ import {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
-import {useAddNotificationMutation} from '@/services'
+import {useAddNotificationMutation} from '@/services/notifications'
 import {resetAlert, setAlert} from '@/store/slices/alert'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   navigation: StackNavigationProp<

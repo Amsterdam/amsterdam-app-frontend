@@ -6,11 +6,12 @@ import {
   TouchableHighlightProps,
   View,
 } from 'react-native'
-import {FormField} from '@/components/ui/forms'
-import {MainAxisPosition} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {FormField} from '@/components/ui/forms/FormField'
+import {MainAxisPosition} from '@/components/ui/layout/types'
+import {Icon} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   label: ReactNode

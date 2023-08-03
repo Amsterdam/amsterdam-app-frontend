@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react'
 import RNRestart from 'react-native-restart'
 import {useDispatch, useSelector} from 'react-redux'
-import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {TextInput} from '@/components/ui/forms'
-import {Column} from '@/components/ui/layout'
+import {Button} from '@/components/ui/buttons/Button'
+import {Box} from '@/components/ui/containers/Box'
+import {TextInput} from '@/components/ui/forms/TextInput'
+import {Column} from '@/components/ui/layout/Column'
 import {Environment, EnvironmentConfig, environments} from '@/environment'
 import {isDevApp} from '@/processes/development'
-import {baseApi} from '@/services'
+import {baseApi} from '@/services/init'
 import {
   selectEnvironmentConfig,
   setCustomEnvironment,

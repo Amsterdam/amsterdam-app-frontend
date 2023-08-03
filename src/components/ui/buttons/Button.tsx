@@ -7,9 +7,11 @@ import {
   Text,
 } from 'react-native'
 import {config} from '@/components/ui/config'
-import {Row} from '@/components/ui/layout'
-import {Icon, IconName} from '@/components/ui/media'
-import {Theme, useThemable} from '@/themes'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {IconName} from '@/components/ui/media/iconPaths'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 

@@ -1,16 +1,20 @@
 import {useNavigation} from '@react-navigation/native'
 import {useEffect, useLayoutEffect} from 'react'
-import {Box, HorizontalSafeArea} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {HtmlContent, Paragraph, Title} from '@/components/ui/text'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {Image} from '@/components/ui/media/Image'
+import {HtmlContent} from '@/components/ui/text/HtmlContent'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
 } from '@/modules/construction-work/service'
-import {formatDate, mapImageSources} from '@/utils'
+import {formatDate} from '@/utils/datetime/formatDate'
+import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type Props = {
   id: string

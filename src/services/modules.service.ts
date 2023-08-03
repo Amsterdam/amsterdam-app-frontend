@@ -1,5 +1,5 @@
 import {baseApi} from '@/services/init'
-import {Release} from '@/types'
+import {Release} from '@/types/release'
 
 export const modulesApi = baseApi.injectEndpoints({
   endpoints: builder => ({

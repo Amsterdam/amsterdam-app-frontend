@@ -7,13 +7,11 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
 import {DisplayAddress} from '@/modules/address/components/DisplayAddress'
 import {AddressModalName} from '@/modules/address/routes'
-import {userModule} from '@/modules/user'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const LocationsBox = () => {
   const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, typeof userModule.slug>
-    >()
+    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug>>()
 
   return (
     <Column gutter="md">

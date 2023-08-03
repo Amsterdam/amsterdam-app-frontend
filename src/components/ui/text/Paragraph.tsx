@@ -1,7 +1,9 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
-import {Theme, useThemable} from '@/themes'
-import {ColorTokens, ParagraphVariants} from '@/themes/tokens'
+import {Theme} from '@/themes/themes'
+import {ColorTokens} from '@/themes/tokens/color-light'
+import {ParagraphVariants} from '@/themes/tokens/text'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   children: ReactNode

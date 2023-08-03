@@ -1,7 +1,7 @@
 import {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {SearchField} from '@/components/ui/forms'
+import {SearchField} from '@/components/ui/forms/SearchField'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
 import {AddressSuggestion} from '@/modules/address/types'
 

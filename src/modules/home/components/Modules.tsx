@@ -1,9 +1,11 @@
 import {pascalCase} from 'pascal-case'
-import {Box} from '@/components/ui/containers'
-import {EmptyMessage, PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {useModules} from '@/hooks'
-import {ModuleButton, ModulesWarning} from '@/modules/home/components'
+import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {useModules} from '@/hooks/useModules'
+import {ModuleButton} from '@/modules/home/components/ModuleButton'
+import {ModulesWarning} from '@/modules/home/components/ModulesWarning'
 import {ModuleStatus} from '@/modules/types'
 
 export const Modules = () => {

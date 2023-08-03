@@ -1,4 +1,4 @@
-import {IconName} from '@/components/ui/media'
+import {IconName} from '@/components/ui/media/iconPaths'
 
 export enum AlertCloseType {
   withButton = 'withButton',

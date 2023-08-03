@@ -1,10 +1,14 @@
 import {View} from 'react-native'
-import {Button, PhoneButton} from '@/components/ui/buttons'
-import {Column, Row} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
-import {useOpenMailUrl} from '@/hooks'
+import {Button} from '@/components/ui/buttons/Button'
+import {PhoneButton} from '@/components/ui/buttons/PhoneButton'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useOpenMailUrl} from '@/hooks/useOpenMailUrl'
 import {ProjectContact} from '@/modules/construction-work/types'
-import {accessibleText, capitalizeString} from '@/utils'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {capitalizeString} from '@/utils/capitalizeString'
 
 type Props = {
   contacts: ProjectContact[]

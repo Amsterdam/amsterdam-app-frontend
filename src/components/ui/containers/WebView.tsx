@@ -3,8 +3,8 @@ import {
   WebView as WebViewRN,
   WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
-import {PleaseWait} from '@/components/ui/feedback'
-import {DeviceContext} from '@/providers'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {DeviceContext} from '@/providers/device.provider'
 
 type Props = {
   sliceFromTop?: {

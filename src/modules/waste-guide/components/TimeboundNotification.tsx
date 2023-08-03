@@ -1,5 +1,6 @@
 import {StyleSheet, View} from 'react-native'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   children: React.ReactNode

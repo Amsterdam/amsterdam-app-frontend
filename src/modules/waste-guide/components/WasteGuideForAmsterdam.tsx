@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux'
-import {Column} from '@/components/ui/layout'
+import {Column} from '@/components/ui/layout/Column'
 import {Address} from '@/modules/address/types'
 import {ContactCollector} from '@/modules/waste-guide/components/ContactCollector'
 import {Fractions} from '@/modules/waste-guide/components/Fractions'

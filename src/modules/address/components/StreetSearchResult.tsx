@@ -1,5 +1,6 @@
-import {Box} from '@/components/ui/containers'
-import {EmptyMessage, Spinner} from '@/components/ui/feedback'
+import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {Spinner} from '@/components/ui/feedback/Spinner'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
 import {AddressSuggestion} from '@/modules/address/types'

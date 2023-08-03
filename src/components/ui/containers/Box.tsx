@@ -1,8 +1,9 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
-import {layoutStyles} from '@/styles'
-import {Theme, useThemable} from '@/themes'
-import {SpacingTokens} from '@/themes/tokens'
+import {layoutStyles} from '@/styles/layoutStyles'
+import {Theme} from '@/themes/themes'
+import {SpacingTokens} from '@/themes/tokens/size'
+import {useThemable} from '@/themes/useThemable'
 
 export type BoxProps = {
   borderColor?: keyof Theme['color']['border']

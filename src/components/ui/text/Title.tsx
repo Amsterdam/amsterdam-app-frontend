@@ -1,7 +1,8 @@
 import {useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
-import {Theme, useThemable} from '@/themes'
-import {TitleTokensPerLevel} from '@/themes/tokens'
+import {Theme} from '@/themes/themes'
+import {TitleTokensPerLevel} from '@/themes/tokens/text'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   color?: keyof Theme['color']['text']

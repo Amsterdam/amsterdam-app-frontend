@@ -1,12 +1,10 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useSelector} from 'react-redux'
 import simplur from 'simplur'
-import {Paragraph} from '@/components/ui/text'
-import {
-  ProjectsList,
-  ProjectsListHeader,
-  ProjectsTextSearchField,
-} from '@/modules/construction-work/components/projects'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
+import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
+import {ProjectsTextSearchField} from '@/modules/construction-work/components/projects/ProjectsTextSearchField'
 import {useGetProjectsByTextQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkSearchText} from '@/modules/construction-work/slice'
 

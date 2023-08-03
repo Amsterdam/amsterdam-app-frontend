@@ -6,7 +6,7 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   children: ReactNode

@@ -7,7 +7,8 @@ import {
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useAppSelector} from '@/store/hooks'
-import {InfiniteScrollerQueryParams, Paginated} from '@/types'
+import {Paginated} from '@/types/api'
+import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
 const getEmptyItems = <T>(
   length: number,

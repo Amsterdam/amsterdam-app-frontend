@@ -1,5 +1,0 @@
-export * from './Figure'
-export * from './FigureWithFacadesBackground'
-export * from './Icon'
-export * from './iconPaths'
-export * from './Image'

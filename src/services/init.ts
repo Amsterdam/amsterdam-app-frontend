@@ -15,8 +15,8 @@ import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-ed
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
-import {DeviceRegistrationEndpointName} from '@/types'
-import {deviceAuthorizationToken} from '@/utils'
+import {DeviceRegistrationEndpointName} from '@/types/device'
+import {deviceAuthorizationToken} from '@/utils/getAuthToken'
 
 const managerAuthorizedEndpoints = [
   'addNotification',

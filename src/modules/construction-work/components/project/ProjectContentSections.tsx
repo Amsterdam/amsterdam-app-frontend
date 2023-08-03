@@ -1,6 +1,7 @@
-import {Column} from '@/components/ui/layout'
-import {HtmlContent, Title} from '@/components/ui/text'
-import {Section} from '@/types'
+import {Column} from '@/components/ui/layout/Column'
+import {HtmlContent} from '@/components/ui/text/HtmlContent'
+import {Title} from '@/components/ui/text/Title'
+import {Section} from '@/types/section'
 
 type Props = {
   sections: Section[]

@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {TextInput} from '@/components/ui/forms'
+import {TextInput} from '@/components/ui/forms/TextInput'
 
 export default {
   component: TextInput,

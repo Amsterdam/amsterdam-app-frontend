@@ -3,7 +3,8 @@ import {
   ComponentStory,
   ComponentStoryObj,
 } from '@storybook/react'
-import {Badge, Trait} from '@/components/ui/feedback'
+import {Badge} from '@/components/ui/feedback/Badge'
+import {Trait} from '@/components/ui/feedback/Trait'
 
 export default {
   component: Trait,

@@ -1,11 +1,12 @@
 import {useContext} from 'react'
 import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
-import {Row} from '@/components/ui/layout'
+import {Row} from '@/components/ui/layout/Row'
 import {TestProps} from '@/components/ui/types'
-import {Device, DeviceContext} from '@/providers'
-import {Theme, useThemable} from '@/themes'
-import {OmitUndefined} from '@/types'
-import {formatNumber} from '@/utils'
+import {Device, DeviceContext} from '@/providers/device.provider'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
+import {OmitUndefined} from '@/types/undefined'
+import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
   /**

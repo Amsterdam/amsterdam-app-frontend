@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {CharactersLeftDisplay} from '@/components/ui/forms'
+import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 
 export default {
   component: CharactersLeftDisplay,

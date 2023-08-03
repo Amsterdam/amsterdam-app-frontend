@@ -2,7 +2,7 @@ import notifee, {EventType} from '@notifee/react-native'
 import {useLinkTo} from '@react-navigation/native'
 import {useEffect} from 'react'
 import {pushNotificationTypes} from '@/app/navigation/linking'
-import {PushNotification, PushNotificationData} from '@/types'
+import {PushNotification, PushNotificationData} from '@/types/notification'
 
 const createUrlFromDataObject = (
   dataObj: PushNotificationData,

@@ -1,5 +1,0 @@
-export * from './border'
-export * from './color-light'
-export * from './media'
-export * from './size'
-export * from './text'
