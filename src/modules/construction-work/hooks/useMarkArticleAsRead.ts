@@ -22,8 +22,10 @@ export const useMarkArticleAsRead = () => {
   }, [dispatch, readArticles])
 
   const markAsRead = useCallback(
-    (article: ReadArticle) => {
-      deleteOldArticles()
+    (article: ReadArticle, cleanup = true) => {
+      if (cleanup) {
+        deleteOldArticles()
+      }
 
       if (getDateDiffInDays(article.publicationDate) > recentArticleMaxAge) {
         return
@@ -40,14 +42,18 @@ export const useMarkArticleAsRead = () => {
 
   const markMultipleAsRead = useCallback(
     (articles: Articles) => {
+      deleteOldArticles()
       articles?.forEach(({identifier, publication_date}) =>
-        markAsRead({
-          id: identifier,
-          publicationDate: publication_date,
-        }),
+        markAsRead(
+          {
+            id: identifier,
+            publicationDate: publication_date,
+          },
+          false,
+        ),
       )
     },
-    [markAsRead],
+    [deleteOldArticles, markAsRead],
   )
 
   const markMultipleAsUnRead = useCallback(
