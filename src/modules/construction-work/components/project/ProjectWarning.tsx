@@ -8,7 +8,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images/index'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {

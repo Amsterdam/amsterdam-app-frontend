@@ -19,7 +19,7 @@ import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images/index'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {
   clearDraft,
   selectCurrentProjectId,
