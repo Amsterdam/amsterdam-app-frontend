@@ -72,7 +72,7 @@ import {
 import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
 import {WelcomeStack} from '@/modules/welcome/Stack'
 import {WelcomeRouteName, WelcomeStackParams} from '@/modules/welcome/routes'
-import {devError} from '@/processes'
+import {devError} from '@/processes/development'
 
 export type ModuleRoutes =
   | AboutRouteName

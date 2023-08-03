@@ -6,7 +6,7 @@ import {Box} from '@/components/ui/containers'
 import {TextInput} from '@/components/ui/forms'
 import {Column} from '@/components/ui/layout'
 import {Environment, EnvironmentConfig, environments} from '@/environment'
-import {isDevApp} from '@/processes'
+import {isDevApp} from '@/processes/development'
 import {baseApi} from '@/services'
 import {
   selectEnvironmentConfig,

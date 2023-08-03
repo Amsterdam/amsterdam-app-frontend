@@ -32,4 +32,4 @@ export const baseColor = {
   custom: {
     grey1: '#f3f5f7',
   },
-}
+} as const

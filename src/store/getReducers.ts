@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {AnyAction, Reducer} from '@reduxjs/toolkit'
 import {createMigrate, persistReducer} from 'redux-persist'
 import {CoreModuleConfig, ModuleClientConfig} from '@/modules/types'
-import {appFlavour, AppFlavour} from '@/processes'
+import {appFlavour, AppFlavour} from '@/processes/development'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
 

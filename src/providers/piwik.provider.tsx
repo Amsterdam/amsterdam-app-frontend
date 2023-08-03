@@ -2,7 +2,7 @@ import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {createContext, ReactNode} from 'react'
 import {useEffect, useState} from 'react'
 import {useSentry} from '@/hooks'
-import {isProductionApp} from '@/processes'
+import {isProductionApp} from '@/processes/development'
 import {PiwikProSdkType} from '@/types/piwik.temp'
 
 // temporary fix for typing, see: src/types/piwik.temp

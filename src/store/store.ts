@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {clientModules, coreModules} from '@/modules/modules'
-import {sentryLoggerMiddleware} from '@/processes'
+import {sentryLoggerMiddleware} from '@/processes/sentry'
 import {baseApi} from '@/services'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
