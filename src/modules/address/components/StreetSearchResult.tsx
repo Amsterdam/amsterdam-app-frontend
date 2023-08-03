@@ -6,7 +6,7 @@ import {AddressSuggestion} from '@/modules/address/types'
 import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
 
 type StreetSearchResultProps = {
-  bagList: AddressSuggestion[] | null | undefined
+  bagList: AddressSuggestion[]
   isLoading: boolean
   isStreetSelected: boolean
   selectResult: (item: AddressSuggestion) => void
@@ -52,7 +52,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (!bagList) {
+  if (bagList.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage

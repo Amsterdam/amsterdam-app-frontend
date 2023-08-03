@@ -37,7 +37,7 @@ const WithAnimation = ({
 )
 
 type Props = {
-  bagList: AddressSuggestion[] | null | undefined
+  bagList: AddressSuggestion[]
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
   keyboardType: KeyboardTypeOptions | undefined

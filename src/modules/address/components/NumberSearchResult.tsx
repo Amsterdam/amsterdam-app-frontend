@@ -4,7 +4,7 @@ import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {AddressSuggestion} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
-  bagList: AddressSuggestion[] | null | undefined
+  bagList: AddressSuggestion[]
   number: string
   selectResult: (item: AddressSuggestion) => void
 }
@@ -23,7 +23,7 @@ export const NumberSearchResult = ({
     return null
   }
 
-  if (!bagList?.length) {
+  if (bagList.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage text="Huisnummer niet gevonden. Controleer het huisnummer. Of probeer een ander nummer." />
