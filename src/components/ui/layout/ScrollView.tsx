@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import {ScrollView as RNScrollView, ScrollViewProps} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {layoutStyles} from '@/styles'
+import {layoutStyles} from '@/styles/layoutStyles'
 
 type Props = {
   children: ReactNode

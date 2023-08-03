@@ -1,10 +1,12 @@
 import {useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
-import {Box} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {useModules, useRegisterDevice} from '@/hooks'
-import {ModuleSetting, ModulesWarning} from '@/modules/home/components'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {useModules} from '@/hooks/useModules'
+import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {ModuleSetting} from '@/modules/home/components/ModuleSetting'
+import {ModulesWarning} from '@/modules/home/components/ModulesWarning'
 
 export const ModuleSettings = () => {
   const {toggleableModules, modulesLoading, enabledModules} = useModules()

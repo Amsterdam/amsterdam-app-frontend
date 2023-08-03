@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {config} from '@/components/ui/config'
-import {Phrase} from '@/components/ui/text'
+import {Phrase} from '@/components/ui/text/Phrase'
 
 type Props = {
   children: ReactNode

@@ -1,6 +1,6 @@
 declare module '*.svg' {
   import {FC} from 'react'
-  import {SvgProps} from '@/types'
+  import {SvgProps} from '@/types/svg'
 
   const content: FC<SvgProps>
   export default content // eslint-disable-line import/no-default-export

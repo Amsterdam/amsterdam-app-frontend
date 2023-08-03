@@ -3,11 +3,9 @@ import {
   RedirectsRouteName,
   RedirectsStackParams,
 } from '@/modules/redirects/routes'
-import {
-  MakeAppointmentScreen,
-  RedirectsScreen,
-  SelectCityScreen,
-} from '@/modules/redirects/screens'
+import {MakeAppointmentScreen} from '@/modules/redirects/screens/MakeAppointment.screen'
+import {RedirectsScreen} from '@/modules/redirects/screens/Redirects.screen'
+import {SelectCityScreen} from '@/modules/redirects/screens/SelectCity.screen'
 
 export const screenConfig: StackNavigationRoutes<
   RedirectsStackParams,

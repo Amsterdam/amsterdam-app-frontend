@@ -1,9 +1,10 @@
-import {Pressable} from '@/components/ui/buttons'
-import {Row, Size} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
+import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
+import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Direction, TestProps} from '@/components/ui/types'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   label: string

@@ -1,7 +1,7 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {StatusBar} from 'react-native'
-import {Header} from '@/modules/home/components'
-import {Theme} from '@/themes'
+import {Header} from '@/modules/home/components/Header'
+import {Theme} from '@/themes/themes'
 
 export type CustomScreenOptions = {
   /**

@@ -1,4 +1,4 @@
-import {Paragraph} from '@/components/ui/text'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export const InactiveModuleMessage = () => (
   <Paragraph

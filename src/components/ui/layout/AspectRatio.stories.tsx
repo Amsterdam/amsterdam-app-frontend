@@ -1,7 +1,7 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {Canvas} from '.storybook/components'
-import {AspectRatio} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
+import {AspectRatio} from '@/components/ui/layout/AspectRatio'
+import {Phrase} from '@/components/ui/text/Phrase'
 
 export default {
   component: AspectRatio,

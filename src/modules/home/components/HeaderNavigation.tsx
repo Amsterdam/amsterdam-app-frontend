@@ -1,12 +1,11 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParams} from '@/app/navigation/types'
-import {IconButton} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {Icon, IconProps} from '@/components/ui/media'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {userModule} from '@/modules/user'
 import {isDevApp} from '@/processes/development'
 
 export const HeaderNavigation = () => {
@@ -42,7 +41,7 @@ export const HeaderNavigation = () => {
             {...iconProps}
           />
         }
-        onPress={() => navigation.navigate(userModule.slug)}
+        onPress={() => navigation.navigate(ModuleSlug.home)}
         testID="HeaderUserButton"
       />
       <IconButton

@@ -5,25 +5,23 @@ import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
 import {RootStackParams} from '@/app/navigation/types'
-import {Box} from '@/components/ui/containers'
-import {
-  EmptyMessage,
-  PleaseWait,
-  SomethingWentWrong,
-} from '@/components/ui/feedback'
-import {ProjectCard} from '@/modules/construction-work/components/shared'
+import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectsItem} from '@/modules/construction-work/types'
-import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
-import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components'
-import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks'
+import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components/ContactConstructionWorkSupport'
+import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
-import {isApiAuthorizationError, mapImageSources} from '@/utils'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
+import {isApiAuthorizationError} from '@/utils/api'
+import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type Navigation = StackNavigationProp<
   RootStackParams,
-  typeof constructionWorkEditorModule.slug
+  ConstructionWorkEditorRouteName.authorizedProjects
 >
 
 type ListItemProps = {

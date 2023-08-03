@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Theme} from '@/themes'
+import {Theme} from '@/themes/themes'
 
 export const maxHeight = 1200
 

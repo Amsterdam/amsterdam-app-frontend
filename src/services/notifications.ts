@@ -1,5 +1,5 @@
 import {baseApi} from '@/services/init'
-import {Notification, NotificationQueryArg} from '@/types'
+import {Notification, NotificationQueryArg} from '@/types/notification'
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({

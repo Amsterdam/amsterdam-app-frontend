@@ -1,8 +1,9 @@
 import {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
 import {SpinnerIcon} from '@/assets/icons'
-import {Row} from '@/components/ui/layout'
-import {Theme, useThemable} from '@/themes'
+import {Row} from '@/components/ui/layout/Row'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 const initialRotation = 0
 let stopAnimation = false

@@ -1,9 +1,10 @@
 import {useContext} from 'react'
-import {Box, HorizontalSafeArea} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {FigureWithFacadesBackground} from '@/components/ui/media'
-import {Paragraph} from '@/components/ui/text'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
@@ -14,8 +15,8 @@ import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuid
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   address: Address

@@ -1,5 +1,5 @@
-import {Screen} from '@/components/ui/layout'
-import {ComingSoon} from '@/modules/open-waste-container/components'
+import {Screen} from '@/components/ui/layout/Screen'
+import {ComingSoon} from '@/modules/open-waste-container/components/ComingSoon'
 
 export const OpenWasteContainerScreen = () => (
   <Screen>

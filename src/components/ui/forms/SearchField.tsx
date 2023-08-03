@@ -1,9 +1,10 @@
 import {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
-import {IconButton} from '@/components/ui/buttons'
-import {Icon} from '@/components/ui/media'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Icon} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   onChangeText?: (event: string) => void

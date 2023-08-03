@@ -6,11 +6,12 @@ import {
   View,
 } from 'react-native'
 import {config} from '@/components/ui/config'
-import {Badge, BadgeProps} from '@/components/ui/feedback'
-import {Row} from '@/components/ui/layout'
-import {IconProps} from '@/components/ui/media'
+import {Badge, BadgeProps} from '@/components/ui/feedback/Badge'
+import {Row} from '@/components/ui/layout/Row'
+import {IconProps} from '@/components/ui/media/Icon'
 import {IconSize} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   /**

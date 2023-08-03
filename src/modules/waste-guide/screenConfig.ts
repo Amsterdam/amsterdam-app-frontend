@@ -4,10 +4,8 @@ import {
   WasteGuideRouteName,
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
-import {
-  WasteGuideFeedbackScreen,
-  WasteGuideScreen,
-} from '@/modules/waste-guide/screens'
+import {WasteGuideScreen} from '@/modules/waste-guide/screens/WasteGuide.screen'
+import {WasteGuideFeedbackScreen} from '@/modules/waste-guide/screens/WasteGuideFeedback.screen'
 
 export const screenConfig: StackNavigationRoutes<
   WasteGuideStackParams,

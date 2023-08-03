@@ -1,9 +1,10 @@
 import {useContext} from 'react'
-import {Button} from '@/components/ui/buttons'
-import {Column} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
-import {DeviceContext} from '@/providers'
+import {Button} from '@/components/ui/buttons/Button'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {DeviceContext} from '@/providers/device.provider'
 
 export const ReferToWebsite = () => {
   const openWebUrl = useOpenWebUrl()

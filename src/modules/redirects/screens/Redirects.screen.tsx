@@ -1,7 +1,10 @@
-import {Box} from '@/components/ui/containers'
-import {Column, Screen} from '@/components/ui/layout'
-import {Paragraph, Title} from '@/components/ui/text'
-import {Redirects, ReferToWebsite} from '@/modules/redirects/components'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {Redirects} from '@/modules/redirects/components/Redirects'
+import {ReferToWebsite} from '@/modules/redirects/components/ReferToWebsite'
 
 export const RedirectsScreen = () => (
   <Screen>

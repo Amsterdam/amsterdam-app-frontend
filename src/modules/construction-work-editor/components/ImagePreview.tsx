@@ -1,9 +1,11 @@
 import {StyleSheet, View} from 'react-native'
 import {Image as ImageType} from 'react-native-image-crop-picker'
-import {IconButton} from '@/components/ui/buttons'
-import {Icon, Image} from '@/components/ui/media'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Icon} from '@/components/ui/media/Icon'
+import {Image} from '@/components/ui/media/Image'
 import {IconSize} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   image: ImageType

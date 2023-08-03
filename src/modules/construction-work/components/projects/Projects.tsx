@@ -1,19 +1,17 @@
 import {useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
-import {useInfiniteScroller} from '@/hooks'
-import {
-  config,
-  ProjectsList,
-  ProjectsListHeader,
-  SearchFieldNavigator,
-} from '@/modules/construction-work/components/projects'
+import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
+import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
+import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
+import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
+import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {
   projectsApi,
   useGetProjectsQuery,
 } from '@/modules/construction-work/service'
 import {ProjectsItem} from '@/modules/construction-work/types'
-import {InfiniteScrollerQueryParams} from '@/types'
+import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
 type Props = {
   HeaderButton: React.ReactNode

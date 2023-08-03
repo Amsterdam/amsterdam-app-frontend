@@ -1,10 +1,10 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import {StyleSheet, View} from 'react-native'
-import {IconButton} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {ScreenTitle} from '@/components/ui/text'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {IconSize} from '@/components/ui/types'
 
 type Props = Pick<

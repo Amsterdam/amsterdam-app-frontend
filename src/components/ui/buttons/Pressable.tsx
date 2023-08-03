@@ -4,8 +4,9 @@ import {
   PressableProps as PressableRNProps,
   StyleSheet,
 } from 'react-native'
-import {Box, BoxProps} from '@/components/ui/containers'
-import {Theme, useThemable} from '@/themes'
+import {Box, BoxProps} from '@/components/ui/containers/Box'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type PressableVariant = 'primary' | 'tertiary' | 'negative'
 

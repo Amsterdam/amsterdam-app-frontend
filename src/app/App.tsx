@@ -6,13 +6,14 @@ import {
 } from 'react-native-safe-area-context'
 import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
-import {CustomErrorBoundary, Init} from '@/app'
+import {CustomErrorBoundary} from '@/app/CustomErrorBoundary'
+import {Init} from '@/app/Init'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
-import {ErrorWithRestart} from '@/components/ui/feedback'
-import {RootProvider} from '@/providers'
+import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
+import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
-import {lightColorTokens} from '@/themes/tokens'
+import {lightColorTokens} from '@/themes/tokens/color-light'
 
 const persistor = persistStore(store)
 

@@ -1,7 +1,8 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
-import {Theme, useThemable} from '@/themes'
-import {Emphasis, ParagraphVariants} from '@/themes/tokens'
+import {Theme} from '@/themes/themes'
+import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
+import {useThemable} from '@/themes/useThemable'
 
 export type PhraseProps = {
   children: ReactNode

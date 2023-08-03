@@ -1,20 +1,20 @@
 import {useSelector} from 'react-redux'
-import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {PleaseWait, SomethingWentWrong} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
-import {
-  NameAndAddress,
-  VisitingHours,
-  WaitingTime,
-} from '@/modules/contact/components'
+import {Button} from '@/components/ui/buttons/Button'
+import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Column} from '@/components/ui/layout/Column'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {NameAndAddress} from '@/modules/contact/components/city-offices/NameAndAddress'
+import {VisitingHours} from '@/modules/contact/components/city-offices/VisitingHours'
+import {WaitingTime} from '@/modules/contact/components/city-offices/WaitingTime'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
-import {isOpenForVisiting} from '@/modules/contact/utils'
-import {mapImageSources} from '@/utils'
+import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
+import {mapImageSources} from '@/utils/image/mapImageSources'
 
 export const CityOffice = () => {
   const openWebUrl = useOpenWebUrl()

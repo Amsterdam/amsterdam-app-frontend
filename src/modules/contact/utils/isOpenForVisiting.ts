@@ -1,6 +1,7 @@
-import {holidays} from '@/modules/contact/data'
+import {holidays} from '@/modules/contact/data/holidays'
 import {HoursAndMinutes, VisitingHour} from '@/modules/contact/types'
-import {adjustHoursAndMinutes, dayjs, Dayjs} from '@/utils'
+import {adjustHoursAndMinutes} from '@/utils/datetime/adjustHoursAndMinutes'
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 
 const todayIsWeekDay = (date: Dayjs, dayOfWeek: number) =>
   date.day() === dayOfWeek

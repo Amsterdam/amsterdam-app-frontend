@@ -1,8 +1,8 @@
 import {Pressable, PressableProps} from 'react-native'
 import {Circle, Svg} from 'react-native-svg'
-import {Row} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
-import {useTheme} from '@/themes'
+import {Row} from '@/components/ui/layout/Row'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {useTheme} from '@/themes/useTheme'
 
 type RadioProps = {
   isSelected: boolean

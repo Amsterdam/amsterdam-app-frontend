@@ -1,7 +1,7 @@
 import {ImageURISource} from 'react-native'
 import {ProjectWarningImageSources} from '@/modules/construction-work/types'
-import {mediaTokens} from '@/themes/tokens'
-import {ImageSources} from '@/types'
+import {mediaTokens} from '@/themes/tokens/media'
+import {ImageSources} from '@/types/image'
 
 export const mapImageSources = (sources?: ImageSources): ImageURISource[] => {
   if (!sources) {

@@ -8,13 +8,14 @@ import {
   View,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {Button} from '@/components/ui/buttons'
-import {SearchField} from '@/components/ui/forms'
-import {Column, Row} from '@/components/ui/layout'
-import {useIsReduceMotionEnabled} from '@/hooks'
+import {Button} from '@/components/ui/buttons/Button'
+import {SearchField} from '@/components/ui/forms/SearchField'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {NumberSearchResult} from '@/modules/address/components/NumberSearchResult'
 import {AddressSuggestion} from '@/modules/address/types'
-import {useTheme} from '@/themes'
+import {useTheme} from '@/themes/useTheme'
 
 type WithAnimationProps = {
   animatedInterpolation: Animated.AnimatedInterpolation<string | number>

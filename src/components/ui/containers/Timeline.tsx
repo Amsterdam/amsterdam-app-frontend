@@ -1,5 +1,5 @@
 import {TimelineItem} from '@/components/ui/containers/TimelineItem'
-import {TimelineItem as TimelineItemType} from '@/types'
+import {TimelineItem as TimelineItemType} from '@/types/timeline'
 
 type Props = {
   items: TimelineItemType[]

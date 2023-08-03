@@ -7,11 +7,12 @@ import {
   TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
-import {Column} from '@/components/ui//layout'
-import {IconButton} from '@/components/ui/buttons'
-import {Label} from '@/components/ui/forms'
-import {Icon} from '@/components/ui/media'
-import {Theme, useThemable} from '@/themes'
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Label} from '@/components/ui/forms/Label'
+import {Column} from '@/components/ui/layout/Column'
+import {Icon} from '@/components/ui/media/Icon'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   label: string

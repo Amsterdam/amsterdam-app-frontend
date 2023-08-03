@@ -6,9 +6,9 @@ import {
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
-import {baseApi} from '@/services'
-import {CacheLifetime, MutationResponse} from '@/types'
-import {generateRequestUrl} from '@/utils'
+import {baseApi} from '@/services/init'
+import {CacheLifetime, MutationResponse} from '@/types/api'
+import {generateRequestUrl} from '@/utils/api'
 
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({

@@ -1,6 +1,6 @@
 import {isOpenForVisiting} from './isOpenForVisiting'
 import {day, visitingHours} from './visitingHours.mock'
-import {dayjs} from '@/utils'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 describe('isOpenForVisiting', () => {
   it('handles a Monday before opening time', () => {

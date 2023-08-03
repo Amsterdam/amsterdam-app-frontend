@@ -2,8 +2,9 @@ import {ReactNode} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {KeyboardAvoidingView} from '@/components/ui/containers'
-import {Gutter, ScrollView} from '@/components/ui/layout'
+import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
+import {Gutter} from '@/components/ui/layout/Gutter'
+import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {TestProps} from '@/components/ui/types'
 
 type WrapperProps = Pick<Props, 'children' | 'keyboardAware' | 'scroll'> & {

@@ -5,8 +5,8 @@ import {SimpleGrid} from '@/components/ui/containers/SimpleGrid'
 import {Fraction} from '@/modules/waste-guide/components/Fraction'
 import {useFractions} from '@/modules/waste-guide/hooks/useFractions'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {DeviceContext} from '@/providers'
-import {useTheme} from '@/themes'
+import {DeviceContext} from '@/providers/device.provider'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   wasteGuide: WasteGuideResponseFraction[]

@@ -5,13 +5,11 @@ import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,
 } from '@/modules/construction-work-editor/routes'
-import {
-  AddMainImageToMessageScreen,
-  AuthorizedProjectsScreen,
-  ConfirmMessageScreen,
-  CreateMessageScreen,
-  WritingGuideScreen,
-} from '@/modules/construction-work-editor/screens'
+import {AddMainImageToMessageScreen} from '@/modules/construction-work-editor/screens/AddMainImageToMessage.screen'
+import {AuthorizedProjectsScreen} from '@/modules/construction-work-editor/screens/AuthorizedProjects.screen'
+import {ConfirmMessageScreen} from '@/modules/construction-work-editor/screens/ConfirmMessage.screen'
+import {CreateMessageScreen} from '@/modules/construction-work-editor/screens/CreateMessage.screen'
+import {WritingGuideScreen} from '@/modules/construction-work-editor/screens/WritingGuide.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ConstructionWorkEditorStackParams,

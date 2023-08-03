@@ -1,8 +1,9 @@
-import {Button, PhoneHQButton} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons/Button'
 import {FauxButton} from '@/components/ui/buttons/FauxButton'
-import {Row} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
+import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
+import {Row} from '@/components/ui/layout/Row'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 
 type Props = {
   buttonLabel: string

@@ -1,9 +1,10 @@
 import {useContext} from 'react'
 import {Path, Svg} from 'react-native-svg'
-import {IconName, IconPath} from '@/components/ui/media'
+import {IconName, IconPath} from '@/components/ui/media/iconPaths'
 import {IconSize, TestProps} from '@/components/ui/types'
-import {DeviceContext} from '@/providers'
-import {Theme, useTheme} from '@/themes'
+import {DeviceContext} from '@/providers/device.provider'
+import {Theme} from '@/themes/themes'
+import {useTheme} from '@/themes/useTheme'
 
 export type IconProps = {
   /**

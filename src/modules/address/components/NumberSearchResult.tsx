@@ -1,5 +1,5 @@
-import {Box} from '@/components/ui/containers'
-import {EmptyMessage} from '@/components/ui/feedback'
+import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {AddressSuggestion} from '@/modules/address/types'
 

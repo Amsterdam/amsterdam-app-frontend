@@ -1,11 +1,12 @@
 import {StyleSheet, View} from 'react-native'
 import RNRestart from 'react-native-restart'
-import {Button} from '@/components/ui/buttons'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Warning} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
+import {Warning} from '@/components/ui/feedback/Warning'
+import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 export const ErrorWithRestart = () => {
   const styles = useThemable(createStyles)

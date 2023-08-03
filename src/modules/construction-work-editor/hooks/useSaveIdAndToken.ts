@@ -2,7 +2,7 @@ import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {addConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {setCredentials} from '@/store/slices/auth'
-import {encryptWithAES} from '@/utils'
+import {encryptWithAES} from '@/utils/encryption'
 
 export const useSaveIdAndToken = () => {
   const dispatch = useDispatch()

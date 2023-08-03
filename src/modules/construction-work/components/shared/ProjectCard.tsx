@@ -1,11 +1,14 @@
 import {FC, memo, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
-import {AspectRatio, Gutter} from '@/components/ui/layout'
-import {Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
+import {AspectRatio} from '@/components/ui/layout/AspectRatio'
+import {Gutter} from '@/components/ui/layout/Gutter'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   Kicker?: FC

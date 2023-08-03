@@ -3,11 +3,12 @@ import {FlexStyle, StyleSheet, View} from 'react-native'
 import {
   CrossAxisAlignment,
   MainAxisAlignment,
-  mapCrossAxisAlignment,
-  mapMainAxisAlignment,
-} from '@/components/ui/layout'
-import {Theme, useThemable} from '@/themes'
-import {SpacingTokens} from '@/themes/tokens'
+} from '@/components/ui/layout/types'
+import {mapCrossAxisAlignment} from '@/components/ui/layout/utils/mapCrossAxisAlignment'
+import {mapMainAxisAlignment} from '@/components/ui/layout/utils/mapMainAxisAlignment'
+import {Theme} from '@/themes/themes'
+import {SpacingTokens} from '@/themes/tokens/size'
+import {useThemable} from '@/themes/useThemable'
 
 export type RowProps = {
   /** The horizontal alignment of the items in the row. */

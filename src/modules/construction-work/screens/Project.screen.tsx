@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native'
-import {Screen} from '@/components/ui/layout'
-import {Project} from '@/modules/construction-work/components/project'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Project} from '@/modules/construction-work/components/project/Project'
 import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,

@@ -3,13 +3,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
-import {Alert} from '@/components/ui/feedback'
+import {Alert} from '@/components/ui/feedback/Alert'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {Screen} from '@/components/ui/layout'
-import {AuthorizedProjects} from '@/modules/construction-work-editor/components'
+import {Screen} from '@/components/ui/layout/Screen'
+import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setAlert} from '@/store/slices/alert'
 

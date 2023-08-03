@@ -16,14 +16,10 @@ import {
   ProjectWarning,
   ProjectWarningIdQueryArg,
 } from '@/modules/construction-work/types'
-import {baseApi} from '@/services'
-import {
-  CacheLifetime,
-  MutationResponse,
-  Paginated,
-  SortListQueryArg,
-} from '@/types'
-import {formatQueryParams, generateRequestUrl} from '@/utils'
+import {baseApi} from '@/services/init'
+import {CacheLifetime, MutationResponse, Paginated} from '@/types/api'
+import {SortListQueryArg} from '@/types/list'
+import {formatQueryParams, generateRequestUrl} from '@/utils/api'
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({

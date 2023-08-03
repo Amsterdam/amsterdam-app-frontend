@@ -1,6 +1,6 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {layoutStyles} from '@/styles'
+import {layoutStyles} from '@/styles/layoutStyles'
 
 type Props = {
   children: ReactNode

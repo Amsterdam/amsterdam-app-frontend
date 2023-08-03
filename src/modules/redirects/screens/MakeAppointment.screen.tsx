@@ -1,9 +1,15 @@
-import {PhoneHQButton} from '@/components/ui/buttons'
-import {Accordion, Box, SingleSelectable} from '@/components/ui/containers'
-import {Column, Row, Screen} from '@/components/ui/layout'
-import {Link, Paragraph, Title} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
-import {appointmentSubjects} from '@/modules/redirects/data'
+import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
+import {Accordion} from '@/components/ui/containers/Accordion'
+import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Link} from '@/components/ui/text/Link'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {appointmentSubjects} from '@/modules/redirects/data/appointmentSubjects'
 
 export const MakeAppointmentScreen = () => {
   const openWebUrl = useOpenWebUrl()

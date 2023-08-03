@@ -1,4 +1,6 @@
-import {useOpenMailUrl, useOpenPhoneUrl, useOpenWebUrl} from '@/hooks'
+import {useOpenMailUrl} from '@/hooks/useOpenMailUrl'
+import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 
 export type OpenUrl = (href: string) => void
 

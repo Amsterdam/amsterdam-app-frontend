@@ -3,7 +3,7 @@ import {ScaledSize, StyleSheet, View, ViewStyle} from 'react-native'
 import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ListMarkerGlyph, ListMarkerProp} from '@/components/ui/text/list/types'
-import {DeviceContext} from '@/providers'
+import {DeviceContext} from '@/providers/device.provider'
 
 type Props = {
   additionalStyles?: ViewStyle

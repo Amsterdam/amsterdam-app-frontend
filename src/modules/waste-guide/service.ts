@@ -4,9 +4,9 @@ import {
   WasteGuideResponse,
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
-import {baseApi} from '@/services'
-import {CacheLifetime} from '@/types'
-import {generateRequestUrl} from '@/utils'
+import {baseApi} from '@/services/init'
+import {CacheLifetime} from '@/types/api'
+import {generateRequestUrl} from '@/utils/api'
 
 export const wasteGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({

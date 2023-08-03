@@ -1,8 +1,8 @@
 import {PressableProps} from 'react-native'
-import {Pressable} from '@/components/ui/buttons'
-import {Row} from '@/components/ui/layout'
-import {Icon} from '@/components/ui/media'
-import {Phrase} from '@/components/ui/text'
+import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {

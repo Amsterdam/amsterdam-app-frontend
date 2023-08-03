@@ -1,7 +1,7 @@
 import {Platform} from 'react-native'
 import {baseApi} from '@/services/init'
-import {DeviceRegistrationEndpointName} from '@/types'
 import {MutationResponse} from '@/types/api'
+import {DeviceRegistrationEndpointName} from '@/types/device'
 
 type DeviceRegistrationQueryArg = {
   firebase_token: string

@@ -1,8 +1,9 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Orientation} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
-import {ImageAspectRatioTokens} from '@/themes/tokens'
+import {Theme} from '@/themes/themes'
+import {ImageAspectRatioTokens} from '@/themes/tokens/media'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   aspectRatio: keyof ImageAspectRatioTokens

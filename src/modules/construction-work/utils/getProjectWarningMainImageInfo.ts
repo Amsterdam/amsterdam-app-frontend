@@ -2,7 +2,7 @@ import {
   ProjectWarning,
   WarningArticleSummary,
 } from '@/modules/construction-work/types'
-import {mapWarningImageSources} from '@/utils'
+import {mapWarningImageSources} from '@/utils/image/mapImageSources'
 
 /**
  * Get the sources and the description for the main warning article image.

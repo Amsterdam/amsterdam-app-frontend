@@ -1,13 +1,16 @@
 import {Key} from 'react'
 import {PressableProps} from 'react-native'
-import {TopTaskButton} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {Column} from '@/components/ui/layout'
-import {IconName} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
-import {OpenPhoneUrl, OpenWebUrl, useOpenPhoneUrl, useOpenWebUrl} from '@/hooks'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {IconName} from '@/components/ui/media/iconPaths'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {OpenPhoneUrl, useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
+import {OpenWebUrl, useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 import {useEnvironment} from '@/store/slices/environment'
-import {accessibleText, formatPhoneNumber} from '@/utils'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 type ContactOption = {
   iconName: IconName

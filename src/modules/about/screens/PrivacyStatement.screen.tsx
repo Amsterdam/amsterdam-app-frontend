@@ -1,7 +1,11 @@
-import {Box} from '@/components/ui/containers'
-import {Column, Screen} from '@/components/ui/layout'
-import {Link, List, Paragraph, Title} from '@/components/ui/text'
-import {useOpenWebUrl} from '@/hooks'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Screen} from '@/components/ui/layout/Screen'
+import {Link} from '@/components/ui/text/Link'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {List} from '@/components/ui/text/list/List'
+import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
 
 export const PrivacyStatementScreen = () => {
   const openWebUrl = useOpenWebUrl()

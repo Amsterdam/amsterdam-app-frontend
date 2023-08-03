@@ -1,20 +1,23 @@
 import {useNavigation} from '@react-navigation/native'
 import {useEffect, useLayoutEffect} from 'react'
-import {Box, HorizontalSafeArea} from '@/components/ui/containers'
-import {PleaseWait} from '@/components/ui/feedback'
-import {Column} from '@/components/ui/layout'
-import {FigureWithFacadesBackground, Image} from '@/components/ui/media'
-import {Paragraph, Title} from '@/components/ui/text'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
-import {ProjectContacts} from '@/modules/construction-work/components/project'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks'
+import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Image} from '@/components/ui/media/Image'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
+import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images/index'
+import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
+import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
 } from '@/modules/construction-work/service'
 import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
-import {useTheme} from '@/themes'
-import {formatDate} from '@/utils'
+import {useTheme} from '@/themes/useTheme'
+import {formatDate} from '@/utils/datetime/formatDate'
 
 type Props = {
   id: string

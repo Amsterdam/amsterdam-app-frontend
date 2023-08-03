@@ -4,14 +4,12 @@ import {
   ConstructionWorkRouteName,
   ConstructionWorkStackParams,
 } from '@/modules/construction-work/routes'
-import {
-  ConstructionWorkScreen,
-  ConstructionWorkSearchScreen,
-  ProjectBodyScreen,
-  ProjectNewsScreen,
-  ProjectScreen,
-  ProjectWarningScreen,
-} from '@/modules/construction-work/screens'
+import {ConstructionWorkScreen} from '@/modules/construction-work/screens/ConstructionWork.screen'
+import {ConstructionWorkSearchScreen} from '@/modules/construction-work/screens/ConstructionWorkSearch.screen'
+import {ProjectScreen} from '@/modules/construction-work/screens/Project.screen'
+import {ProjectBodyScreen} from '@/modules/construction-work/screens/ProjectBody.screen'
+import {ProjectNewsScreen} from '@/modules/construction-work/screens/ProjectNews.screen'
+import {ProjectWarningScreen} from '@/modules/construction-work/screens/ProjectWarning.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ConstructionWorkStackParams,

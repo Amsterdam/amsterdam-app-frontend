@@ -2,8 +2,9 @@ import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types
 import {useMemo} from 'react'
 import {StyleSheet, View, ViewStyle} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Box} from '@/components/ui/containers'
-import {HeaderContent, HeaderContentForHome} from '@/modules/home/components'
+import {Box} from '@/components/ui/containers/Box'
+import {HeaderContent} from '@/modules/home/components/HeaderContent'
+import {HeaderContentForHome} from '@/modules/home/components/HeaderContentForHome'
 import {HomeRouteName} from '@/modules/home/routes'
 
 type BackgroundColorProp = {

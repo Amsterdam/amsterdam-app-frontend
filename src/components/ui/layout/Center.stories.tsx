@@ -1,7 +1,7 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 import {Canvas} from '.storybook/components'
-import {Center} from '@/components/ui/layout'
-import {Phrase} from '@/components/ui/text'
+import {Center} from '@/components/ui/layout/Center'
+import {Phrase} from '@/components/ui/text/Phrase'
 
 export default {
   component: Center,

@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Timeline} from '@/components/ui/containers'
+import {Timeline} from '@/components/ui/containers/Timeline'
 
 export default {
   component: Timeline,

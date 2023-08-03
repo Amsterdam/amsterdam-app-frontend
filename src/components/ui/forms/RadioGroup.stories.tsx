@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {RadioGroup} from '@/components/ui/forms'
+import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 
 export default {
   component: RadioGroup,

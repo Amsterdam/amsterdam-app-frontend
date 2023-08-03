@@ -8,8 +8,9 @@ import {Icon} from '@/components/ui/media/Icon'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {Theme, useThemable} from '@/themes'
-import {accessibleText} from '@/utils'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   iconName: IconName

@@ -1,7 +1,7 @@
-import {Button} from '@/components/ui/buttons'
-import {Box} from '@/components/ui/containers'
-import {Warning} from '@/components/ui/feedback'
-import {Gutter} from '@/components/ui/layout'
+import {Button} from '@/components/ui/buttons/Button'
+import {Box} from '@/components/ui/containers/Box'
+import {Warning} from '@/components/ui/feedback/Warning'
+import {Gutter} from '@/components/ui/layout/Gutter'
 
 type Props = {
   onRetry?: () => void

@@ -5,7 +5,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {TestProps} from '@/components/ui/types'
-import {isReduceMotionEnabled} from '@/hooks'
+import {isReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 

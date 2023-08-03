@@ -1,5 +1,5 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Spinner} from '@/components/ui/feedback'
+import {Spinner} from '@/components/ui/feedback/Spinner'
 
 export default {
   component: Spinner,

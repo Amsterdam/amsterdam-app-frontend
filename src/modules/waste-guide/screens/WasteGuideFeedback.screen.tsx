@@ -1,5 +1,5 @@
-import {WebView} from '@/components/ui/containers'
-import {Screen} from '@/components/ui/layout'
+import {WebView} from '@/components/ui/containers/WebView'
+import {Screen} from '@/components/ui/layout/Screen'
 
 export const WasteGuideFeedbackScreen = () => (
   <Screen scroll={false}>

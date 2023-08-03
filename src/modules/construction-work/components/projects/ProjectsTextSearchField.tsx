@@ -2,8 +2,8 @@ import {useNavigation} from '@react-navigation/native'
 import debounce from 'lodash.debounce'
 import {useCallback, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {SearchField} from '@/components/ui/forms'
-import {config} from '@/modules/construction-work/components/projects'
+import {SearchField} from '@/components/ui/forms/SearchField'
+import {config} from '@/modules/construction-work/components/projects/config'
 import {
   selectConstructionWorkSearchText,
   setSearchText,

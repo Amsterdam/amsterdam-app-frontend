@@ -1,11 +1,13 @@
 import {AccessibilityProps, StyleSheet} from 'react-native'
-import {SingleSelectable} from '@/components/ui/containers'
-import {Triangle} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
-import {Paragraph} from '@/components/ui/text'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Triangle} from '@/components/ui/feedback/Triangle'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement, TestProps} from '@/components/ui/types'
-import {mapPlacementToDirection} from '@/components/ui/utils'
-import {Theme, useThemable} from '@/themes'
+import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   placement: Placement

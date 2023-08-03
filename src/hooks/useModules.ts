@@ -3,9 +3,10 @@ import {useEffect, useMemo, useState} from 'react'
 import {useSelector} from 'react-redux'
 // eslint-disable-next-line no-restricted-imports
 import {version as releaseVersion} from '@/../package.json'
-import {useAppState, useSentry} from '@/hooks'
+import {useAppState} from '@/hooks/useAppState'
+import {useSentry} from '@/hooks/useSentry'
 import {clientModules} from '@/modules/modules'
-import {useGetReleaseQuery} from '@/services'
+import {useGetReleaseQuery} from '@/services/modules.service'
 import {
   selectAuthorizedModules,
   selectDisabledModules,

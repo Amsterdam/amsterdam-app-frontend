@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParams} from '@/app/navigation/types'
-import {Button} from '@/components/ui/buttons'
-import {EmptyMessage} from '@/components/ui/feedback'
-import {Column, Row} from '@/components/ui/layout'
+import {Button} from '@/components/ui/buttons/Button'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 

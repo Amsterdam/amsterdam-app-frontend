@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/core'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParams} from '@/app/navigation/types'
-import {SearchField} from '@/components/ui/forms'
+import {SearchField} from '@/components/ui/forms/SearchField'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
 export const SearchFieldNavigator = () => {

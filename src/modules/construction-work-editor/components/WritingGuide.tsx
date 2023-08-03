@@ -1,8 +1,13 @@
-import {Box, SingleSelectable} from '@/components/ui/containers'
-import {Column, Row, Size} from '@/components/ui/layout'
-import {Paragraph, Phrase, Title} from '@/components/ui/text'
-import {useTheme} from '@/themes'
-import {accessibleText} from '@/utils'
+import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Size} from '@/components/ui/layout/Size'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
+import {useTheme} from '@/themes/useTheme'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const tips = [
   'Behandel één onderwerp per bericht. Splits anders op in meerdere berichten.',

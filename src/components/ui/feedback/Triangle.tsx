@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
-import {Center} from '@/components/ui/layout'
+import {Center} from '@/components/ui/layout/Center'
 import {Direction} from '@/components/ui/types'
-import {Theme, useThemable} from '@/themes'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   direction: Direction
