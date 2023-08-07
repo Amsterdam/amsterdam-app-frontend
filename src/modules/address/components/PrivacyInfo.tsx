@@ -8,21 +8,20 @@ export const PrivacyInfo = () => (
     <Column gutter="md">
       <Title
         testID="AddressPrivacyInfoTitle"
-        text="Hoe gebruiken we uw adres en locatie?"
+        text="Hoe worden mijn locatie en adres gebruikt?"
       />
       <Paragraph variant="intro">
-        Met uw locatie kunnen we betere informatie geven. Zoals wanneer we afval
-        komen ophalen, of er werkzaamheden in uw buurt zijn, en welk stadsloket
-        dichtbij is.
+        Met uw locatie en adres kunnen we betere informatie geven. Zoals wanneer
+        er afval wordt opgehaald, of er werkzaamheden in uw buurt zijn en welk
+        stadsloket dichtbij is.
       </Paragraph>
       <Paragraph>
         De app gebruikt uw adres en locatie alleen om gegevens op te halen. Het
-        adres wordt op uw toestel opgeslagen. Uw locatie bewaren we helemaal
-        niet.
+        adres wordt op uw toestel opgeslagen. Uw locatie wordt niet bewaard.
       </Paragraph>
       <Paragraph>
-        We verwijderen uw adres zodra u dat aangeeft. Uw toestemming voor het
-        gebruiken van uw locatie kunt u altijd intrekken.
+        Uw adres wordt verwijderd zodra u dat aangeeft. Uw toestemming voor het
+        gebruik van uw locatie kunt u altijd intrekken.
       </Paragraph>
     </Column>
   </Box>
