@@ -17,12 +17,12 @@ const Backdrop = (props: BottomSheetBackdropProps) => (
   />
 )
 
-type Props = {children: ReactNode; snapPoints?: string[]} & Partial<
+type Props = Partial<
   Omit<
     BottomSheetProps,
     'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
   >
->
+> & {children: ReactNode; snapPoints?: (string | number)[]}
 
 export const BottomSheet = ({
   children,

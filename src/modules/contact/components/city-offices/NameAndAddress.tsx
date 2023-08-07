@@ -11,14 +11,14 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
 export const NameAndAddress = ({address, addressContent, title}: Props) => {
-  const {open} = useBottomSheet()
+  const {open: openBottomSheet} = useBottomSheet()
 
   return (
     <Column gutter="md">
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
-        onPress={open}
+        onPress={openBottomSheet}
         testID="ContactCurrentCityOfficeButton"
         text={
           <SingleSelectable

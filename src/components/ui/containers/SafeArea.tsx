@@ -13,6 +13,9 @@ export type SharedSafeAreaProps = {flex?: number} & Omit<ViewProps, 'style'>
 
 type Props = ApplyEdges & SharedSafeAreaProps
 
+/**
+ * A utility container that will add insets only to the specified sides. This is for real edge cases ;-)
+ */
 export const SafeArea = ({
   bottom,
   children,
