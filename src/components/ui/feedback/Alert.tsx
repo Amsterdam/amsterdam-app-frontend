@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core'
 import {FC, Fragment, ReactNode, useEffect} from 'react'
 import {
   AccessibilityInfo,
@@ -23,6 +22,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useBeforeRemove} from '@/hooks/useBeforeRemove'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {resetAlert, selectAlert} from '@/store/slices/alert'
 import {Theme} from '@/themes/themes'
@@ -38,7 +38,6 @@ if (
 
 export const Alert = () => {
   const dispatch = useDispatch()
-  const navigation = useNavigation()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   const alert = useSelector(selectAlert)
@@ -48,14 +47,7 @@ export const Alert = () => {
 
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', () => {
-        //triggers only when moving back in navigation stack
-        dispatch(resetAlert())
-      }),
-    [dispatch, navigation],
-  )
+  useBeforeRemove(() => dispatch(resetAlert()))
 
   useEffect(() => {
     dispatch(resetAlert()) // triggers when navigation navigates to new screen

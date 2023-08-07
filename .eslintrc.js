@@ -63,22 +63,28 @@ module.exports = {
         ],
         paths: [
           {
+            name: '@gorhom/bottom-sheet',
+            importNames: ['BottomSheet'],
+            message:
+              'Import BottomSheet from @/components/ui/containers/BottomSheet.',
+          },
+          {
+            name: '@react-navigation/stack',
+            importNames: ['createStackNavigator'],
+            message:
+              'Import createStackNavigator from @/utils/navigation/createStackNavigator.',
+          },
+          {
             name: 'dayjs',
             importNames: ['default'],
             message:
               'Import dayjs from @/utils/datetime to prevent timezone issues.',
           },
           {
-            name: '@react-navigation/stack',
-            importNames: ['createStackNavigator'],
-            message:
-              'Import createStackNavigator from @/utils/navigation/createStackNavigator to automatically be accessible.',
-          },
-          {
             name: 'react-native-super-grid',
             importNames: ['SimpleGrid'],
             message:
-              'Import SimpleGrid from @/components/ui/containers/SimpleGrid to automatically be accessible.',
+              'Import SimpleGrid from @/components/ui/containers/SimpleGrid.',
           },
         ],
       },

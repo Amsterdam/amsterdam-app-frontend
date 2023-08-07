@@ -39,6 +39,8 @@ export const getReducers = (reduxConfigs: ReduxConfig[]) => {
 
     if (version === undefined) {
       reducers[key] = slice.reducer
+
+      return
     }
 
     reducers[key] = persistReducer(

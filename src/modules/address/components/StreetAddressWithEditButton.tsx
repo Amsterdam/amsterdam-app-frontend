@@ -14,6 +14,9 @@ type Props = {
   testIDLabel?: ViewProps['testID']
 } & Pick<AccessibilityProps, 'accessibilityLabel'>
 
+/**
+ * @deprecated: To be replaced with top task button
+ */
 export const StreetAddressWithEditButton = ({
   accessibilityLabel,
   address,
