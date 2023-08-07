@@ -5,7 +5,7 @@ type Props = {
   onPress: () => void
 }
 
-// TODO: implementatie (87654)
+// TODO: implement (87654)
 export const LocationTopTaskButton = ({hasTitleIcon, onPress}: Props) => (
   <TopTaskButton
     iconName="location"
