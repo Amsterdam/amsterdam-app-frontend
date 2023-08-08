@@ -108,7 +108,7 @@ export const Project = ({id}: Props) => {
                 accessibilityLabel={
                   followed ? 'Ontvolg dit project' : 'Volg dit project'
                 }
-                disabled={isUpdatingFollow || isUpdatingUnfollow}
+                disabled={isUpdatingFollow || isUpdatingUnfollow || isLoading}
                 followed={followed}
                 onPress={onPressFollowButton}
                 testID="ConstructionWorkProjectFollowButton"
