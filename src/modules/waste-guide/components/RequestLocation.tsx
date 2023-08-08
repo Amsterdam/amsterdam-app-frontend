@@ -28,6 +28,7 @@ export const RequestLocation = () => {
               <TopTaskButton
                 iconName="location"
                 onPress={open}
+                testID="WasteGuideRequestLocationButton"
                 title="Geef uw locatie door"
                 titleIconName="chevron-down"
               />
