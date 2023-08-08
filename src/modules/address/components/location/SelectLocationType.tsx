@@ -7,11 +7,7 @@ import {useAddress} from '@/modules/address/hooks/useAddress'
 import {AddressModalName} from '@/modules/address/routes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
-type Props = {
-  testIdPrefix?: string
-}
-
-export const SelectLocationType = ({testIdPrefix = ''}: Props) => {
+export const SelectLocationType = () => {
   const navigation = useNavigation()
   const {close} = useBottomSheet()
   const address = useAddress()
@@ -31,7 +27,7 @@ export const SelectLocationType = ({testIdPrefix = ''}: Props) => {
 
             close()
           }}
-          testID={`${testIdPrefix}SelectAddressButton`}
+          testID="SelectAddressButton"
         />
         {/* TODO: implement @/modules/address/components/location/LocationTopTaskButton (87654) with testID `SelectLocationButton` */}
       </Column>

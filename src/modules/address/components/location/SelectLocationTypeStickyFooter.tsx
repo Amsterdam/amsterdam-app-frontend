@@ -1,12 +1,8 @@
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {SelectLocationType} from '@/modules/address/components/location/SelectLocationType'
 
-type Props = {
-  testIdPrefix?: string
-}
-
-export const SelectLocationTypeStickyFooter = ({testIdPrefix}: Props) => (
+export const SelectLocationTypeStickyFooter = () => (
   <BottomSheet>
-    <SelectLocationType testIdPrefix={testIdPrefix} />
+    <SelectLocationType />
   </BottomSheet>
 )
