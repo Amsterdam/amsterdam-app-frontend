@@ -15,6 +15,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useAddress} from '@/modules/address/hooks/useAddress'
+import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
@@ -28,7 +29,6 @@ import {
   useGetProjectQuery,
   useUnfollowProjectMutation,
 } from '@/modules/construction-work/service'
-import {getAddressParam} from '@/modules/construction-work/utils/getAddressParam'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {mapImageSources} from '@/utils/image/mapImageSources'
 

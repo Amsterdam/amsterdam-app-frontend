@@ -3,12 +3,17 @@ import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
   followed: boolean
-} & Omit<PressableProps, 'style' | 'onPress'> & {
-    onPress: (followed: boolean) => void
-  }
+  onPress: (followed: boolean) => void
+} & Omit<ButtonProps, 'onPress' | 'style'> &
+  Omit<PressableProps, 'onPress' | 'style'>
 
-export const FollowButton = ({followed, onPress, testID}: Props) => {
-  const buttonProps: ButtonProps = followed
+export const FollowButton = ({
+  followed,
+  onPress,
+  testID,
+  ...otherButtonProps
+}: Props) => {
+  const defaultButtonProps: ButtonProps = followed
     ? {
         iconName: 'checkmark',
         label: 'Volgend',
@@ -24,7 +29,8 @@ export const FollowButton = ({followed, onPress, testID}: Props) => {
     <Button
       onPress={() => onPress(followed)}
       testID={testID}
-      {...buttonProps}
+      {...defaultButtonProps}
+      {...otherButtonProps}
     />
   )
 }
