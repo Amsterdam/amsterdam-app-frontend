@@ -27,9 +27,9 @@ export const SelectLocationType = () => {
 
             close()
           }}
-          testID="SelectAddressButton"
+          testID="BottomSheetSelectAddressButton"
         />
-        {/* TODO: implement @/modules/address/components/location/LocationTopTaskButton (87654) with testID `SelectLocationButton` */}
+        {/* TODO: implement @/modules/address/components/location/LocationTopTaskButton (87654) with testID `BottomSheetSelectLocationButton` */}
       </Column>
     </Box>
   )
