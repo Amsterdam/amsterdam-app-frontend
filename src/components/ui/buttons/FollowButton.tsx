@@ -1,11 +1,9 @@
-import {PressableProps} from 'react-native'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
   followed: boolean
   onPress: (followed: boolean) => void
-} & Omit<ButtonProps, 'onPress' | 'style'> &
-  Omit<PressableProps, 'onPress' | 'style'>
+} & Omit<ButtonProps, 'onPress' | 'style'>
 
 export const FollowButton = ({
   followed,
