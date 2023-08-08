@@ -3,12 +3,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/useNavigation'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
+import {useAddress} from '@/modules/address/hooks/useAddress'
 import {AddressModalName} from '@/modules/address/routes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const SelectLocationType = () => {
   const navigation = useNavigation()
   const {close} = useBottomSheet()
+  const address = useAddress()
 
   return (
     <Box grow>
@@ -19,7 +21,10 @@ export const SelectLocationType = () => {
         />
         <AddressTopTaskButton
           onPress={() => {
-            navigation.navigate(AddressModalName.addressForm)
+            if (!address) {
+              navigation.navigate(AddressModalName.addressForm)
+            }
+
             close()
           }}
         />
