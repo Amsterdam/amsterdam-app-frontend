@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import {
   GestureResponderEvent,
   Pressable,
@@ -36,16 +36,23 @@ export const Button = ({
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
   const styles = useThemable(createStyles({small, variant}, isPressed))
+  const {onPressIn, onPressOut} = pressableProps
 
-  const mergeOnPressIn = (e: GestureResponderEvent) => {
-    setIsPressed(true)
-    pressableProps.onPressIn?.(e)
-  }
+  const mergeOnPressIn = useCallback(
+    (e: GestureResponderEvent) => {
+      setIsPressed(true)
+      onPressIn?.(e)
+    },
+    [onPressIn],
+  )
 
-  const mergeOnPressOut = (e: GestureResponderEvent) => {
-    setIsPressed(false)
-    pressableProps.onPressOut?.(e)
-  }
+  const mergeOnPressOut = useCallback(
+    (e: GestureResponderEvent) => {
+      setIsPressed(false)
+      onPressOut?.(e)
+    },
+    [onPressOut],
+  )
 
   return (
     <Pressable

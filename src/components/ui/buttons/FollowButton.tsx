@@ -1,30 +1,38 @@
-import {PressableProps} from 'react-native'
+import {useCallback} from 'react'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
   followed: boolean
-} & Omit<PressableProps, 'style' | 'onPress'> & {
-    onPress: (followed: boolean) => void
-  }
+  onPress: (followed: boolean) => void
+} & Omit<ButtonProps, 'onPress' | 'style'>
 
-export const FollowButton = ({followed, onPress, testID}: Props) => {
-  const buttonProps: ButtonProps = followed
-    ? {
-        iconName: 'checkmark',
-        label: 'Volgend',
-        variant: 'primary',
-      }
-    : {
-        iconName: 'enlarge',
-        label: 'Volgen',
-        variant: 'secondary',
-      }
+export const FollowButton = ({
+  followed,
+  onPress,
+  ...otherButtonProps
+}: Props) => {
+  const follow = useCallback(() => onPress(false), [onPress])
+  const unfollow = useCallback(() => onPress(true), [onPress])
+
+  if (followed) {
+    return (
+      <Button
+        iconName="checkmark"
+        label="Volgend"
+        onPress={unfollow}
+        variant="primary"
+        {...otherButtonProps}
+      />
+    )
+  }
 
   return (
     <Button
-      onPress={() => onPress(followed)}
-      testID={testID}
-      {...buttonProps}
+      iconName="enlarge"
+      label="Volgen"
+      onPress={follow}
+      variant="secondary"
+      {...otherButtonProps}
     />
   )
 }
