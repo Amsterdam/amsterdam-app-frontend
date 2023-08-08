@@ -49,7 +49,11 @@ export const Project = ({id}: Props) => {
 
   const addressParam = getAddressParam(address)
 
-  const {data: project, isLoading} = useGetProjectQuery({id, ...addressParam})
+  const {
+    data: project,
+    isLoading,
+    isFetching,
+  } = useGetProjectQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useFollowProjectMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
@@ -108,7 +112,7 @@ export const Project = ({id}: Props) => {
                 accessibilityLabel={
                   followed ? 'Ontvolg dit project' : 'Volg dit project'
                 }
-                disabled={isUpdatingFollow || isUpdatingUnfollow}
+                disabled={isUpdatingFollow || isUpdatingUnfollow || isFetching}
                 followed={followed}
                 onPress={onPressFollowButton}
                 testID="ConstructionWorkProjectFollowButton"

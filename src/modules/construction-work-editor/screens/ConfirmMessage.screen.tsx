@@ -56,9 +56,12 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   )
   const project = useSelector(selectProject(currentProjectId))
 
-  const [addWarning] = useAddProjectWarningMutation()
-  const [addProjectWarningImage] = useAddProjectWarningImageMutation()
-  const [addNotification] = useAddNotificationMutation()
+  const [addWarning, {isLoading: isLoadingAddProjectWarning}] =
+    useAddProjectWarningMutation()
+  const [addProjectWarningImage, {isLoading: isLoadingAddProjectWarningImage}] =
+    useAddProjectWarningImageMutation()
+  const [addNotification, {isLoading: isLoadingAddNotification}] =
+    useAddNotificationMutation()
 
   const {media} = useTheme()
 
@@ -147,6 +150,11 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           <Box>
             <Column gutter="md">
               <Button
+                disabled={
+                  isLoadingAddProjectWarning ||
+                  isLoadingAddProjectWarningImage ||
+                  isLoadingAddNotification
+                }
                 label="Plaats bericht"
                 onPress={onSubmit}
                 testID="ConstructionWorkEditorCreateMessageSubmitButton"
