@@ -12,7 +12,7 @@ export const WasteGuideScreen = () => {
 
   return (
     <Screen
-      scroll={!address}
+      scroll={!!address}
       stickyFooter={<SelectLocationTypeStickyFooter />}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
