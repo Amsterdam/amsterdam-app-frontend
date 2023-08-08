@@ -1,31 +1,22 @@
 import {useContext} from 'react'
-import {useSelector} from 'react-redux'
 import {Screen} from '@/components/ui/layout/Screen'
-import {selectAddress} from '@/modules/address/slice'
-import {RequestAddress} from '@/modules/waste-guide/components/RequestAddress'
+import {SelectLocationTypeStickyFooter} from '@/modules/address/components/location/SelectLocationTypeStickyFooter'
+import {useAddress} from '@/modules/address/hooks/useAddress'
+import {RequestLocation} from '@/modules/waste-guide/components/RequestLocation'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 import {DeviceContext} from '@/providers/device.provider'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
-  const address = useSelector(selectAddress)
-
-  if (!address) {
-    return (
-      <Screen
-        scroll={false}
-        withLeftInset={isPortrait}
-        withRightInset={isPortrait}>
-        <RequestAddress />
-      </Screen>
-    )
-  }
+  const address = useAddress()
 
   return (
     <Screen
+      scroll={!!address}
+      stickyFooter={<SelectLocationTypeStickyFooter />}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      <WasteGuide address={address} />
+      {address ? <WasteGuide address={address} /> : <RequestLocation />}
     </Screen>
   )
 }

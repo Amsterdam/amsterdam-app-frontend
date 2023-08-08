@@ -1,4 +1,3 @@
-import {useDispatch} from 'react-redux'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
@@ -6,20 +5,20 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {CityOffice} from '@/modules/contact/types'
-import {toggleBottomSheet} from '@/store/slices/bottomSheet'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = Pick<CityOffice, 'address' | 'addressContent' | 'title'>
 
 export const NameAndAddress = ({address, addressContent, title}: Props) => {
-  const dispatch = useDispatch()
+  const {open: openBottomSheet} = useBottomSheet()
 
   return (
     <Column gutter="md">
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         iconName="city-office"
-        onPress={() => dispatch(toggleBottomSheet())}
+        onPress={openBottomSheet}
         testID="ContactCurrentCityOfficeButton"
         text={
           <SingleSelectable

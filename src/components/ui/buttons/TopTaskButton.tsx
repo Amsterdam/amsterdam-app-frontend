@@ -12,9 +12,9 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
-type Props = {
+export type TopTaskButtonProps = {
   iconName: IconName
-  text: string | ReactNode
+  text?: ReactNode
   title: string
   titleIconName?: IconName
 } & Omit<PressableProps, 'children'>
@@ -27,7 +27,7 @@ export const TopTaskButton = ({
   titleIconName,
   testID = '',
   ...pressableProps
-}: Props) => {
+}: TopTaskButtonProps) => {
   const styles = useThemable(createStyles)
 
   return (
@@ -50,7 +50,7 @@ export const TopTaskButton = ({
               size="xl"
             />
           </View>
-          <Column>
+          <Column align="center">
             <Row
               gutter="sm"
               valign="center">
