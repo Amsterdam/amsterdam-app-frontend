@@ -1,4 +1,4 @@
-import {FC, Fragment, ReactNode, useEffect} from 'react'
+import {FC, Fragment, ReactNode, useCallback, useEffect} from 'react'
 import {
   AccessibilityInfo,
   LayoutAnimation,
@@ -47,11 +47,13 @@ export const Alert = () => {
 
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  useBeforeRemove(() => dispatch(resetAlert()))
+  const reset = useCallback(() => dispatch(resetAlert()), [dispatch])
+
+  useBeforeRemove(reset)
 
   useEffect(() => {
-    dispatch(resetAlert()) // triggers when navigation navigates to new screen
-  }, [dispatch])
+    reset() // triggers when navigation navigates to new screen
+  }, [reset])
 
   useEffect(() => {
     if (content) {

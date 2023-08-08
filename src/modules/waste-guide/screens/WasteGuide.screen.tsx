@@ -10,24 +10,13 @@ export const WasteGuideScreen = () => {
   const {isPortrait} = useContext(DeviceContext)
   const address = useAddress()
 
-  if (!address) {
-    return (
-      <Screen
-        scroll={false}
-        stickyFooter={<SelectLocationTypeStickyFooter />}
-        withLeftInset={isPortrait}
-        withRightInset={isPortrait}>
-        <RequestLocation />
-      </Screen>
-    )
-  }
-
   return (
     <Screen
+      scroll={!address}
       stickyFooter={<SelectLocationTypeStickyFooter />}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      <WasteGuide address={address} />
+      {address ? <WasteGuide address={address} /> : <RequestLocation />}
     </Screen>
   )
 }

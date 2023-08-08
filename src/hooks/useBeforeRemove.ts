@@ -8,11 +8,7 @@ export const useBeforeRemove = (callback: () => unknown) => {
   const navigation = useNavigation()
 
   useEffect(
-    () =>
-      navigation.addListener('beforeRemove', () => {
-        callback()
-      }),
-
+    () => navigation.addListener('beforeRemove', callback),
     [callback, navigation],
   )
 }
