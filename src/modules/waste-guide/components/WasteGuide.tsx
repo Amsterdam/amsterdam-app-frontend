@@ -57,6 +57,7 @@ export const WasteGuide = ({address}: Props) => {
               <AddressTopTaskButton
                 hasTitleIcon
                 onPress={openBottomSheet}
+                testID="WasteGuideChangeLocationButton"
               />
             </Column>
             {hasContent ? (
