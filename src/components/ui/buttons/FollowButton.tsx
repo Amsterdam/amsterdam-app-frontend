@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
@@ -8,26 +9,29 @@ type Props = {
 export const FollowButton = ({
   followed,
   onPress,
-  testID,
   ...otherButtonProps
 }: Props) => {
-  const defaultButtonProps: ButtonProps = followed
-    ? {
-        iconName: 'checkmark',
-        label: 'Volgend',
-        variant: 'primary',
-      }
-    : {
-        iconName: 'enlarge',
-        label: 'Volgen',
-        variant: 'secondary',
-      }
+  const follow = useCallback(() => onPress(false), [onPress])
+  const unfollow = useCallback(() => onPress(true), [onPress])
+
+  if (followed) {
+    return (
+      <Button
+        iconName="checkmark"
+        label="Volgend"
+        onPress={unfollow}
+        variant="primary"
+        {...otherButtonProps}
+      />
+    )
+  }
 
   return (
     <Button
-      onPress={() => onPress(followed)}
-      testID={testID}
-      {...defaultButtonProps}
+      iconName="enlarge"
+      label="Volgen"
+      onPress={follow}
+      variant="secondary"
       {...otherButtonProps}
     />
   )
