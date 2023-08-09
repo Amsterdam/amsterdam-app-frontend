@@ -86,7 +86,7 @@ export const AccessibilityStatementScreen = () => {
               text="Werkt iets niet?"
             />
             <Paragraph testID="AboutAccessibilityStatementSomehtingBrokenParagraph">
-              Komt u nog een scherm tegen die u niet kunt lezen of gebruiken?
+              Komt u nog een scherm tegen dat u niet kunt lezen of gebruiken?
               Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
             <Row>

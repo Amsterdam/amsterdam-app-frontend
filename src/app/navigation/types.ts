@@ -29,7 +29,7 @@ export type NavigationProp<RouteName extends keyof RootStackParams> =
   NavigationPropOriginal<RootStackParams, RouteName>
 
 /**
- * RouteProp is the type of a navigation object as part of NavigationProps or as returned by useRoute.
+ * RouteProp is the type of a route object as part of NavigationProps or as returned by useRoute.
  */
 export type RouteProp<RouteName extends keyof RootStackParams> =
   RoutePropOriginal<RootStackParams, RouteName>
