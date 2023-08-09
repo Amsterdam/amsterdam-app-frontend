@@ -6,6 +6,8 @@ const messages = {
   noSpreading: 'Explicit spreading is forbidden',
 }
 
+// @ts-check
+/** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
     docs: {
