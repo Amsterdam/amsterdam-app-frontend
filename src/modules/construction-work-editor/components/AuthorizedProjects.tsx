@@ -1,13 +1,12 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
-import {RootStackParams} from '@/app/navigation/types'
+import {StackNavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectsItem} from '@/modules/construction-work/types'
@@ -18,13 +17,8 @@ import {useTheme} from '@/themes/useTheme'
 import {isApiAuthorizationError} from '@/utils/api'
 import {mapImageSources} from '@/utils/image/mapImageSources'
 
-type Navigation = StackNavigationProp<
-  RootStackParams,
-  ConstructionWorkEditorRouteName.authorizedProjects
->
-
 type ListItemProps = {
-  navigation: Navigation
+  navigation: StackNavigationProp<ConstructionWorkEditorRouteName.createMessage>
   project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
 }
 
@@ -55,7 +49,8 @@ type Props = {
 }
 
 export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
-  const navigation = useNavigation<Navigation>()
+  const navigation =
+    useNavigation<ConstructionWorkEditorRouteName.createMessage>()
 
   const {fontScale} = useDeviceContext()
   const {size} = useTheme()

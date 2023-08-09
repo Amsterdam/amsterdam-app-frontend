@@ -1,11 +1,9 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -65,10 +63,7 @@ const redirects: RedirectResponse[] = [
 
 export const Redirects = () => {
   const openWebUrl = useOpenWebUrl()
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, RedirectsRouteName.redirects>
-    >()
+  const navigation = useNavigation()
 
   return (
     <Column gutter="md">

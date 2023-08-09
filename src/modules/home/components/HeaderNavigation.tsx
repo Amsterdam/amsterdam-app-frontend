@@ -1,16 +1,13 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon, IconProps} from '@/components/ui/media/Icon'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {isDevApp} from '@/processes/development'
 
 export const HeaderNavigation = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug.home>>()
+  const navigation = useNavigation()
 
   const iconProps: Partial<IconProps> = {
     color: 'link',

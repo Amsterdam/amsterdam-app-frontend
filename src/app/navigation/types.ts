@@ -1,5 +1,8 @@
 import {NavigationProp, ParamListBase, RouteProp} from '@react-navigation/core'
-import {StackNavigationOptions} from '@react-navigation/stack'
+import {
+  StackNavigationOptions,
+  StackNavigationProp as StackNavigationPropOriginal,
+} from '@react-navigation/stack'
 import {ComponentType} from 'react'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleStackParams, ModalParams} from '@/modules/stacks'
@@ -18,8 +21,11 @@ export type RootStackParams = ModuleParams<ModuleStackParams> &
   ModuleStackParams &
   ModalParams
 
+export type StackNavigationProp<RouteName extends keyof RootStackParams> =
+  StackNavigationPropOriginal<RootStackParams, RouteName>
+
 export type NavigationProps<RouteName extends keyof RootStackParams> = {
-  navigation: NavigationProp<RootStackParams>
+  navigation: NavigationProp<RootStackParams, RouteName>
   route: RouteProp<Pick<RootStackParams, RouteName>>
 }
 

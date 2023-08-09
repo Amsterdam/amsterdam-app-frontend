@@ -1,11 +1,9 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {AccessibilityProps, ViewProps} from 'react-native'
-import {RootStackParams} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressModalName} from '@/modules/address/routes'
 
 type Props = {
@@ -23,10 +21,7 @@ export const StreetAddressWithEditButton = ({
   testIDButton,
   testIDLabel,
 }: Props) => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, AddressModalName.addressForm>
-    >()
+  const navigation = useNavigation()
 
   return (
     <Row

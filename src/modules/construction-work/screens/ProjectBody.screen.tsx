@@ -1,4 +1,4 @@
-import {RouteProp, useNavigation} from '@react-navigation/native'
+import {RouteProp} from '@react-navigation/native'
 import {useLayoutEffect} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {Timeline} from '@/components/ui/containers/Timeline'
@@ -6,6 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {

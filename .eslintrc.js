@@ -97,15 +97,16 @@ module.exports = {
             message: 'Import useSelector from @/hooks/redux/useSelector.',
           },
           {
-            name: '@react-navigation/native',
-            importNames: ['useNavigation'],
+            name: '@react-navigation/core',
+            importNames: ['useNavigation', 'useRoute'],
             message:
-              'Import useNavigation from @/hooks/navigation/useNavigation.',
+              'Import useNavigation and useRoute from @/hooks/navigation/.',
           },
           {
             name: '@react-navigation/native',
-            importNames: ['useRoute'],
-            message: 'Import useRoute from @/hooks/navigation/useRoute.',
+            importNames: ['useNavigation', 'useRoute'],
+            message:
+              'Import useNavigation and useRoute from @/hooks/navigation/.',
           },
         ],
       },

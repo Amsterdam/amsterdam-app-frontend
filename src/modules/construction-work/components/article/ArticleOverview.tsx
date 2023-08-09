@@ -1,17 +1,13 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ArticlePreview} from '@/modules/construction-work/components/article/ArticlePreview'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useGetArticlesQuery} from '@/modules/construction-work/service'
 import {ArticleSummary} from '@/modules/construction-work/types'
 import {Theme} from '@/themes/themes'
@@ -38,13 +34,7 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<
-        ConstructionWorkStackParams,
-        ConstructionWorkRouteName.projectNews
-      >
-    >()
+  const navigation = useNavigation()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
     limit,

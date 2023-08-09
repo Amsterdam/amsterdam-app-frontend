@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native'
 import {useEffect, useLayoutEffect} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -8,6 +7,7 @@ import {Image} from '@/components/ui/media/Image'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {
   useGetProjectNewsQuery,

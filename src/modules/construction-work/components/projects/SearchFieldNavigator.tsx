@@ -1,14 +1,9 @@
-import {useNavigation} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
 import {SearchField} from '@/components/ui/forms/SearchField'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
 export const SearchFieldNavigator = () => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
-    >()
+  const navigation = useNavigation()
 
   return (
     <SearchField
