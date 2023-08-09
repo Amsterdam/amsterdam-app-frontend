@@ -25,7 +25,7 @@ export const useRequestLocation = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addLocation(transformAddressApiResponse(data?.response.docs[0])))
+      dispatch(addLocation(transformAddressApiResponse(data.response.docs[0])))
     }
   }, [data, dispatch])
 
