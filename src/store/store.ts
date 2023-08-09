@@ -15,10 +15,10 @@ import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
-  {key: ReduxKey.auth, slice: authSlice},
+  {key: ReduxKey.auth, slice: authSlice, persistVersion: -1},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
-  {key: ReduxKey.environment, slice: environmentSlice},
-  {key: ReduxKey.modules, slice: modulesSlice},
+  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
+  {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
   {key: ReduxKey.theme, slice: themeSlice},
 ]
 
