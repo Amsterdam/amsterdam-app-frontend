@@ -82,10 +82,10 @@ export const AccessibilityStatementScreen = () => {
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutAccessibilityStatementSomehtingBrokenTitle"
+              testID="AboutAccessibilityStatementSomethingBrokenTitle"
               text="Werkt iets niet?"
             />
-            <Paragraph testID="AboutAccessibilityStatementSomehtingBrokenParagraph">
+            <Paragraph testID="AboutAccessibilityStatementSomethingBrokenParagraph">
               Komt u nog een scherm tegen dat u niet kunt lezen of gebruiken?
               Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
