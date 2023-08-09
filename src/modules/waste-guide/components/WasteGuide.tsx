@@ -4,6 +4,7 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
@@ -52,6 +53,7 @@ export const WasteGuide = ({address}: Props) => {
             flex={1}
             gutter="lg">
             <Column>
+              <Paragraph>Afvalinformatie voor dit adres</Paragraph>
               <StreetAddressWithEditButton
                 address={addressLine1}
                 testIDButton="WasteGuideButtonEditAddress"
