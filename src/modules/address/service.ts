@@ -21,9 +21,10 @@ export const addressApi = baseApi.injectEndpoints({
             q: address,
             fl: 'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
             fq: [
-              `type:(${street ? 'adres' : 'weg OR adres'})`,
-              `woonplaatsnaam:(${city?.toLowerCase() ?? 'amsterdam OR weesp'})`,
-              ...(street ? [`straatnaam:${street.toLowerCase()}`] : []),
+              `type:${street ? 'adres' : '(weg OR adres)'}`,
+              `woonplaatsnaam:${city?.toLowerCase() ?? '(amsterdam OR weesp)'}`,
+              ...(street ? [`straatnaam:"${street.toLowerCase()}"`] : []),
+              'bron:BAG',
             ],
             qf: 'exacte_match^0.5 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
             bq: ['type:weg^1.5', 'type:adres^1'],
