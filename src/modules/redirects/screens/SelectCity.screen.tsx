@@ -1,5 +1,4 @@
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -15,12 +14,7 @@ import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {useEnvironment} from '@/store/slices/environment'
 import {useTheme} from '@/themes/useTheme'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    RedirectsRouteName.selectCity
-  >
-}
+type Props = NavigationProps<RedirectsRouteName.selectCity>
 
 export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()

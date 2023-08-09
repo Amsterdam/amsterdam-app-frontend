@@ -1,5 +1,4 @@
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -13,9 +12,7 @@ import {TwoPersonsHighFiveImage} from '@/modules/about/assets/images'
 import {AboutRouteName} from '@/modules/about/routes'
 import {getVersionNumber} from '@/modules/about/utils/getVersionNumber'
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParams, AboutRouteName.about>
-}
+type Props = NavigationProps<AboutRouteName.about>
 
 const versionNumber = getVersionNumber()
 

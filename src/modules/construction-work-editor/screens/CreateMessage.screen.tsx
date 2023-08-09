@@ -1,7 +1,5 @@
-import {RouteProp} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect, useLayoutEffect, useRef} from 'react'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Alert} from '@/components/ui/feedback/Alert'
@@ -23,16 +21,7 @@ import {
   ConstructionWorkEditorRouteName,
 } from '@/modules/construction-work-editor/routes'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName.createMessage
-  >
-  route: RouteProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName.createMessage
-  >
-}
+type Props = NavigationProps<ConstructionWorkEditorRouteName.createMessage>
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()

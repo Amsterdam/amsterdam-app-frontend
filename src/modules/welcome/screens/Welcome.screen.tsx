@@ -1,6 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
@@ -15,9 +14,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks/useSelectImageWithQuote'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
-}
+type Props = NavigationProps<WelcomeRouteName.welcome>
 
 const quoteWidth = 288
 

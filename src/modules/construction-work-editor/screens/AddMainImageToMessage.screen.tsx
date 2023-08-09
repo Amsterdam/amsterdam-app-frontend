@@ -1,7 +1,6 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
@@ -22,12 +21,8 @@ import {
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName
-  >
-}
+type Props =
+  NavigationProps<ConstructionWorkEditorRouteName.addMainImageToMessage>
 
 const maxCharacters = {
   title: 54,

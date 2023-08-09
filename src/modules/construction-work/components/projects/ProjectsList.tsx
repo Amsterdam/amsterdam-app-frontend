@@ -2,7 +2,7 @@ import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
-import {StackNavigationProp} from '@/app/navigation/types'
+import {NavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -32,7 +32,7 @@ const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
 
 type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
-  navigation: StackNavigationProp<ConstructionWorkRouteName>
+  navigation: NavigationProp<ConstructionWorkRouteName>
   project: ProjectsItem
   readArticles: ReadArticle[]
 }

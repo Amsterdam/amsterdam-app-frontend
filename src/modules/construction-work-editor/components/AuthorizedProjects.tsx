@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
-import {StackNavigationProp} from '@/app/navigation/types'
+import {NavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -18,7 +18,7 @@ import {isApiAuthorizationError} from '@/utils/api'
 import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type ListItemProps = {
-  navigation: StackNavigationProp<ConstructionWorkEditorRouteName.createMessage>
+  navigation: NavigationProp<ConstructionWorkEditorRouteName.createMessage>
   project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
 }
 

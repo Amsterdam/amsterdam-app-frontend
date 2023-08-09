@@ -1,6 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useLayoutEffect, useState} from 'react'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Alert} from '@/components/ui/feedback/Alert'
@@ -38,12 +37,7 @@ import {useAddNotificationMutation} from '@/services/notifications'
 import {resetAlert, setAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName.confirmMessage
-  >
-}
+type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
