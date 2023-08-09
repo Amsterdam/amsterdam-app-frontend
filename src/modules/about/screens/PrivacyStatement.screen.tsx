@@ -5,7 +5,7 @@ import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 
 export const PrivacyStatementScreen = () => {
   const openWebUrl = useOpenWebUrl()

@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {useSelector} from 'react-redux'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {selectTheme} from '@/themes/slice'
 import {Theme} from '@/themes/themes'
 

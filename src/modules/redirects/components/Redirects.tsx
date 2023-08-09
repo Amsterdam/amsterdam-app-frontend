@@ -5,7 +5,7 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {TestProps} from '@/components/ui/types'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 

@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
 import {useSaveIdAndToken} from '@/modules/construction-work-editor/hooks/useSaveIdAndToken'
 import {useSetModuleAuthorization} from '@/modules/construction-work-editor/hooks/useSetModuleAuthorization'

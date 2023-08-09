@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import {Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
@@ -9,12 +8,12 @@ import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components/ContactConstructionWorkSupport'
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {DeviceContext} from '@/providers/device.provider'
 import {useTheme} from '@/themes/useTheme'
 import {isApiAuthorizationError} from '@/utils/api'
 import {mapImageSources} from '@/utils/image/mapImageSources'
@@ -58,7 +57,7 @@ type Props = {
 export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
   const navigation = useNavigation<Navigation>()
 
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 

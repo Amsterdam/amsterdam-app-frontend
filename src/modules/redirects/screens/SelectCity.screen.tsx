@@ -1,5 +1,4 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,10 +8,10 @@ import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {PeopleAtCityOffice} from '@/modules/redirects/assets/images'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {DeviceContext} from '@/providers/device.provider'
 import {useEnvironment} from '@/store/slices/environment'
 import {useTheme} from '@/themes/useTheme'
 
@@ -25,7 +24,7 @@ type Props = {
 
 export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
-  const {isLandscape} = useContext(DeviceContext)
+  const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {makeAppointmentWeespUrl} = useEnvironment()
 

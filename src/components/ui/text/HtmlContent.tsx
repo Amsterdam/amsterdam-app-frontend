@@ -1,4 +1,4 @@
-import {useCallback, useContext, useMemo, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {
   LayoutChangeEvent,
   Platform,
@@ -18,9 +18,9 @@ import {Row} from '@/components/ui/layout/Row'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
+import {OpenUrl, useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {OpenUrl, useOpenUrl} from '@/hooks/useOpenUrl'
-import {DeviceContext} from '@/providers/device.provider'
 import {Theme} from '@/themes/themes'
 import {TextTokens} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -225,7 +225,7 @@ const createLiMarkerStyles = (fontScale: ScaledSize['fontScale']) =>
   })
 
 const LiMarker = () => {
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const styles = createLiMarkerStyles(fontScale)
 
   return (

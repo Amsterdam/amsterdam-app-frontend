@@ -1,14 +1,13 @@
-import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
-import {DeviceContext} from '@/providers/device.provider'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 export const ReferToWebsite = () => {
   const openWebUrl = useOpenWebUrl()
-  const {isLandscape} = useContext(DeviceContext)
+  const {isLandscape} = useDeviceContext()
 
   return (
     <Column gutter="xs">

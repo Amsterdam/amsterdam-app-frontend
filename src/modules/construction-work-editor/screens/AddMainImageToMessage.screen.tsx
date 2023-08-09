@@ -1,7 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import {useDispatch, useSelector} from 'react-redux'
 import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
@@ -10,6 +9,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Title} from '@/components/ui/text/Title'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ImagePreview} from '@/modules/construction-work-editor/components/ImagePreview'
 import {
   selectCurrentProjectId,

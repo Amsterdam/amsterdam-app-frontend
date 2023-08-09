@@ -86,6 +86,27 @@ module.exports = {
             message:
               'Import SimpleGrid from @/components/ui/containers/SimpleGrid.',
           },
+          {
+            name: 'react-redux',
+            importNames: ['useDispatch'],
+            message: 'Import useDispatch from @/hooks/redux/useDispatch.',
+          },
+          {
+            name: 'react-redux',
+            importNames: ['useSelector'],
+            message: 'Import useSelector from @/hooks/redux/useSelector.',
+          },
+          {
+            name: '@react-navigation/native',
+            importNames: ['useNavigation'],
+            message:
+              'Import useNavigation from @/hooks/navigation/useNavigation.',
+          },
+          {
+            name: '@react-navigation/native',
+            importNames: ['useRoute'],
+            message: 'Import useRoute from @/hooks/navigation/useRoute.',
+          },
         ],
       },
     ],

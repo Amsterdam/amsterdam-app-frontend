@@ -8,7 +8,7 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {appointmentSubjects} from '@/modules/redirects/data/appointmentSubjects'
 
 export const MakeAppointmentScreen = () => {

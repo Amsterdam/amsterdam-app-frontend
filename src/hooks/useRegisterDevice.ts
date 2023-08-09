@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {PermissionStatus} from 'react-native-permissions'
-import {useSentry} from '@/hooks/useSentry'
+import {useSentry} from '@/hooks/sentry/useSentry'
 import {getFcmToken, getPushNotificationPermission} from '@/processes/firebase'
 import {
   useRegisterDeviceMutation,

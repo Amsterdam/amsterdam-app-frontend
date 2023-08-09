@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import {useCallback, useEffect, useRef} from 'react'
-import {useBeforeRemove} from '@/hooks/useBeforeRemove'
+import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const useBottomSheetHandler = () => {

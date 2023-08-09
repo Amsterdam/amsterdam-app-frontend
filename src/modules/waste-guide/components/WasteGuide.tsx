@@ -1,10 +1,10 @@
-import {useContext} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
@@ -15,7 +15,6 @@ import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuid
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
-import {DeviceContext} from '@/providers/device.provider'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
@@ -23,7 +22,7 @@ type Props = {
 }
 
 export const WasteGuide = ({address}: Props) => {
-  const {isLandscape} = useContext(DeviceContext)
+  const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
 
   const {addressLine1, bagId, city} = address

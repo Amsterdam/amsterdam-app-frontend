@@ -1,7 +1,7 @@
-import {useSelector} from 'react-redux'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {screenOptions} from '@/app/navigation/screenOptions'
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {
   ConstructionWorkEditorRouteName,
   ConstructionWorkEditorStackParams,

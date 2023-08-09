@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {RootStackParams} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -9,7 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {IconSize, TestProps} from '@/components/ui/types'
-import {DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -20,7 +19,7 @@ type Props = {
 const closeIconSize = 'ml'
 
 export const ModalHeader = ({testID, title}: Props) => {
-  const {isLandscape, isTablet} = useContext(DeviceContext)
+  const {isLandscape, isTablet} = useDeviceContext()
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>()
   const styles = useThemable(createStyles)
 

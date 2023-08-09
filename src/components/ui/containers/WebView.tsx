@@ -1,10 +1,9 @@
-import {useContext} from 'react'
 import {
   WebView as WebViewRN,
   WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
   sliceFromTop?: {
@@ -24,7 +23,7 @@ export const WebView = ({
   urlParams,
   ...webViewProps
 }: Props) => {
-  const {isPortrait} = useContext(DeviceContext)
+  const {isPortrait} = useDeviceContext()
 
   const params = new URLSearchParams(urlParams)
   const urlWithParams =

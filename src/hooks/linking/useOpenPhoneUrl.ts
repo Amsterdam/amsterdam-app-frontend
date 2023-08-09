@@ -1,5 +1,5 @@
 import {Alert, Linking, Platform} from 'react-native'
-import {useSentry} from '@/hooks/useSentry'
+import {useSentry} from '@/hooks/sentry/useSentry'
 
 export type OpenPhoneUrl = (phoneNumber: string) => void
 

@@ -6,7 +6,7 @@ import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
-import {useSentry} from '@/hooks/useSentry'
+import {useSentry} from '@/hooks/sentry/useSentry'
 import {setAlert} from '@/store/slices/alert'
 import {getPropertyFromMaybeError} from '@/utils/object'
 

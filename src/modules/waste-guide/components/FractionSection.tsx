@@ -1,6 +1,6 @@
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 
 type Props = {

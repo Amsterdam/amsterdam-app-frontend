@@ -1,10 +1,10 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useMemo, useState} from 'react'
-import {useSelector} from 'react-redux'
 // eslint-disable-next-line no-restricted-imports
 import {version as releaseVersion} from '@/../package.json'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
-import {useSentry} from '@/hooks/useSentry'
 import {clientModules} from '@/modules/modules'
 import {useGetReleaseQuery} from '@/services/modules.service'
 import {

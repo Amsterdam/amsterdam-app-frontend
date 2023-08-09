@@ -1,5 +1,5 @@
-import {useSelector} from 'react-redux'
 import {Screen} from '@/components/ui/layout/Screen'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {selectAddress} from '@/modules/address/slice'
 import {ProjectsByDate} from '@/modules/construction-work/components/projects/ProjectsByDate'
 import {ProjectsByDistance} from '@/modules/construction-work/components/projects/ProjectsByDistance'

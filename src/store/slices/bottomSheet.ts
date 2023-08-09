@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {useAppDispatch, useAppSelector} from '@/store/hooks'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export type BottomSheetState = {
@@ -31,8 +32,8 @@ export const {closeBottomSheet, openBottomSheet, toggleBottomSheet} =
   bottomSheetSlice.actions
 
 export const useBottomSheet = () => {
-  const dispatch = useAppDispatch()
-  const isOpen = useAppSelector(state => state[ReduxKey.bottomSheet].isOpen)
+  const dispatch = useDispatch()
+  const isOpen = useSelector(state => state[ReduxKey.bottomSheet].isOpen)
 
   return {
     close: () => dispatch(closeBottomSheet()),
