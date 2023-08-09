@@ -1,20 +1,21 @@
 import {useContext} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/useNavigation'
+import {AddressModalName} from '@/modules/address/routes'
 import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
 import {DeviceContext} from '@/providers/device.provider'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
 
 export const RequestLocation = () => {
+  const navigation = useNavigation()
   const {isLandscape} = useContext(DeviceContext)
   const {media} = useTheme()
-  const {open} = useBottomSheet()
 
   return (
     <Column
@@ -23,14 +24,15 @@ export const RequestLocation = () => {
       <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
-            <Title text="Voor welke locatie wilt u informatie over afval?" />
+            <Title text="Voor welk adres wilt u informatie over afval?" />
             <Row>
-              <TopTaskButton
+              <Button
                 iconName="location"
-                onPress={open}
-                testID="WasteGuideRequestLocationButton"
-                title="Geef uw locatie door"
-                titleIconName="chevron-down"
+                label="Vul uw adres in"
+                onPress={() =>
+                  navigation.navigate(AddressModalName.addressForm)
+                }
+                testID="WasteGuideEnterAddressButton"
               />
             </Row>
           </Column>

@@ -17,7 +17,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.auth, slice: authSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
-  {key: ReduxKey.environment, slice: environmentSlice},
+  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
   {key: ReduxKey.modules, slice: modulesSlice},
   {key: ReduxKey.theme, slice: themeSlice},
 ]
