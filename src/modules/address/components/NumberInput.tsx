@@ -14,7 +14,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {NumberSearchResult} from '@/modules/address/components/NumberSearchResult'
-import {AddressSuggestion} from '@/modules/address/types'
+import {PdokAddress} from '@/modules/address/types'
 import {useTheme} from '@/themes/useTheme'
 
 type WithAnimationProps = {
@@ -38,12 +38,12 @@ const WithAnimation = ({
 )
 
 type Props = {
-  bagList: AddressSuggestion[]
+  bagList: PdokAddress[]
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
   keyboardType: KeyboardTypeOptions | undefined
   number: string
-  selectResult: (item: AddressSuggestion) => void
+  selectResult: (item: PdokAddress) => void
   street: string
 }
 

@@ -28,7 +28,15 @@ export type AddressQueryArg = {
   lon?: number
 }
 
-export type AddressSuggestion = {
+export type AddressForCoordinates = {
+  huisletter?: string
+  huisnummer: number
+  huisnummertoevoeging?: string
+  id: string
+  straatnaam: string
+}
+
+export type PdokAddress = {
   centroide_ll: `POINT(${number} ${number})`
   huisletter?: string
   huisnummer: number
@@ -42,10 +50,11 @@ export type AddressSuggestion = {
   weergavenaam: string
   woonplaatsnaam: AddressCity
 }
-export type AddressSuggestResponse = {
+
+export type AddressResponse = {
   highlighting: unknown
   response: {
-    docs: AddressSuggestion[]
+    docs: PdokAddress[]
   }
   spellcheck: {
     collations: []

@@ -3,18 +3,18 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Spinner} from '@/components/ui/feedback/Spinner'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
-import {AddressSuggestion} from '@/modules/address/types'
+import {PdokAddress} from '@/modules/address/types'
 import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
 
 type StreetSearchResultProps = {
-  bagList: AddressSuggestion[]
+  bagList: PdokAddress[]
   isLoading: boolean
   isStreetSelected: boolean
-  selectResult: (item: AddressSuggestion) => void
+  selectResult: (item: PdokAddress) => void
   street: string
 }
 
-const showSuggestion = (suggestion: AddressSuggestion): string => {
+const showSuggestion = (suggestion: PdokAddress): string => {
   if (suggestion.type === 'weg') {
     if (suggestion.woonplaatsnaam === 'Amsterdam') {
       return suggestion.straatnaam

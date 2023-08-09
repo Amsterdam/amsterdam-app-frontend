@@ -1,15 +1,15 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {AddressSuggestion} from '@/modules/address/types'
+import {PdokAddress} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
-  bagList: AddressSuggestion[]
+  bagList: PdokAddress[]
   number: string
-  selectResult: (item: AddressSuggestion) => void
+  selectResult: (item: PdokAddress) => void
 }
 
-const showSuggestion = (suggestion: AddressSuggestion): string =>
+const showSuggestion = (suggestion: PdokAddress): string =>
   `${suggestion.huisnummer}${suggestion.huisletter ?? ''}${
     suggestion.huisnummertoevoeging ? `-${suggestion.huisnummertoevoeging}` : ''
   }`

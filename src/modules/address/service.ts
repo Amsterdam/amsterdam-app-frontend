@@ -1,9 +1,14 @@
-import {AddressSuggestResponse} from '@/modules/address/types'
+import {AddressResponse} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-type QueryParams = {
+type AddressForCoordinatesQueryParams = {
+  lat: number
+  lon: number
+}
+
+type AddressSuggestionQueryParams = {
   address: string
   city?: string
   street?: string
@@ -11,9 +16,26 @@ type QueryParams = {
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
+    getAddressForCoordinates: query<
+      AddressResponse | undefined,
+      AddressForCoordinatesQueryParams
+    >({
+      query: ({lat, lon}) => ({
+        url: generateRequestUrl({
+          params: {
+            lat,
+            lon,
+            fl: 'id huisnummer huisletter toevoeging straatnaam',
+          },
+          path: '/reverse',
+        }),
+        api: 'addressUrl',
+        keepUnusedDataFor: CacheLifetime.day,
+      }),
+    }),
     getAddressSuggestions: query<
-      AddressSuggestResponse | undefined,
-      QueryParams
+      AddressResponse | undefined,
+      AddressSuggestionQueryParams
     >({
       query: ({address, city, street}) => ({
         url: generateRequestUrl({
@@ -40,4 +62,5 @@ export const addressApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetAddressSuggestionsQuery} = addressApi
+export const {useGetAddressForCoordinatesQuery, useGetAddressSuggestionsQuery} =
+  addressApi

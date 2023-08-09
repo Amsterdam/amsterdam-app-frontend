@@ -13,6 +13,7 @@ export const addressModule: CoreModuleConfig = {
       migrations,
       persistVersion: 0,
       slice: addressSlice,
+      persistWhitelist: ['address'],
     },
   ],
 }

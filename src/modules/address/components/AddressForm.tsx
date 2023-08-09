@@ -15,7 +15,7 @@ import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
-import {AddressCity, AddressSuggestion} from '@/modules/address/types'
+import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {resetAlert, setAlert} from '@/store/slices/alert'
 
@@ -50,7 +50,7 @@ export const AddressForm = () => {
   }
 
   const selectResult = useCallback(
-    (item: AddressSuggestion) => {
+    (item: PdokAddress) => {
       if (item.type === 'weg') {
         setIsStreetSelected(true)
         setStreet(item.straatnaam)
