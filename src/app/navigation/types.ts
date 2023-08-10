@@ -1,4 +1,10 @@
-import {NavigationProp, ParamListBase, RouteProp} from '@react-navigation/core'
+import {
+  // eslint-disable-next-line no-restricted-imports
+  NavigationProp as NavigationPropOriginal,
+  ParamListBase,
+  // eslint-disable-next-line no-restricted-imports
+  RouteProp as RoutePropOriginal,
+} from '@react-navigation/core'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ComponentType} from 'react'
 import {ModuleSlug} from '@/modules/slugs'
@@ -18,9 +24,24 @@ export type RootStackParams = ModuleParams<ModuleStackParams> &
   ModuleStackParams &
   ModalParams
 
+/**
+ * NavigationProp is the type of a navigation object as part of NavigationProps or as returned by useNavigation.
+ */
+export type NavigationProp<RouteName extends keyof RootStackParams> =
+  NavigationPropOriginal<RootStackParams, RouteName>
+
+/**
+ * RouteProp is the type of a route object as part of NavigationProps or as returned by useRoute.
+ */
+export type RouteProp<RouteName extends keyof RootStackParams> =
+  RoutePropOriginal<RootStackParams, RouteName>
+
+/**
+ * NavigationProps contains a NavigationProp and a RouteProp. This can be used in screen components (i.e. components that receive these props because the are stack screens).
+ */
 export type NavigationProps<RouteName extends keyof RootStackParams> = {
-  navigation: NavigationProp<RootStackParams>
-  route: RouteProp<Pick<RootStackParams, RouteName>>
+  navigation: NavigationProp<RouteName>
+  route: RouteProp<RouteName>
 }
 
 export type StackNavigationRoutes<R, Route extends string = string> = Record<

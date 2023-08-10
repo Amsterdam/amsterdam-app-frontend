@@ -1,7 +1,3 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {useDispatch, useSelector} from 'react-redux'
-import {RootStackParams} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {
@@ -10,17 +6,18 @@ import {
 } from '@/components/ui/feedback/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
-import {ModuleSlug} from '@/modules/slugs'
 import {setAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
 export const DisplayAddress = () => {
   const address = useSelector(selectAddress)
   const dispatch = useDispatch()
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug>>()
+  const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()
 
   const removeAddressAndShowAlert = () => {

@@ -1,30 +1,21 @@
-import {RouteProp, useNavigation} from '@react-navigation/native'
 import {useLayoutEffect} from 'react'
+import {NavigationProps} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Timeline} from '@/components/ui/containers/Timeline'
 import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
-type ProjectBodyScreenRouteProp = RouteProp<
-  ConstructionWorkStackParams,
-  ConstructionWorkRouteName.projectBody
->
-
-type Props = {
-  route: ProjectBodyScreenRouteProp
-}
+type Props = NavigationProps<ConstructionWorkRouteName.projectBody>
 
 export const ProjectBodyScreen = ({route}: Props) => {
   const {body, headerTitle} = route.params
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   useLayoutEffect(() => {
     navigation.setOptions({

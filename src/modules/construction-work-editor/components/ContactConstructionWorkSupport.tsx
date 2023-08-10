@@ -2,7 +2,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {useOpenMailUrl} from '@/hooks/useOpenMailUrl'
+import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 
 export const ContactConstructionWorkSupport = () => {
   const openMailUrl = useOpenMailUrl()

@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -10,18 +9,18 @@ import {Track} from '@/components/ui/layout/Track'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
-import {useOpenWebUrl} from '@/hooks/useOpenWebUrl'
+import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {City} from '@/modules/report-problem/types'
-import {DeviceContext} from '@/providers/device.provider'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 
 export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {isPortrait} = useContext(DeviceContext)
+  const {isPortrait} = useDeviceContext()
 
   return (
     <Screen>

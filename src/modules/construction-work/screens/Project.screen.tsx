@@ -1,17 +1,9 @@
-import {RouteProp} from '@react-navigation/native'
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Project} from '@/modules/construction-work/components/project/Project'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
-type Props = {
-  route: RouteProp<
-    ConstructionWorkStackParams,
-    ConstructionWorkRouteName.project
-  >
-}
+type Props = NavigationProps<ConstructionWorkRouteName.project>
 
 export const ProjectScreen = ({route}: Props) => (
   <Screen

@@ -1,8 +1,8 @@
-import {useContext} from 'react'
 import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
 import {TestProps} from '@/components/ui/types'
-import {Device, DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {Device} from '@/providers/device.provider'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {OmitUndefined} from '@/types/undefined'
@@ -26,7 +26,7 @@ export const Badge = ({
   value,
   variant = 'default',
 }: BadgeProps) => {
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const styles = useThemable(createStyles(fontScale, variant))
 
   return (

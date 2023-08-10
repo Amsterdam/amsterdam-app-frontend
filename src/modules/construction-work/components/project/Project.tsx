@@ -1,5 +1,3 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback, useLayoutEffect} from 'react'
 import simplur from 'simplur'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
@@ -13,6 +11,7 @@ import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
@@ -20,10 +19,7 @@ import {ArticleOverview} from '@/modules/construction-work/components/article/Ar
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   useFollowProjectMutation,
   useGetProjectQuery,
@@ -39,13 +35,7 @@ type Props = {
 export const Project = ({id}: Props) => {
   const address = useAddress()
 
-  const navigation =
-    useNavigation<
-      StackNavigationProp<
-        ConstructionWorkStackParams,
-        ConstructionWorkRouteName.project
-      >
-    >()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const addressParam = getAddressParam(address)
 

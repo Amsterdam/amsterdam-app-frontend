@@ -1,16 +1,16 @@
-import {useContext, useMemo} from 'react'
+import {useMemo} from 'react'
 import {ScaledSize, StyleSheet, View, ViewStyle} from 'react-native'
 import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ListMarkerGlyph, ListMarkerProp} from '@/components/ui/text/list/types'
-import {DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
   additionalStyles?: ViewStyle
 } & ListMarkerProp
 
 export const ListItemMarker = ({additionalStyles, marker}: Props) => {
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const styles = useMemo(
     () => createListItemMarkerStyles(fontScale),
     [fontScale],

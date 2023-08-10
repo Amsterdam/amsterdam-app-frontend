@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {AccessibilityInfo} from 'react-native'
-import {useSentry} from '@/hooks/useSentry'
+import {useSentry} from '@/hooks/sentry/useSentry'
 
 export const useIsScreenReaderEnabled = () => {
   const [enabled, setEnabled] = useState(false)

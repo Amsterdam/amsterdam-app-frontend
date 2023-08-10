@@ -1,5 +1,5 @@
 import {Alert, Linking} from 'react-native'
-import {useSentry} from '@/hooks/useSentry'
+import {useSentry} from '@/hooks/sentry/useSentry'
 
 export type OpenMailUrl = (emailAddress: string, subject?: string) => void
 

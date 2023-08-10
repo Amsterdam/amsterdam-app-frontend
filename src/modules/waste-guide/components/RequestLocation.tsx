@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -6,15 +5,16 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/useNavigation'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AddressModalName} from '@/modules/address/routes'
 import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
-import {DeviceContext} from '@/providers/device.provider'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useTheme} from '@/themes/useTheme'
 
 export const RequestLocation = () => {
-  const navigation = useNavigation()
-  const {isLandscape} = useContext(DeviceContext)
+  const navigation = useNavigation<WasteGuideRouteName>()
+  const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
 
   return (

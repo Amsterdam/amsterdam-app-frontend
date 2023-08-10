@@ -1,8 +1,6 @@
-import {RouteProp} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {Alert} from '@/components/ui/feedback/Alert'
 import {
   AlertCloseType,
@@ -13,16 +11,7 @@ import {AuthorizedProjects} from '@/modules/construction-work-editor/components/
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setAlert} from '@/store/slices/alert'
 
-type Props = {
-  navigation: StackNavigationProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName.authorizedProjects
-  >
-  route: RouteProp<
-    RootStackParams,
-    ConstructionWorkEditorRouteName.authorizedProjects
-  >
-}
+type Props = NavigationProps<ConstructionWorkEditorRouteName.authorizedProjects>
 
 export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()

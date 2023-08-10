@@ -1,6 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
-import {useSelector} from 'react-redux'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useSetModuleAuthorization} from '@/modules/construction-work-editor/hooks/useSetModuleAuthorization'
 import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
 import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'

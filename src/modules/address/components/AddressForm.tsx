@@ -1,14 +1,14 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import {useFocusEffect} from '@react-navigation/native'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
 import {config} from '@/modules/address/config'
@@ -17,11 +17,10 @@ import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity, AddressSuggestion} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
-import {DeviceContext} from '@/providers/device.provider'
 import {resetAlert, setAlert} from '@/store/slices/alert'
 
 export const AddressForm = () => {
-  const {isLandscape, isTablet} = useContext(DeviceContext)
+  const {isLandscape, isTablet} = useDeviceContext()
   const dispatch = useDispatch()
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [city, setCity] = useState<AddressCity | undefined>(undefined)
@@ -33,10 +32,7 @@ export const AddressForm = () => {
   const inputStreetRef = useRef<TextInput | null>(null)
   const {addressLengthThreshold} = config
 
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, AddressModalName.addressForm>
-    >()
+  const navigation = useNavigation<AddressModalName>()
 
   const {data: bagList, isLoading: isLoadingBagList} =
     useGetAddressSuggestionsQuery(

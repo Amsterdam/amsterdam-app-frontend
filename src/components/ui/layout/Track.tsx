@@ -1,8 +1,7 @@
-import {useContext} from 'react'
 import {Column, ColumnProps} from '@/components/ui/layout/Column'
 import {Row, RowProps} from '@/components/ui/layout/Row'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {DeviceContext} from '@/providers/device.provider'
 import {Common} from '@/types/utils'
 
 type TrackProps = Common<ColumnProps, RowProps>
@@ -18,7 +17,7 @@ type TrackProps = Common<ColumnProps, RowProps>
  *  @example <Track gutter="lg">…</Track>
  */
 export const Track = ({children, ...props}: TrackProps) => {
-  const {isPortrait} = useContext(DeviceContext)
+  const {isPortrait} = useDeviceContext()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   if (isPortrait || isScreenReaderEnabled) {

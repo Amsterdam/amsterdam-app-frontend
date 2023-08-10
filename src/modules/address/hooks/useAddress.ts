@@ -1,4 +1,4 @@
+import {useSelector} from '@/hooks/redux/useSelector'
 import {selectAddress} from '@/modules/address/slice'
-import {useAppSelector} from '@/store/hooks'
 
-export const useAddress = () => useAppSelector(selectAddress)
+export const useAddress = () => useSelector(selectAddress)

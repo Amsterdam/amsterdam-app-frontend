@@ -1,8 +1,7 @@
-import {useContext} from 'react'
 import {Path, Svg} from 'react-native-svg'
 import {IconName, IconPath} from '@/components/ui/media/iconPaths'
 import {IconSize, TestProps} from '@/components/ui/types'
-import {DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -33,7 +32,7 @@ export const Icon = ({
   testID,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
 
   return (

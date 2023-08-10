@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
-import {useAppSelector} from '@/store/hooks'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
 import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
@@ -34,7 +34,7 @@ export const useInfiniteScroller = <T>(
   pageSize = 10,
   queryParams: InfiniteScrollerQueryParams = {},
 ) => {
-  const reduxApiState = useAppSelector(state => state.api)
+  const reduxApiState = useSelector(state => state.api)
 
   const {
     data: previousData,

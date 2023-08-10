@@ -1,6 +1,4 @@
-import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext} from 'react'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -9,19 +7,17 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Figure} from '@/components/ui/media/Figure'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {TwoPersonsHighFiveImage} from '@/modules/about/assets/images'
 import {AboutRouteName} from '@/modules/about/routes'
 import {getVersionNumber} from '@/modules/about/utils/getVersionNumber'
-import {DeviceContext} from '@/providers/device.provider'
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParams, AboutRouteName.about>
-}
+type Props = NavigationProps<AboutRouteName.about>
 
 const versionNumber = getVersionNumber()
 
 export const AboutScreen = ({navigation}: Props) => {
-  const {isPortrait} = useContext(DeviceContext)
+  const {isPortrait} = useDeviceContext()
   const Track = isPortrait ? Column : Row
 
   return (

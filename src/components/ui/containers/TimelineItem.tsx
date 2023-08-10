@@ -1,11 +1,11 @@
-import {Fragment, useContext, useState} from 'react'
+import {Fragment, useState} from 'react'
 import {View} from 'react-native'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
 import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
-import {DeviceContext} from '@/providers/device.provider'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useTheme} from '@/themes/useTheme'
 import {TimelineItem as TimelineItemType} from '@/types/timeline'
 
@@ -21,7 +21,7 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
   const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
 
   const theme = useTheme()
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const styles = timelineStyles(
     theme,
     fontScale,

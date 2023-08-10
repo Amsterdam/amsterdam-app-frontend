@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,14 +6,14 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {useOpenMailUrl} from '@/hooks/useOpenMailUrl'
-import {DeviceContext} from '@/providers/device.provider'
+import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const appEmail = 'app@amsterdam.nl'
 
 export const AccessibilityStatementScreen = () => {
-  const {isPortrait, isTablet} = useContext(DeviceContext)
+  const {isPortrait, isTablet} = useDeviceContext()
   const openMailUrl = useOpenMailUrl()
 
   return (
@@ -49,7 +48,11 @@ export const AccessibilityStatementScreen = () => {
             </Paragraph>
             <List
               items={[
-                'Wij ontwikkelen de Amsterdam app volgens toegankelijkheidseisen die zijn vastgelegd in de WCAG 2.1, niveau AA.',
+                {
+                  accessibilityLabel:
+                    'Wij ontwikkelen de Amsterdam app volgens toegankelijkheidseisen die zijn vastgelegd in de WCAG 2.1, niveau A A.',
+                  text: 'Wij ontwikkelen de Amsterdam app volgens toegankelijkheidseisen die zijn vastgelegd in de WCAG 2.1, niveau AA.',
+                },
                 'ons eigen beleid: het stedelijk kader verwerken persoonsgegevens.',
                 'Wij ontwikkelen de Amsterdam app samen met u, de Amsterdammer.',
                 'We doen regelmatig gebruikersonderzoek.',
@@ -79,11 +82,11 @@ export const AccessibilityStatementScreen = () => {
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutAccessibilityStatementSomehtingBrokenTitle"
+              testID="AboutAccessibilityStatementSomethingBrokenTitle"
               text="Werkt iets niet?"
             />
-            <Paragraph testID="AboutAccessibilityStatementSomehtingBrokenParagraph">
-              Komt u nog een scherm tegen die u niet kunt lezen of gebruiken?
+            <Paragraph testID="AboutAccessibilityStatementSomethingBrokenParagraph">
+              Komt u nog een scherm tegen dat u niet kunt lezen of gebruiken?
               Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
             <Row>

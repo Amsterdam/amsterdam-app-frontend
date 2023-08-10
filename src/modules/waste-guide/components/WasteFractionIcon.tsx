@@ -1,9 +1,8 @@
-import {useContext} from 'react'
 import {View} from 'react-native'
 import {Circle, Path, Svg} from 'react-native-svg'
 import {IconSize, TestProps} from '@/components/ui/types'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {FractionCode} from '@/modules/waste-guide/types'
-import {DeviceContext} from '@/providers/device.provider'
 import {useTheme} from '@/themes/useTheme'
 
 type IconConfig = {
@@ -53,7 +52,7 @@ export const WasteFractionIcon = ({
   testID,
 }: WasteFractionIconProps) => {
   const {color: colorTokens} = useTheme()
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
 
   if (!fractionIconConfig[fractionCode]) {

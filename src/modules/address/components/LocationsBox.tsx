@@ -1,17 +1,13 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParams} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {DisplayAddress} from '@/modules/address/components/DisplayAddress'
 import {AddressModalName} from '@/modules/address/routes'
-import {ModuleSlug} from '@/modules/slugs'
 
 export const LocationsBox = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<RootStackParams, ModuleSlug>>()
+  const navigation = useNavigation<AddressModalName>()
 
   return (
     <Column gutter="md">

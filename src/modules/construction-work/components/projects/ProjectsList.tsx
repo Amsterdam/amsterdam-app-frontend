@@ -1,15 +1,15 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {memo, useCallback, useContext, useMemo} from 'react'
+import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
-import {useSelector} from 'react-redux'
-import {RootStackParams} from '@/app/navigation/types'
+import {NavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
@@ -20,7 +20,6 @@ import {
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
-import {DeviceContext} from '@/providers/device.provider'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {mapImageSources} from '@/utils/image/mapImageSources'
@@ -33,7 +32,7 @@ const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
 
 type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
-  navigation: StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
+  navigation: NavigationProp<ConstructionWorkRouteName>
   project: ProjectsItem
   readArticles: ReadArticle[]
 }
@@ -147,13 +146,10 @@ export const ProjectsList = ({
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
 }: Props) => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<RootStackParams, ConstructionWorkRouteName>
-    >()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const {bottom: paddingBottom} = useSafeAreaInsets()
-  const {fontScale} = useContext(DeviceContext)
+  const {fontScale} = useDeviceContext()
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 

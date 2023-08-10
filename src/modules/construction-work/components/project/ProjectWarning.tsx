@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native'
 import {useEffect, useLayoutEffect} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -8,9 +7,11 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   useGetProjectQuery,
   useGetProjectWarningQuery,
@@ -25,7 +26,7 @@ type Props = {
 }
 
 export const ProjectWarning = ({id, projectId}: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
   const {media} = useTheme()
 
   const {markAsRead} = useMarkArticleAsRead()

@@ -8,7 +8,6 @@ import {
   UIManager,
   View,
 } from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -22,7 +21,9 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useBeforeRemove} from '@/hooks/useBeforeRemove'
+import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {resetAlert, selectAlert} from '@/store/slices/alert'
 import {Theme} from '@/themes/themes'

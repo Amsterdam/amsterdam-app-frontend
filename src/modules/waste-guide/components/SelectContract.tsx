@@ -1,5 +1,6 @@
-import {useDispatch, useSelector} from 'react-redux'
 import {RadioGroup, RadioGroupOption} from '@/components/ui/forms/RadioGroup'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {selectContracts, addContract} from '@/modules/waste-guide/slice'
 
 const contractOptions: RadioGroupOption<boolean>[] = [

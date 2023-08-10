@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {useNavigation} from '@/hooks/useNavigation'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 
 /**
  * Do something, e.g. a clean up action, when the user navigates to another screen.

@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
   addReadArticle,

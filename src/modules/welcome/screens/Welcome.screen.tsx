@@ -1,6 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack'
-import {useContext, useEffect} from 'react'
-import {RootStackParams} from '@/app/navigation/types'
+import {useEffect} from 'react'
+import {NavigationProps} from '@/app/navigation/types'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
@@ -10,21 +9,19 @@ import {Size} from '@/components/ui/layout/Size'
 import {Track} from '@/components/ui/layout/Track'
 import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ModuleSlug} from '@/modules/slugs'
 import {useSelectImageWithQuote} from '@/modules/welcome/hooks/useSelectImageWithQuote'
 import {WelcomeRouteName} from '@/modules/welcome/routes'
-import {DeviceContext} from '@/providers/device.provider'
 
-type Props = {
-  navigation: StackNavigationProp<RootStackParams, WelcomeRouteName.welcome>
-}
+type Props = NavigationProps<WelcomeRouteName.welcome>
 
 const quoteWidth = 288
 
 const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
 
 export const WelcomeScreen = ({navigation}: Props) => {
-  const {isPortrait, isTallPhone} = useContext(DeviceContext)
+  const {isPortrait, isTallPhone} = useDeviceContext()
 
   const {image4x5, image5x4, image9x16, quote} = useSelectImageWithQuote()
 

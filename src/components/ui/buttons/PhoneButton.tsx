@@ -1,6 +1,6 @@
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
-import {useOpenPhoneUrl} from '@/hooks/useOpenPhoneUrl'
+import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 

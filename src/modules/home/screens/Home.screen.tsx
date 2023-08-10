@@ -1,14 +1,12 @@
-import {useNavigation} from '@react-navigation/native'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {AddButton} from '@/components/ui/buttons/AddButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Screen} from '@/components/ui/layout/Screen'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {Modules} from '@/modules/home/components/Modules'
-import {HomeRouteName, HomeStackParams} from '@/modules/home/routes'
+import {HomeRouteName} from '@/modules/home/routes'
 
 export const HomeScreen = () => {
-  const navigation =
-    useNavigation<StackNavigationProp<HomeStackParams, HomeRouteName>>()
+  const navigation = useNavigation<HomeRouteName>()
 
   return (
     <Screen

@@ -1,11 +1,7 @@
-import {useNavigation} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
-import {
-  ConstructionWorkRouteName,
-  ConstructionWorkStackParams,
-} from '@/modules/construction-work/routes'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {Project, ProjectBody} from '@/modules/construction-work/types'
 import {isEmptyObject} from '@/utils/object'
 
@@ -21,13 +17,7 @@ enum ProjectBodyTitle {
 }
 
 export const ProjectBodyMenu = ({project}: Props) => {
-  const navigation =
-    useNavigation<
-      StackNavigationProp<
-        ConstructionWorkStackParams,
-        ConstructionWorkRouteName.project
-      >
-    >()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const menuOptions: ProjectBody[] = [
     {
