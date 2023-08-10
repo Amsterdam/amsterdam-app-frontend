@@ -14,12 +14,14 @@ import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {setAlert} from '@/store/slices/alert'
+import {useTheme} from '@/themes/useTheme'
 
 export const DisplayAddress = () => {
   const address = useSelector(selectAddress)
   const dispatch = useDispatch()
   const navigation =
     useNavigation<StackNavigationProp<RootStackParams, ModuleSlug>>()
+  const {size} = useTheme()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
@@ -42,6 +44,7 @@ export const DisplayAddress = () => {
       <Column flex={1}>
         <TopTaskButton
           accessibilityHint="Tik om het adres te wijzigen"
+          hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
           iconName="location"
           onPress={() => navigation.navigate(AddressModalName.addressForm)}
           testID="AddressAddButton"
