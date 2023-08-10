@@ -17,7 +17,7 @@ enum ProjectBodyTitle {
 }
 
 export const ProjectBodyMenu = ({project}: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const menuOptions: ProjectBody[] = [
     {

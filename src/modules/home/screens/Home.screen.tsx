@@ -6,7 +6,7 @@ import {Modules} from '@/modules/home/components/Modules'
 import {HomeRouteName} from '@/modules/home/routes'
 
 export const HomeScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<HomeRouteName>()
 
   return (
     <Screen

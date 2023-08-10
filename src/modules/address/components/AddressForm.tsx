@@ -12,6 +12,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
 import {config} from '@/modules/address/config'
+import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity, AddressSuggestion} from '@/modules/address/types'
@@ -31,7 +32,7 @@ export const AddressForm = () => {
   const inputStreetRef = useRef<TextInput | null>(null)
   const {addressLengthThreshold} = config
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<AddressModalName>()
 
   const {data: bagList, isLoading: isLoadingBagList} =
     useGetAddressSuggestionsQuery(

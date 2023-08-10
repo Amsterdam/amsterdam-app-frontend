@@ -8,7 +8,7 @@ import {AddressModalName} from '@/modules/address/routes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const SelectLocationType = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AddressModalName>()
   const {close} = useBottomSheet()
   const address = useAddress()
 

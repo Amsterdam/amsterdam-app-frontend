@@ -9,6 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   useGetProjectNewsQuery,
   useGetProjectQuery,
@@ -22,7 +23,7 @@ type Props = {
 }
 
 export const ProjectNews = ({id, projectId}: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
   const {markAsRead} = useMarkArticleAsRead()
 
   const {data: news, isLoading: newsIsLoading} = useGetProjectNewsQuery({

@@ -9,10 +9,11 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AddressModalName} from '@/modules/address/routes'
 import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useTheme} from '@/themes/useTheme'
 
 export const RequestLocation = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<WasteGuideRouteName>()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
 

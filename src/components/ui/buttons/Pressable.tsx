@@ -20,6 +20,9 @@ export type PressableProps = {
 } & Omit<PressableRNProps, 'style'> &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'>
 
+/**
+ * Used to build other interactive components, do not use on its own.
+ */
 export const Pressable = ({
   children,
   grow,

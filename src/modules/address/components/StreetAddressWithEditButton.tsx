@@ -21,7 +21,7 @@ export const StreetAddressWithEditButton = ({
   testIDButton,
   testIDLabel,
 }: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AddressModalName>()
 
   return (
     <Row

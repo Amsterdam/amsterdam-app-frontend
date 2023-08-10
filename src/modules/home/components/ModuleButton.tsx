@@ -12,6 +12,7 @@ import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
+import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store/slices/modules'
 import {Theme} from '@/themes/themes'
@@ -100,7 +101,7 @@ export const ModuleButton = ({
   variant = 'tertiary',
 }: ModuleButtonProps) => {
   const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const navigation = useNavigation<HomeRouteName>()
 
   const styles = useThemable(createStyles)
 

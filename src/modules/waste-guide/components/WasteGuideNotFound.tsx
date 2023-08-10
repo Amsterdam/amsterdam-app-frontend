@@ -6,7 +6,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 export const WasteGuideNotFound = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<WasteGuideRouteName>()
 
   return (
     <Column gutter="lg">

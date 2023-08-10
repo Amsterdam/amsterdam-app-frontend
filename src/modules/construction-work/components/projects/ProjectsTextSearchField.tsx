@@ -5,6 +5,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {config} from '@/modules/construction-work/components/projects/config'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   selectConstructionWorkSearchText,
   setSearchText,
@@ -12,7 +13,7 @@ import {
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const searchText = useSelector(selectConstructionWorkSearchText)
 

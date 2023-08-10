@@ -3,7 +3,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
 export const SearchFieldNavigator = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   return (
     <SearchField

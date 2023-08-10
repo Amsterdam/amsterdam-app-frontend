@@ -18,7 +18,7 @@ import {isApiAuthorizationError} from '@/utils/api'
 import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type ListItemProps = {
-  navigation: NavigationProp<string>
+  navigation: NavigationProp<ConstructionWorkEditorRouteName>
   project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
 }
 
@@ -49,7 +49,7 @@ type Props = {
 }
 
 export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkEditorRouteName>()
 
   const {fontScale} = useDeviceContext()
   const {size} = useTheme()

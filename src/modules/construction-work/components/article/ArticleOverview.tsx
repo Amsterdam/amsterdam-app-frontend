@@ -34,7 +34,7 @@ export const ArticleOverview = ({
   sortOrder,
   title,
 }: Props) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useGetArticlesQuery({
     limit,

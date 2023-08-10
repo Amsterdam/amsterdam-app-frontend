@@ -19,6 +19,7 @@ import {ArticleOverview} from '@/modules/construction-work/components/article/Ar
 import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   useFollowProjectMutation,
   useGetProjectQuery,
@@ -34,7 +35,7 @@ type Props = {
 export const Project = ({id}: Props) => {
   const address = useAddress()
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const addressParam = getAddressParam(address)
 

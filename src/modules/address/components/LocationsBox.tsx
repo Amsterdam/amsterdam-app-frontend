@@ -7,7 +7,7 @@ import {DisplayAddress} from '@/modules/address/components/DisplayAddress'
 import {AddressModalName} from '@/modules/address/routes'
 
 export const LocationsBox = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<AddressModalName>()
 
   return (
     <Column gutter="md">

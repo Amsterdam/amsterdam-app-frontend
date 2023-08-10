@@ -63,7 +63,7 @@ const redirects: RedirectResponse[] = [
 
 export const Redirects = () => {
   const openWebUrl = useOpenWebUrl()
-  const navigation = useNavigation()
+  const navigation = useNavigation<RedirectsRouteName>()
 
   return (
     <Column gutter="md">

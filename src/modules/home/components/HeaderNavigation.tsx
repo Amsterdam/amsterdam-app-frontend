@@ -7,7 +7,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {isDevApp} from '@/processes/development'
 
 export const HeaderNavigation = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<HomeRouteName>()
 
   const iconProps: Partial<IconProps> = {
     color: 'link',
