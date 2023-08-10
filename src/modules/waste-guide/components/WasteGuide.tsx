@@ -3,9 +3,8 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
+import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,
@@ -15,6 +14,8 @@ import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuid
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
+
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
@@ -24,8 +25,9 @@ type Props = {
 export const WasteGuide = ({address}: Props) => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
+  const {open: openBottomSheet} = useBottomSheet()
 
-  const {addressLine1, bagId, city} = address
+  const {bagId, city} = address
 
   const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery({
     bagNummeraanduidingId: bagId,
@@ -52,11 +54,10 @@ export const WasteGuide = ({address}: Props) => {
             flex={1}
             gutter="lg">
             <Column>
-              <Paragraph>Afvalinformatie voor dit adres</Paragraph>
-              <StreetAddressWithEditButton
-                address={addressLine1}
-                testIDButton="WasteGuideButtonEditAddress"
-                testIDLabel="WasteGuideTextAddress"
+              <AddressTopTaskButton
+                hasTitleIcon
+                onPress={openBottomSheet}
+                testID="WasteGuideChangeLocationButton"
               />
             </Column>
             {hasContent ? (
