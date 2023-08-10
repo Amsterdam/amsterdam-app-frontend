@@ -19,6 +19,7 @@ export const DisplayAddress = () => {
   const dispatch = useDispatch()
   const {size} = useTheme()
   const navigation = useNavigation<AddressModalName>()
+  const {size} = useTheme()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
