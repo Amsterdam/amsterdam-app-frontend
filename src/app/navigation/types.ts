@@ -1,6 +1,8 @@
 import {
+  // eslint-disable-next-line no-restricted-imports
   NavigationProp as NavigationPropOriginal,
   ParamListBase,
+  // eslint-disable-next-line no-restricted-imports
   RouteProp as RoutePropOriginal,
 } from '@react-navigation/core'
 import {StackNavigationOptions} from '@react-navigation/stack'
