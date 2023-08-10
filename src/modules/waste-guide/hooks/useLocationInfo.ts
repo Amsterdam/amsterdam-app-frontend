@@ -1,13 +1,13 @@
 import {useMemo} from 'react'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useLocation} from '@/modules/address/hooks/useLocation'
 import {selectLocationType} from '@/modules/waste-guide/slice'
-import {useAppSelector} from '@/store/hooks'
 
 export const useLocationInfo = () => {
   const address = useAddress()
   const location = useLocation()
-  const locationType = useAppSelector(selectLocationType)
+  const locationType = useSelector(selectLocationType)
 
   return useMemo(() => {
     const validAddress = locationType === 'address' ? address : undefined

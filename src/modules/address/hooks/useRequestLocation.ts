@@ -1,11 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useCallback, useEffect, useState} from 'react'
 import GetLocation, {Location} from 'react-native-get-location'
-import {useSentry} from '@/hooks/useSentry'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSentry} from '@/hooks/sentry/useSentry'
 import {useGetAddressForCoordinatesQuery} from '@/modules/address/service'
 import {addLocation, removeLocation} from '@/modules/address/slice'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
-import {useAppDispatch} from '@/store/hooks'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
 enum GetLocationErrorCode {
@@ -16,7 +16,7 @@ enum GetLocationErrorCode {
 }
 
 export const useRequestLocation = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
   const [location, setLocation] = useState<Location>()
   const {data} = useGetAddressForCoordinatesQuery(
@@ -25,7 +25,7 @@ export const useRequestLocation = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addLocation(transformAddressApiResponse(data.response.docs[0])))
+      dispatch(addLocation(transformAddressApiResponse(data?.response.docs[0])))
     }
   }, [data, dispatch])
 
