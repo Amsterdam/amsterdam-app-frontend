@@ -17,7 +17,6 @@ import {useTheme} from '@/themes/useTheme'
 export const DisplayAddress = () => {
   const address = useSelector(selectAddress)
   const dispatch = useDispatch()
-  const {size} = useTheme()
   const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()
 
