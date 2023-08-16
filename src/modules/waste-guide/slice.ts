@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {LocationType} from '@/modules/address/types'
 import {Contract, WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
-
-type LocationType = 'address' | 'location'
 
 export type WasteGuideState = {
   contracts?: Contract

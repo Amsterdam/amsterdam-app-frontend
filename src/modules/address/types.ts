@@ -61,3 +61,5 @@ export type AddressResponse = {
     suggestions: []
   }
 }
+
+export type LocationType = 'address' | 'location'

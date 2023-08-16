@@ -5,7 +5,7 @@ import {ContactCollector} from '@/modules/waste-guide/components/ContactCollecto
 import {Fractions} from '@/modules/waste-guide/components/Fractions'
 import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
 import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
-import {useLocationInfo} from '@/modules/waste-guide/hooks/useLocationInfo'
+import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
 import {selectContract} from '@/modules/waste-guide/slice'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const WasteGuideForAmsterdam = ({wasteGuide}: Props) => {
-  const {selectedAddress} = useLocationInfo()
+  const {selectedAddress} = useWasteGuideLocationInfo()
   const contract = useSelector(
     selectContract(wasteGuide[0].bagNummeraanduidingId),
   )

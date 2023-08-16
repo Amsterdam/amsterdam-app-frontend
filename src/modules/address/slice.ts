@@ -4,7 +4,10 @@ import {Address} from '@/modules/address/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type AddressState = {address?: Address; location?: Address}
+export type AddressState = {
+  address?: Address
+  lastKnownLocationAddress?: Address
+}
 
 const initialState: AddressState = {}
 
@@ -16,20 +19,22 @@ export const addressSlice = createSlice({
       ...state,
       address,
     }),
-    addLocation: (state, {payload: location}: PayloadAction<Address>) => ({
+    addLastKnownLocationAddress: (
+      state,
+      {payload: lastKnownLocationAddress}: PayloadAction<Address>,
+    ) => ({
       ...state,
-      location,
+      lastKnownLocationAddress,
     }),
     removeAddress: ({address, ...rest}) => rest,
-    removeLocation: ({location, ...rest}) => rest,
   },
 })
 
-export const {addAddress, addLocation, removeAddress, removeLocation} =
+export const {addAddress, addLastKnownLocationAddress, removeAddress} =
   addressSlice.actions
 
 export const selectAddress = (state: RootState) =>
   state[ReduxKey.address]?.address
 
-export const selectLocation = (state: RootState) =>
-  state[ReduxKey.address]?.location
+export const selectLastKnownLocationAddress = (state: RootState) =>
+  state[ReduxKey.address]?.lastKnownLocationAddress

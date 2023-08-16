@@ -7,6 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
+import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,
@@ -15,7 +16,7 @@ import {
 import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
-import {useLocationInfo} from '@/modules/waste-guide/hooks/useLocationInfo'
+import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
@@ -24,7 +25,7 @@ export const WasteGuide = () => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {open: openBottomSheet} = useBottomSheet()
-  const {selectedAddress} = useLocationInfo()
+  const {locationType, selectedAddress} = useWasteGuideLocationInfo()
 
   const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery(
     selectedAddress?.bagId
@@ -47,6 +48,9 @@ export const WasteGuide = () => {
     : WasteGuideForAmsterdam
   const hasContent = Object.keys(wasteGuideData).length > 0 || cityIsWeesp
 
+  const AddressOrLocationTopTaskButton =
+    locationType === 'address' ? AddressTopTaskButton : LocationTopTaskButton
+
   return (
     <Column
       grow
@@ -57,9 +61,10 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column>
-              <AddressTopTaskButton
+              <AddressOrLocationTopTaskButton
                 hasTitleIcon
                 onPress={openBottomSheet}
+                showAddress
                 testID="WasteGuideChangeLocationButton"
               />
             </Column>

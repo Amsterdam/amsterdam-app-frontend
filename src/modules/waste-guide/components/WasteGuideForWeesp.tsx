@@ -4,10 +4,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useLocationInfo} from '@/modules/waste-guide/hooks/useLocationInfo'
+import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
 
 export const WasteGuideForWeesp = () => {
-  const {selectedAddress} = useLocationInfo()
+  const {selectedAddress} = useWasteGuideLocationInfo()
   const openWebUrl = useOpenWebUrl()
 
   if (!selectedAddress) {
