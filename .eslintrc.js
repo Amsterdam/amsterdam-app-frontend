@@ -30,7 +30,7 @@ module.exports = {
   rules: {
     'import/no-default-export': 'error',
     'import/order': [
-      'error',
+      'warn',
       {
         groups: [
           'builtin',
