@@ -28,14 +28,6 @@ export type AddressQueryArg = {
   lon?: number
 }
 
-export type AddressForCoordinates = {
-  huisletter?: string
-  huisnummer: number
-  huisnummertoevoeging?: string
-  id: string
-  straatnaam: string
-}
-
 export type PdokAddress = {
   centroide_ll: `POINT(${number} ${number})`
   huisletter?: string

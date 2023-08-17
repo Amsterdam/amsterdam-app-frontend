@@ -15,16 +15,14 @@ export const useAddresForCoordinates = (lastKnown: boolean) => {
     (lastKnown ? lastKnownCoordinates : currentCoordinates) ?? skipToken,
   )
 
-  const transformedData = useMemo(() => {
-    if (!currentData?.response?.docs?.[0]) {
-      return
-    }
-
-    return transformAddressApiResponse(currentData.response.docs[0])
-  }, [currentData?.response.docs])
-
   return {
     ...rest,
-    data: transformedData,
+    data: useMemo(() => {
+      if (!currentData?.response?.docs?.[0]) {
+        return
+      }
+
+      return transformAddressApiResponse(currentData.response.docs[0])
+    }, [currentData?.response.docs]),
   }
 }

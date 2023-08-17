@@ -18,7 +18,9 @@ const getSelectedAddress = (
 }
 
 /**
- * Return the current or the last known location info, depending on the location type. Different modules may have different location types selected, so the location type is not part of the Address module itself.
+ * Return either the user profile address or the addres for their location (current or last known), depending on the location type.
+ * Requires a location type: different modules may have different location types selected, so the location type is not part of the Address module itself.
+ * The address for location is a query request response. If locationType is 'location', the isError and isFetching properties will be set to be able handle loading/error states.
  */
 export const useSelectedAddress = (
   locationType?: LocationType,

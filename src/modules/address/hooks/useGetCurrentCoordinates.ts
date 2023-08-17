@@ -5,7 +5,7 @@ import {useGetCurrentPosition} from '@/hooks/useGetCurrentPosition'
 import {addCurrentCoordinates} from '@/modules/address/slice'
 
 /**
- * Returns a function which gets the user's current coordinates and stores them in the Address module's Redux state. Also returns a "pending" boolean for a "loading" state.
+ * Returns a function which requests the user's current coordinates and stores them in the Address module's Redux state. Also returns a "pending" boolean for a "loading" state.
  */
 export const useGetCurrentCoordinates = (
   onError?: (error: GeolocationError) => void,

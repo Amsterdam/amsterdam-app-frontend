@@ -11,7 +11,7 @@ Geolocation.setRNConfiguration({
   skipPermissionRequests: false,
 })
 
-const geolocationErrorCodeMap: Record<number, string> = {
+const geolocationErrorCodeToErrorMap: Record<number, string> = {
   1: 'PERMISSION_DENIED',
   2: 'POSITION_UNAVAILABLE',
   3: 'TIMEOUT',
@@ -24,9 +24,12 @@ const defaultOptions = {
   timeout: 60000,
 }
 
+/**
+ * Coalesce the default and custom options and filter out the options that will cause issues with Android.
+ * The Android implementation is buggy and will only accept maximumAge. When enableHighAccuracy is set, it's very slow; with timeout set, it always fails.
+ * Note that maximumAge however, *is* important for Android, since the default caching time may be unsensibly long.
+ */
 const getOptions = (options?: GeolocationOptions) => {
-  // The Android implementation is buggy and will only accept maximumAge. With enableHighAccuracy set it is slow, with timeout set, it always fails.
-  // Note that maximumAge is important for Android, since the default caching time may be unsensibly long.
   if (Platform.OS === 'android') {
     return {
       maximumAge: options?.maximumAge ?? defaultOptions.maximumAge,
@@ -57,7 +60,7 @@ export const useGetCurrentPosition = () => {
           sendSentryErrorLog(
             'Geolocation.getCurrentPosition failed',
             'useGetCurrentPosition.ts',
-            {code, error: geolocationErrorCodeMap[code], message},
+            {code, error: geolocationErrorCodeToErrorMap[code], message},
           )
         },
         getOptions(options),

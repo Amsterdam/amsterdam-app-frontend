@@ -19,7 +19,7 @@ export const AddressTopTaskButton = ({
       iconName="location"
       onPress={onPress}
       testID={testID}
-      text={address?.addressLine1 ? address.addressLine1 : 'Vul een adres in'}
+      text={address?.addressLine1 ?? 'Vul een adres in'}
       title="Mijn adres"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />

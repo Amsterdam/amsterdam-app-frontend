@@ -11,7 +11,7 @@ type AddressSuggestionQueryParams = {
   street?: string
 }
 
-const returnFields =
+const responseFields =
   'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll'
 
 export const addressApi = baseApi.injectEndpoints({
@@ -25,7 +25,7 @@ export const addressApi = baseApi.injectEndpoints({
           params: {
             lat,
             lon,
-            fl: returnFields,
+            fl: responseFields,
             rows: 1,
           },
           path: '/reverse',
@@ -42,7 +42,7 @@ export const addressApi = baseApi.injectEndpoints({
         url: generateRequestUrl({
           params: {
             q: address,
-            fl: returnFields,
+            fl: responseFields,
             fq: [
               `type:${street ? 'adres' : '(weg OR adres)'}`,
               `woonplaatsnaam:${city?.toLowerCase() ?? '(amsterdam OR weesp)'}`,

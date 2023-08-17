@@ -11,8 +11,8 @@ type Props = {
   onPress: () => void
 } & TestProps
 
-const getText = (isFetching: boolean, address?: Address) => {
-  if (isFetching) {
+const getText = (loading: boolean, address?: Address) => {
+  if (loading) {
     return '...'
   }
 
