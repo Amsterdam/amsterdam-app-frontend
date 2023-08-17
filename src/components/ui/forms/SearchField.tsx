@@ -2,6 +2,7 @@ import {forwardRef, useState} from 'react'
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -10,7 +11,7 @@ type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
 } & Required<TestProps> &
-  TextInputProps
+  TextInputProps & {readOnly?: boolean}
 
 export const SearchField = forwardRef<TextInput, Props>(
   (
@@ -76,10 +77,26 @@ export const SearchField = forwardRef<TextInput, Props>(
   },
 )
 
+export const StylisticSearchField = () => {
+  const styles = useThemable(createStyles({}))
+
+  return (
+    <View style={styles.frame}>
+      <View style={styles.textInput}>
+        <Phrase color="secondary">Zoek in werkzaamheden</Phrase>
+      </View>
+      <Icon
+        name="search"
+        size="lg"
+      />
+    </View>
+  )
+}
+
 const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 
 const createStyles =
-  ({hasFocus: hasFocus}: {hasFocus: boolean} & Partial<Props>) =>
+  ({hasFocus: hasFocus}: {hasFocus?: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) =>
     StyleSheet.create({
       frame: {
@@ -95,7 +112,7 @@ const createStyles =
         borderBottomColor: hasFocus
           ? color.control.focus.border
           : color.control.default.border,
-        borderBottomWidth: borderWidth(hasFocus),
+        borderBottomWidth: borderWidth(!!hasFocus),
       },
       textInput: {
         flex: 1,
