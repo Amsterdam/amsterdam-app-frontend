@@ -55,6 +55,7 @@ export const SelectLocationTypeBottomSheet = ({
             }}
             testID="BottomSheetSelectAddressButton"
           />
+          {/* TODO: handle unhappy flow, e.g. user does not give permission */}
           <LocationTopTaskButton
             lastKnown={false}
             loading={pending}

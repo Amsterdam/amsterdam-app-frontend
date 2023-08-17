@@ -25,11 +25,11 @@ export const useSelectedAddress = (
   lastKnown = false,
 ) => {
   const address = useAddress()
-  const {data, isError, isLoading} = useAddresForCoordinates(lastKnown)
+  const {data, isError, isFetching} = useAddresForCoordinates(lastKnown)
 
   return {
     address: getSelectedAddress(address, data, locationType),
     isError: locationType === 'location' && isError,
-    isLoading: locationType === 'location' && isLoading,
+    isFetching: locationType === 'location' && isFetching,
   }
 }

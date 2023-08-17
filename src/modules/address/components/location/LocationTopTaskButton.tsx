@@ -11,8 +11,8 @@ type Props = {
   onPress: () => void
 } & TestProps
 
-const getText = (isLoading: boolean, address?: Address) => {
-  if (isLoading) {
+const getText = (isFetching: boolean, address?: Address) => {
+  if (isFetching) {
     return '...'
   }
 
@@ -30,10 +30,10 @@ export const LocationTopTaskButton = ({
   onPress,
 }: Props) => {
   const coordinates = useCurrentCoordinates()
-  const {data: address, isLoading: addresForCoordinatesIsLoading} =
+  const {data: address, isFetching: addresForCoordinatesIsFetching} =
     useAddresForCoordinates(lastKnown)
 
-  const isLoading = loading || addresForCoordinatesIsLoading
+  const isLoading = loading || addresForCoordinatesIsFetching
 
   return (
     <TopTaskButton

@@ -28,7 +28,7 @@ export const WasteGuide = () => {
   const {
     address,
     isError: selectedAddressForWasteGuideIsError,
-    isLoading: selectedAddressForWasteGuideIsLoading,
+    isFetching: selectedAddressForWasteGuideIsFetching,
     locationType,
   } = useSelectedAddressForWasteGuide()
 
@@ -36,16 +36,13 @@ export const WasteGuide = () => {
     data: wasteGuideData,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
-    isLoading: getGarbageCollectionAreaQueryIsLoading,
   } = useGetGarbageCollectionAreaQuery(
     address?.bagId ? {bagNummeraanduidingId: address.bagId} : skipToken,
   )
 
   if (
     getGarbageCollectionAreaQueryIsFetching ||
-    getGarbageCollectionAreaQueryIsLoading ||
-    selectedAddressForWasteGuideIsLoading ||
-    wasteGuideData === undefined
+    selectedAddressForWasteGuideIsFetching
   ) {
     return <PleaseWait />
   }
@@ -53,6 +50,7 @@ export const WasteGuide = () => {
   if (
     getGarbageCollectionAreaQueryIsError ||
     selectedAddressForWasteGuideIsError ||
+    !wasteGuideData ||
     !address
   ) {
     return <SomethingWentWrong />

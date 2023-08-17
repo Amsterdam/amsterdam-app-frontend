@@ -5,23 +5,26 @@ import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoord
 import {useGetAddressForCoordinatesQuery} from '@/modules/address/service'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 
+/**
+ * Get the address for a set of coordinates from the back end. Returns the request metadata too, so loading and error states can be handled.
+ */
 export const useAddresForCoordinates = (lastKnown: boolean) => {
   const currentCoordinates = useCurrentCoordinates()
   const lastKnownCoordinates = useLastKnownCoordinates()
-  const {data, ...rest} = useGetAddressForCoordinatesQuery(
+  const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
     (lastKnown ? lastKnownCoordinates : currentCoordinates) ?? skipToken,
   )
 
   const transformedData = useMemo(() => {
-    if (!data?.response?.docs?.[0]) {
+    if (!currentData?.response?.docs?.[0]) {
       return
     }
 
-    return transformAddressApiResponse(data.response.docs[0])
-  }, [data?.response.docs])
+    return transformAddressApiResponse(currentData.response.docs[0])
+  }, [currentData?.response.docs])
 
   return {
-    data: transformedData,
     ...rest,
+    data: transformedData,
   }
 }
