@@ -30,13 +30,16 @@ export const LocationTopTaskButton = ({
   onPress,
 }: Props) => {
   const coordinates = useCurrentCoordinates()
-  const {data: address, isLoading} = useAddresForCoordinates(lastKnown)
+  const {data: address, isLoading: addresForCoordinatesIsLoading} =
+    useAddresForCoordinates(lastKnown)
+
+  const isLoading = loading || addresForCoordinatesIsLoading
 
   return (
     <TopTaskButton
       iconName="location"
       onPress={!isLoading && !!coordinates ? onPress : undefined}
-      text={getText(loading || isLoading, address)}
+      text={getText(isLoading, address)}
       title="Mijn locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />

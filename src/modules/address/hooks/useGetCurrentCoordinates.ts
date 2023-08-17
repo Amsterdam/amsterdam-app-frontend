@@ -2,9 +2,7 @@ import {GeolocationError} from '@react-native-community/geolocation'
 import {useCallback, useState} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCurrentPosition} from '@/hooks/useGetCurrentPosition'
-import {requestLocationFailedAlertConfig} from '@/modules/address/constants'
 import {addCurrentCoordinates} from '@/modules/address/slice'
-import {setAlert} from '@/store/slices/alert'
 
 export const useGetCurrentCoordinates = (
   onError?: (error: GeolocationError) => void,
@@ -23,7 +21,7 @@ export const useGetCurrentCoordinates = (
         },
         error => {
           onError?.(error)
-          dispatch(setAlert(requestLocationFailedAlertConfig))
+          // handle error
           setPending(false)
         },
       )
