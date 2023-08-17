@@ -18,6 +18,24 @@ const geolocationErrorCodeMap: Record<number, string> = {
   4: 'ACTIVITY_NULL',
 }
 
+const defaultOptions = {
+  enableHighAccuracy: true,
+  maximumAge: 10000,
+  timeout: 60000,
+}
+
+const getOptions = (options?: GeolocationOptions) => {
+  // The Android implementation is buggy and will only accept maximumAge. With enableHighAccuracy set it is slow, with timeout set, it always fails.
+  // Note that maximumAge is important for Android, since the default caching time may be unsensibly long.
+  if (Platform.OS === 'android') {
+    return {
+      maximumAge: options?.maximumAge ?? defaultOptions.maximumAge,
+    }
+  }
+
+  return {...defaultOptions, ...options}
+}
+
 /**
  * Get the current position (location) of the user. Will request the permission if necessary and will handle error logging.
  */
@@ -28,8 +46,8 @@ export const useGetCurrentPosition = () => {
     (
       onSuccess: (response: GeolocationResponse) => void,
       onError?: (error: GeolocationError) => void,
-      options?: Partial<GeolocationOptions>,
-    ) =>
+      options?: GeolocationOptions,
+    ) => {
       Geolocation.getCurrentPosition(
         onSuccess,
         error => {
@@ -42,18 +60,9 @@ export const useGetCurrentPosition = () => {
             {code, error: geolocationErrorCodeMap[code], message},
           )
         },
-        /**
-         * Do not set options for Android: Android location permissions requests will time out if these options are set
-         */
-        Platform.OS !== 'android'
-          ? {
-              enableHighAccuracy: true,
-              maximumAge: 30000,
-              timeout: 60000,
-              ...options,
-            }
-          : undefined,
-      ),
+        getOptions(options),
+      )
+    },
     [sendSentryErrorLog],
   )
 }

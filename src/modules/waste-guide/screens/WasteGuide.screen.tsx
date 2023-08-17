@@ -6,12 +6,12 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {RequestLocation} from '@/modules/waste-guide/components/RequestLocation'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
-import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
+import {useLocationType} from '@/modules/waste-guide/hooks/useLocationType'
 import {setLocationType} from '@/modules/waste-guide/slice'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useDeviceContext()
-  const {selectedAddress} = useWasteGuideLocationInfo()
+  const locationType = useLocationType()
   const dispatch = useDispatch()
   const onSelectAddress = useCallback(
     () => dispatch(setLocationType('address')),
@@ -24,7 +24,7 @@ export const WasteGuideScreen = () => {
 
   return (
     <Screen
-      scroll={!!selectedAddress}
+      scroll={!!locationType}
       stickyFooter={
         <SelectLocationTypeBottomSheet
           onSelectAddress={onSelectAddress}
@@ -34,7 +34,7 @@ export const WasteGuideScreen = () => {
       stickyHeader={<Alert />}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      {selectedAddress ? <WasteGuide /> : <RequestLocation />}
+      {locationType ? <WasteGuide /> : <RequestLocation />}
     </Screen>
   )
 }

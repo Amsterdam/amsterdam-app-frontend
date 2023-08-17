@@ -5,7 +5,7 @@ import {ContactCollector} from '@/modules/waste-guide/components/ContactCollecto
 import {Fractions} from '@/modules/waste-guide/components/Fractions'
 import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
 import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
-import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
+import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 import {selectContract} from '@/modules/waste-guide/slice'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const WasteGuideForAmsterdam = ({wasteGuide}: Props) => {
-  const {selectedAddress} = useWasteGuideLocationInfo()
+  const {address} = useSelectedAddressForWasteGuide()
   const contract = useSelector(
     selectContract(wasteGuide[0].bagNummeraanduidingId),
   )
@@ -27,14 +27,14 @@ export const WasteGuideForAmsterdam = ({wasteGuide}: Props) => {
     )
   }
 
-  if (!selectedAddress) {
+  if (!address) {
     return <SomethingWentWrong />
   }
 
   return (
     <Column gutter="xl">
       <ReportWrongBuildingType />
-      <SelectContract bagNummeraanduidingId={selectedAddress.bagId} />
+      <SelectContract bagNummeraanduidingId={address.bagId} />
       {contract?.hasContract === false ? (
         <Fractions wasteGuide={wasteGuide} />
       ) : (

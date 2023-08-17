@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
-import {useCallback} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -9,7 +8,6 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,
@@ -18,7 +16,7 @@ import {
 import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
-import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
+import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
@@ -27,29 +25,40 @@ export const WasteGuide = () => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {open: openBottomSheet} = useBottomSheet()
-  const {locationType, selectedAddress} = useWasteGuideLocationInfo()
-  const getCurrentCoordinates = useGetCurrentCoordinates()
+  const {
+    address,
+    isError: selectedAddressForWasteGuideIsError,
+    isLoading: selectedAddressForWasteGuideIsLoading,
+    locationType,
+  } = useSelectedAddressForWasteGuide()
 
-  const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery(
-    selectedAddress?.bagId
-      ? {bagNummeraanduidingId: selectedAddress.bagId}
-      : skipToken,
+  const {
+    data: wasteGuideData,
+    isError: getGarbageCollectionAreaQueryIsError,
+    isFetching: getGarbageCollectionAreaQueryIsFetching,
+    isLoading: getGarbageCollectionAreaQueryIsLoading,
+  } = useGetGarbageCollectionAreaQuery(
+    address?.bagId ? {bagNummeraanduidingId: address.bagId} : skipToken,
   )
 
-  const onPressAddressOrLocationTopTaskButton = useCallback(() => {
-    getCurrentCoordinates()
-    openBottomSheet()
-  }, [getCurrentCoordinates, openBottomSheet])
-
-  if (!selectedAddress) {
-    return <SomethingWentWrong />
-  }
-
-  if (isFetching || wasteGuideData === undefined) {
+  if (
+    getGarbageCollectionAreaQueryIsFetching ||
+    getGarbageCollectionAreaQueryIsLoading ||
+    selectedAddressForWasteGuideIsLoading ||
+    wasteGuideData === undefined
+  ) {
     return <PleaseWait />
   }
 
-  const {city} = selectedAddress
+  if (
+    getGarbageCollectionAreaQueryIsError ||
+    selectedAddressForWasteGuideIsError ||
+    !address
+  ) {
+    return <SomethingWentWrong />
+  }
+
+  const {city} = address
   const cityIsWeesp = city === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
@@ -71,7 +80,7 @@ export const WasteGuide = () => {
             <Column>
               <AddressOrLocationTopTaskButton
                 hasTitleIcon
-                onPress={onPressAddressOrLocationTopTaskButton}
+                onPress={openBottomSheet}
                 testID="WasteGuideChangeLocationButton"
               />
             </Column>

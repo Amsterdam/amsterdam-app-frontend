@@ -1,11 +1,11 @@
-import {useLocationInfo} from '@/modules/address/hooks/useLocationInfo'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useLocationType} from '@/modules/waste-guide/hooks/useLocationType'
 
 /**
  * Return location info depending on the selected location type for waste guide specifically
  */
-export const useWasteGuideLocationInfo = () => {
+export const useSelectedAddressForWasteGuide = () => {
   const locationType = useLocationType()
 
-  return {locationType, ...useLocationInfo(locationType, true)}
+  return {locationType, ...useSelectedAddress(locationType, true)}
 }

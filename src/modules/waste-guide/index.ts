@@ -10,6 +10,7 @@ export const wasteGuideModule: ModuleClientConfig = {
       key: ReduxKey.wasteGuide,
       persistVersion: 0,
       slice: wasteGuideSlice,
+      persistWhitelist: ['contracts'],
     },
   ],
   slug: ModuleSlug['waste-guide'],

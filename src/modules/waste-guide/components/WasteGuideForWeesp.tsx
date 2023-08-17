@@ -4,17 +4,17 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useWasteGuideLocationInfo} from '@/modules/waste-guide/hooks/useWasteGuideLocationInfo'
+import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 
 export const WasteGuideForWeesp = () => {
-  const {selectedAddress} = useWasteGuideLocationInfo()
+  const {address} = useSelectedAddressForWasteGuide()
   const openWebUrl = useOpenWebUrl()
 
-  if (!selectedAddress) {
+  if (!address) {
     return <SomethingWentWrong />
   }
 
-  const {postcode, number, addition = ''} = selectedAddress
+  const {postcode, number, addition = ''} = address
 
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +

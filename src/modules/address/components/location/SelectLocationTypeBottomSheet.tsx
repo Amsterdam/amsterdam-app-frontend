@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -8,6 +9,7 @@ import {AddressTopTaskButton} from '@/modules/address/components/location/Addres
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useCurrentCoordinates} from '@/modules/address/hooks/useCurrentCoordinates'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates} from '@/modules/address/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -23,9 +25,16 @@ export const SelectLocationTypeBottomSheet = ({
 }: Props) => {
   const navigation = useNavigation<AddressModalName>()
   const dispatch = useDispatch()
-  const {close} = useBottomSheet()
+  const {close, isOpen} = useBottomSheet()
   const address = useAddress()
+  const {getCurrentCoordinates, pending} = useGetCurrentCoordinates()
   const currentCoordinates = useCurrentCoordinates()
+
+  useEffect(() => {
+    if (isOpen) {
+      getCurrentCoordinates()
+    }
+  }, [getCurrentCoordinates, isOpen])
 
   return (
     <BottomSheet>
@@ -48,6 +57,7 @@ export const SelectLocationTypeBottomSheet = ({
           />
           <LocationTopTaskButton
             lastKnown={false}
+            loading={pending}
             onPress={() => {
               if (currentCoordinates) {
                 dispatch(addLastKnownCoordinates(currentCoordinates))
