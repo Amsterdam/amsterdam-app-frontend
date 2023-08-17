@@ -11,7 +11,7 @@ type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
 } & Required<TestProps> &
-  TextInputProps & {readOnly?: boolean}
+  TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
   (
@@ -96,7 +96,7 @@ export const StylisticSearchField = () => {
 const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 
 const createStyles =
-  ({hasFocus: hasFocus}: {hasFocus?: boolean} & Partial<Props>) =>
+  ({hasFocus}: {hasFocus?: boolean} & Partial<Props>) =>
   ({color, size, text}: Theme) =>
     StyleSheet.create({
       frame: {
