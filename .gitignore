@@ -94,3 +94,4 @@ sentry.properties
 
 # TypeScript/tsc-files
 tsconfig.tsbuildinfo
+tsconfig.*.json
