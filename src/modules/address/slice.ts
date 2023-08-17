@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {Address} from '@/modules/address/types'
+import {Address, Coordinates} from '@/modules/address/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type AddressState = {
   address?: Address
-  lastKnownLocationAddress?: Address
+  currentCoordinates?: Coordinates
+  lastKnownCoordinates?: Coordinates
 }
 
 const initialState: AddressState = {}
@@ -19,22 +20,36 @@ export const addressSlice = createSlice({
       ...state,
       address,
     }),
-    addLastKnownLocationAddress: (
+    addCurrentCoordinates: (
       state,
-      {payload: lastKnownLocationAddress}: PayloadAction<Address>,
+      {payload: currentCoordinates}: PayloadAction<Coordinates>,
     ) => ({
       ...state,
-      lastKnownLocationAddress,
+      currentCoordinates,
+    }),
+    addLastKnownCoordinates: (
+      state,
+      {payload: lastKnownCoordinates}: PayloadAction<Coordinates>,
+    ) => ({
+      ...state,
+      lastKnownCoordinates,
     }),
     removeAddress: ({address, ...rest}) => rest,
   },
 })
 
-export const {addAddress, addLastKnownLocationAddress, removeAddress} =
-  addressSlice.actions
+export const {
+  addAddress,
+  addCurrentCoordinates,
+  addLastKnownCoordinates,
+  removeAddress,
+} = addressSlice.actions
 
 export const selectAddress = (state: RootState) =>
   state[ReduxKey.address]?.address
 
-export const selectLastKnownLocationAddress = (state: RootState) =>
-  state[ReduxKey.address]?.lastKnownLocationAddress
+export const selectCurrentCoordinates = (state: RootState) =>
+  state[ReduxKey.address]?.currentCoordinates
+
+export const selectLastKnownCoordinates = (state: RootState) =>
+  state[ReduxKey.address]?.lastKnownCoordinates

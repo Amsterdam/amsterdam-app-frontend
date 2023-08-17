@@ -38,7 +38,7 @@ export const useGetCurrentPosition = () => {
           onError?.(error)
           sendSentryErrorLog(
             'Geolocation.getCurrentPosition failed',
-            'useRequestLocation.ts',
+            'useGetCurrentPosition.ts',
             {code, error: geolocationErrorCodeMap[code], message},
           )
         },

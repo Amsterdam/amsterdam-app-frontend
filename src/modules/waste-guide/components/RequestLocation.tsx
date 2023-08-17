@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -6,6 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
@@ -13,7 +15,13 @@ import {useTheme} from '@/themes/useTheme'
 export const RequestLocation = () => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
-  const {open} = useBottomSheet()
+  const {open: openBottomSheet} = useBottomSheet()
+  const getCurrentCoordinates = useGetCurrentCoordinates()
+
+  const onPressTopTaskButton = useCallback(() => {
+    getCurrentCoordinates()
+    openBottomSheet()
+  }, [getCurrentCoordinates, openBottomSheet])
 
   return (
     <Column
@@ -26,7 +34,7 @@ export const RequestLocation = () => {
             <Row>
               <TopTaskButton
                 iconName="location"
-                onPress={open}
+                onPress={onPressTopTaskButton}
                 testID="WasteGuideRequestLocationButton"
                 title="Geef uw locatie door"
                 titleIconName="chevron-down"

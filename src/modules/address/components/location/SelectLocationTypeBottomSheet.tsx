@@ -3,11 +3,13 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useRequestLocation} from '@/modules/address/hooks/useRequestLocation'
+import {useCurrentCoordinates} from '@/modules/address/hooks/useCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
+import {addLastKnownCoordinates} from '@/modules/address/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
@@ -20,9 +22,10 @@ export const SelectLocationTypeBottomSheet = ({
   onSelectLocation,
 }: Props) => {
   const navigation = useNavigation<AddressModalName>()
+  const dispatch = useDispatch()
   const {close} = useBottomSheet()
   const address = useAddress()
-  const requestLocation = useRequestLocation()
+  const currentCoordinates = useCurrentCoordinates()
 
   return (
     <BottomSheet>
@@ -41,12 +44,15 @@ export const SelectLocationTypeBottomSheet = ({
               onSelectAddress()
               close()
             }}
-            showAddress
             testID="BottomSheetSelectAddressButton"
           />
           <LocationTopTaskButton
+            lastKnown={false}
             onPress={() => {
-              requestLocation()
+              if (currentCoordinates) {
+                dispatch(addLastKnownCoordinates(currentCoordinates))
+              }
+
               onSelectLocation()
               close()
             }}

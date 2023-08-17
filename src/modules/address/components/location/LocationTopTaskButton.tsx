@@ -1,28 +1,27 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {TestProps} from '@/components/ui/types'
-import {useLastKnownLocationAddress} from '@/modules/address/hooks/useLastKnownLocationAddress'
+import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
 
 type Props = {
   hasTitleIcon?: boolean
+  lastKnown?: boolean
   onPress: () => void
-  showAddress?: boolean
 } & TestProps
 
-// TODO: implementatie (87654)
 export const LocationTopTaskButton = ({
   hasTitleIcon,
+  lastKnown = false,
   onPress,
-  showAddress = false,
 }: Props) => {
-  const lastKnownLocationAddress = useLastKnownLocationAddress()
+  const {data: address} = useAddresForCoordinates(lastKnown)
 
   return (
     <TopTaskButton
       iconName="location"
       onPress={onPress}
       text={
-        showAddress && lastKnownLocationAddress?.addressLine1
-          ? `In de buurt van ${lastKnownLocationAddress.addressLine1}`
+        address?.addressLine1
+          ? `In de buurt van ${address.addressLine1}`
           : 'Geef uw locatie door'
       }
       title="Mijn locatie"

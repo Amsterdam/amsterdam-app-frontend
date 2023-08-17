@@ -7,5 +7,5 @@ import {useLocationType} from '@/modules/waste-guide/hooks/useLocationType'
 export const useWasteGuideLocationInfo = () => {
   const locationType = useLocationType()
 
-  return {locationType, ...useLocationInfo(locationType)}
+  return {locationType, ...useLocationInfo(locationType, true)}
 }

@@ -5,13 +5,11 @@ import {useAddress} from '@/modules/address/hooks/useAddress'
 type Props = {
   hasTitleIcon?: boolean
   onPress: () => void
-  showAddress?: boolean
 } & TestProps
 
 export const AddressTopTaskButton = ({
   hasTitleIcon,
   onPress,
-  showAddress = false,
   testID,
 }: Props) => {
   const address = useAddress()
@@ -21,11 +19,7 @@ export const AddressTopTaskButton = ({
       iconName="location"
       onPress={onPress}
       testID={testID}
-      text={
-        showAddress && !!address?.addressLine1
-          ? address.addressLine1
-          : 'Vul een adres in'
-      }
+      text={address?.addressLine1 ? address.addressLine1 : 'Vul een adres in'}
       title="Mijn adres"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />

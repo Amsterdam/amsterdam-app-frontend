@@ -1,4 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {useCallback} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -8,6 +9,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressCity} from '@/modules/address/types'
 import {
   HouseholdWasteToContainerImage,
@@ -26,12 +28,18 @@ export const WasteGuide = () => {
   const {media} = useTheme()
   const {open: openBottomSheet} = useBottomSheet()
   const {locationType, selectedAddress} = useWasteGuideLocationInfo()
+  const getCurrentCoordinates = useGetCurrentCoordinates()
 
   const {data: wasteGuideData, isFetching} = useGetGarbageCollectionAreaQuery(
     selectedAddress?.bagId
       ? {bagNummeraanduidingId: selectedAddress.bagId}
       : skipToken,
   )
+
+  const onPressAddressOrLocationTopTaskButton = useCallback(() => {
+    getCurrentCoordinates()
+    openBottomSheet()
+  }, [getCurrentCoordinates, openBottomSheet])
 
   if (!selectedAddress) {
     return <SomethingWentWrong />
@@ -63,8 +71,7 @@ export const WasteGuide = () => {
             <Column>
               <AddressOrLocationTopTaskButton
                 hasTitleIcon
-                onPress={openBottomSheet}
-                showAddress
+                onPress={onPressAddressOrLocationTopTaskButton}
                 testID="WasteGuideChangeLocationButton"
               />
             </Column>

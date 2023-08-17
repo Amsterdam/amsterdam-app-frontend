@@ -1,12 +1,9 @@
-import {AddressResponse} from '@/modules/address/types'
+import {AddressResponse, Coordinates} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-type AddressForCoordinatesQueryParams = {
-  lat: number
-  lon: number
-}
+type AddressForCoordinatesQueryParams = Coordinates
 
 type AddressSuggestionQueryParams = {
   address: string

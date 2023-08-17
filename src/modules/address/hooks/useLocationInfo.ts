@@ -1,40 +1,43 @@
 import {useMemo} from 'react'
+import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useLastKnownLocationAddress} from '@/modules/address/hooks/useLastKnownLocationAddress'
 import {Address, LocationType} from '@/modules/address/types'
 
 const getSelectedAddress = (
   address?: Address,
-  lastKnownLocationAddress?: Address,
+  locationAddress?: Address,
   locationType?: LocationType,
 ) => {
   switch (locationType) {
     case 'address':
       return address
     case 'location':
-      return lastKnownLocationAddress
+      return locationAddress
     default:
       return
   }
 }
 
 /**
- * Return location info depending on the location type. Different modules may have different location types selected, so the location type is not part of the Address module itself.
+ * Return the current or the last known location info depending on the location type. Different modules may have different location types selected, so the location type is not part of the Address module itself.
  */
-export const useLocationInfo = (locationType?: LocationType) => {
+export const useLocationInfo = (
+  locationType?: LocationType,
+  lastKnown = false,
+) => {
   const address = useAddress()
-  const lastKnownLocationAddress = useLastKnownLocationAddress()
+  const {data: locationAddress} = useAddresForCoordinates(lastKnown)
 
   return useMemo(
     () => ({
       address,
-      lastKnownLocationAddress,
+      locationAddress,
       selectedAddress: getSelectedAddress(
         address,
-        lastKnownLocationAddress,
+        locationAddress,
         locationType,
       ),
     }),
-    [address, lastKnownLocationAddress, locationType],
+    [address, locationAddress, locationType],
   )
 }
