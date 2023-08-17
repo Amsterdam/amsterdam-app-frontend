@@ -85,11 +85,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>De Amsterdam app wil toegang tot je camera</string>
+	<string>De Amsterdam app wil toegang tot uw camera om foto's te kunnen maken en te delen.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>De Amsterdam app wil toegang tot je locatie</string>
+	<string>We gebruiken uw locatie om actuele ontwikkelingen en diensten bij u in de buurt te bepalen.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>De Amsterdam app wil toegang tot je foto’s</string>
+	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>

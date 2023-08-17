@@ -137,7 +137,7 @@ module.exports = {
     'react/jsx-no-explicit-spread': 'off',
     'amsterdam/jsx-no-explicit-spread': 'error',
     'padding-line-between-statements': [
-      'error',
+      'warn',
       {
         blankLine: 'always',
         prev: '*',
