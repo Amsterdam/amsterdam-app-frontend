@@ -5,12 +5,12 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoordinates'
+import {setLocationType} from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {RequestLocation} from '@/modules/waste-guide/components/RequestLocation'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
-import {useLocationType} from '@/modules/waste-guide/hooks/useLocationType'
 import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
-import {setLocationType} from '@/modules/waste-guide/slice'
 
 const getShouldRequestLocation = (
   locationType?: LocationType,
@@ -21,20 +21,26 @@ const getShouldRequestLocation = (
   (locationType === 'address' && !hasAddress) ||
   (locationType === 'location' && !hasCoordinates)
 
+const setLocationTypeForWasteGuide = (locationType: LocationType) =>
+  setLocationType({
+    locationType,
+    slug: ModuleSlug['waste-guide'],
+  })
+
 export const WasteGuideScreen = () => {
   const {isPortrait} = useDeviceContext()
-  const locationType = useLocationType()
-  const {address} = useSelectedAddressForWasteGuide()
+  const {address, locationType} = useSelectedAddressForWasteGuide()
   const coordinates = useLastKnownCoordinates()
   const dispatch = useDispatch()
   const onSelectAddress = useCallback(
-    () => dispatch(setLocationType('address')),
+    () => dispatch(setLocationTypeForWasteGuide('address')),
     [dispatch],
   )
   const onSelectLocation = useCallback(
-    () => dispatch(setLocationType('location')),
+    () => dispatch(setLocationTypeForWasteGuide('location')),
     [dispatch],
   )
+
   const shouldRequestLocation = getShouldRequestLocation(
     locationType,
     !!address,

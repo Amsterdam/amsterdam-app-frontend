@@ -1,6 +1,8 @@
 import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
 import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useLocationTypeForModule} from '@/modules/address/hooks/useLocationTypeForModule'
 import {Address, LocationType} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 
 const getSelectedAddress = (
   address?: Address,
@@ -22,16 +24,15 @@ const getSelectedAddress = (
  * Requires a location type: different modules may have different location types selected, so the location type is not part of the Address module itself.
  * The address for location is a query request response. If locationType is 'location', the isError and isFetching properties will be set to be able handle loading/error states.
  */
-export const useSelectedAddress = (
-  locationType?: LocationType,
-  lastKnown = false,
-) => {
+export const useSelectedAddress = (slug: ModuleSlug, lastKnown = false) => {
   const address = useAddress()
+  const locationType = useLocationTypeForModule(slug)
   const {data, isError, isFetching} = useAddresForCoordinates(lastKnown)
 
   return {
     address: getSelectedAddress(address, data, locationType),
     isError: locationType === 'location' && isError,
     isFetching: locationType === 'location' && isFetching,
+    locationType,
   }
 }
