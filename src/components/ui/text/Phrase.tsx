@@ -7,9 +7,9 @@ import {useThemable} from '@/themes/useThemable'
 export type PhraseProps = {
   children: ReactNode
   /**
-   * Provides an inverse text color to allow a paragraph on a dark background.
+   * Defines the color of the phrase. Maps with the text color tokens.
    */
-  color?: 'default' | 'inverse' | 'link'
+  color?: 'default' | 'inverse' | 'link' | 'secondary'
   /**
    * Allows the phrase to convey more emphasis.
    */
