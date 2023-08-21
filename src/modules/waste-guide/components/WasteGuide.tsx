@@ -6,9 +6,9 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
-import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
+import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
 import {AddressCity} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {
   HouseholdWasteToContainerImage,
   WasteGuideNotFoundImage,
@@ -18,18 +18,15 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
-  const {open: openBottomSheet} = useBottomSheet()
   const {
     address,
     isError: selectedAddressForWasteGuideIsError,
     isFetching: selectedAddressForWasteGuideIsFetching,
-    locationType,
   } = useSelectedAddressForWasteGuide()
 
   const {
@@ -63,9 +60,6 @@ export const WasteGuide = () => {
     : WasteGuideForAmsterdam
   const hasContent = Object.keys(wasteGuideData).length > 0 || cityIsWeesp
 
-  const AddressOrLocationTopTaskButton =
-    locationType === 'address' ? AddressTopTaskButton : LocationTopTaskButton
-
   return (
     <Column
       grow
@@ -76,10 +70,9 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column>
-              <AddressOrLocationTopTaskButton
-                hasTitleIcon
-                onPress={openBottomSheet}
-                testID="WasteGuideChangeLocationButton"
+              <ChangeLocationButton
+                slug={ModuleSlug['waste-guide']}
+                testID="WasteGuide"
               />
             </Column>
             {hasContent ? (
