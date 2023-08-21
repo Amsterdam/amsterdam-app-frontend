@@ -37,7 +37,7 @@ export const SelectLocationTypeBottomSheet = ({
   }, [getCurrentCoordinates, isOpen])
 
   return (
-    <BottomSheet>
+    <BottomSheet testID="SelectLocationTypeBottomSheet">
       <Box grow>
         <Column gutter="md">
           <Title

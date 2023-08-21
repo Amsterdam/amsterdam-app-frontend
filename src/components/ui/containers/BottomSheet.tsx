@@ -6,6 +6,7 @@ import BottomSheetOriginal, {
 } from '@gorhom/bottom-sheet'
 import {ReactNode} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
+import {TestProps} from '@/components/ui/types'
 import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 
@@ -22,12 +23,13 @@ type Props = Partial<
     BottomSheetProps,
     'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
   >
-> & {children: ReactNode; snapPoints?: (string | number)[]}
+> & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
 
 export const BottomSheet = ({
   children,
   onChange,
   snapPoints,
+  testID,
   ...rest
 }: Props) => {
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
@@ -66,7 +68,8 @@ export const BottomSheet = ({
         flex={1}
         left
         onLayout={handleContentLayout}
-        right>
+        right
+        testID={testID}>
         {children}
       </SafeArea>
     </BottomSheetOriginal>

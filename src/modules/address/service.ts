@@ -26,6 +26,7 @@ export const addressApi = baseApi.injectEndpoints({
             lat,
             lon,
             fl: responseFields,
+            fq: ['type:adres'],
             rows: 1,
           },
           path: '/reverse',
