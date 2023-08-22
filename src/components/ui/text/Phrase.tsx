@@ -1,10 +1,14 @@
 import {ReactNode, useMemo} from 'react'
-import {StyleSheet, Text, TextProps} from 'react-native'
+import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
 export type PhraseProps = {
+  /**
+   * Defines the alignment of the phrase. Maps with the textAlign style prop options.
+   */
+  align?: TextStyle['textAlign']
   children: ReactNode
   /**
    * Defines the color of the phrase. Maps with the text color tokens.
@@ -30,6 +34,7 @@ export type PhraseProps = {
  * For sentences, use `Paragraph` instead.
  */
 export const Phrase = ({
+  align = 'left',
   children,
   color = 'default',
   emphasis = 'default',
@@ -38,8 +43,8 @@ export const Phrase = ({
   ...textProps
 }: PhraseProps) => {
   const createdStyles = useMemo(
-    () => createStyles({color, emphasis, underline, variant}),
-    [color, emphasis, underline, variant],
+    () => createStyles({align, color, emphasis, underline, variant}),
+    [align, color, emphasis, underline, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -54,12 +59,13 @@ export const Phrase = ({
 
 const createStyles =
   ({
+    align,
     color: textColor,
     emphasis,
     underline,
     variant,
   }: Required<
-    Pick<PhraseProps, 'color' | 'emphasis' | 'underline' | 'variant'>
+    Pick<PhraseProps, 'align' | 'color' | 'emphasis' | 'underline' | 'variant'>
   >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
@@ -70,6 +76,7 @@ const createStyles =
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: 1.4 * text.fontSize[variant], // NOTE Doesn’t adhere to design system
+        textAlign: align,
         textDecorationLine: underline ? 'underline' : 'none',
       },
     })
