@@ -27,7 +27,7 @@ export const usePermission = ({
   permissionAndroid: AndroidPermission
   permissionIOS: IOSPermission
   rationale?: Rationale
-  requestPermission: boolean
+  requestPermission?: boolean
 }): {
   promise: Promise<PermissionStatus | undefined>
   status: PermissionStatus | undefined
@@ -57,6 +57,7 @@ export const usePermission = ({
   useAppState({
     onForeground: checkPermission,
   })
+
   useEffect(checkPermission, [checkPermission])
 
   return {status, promise: currentPromise.current}

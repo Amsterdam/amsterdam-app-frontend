@@ -1,14 +1,14 @@
+import {useCallback} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {TestProps} from '@/components/ui/types'
 import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
-import {useCurrentCoordinates} from '@/modules/address/hooks/useCurrentCoordinates'
 import {Address} from '@/modules/address/types'
 
 type Props = {
   hasTitleIcon?: boolean
   lastKnown?: boolean
   loading?: boolean
-  onPress: () => void
+  onPress: (hasValidAddressData: boolean) => void
 } & TestProps
 
 const getText = (loading: boolean, address?: Address) => {
@@ -29,16 +29,22 @@ export const LocationTopTaskButton = ({
   loading = false,
   onPress,
 }: Props) => {
-  const coordinates = useCurrentCoordinates()
-  const {data: address, isFetching: addresForCoordinatesIsFetching} =
-    useAddresForCoordinates(lastKnown)
-
-  const isLoading = loading || addresForCoordinatesIsFetching
+  const {
+    data: address,
+    isFetching: addresForCoordinatesIsFetching,
+    isLoading: addresForCoordinatesIsLoading,
+  } = useAddresForCoordinates(lastKnown)
+  const isLoading =
+    loading || addresForCoordinatesIsFetching || addresForCoordinatesIsLoading
+  const handlePress = useCallback(
+    () => onPress(!isLoading && !!address),
+    [address, isLoading, onPress],
+  )
 
   return (
     <TopTaskButton
       iconName="location"
-      onPress={!isLoading && !!coordinates ? onPress : undefined}
+      onPress={handlePress}
       text={getText(isLoading, address)}
       title="Mijn locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}

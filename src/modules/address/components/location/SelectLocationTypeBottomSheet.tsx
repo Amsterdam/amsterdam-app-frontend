@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -20,11 +20,13 @@ type Props = {
 }
 
 export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
+  const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
+    useState(false)
   const navigation = useNavigation<AddressModalName>()
   const dispatch = useDispatch()
   const {close, isOpen} = useBottomSheet()
   const address = useAddress()
-  const {getCurrentCoordinates, pending} = useGetCurrentCoordinates()
+  const getCurrentCoordinates = useGetCurrentCoordinates()
   const currentCoordinates = useCurrentCoordinates()
 
   const onPressAddressButton = useCallback(() => {
@@ -41,25 +43,41 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     close()
   }, [address, close, dispatch, navigation, slug])
 
-  const onPressLocationButton = useCallback(() => {
-    if (currentCoordinates) {
-      dispatch(addLastKnownCoordinates(currentCoordinates))
-    }
+  const onPressLocationButton = useCallback(
+    async (hasValidAddressData: boolean) => {
+      if (!currentCoordinates) {
+        setRequestingCurrentCoordinates(true)
+        await getCurrentCoordinates()
+        setRequestingCurrentCoordinates(false)
+      }
 
-    dispatch(
-      setLocationType({
-        locationType: 'location',
-        slug,
-      }),
-    )
-    close()
-  }, [close, currentCoordinates, dispatch, slug])
+      if (!hasValidAddressData) {
+        return
+      }
+
+      if (currentCoordinates) {
+        dispatch(addLastKnownCoordinates(currentCoordinates))
+      }
+
+      dispatch(
+        setLocationType({
+          locationType: 'location',
+          slug,
+        }),
+      )
+      close()
+    },
+    [close, currentCoordinates, dispatch, getCurrentCoordinates, slug],
+  )
 
   useEffect(() => {
-    if (isOpen) {
-      getCurrentCoordinates()
+    if (isOpen && currentCoordinates) {
+      setRequestingCurrentCoordinates(true)
+      void getCurrentCoordinates().then(() =>
+        setRequestingCurrentCoordinates(false),
+      )
     }
-  }, [getCurrentCoordinates, isOpen])
+  }, [currentCoordinates, getCurrentCoordinates, isOpen])
 
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">
@@ -76,7 +94,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
           {/* TODO: handle unhappy flow, e.g. user does not give permission */}
           <LocationTopTaskButton
             lastKnown={false}
-            loading={pending}
+            loading={requestingCurrentCoordinates}
             onPress={onPressLocationButton}
             testID="BottomSheetSelectLocationButton"
           />

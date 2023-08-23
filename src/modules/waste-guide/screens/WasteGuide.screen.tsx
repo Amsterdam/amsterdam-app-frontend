@@ -1,4 +1,3 @@
-import {Alert} from '@/components/ui/feedback/Alert'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -35,7 +34,6 @@ export const WasteGuideScreen = () => {
       stickyFooter={
         <SelectLocationTypeBottomSheet slug={ModuleSlug['waste-guide']} />
       }
-      stickyHeader={<Alert />}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
       {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}

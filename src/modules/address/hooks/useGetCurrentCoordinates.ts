@@ -1,34 +1,29 @@
-import {GeolocationError} from '@react-native-community/geolocation'
-import {useCallback, useState} from 'react'
+import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetCurrentPosition} from '@/hooks/useGetCurrentPosition'
+import {
+  GetCurrentPositionError,
+  useGetCurrentPosition,
+} from '@/modules/address/hooks/useGetCurrentPosition'
 import {addCurrentCoordinates} from '@/modules/address/slice'
+import {devLog} from '@/processes/development'
 
 /**
- * Returns a function which requests the user's current coordinates and stores them in the Address module's Redux state. Also returns a "pending" boolean for a "loading" state.
+ * Returns a function which requests the user's current coordinates and stores them in the Address module's Redux state.
  */
-export const useGetCurrentCoordinates = (
-  onError?: (error: GeolocationError) => void,
-) => {
+export const useGetCurrentCoordinates = () => {
   const getCurrentPosition = useGetCurrentPosition()
   const dispatch = useDispatch()
-  const [pending, setPending] = useState(false)
 
-  return {
-    getCurrentCoordinates: useCallback(() => {
-      setPending(true)
-      getCurrentPosition(
-        ({coords: {latitude, longitude}}) => {
+  return useCallback(
+    () =>
+      getCurrentPosition()
+        .then(({coords: {latitude, longitude}}) => {
           dispatch(addCurrentCoordinates({lat: latitude, lon: longitude}))
-          setPending(false)
-        },
-        error => {
-          onError?.(error)
-          // TODO: handle error
-          setPending(false)
-        },
-      )
-    }, [dispatch, getCurrentPosition, onError]),
-    pending,
-  }
+        })
+        .catch((error: GetCurrentPositionError) => {
+          // TODO: handle get position and request location error
+          devLog(error)
+        }),
+    [dispatch, getCurrentPosition],
+  )
 }
