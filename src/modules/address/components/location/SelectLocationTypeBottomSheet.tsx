@@ -1,7 +1,9 @@
 import {useCallback, useEffect, useState} from 'react'
+import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -100,10 +102,24 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     <BottomSheet testID="SelectLocationTypeBottomSheet">
       <Box grow>
         <Column gutter="md">
-          <Title
-            level="h3"
-            text="Locaties"
-          />
+          <Row
+            align="between"
+            valign="center">
+            <Title
+              level="h3"
+              text="Locaties"
+            />
+            {!!address && (
+              <Button
+                label="Adres wijzigen"
+                onPress={() => {
+                  navigation.navigate(ModuleSlug.user)
+                }}
+                testID="BottomSheetChangeAddressButton"
+                variant="tertiary"
+              />
+            )}
+          </Row>
           <AddressTopTaskButton
             onPress={onPressAddressButton}
             testID="BottomSheetSelectAddressButton"
