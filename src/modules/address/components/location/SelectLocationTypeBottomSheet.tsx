@@ -111,7 +111,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
             />
             {!!address && (
               <Button
-                label="Adres wijzigen"
+                label="Wijzig adres"
                 onPress={() => {
                   navigation.navigate(ModuleSlug.user)
                 }}
