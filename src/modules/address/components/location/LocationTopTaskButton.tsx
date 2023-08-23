@@ -29,13 +29,11 @@ export const LocationTopTaskButton = ({
   loading = false,
   onPress,
 }: Props) => {
-  const {
-    data: address,
-    isFetching: addresForCoordinatesIsFetching,
-    isLoading: addresForCoordinatesIsLoading,
-  } = useAddresForCoordinates(lastKnown)
-  const isLoading =
-    loading || addresForCoordinatesIsFetching || addresForCoordinatesIsLoading
+  const {data: address, isFetching: addresForCoordinatesIsFetching} =
+    useAddresForCoordinates(lastKnown)
+
+  const isLoading = loading || addresForCoordinatesIsFetching
+
   const handlePress = useCallback(
     () => onPress(!isLoading && !!address),
     [address, isLoading, onPress],

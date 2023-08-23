@@ -24,7 +24,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     useState(false)
   const navigation = useNavigation<AddressModalName>()
   const dispatch = useDispatch()
-  const {close, isOpen} = useBottomSheet()
+  const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
   const address = useAddress()
   const getCurrentCoordinates = useGetCurrentCoordinates()
   const currentCoordinates = useCurrentCoordinates()
@@ -40,12 +40,13 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
         slug,
       }),
     )
-    close()
-  }, [address, close, dispatch, navigation, slug])
+    closeBottomSheet()
+  }, [address, closeBottomSheet, dispatch, navigation, slug])
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
       if (!currentCoordinates) {
+        // if there are no current coordinates, we request them on press
         setRequestingCurrentCoordinates(true)
         await getCurrentCoordinates()
         setRequestingCurrentCoordinates(false)
@@ -65,19 +66,26 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
           slug,
         }),
       )
-      close()
+      closeBottomSheet()
     },
-    [close, currentCoordinates, dispatch, getCurrentCoordinates, slug],
+    [
+      closeBottomSheet,
+      currentCoordinates,
+      dispatch,
+      getCurrentCoordinates,
+      slug,
+    ],
   )
 
   useEffect(() => {
-    if (isOpen && currentCoordinates) {
+    // if there are current coordinates already, we request new ones when the sheet is opened
+    if (bottomSheetIsOpen && currentCoordinates) {
       setRequestingCurrentCoordinates(true)
       void getCurrentCoordinates().then(() =>
         setRequestingCurrentCoordinates(false),
       )
     }
-  }, [currentCoordinates, getCurrentCoordinates, isOpen])
+  }, [currentCoordinates, getCurrentCoordinates, bottomSheetIsOpen])
 
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">

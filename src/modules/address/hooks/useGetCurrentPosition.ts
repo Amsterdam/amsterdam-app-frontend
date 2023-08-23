@@ -43,12 +43,13 @@ const getStatusFromError = (error: unknown) => {
 
 export type GetCurrentPositionError = {
   error: unknown
-  loggedToSentry?: boolean
+  loggedToSentry: boolean
   status?: PermissionStatus
 }
 
 /**
- * Get the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
+ * Returns a promise of the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
+ * Will throw a `GetCurrentPositionError` if the permission is not granted or if the location request fails.
  */
 export const useGetCurrentPosition = () => {
   const {sendSentryErrorLog} = useSentry()
@@ -57,7 +58,7 @@ export const useGetCurrentPosition = () => {
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
         requestLocationPermission()
-          .then(() => {
+          .then(() =>
             Geolocation.getCurrentPosition(
               resolve,
               error => {
@@ -80,11 +81,12 @@ export const useGetCurrentPosition = () => {
                 ...defaultOptions,
                 ...options,
               },
-            )
-          })
+            ),
+          )
           .catch((error: unknown) => {
             const currentPositionError: GetCurrentPositionError = {
               error,
+              loggedToSentry: false,
               status: getStatusFromError(error),
             }
 
