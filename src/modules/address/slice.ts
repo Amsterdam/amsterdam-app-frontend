@@ -9,7 +9,6 @@ type LocationTypePerModule = Partial<Record<ModuleSlug, LocationType>>
 
 export type AddressState = {
   address?: Address
-  currentCoordinates?: Coordinates
   lastKnownCoordinates?: Coordinates
   locationTypePerModule?: LocationTypePerModule
 }
@@ -23,13 +22,6 @@ export const addressSlice = createSlice({
     addAddress: (state, {payload: address}: PayloadAction<Address>) => ({
       ...state,
       address,
-    }),
-    addCurrentCoordinates: (
-      state,
-      {payload: currentCoordinates}: PayloadAction<Coordinates>,
-    ) => ({
-      ...state,
-      currentCoordinates,
     }),
     addLastKnownCoordinates: (
       state,
@@ -56,7 +48,6 @@ export const addressSlice = createSlice({
 
 export const {
   addAddress,
-  addCurrentCoordinates,
   addLastKnownCoordinates,
   removeAddress,
   setLocationType,
@@ -64,9 +55,6 @@ export const {
 
 export const selectAddress = (state: RootState) =>
   state[ReduxKey.address]?.address
-
-export const selectCurrentCoordinates = (state: RootState) =>
-  state[ReduxKey.address]?.currentCoordinates
 
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address]?.lastKnownCoordinates
