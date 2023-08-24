@@ -17,11 +17,9 @@ export const LocationPermissionInstructionsScreen = () => {
 
   useAppState({
     onForeground: () => {
-      requestLocationPermission()
-        .then(() => {
-          setGranted(true)
-        })
-        .catch(() => null)
+      void requestLocationPermission().then(() => {
+        setGranted(true)
+      })
     },
   })
 
