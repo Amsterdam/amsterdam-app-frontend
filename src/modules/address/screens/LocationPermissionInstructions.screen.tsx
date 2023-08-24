@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,20 +7,19 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {usePermission} from '@/hooks/usePermission'
-import {locationPermissionByPlatform} from '@/permissions'
+import {useAppState} from '@/hooks/useAppState'
+import {requestLocationPermission} from '@/utils/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const navigation = useNavigation()
-  const permission = usePermission({...locationPermissionByPlatform})
 
-  useEffect(() => {
-    if (permission.status === 'granted') {
-      const {goBack} = navigation.getParent() ?? navigation
-
-      goBack()
-    }
-  }, [navigation, permission])
+  useAppState({
+    onForeground: () => {
+      void requestLocationPermission().then(() => {
+        navigation.goBack()
+      })
+    },
+  })
 
   return (
     <Screen
