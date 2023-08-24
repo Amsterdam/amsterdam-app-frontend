@@ -52,9 +52,15 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       if (!lastKnownCoordinates) {
         // if there are no current coordinates, we request them on press
         setRequestingCurrentCoordinates(true)
-        const coordinates = await getCurrentCoordinates()
 
-        setCurrentCoordinates(coordinates)
+        try {
+          const coordinates = await getCurrentCoordinates()
+
+          setCurrentCoordinates(coordinates)
+        } catch (_error) {
+          navigation.navigate(AddressModalName.locationPermissionInstructions)
+        }
+
         setRequestingCurrentCoordinates(false)
       }
 
@@ -79,6 +85,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       currentCoordinates,
       dispatch,
       getCurrentCoordinates,
+      navigation,
       slug,
     ],
   )

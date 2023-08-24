@@ -5,6 +5,7 @@ import Geolocation, {
 } from 'react-native-geolocation-service'
 import {PermissionStatus} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {locationPermissionByPlatform} from '@/permissions'
 import {getPropertyFromMaybeError} from '@/utils/object'
 import {requestPermissionForPlatform} from '@/utils/permissions'
 
@@ -45,8 +46,8 @@ export const useGetCurrentPosition = () => {
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
         requestPermissionForPlatform(
-          'android.permission.ACCESS_FINE_LOCATION',
-          'ios.permission.LOCATION_WHEN_IN_USE',
+          locationPermissionByPlatform.permissionAndroid,
+          locationPermissionByPlatform.permissionIOS,
         )
           .then(() =>
             Geolocation.getCurrentPosition(
