@@ -90,6 +90,8 @@
 	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>
