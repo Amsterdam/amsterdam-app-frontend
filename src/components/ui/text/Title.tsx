@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {StyleSheet, Text, TextProps} from 'react-native'
+import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
 import {Theme} from '@/themes/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -8,17 +8,22 @@ type Props = {
   color?: keyof Theme['color']['text']
   level?: keyof TitleTokensPerLevel
   text: string
+  /**
+   * Defines the alignment of the text. Maps with the textAlign style prop options.
+   */
+  textAlign?: TextStyle['textAlign']
 } & Omit<TextProps, 'style'>
 
 export const Title = ({
   color = 'default',
   level = 'h1',
   text,
+  textAlign = 'left',
   ...textProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({color, level}),
-    [color, level],
+    () => createStyles({color, level, textAlign}),
+    [color, level, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -34,7 +39,11 @@ export const Title = ({
 
 // TODO Transition text color
 const createStyles =
-  ({color: textColor, level}: Required<Pick<Props, 'color' | 'level'>>) =>
+  ({
+    color: textColor,
+    level,
+    textAlign,
+  }: Required<Pick<Props, 'color' | 'level' | 'textAlign'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
@@ -43,5 +52,6 @@ const createStyles =
         fontFamily: text.fontFamily.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level] * text.fontSize[level],
+        textAlign,
       },
     })
