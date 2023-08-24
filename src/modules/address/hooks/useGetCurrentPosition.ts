@@ -3,10 +3,10 @@ import Geolocation, {
   GeoOptions,
   GeoPosition,
 } from 'react-native-geolocation-service'
-import {PermissionStatus, request} from 'react-native-permissions'
+import {PermissionStatus} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
-import {getPermissionForPlatform} from '@/utils/permissions'
+import {requestPermissionForPlatform} from '@/utils/permissions'
 
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
@@ -15,19 +15,6 @@ const defaultOptions: GeoOptions = {
   maximumAge: 10000,
   showLocationDialog: true,
   timeout: 60000,
-}
-
-const requestLocationPermission = async () => {
-  const status = await request(
-    getPermissionForPlatform(
-      'android.permission.ACCESS_FINE_LOCATION',
-      'ios.permission.LOCATION_WHEN_IN_USE',
-    ),
-  )
-
-  if (status !== 'granted') {
-    throw new Error(status)
-  }
 }
 
 const permissionErrorStatuses = ['blocked', 'denied', 'limited', 'unavailable']
@@ -57,7 +44,10 @@ export const useGetCurrentPosition = () => {
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
-        requestLocationPermission()
+        requestPermissionForPlatform(
+          'android.permission.ACCESS_FINE_LOCATION',
+          'ios.permission.LOCATION_WHEN_IN_USE',
+        )
           .then(() =>
             Geolocation.getCurrentPosition(
               resolve,
