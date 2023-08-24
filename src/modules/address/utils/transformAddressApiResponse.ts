@@ -1,7 +1,7 @@
 import {
   Address,
   AddressCity,
-  AddressSuggestion,
+  PdokAddress,
   Coordinates,
 } from '@/modules/address/types'
 
@@ -18,7 +18,7 @@ export const getAddition = (
 
 export const getAddressLine1 = (
   address: Pick<
-    AddressSuggestion,
+    PdokAddress,
     'straatnaam' | 'huisnummer' | 'huisletter' | 'huisnummertoevoeging'
   >,
 ) => {
@@ -42,7 +42,7 @@ export const getAddressLine2 = (postcode: string, city: AddressCity) => {
 const coordinatesRegex = /^POINT\((?<lon>\d+\.\d+) (?<lat>\d+\.\d+)\)$/
 
 export const getCoordinates = (
-  centroid: AddressSuggestion['centroide_ll'],
+  centroid: PdokAddress['centroide_ll'],
 ): Coordinates | undefined => {
   const result = coordinatesRegex.exec(centroid)
 
@@ -58,9 +58,7 @@ export const getCoordinates = (
   }
 }
 
-export const transformAddressApiResponse = (
-  address: AddressSuggestion,
-): Address => {
+export const transformAddressApiResponse = (address: PdokAddress): Address => {
   const {
     huisletter,
     huisnummertoevoeging,

@@ -13,7 +13,7 @@ import {useTheme} from '@/themes/useTheme'
 export const RequestLocation = () => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
-  const {open} = useBottomSheet()
+  const {open: openBottomSheet} = useBottomSheet()
 
   return (
     <Column
@@ -26,7 +26,7 @@ export const RequestLocation = () => {
             <Row>
               <TopTaskButton
                 iconName="location"
-                onPress={open}
+                onPress={openBottomSheet}
                 testID="WasteGuideRequestLocationButton"
                 title="Geef uw locatie door"
                 titleIconName="chevron-down"

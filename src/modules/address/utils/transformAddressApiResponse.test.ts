@@ -5,7 +5,7 @@ import {
   getCoordinates,
   transformAddressApiResponse,
 } from './transformAddressApiResponse'
-import {Address, AddressCity, AddressSuggestion} from '@/modules/address/types'
+import {Address, AddressCity, PdokAddress} from '@/modules/address/types'
 
 describe('getAddition', () => {
   test('should return the correct addition when only bag_huisletter is provided', () => {
@@ -87,7 +87,7 @@ describe('transformAddressApiResponse', () => {
       type: 'adres',
       weergavenaam: 'Hoofdweg 123A, 1058BB Amsterdam',
       woonplaatsnaam: 'Amsterdam',
-    } as AddressSuggestion
+    } as PdokAddress
     const expectedAddress: Address = {
       addition: 'A',
       additionLetter: 'A',
@@ -118,7 +118,7 @@ describe('transformAddressApiResponse', () => {
       type: 'adres',
       weergavenaam: 'Hoofdweg 123A, 1058BB Amsterdam',
       woonplaatsnaam: 'Amsterdam',
-    } as AddressSuggestion
+    } as PdokAddress
     const expectedAddress: Address = {
       addition: '4',
       additionNumber: '4',

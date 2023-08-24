@@ -30,7 +30,7 @@ module.exports = {
   rules: {
     'import/no-default-export': 'error',
     'import/order': [
-      'error',
+      'warn',
       {
         groups: [
           'builtin',
@@ -159,7 +159,7 @@ module.exports = {
         next: ['const', 'let', 'var'],
       },
     ],
-    'no-console': 'error',
+    'no-console': 'warn',
   },
   overrides: [
     {

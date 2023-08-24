@@ -1,25 +1,49 @@
-import {AddressSuggestResponse} from '@/modules/address/types'
+import {AddressResponse, Coordinates} from '@/modules/address/types'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-type QueryParams = {
+type AddressForCoordinatesQueryParams = Coordinates
+
+type AddressSuggestionQueryParams = {
   address: string
   city?: string
   street?: string
 }
 
+const responseFields =
+  'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll'
+
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
+    getAddressForCoordinates: query<
+      AddressResponse | undefined,
+      AddressForCoordinatesQueryParams
+    >({
+      query: ({lat, lon}) => ({
+        url: generateRequestUrl({
+          params: {
+            lat,
+            lon,
+            fl: responseFields,
+            fq: ['type:adres'],
+            rows: 1,
+          },
+          path: '/reverse',
+        }),
+        api: 'addressUrl',
+        keepUnusedDataFor: CacheLifetime.day,
+      }),
+    }),
     getAddressSuggestions: query<
-      AddressSuggestResponse | undefined,
-      QueryParams
+      AddressResponse | undefined,
+      AddressSuggestionQueryParams
     >({
       query: ({address, city, street}) => ({
         url: generateRequestUrl({
           params: {
             q: address,
-            fl: 'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
+            fl: responseFields,
             fq: [
               `type:${street ? 'adres' : '(weg OR adres)'}`,
               `woonplaatsnaam:${city?.toLowerCase() ?? '(amsterdam OR weesp)'}`,
@@ -40,4 +64,5 @@ export const addressApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetAddressSuggestionsQuery} = addressApi
+export const {useGetAddressForCoordinatesQuery, useGetAddressSuggestionsQuery} =
+  addressApi

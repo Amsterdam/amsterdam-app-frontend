@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Contract, WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -18,7 +19,7 @@ export const wasteGuideSlice = createSlice({
     addContract: (state, {payload}: PayloadAction<Contract>) => {
       state.contracts = {...state.contracts, ...payload}
     },
-    resetContracts: () => initialState,
+    resetContracts: ({contracts, ...rest}) => rest,
   },
 })
 

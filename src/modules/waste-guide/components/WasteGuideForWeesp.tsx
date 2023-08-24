@@ -1,18 +1,21 @@
 import {Button} from '@/components/ui/buttons/Button'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {Address} from '@/modules/address/types'
+import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 
-type Props = {
-  address: Address
-}
-
-export const WasteGuideForWeesp = ({
-  address: {postcode, number, addition = ''},
-}: Props) => {
+export const WasteGuideForWeesp = () => {
+  const {address} = useSelectedAddressForWasteGuide()
   const openWebUrl = useOpenWebUrl()
+
+  if (!address) {
+    return <SomethingWentWrong />
+  }
+
+  const {postcode, number, addition = ''} = address
+
   const gadUrl =
     'https://inzamelkalender.gad.nl/adres/' +
     [postcode, number, addition].join(':')
