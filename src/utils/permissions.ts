@@ -2,6 +2,7 @@ import {Platform} from 'react-native'
 import {
   AndroidPermission,
   IOSPermission,
+  PERMISSIONS,
   request,
 } from 'react-native-permissions'
 
@@ -25,3 +26,14 @@ export const requestPermissionForPlatform = async (
     throw new Error(status)
   }
 }
+
+const locationPermissionByPlatform = {
+  permissionAndroid: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+  permissionIOS: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+}
+
+export const requestLocationPermission = () =>
+  requestPermissionForPlatform(
+    locationPermissionByPlatform.permissionAndroid,
+    locationPermissionByPlatform.permissionIOS,
+  )

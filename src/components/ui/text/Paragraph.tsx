@@ -1,5 +1,5 @@
 import {ReactNode, useMemo} from 'react'
-import {StyleSheet, Text, TextProps} from 'react-native'
+import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
 import {Theme} from '@/themes/themes'
 import {ColorTokens} from '@/themes/tokens/color-light'
 import {ParagraphVariants} from '@/themes/tokens/text'
@@ -12,6 +12,10 @@ type Props = {
    */
   color?: keyof ColorTokens['text']
   /**
+   * Defines the alignment of the text. Maps with the textAlign style prop options.
+   */
+  textAlign?: TextStyle['textAlign']
+  /**
    * Which variation of a paragraph to display.
    */
   variant?: ParagraphVariants
@@ -20,12 +24,13 @@ type Props = {
 export const Paragraph = ({
   children,
   color = 'default',
+  textAlign = 'left',
   variant = 'body',
   ...textProps
 }: Props) => {
   const createdStyles = useMemo(
-    () => createStyles({color, variant}),
-    [color, variant],
+    () => createStyles({color, textAlign, variant}),
+    [color, textAlign, variant],
   )
   const styles = useThemable(createdStyles)
 
@@ -40,7 +45,11 @@ export const Paragraph = ({
 }
 
 const createStyles =
-  ({color: textColor, variant}: Required<Pick<Props, 'color' | 'variant'>>) =>
+  ({
+    color: textColor,
+    textAlign,
+    variant,
+  }: Required<Pick<Props, 'color' | 'textAlign' | 'variant'>>) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
@@ -49,5 +58,6 @@ const createStyles =
         fontFamily: text.fontFamily[variant === 'quote' ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant] * text.fontSize[variant],
+        textAlign,
       },
     })

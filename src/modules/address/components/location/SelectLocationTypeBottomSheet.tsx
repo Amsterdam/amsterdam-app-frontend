@@ -11,6 +11,10 @@ import {AddressTopTaskButton} from '@/modules/address/components/location/Addres
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {
+  GetCurrentPositionError,
+  permissionErrorStatuses,
+} from '@/modules/address/hooks/useGetCurrentPosition'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
@@ -52,9 +56,19 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       if (!lastKnownCoordinates) {
         // if there are no current coordinates, we request them on press
         setRequestingCurrentCoordinates(true)
-        const coordinates = await getCurrentCoordinates()
 
-        setCurrentCoordinates(coordinates)
+        try {
+          const coordinates = await getCurrentCoordinates()
+
+          setCurrentCoordinates(coordinates)
+        } catch (error) {
+          const {status} = error as GetCurrentPositionError
+
+          if (status && permissionErrorStatuses.includes(status)) {
+            navigation.navigate(AddressModalName.locationPermissionInstructions)
+          }
+        }
+
         setRequestingCurrentCoordinates(false)
       }
 
@@ -79,6 +93,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       currentCoordinates,
       dispatch,
       getCurrentCoordinates,
+      navigation,
       slug,
     ],
   )
