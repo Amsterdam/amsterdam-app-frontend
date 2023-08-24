@@ -1,15 +1,25 @@
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Screen} from '@/components/ui/layout/Screen'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectAddress} from '@/modules/address/slice'
+import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {ProjectsByDate} from '@/modules/construction-work/components/projects/ProjectsByDate'
 import {ProjectsByDistance} from '@/modules/construction-work/components/projects/ProjectsByDistance'
+import {useSelectedAddressForConstructionWork} from '@/modules/construction-work/hooks/useSelectedAddressForConstructionWork'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const ConstructionWorkScreen = () => {
-  const address = useSelector(selectAddress)
+  const {address, isFetching: selectedAddressForConstructionWorkIsFetching} =
+    useSelectedAddressForConstructionWork()
+
+  if (selectedAddressForConstructionWorkIsFetching) {
+    return <PleaseWait />
+  }
 
   return (
     <Screen
       scroll={false}
+      stickyFooter={
+        <SelectLocationTypeBottomSheet slug={ModuleSlug['construction-work']} />
+      }
       withBottomInset={false}>
       {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>
