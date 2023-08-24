@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import {Platform} from 'react-native'
 import Geolocation, {
   GeoOptions,
   GeoPosition,
@@ -7,6 +6,7 @@ import Geolocation, {
 import {PermissionStatus, request} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
+import {getPermissionForPlatform} from '@/utils/permissions'
 
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
@@ -17,13 +17,13 @@ const defaultOptions: GeoOptions = {
   timeout: 60000,
 }
 
-const locationPermissionForPlatform =
-  Platform.OS === 'android'
-    ? 'android.permission.ACCESS_FINE_LOCATION'
-    : 'ios.permission.LOCATION_WHEN_IN_USE'
-
 const requestLocationPermission = async () => {
-  const status = await request(locationPermissionForPlatform)
+  const status = await request(
+    getPermissionForPlatform(
+      'android.permission.ACCESS_FINE_LOCATION',
+      'ios.permission.LOCATION_WHEN_IN_USE',
+    ),
+  )
 
   if (status !== 'granted') {
     throw new Error(status)
