@@ -17,7 +17,12 @@ const defaultOptions: GeoOptions = {
   timeout: 60000,
 }
 
-const permissionErrorStatuses = ['blocked', 'denied', 'limited', 'unavailable']
+export const permissionErrorStatuses = [
+  'blocked',
+  'denied',
+  'limited',
+  'unavailable',
+]
 
 const getStatusFromError = (error: unknown) => {
   const message = getPropertyFromMaybeError<string>(error, 'message')

@@ -11,11 +11,16 @@ import {AddressTopTaskButton} from '@/modules/address/components/location/Addres
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {
+  GetCurrentPositionError,
+  permissionErrorStatuses,
+} from '@/modules/address/hooks/useGetCurrentPosition'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {getPropertyFromMaybeError} from '@/utils/object'
 
 type Props = {
   slug: ModuleSlug
@@ -57,8 +62,14 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
           const coordinates = await getCurrentCoordinates()
 
           setCurrentCoordinates(coordinates)
-        } catch (_error) {
-          navigation.navigate(AddressModalName.locationPermissionInstructions)
+        } catch (error) {
+          const status = getPropertyFromMaybeError<
+            GetCurrentPositionError['status']
+          >(error, 'status')
+
+          if (status && permissionErrorStatuses.includes(status)) {
+            navigation.navigate(AddressModalName.locationPermissionInstructions)
+          }
         }
 
         setRequestingCurrentCoordinates(false)
