@@ -20,7 +20,6 @@ import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {getPropertyFromMaybeError} from '@/utils/object'
 
 type Props = {
   slug: ModuleSlug
@@ -63,11 +62,12 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
 
           setCurrentCoordinates(coordinates)
         } catch (error) {
-          const status = getPropertyFromMaybeError<
-            GetCurrentPositionError['status']
-          >(error, 'status')
+          const knownError = error as GetCurrentPositionError
 
-          if (status && permissionErrorStatuses.includes(status)) {
+          if (
+            knownError.status &&
+            permissionErrorStatuses.includes(knownError.status)
+          ) {
             navigation.navigate(AddressModalName.locationPermissionInstructions)
           }
         }
