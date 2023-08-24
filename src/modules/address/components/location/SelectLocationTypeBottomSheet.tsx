@@ -62,12 +62,9 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
 
           setCurrentCoordinates(coordinates)
         } catch (error) {
-          const knownError = error as GetCurrentPositionError
+          const {status} = error as GetCurrentPositionError
 
-          if (
-            knownError.status &&
-            permissionErrorStatuses.includes(knownError.status)
-          ) {
+          if (status && permissionErrorStatuses.includes(status)) {
             navigation.navigate(AddressModalName.locationPermissionInstructions)
           }
         }
