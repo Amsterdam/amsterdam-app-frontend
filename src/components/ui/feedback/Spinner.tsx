@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react'
 import {Animated, Easing, StyleSheet} from 'react-native'
-import {SpinnerIcon} from '@/assets/icons'
+import SpinnerIcon from '@/assets/icons/spinner.svg'
 import {Row} from '@/components/ui/layout/Row'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
