@@ -40,11 +40,11 @@ export const lightColorTokens = {
     },
     switch: {
       thumb: {
-        background: baseColor.neutral.grey3,
+        background: baseColor.neutral.grey4,
       },
       track: {
         background: {
-          off: baseColor.neutral.grey3,
+          off: baseColor.neutral.grey4,
           on: baseColor.primary.blue,
         },
       },
