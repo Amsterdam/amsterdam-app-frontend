@@ -1,5 +1,5 @@
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
-import {ProvideAddressButton} from '@/modules/construction-work/components/projects/ProvideAddressButton'
 import {getBaseProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 
@@ -19,7 +19,7 @@ const queryParams = {
 export const ProjectsByDate = () => (
   <Projects
     getProjectTraits={getBaseProjectTraits}
-    HeaderButton={<ProvideAddressButton />}
+    HeaderButton={<ShareLocationTopTaskButton testID="ConstructionWork" />}
     queryParams={queryParams}
   />
 )
