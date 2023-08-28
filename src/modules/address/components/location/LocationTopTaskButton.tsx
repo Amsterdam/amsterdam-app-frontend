@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {TestProps} from '@/components/ui/types'
-import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
+import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {Address, Coordinates} from '@/modules/address/types'
 
 type Props = {
@@ -30,7 +30,7 @@ export const LocationTopTaskButton = ({
   onPress,
 }: Props) => {
   const {data: address, isFetching: addresForCoordinatesIsFetching} =
-    useAddresForCoordinates(coordinates)
+    useAddressForCoordinates(coordinates)
 
   const isLoading = loading || addresForCoordinatesIsFetching
 

@@ -8,7 +8,7 @@ import {transformAddressApiResponse} from '@/modules/address/utils/transformAddr
 /**
  * Get the address for a set of coordinates from the back end. Returns the request metadata too, so loading and error states can be handled.
  */
-export const useAddresForCoordinates = (coordinates?: Coordinates) => {
+export const useAddressForCoordinates = (coordinates?: Coordinates) => {
   const lastKnownCoordinates = useLastKnownCoordinates()
   const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
     coordinates ?? lastKnownCoordinates ?? skipToken,
