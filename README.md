@@ -125,7 +125,4 @@ More documentation can be found in the `.docs` folder:
 - [Cache durations](./.docs/cache-durations.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
 - [Sentry](./.docs/sentry.md)
-- [Running on Device](./.docs/running-on-device.md)
-- [Regression test scenarios](./.docs/regression.md)
-- [Testing features](./.docs/test-features.md)
 - [Test automation](./.docs/test-automation.md)
