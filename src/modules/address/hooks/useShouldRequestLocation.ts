@@ -19,6 +19,8 @@ const getShouldRequestLocation = (
   if (locationType === 'location') {
     return !hasCoordinates
   }
+
+  return true
 }
 
 export const useShouldRequestLocation = () => {
