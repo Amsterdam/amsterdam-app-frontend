@@ -13,6 +13,7 @@ type Props = {
  * Wraps a switch with its label in a row and takes care of accessibility.
  */
 export const Switch = ({
+  disabled = false,
   label,
   labelPosition = 'start',
   ...switchProps
@@ -24,11 +25,15 @@ export const Switch = ({
       label={label}
       labelPosition={labelPosition}>
       <SwitchRN
-        ios_backgroundColor={color.control.switch.background}
-        thumbColor={color.control.default.background}
+        ios_backgroundColor={color.control.switch.track.background.off}
+        thumbColor={
+          color.control.switch.thumb.background[
+            disabled ? 'disabled' : 'enabled'
+          ]
+        }
         trackColor={{
-          false: color.control.switch.off,
-          true: color.control.switch.on,
+          false: color.control.switch.track.background.off,
+          true: color.control.switch.track.background.on,
         }}
         {...switchProps}
       />
