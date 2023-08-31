@@ -1,6 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
 import {PdokAddress} from '@/modules/address/types'
@@ -75,6 +76,11 @@ export const StreetSearchResult = ({
 
   return (
     <>
+      {!hasStreetInput && addresses.length > 0 && (
+        <Box insetTop="md">
+          <Phrase>Suggesties</Phrase>
+        </Box>
+      )}
       {addresses.map(bagItem => (
         <SuggestionButton
           key={bagItem.id}
