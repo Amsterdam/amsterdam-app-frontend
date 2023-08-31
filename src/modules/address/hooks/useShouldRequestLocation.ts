@@ -1,7 +1,7 @@
-import {useCallback} from 'react'
 import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoordinates'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {LocationType} from '@/modules/address/types'
-import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
+import {ModuleSlug} from '@/modules/slugs'
 
 const getShouldRequestLocation = (
   hasAddress: boolean,
@@ -23,14 +23,9 @@ const getShouldRequestLocation = (
   return true
 }
 
-export const useShouldRequestLocation = () => {
-  const {address, locationType} = useSelectedAddressForWasteGuide()
+export const useShouldRequestLocation = (slug: ModuleSlug) => {
+  const {address, locationType} = useSelectedAddress(slug)
   const coordinates = useLastKnownCoordinates()
 
-  const shouldRequestLocation = useCallback(
-    () => getShouldRequestLocation(!!address, !!coordinates, locationType),
-    [address, coordinates, locationType],
-  )
-
-  return {shouldRequestLocation: shouldRequestLocation()}
+  return getShouldRequestLocation(!!address, !!coordinates, locationType)
 }

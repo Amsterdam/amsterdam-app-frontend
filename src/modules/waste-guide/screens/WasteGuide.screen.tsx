@@ -8,7 +8,9 @@ import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useDeviceContext()
-  const {shouldRequestLocation} = useShouldRequestLocation()
+  const shouldRequestLocation = useShouldRequestLocation(
+    ModuleSlug['waste-guide'],
+  )
 
   return (
     <Screen
