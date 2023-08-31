@@ -1,9 +1,10 @@
 import {Platform} from 'react-native'
 import {
   AndroidPermission,
+  check,
   IOSPermission,
   PERMISSIONS,
-  request,
+  request as RNPRequest,
 } from 'react-native-permissions'
 
 export const getPermissionForPlatform = (
@@ -17,14 +18,18 @@ export const getPermissionForPlatform = (
 export const requestPermissionForPlatform = async (
   permissionAndroid: AndroidPermission,
   permissionIOS: IOSPermission,
+  request = true,
 ) => {
-  const status = await request(
+  const permissionFn = request ? RNPRequest : check
+  const status = await permissionFn(
     getPermissionForPlatform(permissionAndroid, permissionIOS),
   )
 
   if (status !== 'granted') {
     throw new Error(status)
   }
+
+  return status
 }
 
 const locationPermissionByPlatform = {
@@ -32,8 +37,9 @@ const locationPermissionByPlatform = {
   permissionIOS: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
 }
 
-export const requestLocationPermission = () =>
+export const requestLocationPermission = (request = true) =>
   requestPermissionForPlatform(
     locationPermissionByPlatform.permissionAndroid,
     locationPermissionByPlatform.permissionIOS,
+    request,
   )
