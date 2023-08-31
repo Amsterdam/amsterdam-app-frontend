@@ -24,7 +24,7 @@ export const permissionErrorStatuses = [
   'unavailable',
 ]
 
-const getStatusFromError = (error: unknown) => {
+export const getStatusFromError = (error: unknown) => {
   const message = getPropertyFromMaybeError<string>(error, 'message')
 
   return typeof message === 'string' &&
