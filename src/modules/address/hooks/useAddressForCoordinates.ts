@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
-import {useCallback, useMemo} from 'react'
+import {useMemo} from 'react'
 import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoordinates'
 import {useGetAddressForCoordinatesQuery} from '@/modules/address/service'
 import {Coordinates} from '@/modules/address/types'
@@ -19,25 +19,24 @@ export const useAddressForCoordinates = (
   const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
     coordinatesToUse ? {...coordinatesToUse, rows} : skipToken,
   )
-  const getPdokAddresses = useCallback(() => {
+
+  const memoizedAddresses = useMemo(() => {
     if (!currentData?.response?.docs?.length) {
       return
     }
 
-    return currentData.response.docs
+    const addressForCoordinates = currentData?.response.docs
+
+    const addresses = addressForCoordinates.map(transformAddressApiResponse)
+    const pdokAddresses = addressForCoordinates
+
+    return {addresses, pdokAddresses}
   }, [currentData?.response.docs])
-
-  const addresses = useMemo(
-    () => getPdokAddresses()?.map(transformAddressApiResponse),
-    [getPdokAddresses],
-  )
-
-  const pdokAddresses = useMemo(() => getPdokAddresses(), [getPdokAddresses])
 
   return {
     ...rest,
-    firstAddress: addresses?.[0],
-    addresses,
-    pdokAddresses,
+    firstAddress: memoizedAddresses?.addresses?.[0],
+    addresses: memoizedAddresses?.addresses,
+    pdokAddresses: memoizedAddresses?.pdokAddresses,
   }
 }
