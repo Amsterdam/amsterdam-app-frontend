@@ -10,6 +10,7 @@ type StreetSearchResultProps = {
   bagList: PdokAddress[]
   isLoading: boolean
   isStreetSelected: boolean
+  pdokAddresses: PdokAddress[]
   selectResult: (item: PdokAddress) => void
   street: string
 }
@@ -36,12 +37,20 @@ export const StreetSearchResult = ({
   bagList,
   isLoading,
   isStreetSelected,
+  pdokAddresses,
   selectResult,
   street,
 }: StreetSearchResultProps) => {
   const {addressLengthThreshold} = config
+  const hasStreetInput = street.length > 0
+  const isBelowCharacterThreshold = street.length < addressLengthThreshold
+  const addresses = bagList.length
+    ? bagList
+    : pdokAddresses.length
+    ? pdokAddresses
+    : []
 
-  if (isStreetSelected || street.length < addressLengthThreshold) {
+  if ((hasStreetInput && isBelowCharacterThreshold) || isStreetSelected) {
     return null
   }
 
@@ -53,7 +62,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (bagList.length === 0) {
+  if (bagList.length === 0 && !isBelowCharacterThreshold && !isLoading) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
@@ -66,7 +75,7 @@ export const StreetSearchResult = ({
 
   return (
     <>
-      {bagList.map(bagItem => (
+      {addresses.map(bagItem => (
         <SuggestionButton
           key={bagItem.id}
           label={showSuggestion(bagItem)}

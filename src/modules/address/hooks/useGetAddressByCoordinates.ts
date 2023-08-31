@@ -1,20 +1,44 @@
 import {useCallback, useState} from 'react'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {
+  GetCurrentPositionError,
+  permissionErrorStatuses,
+} from '@/modules/address/hooks/useGetCurrentPosition'
+import {AddressModalName} from '@/modules/address/routes'
 import {Coordinates} from '@/modules/address/types'
+
+/** Number of suggestions returned by the address-for-coordinates Api */
+const SUGGESTION_COUNT = 5
 
 export const useGetAddressByCoordinates = () => {
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
   const getCurrentCoordinates = useGetCurrentCoordinates()
-  const {data, ...rest} = useAddressForCoordinates(coordinates)
+  const {pdokAddresses, ...rest} = useAddressForCoordinates(
+    coordinates,
+    false,
+    SUGGESTION_COUNT,
+  )
+  const navigation = useNavigation<AddressModalName>()
 
-  const getCoordinates = useCallback(() => {
-    void getCurrentCoordinates().then(setCoordinates)
-  }, [getCurrentCoordinates])
+  const getCoordinates = useCallback(async () => {
+    try {
+      const currentCoordinates = await getCurrentCoordinates()
+
+      setCoordinates(currentCoordinates)
+    } catch (error) {
+      const {status} = error as GetCurrentPositionError
+
+      if (status && permissionErrorStatuses.includes(status)) {
+        navigation.navigate(AddressModalName.locationPermissionInstructions)
+      }
+    }
+  }, [getCurrentCoordinates, navigation])
 
   return {
-    address: data,
     getCoordinates,
+    pdokAddresses,
     ...rest,
   }
 }
