@@ -1,5 +1,5 @@
-import {useAddresForCoordinates} from '@/modules/address/hooks/useAddresForCoordinates'
 import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {useLocationTypeForModule} from '@/modules/address/hooks/useLocationTypeForModule'
 import {Address, LocationType} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -26,7 +26,7 @@ const getSelectedAddress = (
 export const useSelectedAddress = (slug: ModuleSlug) => {
   const address = useAddress()
   const locationType = useLocationTypeForModule(slug)
-  const {data, isError, isFetching} = useAddresForCoordinates()
+  const {data, isError, isFetching} = useAddressForCoordinates()
 
   return {
     address: getSelectedAddress(address, data, locationType),

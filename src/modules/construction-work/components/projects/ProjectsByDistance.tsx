@@ -1,9 +1,10 @@
-import {StreetAddressWithEditButton} from '@/modules/address/components/StreetAddressWithEditButton'
+import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
 import {Address} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
 import {getProjectTraits} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
   address: Address
@@ -29,11 +30,9 @@ export const ProjectsByDistance = ({address}: Props) => {
     <Projects
       getProjectTraits={getProjectTraits}
       HeaderButton={
-        <StreetAddressWithEditButton
-          accessibilityLabel={`Werkzaamheden dichtbij ${address.addressLine1}`}
-          address={`Dichtbij ${address.addressLine1}`}
-          testIDButton="ConstructionWorkButtonEditAddress"
-          testIDLabel="ConstructionWorkTextAddress"
+        <ChangeLocationButton
+          slug={ModuleSlug['construction-work']}
+          testID="ConstructionWork"
         />
       }
       queryParams={queryParams}
