@@ -34,7 +34,7 @@ export const AddressForm = () => {
 
   const navigation = useNavigation<AddressModalName>()
 
-  const {data: bagList, isLoading: isLoadingBagList} =
+  const {currentData: bagList, isFetching: isFetchingBagList} =
     useGetAddressSuggestionsQuery(
       {address, city, street: isStreetSelected ? street : undefined},
       {
@@ -95,7 +95,7 @@ export const AddressForm = () => {
           bagList={bagList?.response.docs ?? []}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
-          isLoading={isLoadingBagList}
+          isLoading={isFetchingBagList}
           isStreetSelected={isStreetSelected}
           selectResult={selectResult}
           street={street}
@@ -105,6 +105,7 @@ export const AddressForm = () => {
           bagList={bagList?.response.docs ?? []}
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={setNumber}
+          isLoading={isFetchingBagList}
           keyboardType="numeric"
           number={number}
           selectResult={selectResult}
