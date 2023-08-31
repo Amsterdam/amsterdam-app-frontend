@@ -8,9 +8,8 @@ import {requestLocationPermission} from '@/utils/permissions'
 export const useCheckLocationPermission = () => {
   const [isCheckingLocationPermission, setCheckingLocationPermission] =
     useState(true)
-  const [hasLocationPermission, setHasLocationPermission] = useState<
-    boolean | undefined
-  >(undefined)
+  const [hasLocationPermission, setHasLocationPermission] =
+    useState<boolean>(false)
   const checkLocationPermission = useCallback(() => {
     requestLocationPermission(false)
       .then(() => {
