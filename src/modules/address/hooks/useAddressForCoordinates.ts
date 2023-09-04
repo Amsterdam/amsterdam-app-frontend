@@ -30,13 +30,11 @@ export const useAddressForCoordinates = (
     const addresses = addressForCoordinates.map(transformAddressApiResponse)
     const pdokAddresses = addressForCoordinates
 
-    return {addresses, pdokAddresses}
+    return {addresses, firstAddress: addresses?.[0], pdokAddresses}
   }, [currentData?.response.docs])
 
   return {
     ...rest,
-    firstAddress: memoizedAddresses?.addresses?.[0],
-    addresses: memoizedAddresses?.addresses,
-    pdokAddresses: memoizedAddresses?.pdokAddresses,
+    ...memoizedAddresses,
   }
 }
