@@ -15,7 +15,7 @@ export const getPermissionForPlatform = (
 /**
  * Will check the permission and request it if necessary. Resolves if permission is granted, otherwise throws an error.
  */
-const requestPermissionForPlatform = async (
+const checkOrRequestPermissionForPlatform = async (
   permissionAndroid: AndroidPermission,
   permissionIOS: IOSPermission,
   request = true,
@@ -37,8 +37,8 @@ const locationPermissionByPlatform = {
   permissionIOS: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
 }
 
-export const checkOrRequestLocationPermission = (request = true) =>
-  requestPermissionForPlatform(
+export const requestLocationPermission = (request = true) =>
+  checkOrRequestPermissionForPlatform(
     locationPermissionByPlatform.permissionAndroid,
     locationPermissionByPlatform.permissionIOS,
     request,
