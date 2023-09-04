@@ -9,7 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAppState} from '@/hooks/useAppState'
-import {requestLocationPermission} from '@/utils/permissions'
+import {checkOrRequestLocationPermission} from '@/utils/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const navigation = useNavigation()
@@ -17,7 +17,7 @@ export const LocationPermissionInstructionsScreen = () => {
 
   useAppState({
     onForeground: () => {
-      void requestLocationPermission().then(() => {
+      void checkOrRequestLocationPermission().then(() => {
         setGranted(true)
       })
     },

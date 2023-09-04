@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {getStatusFromError} from '@/modules/address/hooks/useGetCurrentPosition'
-import {requestLocationPermission} from '@/utils/permissions'
+import {checkOrRequestLocationPermission} from '@/utils/permissions'
 
 export const useCheckLocationPermission = () => {
   const {sendSentryErrorLog} = useSentry()
@@ -11,7 +11,7 @@ export const useCheckLocationPermission = () => {
   const [hasLocationPermission, setHasLocationPermission] =
     useState<boolean>(false)
   const checkLocationPermission = useCallback(() => {
-    requestLocationPermission(false)
+    checkOrRequestLocationPermission(false)
       .then(() => {
         setHasLocationPermission(true)
         setCheckingLocationPermission(false)
