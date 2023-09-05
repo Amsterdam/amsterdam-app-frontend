@@ -12,11 +12,11 @@ const SUGGESTION_COUNT = 5
 export const useGetAddressByCoordinates = () => {
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
   const getCurrentCoordinates = useGetCurrentCoordinates()
-  const {pdokAddresses, ...rest} = useAddressForCoordinates(
+  const {pdokAddresses, ...rest} = useAddressForCoordinates({
     coordinates,
-    false,
-    SUGGESTION_COUNT,
-  )
+    rows: SUGGESTION_COUNT,
+    shouldFetch: !!coordinates,
+  })
   const navigation = useNavigation<AddressModalName>()
 
   const getCoordinates = useCallback(async () => {
