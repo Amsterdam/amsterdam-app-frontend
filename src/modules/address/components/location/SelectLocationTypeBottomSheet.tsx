@@ -43,7 +43,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const {status: locationPermissionStatus} = usePermission(
     locationPermissionByPlatform,
   )
-  const permissionBlocked = locationPermissionStatus === 'blocked'
+  const locationPermissionIsBlocked = locationPermissionStatus === 'blocked'
 
   const onPressAddressButton = useCallback(() => {
     if (!address) {
@@ -61,7 +61,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
-      if (permissionBlocked) {
+      if (locationPermissionIsBlocked) {
         navigateToInstructionsScreen()
 
         return
@@ -109,7 +109,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       currentCoordinates,
       dispatch,
       getCurrentCoordinates,
-      permissionBlocked,
+      locationPermissionIsBlocked,
       navigateToInstructionsScreen,
       slug,
     ],
@@ -169,9 +169,9 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
           />
           <LocationTopTaskButton
             coordinates={currentCoordinates}
-            loading={!!requestingCurrentCoordinates}
+            loading={requestingCurrentCoordinates}
+            locationPermissionIsBlocked={locationPermissionIsBlocked}
             onPress={onPressLocationButton}
-            permissionBlocked={permissionBlocked}
             testID="BottomSheetSelectLocationButton"
           />
         </Column>
