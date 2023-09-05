@@ -41,6 +41,8 @@ type Props = {
   bagList: PdokAddress[]
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
+  isLoading: boolean
+
   keyboardType: KeyboardTypeOptions | undefined
   number: string
   selectResult: (item: PdokAddress) => void
@@ -51,6 +53,7 @@ export const NumberInput = ({
   bagList,
   changeNumber,
   changeIsStreetSelected,
+  isLoading,
   keyboardType,
   number,
   selectResult,
@@ -105,6 +108,7 @@ export const NumberInput = ({
           style={styles.flex}>
           <NumberSearchResult
             bagList={bagList}
+            isLoading={isLoading}
             number={number}
             selectResult={selectResult}
           />

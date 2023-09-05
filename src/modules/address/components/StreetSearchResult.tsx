@@ -1,6 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
 import {PdokAddress} from '@/modules/address/types'
@@ -10,6 +11,7 @@ type StreetSearchResultProps = {
   bagList: PdokAddress[]
   isLoading: boolean
   isStreetSelected: boolean
+  pdokAddresses: PdokAddress[]
   selectResult: (item: PdokAddress) => void
   street: string
 }
@@ -36,12 +38,20 @@ export const StreetSearchResult = ({
   bagList,
   isLoading,
   isStreetSelected,
+  pdokAddresses,
   selectResult,
   street,
 }: StreetSearchResultProps) => {
   const {addressLengthThreshold} = config
+  const hasStreetInput = street.length > 0
+  const isBelowCharacterThreshold = street.length < addressLengthThreshold
+  const addresses = bagList.length
+    ? bagList
+    : pdokAddresses.length
+    ? pdokAddresses
+    : []
 
-  if (isStreetSelected || street.length < addressLengthThreshold) {
+  if ((hasStreetInput && isBelowCharacterThreshold) || isStreetSelected) {
     return null
   }
 
@@ -53,7 +63,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (bagList.length === 0) {
+  if (bagList.length === 0 && !isBelowCharacterThreshold && !isLoading) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
@@ -66,7 +76,12 @@ export const StreetSearchResult = ({
 
   return (
     <>
-      {bagList.map(bagItem => (
+      {!hasStreetInput && addresses.length > 0 && (
+        <Box insetTop="md">
+          <Phrase>Suggesties</Phrase>
+        </Box>
+      )}
+      {addresses.map(bagItem => (
         <SuggestionButton
           key={bagItem.id}
           label={showSuggestion(bagItem)}

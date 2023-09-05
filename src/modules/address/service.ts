@@ -3,7 +3,7 @@ import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-type AddressForCoordinatesQueryParams = Coordinates
+type AddressForCoordinatesQueryParams = Coordinates & {rows: number}
 
 type AddressSuggestionQueryParams = {
   address: string
@@ -20,14 +20,14 @@ export const addressApi = baseApi.injectEndpoints({
       AddressResponse | undefined,
       AddressForCoordinatesQueryParams
     >({
-      query: ({lat, lon}) => ({
+      query: ({lat, lon, rows}) => ({
         url: generateRequestUrl({
           params: {
             lat,
             lon,
             fl: responseFields,
             fq: ['type:adres'],
-            rows: 1,
+            rows,
           },
           path: '/reverse',
         }),

@@ -6,7 +6,7 @@ import Geolocation, {
 import {PermissionStatus} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
-import {requestLocationPermission} from '@/utils/permissions'
+import {checkLocationPermission} from '@/utils/permissions'
 
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
@@ -24,7 +24,7 @@ export const permissionErrorStatuses = [
   'unavailable',
 ]
 
-const getStatusFromError = (error: unknown) => {
+export const getStatusFromError = (error: unknown) => {
   const message = getPropertyFromMaybeError<string>(error, 'message')
 
   return typeof message === 'string' &&
@@ -49,7 +49,7 @@ export const useGetCurrentPosition = () => {
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
-        requestLocationPermission()
+        checkLocationPermission()
           .then(() =>
             Geolocation.getCurrentPosition(
               resolve,

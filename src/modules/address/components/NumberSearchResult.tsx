@@ -1,10 +1,12 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {Spinner} from '@/components/ui/feedback/Spinner'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {PdokAddress} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
   bagList: PdokAddress[]
+  isLoading: boolean
   number: string
   selectResult: (item: PdokAddress) => void
 }
@@ -16,11 +18,20 @@ const showSuggestion = (suggestion: PdokAddress): string =>
 
 export const NumberSearchResult = ({
   bagList,
+  isLoading,
   selectResult,
   number,
 }: NumberSearchResultProps) => {
   if (number.length < 1) {
     return null
+  }
+
+  if (isLoading) {
+    return (
+      <Box>
+        <Spinner />
+      </Box>
+    )
   }
 
   if (bagList.length === 0) {

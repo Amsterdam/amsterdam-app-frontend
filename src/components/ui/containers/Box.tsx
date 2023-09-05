@@ -27,6 +27,10 @@ export type BoxProps = {
    */
   insetHorizontal?: keyof SpacingTokens
   /**
+   * The amount of inner spacing at the start of ltr
+   */
+  insetTop?: keyof SpacingTokens
+  /**
    * The amount of inner spacing at the top and bottom.
    */
   insetVertical?: keyof SpacingTokens
@@ -44,6 +48,7 @@ export const Box = ({
   grow,
   inset = 'md',
   insetHorizontal,
+  insetTop,
   insetVertical,
   ...viewProps
 }: BoxProps) => {
@@ -54,6 +59,7 @@ export const Box = ({
       distinct: distinct,
       inset,
       insetHorizontal,
+      insetTop,
       insetVertical,
     }),
   )
@@ -74,6 +80,7 @@ const createStyles =
     distinct,
     inset,
     insetHorizontal,
+    insetTop,
     insetVertical,
   }: Partial<BoxProps>) =>
   ({color, size}: Theme) =>
@@ -84,8 +91,11 @@ const createStyles =
         borderStyle: borderStyle,
         borderWidth: borderStyle ? 1 : undefined,
         padding:
-          inset && !insetHorizontal && !insetVertical ? size.spacing[inset] : 0,
+          inset && !insetHorizontal && !insetTop && !insetVertical
+            ? size.spacing[inset]
+            : 0,
         paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
+        paddingTop: insetTop && size.spacing[insetTop],
         paddingVertical: insetVertical && size.spacing[insetVertical],
       },
     })

@@ -8,20 +8,33 @@ import {transformAddressApiResponse} from '@/modules/address/utils/transformAddr
 /**
  * Get the address for a set of coordinates from the back end. Returns the request metadata too, so loading and error states can be handled.
  */
-export const useAddressForCoordinates = (coordinates?: Coordinates) => {
+export const useAddressForCoordinates = (
+  coordinates?: Coordinates,
+  useLastKnown = true,
+  rows = 1,
+) => {
   const lastKnownCoordinates = useLastKnownCoordinates()
+  const coordinatesToUse =
+    coordinates ?? (useLastKnown ? lastKnownCoordinates : undefined)
   const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
-    coordinates ?? lastKnownCoordinates ?? skipToken,
+    coordinatesToUse ? {...coordinatesToUse, rows} : skipToken,
   )
+
+  const memoizedAddresses = useMemo(() => {
+    if (!currentData?.response?.docs?.length) {
+      return
+    }
+
+    const addressForCoordinates = currentData?.response.docs
+
+    const addresses = addressForCoordinates.map(transformAddressApiResponse)
+    const pdokAddresses = addressForCoordinates
+
+    return {addresses, firstAddress: addresses?.[0], pdokAddresses}
+  }, [currentData?.response.docs])
 
   return {
     ...rest,
-    data: useMemo(() => {
-      if (!currentData?.response?.docs?.[0]) {
-        return
-      }
-
-      return transformAddressApiResponse(currentData.response.docs[0])
-    }, [currentData?.response.docs]),
+    ...memoizedAddresses,
   }
 }
