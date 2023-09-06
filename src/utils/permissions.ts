@@ -46,3 +46,9 @@ export const checkLocationPermission = () =>
     locationPermissionByPlatform.permissionAndroid,
     locationPermissionByPlatform.permissionIOS,
   )
+
+export const requestLocationPermission = () =>
+  requestPermissionForPlatform(
+    locationPermissionByPlatform.permissionAndroid,
+    locationPermissionByPlatform.permissionIOS,
+  )

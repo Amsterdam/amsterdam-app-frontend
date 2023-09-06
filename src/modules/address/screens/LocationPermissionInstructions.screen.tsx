@@ -11,7 +11,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
 import {getStatusFromError} from '@/modules/address/hooks/useGetCurrentPosition'
-import {checkLocationPermission} from '@/utils/permissions'
+import {requestLocationPermission} from '@/utils/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()
@@ -20,7 +20,7 @@ export const LocationPermissionInstructionsScreen = () => {
 
   useAppState({
     onForeground: () => {
-      checkLocationPermission()
+      requestLocationPermission()
         .then(() => {
           setGranted(true)
         })
@@ -32,7 +32,7 @@ export const LocationPermissionInstructionsScreen = () => {
           }
 
           sendSentryErrorLog(
-            'checkLocationPermission failed',
+            'requestLocationPermission failed',
             'LocationPermissionInstructionsScreen.tsx',
             {error},
           )
