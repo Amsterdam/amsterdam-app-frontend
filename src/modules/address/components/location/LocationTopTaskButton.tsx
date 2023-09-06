@@ -28,6 +28,7 @@ export const LocationTopTaskButton = ({
   coordinates,
   loading = false,
   onPress,
+  testID,
 }: Props) => {
   const {firstAddress: address, isFetching: addressForCoordinatesIsFetching} =
     useAddressForCoordinates(coordinates)
@@ -43,6 +44,7 @@ export const LocationTopTaskButton = ({
     <TopTaskButton
       iconName="location"
       onPress={handlePress}
+      testID={testID}
       text={getText(isLoading, address)}
       title="Mijn locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
