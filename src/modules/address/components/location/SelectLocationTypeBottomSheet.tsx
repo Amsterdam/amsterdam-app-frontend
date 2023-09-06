@@ -118,12 +118,8 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const hasCurrentCoordinates = !!currentCoordinates
 
   useEffect(() => {
-    if (!bottomSheetIsOpen) {
-      return
-    }
-
-    // if there are no current coordinates already, we request new ones when the button is pressed, otherwise when the sheet is opened
-    if (!hasCurrentCoordinates) {
+    // we request coordinates when the bottom sheet is opened, except when there are no current coordinates yet: in that case we request new ones when the button is pressed
+    if (!bottomSheetIsOpen || !hasCurrentCoordinates) {
       return
     }
 
@@ -137,7 +133,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
         setRequestingCurrentCoordinates(false)
       })
 
-    // we deliberately omit `hasCurrentCoordinates` because we want to prevent triggering this when the coordinates are set via `onPressLocationButton`
+    // we deliberately omit `hasCurrentCoordinates` because we want to prevent triggering this when the coordinates are set the first time, via `onPressLocationButton`
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCurrentCoordinates, bottomSheetIsOpen])
 
