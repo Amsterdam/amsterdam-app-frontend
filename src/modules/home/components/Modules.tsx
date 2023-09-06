@@ -50,7 +50,7 @@ export const Modules = () => {
           }) => (
             <ModuleButton
               alwaysEnabled={alwaysEnabled}
-              BadgeValue={BadgeValue}
+              badgeValue={BadgeValue}
               disabled={status === ModuleStatus.inactive}
               iconName={icon}
               key={slug}

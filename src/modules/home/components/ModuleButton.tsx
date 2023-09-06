@@ -19,7 +19,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type ModuleButtonContentProps = {
-  BadgeValue?: ElementType
+  badgeValue?: ElementType
   disabled: boolean | undefined
   iconName: IconName | 'projects'
   label: string
@@ -27,7 +27,7 @@ type ModuleButtonContentProps = {
 }
 
 const ModuleButtonContent = ({
-  BadgeValue,
+  badgeValue: BadgeValue,
   disabled,
   iconName,
   label,
@@ -83,8 +83,8 @@ const ModuleButtonContent = ({
 type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
-  BadgeValue?: ElementType
   alwaysEnabled?: boolean
+  badgeValue?: ElementType
   disabled?: boolean
   iconName: IconName | 'projects'
   label: string
@@ -94,7 +94,7 @@ type ModuleButtonProps = {
 
 export const ModuleButton = ({
   alwaysEnabled = false,
-  BadgeValue,
+  badgeValue,
   disabled,
   iconName,
   label,
@@ -111,17 +111,17 @@ export const ModuleButton = ({
     dispatch(toggleModule(slug))
   }, [slug, dispatch])
 
-  const ModuleButtonContentComponent = useMemo(
+  const button = useMemo(
     () => (
       <ModuleButtonContent
-        BadgeValue={BadgeValue}
+        badgeValue={badgeValue}
         disabled={disabled}
         iconName={iconName}
         label={label}
         variant={variant}
       />
     ),
-    [BadgeValue, disabled, iconName, label, variant],
+    [badgeValue, disabled, iconName, label, variant],
   )
 
   const pressable = useMemo(
@@ -130,10 +130,10 @@ export const ModuleButton = ({
         inset="md"
         onPress={() => navigation.navigate(slug)}
         variant={variant}>
-        {ModuleButtonContentComponent}
+        {button}
       </Pressable>
     ),
-    [ModuleButtonContentComponent, navigation, slug, variant],
+    [button, navigation, slug, variant],
   )
 
   if (disabled) {
@@ -142,7 +142,7 @@ export const ModuleButton = ({
         borderColor="onGrey"
         borderStyle="dashed"
         grow>
-        {ModuleButtonContentComponent}
+        {button}
       </Box>
     )
   }
