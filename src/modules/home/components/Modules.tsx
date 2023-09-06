@@ -39,8 +39,17 @@ export const Modules = () => {
     <Box grow>
       <Column gutter="md">
         {availableModules?.map(
-          ({BadgeValue, icon, requiresAuthorization, slug, status, title}) => (
+          ({
+            alwaysEnabled,
+            BadgeValue,
+            icon,
+            requiresAuthorization,
+            slug,
+            status,
+            title,
+          }) => (
             <ModuleButton
+              alwaysEnabled={alwaysEnabled}
               BadgeValue={BadgeValue}
               disabled={status === ModuleStatus.inactive}
               iconName={icon}

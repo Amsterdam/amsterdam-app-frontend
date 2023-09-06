@@ -84,6 +84,7 @@ type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
   BadgeValue?: ElementType
+  alwaysEnabled?: boolean
   disabled?: boolean
   iconName: IconName | 'projects'
   label: string
@@ -92,6 +93,7 @@ type ModuleButtonProps = {
 } & TestProps
 
 export const ModuleButton = ({
+  alwaysEnabled = false,
   BadgeValue,
   disabled,
   iconName,
@@ -109,35 +111,51 @@ export const ModuleButton = ({
     dispatch(toggleModule(slug))
   }, [slug, dispatch])
 
-  const ModuleButtonContentComponent = (
-    <ModuleButtonContent
-      BadgeValue={BadgeValue}
-      disabled={disabled}
-      iconName={iconName}
-      label={label}
-      variant={variant}
-    />
+  const ModuleButtonContentComponent = useMemo(
+    () => (
+      <ModuleButtonContent
+        BadgeValue={BadgeValue}
+        disabled={disabled}
+        iconName={iconName}
+        label={label}
+        variant={variant}
+      />
+    ),
+    [BadgeValue, disabled, iconName, label, variant],
   )
 
-  return disabled ? (
-    <Box
-      borderColor="onGrey"
-      borderStyle="dashed"
-      grow>
-      {ModuleButtonContentComponent}
-    </Box>
-  ) : (
+  const pressable = useMemo(
+    () => (
+      <Pressable
+        inset="md"
+        onPress={() => navigation.navigate(slug)}
+        variant={variant}>
+        {ModuleButtonContentComponent}
+      </Pressable>
+    ),
+    [ModuleButtonContentComponent, navigation, slug, variant],
+  )
+
+  if (disabled) {
+    return (
+      <Box
+        borderColor="onGrey"
+        borderStyle="dashed"
+        grow>
+        {ModuleButtonContentComponent}
+      </Box>
+    )
+  }
+
+  if (alwaysEnabled) {
+    return pressable
+  }
+
+  return (
     <View
       style={styles.swipeToDeleteContainer}
       testID={testID}>
-      <SwipeToDelete onEvent={onDelete}>
-        <Pressable
-          inset="md"
-          onPress={() => navigation.navigate(slug)}
-          variant={variant}>
-          {ModuleButtonContentComponent}
-        </Pressable>
-      </SwipeToDelete>
+      <SwipeToDelete onEvent={onDelete}>{pressable}</SwipeToDelete>
     </View>
   )
 }
