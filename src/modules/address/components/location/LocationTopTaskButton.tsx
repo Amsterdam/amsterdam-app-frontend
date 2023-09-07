@@ -8,15 +8,20 @@ type Props = {
   coordinates?: Coordinates
   hasTitleIcon?: boolean
   loading?: boolean
+  locationPermissionIsBlocked?: boolean
   onPress: (hasValidAddressData: boolean) => void
 } & TestProps
 
-const getText = (loading: boolean, address?: Address) => {
+const getText = (
+  loading: boolean,
+  locationPermissionIsBlocked: boolean,
+  address?: Address,
+) => {
   if (loading) {
     return '...'
   }
 
-  if (address?.addressLine1) {
+  if (address?.addressLine1 && !locationPermissionIsBlocked) {
     return `In de buurt van ${address.addressLine1}`
   }
 
@@ -24,16 +29,18 @@ const getText = (loading: boolean, address?: Address) => {
 }
 
 export const LocationTopTaskButton = ({
-  hasTitleIcon,
   coordinates,
+  hasTitleIcon,
+  locationPermissionIsBlocked = false,
   loading = false,
   onPress,
   testID,
 }: Props) => {
   const {firstAddress: address, isFetching: addressForCoordinatesIsFetching} =
-    useAddressForCoordinates(coordinates)
+    useAddressForCoordinates({coordinates})
 
-  const isLoading = loading || addressForCoordinatesIsFetching
+  const isLoading =
+    (loading || addressForCoordinatesIsFetching) && !locationPermissionIsBlocked
 
   const handlePress = useCallback(
     () => onPress(!isLoading && !!address),
@@ -45,7 +52,7 @@ export const LocationTopTaskButton = ({
       iconName="location"
       onPress={handlePress}
       testID={testID}
-      text={getText(isLoading, address)}
+      text={getText(isLoading, locationPermissionIsBlocked, address)}
       title="Mijn locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />

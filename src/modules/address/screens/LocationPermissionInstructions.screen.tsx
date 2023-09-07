@@ -8,26 +8,43 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
-import {checkLocationPermission} from '@/utils/permissions'
+import {getStatusFromError} from '@/modules/address/hooks/useGetCurrentPosition'
+import {requestLocationPermission} from '@/utils/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
-  const navigation = useNavigation()
+  const {goBack} = useNavigation()
+  const {sendSentryErrorLog} = useSentry()
   const [granted, setGranted] = useState(false)
 
   useAppState({
     onForeground: () => {
-      void checkLocationPermission().then(() => {
-        setGranted(true)
-      })
+      requestLocationPermission()
+        .then(() => {
+          setGranted(true)
+        })
+        .catch((error: unknown) => {
+          if (getStatusFromError(error)) {
+            setGranted(false)
+
+            return
+          }
+
+          sendSentryErrorLog(
+            'requestLocationPermission failed',
+            'LocationPermissionInstructionsScreen.tsx',
+            {error},
+          )
+        })
     },
   })
 
   useEffect(() => {
     if (granted) {
-      navigation.goBack()
+      goBack()
     }
-  }, [granted, navigation])
+  }, [granted, goBack])
 
   return (
     <Screen
