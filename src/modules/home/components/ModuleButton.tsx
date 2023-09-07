@@ -19,7 +19,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type ModuleButtonContentProps = {
-  BadgeValue?: ElementType
+  badgeValue?: ElementType
   disabled: boolean | undefined
   iconName: IconName | 'projects'
   label: string
@@ -27,7 +27,7 @@ type ModuleButtonContentProps = {
 }
 
 const ModuleButtonContent = ({
-  BadgeValue,
+  badgeValue: BadgeValue,
   disabled,
   iconName,
   label,
@@ -83,7 +83,8 @@ const ModuleButtonContent = ({
 type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
-  BadgeValue?: ElementType
+  alwaysEnabled?: boolean
+  badgeValue?: ElementType
   disabled?: boolean
   iconName: IconName | 'projects'
   label: string
@@ -92,7 +93,8 @@ type ModuleButtonProps = {
 } & TestProps
 
 export const ModuleButton = ({
-  BadgeValue,
+  alwaysEnabled = false,
+  badgeValue,
   disabled,
   iconName,
   label,
@@ -109,35 +111,51 @@ export const ModuleButton = ({
     dispatch(toggleModule(slug))
   }, [slug, dispatch])
 
-  const ModuleButtonContentComponent = (
-    <ModuleButtonContent
-      BadgeValue={BadgeValue}
-      disabled={disabled}
-      iconName={iconName}
-      label={label}
-      variant={variant}
-    />
+  const button = useMemo(
+    () => (
+      <ModuleButtonContent
+        badgeValue={badgeValue}
+        disabled={disabled}
+        iconName={iconName}
+        label={label}
+        variant={variant}
+      />
+    ),
+    [badgeValue, disabled, iconName, label, variant],
   )
 
-  return disabled ? (
-    <Box
-      borderColor="onGrey"
-      borderStyle="dashed"
-      grow>
-      {ModuleButtonContentComponent}
-    </Box>
-  ) : (
+  const pressable = useMemo(
+    () => (
+      <Pressable
+        inset="md"
+        onPress={() => navigation.navigate(slug)}
+        variant={variant}>
+        {button}
+      </Pressable>
+    ),
+    [button, navigation, slug, variant],
+  )
+
+  if (disabled) {
+    return (
+      <Box
+        borderColor="onGrey"
+        borderStyle="dashed"
+        grow>
+        {button}
+      </Box>
+    )
+  }
+
+  if (alwaysEnabled) {
+    return pressable
+  }
+
+  return (
     <View
       style={styles.swipeToDeleteContainer}
       testID={testID}>
-      <SwipeToDelete onEvent={onDelete}>
-        <Pressable
-          inset="md"
-          onPress={() => navigation.navigate(slug)}
-          variant={variant}>
-          {ModuleButtonContentComponent}
-        </Pressable>
-      </SwipeToDelete>
+      <SwipeToDelete onEvent={onDelete}>{pressable}</SwipeToDelete>
     </View>
   )
 }
