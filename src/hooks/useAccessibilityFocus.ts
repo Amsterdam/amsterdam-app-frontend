@@ -7,8 +7,8 @@ import {
 } from 'react-native'
 
 /**
- * Returns a ref object which when bound to an element, will focus that
- * element in VoiceOver/TalkBack on its appearance
+ * Returns a ref object which when bound to an element, will focus that element in VO/TB/Keyboard on its appearance.
+ * Workaround until fixed in react-navigation library. See issue: https://github.com/react-navigation/react-navigation/issues/7056
  */
 export const useAccessibilityFocus = (): [
   MutableRefObject<null>,
