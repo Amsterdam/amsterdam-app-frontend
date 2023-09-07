@@ -3,6 +3,7 @@ import {
   AccessibilityInfo,
   findNodeHandle,
   InteractionManager,
+  Platform,
 } from 'react-native'
 
 /**
@@ -16,6 +17,10 @@ export const useAccessibilityFocus = (): [
   const ref = useRef(null)
 
   const setFocus = useCallback(() => {
+    if (Platform.OS !== 'ios' || !ref.current) {
+      return
+    }
+
     const performSetFocus = () => {
       void InteractionManager.runAfterInteractions(async () => {
         const isScreenReaderEnabled =
