@@ -3,10 +3,10 @@ import {
   AndroidPermission,
   check,
   IOSPermission,
-  PERMISSIONS,
   request,
 } from 'react-native-permissions'
 import {permissionErrorStatuses} from '@/modules/address/hooks/useGetCurrentPosition'
+import {locationPermissionByPlatform} from '@/permissions'
 
 export const getPermissionForPlatform = (
   permissionAndroid: AndroidPermission,
@@ -33,13 +33,8 @@ const permissionForPlatform =
     return status
   }
 
-export const requestPermissionForPlatform = permissionForPlatform(request)
-export const checkPermissionForPlatform = permissionForPlatform(check)
-
-const locationPermissionByPlatform = {
-  permissionAndroid: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-  permissionIOS: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-}
+const requestPermissionForPlatform = permissionForPlatform(request)
+const checkPermissionForPlatform = permissionForPlatform(check)
 
 export const checkLocationPermission = () =>
   checkPermissionForPlatform(
