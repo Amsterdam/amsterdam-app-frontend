@@ -5,6 +5,7 @@ import {
   requestNotifications,
   checkNotifications,
   PermissionStatus,
+  RESULTS,
 } from 'react-native-permissions'
 
 type NotificationPermissionResult = {
@@ -23,4 +24,6 @@ export const getPushNotificationPermission = (
   requestPermission ? requestNotifications(options) : checkNotifications()
 
 export const getFcmToken = (currentPermissionStatus: PermissionStatus) =>
-  currentPermissionStatus === 'granted' ? messaging().getToken() : undefined
+  currentPermissionStatus === RESULTS.GRANTED
+    ? messaging().getToken()
+    : undefined

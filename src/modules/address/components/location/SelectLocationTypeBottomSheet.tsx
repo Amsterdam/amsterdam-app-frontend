@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
+import {RESULTS} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -43,7 +44,8 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const {status: locationPermissionStatus} = usePermission(
     locationPermissionByPlatform,
   )
-  const locationPermissionIsBlocked = locationPermissionStatus === 'blocked'
+  const locationPermissionIsBlocked =
+    locationPermissionStatus === RESULTS.BLOCKED
 
   const onPressAddressButton = useCallback(() => {
     if (!address) {
