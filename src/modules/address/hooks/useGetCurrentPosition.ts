@@ -3,9 +3,9 @@ import Geolocation, {
   GeoOptions,
   GeoPosition,
 } from 'react-native-geolocation-service'
-import {PermissionStatus, RESULTS} from 'react-native-permissions'
+import {PermissionStatus} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
-import {getPropertyFromMaybeError} from '@/utils/object'
+import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
 const defaultOptions: GeoOptions = {
@@ -15,23 +15,6 @@ const defaultOptions: GeoOptions = {
   maximumAge: 10000,
   showLocationDialog: true,
   timeout: 60000,
-}
-
-export const permissionErrorStatuses: PermissionStatus[] = [
-  RESULTS.BLOCKED,
-  RESULTS.DENIED,
-  RESULTS.LIMITED,
-  RESULTS.UNAVAILABLE,
-]
-
-export const getStatusFromError = (error: unknown) => {
-  const message = getPropertyFromMaybeError<PermissionStatus>(error, 'message')
-
-  if (!message || !permissionErrorStatuses.includes(message)) {
-    return
-  }
-
-  return message
 }
 
 export type GetCurrentPositionError = {

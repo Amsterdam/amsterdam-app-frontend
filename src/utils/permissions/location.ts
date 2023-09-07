@@ -3,7 +3,7 @@ import {PERMISSIONS} from 'react-native-permissions'
 import {
   checkIsPermissionGranted,
   requestIsPermissionGranted,
-} from '@/utils/permissions/permissionGranted'
+} from '@/utils/permissions/isPermissionGranted'
 
 export const locationPermission =
   Platform.OS === 'android'

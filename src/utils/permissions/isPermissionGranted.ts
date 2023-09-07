@@ -4,7 +4,7 @@ import {
   IOSPermission,
   request,
 } from 'react-native-permissions'
-import {permissionErrorStatuses} from '@/modules/address/hooks/useGetCurrentPosition'
+import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
 
 /**
  * Will check the permission and request it if necessary. Resolves if permission is granted, otherwise throws an error.
@@ -14,7 +14,7 @@ const isPermissionGranted =
   async (permission: AndroidPermission | IOSPermission) => {
     const status = await permissionFn(permission)
 
-    if (permissionErrorStatuses.includes(status)) {
+    if (isPermissionErrorStatus(status)) {
       throw new Error(status)
     }
 

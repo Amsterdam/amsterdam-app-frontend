@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react'
 import {useSentry} from '@/hooks/sentry/useSentry'
-import {getStatusFromError} from '@/modules/address/hooks/useGetCurrentPosition'
+import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
 export const useCheckLocationPermission = () => {
