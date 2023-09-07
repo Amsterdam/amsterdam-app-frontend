@@ -36,6 +36,7 @@ export const TopTaskButton = ({
         title,
         typeof text === 'string' ? text : '',
       )}
+      grow
       onPress={onPress}
       testID={testID}
       {...pressableProps}>
@@ -50,7 +51,9 @@ export const TopTaskButton = ({
               size="xl"
             />
           </View>
-          <Column align="center">
+          <Column
+            align="center"
+            grow>
             <Row
               gutter="sm"
               valign="center">
