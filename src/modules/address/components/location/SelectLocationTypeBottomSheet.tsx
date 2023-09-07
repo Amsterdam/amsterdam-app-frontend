@@ -118,8 +118,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const hasCurrentCoordinates = !!currentCoordinates
 
   useEffect(() => {
-    // we request coordinates when the bottom sheet is opened, except when there are no current coordinates yet: in that case we request new ones when the button is pressed
-    if (!bottomSheetIsOpen || !hasCurrentCoordinates) {
+    if (!(bottomSheetIsOpen && hasCurrentCoordinates)) {
       return
     }
 
