@@ -1,36 +1,31 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {
-  PermissionStatus,
-  check,
-  request,
-  Permission,
-  Rationale,
-  IOSPermission,
   AndroidPermission,
+  check,
+  IOSPermission,
+  PermissionStatus,
+  Rationale,
+  request,
 } from 'react-native-permissions'
 import {useAppState} from '@/hooks/useAppState'
-import {getPermissionForPlatform} from '@/utils/permissions'
 
 type UsePermissionParams = {
-  permissionAndroid: AndroidPermission
-  permissionIOS: IOSPermission
+  permission: AndroidPermission | IOSPermission
   rationale?: Rationale
   requestPermission?: boolean
 }
 
 const permissionFn = (
-  permission: Permission,
+  permission: AndroidPermission | IOSPermission,
   requestPermission?: boolean,
   rationale?: Rationale,
 ) => (requestPermission ? request(permission, rationale) : check(permission))
 
 export const usePermission = ({
-  permissionAndroid,
-  permissionIOS,
+  permission,
   requestPermission = false,
   rationale,
 }: UsePermissionParams) => {
-  const permission = getPermissionForPlatform(permissionAndroid, permissionIOS)
   const [status, setStatus] = useState<PermissionStatus | undefined>()
   const currentPromise = useRef<Promise<PermissionStatus | undefined>>(
     Promise.resolve(undefined),

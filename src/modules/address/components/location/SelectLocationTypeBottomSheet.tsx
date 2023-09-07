@@ -21,8 +21,8 @@ import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {locationPermissionByPlatform} from '@/permissions'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {locationPermission} from '@/utils/permissions/location'
 
 type Props = {
   slug: ModuleSlug
@@ -41,11 +41,10 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
   )
-  const {status: locationPermissionStatus} = usePermission(
-    locationPermissionByPlatform,
-  )
-  const locationPermissionIsBlocked =
-    locationPermissionStatus === RESULTS.BLOCKED
+  const {status: locationPermissionStatus} = usePermission({
+    permission: locationPermission,
+  })
+  const locationPermissionIsBlocked = locationPermissionStatus === 'blocked'
 
   const onPressAddressButton = useCallback(() => {
     if (!address) {

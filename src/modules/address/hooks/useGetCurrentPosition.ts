@@ -6,7 +6,7 @@ import Geolocation, {
 import {PermissionStatus, RESULTS} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
-import {requestLocationPermission} from '@/utils/permissions'
+import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
@@ -50,7 +50,7 @@ export const useGetCurrentPosition = () => {
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
-        requestLocationPermission()
+        requestLocationPermissionGranted()
           .then(() =>
             Geolocation.getCurrentPosition(
               resolve,
