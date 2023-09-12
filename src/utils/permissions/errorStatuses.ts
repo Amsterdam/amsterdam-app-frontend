@@ -12,7 +12,7 @@ export const isPermissionErrorStatus = (maybePermissionStatus?: unknown) =>
 export const getStatusFromError = (error: unknown) => {
   const message = getPropertyFromMaybeError<string>(error, 'message')
 
-  if (isPermissionErrorStatus(message)) {
+  if (!isPermissionErrorStatus(message)) {
     return
   }
 
