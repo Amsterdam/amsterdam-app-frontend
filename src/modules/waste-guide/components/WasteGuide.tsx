@@ -59,12 +59,12 @@ export const WasteGuide = () => {
     return <SomethingWentWrong />
   }
 
-  const {city} = address ?? {}
+  const {city} = address
   const cityIsWeesp = city === AddressCity.Weesp
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
-  const hasContent = Object.keys(wasteGuideData ?? {}).length > 0 || cityIsWeesp
+  const hasContent = Object.keys(wasteGuideData).length > 0 || cityIsWeesp
 
   return (
     <Column
