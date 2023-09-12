@@ -14,7 +14,7 @@ import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
 import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens/color-light'
-import '@/services/logging'
+import '@/processes/logging'
 
 const persistor = persistStore(store)
 

@@ -10,7 +10,6 @@ type Props = {
   loading?: boolean
   locationPermissionIsBlocked?: boolean
   onPress: (hasValidAddressData: boolean) => void
-  permissionBlocked?: boolean
 } & TestProps
 
 const getText = (
