@@ -43,13 +43,6 @@ export const WasteGuide = () => {
       : skipToken,
   )
 
-  const {city} = address ?? {}
-  const cityIsWeesp = city === AddressCity.Weesp
-  const WasteGuideForCity = cityIsWeesp
-    ? WasteGuideForWeesp
-    : WasteGuideForAmsterdam
-  const hasContent = Object.keys(wasteGuideData ?? {}).length > 0 || cityIsWeesp
-
   if (
     getGarbageCollectionAreaQueryIsFetching ||
     selectedAddressForWasteGuideIsFetching
@@ -65,6 +58,13 @@ export const WasteGuide = () => {
   ) {
     return <SomethingWentWrong />
   }
+
+  const {city} = address ?? {}
+  const cityIsWeesp = city === AddressCity.Weesp
+  const WasteGuideForCity = cityIsWeesp
+    ? WasteGuideForWeesp
+    : WasteGuideForAmsterdam
+  const hasContent = Object.keys(wasteGuideData ?? {}).length > 0 || cityIsWeesp
 
   return (
     <Column
