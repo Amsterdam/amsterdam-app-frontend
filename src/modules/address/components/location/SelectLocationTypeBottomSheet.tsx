@@ -13,16 +13,14 @@ import {AddressTopTaskButton} from '@/modules/address/components/location/Addres
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {
-  GetCurrentPositionError,
-  permissionErrorStatuses,
-} from '@/modules/address/hooks/useGetCurrentPosition'
+import {GetCurrentPositionError} from '@/modules/address/hooks/useGetCurrentPosition'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {locationPermissionByPlatform} from '@/permissions'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
+import {locationPermission} from '@/utils/permissions/location'
 
 type Props = {
   slug: ModuleSlug
@@ -41,9 +39,9 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
   )
-  const {status: locationPermissionStatus} = usePermission(
-    locationPermissionByPlatform,
-  )
+  const {status: locationPermissionStatus} = usePermission({
+    permission: locationPermission,
+  })
   const locationPermissionIsBlocked =
     locationPermissionStatus === RESULTS.BLOCKED
 
@@ -82,7 +80,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
         } catch (error) {
           const {status} = error as GetCurrentPositionError
 
-          if (status && permissionErrorStatuses.includes(status)) {
+          if (isPermissionErrorStatus(status)) {
             navigateToInstructionsScreen()
           }
         }

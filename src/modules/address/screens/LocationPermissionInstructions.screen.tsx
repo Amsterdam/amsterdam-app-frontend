@@ -10,8 +10,8 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
-import {getStatusFromError} from '@/modules/address/hooks/useGetCurrentPosition'
-import {requestLocationPermission} from '@/utils/permissions'
+import {getStatusFromError} from '@/utils/permissions/errorStatuses'
+import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()
@@ -20,7 +20,7 @@ export const LocationPermissionInstructionsScreen = () => {
 
   useAppState({
     onForeground: () => {
-      requestLocationPermission()
+      requestLocationPermissionGranted()
         .then(() => {
           setGranted(true)
         })
