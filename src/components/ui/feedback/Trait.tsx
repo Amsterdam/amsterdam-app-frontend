@@ -1,4 +1,5 @@
 import {ReactNode} from 'react'
+import {TextProps} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {IconName} from '@/components/ui/media/iconPaths'
@@ -6,6 +7,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessibilityLabel?: TextProps['accessibilityLabel']
   /**
    * Allows a custom visualization for the trait.
    * Use a small component here. Not rendered if an icon name is provided.
@@ -22,7 +24,13 @@ type Props = {
   label: string
 } & Required<TestProps>
 
-export const Trait = ({children, iconName, label, testID}: Props) => (
+export const Trait = ({
+  accessibilityLabel,
+  children,
+  iconName,
+  label,
+  testID,
+}: Props) => (
   <Row
     gutter="sm"
     valign="center">
@@ -35,6 +43,7 @@ export const Trait = ({children, iconName, label, testID}: Props) => (
       children
     )}
     <Phrase
+      accessibilityLabel={accessibilityLabel}
       testID={`${testID}Label`}
       variant="small">
       {label}

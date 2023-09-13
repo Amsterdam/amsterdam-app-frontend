@@ -5,6 +5,7 @@ import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
 import {ProjectsItem} from '@/modules/construction-work/types'
+import {getDistanceAndStrides} from '@/modules/construction-work/utils/getDistanceAndStrides'
 
 type Props = Partial<ProjectsItem> & {
   unreadArticlesLength?: number
@@ -15,6 +16,11 @@ export const ProjectTraits = memo(
     if ([followed, meter, strides].every(v => !v)) {
       return null
     }
+
+    const {distanceA11yText, distanceText, stridesText} = getDistanceAndStrides(
+      meter,
+      strides,
+    )
 
     return (
       <View {...viewProps}>
@@ -39,17 +45,18 @@ export const ProjectTraits = memo(
                 testID="ConstructionWorkProjectFollowingTrait"
               />
             ))}
-          {!!meter && (
+          {!!distanceText && (
             <Trait
+              accessibilityLabel={distanceA11yText}
               iconName="location"
-              label={`${meter} meter`}
+              label={distanceText}
               testID="ConstructionWorkProjectMetersTrait"
             />
           )}
-          {!!strides && (
+          {!!stridesText && (
             <Trait
               iconName="strides"
-              label={simplur`${strides} stap[|pen]`}
+              label={stridesText}
               testID="ConstructionWorkProjectStridesTrait"
             />
           )}
