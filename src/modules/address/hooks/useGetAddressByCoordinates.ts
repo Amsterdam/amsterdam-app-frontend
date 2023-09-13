@@ -25,15 +25,15 @@ export const useGetAddressByCoordinates = () => {
       setIsGettingCoordinates(true)
       const currentCoordinates = await getCurrentCoordinates()
 
-      setIsGettingCoordinates(false)
       setCoordinates(currentCoordinates)
     } catch (error) {
-      setIsGettingCoordinates(false)
       const {status} = error as GetCurrentPositionError
 
       if (status) {
         navigation.navigate(AddressModalName.locationPermissionInstructions)
       }
+    } finally {
+      setIsGettingCoordinates(false)
     }
   }, [getCurrentCoordinates, navigation])
 
