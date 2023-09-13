@@ -3,16 +3,55 @@ import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-type AddressForCoordinatesQueryParams = Coordinates & {rows: number}
+type SharedParams = {rows?: number}
+
+type AddressForCoordinatesQueryParams = Coordinates & SharedParams
 
 type AddressSuggestionQueryParams = {
   address: string
   city?: string
   street?: string
+} & SharedParams
+
+// Source: https://api.pdok.nl/bzk/locatieserver/search/v3_1/ui/#/Locatieserver/free
+type PdokFreeApiParams = {
+  /** Default field value relevance modifiers, space separated key/value/modifier combinations, e.g. 'type:provincie^1.5' */
+  bq?: string[]
+  /** Default field to apply the search query to */
+  df?: string
+  /** Return fields, space separated */
+  fl?: string
+  /** Filter query, array of key:value pairs, e.g. 'bron:BAG' */
+  fq?: string[]
+  /** Latitude, float */
+  lat?: number
+  /** Longitude, float */
+  lon?: number
+  /** Search query */
+  q?: string
+  /** Default field relevance modifiers, space separated key^modifier pairs, e.g. 'exacte_match^0.5' */
+  qf?: string
+  /** Number of results */
+  rows?: number
+  /** Sort key and order, comma separated key direction pairs, e.g. 'score desc' */
+  sort?: string
+  /** Zero-based index of first result */
+  start?: number
+  /** Output format: json|xml */
+  wt?: string
 }
 
-const responseFields =
-  'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll'
+const defaultPdokFreeApiParams: PdokFreeApiParams = {
+  bq: ['type:weg^1.5', 'type:adres^1'],
+  fl: 'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
+  qf: 'exacte_match^0.5 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
+}
+
+const defaultFq: PdokFreeApiParams['fq'] = ['bron:BAG']
+
+const path = '/free'
+const api = 'addressUrl'
+const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
@@ -20,44 +59,42 @@ export const addressApi = baseApi.injectEndpoints({
       AddressResponse | undefined,
       AddressForCoordinatesQueryParams
     >({
-      query: ({lat, lon, rows}) => ({
-        url: generateRequestUrl({
+      query: ({lat, lon, rows = 1}) => ({
+        url: generateRequestUrl<PdokFreeApiParams>({
           params: {
+            ...defaultPdokFreeApiParams,
+            fq: [...defaultFq, 'type:adres'],
             lat,
             lon,
-            fl: responseFields,
-            fq: ['type:adres'],
             rows,
           },
-          path: '/reverse',
+          path,
         }),
-        api: 'addressUrl',
-        keepUnusedDataFor: CacheLifetime.day,
+        api,
+        keepUnusedDataFor,
       }),
     }),
     getAddressSuggestions: query<
       AddressResponse | undefined,
       AddressSuggestionQueryParams
     >({
-      query: ({address, city, street}) => ({
-        url: generateRequestUrl({
+      query: ({address, city, rows = 20, street}) => ({
+        url: generateRequestUrl<PdokFreeApiParams>({
           params: {
-            q: address,
-            fl: responseFields,
+            ...defaultPdokFreeApiParams,
             fq: [
+              ...defaultFq,
               `type:${street ? 'adres' : '(weg OR adres)'}`,
               `woonplaatsnaam:${city?.toLowerCase() ?? '(amsterdam OR weesp)'}`,
               ...(street ? [`straatnaam:"${street.toLowerCase()}"`] : []),
-              'bron:BAG',
             ],
-            qf: 'exacte_match^0.5 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
-            bq: ['type:weg^1.5', 'type:adres^1'],
-            rows: 20,
+            q: address,
+            rows,
           },
-          path: '/free',
+          path,
         }),
-        api: 'addressUrl',
-        keepUnusedDataFor: CacheLifetime.day,
+        api,
+        keepUnusedDataFor,
       }),
     }),
   }),
