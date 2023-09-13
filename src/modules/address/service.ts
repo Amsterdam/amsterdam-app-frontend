@@ -15,7 +15,7 @@ type AddressSuggestionQueryParams = {
 
 // Source: https://api.pdok.nl/bzk/locatieserver/search/v3_1/ui/#/Locatieserver/free
 type PdokFreeApiParams = {
-  /** Default field value relevance modifiers, space separated key/value/modifier combinations, e.g. 'type:provincie^1.5' */
+  /** Default field value relevance modifiers, space separated key:value^modifier combinations, e.g. 'type:provincie^1.5' */
   bq?: string[]
   /** Default field to apply the search query to */
   df?: string

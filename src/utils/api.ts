@@ -12,7 +12,7 @@ type GenericParamsType =
   | Record<string, string[] | string | number | boolean>
   | undefined
 
-type Signature<ParamsType> = {
+type Signature<ParamsType extends GenericParamsType> = {
   baseUrl?: string
   params: ParamsType
   path?: string
