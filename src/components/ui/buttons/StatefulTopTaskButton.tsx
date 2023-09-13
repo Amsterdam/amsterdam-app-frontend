@@ -1,39 +1,45 @@
+import {useEffect, useState} from 'react'
 import {
   TopTaskButton,
   TopTaskButtonProps,
 } from '@/components/ui/buttons/TopTaskButton'
 
 type StatefulTopTaskButtonProps = {
-  state: 'loading' | 'error' | 'default'
+  isError?: boolean
+  isLoading?: boolean
 } & TopTaskButtonProps
 
 export const StatefulTopTaskButton = ({
-  state,
+  isError = false,
+  isLoading = false,
   ...topTaskButtonProps
 }: StatefulTopTaskButtonProps) => {
   const {text: buttonText, iconName: buttonIconName} = topTaskButtonProps
-  let iconName: TopTaskButtonProps['iconName']
-  let text: TopTaskButtonProps['text']
+  const [iconName, setIconName] = useState(buttonIconName)
+  const [text, setText] = useState(buttonText)
 
-  switch (state) {
-    case 'loading':
-      text = '...'
-      iconName = 'spinner'
-      break
-    case 'error':
-      text = 'Er gaat iets mis. Probeer het later nog een keer.'
-      iconName = 'alert'
-      break
-    default:
-      text = buttonText
-      iconName = buttonIconName
-  }
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setText(buttonText)
+      setIconName(buttonIconName)
+    }
+
+    if (isLoading) {
+      setText('...')
+      setIconName('spinner')
+    }
+
+    if (isError) {
+      setText('Er gaat iets mis. Probeer het later nog een keer.')
+      setIconName('alert')
+    }
+  }, [isLoading, isError, buttonText, buttonIconName])
 
   return (
     <TopTaskButton
       {...topTaskButtonProps}
-      error={state === 'error'}
       iconName={iconName}
+      isError={isError}
       text={text}
     />
   )

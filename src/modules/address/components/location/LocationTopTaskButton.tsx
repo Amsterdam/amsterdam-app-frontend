@@ -52,8 +52,9 @@ export const LocationTopTaskButton = ({
   return (
     <StatefulTopTaskButton
       iconName="location"
+      isError={hasPermissionError}
+      isLoading={isLoading}
       onPress={handlePress}
-      state={hasPermissionError ? 'error' : isLoading ? 'loading' : 'default'}
       testID={testID}
       text={getText(isLoading, locationPermissionIsBlocked, address)}
       title="Mijn locatie"
