@@ -1,4 +1,4 @@
-import {ElementType, Fragment} from 'react'
+import {ComponentType, Fragment} from 'react'
 import {Path, Svg} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {IconName, IconPath} from '@/components/ui/media/iconPaths'
@@ -9,21 +9,14 @@ import {useTheme} from '@/themes/useTheme'
 
 const DEFAULT_STROKE_WIDTH = 3
 
-const ANIMATION_COMPONENTS: Record<Animation, ElementType> = {
-  rotate: Rotator,
+type AdditionalIconConfig = {
+  Wrapper?: ComponentType
+  stroke: boolean
+  strokeWidth?: number
 }
-
-type Animation = 'rotate'
-
-type SpecialIcon = {
-  animation?: Animation
-  name: IconName
-  stroke?: boolean
+const AdditionalIconConfigs: Partial<Record<IconName, AdditionalIconConfig>> = {
+  spinner: {Wrapper: Rotator, stroke: true},
 }
-
-const specialIcons: SpecialIcon[] = [
-  {name: 'spinner', animation: 'rotate', stroke: true},
-]
 
 export type IconProps = {
   /**
@@ -54,9 +47,12 @@ export const Icon = ({
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
-  const specialIcon = specialIcons.find(i => i.name === name)
-  const {animation, stroke} = specialIcon ?? {}
-  const Wrapper = animation ? ANIMATION_COMPONENTS[animation] : Fragment
+
+  const {
+    Wrapper = Fragment,
+    stroke,
+    strokeWidth = DEFAULT_STROKE_WIDTH,
+  } = AdditionalIconConfigs[name] ?? {}
 
   return (
     <Wrapper>
@@ -70,7 +66,7 @@ export const Icon = ({
           d={IconPath[name]}
           fill={!stroke ? colorTokens.text[color] : 'none'}
           stroke={stroke ? colorTokens.text[color] : undefined}
-          strokeWidth={stroke ? DEFAULT_STROKE_WIDTH : undefined}
+          strokeWidth={stroke ? strokeWidth : undefined}
         />
       </Svg>
     </Wrapper>
