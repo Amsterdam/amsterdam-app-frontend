@@ -1,22 +1,22 @@
-import {useEffect, useRef} from 'react'
-import {Animated, Easing, StyleSheet} from 'react-native'
-import SpinnerIcon from '@/assets/icons/spinner.svg'
+import {ReactNode, useCallback, useEffect, useRef} from 'react'
+import {Animated, Easing} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
-import {Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
 
 const initialRotation = 0
 let stopAnimation = false
+
+type RotatorProps = {
+  children?: ReactNode
+}
 
 /**
  * Indicates activity, often while performing network tasks.
  * Best used through `PleaseWait` rather than by itself.
  */
-export const Spinner = () => {
-  const styles = useThemable(createStyles)
+export const Rotator = ({children}: RotatorProps) => {
   const rotation = useRef(new Animated.Value(initialRotation)).current
 
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     rotation.setValue(initialRotation)
 
     Animated.timing(rotation, {
@@ -25,7 +25,7 @@ export const Spinner = () => {
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => !stopAnimation && startAnimation())
-  }
+  }, [rotation])
 
   const rotate = rotation.interpolate({
     inputRange: [0, 360],
@@ -39,24 +39,16 @@ export const Spinner = () => {
     return () => {
       stopAnimation = true
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [startAnimation])
 
   return (
     <Row align="center">
       <Animated.View
         accessibilityLabel="Bezig …"
         accessible
-        style={[styles.container, {transform: [{rotate}]}]}>
-        <SpinnerIcon />
+        style={[{transform: [{rotate}]}]}>
+        {children}
       </Animated.View>
     </Row>
   )
 }
-
-const createStyles = ({media}: Theme) =>
-  StyleSheet.create({
-    container: {
-      width: 20,
-      aspectRatio: media.aspectRatio.square,
-    },
-  })

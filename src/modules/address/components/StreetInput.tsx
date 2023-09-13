@@ -4,9 +4,9 @@ import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Spinner} from '@/components/ui/feedback/Spinner'
 import {SearchField} from '@/components/ui/forms/SearchField'
 import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
 import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
@@ -61,7 +61,13 @@ export const StreetInput = ({
         value={street}
       />
       {isCheckingLocationPermission ? (
-        <Spinner />
+        <Box>
+          <Icon
+            color="link"
+            name="spinner"
+            size="lg"
+          />
+        </Box>
       ) : (
         hasLocationPermission === false &&
         !street.length && (
