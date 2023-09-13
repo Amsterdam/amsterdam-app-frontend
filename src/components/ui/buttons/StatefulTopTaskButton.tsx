@@ -22,11 +22,15 @@ export const StatefulTopTaskButton = ({
     if (!isLoading && !isError) {
       setText(buttonText)
       setIconName(buttonIconName)
+
+      return
     }
 
     if (isLoading) {
       setText('...')
       setIconName('spinner')
+
+      return
     }
 
     if (isError) {
