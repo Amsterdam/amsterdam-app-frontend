@@ -8,13 +8,20 @@ import {
 } from '@/modules/construction-work/types'
 import {ListQueryArg} from '@/types/list'
 
-type Signature = {
+type GenericParamsType =
+  | Record<string, string[] | string | number | boolean>
+  | undefined
+
+type Signature<ParamsType extends GenericParamsType> = {
   baseUrl?: string
-  params: Record<string, string[] | string | number | boolean>
+  params: ParamsType
   path?: string
 }
 
-export const generateRequestUrl = ({params = {}, path}: Signature) => {
+export const generateRequestUrl = <ParamsType extends GenericParamsType>({
+  params = {},
+  path,
+}: Signature<ParamsType>) => {
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
     .flatMap(([key, value]) =>
