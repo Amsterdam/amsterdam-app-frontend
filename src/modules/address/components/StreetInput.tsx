@@ -1,15 +1,10 @@
-import {useFocusEffect} from '@react-navigation/core'
-import {Ref, useEffect} from 'react'
+import {Ref, useMemo} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {Button} from '@/components/ui/buttons/Button'
-import {Box} from '@/components/ui/containers/Box'
 import {SearchField} from '@/components/ui/forms/SearchField'
-import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
-import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
-import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
+import {StreetSearchResultForLocation} from '@/modules/address/components/location/StreetSearchResultForLocation'
+import {config} from '@/modules/address/config'
 import {PdokAddress} from '@/modules/address/types'
 
 type Props = {
@@ -31,23 +26,35 @@ export const StreetInput = ({
   selectResult,
   street,
 }: Props) => {
-  const {getCoordinates, isGettingAddressForCoordinates, pdokAddresses} =
-    useGetAddressByCoordinates()
-  const {
-    isCheckingLocationPermission,
-    hasLocationPermission,
-    checkLocationPermission,
-  } = useCheckLocationPermission()
+  const {addressLengthThreshold} = config
+  const hasStreetInput = street.length > 0
+  const isBelowCharacterThreshold = street.length < addressLengthThreshold
 
-  useFocusEffect(() => {
-    checkLocationPermission()
-  })
-
-  useEffect(() => {
-    if (hasLocationPermission) {
-      void getCoordinates()
+  const content = useMemo(() => {
+    if (isStreetSelected) {
+      return null
     }
-  }, [getCoordinates, hasLocationPermission])
+
+    if (isBelowCharacterThreshold && !hasStreetInput) {
+      return <StreetSearchResultForLocation selectResult={selectResult} />
+    }
+
+    return (
+      <StreetSearchResult
+        bagList={bagList}
+        isBelowCharacterThreshold={isBelowCharacterThreshold}
+        isLoading={isLoading}
+        selectResult={selectResult}
+      />
+    )
+  }, [
+    bagList,
+    hasStreetInput,
+    isBelowCharacterThreshold,
+    isLoading,
+    isStreetSelected,
+    selectResult,
+  ])
 
   return (
     <>
@@ -61,44 +68,10 @@ export const StreetInput = ({
         testID="AddressStreetInputSearchField"
         value={street}
       />
-      {isCheckingLocationPermission ? (
-        <Box>
-          <Icon
-            color="link"
-            name="spinner"
-            size="lg"
-          />
-        </Box>
-      ) : (
-        hasLocationPermission === false &&
-        !street.length && (
-          <Box insetVertical="md">
-            <Row>
-              <Button
-                iconName="pointer"
-                label="Gebruik mijn huidige locatie"
-                onPress={getCoordinates} // At this point we know there is no location permission
-                variant="tertiary"
-              />
-            </Row>
-          </Box>
-        )
-      )}
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
-        <StreetSearchResult
-          bagList={bagList}
-          isLoading={
-            isLoading ||
-            isCheckingLocationPermission ||
-            isGettingAddressForCoordinates
-          }
-          isStreetSelected={isStreetSelected}
-          pdokAddresses={pdokAddresses ?? []}
-          selectResult={selectResult}
-          street={street}
-        />
+        {content}
       </KeyboardAwareScrollView>
     </>
   )
