@@ -31,7 +31,8 @@ export const StreetInput = ({
   selectResult,
   street,
 }: Props) => {
-  const {getCoordinates, pdokAddresses} = useGetAddressByCoordinates()
+  const {getCoordinates, isGettingAddressForCoordinates, pdokAddresses} =
+    useGetAddressByCoordinates()
   const {
     isCheckingLocationPermission,
     hasLocationPermission,
@@ -88,7 +89,11 @@ export const StreetInput = ({
         style={styles.flex}>
         <StreetSearchResult
           bagList={bagList}
-          isLoading={isLoading}
+          isLoading={
+            isLoading ||
+            isCheckingLocationPermission ||
+            isGettingAddressForCoordinates
+          }
           isStreetSelected={isStreetSelected}
           pdokAddresses={pdokAddresses ?? []}
           selectResult={selectResult}
