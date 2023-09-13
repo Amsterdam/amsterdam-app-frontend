@@ -1,11 +1,12 @@
+import {useMemo} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Icon} from '@/components/ui/media/Icon'
-import {Phrase} from '@/components/ui/text/Phrase'
-import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
+import {AddressSearchSuggestionsForLocation} from '@/modules/address/components/location/AddressSearchSuggestionsForLocation'
 import {config} from '@/modules/address/config'
 import {PdokAddress} from '@/modules/address/types'
-import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
+import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 
 type StreetSearchResultProps = {
   bagList: PdokAddress[]
@@ -14,24 +15,6 @@ type StreetSearchResultProps = {
   pdokAddresses: PdokAddress[]
   selectResult: (item: PdokAddress) => void
   street: string
-}
-
-const showSuggestion = (suggestion: PdokAddress): string => {
-  if (suggestion.type === 'weg') {
-    if (suggestion.woonplaatsnaam === 'Amsterdam') {
-      return suggestion.straatnaam
-    } else {
-      return `${suggestion.straatnaam}, ${suggestion.woonplaatsnaam}`
-    }
-  }
-
-  const streetAndHouseNumber = getAddressLine1(suggestion)
-
-  if (suggestion.woonplaatsnaam === 'Amsterdam') {
-    return streetAndHouseNumber
-  } else {
-    return `${streetAndHouseNumber}, ${suggestion.woonplaatsnaam}`
-  }
 }
 
 export const StreetSearchResult = ({
@@ -45,11 +28,15 @@ export const StreetSearchResult = ({
   const {addressLengthThreshold} = config
   const hasStreetInput = street.length > 0
   const isBelowCharacterThreshold = street.length < addressLengthThreshold
-  const addresses = bagList.length
-    ? bagList
-    : pdokAddresses.length
-    ? pdokAddresses
-    : []
+  const addresses = useMemo(() => {
+    if (bagList.length > 0) {
+      return bagList
+    }
+
+    if (pdokAddresses.length > 0) {
+      return pdokAddresses.filter(addressIsInAmsterdamMunicipality)
+    }
+  }, [bagList, pdokAddresses])
 
   if ((hasStreetInput && isBelowCharacterThreshold) || isStreetSelected) {
     return null
@@ -78,23 +65,19 @@ export const StreetSearchResult = ({
     )
   }
 
+  if (!hasStreetInput) {
+    return (
+      <AddressSearchSuggestionsForLocation
+        addresses={addresses}
+        selectResult={selectResult}
+      />
+    )
+  }
+
   return (
-    <>
-      {!hasStreetInput && addresses.length > 0 && (
-        <Box insetTop="md">
-          <Phrase>Suggesties</Phrase>
-        </Box>
-      )}
-      {addresses.map(bagItem => (
-        <SuggestionButton
-          key={bagItem.id}
-          label={showSuggestion(bagItem)}
-          onPress={() => {
-            selectResult(bagItem)
-          }}
-          testID={`AddressSearchResult${bagItem.id}Button`}
-        />
-      ))}
-    </>
+    <AddressSearchSuggestions
+      addresses={addresses}
+      selectResult={selectResult}
+    />
   )
 }
