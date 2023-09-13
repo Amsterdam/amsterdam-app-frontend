@@ -21,22 +21,18 @@ export const useAccessibilityFocus = (): [
       return
     }
 
-    const performSetFocus = () => {
-      void InteractionManager.runAfterInteractions(async () => {
-        const isScreenReaderEnabled =
-          await AccessibilityInfo.isScreenReaderEnabled()
+    void InteractionManager.runAfterInteractions(async () => {
+      const isScreenReaderEnabled =
+        await AccessibilityInfo.isScreenReaderEnabled()
 
-        if (isScreenReaderEnabled) {
-          const focusPoint = findNodeHandle(ref.current)
+      if (isScreenReaderEnabled) {
+        const focusPoint = findNodeHandle(ref.current)
 
-          if (focusPoint) {
-            AccessibilityInfo.setAccessibilityFocus(focusPoint)
-          }
+        if (focusPoint) {
+          AccessibilityInfo.setAccessibilityFocus(focusPoint)
         }
-      })
-    }
-
-    performSetFocus()
+      }
+    })
   }, [ref])
 
   return [ref, setFocus]
