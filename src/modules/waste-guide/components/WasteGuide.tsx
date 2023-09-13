@@ -6,6 +6,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
 import {AddressCity} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -29,12 +30,17 @@ export const WasteGuide = () => {
     isFetching: selectedAddressForWasteGuideIsFetching,
   } = useSelectedAddressForWasteGuide()
 
+  const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
+
   const {
     data: wasteGuideData,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
   } = useGetGarbageCollectionAreaQuery(
-    address?.bagId ? {bagNummeraanduidingId: address.bagId} : skipToken,
+    // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
+    address?.bagId && isFocusedOrNotAndroid
+      ? {bagNummeraanduidingId: address.bagId}
+      : skipToken,
   )
 
   if (
