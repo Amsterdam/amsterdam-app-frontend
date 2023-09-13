@@ -13,6 +13,7 @@ import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type TopTaskButtonProps = {
+  error?: boolean
   iconName: IconName
   text?: ReactNode
   title: string
@@ -20,6 +21,7 @@ export type TopTaskButtonProps = {
 } & Omit<PressableProps, 'children'>
 
 export const TopTaskButton = ({
+  error = false,
   iconName,
   onPress,
   text,
@@ -72,6 +74,7 @@ export const TopTaskButton = ({
             </Row>
             {typeof text === 'string' ? (
               <Paragraph
+                color={error ? 'warning' : undefined}
                 testID={`${testID}Text`}
                 variant="small">
                 {text}

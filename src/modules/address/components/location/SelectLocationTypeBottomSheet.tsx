@@ -30,6 +30,8 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
     useState(false)
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
+  const [hasLocationPermissionError, setHasLocationPermissionError] =
+    useState(false)
   const {navigate} = useNavigation<AddressModalName>()
   const dispatch = useDispatch()
   const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
@@ -61,6 +63,8 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
+      setHasLocationPermissionError(false)
+
       if (locationPermissionIsBlocked) {
         navigateToInstructionsScreen()
 
@@ -82,6 +86,8 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
 
           if (isPermissionErrorStatus(status)) {
             navigateToInstructionsScreen()
+          } else {
+            setHasLocationPermissionError(true)
           }
         }
 
@@ -136,6 +142,10 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getCurrentCoordinates, bottomSheetIsOpen])
 
+  useEffect(() => {
+    !bottomSheetIsOpen && setHasLocationPermissionError(false)
+  }, [bottomSheetIsOpen])
+
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">
       <Box grow>
@@ -164,6 +174,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
           />
           <LocationTopTaskButton
             coordinates={currentCoordinates}
+            hasPermissionError={hasLocationPermissionError}
             loading={requestingCurrentCoordinates}
             locationPermissionIsBlocked={locationPermissionIsBlocked}
             onPress={onPressLocationButton}
