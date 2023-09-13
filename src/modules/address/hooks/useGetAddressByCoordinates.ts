@@ -11,6 +11,7 @@ const SUGGESTION_COUNT = 5
 
 export const useGetAddressByCoordinates = () => {
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
+  const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
   const getCurrentCoordinates = useGetCurrentCoordinates()
   const {pdokAddresses, ...rest} = useAddressForCoordinates({
     coordinates,
@@ -21,6 +22,7 @@ export const useGetAddressByCoordinates = () => {
 
   const getCoordinates = useCallback(async () => {
     try {
+      setIsGettingCoordinates(true)
       const currentCoordinates = await getCurrentCoordinates()
 
       setCoordinates(currentCoordinates)
@@ -30,11 +32,14 @@ export const useGetAddressByCoordinates = () => {
       if (status) {
         navigation.navigate(AddressModalName.locationPermissionInstructions)
       }
+    } finally {
+      setIsGettingCoordinates(false)
     }
   }, [getCurrentCoordinates, navigation])
 
   return {
     getCoordinates,
+    isGettingAddressForCoordinates: rest.isFetching || isGettingCoordinates,
     pdokAddresses,
     ...rest,
   }

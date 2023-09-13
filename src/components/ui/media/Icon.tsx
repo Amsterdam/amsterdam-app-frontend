@@ -1,9 +1,22 @@
+import {ComponentType, Fragment} from 'react'
 import {Path, Svg} from 'react-native-svg'
+import {Rotator} from '@/components/ui/animations/Rotator'
 import {IconName, IconPath} from '@/components/ui/media/iconPaths'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
+
+const DEFAULT_STROKE_WIDTH = 3
+
+type AdditionalIconConfig = {
+  Wrapper?: ComponentType
+  stroke: boolean
+  strokeWidth?: number
+}
+const AdditionalIconConfigs: Partial<Record<IconName, AdditionalIconConfig>> = {
+  spinner: {Wrapper: Rotator, stroke: true},
+}
 
 export type IconProps = {
   /**
@@ -35,17 +48,27 @@ export const Icon = ({
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
 
+  const {
+    Wrapper = Fragment,
+    stroke,
+    strokeWidth = DEFAULT_STROKE_WIDTH,
+  } = AdditionalIconConfigs[name] ?? {}
+
   return (
-    <Svg
-      fillRule="evenodd"
-      height={scaledSize}
-      testID={testID}
-      viewBox="0 0 32 32"
-      width={scaledSize}>
-      <Path
-        d={IconPath[name]}
-        fill={colorTokens.text[color]}
-      />
-    </Svg>
+    <Wrapper>
+      <Svg
+        fillRule="evenodd"
+        height={scaledSize}
+        testID={testID}
+        viewBox="0 0 32 32"
+        width={scaledSize}>
+        <Path
+          d={IconPath[name]}
+          fill={!stroke ? colorTokens.text[color] : 'none'}
+          stroke={stroke ? colorTokens.text[color] : undefined}
+          strokeWidth={stroke ? strokeWidth : undefined}
+        />
+      </Svg>
+    </Wrapper>
   )
 }

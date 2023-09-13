@@ -1,5 +1,6 @@
-import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
+import {Icon} from '@/components/ui/media/Icon'
 
 type Props = {
   grow?: boolean
@@ -7,6 +8,12 @@ type Props = {
 
 export const PleaseWait = ({grow}: Props) => (
   <Center grow={grow}>
-    <Spinner />
+    <Box>
+      <Icon
+        color="link"
+        name="spinner"
+        size="lg"
+      />
+    </Box>
   </Center>
 )

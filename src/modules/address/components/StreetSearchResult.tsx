@@ -1,6 +1,6 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
-import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {config} from '@/modules/address/config'
@@ -58,7 +58,11 @@ export const StreetSearchResult = ({
   if (isLoading) {
     return (
       <Box>
-        <Spinner />
+        <Icon
+          color="link"
+          name="spinner"
+          size="lg"
+        />
       </Box>
     )
   }

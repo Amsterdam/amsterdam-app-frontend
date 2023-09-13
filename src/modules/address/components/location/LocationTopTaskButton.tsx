@@ -1,11 +1,12 @@
 import {useCallback} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {TestProps} from '@/components/ui/types'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {Address, Coordinates} from '@/modules/address/types'
 
 type Props = {
   coordinates?: Coordinates
+  hasPermissionError?: boolean
   hasTitleIcon?: boolean
   loading?: boolean
   locationPermissionIsBlocked?: boolean
@@ -30,6 +31,7 @@ const getText = (
 
 export const LocationTopTaskButton = ({
   coordinates,
+  hasPermissionError,
   hasTitleIcon,
   locationPermissionIsBlocked = false,
   loading = false,
@@ -48,8 +50,10 @@ export const LocationTopTaskButton = ({
   )
 
   return (
-    <TopTaskButton
+    <StatefulTopTaskButton
       iconName="location"
+      isError={hasPermissionError}
+      isLoading={isLoading}
       onPress={handlePress}
       testID={testID}
       text={getText(isLoading, locationPermissionIsBlocked, address)}

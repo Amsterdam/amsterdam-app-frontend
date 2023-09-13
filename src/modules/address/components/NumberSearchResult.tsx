@@ -1,6 +1,6 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
-import {Spinner} from '@/components/ui/feedback/Spinner'
+import {Icon} from '@/components/ui/media/Icon'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {PdokAddress} from '@/modules/address/types'
 
@@ -29,7 +29,11 @@ export const NumberSearchResult = ({
   if (isLoading) {
     return (
       <Box>
-        <Spinner />
+        <Icon
+          color="link"
+          name="spinner"
+          size="lg"
+        />
       </Box>
     )
   }
