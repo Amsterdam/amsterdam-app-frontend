@@ -16,9 +16,13 @@ import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressI
 
 type Props = {
   selectResult: (item: PdokAddress) => void
+  showSuggestionsForLocation: boolean
 }
 
-export const StreetSearchResultForLocation = ({selectResult}: Props) => {
+export const StreetSearchResultForLocation = ({
+  selectResult,
+  showSuggestionsForLocation,
+}: Props) => {
   const [showFeedbackForNoResults, setShowFeedbackForNoResults] =
     useState(false)
 
@@ -49,6 +53,10 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
       void getCoordinates()
     }
   }, [getCoordinates, hasLocationPermission])
+
+  if (!showSuggestionsForLocation) {
+    return null
+  }
 
   if (isCheckingLocationPermission || isGettingAddressForCoordinates) {
     return (

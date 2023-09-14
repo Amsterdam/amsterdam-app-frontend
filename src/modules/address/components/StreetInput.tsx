@@ -30,22 +30,29 @@ export const StreetInput = ({
   const hasStreetInput = street.length > 0
   const isBelowCharacterThreshold = street.length < addressLengthThreshold
 
-  const content = useMemo(() => {
+  const suggestions = useMemo(() => {
     if (isStreetSelected) {
       return null
     }
 
-    if (isBelowCharacterThreshold && !hasStreetInput) {
-      return <StreetSearchResultForLocation selectResult={selectResult} />
-    }
+    const showSuggestionsForStreetInput =
+      !isBelowCharacterThreshold && hasStreetInput
 
     return (
-      <StreetSearchResult
-        bagList={bagList}
-        isBelowCharacterThreshold={isBelowCharacterThreshold}
-        isLoading={isLoading}
-        selectResult={selectResult}
-      />
+      <>
+        <StreetSearchResultForLocation
+          selectResult={selectResult}
+          showSuggestionsForLocation={!showSuggestionsForStreetInput}
+        />
+        {!!showSuggestionsForStreetInput && (
+          <StreetSearchResult
+            bagList={bagList}
+            isBelowCharacterThreshold={isBelowCharacterThreshold}
+            isLoading={isLoading}
+            selectResult={selectResult}
+          />
+        )}
+      </>
     )
   }, [
     bagList,
@@ -71,7 +78,7 @@ export const StreetInput = ({
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         style={styles.flex}>
-        {content}
+        {suggestions}
       </KeyboardAwareScrollView>
     </>
   )
