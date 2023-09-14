@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-app",
-  "version": "0.39.0",
+  "version": "0.40.0",
   "private": true,
   "scripts": {
     "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev",
@@ -97,7 +97,6 @@
     "babel-loader": "^8.3.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-native-web": "^0.18.12",
-    "chai": "^4.3.7",
     "css-loader": "^5.2.7",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.8.0",
