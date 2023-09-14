@@ -1,7 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Icon} from '@/components/ui/media/Icon'
-import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
+import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {PdokAddress} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
@@ -10,11 +10,6 @@ type NumberSearchResultProps = {
   number: string
   selectResult: (item: PdokAddress) => void
 }
-
-const showSuggestion = (suggestion: PdokAddress): string =>
-  `${suggestion.huisnummer}${suggestion.huisletter ?? ''}${
-    suggestion.huisnummertoevoeging ? `-${suggestion.huisnummertoevoeging}` : ''
-  }`
 
 export const NumberSearchResult = ({
   bagList,
@@ -47,17 +42,10 @@ export const NumberSearchResult = ({
   }
 
   return (
-    <>
-      {bagList.map(bagItem => (
-        <SuggestionButton
-          key={bagItem.id}
-          label={showSuggestion(bagItem)}
-          onPress={() => {
-            selectResult(bagItem)
-          }}
-          testID={`AddressSearchResult${bagItem.id}Button`}
-        />
-      ))}
-    </>
+    <AddressSearchSuggestions
+      addresses={bagList}
+      selectResult={selectResult}
+      showNumbersOnly
+    />
   )
 }

@@ -1,20 +1,26 @@
-import {PressableProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
+import {PdokAddress} from '@/modules/address/types'
 
 type Props = {
   label: string
-} & PressableProps &
-  TestProps
+  pdokAddress: PdokAddress
+  selectResult: (item: PdokAddress) => void
+} & TestProps
 
-export const SuggestionButton = ({label, onPress, testID}: Props) => (
+export const SuggestionButton = ({
+  label,
+  pdokAddress,
+  selectResult,
+  testID,
+}: Props) => (
   <Pressable
     accessibilityRole="button"
     insetVertical="md"
-    onPress={onPress}
+    onPress={() => selectResult(pdokAddress)}
     testID={testID}>
     <Row gutter="sm">
       <Icon

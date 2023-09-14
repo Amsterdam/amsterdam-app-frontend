@@ -5,19 +5,22 @@ import {TestProps} from '@/components/ui/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
+  showTitle?: boolean
   text: string
 } & TestProps
 
-export const EmptyMessage = ({testID, text}: Props) => {
-  const title = 'Helaas …'
+export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
+  const title = showTitle ? 'Helaas …' : ''
 
   return (
     <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
-      <Title
-        level="h3"
-        testID={testID}
-        text={title}
-      />
+      {!!showTitle && (
+        <Title
+          level="h3"
+          testID={testID}
+          text={title}
+        />
+      )}
       <Paragraph>{text}</Paragraph>
     </SingleSelectable>
   )
