@@ -1,4 +1,4 @@
-import {Ref, useMemo} from 'react'
+import {Ref} from 'react'
 import {StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms/SearchField'
@@ -27,41 +27,7 @@ export const StreetInput = ({
   street,
 }: Props) => {
   const {addressLengthThreshold} = config
-  const hasStreetInput = street.length > 0
   const isBelowCharacterThreshold = street.length < addressLengthThreshold
-
-  const suggestions = useMemo(() => {
-    if (isStreetSelected) {
-      return null
-    }
-
-    const showSuggestionsForStreetInput =
-      !isBelowCharacterThreshold && hasStreetInput
-
-    return (
-      <>
-        <StreetSearchResultForLocation
-          selectResult={selectResult}
-          showSuggestionsForLocation={!showSuggestionsForStreetInput}
-        />
-        {!!showSuggestionsForStreetInput && (
-          <StreetSearchResult
-            bagList={bagList}
-            isBelowCharacterThreshold={isBelowCharacterThreshold}
-            isLoading={isLoading}
-            selectResult={selectResult}
-          />
-        )}
-      </>
-    )
-  }, [
-    bagList,
-    hasStreetInput,
-    isBelowCharacterThreshold,
-    isLoading,
-    isStreetSelected,
-    selectResult,
-  ])
 
   return (
     <>
@@ -75,11 +41,23 @@ export const StreetInput = ({
         testID="AddressStreetInputSearchField"
         value={street}
       />
-      <KeyboardAwareScrollView
-        keyboardShouldPersistTaps="handled"
-        style={styles.flex}>
-        {suggestions}
-      </KeyboardAwareScrollView>
+      {isStreetSelected ? null : (
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          style={styles.flex}>
+          <StreetSearchResultForLocation
+            selectResult={selectResult}
+            showSuggestionsForLocation={street.length === 0}
+          />
+          {!isBelowCharacterThreshold && (
+            <StreetSearchResult
+              bagList={bagList}
+              isLoading={isLoading}
+              selectResult={selectResult}
+            />
+          )}
+        </KeyboardAwareScrollView>
+      )}
     </>
   )
 }

@@ -6,14 +6,12 @@ import {PdokAddress} from '@/modules/address/types'
 
 type StreetSearchResultProps = {
   bagList: PdokAddress[]
-  isBelowCharacterThreshold: boolean
   isLoading: boolean
   selectResult: (item: PdokAddress) => void
 }
 
 export const StreetSearchResult = ({
   bagList,
-  isBelowCharacterThreshold,
   isLoading,
   selectResult,
 }: StreetSearchResultProps) => {
@@ -29,7 +27,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (bagList.length === 0 && !isBelowCharacterThreshold && !isLoading) {
+  if (bagList.length === 0 && !isLoading) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
