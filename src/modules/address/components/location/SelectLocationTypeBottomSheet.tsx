@@ -44,6 +44,9 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const {status: locationPermissionStatus} = usePermission({
     permission: locationPermission,
   })
+  const [isPermissionBlocked, setPermissionBlocked] = useState(false)
+
+  // Only works on iOS since Android will never return 'blocked' after a check. See docs: https://github.com/zoontek/react-native-permissions#check
   const locationPermissionIsBlocked =
     locationPermissionStatus === RESULTS.BLOCKED
 
@@ -84,9 +87,13 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
         } catch (error) {
           const {status} = error as GetCurrentPositionError
 
-          if (isPermissionErrorStatus(status)) {
+          status === RESULTS.BLOCKED && setPermissionBlocked(true)
+
+          if (isPermissionErrorStatus(status) && isPermissionBlocked) {
             navigateToInstructionsScreen()
-          } else {
+          }
+
+          if (!isPermissionErrorStatus(status)) {
             setHasLocationPermissionError(true)
           }
         }
@@ -115,6 +122,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
       currentCoordinates,
       dispatch,
       getCurrentCoordinates,
+      isPermissionBlocked,
       locationPermissionIsBlocked,
       navigateToInstructionsScreen,
       slug,
