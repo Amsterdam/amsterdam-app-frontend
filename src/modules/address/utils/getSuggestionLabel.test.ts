@@ -1,9 +1,9 @@
-import {PdokAddress} from '../types'
 import {
   getSuggestionLabel,
   getSuggestionLabelForNumber,
-  getSuggestionLabelForStreet,
+  getSuggestionLabelForStreetOrAddress,
 } from './getSuggestionLabel'
+import {PdokAddress} from '@/modules/address/types'
 
 describe('getSuggestionLabelForStreet', () => {
   it('should return straatnaam when type is "weg" and woonplaatsnaam is "Amsterdam"', () => {
@@ -13,7 +13,7 @@ describe('getSuggestionLabelForStreet', () => {
       woonplaatsnaam: 'Amsterdam',
     } as PdokAddress
 
-    const result = getSuggestionLabelForStreet(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
 
     expect(result).toBe('Amstel')
   })
@@ -25,7 +25,7 @@ describe('getSuggestionLabelForStreet', () => {
       woonplaatsnaam: 'Weesp',
     } as unknown as PdokAddress
 
-    const result = getSuggestionLabelForStreet(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
 
     expect(result).toBe('Stationsplein, Weesp')
   })
@@ -38,7 +38,7 @@ describe('getSuggestionLabelForStreet', () => {
       woonplaatsnaam: 'Amsterdam',
     } as unknown as PdokAddress
 
-    const result = getSuggestionLabelForStreet(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
 
     expect(result).toBe('Amstel 1')
   })
@@ -51,7 +51,7 @@ describe('getSuggestionLabelForStreet', () => {
       woonplaatsnaam: 'Weesp',
     } as unknown as PdokAddress
 
-    const result = getSuggestionLabelForStreet(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
 
     expect(result).toBe('Stationsplein 1, Weesp')
   })

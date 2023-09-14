@@ -1,7 +1,7 @@
 import {PdokAddress} from '@/modules/address/types'
 import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
 
-export const getSuggestionLabelForStreet = (
+export const getSuggestionLabelForStreetOrAddress = (
   pdokAddress: PdokAddress,
 ): string => {
   const {straatnaam, type, woonplaatsnaam} = pdokAddress
@@ -38,4 +38,4 @@ export const getSuggestionLabel = (
 ) =>
   numbersOnly
     ? getSuggestionLabelForNumber(pdokAddress)
-    : getSuggestionLabelForStreet(pdokAddress)
+    : getSuggestionLabelForStreetOrAddress(pdokAddress)
