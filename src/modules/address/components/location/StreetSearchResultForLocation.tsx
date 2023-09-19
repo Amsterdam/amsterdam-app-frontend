@@ -5,7 +5,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
@@ -59,15 +58,7 @@ export const StreetSearchResultForLocation = ({
   }
 
   if (isCheckingLocationPermission || isGettingAddressForCoordinates) {
-    return (
-      <Box>
-        <Icon
-          color="link"
-          name="spinner"
-          size="lg"
-        />
-      </Box>
-    )
+    return null
   }
 
   if (!hasLocationPermission) {
