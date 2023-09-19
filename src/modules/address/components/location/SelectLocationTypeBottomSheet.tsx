@@ -12,7 +12,7 @@ import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useGetCurrentPosition} from '@/modules/address/hooks/useGetCurrentPosition'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentPosition'
 import {GetCurrentPositionError} from '@/modules/address/hooks/useGetCurrentPosition'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
@@ -36,7 +36,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const dispatch = useDispatch()
   const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
   const address = useAddress()
-  const getCurrentCoordinates = useGetCurrentPosition()
+  const getCurrentCoordinates = useGetCurrentCoordinates()
   const navigateToInstructionsScreen = useCallback(
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],

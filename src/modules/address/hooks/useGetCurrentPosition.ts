@@ -28,7 +28,9 @@ export type GetCurrentPositionError = {
  * Returns a promise of the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
  * Will throw a `GetCurrentPositionError` if the permission is not granted or if the location request fails.
  */
-export const useGetCurrentPosition = (purposeKey?: HighAccuracyPurposeKey) => {
+export const useGetCurrentCoordinates = (
+  purposeKey?: HighAccuracyPurposeKey,
+) => {
   const {sendSentryErrorLog} = useSentry()
 
   return useCallback(
