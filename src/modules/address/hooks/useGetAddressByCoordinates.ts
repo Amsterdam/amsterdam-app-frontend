@@ -6,7 +6,7 @@ import {
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
-import {Coordinates} from '@/modules/address/types'
+import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 
 /** Number of suggestions returned by the address-for-coordinates Api */
 const SUGGESTION_COUNT = 5
@@ -14,7 +14,9 @@ const SUGGESTION_COUNT = 5
 export const useGetAddressByCoordinates = () => {
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
-  const getCurrentCoordinates = useGetCurrentCoordinates()
+  const getCurrentCoordinates = useGetCurrentCoordinates(
+    HighAccuracyPurposeKey.PreciseLocationAddressLookup,
+  )
   const {pdokAddresses, ...rest} = useAddressForCoordinates({
     coordinates,
     rows: SUGGESTION_COUNT,
