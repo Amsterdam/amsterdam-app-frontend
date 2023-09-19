@@ -1,8 +1,10 @@
 import {useCallback, useState} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentPosition'
-import {GetCurrentPositionError} from '@/modules/address/hooks/useGetCurrentPosition'
+import {
+  GetCurrentPositionError,
+  useGetCurrentCoordinates,
+} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
 import {Coordinates} from '@/modules/address/types'
 

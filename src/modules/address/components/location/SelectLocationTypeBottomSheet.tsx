@@ -12,8 +12,10 @@ import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentPosition'
-import {GetCurrentPositionError} from '@/modules/address/hooks/useGetCurrentPosition'
+import {
+  GetCurrentPositionError,
+  useGetCurrentCoordinates,
+} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
