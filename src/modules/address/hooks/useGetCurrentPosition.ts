@@ -3,8 +3,12 @@ import Geolocation, {
   GeoOptions,
   GeoPosition,
 } from 'react-native-geolocation-service'
-import {PermissionStatus} from 'react-native-permissions'
+import {
+  PermissionStatus,
+  requestLocationAccuracy,
+} from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -27,14 +31,20 @@ export type GetCurrentPositionError = {
  * Returns a promise of the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
  * Will throw a `GetCurrentPositionError` if the permission is not granted or if the location request fails.
  */
-export const useGetCurrentPosition = () => {
+export const useGetCurrentPosition = (purposeKey?: HighAccuracyPurposeKey) => {
   const {sendSentryErrorLog} = useSentry()
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<GeoPosition>((resolve, reject) => {
         requestLocationPermissionGranted()
-          .then(() =>
+          .then(async () => {
+            if (purposeKey) {
+              await requestLocationAccuracy({
+                purposeKey,
+              })
+            }
+
             Geolocation.getCurrentPosition(
               resolve,
               error => {
@@ -57,8 +67,8 @@ export const useGetCurrentPosition = () => {
                 ...defaultOptions,
                 ...options,
               },
-            ),
-          )
+            )
+          })
           .catch((error: unknown) => {
             const currentPositionError: GetCurrentPositionError = {
               error,
@@ -69,6 +79,6 @@ export const useGetCurrentPosition = () => {
             reject(currentPositionError)
           })
       }),
-    [sendSentryErrorLog],
+    [purposeKey, sendSentryErrorLog],
   )
 }
