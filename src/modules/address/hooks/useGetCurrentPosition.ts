@@ -1,14 +1,11 @@
 import {useCallback} from 'react'
-import Geolocation, {
-  GeoOptions,
-  GeoPosition,
-} from 'react-native-geolocation-service'
+import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {
   PermissionStatus,
   requestLocationAccuracy,
 } from 'react-native-permissions'
 import {useSentry} from '@/hooks/sentry/useSentry'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
+import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -36,7 +33,7 @@ export const useGetCurrentPosition = (purposeKey?: HighAccuracyPurposeKey) => {
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
-      new Promise<GeoPosition>((resolve, reject) => {
+      new Promise<Coordinates>((resolve, reject) => {
         requestLocationPermissionGranted()
           .then(async () => {
             if (purposeKey) {
@@ -46,7 +43,14 @@ export const useGetCurrentPosition = (purposeKey?: HighAccuracyPurposeKey) => {
             }
 
             Geolocation.getCurrentPosition(
-              resolve,
+              ({coords: {latitude, longitude}}) => {
+                const coordinates: Coordinates = {
+                  lat: latitude,
+                  lon: longitude,
+                }
+
+                resolve(coordinates)
+              },
               error => {
                 const {code, message} = error
 
