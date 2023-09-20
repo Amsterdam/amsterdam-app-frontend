@@ -1,5 +1,5 @@
 import {useFocusEffect} from '@react-navigation/native'
-import {useEffect, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
@@ -39,9 +39,11 @@ export const StreetSearchResultForLocation = ({
     checkLocationPermission,
   } = useCheckLocationPermission()
 
-  useFocusEffect(() => {
-    checkLocationPermission()
-  })
+  useFocusEffect(
+    useCallback(() => {
+      checkLocationPermission()
+    }, [checkLocationPermission]),
+  )
 
   useBlurEffect(() => {
     setShowFeedbackForNoResults(false)
@@ -51,7 +53,7 @@ export const StreetSearchResultForLocation = ({
     if (hasLocationPermission) {
       void getCoordinates()
     }
-  }, [getCoordinates, hasLocationPermission])
+  }, [checkLocationPermission, getCoordinates, hasLocationPermission])
 
   if (!showSuggestionsForLocation) {
     return null
@@ -61,7 +63,7 @@ export const StreetSearchResultForLocation = ({
     return null
   }
 
-  if (!hasLocationPermission) {
+  if (!hasLocationPermission && !pdokAddresses) {
     return (
       <Box insetVertical="md">
         <Row>

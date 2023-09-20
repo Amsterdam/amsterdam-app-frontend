@@ -55,3 +55,9 @@ export type AddressResponse = {
 }
 
 export type LocationType = 'address' | 'location'
+
+export enum HighAccuracyPurposeKey {
+  PreciseLocationAddressConstructionWork = 'PreciseLocationAddressConstructionWork',
+  PreciseLocationAddressLookup = 'PreciseLocationAddressLookup',
+  PreciseLocationAddressWasteGuide = 'PreciseLocationAddressWasteGuide',
+}

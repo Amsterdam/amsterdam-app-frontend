@@ -92,6 +92,15 @@
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>PreciseLocationAddressLookup</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om een adres op te zoeken.</string>
+		<key>PreciseLocationAddressWasteGuide</key>
+		<string>De Amsterdam app wil uw precieze locatie weten afvalinformatie bij u in de buurt te tonen.</string>
+		<key>PreciseLocationAddressConstructionWork</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>

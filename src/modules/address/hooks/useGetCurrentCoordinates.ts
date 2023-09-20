@@ -1,28 +1,90 @@
 import {useCallback} from 'react'
+import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {
-  GetCurrentPositionError,
-  useGetCurrentPosition,
-} from '@/modules/address/hooks/useGetCurrentPosition'
-import {Coordinates} from '@/modules/address/types'
+  PermissionStatus,
+  requestLocationAccuracy,
+} from 'react-native-permissions'
+import {useSentry} from '@/hooks/sentry/useSentry'
+import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {getStatusFromError} from '@/utils/permissions/errorStatuses'
+import {requestLocationPermissionGranted} from '@/utils/permissions/location'
+
+const defaultOptions: GeoOptions = {
+  forceLocationManager: false,
+  forceRequestLocation: false,
+  enableHighAccuracy: true,
+  maximumAge: 10000,
+  showLocationDialog: true,
+  timeout: 60000,
+}
+
+export type GetCurrentPositionError = {
+  error: unknown
+  loggedToSentry: boolean
+  status?: PermissionStatus
+}
 
 /**
- * Returns a function which requests the user's current coordinates and stores them in the Address module's Redux state.
+ * Returns a promise of the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
+ * Will throw a `GetCurrentPositionError` if the permission is not granted or if the location request fails.
  */
-export const useGetCurrentCoordinates = () => {
-  const getCurrentPosition = useGetCurrentPosition()
+export const useGetCurrentCoordinates = (
+  purposeKey?: HighAccuracyPurposeKey,
+) => {
+  const {sendSentryErrorLog} = useSentry()
 
   return useCallback(
-    () =>
+    (options?: Partial<GeoOptions>) =>
       new Promise<Coordinates>((resolve, reject) => {
-        getCurrentPosition()
-          .then(({coords: {latitude, longitude}}) => {
-            resolve({lat: latitude, lon: longitude})
+        requestLocationPermissionGranted()
+          .then(async () => {
+            if (purposeKey) {
+              await requestLocationAccuracy({
+                purposeKey,
+              })
+            }
+
+            Geolocation.getCurrentPosition(
+              ({coords: {latitude, longitude}}) => {
+                const coordinates: Coordinates = {
+                  lat: latitude,
+                  lon: longitude,
+                }
+
+                resolve(coordinates)
+              },
+              error => {
+                const {code, message} = error
+
+                sendSentryErrorLog(
+                  'Geolocation.getCurrentPosition failed',
+                  'useGetCurrentPosition.ts',
+                  {code, message},
+                )
+
+                const currentPositionError: GetCurrentPositionError = {
+                  error,
+                  loggedToSentry: true,
+                }
+
+                reject(currentPositionError)
+              },
+              {
+                ...defaultOptions,
+                ...options,
+              },
+            )
           })
-          .catch((error: GetCurrentPositionError) => {
-            // TODO: handle get position and request location error
-            reject(error)
+          .catch((error: unknown) => {
+            const currentPositionError: GetCurrentPositionError = {
+              error,
+              loggedToSentry: false,
+              status: getStatusFromError(error),
+            }
+
+            reject(currentPositionError)
           })
       }),
-    [getCurrentPosition],
+    [purposeKey, sendSentryErrorLog],
   )
 }

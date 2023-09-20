@@ -12,21 +12,27 @@ import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {GetCurrentPositionError} from '@/modules/address/hooks/useGetCurrentPosition'
+import {
+  GetCurrentPositionError,
+  useGetCurrentCoordinates,
+} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
-import {Coordinates} from '@/modules/address/types'
+import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
 import {locationPermission} from '@/utils/permissions/location'
 
 type Props = {
+  highAccuracyPurposeKey?: HighAccuracyPurposeKey
   slug: ModuleSlug
 }
 
-export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
+export const SelectLocationTypeBottomSheet = ({
+  highAccuracyPurposeKey,
+  slug,
+}: Props) => {
   const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
     useState(false)
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
@@ -36,7 +42,7 @@ export const SelectLocationTypeBottomSheet = ({slug}: Props) => {
   const dispatch = useDispatch()
   const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
   const address = useAddress()
-  const getCurrentCoordinates = useGetCurrentCoordinates()
+  const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
   const navigateToInstructionsScreen = useCallback(
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
