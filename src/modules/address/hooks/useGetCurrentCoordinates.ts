@@ -1,4 +1,6 @@
 import {useCallback} from 'react'
+import {Platform} from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {
   PermissionStatus,
@@ -8,6 +10,7 @@ import {useSentry} from '@/hooks/sentry/useSentry'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
+import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
@@ -38,7 +41,11 @@ export const useGetCurrentCoordinates = (
       new Promise<Coordinates>((resolve, reject) => {
         requestLocationPermissionGranted()
           .then(async () => {
-            if (purposeKey) {
+            if (
+              purposeKey &&
+              Platform.OS === 'ios' &&
+              isVersionHigherOrEqual(DeviceInfo.getSystemVersion(), '14')
+            ) {
               await requestLocationAccuracy({
                 purposeKey,
               })
