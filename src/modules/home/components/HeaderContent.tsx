@@ -9,8 +9,13 @@ import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityFocus} from '@/hooks/useAccessibilityFocus'
 
+export type HeaderContentOptions = {
+  accessibilityLanguage?: string
+  preventInitialFocus?: boolean
+}
+
 type Props = Pick<
-  StackHeaderProps & {options: {accessibilityLanguage?: string}},
+  StackHeaderProps & {options: HeaderContentOptions},
   'back' | 'navigation' | 'options' | 'route'
 >
 
@@ -18,10 +23,16 @@ const chevronSize = 'ml'
 
 export const HeaderContent = ({back, navigation, options}: Props) => {
   const title = getHeaderTitle(options, '')
-  const {accessibilityLanguage} = options
+  const {accessibilityLanguage, preventInitialFocus} = options
   const [focusRef, setFocus] = useAccessibilityFocus()
 
-  useFocusEffect(setFocus)
+  useFocusEffect(() => {
+    if (preventInitialFocus) {
+      return
+    }
+
+    setFocus()
+  })
 
   return (
     <Row

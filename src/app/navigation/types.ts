@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/core'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ComponentType} from 'react'
+import {HeaderContentOptions} from '@/modules/home/components'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleStackParams, ModalParams} from '@/modules/stacks'
 
@@ -50,9 +51,7 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: ComponentType<any>
     name: keyof R
-    options?: StackNavigationOptions & {
-      accessibilityLanguage?: string
-    }
+    options?: StackNavigationOptions & HeaderContentOptions
     requiresAuthorization?: boolean
     title?: string
   }
