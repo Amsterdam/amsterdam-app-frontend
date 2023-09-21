@@ -1,4 +1,5 @@
 import {Controller, UseControllerProps} from 'react-hook-form'
+import {TextInputProps} from 'react-native'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {TextInput} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
@@ -11,9 +12,11 @@ type Props = {
   numberOfLines?: number
   placeholder: string
 } & Required<TestProps> &
-  UseControllerProps
+  UseControllerProps &
+  TextInputProps
 
 export const TextInputField = ({
+  autoFocus,
   defaultValue = '',
   label,
   maxCharacters,
@@ -31,6 +34,7 @@ export const TextInputField = ({
         <Column gutter="xs">
           <TextInput
             accessibilityLabel={label}
+            autoFocus={autoFocus}
             label={label}
             multiline={!!numberOfLines}
             numberOfLines={numberOfLines ?? 1}
