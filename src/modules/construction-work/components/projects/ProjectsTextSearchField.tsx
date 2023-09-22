@@ -62,6 +62,7 @@ export const ProjectsTextSearchField = () => {
 
   return (
     <SearchField
+      accessibilityLabel="Zoek naar werkzaamheden"
       autoFocus
       blurOnSubmit={true}
       onChangeText={setSearchData}

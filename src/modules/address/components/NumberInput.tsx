@@ -95,6 +95,7 @@ export const NumberInput = ({
             />
           </Row>
           <SearchField
+            accessibilityLabel="Zoek naar huisnummer"
             keyboardType={keyboardType}
             onChangeText={text => changeNumber(text)}
             placeholder="Vul uw huisnummer in"
