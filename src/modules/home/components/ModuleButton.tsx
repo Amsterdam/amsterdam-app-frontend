@@ -147,15 +147,15 @@ export const ModuleButton = ({
     )
   }
 
-  if (alwaysEnabled) {
-    return pressable
-  }
-
   return (
     <View
       style={styles.swipeToDeleteContainer}
       testID={testID}>
-      <SwipeToDelete onEvent={onDelete}>{pressable}</SwipeToDelete>
+      {alwaysEnabled ? (
+        pressable
+      ) : (
+        <SwipeToDelete onEvent={onDelete}>{pressable}</SwipeToDelete>
+      )}
     </View>
   )
 }
