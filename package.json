@@ -1,6 +1,6 @@
 {
   "name": "amsterdam-app",
-  "version": "0.39.0",
+  "version": "0.40.0",
   "private": true,
   "scripts": {
     "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev",
@@ -44,7 +44,7 @@
     "pascal-case": "^3.1.2",
     "react": "18.2.0",
     "react-hook-form": "^7.43.0",
-    "react-native": "0.72.3",
+    "react-native": "0.72.4",
     "react-native-bootsplash": "^4.4.2",
     "react-native-build-config": "^0.3.2",
     "react-native-crypto-js": "^1.0.0",
@@ -98,7 +98,6 @@
     "babel-loader": "^8.3.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-native-web": "^0.18.12",
-    "chai": "^4.3.7",
     "css-loader": "^5.2.7",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.8.0",
@@ -118,7 +117,7 @@
     "jest-matcher-deep-close-to": "^3.0.2",
     "jest-trx-results-processor": "^3.0.1",
     "lint-staged": "^13.1.0",
-    "metro-react-native-babel-preset": "0.76.7",
+    "metro-react-native-babel-preset": "0.76.8",
     "mini-css-extract-plugin": "1.3.6",
     "patch-package": "^6.5.1",
     "react-docgen-typescript-plugin": "^1.0.5",
