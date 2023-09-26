@@ -32,6 +32,7 @@ export const StreetInput = ({
   return (
     <>
       <SearchField
+        accessibilityLabel="Zoek naar straatnaam of postcode"
         autoFocus={!isStreetSelected}
         onChangeText={text => {
           changeStreet(text)
