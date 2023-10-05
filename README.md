@@ -40,8 +40,9 @@ To build the app locally, you need these files. Because they contain credentials
 
 You can find these files in the Keepass database. To access this database:
 
-- Set up OneDrive and sync the file [KP Database.kpdb](https://hoofdstad.sharepoint.com/:u:/r/sites/AmsterdamApp/Shared%20Documents/General/KP%20Database.kdbx?csf=1&web=1&e=ZHO6lT)
-- Install a [Keepass client](https://keepass.info/) and use it to open the `.kpdb` file
+- Clone the [Keepass repo](https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Keepass)
+- Make sure you are in the `main` branch to have access to the most recent file `KP Database.kdbx`
+- Install a [Keepass client](https://keepass.info/) and use it to open the `.kpdx` file
 - Request the password from a colleague
 - The files can be found in Keepass under `General` and `Signing`
 
