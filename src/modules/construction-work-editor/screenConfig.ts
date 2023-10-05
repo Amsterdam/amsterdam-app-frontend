@@ -26,11 +26,17 @@ export const screenConfig: StackNavigationRoutes<
     component: CreateMessageScreen,
     requiresAuthorization: true,
     name: ConstructionWorkEditorRouteName.createMessage,
+    options: {
+      preventInitialFocus: true,
+    },
   },
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: {
     component: AddMainImageToMessageScreen,
     requiresAuthorization: true,
     name: ConstructionWorkEditorRouteName.addMainImageToMessage,
+    options: {
+      preventInitialFocus: true,
+    },
   },
   [ConstructionWorkEditorRouteName.confirmMessage]: {
     component: ConfirmMessageScreen,

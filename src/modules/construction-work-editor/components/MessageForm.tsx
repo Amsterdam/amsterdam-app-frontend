@@ -132,6 +132,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       <Column gutter="xl">
         <Column gutter="md">
           <TextInputField
+            autoFocus
             label="Wat is de titel van je bericht?"
             maxCharacters={maxCharacters.title}
             name="title"

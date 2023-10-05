@@ -27,6 +27,7 @@ export const screenConfig: StackNavigationRoutes<
     name: ConstructionWorkRouteName.search,
     options: {
       headerTitle: 'Zoek in werkzaamheden',
+      preventInitialFocus: true,
     },
   },
   [ConstructionWorkRouteName.project]: {

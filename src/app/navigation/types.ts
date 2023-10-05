@@ -44,15 +44,18 @@ export type NavigationProps<RouteName extends keyof RootStackParams> = {
   route: RouteProp<RouteName>
 }
 
+export type HeaderContentOptions = {
+  accessibilityLanguage?: string
+  preventInitialFocus?: boolean
+}
+
 export type StackNavigationRoutes<R, Route extends string = string> = Record<
   Route,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: ComponentType<any>
     name: keyof R
-    options?: StackNavigationOptions & {
-      accessibilityLanguage?: string
-    }
+    options?: StackNavigationOptions & HeaderContentOptions
     requiresAuthorization?: boolean
     title?: string
   }

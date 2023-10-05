@@ -101,6 +101,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
           />
           <FormProvider {...form}>
             <TextInputField
+              autoFocus
               defaultValue={imageDescription ?? ''}
               label="Beschrijf kort wat er op de foto staat"
               maxCharacters={maxCharacters.title}
