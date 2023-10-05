@@ -13,7 +13,7 @@ type Props = {
   placeholder: string
 } & Required<TestProps> &
   UseControllerProps &
-  TextInputProps
+  Pick<TextInputProps, 'autoFocus'>
 
 export const TextInputField = ({
   autoFocus,

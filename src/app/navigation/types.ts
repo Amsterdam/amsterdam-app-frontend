@@ -7,7 +7,6 @@ import {
 } from '@react-navigation/core'
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ComponentType} from 'react'
-import {HeaderContentOptions} from '@/modules/home/components'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleStackParams, ModalParams} from '@/modules/stacks'
 
@@ -43,6 +42,11 @@ export type RouteProp<RouteName extends keyof RootStackParams> =
 export type NavigationProps<RouteName extends keyof RootStackParams> = {
   navigation: NavigationProp<RouteName>
   route: RouteProp<RouteName>
+}
+
+export type HeaderContentOptions = {
+  accessibilityLanguage?: string
+  preventInitialFocus?: boolean
 }
 
 export type StackNavigationRoutes<R, Route extends string = string> = Record<
