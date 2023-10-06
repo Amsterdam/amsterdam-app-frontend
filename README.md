@@ -121,9 +121,18 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 
 We still wait for issues to be solved in library's we use. Once solved, we can clean up the code. These are:
 
-- [React Navigation: Incorrect screen reader focus on transition](https://github.com/react-navigation/react-navigation/issues/7056)
-- [React Native: Accessibility for nested text components](https://github.com/facebook/react-native/issues/32004)
-- [Piwik Pro: TypeScript typing not working and not available](https://github.com/PiwikPRO/react-native-piwik-pro-sdk/issues/55)
+### React Navigation
+
+- [Incorrect screen reader focus on transition](https://github.com/react-navigation/react-navigation/issues/7056) (Clean-up: Search code for issue.)
+
+### React Native
+
+- [Accessibility for nested text components](https://github.com/facebook/react-native/issues/32004) (Clean-up: Search code for issue.)
+- [Can't focus into text fields, Android + external keyboard](https://github.com/facebook/react-native/issues/31820) (Clean-up: revert commit 39bf5d8a)
+
+### Piwik Pro
+
+- [TypeScript typing not working and not available](https://github.com/PiwikPRO/react-native-piwik-pro-sdk/issues/55) (Clean-up: Search code for issue.)
 
 ## More documentation
 

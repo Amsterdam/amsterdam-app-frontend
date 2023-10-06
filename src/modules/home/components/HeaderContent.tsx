@@ -22,6 +22,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
   const {accessibilityLanguage, preventInitialFocus} = options
   const [focusRef, setFocus] = useAccessibilityFocus()
 
+  //TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
   useFocusEffect(() => {
     if (preventInitialFocus) {
       return
