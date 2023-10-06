@@ -35,7 +35,7 @@ export const WritingGuide = () => {
               accessibilityLabel={accessibleText(step, tip)}
               key={tip}>
               <Row gutter="md">
-                <Size height={text.fontSize.body * text.lineHeight.body}>
+                <Size height={text.lineHeight.body}>
                   <Phrase emphasis="strong">{step}</Phrase>
                 </Size>
                 <Paragraph>{tip}</Paragraph>

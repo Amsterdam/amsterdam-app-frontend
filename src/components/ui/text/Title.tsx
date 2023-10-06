@@ -51,7 +51,7 @@ const createStyles =
         color: color.text[textColor],
         fontFamily: text.fontFamily.bold,
         fontSize: text.fontSize[level],
-        lineHeight: text.lineHeight[level] * text.fontSize[level],
+        lineHeight: text.lineHeight[level],
         textAlign,
       },
     })

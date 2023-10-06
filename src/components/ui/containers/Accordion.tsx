@@ -81,7 +81,7 @@ export const Accordion = ({
         onPress={() => handleStateChange(!isExpanded)}>
         <AccordionTitle
           icon={
-            <Size height={text.fontSize.h5 * text.lineHeight.h5}>
+            <Size height={text.lineHeight.h5}>
               <Icon
                 color="link"
                 name={iconName}

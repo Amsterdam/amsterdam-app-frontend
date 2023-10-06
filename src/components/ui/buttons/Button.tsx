@@ -169,7 +169,7 @@ const createStyles =
         color: getLabelColor(color, pressed, variant),
         fontFamily: text.fontFamily.regular,
         fontSize: labelFontSize,
-        lineHeight: labelLineHeight * labelFontSize,
+        lineHeight: labelLineHeight,
       },
     })
   }
