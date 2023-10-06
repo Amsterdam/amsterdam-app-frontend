@@ -149,7 +149,7 @@ const createStyles =
       size.spacing.md + 2 + border.width.md - borderWidth
 
     const paddingVertical =
-      (buttonHeight - labelFontSize * labelLineHeight - 2 * borderWidth) / 2
+      (buttonHeight - labelLineHeight - 2 * borderWidth) / 2
 
     return StyleSheet.create({
       button: {
