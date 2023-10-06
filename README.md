@@ -117,6 +117,14 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 
 - Global types are defined in `src/custom.d.ts`
 
+## Issues
+
+We still wait for issues to be solved in library's we use. Once solved, we can clean up the code. These are:
+
+- [React Navigation: Incorrect screen reader focus on transition](https://github.com/react-navigation/react-navigation/issues/7056)
+- [React Native: Accessibility for nested text components](https://github.com/facebook/react-native/issues/32004)
+- [Piwik Pro: TypeScript typing not working and not available](https://github.com/PiwikPRO/react-native-piwik-pro-sdk/issues/55)
+
 ## More documentation
 
 More documentation can be found in the `.docs` folder:
