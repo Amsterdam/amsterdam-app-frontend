@@ -9,7 +9,7 @@ import {
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {Articles} from '@/modules/construction-work/types'
-import {getDateDiffInDays} from '@/utils/getDateDiffInDays'
+import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
 
 export const useMarkArticleAsRead = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)

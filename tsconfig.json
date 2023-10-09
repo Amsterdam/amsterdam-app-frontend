@@ -28,9 +28,6 @@
       "node"
     ]
   },
-  "typeRoots": [
-    "./types"
-  ],
   "exclude": [
     "node_modules",
     "babel.config.js",
