@@ -8,7 +8,7 @@ import {TestProps} from '@/components/ui/types'
 
 type Props = {
   label: string
-  maxCharacters: number
+  maxCharacters?: number
   numberOfLines?: number
   placeholder: string
 } & Required<TestProps> &
@@ -45,10 +45,12 @@ export const TextInputField = ({
             warning={!!error}
           />
         </Column>
-        <CharactersLeftDisplay
-          maxCharacters={maxCharacters}
-          numOfCharacters={(value as string).length}
-        />
+        {!!maxCharacters && (
+          <CharactersLeftDisplay
+            maxCharacters={maxCharacters}
+            numOfCharacters={(value as string).length}
+          />
+        )}
         {!!error && (
           <Paragraph
             color="warning"
