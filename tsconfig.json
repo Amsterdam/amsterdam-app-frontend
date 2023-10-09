@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "lib": [
+      "dom",
       "es2021"
     ],
     "allowJs": true,
@@ -36,6 +37,7 @@
   ],
   "include": [
     "src",
+    "web",
     ".storybook/**/*.ts",
     ".storybook/*.tsx",
     "eslint-plugin-amsterdam",
