@@ -6,6 +6,8 @@ We use React Native Web to render the native components in the Storybook web int
 
 Create stories using the Storybook guides: https://storybook.js.org/docs/react/writing-stories/introduction
 
+Run storybook with the command `npm run storybook` to run it in dev mode (with HMR) or build once with `npm run storybook:build`.
+
 ## Storybook + Vite
 
 We use Vite to build Storybook. Webpack can no longer be used: it is not clear if we can make React Native Web work with Webpack 5. If we keep using Webpack 4, we cannot update the Node version, which will in turn block React Native updates.
@@ -46,7 +48,7 @@ See the folder `.storybook`, which contains:
   - *viewport*: define available viewport sizes and the default.
 
 <a id="mocks"></a>
-## Mocks
+### Mocks
 
 These mocked packages are referenced in the alias config in `main.ts`:
 
@@ -58,17 +60,15 @@ These mocked packages are referenced in the alias config in `main.ts`:
 
 ## Required dev dependencies
 
-- `@storybook/addon-a11y` - A11y Storybook tools.
-- `@storybook/addon-essentials` - The basic Storybook controls etc.
+- `@storybook/addon-a11y` - Storybook addon: a11y tools.
+- `@storybook/addon-essentials` - Storybook addon: the basic controls.
 - `@storybook/react-vite` - The Vite-built version of Storybook.
-- `@types/react-dom` - Required for React Native Web.
 - `@vitejs/plugin-react` - Allows Vite to handle ReactJS.
 - `eslint-plugin-storybook` - Linting.
-- `lodash/merge` - Helper to merge the Vite config objects, to replace Vite's `mergeConfig` function.
+- `lodash/merge` - Helper to merge the Vite config objects. One would usually use Vite's `mergeConfig` function, but that would require making Vite a dev dependency.
 - `path` - Helper to resolve various folders in the Storybook `main.ts` config.
-- `react-docgen-typescript-plugin` - Generates Storybook controls from props, types, JSDoc comments and other code patterns.
-- `react-dom` - Required for React Native Web.
-- `react-native-svg-web` - `react-native-svg` should support web, but doesn't.
+- `react-docgen-typescript-plugin` - Generates Storybook controls and documentation from props, types, JSDoc comments and other code patterns.
+- `react-native-svg-web` - `react-native-svg` claims to support web, but doesn't, so we use this as a fix.
 - `react-native-web` - React Native Web itself.
-- `storybook` - Storybook itself.
-- `vite-plugin-svgr` - Render raw SVG files.
+- `storybook` - Storybook core.
+- `vite-plugin-svgr` -Required by Vite to render raw SVG files.
