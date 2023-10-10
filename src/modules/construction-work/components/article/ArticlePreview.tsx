@@ -18,7 +18,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
-import {getDateDiffInDays} from '@/utils/getDateDiffInDays'
+import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
 import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type Props = {
