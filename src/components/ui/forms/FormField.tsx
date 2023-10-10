@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {ReactNode, useMemo} from 'react'
 import {SkipInScreenReader} from '@/components/ui/containers/SkipInScreenReader'
 import {Row} from '@/components/ui/layout/Row'
 import {MainAxisPosition} from '@/components/ui/layout/types'
@@ -20,12 +20,16 @@ export const FormField = ({
   children,
   label,
   labelPosition = 'start',
-}: Props) => (
-  <Row
-    gutter="md"
-    valign="center">
-    {labelPosition === 'start' && <Label children={label} />}
-    {children}
-    {labelPosition === 'end' && <Label children={label} />}
-  </Row>
-)
+}: Props) => {
+  const labelComponent = useMemo(() => <Label>{label}</Label>, [label])
+
+  return (
+    <Row
+      gutter="md"
+      valign="center">
+      {labelPosition === 'start' && labelComponent}
+      {children}
+      {labelPosition === 'end' && labelComponent}
+    </Row>
+  )
+}
