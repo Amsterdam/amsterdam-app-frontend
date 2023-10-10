@@ -61,7 +61,7 @@ export const BottomSheet = ({
         onChange?.(snapPointIndex)
       }}
       ref={ref}
-      snapPoints={animatedSnapPoints}
+      snapPoints={animatedSnapPoints.value}
       {...rest}>
       <SafeArea
         bottom

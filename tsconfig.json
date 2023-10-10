@@ -18,9 +18,8 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@/storybook/*": [".storybook/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
@@ -37,9 +36,8 @@
   ],
   "include": [
     "src",
-    "web",
     ".storybook/**/*.ts",
-    ".storybook/*.tsx",
+    ".storybook/**/*.tsx",
     "eslint-plugin-amsterdam",
     "__tests__/"
   ],

@@ -3,6 +3,7 @@ import {FauxButton} from './FauxButton'
 
 export default {
   component: FauxButton,
+  args: {children: 'Hi!'},
   argTypes: {
     onPress: {
       action: 'onPress',
