@@ -1,20 +1,16 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {ImageURISource} from 'react-native'
+import {Meta, StoryObj} from '@storybook/react'
 import {Image} from './Image'
+import source from '@/modules/welcome/assets/images/62225.wees-jezelf.4x5.md.jpg'
 
-export default {
+const meta: Meta<typeof Image> = {
   component: Image,
-} as ComponentMeta<typeof Image>
+}
 
-const mockImage =
-  require('@/modules/welcome/assets/images/62225.wees-jezelf.4x5.md.jpg') as ImageURISource
+export default meta
 
-export const Default: ComponentStory<typeof Image> = args => (
-  <Image
-    {...args}
-    source={mockImage}
-  />
-)
-Default.args = {
-  aspectRatio: 'wide',
+export const Default: StoryObj<typeof Image> = {
+  args: {
+    aspectRatio: 'wide',
+    source,
+  },
 }

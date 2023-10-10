@@ -1,15 +1,24 @@
+/* eslint-disable import/no-default-export */
 declare module '*.svg' {
   import {FC} from 'react'
   import {SvgProps} from '@/types/svg'
 
   const content: FC<SvgProps>
-  export default content // eslint-disable-line import/no-default-export
+  export default content
 }
-declare module '*.png' {
-  import {ImageSourcePropType} from 'react-native'
 
-  const content: ImageSourcePropType
-  export default content // eslint-disable-line import/no-default-export
+declare module '*.jpg' {
+  import {ImageURISource} from 'react-native'
+
+  const source: ImageURISource
+  export default source
+}
+
+declare module '*.png' {
+  import {ImageURISource} from 'react-native'
+
+  const content: ImageURISource
+  export default content
 }
 
 declare module '@env' {

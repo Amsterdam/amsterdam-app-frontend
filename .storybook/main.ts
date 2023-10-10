@@ -10,13 +10,13 @@ const aliases = Object.entries(
   replacement: path.resolve(__dirname, `.${replacement}`),
 }))
 
-// required, files with an extension not in this list will be ignored by Vite
 const extensions = [
   '.css',
   '.jpg',
   '.js',
   '.json',
   '.jsx',
+  '.png',
   '.svg',
   '.ts',
   '.tsx',
@@ -57,8 +57,9 @@ const config: StorybookConfig = {
         },
       },
       plugins: [
-        // commonjs(),
-        svgr(),
+        svgr({
+          include: '**/*.svg',
+        }),
       ],
       resolve: {
         // this list is ordered: higher items are matched first
