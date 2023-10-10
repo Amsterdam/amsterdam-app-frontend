@@ -69,7 +69,7 @@ const createStyles =
         fontFamily:
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
-        lineHeight: text.lineHeight[variant], // NOTE Doesn’t adhere to design system
+        lineHeight: text.lineHeight[variant],
         textDecorationLine: underline ? 'underline' : 'none',
       },
     })
