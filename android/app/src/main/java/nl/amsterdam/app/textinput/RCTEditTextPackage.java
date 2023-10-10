@@ -1,3 +1,4 @@
+// Source: https://github.com/ArturKalach/react-native-a11y/blob/master/docs/AndroidInput.md
 package nl.amsterdam.app.textinput;
 
 import androidx.annotation.Nullable;
