@@ -1,4 +1,5 @@
 import {pascalCase} from 'pascal-case'
+import {ReactNode, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
@@ -9,11 +10,24 @@ import {IconName} from '@/components/ui/media/iconPaths'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
-import {useModules} from '@/hooks/useModules'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {Module, ModuleStatus} from '@/modules/types'
-import {toggleModule} from '@/store/slices/modules'
+import {selectDisabledModules, toggleModule} from '@/store/slices/modules'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
+
+type ModuleSettingWrapperProps = {
+  children: ReactNode
+  slug: Module['slug']
+}
+
+const ModuleSettingBox = ({children, slug}: ModuleSettingWrapperProps) => (
+  <Box
+    distinct
+    testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
+    {children}
+  </Box>
+)
 
 type ModuleSettingContentProps = {
   description: string
@@ -82,13 +96,15 @@ export const ModuleSetting = ({
   module: {description, icon: iconName, slug, status, title},
 }: ModuleSettingProps) => {
   const dispatch = useDispatch()
-  const {enabledModulesBySlug} = useModules()
+  const disabledModules = useSelector(selectDisabledModules)
 
   const onChange = () => {
     dispatch(toggleModule(slug))
   }
 
   const isModuleActive = status === ModuleStatus.active
+
+  const value = !disabledModules?.includes(slug) && isModuleActive
 
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
@@ -100,22 +116,33 @@ export const ModuleSetting = ({
     />
   )
 
+  const EnhancedModuleSettingBox = useCallback(
+    (props: ModuleSettingWrapperProps) => (
+      <ModuleSettingBox
+        {...props}
+        slug={slug}
+      />
+    ),
+    [slug],
+  )
+
+  if (!isModuleActive) {
+    return (
+      <ModuleSettingBox slug={slug}>
+        {ModuleSettingContentComponent}
+      </ModuleSettingBox>
+    )
+  }
+
   return (
-    <Box
-      distinct
-      testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
-      {isModuleActive ? (
-        <Switch
-          accessibilityLabel={accessibleText(title, description)}
-          disabled={!isModuleActive}
-          label={ModuleSettingContentComponent}
-          onChange={onChange}
-          testID={`HomeModuleSetting${pascalCase(slug)}Switch`}
-          value={enabledModulesBySlug?.includes(slug) && isModuleActive}
-        />
-      ) : (
-        ModuleSettingContentComponent
-      )}
-    </Box>
+    <Switch
+      accessibilityLabel={accessibleText(title, description)}
+      disabled={!isModuleActive}
+      label={ModuleSettingContentComponent}
+      onChange={onChange}
+      testID={`HomeModuleSetting${pascalCase(slug)}Switch`}
+      value={value}
+      wrapper={EnhancedModuleSettingBox}
+    />
   )
 }

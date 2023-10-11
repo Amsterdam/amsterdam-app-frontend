@@ -20,12 +20,16 @@ export const FormField = ({
   children,
   label,
   labelPosition = 'start',
-}: Props) => (
-  <Row
-    gutter="md"
-    valign="center">
-    {labelPosition === 'start' && <Label children={label} />}
-    {children}
-    {labelPosition === 'end' && <Label children={label} />}
-  </Row>
-)
+}: Props) => {
+  const labelComponent = <Label>{label}</Label>
+
+  return (
+    <Row
+      gutter="md"
+      valign="center">
+      {labelPosition === 'start' && labelComponent}
+      {children}
+      {labelPosition === 'end' && labelComponent}
+    </Row>
+  )
+}
