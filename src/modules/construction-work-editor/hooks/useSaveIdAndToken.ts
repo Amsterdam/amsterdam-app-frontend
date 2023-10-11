@@ -1,3 +1,4 @@
+import {AUTH_PASSWORD} from '@env'
 import {useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {addConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
@@ -12,7 +13,7 @@ export const useSaveIdAndToken = () => {
       dispatch(
         setCredentials({
           managerToken: encryptWithAES({
-            password: process.env.AUTH_PASSWORD ?? '',
+            password: AUTH_PASSWORD ?? '',
             salt: id,
           }),
         }),

@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "lib": [
+      "dom",
       "es2021"
     ],
     "allowJs": true,
@@ -17,9 +18,8 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@/storybook/*": [".storybook/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
@@ -35,11 +35,11 @@
     "jest.config.js"
   ],
   "include": [
-    "src",
     ".storybook/**/*.ts",
-    ".storybook/*.tsx",
+    ".storybook/**/*.tsx",
+    "__tests__/",
     "eslint-plugin-amsterdam",
-    "__tests__/"
+    "src"
   ],
   "extends": "@tsconfig/react-native/tsconfig.json"
 }

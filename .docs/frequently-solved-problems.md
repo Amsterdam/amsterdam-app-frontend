@@ -35,6 +35,12 @@ After you've reinstalled npm packages and pods, it can happen that pods have bee
 - Run `pod repo update` (Updates the local clone of pods + versions)
 - If some pods are still downgraded, run `pod update` (Updates the pods to the latest version possible)
 
+Occasionally, something will be cached outside of the build folder. To make sure a build is completely clean, you can to delete the DerivedData folder:
+
+- Look in the build log what folder in DerivedData is used for the build, e.g. `/Users/you/Library/Developer/Xcode/DerivedData/AmsterdamApp-abcdefghijklmnopqrstuvwxyzab/`
+- Go to the folder `~/Library/Developer/Xcode/DerivedData`
+- Then delete the relevant `AmsterdamApp-...` folder
+
 ### Archive failed
 
 During the Fastlane `build_app` task:
@@ -68,4 +74,24 @@ To this:
 
 ```
   D76C6CCC2729820200E1460A,
+```
+
+## Library not found for ...
+
+The iOS build will fail with the messages:
+
+```
+Library not found for -ld_classic
+Linker command failed with exit code 1 (use -v to see invocation)
+```
+
+This is likely a linker flag that is no longer necessary after a package was updated. Go to `/ios/AmsterdamApp.xcodeproj/project.pbxproj` and remove the references to the relevant library (note that there are multiple):
+
+```
+OTHER_LDFLAGS = (
+  "$(inherited)",
+  "-Wl",
+  "-ld_classic", /* remove this line */
+  " ",
+);
 ```

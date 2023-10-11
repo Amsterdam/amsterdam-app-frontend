@@ -1,7 +1,7 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {Block, Canvas} from '.storybook/components'
 import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
+import {Block, Canvas} from '@/storybook/components'
 
 export default {
   component: Row,
