@@ -1,4 +1,4 @@
-import React, {ElementType, ReactNode} from 'react'
+import {ElementType, Fragment, ReactNode} from 'react'
 import {
   AccessibilityInfo,
   Pressable,
@@ -26,7 +26,7 @@ export const Switch = ({
   labelPosition = 'start',
   onChange,
   value,
-  wrapper: Wrapper = React.Fragment,
+  wrapper: Wrapper = Fragment,
   ...switchProps
 }: Props) => {
   const {color} = useTheme()
