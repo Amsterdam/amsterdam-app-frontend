@@ -10,7 +10,7 @@ Run storybook with the command `npm run storybook` to run it in dev mode (with H
 
 ### Known issues
 
-- Animation will not loop if `useNativeDriver` is true. When using RNW, `useNativeDriver` cannot be used, because animations are handled by javascript. The solution is to simply set `seNativeDriver` to `Platform.OS !== 'web'`, but we prefer not to modify the app code to fix this minor issue.
+- Animation will not loop if `useNativeDriver` is true. When using RNW, `useNativeDriver` cannot be used, because animations are handled by javascript. The solution is to simply set `useNativeDriver` to `Platform.OS !== 'web'`, but we prefer not to modify the app code to fix this minor issue.
 
 ## Storybook + Vite
 
