@@ -120,7 +120,7 @@ const createStyles =
         color: color.text.default,
         fontFamily: text.fontFamily.regular,
         fontSize: text.fontSize.body,
-        lineHeight: text.fontSize.body * text.lineHeight.input,
+        lineHeight: text.lineHeight.body,
       },
     })
 

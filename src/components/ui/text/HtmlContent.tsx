@@ -130,9 +130,7 @@ const getFontSize = (text: TextTokens, isIntro = false) =>
   isIntro ? text.fontSize.intro : text.fontSize.body
 
 const getLineHeight = (text: TextTokens, isIntro = false) =>
-  isIntro
-    ? text.lineHeight.intro * text.fontSize.intro
-    : text.lineHeight.body * text.fontSize.body
+  isIntro ? text.lineHeight.intro : text.lineHeight.body
 
 const createBaseStyle = ({color, text}: Theme) => ({
   color: color.text.default,
@@ -171,27 +169,27 @@ const createStyles: (
       },
       titleLevel1: {
         fontSize: text.fontSize.h1,
-        lineHeight: text.lineHeight.h1 * text.fontSize.h1,
+        lineHeight: text.lineHeight.h1,
       },
       titleLevel2: {
         fontSize: text.fontSize.h2,
-        lineHeight: text.lineHeight.h2 * text.fontSize.h2,
+        lineHeight: text.lineHeight.h2,
       },
       titleLevel3: {
         fontSize: text.fontSize.h3,
-        lineHeight: text.lineHeight.h3 * text.fontSize.h3,
+        lineHeight: text.lineHeight.h3,
       },
       titleLevel4: {
         fontSize: text.fontSize.h4,
-        lineHeight: text.lineHeight.h4 * text.fontSize.h4,
+        lineHeight: text.lineHeight.h4,
       },
       titleLevel5: {
         fontSize: text.fontSize.h5,
-        lineHeight: text.lineHeight.h5 * text.fontSize.h5,
+        lineHeight: text.lineHeight.h5,
       },
       titleLevel6: {
         fontSize: text.fontSize.h6,
-        lineHeight: text.lineHeight.h6 * text.fontSize.h6,
+        lineHeight: text.lineHeight.h6,
       },
       titleMargins: {
         marginTop: 0,

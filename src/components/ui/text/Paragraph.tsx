@@ -57,7 +57,7 @@ const createStyles =
         color: color.text[textColor],
         fontFamily: text.fontFamily[variant === 'quote' ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
-        lineHeight: text.lineHeight[variant] * text.fontSize[variant],
+        lineHeight: text.lineHeight[variant],
         textAlign,
       },
     })

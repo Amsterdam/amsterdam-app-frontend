@@ -113,7 +113,6 @@ const createStyles =
     const borderWidth = hasFocus || warning ? 2 : 1
     const paddingHorizontal = size.spacing.md - (borderWidth - 1)
     const paddingVertical = size.spacing.sm - (borderWidth - 1)
-    const textLineHeight = text.fontSize.body * text.lineHeight.body
 
     return StyleSheet.create({
       frame: {
@@ -132,7 +131,7 @@ const createStyles =
       textInput: {
         minHeight:
           Platform.OS === 'ios' && numberOfLines
-            ? numberOfLines * textLineHeight + 2 * paddingVertical
+            ? numberOfLines * text.lineHeight.body + 2 * paddingVertical
             : 'auto',
         flex: 1,
         padding: 0, // Override an Android default

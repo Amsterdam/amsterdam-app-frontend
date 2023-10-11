@@ -1,4 +1,5 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
+import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Icon} from '@/components/ui/media/Icon'
@@ -26,7 +27,7 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
     : 'chevron-right'
 
   return (
-    <Size height={1.4 * text.fontSize.body}>
+    <Size height={text.lineHeight.body}>
       <Icon
         color="link"
         name={iconName}
@@ -44,7 +45,7 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
         variant === 'external' ? label + ', opent in webbrowser' : label
       }
       accessibilityRole="link"
-      hitSlop={(48 - 1.4 * text.fontSize.body) / 2}
+      hitSlop={(config.minTouchSize - text.lineHeight.body) / 2}
       onPress={onPress}
       testID={testID}>
       <Row gutter="sm">

@@ -93,8 +93,6 @@ const createStyles = ({text}: Theme) =>
   StyleSheet.create({
     height: {
       justifyContent: 'center',
-      height:
-        text.lineHeight.h5 * text.fontSize.h5 +
-        text.lineHeight.small * text.fontSize.small,
+      height: text.lineHeight.h5 + text.lineHeight.small,
     },
   })
