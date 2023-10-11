@@ -8,6 +8,10 @@ Create stories using the Storybook guides: https://storybook.js.org/docs/react/w
 
 Run storybook with the command `npm run storybook` to run it in dev mode (with HMR) or build once with `npm run storybook:build`.
 
+### Known issues
+
+- Animation will not loop if `useNativeDriver` is true. When using RNW, `useNativeDriver` cannot be used, because animations are handled by javascript. The solution is to simply set `seNativeDriver` to `Platform.OS !== 'web'`, but we prefer not to modify the app code to fix this minor issue.
+
 ## Storybook + Vite
 
 We use Vite to build Storybook. Webpack can no longer be used: it is not clear if we can make React Native Web work with Webpack 5. If we keep using Webpack 4, we cannot update the Node version, which will in turn block React Native updates.
