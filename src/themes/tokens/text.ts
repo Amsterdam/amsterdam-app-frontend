@@ -1,9 +1,5 @@
 export type ParagraphVariants = 'body' | 'intro' | 'quote' | 'small'
 
-type FormTextTokens = {
-  input: number
-}
-
 type ParagraphTokens = {
   body: number
   intro: number
@@ -33,37 +29,49 @@ export enum FontFamily {
 export type TextTokens = {
   fontFamily: typeof FontFamily
   fontSize: ParagraphTokens & TitleTokensPerLevel
-  lineHeight: FormTextTokens & ParagraphTokens & TitleTokensPerLevel
+  lineHeight: ParagraphTokens & TitleTokensPerLevel
+}
+
+enum FontSize {
+  body = 18,
+  h1 = 32,
+  h2 = 28,
+  h3 = 24,
+  h4 = 22,
+  h5 = 18,
+  h6 = 16,
+  intro = 22,
+  quote = 24,
+  small = 16,
 }
 
 export const textTokens: TextTokens = {
   fontSize: {
-    body: 18,
-    h1: 32,
-    h2: 28,
-    h3: 24,
-    h4: 22,
-    h5: 18,
-    h6: 16,
-    intro: 22,
-    quote: 24,
-    small: 16,
+    body: FontSize.body,
+    h1: FontSize.h1,
+    h2: FontSize.h2,
+    h3: FontSize.h3,
+    h4: FontSize.h4,
+    h5: FontSize.h5,
+    h6: FontSize.h6,
+    intro: FontSize.intro,
+    quote: FontSize.quote,
+    small: FontSize.small,
   },
   fontFamily: {
     bold: FontFamily.bold,
     regular: FontFamily.regular,
   },
   lineHeight: {
-    input: 1.4,
-    body: 1.6,
-    h1: 1.1,
-    h2: 1.2,
-    h3: 1.3,
-    h4: 1.4,
-    h5: 1.4,
-    h6: 1.4,
-    intro: 1.6,
-    quote: 1.3,
-    small: 1.5,
+    body: 1.6 * FontSize.body,
+    h1: 1.1 * FontSize.h1,
+    h2: 1.2 * FontSize.h2,
+    h3: 1.3 * FontSize.h3,
+    h4: 1.4 * FontSize.h4,
+    h5: 1.4 * FontSize.h5,
+    h6: 1.4 * FontSize.h6,
+    intro: 1.6 * FontSize.intro,
+    quote: 1.3 * FontSize.quote,
+    small: 1.5 * FontSize.small,
   },
 }
