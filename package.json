@@ -64,6 +64,7 @@
     "react-native-screens": "^3.27.0",
     "react-native-super-grid": "^5.0.0",
     "react-native-svg": "^13.14.0",
+    "react-native-swiper-flatlist": "^3.2.3",
     "react-native-webview": "^11.26.1",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
