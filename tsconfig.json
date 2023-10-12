@@ -15,8 +15,8 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/storybook/*": [".storybook/*"]
+      "@/storybook/*": [".storybook/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
@@ -32,11 +32,11 @@
     "jest.config.js"
   ],
   "include": [
-    "src",
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx",
+    "__tests__/",
     "eslint-plugin-amsterdam",
-    "__tests__/"
+    "src"
   ],
   "extends": "@tsconfig/react-native/tsconfig.json"
 }

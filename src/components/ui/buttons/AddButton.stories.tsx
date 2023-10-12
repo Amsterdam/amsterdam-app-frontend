@@ -11,6 +11,4 @@ export default meta
 
 type Story = StoryObj<typeof AddButton>
 
-export const Default: Story = {
-  render: () => <AddButton />,
-}
+export const Default: Story = {}

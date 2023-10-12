@@ -35,6 +35,10 @@ For now, we simply use an alias to replace any reference to `react-native` with 
 }
 ```
 
+### Known issues
+
+- In `.storybook/preview.tsx`, adding the `SafeAreaProvider` from `react-native-safe-area-context` to the decorator will cause an import error. We could mock the `SafeAreaProvider` to fix this, but since the provider can be safely omitted, we will remove it for now.
+
 ## Configuration
 
 See the folder `.storybook`, which contains:
