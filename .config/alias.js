@@ -1,4 +1,4 @@
-// this list is ordered: higher items are matched first
+// this list is ordered: in the Vite config for Storybook, higher items are matched first
 
 module.exports = {
   '@/storybook': './.storybook',

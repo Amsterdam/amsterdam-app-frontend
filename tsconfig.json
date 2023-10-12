@@ -15,8 +15,8 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/storybook/*": [".storybook/*"]
+      "@/storybook/*": [".storybook/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",

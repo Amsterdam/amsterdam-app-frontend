@@ -27,12 +27,10 @@ export const Secondary: Story = {
 }
 
 export const Tertiary: Story = {
-  render: () => (
-    <Button
-      label="Tertiary"
-      variant="tertiary"
-    />
-  ),
+  args: {
+    label: 'Tertiary',
+    variant: 'tertiary',
+  },
 }
 
 export const _Inline: Story<typeof Row> = {
