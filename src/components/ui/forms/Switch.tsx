@@ -50,6 +50,7 @@ export const Switch = ({
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
             ios_backgroundColor={color.control.switch.track.background.off}
+            onChange={onPress}
             thumbColor={
               color.control.switch.thumb.background[
                 disabled ? 'disabled' : 'enabled'
