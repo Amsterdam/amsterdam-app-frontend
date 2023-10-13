@@ -1,68 +1,62 @@
 import {useRef} from 'react'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {Button} from '@/components/ui/buttons/Button'
+import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Carousel} from '@/components/ui/containers/Carousel'
-import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
-
-const carouselData = [
-  {
-    title: 'Amsterdam App',
-    subText: 'Het startpunt voor een active relatie met de stad',
-    image: '@/modules/welcome/assets/images/screenshot-amsterdam-app.png',
-  },
-  {
-    title: 'Afvalwijzer',
-    subText: 'Praktische informatie over afval altijd bij de hand',
-    image: '@/modules/welcome/assets/images/screenshot-afvalwijzer.png',
-  },
-  {
-    title: 'Werkzaamheden',
-    subText: 'Weet waar er aan de weg wordt gewerkt',
-    image: '@/modules/welcome/assets/images/screenshot-werkzaamheden.png',
-  },
-  {
-    title: 'Melding doen',
-    subText:
-      'Meld overlast, of wanneer er iets gemaakt of opgeruimd moet worden',
-    image: './modules/welcome/assets/images/screenshot-melding-doen.png',
-  },
-  {
-    title: 'Persoonlijk',
-    subText: 'Informatie op basis van locatie of adres.',
-    image: '@/modules/welcome/assets/images/screenshot-persoonlijk.png',
-  },
-]
+import {Icon} from '@/components/ui/media/Icon'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/slugs'
+import {onboardingData} from '@/modules/welcome/data/onboarding'
 
 export const Onboarding = () => {
   const carouselRef = useRef<SwiperFlatList>(null)
+  const navigation = useNavigation<ModuleSlug>()
 
   return (
     <Screen
       scroll={false}
-      withBottomInset
-      withLeftInset
-      withRightInset
-      withTopInset>
-      <Box grow>
-        <Column
-          grow
-          gutter="md">
-          <Carousel
-            items={carouselData}
-            ref={carouselRef}
-          />
+      stickyFooter={
+        <Box>
           <Button
             label="Volgende"
             onPress={() => {
-              carouselRef.current?.scrollToIndex({
-                index: carouselRef.current.getCurrentIndex() + 1,
-              })
+              carouselRef?.current?.getCurrentIndex() !==
+              onboardingData.length - 1
+                ? carouselRef.current?.scrollToIndex({
+                    index: carouselRef.current.getCurrentIndex() + 1,
+                  })
+                : navigation.navigate(ModuleSlug.home)
             }}
           />
-        </Column>
-      </Box>
+        </Box>
+      }
+      stickyHeader={
+        <Box
+          inset="no"
+          insetHorizontal="lg"
+          insetTop="md">
+          <Row align="end">
+            <IconButton
+              accessibilityHint="Sluit onboarding"
+              icon={
+                <Icon
+                  color="link"
+                  name="close"
+                  size="ml"
+                />
+              }
+              onPress={() => navigation.navigate(ModuleSlug.home)}
+            />
+          </Row>
+        </Box>
+      }>
+      <Carousel
+        items={onboardingData}
+        ref={carouselRef}
+      />
     </Screen>
   )
 }
