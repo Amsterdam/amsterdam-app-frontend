@@ -18,17 +18,20 @@ import {useThemable} from '@/themes/useThemable'
 // Image props supported by both Image and FastImage
 type SupportedImageRNProps = Omit<
   ImageRNProps,
-  'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
+  'defaultSource' | 'onError' | 'onLoad'
 >
+
+type ImageResizeMode = 'cover' | 'contain'
 
 type Props = {
   aspectRatio?: keyof ImageAspectRatioTokens
+  resizeMode?: ImageResizeMode
 } & Omit<SupportedImageRNProps, 'style'>
 
 type CachedIosImageProps = {
   uriSources: ImageURISource | ImageURISource[]
   width?: number
-} & Omit<SupportedImageRNProps, 'source'>
+} & Omit<SupportedImageRNProps, 'source' | 'resizeMode'>
 
 const CachedIosImage = ({
   onLayout,
@@ -58,14 +61,15 @@ export const Image = ({
   aspectRatio = 'wide',
   onLayout,
   source,
+  resizeMode = 'cover',
   ...imageProps
 }: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
   const createdStyles = useMemo(
-    () => createStyles(aspectRatio, width),
-    [aspectRatio, width],
+    () => createStyles(resizeMode, aspectRatio, width),
+    [resizeMode, aspectRatio, width],
   )
   const styles = useThemable(createdStyles)
 
@@ -109,7 +113,11 @@ export const Image = ({
 }
 
 const createStyles =
-  (aspectRatio: keyof ImageAspectRatioTokens, width?: number) =>
+  (
+    resizeMode: ImageResizeMode,
+    aspectRatio: keyof ImageAspectRatioTokens,
+    width?: number,
+  ) =>
   ({media}: Theme) => {
     const aspectRatioValue = media.aspectRatio[aspectRatio]
 
@@ -123,7 +131,7 @@ const createStyles =
             : undefined,
         flex: 1,
         aspectRatio: aspectRatioValue,
-        resizeMode: 'cover',
+        resizeMode: resizeMode,
       },
     })
   }

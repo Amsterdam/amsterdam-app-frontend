@@ -4,7 +4,7 @@ import {Onboarding} from '@/modules/welcome/components/Onboarding'
 export const WelcomeScreen = () => (
   <Screen
     scroll={false}
-    withBottomInset
+    withBottomInset={false}
     withLeftInset
     withRightInset
     withTopInset>
