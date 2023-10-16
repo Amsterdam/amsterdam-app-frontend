@@ -1,17 +1,17 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {screenOptions} from '@/app/navigation/screenOptions'
-import {WelcomeRouteName} from '@/modules/welcome/routes'
-import {screenConfig} from '@/modules/welcome/screenConfig'
+import {OnboardingRouteName} from '@/modules/onboarding/routes'
+import {screenConfig} from '@/modules/onboarding/screenConfig'
 import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
-export const WelcomeStack = () => {
+export const OnboardingStack = () => {
   const theme = useTheme()
 
   return (
     <Stack.Navigator
-      initialRouteName={WelcomeRouteName.welcome}
+      initialRouteName={OnboardingRouteName.onboarding}
       screenOptions={screenOptions(theme)}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

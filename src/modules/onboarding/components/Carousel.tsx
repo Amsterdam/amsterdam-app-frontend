@@ -1,7 +1,7 @@
 import {forwardRef} from 'react'
 import {StyleSheet, ImageURISource} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
-import {CarouselSlide} from '@/components/ui/containers/CarouselSlide'
+import {CarouselSlide} from '@/modules/onboarding/components/CarouselSlide'
 import {baseColor} from '@/themes/tokens/base-color'
 import {sizeTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
@@ -28,7 +28,6 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
     return (
       <SwiperFlatList
         data={items}
-        disableGesture
         paginationActiveColor={baseColor.primary.blue}
         paginationDefaultColor={baseColor.primary.blue}
         paginationStyle={styles.paginationContainer}

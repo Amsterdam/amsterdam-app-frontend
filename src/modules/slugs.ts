@@ -5,10 +5,10 @@ export enum ModuleSlug {
   'construction-work-editor' = 'construction-work-editor',
   'contact' = 'contact',
   home = 'home',
+  onboarding = 'onboarding',
   'open-waste-container' = 'open-waste-container',
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
   'waste-guide' = 'waste-guide',
-  welcome = 'welcome',
 }

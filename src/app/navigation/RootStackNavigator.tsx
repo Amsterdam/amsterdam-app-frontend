@@ -50,9 +50,9 @@ export const RootStackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        userDisabledModulesBySlug.includes(ModuleSlug.welcome)
+        userDisabledModulesBySlug.includes(ModuleSlug.onboarding)
           ? ModuleSlug.home
-          : ModuleSlug.welcome
+          : ModuleSlug.onboarding
       }
       screenOptions={{
         headerShown: false,

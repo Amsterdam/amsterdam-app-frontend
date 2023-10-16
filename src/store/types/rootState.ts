@@ -3,6 +3,7 @@ import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/slice'
 import {ContactState} from '@/modules/contact/slice'
+import {OnboardingState} from '@/modules/onboarding/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
 import {baseApi} from '@/services/init'
 import {AlertState} from '@/store/slices/alert'
@@ -29,4 +30,5 @@ export type RootState = {
   [ReduxKey.onboarding]: OnboardingState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.wasteGuide]: WasteGuideState
+  [ReduxKey.onboarding]: OnboardingState
 }
