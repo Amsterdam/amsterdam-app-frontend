@@ -31,4 +31,5 @@ export type RootState = {
   [ReduxKey.productTour]: ProductTourState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.wasteGuide]: WasteGuideState
+  [ReduxKey.onboarding]: OnboardingState
 }
