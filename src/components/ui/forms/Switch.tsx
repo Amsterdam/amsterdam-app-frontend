@@ -35,6 +35,7 @@ export const Switch = ({
   const onPress = () => {
     onChange?.()
     setTimeout(
+      // Timeout is needed for iOS to announce the new value
       () => AccessibilityInfo.announceForAccessibility(value ? 'uit' : 'aan'),
       100,
     )
