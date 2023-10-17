@@ -20,7 +20,7 @@ type Props = {
  * Wraps a switch with its label in a row and takes care of accessibility.
  */
 export const Switch = ({
-  accessibilityLabel,
+  accessibilityLabel = '',
   disabled = false,
   label,
   labelPosition = 'start',
@@ -34,12 +34,16 @@ export const Switch = ({
 
   const onPress = () => {
     onChange?.()
-    AccessibilityInfo.announceForAccessibility(value ? 'uit' : 'aan')
+    setTimeout(
+      // Timeout is needed for iOS to announce the new value
+      () => AccessibilityInfo.announceForAccessibility(value ? 'uit' : 'aan'),
+      100,
+    )
   }
 
   return (
     <Pressable
-      accessibilityLabel={accessibilityLabel}
+      accessibilityLabel={`${accessibilityLabel} ${value ? 'aan' : 'uit'}`}
       accessibilityRole="switch"
       aria-disabled={disabled}
       onPress={onPress}
