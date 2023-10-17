@@ -25,6 +25,7 @@ export const Switch = ({
   label,
   labelPosition = 'start',
   onChange,
+  testID,
   value,
   wrapper: Wrapper = Fragment,
   ...switchProps
@@ -41,7 +42,8 @@ export const Switch = ({
       accessibilityLabel={accessibilityLabel}
       accessibilityRole="switch"
       aria-disabled={disabled}
-      onPress={onPress}>
+      onPress={onPress}
+      testID={testID}>
       <Wrapper>
         <FormField
           label={label}
