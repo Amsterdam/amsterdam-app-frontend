@@ -5,6 +5,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {CarouselSlide} from '@/modules/onboarding/components/CarouselSlide'
 import {Pagination} from '@/modules/onboarding/components/Pagination'
+import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {CarouselItem, CarouselSlideItem} from '@/modules/onboarding/types'
 
 type Props = {
@@ -19,6 +20,8 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
     const {width} = useWindowDimensions()
     const fontScale = PixelRatio.getFontScale()
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
+
+    setHasSeenOnboarding(false)
 
     return (
       <SwiperFlatList
