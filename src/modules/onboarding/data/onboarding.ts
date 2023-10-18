@@ -1,6 +1,7 @@
 import {ImageURISource} from 'react-native'
+import {CarouselSlideItemType} from '@/modules/onboarding/types'
 
-export const onboardingData = [
+export const onboardingData: CarouselSlideItemType[] = [
   {
     title: 'Amsterdam App',
     subText: 'Het startpunt voor een actieve relatie met de stad. ',

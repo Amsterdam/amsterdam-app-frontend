@@ -4,7 +4,9 @@ import {ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const onboardingModule: ModuleClientConfig = {
-  hiddenInMenu: true,
+  // TODO: uncomment comments below
+  // hiddenInMenu: true,
+  // alwaysEnabled: true,
   name: 'OnboardingModule',
   screenOptions: {
     cardStyleInterpolator: ({current}) => ({

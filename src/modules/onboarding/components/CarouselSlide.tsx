@@ -2,10 +2,12 @@ import {Dimensions, StyleSheet, View, ImageURISource} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
-import {Track} from '@/components/ui/layout/Track'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Image} from '@/components/ui/media/Image'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {sizeTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
@@ -16,15 +18,24 @@ type Props = {
 }
 
 export const CarouselSlide = ({image, subText, title}: Props) => {
+  const {isPortrait} = useDeviceContext()
   const {width} = Dimensions.get('window')
   const styles = useThemable(createStyles({width}))
+  const Track = isPortrait ? Column : Row
 
   return (
     <View style={styles.slide}>
-      <Box grow>
-        <Title text={title} />
-        <Phrase variant="intro">{subText}</Phrase>
-        <Track flex={1}>
+      <Track
+        align={!isPortrait ? 'end' : 'start'}
+        flex={1}
+        grow
+        reverse={!isPortrait}
+        wrap={!isPortrait}>
+        <Box>
+          <Title text={title} />
+          <Phrase variant="intro">{subText}</Phrase>
+        </Box>
+        <Column>
           <Center>
             <AspectRatio
               aspectRatio="extraWide"
@@ -36,8 +47,8 @@ export const CarouselSlide = ({image, subText, title}: Props) => {
               />
             </AspectRatio>
           </Center>
-        </Track>
-      </Box>
+        </Column>
+      </Track>
     </View>
   )
 }
