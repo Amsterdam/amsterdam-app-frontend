@@ -1,6 +1,5 @@
-import {useState} from 'react'
+import {useRef} from 'react'
 import {IconButton} from '@/components/ui/buttons/IconButton'
-import {Box} from '@/components/ui/containers/Box'
 import {Tooltip} from '@/components/ui/feedback/Tooltip'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -64,8 +63,9 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 }
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+
+  const tooltipRef = useRef<Tooltip>(null)
 
   if (visitingHoursContent) {
     return <HtmlContent content={visitingHoursContent} />
@@ -85,7 +85,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
         )}
         <IconButton
           accessibilityLabel={`${
-            isTooltipVisible ? 'Verberg' : 'Bekijk'
+            tooltipRef.current?.isOpen ? 'Verberg' : 'Bekijk'
           } uitleg`}
           icon={
             <Icon
@@ -94,19 +94,18 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               size="lg"
             />
           }
-          onPress={() => setIsTooltipVisible(!isTooltipVisible)}
+          onPress={() => {
+            tooltipRef.current?.onToggle()
+          }}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
-      {!!isTooltipVisible && (
-        <Box insetHorizontal="lg">
-          <Tooltip
-            accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-            placement={Placement.below}
-            text={getTooltipContent('written')}
-          />
-        </Box>
-      )}
+      <Tooltip
+        accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
+        placement={Placement.below}
+        ref={tooltipRef}
+        text={getTooltipContent('written')}
+      />
     </Column>
   )
 }
