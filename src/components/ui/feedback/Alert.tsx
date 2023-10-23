@@ -1,6 +1,5 @@
 import {FC, Fragment, ReactNode, useCallback, useEffect} from 'react'
 import {
-  AccessibilityInfo,
   LayoutAnimation,
   Platform,
   Pressable,
@@ -21,6 +20,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -38,6 +38,7 @@ if (
 }
 
 export const Alert = () => {
+  const setAccessibilityFocus = useAccessibilityFocus('afterInitialFocus')
   const dispatch = useDispatch()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
@@ -55,18 +56,6 @@ export const Alert = () => {
   useEffect(() => {
     reset() // triggers when navigation navigates to new screen
   }, [reset])
-
-  useEffect(() => {
-    if (content) {
-      AccessibilityInfo.announceForAccessibility(
-        accessibleText(content.title, content.text),
-      )
-    }
-  }, [content])
-
-  if (!alert.content) {
-    return null
-  }
 
   const WrapperComponent: FC<{children: ReactNode}> =
     closeType === AlertCloseType.withoutButton
@@ -87,10 +76,17 @@ export const Alert = () => {
         )
       : Fragment
 
+  if (!alert.content) {
+    return null
+  }
+
   return (
-    <WrapperComponent>
-      <Box>
+    <Box>
+      <WrapperComponent>
         <View
+          accessibilityRole="header"
+          accessible
+          ref={setAccessibilityFocus}
           style={styles?.view}
           testID={testID}>
           <Row align="between">
@@ -133,8 +129,8 @@ export const Alert = () => {
             )}
           </Row>
         </View>
-      </Box>
-    </WrapperComponent>
+      </WrapperComponent>
+    </Box>
   )
 }
 
