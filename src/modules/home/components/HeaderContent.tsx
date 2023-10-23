@@ -1,6 +1,6 @@
-import {useFocusEffect} from '@react-navigation/core'
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
+import {useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {HeaderContentOptions} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -8,7 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {IconSize} from '@/components/ui/types'
-import {useAccessibilityFocus} from '@/hooks/useAccessibilityFocus'
+import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 
 type Props = Pick<
   StackHeaderProps & {options: HeaderContentOptions},
@@ -20,23 +20,32 @@ const chevronSize = 'ml'
 export const HeaderContent = ({back, navigation, options}: Props) => {
   const title = getHeaderTitle(options, '')
   const {accessibilityLanguage, preventInitialFocus} = options
-  const [focusRef, setFocus] = useAccessibilityFocus()
 
-  //TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
-  useFocusEffect(() => {
-    if (preventInitialFocus) {
-      return
-    }
-
-    setFocus()
+  /*
+   * TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
+   */
+  const setAutoFocusRef = useAccessibilityAutoFocus<View>({
+    isActive: !preventInitialFocus,
+    platform: 'ios',
   })
+
+  const setAutoFocusNode = useCallback(
+    (node: View) => {
+      if (!node) {
+        return
+      }
+
+      setAutoFocusRef(node)
+    },
+    [setAutoFocusRef],
+  )
 
   return (
     <Row
       gutter="lg"
       valign="center">
       <View
-        ref={focusRef}
+        ref={setAutoFocusNode}
         style={styles.sideColumn}>
         {!!back && (
           <IconButton
