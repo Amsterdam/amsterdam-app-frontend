@@ -45,7 +45,9 @@ export const Switch = ({
   return (
     <Pressable
       accessibilityLabel={
-        accessibilityLabel + (Platform.OS === 'ios' && value ? ' aan' : ' uit')
+        Platform.OS === 'android'
+          ? accessibilityLabel
+          : accessibilityLabel + (value ? ' aan' : ' uit')
       }
       accessibilityRole="switch"
       aria-disabled={disabled}
