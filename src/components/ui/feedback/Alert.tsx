@@ -57,6 +57,10 @@ export const Alert = () => {
     reset() // triggers when navigation navigates to new screen
   }, [reset])
 
+  if (!alert.content) {
+    return null
+  }
+
   const WrapperComponent: FC<{children: ReactNode}> =
     closeType === AlertCloseType.withoutButton
       ? props => (
@@ -75,10 +79,6 @@ export const Alert = () => {
           />
         )
       : Fragment
-
-  if (!alert.content) {
-    return null
-  }
 
   return (
     <Box>
