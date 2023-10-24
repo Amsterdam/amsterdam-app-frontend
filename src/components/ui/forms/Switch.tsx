@@ -1,6 +1,7 @@
 import {ElementType, Fragment, ReactNode} from 'react'
 import {
   AccessibilityInfo,
+  Platform,
   Pressable,
   Switch as SwitchRN,
   SwitchProps as SwitchRNProps,
@@ -43,7 +44,11 @@ export const Switch = ({
 
   return (
     <Pressable
-      accessibilityLabel={`${accessibilityLabel} ${value ? 'aan' : 'uit'}`}
+      accessibilityLabel={
+        Platform.OS === 'android'
+          ? accessibilityLabel
+          : accessibilityLabel + (value ? ' aan' : ' uit')
+      }
       accessibilityRole="switch"
       aria-disabled={disabled}
       onPress={onPress}
