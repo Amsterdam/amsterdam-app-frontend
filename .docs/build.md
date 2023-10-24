@@ -2,11 +2,12 @@
 
 A continuous integration & deployment pipeline using Azure DevOps and [Fastlane](https://fastlane.tools/) is included.
 
-- [Azure DevOps Library](#azure-devops-library)
-- [Azure DevOps Pipelines](#azure-devops-pipelines)
+- [Azure DevOps Library](#library)
+- [Azure DevOps Pipelines](#pipelines)
 - [Fastlane](#fastlane)
 
-## Azure DevOps Library
+
+## <a id="library"></a>Azure DevOps Library
 
 Azure DevOps Pipelines has a library where our secrets are stored. This consists of variables and secure files. When testing on local machines, these have to exist there as well.
 
@@ -23,21 +24,18 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 ### Secure files
 
 #### iOS
-
 - `App_Store_Connect_API_Key_4B3KZ8N747.p8`: App Store Connect API key for connecting with App Store Connect API
 - `GoogleService-Info.plist`: Firebase config and API key
 
 #### Android
-
 - `upload.keystore`: Google Play store upload key
 - `google-services.json`: Firebase config and API key
 
 #### Other/shared
-
 - `sentry.properties`: Sentry config and API key (for both iOS and Android)
 - `storybook-github-ssh`: SSH key to release the Storybook build to GitHub pages
 
-## Azure DevOps Pipelines
+## <a id="pipelines"></a>Azure DevOps Pipelines
 
 ### Builds
 
@@ -73,12 +71,11 @@ A completed, successful run will trigger a release, which will use Fastlane to d
 
 The configuration of the release pipelines is done in the DevOps interface, not via YAML files. In the releases the App Store and Play store API keys (secure files) are used. Note that the env vars VERSION_NUMBER and ARTIFACT_FOLDER, to be used by Fastlane, are set in the "Fastlane distribute" step.
 
-## Fastlane
+## <a id="fastlane"></a>Fastlane
 
 Fastlane handles building, signing and releasing our app. Fastlane "lanes" are triggered by the build pipelines and can be run locally too (provided you have the necessary files and set the env vars).
 
 In the `/ios` and `/android` folders you can find a `fastlane` folder. This contains:
-
 - `Appfile`: config for Fastlane
 - `Fastfile`: the definitons of the lanes
 - `.env.example`: rename to `.env` to set the env vars locally
