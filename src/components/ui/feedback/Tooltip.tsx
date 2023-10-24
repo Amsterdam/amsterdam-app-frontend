@@ -68,14 +68,20 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
     const [focusRef, setFocus] = useAccessibilityFocus()
 
     useEffect(() => {
-      setFocus()
-    }, [setFocus])
+      if (isOpen) {
+        setFocus()
+      }
+    }, [isOpen, setFocus])
 
     useImperativeHandle(
       ref,
       () => ({
-        onOpen: () => setIsOpen(true),
-        onToggle: () => setIsOpen(prev => !prev),
+        onOpen: () => {
+          setIsOpen(true)
+        },
+        onToggle: () => {
+          setIsOpen(prev => !prev)
+        },
         onClose: () => setIsOpen(false),
         isOpen,
       }),
