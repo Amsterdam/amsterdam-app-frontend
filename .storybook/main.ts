@@ -48,8 +48,6 @@ const config: StorybookConfig = {
       base: path.resolve(__dirname, '../src'),
       define: {
         __DEV__: false,
-        // we use imports from @env rather than process.env
-        process: {env: {}},
       },
       optimizeDeps: {
         esbuildOptions: {
