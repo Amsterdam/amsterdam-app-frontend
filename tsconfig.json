@@ -36,6 +36,7 @@
   ],
   "include": [
     "src",
+    "web",
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx",
     "eslint-plugin-amsterdam",
