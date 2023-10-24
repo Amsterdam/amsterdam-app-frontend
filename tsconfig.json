@@ -39,8 +39,7 @@
     ".storybook/**/*.ts",
     ".storybook/*.tsx",
     "eslint-plugin-amsterdam",
-    "__tests__/",
-    "*.ts"
+    "__tests__/"
   ],
   "extends": "@tsconfig/react-native/tsconfig.json"
 }
