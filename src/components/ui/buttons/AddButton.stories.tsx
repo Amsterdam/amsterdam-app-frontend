@@ -1,15 +1,14 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {AddButton} from './AddButton'
+import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 
-export default {
+const meta: Meta<typeof AddButton> = {
   component: AddButton,
-  argTypes: {
-    onPress: {
-      action: 'onPress',
-    },
-  },
-} as ComponentMeta<typeof AddButton>
-
-export const Default: ComponentStoryObj<typeof AddButton> = {
-  args: {},
+  argTypes: pressableArgTypes,
 }
+
+export default meta
+
+type Story = StoryObj<typeof AddButton>
+
+export const Default: Story = {}

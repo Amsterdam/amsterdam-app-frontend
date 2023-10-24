@@ -1,22 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "lib": [
-      "es2021"
-    ],
-    "allowJs": true,
-    "jsx": "react-native",
-    "noEmit": true,
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
+      "@/storybook/*": [
+        ".storybook/*"
+      ],
       "@/*": [
         "src/*"
       ]
@@ -25,7 +13,8 @@
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
     "types": [
       "jest",
-      "node"
+      "node",
+      "react-native"
     ]
   },
   "exclude": [
@@ -37,9 +26,9 @@
   "include": [
     "src",
     ".storybook/**/*.ts",
-    ".storybook/*.tsx",
-    "eslint-plugin-amsterdam",
-    "__tests__/"
+    ".storybook/**/*.tsx",
+    "__tests__/",
+    "eslint-plugin-amsterdam"
   ],
   "extends": "@tsconfig/react-native/tsconfig.json"
 }

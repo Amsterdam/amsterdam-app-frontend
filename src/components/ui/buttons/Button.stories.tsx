@@ -1,84 +1,77 @@
-import {
-  ComponentMeta,
-  ComponentStory,
-  ComponentStoryObj,
-} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Button} from './Button'
 import {Row} from '@/components/ui/layout/Row'
+import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 
-export default {
+const meta: Meta<typeof Button> = {
+  argTypes: pressableArgTypes,
   component: Button,
-  argTypes: {
-    onPress: {
-      action: 'onPress',
-    },
-  },
-} as ComponentMeta<typeof Button>
+}
 
-export const Primary: ComponentStoryObj<typeof Button> = {
+export default meta
+
+type Story<T extends typeof Row | void = void> = StoryObj<typeof Button & T>
+
+export const Primary: Story = {
   args: {
-    label: 'Label',
+    label: 'Primary',
     variant: 'primary',
   },
 }
 
-export const Secondary: ComponentStoryObj<typeof Button> = {
+export const Secondary: Story = {
   args: {
-    label: 'Label',
+    label: 'Secondary',
     variant: 'secondary',
   },
 }
 
-export const Tertiary: ComponentStoryObj<typeof Button> = {
+export const Tertiary: Story = {
   args: {
-    label: 'Label',
+    label: 'Tertiary',
     variant: 'tertiary',
   },
 }
 
-export const _Inline: ComponentStory<typeof Button & typeof Row> = ({
-  align,
-}) => (
-  <Row align={align}>
-    <Button label="Inline button" />
-  </Row>
-)
-
-_Inline.args = {
-  align: 'start',
+export const _Inline: Story<typeof Row> = {
+  args: {align: 'start'},
+  render: ({align}) => (
+    <Row align={align}>
+      <Button label="Inline button" />
+    </Row>
+  ),
 }
 
-export const __Alignment: ComponentStory<typeof Button & typeof Row> = ({
-  align,
-  gutter,
-}) => (
-  <Row
-    align={align}
-    gutter={gutter}>
-    <Button label="First button" />
-    <Button
-      label="Second button"
-      variant="secondary"
-    />
-    <Button
-      label="Third button"
-      variant="tertiary"
-    />
-  </Row>
-)
-
-__Alignment.args = {
-  align: 'start',
-  gutter: 'md',
+export const __Alignment: Story<typeof Row> = {
+  args: {
+    align: 'start',
+    gutter: 'md',
+  },
+  render: ({align, gutter}) => (
+    <Row
+      align={align}
+      gutter={gutter}>
+      <Button label="First button" />
+      <Button
+        label="Second button"
+        variant="secondary"
+      />
+      <Button
+        label="Third button"
+        variant="tertiary"
+      />
+    </Row>
+  ),
 }
 
-export const __WithIcon: ComponentStory<typeof Button> = args => (
-  <Row align="start">
-    <Button {...args} />
-  </Row>
-)
-
-__WithIcon.args = {
-  iconName: 'phone',
-  label: 'Bel ons',
+export const __WithIcon: Story = {
+  args: {
+    iconName: 'phone',
+    label: 'Bel ons',
+  },
+  render: args => (
+    <Row align="start">
+      <Button {...args} />
+    </Row>
+  ),
 }

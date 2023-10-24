@@ -1,56 +1,66 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
+import {Preview} from '@storybook/react'
 import {FC} from 'react'
-import {SafeAreaProvider} from 'react-native-safe-area-context'
-import {RootProvider} from '@/providers/root.provider'
-import {baseColor} from '@/themes/tokens/base-color'
-// eslint-disable-next-line no-restricted-imports
+import {DeviceProvider} from '../src/providers/device.provider'
+import {StoreProvider} from '../src/providers/store.provider'
+import {baseColor} from '../src/themes/tokens/base-color'
+
 import './preview.css'
 
-export const parameters = {
-  backgrounds: {
-    values: [
-      {
-        name: 'neutral-grey1',
-        value: baseColor.neutral.grey1,
+const MainDecorator = (Story: FC) => (
+  <NavigationContainer>
+    <StoreProvider>
+      <DeviceProvider>
+        <Story />
+      </DeviceProvider>
+    </StoreProvider>
+  </NavigationContainer>
+)
+
+const preview: Preview = {
+  decorators: [MainDecorator],
+  parameters: {
+    actions: {argTypesRegex: '^on[A-Z].*'},
+    backgrounds: {
+      values: [
+        {
+          name: 'neutral-grey1',
+          value: baseColor.neutral.grey1,
+        },
+        {
+          name: 'primary-blue',
+          value: baseColor.primary.blue,
+        },
+        {
+          name: 'primary-red',
+          value: baseColor.primary.red,
+        },
+        {
+          name: 'primary-black',
+          value: baseColor.primary.black,
+        },
+        {
+          name: 'secondary-yellow',
+          value: baseColor.secondary.yellow,
+        },
+        {
+          name: 'secondary-purple',
+          value: baseColor.secondary.purple,
+        },
+      ],
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
       },
-      {
-        name: 'primary-blue',
-        value: baseColor.primary.blue,
-      },
-      {
-        name: 'primary-red',
-        value: baseColor.primary.red,
-      },
-      {
-        name: 'primary-black',
-        value: baseColor.primary.black,
-      },
-      {
-        name: 'secondary-yellow',
-        value: baseColor.secondary.yellow,
-      },
-      {
-        name: 'secondary-purple',
-        value: baseColor.secondary.purple,
-      },
-    ],
-  },
-  controls: {expanded: true},
-  viewport: {
-    viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'iphonex',
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: 'iphonex',
+    },
   },
 }
 
-export const decorators = [
-  (Story: FC) => (
-    <NavigationContainer>
-      <SafeAreaProvider>
-        <RootProvider>
-          <Story />
-        </RootProvider>
-      </SafeAreaProvider>
-    </NavigationContainer>
-  ),
-]
+export default preview

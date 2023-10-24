@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
-import {Block, Canvas} from '.storybook/components'
 import {Column} from '@/components/ui/layout/Column'
+import {Block, Canvas} from '@/storybook/components'
 
 export default {
   component: Column,

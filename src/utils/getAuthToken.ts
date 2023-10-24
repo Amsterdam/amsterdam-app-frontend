@@ -1,11 +1,10 @@
+import {AUTH_PASSWORD, AUTH_SHARED_SECRET} from '@env'
 import {encryptWithAES} from '@/utils/encryption'
 
 export const getAuthToken = (salt = ''): string =>
   encryptWithAES({
-    password: process.env.AUTH_PASSWORD ?? '',
+    password: AUTH_PASSWORD ?? '',
     salt,
   })
 
-export const deviceAuthorizationToken = getAuthToken(
-  process.env.AUTH_SHARED_SECRET,
-)
+export const deviceAuthorizationToken = getAuthToken(AUTH_SHARED_SECRET)
