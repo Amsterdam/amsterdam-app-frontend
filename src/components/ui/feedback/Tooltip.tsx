@@ -1,5 +1,11 @@
-import {ElementRef, forwardRef, useImperativeHandle, useState} from 'react'
-import {AccessibilityProps, StyleSheet} from 'react-native'
+import {
+  ElementRef,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
+import {AccessibilityProps, StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Triangle} from '@/components/ui/feedback/Triangle'
@@ -8,6 +14,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement, TestProps} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
+import {useAccessibilityFocus} from '@/hooks/useAccessibilityFocus'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -28,6 +35,8 @@ const TooltipContent = ({
   return (
     <SingleSelectable
       accessibilityLabel={accessibilityLabel}
+      accessibilityRole="text"
+      accessible={true}
       style={styles.tooltip}
       testID={testID}>
       <Column gutter="sm">
@@ -56,6 +65,11 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
   ({accessibilityLabel, placement, testID, text}, ref) => {
     const props = {direction: mapPlacementToDirection(placement)}
     const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [focusRef, setFocus] = useAccessibilityFocus()
+
+    useEffect(() => {
+      setFocus()
+    }, [setFocus])
 
     useImperativeHandle(
       ref,
@@ -77,11 +91,13 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
             {placement === Placement.after && <Triangle {...props} />}
             <Column>
               {placement === Placement.below && <Triangle {...props} />}
-              <TooltipContent
-                accessibilityLabel={accessibilityLabel}
-                testID={testID}
-                text={text}
-              />
+              <View ref={focusRef}>
+                <TooltipContent
+                  accessibilityLabel={accessibilityLabel}
+                  testID={testID}
+                  text={text}
+                />
+              </View>
               {placement === Placement.above && <Triangle {...props} />}
             </Column>
             {placement === Placement.before && <Triangle {...props} />}
