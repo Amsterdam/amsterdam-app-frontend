@@ -4,13 +4,13 @@ import BottomSheetOriginal, {
   BottomSheetProps,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet'
-import {ReactNode} from 'react'
+import {FC, ReactNode} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {TestProps} from '@/components/ui/types'
 import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 
-const Backdrop = (props: BottomSheetBackdropProps) => (
+const Backdrop: FC<BottomSheetBackdropProps> = props => (
   <BottomSheetBackdrop
     appearsOnIndex={0}
     disappearsOnIndex={-1}

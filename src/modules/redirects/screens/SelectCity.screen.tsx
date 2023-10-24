@@ -9,7 +9,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {PeopleAtCityOffice} from '@/modules/redirects/assets/images'
+import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {useEnvironment} from '@/store/slices/environment'
 import {useTheme} from '@/themes/useTheme'
