@@ -1,10 +1,4 @@
-import {
-  ElementRef,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react'
+import {ElementRef, forwardRef, useImperativeHandle, useState} from 'react'
 import {AccessibilityProps, StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -14,7 +8,6 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement, TestProps} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
-import {useAccessibilityFocus} from '@/hooks/useAccessibilityFocus'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -65,23 +58,13 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
   ({accessibilityLabel, placement, testID, text}, ref) => {
     const props = {direction: mapPlacementToDirection(placement)}
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [focusRef, setFocus] = useAccessibilityFocus()
 
-    useEffect(() => {
-      if (isOpen) {
-        setFocus()
-      }
-    }, [isOpen, setFocus])
-
+    // TODO: Set focus on tooltip text when tooltip is selected -> Waiting for merged PR https://dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Amsterdam-App-Frontend/pullrequest/16566
     useImperativeHandle(
       ref,
       () => ({
-        onOpen: () => {
-          setIsOpen(true)
-        },
-        onToggle: () => {
-          setIsOpen(prev => !prev)
-        },
+        onOpen: () => setIsOpen(true),
+        onToggle: () => setIsOpen(prev => !prev),
         onClose: () => setIsOpen(false),
         isOpen,
       }),
@@ -97,7 +80,7 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
             {placement === Placement.after && <Triangle {...props} />}
             <Column>
               {placement === Placement.below && <Triangle {...props} />}
-              <View ref={focusRef}>
+              <View>
                 <TooltipContent
                   accessibilityLabel={accessibilityLabel}
                   testID={testID}
