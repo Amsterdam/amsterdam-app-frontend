@@ -163,36 +163,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.stories.tsx'],
-      rules: {
-        'import/no-default-export': 'off',
-        'no-restricted-imports': 'off',
-        'sonarjs/no-identical-functions': 'off',
-      },
-    },
-    {
-      files: ['index.ts'],
-      rules: {
-        'no-restricted-imports': [
-          'error',
-          {
-            patterns: [
-              {
-                group: ['../*'],
-                message: "Barrelfile imports should stats with './' or '@/'",
-              },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      files: ['.storybook/mocks/**/*'],
-      rules: {
-        'import/no-default-export': 'off',
-      },
-    },
-    {
       files: ['*.ts', '*.tsx'],
       extends: [
         'plugin:@typescript-eslint/recommended',
@@ -208,12 +178,22 @@ module.exports = {
         project: ['./tsconfig.json'],
       },
     },
+    // Jest
     {
       files: ['*.test.ts', '*.test.tsx'],
       rules: {
         'no-restricted-imports': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
         'sonarjs/no-duplicate-string': 'off',
+      },
+    },
+    // Storybook config folder and stories
+    {
+      files: ['.storybook/**/*', '*.stories.tsx'],
+      rules: {
+        'import/no-default-export': 'off',
+        'no-restricted-imports': 'off',
+        'sonarjs/no-identical-functions': 'off',
       },
     },
   ],

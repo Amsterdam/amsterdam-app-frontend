@@ -19,7 +19,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ProjectWarningFallbackImage} from '@/modules/construction-work/assets/images'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {
   clearDraft,
   selectCurrentProjectId,

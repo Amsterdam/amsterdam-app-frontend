@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
-import {Canvas} from '.storybook/components'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Canvas} from '@/storybook/components'
 
 export default {
   component: PleaseWait,
