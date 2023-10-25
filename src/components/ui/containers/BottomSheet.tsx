@@ -2,7 +2,6 @@ import BottomSheetOriginal, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetProps,
-  useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet'
 import {FC, ReactNode} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -35,13 +34,6 @@ export const BottomSheet = ({
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
-  const {
-    animatedHandleHeight,
-    animatedSnapPoints,
-    animatedContentHeight,
-    handleContentLayout,
-  } = useBottomSheetDynamicSnapPoints(snapPoints ?? ['CONTENT_HEIGHT'])
-
   return (
     <BottomSheetOriginal
       animateOnMount={!isReduceMotionEnabled}
@@ -53,22 +45,20 @@ export const BottomSheet = ({
           : undefined
       }
       backdropComponent={Backdrop}
-      contentHeight={animatedContentHeight}
       enablePanDownToClose
-      handleHeight={animatedHandleHeight}
+      handleHeight={24}
       index={-1}
       onChange={snapPointIndex => {
         onChangeHandler(snapPointIndex)
         onChange?.(snapPointIndex)
       }}
       ref={ref}
-      snapPoints={animatedSnapPoints.value}
+      snapPoints={snapPoints}
       {...rest}>
       <SafeArea
         bottom
         flex={1}
         left
-        onLayout={handleContentLayout}
         right
         testID={testID}>
         {children}

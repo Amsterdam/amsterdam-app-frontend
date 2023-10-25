@@ -43,6 +43,7 @@ export const TopTaskButton = ({
       testID={testID}
       {...pressableProps}>
       <Box
+        grow
         insetHorizontal="md"
         insetVertical="sm">
         <Row gutter="md">

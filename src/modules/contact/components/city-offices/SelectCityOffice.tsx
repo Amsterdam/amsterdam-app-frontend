@@ -1,4 +1,5 @@
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet'
+import {StyleSheet} from 'react-native'
+import {FlatList} from 'react-native-gesture-handler'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -22,13 +23,25 @@ export const SelectCityOffice = () => {
         text="Stadsloketten"
       />
       <Gutter height="md" />
-      <BottomSheetFlatList
+      <FlatList
+        contentContainerStyle={styles.contentContainer}
         data={cityOffices}
         ItemSeparatorComponent={ItemSeparator}
         keyExtractor={cityOffice => cityOffice.identifier}
         ListFooterComponent={<Gutter height="lg" />}
         renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
+        scrollEnabled={true}
+        style={styles.flatList}
       />
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+  },
+  flatList: {
+    flex: 1,
+  },
+})
