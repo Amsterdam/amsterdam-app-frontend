@@ -44,10 +44,11 @@ export const BottomSheet = ({
 
   return (
     <BottomSheetOriginal
+      animateOnMount={!isReduceMotionEnabled}
       animationConfigs={
         isReduceMotionEnabled
           ? {
-              duration: 0,
+              duration: 1,
             }
           : undefined
       }
