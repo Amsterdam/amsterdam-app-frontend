@@ -74,7 +74,7 @@ export const Accordion = ({
   return (
     <Column grow={grow}>
       <Pressable
-        accessibilityHint={`${title}, Dubbeltik om de inhoud te ${
+        accessibilityLabel={`${title}, Dubbeltik om de inhoud te ${
           isExpanded ? 'verbergen' : 'bekijken'
         }`}
         accessibilityState={{expanded: isExpanded}}
