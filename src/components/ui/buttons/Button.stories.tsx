@@ -6,6 +6,9 @@ import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 const meta: Meta<typeof Button> = {
   argTypes: pressableArgTypes,
   component: Button,
+  parameters: {
+    componentSubtitle: 'Het basis button component',
+  },
 }
 
 export default meta
@@ -64,6 +67,9 @@ export const __Alignment: Story<typeof Row> = {
   ),
 }
 
+/**
+ * Knop met een icoon
+ */
 export const __WithIcon: Story = {
   args: {
     iconName: 'phone',

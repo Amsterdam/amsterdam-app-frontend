@@ -1,4 +1,5 @@
 import path from 'path'
+import {isPreservingSymlinks} from '@storybook/core-common'
 import {StorybookConfig} from '@storybook/react-vite'
 import merge from 'lodash/merge'
 import svgr from 'vite-plugin-svgr'
@@ -27,7 +28,7 @@ const extensions = [
 ]
 
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-a11y', '@storybook/addon-essentials'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -39,13 +40,10 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
-  stories: ['../**/*.mdx', '../**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  typescript: {
-    reactDocgen: 'react-docgen',
-  },
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   viteFinal: viteConfig =>
     merge(viteConfig, {
-      base: path.resolve(__dirname, '../src'),
+      base: './',
       define: {
         __DEV__: false,
       },
@@ -54,12 +52,18 @@ const config: StorybookConfig = {
           resolveExtensions: extensions,
         },
       },
+      build: {
+        commonjsOptions: {
+          transformMixedEsModules: true,
+        },
+      },
       plugins: [
         svgr({
           include: '**/*.svg',
         }),
       ],
       resolve: {
+        preserveSymlinks: isPreservingSymlinks(),
         // this list is ordered: higher items are matched first
         alias: [
           {
