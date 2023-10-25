@@ -1,4 +1,5 @@
-import {ReactNode, useCallback, useState} from 'react'
+import {ReactNode, useCallback, useMemo, useState} from 'react'
+import {Platform} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -67,6 +68,16 @@ export const Accordion = ({
     [onChangeExpanded],
   )
 
+  const accessibilityLabel = useMemo(
+    () =>
+      Platform.OS === 'android'
+        ? title
+        : `${title}, Dubbeltik om de inhoud te ${
+            isExpanded ? 'verbergen' : 'bekijken'
+          }`,
+    [isExpanded, title],
+  )
+
   if (!isExpandable) {
     return <AccordionTitle title={title} />
   }
@@ -74,9 +85,8 @@ export const Accordion = ({
   return (
     <Column grow={grow}>
       <Pressable
-        accessibilityLabel={`${title}, Dubbeltik om de inhoud te ${
-          isExpanded ? 'verbergen' : 'bekijken'
-        }`}
+        accessibilityLabel={accessibilityLabel}
+        accessibilityRole="togglebutton"
         accessibilityState={{expanded: isExpanded}}
         onPress={() => handleStateChange(!isExpanded)}>
         <AccordionTitle
