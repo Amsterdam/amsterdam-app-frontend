@@ -6,7 +6,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {HouseholdWasteToContainerImage} from '@/modules/waste-guide/assets/images'
+import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
 import {useTheme} from '@/themes/useTheme'
 
 export const RequestLocation = () => {

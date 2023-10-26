@@ -8,7 +8,7 @@ import {Figure} from '@/components/ui/media/Figure'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {TwoPersonsHighFiveImage} from '@/modules/about/assets/images'
+import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {AboutRouteName} from '@/modules/about/routes'
 import {getVersionNumber} from '@/modules/about/utils/getVersionNumber'
 

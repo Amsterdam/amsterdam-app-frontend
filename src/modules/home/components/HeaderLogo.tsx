@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {Logo} from '@/modules/home/assets/icons'
+import Logo from '@/modules/home/assets/icons/logo.svg'
 
 export const HeaderLogo = () => (
   <View
