@@ -1,6 +1,5 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
-import {useCallback} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {HeaderContentOptions} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -29,23 +28,12 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
     platform: 'ios',
   })
 
-  const setAutoFocusNode = useCallback(
-    (node: View) => {
-      if (!node) {
-        return
-      }
-
-      setAutoFocusRef(node)
-    },
-    [setAutoFocusRef],
-  )
-
   return (
     <Row
       gutter="lg"
       valign="center">
       <View
-        ref={setAutoFocusNode}
+        ref={ref => setAutoFocusRef(ref as View)}
         style={styles.sideColumn}>
         {!!back && (
           <IconButton
