@@ -1,4 +1,4 @@
-import {Component, useCallback, useRef} from 'react'
+import {Component, useCallback} from 'react'
 import {FocusDelay} from '@/hooks/accessibility/types'
 import {focusOnElement} from '@/utils/accessibility/focusOnElement'
 import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
@@ -11,25 +11,15 @@ import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
 
 export const useAccessibilityFocus = <T extends Component>(
   focusDelay: FocusDelay,
-) => {
-  const timeoutIdRef = useRef<number | null>(null) // Store the timeout ID in a ref
-
-  return useCallback(
+) =>
+  useCallback(
     (ref: T | null) => {
       // If the ref is null (e.g., during unmount), clear the timeout
       if (!ref) {
-        if (timeoutIdRef.current !== null) {
-          clearTimeout(timeoutIdRef.current)
-        }
-
         return
       }
 
-      timeoutIdRef.current = setFocusDelay(
-        () => focusOnElement(ref),
-        focusDelay,
-      ) as unknown as number
+      setFocusDelay(() => focusOnElement(ref), focusDelay)
     },
     [focusDelay],
   )
-}

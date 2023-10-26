@@ -1,8 +1,8 @@
-export type FocusDelayKeys =
+export type DelayDurations =
   | 'none'
   | 'short'
   | 'normal'
   | 'afterInitialFocus'
   | 'long'
 
-export type FocusDelay = FocusDelayKeys | 'afterAnimations' | undefined
+export type FocusDelay = DelayDurations | 'afterAnimations' | undefined
