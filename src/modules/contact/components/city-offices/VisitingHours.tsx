@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Tooltip} from '@/components/ui/feedback/Tooltip'
 import {Column} from '@/components/ui/layout/Column'
@@ -64,6 +64,7 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const tooltipRef = useRef<Tooltip>(null)
 
@@ -84,9 +85,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           </Paragraph>
         )}
         <IconButton
-          accessibilityLabel={`${
-            tooltipRef.current?.isOpen ? 'Verberg' : 'Bekijk'
-          } uitleg`}
+          accessibilityLabel={`${isOpen ? 'Verberg' : 'Bekijk'} uitleg`}
           icon={
             <Icon
               color="link"
@@ -102,6 +101,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
       </Row>
       <Tooltip
         accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
+        onChange={setIsOpen}
         placement={Placement.below}
         ref={tooltipRef}
         text={getTooltipContent('written')}
