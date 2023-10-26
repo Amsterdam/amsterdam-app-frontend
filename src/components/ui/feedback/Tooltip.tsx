@@ -14,6 +14,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement, TestProps} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -65,6 +66,7 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
   ({accessibilityLabel, placement, testID, text, onChange}, ref) => {
     const props = {direction: mapPlacementToDirection(placement)}
     const [isOpen, setIsOpen] = useState<boolean>(false)
+    const setAccessibilityFocus = useAccessibilityFocus('none')
 
     useImperativeHandle(
       ref,
@@ -90,7 +92,7 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
             {placement === Placement.after && <Triangle {...props} />}
             <Column>
               {placement === Placement.below && <Triangle {...props} />}
-              <View>
+              <View ref={setAccessibilityFocus}>
                 <TooltipContent
                   accessibilityLabel={accessibilityLabel}
                   testID={testID}
