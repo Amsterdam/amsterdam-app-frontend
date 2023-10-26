@@ -35,21 +35,25 @@ export const Switch = ({
 
   const onPress = () => {
     onChange?.()
+
+    if (Platform.OS !== 'ios') {
+      return
+    }
+
     setTimeout(
       // Timeout is needed for iOS to announce the new value
-      () => AccessibilityInfo.announceForAccessibility(value ? 'uit' : 'aan'),
+      () =>
+        AccessibilityInfo.announceForAccessibility(
+          accessibilityLabel + (value ? ' uit' : ' aan'),
+        ),
       100,
     )
   }
 
   return (
     <Pressable
-      accessibilityLabel={
-        Platform.OS === 'android'
-          ? accessibilityLabel
-          : accessibilityLabel + (value ? ' aan' : ' uit')
-      }
-      accessibilityRole="switch"
+      accessibilityLabel={accessibilityLabel + (value ? ' aan' : ' uit')}
+      accessibilityRole="button"
       aria-disabled={disabled}
       onPress={onPress}
       testID={testID}>
