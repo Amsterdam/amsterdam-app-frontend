@@ -1,7 +1,9 @@
+import {useLayoutEffect} from 'react'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
+import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
@@ -11,6 +13,11 @@ type Props = {
 
 export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
   const title = showTitle ? 'Helaas …' : ''
+  const a11yAnnounce = useAccessibilityAnnounce()
+
+  useLayoutEffect(() => {
+    a11yAnnounce(title + text)
+  }, [a11yAnnounce, text, title])
 
   return (
     <SingleSelectable accessibilityLabel={accessibleText(title, text)}>

@@ -1,6 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {useEffect} from 'react'
 import simplur from 'simplur'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
@@ -10,6 +12,7 @@ import {selectConstructionWorkSearchText} from '@/modules/construction-work/slic
 
 export const ProjectsByText = () => {
   const searchText = useSelector(selectConstructionWorkSearchText)
+  const a11yAnnounce = useAccessibilityAnnounce()
 
   const hasSearchText = !!searchText
 
@@ -25,6 +28,12 @@ export const ProjectsByText = () => {
 
   const resultsLabel =
     result.data && simplur`${result.data?.length} zoekresulta[at|ten]`
+
+  useEffect(() => {
+    if (resultsLabel) {
+      a11yAnnounce(resultsLabel)
+    }
+  }, [a11yAnnounce, resultsLabel])
 
   return (
     <ProjectsList
