@@ -1,8 +1,8 @@
 import {InteractionManager} from 'react-native'
-import {FocusDelay} from '@/hooks/accessibility/types'
+import {FocusDelay, FocusDelayKeys} from '@/hooks/accessibility/types'
 import {Duration} from '@/types/duration'
 
-const focusDelay = {
+const focusDelay: Record<FocusDelayKeys, number> = {
   /** No delay. */
   none: 0,
 
