@@ -84,7 +84,7 @@ export const Alert = () => {
     <Box>
       <WrapperComponent>
         <View
-          accessibilityRole="header"
+          accessibilityRole="alert"
           accessible
           ref={setAccessibilityFocus}
           style={styles?.view}
