@@ -1,5 +1,5 @@
 import {ElementRef, forwardRef, useImperativeHandle, useState} from 'react'
-import {AccessibilityProps, StyleSheet, View} from 'react-native'
+import {AccessibilityProps, StyleSheet} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Triangle} from '@/components/ui/feedback/Triangle'
@@ -80,13 +80,11 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
             {placement === Placement.after && <Triangle {...props} />}
             <Column>
               {placement === Placement.below && <Triangle {...props} />}
-              <View>
-                <TooltipContent
-                  accessibilityLabel={accessibilityLabel}
-                  testID={testID}
-                  text={text}
-                />
-              </View>
+              <TooltipContent
+                accessibilityLabel={accessibilityLabel}
+                testID={testID}
+                text={text}
+              />
               {placement === Placement.above && <Triangle {...props} />}
             </Column>
             {placement === Placement.before && <Triangle {...props} />}
