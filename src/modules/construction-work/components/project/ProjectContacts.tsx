@@ -8,6 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {ProjectContact} from '@/modules/construction-work/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {replaceDots} from '@/utils/accessibility/replaceDots'
 import {capitalizeString} from '@/utils/capitalizeString'
 
 type Props = {
@@ -51,7 +52,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => {
               <Button
                 accessibilityLabel={accessibleText(
                   'Stuur een e-mail naar',
-                  email,
+                  replaceDots(email),
                 )}
                 ellipsizeMode="tail"
                 iconName="email"
