@@ -84,6 +84,8 @@ export const NumberInput = ({
         <Column gutter="sm">
           <Row align="start">
             <Button
+              accessibilityHint="klik om straatnaam te veranderen"
+              accessibilityLabel={street}
               iconName="chevron-up"
               label={street}
               onPress={() => {
