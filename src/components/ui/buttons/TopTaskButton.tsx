@@ -38,6 +38,7 @@ export const TopTaskButton = ({
         title,
         typeof text === 'string' ? text : '',
       )}
+      accessibilityRole="link"
       grow
       onPress={onPress}
       testID={testID}

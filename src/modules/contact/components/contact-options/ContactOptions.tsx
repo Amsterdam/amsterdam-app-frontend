@@ -36,7 +36,6 @@ const getContactOptions = (
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
-    accessibilityRole: 'link',
     iconName: 'email',
     key: 'email',
     onPress: () => openWebUrl(complaintUrl),
@@ -66,7 +65,6 @@ const getContactOptions = (
   {
     accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
-    accessibilityRole: 'link',
     iconName: 'person',
     key: 'mijn-amsterdam',
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
