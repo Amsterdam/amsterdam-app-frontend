@@ -28,10 +28,6 @@ export type IconProps = {
    */
   name: IconName
   /**
-   * Whether the icon scales with text being zoomed in or out.
-   */
-  scalesWithFont?: boolean
-  /**
    * The size of the icon.
    */
   size?: keyof typeof IconSize
@@ -40,13 +36,12 @@ export type IconProps = {
 export const Icon = ({
   color = 'default',
   name,
-  scalesWithFont = true,
   size = 'md',
   testID,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
-  const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
+  const scaledSize = IconSize[size] * fontScale
 
   const {
     Wrapper = Fragment,
