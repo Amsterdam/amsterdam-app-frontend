@@ -14,7 +14,6 @@ export const AddButton = (props: PressableProps) => {
       <Icon
         color="link"
         name="enlarge"
-        scalesWithFont={false}
         size="lg"
       />
     </Pressable>
