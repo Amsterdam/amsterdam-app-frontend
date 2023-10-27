@@ -44,7 +44,6 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
         {!!email && (
           <Row>
             <EmailButton
-              ellipsizeMode="tail"
               email={email}
               numberOfLines={1}
               subject={emailSubject}

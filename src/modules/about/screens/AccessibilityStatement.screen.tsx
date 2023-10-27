@@ -1,4 +1,4 @@
-import {Button} from '@/components/ui/buttons/Button'
+import {EmailButton} from '@/components/ui/buttons/EmailButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -6,15 +6,12 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const appEmail = 'app@amsterdam.nl'
 
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useDeviceContext()
-  const openMailUrl = useOpenMailUrl()
 
   return (
     <Screen testID="AboutAccessibilityStatementScreen">
@@ -90,18 +87,10 @@ export const AccessibilityStatementScreen = () => {
               Meld het ons via een e-mail naar {appEmail}.
             </Paragraph>
             <Row>
-              <Button
-                accessibilityLabel={accessibleText(
-                  'Stuur een e-mail naar',
-                  'app@amsterdam.nl',
-                )}
-                ellipsizeMode="tail"
-                iconName="email"
-                label={appEmail}
+              <EmailButton
+                email="app@amsterdam.nl"
                 numberOfLines={1}
-                onPress={() => {
-                  openMailUrl(appEmail, 'Iets werkt niet in de Amsterdam app')
-                }}
+                subject="Iets werkt niet in de Amsterdam app"
                 testID="AboutAccessibilityStatementSomethingBrokenButton"
               />
             </Row>
