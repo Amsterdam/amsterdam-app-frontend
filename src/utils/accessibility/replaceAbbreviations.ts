@@ -1,5 +1,5 @@
 const dictionary: Record<string, string> = {
-  'gfe/t': 'ge eff ee thee',
+  'gfe/t': 'gé-ef-e-tee',
   't/m': 'tot en met',
 }
 
