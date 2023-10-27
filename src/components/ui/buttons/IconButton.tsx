@@ -1,4 +1,4 @@
-import {ReactElement} from 'react'
+import {ReactElement, forwardRef} from 'react'
 import {
   Pressable,
   PressableProps as PressableRNProps,
@@ -24,31 +24,35 @@ type Props = {
   icon: ReactElement<IconProps>
 } & Omit<PressableRNProps, 'style'>
 
-export const IconButton = ({badgeValue, icon, ...pressableProps}: Props) => {
-  const styles = useThemable(createStyles)
-  const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
+export const IconButton = forwardRef<View, Props>(
+  ({badgeValue, icon, ...pressableProps}, ref) => {
+    const styles = useThemable(createStyles)
+    const hitSlop =
+      (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
-  return (
-    <Row
-      align="start"
-      valign="center">
-      <Pressable
-        accessibilityRole="button"
-        hitSlop={hitSlop}
-        {...pressableProps}>
-        {icon}
-        {badgeValue ? (
-          <View style={styles.badgePosition}>
-            <Badge
-              value={badgeValue}
-              variant="on-icon"
-            />
-          </View>
-        ) : null}
-      </Pressable>
-    </Row>
-  )
-}
+    return (
+      <Row
+        align="start"
+        valign="center">
+        <Pressable
+          accessibilityRole="button"
+          hitSlop={hitSlop}
+          ref={ref}
+          {...pressableProps}>
+          {icon}
+          {badgeValue ? (
+            <View style={styles.badgePosition}>
+              <Badge
+                value={badgeValue}
+                variant="on-icon"
+              />
+            </View>
+          ) : null}
+        </Pressable>
+      </Row>
+    )
+  },
+)
 
 const createStyles = ({size}: Theme) => {
   const hitSlopSize = size.spacing.sm

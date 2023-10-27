@@ -1,7 +1,8 @@
-import {ReactNode} from 'react'
+import {ReactNode, forwardRef} from 'react'
 import {
   Pressable as PressableRN,
   PressableProps as PressableRNProps,
+  View,
   StyleSheet,
 } from 'react-native'
 import {Box, BoxProps} from '@/components/ui/containers/Box'
@@ -23,32 +24,38 @@ export type PressableProps = {
 /**
  * Used to build other interactive components, do not use on its own.
  */
-export const Pressable = ({
-  children,
-  grow,
-  inset = 'no',
-  insetHorizontal,
-  insetVertical,
-  variant = 'tertiary',
-  ...pressableProps
-}: PressableProps) => {
-  const styles = useThemable(createStyles(grow, variant))
+export const Pressable = forwardRef<View, PressableProps>(
+  (
+    {
+      children,
+      grow,
+      inset = 'no',
+      insetHorizontal,
+      insetVertical,
+      variant = 'tertiary',
+      ...pressableProps
+    },
+    ref,
+  ) => {
+    const styles = useThemable(createStyles(grow, variant))
 
-  return (
-    <PressableRN
-      accessibilityRole="button"
-      style={({pressed}) => [styles.button, pressed && styles.pressed]}
-      {...pressableProps}>
-      <Box
-        grow
-        inset={inset}
-        insetHorizontal={insetHorizontal}
-        insetVertical={insetVertical}>
-        {children}
-      </Box>
-    </PressableRN>
-  )
-}
+    return (
+      <PressableRN
+        accessibilityRole="button"
+        ref={ref}
+        style={({pressed}) => [styles.button, pressed && styles.pressed]}
+        {...pressableProps}>
+        <Box
+          grow
+          inset={inset}
+          insetHorizontal={insetHorizontal}
+          insetVertical={insetVertical}>
+          {children}
+        </Box>
+      </PressableRN>
+    )
+  },
+)
 
 const createStyles =
   (grow: PressableProps['grow'], variant: PressableVariant) =>
