@@ -10,25 +10,17 @@ type Props = {
   subject?: string
 } & Omit<ButtonProps, 'iconName' | 'label' | 'onPress'>
 
-export const EmailButton = ({
-  accessibilityLabel,
-  email,
-  subject,
-  ...buttonProps
-}: Props) => {
+export const EmailButton = ({email, subject, ...buttonProps}: Props) => {
   const openMailUrl = useOpenMailUrl()
 
   return (
     <Row>
       <Button
         {...buttonProps}
-        accessibilityLabel={
-          accessibilityLabel ||
-          accessibleText(
-            'Stuur een e-mail naar',
-            Platform.OS === 'ios' ? replaceDots(email) : email,
-          )
-        }
+        accessibilityLabel={accessibleText(
+          'Stuur een e-mail naar',
+          Platform.OS === 'ios' ? replaceDots(email) : email,
+        )}
         ellipsizeMode="tail"
         iconName="email"
         label={email}
