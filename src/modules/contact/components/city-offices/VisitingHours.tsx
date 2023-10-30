@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import {useRef, useState} from 'react'
+import {View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
-import {Box} from '@/components/ui/containers/Box'
 import {Tooltip} from '@/components/ui/feedback/Tooltip'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -8,6 +8,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement} from '@/components/ui/types'
+import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -64,8 +65,13 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 }
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const setAutoFocusRef = useAccessibilityAutoFocus({
+    isActive: !isOpen,
+  })
+  const tooltipRef = useRef<Tooltip>(null)
 
   if (visitingHoursContent) {
     return <HtmlContent content={visitingHoursContent} />
@@ -84,9 +90,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           </Paragraph>
         )}
         <IconButton
-          accessibilityLabel={`${
-            isTooltipVisible ? 'Verberg' : 'Bekijk'
-          } uitleg`}
+          accessibilityLabel={`${isOpen ? 'Verberg' : 'Bekijk'} uitleg`}
           icon={
             <Icon
               color="link"
@@ -94,19 +98,20 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               size="lg"
             />
           }
-          onPress={() => setIsTooltipVisible(!isTooltipVisible)}
+          onPress={() => {
+            tooltipRef.current?.onToggle()
+          }}
+          ref={ref => setAutoFocusRef(ref as View)}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
-      {!!isTooltipVisible && (
-        <Box insetHorizontal="lg">
-          <Tooltip
-            accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-            placement={Placement.below}
-            text={getTooltipContent('written')}
-          />
-        </Box>
-      )}
+      <Tooltip
+        accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
+        onChange={setIsOpen}
+        placement={Placement.below}
+        ref={tooltipRef}
+        text={getTooltipContent('written')}
+      />
     </Column>
   )
 }
