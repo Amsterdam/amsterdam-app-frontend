@@ -28,6 +28,7 @@ export const TopTaskButton = ({
   title,
   titleIconName,
   testID = '',
+  accessibilityRole = 'button',
   ...pressableProps
 }: TopTaskButtonProps) => {
   const styles = useThemable(createStyles)
@@ -38,6 +39,7 @@ export const TopTaskButton = ({
         title,
         typeof text === 'string' ? text : '',
       )}
+      accessibilityRole={accessibilityRole}
       grow
       onPress={onPress}
       testID={testID}

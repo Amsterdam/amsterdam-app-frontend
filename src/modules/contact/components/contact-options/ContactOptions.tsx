@@ -20,11 +20,7 @@ type ContactOption = {
 } & Partial<
   Pick<
     PressableProps,
-    | 'accessibilityHint'
-    | 'accessibilityLabel'
-    | 'accessibilityRole'
-    | 'testID'
-    | 'onPress'
+    'accessibilityHint' | 'accessibilityLabel' | 'testID' | 'onPress'
   >
 >
 
@@ -36,7 +32,6 @@ const getContactOptions = (
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
-    accessibilityRole: 'link',
     iconName: 'email',
     key: 'email',
     onPress: () => openWebUrl(complaintUrl),
@@ -66,7 +61,6 @@ const getContactOptions = (
   {
     accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
-    accessibilityRole: 'link',
     iconName: 'person',
     key: 'mijn-amsterdam',
     onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
@@ -108,6 +102,7 @@ export const ContactOptions = () => {
                 props.accessibilityLabel ?? props.title,
                 props.text,
               )}
+              accessibilityRole="link"
             />
           ))}
         </Column>
