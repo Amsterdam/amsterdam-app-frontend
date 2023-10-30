@@ -106,6 +106,7 @@ export const ContactOptions = () => {
                 props.accessibilityLabel ?? props.title,
                 props.text,
               )}
+              accessibilityRole="link"
             />
           ))}
         </Column>
