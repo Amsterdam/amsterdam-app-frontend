@@ -20,11 +20,7 @@ type ContactOption = {
 } & Partial<
   Pick<
     PressableProps,
-    | 'accessibilityHint'
-    | 'accessibilityLabel'
-    | 'accessibilityRole'
-    | 'testID'
-    | 'onPress'
+    'accessibilityHint' | 'accessibilityLabel' | 'testID' | 'onPress'
   >
 >
 
