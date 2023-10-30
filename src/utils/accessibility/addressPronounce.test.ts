@@ -18,4 +18,6 @@ describe('Address pronounce', () => {
     expect(addressPronounce('Herengracht 412A-3')).toBe(
       'Herengracht 412 A, 3 hoog',
     ))
+  it(`[number][alphanummeric]`, () =>
+    expect(addressPronounce('Herengracht 3H')).toBe('Herengracht 3 H'))
 })
