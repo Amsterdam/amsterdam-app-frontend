@@ -11,7 +11,6 @@ export const HeaderNavigation = () => {
 
   const iconProps: Partial<IconProps> = {
     color: 'link',
-    scalesWithFont: false,
     size: 'lg',
   }
 

@@ -43,7 +43,6 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
               <Icon
                 color="link"
                 name="chevron-left"
-                scalesWithFont={false}
                 size={chevronSize}
               />
             }

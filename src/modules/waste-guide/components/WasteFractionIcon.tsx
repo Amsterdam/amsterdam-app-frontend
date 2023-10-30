@@ -41,19 +41,17 @@ const fractionIconConfig: Partial<Record<FractionCode, IconConfig>> = {
 
 export type WasteFractionIconProps = {
   fractionCode: FractionCode
-  scalesWithFont?: boolean
   size?: keyof typeof IconSize
 } & TestProps
 
 export const WasteFractionIcon = ({
   fractionCode,
-  scalesWithFont = true,
   size = 'lg',
   testID,
 }: WasteFractionIconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
-  const scaledSize = IconSize[size] * (scalesWithFont ? fontScale : 1)
+  const scaledSize = IconSize[size] * fontScale
 
   if (!fractionIconConfig[fractionCode]) {
     return <View style={{height: scaledSize, width: scaledSize}} />
