@@ -56,6 +56,7 @@ export const EnvironmentSelector = () => {
         <Box>
           <Column gutter="md">
             <TextInput
+              accessibilityLabel="apiUrl"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="url"
@@ -65,6 +66,7 @@ export const EnvironmentSelector = () => {
               value={customUrls?.apiUrl ?? ''}
             />
             <TextInput
+              accessibilityLabel="modulesApiUrl"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="url"

@@ -44,6 +44,7 @@ const CachedIosImage = ({
 
   return (
     <FastImage
+      accessibilityIgnoresInvertColors
       onLayout={onLayout}
       source={{uri}}
       style={style as StyleProp<FastImageStyle>}
@@ -89,12 +90,14 @@ export const Image = ({
         style={[styles.image]}
         uriSources={source}
         width={width}
+        {...imageProps}
       />
     )
   }
 
   return (
     <ImageRN
+      accessibilityIgnoresInvertColors
       onLayout={onLayoutChange}
       source={source}
       style={[styles.image]}
