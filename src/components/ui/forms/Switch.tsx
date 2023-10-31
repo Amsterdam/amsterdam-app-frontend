@@ -1,7 +1,5 @@
 import {ElementType, Fragment, ReactNode} from 'react'
 import {
-  AccessibilityInfo,
-  Platform,
   Pressable,
   Switch as SwitchRN,
   SwitchProps as SwitchRNProps,
@@ -33,29 +31,15 @@ export const Switch = ({
 }: Props) => {
   const {color} = useTheme()
 
-  const onPress = () => {
-    onChange?.()
-
-    if (Platform.OS !== 'ios') {
-      return
-    }
-
-    setTimeout(
-      // Timeout is needed for iOS to announce the new value
-      () =>
-        AccessibilityInfo.announceForAccessibility(
-          accessibilityLabel + (value ? ' uit' : ' aan'),
-        ),
-      100,
-    )
-  }
-
   return (
     <Pressable
-      accessibilityLabel={accessibilityLabel + (value ? ' aan' : ' uit')}
+      accessibilityHint="Dubbel tik om onderdeel aan of uit te zetten"
+      accessibilityLabel={
+        accessibilityLabel + 'onderdeel staat' + (value ? ' aan' : ' uit')
+      }
       accessibilityRole="button"
       aria-disabled={disabled}
-      onPress={onPress}
+      onPress={onChange}
       testID={testID}>
       <Wrapper>
         <FormField
@@ -65,7 +49,7 @@ export const Switch = ({
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
             ios_backgroundColor={color.control.switch.track.background.off}
-            onChange={onPress}
+            onChange={onChange}
             thumbColor={
               color.control.switch.thumb.background[
                 disabled ? 'disabled' : 'enabled'
