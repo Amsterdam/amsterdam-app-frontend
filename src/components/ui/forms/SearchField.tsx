@@ -43,6 +43,7 @@ export const SearchField = forwardRef<TextInput, Props>(
         <TextInput
           {...textInputProps}
           {...themedTextInputProps}
+          multiline
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
