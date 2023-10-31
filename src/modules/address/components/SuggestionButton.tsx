@@ -1,3 +1,4 @@
+import {AccessibilityProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -9,16 +10,19 @@ type Props = {
   label: string
   pdokAddress: PdokAddress
   selectResult: (item: PdokAddress) => void
-} & TestProps
+} & Pick<AccessibilityProps, 'accessibilityLabel'> &
+  TestProps
 
 // TODO: replace with TopTaskButton
 export const SuggestionButton = ({
   label,
+  accessibilityLabel,
   pdokAddress,
   selectResult,
   testID,
 }: Props) => (
   <Pressable
+    accessibilityLabel={accessibilityLabel}
     accessibilityRole="button"
     insetVertical="md"
     onPress={() => selectResult(pdokAddress)}

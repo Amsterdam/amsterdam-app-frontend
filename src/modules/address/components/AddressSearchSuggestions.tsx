@@ -1,6 +1,7 @@
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {PdokAddress} from '@/modules/address/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
+import {addressPronounce} from '@/utils/accessibility/addressPronounce'
 
 type Props = {
   addresses?: PdokAddress[]
@@ -16,6 +17,9 @@ export const AddressSearchSuggestions = ({
   <>
     {addresses.map(pdokAddress => (
       <SuggestionButton
+        accessibilityLabel={addressPronounce(
+          getSuggestionLabel(pdokAddress, showNumbersOnly),
+        )}
         key={pdokAddress.id}
         label={getSuggestionLabel(pdokAddress, showNumbersOnly)}
         pdokAddress={pdokAddress}
