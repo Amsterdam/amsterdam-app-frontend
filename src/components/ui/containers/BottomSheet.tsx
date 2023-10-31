@@ -2,7 +2,7 @@ import BottomSheetOriginal, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetProps,
-  useBottomSheetDynamicSnapPoints,
+  BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
 import {FC, ReactNode} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -35,43 +35,37 @@ export const BottomSheet = ({
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
-  const {
-    animatedHandleHeight,
-    animatedSnapPoints,
-    animatedContentHeight,
-    handleContentLayout,
-  } = useBottomSheetDynamicSnapPoints(snapPoints ?? ['CONTENT_HEIGHT'])
-
   return (
     <BottomSheetOriginal
+      animateOnMount={!isReduceMotionEnabled}
       animationConfigs={
         isReduceMotionEnabled
           ? {
-              duration: 0,
+              duration: 1,
             }
           : undefined
       }
       backdropComponent={Backdrop}
-      contentHeight={animatedContentHeight}
+      enableDynamicSizing
       enablePanDownToClose
-      handleHeight={animatedHandleHeight}
+      handleHeight={24}
       index={-1}
       onChange={snapPointIndex => {
         onChangeHandler(snapPointIndex)
         onChange?.(snapPointIndex)
       }}
       ref={ref}
-      snapPoints={animatedSnapPoints.value}
+      snapPoints={snapPoints}
       {...rest}>
-      <SafeArea
-        bottom
-        flex={1}
-        left
-        onLayout={handleContentLayout}
-        right
-        testID={testID}>
-        {children}
-      </SafeArea>
+      <BottomSheetScrollView>
+        <SafeArea
+          bottom
+          left
+          right
+          testID={testID}>
+          {children}
+        </SafeArea>
+      </BottomSheetScrollView>
     </BottomSheetOriginal>
   )
 }

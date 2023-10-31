@@ -1,5 +1,5 @@
 /**
- * Extacts a time (hh:mm) from a string.
+ * Extracts a time (hh:mm) from a string.
  * @param input
  */
 export const parseTime = (input: string): string | undefined => {

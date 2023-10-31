@@ -1,12 +1,10 @@
-import {BottomSheetFlatList} from '@gorhom/bottom-sheet'
+import {Fragment} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {CityOfficeButton} from '@/modules/contact/components/city-offices/CityOfficeButton'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
-
-const ItemSeparator = () => <Gutter height="sm" />
 
 export const SelectCityOffice = () => {
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
@@ -22,13 +20,13 @@ export const SelectCityOffice = () => {
         text="Stadsloketten"
       />
       <Gutter height="md" />
-      <BottomSheetFlatList
-        data={cityOffices}
-        ItemSeparatorComponent={ItemSeparator}
-        keyExtractor={cityOffice => cityOffice.identifier}
-        ListFooterComponent={<Gutter height="lg" />}
-        renderItem={({item}) => <CityOfficeButton cityOffice={item} />}
-      />
+      {cityOffices.map(cityOffice => (
+        <Fragment key={cityOffice.identifier}>
+          <CityOfficeButton cityOffice={cityOffice} />
+          <Gutter height="sm" />
+        </Fragment>
+      ))}
+      <Gutter height="md" />
     </Box>
   )
 }
