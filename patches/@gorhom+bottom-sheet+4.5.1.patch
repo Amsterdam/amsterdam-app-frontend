@@ -1,5 +1,5 @@
 diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
-index 35597ce..b0e6f65 100644
+index 35597ce..6edc42d 100644
 --- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
 +++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
 @@ -121,10 +121,8 @@ const BottomSheetBackdropComponent = ({
@@ -10,7 +10,7 @@ index 35597ce..b0e6f65 100644
 -        accessibilityHint={`Tap to ${
 -          typeof pressBehavior === 'string' ? pressBehavior : 'move'
 -        } the Bottom Sheet`}
-+        accessibilityLabel="Sluit"
++        accessibilityLabel="Sluiten"
 +        accessibilityHint="Dubbeltik om te sluiten"
        >
          {children}
