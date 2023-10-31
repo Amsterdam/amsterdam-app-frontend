@@ -8,9 +8,7 @@ type Props = {
 export const ScreenTitle = ({accessibilityLanguage, text}: Props) => (
   <Title
     accessibilityLanguage={accessibilityLanguage}
-    ellipsizeMode="middle"
     level="h5"
-    numberOfLines={1}
     testID="HeaderTitle"
     text={text}
   />
