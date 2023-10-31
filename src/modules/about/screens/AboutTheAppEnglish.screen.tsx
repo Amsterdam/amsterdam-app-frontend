@@ -16,6 +16,7 @@ export const AboutTheAppEnglishScreen = () => (
     withRightInset={false}>
     <Column gutter="lg">
       <Image
+        accessibilityIgnoresInvertColors
         source={
           require('@/modules/about/assets/images/traffic-cycling.1280.50.jpg') as ImageURISource
         }
@@ -106,6 +107,7 @@ export const AboutTheAppEnglishScreen = () => (
         </Box>
       </HorizontalSafeArea>
       <Image
+        accessibilityIgnoresInvertColors
         source={
           require('@/modules/about/assets/images/people-in-park.1280.50.jpg') as ImageURISource
         }
