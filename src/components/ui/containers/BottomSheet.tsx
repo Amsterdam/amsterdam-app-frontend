@@ -2,6 +2,7 @@ import BottomSheetOriginal, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetProps,
+  BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
 import {FC, ReactNode} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -45,6 +46,7 @@ export const BottomSheet = ({
           : undefined
       }
       backdropComponent={Backdrop}
+      enableDynamicSizing
       enablePanDownToClose
       handleHeight={24}
       index={-1}
@@ -55,14 +57,15 @@ export const BottomSheet = ({
       ref={ref}
       snapPoints={snapPoints}
       {...rest}>
-      <SafeArea
-        bottom
-        flex={1}
-        left
-        right
-        testID={testID}>
-        {children}
-      </SafeArea>
+      <BottomSheetScrollView>
+        <SafeArea
+          bottom
+          left
+          right
+          testID={testID}>
+          {children}
+        </SafeArea>
+      </BottomSheetScrollView>
     </BottomSheetOriginal>
   )
 }
