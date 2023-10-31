@@ -68,7 +68,6 @@ export const ProjectWarning = ({id, projectId}: Props) => {
     <>
       {mainImage ? (
         <Image
-          accessibilityIgnoresInvertColors
           accessibilityLabel={mainImage.description}
           accessible
           source={mainImage.sources}

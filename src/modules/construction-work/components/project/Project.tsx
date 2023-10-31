@@ -87,7 +87,6 @@ export const Project = ({id}: Props) => {
     <Column>
       {!!images?.length && (
         <Image
-          accessibilityIgnoresInvertColors
           aspectRatio="wide"
           source={mapImageSources(images[0]?.sources)}
           testID="ConstructionWorkProjectImage"

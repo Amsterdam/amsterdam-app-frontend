@@ -8,7 +8,6 @@ module.exports = {
     'jest',
     'sonarjs',
     'amsterdam',
-    'react-native-a11y',
   ],
   extends: [
     '@react-native',
@@ -161,7 +160,6 @@ module.exports = {
       },
     ],
     'no-console': 'warn',
-    'react-native-a11y/has-valid-accessibility-ignores-invert-colors': 'error',
   },
   overrides: [
     {

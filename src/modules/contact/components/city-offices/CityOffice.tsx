@@ -52,10 +52,7 @@ export const CityOffice = () => {
           testID="ContactVisitUsTitle"
           text="Bezoek ons"
         />
-        <Image
-          accessibilityIgnoresInvertColors
-          source={mapImageSources(image.sources)}
-        />
+        <Image source={mapImageSources(image.sources)} />
         <NameAndAddress
           address={address}
           addressContent={addressContent}

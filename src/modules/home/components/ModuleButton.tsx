@@ -127,7 +127,6 @@ export const ModuleButton = ({
   const pressable = useMemo(
     () => (
       <Pressable
-        accessibilityRole="button"
         inset="md"
         onPress={() => navigation.navigate(slug)}
         variant={variant}>
