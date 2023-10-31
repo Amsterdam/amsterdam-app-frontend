@@ -19,7 +19,10 @@ export const ImagePreview = ({image, onPress}: Props) => {
 
   return (
     <View>
-      <Image source={{uri: image.path}} />
+      <Image
+        accessibilityIgnoresInvertColors
+        source={{uri: image.path}}
+      />
       <View style={styles.buttonContainer}>
         <IconButton
           accessibilityHint="Verwijder foto"

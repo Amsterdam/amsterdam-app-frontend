@@ -50,6 +50,7 @@ export const ProjectCard = memo(
             <>
               <AspectRatio aspectRatio="wide">
                 <Image
+                  accessibilityIgnoresInvertColors
                   source={imageSource}
                   testID="ConstructionWorkProjectCardImage"
                 />

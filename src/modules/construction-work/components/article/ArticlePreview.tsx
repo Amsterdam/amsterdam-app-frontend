@@ -94,6 +94,7 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 {imageSources && imageSources.length > 0 ? (
                   <Image
+                    accessibilityIgnoresInvertColors
                     aspectRatio="extraWide"
                     source={imageSources}
                     testID={testID ? `${testID}Image` : undefined}

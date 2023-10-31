@@ -8,6 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 export const ComingSoon = () => (
   <Column>
     <Image
+      accessibilityIgnoresInvertColors
       source={
         require('@/modules/open-waste-container/assets/images/open-waste-container-coming-soon.jpg') as ImageSourcePropType
       }

@@ -50,6 +50,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
             aspectRatio={isPortrait && isTallPhone ? 'wide' : 'narrow'}
             orientation={isPortrait ? 'portrait' : 'landscape'}>
             <Image
+              accessibilityIgnoresInvertColors
               source={
                 isPortrait ? (isTallPhone ? image9x16 : image4x5) : image5x4
               }

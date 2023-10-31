@@ -125,7 +125,10 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const image = (
     <Column gutter="sm">
       {mainImage ? (
-        <Image source={{uri: mainImage?.path}} />
+        <Image
+          accessibilityIgnoresInvertColors
+          source={{uri: mainImage?.path}}
+        />
       ) : (
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
