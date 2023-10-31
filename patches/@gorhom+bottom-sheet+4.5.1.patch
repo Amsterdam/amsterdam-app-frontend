@@ -1,0 +1,32 @@
+diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
+index 35597ce..6edc42d 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
++++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackdrop/BottomSheetBackdrop.tsx
+@@ -121,10 +121,8 @@ const BottomSheetBackdropComponent = ({
+         pointerEvents={pointerEvents}
+         accessible={true}
+         accessibilityRole="button"
+-        accessibilityLabel="Bottom Sheet backdrop"
+-        accessibilityHint={`Tap to ${
+-          typeof pressBehavior === 'string' ? pressBehavior : 'move'
+-        } the Bottom Sheet`}
++        accessibilityLabel="Sluiten"
++        accessibilityHint="Dubbeltik om te sluiten"
+       >
+         {children}
+       </Animated.View>
+diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx
+index 2219e0f..7cfd2ff 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx
++++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx
+@@ -94,8 +94,8 @@ function BottomSheetHandleContainerComponent({
+         key="BottomSheetHandleContainer"
+         accessible={true}
+         accessibilityRole="adjustable"
+-        accessibilityLabel="Bottom Sheet handle"
+-        accessibilityHint="Drag up or down to extend or minimize the Bottom Sheet"
++        accessibilityLabel="Sluiten"
++        accessibilityHint="Veeg omlaag om te sluiten"
+         onLayout={handleContainerLayout}
+       >
+         <HandleComponent
