@@ -9,12 +9,14 @@ import {
 } from 'react-native'
 import RenderHTML, {
   CustomBlockRenderer,
+  CustomMixedRenderer,
   CustomTagRendererRecord,
   MixedStyleDeclaration,
   RenderersProps,
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
@@ -89,7 +91,6 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
 
   const tagsStyles: Record<string, MixedStyleDeclaration> = useMemo(
     () => ({
-      a: {...styles.link},
       b: styles.boldText,
       h1: {...styles.boldText, ...styles.titleLevel1, ...styles.titleMargins},
       h2: {...styles.boldText, ...styles.titleLevel2, ...styles.titleMargins},
@@ -143,7 +144,7 @@ const createStyles: (
   isIntro: Props['isIntro'],
 ) => (theme: Theme) => Record<string, MixedStyleDeclaration> =
   isIntro =>
-  ({color, text}: Theme) => {
+  ({text}: Theme) => {
     const lineHeight = getLineHeight(text, isIntro)
 
     // By default, Android sets this to `bold` – which breaks the font family.
@@ -158,10 +159,6 @@ const createStyles: (
       paragraph: {
         fontSize: getFontSize(text, isIntro),
         lineHeight,
-      },
-      link: {
-        color: color.pressable.primary.default,
-        textDecorationLine: 'underline',
       },
       boldText: {
         fontFamily: text.fontFamily.bold,
@@ -253,7 +250,21 @@ const LiRenderer: CustomBlockRenderer = props => {
   return <TDefaultRenderer {...props} />
 }
 
+const ARenderer: CustomMixedRenderer = props => {
+  const {href} = props.tnode.attributes
+  const openUrl = useOpenUrl()
+
+  const {TNodeChildrenRenderer} = props
+
+  return (
+    <InlineLink onPress={() => openUrl(href)}>
+      <TNodeChildrenRenderer {...props} />
+    </InlineLink>
+  )
+}
+
 const renderers: CustomTagRendererRecord = {
   ul: UlRenderer,
   li: LiRenderer,
+  a: ARenderer,
 }
