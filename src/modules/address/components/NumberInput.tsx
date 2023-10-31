@@ -81,34 +81,34 @@ export const NumberInput = ({
   return (
     <WithAnimation animatedInterpolation={y}>
       <View style={styles.flex}>
-        <Column gutter="sm">
-          <Row align="start">
-            <Button
-              accessibilityHint="klik om straatnaam te veranderen"
-              accessibilityLabel={street}
-              iconName="chevron-up"
-              label={street}
-              onPress={() => {
-                changeNumber('')
-                changeIsStreetSelected(false)
-              }}
-              testID="AddressBackToStreetSearchButton"
-              variant="tertiary"
-            />
-          </Row>
-          <SearchField
-            accessibilityLabel="Zoek naar huisnummer"
-            keyboardType={keyboardType}
-            onChangeText={text => changeNumber(text)}
-            placeholder="Vul uw huisnummer in"
-            ref={inputRef}
-            testID="AddressNumberInputSearchField"
-            value={number}
-          />
-        </Column>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
           style={styles.flex}>
+          <Column gutter="sm">
+            <Row align="start">
+              <Button
+                accessibilityHint="klik om straatnaam te veranderen"
+                accessibilityLabel={street}
+                iconName="chevron-up"
+                label={street}
+                onPress={() => {
+                  changeNumber('')
+                  changeIsStreetSelected(false)
+                }}
+                testID="AddressBackToStreetSearchButton"
+                variant="tertiary"
+              />
+            </Row>
+            <SearchField
+              accessibilityLabel="Zoek naar huisnummer"
+              keyboardType={keyboardType}
+              onChangeText={text => changeNumber(text)}
+              placeholder="Vul uw huisnummer in"
+              ref={inputRef}
+              testID="AddressNumberInputSearchField"
+              value={number}
+            />
+          </Column>
           <NumberSearchResult
             bagList={bagList}
             isLoading={isLoading}

@@ -11,6 +11,7 @@ type Props = {
   selectResult: (item: PdokAddress) => void
 } & TestProps
 
+// TODO: replace with TopTaskButton
 export const SuggestionButton = ({
   label,
   pdokAddress,
@@ -22,7 +23,9 @@ export const SuggestionButton = ({
     insetVertical="md"
     onPress={() => selectResult(pdokAddress)}
     testID={testID}>
-    <Row gutter="sm">
+    <Row
+      gutter="sm"
+      valign="center">
       <Icon
         color="link"
         name="location"
@@ -32,7 +35,6 @@ export const SuggestionButton = ({
       <Phrase
         color="link"
         ellipsizeMode="tail"
-        numberOfLines={1}
         testID={testID ? `${testID}Label` : undefined}>
         {label}
       </Phrase>

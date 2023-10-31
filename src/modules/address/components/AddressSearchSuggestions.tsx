@@ -1,4 +1,3 @@
-import {View} from 'react-native'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {PdokAddress} from '@/modules/address/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
@@ -14,7 +13,7 @@ export const AddressSearchSuggestions = ({
   selectResult,
   showNumbersOnly = false,
 }: Props) => (
-  <View>
+  <>
     {addresses.map(pdokAddress => (
       <SuggestionButton
         key={pdokAddress.id}
@@ -24,5 +23,5 @@ export const AddressSearchSuggestions = ({
         testID={`AddressSearchResult${pdokAddress.id}Button`}
       />
     ))}
-  </View>
+  </>
 )
