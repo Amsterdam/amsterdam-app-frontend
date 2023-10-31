@@ -31,34 +31,36 @@ export const StreetInput = ({
 
   return (
     <>
-      <SearchField
-        accessibilityLabel="Zoek naar straatnaam of postcode"
-        autoFocus={!isStreetSelected}
-        onChangeText={text => {
-          changeStreet(text)
-        }}
-        placeholder="Vul uw straatnaam of postcode in"
-        ref={inputStreetRef}
-        testID="AddressStreetInputSearchField"
-        value={street}
-      />
-      {isStreetSelected ? null : (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          style={styles.flex}>
-          <StreetSearchResultForLocation
-            selectResult={selectResult}
-            showSuggestionsForLocation={street.length === 0}
-          />
-          {!isBelowCharacterThreshold && (
-            <StreetSearchResult
-              bagList={bagList}
-              isLoading={isLoading}
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        style={styles.flex}>
+        <SearchField
+          accessibilityLabel="Zoek naar straatnaam of postcode"
+          autoFocus={!isStreetSelected}
+          onChangeText={text => {
+            changeStreet(text)
+          }}
+          placeholder="Vul uw straatnaam of postcode in"
+          ref={inputStreetRef}
+          testID="AddressStreetInputSearchField"
+          value={street}
+        />
+        {isStreetSelected ? null : (
+          <>
+            <StreetSearchResultForLocation
               selectResult={selectResult}
+              showSuggestionsForLocation={street.length === 0}
             />
-          )}
-        </KeyboardAwareScrollView>
-      )}
+            {!isBelowCharacterThreshold && (
+              <StreetSearchResult
+                bagList={bagList}
+                isLoading={isLoading}
+                selectResult={selectResult}
+              />
+            )}
+          </>
+        )}
+      </KeyboardAwareScrollView>
     </>
   )
 }
