@@ -57,7 +57,7 @@ export const LocationTopTaskButton = ({
       onPress={handlePress}
       testID={testID}
       text={getText(isLoading, locationPermissionIsBlocked, address)}
-      title="Mijn locatie"
+      title="Mijn huidige locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />
   )
