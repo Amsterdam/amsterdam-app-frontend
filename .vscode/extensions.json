@@ -2,6 +2,7 @@
     "recommendations": [
         "ms-azure-devops.azure-pipelines",
         "orta.vscode-jest",
-        "dbaeumer.vscode-eslint"
+        "dbaeumer.vscode-eslint",
+        "atabixsolutions.hephaestus"
     ]
 }

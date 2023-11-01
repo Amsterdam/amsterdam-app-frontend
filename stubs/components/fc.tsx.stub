@@ -1,0 +1,15 @@
+import type {FC} from 'react'
+
+type Props = {<% if(it.props) { %>
+<% it.props.forEach(prop => { %>
+  <%= prop.lowerName %>: any,
+<% }) %>
+<%} %>}
+
+export const DummyStudlyNameSingular: FC<Props> = (<% if(it.props) { %>{
+<% it.props.forEach(prop => { %>
+  <%= prop.lowerName %>,
+<% }) %>
+}<%} %>) => {
+  return null
+}

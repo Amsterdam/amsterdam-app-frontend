@@ -1,0 +1,21 @@
+import 'react-native'
+
+// Note: import explicitly to use the types shiped with jest.
+import {it} from '@jest/globals'
+
+// Note: test renderer must be required after react-native.
+import renderer from 'react-test-renderer'
+import {DummyStudlyNameSingular} from './DummyStudlyNameSingular'
+import {StoreProvider} from '@/providers/store.provider'
+
+it('DummyStudlyNameSingular renders correctly', () => {
+  renderer.create(
+    <StoreProvider>
+      <DummyStudlyNameSingular <% if(it.props) { %>
+      <% it.props.forEach(prop => { %>
+      <%= prop.lowerName %>={null}
+  <% }) %>
+  <%} %>/>
+    </StoreProvider>,
+  )
+})

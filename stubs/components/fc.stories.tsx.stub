@@ -1,0 +1,12 @@
+import {Meta, StoryObj} from '@storybook/react'
+import {DummyStudlyNameSingular} from './DummyStudlyNameSingular'
+
+const meta: Meta<typeof DummyStudlyNameSingular> = {
+  component: DummyStudlyNameSingular,
+}
+
+export default meta
+
+type Story = StoryObj<typeof DummyStudlyNameSingular>
+
+export const Default: Story = {}
