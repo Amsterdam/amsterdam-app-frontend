@@ -34,9 +34,9 @@ export const Switch = ({
   return (
     <Pressable
       accessibilityHint="Dubbel tik om onderdeel aan of uit te zetten"
-      accessibilityLabel={
-        accessibilityLabel + 'onderdeel staat' + (value ? ' aan' : ' uit')
-      }
+      accessibilityLabel={`${accessibilityLabel} onderdeel staat ${
+        value ? 'aan' : 'uit'
+      }`}
       accessibilityRole="button"
       aria-disabled={disabled}
       onPress={onChange}
