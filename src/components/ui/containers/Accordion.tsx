@@ -90,7 +90,9 @@ export const Accordion = ({
         accessibilityActions={[
           {
             name: 'activate',
-            label: !isExpanded ? 'inhoud bekijken' : 'inhoud verbergen',
+            label: !isExpanded
+              ? 'het bekijken van de inhoud'
+              : 'het verbergen van de inhoud',
           },
         ]}
         accessibilityLabel={accessibilityLabel}
