@@ -6,6 +6,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
+import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {usePermission} from '@/hooks/usePermission'
@@ -33,6 +34,7 @@ export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
   slug,
 }: Props) => {
+  const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
   const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
     useState(false)
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
@@ -167,7 +169,9 @@ export const SelectLocationTypeBottomSheet = ({
             align="between"
             valign="center">
             <Title
+              accessibilityHint="kies of u uw adres of huidige locatie wil gebruiken"
               level="h3"
+              ref={focusRef}
               text="Locaties"
             />
             {!!address && (
