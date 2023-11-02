@@ -1,6 +1,8 @@
+import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 
 type Props = {
@@ -11,13 +13,16 @@ type Props = {
 
 export const FractionSection = ({content, sectionTitle, url}: Props) => {
   const openWebUrl = useOpenWebUrl()
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   if (!content) {
     return
   }
 
+  const WrapperComponent = isScreenReaderEnabled && !!url ? Row : Phrase
+
   return (
-    <Phrase>
+    <WrapperComponent>
       <Phrase emphasis="strong">{sectionTitle}: </Phrase>
       {/* Remove inlineLink once the API includes the url as a single property */}
       {url ? (
@@ -25,6 +30,6 @@ export const FractionSection = ({content, sectionTitle, url}: Props) => {
       ) : (
         <FractionContent content={content} />
       )}
-    </Phrase>
+    </WrapperComponent>
   )
 }
