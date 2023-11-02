@@ -1,4 +1,3 @@
-import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -16,8 +15,7 @@ export const WasteGuideScreen = () => {
 
   return (
     <Screen
-      scroll={!shouldRequestLocation}
-      stickyFooter={
+      bottomSheet={
         <SelectLocationTypeBottomSheet
           highAccuracyPurposeKey={
             HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
@@ -25,11 +23,10 @@ export const WasteGuideScreen = () => {
           slug={ModuleSlug['waste-guide']}
         />
       }
+      scroll={!shouldRequestLocation}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      <HideFromAccessibility whileBottomSheetIsOpen>
-        {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
-      </HideFromAccessibility>
+      {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
     </Screen>
   )
 }

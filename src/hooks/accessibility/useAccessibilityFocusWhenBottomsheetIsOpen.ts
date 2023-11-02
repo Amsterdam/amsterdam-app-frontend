@@ -3,8 +3,8 @@ import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus
 import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
 
 /**
- * Set accessibility focus on a component when the bottomsheet is open
- * @returns {object} ref - Ref to the component to set accessibility focus on
+ * Set accessibility focus on a component when the bottom sheet is open
+ * @returns ref - Ref to the component to set accessibility focus on
  */
 export const useAccessibilityFocusWhenBottomsheetIsOpen = () => {
   const setAccessibilityFocus = useAccessibilityFocus('long')
@@ -13,7 +13,7 @@ export const useAccessibilityFocusWhenBottomsheetIsOpen = () => {
   const ref = useRef(null)
 
   useEffect(() => {
-    if (isOpen && ref) {
+    if (isOpen && ref.current) {
       setAccessibilityFocus(ref.current)
     }
   }, [isOpen, setAccessibilityFocus])

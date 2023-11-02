@@ -1,4 +1,3 @@
-import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Screen} from '@/components/ui/layout/Screen'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -18,8 +17,7 @@ export const ConstructionWorkScreen = () => {
 
   return (
     <Screen
-      scroll={false}
-      stickyFooter={
+      bottomSheet={
         <SelectLocationTypeBottomSheet
           highAccuracyPurposeKey={
             HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
@@ -27,14 +25,9 @@ export const ConstructionWorkScreen = () => {
           slug={ModuleSlug['construction-work']}
         />
       }
+      scroll={false}
       withBottomInset={false}>
-      <HideFromAccessibility whileBottomSheetIsOpen>
-        {address ? (
-          <ProjectsByDistance address={address} />
-        ) : (
-          <ProjectsByDate />
-        )}
-      </HideFromAccessibility>
+      {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>
   )
 }

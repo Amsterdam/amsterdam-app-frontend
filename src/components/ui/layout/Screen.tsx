@@ -1,7 +1,8 @@
-import {ReactNode} from 'react'
+import {FC, ReactNode, useCallback} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
@@ -46,6 +47,7 @@ type WithInsetProps = {
 }
 
 type Props = {
+  bottomSheet?: ReactNode
   children: ReactNode
   keyboardAware?: boolean
   scroll?: boolean
@@ -55,6 +57,7 @@ type Props = {
   WithInsetProps
 
 export const Screen = ({
+  bottomSheet,
   children,
   stickyFooter,
   stickyHeader,
@@ -75,6 +78,23 @@ export const Screen = ({
     withTopInset,
   })
 
+  const InnerWrapper: FC<{children: ReactNode}> = useCallback(
+    props =>
+      bottomSheet ? (
+        <HideFromAccessibility
+          {...props}
+          style={styles.content}
+          whileBottomSheetIsOpen
+        />
+      ) : (
+        <View
+          style={styles.content}
+          {...props}
+        />
+      ),
+    [bottomSheet, styles.content],
+  )
+
   return (
     <View
       style={styles.screen}
@@ -83,12 +103,13 @@ export const Screen = ({
       <Wrapper
         keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
         {...wrapperProps}>
-        <View style={styles.content}>{children}</View>
+        <InnerWrapper>{children}</InnerWrapper>
       </Wrapper>
-      {!!stickyFooter && (
+      {(!!stickyFooter || !!bottomSheet) && (
         <>
           <Gutter height="sm" />
           {stickyFooter}
+          {bottomSheet}
         </>
       )}
     </View>
