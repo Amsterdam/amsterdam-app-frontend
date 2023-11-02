@@ -6,7 +6,7 @@ import {ContactOptions} from '@/modules/contact/components/contact-options/Conta
 
 export const ContactScreen = () => (
   <Screen
-    stickyFooter={
+    bottomSheet={
       <BottomSheet>
         <SelectCityOffice />
       </BottomSheet>

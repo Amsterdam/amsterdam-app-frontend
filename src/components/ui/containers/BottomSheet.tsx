@@ -25,6 +25,9 @@ type Props = Partial<
   >
 > & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
 
+/**
+ * Use in combination with <HideFromAccessibility /> and useAccessibilityFocusWhenBottomsheetIsOpen.
+ */
 export const BottomSheet = ({
   children,
   onChange,

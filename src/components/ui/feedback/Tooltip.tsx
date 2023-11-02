@@ -66,7 +66,7 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
   ({accessibilityLabel, placement, testID, text, onChange}, ref) => {
     const props = {direction: mapPlacementToDirection(placement)}
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const setAccessibilityFocus = useAccessibilityFocus('none')
+    const setAccessibilityFocus = useAccessibilityFocus()
 
     useImperativeHandle(
       ref,

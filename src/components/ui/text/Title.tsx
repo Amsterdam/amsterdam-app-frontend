@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {forwardRef, useMemo} from 'react'
 import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
 import {Theme} from '@/themes/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
@@ -14,28 +14,28 @@ type Props = {
   textAlign?: TextStyle['textAlign']
 } & Omit<TextProps, 'style'>
 
-export const Title = ({
-  color = 'default',
-  level = 'h1',
-  text,
-  textAlign = 'left',
-  ...textProps
-}: Props) => {
-  const createdStyles = useMemo(
-    () => createStyles({color, level, textAlign}),
-    [color, level, textAlign],
-  )
-  const styles = useThemable(createdStyles)
+export const Title = forwardRef<Text, Props>(
+  (
+    {color = 'default', level = 'h1', text, textAlign = 'left', ...textProps},
+    ref,
+  ) => {
+    const createdStyles = useMemo(
+      () => createStyles({color, level, textAlign}),
+      [color, level, textAlign],
+    )
+    const styles = useThemable(createdStyles)
 
-  return (
-    <Text
-      accessibilityRole="header"
-      style={styles.title}
-      {...textProps}>
-      {text}
-    </Text>
-  )
-}
+    return (
+      <Text
+        {...textProps}
+        accessibilityRole="header"
+        ref={ref}
+        style={styles.title}>
+        {text}
+      </Text>
+    )
+  },
+)
 
 // TODO Transition text color
 const createStyles =

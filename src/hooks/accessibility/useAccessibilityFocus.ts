@@ -10,7 +10,7 @@ import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
  */
 
 export const useAccessibilityFocus = <T extends Component>(
-  focusDelay: FocusDelay,
+  focusDelay: FocusDelay = 'none',
 ) =>
   useCallback(
     (ref: T | null) => {

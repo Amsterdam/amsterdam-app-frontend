@@ -17,8 +17,7 @@ export const ConstructionWorkScreen = () => {
 
   return (
     <Screen
-      scroll={false}
-      stickyFooter={
+      bottomSheet={
         <SelectLocationTypeBottomSheet
           highAccuracyPurposeKey={
             HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
@@ -26,6 +25,7 @@ export const ConstructionWorkScreen = () => {
           slug={ModuleSlug['construction-work']}
         />
       }
+      scroll={false}
       withBottomInset={false}>
       {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>

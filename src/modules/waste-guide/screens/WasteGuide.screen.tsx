@@ -15,8 +15,7 @@ export const WasteGuideScreen = () => {
 
   return (
     <Screen
-      scroll={!shouldRequestLocation}
-      stickyFooter={
+      bottomSheet={
         <SelectLocationTypeBottomSheet
           highAccuracyPurposeKey={
             HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
@@ -24,6 +23,7 @@ export const WasteGuideScreen = () => {
           slug={ModuleSlug['waste-guide']}
         />
       }
+      scroll={!shouldRequestLocation}
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
       {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
