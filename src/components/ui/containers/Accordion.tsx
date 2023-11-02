@@ -68,15 +68,17 @@ export const Accordion = ({
     [onChangeExpanded],
   )
 
-  const accessibilityLabel = useMemo(
-    () =>
+  const accessibilityLabel = useMemo(() => {
+    const expandedText = isExpanded ? 'Uitgevouwen' : 'Samengevouwen'
+    const platformSpecificText =
       Platform.OS === 'android'
-        ? title
-        : `${title}, Dubbeltik om de inhoud te ${
+        ? `${title}`
+        : `${title}, dubbeltik om de inhoud te ${
             isExpanded ? 'verbergen' : 'bekijken'
-          }`,
-    [isExpanded, title],
-  )
+          }`
+
+    return `${expandedText}, ${platformSpecificText}.`
+  }, [isExpanded, title])
 
   if (!isExpandable) {
     return <AccordionTitle title={title} />
@@ -85,10 +87,20 @@ export const Accordion = ({
   return (
     <Column grow={grow}>
       <Pressable
+        accessibilityActions={[
+          {
+            name: 'activate',
+            label: !isExpanded
+              ? 'het bekijken van de inhoud'
+              : 'het verbergen van de inhoud',
+          },
+        ]}
         accessibilityLabel={accessibilityLabel}
-        accessibilityRole="togglebutton"
-        accessibilityState={{expanded: isExpanded}}
-        onPress={() => handleStateChange(!isExpanded)}>
+        onAccessibilityAction={event => {
+          if (event.nativeEvent.actionName === 'activate') {
+            handleStateChange(!isExpanded)
+          }
+        }}>
         <AccordionTitle
           icon={
             <Size height={text.lineHeight.h5}>
