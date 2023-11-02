@@ -25,7 +25,7 @@ export const HideFromAccessibility = ({
         whileBottomSheetIsOpen
           ? isOpen
             ? 'no-hide-descendants'
-            : 'yes'
+            : 'auto'
           : 'no-hide-descendants'
       }
       {...viewProps}>
