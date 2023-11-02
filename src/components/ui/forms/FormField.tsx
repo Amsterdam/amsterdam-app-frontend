@@ -1,5 +1,5 @@
 import {ReactNode} from 'react'
-import {SkipInScreenReader} from '@/components/ui/containers/SkipInScreenReader'
+import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {Row} from '@/components/ui/layout/Row'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {layoutStyles} from '@/styles/layoutStyles'
@@ -11,9 +11,9 @@ type Props = {
 }
 
 const Label = ({children}: {children: ReactNode}) => (
-  <SkipInScreenReader style={[layoutStyles.grow, layoutStyles.shrink]}>
+  <HideFromAccessibility style={[layoutStyles.grow, layoutStyles.shrink]}>
     {children}
-  </SkipInScreenReader>
+  </HideFromAccessibility>
 )
 
 export const FormField = ({
