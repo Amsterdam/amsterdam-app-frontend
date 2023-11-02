@@ -1,3 +1,4 @@
+import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Screen} from '@/components/ui/layout/Screen'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -27,7 +28,13 @@ export const ConstructionWorkScreen = () => {
         />
       }
       withBottomInset={false}>
-      {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
+      <HideFromAccessibility whileBottomSheetIsOpen>
+        {address ? (
+          <ProjectsByDistance address={address} />
+        ) : (
+          <ProjectsByDate />
+        )}
+      </HideFromAccessibility>
     </Screen>
   )
 }

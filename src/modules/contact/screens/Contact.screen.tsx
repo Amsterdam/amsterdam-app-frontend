@@ -1,4 +1,5 @@
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
+import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {Screen} from '@/components/ui/layout/Screen'
 import {CityOffice} from '@/modules/contact/components/city-offices/CityOffice'
 import {SelectCityOffice} from '@/modules/contact/components/city-offices/SelectCityOffice'
@@ -12,7 +13,9 @@ export const ContactScreen = () => (
       </BottomSheet>
     }
     testID="ContactScreen">
-    <ContactOptions />
-    <CityOffice />
+    <HideFromAccessibility whileBottomSheetIsOpen>
+      <ContactOptions />
+      <CityOffice />
+    </HideFromAccessibility>
   </Screen>
 )

@@ -25,6 +25,7 @@ export const useBottomSheetHandler = () => {
   )
 
   return {
+    isOpen,
     onChange,
     ref,
   }

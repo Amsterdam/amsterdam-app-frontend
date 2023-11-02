@@ -1,3 +1,4 @@
+import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -26,7 +27,9 @@ export const WasteGuideScreen = () => {
       }
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
+      <HideFromAccessibility whileBottomSheetIsOpen>
+        {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
+      </HideFromAccessibility>
     </Screen>
   )
 }
