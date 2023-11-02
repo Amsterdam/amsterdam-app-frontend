@@ -15,7 +15,14 @@ type Props = {
 
 export const SearchField = forwardRef<TextInput, Props>(
   (
-    {onChangeText, onFocus, testID, value = '', ...textInputProps}: Props,
+    {
+      onChangeText,
+      onFocus,
+      testID,
+      value = '',
+      accessibilityLanguage = 'nl-NL',
+      ...textInputProps
+    }: Props,
     ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false)
@@ -43,6 +50,7 @@ export const SearchField = forwardRef<TextInput, Props>(
         <TextInput
           {...textInputProps}
           {...themedTextInputProps}
+          accessibilityLanguage={accessibilityLanguage}
           multiline
           onBlur={handleBlur}
           onChangeText={handleChangeText}
@@ -56,6 +64,7 @@ export const SearchField = forwardRef<TextInput, Props>(
         {value ? (
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
+            accessibilityLanguage={accessibilityLanguage}
             icon={<Icon name="close" />}
             onPress={handleClearText}
             testID={`${testID}ClearButton`}
@@ -63,6 +72,7 @@ export const SearchField = forwardRef<TextInput, Props>(
         ) : (
           <IconButton
             accessibilityHint="Activeer dit zoekveld"
+            accessibilityLanguage={accessibilityLanguage}
             icon={
               <Icon
                 name="search"

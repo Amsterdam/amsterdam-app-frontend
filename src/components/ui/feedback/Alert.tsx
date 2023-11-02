@@ -65,6 +65,7 @@ export const Alert = () => {
     closeType === AlertCloseType.withoutButton
       ? props => (
           <Pressable
+            accessibilityLanguage="nl-NL"
             accessibilityRole="button"
             onPress={() => {
               if (!isReduceMotionEnabled) {
@@ -84,6 +85,7 @@ export const Alert = () => {
     <Box>
       <WrapperComponent>
         <View
+          accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
           accessible
           ref={setAccessibilityFocus}
@@ -92,6 +94,7 @@ export const Alert = () => {
           <Row align="between">
             <SingleSelectable
               accessibilityLabel={accessibleText(content?.title, content?.text)}
+              accessibilityLanguage="nl-NL"
               accessibilityRole="alert">
               <Row gutter="md">
                 {!!withIcon && (
@@ -116,6 +119,7 @@ export const Alert = () => {
               <View>
                 <IconButton
                   accessibilityHint="Sluit melding"
+                  accessibilityLanguage="nl-NL"
                   icon={
                     <Icon
                       color="link"

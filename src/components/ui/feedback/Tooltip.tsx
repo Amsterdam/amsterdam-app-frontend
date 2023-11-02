@@ -22,20 +22,25 @@ type Props = {
   onChange: (isOpen: boolean) => void
   placement: Placement
   text: string | string[]
-} & Pick<AccessibilityProps, 'accessibilityLabel'> &
+} & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
 const TooltipContent = ({
   accessibilityLabel,
+  accessibilityLanguage = 'nl-NL',
   testID,
   text,
-}: Pick<Props, 'accessibilityLabel' | 'testID' | 'text'>) => {
+}: Pick<
+  Props,
+  'accessibilityLabel' | 'accessibilityLanguage' | 'testID' | 'text'
+>) => {
   const styles = useThemable(createStyles)
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
     <SingleSelectable
       accessibilityLabel={accessibilityLabel}
+      accessibilityLanguage={accessibilityLanguage}
       accessibilityRole="text"
       accessible={true}
       style={styles.tooltip}
@@ -63,7 +68,17 @@ type TooltipRefProps = {
 }
 
 export const Tooltip = forwardRef<TooltipRefProps, Props>(
-  ({accessibilityLabel, placement, testID, text, onChange}, ref) => {
+  (
+    {
+      accessibilityLabel,
+      accessibilityLanguage = 'nl-NL',
+      placement,
+      testID,
+      text,
+      onChange,
+    },
+    ref,
+  ) => {
     const props = {direction: mapPlacementToDirection(placement)}
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const setAccessibilityFocus = useAccessibilityFocus()
@@ -95,6 +110,7 @@ export const Tooltip = forwardRef<TooltipRefProps, Props>(
               {placement === Placement.below && <Triangle {...props} />}
               <TooltipContent
                 accessibilityLabel={accessibilityLabel}
+                accessibilityLanguage={accessibilityLanguage}
                 testID={testID}
                 text={text}
               />

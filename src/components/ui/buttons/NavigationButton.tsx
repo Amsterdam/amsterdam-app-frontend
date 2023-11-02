@@ -1,3 +1,4 @@
+import {TextProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
@@ -6,6 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
   direction?: 'backward' | 'forward'
   iconSize?: keyof typeof IconSize
@@ -20,8 +22,10 @@ export const NavigationButton = ({
   onPress,
   testID,
   accessibilityRole = 'link',
+  accessibilityLanguage = 'nl-NL',
 }: Props) => (
   <Pressable
+    accessibilityLanguage={accessibilityLanguage}
     accessibilityRole={accessibilityRole}
     onPress={onPress}
     testID={testID}>

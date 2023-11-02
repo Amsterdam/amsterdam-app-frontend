@@ -20,7 +20,9 @@ export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
   }, [a11yAnnounce, text, title])
 
   return (
-    <SingleSelectable accessibilityLabel={accessibleText(title, text)}>
+    <SingleSelectable
+      accessibilityLabel={accessibleText(title, text)}
+      accessibilityLanguage="nl-NL">
       {!!showTitle && (
         <Title
           level="h3"

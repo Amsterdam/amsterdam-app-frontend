@@ -41,6 +41,7 @@ export const Pressable = forwardRef<View, PressableProps>(
 
     return (
       <PressableRN
+        accessibilityLanguage="nl-NL"
         accessibilityRole="button"
         ref={ref}
         style={({pressed}) => [styles.button, pressed && styles.pressed]}

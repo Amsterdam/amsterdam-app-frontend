@@ -37,6 +37,7 @@ export const Switch = ({
       accessibilityLabel={`${accessibilityLabel} onderdeel staat ${
         value ? 'aan' : 'uit'
       }`}
+      accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       aria-disabled={disabled}
       onPress={onChange}

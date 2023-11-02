@@ -27,6 +27,7 @@ export const Figure = ({
 
   return (
     <View
+      accessibilityLanguage="nl-NL"
       {...viewProps}
       style={styles.figure}>
       <View style={styles.content}>{children}</View>

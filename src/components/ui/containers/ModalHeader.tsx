@@ -34,6 +34,7 @@ export const ModalHeader = ({testID, title}: Props) => {
         </View>
         <IconButton
           accessibilityLabel="Sluiten"
+          accessibilityLanguage="nl-NL"
           icon={
             <Icon
               color="link"

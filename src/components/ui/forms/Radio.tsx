@@ -50,6 +50,7 @@ export const Radio = ({
 }: RadioProps) => (
   <Pressable
     {...pressableProps}
+    accessibilityLanguage="nl-NL"
     accessibilityState={{selected: isSelected}}
     onPress={onPress}>
     <Row

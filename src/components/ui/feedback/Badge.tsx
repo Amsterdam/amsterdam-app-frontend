@@ -17,11 +17,12 @@ export type BadgeProps = {
    * Which variant of the badge to display.
    */
   variant?: 'default' | 'on-icon' | 'small'
-} & Pick<AccessibilityProps, 'accessibilityLabel'> &
+} & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
 export const Badge = ({
   accessibilityLabel,
+  accessibilityLanguage = 'nl-NL',
   testID,
   value,
   variant = 'default',
@@ -34,6 +35,7 @@ export const Badge = ({
       <View style={styles.circle}>
         <Text
           accessibilityLabel={accessibilityLabel}
+          accessibilityLanguage={accessibilityLanguage}
           accessible={!!variantConfig[variant]}
           numberOfLines={1}
           style={styles.text}

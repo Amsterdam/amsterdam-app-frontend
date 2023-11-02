@@ -41,6 +41,7 @@ export const TextInputField = ({
             <Column gutter="xs">
               <TextInput
                 accessibilityLabel={label}
+                accessibilityLanguage="nl-NL"
                 autoFocus={autoFocus}
                 label={label}
                 multiline={!!numberOfLines}

@@ -9,6 +9,7 @@ export const AddButton = (props: PressableProps) => {
 
   return (
     <Pressable
+      accessibilityLanguage="nl-NL"
       style={styles.button}
       {...props}>
       <Icon

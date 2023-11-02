@@ -36,6 +36,7 @@ export const Paragraph = ({
 
   return (
     <Text
+      accessibilityLanguage="nl-NL"
       accessibilityRole={color === 'warning' ? 'alert' : 'none'}
       style={styles.text}
       {...textProps}>
