@@ -20,4 +20,8 @@ describe('Address pronounce', () => {
     ))
   it(`[number][alphanummeric]`, () =>
     expect(addressPronounce('Herengracht 3H')).toBe('Herengracht 3-H'))
+  it('handles the only numbers situation', () => {
+    expect(addressPronounce('3-2')).toBe('3, 2 hoog')
+    expect(addressPronounce('iets3-2')).toBe('iets3-2')
+  })
 })
