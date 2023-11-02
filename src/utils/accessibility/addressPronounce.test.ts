@@ -11,13 +11,13 @@ describe('Address pronounce', () => {
   it(`[number]`, () =>
     expect(addressPronounce('Herengracht 3')).toBe('Herengracht 3'))
   it(`[number]-[alphanummeric]`, () =>
-    expect(addressPronounce('Herengracht 3-H')).toBe('Herengracht 3 H'))
+    expect(addressPronounce('Herengracht 3-H')).toBe('Herengracht 3-H'))
   it(`[number]-[number]`, () =>
     expect(addressPronounce('Herengracht 3-2')).toBe('Herengracht 3, 2 hoog'))
   it(`[number][alphanummeric]-[number]`, () =>
     expect(addressPronounce('Herengracht 412A-3')).toBe(
-      'Herengracht 412 A, 3 hoog',
+      'Herengracht 412-A, 3 hoog',
     ))
   it(`[number][alphanummeric]`, () =>
-    expect(addressPronounce('Herengracht 3H')).toBe('Herengracht 3 H'))
+    expect(addressPronounce('Herengracht 3H')).toBe('Herengracht 3-H'))
 })
