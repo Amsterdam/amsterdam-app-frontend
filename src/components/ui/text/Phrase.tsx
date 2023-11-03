@@ -45,6 +45,7 @@ export const Phrase = ({
 
   return (
     <Text
+      accessibilityLanguage="nl-NL"
       style={styles.text}
       {...textProps}>
       {children}

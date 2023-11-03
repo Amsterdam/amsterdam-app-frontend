@@ -96,6 +96,7 @@ export const Accordion = ({
           },
         ]}
         accessibilityLabel={accessibilityLabel}
+        accessibilityLanguage="nl-NL"
         onAccessibilityAction={event => {
           if (event.nativeEvent.actionName === 'activate') {
             handleStateChange(!isExpanded)

@@ -35,6 +35,7 @@ export const IconButton = forwardRef<View, Props>(
         align="start"
         valign="center">
         <Pressable
+          accessibilityLanguage="nl-NL"
           accessibilityRole="button"
           hitSlop={hitSlop}
           ref={ref}

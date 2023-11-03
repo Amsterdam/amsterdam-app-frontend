@@ -18,6 +18,7 @@ export const PhoneButton = ({
   return (
     <Row>
       <Button
+        accessibilityLanguage="nl-NL"
         {...buttonProps}
         accessibilityLabel={
           accessibilityLabel ||

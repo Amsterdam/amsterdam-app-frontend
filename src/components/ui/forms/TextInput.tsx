@@ -34,6 +34,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
       warning,
       value: valueProp = '',
       testID = '',
+      accessibilityLanguage = 'nl-NL',
       ...textInputProps
     }: Props,
     ref,
@@ -75,6 +76,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
           <TextInputRN
             {...textInputProps}
             {...themedTextInputProps}
+            accessibilityLanguage={accessibilityLanguage}
             numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
             onBlur={handleBlur}
             onChangeText={handleChangeText}
@@ -90,6 +92,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             <View>
               <IconButton
                 accessibilityHint="Maak dit tekstveld leeg"
+                accessibilityLanguage={accessibilityLanguage}
                 icon={
                   <Icon
                     name="close"

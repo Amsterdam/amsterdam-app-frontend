@@ -35,6 +35,7 @@ export const Checkbox = ({
   return (
     <TouchableHighlight
       accessibilityLabel={accessibilityLabel}
+      accessibilityLanguage="nl-NL"
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onValueChange}

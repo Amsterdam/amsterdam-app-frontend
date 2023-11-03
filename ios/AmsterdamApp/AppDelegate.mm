@@ -27,6 +27,9 @@
 
   // initialize firebase
   [FIRApp configure];
+  
+  // set default accessibilityLanguage
+  application.accessibilityLanguage = @"nl-NL";
 
   return YES;
 }

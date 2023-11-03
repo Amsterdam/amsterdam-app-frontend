@@ -9,6 +9,7 @@ export const SingleSelectable = ({
   ...viewProps
 }: ViewProps) => (
   <View
+    accessibilityLanguage="nl-NL"
     accessible
     style={[style, styles.singleSelectable]}
     {...viewProps}>

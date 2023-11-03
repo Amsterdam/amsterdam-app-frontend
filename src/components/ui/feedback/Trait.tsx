@@ -8,6 +8,7 @@ import {TestProps} from '@/components/ui/types'
 
 type Props = {
   accessibilityLabel?: TextProps['accessibilityLabel']
+  accessibilityLanguage?: TextProps['accessibilityLanguage']
   /**
    * Allows a custom visualization for the trait.
    * Use a small component here. Not rendered if an icon name is provided.
@@ -26,6 +27,7 @@ type Props = {
 
 export const Trait = ({
   accessibilityLabel,
+  accessibilityLanguage = 'nl-NL',
   children,
   iconName,
   label,
@@ -44,6 +46,7 @@ export const Trait = ({
     )}
     <Phrase
       accessibilityLabel={accessibilityLabel}
+      accessibilityLanguage={accessibilityLanguage}
       testID={`${testID}Label`}
       variant="small">
       {label}

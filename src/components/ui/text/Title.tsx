@@ -27,6 +27,7 @@ export const Title = forwardRef<Text, Props>(
 
     return (
       <Text
+        accessibilityLanguage="nl-NL"
         {...textProps}
         accessibilityRole="header"
         ref={ref}

@@ -13,6 +13,7 @@ export const Attention = ({children, warning}: Props) => {
 
   return (
     <View
+      accessibilityLanguage="nl-NL"
       accessibilityRole="alert"
       style={[styles.attention, warning && styles.warning]}>
       {children}

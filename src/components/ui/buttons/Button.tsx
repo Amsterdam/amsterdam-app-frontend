@@ -56,6 +56,7 @@ export const Button = ({
 
   return (
     <Pressable
+      accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}

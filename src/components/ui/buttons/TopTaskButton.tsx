@@ -39,6 +39,7 @@ export const TopTaskButton = ({
         title,
         typeof text === 'string' ? text : '',
       )}
+      accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       grow
       onPress={onPress}

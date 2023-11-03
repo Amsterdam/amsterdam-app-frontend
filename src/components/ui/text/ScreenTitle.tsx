@@ -5,7 +5,7 @@ type Props = {
   text: string
 }
 
-export const ScreenTitle = ({accessibilityLanguage, text}: Props) => (
+export const ScreenTitle = ({accessibilityLanguage = 'nl-NL', text}: Props) => (
   <Title
     accessibilityLanguage={accessibilityLanguage}
     level="h5"
