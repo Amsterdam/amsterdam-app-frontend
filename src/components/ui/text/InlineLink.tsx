@@ -1,8 +1,7 @@
-import {FC, Fragment, ReactNode} from 'react'
-import {Pressable, TextProps, View} from 'react-native'
+import {ReactNode} from 'react'
+import {TextProps} from 'react-native'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 
 type Props = {
   children: ReactNode
@@ -16,30 +15,14 @@ export const InlineLink = ({
   onPress,
   phraseVariant,
   ...otherProps
-}: Props) => {
-  const isScreenReaderEnabled = useIsScreenReaderEnabled()
-
-  const WrapperComponent: FC<{children: ReactNode}> = isScreenReaderEnabled
-    ? props => (
-        <View>
-          <Pressable
-            onPress={onPress}
-            {...props}
-          />
-        </View>
-      )
-    : Fragment
-
-  return (
-    <WrapperComponent>
-      <Phrase
-        accessibilityRole="link"
-        color="link"
-        underline
-        variant={phraseVariant}
-        {...otherProps}>
-        {children}
-      </Phrase>
-    </WrapperComponent>
-  )
-}
+}: Props) => (
+  <Phrase
+    accessibilityRole="link"
+    color="link"
+    onPress={onPress}
+    underline
+    variant={phraseVariant}
+    {...otherProps}>
+    {children}
+  </Phrase>
+)
