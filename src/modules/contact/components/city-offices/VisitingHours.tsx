@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react'
+import {useState} from 'react'
 import {View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Tooltip} from '@/components/ui/feedback/Tooltip'
@@ -71,10 +71,13 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const setAutoFocusRef = useAccessibilityAutoFocus({
     isActive: !isOpen,
   })
-  const tooltipRef = useRef<Tooltip>(null)
 
   if (visitingHoursContent) {
     return <HtmlContent content={visitingHoursContent} />
+  }
+
+  const toggleVisibilityState = () => {
+    setIsOpen(!isOpen)
   }
 
   return (
@@ -98,18 +101,16 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               size="lg"
             />
           }
-          onPress={() => {
-            tooltipRef.current?.onToggle()
-          }}
+          onPress={toggleVisibilityState}
           ref={ref => setAutoFocusRef(ref as View)}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
       <Tooltip
         accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-        onChange={setIsOpen}
+        isOpen={isOpen}
+        onPress={toggleVisibilityState}
         placement={Placement.below}
-        ref={tooltipRef}
         text={getTooltipContent('written')}
       />
     </Column>

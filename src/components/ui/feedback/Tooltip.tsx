@@ -1,10 +1,4 @@
-import {
-  ElementRef,
-  forwardRef,
-  useImperativeHandle,
-  useState,
-  useEffect,
-} from 'react'
+import {ElementRef} from 'react'
 import {AccessibilityProps, StyleSheet} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -19,30 +13,21 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  onChange: (isOpen: boolean) => void
+  isOpen: boolean
+  onPress: () => void
   placement: Placement
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
-const TooltipContent = ({
-  accessibilityLabel,
-  accessibilityLanguage = 'nl-NL',
-  testID,
-  text,
-}: Pick<
-  Props,
-  'accessibilityLabel' | 'accessibilityLanguage' | 'testID' | 'text'
->) => {
+const TooltipContent = ({testID, text}: Pick<Props, 'testID' | 'text'>) => {
   const styles = useThemable(createStyles)
   const paragraphs = typeof text === 'string' ? [text] : text
 
   return (
     <SingleSelectable
-      accessibilityLabel={accessibilityLabel}
-      accessibilityLanguage={accessibilityLanguage}
       accessibilityRole="text"
-      accessible={true}
+      accessible={false}
       style={styles.tooltip}
       testID={testID}>
       <Column gutter="sm">
@@ -60,69 +45,44 @@ const TooltipContent = ({
   )
 }
 
-type TooltipRefProps = {
-  isOpen: boolean
-  onClose: () => void
-  onOpen: () => void
-  onToggle: () => void
+export const Tooltip = ({
+  accessibilityLabel,
+  accessibilityLanguage = 'nl-NL',
+  isOpen,
+  placement,
+  testID,
+  text,
+  onPress,
+}: Props) => {
+  const props = {direction: mapPlacementToDirection(placement)}
+  const setAccessibilityFocus = useAccessibilityFocus()
+
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <Pressable
+      accessibilityLabel={accessibilityLabel}
+      accessibilityLanguage={accessibilityLanguage}
+      insetHorizontal="lg"
+      onPress={onPress}
+      ref={setAccessibilityFocus}>
+      <Row>
+        {placement === Placement.after && <Triangle {...props} />}
+        <Column>
+          {placement === Placement.below && <Triangle {...props} />}
+          <TooltipContent
+            testID={testID}
+            text={text}
+          />
+          {placement === Placement.above && <Triangle {...props} />}
+        </Column>
+        {placement === Placement.before && <Triangle {...props} />}
+      </Row>
+    </Pressable>
+  )
 }
-
-export const Tooltip = forwardRef<TooltipRefProps, Props>(
-  (
-    {
-      accessibilityLabel,
-      accessibilityLanguage = 'nl-NL',
-      placement,
-      testID,
-      text,
-      onChange,
-    },
-    ref,
-  ) => {
-    const props = {direction: mapPlacementToDirection(placement)}
-    const [isOpen, setIsOpen] = useState<boolean>(false)
-    const setAccessibilityFocus = useAccessibilityFocus()
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        onOpen: () => setIsOpen(true),
-        onToggle: () => setIsOpen(prev => !prev),
-        onClose: () => setIsOpen(false),
-        isOpen,
-      }),
-      [isOpen],
-    )
-
-    useEffect(() => {
-      onChange(isOpen)
-    }, [isOpen, onChange])
-
-    return (
-      isOpen && (
-        <Pressable
-          insetHorizontal="lg"
-          onPress={() => setIsOpen(false)}
-          ref={setAccessibilityFocus}>
-          <Row>
-            {placement === Placement.after && <Triangle {...props} />}
-            <Column>
-              {placement === Placement.below && <Triangle {...props} />}
-              <TooltipContent
-                accessibilityLabel={accessibilityLabel}
-                accessibilityLanguage={accessibilityLanguage}
-                testID={testID}
-                text={text}
-              />
-              {placement === Placement.above && <Triangle {...props} />}
-            </Column>
-            {placement === Placement.before && <Triangle {...props} />}
-          </Row>
-        </Pressable>
-      )
-    )
-  },
-)
 
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
