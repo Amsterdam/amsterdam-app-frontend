@@ -24,7 +24,6 @@ export const SelectCityScreen = ({navigation}: Props) => {
 
   return (
     <Screen
-      scroll={false}
       withLeftInset={!isLandscape}
       withRightInset={!isLandscape}>
       <Column
