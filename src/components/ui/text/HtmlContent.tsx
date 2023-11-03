@@ -12,7 +12,6 @@ import RenderHTML, {
   CustomMixedRenderer,
   CustomTagRendererRecord,
   MixedStyleDeclaration,
-  RenderersProps,
 } from 'react-native-render-html'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -20,7 +19,7 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {TestProps} from '@/components/ui/types'
 import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
-import {OpenUrl, useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Theme} from '@/themes/themes'
@@ -65,11 +64,9 @@ const transformContent = (
  * Renders HTML content, applying the typographic design.
  */
 export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
-  const openUrl = useOpenUrl()
   const [contentWidth, setContentWidth] = useState<number>(0)
   const baseStyle = useThemable(createBaseStyle)
   const styles = useThemable(createStyles(isIntro))
-  const renderersProps = useThemable(createRenderersProps(openUrl))
   const systemFonts = useThemable(createFontList)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
@@ -118,7 +115,6 @@ export const HtmlContent = ({content, isIntro, transformRules}: Props) => {
         baseStyle={baseStyle}
         contentWidth={contentWidth}
         renderers={renderers}
-        renderersProps={renderersProps}
         source={{html}}
         systemFonts={systemFonts}
         tagsStyles={tagsStyles}
@@ -199,13 +195,6 @@ const createFontList = ({text}: Theme): string[] => [
   text.fontFamily.bold,
   text.fontFamily.regular,
 ]
-
-const createRenderersProps =
-  (openUrl: OpenUrl) => (): Partial<RenderersProps> => ({
-    a: {
-      onPress: (_event, href) => openUrl(href),
-    },
-  })
 
 // An unordered list only renders its children, without the bullet point and any spacing.
 const UlRenderer: CustomBlockRenderer = ({TNodeChildrenRenderer, ...props}) => (
