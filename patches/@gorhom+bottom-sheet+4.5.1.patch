@@ -15,6 +15,21 @@ index 35597ce..6edc42d 100644
        >
          {children}
        </Animated.View>
+diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackground/BottomSheetBackground.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackground/BottomSheetBackground.tsx
+index 71ce0c3..1abc885 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackground/BottomSheetBackground.tsx
++++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetBackground/BottomSheetBackground.tsx
+@@ -9,9 +9,7 @@ const BottomSheetBackgroundComponent = ({
+ }: BottomSheetBackgroundProps) => (
+   <View
+     pointerEvents={pointerEvents}
+-    accessible={true}
+-    accessibilityRole="adjustable"
+-    accessibilityLabel="Bottom Sheet"
++    accessible={false}
+     style={[styles.container, style]}
+   />
+ );
 diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx
 index 2219e0f..7cfd2ff 100644
 --- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheetHandleContainer/BottomSheetHandleContainer.tsx
