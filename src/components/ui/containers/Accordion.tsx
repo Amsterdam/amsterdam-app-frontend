@@ -101,7 +101,8 @@ export const Accordion = ({
           if (event.nativeEvent.actionName === 'activate') {
             handleStateChange(!isExpanded)
           }
-        }}>
+        }}
+        onPress={() => handleStateChange(!isExpanded)}>
         <AccordionTitle
           icon={
             <Size height={text.lineHeight.h5}>
