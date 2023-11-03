@@ -76,7 +76,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
     return <HtmlContent content={visitingHoursContent} />
   }
 
-  const toggleVisibilityState = () => {
+  const toggleVisibility = () => {
     setIsOpen(!isOpen)
   }
 
@@ -101,7 +101,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               size="lg"
             />
           }
-          onPress={toggleVisibilityState}
+          onPress={toggleVisibility}
           ref={ref => setAutoFocusRef(ref as View)}
           testID="ContactVisitingHoursTooltipButton"
         />
@@ -109,7 +109,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
       <Tooltip
         accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
         isOpen={isOpen}
-        onPress={toggleVisibilityState}
+        onPress={toggleVisibility}
         placement={Placement.below}
         text={getTooltipContent('written')}
       />
