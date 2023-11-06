@@ -1,4 +1,4 @@
-import {memo, useCallback, useLayoutEffect, useMemo} from 'react'
+import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
@@ -7,7 +7,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -115,25 +114,14 @@ type ListEmptyMessageProps = {
   text: string
 }
 
-const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => {
-  const a11yAnnounce = useAccessibilityAnnounce({
-    focusDelay: 'normal',
-    queue: true,
-  })
-
-  useLayoutEffect(() => {
-    a11yAnnounce(text)
-  }, [a11yAnnounce, text])
-
-  return (
-    <Box insetHorizontal="md">
-      <EmptyMessage
-        testID={testID}
-        text={text}
-      />
-    </Box>
-  )
-}
+const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
+  <Box insetHorizontal="md">
+    <EmptyMessage
+      testID={testID}
+      text={text}
+    />
+  </Box>
+)
 
 type Props = {
   data?: ProjectsItem[]

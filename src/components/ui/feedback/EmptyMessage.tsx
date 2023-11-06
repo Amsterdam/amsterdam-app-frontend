@@ -13,7 +13,10 @@ type Props = {
 
 export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
   const title = showTitle ? 'Helaas …' : ''
-  const a11yAnnounce = useAccessibilityAnnounce()
+  const a11yAnnounce = useAccessibilityAnnounce({
+    focusDelay: 'normal',
+    queue: true,
+  })
 
   useLayoutEffect(() => {
     a11yAnnounce(title + text)
