@@ -17,7 +17,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
         accessibilityLabel={accessibleText(
-          `${title}`,
+          title,
           `${address.streetName} ${address.streetNumber}`,
           address.postalCode,
           address.city,
