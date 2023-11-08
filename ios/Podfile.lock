@@ -589,8 +589,7 @@ PODS:
     - Firebase/Messaging (= 8.8.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.13.4):
-    - RCT-Folly (= 2021.07.22.00)
+  - RNGestureHandler (2.12.1):
     - React-Core
   - RNImageCropPicker (0.40.0):
     - React-Core
@@ -982,7 +981,7 @@ SPEC CHECKSUMS:
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 729c0666395b1953198dc4a1ec6deb8fbe1c302e
   RNFBMessaging: 8415ec196e5c1196caa26ec0742cdb48ed4d0f97
-  RNGestureHandler: 6e46dde1f87e5f018a54fe5d40cd0e0b942b49ee
+  RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
   RNPermissions: bef93722f338716f001fc3dedd97c671e0d02716
