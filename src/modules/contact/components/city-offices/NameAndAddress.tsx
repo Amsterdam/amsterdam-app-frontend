@@ -1,5 +1,4 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -17,23 +16,24 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
     <Column gutter="md">
       <TopTaskButton
         accessibilityHint="Tik om een ander stadsloket te selecteren."
+        accessibilityLabel={accessibleText(
+          title,
+          `${address.streetName} ${address.streetNumber}`,
+          address.postalCode,
+          address.city,
+        )}
         iconName="city-office"
         onPress={openBottomSheet}
         testID="ContactCurrentCityOfficeButton"
         text={
-          <SingleSelectable
-            accessibilityLabel={accessibleText(
-              `${address.streetName} ${address.streetNumber}`,
-              address.postalCode,
-              address.city,
-            )}>
+          <>
             <Phrase variant="small">
               {address.streetName} {address.streetNumber}
             </Phrase>
             <Phrase variant="small">
               {address.postalCode} {address.city}
             </Phrase>
-          </SingleSelectable>
+          </>
         }
         title={title}
         titleIconName="chevron-down"
