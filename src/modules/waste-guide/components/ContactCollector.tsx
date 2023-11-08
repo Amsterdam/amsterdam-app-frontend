@@ -16,7 +16,7 @@ export const ContactCollector = () => {
         level="h5"
         text="Neem contact op met uw afvalinzamelaar"
       />
-      <Phrase>
+      <Phrase accessibilityRole="link">
         Of kijk voor meer informatie over bedrijfsafval op{' '}
         <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
           onze website

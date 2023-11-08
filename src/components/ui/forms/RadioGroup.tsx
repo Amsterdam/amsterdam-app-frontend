@@ -24,6 +24,7 @@ export const RadioGroup = <T extends RadioValue>({
   <Column gutter="md">
     {options.map(({label, value: optionValue}) => (
       <Radio
+        accessibilityRole="radio"
         isSelected={value === optionValue}
         key={label}
         label={label}

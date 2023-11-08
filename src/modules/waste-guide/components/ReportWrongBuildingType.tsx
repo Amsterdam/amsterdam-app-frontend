@@ -12,7 +12,7 @@ export const ReportWrongBuildingType = () => {
   return (
     <Column>
       <Phrase emphasis="strong">Dit is geen woonadres</Phrase>
-      <Phrase>
+      <Phrase accessibilityRole="link">
         Klopt dit niet?{' '}
         <InlineLink
           onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}>
