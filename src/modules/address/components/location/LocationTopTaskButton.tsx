@@ -2,28 +2,28 @@ import {useCallback} from 'react'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {TestProps} from '@/components/ui/types'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
-import {Address, Coordinates} from '@/modules/address/types'
+import {Coordinates} from '@/modules/address/types'
 
 type Props = {
   coordinates?: Coordinates
-  hasPermissionError?: boolean
+  hasLocationPermission?: boolean
+  hasTechnicalError?: boolean
   hasTitleIcon?: boolean
   loading?: boolean
-  locationPermissionIsBlocked?: boolean
   onPress: (hasValidAddressData: boolean) => void
 } & TestProps
 
 const getText = (
   loading: boolean,
-  locationPermissionIsBlocked: boolean,
-  address?: Address,
+  hasLocationPermission: boolean,
+  addressLine1?: string,
 ) => {
   if (loading) {
     return '...'
   }
 
-  if (address?.addressLine1 && !locationPermissionIsBlocked) {
-    return `In de buurt van ${address.addressLine1}`
+  if (addressLine1 && hasLocationPermission) {
+    return `In de buurt van ${addressLine1}`
   }
 
   return 'Geef uw locatie door'
@@ -31,9 +31,9 @@ const getText = (
 
 export const LocationTopTaskButton = ({
   coordinates,
-  hasPermissionError,
+  hasTechnicalError,
   hasTitleIcon,
-  locationPermissionIsBlocked = false,
+  hasLocationPermission = false,
   loading = false,
   onPress,
   testID,
@@ -42,7 +42,7 @@ export const LocationTopTaskButton = ({
     useAddressForCoordinates({coordinates})
 
   const isLoading =
-    (loading || addressForCoordinatesIsFetching) && !locationPermissionIsBlocked
+    (loading || addressForCoordinatesIsFetching) && hasLocationPermission
 
   const handlePress = useCallback(
     () => onPress(!isLoading && !!address),
@@ -52,11 +52,11 @@ export const LocationTopTaskButton = ({
   return (
     <StatefulTopTaskButton
       iconName="location"
-      isError={hasPermissionError}
+      isError={hasTechnicalError}
       isLoading={isLoading}
       onPress={handlePress}
       testID={testID}
-      text={getText(isLoading, locationPermissionIsBlocked, address)}
+      text={getText(isLoading, hasLocationPermission, address?.addressLine1)}
       title="Mijn huidige locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     />

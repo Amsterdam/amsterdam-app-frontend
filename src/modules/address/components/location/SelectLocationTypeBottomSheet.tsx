@@ -1,5 +1,9 @@
 import {useCallback, useEffect, useState} from 'react'
-import {RESULTS} from 'react-native-permissions'
+import {Platform} from 'react-native'
+import {
+  PermissionStatus,
+  RESULTS as permissionStatuses,
+} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,6 +13,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAppState} from '@/hooks/useAppState'
 import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -30,33 +35,56 @@ type Props = {
   slug: ModuleSlug
 }
 
+const hasPermission = (
+  locationPermissionBlockedOnPreviousAttempt: boolean,
+  locationPermissionStatus?: PermissionStatus,
+) => {
+  if (Platform.OS === 'android') {
+    return !locationPermissionBlockedOnPreviousAttempt
+  }
+
+  return locationPermissionStatus !== permissionStatuses.BLOCKED
+}
+
 export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
   slug,
 }: Props) => {
-  const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
-  const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
-    useState(false)
-  const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
-  const [hasLocationPermissionError, setHasLocationPermissionError] =
-    useState(false)
-  const {navigate} = useNavigation<AddressModalName>()
   const dispatch = useDispatch()
-  const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
   const address = useAddress()
-  const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
+
+  const {navigate} = useNavigation<AddressModalName>()
   const navigateToInstructionsScreen = useCallback(
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
   )
+
+  const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
+  const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
+
+  const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
+  const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
+  const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
+    useState(false)
+  const [hasLocationTechnicalError, setHasLocationTechnicalError] =
+    useState(false)
+
   const {status: locationPermissionStatus} = usePermission({
     permission: locationPermission,
   })
-  const [isPermissionJustBlocked, setPermissionJustBlocked] = useState(false)
+  const [
+    locationPermissionBlockedOnPreviousAttempt,
+    setLocationPermissionBlockedOnPreviousAttempt,
+  ] = useState(false)
 
-  // Only works on iOS since Android will never return 'blocked' after a check. See docs: https://github.com/zoontek/react-native-permissions#check
-  const locationPermissionIsBlocked =
-    locationPermissionStatus === RESULTS.BLOCKED
+  useAppState({
+    onForeground: () => setLocationPermissionBlockedOnPreviousAttempt(false),
+  })
+
+  const hasLocationPermission = hasPermission(
+    locationPermissionBlockedOnPreviousAttempt,
+    locationPermissionStatus,
+  )
 
   const onPressAddressButton = useCallback(() => {
     dispatch(
@@ -77,9 +105,9 @@ export const SelectLocationTypeBottomSheet = ({
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
-      setHasLocationPermissionError(false)
+      setHasLocationTechnicalError(false)
 
-      if (locationPermissionIsBlocked || isPermissionJustBlocked) {
+      if (!hasLocationPermission) {
         navigateToInstructionsScreen()
 
         return
@@ -89,9 +117,9 @@ export const SelectLocationTypeBottomSheet = ({
 
       if (!lastKnownCoordinates) {
         // if there are no current coordinates, we request them on press
-        setRequestingCurrentCoordinates(true)
-
         try {
+          setRequestingCurrentCoordinates(true)
+
           const coordinates = await getCurrentCoordinates()
 
           setCurrentCoordinates(coordinates)
@@ -99,16 +127,20 @@ export const SelectLocationTypeBottomSheet = ({
           const {status} = error as GetCurrentPositionError
           const isPermissionError = isPermissionErrorStatus(status)
 
-          status === RESULTS.BLOCKED
-            ? setPermissionJustBlocked(true)
-            : setPermissionJustBlocked(false)
+          setLocationPermissionBlockedOnPreviousAttempt(
+            status === permissionStatuses.BLOCKED,
+          )
 
-          if (!isPermissionError) {
-            setHasLocationPermissionError(true)
+          if (isPermissionError) {
+            navigateToInstructionsScreen()
+          } else {
+            setHasLocationTechnicalError(true)
           }
-        }
 
-        setRequestingCurrentCoordinates(false)
+          return
+        } finally {
+          setRequestingCurrentCoordinates(false)
+        }
       }
 
       if (!hasValidAddressData) {
@@ -133,9 +165,8 @@ export const SelectLocationTypeBottomSheet = ({
       currentCoordinates,
       dispatch,
       getCurrentCoordinates,
-      isPermissionJustBlocked,
-      locationPermissionIsBlocked,
       navigateToInstructionsScreen,
+      hasLocationPermission,
       slug,
     ],
   )
@@ -162,7 +193,7 @@ export const SelectLocationTypeBottomSheet = ({
   }, [getCurrentCoordinates, bottomSheetIsOpen])
 
   useEffect(() => {
-    !bottomSheetIsOpen && setHasLocationPermissionError(false)
+    !bottomSheetIsOpen && setHasLocationTechnicalError(false)
   }, [bottomSheetIsOpen])
 
   return (
@@ -202,9 +233,9 @@ export const SelectLocationTypeBottomSheet = ({
           />
           <LocationTopTaskButton
             coordinates={currentCoordinates}
-            hasPermissionError={hasLocationPermissionError}
+            hasLocationPermission={hasLocationPermission}
+            hasTechnicalError={hasLocationTechnicalError}
             loading={requestingCurrentCoordinates}
-            locationPermissionIsBlocked={locationPermissionIsBlocked}
             onPress={onPressLocationButton}
             testID="BottomSheetSelectLocationButton"
           />
