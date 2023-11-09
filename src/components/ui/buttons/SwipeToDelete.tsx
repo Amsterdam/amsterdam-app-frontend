@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useCallback, useState} from 'react'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
@@ -46,18 +46,19 @@ const DeleteButton = ({onPress}: DeleteButtonProps) => (
 export const SwipeToDelete = ({children, onEvent}: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
 
-  const onSwipeableRightOpen = () => {
-    setIsSwipeOpen(true)
-    isSwipeOpen && onEvent()
-  }
+  const onSwipeableOpen = useCallback(
+    (direction: 'left' | 'right') => {
+      if (direction === 'right') {
+        setIsSwipeOpen(true)
+        isSwipeOpen && onEvent()
+      }
+    },
+    [isSwipeOpen, onEvent],
+  )
 
   return (
     <Swipeable
-      onSwipeableOpen={direction => {
-        if (direction === 'right') {
-          onSwipeableRightOpen()
-        }
-      }}
+      onSwipeableOpen={onSwipeableOpen}
       renderRightActions={() => <DeleteButton onPress={onEvent} />}>
       {children}
     </Swipeable>
