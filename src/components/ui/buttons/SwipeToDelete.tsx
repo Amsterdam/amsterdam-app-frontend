@@ -53,7 +53,11 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
 
   return (
     <Swipeable
-      onSwipeableRightOpen={onSwipeableRightOpen}
+      onSwipeableOpen={direction => {
+        if (direction === 'right') {
+          onSwipeableRightOpen()
+        }
+      }}
       renderRightActions={() => <DeleteButton onPress={onEvent} />}>
       {children}
     </Swipeable>
