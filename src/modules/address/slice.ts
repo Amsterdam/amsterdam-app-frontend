@@ -10,6 +10,7 @@ type LocationTypePerModule = Partial<Record<ModuleSlug, LocationType>>
 export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
+  locationPermissionBlockedForAndroid?: boolean
   locationTypePerModule?: LocationTypePerModule
 }
 
@@ -31,6 +32,13 @@ export const addressSlice = createSlice({
       lastKnownCoordinates,
     }),
     removeAddress: ({address, ...rest}) => rest,
+    setLocationPermissionBlockedForAndroid: (
+      state,
+      {payload: locationPermissionBlockedForAndroid}: PayloadAction<boolean>,
+    ) => ({
+      ...state,
+      locationPermissionBlockedForAndroid,
+    }),
     setLocationType: (
       state,
       {
@@ -50,6 +58,7 @@ export const {
   addAddress,
   addLastKnownCoordinates,
   removeAddress,
+  setLocationPermissionBlockedForAndroid,
   setLocationType,
 } = addressSlice.actions
 
@@ -58,6 +67,9 @@ export const selectAddress = (state: RootState) =>
 
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address]?.lastKnownCoordinates
+
+export const selectLocationPermissionBlockedForAndroid = (state: RootState) =>
+  state[ReduxKey.address]?.locationPermissionBlockedForAndroid
 
 export const selectLocationTypePerModule = (state: RootState) =>
   state[ReduxKey.address]?.locationTypePerModule

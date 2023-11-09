@@ -33,7 +33,7 @@ export const LocationTopTaskButton = ({
   coordinates,
   hasTechnicalError,
   hasTitleIcon,
-  hasLocationPermission = false,
+  hasLocationPermission = true,
   loading = false,
   onPress,
   testID,

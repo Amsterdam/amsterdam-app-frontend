@@ -22,8 +22,13 @@ import {
   GetCurrentPositionError,
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {useLocationPermissionBlockedForAndroid} from '@/modules/address/hooks/useLocationPermissionBlockedForAndroid'
 import {AddressModalName} from '@/modules/address/routes'
-import {addLastKnownCoordinates, setLocationType} from '@/modules/address/slice'
+import {
+  addLastKnownCoordinates,
+  setLocationPermissionBlockedForAndroid,
+  setLocationType,
+} from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -36,11 +41,11 @@ type Props = {
 }
 
 const hasPermission = (
-  locationPermissionBlockedOnPreviousAttempt: boolean,
+  locationPermissionBlockedForAndroid = false,
   locationPermissionStatus?: PermissionStatus,
 ) => {
   if (Platform.OS === 'android') {
-    return !locationPermissionBlockedOnPreviousAttempt
+    return !locationPermissionBlockedForAndroid
   }
 
   return locationPermissionStatus !== permissionStatuses.BLOCKED
@@ -72,17 +77,17 @@ export const SelectLocationTypeBottomSheet = ({
   const {status: locationPermissionStatus} = usePermission({
     permission: locationPermission,
   })
-  const [
-    locationPermissionBlockedOnPreviousAttempt,
-    setLocationPermissionBlockedOnPreviousAttempt,
-  ] = useState(false)
+  const locationPermissionBlockedForAndroid =
+    useLocationPermissionBlockedForAndroid()
 
   useAppState({
-    onForeground: () => setLocationPermissionBlockedOnPreviousAttempt(false),
+    onForeground: () => {
+      dispatch(setLocationPermissionBlockedForAndroid(false))
+    },
   })
 
   const hasLocationPermission = hasPermission(
-    locationPermissionBlockedOnPreviousAttempt,
+    locationPermissionBlockedForAndroid,
     locationPermissionStatus,
   )
 
@@ -127,8 +132,10 @@ export const SelectLocationTypeBottomSheet = ({
           const {status} = error as GetCurrentPositionError
           const isPermissionError = isPermissionErrorStatus(status)
 
-          setLocationPermissionBlockedOnPreviousAttempt(
-            status === permissionStatuses.BLOCKED,
+          dispatch(
+            setLocationPermissionBlockedForAndroid(
+              status === permissionStatuses.BLOCKED,
+            ),
           )
 
           if (isPermissionError) {
