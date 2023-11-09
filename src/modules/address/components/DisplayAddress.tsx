@@ -13,22 +13,21 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
-import {Address} from '@/modules/address/types'
 import {setAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
 type AddressDeleteButtonProps = {
-  address?: Address
+  canDelete: boolean
   children: ReactNode
   onDelete: () => void
 }
 
 const AddressDeleteButton = ({
-  address,
+  canDelete,
   onDelete,
   children,
 }: AddressDeleteButtonProps) => {
-  if (address) {
+  if (canDelete) {
     return (
       <SwipeToDelete onEvent={onDelete}>
         <Row>
@@ -74,7 +73,7 @@ export const DisplayAddress = () => {
     <Row>
       <Column flex={1}>
         <AddressDeleteButton
-          address={address}
+          canDelete={!!address}
           onDelete={removeAddressAndShowAlert}>
           <TopTaskButton
             accessibilityHint="Tik om het adres te wijzigen"
