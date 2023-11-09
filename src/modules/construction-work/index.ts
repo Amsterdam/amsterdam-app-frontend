@@ -1,9 +1,14 @@
 import {BadgeValue} from '@/modules/construction-work/components/BadgeValue'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {constructionWorkSlice} from '@/modules/construction-work/slice'
+import {
+  ConstructionWorkState,
+  constructionWorkSlice,
+} from '@/modules/construction-work/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
+
+const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule: ModuleClientConfig = {
   BadgeValue,
@@ -16,7 +21,7 @@ export const constructionWorkModule: ModuleClientConfig = {
     {
       key: ReduxKey.constructionWork,
       persistVersion: 0,
-      persistWhitelist: ['readArticles'],
+      persistWhitelist,
       slice: constructionWorkSlice,
     },
   ],
