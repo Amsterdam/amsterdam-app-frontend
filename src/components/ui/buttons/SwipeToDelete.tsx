@@ -1,6 +1,7 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useCallback, useState} from 'react'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -20,35 +21,44 @@ const DeleteButton = ({onPress}: DeleteButtonProps) => (
     inset="md"
     onPress={onPress}
     variant="negative">
-    <Row
-      align="end"
-      gutter="sm"
-      valign="center">
-      <Phrase
-        color="inverse"
-        variant="small">
-        Verwijder
-      </Phrase>
-      <Icon
-        color="inverse"
-        name="trash-bin"
-        size="lg"
-      />
-    </Row>
+    <Column
+      align="center"
+      grow>
+      <Row
+        align="end"
+        gutter="sm"
+        valign="center">
+        <Phrase
+          color="inverse"
+          variant="small">
+          Verwijder
+        </Phrase>
+        <Icon
+          color="inverse"
+          name="trash-bin"
+          size="lg"
+        />
+      </Row>
+    </Column>
   </Pressable>
 )
 
 export const SwipeToDelete = ({children, onEvent}: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
 
-  const onSwipeableRightOpen = () => {
-    setIsSwipeOpen(true)
-    isSwipeOpen && onEvent()
-  }
+  const onSwipeableOpen = useCallback(
+    (direction: 'left' | 'right') => {
+      if (direction === 'right') {
+        setIsSwipeOpen(true)
+        isSwipeOpen && onEvent()
+      }
+    },
+    [isSwipeOpen, onEvent],
+  )
 
   return (
     <Swipeable
-      onSwipeableRightOpen={onSwipeableRightOpen}
+      onSwipeableOpen={onSwipeableOpen}
       renderRightActions={() => <DeleteButton onPress={onEvent} />}>
       {children}
     </Swipeable>
