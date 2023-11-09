@@ -59,6 +59,10 @@ export const SelectLocationTypeBottomSheet = ({
     locationPermissionStatus === RESULTS.BLOCKED
 
   const onPressAddressButton = useCallback(() => {
+    if (!address) {
+      navigate(AddressModalName.addressForm)
+    }
+
     dispatch(
       setLocationType({
         locationType: 'address',
@@ -67,10 +71,6 @@ export const SelectLocationTypeBottomSheet = ({
     )
 
     closeBottomSheet()
-
-    if (!address) {
-      navigate(AddressModalName.addressForm)
-    }
   }, [address, closeBottomSheet, dispatch, navigate, slug])
 
   const onPressLocationButton = useCallback(
@@ -179,6 +179,8 @@ export const SelectLocationTypeBottomSheet = ({
               <Button
                 label="Wijzig adres"
                 onPress={() => {
+                  navigate(ModuleSlug.user)
+
                   dispatch(
                     setLocationType({
                       locationType: 'address',
@@ -187,8 +189,6 @@ export const SelectLocationTypeBottomSheet = ({
                   )
 
                   closeBottomSheet()
-
-                  navigate(ModuleSlug.user)
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"
