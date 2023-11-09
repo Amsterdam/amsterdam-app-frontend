@@ -1,8 +1,13 @@
 import {migrations} from '@/modules/address/migrations'
-import {addressSlice} from '@/modules/address/slice'
+import {AddressState, addressSlice} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
+
+const persistWhitelist: (keyof AddressState)[] = [
+  'address',
+  'locationTypePerModule',
+]
 
 export const addressModule: CoreModuleConfig = {
   name: 'AddressModule',
@@ -13,7 +18,7 @@ export const addressModule: CoreModuleConfig = {
       migrations,
       persistVersion: 0,
       slice: addressSlice,
-      persistWhitelist: ['address'],
+      persistWhitelist,
     },
   ],
 }

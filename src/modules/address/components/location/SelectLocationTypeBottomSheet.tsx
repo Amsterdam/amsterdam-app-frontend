@@ -69,6 +69,7 @@ export const SelectLocationTypeBottomSheet = ({
         slug,
       }),
     )
+
     closeBottomSheet()
   }, [address, closeBottomSheet, dispatch, navigate, slug])
 
@@ -179,6 +180,15 @@ export const SelectLocationTypeBottomSheet = ({
                 label="Wijzig adres"
                 onPress={() => {
                   navigate(ModuleSlug.user)
+
+                  dispatch(
+                    setLocationType({
+                      locationType: 'address',
+                      slug,
+                    }),
+                  )
+
+                  closeBottomSheet()
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"
