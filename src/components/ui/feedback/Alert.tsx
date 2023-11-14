@@ -28,6 +28,7 @@ import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {resetAlert, selectAlert} from '@/store/slices/alert'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 if (
@@ -38,7 +39,7 @@ if (
 }
 
 export const Alert = () => {
-  const setAccessibilityFocus = useAccessibilityFocus('long')
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.Long)
   const dispatch = useDispatch()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 

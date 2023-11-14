@@ -1,28 +1,35 @@
 import {useCallback} from 'react'
 import {AccessibilityInfo} from 'react-native'
-import {FocusDelay} from '@/hooks/accessibility/types'
-import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {useTimeout} from '@/hooks/useTimeout'
+import {Duration} from '@/types/duration'
 
 type UseAccessibilityAnnounceParams = {
-  focusDelay?: FocusDelay
+  focusDelay?: Duration
   queue?: boolean
 }
 
 export const useAccessibilityAnnounce = ({
-  focusDelay = 'short',
-  queue = false,
-}: UseAccessibilityAnnounceParams = {}) =>
-  useCallback(
+  focusDelay = Duration.Short,
+  queue = true,
+}: UseAccessibilityAnnounceParams = {}) => {
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const setTimeout = useTimeout()
+
+  return useCallback(
     (announcement: string) => {
-      const timeoutId = setFocusDelay(
+      if (!isScreenReaderEnabled) {
+        return
+      }
+
+      setTimeout(
         () =>
           AccessibilityInfo.announceForAccessibilityWithOptions(announcement, {
             queue,
           }),
         focusDelay,
       )
-
-      return () => clearTimeout(timeoutId)
     },
-    [focusDelay, queue],
+    [focusDelay, isScreenReaderEnabled, queue, setTimeout],
   )
+}

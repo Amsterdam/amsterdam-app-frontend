@@ -1,7 +1,8 @@
 import {Component, useCallback} from 'react'
-import {FocusDelay} from '@/hooks/accessibility/types'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {useTimeout} from '@/hooks/useTimeout'
+import {Duration} from '@/types/duration'
 import {focusOnElement} from '@/utils/accessibility/focusOnElement'
-import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
 
 /**
  * Set accessibility focus on a component
@@ -10,16 +11,17 @@ import {setFocusDelay} from '@/utils/accessibility/setFocusDelay'
  */
 
 export const useAccessibilityFocus = <T extends Component>(
-  focusDelay: FocusDelay = 'none',
-) =>
-  useCallback(
-    (ref: T | null) => {
-      // If the ref is null (e.g., during unmount), clear the timeout
-      if (!ref) {
-        return
-      }
+  focusDelay: Duration = Duration.None,
+) => {
+  const setTimeout = useTimeout()
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-      setFocusDelay(() => focusOnElement(ref), focusDelay)
+  return useCallback(
+    (ref: T | null) => {
+      if (ref && isScreenReaderEnabled) {
+        setTimeout(() => focusOnElement(ref), focusDelay)
+      }
     },
-    [focusDelay],
+    [focusDelay, isScreenReaderEnabled, setTimeout],
   )
+}
