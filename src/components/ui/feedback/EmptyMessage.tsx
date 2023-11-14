@@ -4,6 +4,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
   const title = showTitle ? 'Helaas …' : ''
   const a11yAnnounce = useAccessibilityAnnounce({
-    focusDelay: 'normal',
+    focusDelay: Duration.Normal,
     queue: true,
   })
 
