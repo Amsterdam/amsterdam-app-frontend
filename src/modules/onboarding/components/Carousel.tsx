@@ -1,11 +1,13 @@
 import {forwardRef} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
-import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {CarouselSlide} from '@/modules/onboarding/components/CarouselSlide'
 import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
-import {CarouselSlideItemType} from '@/modules/onboarding/types'
+import {
+  CarouselSlideItemType,
+  CarouselSlideType,
+} from '@/modules/onboarding/types'
 import {Theme} from '@/themes/themes'
 import {baseColor} from '@/themes/tokens/base-color'
 import {useThemable} from '@/themes/useThemable'
@@ -16,10 +18,9 @@ type Props = {
 
 export const Carousel = forwardRef<SwiperFlatList, Props>(
   ({items}: Props, ref) => {
-    const styles = useThemable(createStyles)
-
     setHasSeenOnboarding(false)
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
+    const styles = useThemable(createStyles)
 
     return (
       <SwiperFlatList
@@ -27,24 +28,19 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
         disableGesture={isScreenReaderEnabled}
         paginationActiveColor={baseColor.primary.blue}
         paginationDefaultColor={baseColor.primary.blue}
-        paginationStyle={styles.paginationContainer}
-        paginationStyleItem={styles.paginationItem}
-        paginationStyleItemActive={styles.paginationItemActive}
+        paginationStyle={styles.paginationStyle}
+        paginationStyleItem={styles.paginationStyleItem}
+        paginationStyleItemActive={styles.paginationStyleItemActive}
         ref={ref}
-        showPagination>
-        <>
-          <View style={{}}>
-            <AmsterdamAndWeespFacadesImage />
-          </View>
-          {items.map((item: CarouselSlideItemType) => (
-            <CarouselSlide
-              image={item.image}
-              subText={item.subText}
-              title={item.title}
-            />
-          ))}
-        </>
-      </SwiperFlatList>
+        renderItem={({item, index}: CarouselSlideType) => (
+          <CarouselSlide
+            index={index}
+            item={item}
+            length={items.length}
+          />
+        )}
+        showPagination
+      />
     )
   },
 )
@@ -59,17 +55,18 @@ const createStyles = ({media, size}: Theme) => {
       position: 'absolute',
       height: imageHeight,
       alignSelf: 'center',
+      zIndex: 0,
     },
-    paginationContainer: {
+    paginationStyle: {
       bottom: 0,
       height: 'auto',
       maxWidth: 'auto',
     },
-    paginationItem: {
+    paginationStyleItem: {
       width: size.spacing.sm,
       height: size.spacing.sm,
     },
-    paginationItemActive: {
+    paginationStyleItemActive: {
       height: size.spacing.sm,
       width: size.spacing.md,
     },
