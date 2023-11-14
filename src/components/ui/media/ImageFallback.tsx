@@ -31,6 +31,7 @@ const createStyles =
       fallback: {
         alignItems: 'center',
         aspectRatio: media.aspectRatio[aspectRatio],
+        backgroundColor: color.background.cutout,
         borderWidth: 1,
         borderColor: color.border.primary,
         flex: 1,

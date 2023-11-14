@@ -1,9 +1,11 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import {
+  ImageErrorEventData,
   Image as ImageRN,
   ImageProps as ImageRNProps,
   ImageURISource,
   LayoutChangeEvent,
+  NativeSyntheticEvent,
   Platform,
   StyleProp,
   StyleSheet,
@@ -22,12 +24,14 @@ type SupportedImageRNProps = Omit<
   ImageRNProps,
   'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
 > & {
+  // we define the onError function here so it can be shared between FastImage and Image, since this prop has a different signature for each component
+  onError?: (error?: NativeSyntheticEvent<ImageErrorEventData>) => void
   resizeMode?: ImageResizeMode
 }
 
-type Props = {
+export type ImageProps = {
   aspectRatio?: ImageAspectRatio
-} & Omit<SupportedImageRNProps, 'style'>
+} & SupportedImageRNProps
 
 type CachedIosImageProps = {
   uriSources?: ImageURISource | ImageURISource[]
@@ -63,7 +67,7 @@ export const Image = ({
   onLayout,
   source,
   ...imageProps
-}: Props) => {
+}: ImageProps) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
