@@ -1,11 +1,11 @@
 import {useMemo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatioTokens} from '@/themes/tokens/media'
+import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 export type FigureProps = {
-  aspectRatio?: keyof ImageAspectRatioTokens
+  aspectRatio?: ImageAspectRatio
   height?: number
 } & Omit<ViewProps, 'style'>
 

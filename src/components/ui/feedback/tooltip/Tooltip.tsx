@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import {Fader} from '@/components/ui/animations/Fader'
+import {Fader} from '@/components/ui/animations/Fader2'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {TooltipContent} from '@/components/ui/feedback/tooltip/TooltipContent'
 import {Column} from '@/components/ui/layout/Column'

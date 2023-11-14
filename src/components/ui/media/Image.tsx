@@ -12,7 +12,7 @@ import {
 import FastImage, {ImageStyle as FastImageStyle} from 'react-native-fast-image'
 import {getUriForWidth} from '@/components/ui/utils/image'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatioTokens} from '@/themes/tokens/media'
+import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 // Image props supported by both Image and FastImage
@@ -26,7 +26,7 @@ type SupportedImageRNProps = Omit<
 }
 
 type Props = {
-  aspectRatio?: keyof ImageAspectRatioTokens
+  aspectRatio?: ImageAspectRatio
 } & Omit<SupportedImageRNProps, 'style'>
 
 type CachedIosImageProps = {
@@ -113,7 +113,7 @@ export const Image = ({
 }
 
 const createStyles =
-  (aspectRatio: keyof ImageAspectRatioTokens, width?: number) =>
+  (aspectRatio: ImageAspectRatio, width?: number) =>
   ({media}: Theme) => {
     const aspectRatioValue = media.aspectRatio[aspectRatio]
 
