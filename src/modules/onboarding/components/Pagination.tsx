@@ -1,42 +1,66 @@
-import {StyleSheet} from 'react-native'
-import {
-  Pagination as SwiperPagination,
-  PaginationProps,
-} from 'react-native-swiper-flatlist'
+import {FC} from 'react'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
+
+import {PaginationProps} from 'react-native-swiper-flatlist'
 import {Theme} from '@/themes/themes'
-import {baseColor} from '@/themes/tokens/base-color'
 import {useThemable} from '@/themes/useThemable'
 
-export const Pagination = (
-  props: JSX.IntrinsicAttributes & PaginationProps,
-) => {
+export const Pagination: FC<PaginationProps> = ({
+  size,
+  paginationIndex = 0,
+  scrollToIndex,
+  onPaginationSelectedIndex,
+  paginationTapDisabled = false,
+  e2eID = '',
+}) => {
   const styles = useThemable(createStyles)
 
   return (
-    <SwiperPagination
-      {...props}
-      paginationActiveColor={baseColor.primary.blue}
-      paginationDefaultColor={baseColor.primary.blue}
-      paginationStyle={styles.paginationStyle}
-      paginationStyleItem={styles.paginationStyleItem}
-      paginationStyleItemActive={styles.paginationStyleItemActive}
-    />
+    <View style={[styles.container]}>
+      {Array.from({length: size}).map((_, index) => (
+        <TouchableOpacity
+          accessibilityLabel={
+            paginationIndex !== index
+              ? `Ga naar slide ${index + 1}`
+              : `Huidige slide, ${index + 1}`
+          }
+          accessibilityRole="button"
+          disabled={paginationTapDisabled}
+          key={index}
+          onPress={() => {
+            scrollToIndex({index})
+            onPaginationSelectedIndex?.()
+          }}
+          style={[
+            styles.pagination,
+            paginationIndex === index && styles.paginationActivated,
+          ]}
+          testID={`${e2eID}_pagination_${index}`}
+        />
+      ))}
+    </View>
   )
 }
 
-const createStyles = ({size}: Theme) =>
+const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
-    paginationStyle: {
+    container: {
+      position: 'absolute',
+      flexDirection: 'row',
+      marginVertical: size.spacing.xs,
+      justifyContent: 'center',
+      alignSelf: 'center',
       bottom: 0,
       height: 'auto',
-      maxWidth: 'auto',
     },
-    paginationStyleItem: {
+    pagination: {
       width: size.spacing.sm,
       height: size.spacing.sm,
+      borderRadius: 25,
+      marginHorizontal: size.spacing.xs,
+      backgroundColor: color.background.pagination,
     },
-    paginationStyleItemActive: {
-      height: size.spacing.sm,
+    paginationActivated: {
       width: size.spacing.md,
     },
   })

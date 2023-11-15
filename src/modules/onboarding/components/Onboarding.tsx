@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useCallback, useRef} from 'react'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {Button} from '@/components/ui/buttons/Button'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -21,22 +21,29 @@ export const Onboarding = () => {
 
   const dispatch = useDispatch()
 
+  const isLastSlide =
+    carouselRef.current &&
+    carouselRef.current?.getCurrentIndex() >= onboardingData.length - 1
+
+  const onPress = useCallback(() => {
+    const currentIndex = carouselRef.current?.getCurrentIndex()
+
+    currentIndex !== onboardingData.length - 1
+      ? carouselRef.current?.scrollToIndex({
+          index: carouselRef.current?.getCurrentIndex() + 1,
+        })
+      : dispatch(setHasSeenOnboarding(true)) &&
+        navigation.navigate(ModuleSlug.home)
+  }, [dispatch, navigation])
+
   return (
     <Screen
       scroll={false}
       stickyFooter={
         <Box>
           <Button
-            label="Volgende"
-            onPress={() => {
-              carouselRef?.current?.getCurrentIndex() !==
-              onboardingData.length - 1
-                ? carouselRef.current?.scrollToIndex({
-                    index: carouselRef.current.getCurrentIndex() + 1,
-                  })
-                : dispatch(setHasSeenOnboarding(true)) &&
-                  navigation.navigate(ModuleSlug.home)
-            }}
+            label={isLastSlide ? 'Aan de slag' : 'Volgende'}
+            onPress={onPress}
           />
         </Box>
       }
