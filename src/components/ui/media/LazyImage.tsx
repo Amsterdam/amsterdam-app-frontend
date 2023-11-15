@@ -15,16 +15,21 @@ type Props = ImageProps
 export const LazyImage = (props: Props) => {
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(false)
   const {aspectRatio = 'wide', onError, onLoadEnd, onLoadStart, style} = props
   const styles = useThemable(createStyles(aspectRatio))
 
   return (
     <View style={styles.wrapperView}>
+      {!!showSkeleton && (
+        <View style={styles.positionedView}>
+          <Skeleton />
+        </View>
+      )}
       <View style={styles.positionedView}>
-        <Skeleton />
-      </View>
-      <View style={styles.positionedView}>
-        <Fader shouldAnimate={!loading || failed}>
+        <Fader
+          callback={() => setShowSkeleton(false)}
+          shouldAnimate={!loading || failed}>
           {failed ? (
             <ImageFallback />
           ) : (
@@ -39,6 +44,7 @@ export const LazyImage = (props: Props) => {
                 onLoadEnd?.()
               }}
               onLoadStart={() => {
+                setShowSkeleton(true)
                 setLoading(true)
                 onLoadStart?.()
               }}
