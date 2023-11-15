@@ -9,7 +9,7 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Image} from '@/components/ui/media/Image'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -88,8 +88,8 @@ export const Project = ({id}: Props) => {
 
   return (
     <Column>
-      {image?.sources && (
-        <Image
+      {!!image?.sources && (
+        <LazyImage
           aspectRatio="wide"
           source={image.sources}
           testID="ConstructionWorkProjectImage"

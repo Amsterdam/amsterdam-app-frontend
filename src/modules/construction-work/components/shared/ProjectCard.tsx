@@ -2,7 +2,7 @@ import {ReactNode, memo, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Image} from '@/components/ui/media/Image'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
@@ -49,7 +49,7 @@ export const ProjectCard = memo(
           {!!imageSource && (
             <>
               <AspectRatio aspectRatio="wide">
-                <Image
+                <LazyImage
                   source={imageSource}
                   testID="ConstructionWorkProjectCardImage"
                 />

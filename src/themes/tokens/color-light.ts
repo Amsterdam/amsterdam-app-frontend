@@ -10,6 +10,7 @@ export const lightColorTokens = {
     inactive: baseColor.neutral.grey4,
     inverse: baseColor.neutral.grey5,
     pagination: baseColor.primary.blue,
+    skeleton: baseColor.neutral.grey3,
   },
   border: {
     default: baseColor.neutral.grey2,
