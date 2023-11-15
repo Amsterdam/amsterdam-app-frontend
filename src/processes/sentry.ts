@@ -14,7 +14,7 @@ import {
 } from '@sentry/react-native'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
-import {getUniqueId, getVersion} from 'react-native-device-info'
+import {getVersion} from 'react-native-device-info'
 import type {Middleware} from '@reduxjs/toolkit'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment} from '@/environment'
@@ -24,7 +24,7 @@ import {
   CaptureBreadcrumb,
   SendErrorLog,
 } from '@/types/sentry'
-import {encryptWithSHA256} from '@/utils/encryption'
+import {ENCRYPTED_UNIQUE_ID} from '@/utils/encryption'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -127,7 +127,7 @@ export const getSendSentryErrorLog =
  */
 export const setSentryUserData = (enabled: boolean) => {
   // we explicitly cast user ID to string, since non-string type will cause issues
-  setUser(enabled ? {id: encryptWithSHA256(getUniqueId())} : null)
+  setUser(enabled ? {id: ENCRYPTED_UNIQUE_ID} : null)
 }
 
 /**

@@ -6,7 +6,6 @@ import {
   FetchBaseQueryError,
   retry,
 } from '@reduxjs/toolkit/query/react'
-import {getUniqueId} from 'react-native-device-info'
 // eslint-disable-next-line no-restricted-imports
 import {version as releaseVersion} from '@/../package.json'
 import {EnvironmentConfig} from '@/environment'
@@ -16,7 +15,7 @@ import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {DeviceRegistrationEndpointName} from '@/types/device'
-import {encryptWithSHA256} from '@/utils/encryption'
+import {ENCRYPTED_UNIQUE_ID} from '@/utils/encryption'
 import {deviceAuthorizationToken} from '@/utils/getAuthToken'
 
 const managerAuthorizedEndpoints = [
@@ -62,7 +61,7 @@ const dynamicBaseQuery: BaseQueryFn<
             headers.set('userauthorization', token)
 
           deviceIdRequestingEndpoints.includes(endpoint) &&
-            headers.set('deviceid', encryptWithSHA256(getUniqueId()))
+            headers.set('deviceid', ENCRYPTED_UNIQUE_ID)
 
           deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
             headers.set('DeviceAuthorization', deviceAuthorizationToken)
