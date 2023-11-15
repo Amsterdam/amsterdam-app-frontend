@@ -81,6 +81,12 @@ module.exports = {
               'Import dayjs from @/utils/datetime to prevent timezone issues.',
           },
           {
+            name: 'react-native-device-info',
+            importNames: ['getUniqueId'],
+            message:
+              'Do not use getUniqueId, this is considered personal (privacy sensitive) information.',
+          },
+          {
             name: 'react-native-super-grid',
             importNames: ['SimpleGrid'],
             message:
