@@ -96,4 +96,7 @@ export const lightColorTokens = {
     tertiary: baseColor.neutral.grey3,
     warning: baseColor.support.invalid,
   },
+  utility: {
+    skeletonHighlight: baseColor.transparent.white30,
+  },
 }
