@@ -16,6 +16,7 @@ import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {DeviceRegistrationEndpointName} from '@/types/device'
+import {encryptWithSHA256} from '@/utils/encryption'
 import {deviceAuthorizationToken} from '@/utils/getAuthToken'
 
 const managerAuthorizedEndpoints = [
@@ -61,7 +62,7 @@ const dynamicBaseQuery: BaseQueryFn<
             headers.set('userauthorization', token)
 
           deviceIdRequestingEndpoints.includes(endpoint) &&
-            headers.set('deviceid', getUniqueId())
+            headers.set('deviceid', encryptWithSHA256(getUniqueId()))
 
           deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
             headers.set('DeviceAuthorization', deviceAuthorizationToken)

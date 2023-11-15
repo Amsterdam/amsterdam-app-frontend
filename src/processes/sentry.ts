@@ -24,6 +24,7 @@ import {
   CaptureBreadcrumb,
   SendErrorLog,
 } from '@/types/sentry'
+import {encryptWithSHA256} from '@/utils/encryption'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -126,7 +127,7 @@ export const getSendSentryErrorLog =
  */
 export const setSentryUserData = (enabled: boolean) => {
   // we explicitly cast user ID to string, since non-string type will cause issues
-  setUser(enabled ? {id: getUniqueId().toString()} : null)
+  setUser(enabled ? {id: encryptWithSHA256(getUniqueId())} : null)
 }
 
 /**
