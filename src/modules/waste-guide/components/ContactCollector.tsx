@@ -8,8 +8,17 @@ import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 const wasteDisposalBusinessesUrl =
   'https://www.amsterdam.nl/afval-hergebruik/bedrijfsafval/afvalpunt-bedrijven/'
 
-export const ContactCollector = () => {
+const InlineLinkWasteContainer = () => {
   const openWebUrl = useOpenWebUrl()
+
+  return (
+    <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
+      onze website.
+    </InlineLink>
+  )
+}
+
+export const ContactCollector = () => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   return (
@@ -21,17 +30,12 @@ export const ContactCollector = () => {
       {isScreenReaderEnabled ? (
         <Column>
           <Phrase>Of kijk voor meer informatie over bedrijfsafval op </Phrase>
-          <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
-            onze website.
-          </InlineLink>
+          <InlineLinkWasteContainer />
         </Column>
       ) : (
         <Phrase>
           Of kijk voor meer informatie over bedrijfsafval op{' '}
-          <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
-            onze website
-          </InlineLink>
-          .
+          <InlineLinkWasteContainer />.
         </Phrase>
       )}
     </Column>
