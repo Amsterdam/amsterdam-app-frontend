@@ -1,8 +1,8 @@
 /** Duration in milliseconds */
 export enum Duration {
-  None = 0,
-  Short = 100,
-  Normal = 500,
-  NormalPlus = 600,
-  Long = 1000,
+  none = 0,
+  short = 100,
+  normal = 500,
+  normalPlus = 600,
+  long = 1000,
 }

@@ -39,7 +39,7 @@ if (
 }
 
 export const Alert = () => {
-  const setAccessibilityFocus = useAccessibilityFocus(Duration.Long)
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const dispatch = useDispatch()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 

@@ -11,7 +11,7 @@ import {focusOnElement} from '@/utils/accessibility/focusOnElement'
  */
 
 export const useAccessibilityFocus = <T extends Component>(
-  focusDelay: Duration = Duration.None,
+  focusDelay: Duration = Duration.none,
 ) => {
   const setTimeout = useTimeout()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()

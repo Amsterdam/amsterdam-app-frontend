@@ -8,7 +8,7 @@ import {Duration} from '@/types/duration'
  * @returns ref - Ref to the component to set accessibility focus on
  */
 export const useAccessibilityFocusWhenBottomsheetIsOpen = () => {
-  const setAccessibilityFocus = useAccessibilityFocus(Duration.Long)
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
   const {isOpen} = useBottomSheetHandler()
   const ref = useRef(null)
