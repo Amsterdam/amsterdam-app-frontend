@@ -1,4 +1,5 @@
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
@@ -12,13 +13,15 @@ export const ReportWrongBuildingType = () => {
   return (
     <Column>
       <Phrase emphasis="strong">Dit is geen woonadres</Phrase>
-      <Phrase accessibilityRole="link">
-        Klopt dit niet?{' '}
+      <Row
+        gutter="xs"
+        wrap>
+        <Phrase>Klopt dit niet?</Phrase>
         <InlineLink
           onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}>
           Geef het door
         </InlineLink>
-      </Phrase>
+      </Row>
     </Column>
   )
 }
