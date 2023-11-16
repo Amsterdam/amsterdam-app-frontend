@@ -61,7 +61,7 @@ export const useAccessibilityAutoFocus = <T extends Component>({
     // Attempt to call it again just in case AccessibilityInfo.setAccessibilityFocus is delayed
     const timeoutId = setTimeout(() => {
       focusOnElement(focusRef)
-    }, Duration.Normal)
+    }, Duration.normal)
 
     return () => {
       clearTimeout(timeoutId)
