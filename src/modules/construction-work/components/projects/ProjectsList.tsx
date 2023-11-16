@@ -1,4 +1,4 @@
-import {memo, useCallback, useLayoutEffect, useMemo} from 'react'
+import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
@@ -21,10 +21,8 @@ import {
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types'
 import {useTheme} from '@/themes/useTheme'
-import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {mapImageSources} from '@/utils/image/mapImageSources'
-import { useAccessibilityAnnounce } from '@/hooks/accessibility/useAccessibilityAnnounce'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
@@ -116,25 +114,14 @@ type ListEmptyMessageProps = {
   text: string
 }
 
-const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => {
-  const a11yAnnounce = useAccessibilityAnnounce({
-    focusDelay: Duration.Normal,
-    queue: true,
-  })
-
-  useLayoutEffect(() => {
-    a11yAnnounce(text)
-  }, [a11yAnnounce, text])
-
-  return (
-    <Box insetHorizontal="md">
-      <EmptyMessage
-        testID={testID}
-        text={text}
-      />
-    </Box>
-  )
-}
+const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
+  <Box insetHorizontal="md">
+    <EmptyMessage
+      testID={testID}
+      text={text}
+    />
+  </Box>
+)
 
 type Props = {
   data?: ProjectsItem[]

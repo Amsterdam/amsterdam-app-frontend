@@ -1,9 +1,8 @@
-import {useLayoutEffect} from 'react'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
-import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -14,14 +13,8 @@ type Props = {
 
 export const EmptyMessage = ({showTitle = true, testID, text}: Props) => {
   const title = showTitle ? 'Helaas …' : ''
-  const a11yAnnounce = useAccessibilityAnnounce({
-    focusDelay: Duration.Normal,
-    queue: true,
-  })
 
-  useLayoutEffect(() => {
-    a11yAnnounce(title + text)
-  }, [a11yAnnounce, text, title])
+  useAccessibilityAnnounceEffect(`${title} ${text}`, Duration.normal)
 
   return (
     <SingleSelectable

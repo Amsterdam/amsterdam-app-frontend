@@ -27,7 +27,7 @@ export const TextInputField = ({
   rules,
   testID,
 }: Props) => {
-  const accessibilityAnnounce = useAccessibilityAnnounce({queue: true})
+  const accessibilityAnnounce = useAccessibilityAnnounce()
 
   return (
     <Controller

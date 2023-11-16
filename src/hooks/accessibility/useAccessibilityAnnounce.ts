@@ -1,23 +1,20 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {AccessibilityInfo} from 'react-native'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {useTimeout} from '@/hooks/useTimeout'
 import {Duration} from '@/types/duration'
 
-type UseAccessibilityAnnounceParams = {
-  focusDelay?: Duration
-  queue?: boolean
-}
+const DEFAULT_ANNOUNCE_DELAY = Duration.short
 
-export const useAccessibilityAnnounce = ({
-  focusDelay = Duration.Short,
-  queue = true,
-}: UseAccessibilityAnnounceParams = {}) => {
+export const useAccessibilityAnnounce = () => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const setTimeout = useTimeout()
 
   return useCallback(
-    (announcement: string) => {
+    (
+      announcement: string,
+      focusDelay: Duration | undefined = DEFAULT_ANNOUNCE_DELAY,
+    ) => {
       if (!isScreenReaderEnabled) {
         return
       }
@@ -25,11 +22,26 @@ export const useAccessibilityAnnounce = ({
       setTimeout(
         () =>
           AccessibilityInfo.announceForAccessibilityWithOptions(announcement, {
-            queue,
+            queue: true, // queue behind existing announcements - iOS only
           }),
         focusDelay,
       )
     },
-    [focusDelay, isScreenReaderEnabled, queue, setTimeout],
+    [isScreenReaderEnabled, setTimeout],
   )
+}
+
+export const useAccessibilityAnnounceEffect = (
+  announcement: string | undefined,
+  focusDelay: Duration | undefined = DEFAULT_ANNOUNCE_DELAY,
+) => {
+  const accessibilityAnnounce = useAccessibilityAnnounce()
+
+  useEffect(() => {
+    if (!announcement) {
+      return
+    }
+
+    accessibilityAnnounce(announcement, focusDelay)
+  }, [accessibilityAnnounce, announcement, focusDelay])
 }
