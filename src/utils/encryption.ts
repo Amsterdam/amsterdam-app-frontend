@@ -18,4 +18,4 @@ export const decryptWithAES = ({password, salt}: EncryptionParams): string => {
 
 export const encryptWithSHA256 = (value: string) => SHA256(value).toString()
 
-export const ENCRYPTED_UNIQUE_ID = encryptWithSHA256(getUniqueId())
+export const SHA256EncryptedDeviceId = encryptWithSHA256(getUniqueId())
