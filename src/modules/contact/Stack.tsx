@@ -1,18 +1,17 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
-import {screenOptions} from '@/app/navigation/screenOptions'
+import {useScreenOptions} from '@/hooks/navigation/useScreenOptions'
 import {ContactRouteName} from '@/modules/contact/routes'
 import {screenConfig} from '@/modules/contact/screenConfig'
-import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
 export const ContactStack = () => {
-  const theme = useTheme()
+  const {defaultScreenOptions} = useScreenOptions()
 
   return (
     <Stack.Navigator
       initialRouteName={ContactRouteName.contact}
-      screenOptions={screenOptions(theme)}>
+      screenOptions={defaultScreenOptions}>
       <Stack.Group>
         {Object.entries(screenConfig).map(([key, route]) => (
           <Stack.Screen

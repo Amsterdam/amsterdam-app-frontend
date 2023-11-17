@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {UserScreen} from '@/modules//user/screens/User.screen'
 import {
   ConstructionWorkModalParams,
   ConstructionWorkRouteName,
@@ -45,6 +46,13 @@ export const screenConfig: StackNavigationRoutes<
   [ConstructionWorkRouteName.projectWarning]: {
     component: ProjectWarningScreen,
     name: ConstructionWorkRouteName.projectWarning,
+  },
+  [ConstructionWorkRouteName.user]: {
+    component: UserScreen,
+    name: ConstructionWorkRouteName.user,
+    options: {
+      headerTitle: 'Mijn profiel',
+    },
   },
 }
 
