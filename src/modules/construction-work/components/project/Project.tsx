@@ -1,5 +1,7 @@
-import {useCallback, useLayoutEffect} from 'react'
+import {useCallback, useLayoutEffect, useState} from 'react'
+import {LayoutRectangle} from 'react-native'
 import simplur from 'simplur'
+import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -11,6 +13,7 @@ import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useAddress} from '@/modules/address/hooks/useAddress'
@@ -27,6 +30,9 @@ import {
 } from '@/modules/construction-work/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {mapImageSources} from '@/utils/image/mapImageSources'
+
+const ONBOARDING_TIP =
+  'Volg een project en blijf op de hoogte van onze werkzaamheden'
 
 type Props = {
   id: string
@@ -49,6 +55,8 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
+  const [tipComponentLayout, setTipComponentLayout] =
+    useState<LayoutRectangle>()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -97,16 +105,27 @@ export const Project = ({id}: Props) => {
           <Column gutter="lg">
             <Row
               gutter="md"
-              valign="center">
-              <FollowButton
-                accessibilityLabel={
-                  followed ? 'Ontvolg dit project' : 'Volg dit project'
-                }
-                disabled={isUpdatingFollow || isUpdatingUnfollow || isFetching}
-                followed={followed}
-                onPress={onPressFollowButton}
-                testID="ConstructionWorkProjectFollowButton"
-              />
+              valign="center"
+              zIndex={1}>
+              <OnboardingTipWrapper
+                placement={Placement.below}
+                slug="construction-work-project-follow-button"
+                text={ONBOARDING_TIP}
+                tipComponentLayout={tipComponentLayout}>
+                <FollowButton
+                  accessibilityHint={ONBOARDING_TIP}
+                  accessibilityLabel={
+                    followed ? 'Ontvolg dit project' : 'Volg dit project'
+                  }
+                  disabled={
+                    isUpdatingFollow || isUpdatingUnfollow || isFetching
+                  }
+                  followed={followed}
+                  onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}
+                  onPress={onPressFollowButton}
+                  testID="ConstructionWorkProjectFollowButton"
+                />
+              </OnboardingTipWrapper>
               <SingleSelectable
                 accessibilityLabel={accessibleText(
                   followers.toString(),
