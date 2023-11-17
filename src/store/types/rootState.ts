@@ -10,6 +10,7 @@ import {AuthState} from '@/store/slices/auth'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {ModulesState} from '@/store/slices/modules'
+import {OnboardingState} from '@/store/slices/product-tour.slice'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {ThemeState} from '@/themes/slice'
 
@@ -25,6 +26,7 @@ export type RootState = {
   [ReduxKey.environment]: EnvironmentState
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
+  [ReduxKey.onboarding]: OnboardingState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.wasteGuide]: WasteGuideState
 }

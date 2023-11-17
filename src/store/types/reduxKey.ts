@@ -9,6 +9,7 @@ export enum ReduxKey {
   environment = 'environment',
   messageDraft = 'messageDraft',
   modules = 'modules',
+  onboarding = 'onboarding',
   theme = 'theme',
   wasteGuide = 'wasteGuide',
 }
