@@ -1,4 +1,4 @@
-import {FC, Fragment, ReactNode, useCallback, useEffect} from 'react'
+import {FC, Fragment, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {
   LayoutAnimation,
   Platform,
@@ -42,6 +42,7 @@ export const Alert = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const dispatch = useDispatch()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
+  const ref = useRef(null)
 
   const alert = useSelector(selectAlert)
   const {closeType, content, testID, variant, withIcon} = alert
@@ -57,6 +58,12 @@ export const Alert = () => {
   useEffect(() => {
     reset() // triggers when navigation navigates to new screen
   }, [reset])
+
+  useEffect(() => {
+    if (ref.current && alert.content) {
+      setAccessibilityFocus(ref.current)
+    }
+  }, [alert.content, setAccessibilityFocus])
 
   if (!alert.content) {
     return null
@@ -89,7 +96,7 @@ export const Alert = () => {
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
           accessible
-          ref={setAccessibilityFocus}
+          ref={ref}
           style={styles?.view}
           testID={testID}>
           <Row align="between">

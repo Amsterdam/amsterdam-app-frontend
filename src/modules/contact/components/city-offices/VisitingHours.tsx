@@ -1,7 +1,7 @@
-import {useState} from 'react'
 import {View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
-import {Tooltip} from '@/components/ui/feedback/Tooltip'
+import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
+import {useTooltip} from '@/components/ui/feedback/tooltip/useTooltip'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -66,8 +66,8 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+  const {isOpen, toggleTooltip} = useTooltip()
 
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const setAutoFocusRef = useAccessibilityAutoFocus({
     isActive: !isOpen,
   })
@@ -76,12 +76,15 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
     return <HtmlContent content={visitingHoursContent} />
   }
 
-  const toggleVisibility = () => {
-    setIsOpen(!isOpen)
-  }
-
   return (
     <Column gutter="md">
+      <Tooltip
+        accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
+        isOpen={isOpen}
+        onPress={toggleTooltip}
+        placement={Placement.above}
+        text={getTooltipContent('written')}
+      />
       <Row
         gutter="sm"
         valign="center">
@@ -101,18 +104,11 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               size="lg"
             />
           }
-          onPress={toggleVisibility}
+          onPress={toggleTooltip}
           ref={ref => setAutoFocusRef(ref as View)}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
-      <Tooltip
-        accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-        isOpen={isOpen}
-        onPress={toggleVisibility}
-        placement={Placement.below}
-        text={getTooltipContent('written')}
-      />
     </Column>
   )
 }
