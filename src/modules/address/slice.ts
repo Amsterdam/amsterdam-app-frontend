@@ -10,6 +10,10 @@ type LocationTypePerModule = Partial<Record<ModuleSlug, LocationType>>
 export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
+  /**
+   * We only know that the location is blocked (i.e. the user has not given permission when asked) when we catch it from the permission request.
+   * We store that status here so it is available throughout the app.
+   */
   locationPermissionBlockedForAndroid?: boolean
   locationTypePerModule?: LocationTypePerModule
 }

@@ -58,7 +58,7 @@ const WasteGuideForCity = ({cityIsWeesp, data}: WasteGuideForCityProps) => {
     return <WasteGuideForWeesp />
   }
 
-  if (!data) {
+  if (!data?.[0]) {
     return <WasteGuideNotFound />
   }
 
