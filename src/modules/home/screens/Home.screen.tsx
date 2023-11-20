@@ -23,6 +23,7 @@ export const HomeScreen = () => {
           onboardingTipTargetLayout={onboardingTipTargetLayout}
           placement={Placement.above}
           slug="home-module-settings-button"
+          testID="HomeModuleSettingsButtonTooltip"
           text={ONBOARDING_TIP}>
           <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
             <AddButton

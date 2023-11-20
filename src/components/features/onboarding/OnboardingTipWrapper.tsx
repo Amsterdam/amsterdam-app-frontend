@@ -2,7 +2,7 @@ import {ReactNode, useCallback, useEffect} from 'react'
 import {LayoutRectangle} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
-import {Placement} from '@/components/ui/types'
+import {Placement, TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
@@ -15,7 +15,7 @@ type Props = {
   placement: Placement
   slug: string
   text: string
-}
+} & TestProps
 
 export const OnboardingTipWrapper = ({
   children,
@@ -24,6 +24,7 @@ export const OnboardingTipWrapper = ({
   text,
   placement,
   onboardingTipTargetLayout,
+  testID,
 }: Props) => {
   const dispatch = useDispatch()
   const seenTips = useSelector(selectSeenTips)
@@ -56,6 +57,7 @@ export const OnboardingTipWrapper = ({
         onboardingTipTargetLayout={onboardingTipTargetLayout}
         onPress={handleHasSeenTip}
         placement={placement}
+        testID={testID}
         text={text}
       />
       {children}

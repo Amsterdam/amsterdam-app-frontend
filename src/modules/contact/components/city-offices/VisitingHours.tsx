@@ -83,6 +83,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
         isOpen={isOpen}
         onPress={toggleTooltip}
         placement={Placement.above}
+        testID="ContactVisitingHoursTooltip"
         text={getTooltipContent('written')}
       />
       <Row

@@ -112,6 +112,7 @@ export const Project = ({id}: Props) => {
                 onboardingTipTargetLayout={onboardingTipTargetLayout}
                 placement={Placement.below}
                 slug="construction-work-project-follow-button"
+                testID="ConstructionWorkProjectFollowButtonTooltip"
                 text={ONBOARDING_TIP}>
                 <FollowButton
                   accessibilityHint={ONBOARDING_TIP}
