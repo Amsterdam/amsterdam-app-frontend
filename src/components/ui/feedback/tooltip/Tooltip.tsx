@@ -1,4 +1,4 @@
-import {ElementRef, useEffect, useRef} from 'react'
+import {ElementRef, FC, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {
   AccessibilityProps,
   LayoutRectangle,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
+import {Fader} from '@/components/ui/animations/Fader'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {TooltipContent} from '@/components/ui/feedback/tooltip/TooltipContent'
 import {Column} from '@/components/ui/layout/Column'
@@ -19,12 +20,23 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   defaultIsOpen?: boolean
+  /**
+   * Extra space to set between target and tooltip
+   */
   extraSpace?: keyof SpacingTokens
+  /**
+   * Determines whether the tooltip fades in and out. Default is 300 ms.
+   */
+  fade?: boolean
+  /**
+   * Duration of the fade animation in milliseconds, only works when fade = true
+   */
+  fadeDuration?: number
   isOpen: boolean
   onPress: () => void
+  onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
   text: string | string[]
-  tipComponentLayout?: LayoutRectangle
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
@@ -32,17 +44,23 @@ export const Tooltip = ({
   accessibilityLabel,
   accessibilityLanguage = 'nl-NL',
   extraSpace,
+  fade,
+  fadeDuration,
   isOpen,
   placement,
-  tipComponentLayout,
+  onboardingTipTargetLayout,
   testID,
   text,
   onPress,
 }: Props) => {
-  const props = {direction: mapPlacementToDirection(placement)}
+  const direction = mapPlacementToDirection(placement)
   const setAccessibilityFocus = useAccessibilityFocus<View>()
   const styles = useThemable(
-    createStyles({extraSpace, placement, tipComponentLayout}),
+    createStyles({
+      extraSpace,
+      placement,
+      onboardingTipTargetLayout,
+    }),
   )
 
   const ref = useRef(null)
@@ -55,31 +73,52 @@ export const Tooltip = ({
     setAccessibilityFocus(ref.current)
   }, [isOpen, setAccessibilityFocus])
 
-  if (!isOpen) {
+  const Wrapper: FC<{children: ReactNode}> = useCallback(
+    props =>
+      fade ? (
+        <Fader
+          {...props}
+          duration={fadeDuration}
+          ref={ref}
+          style={styles.tooltip}
+        />
+      ) : (
+        <View
+          {...props}
+          ref={ref}
+          style={styles.tooltip}
+        />
+      ),
+    [fade, fadeDuration, styles.tooltip],
+  )
+
+  if (!isOpen || !onboardingTipTargetLayout) {
     return null
   }
 
+  const Pointer = <Triangle direction={direction} />
+
   return (
-    <Pressable
-      accessibilityLabel={accessibilityLabel}
-      accessibilityLanguage={accessibilityLanguage}
-      accessibilityRole="alert"
-      onPress={onPress}
-      ref={ref}
-      style={styles.tooltip}>
-      <Row>
-        {placement === Placement.after && <Triangle {...props} />}
-        <Column>
-          {placement === Placement.below && <Triangle {...props} />}
-          <TooltipContent
-            testID={testID}
-            text={text}
-          />
-          {placement === Placement.above && <Triangle {...props} />}
-        </Column>
-        {placement === Placement.before && <Triangle {...props} />}
-      </Row>
-    </Pressable>
+    <Wrapper>
+      <Pressable
+        accessibilityLabel={accessibilityLabel}
+        accessibilityLanguage={accessibilityLanguage}
+        accessibilityRole="alert"
+        onPress={onPress}>
+        <Row>
+          {placement === Placement.after && Pointer}
+          <Column>
+            {placement === Placement.below && Pointer}
+            <TooltipContent
+              testID={testID}
+              text={text}
+            />
+            {placement === Placement.above && Pointer}
+          </Column>
+          {placement === Placement.before && Pointer}
+        </Row>
+      </Pressable>
+    </Wrapper>
   )
 }
 
@@ -87,29 +126,33 @@ const createStyles =
   ({
     extraSpace,
     placement,
-    tipComponentLayout,
-  }: Pick<Props, 'extraSpace' | 'placement' | 'tipComponentLayout'>) =>
+    onboardingTipTargetLayout,
+  }: Pick<Props, 'extraSpace' | 'placement' | 'onboardingTipTargetLayout'> & {
+    tooltipHeight?: number
+  }) =>
   ({size}: Theme) => {
     const getPosition = (): {
+      bottom?: number
       left?: number
       position?: 'absolute' | 'relative'
       right?: number
       top?: number
     } => {
-      if (!tipComponentLayout) {
-        return {position: 'relative'}
+      if (!onboardingTipTargetLayout) {
+        return {position: 'relative'} // Default position, when no onboardingTipTargetLayout is set
       }
 
-      const extraSpacing = extraSpace ? size.spacing[extraSpace] : 0
+      const verticalPosition =
+        onboardingTipTargetLayout.height +
+        (extraSpace ? size.spacing[extraSpace] : 0)
 
       return {
         left: 0,
         right: 0,
         position: 'absolute',
-        top:
-          placement === Placement.above
-            ? tipComponentLayout.y - (tipComponentLayout.height + extraSpacing)
-            : tipComponentLayout.y + (tipComponentLayout.height + extraSpacing),
+        ...(placement === Placement.above
+          ? {bottom: verticalPosition}
+          : {top: verticalPosition}),
       }
     }
 
@@ -119,7 +162,7 @@ const createStyles =
         alignItems: 'center',
         paddingHorizontal: size.spacing.lg,
         ...getPosition(),
-        zIndex: 15,
+        zIndex: 15, // Set zIndex higher in component tree as well when not working as expected on iOS
       },
     })
   }

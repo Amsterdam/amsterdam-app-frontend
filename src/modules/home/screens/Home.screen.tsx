@@ -13,17 +13,17 @@ const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeRouteName>()
-  const [tipComponentLayout, setTipComponentLayout] =
+  const [onboardingTipTargetLayout, setTipComponentLayout] =
     useState<LayoutRectangle>()
 
   return (
     <Screen
       stickyFooter={
         <OnboardingTipWrapper
+          onboardingTipTargetLayout={onboardingTipTargetLayout}
           placement={Placement.above}
           slug="home-module-settings-button"
-          text={ONBOARDING_TIP}
-          tipComponentLayout={tipComponentLayout}>
+          text={ONBOARDING_TIP}>
           <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
             <AddButton
               accessibilityHint={ONBOARDING_TIP}

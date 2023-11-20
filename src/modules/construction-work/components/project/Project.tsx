@@ -55,7 +55,7 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useUnfollowProjectMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
-  const [tipComponentLayout, setTipComponentLayout] =
+  const [onboardingTipTargetLayout, setTipComponentLayout] =
     useState<LayoutRectangle>()
 
   const onPressFollowButton = useCallback(
@@ -109,10 +109,10 @@ export const Project = ({id}: Props) => {
               zIndex={1}>
               <OnboardingTipWrapper
                 extraSpace="md"
+                onboardingTipTargetLayout={onboardingTipTargetLayout}
                 placement={Placement.below}
                 slug="construction-work-project-follow-button"
-                text={ONBOARDING_TIP}
-                tipComponentLayout={tipComponentLayout}>
+                text={ONBOARDING_TIP}>
                 <FollowButton
                   accessibilityHint={ONBOARDING_TIP}
                   accessibilityLabel={

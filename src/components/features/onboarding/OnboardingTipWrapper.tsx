@@ -11,10 +11,10 @@ import {SpacingTokens} from '@/themes/tokens/size'
 type Props = {
   children: ReactNode
   extraSpace?: keyof SpacingTokens
+  onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
   slug: string
   text: string
-  tipComponentLayout?: LayoutRectangle
 }
 
 export const OnboardingTipWrapper = ({
@@ -23,7 +23,7 @@ export const OnboardingTipWrapper = ({
   slug,
   text,
   placement,
-  tipComponentLayout,
+  onboardingTipTargetLayout,
 }: Props) => {
   const dispatch = useDispatch()
   const seenTips = useSelector(selectSeenTips)
@@ -51,11 +51,12 @@ export const OnboardingTipWrapper = ({
         accessibilityLabel={text}
         defaultIsOpen={!hasSeenTip}
         extraSpace={extraSpace}
-        isOpen={!hasSeenTip || true}
+        fade
+        isOpen={!hasSeenTip}
+        onboardingTipTargetLayout={onboardingTipTargetLayout}
         onPress={handleHasSeenTip}
         placement={placement}
         text={text}
-        tipComponentLayout={tipComponentLayout}
       />
       {children}
     </>
