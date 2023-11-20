@@ -17,29 +17,84 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
+import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {useTheme} from '@/themes/useTheme'
 
-export const WasteGuide = () => {
+type WasteGuideFigureProps = {hasContent: boolean}
+
+const WasteGuideFigure = ({hasContent}: WasteGuideFigureProps) => {
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
+
+  if (!hasContent) {
+    return (
+      <FigureWithFacadesBackground
+        height={media.figureHeight.lg}
+        Image={<WasteGuideNotFoundImage />}
+        imageAspectRatio={media.illustrationAspectRatio.portrait}
+        imageWidth={media.illustrationWidth.narrow}
+        moveUp={isLandscape ? 128 : undefined}
+      />
+    )
+  }
+
+  return (
+    <FigureWithFacadesBackground
+      height={media.figureHeight.lg}
+      Image={<HouseholdWasteToContainerImage />}
+      imageAspectRatio={media.illustrationAspectRatio.landscape}
+      imageWidth={media.illustrationWidth.wide}
+    />
+  )
+}
+
+type WasteGuideForCityProps = {
+  cityIsWeesp: boolean
+  data?: WasteGuideResponseFraction[]
+}
+
+const WasteGuideForCity = ({cityIsWeesp, data}: WasteGuideForCityProps) => {
+  if (cityIsWeesp) {
+    return <WasteGuideForWeesp />
+  }
+
+  if (!data) {
+    return <WasteGuideNotFound />
+  }
+
+  return <WasteGuideForAmsterdam wasteGuide={data} />
+}
+
+export const WasteGuide = () => {
+  const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
+
   const {
     address,
     isError: selectedAddressForWasteGuideIsError,
     isFetching: selectedAddressForWasteGuideIsFetching,
   } = useSelectedAddressForWasteGuide()
 
-  const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
-
   const {
     data: wasteGuideData,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
   } = useGetGarbageCollectionAreaQuery(
-    // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
     address?.bagId && isFocusedOrNotAndroid
       ? {bagNummeraanduidingId: address.bagId}
       : skipToken,
   )
+
+  const shouldRender =
+    isFocusedOrNotAndroid &&
+    (wasteGuideData ||
+      selectedAddressForWasteGuideIsFetching ||
+      getGarbageCollectionAreaQueryIsFetching ||
+      getGarbageCollectionAreaQueryIsError ||
+      selectedAddressForWasteGuideIsError)
+
+  if (!shouldRender) {
+    return null
+  }
 
   if (
     getGarbageCollectionAreaQueryIsFetching ||
@@ -51,7 +106,6 @@ export const WasteGuide = () => {
   if (
     getGarbageCollectionAreaQueryIsError ||
     selectedAddressForWasteGuideIsError ||
-    !wasteGuideData ||
     !address
   ) {
     return <SomethingWentWrong />
@@ -59,10 +113,8 @@ export const WasteGuide = () => {
 
   const {city} = address
   const cityIsWeesp = city === AddressCity.Weesp
-  const WasteGuideForCity = cityIsWeesp
-    ? WasteGuideForWeesp
-    : WasteGuideForAmsterdam
-  const hasContent = Object.keys(wasteGuideData).length > 0 || cityIsWeesp
+  const hasContent =
+    (!!wasteGuideData && Object.keys(wasteGuideData).length > 0) || cityIsWeesp
 
   return (
     <Column
@@ -79,30 +131,14 @@ export const WasteGuide = () => {
                 testID="WasteGuide"
               />
             </Column>
-            {hasContent ? (
-              <WasteGuideForCity wasteGuide={wasteGuideData} />
-            ) : (
-              <WasteGuideNotFound />
-            )}
+            <WasteGuideForCity
+              cityIsWeesp={cityIsWeesp}
+              data={wasteGuideData}
+            />
           </Column>
         </Box>
       </HorizontalSafeArea>
-      {hasContent ? (
-        <FigureWithFacadesBackground
-          height={media.figureHeight.lg}
-          Image={<HouseholdWasteToContainerImage />}
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
-          imageWidth={media.illustrationWidth.wide}
-        />
-      ) : (
-        <FigureWithFacadesBackground
-          height={media.figureHeight.lg}
-          Image={<WasteGuideNotFoundImage />}
-          imageAspectRatio={media.illustrationAspectRatio.portrait}
-          imageWidth={media.illustrationWidth.narrow}
-          moveUp={isLandscape ? 128 : undefined}
-        />
-      )}
+      <WasteGuideFigure hasContent={hasContent} />
     </Column>
   )
 }
