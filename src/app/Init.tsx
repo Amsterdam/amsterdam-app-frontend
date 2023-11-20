@@ -6,6 +6,7 @@ import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNot
 import {useModules} from '@/hooks/useModules'
 import {usePiwik} from '@/hooks/usePiwik'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {useResetLocationPermission} from '@/modules/address/hooks/useResetLocationPermission'
 
 type Props = {children: ReactNode}
 
@@ -34,6 +35,8 @@ export const Init = ({children}: Props) => {
   )
 
   useAppState(onAppState)
+
+  useResetLocationPermission()
 
   return (
     <>

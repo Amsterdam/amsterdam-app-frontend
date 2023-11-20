@@ -13,7 +13,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useAppState} from '@/hooks/useAppState'
 import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -79,12 +78,6 @@ export const SelectLocationTypeBottomSheet = ({
   })
   const locationPermissionBlockedForAndroid =
     useLocationPermissionBlockedForAndroid()
-
-  useAppState({
-    onForeground: () => {
-      dispatch(setLocationPermissionBlockedForAndroid(false))
-    },
-  })
 
   const hasLocationPermission = hasPermission(
     locationPermissionBlockedForAndroid,
