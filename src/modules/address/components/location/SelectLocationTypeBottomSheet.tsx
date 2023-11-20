@@ -23,7 +23,6 @@ import {
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {useLocationPermissionBlockedForAndroid} from '@/modules/address/hooks/useLocationPermissionBlockedForAndroid'
-import {useNavigateToUserScreenForModule} from '@/modules/address/hooks/useNavigateToUserScreenForModule'
 import {AddressModalName} from '@/modules/address/routes'
 import {
   addLastKnownCoordinates,
@@ -60,7 +59,6 @@ export const SelectLocationTypeBottomSheet = ({
   const address = useAddress()
 
   const {navigate} = useNavigation<AddressModalName>()
-  const navigateToUserScreen = useNavigateToUserScreenForModule(slug)
   const navigateToInstructionsScreen = useCallback(
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
@@ -222,7 +220,7 @@ export const SelectLocationTypeBottomSheet = ({
               <Button
                 label="Wijzig adres"
                 onPress={() => {
-                  navigateToUserScreen()
+                  navigate(ModuleSlug.user)
 
                   dispatch(
                     setLocationType({

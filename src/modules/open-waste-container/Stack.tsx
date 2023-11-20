@@ -1,17 +1,18 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
-import {useScreenOptions} from '@/hooks/navigation/useScreenOptions'
+import {screenOptions} from '@/app/navigation/screenOptions'
 import {OpenWasteContainerRouteName} from '@/modules/open-waste-container/routes'
 import {screenConfig} from '@/modules/open-waste-container/screenConfig'
+import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
 export const OpenWasteContainerStack = () => {
-  const {defaultScreenOptions} = useScreenOptions()
+  const theme = useTheme()
 
   return (
     <Stack.Navigator
       initialRouteName={OpenWasteContainerRouteName.openWasteContainer}
-      screenOptions={defaultScreenOptions}>
+      screenOptions={screenOptions(theme)}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen
           key={key}

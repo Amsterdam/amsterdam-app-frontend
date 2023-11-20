@@ -1,5 +1,4 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {UserScreen} from '@/modules/user/screens/User.screen'
 import {
   WasteGuideModalParams,
   WasteGuideRouteName,
@@ -24,13 +23,6 @@ export const screenConfig: StackNavigationRoutes<
     name: WasteGuideRouteName.wasteGuideFeedback,
     options: {
       headerTitle: 'Melding afvalinformatie doen',
-    },
-  },
-  [WasteGuideRouteName.user]: {
-    component: UserScreen,
-    name: WasteGuideRouteName.user,
-    options: {
-      headerTitle: 'Mijn profiel',
     },
   },
 }

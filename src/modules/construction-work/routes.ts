@@ -7,7 +7,6 @@ export enum ConstructionWorkRouteName {
   projectNews = 'ProjectNews',
   projectWarning = 'ProjectWarning',
   search = 'ConstructionWorkSearch',
-  user = 'ConstructionWorkUser',
 }
 
 export type ConstructionWorkStackParams = {
@@ -20,7 +19,6 @@ export type ConstructionWorkStackParams = {
   }
   [ConstructionWorkRouteName.projectNews]: {id: string; projectId?: string}
   [ConstructionWorkRouteName.projectWarning]: {id: string; projectId?: string}
-  [ConstructionWorkRouteName.user]: undefined
 }
 
 export enum ConstructionWorkModalName {}

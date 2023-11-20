@@ -1,17 +1,20 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
-import {useScreenOptions} from '@/hooks/navigation/useScreenOptions'
+import {screenOptions} from '@/app/navigation/screenOptions'
 import {UserRouteName} from '@/modules/user/routes'
 import {screenConfig} from '@/modules/user/screenConfig'
+import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
 export const UserStack = () => {
-  const {settingsScreenOptions} = useScreenOptions()
+  const theme = useTheme()
 
   return (
     <Stack.Navigator
       initialRouteName={UserRouteName.user}
-      screenOptions={settingsScreenOptions}>
+      screenOptions={screenOptions(theme, {
+        screenType: 'settings',
+      })}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen
           key={key}
