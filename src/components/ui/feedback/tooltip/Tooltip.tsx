@@ -27,11 +27,11 @@ type Props = {
   /**
    * Determines whether the tooltip fades in and out. Default is 300 ms.
    */
-  fade?: boolean
+  fadeIn?: boolean
   /**
-   * Duration of the fade animation in milliseconds, only works when fade = true
+   * Duration of the fade-in animation in milliseconds, only works when fade = true
    */
-  fadeDuration?: number
+  fadeInDuration?: number
   isOpen: boolean
   onPress: () => void
   onboardingTipTargetLayout?: LayoutRectangle
@@ -44,8 +44,8 @@ export const Tooltip = ({
   accessibilityLabel,
   accessibilityLanguage = 'nl-NL',
   extraSpace,
-  fade,
-  fadeDuration,
+  fadeIn,
+  fadeInDuration,
   isOpen,
   placement,
   onboardingTipTargetLayout,
@@ -75,10 +75,10 @@ export const Tooltip = ({
 
   const Wrapper: FC<{children: ReactNode}> = useCallback(
     props =>
-      fade ? (
+      fadeIn ? (
         <Fader
           {...props}
-          duration={fadeDuration}
+          duration={fadeInDuration}
           ref={ref}
           style={styles.tooltip}
         />
@@ -89,7 +89,7 @@ export const Tooltip = ({
           style={styles.tooltip}
         />
       ),
-    [fade, fadeDuration, styles.tooltip],
+    [fadeIn, fadeInDuration, styles.tooltip],
   )
 
   if (!isOpen || !onboardingTipTargetLayout) {

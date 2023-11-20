@@ -51,7 +51,7 @@ export const OnboardingTipWrapper = ({
         accessibilityLabel={text}
         defaultIsOpen={!hasSeenTip}
         extraSpace={extraSpace}
-        fade
+        fadeIn
         isOpen={!hasSeenTip}
         onboardingTipTargetLayout={onboardingTipTargetLayout}
         onPress={handleHasSeenTip}
