@@ -1,11 +1,11 @@
 import ImageCropPicker, {
   Options as ImageCropPickerOptions,
 } from 'react-native-image-crop-picker'
-import {useDispatch} from 'react-redux'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {setAlert} from '@/store/slices/alert'
 import {getPropertyFromMaybeError} from '@/utils/object'
