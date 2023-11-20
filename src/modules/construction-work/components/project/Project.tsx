@@ -108,6 +108,7 @@ export const Project = ({id}: Props) => {
               valign="center"
               zIndex={1}>
               <OnboardingTipWrapper
+                extraSpace="md"
                 placement={Placement.below}
                 slug="construction-work-project-follow-button"
                 text={ONBOARDING_TIP}

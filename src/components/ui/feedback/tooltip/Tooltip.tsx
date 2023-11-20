@@ -14,10 +14,12 @@ import {Placement, TestProps} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {Theme} from '@/themes/themes'
+import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   defaultIsOpen?: boolean
+  extraSpace?: keyof SpacingTokens
   isOpen: boolean
   onPress: () => void
   placement: Placement
@@ -29,6 +31,7 @@ type Props = {
 export const Tooltip = ({
   accessibilityLabel,
   accessibilityLanguage = 'nl-NL',
+  extraSpace,
   isOpen,
   placement,
   tipComponentLayout,
@@ -38,7 +41,9 @@ export const Tooltip = ({
 }: Props) => {
   const props = {direction: mapPlacementToDirection(placement)}
   const setAccessibilityFocus = useAccessibilityFocus<View>()
-  const styles = useThemable(createStyles({placement, tipComponentLayout}))
+  const styles = useThemable(
+    createStyles({extraSpace, placement, tipComponentLayout}),
+  )
 
   const ref = useRef(null)
 
@@ -78,35 +83,37 @@ export const Tooltip = ({
   )
 }
 
-type StylesParams = {
-  placement: Placement
-  tipComponentLayout?: LayoutRectangle
-}
+const createStyles =
+  ({
+    extraSpace,
+    placement,
+    tipComponentLayout,
+  }: Pick<Props, 'extraSpace' | 'placement' | 'tipComponentLayout'>) =>
+  ({size}: Theme) => {
+    const getPosition = (): {
+      left?: number
+      position?: 'absolute' | 'relative'
+      right?: number
+      top?: number
+    } => {
+      if (!tipComponentLayout) {
+        return {position: 'relative'}
+      }
 
-const createStyles = ({placement, tipComponentLayout}: StylesParams) => {
-  const getPosition = (): {
-    left?: number
-    position?: 'absolute' | 'relative'
-    right?: number
-    top?: number
-  } => {
-    if (!tipComponentLayout) {
-      return {position: 'relative'}
+      const extraSpacing = extraSpace ? size.spacing[extraSpace] : 0
+
+      return {
+        left: 0,
+        right: 0,
+        position: 'absolute',
+        top:
+          placement === Placement.above
+            ? tipComponentLayout.y - (tipComponentLayout.height + extraSpacing)
+            : tipComponentLayout.y + (tipComponentLayout.height + extraSpacing),
+      }
     }
 
-    return {
-      left: 0,
-      right: 0,
-      position: 'absolute',
-      top:
-        placement === Placement.above
-          ? tipComponentLayout.y - tipComponentLayout.height
-          : tipComponentLayout.y + tipComponentLayout.height,
-    }
-  }
-
-  return ({size}: Theme) =>
-    StyleSheet.create({
+    return StyleSheet.create({
       tooltip: {
         flex: 1,
         alignItems: 'center',
@@ -115,6 +122,6 @@ const createStyles = ({placement, tipComponentLayout}: StylesParams) => {
         zIndex: 15,
       },
     })
-}
+  }
 
 export type Tooltip = ElementRef<typeof Tooltip>

@@ -6,9 +6,11 @@ import {Placement} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
+import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
   children: ReactNode
+  extraSpace?: keyof SpacingTokens
   placement: Placement
   slug: string
   text: string
@@ -17,6 +19,7 @@ type Props = {
 
 export const OnboardingTipWrapper = ({
   children,
+  extraSpace,
   slug,
   text,
   placement,
@@ -47,6 +50,7 @@ export const OnboardingTipWrapper = ({
       <Tooltip
         accessibilityLabel={text}
         defaultIsOpen={!hasSeenTip}
+        extraSpace={extraSpace}
         isOpen={!hasSeenTip || true}
         onPress={handleHasSeenTip}
         placement={placement}
