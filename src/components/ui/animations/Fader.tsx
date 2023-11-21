@@ -9,24 +9,24 @@ type Props = {
 
 export const Fader = forwardRef<View, Props>(
   ({duration = 300, style, children}, ref) => {
-    const fadeAnim = useRef(new Animated.Value(0)).current // Initial value for opacity: 0
+    const fadeAnim = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
       Animated.timing(fadeAnim, {
         easing: Easing.linear,
-        toValue: 1, // Animate to opacity: 1 (visible)
+        toValue: 1,
         duration: duration,
-        useNativeDriver: true, // Add this line
+        useNativeDriver: true,
       }).start()
     }, [fadeAnim, duration])
 
     return (
-      <Animated.View // Special animatable View
+      <Animated.View
         ref={ref}
         style={[
           style,
           {
-            opacity: fadeAnim, // Bind opacity to animated value
+            opacity: fadeAnim,
           },
         ]}>
         {children}
