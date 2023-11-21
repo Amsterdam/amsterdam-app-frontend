@@ -6,7 +6,7 @@ import {setLocationPermissionBlockedForAndroid} from '@/modules/address/slice'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
-export const useResetLocationPermission = () => {
+export const useResetLocationPermissionBlocked = () => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
 
