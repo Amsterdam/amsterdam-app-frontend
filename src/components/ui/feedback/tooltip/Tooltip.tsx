@@ -1,4 +1,4 @@
-import {ElementRef, FC, ReactNode, useCallback, useEffect, useRef} from 'react'
+import {ElementRef, ReactNode, forwardRef, useEffect, useRef} from 'react'
 import {
   AccessibilityProps,
   LayoutRectangle,
@@ -18,7 +18,7 @@ import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = {
+type TooltipProps = {
   defaultIsOpen?: boolean
   /**
    * Extra space to set between target and tooltip
@@ -40,6 +40,54 @@ type Props = {
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
+type WrapperProps = {
+  children: ReactNode
+} & Pick<
+  TooltipProps,
+  | 'extraSpace'
+  | 'fadeIn'
+  | 'fadeInDuration'
+  | 'onboardingTipTargetLayout'
+  | 'placement'
+>
+
+const Wrapper = forwardRef<View, WrapperProps>(
+  (
+    {
+      extraSpace,
+      placement,
+      onboardingTipTargetLayout,
+      fadeIn,
+      fadeInDuration,
+      ...props
+    },
+    ref,
+  ) => {
+    const styles = useThemable(
+      createStyles({
+        extraSpace,
+        placement,
+        onboardingTipTargetLayout,
+      }),
+    )
+
+    return fadeIn ? (
+      <Fader
+        {...props}
+        duration={fadeInDuration}
+        ref={ref}
+        style={styles.tooltip}
+      />
+    ) : (
+      <View
+        {...props}
+        ref={ref}
+        style={styles.tooltip}
+      />
+    )
+  },
+)
+
 export const Tooltip = ({
   accessibilityLabel,
   accessibilityLanguage = 'nl-NL',
@@ -52,16 +100,9 @@ export const Tooltip = ({
   testID,
   text,
   onPress,
-}: Props) => {
+}: TooltipProps) => {
   const direction = mapPlacementToDirection(placement)
   const setAccessibilityFocus = useAccessibilityFocus<View>()
-  const styles = useThemable(
-    createStyles({
-      extraSpace,
-      placement,
-      onboardingTipTargetLayout,
-    }),
-  )
 
   const ref = useRef(null)
 
@@ -73,25 +114,6 @@ export const Tooltip = ({
     setAccessibilityFocus(ref.current)
   }, [isOpen, setAccessibilityFocus])
 
-  const Wrapper: FC<{children: ReactNode}> = useCallback(
-    props =>
-      fadeIn ? (
-        <Fader
-          {...props}
-          duration={fadeInDuration}
-          ref={ref}
-          style={styles.tooltip}
-        />
-      ) : (
-        <View
-          {...props}
-          ref={ref}
-          style={styles.tooltip}
-        />
-      ),
-    [fadeIn, fadeInDuration, styles.tooltip],
-  )
-
   if (!isOpen || !onboardingTipTargetLayout) {
     return null
   }
@@ -99,7 +121,12 @@ export const Tooltip = ({
   const Pointer = <Triangle direction={direction} />
 
   return (
-    <Wrapper>
+    <Wrapper
+      extraSpace={extraSpace}
+      fadeIn={fadeIn}
+      fadeInDuration={fadeInDuration}
+      onboardingTipTargetLayout={onboardingTipTargetLayout}
+      placement={placement}>
       <Pressable
         accessibilityLabel={accessibilityLabel}
         accessibilityLanguage={accessibilityLanguage}
@@ -127,7 +154,10 @@ const createStyles =
     extraSpace,
     placement,
     onboardingTipTargetLayout,
-  }: Pick<Props, 'extraSpace' | 'placement' | 'onboardingTipTargetLayout'> & {
+  }: Pick<
+    TooltipProps,
+    'extraSpace' | 'placement' | 'onboardingTipTargetLayout'
+  > & {
     tooltipHeight?: number
   }) =>
   ({size}: Theme) => {
