@@ -6,7 +6,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {setSelectedCityOffice} from '@/modules/contact/slice'
 import {CityOffice} from '@/modules/contact/types'
-import {closeBottomSheet} from '@/store/slices/bottomSheet'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   cityOffice: CityOffice
@@ -14,15 +14,17 @@ type Props = {
 
 export const CityOfficeButton = ({cityOffice}: Props) => {
   const dispatch = useDispatch()
+  const {close: closeBottomSheet} = useBottomSheet()
 
-  const selectCityOffice = (identifier: CityOffice['identifier']) => {
-    dispatch(setSelectedCityOffice(identifier))
-    dispatch(closeBottomSheet())
+  const selectCityOffice = () => {
+    dispatch(setSelectedCityOffice(cityOffice.identifier))
+
+    closeBottomSheet()
   }
 
   return (
     <Pressable
-      onPress={() => selectCityOffice(cityOffice.identifier)}
+      onPress={selectCityOffice}
       testID={`ContactCityOffice${cityOffice.identifier}Button`}>
       <Box>
         <Row gutter="md">
