@@ -21,8 +21,8 @@ import {
   GetCurrentPositionError,
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {useLocationPermissionBlockedForAndroid} from '@/modules/address/hooks/useLocationPermissionBlockedForAndroid'
 import {AddressModalName} from '@/modules/address/routes'
+import {useLocationPermissionBlockedForAndroid} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
   setLocationPermissionBlockedForAndroid,

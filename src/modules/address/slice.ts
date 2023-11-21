@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {Address, Coordinates, LocationType} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -76,3 +77,9 @@ export const selectLocationPermissionBlockedForAndroid = (state: RootState) =>
 
 export const selectLocationTypePerModule = (state: RootState) =>
   state[ReduxKey.address]?.locationTypePerModule
+
+export const useLocationPermissionBlockedForAndroid = () =>
+  useSelector(
+    (state: RootState) =>
+      state[ReduxKey.address]?.locationPermissionBlockedForAndroid,
+  )
