@@ -1,5 +1,6 @@
 import {ReactNode, useCallback, useEffect} from 'react'
 import {LayoutRectangle} from 'react-native'
+import {Tip} from '@/components/features/onboarding/types'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -13,14 +14,14 @@ type Props = {
   extraSpace?: keyof SpacingTokens
   onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
-  slug: string
   text: string
+  tipSlug: Tip
 } & TestProps
 
 export const OnboardingTipWrapper = ({
   children,
   extraSpace,
-  slug,
+  tipSlug,
   text,
   placement,
   onboardingTipTargetLayout,
@@ -28,12 +29,12 @@ export const OnboardingTipWrapper = ({
 }: Props) => {
   const dispatch = useDispatch()
   const seenTips = useSelector(selectSeenTips)
-  const hasSeenTip = seenTips.includes(slug)
+  const hasSeenTip = seenTips.includes(tipSlug)
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   const handleHasSeenTip = useCallback(() => {
-    dispatch(addSeenTip(slug))
-  }, [dispatch, slug])
+    dispatch(addSeenTip(tipSlug))
+  }, [dispatch, tipSlug])
 
   useEffect(
     () => () => {

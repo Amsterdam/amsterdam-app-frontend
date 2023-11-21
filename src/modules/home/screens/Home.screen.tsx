@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {LayoutRectangle} from 'react-native'
 import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
+import {Tip} from '@/components/features/onboarding/types'
 import {AddButton} from '@/components/ui/buttons/AddButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -22,9 +23,9 @@ export const HomeScreen = () => {
         <OnboardingTipWrapper
           onboardingTipTargetLayout={onboardingTipTargetLayout}
           placement={Placement.above}
-          slug="home-module-settings-button"
           testID="HomeModuleSettingsButtonTooltip"
-          text={ONBOARDING_TIP}>
+          text={ONBOARDING_TIP}
+          tipSlug={Tip.homeModuleSettingsButton}>
           <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
             <AddButton
               accessibilityHint={ONBOARDING_TIP}

@@ -2,6 +2,7 @@ import {useCallback, useLayoutEffect, useState} from 'react'
 import {LayoutRectangle} from 'react-native'
 import simplur from 'simplur'
 import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
+import {Tip} from '@/components/features/onboarding/types'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -111,9 +112,9 @@ export const Project = ({id}: Props) => {
                 extraSpace="md"
                 onboardingTipTargetLayout={onboardingTipTargetLayout}
                 placement={Placement.below}
-                slug="construction-work-project-follow-button"
                 testID="ConstructionWorkProjectFollowButtonTooltip"
-                text={ONBOARDING_TIP}>
+                text={ONBOARDING_TIP}
+                tipSlug={Tip.constructionWorkProjectFollowButton}>
                 <FollowButton
                   accessibilityHint={ONBOARDING_TIP}
                   accessibilityLabel={
