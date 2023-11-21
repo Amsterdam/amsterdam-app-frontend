@@ -1,6 +1,6 @@
 import {ReactNode} from 'react'
 import {View, ViewProps} from 'react-native'
-import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
   children: ReactNode
@@ -16,7 +16,7 @@ export const HideFromAccessibility = ({
   whileBottomSheetIsOpen = false,
   ...viewProps
 }: Props) => {
-  const {isOpen} = useBottomSheetHandler()
+  const {isOpen} = useBottomSheet()
 
   return (
     <View

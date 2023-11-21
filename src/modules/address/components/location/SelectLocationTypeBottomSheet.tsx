@@ -187,8 +187,6 @@ export const SelectLocationTypeBottomSheet = ({
                       slug,
                     }),
                   )
-
-                  closeBottomSheet()
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"

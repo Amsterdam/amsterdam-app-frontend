@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -36,9 +37,14 @@ export const useBottomSheet = () => {
   const isOpen = useSelector(state => state[ReduxKey.bottomSheet].isOpen)
 
   return {
-    close: () => dispatch(closeBottomSheet()),
     isOpen,
-    open: () => dispatch(openBottomSheet()),
-    toggle: () => dispatch(toggleBottomSheet()),
+    ...useMemo(
+      () => ({
+        close: () => dispatch(closeBottomSheet()),
+        open: () => dispatch(openBottomSheet()),
+        toggle: () => dispatch(toggleBottomSheet()),
+      }),
+      [dispatch],
+    ),
   }
 }

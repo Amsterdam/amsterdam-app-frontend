@@ -21,7 +21,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {useBeforeRemove} from '@/hooks/navigation/useBeforeRemove'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
@@ -53,7 +53,7 @@ export const Alert = () => {
 
   const reset = useCallback(() => dispatch(resetAlert()), [dispatch])
 
-  useBeforeRemove(reset)
+  useBlurEffect(reset)
 
   useEffect(() => {
     reset() // triggers when navigation navigates to new screen
