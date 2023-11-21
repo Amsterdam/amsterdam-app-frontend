@@ -131,9 +131,7 @@ export const SelectLocationTypeBottomSheet = ({
             ),
           )
 
-          if (isPermissionError) {
-            navigateToInstructionsScreen()
-          } else {
+          if (!isPermissionError) {
             setHasLocationTechnicalError(true)
           }
 
