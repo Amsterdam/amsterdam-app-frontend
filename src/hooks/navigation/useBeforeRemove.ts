@@ -3,7 +3,9 @@ import {useEffect} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 
 /**
- * Execute the callback before the user navigates to another screen. You can prevent the navigation by calling the `preventDefault` method of the event.
+ * Execute the callback before the user navigates to another screen.
+ * You can prevent the navigation by calling the `preventDefault` method of the event.
+ * Will not be called if the user "navigates" to a modal.
  */
 export const useBeforeRemove = (
   callback: EventListenerCallback<
