@@ -47,7 +47,7 @@ const hasPermission = (
     return !locationPermissionBlockedForAndroid
   }
 
-  return locationPermissionStatus !== permissionStatuses.BLOCKED
+  return locationPermissionStatus === permissionStatuses.GRANTED
 }
 
 export const SelectLocationTypeBottomSheet = ({
