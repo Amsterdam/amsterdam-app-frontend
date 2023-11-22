@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Duration} from '@/types/duration'
 
 /**
@@ -10,7 +10,7 @@ import {Duration} from '@/types/duration'
 export const useAccessibilityFocusWhenBottomsheetIsOpen = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
-  const {isOpen} = useBottomSheetHandler()
+  const {isOpen} = useBottomSheet()
   const ref = useRef(null)
 
   useEffect(() => {

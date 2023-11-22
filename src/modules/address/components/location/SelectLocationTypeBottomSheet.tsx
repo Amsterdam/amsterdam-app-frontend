@@ -59,16 +59,18 @@ export const SelectLocationTypeBottomSheet = ({
     locationPermissionStatus === RESULTS.BLOCKED
 
   const onPressAddressButton = useCallback(() => {
-    if (!address) {
-      navigate(AddressModalName.addressForm)
-    }
-
     dispatch(
       setLocationType({
         locationType: 'address',
         slug,
       }),
     )
+
+    if (!address) {
+      navigate(AddressModalName.addressForm)
+
+      return
+    }
 
     closeBottomSheet()
   }, [address, closeBottomSheet, dispatch, navigate, slug])
@@ -123,6 +125,7 @@ export const SelectLocationTypeBottomSheet = ({
           slug,
         }),
       )
+
       closeBottomSheet()
     },
     [
@@ -187,8 +190,6 @@ export const SelectLocationTypeBottomSheet = ({
                       slug,
                     }),
                   )
-
-                  closeBottomSheet()
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"

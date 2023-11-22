@@ -5,10 +5,12 @@ import BottomSheetOriginal, {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
 import {FC, ReactNode} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {TestProps} from '@/components/ui/types'
-import {useBottomSheetHandler} from '@/hooks/useBottomSheetHandler'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 const Backdrop: FC<BottomSheetBackdropProps> = props => (
   <BottomSheetBackdrop
@@ -24,6 +26,34 @@ type Props = Partial<
     'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
   >
 > & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
+
+export const useBottomSheetHandler = () => {
+  const {close, isOpen, open} = useBottomSheet()
+  const ref = useRef<BottomSheetOriginal>(null)
+
+  useBlurEffect(close)
+
+  useEffect(() => {
+    isOpen ? ref.current?.expand() : ref.current?.close()
+  }, [isOpen])
+
+  const onChange = useCallback(
+    (snapPointIndex: number) => {
+      const newIsOpen = snapPointIndex !== -1
+
+      if (newIsOpen !== isOpen) {
+        newIsOpen ? open() : close()
+      }
+    },
+    [close, isOpen, open],
+  )
+
+  return {
+    isOpen,
+    onChange,
+    ref,
+  }
+}
 
 /**
  * Use in combination with <HideFromAccessibility /> and useAccessibilityFocusWhenBottomsheetIsOpen.
