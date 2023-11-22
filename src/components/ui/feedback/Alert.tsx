@@ -56,10 +56,6 @@ export const Alert = () => {
   useBlurEffect(reset)
 
   useEffect(() => {
-    reset() // triggers when navigation navigates to new screen
-  }, [reset])
-
-  useEffect(() => {
     if (ref.current && alert.content) {
       setAccessibilityFocus(ref.current)
     }
