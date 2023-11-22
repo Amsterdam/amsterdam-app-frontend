@@ -2,11 +2,11 @@ import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
-import {setLocationPermissionBlockedForAndroid} from '@/modules/address/slice'
+import {setNoLocationPermissionForAndroid} from '@/modules/address/slice'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
-export const useResetLocationPermissionBlocked = () => {
+export const useResetLocationPermissionForAndroid = () => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
 
@@ -14,13 +14,13 @@ export const useResetLocationPermissionBlocked = () => {
     onForeground: useCallback(() => {
       checkLocationPermissionGranted()
         .then(() => {
-          dispatch(setLocationPermissionBlockedForAndroid(false))
+          dispatch(setNoLocationPermissionForAndroid(false))
         })
         .catch((error: unknown) => {
           if (!getStatusFromError(error)) {
             sendSentryErrorLog(
               'Check location permission on foreground failed',
-              'useResetLocationPermissionBlockedForAndroid.android.ts',
+              'useResetLocationPermissionForAndroid.android.ts',
               {error},
             )
           }

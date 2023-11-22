@@ -11,11 +11,11 @@ type LocationTypePerModule = Partial<Record<ModuleSlug, LocationType>>
 export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
-  /**
-   * We only know that the location is blocked (i.e. the user has not given permission when asked) when we catch it from the permission request. We store that status here so it is available throughout the app.
-   */
-  locationPermissionBlockedForAndroid?: boolean
   locationTypePerModule?: LocationTypePerModule
+  /**
+   * We only know that the location is blocked or denied (i.e. the user has not given permission when asked) when we catch it from the permission request. We store that status here so it is available throughout the app.
+   */
+  noLocationPermissionForAndroid?: boolean
 }
 
 const initialState: AddressState = {}
@@ -36,12 +36,12 @@ export const addressSlice = createSlice({
       lastKnownCoordinates,
     }),
     removeAddress: ({address, ...rest}) => rest,
-    setLocationPermissionBlockedForAndroid: (
+    setNoLocationPermissionForAndroid: (
       state,
-      {payload: locationPermissionBlockedForAndroid}: PayloadAction<boolean>,
+      {payload: noLocationPermissionForAndroid}: PayloadAction<boolean>,
     ) => ({
       ...state,
-      locationPermissionBlockedForAndroid,
+      noLocationPermissionForAndroid,
     }),
     setLocationType: (
       state,
@@ -62,7 +62,7 @@ export const {
   addAddress,
   addLastKnownCoordinates,
   removeAddress,
-  setLocationPermissionBlockedForAndroid,
+  setNoLocationPermissionForAndroid,
   setLocationType,
 } = addressSlice.actions
 
@@ -72,14 +72,14 @@ export const selectAddress = (state: RootState) =>
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address]?.lastKnownCoordinates
 
-export const selectLocationPermissionBlockedForAndroid = (state: RootState) =>
-  state[ReduxKey.address]?.locationPermissionBlockedForAndroid
+export const selectNoLocationPermissionForAndroid = (state: RootState) =>
+  state[ReduxKey.address]?.noLocationPermissionForAndroid
 
 export const selectLocationTypePerModule = (state: RootState) =>
   state[ReduxKey.address]?.locationTypePerModule
 
-export const useLocationPermissionBlockedForAndroid = () =>
+export const useNoLocationPermissionForAndroid = () =>
   useSelector(
     (state: RootState) =>
-      state[ReduxKey.address]?.locationPermissionBlockedForAndroid,
+      state[ReduxKey.address]?.noLocationPermissionForAndroid,
   )

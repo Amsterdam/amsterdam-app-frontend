@@ -22,10 +22,10 @@ import {
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
-import {useLocationPermissionBlockedForAndroid} from '@/modules/address/slice'
+import {useNoLocationPermissionForAndroid} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
-  setLocationPermissionBlockedForAndroid,
+  setNoLocationPermissionForAndroid,
   setLocationType,
 } from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -40,14 +40,14 @@ type Props = {
 }
 
 const hasPermission = (
-  locationPermissionBlockedForAndroid = false,
+  noLocationPermissionForAndroid = false,
   locationPermissionStatus?: PermissionStatus,
 ) => {
   if (Platform.OS === 'android') {
-    return !locationPermissionBlockedForAndroid
+    return noLocationPermissionForAndroid === false
   }
 
-  return locationPermissionStatus === permissionStatuses.GRANTED
+  return locationPermissionStatus === permissionStatuses.BLOCKED
 }
 
 export const SelectLocationTypeBottomSheet = ({
@@ -76,11 +76,10 @@ export const SelectLocationTypeBottomSheet = ({
   const {status: locationPermissionStatus} = usePermission({
     permission: locationPermission,
   })
-  const locationPermissionBlockedForAndroid =
-    useLocationPermissionBlockedForAndroid()
+  const noLocationPermissionForAndroid = useNoLocationPermissionForAndroid()
 
   const hasLocationPermission = hasPermission(
-    locationPermissionBlockedForAndroid,
+    noLocationPermissionForAndroid,
     locationPermissionStatus,
   )
 
@@ -126,8 +125,8 @@ export const SelectLocationTypeBottomSheet = ({
           const isPermissionError = isPermissionErrorStatus(status)
 
           dispatch(
-            setLocationPermissionBlockedForAndroid(
-              status === permissionStatuses.BLOCKED,
+            setNoLocationPermissionForAndroid(
+              status !== permissionStatuses.GRANTED,
             ),
           )
 
@@ -159,13 +158,13 @@ export const SelectLocationTypeBottomSheet = ({
       closeBottomSheet()
     },
     [
-      closeBottomSheet,
+      hasLocationPermission,
       currentCoordinates,
       dispatch,
-      getCurrentCoordinates,
-      navigateToInstructionsScreen,
-      hasLocationPermission,
       slug,
+      closeBottomSheet,
+      navigateToInstructionsScreen,
+      getCurrentCoordinates,
     ],
   )
 
