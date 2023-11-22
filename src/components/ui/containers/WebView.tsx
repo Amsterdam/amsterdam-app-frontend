@@ -17,13 +17,24 @@ type Props = {
   'renderLoading' | 'source' | 'startInLoadingState' | 'style'
 >
 
+const webViewInjection = (
+  fontScale: number,
+  injectedJavaScript?: string,
+) => `(function() {
+  ${injectedJavaScript ?? ''}
+  document.getElementsByTagName("html")[0].style.fontSize = "${
+    fontScale * 100
+  }%";
+})()`
+
 export const WebView = ({
   sliceFromTop,
   url,
   urlParams,
+  injectedJavaScript,
   ...webViewProps
 }: Props) => {
-  const {isPortrait} = useDeviceContext()
+  const {isPortrait, fontScale} = useDeviceContext()
 
   const params = new URLSearchParams(urlParams)
   const urlWithParams =
@@ -44,6 +55,7 @@ export const WebView = ({
         }
       }
       {...webViewProps}
+      injectedJavaScript={webViewInjection(fontScale, injectedJavaScript)}
     />
   )
 }
