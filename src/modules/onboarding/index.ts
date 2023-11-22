@@ -18,7 +18,7 @@ export const onboardingModule: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: ReduxKey.onboarding,
-      persistVersion: 0,
+      persistVersion: -1,
       slice: onboardingSlice,
     },
   ],

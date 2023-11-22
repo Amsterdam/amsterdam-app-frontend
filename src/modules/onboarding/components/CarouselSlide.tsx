@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import {Dimensions, StyleSheet, View} from 'react-native'
+import {useWindowDimensions, StyleSheet, View} from 'react-native'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
@@ -29,14 +29,15 @@ export const CarouselSlide: FC<Props> = ({
   isCurrentSlide,
   index,
 }) => {
-  const {isPortrait} = useDeviceContext()
-  const {width} = Dimensions.get('window')
+  const {isPortrait, fontScale} = useDeviceContext()
+  const {width} = useWindowDimensions()
   const {image, subText, title} = item
   const styles = useThemable(createStyles({width, index, carouselLength}))
   const setAccessibilityAutoFocus = useAccessibilityAutoFocus({
     isActive: isCurrentSlide,
   })
 
+  const isImageVisible = fontScale <= 1.5
   const Track = isPortrait ? Column : Row
 
   return (
@@ -58,20 +59,22 @@ export const CarouselSlide: FC<Props> = ({
             <Phrase variant="intro">{subText}</Phrase>
           </Box>
         </Size>
-        <Column>
-          <Center>
-            <AspectRatio
-              aspectRatio="narrow"
-              orientation="portrait">
-              <Image
-                accessible={false}
-                resizeMode="contain"
-                source={image}
-                testID="WelcomeImage"
-              />
-            </AspectRatio>
-          </Center>
-        </Column>
+        {!!isImageVisible && (
+          <Column>
+            <Center>
+              <AspectRatio
+                aspectRatio="narrow"
+                orientation="portrait">
+                <Image
+                  accessible={false}
+                  resizeMode="contain"
+                  source={image}
+                  testID={`OnboardingSide${index}`}
+                />
+              </AspectRatio>
+            </Center>
+          </Column>
+        )}
       </Track>
     </View>
   )

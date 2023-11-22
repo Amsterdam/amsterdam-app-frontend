@@ -1,6 +1,5 @@
 import {FC} from 'react'
 import {StyleSheet, TouchableOpacity, View} from 'react-native'
-
 import {PaginationProps} from 'react-native-swiper-flatlist'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'

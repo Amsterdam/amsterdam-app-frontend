@@ -11,6 +11,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {AboutRouteName} from '@/modules/about/routes'
 import {getVersionNumber} from '@/modules/about/utils/getVersionNumber'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AboutRouteName.about>
 
@@ -67,6 +68,12 @@ export const AboutScreen = ({navigation}: Props) => {
                   navigation.navigate(AboutRouteName.accessibilityStatement)
                 }
                 testID="AboutAccessibilityStatementButton"
+              />
+              <NavigationButton
+                accessibilityRole="button"
+                label="Onboarding"
+                onPress={() => navigation.navigate(ModuleSlug.onboarding)}
+                testID="AboutOnboardingButton"
               />
             </Column>
           </Column>
