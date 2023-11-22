@@ -94,13 +94,8 @@ module.exports = {
           },
           {
             name: 'react-redux',
-            importNames: ['useDispatch'],
-            message: 'Import useDispatch from @/hooks/redux/useDispatch.',
-          },
-          {
-            name: 'react-redux',
-            importNames: ['useSelector'],
-            message: 'Import useSelector from @/hooks/redux/useSelector.',
+            importNames: ['useDispatch', 'useSelector'],
+            message: 'Import useDispatch and useSelector from @/hooks/redux.',
           },
           {
             name: '@react-navigation/core',

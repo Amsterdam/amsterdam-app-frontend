@@ -1,5 +1,4 @@
 import {useEffect} from 'react'
-import {useDispatch} from 'react-redux'
 import {NavigationProps} from '@/app/navigation/types'
 import {Alert} from '@/components/ui/feedback/Alert'
 import {
@@ -7,6 +6,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {Screen} from '@/components/ui/layout/Screen'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {setAlert} from '@/store/slices/alert'

@@ -25,6 +25,8 @@ export type RowProps = {
   vgutter?: keyof SpacingTokens
   /** Whether the items in the row should wrap to the next line. */
   wrap?: boolean
+  /** Sets the zIndex style property */
+  zIndex?: number
 } & Pick<FlexStyle, 'flex'>
 
 /**
@@ -45,16 +47,26 @@ export const Row = ({
   reverse,
   vgutter,
   wrap,
+  zIndex,
 }: RowProps) => {
   const styles = useThemable(
-    createStyles({align, flex, gutter, reverse, valign, vgutter, wrap}),
+    createStyles({align, flex, gutter, reverse, valign, vgutter, wrap, zIndex}),
   )
 
   return <View style={styles.row}>{children}</View>
 }
 
 const createStyles =
-  ({align, flex, gutter, reverse, valign, vgutter, wrap}: Partial<RowProps>) =>
+  ({
+    align,
+    flex,
+    gutter,
+    reverse,
+    valign,
+    vgutter,
+    wrap,
+    zIndex,
+  }: Partial<RowProps>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       row: {
@@ -69,5 +81,6 @@ const createStyles =
           (wrap && vgutter && size.spacing[vgutter]) ||
           (wrap && gutter && size.spacing[gutter]) ||
           undefined,
+        zIndex,
       },
     })

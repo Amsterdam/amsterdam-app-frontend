@@ -1,13 +1,13 @@
 import {useFocusEffect} from '@react-navigation/native'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
-import {useDispatch} from 'react-redux'
 import {Box} from '@/components/ui/containers/Box'
 import {
   AlertCloseType,
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
