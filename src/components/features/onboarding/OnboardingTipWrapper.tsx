@@ -58,18 +58,19 @@ export const OnboardingTipWrapper = ({
 
   return (
     <>
-      {!!hasSeenTip && !isScreenReaderEnabled && (
-        <Tooltip
-          accessibilityLabel={text}
-          extraSpace={extraSpace}
-          fadeIn
-          onboardingTipTargetLayout={onboardingTipTargetLayout}
-          onPress={handleHasSeenTip}
-          placement={placement}
-          testID={testID}
-          text={text}
-        />
-      )}
+      {!!hasSeenTip &&
+        !isScreenReaderEnabled && ( // TODO replace !!hasSeenTip with !hasSeenTip when developing #99108
+          <Tooltip
+            accessibilityLabel={text}
+            extraSpace={extraSpace}
+            fadeIn
+            onboardingTipTargetLayout={onboardingTipTargetLayout}
+            onPress={handleHasSeenTip}
+            placement={placement}
+            testID={testID}
+            text={text}
+          />
+        )}
       {children}
     </>
   )
