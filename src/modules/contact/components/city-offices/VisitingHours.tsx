@@ -78,14 +78,6 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
 
   return (
     <Column gutter="md">
-      <Tooltip
-        accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-        isOpen={isOpen}
-        onPress={toggleTooltip}
-        placement={Placement.above}
-        testID="ContactVisitingHoursTooltip"
-        text={getTooltipContent('written')}
-      />
       <Row
         gutter="sm"
         valign="center">
@@ -110,6 +102,15 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
+      {!!isOpen && (
+        <Tooltip
+          accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
+          onPress={toggleTooltip}
+          placement={Placement.above}
+          testID="ContactVisitingHoursTooltip"
+          text={getTooltipContent('written')}
+        />
+      )}
     </Column>
   )
 }
