@@ -16,11 +16,11 @@ export const Pagination = ({
 
   const accessibilityLabel = useCallback(
     (index: number) => {
-      if (!paginationTapDisabled) {
-        return ''
+      if (paginationTapDisabled) {
+        return
       }
 
-      paginationIndex !== index
+      return paginationIndex !== index
         ? `Ga naar slide, ${index + 1}`
         : `Huidige slide, ${index + 1}`
     },
