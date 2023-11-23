@@ -19,7 +19,6 @@ import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type TooltipProps = {
-  defaultIsOpen?: boolean
   /**
    * Extra space to set between target and tooltip
    */
@@ -32,7 +31,6 @@ type TooltipProps = {
    * Duration of the fade-in animation in milliseconds, only works when fade = true
    */
   fadeInDuration?: number
-  isOpen: boolean
   onPress: () => void
   onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
@@ -94,7 +92,6 @@ export const Tooltip = ({
   extraSpace,
   fadeIn,
   fadeInDuration,
-  isOpen,
   placement,
   onboardingTipTargetLayout,
   testID,
@@ -112,11 +109,7 @@ export const Tooltip = ({
     }
 
     setAccessibilityFocus(ref.current)
-  }, [isOpen, setAccessibilityFocus])
-
-  if (!isOpen || !onboardingTipTargetLayout) {
-    return null
-  }
+  }, [setAccessibilityFocus])
 
   const Pointer = <Triangle direction={direction} />
 
