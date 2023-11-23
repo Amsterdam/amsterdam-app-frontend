@@ -6,7 +6,11 @@ import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
+import {
+  selectSeenTips,
+  addSeenTip,
+  resetSeenTips,
+} from '@/store/slices/product-tour.slice'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
@@ -36,11 +40,20 @@ export const OnboardingTipWrapper = ({
     dispatch(addSeenTip(tipSlug))
   }, [dispatch, tipSlug])
 
+  // TODO: uncomment following lines when developing #99108
+  // useEffect(
+  //   () => () => {
+  //     handleHasSeenTip()
+  //   },
+  //   [handleHasSeenTip],
+  // )
+
+  // TODO: remove following lines when developing #99108
   useEffect(
     () => () => {
-      handleHasSeenTip()
+      dispatch(resetSeenTips())
     },
-    [handleHasSeenTip],
+    [dispatch],
   )
 
   if (isScreenReaderEnabled) {
@@ -54,7 +67,7 @@ export const OnboardingTipWrapper = ({
         defaultIsOpen={!hasSeenTip}
         extraSpace={extraSpace}
         fadeIn
-        isOpen={!hasSeenTip}
+        isOpen={false} // TODO: replace argument with !hasSeenTip when developing #99108
         onboardingTipTargetLayout={onboardingTipTargetLayout}
         onPress={handleHasSeenTip}
         placement={placement}
