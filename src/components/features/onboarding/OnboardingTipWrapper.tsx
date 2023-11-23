@@ -1,4 +1,4 @@
-import {ReactNode, useCallback} from 'react'
+import {ReactNode, useCallback, useEffect} from 'react'
 import {LayoutRectangle} from 'react-native'
 import {Tip} from '@/components/features/onboarding/types'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
@@ -6,7 +6,11 @@ import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
+import {
+  selectSeenTips,
+  addSeenTip,
+  resetSeenTips,
+} from '@/store/slices/product-tour.slice'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
@@ -43,6 +47,14 @@ export const OnboardingTipWrapper = ({
   //   },
   //   [handleHasSeenTip],
   // )
+
+  // TODO: remove following lines when developing #99108
+  useEffect(
+    () => () => {
+      dispatch(resetSeenTips())
+    },
+    [dispatch],
+  )
 
   if (isScreenReaderEnabled) {
     return null
