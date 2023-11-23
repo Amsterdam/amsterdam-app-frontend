@@ -21,7 +21,7 @@ When faced with an unclear error during the native build, some options are:
 - Remove `package-lock.json` and `/node_modules`
 - Run `npm i`
 
-## iOS specific
+### iOS specific
 
 Occasionally a build fails because of outdated data in the build folder. When building with XCode, there is an option to clear the build folder: CMND+SHIFT+K. Alternatively, you can usually find the path to the build folder in the build/error logs and manually delete the folder.
 
@@ -41,7 +41,7 @@ Occasionally, something will be cached outside of the build folder. To make sure
 - Go to the folder `~/Library/Developer/Xcode/DerivedData`
 - Then delete the relevant `AmsterdamApp-...` folder
 
-### Archive failed
+#### Archive failed
 
 During the Fastlane `build_app` task:
 
@@ -52,6 +52,21 @@ Exit status: 65
 ```
 
 This will happen if in Xcode, in the list of "Supported Destinations" there are destinations other than iPhone and iPad, e.g. "Mac Catalyst" or "Mac designed for iPhone" (see: https://stackoverflow.com/questions/74275390/fastlane-with-xcode-14-archive-failed). If any target has any "Mac" destination, the build may fail. Known issue (sort of) for Xcode 14; seen with Xcode 14.3.
+
+### Android specific
+
+#### Installation issues
+If `react-native run-android` can build the app, but cannot install the app on your device, then:
+
+1. Make sure there is no other version of the app installed on the device.
+2. If the install still fails, then check whether an APK has been created. Depending on the type of build, you will find is in a subfolder of `src/android/app/build/outputs/apk/`. Then run `adb install` plus the correct relative path, e.g.
+
+```bash
+adb install android/app/build/outputs/apk/dev/debug/app-dev-debug.apk
+```
+
+#### Cannot connect to debugger
+If the app on your Android device cannot connect to the debugger (Flipper), run `adb reverse tcp:8081 tcp:8081`.
 
 ## Sentry pod issue
 

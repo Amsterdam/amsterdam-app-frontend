@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {Address, Coordinates, LocationType} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -11,6 +12,10 @@ export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
   locationTypePerModule?: LocationTypePerModule
+  /**
+   * We only know that the location is blocked or denied (i.e. the user has not given permission when asked) when we catch it from the permission request. We store that status here so it is available throughout the app.
+   */
+  noLocationPermissionForAndroid?: boolean
 }
 
 const initialState: AddressState = {}
@@ -31,6 +36,13 @@ export const addressSlice = createSlice({
       lastKnownCoordinates,
     }),
     removeAddress: ({address, ...rest}) => rest,
+    setNoLocationPermissionForAndroid: (
+      state,
+      {payload: noLocationPermissionForAndroid}: PayloadAction<boolean>,
+    ) => ({
+      ...state,
+      noLocationPermissionForAndroid,
+    }),
     setLocationType: (
       state,
       {
@@ -50,6 +62,7 @@ export const {
   addAddress,
   addLastKnownCoordinates,
   removeAddress,
+  setNoLocationPermissionForAndroid,
   setLocationType,
 } = addressSlice.actions
 
@@ -59,5 +72,14 @@ export const selectAddress = (state: RootState) =>
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address]?.lastKnownCoordinates
 
+export const selectNoLocationPermissionForAndroid = (state: RootState) =>
+  state[ReduxKey.address]?.noLocationPermissionForAndroid
+
 export const selectLocationTypePerModule = (state: RootState) =>
   state[ReduxKey.address]?.locationTypePerModule
+
+export const useNoLocationPermissionForAndroid = () =>
+  useSelector(
+    (state: RootState) =>
+      state[ReduxKey.address]?.noLocationPermissionForAndroid,
+  )
