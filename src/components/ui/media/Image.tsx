@@ -16,22 +16,23 @@ import {ImageAspectRatioTokens} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 // Image props supported by both Image and FastImage
+type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
+
 type SupportedImageRNProps = Omit<
   ImageRNProps,
-  'defaultSource' | 'onError' | 'onLoad'
->
-
-type ImageResizeMode = 'cover' | 'contain'
+  'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
+> & {
+  resizeMode?: ImageResizeMode
+}
 
 type Props = {
   aspectRatio?: keyof ImageAspectRatioTokens
-  resizeMode?: ImageResizeMode
 } & Omit<SupportedImageRNProps, 'style'>
 
 type CachedIosImageProps = {
   uriSources: ImageURISource | ImageURISource[]
   width?: number
-} & Omit<SupportedImageRNProps, 'source' | 'resizeMode'>
+} & Omit<SupportedImageRNProps, 'source'>
 
 const CachedIosImage = ({
   onLayout,
@@ -61,15 +62,14 @@ export const Image = ({
   aspectRatio = 'wide',
   onLayout,
   source,
-  resizeMode = 'cover',
   ...imageProps
 }: Props) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
   const createdStyles = useMemo(
-    () => createStyles(resizeMode, aspectRatio, width),
-    [resizeMode, aspectRatio, width],
+    () => createStyles(aspectRatio, width),
+    [aspectRatio, width],
   )
   const styles = useThemable(createdStyles)
 
@@ -113,11 +113,7 @@ export const Image = ({
 }
 
 const createStyles =
-  (
-    resizeMode: ImageResizeMode,
-    aspectRatio: keyof ImageAspectRatioTokens,
-    width?: number,
-  ) =>
+  (aspectRatio: keyof ImageAspectRatioTokens, width?: number) =>
   ({media}: Theme) => {
     const aspectRatioValue = media.aspectRatio[aspectRatio]
 
@@ -131,7 +127,6 @@ const createStyles =
             : undefined,
         flex: 1,
         aspectRatio: aspectRatioValue,
-        resizeMode: resizeMode,
       },
     })
   }

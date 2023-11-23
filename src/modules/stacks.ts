@@ -84,12 +84,12 @@ export type ModuleRoutes =
   | ConstructionWorkEditorRouteName
   | ContactRouteName
   | HomeRouteName
+  | OnboardingRouteName
   | OpenWasteContainerRouteName
   | RedirectsRouteName
   | ReportProblemRouteName
   | UserRouteName
   | WasteGuideRouteName
-  | OnboardingRouteName
 
 export type ModuleStackParams = AboutStackParams &
   AddressStackParams &
@@ -97,12 +97,12 @@ export type ModuleStackParams = AboutStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
   HomeStackParams &
+  OnboardingStackParams &
   OpenWasteContainerStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
-  WasteGuideStackParams &
-  OnboardingStackParams
+  WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
@@ -111,12 +111,12 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
   [ModuleSlug.home]: HomeStack,
+  [ModuleSlug.onboarding]: OnboardingStack,
   [ModuleSlug['open-waste-container']]: OpenWasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
-  [ModuleSlug.onboarding]: OnboardingStack,
 }
 
 export type ModalParams = AddressModalParams &

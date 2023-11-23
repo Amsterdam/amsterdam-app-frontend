@@ -4,17 +4,17 @@ export type Onboarding = {
   hasSeenOnboarding: boolean
 }
 
-export type CarouselSlideItemType = {
-  image: ImageURISource
-  subText: string
-  title: string
+export type CarouselItems = {
+  items: CarouselSlideItem[]
 }
 
-export type CarouselSlideType = {
+export type CarouselItem = {
   index: number
-  item: CarouselSlideItemType
+  item: CarouselSlideItem
 }
 
-export type CarouselItemsType = {
-  items: CarouselSlideType[]
+export type CarouselSlideItem = {
+  description: string
+  image: ImageURISource
+  title: string
 }

@@ -11,7 +11,12 @@ import {reportProblemModule} from '@/modules/report-problem'
 import {userModule} from '@/modules/user'
 import {wasteGuideModule} from '@/modules/waste-guide'
 
-export const coreModules = [addressModule, homeModule, userModule]
+export const coreModules = [
+  addressModule,
+  homeModule,
+  onboardingModule,
+  userModule,
+]
 
 export const clientModules = [
   aboutModule,
@@ -22,5 +27,4 @@ export const clientModules = [
   redirectsModule,
   reportProblemModule,
   wasteGuideModule,
-  onboardingModule,
 ]

@@ -1,5 +1,4 @@
-import {FC} from 'react'
-import {useWindowDimensions, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
@@ -11,27 +10,29 @@ import {Image} from '@/components/ui/media/Image'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {CarouselSlideItemType} from '@/modules/onboarding/types'
+import {CarouselSlideItem} from '@/modules/onboarding/types'
 import {sizeTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   carouselLength: number
+  fontScale: number
   index: number
   isCurrentSlide: boolean
-  item: CarouselSlideItemType
+  isPortrait: boolean
+  item: CarouselSlideItem
+  width: number
 }
 
-export const CarouselSlide: FC<Props> = ({
-  item,
+export const CarouselSlide = ({
+  item: {image, description, title},
   carouselLength,
   isCurrentSlide,
   index,
-}) => {
-  const {isPortrait, fontScale} = useDeviceContext()
-  const {width} = useWindowDimensions()
-  const {image, subText, title} = item
+  width,
+  isPortrait,
+  fontScale,
+}: Props) => {
   const styles = useThemable(createStyles({width, index, carouselLength}))
   const setAccessibilityAutoFocus = useAccessibilityAutoFocus({
     isActive: isCurrentSlide,
@@ -42,7 +43,7 @@ export const CarouselSlide: FC<Props> = ({
 
   return (
     <View
-      ref={slideRef => setAccessibilityAutoFocus(slideRef as View)}
+      ref={slideRef => !!slideRef && setAccessibilityAutoFocus(slideRef)}
       style={styles.content}>
       <AmsterdamAndWeespFacadesImage style={styles.backgroundImage} />
       <Track
@@ -56,7 +57,7 @@ export const CarouselSlide: FC<Props> = ({
         <Size maxWidth={!isPortrait ? '50%' : '100%'}>
           <Box>
             <Title text={title} />
-            <Phrase variant="intro">{subText}</Phrase>
+            <Phrase variant="intro">{description}</Phrase>
           </Box>
         </Size>
         {!!isImageVisible && (

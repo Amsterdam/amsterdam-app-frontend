@@ -4,17 +4,9 @@ import {ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const onboardingModule: ModuleClientConfig = {
-  // TODO: uncomment comments below
-  // hiddenInMenu: true,
-  // alwaysEnabled: true,
+  alwaysEnabled: true,
+  hiddenInMenu: true,
   name: 'OnboardingModule',
-  screenOptions: {
-    cardStyleInterpolator: ({current}) => ({
-      cardStyle: {
-        opacity: current.progress,
-      },
-    }),
-  },
   reduxConfigs: [
     {
       key: ReduxKey.onboarding,
@@ -23,4 +15,11 @@ export const onboardingModule: ModuleClientConfig = {
     },
   ],
   slug: ModuleSlug.onboarding,
+  screenOptions: {
+    cardStyleInterpolator: ({current}) => ({
+      cardStyle: {
+        opacity: current.progress,
+      },
+    }),
+  },
 }

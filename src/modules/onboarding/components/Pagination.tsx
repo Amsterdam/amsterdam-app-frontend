@@ -1,28 +1,37 @@
-import {FC} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {useCallback} from 'react'
+import {StyleSheet, Pressable, View} from 'react-native'
 import {PaginationProps} from 'react-native-swiper-flatlist'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const Pagination: FC<PaginationProps> = ({
+export const Pagination = ({
   size,
   paginationIndex = 0,
   scrollToIndex,
   onPaginationSelectedIndex,
   paginationTapDisabled = false,
   e2eID = '',
-}) => {
+}: PaginationProps) => {
   const styles = useThemable(createStyles)
+
+  const accessibilityLabel = useCallback(
+    (index: number) => {
+      if (!paginationTapDisabled) {
+        return ''
+      }
+
+      paginationIndex !== index
+        ? `Ga naar slide, ${index + 1}`
+        : `Huidige slide, ${index + 1}`
+    },
+    [paginationIndex, paginationTapDisabled],
+  )
 
   return (
     <View style={[styles.container]}>
       {Array.from({length: size}).map((_, index) => (
-        <TouchableOpacity
-          accessibilityLabel={
-            paginationIndex !== index
-              ? `Ga naar slide ${index + 1}`
-              : `Huidige slide, ${index + 1}`
-          }
+        <Pressable
+          accessibilityLabel={accessibilityLabel(index)}
           accessibilityRole="button"
           disabled={paginationTapDisabled}
           key={index}
@@ -34,7 +43,7 @@ export const Pagination: FC<PaginationProps> = ({
             styles.pagination,
             paginationIndex === index && styles.paginationActivated,
           ]}
-          testID={`${e2eID}_pagination_${index}`}
+          testID={`${e2eID}Pagination${index}`}
         />
       ))}
     </View>

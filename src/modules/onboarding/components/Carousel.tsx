@@ -1,21 +1,16 @@
 import {forwardRef, useState} from 'react'
+import {useWindowDimensions} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {CarouselSlide} from '@/modules/onboarding/components/CarouselSlide'
 import {Pagination} from '@/modules/onboarding/components/Pagination'
-import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
-import {
-  CarouselSlideItemType,
-  CarouselSlideType,
-} from '@/modules/onboarding/types'
+import {CarouselItem, CarouselItems} from '@/modules/onboarding/types'
 
-type Props = {
-  items: CarouselSlideItemType[]
-}
-
-export const Carousel = forwardRef<SwiperFlatList, Props>(
-  ({items}: Props, ref) => {
-    setHasSeenOnboarding(false)
+export const Carousel = forwardRef<SwiperFlatList, CarouselItems>(
+  ({items}: CarouselItems, ref) => {
+    const {isPortrait, fontScale} = useDeviceContext()
+    const {width} = useWindowDimensions()
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
     const [slideIndex, setSlideIndex] = useState<number>(0)
 
@@ -26,12 +21,15 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
         onChangeIndex={({index}) => setSlideIndex(index)}
         PaginationComponent={Pagination}
         ref={ref}
-        renderItem={({item, index}: CarouselSlideType) => (
+        renderItem={({item, index}: CarouselItem) => (
           <CarouselSlide
             carouselLength={items.length}
+            fontScale={fontScale}
             index={index}
             isCurrentSlide={index === slideIndex}
+            isPortrait={isPortrait}
             item={item}
+            width={width}
           />
         )}
         showPagination

@@ -4,37 +4,37 @@ import MeldingDoen from '@/modules/onboarding/assets/images/screenshot-melding-d
 import Persoonlijk from '@/modules/onboarding/assets/images/screenshot-persoonlijk.jpg'
 import Relevant from '@/modules/onboarding/assets/images/screenshot-relevant.jpg'
 import Werkzaamheden from '@/modules/onboarding/assets/images/screenshot-werkzaamheden.jpg'
-import {CarouselSlideItemType} from '@/modules/onboarding/types'
+import {CarouselSlideItem} from '@/modules/onboarding/types'
 
-export const onboardingData: CarouselSlideItemType[] = [
+export const onboardingData: CarouselSlideItem[] = [
   {
     title: 'Amsterdam App',
-    subText: 'Het startpunt voor een actieve relatie met de stad. ',
+    description: 'Het startpunt voor een actieve relatie met de stad. ',
     image: AmsterdamApp,
   },
   {
     title: 'Persoonlijk',
-    subText: 'Informatie op basis van locatie of adres.',
+    description: 'Informatie op basis van locatie of adres.',
     image: Persoonlijk,
   },
   {
     title: 'Relevant',
-    subText: 'Kies zelf wat u in de app wilt zien.',
+    description: 'Kies zelf wat u in de app wilt zien.',
     image: Relevant,
   },
   {
     title: 'Afvalwijzer',
-    subText: 'Praktische informatie over afval altijd bij de hand',
+    description: 'Praktische informatie over afval altijd bij de hand',
     image: Afvalwijzer,
   },
   {
     title: 'Werkzaamheden',
-    subText: 'Weet waar er aan de weg wordt gewerkt',
+    description: 'Weet waar er aan de weg wordt gewerkt',
     image: Werkzaamheden,
   },
   {
     title: 'Melding doen',
-    subText:
+    description:
       'Meld overlast, of wanneer er iets gemaakt of opgeruimd moet worden',
     image: MeldingDoen,
   },

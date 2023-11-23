@@ -28,7 +28,7 @@ export type RootState = {
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.onboarding]: OnboardingState
+  [ReduxKey.productTour]: ProductTourState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.wasteGuide]: WasteGuideState
-  [ReduxKey.productTour]: ProductTourState
 }
