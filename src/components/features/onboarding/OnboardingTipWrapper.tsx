@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useEffect} from 'react'
+import {ReactNode, useCallback} from 'react'
 import {LayoutRectangle} from 'react-native'
 import {Tip} from '@/components/features/onboarding/types'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
@@ -36,12 +36,13 @@ export const OnboardingTipWrapper = ({
     dispatch(addSeenTip(tipSlug))
   }, [dispatch, tipSlug])
 
-  useEffect(
-    () => () => {
-      handleHasSeenTip()
-    },
-    [handleHasSeenTip],
-  )
+  // TODO: uncomment following lines when developing #99108
+  // useEffect(
+  //   () => () => {
+  //     handleHasSeenTip()
+  //   },
+  //   [handleHasSeenTip],
+  // )
 
   if (isScreenReaderEnabled) {
     return null
@@ -54,7 +55,7 @@ export const OnboardingTipWrapper = ({
         defaultIsOpen={!hasSeenTip}
         extraSpace={extraSpace}
         fadeIn
-        isOpen={!hasSeenTip}
+        isOpen={false} // TODO: replace argument with !hasSeenTip when developing #99108
         onboardingTipTargetLayout={onboardingTipTargetLayout}
         onPress={handleHasSeenTip}
         placement={placement}
