@@ -1,5 +1,5 @@
 import {forwardRef, useState} from 'react'
-import {useWindowDimensions} from 'react-native'
+import {PixelRatio, useWindowDimensions} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
@@ -9,8 +9,9 @@ import {CarouselItem, CarouselItems} from '@/modules/onboarding/types'
 
 export const Carousel = forwardRef<SwiperFlatList, CarouselItems>(
   ({items}: CarouselItems, ref) => {
-    const {isPortrait, fontScale} = useDeviceContext()
+    const {isPortrait} = useDeviceContext()
     const {width} = useWindowDimensions()
+    const fontScale = PixelRatio.getFontScale()
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
     const [slideIndex, setSlideIndex] = useState<number>(0)
 

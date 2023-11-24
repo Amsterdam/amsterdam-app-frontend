@@ -40,7 +40,10 @@ export const OnboardingScreen = () => {
     <Screen
       scroll={false}
       stickyFooter={
-        <Box>
+        <Box
+          inset="no"
+          insetHorizontal={isPortrait ? 'lg' : 'xl'}
+          insetTop="sm">
           <Button
             label={isLastSlide ? 'Aan de slag' : 'Volgende'}
             onPress={onPress}
@@ -70,8 +73,8 @@ export const OnboardingScreen = () => {
           </Row>
         </Box>
       }
-      withLeftInset={!isPortrait}
-      withRightInset={!isPortrait}
+      withLeftInset={false}
+      withRightInset={false}
       withTopInset>
       <Carousel
         items={onboardingData}

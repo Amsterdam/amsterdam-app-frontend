@@ -71,7 +71,7 @@ export const AboutScreen = ({navigation}: Props) => {
               />
               <NavigationButton
                 accessibilityRole="button"
-                label="Onboarding"
+                label="Hoe gebruik ik de app"
                 onPress={() => navigation.navigate(ModuleSlug.onboarding)}
                 testID="AboutOnboardingButton"
               />

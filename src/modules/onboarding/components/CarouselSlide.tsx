@@ -4,14 +4,15 @@ import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
+import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Size} from '@/components/ui/layout/Size'
+import {Track} from '@/components/ui/layout/Track'
 import {Image} from '@/components/ui/media/Image'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 import {CarouselSlideItem} from '@/modules/onboarding/types'
-import {sizeTokens} from '@/themes/tokens/size'
+import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -38,8 +39,10 @@ export const CarouselSlide = ({
     isActive: isCurrentSlide,
   })
 
-  const isImageVisible = fontScale <= 1.5
-  const Track = isPortrait ? Column : Row
+  const isLargeFontScale = fontScale >= 1.5
+  const isMediumFontScale = fontScale >= 1.25
+  const Wrapper = isPortrait && !isLargeFontScale ? View : ScrollView
+  const ContentScrollView = isMediumFontScale ? ScrollView : View
 
   return (
     <View
@@ -49,20 +52,23 @@ export const CarouselSlide = ({
       <Track
         align={!isPortrait ? 'center' : 'start'}
         flex={1}
-        grow
-        gutter={!isPortrait ? 'xl' : 'no'}
-        reverse={!isPortrait}
-        valign="center"
-        wrap={!isPortrait}>
-        <Size maxWidth={!isPortrait ? '50%' : '100%'}>
-          <Box>
-            <Title text={title} />
-            <Phrase variant="intro">{description}</Phrase>
-          </Box>
+        gutter={!isPortrait ? 'lg' : 'no'}
+        reverse={!isPortrait}>
+        <Size
+          height={isLargeFontScale || !isPortrait ? '100%' : '35%'}
+          maxWidth={!isPortrait && !isLargeFontScale ? '50%' : '100%'}>
+          <ContentScrollView>
+            <Box>
+              <Wrapper>
+                <Title text={title} />
+                <Phrase variant="intro">{description}</Phrase>
+              </Wrapper>
+            </Box>
+          </ContentScrollView>
         </Size>
-        {!!isImageVisible && (
+        {!isLargeFontScale && (
           <Column>
-            <Center>
+            <Center grow>
               <AspectRatio
                 aspectRatio="narrow"
                 orientation="portrait">
@@ -89,19 +95,20 @@ type StyleProps = {
 
 const createStyles =
   ({width, carouselLength, index}: StyleProps) =>
-  () => {
+  ({size}: Theme) => {
     const backgroundImageOffset = carouselLength * width - index * width
 
     return StyleSheet.create({
       backgroundImage: {
         position: 'absolute',
+        bottom: 0,
         zIndex: -10,
-        paddingRight: backgroundImageOffset,
+        paddingLeft: backgroundImageOffset,
       },
       content: {
         zIndex: 1000,
-        width,
-        paddingBottom: sizeTokens.spacing.xl,
+        width: width,
+        paddingBottom: size.spacing.lg,
       },
     })
   }

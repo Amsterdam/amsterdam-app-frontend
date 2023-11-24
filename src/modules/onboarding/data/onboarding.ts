@@ -1,20 +1,22 @@
-import Afvalwijzer from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.jpg'
-import AmsterdamApp from '@/modules/onboarding/assets/images/screenshot-amsterdam-app.jpg'
-import MeldingDoen from '@/modules/onboarding/assets/images/screenshot-melding-doen.jpg'
-import Persoonlijk from '@/modules/onboarding/assets/images/screenshot-persoonlijk.jpg'
-import Relevant from '@/modules/onboarding/assets/images/screenshot-relevant.jpg'
-import Werkzaamheden from '@/modules/onboarding/assets/images/screenshot-werkzaamheden.jpg'
+import Afvalwijzer from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.png'
+import AmsterdamApp from '@/modules/onboarding/assets/images/screenshot-amsterdam-app.png'
+import MeldingDoen from '@/modules/onboarding/assets/images/screenshot-melding-doen.png'
+import Persoonlijk from '@/modules/onboarding/assets/images/screenshot-persoonlijk.png'
+import Relevant from '@/modules/onboarding/assets/images/screenshot-relevant.png'
+import Werkzaamheden from '@/modules/onboarding/assets/images/screenshot-werkzaamheden.png'
 import {CarouselSlideItem} from '@/modules/onboarding/types'
 
 export const onboardingData: CarouselSlideItem[] = [
   {
     title: 'Amsterdam App',
-    description: 'Het startpunt voor een actieve relatie met de stad. ',
+    description:
+      'Snel en gemakkelijk informatie opzoeken, werkzaamheden bekijken en meldingen doen.',
     image: AmsterdamApp,
   },
   {
     title: 'Persoonlijk',
-    description: 'Informatie op basis van locatie of adres.',
+    description:
+      'De hele stad bekijken of alleen uw adres? Bepaal het in de app.',
     image: Persoonlijk,
   },
   {
@@ -24,18 +26,17 @@ export const onboardingData: CarouselSlideItem[] = [
   },
   {
     title: 'Afvalwijzer',
-    description: 'Praktische informatie over afval altijd bij de hand',
+    description: 'Praktische informatie over afval altijd bij de hand.',
     image: Afvalwijzer,
   },
   {
     title: 'Werkzaamheden',
-    description: 'Weet waar er aan de weg wordt gewerkt',
+    description: 'Bekijk waar wij aan het werk zijn.',
     image: Werkzaamheden,
   },
   {
     title: 'Melding doen',
-    description:
-      'Meld overlast, of wanneer er iets gemaakt of opgeruimd moet worden',
+    description: 'Overlast? Iets kapot? Vertel het ons via de app.',
     image: MeldingDoen,
   },
 ]
