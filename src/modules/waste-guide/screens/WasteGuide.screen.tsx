@@ -1,4 +1,5 @@
 import {Screen} from '@/components/ui/layout/Screen'
+import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {useShouldRequestLocation} from '@/modules/address/hooks/useShouldRequestLocation'
@@ -12,8 +13,9 @@ export const WasteGuideScreen = () => {
   const shouldRequestLocation = useShouldRequestLocation(
     ModuleSlug['waste-guide'],
   )
+  const isFocused = useIsFocusedEffect()
 
-  return (
+  return isFocused ? (
     <Screen
       bottomSheet={
         <SelectLocationTypeBottomSheet
@@ -28,5 +30,5 @@ export const WasteGuideScreen = () => {
       withRightInset={isPortrait}>
       {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
     </Screen>
-  )
+  ) : null
 }
