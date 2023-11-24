@@ -1,4 +1,3 @@
-import {useFocusEffect} from '@react-navigation/native'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,7 +16,7 @@ import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
-import {resetAlert, setAlert} from '@/store/slices/alert'
+import {setAlert} from '@/store/slices/alert'
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useDeviceContext()
@@ -74,10 +73,6 @@ export const AddressForm = () => {
     },
     [dispatch, navigation],
   )
-
-  useFocusEffect(() => {
-    dispatch(resetAlert())
-  })
 
   useEffect(() => {
     if (!isStreetSelected) {
