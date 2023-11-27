@@ -97,7 +97,7 @@ export const Image = ({
     return (
       <CachedIosImage
         onLayout={onLayoutChange}
-        style={[style, styles.image]}
+        style={[styles.image, style]}
         uriSources={source}
         width={width}
         {...imageProps}
@@ -111,7 +111,7 @@ export const Image = ({
       accessibilityLanguage="nl-NL"
       onLayout={onLayoutChange}
       source={source}
-      style={[style, styles.image]}
+      style={[styles.image, style]}
       {...imageProps}
     />
   )

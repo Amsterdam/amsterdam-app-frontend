@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {useCallback, useState} from 'react'
 import {View} from 'react-native'
 import {StyleSheet} from 'react-native'
@@ -15,10 +14,11 @@ import {useThemable} from '@/themes/useThemable'
 type Props = ImageProps
 
 export const LazyImage = (props: Props) => {
-  const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [showSkeleton, setShowSkeleton] = useState(true)
-  const {aspectRatio = 'wide', onError, onLoadEnd, onLoadStart, style} = props
+
+  const {aspectRatio = 'wide', onError, onLoadEnd, style} = props
   const styles = useThemable(createStyles(aspectRatio))
 
   const handleError = useCallback(
@@ -34,11 +34,7 @@ export const LazyImage = (props: Props) => {
     onLoadEnd?.()
   }, [onLoadEnd])
 
-  const handleLoadStart = useCallback(() => {
-    // setShowSkeleton(true)
-    // setLoading(true)
-    onLoadStart?.()
-  }, [onLoadStart])
+  const callback = useCallback(() => setShowSkeleton(false), [])
 
   return (
     <View style={styles.wrapperView}>
@@ -49,7 +45,7 @@ export const LazyImage = (props: Props) => {
       )}
       <View style={styles.positionedView}>
         <Fader
-          callback={useCallback(() => setShowSkeleton(false), [])}
+          callback={callback}
           duration={500}
           shouldAnimate={!loading || failed}
           style={styles.fader}>
@@ -60,8 +56,7 @@ export const LazyImage = (props: Props) => {
               {...props}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
-              onLoadStart={handleLoadStart}
-              style={[style, {flex: 1}]}
+              style={[style, styles.image]}
             />
           )}
         </Fader>
@@ -75,6 +70,9 @@ const createStyles =
   ({media}: Theme) =>
     StyleSheet.create({
       fader: {
+        flex: 1,
+      },
+      image: {
         flex: 1,
       },
       positionedView: {

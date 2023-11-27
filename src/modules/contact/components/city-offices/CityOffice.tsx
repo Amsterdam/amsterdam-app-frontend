@@ -3,7 +3,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {Image} from '@/components/ui/media/Image'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
@@ -44,6 +44,8 @@ export const CityOffice = () => {
     visitingHoursContent,
   } = cityOffice
 
+  const imageSources = mapImageSources(image.sources)
+
   return (
     <Box>
       <Column gutter="md">
@@ -52,7 +54,10 @@ export const CityOffice = () => {
           testID="ContactVisitUsTitle"
           text="Bezoek ons"
         />
-        <Image source={mapImageSources(image.sources)} />
+        <LazyImage
+          key={imageSources?.[0].uri}
+          source={imageSources}
+        />
         <NameAndAddress
           address={address}
           addressContent={addressContent}
