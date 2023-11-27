@@ -1,4 +1,4 @@
-import {forwardRef} from 'react'
+import {forwardRef, useRef} from 'react'
 import {PixelRatio, useWindowDimensions} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -19,7 +19,7 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
     const {width} = useWindowDimensions()
     const fontScale = PixelRatio.getFontScale()
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
-
+    
     return (
       <SwiperFlatList
         data={items}
@@ -45,5 +45,5 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
         showPagination
       />
     )
-  },
+  }),
 )
