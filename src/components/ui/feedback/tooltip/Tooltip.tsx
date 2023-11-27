@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import {Fader} from '@/components/ui/animations/Fader2'
+import {Fader} from '@/components/ui/animations/Fader'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {TooltipContent} from '@/components/ui/feedback/tooltip/TooltipContent'
 import {Column} from '@/components/ui/layout/Column'
@@ -71,7 +71,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
         {...props}
         duration={fadeInDuration}
         ref={ref}
-        startFadeIn={startFadeIn}
+        shouldAnimate={startFadeIn}
         style={styles.tooltip}
       />
     ) : (
