@@ -49,12 +49,9 @@ export const OnboardingTipWrapper = ({
   // )
 
   // TODO: remove following lines when developing #99108
-  useEffect(
-    () => () => {
-      dispatch(resetSeenTips())
-    },
-    [dispatch],
-  )
+  useEffect(() => {
+    dispatch(resetSeenTips())
+  }, [dispatch])
 
   return (
     <>
