@@ -1,5 +1,6 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Screen} from '@/components/ui/layout/Screen'
+import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ProjectsByDate} from '@/modules/construction-work/components/projects/ProjectsByDate'
@@ -10,12 +11,13 @@ import {ModuleSlug} from '@/modules/slugs'
 export const ConstructionWorkScreen = () => {
   const {address, isFetching: selectedAddressForConstructionWorkIsFetching} =
     useSelectedAddressForConstructionWork()
+  const isFocused = useIsFocusedEffect()
 
   if (selectedAddressForConstructionWorkIsFetching) {
     return <PleaseWait />
   }
 
-  return (
+  return isFocused ? (
     <Screen
       bottomSheet={
         <SelectLocationTypeBottomSheet
@@ -29,5 +31,5 @@ export const ConstructionWorkScreen = () => {
       withBottomInset={false}>
       {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>
-  )
+  ) : null
 }
