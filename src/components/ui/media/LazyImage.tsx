@@ -37,7 +37,7 @@ export const LazyImage = (props: Props) => {
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   return (
-    <View style={styles.wrapperView}>
+    <View style={[styles.wrapperView, style]}>
       {!!showSkeleton && (
         <View style={styles.positionedView}>
           <Skeleton />
@@ -50,13 +50,13 @@ export const LazyImage = (props: Props) => {
           shouldAnimate={!loading || failed}
           style={styles.fader}>
           {failed ? (
-            <ImageFallback />
+            <ImageFallback aspectRatio={aspectRatio} />
           ) : (
             <Image
               {...props}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
-              style={[style, styles.image]}
+              style={[styles.image]}
             />
           )}
         </Fader>
