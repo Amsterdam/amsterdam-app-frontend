@@ -1,7 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import {View} from 'react-native'
 import {StyleSheet} from 'react-native'
+import {ImageErrorEventData} from 'react-native'
+import {NativeSyntheticEvent} from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Image, ImageProps} from '@/components/ui/media/Image'
@@ -13,11 +15,30 @@ import {useThemable} from '@/themes/useThemable'
 type Props = ImageProps
 
 export const LazyImage = (props: Props) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
-  const [showSkeleton, setShowSkeleton] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(true)
   const {aspectRatio = 'wide', onError, onLoadEnd, onLoadStart, style} = props
   const styles = useThemable(createStyles(aspectRatio))
+
+  const handleError = useCallback(
+    (e?: NativeSyntheticEvent<ImageErrorEventData>) => {
+      setFailed(true)
+      onError?.(e)
+    },
+    [onError],
+  )
+
+  const handleLoadEnd = useCallback(() => {
+    setLoading(false)
+    onLoadEnd?.()
+  }, [onLoadEnd])
+
+  const handleLoadStart = useCallback(() => {
+    // setShowSkeleton(true)
+    // setLoading(true)
+    onLoadStart?.()
+  }, [onLoadStart])
 
   return (
     <View style={styles.wrapperView}>
@@ -28,26 +49,18 @@ export const LazyImage = (props: Props) => {
       )}
       <View style={styles.positionedView}>
         <Fader
-          callback={() => setShowSkeleton(false)}
-          shouldAnimate={!loading || failed}>
+          callback={useCallback(() => setShowSkeleton(false), [])}
+          duration={500}
+          shouldAnimate={!loading || failed}
+          style={styles.fader}>
           {failed ? (
             <ImageFallback />
           ) : (
             <Image
               {...props}
-              onError={e => {
-                setFailed(true)
-                onError?.(e)
-              }}
-              onLoadEnd={() => {
-                setLoading(false)
-                onLoadEnd?.()
-              }}
-              onLoadStart={() => {
-                setShowSkeleton(true)
-                setLoading(true)
-                onLoadStart?.()
-              }}
+              onError={handleError}
+              onLoadEnd={handleLoadEnd}
+              onLoadStart={handleLoadStart}
               style={[style, {flex: 1}]}
             />
           )}
@@ -61,10 +74,8 @@ const createStyles =
   (aspectRatio: ImageAspectRatio) =>
   ({media}: Theme) =>
     StyleSheet.create({
-      wrapperView: {
-        aspectRatio: media.aspectRatio[aspectRatio],
+      fader: {
         flex: 1,
-        position: 'relative',
       },
       positionedView: {
         position: 'absolute',
@@ -72,5 +83,10 @@ const createStyles =
         right: 0,
         bottom: 0,
         left: 0,
+      },
+      wrapperView: {
+        aspectRatio: media.aspectRatio[aspectRatio],
+        flex: 1,
+        position: 'relative',
       },
     })

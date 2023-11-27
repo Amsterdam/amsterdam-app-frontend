@@ -66,6 +66,7 @@ export const Image = ({
   aspectRatio = 'wide',
   onLayout,
   source,
+  style,
   ...imageProps
 }: ImageProps) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
@@ -96,7 +97,7 @@ export const Image = ({
     return (
       <CachedIosImage
         onLayout={onLayoutChange}
-        style={[styles.image]}
+        style={[style, styles.image]}
         uriSources={source}
         width={width}
         {...imageProps}
@@ -110,7 +111,7 @@ export const Image = ({
       accessibilityLanguage="nl-NL"
       onLayout={onLayoutChange}
       source={source}
-      style={[styles.image]}
+      style={[style, styles.image]}
       {...imageProps}
     />
   )

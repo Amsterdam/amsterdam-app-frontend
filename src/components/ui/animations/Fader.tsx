@@ -1,5 +1,4 @@
 import {ReactNode, forwardRef, useEffect, useRef} from 'react'
-import {StyleSheet} from 'react-native'
 import {Animated, Easing, StyleProp, View, ViewStyle} from 'react-native'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 
@@ -41,7 +40,6 @@ export const AnimatedFader = forwardRef<View, Props>(
       <Animated.View
         ref={ref}
         style={[
-          styles.animatedView,
           style,
           {
             opacity: opacityRef.current,
@@ -66,8 +64,4 @@ export const Fader = forwardRef<View, Props>((props, ref) => {
       ref={ref}
     />
   )
-})
-
-const styles = StyleSheet.create({
-  animatedView: {flex: 1},
 })
