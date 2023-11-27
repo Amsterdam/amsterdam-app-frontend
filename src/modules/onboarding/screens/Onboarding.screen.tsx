@@ -1,5 +1,4 @@
-import {useCallback, useRef} from 'react'
-import {SwiperFlatList} from 'react-native-swiper-flatlist'
+import {useCallback, useRef, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,32 +8,32 @@ import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {Carousel} from '@/modules/onboarding/components/Carousel'
+import {Carousel, RefProps} from '@/modules/onboarding/components/Carousel'
 import {onboardingData} from '@/modules/onboarding/data/onboarding'
 import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const OnboardingScreen = () => {
-  const carouselRef = useRef<SwiperFlatList>(null)
+  const carouselRef = useRef<RefProps>(null)
   const navigation = useNavigation<ModuleSlug>()
   const {isPortrait} = useDeviceContext()
+  const [slideIndex, setSlideIndex] = useState<number>(0)
 
   const dispatch = useDispatch()
 
-  const isLastSlide =
-    carouselRef.current &&
-    carouselRef.current?.getCurrentIndex() >= onboardingData.length - 1
+  const isLastSlide = slideIndex + 1 === onboardingData.length
+
+  const handleOnboarding = useCallback(() => {
+    dispatch(setHasSeenOnboarding(true)) && navigation.navigate(ModuleSlug.home)
+  }, [dispatch, navigation])
 
   const onPress = useCallback(() => {
-    const currentIndex = carouselRef.current?.getCurrentIndex()
-
-    currentIndex !== onboardingData.length - 1
+    slideIndex + 1 !== onboardingData.length
       ? carouselRef.current?.scrollToIndex({
-          index: carouselRef.current?.getCurrentIndex() + 1,
+          index: slideIndex + 1,
         })
-      : dispatch(setHasSeenOnboarding(true)) &&
-        navigation.navigate(ModuleSlug.home)
-  }, [dispatch, navigation])
+      : handleOnboarding()
+  }, [handleOnboarding, slideIndex])
 
   return (
     <Screen
@@ -65,10 +64,7 @@ export const OnboardingScreen = () => {
                   size="ml"
                 />
               }
-              onPress={() => {
-                dispatch(setHasSeenOnboarding(true))
-                navigation.navigate(ModuleSlug.home)
-              }}
+              onPress={handleOnboarding}
             />
           </Row>
         </Box>
@@ -78,6 +74,7 @@ export const OnboardingScreen = () => {
       withTopInset>
       <Carousel
         items={onboardingData}
+        onChangeIndex={setSlideIndex}
         ref={carouselRef}
       />
     </Screen>

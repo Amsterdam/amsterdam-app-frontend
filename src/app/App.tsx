@@ -49,7 +49,7 @@ export const App = SentryWrap(AppComponent)
 
 const styles = StyleSheet.create({
   appContainer: {
-    // This is needed to prevent black flashing screen between splash screen and welcome screen when using dark-mode on iOS
+    // This is needed to prevent black flashing screen between splash screen when using dark-mode on iOS
     backgroundColor: lightColorTokens.screen.background.default,
   },
 })

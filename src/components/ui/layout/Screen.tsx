@@ -1,4 +1,4 @@
-import {FC, ReactNode, useCallback} from 'react'
+import {FC, ReactNode, useCallback, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -69,15 +69,20 @@ export const Screen = ({
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
-  const styles = createStyles(insets, {
-    hasStickyFooter: !!stickyFooter,
-    hasStickyHeader: !!stickyHeader,
-    withBottomInset,
-    withLeftInset,
-    withRightInset,
-    withTopInset,
-  })
 
+  const styles = useMemo(
+    () =>
+      createStyles(insets, {
+        hasStickyFooter: !!stickyFooter,
+        hasStickyHeader: !!stickyHeader,
+        withBottomInset,
+        withLeftInset,
+        withRightInset,
+        withTopInset,
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
   const InnerWrapper: FC<{children: ReactNode}> = useCallback(
     props =>
       bottomSheet ? (

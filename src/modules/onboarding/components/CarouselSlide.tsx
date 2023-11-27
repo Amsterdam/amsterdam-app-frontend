@@ -42,7 +42,7 @@ export const CarouselSlide = ({
   const isLargeFontScale = fontScale >= 1.5
   const isMediumFontScale = fontScale >= 1.25
   const Wrapper = isPortrait && !isLargeFontScale ? View : ScrollView
-  const ContentScrollView = isMediumFontScale ? ScrollView : View
+  const ContentView = isMediumFontScale ? ScrollView : View
 
   return (
     <View
@@ -57,14 +57,18 @@ export const CarouselSlide = ({
         <Size
           height={isLargeFontScale || !isPortrait ? '100%' : '35%'}
           maxWidth={!isPortrait && !isLargeFontScale ? '50%' : '100%'}>
-          <ContentScrollView>
+          <Column
+            align={!isPortrait ? 'center' : 'start'}
+            grow>
             <Box>
-              <Wrapper>
-                <Title text={title} />
-                <Phrase variant="intro">{description}</Phrase>
-              </Wrapper>
+              <ContentView>
+                <Wrapper>
+                  <Title text={title} />
+                  <Phrase variant="intro">{description}</Phrase>
+                </Wrapper>
+              </ContentView>
             </Box>
-          </ContentScrollView>
+          </Column>
         </Size>
         {!isLargeFontScale && (
           <Column>
