@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {ReactNode, memo} from 'react'
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {layoutStyles} from '@/styles/layoutStyles'
 import {Theme} from '@/themes/themes'
@@ -40,38 +40,40 @@ export type BoxProps = {
  * Visually groups its content.
  * Allows to set insets and a background colour.
  */
-export const Box = ({
-  borderColor,
-  borderStyle,
-  children,
-  distinct,
-  grow,
-  inset = 'md',
-  insetHorizontal,
-  insetTop,
-  insetVertical,
-  ...viewProps
-}: BoxProps) => {
-  const styles = useThemable(
-    createStyles({
-      borderColor,
-      borderStyle,
-      distinct: distinct,
-      inset,
-      insetHorizontal,
-      insetTop,
-      insetVertical,
-    }),
-  )
+export const Box = memo(
+  ({
+    borderColor,
+    borderStyle,
+    children,
+    distinct,
+    grow,
+    inset = 'md',
+    insetHorizontal,
+    insetTop,
+    insetVertical,
+    ...viewProps
+  }: BoxProps) => {
+    const styles = useThemable(
+      createStyles({
+        borderColor,
+        borderStyle,
+        distinct: distinct,
+        inset,
+        insetHorizontal,
+        insetTop,
+        insetVertical,
+      }),
+    )
 
-  return (
-    <View
-      style={[styles.box, grow && layoutStyles.grow]}
-      {...viewProps}>
-      {children}
-    </View>
-  )
-}
+    return (
+      <View
+        style={[styles.box, grow && layoutStyles.grow]}
+        {...viewProps}>
+        {children}
+      </View>
+    )
+  },
+)
 
 const createStyles =
   ({
