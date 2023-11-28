@@ -12,7 +12,7 @@ type AppointmentSubject = {
 
 enum Url {
   acknowledgeChild = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B6C003487-DED7-4AE6-9FFD-C606D0AB0BD7%7D',
-  birth = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7BE353AEAA-5987-4C5B-AB9B-3C3DCF467046%7D',
+  birth = 'https://www.amsterdam.nl/burgerzaken/geboorte-erkenning-kinderen/geboorteaangifte/',
   immigration = 'https://www.amsterdam.nl/burgerzaken/immigratie',
   lifelessBirth = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7BE9ED0F9D-6254-4236-8D10-D970655DAAF8%7D#case_%7BB104B52F-9A3B-4923-8B5D-1FA60B6F3591%7D',
   marriage = 'https://www.amsterdam.nl/burgerzaken/trouwen-partnerschap/',
