@@ -4,6 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {TextInput} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {
   Environment,
@@ -53,13 +54,20 @@ export const EnvironmentSelector = () => {
     return
   }
 
+  if (!isDevApp) {
+    return
+  }
+
   return (
     <Box borderStyle="solid">
-      <Column gutter="md">
-        <Title
-          level="h3"
-          text="Omgeving selecteren"
-        />
+      <Column gutter="lg">
+        <Column gutter="sm">
+          <Title
+            level="h3"
+            text="Select environment"
+          />
+          <Phrase variant="small">Current: {environment}</Phrase>
+        </Column>
         <RadioGroup<Environment>
           onChange={setSelectedEnv}
           options={Object.keys(Environment).map(env => ({
