@@ -5,7 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {devLog} from '@/processes/development'
 
 export const ResetIosImageCache = () => (
-  <Box>
+  <Box borderStyle="solid">
     <Button
       label="Clear iOS image cache"
       onPress={useCallback(() => {

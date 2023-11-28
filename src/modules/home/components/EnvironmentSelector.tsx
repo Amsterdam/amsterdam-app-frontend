@@ -1,9 +1,10 @@
-import {useEffect} from 'react'
 import RNRestart from 'react-native-restart'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {TextInput} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
+import {Title} from '@/components/ui/text/Title'
 import {
   Environment,
   EnvironmentAzure,
@@ -46,59 +47,63 @@ const CustomApiTextInput = ({
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironmentConfig)
+  const [selectedEnv, setSelectedEnv] = useState(environment)
 
-  useEffect(() => () => RNRestart.Restart(), [])
+  if (!isDevApp) {
+    return
+  }
 
-  return isDevApp ? (
-    <Box>
-      <Column gutter="xl">
-        <>
+  return (
+    <Box borderStyle="solid">
+      <Column gutter="md">
+        <Title
+          level="h3"
+          text="Omgeving selecteren"
+        />
+        <RadioGroup<Environment>
+          onChange={setSelectedEnv}
+          options={Object.keys(Environment).map(env => ({
+            label: env,
+            value: env as Environment,
+          }))}
+          value={selectedEnv}
+        />
+
+        {selectedEnv === Environment.custom && (
           <Column gutter="md">
-            {Object.values(Environment).map(env => (
-              <Button
-                key={env}
-                label={env}
-                onPress={() => {
-                  dispatch(setEnvironment(env as Environment))
-                  dispatch(baseApi.util.resetApiState())
-                }}
-                variant={environment === env ? 'secondary' : 'primary'}
+            {Object.entries(editableApiSlug).map(([key, value]) => (
+              <CustomApiTextInput
+                key={key}
+                label={value}
+                onChangeText={(text: string) =>
+                  dispatch(
+                    setCustomEnvironment({
+                      [value]: text,
+                    }),
+                  )
+                }
+                value={custom[value]}
               />
             ))}
           </Column>
-          {environment === Environment.custom && (
-            <Column gutter="md">
-              {Object.entries(editableApiSlug).map(([key, value]) => (
-                <CustomApiTextInput
-                  key={key}
-                  label={value}
-                  onChangeText={(text: string) =>
-                    dispatch(
-                      setCustomEnvironment({
-                        [value]: text,
-                      }),
-                    )
-                  }
-                  value={custom[value]}
-                />
-              ))}
-            </Column>
-          )}
-        </>
-        <Column gutter="md">
-          {Object.values(EnvironmentAzure).map(env => (
-            <Button
-              key={env}
-              label={environmentAzureLabels[env]}
-              onPress={() => {
-                dispatch(setEnvironment(env))
-                dispatch(baseApi.util.resetApiState())
-              }}
-              variant={environment === env ? 'secondary' : 'primary'}
-            />
-          ))}
-        </Column>
+        )}
+        <RadioGroup<Environment>
+          onChange={setSelectedEnv}
+          options={Object.keys(EnvironmentAzure).map(env => ({
+            label: env,
+            value: env as Environment,
+          }))}
+          value={selectedEnv}
+        />
+        <Button
+          label="Switch and restart app"
+          onPress={() => {
+            dispatch(setEnvironment(selectedEnv))
+            dispatch(baseApi.util.resetApiState())
+            RNRestart.Restart()
+          }}
+        />
       </Column>
     </Box>
-  ) : null
+  )
 }

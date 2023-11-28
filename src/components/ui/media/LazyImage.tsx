@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {View} from 'react-native'
+import {ImageStyle, StyleProp, View, ViewStyle} from 'react-native'
 import {StyleSheet} from 'react-native'
 import {ImageErrorEventData} from 'react-native'
 import {NativeSyntheticEvent} from 'react-native'
@@ -11,14 +11,23 @@ import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = ImageProps
+type Props = Omit<ImageProps, 'style'> & {
+  imageStyle?: StyleProp<ImageStyle>
+  style?: StyleProp<ViewStyle>
+}
 
-export const LazyImage = (props: Props) => {
+export const LazyImage = ({
+  aspectRatio = 'wide',
+  imageStyle,
+  onError,
+  onLoadEnd,
+  style,
+  ...rest
+}: Props) => {
   const [failed, setFailed] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
-  const {aspectRatio = 'wide', onError, onLoadEnd, style} = props
   const styles = useThemable(createStyles(aspectRatio))
 
   const handleError = useCallback(
@@ -53,10 +62,11 @@ export const LazyImage = (props: Props) => {
             <ImageFallback aspectRatio={aspectRatio} />
           ) : (
             <Image
-              {...props}
+              {...rest}
+              aspectRatio={aspectRatio}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
-              style={[styles.image]}
+              style={[styles.image, imageStyle]}
             />
           )}
         </Fader>
@@ -84,7 +94,6 @@ const createStyles =
       },
       wrapperView: {
         aspectRatio: media.aspectRatio[aspectRatio],
-        flex: 1,
         position: 'relative',
       },
     })

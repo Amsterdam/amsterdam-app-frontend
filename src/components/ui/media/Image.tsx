@@ -45,8 +45,8 @@ const CachedIosImage = ({
   width = 0,
   ...imageProps
 }: CachedIosImageProps) => {
-  const uri = useMemo(
-    () => getUriForWidth(width, uriSources),
+  const source = useMemo(
+    () => ({uri: getUriForWidth(width, uriSources)}),
     [uriSources, width],
   )
 
@@ -54,8 +54,9 @@ const CachedIosImage = ({
     <FastImage
       accessibilityIgnoresInvertColors
       accessibilityLanguage="nl-NL"
+      key={source?.uri} // adding a key fixes an issue that the FastImage gets stuck in an error state when onError was triggered once
       onLayout={onLayout}
-      source={{uri}}
+      source={source}
       style={style as StyleProp<FastImageStyle>}
       {...imageProps}
     />
