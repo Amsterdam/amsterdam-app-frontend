@@ -29,7 +29,9 @@ const AddressDeleteButton = ({
 }: AddressDeleteButtonProps) => {
   if (canDelete) {
     return (
-      <SwipeToDelete onEvent={onDelete}>
+      <SwipeToDelete
+        onEvent={onDelete}
+        showIcon={false}>
         <Row>
           {children}
           <Button
