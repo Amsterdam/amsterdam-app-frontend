@@ -9,13 +9,15 @@ import {Phrase} from '@/components/ui/text/Phrase'
 type Props = {
   children: ReactNode
   onEvent: () => void
+  showIcon?: boolean
 }
 
 type DeleteButtonProps = {
   onPress: () => void
+  showIcon: boolean
 }
 
-const DeleteButton = ({onPress}: DeleteButtonProps) => (
+const DeleteButton = ({onPress, showIcon}: DeleteButtonProps) => (
   <Pressable
     accessibilityElementsHidden
     inset="md"
@@ -33,17 +35,19 @@ const DeleteButton = ({onPress}: DeleteButtonProps) => (
           variant="small">
           Verwijder
         </Phrase>
-        <Icon
-          color="inverse"
-          name="trash-bin"
-          size="lg"
-        />
+        {!!showIcon && (
+          <Icon
+            color="inverse"
+            name="trash-bin"
+            size="lg"
+          />
+        )}
       </Row>
     </Column>
   </Pressable>
 )
 
-export const SwipeToDelete = ({children, onEvent}: Props) => {
+export const SwipeToDelete = ({showIcon = true, children, onEvent}: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
 
   const onSwipeableOpen = useCallback(
@@ -59,7 +63,12 @@ export const SwipeToDelete = ({children, onEvent}: Props) => {
   return (
     <Swipeable
       onSwipeableOpen={onSwipeableOpen}
-      renderRightActions={() => <DeleteButton onPress={onEvent} />}>
+      renderRightActions={() => (
+        <DeleteButton
+          onPress={onEvent}
+          showIcon={showIcon}
+        />
+      )}>
       {children}
     </Swipeable>
   )
