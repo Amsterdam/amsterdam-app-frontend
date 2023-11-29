@@ -1,4 +1,4 @@
-import {forwardRef, memo, useImperativeHandle, useRef, useState} from 'react'
+import {forwardRef, useImperativeHandle, useRef, useState} from 'react'
 import {PixelRatio, useWindowDimensions} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -16,8 +16,8 @@ type Props = {
   onChangeIndex?: (index: number) => void
 }
 
-export const Carousel = memo(
-  forwardRef<RefProps, Props>(({items, onChangeIndex}: Props, ref) => {
+export const Carousel = forwardRef<RefProps, Props>(
+  ({items, onChangeIndex}: Props, ref) => {
     const {isPortrait} = useDeviceContext()
     const {width} = useWindowDimensions()
     const fontScale = PixelRatio.getFontScale()
@@ -57,5 +57,5 @@ export const Carousel = memo(
         showPagination
       />
     )
-  }),
+  },
 )
