@@ -106,7 +106,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
         <Tooltip
           accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
           onPress={toggleTooltip}
-          placement={Placement.above}
+          placement={Placement.below}
           testID="ContactVisitingHoursTooltip"
           text={getTooltipContent('written')}
         />
