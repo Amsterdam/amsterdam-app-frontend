@@ -37,6 +37,8 @@ export const Carousel = forwardRef<RefProps, Props>(
       <SwiperFlatList
         data={items}
         disableGesture={isScreenReaderEnabled}
+        index={slideIndex}
+        key={width}
         onChangeIndex={({index}) => {
           setSlideIndex(index)
           onChangeIndex?.(index)
