@@ -55,7 +55,6 @@ const createStyles = ({color, size}: Theme) =>
     container: {
       position: 'absolute',
       flexDirection: 'row',
-      marginVertical: size.spacing.xs,
       justifyContent: 'center',
       alignSelf: 'center',
       bottom: 0,

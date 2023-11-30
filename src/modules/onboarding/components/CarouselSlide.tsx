@@ -42,7 +42,7 @@ export const CarouselSlide = ({
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
   const styles = useThemable(
-    createStyles({width, index, carouselLength, isImageVisible}),
+    createStyles({width, index, carouselLength, isImageVisible, isPortrait}),
   )
   const setAccessibilityAutoFocus = useAccessibilityAutoFocus({
     isActive: isCurrentSlide,
@@ -56,7 +56,9 @@ export const CarouselSlide = ({
     <View
       ref={slideRef => !!slideRef && setAccessibilityAutoFocus(slideRef)}
       style={styles.content}>
-      <AmsterdamHuisjesHorizontal style={styles.backgroundImage} />
+      <View style={styles.backgroundImageContainer}>
+        <AmsterdamHuisjesHorizontal />
+      </View>
       <Track
         align={isPortrait ? 'start' : 'center'}
         flex={1}
@@ -105,29 +107,37 @@ type StyleProps = {
   carouselLength: number
   index: number
   isImageVisible: number | boolean | undefined
+  isPortrait: boolean
   width: number
 }
 
 const createStyles =
-  ({width, carouselLength, index, isImageVisible}: StyleProps) =>
+  ({width, carouselLength, index, isImageVisible, isPortrait}: StyleProps) =>
   ({size}: Theme) => {
-    const backgroundImageOffset = carouselLength * width - index * width
+    const backgroundWidth = carouselLength * width
 
     return StyleSheet.create({
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
       },
-      backgroundImage: {
+      backgroundImageContainer: {
         position: 'absolute',
-        height: '50%',
-        bottom: 0,
+        bottom: isPortrait ? 0 : undefined,
+        height: isPortrait ? '50%' : '100%',
+        width: backgroundWidth,
+        transform: [
+          {
+            translateX: -(index * width),
+          },
+        ],
         zIndex: -10,
-        paddingLeft: backgroundImageOffset,
       },
       content: {
         zIndex: 1000,
         width: width,
         paddingBottom: size.spacing.lg,
+        overflow: 'hidden',
+        position: 'relative',
       },
     })
   }
