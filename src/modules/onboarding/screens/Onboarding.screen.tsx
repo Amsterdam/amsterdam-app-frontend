@@ -42,8 +42,7 @@ export const OnboardingScreen = () => {
       scroll={false}
       stickyFooter={
         <Box
-          inset="no"
-          insetHorizontal={isPortrait ? 'lg' : 'xl'}
+          insetHorizontal={isPortrait ? 'md' : 'xl'}
           insetTop="sm">
           <Button
             label={isLastSlide ? 'Aan de slag' : 'Volgende'}
@@ -53,8 +52,7 @@ export const OnboardingScreen = () => {
       }
       stickyHeader={
         <Box
-          inset="no"
-          insetHorizontal="lg"
+          insetHorizontal={isPortrait ? 'md' : 'lg'}
           insetTop="md">
           <Row align="end">
             <IconButton

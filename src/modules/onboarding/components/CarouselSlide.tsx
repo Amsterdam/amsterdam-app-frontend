@@ -58,15 +58,15 @@ export const CarouselSlide = ({
       style={styles.content}>
       <AmsterdamHuisjesHorizontal style={styles.backgroundImage} />
       <Track
-        align={!isPortrait ? 'center' : 'start'}
+        align={isPortrait ? 'start' : 'center'}
         flex={1}
-        gutter={!isPortrait ? 'lg' : 'no'}
+        gutter={isPortrait ? 'no' : 'lg'}
         reverse={!isPortrait}>
         <Size
-          maxWidth={!isPortrait && !isLargeFontScale ? '50%' : '100%'}
+          maxWidth={isPortrait ? '100%' : '50%'}
           minHeight={isLargeFontScale || !isPortrait ? '100%' : '25%'}>
           <Column
-            align={!isPortrait ? 'center' : 'start'}
+            align={isPortrait ? 'start' : 'center'}
             grow>
             <Box>
               <ContentView>
