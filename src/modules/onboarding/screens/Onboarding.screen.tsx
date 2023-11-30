@@ -37,12 +37,14 @@ export const OnboardingScreen = () => {
       : handleOnboarding()
   }, [handleOnboarding, slideIndex])
 
+  const insetHorizontal = isPortrait ? 'md' : 'xl'
+
   return (
     <Screen
       scroll={false}
       stickyFooter={
         <Box
-          insetHorizontal={isPortrait ? 'md' : 'xl'}
+          insetHorizontal={insetHorizontal}
           insetTop="sm">
           <Button
             label={isLastSlide ? 'Aan de slag' : 'Volgende'}
@@ -52,7 +54,7 @@ export const OnboardingScreen = () => {
       }
       stickyHeader={
         <Box
-          insetHorizontal={isPortrait ? 'md' : 'lg'}
+          insetHorizontal={insetHorizontal}
           insetTop="md">
           <Row align="end">
             <IconButton
