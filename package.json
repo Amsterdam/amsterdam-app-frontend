@@ -11,6 +11,7 @@
     "ios:install:pods": "bundle exec pod install --project-directory=ios --repo-update",
     "ios:update:pods": "bundle exec pod update --project-directory=ios --repo-update",
     "ios:phone:dev": "react-native run-ios --mode='DevDebug' --scheme='AmsterdamApp Test'",
+    "ios:phone:simulator:dev": "react-native run-ios --simulator='iPhone 12' --mode='DevDebug' --scheme='AmsterdamApp Test'",
     "ios:phone:prod": "react-native run-ios --mode='Debug' --scheme='AmsterdamApp'",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
