@@ -31,7 +31,7 @@ export const ProjectArticle = ({
     <>
       {!!image && (
         <Image
-          accessibilityLabel={image.alternativeText}
+          accessibilityLabel={image.alternativeText ?? undefined}
           accessible={!!image.alternativeText}
           aspectRatio="wide"
           source={image.sources}

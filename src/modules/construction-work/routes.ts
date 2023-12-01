@@ -1,4 +1,4 @@
-import {ProjectBody} from '@/modules/construction-work/types/project'
+import {ProjectDetailSubScreen} from '@/modules/construction-work/types/project'
 
 export enum ConstructionWorkRouteName {
   constructionWork = 'ConstructionWork',
@@ -14,7 +14,7 @@ export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.search]: undefined
   [ConstructionWorkRouteName.project]: {id: number}
   [ConstructionWorkRouteName.projectBody]: {
-    body: ProjectBody
+    body: ProjectDetailSubScreen
     headerTitle: string
   }
   [ConstructionWorkRouteName.projectNews]: {id: number; projectId?: number}

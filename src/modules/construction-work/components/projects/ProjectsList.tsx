@@ -12,6 +12,10 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
+import {
+  getBaseProjectTraits,
+  getProjectTraits,
+} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {getUnreadArticlesLength} from '@/modules/construction-work/components/projects/utils/getUnreadArticlesLength'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {
@@ -33,50 +37,44 @@ const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 const keyExtractor = ({id}: ProjectsItem) => id.toString()
 
 type ListItemProps = {
-  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
+  byDistance: boolean
   navigation: NavigationProp<ConstructionWorkRouteName>
   project: ProjectsItem
   readArticles: ReadArticle[]
 }
 
 const ListItem = memo(
-  ({getProjectTraits, navigation, project, readArticles}: ListItemProps) => {
+  ({byDistance, navigation, project, readArticles}: ListItemProps) => {
     const parsedTraits = useMemo<ProjectTraitsProps>(() => {
-      if (getProjectTraits) {
-        const traits = getProjectTraits?.(project)
+      const traits = byDistance
+        ? getProjectTraits(project)
+        : getBaseProjectTraits(project)
 
-        return {
-          ...traits,
-          unreadArticlesLength: getUnreadArticlesLength(
-            readArticles,
-            traits?.recent_articles,
-          ),
-        }
+      return {
+        ...traits,
+        unreadArticlesLength: getUnreadArticlesLength(
+          readArticles,
+          traits?.recent_articles,
+        ),
       }
-
-      return {}
-    }, [getProjectTraits, project, readArticles])
+    }, [byDistance, project, readArticles])
     const {followed, meter, strides, unreadArticlesLength} = parsedTraits
 
-    const additionalAccessibilityLabel =
-      getProjectTraits &&
-      accessibleText(
-        getAccessibleFollowingText(!!followed, unreadArticlesLength ?? 0),
-        getAccessibleDistanceText(meter, strides),
-      )
+    const additionalAccessibilityLabel = accessibleText(
+      getAccessibleFollowingText(!!followed, unreadArticlesLength ?? 0),
+      getAccessibleDistanceText(meter, strides),
+    )
     const projectTraits = useCallback(
-      () =>
-        getProjectTraits ? (
-          <ProjectTraits
-            accessibilityLabel={additionalAccessibilityLabel}
-            {...parsedTraits}
-          />
-        ) : null,
+      () => (
+        <ProjectTraits
+          accessibilityLabel={additionalAccessibilityLabel}
+          {...parsedTraits}
+        />
+      ),
       // trick to prevent unnecessary rerenders because of parsedTraits being a new object without new values
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [
         additionalAccessibilityLabel,
-        getProjectTraits,
         // eslint-disable-next-line react-hooks/exhaustive-deps
         ...Object.values(parsedTraits),
         unreadArticlesLength,
@@ -120,8 +118,8 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 )
 
 type Props = {
+  byDistance?: boolean
   data?: ProjectsItem[]
-  getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
   isError: boolean
   isLoading: boolean
   listHeader?: JSX.Element
@@ -132,8 +130,8 @@ type Props = {
 }
 
 export const ProjectsList = ({
+  byDistance = false,
   data,
-  getProjectTraits,
   isError,
   isLoading,
   onItemsPerRowChange,
@@ -154,13 +152,13 @@ export const ProjectsList = ({
   const renderItem: ListRenderItem<ProjectsItem> = useCallback(
     ({item}) => (
       <ListItem
-        getProjectTraits={getProjectTraits}
+        byDistance={byDistance}
         navigation={navigation}
         project={item}
         readArticles={readArticles}
       />
     ),
-    [getProjectTraits, navigation, readArticles],
+    [byDistance, navigation, readArticles],
   )
 
   if (isError) {

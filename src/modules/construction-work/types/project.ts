@@ -5,10 +5,10 @@ import {
   ProjectDetailTimeline,
 } from '@/modules/construction-work/types/api'
 
-export type ProjectBody = {
+export type ProjectDetailSubScreen = {
   contacts?: ProjectDetailContact[]
   sections?: ProjectDetailSection[]
   testID?: ViewProps['testID']
-  timeline?: ProjectDetailTimeline
+  timeline?: ProjectDetailTimeline | null
   title: string
 }

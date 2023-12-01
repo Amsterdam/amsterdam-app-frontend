@@ -17,10 +17,10 @@ import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
-import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
+import {ProjectDetailSubScreenMenu} from '@/modules/construction-work/components/project/ProjectDetailSubScreenMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -29,6 +29,7 @@ import {
   useProjectDetailsQuery,
   useProjectsFollowDeleteMutation,
 } from '@/modules/construction-work/service'
+import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const ONBOARDING_TIP =
@@ -39,7 +40,7 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const address = useAddress()
+  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
 
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
@@ -172,7 +173,7 @@ export const Project = ({id}: Props) => {
                 )}
               </SingleSelectable>
             </Column>
-            <ProjectBodyMenu project={project} />
+            <ProjectDetailSubScreenMenu project={project} />
             <ArticleOverview
               projectId={id}
               title="Nieuws"

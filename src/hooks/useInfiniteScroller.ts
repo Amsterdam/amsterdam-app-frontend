@@ -8,7 +8,6 @@ import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
-import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
 const getEmptyItems = <DummyItemType>(
   length: number,
@@ -25,7 +24,11 @@ const getEmptyItems = <DummyItemType>(
         }))
     : []
 
-export const useInfiniteScroller = <ItemType, DummyItemType>(
+export const useInfiniteScroller = <
+  QueryArgs extends Record<string, any>,
+  ItemType,
+  DummyItemType,
+>(
   defaultEmptyItem: DummyItemType,
   endpoint: ApiEndpointQuery<
     QueryDefinition<any, any, any, Paginated<ItemType>>,
@@ -35,7 +38,7 @@ export const useInfiniteScroller = <ItemType, DummyItemType>(
   useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<ItemType>>>,
   page = 1,
   pageSize = 10,
-  queryParams: InfiniteScrollerQueryParams = {},
+  queryParams?: QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
 

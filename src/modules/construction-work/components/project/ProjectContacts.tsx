@@ -19,20 +19,20 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
       <Column
         gutter="md"
         key={name + email}>
-        <View>
-          {!!name && (
+        {!!name && (
+          <View>
             <Title
               level="h3"
               testID="ConstructionWorkProjectContactTitle"
               text={name}
             />
-          )}
-          {!!position && (
-            <Paragraph testID="ConstructionWorkProjectContactJobTitle">
-              {capitalizeString(position)}
-            </Paragraph>
-          )}
-        </View>
+            {!!position && (
+              <Paragraph testID="ConstructionWorkProjectContactJobTitle">
+                {capitalizeString(position)}
+              </Paragraph>
+            )}
+          </View>
+        )}
         {!!phone && (
           <Row>
             <PhoneButton

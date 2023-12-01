@@ -8,16 +8,18 @@ type Props = {
 }
 
 export const ProjectContentSections = ({sections}: Props) =>
-  sections.map(({body, title}) => (
-    <Column
-      gutter="sm"
-      key={title}>
-      {!!title && (
-        <Title
-          level="h2"
-          text={title}
-        />
-      )}
-      {!!body && <HtmlContent content={body} />}
-    </Column>
-  ))
+  sections.map(({body, title}) =>
+    body ? (
+      <Column
+        gutter="sm"
+        key={title}>
+        {!!title && (
+          <Title
+            level="h2"
+            text={title}
+          />
+        )}
+        {!!body && <HtmlContent content={body} />}
+      </Column>
+    ) : null,
+  )

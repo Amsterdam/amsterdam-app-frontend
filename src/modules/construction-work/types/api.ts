@@ -49,16 +49,14 @@ export type Article = {
   active: boolean
   body: string
   creation_date: string
-  expiration_date: string
+  expiration_date: string | null
   foreign_id: number
   id: number
   image: ApiImage | null
   intro: string
   last_seen: string
   modification_date: string
-  projects: {
-    type: number
-  }[]
+  projects: {type: number}[]
   publication_date: string
   title: string
   type: ArticleType
@@ -94,12 +92,12 @@ export type ProjectDetailContact = {
   email: string
   id: number
   name: string
-  phone: string
+  phone: string | null
   position: string
 }
 
 export type ProjectDetailSection = {
-  body: string
+  body: string | null
   title: string
 }
 
@@ -143,14 +141,12 @@ export type ProjectDetail = ProjectBase & {
   expiration_date: string
   followers: number
   foreign_id: number
-
-  images: ApiImage[] | null
+  images: ApiImage[]
   last_seen: string
-
   modification_date: string
   publication_date: string
   sections: ProjectDetailSections
-  timeline: ProjectDetailTimeline
+  timeline: ProjectDetailTimeline | null
   url: string
 }
 

@@ -6,6 +6,7 @@ import {ProjectsListHeader} from '@/modules/construction-work/components/project
 import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
   projectsApi,
   useProjectsQuery,
@@ -13,13 +14,13 @@ import {
 import {
   ProjectsEndpointName,
   ProjectsItem,
+  ProjectsQueryArgs,
 } from '@/modules/construction-work/types/api'
-import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
 type Props = {
   HeaderButton: React.ReactNode
-  getProjectTraits: (project: ProjectsItem) => Partial<ProjectsItem>
-  queryParams: InfiniteScrollerQueryParams
+  byDistance?: boolean
+  queryParams?: ProjectsQueryArgs
 }
 
 export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
@@ -38,8 +39,8 @@ const emptyProjectsItem: DummyProjectsItem = {
 }
 
 export const Projects = ({
+  byDistance = false,
   HeaderButton,
-  getProjectTraits,
   queryParams,
 }: Props) => {
   const {projectItemListPageSize} = config
@@ -51,7 +52,11 @@ export const Projects = ({
     projectItemListPageSize,
   )
 
-  const result = useInfiniteScroller<ProjectsItem, DummyProjectsItem>(
+  const result = useInfiniteScroller<
+    ProjectsQueryArgs,
+    ProjectsItem,
+    DummyProjectsItem
+  >(
     emptyProjectsItem,
     projectsApi.endpoints[ProjectsEndpointName.projects],
     'id',
@@ -59,8 +64,9 @@ export const Projects = ({
     page,
     projectItemListPageSize,
     {
-      ...queryParams,
+      article_max_age: recentArticleMaxAge,
       page_size: projectItemListPageSize,
+      ...queryParams,
     },
   )
 
@@ -80,7 +86,7 @@ export const Projects = ({
   return (
     <ProjectsList
       {...result}
-      getProjectTraits={getProjectTraits}
+      byDistance={byDistance}
       listHeader={
         <ProjectsListHeader>
           <SearchFieldNavigator />
