@@ -68,14 +68,18 @@ export const ArticleOverview = ({
     [articles, markMultipleAsRead, navigation],
   )
 
-  const navigateToArticle = ({meta_id: {id}, type}: ArticlesItem) => {
-    if (type === 'article') {
-      navigation.navigate(ConstructionWorkRouteName.projectNews, {
+  const navigateToArticle = ({meta_id: {id, type}}: ArticlesItem) => {
+    if (type === 'warning') {
+      navigation.navigate(ConstructionWorkRouteName.projectWarning, {
         id,
         projectId,
       })
-    } else if (type === 'warning') {
-      navigation.navigate(ConstructionWorkRouteName.projectWarning, {
+
+      return
+    }
+
+    if (type === 'article') {
+      navigation.navigate(ConstructionWorkRouteName.projectNews, {
         id,
         projectId,
       })
