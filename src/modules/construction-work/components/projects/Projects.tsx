@@ -8,9 +8,12 @@ import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {
   projectsApi,
-  useGetProjectsQuery,
+  useProjectsQuery,
 } from '@/modules/construction-work/service'
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {
+  ProjectsEndpointName,
+  ProjectsItem,
+} from '@/modules/construction-work/types/api'
 import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
 type Props = {
@@ -19,21 +22,16 @@ type Props = {
   queryParams: InfiniteScrollerQueryParams
 }
 
-const emptyProjectsItem = {
-  active: false,
-  content_html: '',
-  content_text: '',
-  district_id: 0,
-  district_name: '',
+export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
+  id: string
+}
+
+const emptyProjectsItem: DummyProjectsItem = {
   followed: false,
-  identifier: '',
-  images: null,
-  last_seen: '',
+  image: null,
   meter: 0,
-  modification_date: '',
-  publication_date: '',
-  score: 0,
-  source_url: '',
+  id: '',
+  recent_articles: [],
   strides: 0,
   subtitle: ' ',
   title: ' ',
@@ -53,11 +51,11 @@ export const Projects = ({
     projectItemListPageSize,
   )
 
-  const result = useInfiniteScroller<ProjectsItem>(
+  const result = useInfiniteScroller<ProjectsItem, DummyProjectsItem>(
     emptyProjectsItem,
-    projectsApi.endpoints.getProjects,
-    'identifier',
-    useGetProjectsQuery,
+    projectsApi.endpoints[ProjectsEndpointName.projects],
+    'id',
+    useProjectsQuery,
     page,
     projectItemListPageSize,
     {

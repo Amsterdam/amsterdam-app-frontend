@@ -12,17 +12,16 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
-import {ArticleSummary} from '@/modules/construction-work/types'
-import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
+import {ArticlesItem} from '@/modules/construction-work/types/api'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
-import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type Props = {
-  article: ArticleSummary
+  article: ArticlesItem
   isFirst: boolean
   isLast: boolean
   onPress: () => void
@@ -39,19 +38,14 @@ export const ArticlePreview = ({
     useState<boolean>(false)
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const imageSources =
-    article.type === 'news' || article.type === 'work'
-      ? mapImageSources(article.image?.sources)
-      : getProjectWarningMainImageInfo(article)?.sources
-
   useEffect(() => {
     setIsNewAndUnreadArticle(
       getDateDiffInDays(article.publication_date) <= recentArticleMaxAge &&
         !readArticles.find(
-          readArticle => readArticle.id === article.identifier,
+          readArticle => readArticle.id === getUniqueArticleId(article),
         ),
     )
-  }, [article.identifier, article.publication_date, readArticles])
+  }, [article, article.publication_date, readArticles])
 
   const {media} = useTheme()
   const imageWidth = media.figureHeight.lg
@@ -59,6 +53,8 @@ export const ArticlePreview = ({
   const styles = useThemable(
     createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
   )
+
+  const imageSources = article.images?.[0]?.sources
 
   return (
     <View

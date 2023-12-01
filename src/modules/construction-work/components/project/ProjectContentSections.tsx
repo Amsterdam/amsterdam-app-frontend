@@ -1,26 +1,23 @@
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
-import {Section} from '@/types/section'
+import {ProjectDetailSection} from '@/modules/construction-work/types/api'
 
 type Props = {
-  sections: Section[]
+  sections: ProjectDetailSection[]
 }
 
-export const ProjectContentSections = ({sections}: Props) => (
-  <>
-    {sections.map(section => (
-      <Column
-        gutter="sm"
-        key={section.title}>
-        {section.title.length > 0 && (
-          <Title
-            level="h2"
-            text={section.title}
-          />
-        )}
-        <HtmlContent content={section.html} />
-      </Column>
-    ))}
-  </>
-)
+export const ProjectContentSections = ({sections}: Props) =>
+  sections.map(({body, title}) => (
+    <Column
+      gutter="sm"
+      key={title}>
+      {!!title && (
+        <Title
+          level="h2"
+          text={title}
+        />
+      )}
+      {!!body && <HtmlContent content={body} />}
+    </Column>
+  ))

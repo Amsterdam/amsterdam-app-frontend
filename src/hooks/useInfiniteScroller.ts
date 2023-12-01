@@ -10,26 +10,29 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
 import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
-const getEmptyItems = <T>(
+const getEmptyItems = <DummyItemType>(
   length: number,
   baseIndex: number,
-  defaultEmptyItem: T,
-  keyName: keyof T,
+  defaultEmptyItem: DummyItemType,
+  keyName: keyof DummyItemType,
 ) =>
   length > 0
-    ? Array<T>(length)
+    ? Array<DummyItemType>(length)
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
-          [keyName]: (index + baseIndex).toString(),
+          [keyName]: `dummy-${index + baseIndex}`,
         }))
     : []
 
-export const useInfiniteScroller = <T>(
-  defaultEmptyItem: T,
-  endpoint: ApiEndpointQuery<QueryDefinition<any, any, any, Paginated<T>>, any>,
-  keyName: keyof T,
-  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<T>>>,
+export const useInfiniteScroller = <ItemType, DummyItemType>(
+  defaultEmptyItem: DummyItemType,
+  endpoint: ApiEndpointQuery<
+    QueryDefinition<any, any, any, Paginated<ItemType>>,
+    any
+  >,
+  keyName: keyof DummyItemType,
+  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<ItemType>>>,
   page = 1,
   pageSize = 10,
   queryParams: InfiniteScrollerQueryParams = {},
@@ -93,7 +96,7 @@ export const useInfiniteScroller = <T>(
         const pageData =
           data?.result && status === QueryStatus.fulfilled
             ? data?.result
-            : getEmptyItems<T>(
+            : getEmptyItems<DummyItemType>(
                 Math.min(pageSize, totalElements - index * pageSize),
                 index * pageSize,
                 defaultEmptyItem,
@@ -101,7 +104,7 @@ export const useInfiniteScroller = <T>(
               )
 
         return [...acc, ...pageData]
-      }, []) as T[],
+      }, []) as ItemType[],
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,

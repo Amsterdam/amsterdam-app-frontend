@@ -8,39 +8,32 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ArticlePreview} from '@/modules/construction-work/components/article/ArticlePreview'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {useGetArticlesQuery} from '@/modules/construction-work/service'
-import {ArticleSummary} from '@/modules/construction-work/types'
+import {useArticlesQuery} from '@/modules/construction-work/service'
+import {ArticlesItem} from '@/modules/construction-work/types/api'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {getYearOfPublicationDate} from '@/utils/datetime/getYearOfPublicationDate'
 
 type Props = {
-  limit?: number
-  projectId?: string
-  sortBy?: string
-  sortOrder?: 'asc' | 'desc'
+  projectId?: number
   title: string
 }
 
 type YearlyArticleSection = {
-  data: ArticleSummary[]
+  data: ArticlesItem[]
   title: string
 }
 
 export const ArticleOverview = ({
-  limit,
   projectId,
-  sortBy,
-  sortOrder,
+
   title,
 }: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
-  const {data: articles, isLoading} = useGetArticlesQuery({
-    limit,
-    projectIds: projectId ? [projectId] : [],
-    sortBy,
-    sortOrder,
+  const {data: articles, isLoading} = useArticlesQuery({
+    project_ids: projectId?.toString(),
   })
   const {markMultipleAsRead} = useMarkArticleAsRead()
 
@@ -75,15 +68,15 @@ export const ArticleOverview = ({
     [articles, markMultipleAsRead, navigation],
   )
 
-  const navigateToArticle = (article: ArticleSummary) => {
-    if (article.type === 'news' || article.type === 'work') {
+  const navigateToArticle = ({meta_id: {id}, type}: ArticlesItem) => {
+    if (type === 'article') {
       navigation.navigate(ConstructionWorkRouteName.projectNews, {
-        id: article.identifier,
+        id,
         projectId,
       })
-    } else if (article.type === 'warning') {
+    } else if (type === 'warning') {
       navigation.navigate(ConstructionWorkRouteName.projectWarning, {
-        id: article.identifier,
+        id,
         projectId,
       })
     }
@@ -121,7 +114,7 @@ export const ArticleOverview = ({
                   index === yearlyArticleSections.length - 1 &&
                   dataIndex === data.length - 1
                 }
-                key={article.identifier}
+                key={getUniqueArticleId(article)}
                 onPress={() => navigateToArticle(article)}
                 testID={'ConstructionWorkProjectArticlePreview'}
               />

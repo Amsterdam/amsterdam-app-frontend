@@ -1,6 +1,13 @@
+/** @deprecated API refactor */
 export type MutationResponse = {
   result: string
   status: boolean
+}
+
+type Links = {
+  next: {href: string}
+  previous: {href: string}
+  self: {href: string}
 }
 
 type Page = {
@@ -11,6 +18,7 @@ type Page = {
 }
 
 export type Paginated<T> = {
+  _links: Links
   page: Page
   result: T[]
 }
@@ -23,4 +31,33 @@ export enum CacheLifetime {
   hour = 60 * 60,
   day = 60 * 60 * 24,
   week = 60 * 60 * 24 * 7,
+}
+
+export type ApiImageSource = {
+  height: number
+  url: string
+  width: number
+}
+
+export type ApiImage = {
+  alternativeText: string
+  aspectRatio: number
+  id: string
+  sources: ApiImageSource[]
+}
+
+export type AddressQueryArgs = {
+  address?: string
+  lat?: number
+  lon?: number
+}
+
+export type PaginationQueryArgs = {
+  page?: number
+  page_size?: number
+}
+
+export type SortQueryArgs = {
+  sort_by?: string
+  sort_order?: 'asc' | 'desc'
 }

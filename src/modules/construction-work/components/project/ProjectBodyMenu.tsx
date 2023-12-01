@@ -2,11 +2,12 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {Project, ProjectBody} from '@/modules/construction-work/types'
+import {ProjectDetail} from '@/modules/construction-work/types/api'
+import {ProjectBody} from '@/modules/construction-work/types/project'
 import {isEmptyObject} from '@/utils/object'
 
 type Props = {
-  project: Project
+  project: ProjectDetail
 }
 
 enum ProjectBodyTitle {
@@ -16,38 +17,38 @@ enum ProjectBodyTitle {
   work = 'Werkzaamheden',
 }
 
+const hasContentToShow = (o: ProjectBody) =>
+  o.contacts?.length ||
+  o.sections?.length ||
+  (o.timeline && !isEmptyObject(o.timeline))
+
 export const ProjectBodyMenu = ({project}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const menuOptions: ProjectBody[] = [
     {
-      sections: [...project.body.what, ...project.body.where],
+      sections: [...project.sections.what, ...project.sections.where],
       testID: 'ConstructionWorkProjectAboutButton',
       title: ProjectBodyTitle.about,
     },
     {
-      sections: project.body.when,
-      timeline: project.body.timeline,
+      sections: project.sections.when,
+      timeline: project.timeline,
       testID: 'ConstructionWorkProjectPlanningButton',
       title: ProjectBodyTitle.planning,
     },
     {
-      sections: project.body.work,
+      sections: project.sections.work,
       testID: 'ConstructionWorkProjectWorkButton',
       title: ProjectBodyTitle.work,
     },
     {
-      sections: project.body.contact,
+      sections: project.sections.contact,
       contacts: project.contacts,
       testID: 'ConstructionWorkProjectContactButton',
       title: ProjectBodyTitle.contact,
     },
   ]
-
-  const hasContentToShow = (o: ProjectBody) =>
-    o.contacts?.length ||
-    o.sections?.length ||
-    (o.timeline && !isEmptyObject(o.timeline))
 
   return (
     <Column>
@@ -64,9 +65,7 @@ export const ProjectBodyMenu = ({project}: Props) => {
             label={title}
             onPress={() =>
               navigation.navigate(ConstructionWorkRouteName.projectBody, {
-                body: {
-                  ...option,
-                },
+                body: option,
                 headerTitle: project.title,
               })
             }

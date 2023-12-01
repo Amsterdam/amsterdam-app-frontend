@@ -6,7 +6,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
 import {ProjectsTextSearchField} from '@/modules/construction-work/components/projects/ProjectsTextSearchField'
-import {useGetProjectsByTextQuery} from '@/modules/construction-work/service'
+import {useProjectsSearchQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkSearchText} from '@/modules/construction-work/slice'
 
 export const ProjectsByText = () => {
@@ -14,24 +14,26 @@ export const ProjectsByText = () => {
 
   const hasSearchText = !!searchText
 
-  const result = useGetProjectsByTextQuery(
+  const {data, isError, isLoading} = useProjectsSearchQuery(
     hasSearchText
       ? {
-          fields: ['identifier', 'images', 'subtitle', 'title'],
+          fields: ['id', 'image', 'subtitle', 'title'],
           text: searchText.trim(),
-          queryFields: ['title', 'subtitle'],
+          query_fields: ['title', 'subtitle'],
         }
       : skipToken,
   )
 
   const resultsLabel =
-    result.data && simplur`${result.data?.length} zoekresulta[at|ten]`
+    data && simplur`${data?.result.length} zoekresulta[at|ten]`
 
   useAccessibilityAnnounceEffect(resultsLabel)
 
   return (
     <ProjectsList
-      {...result}
+      data={data?.result}
+      isError={isError}
+      isLoading={isLoading}
       listHeader={
         <ProjectsListHeader>
           <ProjectsTextSearchField />

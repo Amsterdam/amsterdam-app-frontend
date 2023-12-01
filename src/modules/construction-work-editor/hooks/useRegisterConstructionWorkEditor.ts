@@ -47,8 +47,12 @@ export const useRegisterConstructionWorkEditor = (
     isLoading: isGetProjectManagerLoading,
     isSuccess: isGetProjectManagerSuccess,
   } = useGetProjectManagerQuery(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     constructionWorkEditorId && authManagerToken
-      ? {id: constructionWorkEditorId}
+      ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        {id: constructionWorkEditorId}
       : skipToken,
   )
   const authorizedProjects = currentProjectManager?.projects

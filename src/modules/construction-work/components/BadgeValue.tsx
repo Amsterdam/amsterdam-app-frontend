@@ -3,29 +3,31 @@ import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
-import {useGetProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
+import {useProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 
 export const BadgeValue = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const {data} = useGetProjectsFollowedArticlesQuery({
-    'article-max-age': recentArticleMaxAge,
+  const {data} = useProjectsFollowedArticlesQuery({
+    article_max_age: recentArticleMaxAge,
   })
-  const projects = data?.projects
 
-  const unreadArticlesLength = useMemo(
-    () =>
-      projects &&
-      Object.keys(projects).reduce(
-        (total, projectId) =>
-          projects[projectId].filter(
-            id => !readArticles.map(r => r.id).includes(id),
-          ).length + total,
-        0,
-      ),
-    [projects, readArticles],
-  )
+  const unreadArticlesLength = useMemo(() => {
+    if (!data) {
+      return
+    }
+
+    return Object.values(data).reduce(
+      (total, articles) =>
+        articles.filter(
+          article =>
+            !readArticles.map(r => r.id).includes(getUniqueArticleId(article)),
+        ).length + total,
+      0,
+    )
+  }, [data, readArticles])
 
   if (unreadArticlesLength) {
     return (

@@ -25,18 +25,17 @@ import {getAccessibleDistanceText} from '@/modules/construction-work/components/
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  useFollowProjectMutation,
-  useGetProjectQuery,
-  useUnfollowProjectMutation,
+  useProjectsFollowPostMutation,
+  useProjectDetailsQuery,
+  useProjectsFollowDeleteMutation,
 } from '@/modules/construction-work/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {mapImageSources} from '@/utils/image/mapImageSources'
 
 const ONBOARDING_TIP =
   'Volg een project en blijf op de hoogte van onze werkzaamheden'
 
 type Props = {
-  id: string
+  id: number
 }
 
 export const Project = ({id}: Props) => {
@@ -50,29 +49,27 @@ export const Project = ({id}: Props) => {
     data: project,
     isLoading,
     isFetching,
-  } = useGetProjectQuery({id, ...addressParam})
+  } = useProjectDetailsQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
-    useFollowProjectMutation()
+    useProjectsFollowPostMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
-    useUnfollowProjectMutation()
+    useProjectsFollowDeleteMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
   const [onboardingTipTargetLayout, setTipComponentLayout] =
     useState<LayoutRectangle>()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
-      if (!project) {
+      if (isFollowed) {
+        void unfollowProject({id})
+
         return
       }
 
-      if (isFollowed) {
-        void unfollowProject({project_id: project.identifier})
-      } else {
-        void followProject({project_id: project.identifier})
-        registerDeviceWithPermission()
-      }
+      void followProject({id})
+      registerDeviceWithPermission()
     },
-    [followProject, project, registerDeviceWithPermission, unfollowProject],
+    [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
 
   useLayoutEffect(() => {
@@ -89,15 +86,15 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const {images, followed, followers, meter, strides, subtitle, title} = project
+  const {image, followed, followers, meter, strides, subtitle, title} = project
   const followersPhrase = simplur`${[followers]} volger[|s]`
 
   return (
     <Column>
-      {!!images?.length && (
+      {image?.sources && (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(images[0]?.sources)}
+          source={image.sources}
           testID="ConstructionWorkProjectImage"
         />
       )}

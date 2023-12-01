@@ -13,7 +13,7 @@ export type ConstructionWorkEditorStackParams = {
   }
   [ConstructionWorkEditorRouteName.confirmMessage]: undefined
   [ConstructionWorkEditorRouteName.createMessage]: {
-    projectId: string
+    projectId: number
     projectTitle: string
   }
 }

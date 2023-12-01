@@ -12,6 +12,8 @@ export const PreRenderComponent = () => {
     error: getProjectManagerError,
     isLoading: isGetProjectManagerLoading,
   } = useGetProjectManagerQuery(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     constructionWorkEditorId ? {id: constructionWorkEditorId} : skipToken,
   )
   const {setModuleAuthorization} = useSetModuleAuthorization()

@@ -14,7 +14,7 @@ import {WaitingTime} from '@/modules/contact/components/city-offices/WaitingTime
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
-import {mapImageSources} from '@/utils/image/mapImageSources'
+import {mapImageSources} from '@/modules/contact/utils/mapImageSources'
 
 export const CityOffice = () => {
   const openWebUrl = useOpenWebUrl()

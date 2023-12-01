@@ -1,16 +1,25 @@
-export const getAccessibleDistanceText = (meter?: number, strides?: number) => {
-  if (meter === undefined && strides === undefined) {
+const isNotNullish = <T>(maybeNullish: unknown): maybeNullish is T =>
+  maybeNullish !== undefined && maybeNullish !== null
+
+export const getAccessibleDistanceText = (
+  meter?: number | null,
+  strides?: number | null,
+) => {
+  const hasMeters = isNotNullish<number>(meter)
+  const hasStrides = isNotNullish<number>(strides)
+
+  if (!hasMeters && !hasStrides) {
     return
   }
 
   const textParts = ['vanaf uw adres']
 
-  if (strides !== undefined) {
+  if (hasStrides) {
     textParts.unshift(`${strides} stappen`)
   }
 
-  if (meter !== undefined) {
-    if (strides !== undefined) {
+  if (hasMeters) {
+    if (hasStrides) {
       textParts.unshift('of')
     }
 

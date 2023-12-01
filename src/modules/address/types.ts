@@ -22,6 +22,7 @@ export type Address = {
   street: string
 }
 
+/** @deprecated API refactor */
 export type AddressQueryArg = {
   address?: string
   lat?: number

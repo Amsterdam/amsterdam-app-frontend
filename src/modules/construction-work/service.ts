@@ -1,30 +1,110 @@
-import {AddressQueryArg} from '@/modules/address/types'
 import {
-  ArticleQueryArg,
-  Articles,
-  FieldsQueryArg,
+  ArticlesQueryArgs,
+  ArticlesResponse,
   FollowProjectBody,
-  NewsArticle,
-  Project,
-  ProjectIdQueryArg,
-  ProjectsByTextQueryArg,
+  ProjectDetailsQueryArgs,
+  ProjectDetailsResponse,
+  ProjectNewsQueryArgs,
+  ProjectNewsResponse,
+  ProjectWarningQueryArgs,
+  ProjectWarningResponse,
   ProjectsEndpointName,
-  ProjectsFollowedArticlesQueryArg,
+  ProjectsFollowedArticlesQueryArgs,
   ProjectsFollowedArticlesResponse,
-  ProjectsItem,
-  ProjectsQueryArg,
-  ProjectWarning,
-  ProjectWarningIdQueryArg,
-} from '@/modules/construction-work/types'
+  ProjectsQueryArgs,
+  ProjectsResponse,
+  ProjectsSearchQueryArgs,
+  ProjectsSearchResponse,
+} from '@/modules/construction-work/types/api'
 import {baseApi} from '@/services/init'
-import {CacheLifetime, MutationResponse, Paginated} from '@/types/api'
-import {SortListQueryArg} from '@/types/list'
-import {formatQueryParams, generateRequestUrl} from '@/utils/api'
+import {CacheLifetime} from '@/types/api'
+import {generateRequestUrl} from '@/utils/api'
+
+// @TODO: arbitrary page size?
+const DEFAULT_SEARCH_PAGE_SIZE = 1000
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [ProjectsEndpointName.followProject]: builder.mutation<
-      MutationResponse,
+    // /articles GET
+    [ProjectsEndpointName.articles]: builder.query<
+      ArticlesResponse,
+      ArticlesQueryArgs
+    >({
+      providesTags: ['Articles'],
+      query: params =>
+        generateRequestUrl({
+          path: '/articles',
+          params,
+        }),
+      keepUnusedDataFor: CacheLifetime.minute,
+    }),
+
+    // /project/details GET
+    [ProjectsEndpointName.projectDetails]: builder.query<
+      ProjectDetailsResponse,
+      ProjectDetailsQueryArgs
+    >({
+      providesTags: ['FollowedProjects', 'Projects'],
+      query: params => generateRequestUrl({path: '/project/details', params}),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
+
+    // /project/news GET
+    [ProjectsEndpointName.projectNews]: builder.query<
+      ProjectNewsResponse,
+      ProjectNewsQueryArgs
+    >({
+      query: params => generateRequestUrl({path: '/project/news', params}),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
+
+    // /project/warning GET
+    [ProjectsEndpointName.projectWarning]: builder.query<
+      ProjectWarningResponse,
+      ProjectWarningQueryArgs
+    >({
+      query: params => generateRequestUrl({path: '/project/warning', params}),
+      keepUnusedDataFor: CacheLifetime.week,
+    }),
+
+    // /projects GET
+    [ProjectsEndpointName.projects]: builder.query<
+      ProjectsResponse,
+      ProjectsQueryArgs
+    >({
+      providesTags: ['FollowedProjects', 'Projects'],
+      query: params => {
+        const path = '/projects'
+
+        if (!params) {
+          return path
+        }
+
+        return generateRequestUrl({
+          path: '/projects',
+          params,
+        })
+      },
+
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
+
+    // /projects/follow DELETE
+    [ProjectsEndpointName.projectsFollowDelete]: builder.mutation<
+      string,
+      FollowProjectBody
+    >({
+      invalidatesTags: ['FollowedProjects'],
+      query: body => ({
+        url: '/projects/follow',
+        method: 'DELETE',
+        body,
+      }),
+    }),
+
+    // /projects/follow POST
+    [ProjectsEndpointName.projectsFollowPost]: builder.mutation<
+      string,
       FollowProjectBody
     >({
       invalidatesTags: ['FollowedProjects'],
@@ -35,131 +115,52 @@ export const projectsApi = baseApi.injectEndpoints({
       }),
     }),
 
-    [ProjectsEndpointName.getArticles]: builder.query<
-      Articles,
-      ArticleQueryArg
-    >({
-      providesTags: ['Articles'],
-      query: params => {
-        const q = formatQueryParams(params)
-
-        return generateRequestUrl({path: '/articles', params: q})
-      },
-      keepUnusedDataFor: CacheLifetime.minute,
-      transformResponse: (response: {result: Articles}) => response.result,
-    }),
-
-    [ProjectsEndpointName.getProject]: builder.query<
-      Project,
-      ProjectIdQueryArg & AddressQueryArg
-    >({
-      providesTags: ['FollowedProjects', 'Projects'],
-      query: params => generateRequestUrl({path: '/project/details', params}),
-      keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (response: {result: Project}) => response.result,
-    }),
-
-    [ProjectsEndpointName.getProjectNews]: builder.query<
-      NewsArticle,
-      ProjectIdQueryArg
-    >({
-      query: params => generateRequestUrl({path: '/project/news', params}),
-      keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (response: {result: NewsArticle}) => response.result,
-    }),
-
-    [ProjectsEndpointName.getProjects]: builder.query<
-      Paginated<ProjectsItem>,
-      Partial<
-        ProjectsQueryArg & AddressQueryArg & FieldsQueryArg & SortListQueryArg
-      > | void
-    >({
-      providesTags: ['FollowedProjects', 'Projects'],
-      query: params => {
-        if (params) {
-          return generateRequestUrl({
-            path: '/projects',
-            params: formatQueryParams({...params}),
-          })
-        }
-
-        return '/projects'
-      },
-      keepUnusedDataFor: CacheLifetime.hour,
-    }),
-
-    [ProjectsEndpointName.getProjectsFollowedArticles]: builder.query<
+    // /projects/followed/articles GET
+    [ProjectsEndpointName.projectsFollowedArticles]: builder.query<
       ProjectsFollowedArticlesResponse,
-      ProjectsFollowedArticlesQueryArg | void
+      ProjectsFollowedArticlesQueryArgs
     >({
       providesTags: ['Articles', 'FollowedProjects'],
       query: params => {
         const path = '/projects/followed/articles'
 
-        if (params) {
-          return generateRequestUrl({
-            path,
-            params,
-          })
+        if (!params) {
+          return path
         }
 
-        return path
+        return generateRequestUrl({
+          path,
+          params,
+        })
       },
       keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (response: {
-        result: ProjectsFollowedArticlesResponse
-      }) => response.result,
     }),
 
-    [ProjectsEndpointName.getProjectsByText]: builder.query<
-      ProjectsItem[],
-      ProjectsByTextQueryArg & FieldsQueryArg
+    // /projects/search GET
+    [ProjectsEndpointName.projectsSearch]: builder.query<
+      ProjectsSearchResponse,
+      ProjectsSearchQueryArgs
     >({
       providesTags: ['Projects'],
       query: params =>
         generateRequestUrl({
           path: '/projects/search',
-          params: formatQueryParams({...params, page_size: 1000}),
+          params: {page_size: DEFAULT_SEARCH_PAGE_SIZE, ...params},
         }),
-
       keepUnusedDataFor: CacheLifetime.hour,
-      transformResponse: (response: {result: ProjectsItem[]}) =>
-        response.result,
-    }),
-
-    [ProjectsEndpointName.getProjectWarning]: builder.query<
-      ProjectWarning,
-      ProjectWarningIdQueryArg
-    >({
-      query: params => generateRequestUrl({path: '/project/warning', params}),
-      keepUnusedDataFor: CacheLifetime.week,
-      transformResponse: (response: {result: ProjectWarning}) =>
-        response.result,
-    }),
-
-    [ProjectsEndpointName.unfollowProject]: builder.mutation<
-      MutationResponse,
-      FollowProjectBody
-    >({
-      invalidatesTags: ['FollowedProjects'],
-      query: body => ({
-        url: '/projects/follow',
-        method: 'DELETE',
-        body,
-      }),
     }),
   }),
   overrideExisting: true,
 })
 
 export const {
-  useFollowProjectMutation,
-  useGetArticlesQuery,
-  useGetProjectNewsQuery,
-  useGetProjectQuery,
-  useGetProjectWarningQuery,
-  useGetProjectsByTextQuery,
-  useGetProjectsQuery,
-  useGetProjectsFollowedArticlesQuery,
-  useUnfollowProjectMutation,
+  useArticlesQuery,
+  useProjectDetailsQuery,
+  useProjectNewsQuery,
+  useProjectWarningQuery,
+  useProjectsFollowDeleteMutation,
+  useProjectsFollowedArticlesQuery,
+  useProjectsFollowPostMutation,
+  useProjectsQuery,
+  useProjectsSearchQuery,
 } = projectsApi

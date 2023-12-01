@@ -13,22 +13,24 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
-import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {
+  ProjectTraits,
+  ProjectTraitsProps,
+} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   ReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {ProjectsItem} from '@/modules/construction-work/types/api'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {mapImageSources} from '@/utils/image/mapImageSources'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
-const keyExtractor: (item: ProjectsItem, index: number) => string = project =>
-  project.identifier
+const keyExtractor = ({id}: ProjectsItem) => id.toString()
 
 type ListItemProps = {
   getProjectTraits?: (p: ProjectsItem) => Partial<ProjectsItem>
@@ -39,11 +41,12 @@ type ListItemProps = {
 
 const ListItem = memo(
   ({getProjectTraits, navigation, project, readArticles}: ListItemProps) => {
-    const parsedTraits = useMemo(() => {
+    const parsedTraits = useMemo<ProjectTraitsProps>(() => {
       if (getProjectTraits) {
         const traits = getProjectTraits?.(project)
         const {recent_articles} = traits
-        const recentArticlesIds = recent_articles?.map(r => r.identifier) ?? []
+        // @TODO: breaking change - no impact?
+        const recentArticlesIds = recent_articles?.map(getUniqueArticleId) ?? []
         const readArticlesIds = readArticles.map(r => r.id)
         const unreadArticlesLength = recentArticlesIds.filter(
           id => !readArticlesIds.includes(id),
@@ -52,7 +55,7 @@ const ListItem = memo(
         return {...traits, unreadArticlesLength}
       }
 
-      return {} as Partial<ProjectsItem> & {unreadArticlesLength?: number}
+      return {}
     }, [getProjectTraits, project, readArticles])
     const {followed, meter, strides, unreadArticlesLength} = parsedTraits
 
@@ -67,7 +70,6 @@ const ListItem = memo(
         getProjectTraits ? (
           <ProjectTraits
             accessibilityLabel={additionalAccessibilityLabel}
-            unreadArticlesLength={unreadArticlesLength}
             {...parsedTraits}
           />
         ) : null,
@@ -85,24 +87,19 @@ const ListItem = memo(
     const onPress = useCallback(
       () =>
         navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.identifier,
+          id: project.id,
         }),
-      [navigation, project.identifier],
-    )
-
-    const imageSource = useMemo(
-      () => mapImageSources(project.images?.[0]?.sources),
-      [project.images],
+      [navigation, project.id],
     )
 
     return (
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
-        imageSource={imageSource}
+        imageSource={project.image?.sources}
         Kicker={projectTraits}
         onPress={onPress}
         subtitle={project.subtitle ?? undefined}
-        testID={`ConstructionWork${project.identifier}ProjectCard`}
+        testID={`ConstructionWork${project.id}ProjectCard`}
         title={project.title}
       />
     )

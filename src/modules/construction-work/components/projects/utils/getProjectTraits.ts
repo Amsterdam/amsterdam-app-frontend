@@ -1,4 +1,4 @@
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {ProjectsItem} from '@/modules/construction-work/types/api'
 
 export const getBaseProjectTraits: (
   project: ProjectsItem,

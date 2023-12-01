@@ -6,18 +6,18 @@ import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {ProjectDetailTimelineItem} from '@/modules/construction-work/types/api'
 import {useTheme} from '@/themes/useTheme'
-import {TimelineItem as TimelineItemType} from '@/types/timeline'
 
 type Props = {
   isBeforeUpcoming: boolean
   isLast: boolean
-  item: TimelineItemType
+  item: ProjectDetailTimelineItem
 }
 
 export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
+  const itemHasContent = !!item.body && !!item.items
   const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
 
   const theme = useTheme()
@@ -49,17 +49,16 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           key={item.title}
           onChangeExpanded={state => setIsExpanded(state)}
           title={item.title}>
-          {itemHasContent
-            ? item.content.map(({title, body: {html}}) => (
-                <Fragment key={title}>
-                  <Title
-                    level="h5"
-                    text={title}
-                  />
-                  <HtmlContent content={html} />
-                </Fragment>
-              ))
-            : undefined}
+          {!!itemHasContent &&
+            item.items.map(({title, body}) => (
+              <Fragment key={title}>
+                <Title
+                  level="h5"
+                  text={title}
+                />
+                <HtmlContent content={body} />
+              </Fragment>
+            ))}
         </Accordion>
       </View>
       <View style={styles.line} />
