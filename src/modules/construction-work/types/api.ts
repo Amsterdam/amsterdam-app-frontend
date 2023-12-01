@@ -22,9 +22,14 @@ export enum ProjectsEndpointName {
 
 export type ArticleType = 'article' | 'warning'
 
-export type ArticlesItemMetaId = {
+export type ArticleMetaId = {
   id: number
   type: ArticleType
+}
+
+export type ProjectRecentArticle = {
+  meta_id: ArticleMetaId
+  modification_date: string
 }
 
 type ProjectBase = {
@@ -32,18 +37,13 @@ type ProjectBase = {
   id: number
   image: ApiImage | null
   meter: number | null
-  recent_articles: RecentArticle[]
+  recent_articles: ProjectRecentArticle[]
   strides: number | null
   subtitle: string | null
   title: string
 }
 
 export type ProjectIdQueryArgs = {id: number}
-
-export type RecentArticle = {
-  meta_id: ArticlesItemMetaId
-  modification_date: string
-}
 
 export type Article = {
   active: boolean
@@ -74,7 +74,7 @@ export type ArticlesQueryArgs = {
 
 export type ArticlesItem = {
   images?: ApiImage[]
-  meta_id: ArticlesItemMetaId
+  meta_id: ArticleMetaId
   publication_date: string
   title: string
   type: ArticleType
@@ -191,7 +191,7 @@ export type ProjectsFollowedArticlesQueryArgs = {
 }
 
 export type ProjectsFollowedArticlesItem = {
-  meta_id: ArticlesItemMetaId
+  meta_id: ArticleMetaId
 }
 
 export type ProjectsFollowedArticlesResponse = Record<

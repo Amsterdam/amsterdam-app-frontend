@@ -47,7 +47,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     }
 
     markAsRead({
-      id: getUniqueArticleId({meta_id: {id, type: 'article'}}),
+      id: getUniqueArticleId({id, type: 'article'}),
       publicationDate: article.publication_date,
     })
   }, [article, id, markAsRead])

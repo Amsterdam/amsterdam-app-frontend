@@ -45,11 +45,11 @@ export const useMarkArticleAsRead = () => {
   const markMultipleAsRead = useCallback(
     (articles: ArticlesItem[]) => {
       deleteOldArticles()
-      articles?.forEach(article =>
+      articles?.forEach(({meta_id, publication_date}) =>
         markAsRead(
           {
-            id: getUniqueArticleId(article),
-            publicationDate: article.publication_date,
+            id: getUniqueArticleId(meta_id),
+            publicationDate: publication_date,
           },
           false,
         ),
@@ -60,8 +60,8 @@ export const useMarkArticleAsRead = () => {
 
   const markMultipleAsUnRead = useCallback(
     (articles: ArticlesItem[]) => {
-      articles?.forEach(article =>
-        dispatch(deleteReadArticle(getUniqueArticleId(article))),
+      articles?.forEach(({meta_id}) =>
+        dispatch(deleteReadArticle(getUniqueArticleId(meta_id))),
       )
     },
     [dispatch],

@@ -1,6 +1,5 @@
 import {SerializedError} from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/dist/query'
-import {ListQueryArg} from '@/types/list'
 
 type GenericParamsType =
   | Record<string, string[] | string | number | boolean>
@@ -30,20 +29,6 @@ export const generateRequestUrl = <ParamsType extends GenericParamsType>({
 
   return [path, queryParams].join('?')
 }
-
-/**
- * @deprecated API refactor
- * Maps query parameter names from front-end to backend syntax
- */
-export const formatQueryParams = ({
-  sortBy,
-  sortOrder,
-  ...rest
-}: Partial<ListQueryArg>) => ({
-  ...(sortBy && {'sort-by': sortBy}),
-  ...(sortOrder && {'sort-order': sortOrder}),
-  ...rest,
-})
 
 export const isApiAuthorizationError = (
   error: FetchBaseQueryError | SerializedError,

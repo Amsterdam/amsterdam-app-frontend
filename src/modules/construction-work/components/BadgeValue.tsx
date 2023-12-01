@@ -22,8 +22,8 @@ export const BadgeValue = () => {
     return Object.values(data).reduce(
       (total, articles) =>
         articles.filter(
-          article =>
-            !readArticles.map(r => r.id).includes(getUniqueArticleId(article)),
+          ({meta_id}) =>
+            !readArticles.map(r => r.id).includes(getUniqueArticleId(meta_id)),
         ).length + total,
       0,
     )

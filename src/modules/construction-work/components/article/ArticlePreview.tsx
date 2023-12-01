@@ -38,14 +38,16 @@ export const ArticlePreview = ({
     useState<boolean>(false)
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
+  const {meta_id, publication_date} = article
+
   useEffect(() => {
     setIsNewAndUnreadArticle(
-      getDateDiffInDays(article.publication_date) <= recentArticleMaxAge &&
+      getDateDiffInDays(publication_date) <= recentArticleMaxAge &&
         !readArticles.find(
-          readArticle => readArticle.id === getUniqueArticleId(article),
+          readArticle => readArticle.id === getUniqueArticleId(meta_id),
         ),
     )
-  }, [article, article.publication_date, readArticles])
+  }, [meta_id, publication_date, readArticles])
 
   const {media} = useTheme()
   const imageWidth = media.figureHeight.lg

@@ -1,4 +1,4 @@
-/** @deprecated API refactor */
+/** @deprecated API refactor: this is no longer the default mutation response, will be replaced by string */
 export type MutationResponse = {
   result: string
   status: boolean

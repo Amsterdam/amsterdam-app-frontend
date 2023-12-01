@@ -12,6 +12,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
+import {getUnreadArticlesLength} from '@/modules/construction-work/components/projects/utils/getUnreadArticlesLength'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {
   ProjectTraits,
@@ -23,7 +24,6 @@ import {
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
-import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -44,15 +44,14 @@ const ListItem = memo(
     const parsedTraits = useMemo<ProjectTraitsProps>(() => {
       if (getProjectTraits) {
         const traits = getProjectTraits?.(project)
-        const {recent_articles} = traits
-        // @TODO: breaking change - no impact?
-        const recentArticlesIds = recent_articles?.map(getUniqueArticleId) ?? []
-        const readArticlesIds = readArticles.map(r => r.id)
-        const unreadArticlesLength = recentArticlesIds.filter(
-          id => !readArticlesIds.includes(id),
-        ).length
 
-        return {...traits, unreadArticlesLength}
+        return {
+          ...traits,
+          unreadArticlesLength: getUnreadArticlesLength(
+            readArticles,
+            traits?.recent_articles,
+          ),
+        }
       }
 
       return {}

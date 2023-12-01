@@ -114,7 +114,7 @@ export const ArticleOverview = ({
                   index === yearlyArticleSections.length - 1 &&
                   dataIndex === data.length - 1
                 }
-                key={getUniqueArticleId(article)}
+                key={getUniqueArticleId(article.meta_id)}
                 onPress={() => navigateToArticle(article)}
                 testID={'ConstructionWorkProjectArticlePreview'}
               />
