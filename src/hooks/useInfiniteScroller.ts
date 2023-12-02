@@ -62,6 +62,7 @@ export const useInfiniteScroller = <
     ...queryParams,
     page,
   })
+
   const {
     data: nextData,
     isError: isErrorNextPage,

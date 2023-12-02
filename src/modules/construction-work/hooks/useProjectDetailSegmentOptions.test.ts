@@ -1,10 +1,13 @@
-import {ProjectDetail, ProjectDetailSection} from '../types/api'
-import {ProjectDetailSubScreen} from '../types/project'
 import {
-  ProjectDetailSubScreenTitle,
-  getProjectDetailSubScreenOptions,
+  ProjectDetailSegmentTitle,
+  getProjectDetailSegmentOptions,
   hasContentToShow,
-} from './useProjectDetailSubScreenOptions'
+} from './useProjectDetailSegmentOptions'
+import {
+  ProjectDetail,
+  ProjectDetailSection,
+} from '@/modules/construction-work/types/api'
+import {ProjectDetailSegment} from '@/modules/construction-work/types/project'
 
 describe('hasContentToShow', () => {
   test('returns true when sections have content', () => {
@@ -32,7 +35,7 @@ describe('hasContentToShow', () => {
   })
 })
 
-describe('getProjectDetailSubScreenOptions', () => {
+describe('getProjectDetailSegmentOptions', () => {
   test('returns options for "about" section when there is content in "what"', () => {
     const projectDetail = {
       contacts: [],
@@ -46,13 +49,13 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: [...projectDetail.sections.what],
         testID: 'ConstructionWorkProjectAboutButton',
-        title: ProjectDetailSubScreenTitle.about,
+        title: ProjectDetailSegmentTitle.about,
       },
     ]
 
@@ -72,13 +75,13 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: [...projectDetail.sections.where],
         testID: 'ConstructionWorkProjectAboutButton',
-        title: ProjectDetailSubScreenTitle.about,
+        title: ProjectDetailSegmentTitle.about,
       },
     ]
 
@@ -98,9 +101,9 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = []
+    const expectedOptions: ProjectDetailSegment[] = []
 
     expect(result).toEqual(expectedOptions)
   })
@@ -118,14 +121,14 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: projectDetail.sections.contact,
         contacts: projectDetail.contacts,
         testID: 'ConstructionWorkProjectContactButton',
-        title: ProjectDetailSubScreenTitle.contact,
+        title: ProjectDetailSegmentTitle.contact,
       },
     ]
 
@@ -154,14 +157,14 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: projectDetail.sections.contact,
         contacts: projectDetail.contacts,
         testID: 'ConstructionWorkProjectContactButton',
-        title: ProjectDetailSubScreenTitle.contact,
+        title: ProjectDetailSegmentTitle.contact,
       },
     ]
 
@@ -181,14 +184,14 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: projectDetail.sections.when,
         timeline: null,
         testID: 'ConstructionWorkProjectPlanningButton',
-        title: ProjectDetailSubScreenTitle.planning,
+        title: ProjectDetailSegmentTitle.planning,
       },
     ]
 
@@ -221,14 +224,14 @@ describe('getProjectDetailSubScreenOptions', () => {
       },
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: [],
         timeline: projectDetail.timeline,
         testID: 'ConstructionWorkProjectPlanningButton',
-        title: ProjectDetailSubScreenTitle.planning,
+        title: ProjectDetailSegmentTitle.planning,
       },
     ]
 
@@ -248,13 +251,13 @@ describe('getProjectDetailSubScreenOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSubScreenOptions(projectDetail)
+    const result = getProjectDetailSegmentOptions(projectDetail)
 
-    const expectedOptions: ProjectDetailSubScreen[] = [
+    const expectedOptions: ProjectDetailSegment[] = [
       {
         sections: projectDetail.sections.work,
         testID: 'ConstructionWorkProjectWorkButton',
-        title: ProjectDetailSubScreenTitle.work,
+        title: ProjectDetailSegmentTitle.work,
       },
     ]
 

@@ -32,7 +32,7 @@ export type ProjectRecentArticle = {
   modification_date: string
 }
 
-type ProjectBase = {
+export type ProjectBase = {
   followed: boolean
   id: number
   image: ApiImage | null

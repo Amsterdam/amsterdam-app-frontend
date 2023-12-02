@@ -5,7 +5,7 @@ import {
   ProjectDetailTimeline,
 } from '@/modules/construction-work/types/api'
 
-export type ProjectDetailSubScreen = {
+export type ProjectDetailSegment = {
   contacts?: ProjectDetailContact[]
   sections?: ProjectDetailSection[]
   testID?: ViewProps['testID']

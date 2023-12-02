@@ -11,9 +11,9 @@ import {ProjectContacts} from '@/modules/construction-work/components/project/Pr
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
-type Props = NavigationProps<ConstructionWorkRouteName.projectBody>
+type Props = NavigationProps<ConstructionWorkRouteName.projectDetailSegment>
 
-export const ProjectBodyScreen = ({route}: Props) => {
+export const ProjectDetailSegmentScreen = ({route}: Props) => {
   const {
     body: {contacts, sections, timeline, title},
     headerTitle,

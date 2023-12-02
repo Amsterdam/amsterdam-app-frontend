@@ -20,7 +20,7 @@ import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
-import {ProjectDetailSubScreenMenu} from '@/modules/construction-work/components/project/ProjectDetailSubScreenMenu'
+import {ProjectDetailSegmentMenu} from '@/modules/construction-work/components/project/ProjectDetailSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -173,7 +173,7 @@ export const Project = ({id}: Props) => {
                 )}
               </SingleSelectable>
             </Column>
-            <ProjectDetailSubScreenMenu project={project} />
+            <ProjectDetailSegmentMenu project={project} />
             <ArticleOverview
               projectId={id}
               title="Nieuws"
