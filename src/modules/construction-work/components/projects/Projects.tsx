@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {ReactNode, useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
@@ -18,7 +18,7 @@ import {
 } from '@/modules/construction-work/types/api'
 
 type Props = {
-  HeaderButton: React.ReactNode
+  HeaderButton: ReactNode
   byDistance?: boolean
   queryParams?: ProjectsQueryArgs
 }

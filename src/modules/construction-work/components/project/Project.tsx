@@ -152,8 +152,8 @@ export const Project = ({id}: Props) => {
                 accessibilityLabel={accessibleText(
                   getAccessibleDistanceText(meter, strides),
                 )}
-                meter={meter}
-                strides={strides}
+                byDistance={!!address}
+                project={project}
               />
               <SingleSelectable
                 accessibilityLabel={accessibleText(title, subtitle)}

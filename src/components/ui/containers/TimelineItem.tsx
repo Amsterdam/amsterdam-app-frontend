@@ -17,8 +17,7 @@ type Props = {
 
 export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const itemHasContent = !!item.body && !!item.items
-  const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
+  const [isExpanded, setIsExpanded] = useState(isCurrent)
 
   const theme = useTheme()
   const {fontScale} = useDeviceContext()
@@ -30,6 +29,10 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
     isExpanded,
     isLast,
   )
+
+  if (!item.body && !item.items?.length) {
+    return null
+  }
 
   return (
     <View>
@@ -49,16 +52,18 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           key={item.title}
           onChangeExpanded={state => setIsExpanded(state)}
           title={item.title}>
-          {!!itemHasContent &&
-            item.items.map(({title, body}) => (
-              <Fragment key={title}>
+          {!!item.body && <HtmlContent content={item.body} />}
+          {item.items?.map(({title, body}) => (
+            <Fragment key={title}>
+              {!!title && (
                 <Title
                   level="h5"
                   text={title}
                 />
-                <HtmlContent content={body} />
-              </Fragment>
-            ))}
+              )}
+              {!!body && <HtmlContent content={body} />}
+            </Fragment>
+          ))}
         </Accordion>
       </View>
       <View style={styles.line} />

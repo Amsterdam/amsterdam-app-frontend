@@ -6,9 +6,9 @@ import {
 } from '@/modules/construction-work/types/api'
 
 export type ProjectDetailSegment = {
-  contacts?: ProjectDetailContact[]
-  sections?: ProjectDetailSection[]
-  testID?: ViewProps['testID']
+  contacts?: ProjectDetailContact[] | null
+  sections?: ProjectDetailSection[] | null
+  testID: ViewProps['testID']
   timeline?: ProjectDetailTimeline | null
   title: string
 }

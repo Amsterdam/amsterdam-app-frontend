@@ -2,7 +2,6 @@ import {getUnreadArticlesLength} from './getUnreadArticlesLength'
 import {ReadArticle} from '@/modules/construction-work/slice'
 import {ProjectRecentArticle} from '@/modules/construction-work/types/api'
 
-// Mock data for testing
 const mockReadArticles: ReadArticle[] = [
   {id: 'article1', publicationDate: '2023-01-01'},
   {id: 'warning2', publicationDate: '2023-02-01'},

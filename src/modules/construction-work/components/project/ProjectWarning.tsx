@@ -9,49 +9,63 @@ import {
   useProjectWarningQuery,
 } from '@/modules/construction-work/service'
 
-type Props = {
-  id: number
-  projectId?: number
+type ProjectWarningContactsProps = {
+  projectId?: number | null
 }
 
-export const ProjectWarning = ({id, projectId}: Props) => {
-  const {data: article, isLoading: articleIsLoading} = useProjectWarningQuery({
-    id,
-  })
-
-  // @TODO: wtf
-  // const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
-  //   {
-  //     id: projectId ?? news?.project_identifier ?? '',
-  //   },
-  //   {skip: !projectId && !news?.project_identifier},
-  // )
-
-  const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
-    projectId !== undefined
+const ProjectWarningContacts = ({projectId}: ProjectWarningContactsProps) => {
+  const {data, isLoading} = useProjectDetailsQuery(
+    projectId
       ? {
           id: projectId,
         }
       : skipToken,
   )
 
-  if (articleIsLoading || projectIsLoading) {
+  if (isLoading) {
     return <PleaseWait />
   }
 
-  if (!article) {
-    return <SomethingWentWrong />
+  if (!data?.contacts) {
+    return null
   }
 
   return (
+    <Box>
+      <ProjectContacts contacts={data.contacts} />
+    </Box>
+  )
+}
+
+type Props = {
+  id: number
+  projectId?: number
+}
+
+export const ProjectWarning = ({id, projectId}: Props) => {
+  const {data, isLoading} = useProjectWarningQuery({
+    id,
+  })
+
+  if (isLoading) {
+    return <PleaseWait />
+  }
+
+  if (!data) {
+    return <SomethingWentWrong />
+  }
+
+  const {body, images, publication_date, title} = data
+
+  return (
     <ProjectArticle
-      article={article}
+      body={body}
+      id={id}
+      image={images?.[0]}
+      publicationDate={publication_date}
+      title={title}
       type="warning">
-      {project?.contacts && (
-        <Box>
-          <ProjectContacts contacts={project.contacts} />
-        </Box>
-      )}
+      <ProjectWarningContacts projectId={projectId ?? data?.project_id} />
     </ProjectArticle>
   )
 }

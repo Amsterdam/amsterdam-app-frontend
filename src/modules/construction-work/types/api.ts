@@ -20,6 +20,14 @@ export enum ProjectsEndpointName {
 
 // shared
 
+export type ArticleBase = {
+  body: string | null
+  id: number
+  modification_date: string
+  publication_date: string
+  title: string
+}
+
 export type ArticleType = 'article' | 'warning'
 
 export type ArticleMetaId = {
@@ -45,24 +53,6 @@ export type ProjectBase = {
 
 export type ProjectIdQueryArgs = {id: number}
 
-export type Article = {
-  active: boolean
-  body: string
-  creation_date: string
-  expiration_date: string | null
-  foreign_id: number
-  id: number
-  image: ApiImage | null
-  intro: string
-  last_seen: string
-  modification_date: string
-  projects: {type: number}[]
-  publication_date: string
-  title: string
-  type: ArticleType
-  url: string
-}
-
 // /articles
 
 export type ArticlesQueryArgs = {
@@ -71,7 +61,7 @@ export type ArticlesQueryArgs = {
 } & SortQueryArgs
 
 export type ArticlesItem = {
-  images?: ApiImage[]
+  images: ApiImage[] | null
   meta_id: ArticleMetaId
   publication_date: string
   title: string
@@ -88,64 +78,64 @@ export type ProjectDetailsQueryArgs = {
 } & AddressQueryArgs
 
 export type ProjectDetailContact = {
-  address: string | null // @TODO: not in API definition
-  email: string
+  address: string | null // @TODO: not in API definition (100764)
+  email: string | null
   id: number
-  name: string
+  name: string | null
   phone: string | null
-  position: string
+  position: string | null
 }
 
 export type ProjectDetailSection = {
   body: string | null
-  title: string
+  title: string | null
 }
 
 export type ProjectDetailSections = {
-  contact: ProjectDetailSection[]
-  what: ProjectDetailSection[]
-  when: ProjectDetailSection[]
-  where: ProjectDetailSection[]
-  work: ProjectDetailSection[]
+  contact: ProjectDetailSection[] | null
+  what: ProjectDetailSection[] | null
+  when: ProjectDetailSection[] | null
+  where: ProjectDetailSection[] | null
+  work: ProjectDetailSection[] | null
 }
 
 export type ProjectDetailTimelineSubItem = {
-  body: string
+  body: string | null
   date: string
   title: string
 }
 
 export type ProjectDetailTimelineItem = {
-  body: string
+  body: string | null
   collapsed: boolean
   date: string
-  items: ProjectDetailTimelineSubItem[]
-  progress: 'Afgelopen' | 'Huidig' | 'Aankomend' // @TODO: not in API definition
+  items: ProjectDetailTimelineSubItem[] | null
+  progress: 'Afgelopen' | 'Huidig' | 'Aankomend' // @TODO: not in API definition (100764)
   title: string
 }
 
 export type ProjectDetailTimeline = {
-  intro: string
+  intro: string | null
   items: ProjectDetailTimelineItem[]
   title: string
 }
 
 export type ProjectDetail = ProjectBase & {
   active: boolean
-  contacts: ProjectDetailContact[]
+  contacts: ProjectDetailContact[] | null
   coordinates: {
     lat: number
     lon: number
-  }
+  } | null
   creation_date: string
-  expiration_date: string
+  expiration_date: string | null
   followers: number
   foreign_id: number
-  images: ApiImage[]
-  last_seen: string
+  images: ApiImage[] | null
+  last_seen: string | null
   modification_date: string
   publication_date: string
-  sections: ProjectDetailSections
+  sections: ProjectDetailSections | null
   timeline: ProjectDetailTimeline | null
   url: string
 }
@@ -156,13 +146,28 @@ export type ProjectDetailsResponse = ProjectDetail
 
 export type ProjectNewsQueryArgs = ProjectIdQueryArgs
 
-export type ProjectNewsResponse = Article
+export type ProjectNewsResponse = ArticleBase & {
+  active: boolean
+  creation_date: string
+  expiration_date: string | null
+  foreign_id: number
+  image: ApiImage | null
+  intro: string | null
+  last_seen: string | null
+  projects: number[]
+  type: ArticleType
+  url: string
+}
 
 // /project/warning
 
 export type ProjectWarningQueryArgs = ProjectIdQueryArgs
 
-export type ProjectWarningResponse = Article
+export type ProjectWarningResponse = ArticleBase & {
+  author_email: string | null
+  images: ApiImage[] | null
+  project_id: number | null
+}
 
 // /projects
 
@@ -204,5 +209,13 @@ export type ProjectsSearchQueryArgs = {
   text: string
 } & AddressQueryArgs &
   PaginationQueryArgs
+
+export type ProjectsSearchApiQueryArgs = Omit<
+  ProjectsSearchQueryArgs,
+  'fields' | 'query_fields'
+> & {
+  fields: string
+  query_fields: string
+}
 
 export type ProjectsSearchResponse = Paginated<ProjectsItem>

@@ -25,11 +25,7 @@ type YearlyArticleSection = {
   title: string
 }
 
-export const ArticleOverview = ({
-  projectId,
-
-  title,
-}: Props) => {
+export const ArticleOverview = ({projectId, title}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useArticlesQuery({

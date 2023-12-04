@@ -2,6 +2,7 @@ import {
   ArticlesQueryArgs,
   ArticlesResponse,
   FollowProjectBody,
+  ProjectDetail,
   ProjectDetailsQueryArgs,
   ProjectDetailsResponse,
   ProjectNewsQueryArgs,
@@ -13,6 +14,7 @@ import {
   ProjectsFollowedArticlesResponse,
   ProjectsQueryArgs,
   ProjectsResponse,
+  ProjectsSearchApiQueryArgs,
   ProjectsSearchQueryArgs,
   ProjectsSearchResponse,
 } from '@/modules/construction-work/types/api'
@@ -20,8 +22,39 @@ import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-// @TODO: arbitrary page size?
 const DEFAULT_SEARCH_PAGE_SIZE = 1000
+
+/**
+ * Convert arrays to comma separated strings
+ */
+const processSearchQueryArgs = (
+  args: ProjectsSearchQueryArgs,
+): ProjectsSearchApiQueryArgs => ({
+  ...args,
+  fields: args.fields.join(','),
+  query_fields: args.query_fields.join(','),
+})
+
+/**
+ * Temporarily add `progress` to timeline items. This can be removed when IPROX and our API return this property again.
+ */
+const postProcessProjectDetails = (item: ProjectDetail): ProjectDetail => {
+  if (!item.timeline) {
+    return item
+  }
+
+  return {
+    ...item,
+    timeline: {
+      ...item.timeline,
+      items:
+        item.timeline.items?.map(subItem => ({
+          ...subItem,
+          progress: 'Huidig',
+        })) ?? null,
+    },
+  }
+}
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -47,6 +80,7 @@ export const projectsApi = baseApi.injectEndpoints({
       providesTags: ['FollowedProjects', 'Projects'],
       query: params => generateRequestUrl({path: '/project/details', params}),
       keepUnusedDataFor: CacheLifetime.hour,
+      transformResponse: postProcessProjectDetails,
     }),
 
     // /project/news GET
@@ -145,7 +179,10 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params =>
         generateRequestUrl({
           path: '/projects/search',
-          params: {page_size: DEFAULT_SEARCH_PAGE_SIZE, ...params},
+          params: {
+            page_size: DEFAULT_SEARCH_PAGE_SIZE,
+            ...processSearchQueryArgs(params),
+          },
         }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),

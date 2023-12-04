@@ -13,19 +13,22 @@ export enum ProjectDetailSegmentTitle {
   work = 'Werkzaamheden',
 }
 
-export const hasContentToShow = (sections: ProjectDetailSection[]) =>
-  !!sections.length && sections.some(({body}) => !!body)
+export const hasContentToShow = (
+  section?: ProjectDetailSection[] | null,
+): section is ProjectDetailSection[] =>
+  !!section?.length && section.some(({body}) => !!body)
 
 export const getProjectDetailSegmentOptions = ({
   contacts,
-  sections: {contact, what, when, where, work},
+  sections,
   timeline,
 }: ProjectDetail) => {
   const options: ProjectDetailSegment[] = []
+  const {contact, what, when, where, work} = sections ?? {}
 
   if (hasContentToShow(what) || hasContentToShow(where)) {
     options.push({
-      sections: [...what, ...where],
+      sections: [...(what ?? []), ...(where ?? [])],
       testID: 'ConstructionWorkProjectAboutButton',
       title: ProjectDetailSegmentTitle.about,
     })
@@ -48,7 +51,7 @@ export const getProjectDetailSegmentOptions = ({
     })
   }
 
-  if (hasContentToShow(contact) || contacts.length) {
+  if (hasContentToShow(contact) || contacts?.length) {
     options.push({
       sections: contact,
       contacts: contacts,

@@ -23,7 +23,9 @@ export const BadgeValue = () => {
       (total, articles) =>
         articles.filter(
           ({meta_id}) =>
-            !readArticles.map(r => r.id).includes(getUniqueArticleId(meta_id)),
+            !readArticles
+              .map(({id}) => id)
+              .includes(getUniqueArticleId(meta_id)),
         ).length + total,
       0,
     )

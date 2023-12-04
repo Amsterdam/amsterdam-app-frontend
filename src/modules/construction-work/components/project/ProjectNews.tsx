@@ -25,18 +25,12 @@ export const ProjectNews = ({id, projectId}: Props) => {
     id,
   })
 
-  // @TODO: wtf
-  // const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
-  //   {
-  //     id: projectId ?? news?.project_identifier ?? '',
-  //   },
-  //   {skip: !projectId && !news?.project_identifier},
-  // )
+  const pId = projectId ?? article?.projects?.[0]
 
   const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
-    projectId !== undefined
+    pId !== undefined
       ? {
-          id: projectId,
+          id: pId,
         }
       : skipToken,
   )
@@ -66,5 +60,16 @@ export const ProjectNews = ({id, projectId}: Props) => {
     return <SomethingWentWrong />
   }
 
-  return <ProjectArticle article={article} />
+  const {body, image, intro, publication_date, title} = article
+
+  return (
+    <ProjectArticle
+      body={body}
+      id={id}
+      image={image}
+      intro={intro}
+      publicationDate={publication_date}
+      title={title}
+    />
+  )
 }

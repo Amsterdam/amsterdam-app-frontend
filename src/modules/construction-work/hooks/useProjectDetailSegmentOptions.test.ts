@@ -53,7 +53,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: [...projectDetail.sections.what],
+        sections: projectDetail.sections?.what,
         testID: 'ConstructionWorkProjectAboutButton',
         title: ProjectDetailSegmentTitle.about,
       },
@@ -79,7 +79,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: [...projectDetail.sections.where],
+        sections: projectDetail.sections?.where,
         testID: 'ConstructionWorkProjectAboutButton',
         title: ProjectDetailSegmentTitle.about,
       },
@@ -125,7 +125,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: projectDetail.sections.contact,
+        sections: projectDetail.sections?.contact,
         contacts: projectDetail.contacts,
         testID: 'ConstructionWorkProjectContactButton',
         title: ProjectDetailSegmentTitle.contact,
@@ -161,7 +161,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: projectDetail.sections.contact,
+        sections: projectDetail.sections?.contact,
         contacts: projectDetail.contacts,
         testID: 'ConstructionWorkProjectContactButton',
         title: ProjectDetailSegmentTitle.contact,
@@ -188,7 +188,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: projectDetail.sections.when,
+        sections: projectDetail.sections?.when,
         timeline: null,
         testID: 'ConstructionWorkProjectPlanningButton',
         title: ProjectDetailSegmentTitle.planning,
@@ -255,7 +255,7 @@ describe('getProjectDetailSegmentOptions', () => {
 
     const expectedOptions: ProjectDetailSegment[] = [
       {
-        sections: projectDetail.sections.work,
+        sections: projectDetail.sections?.work,
         testID: 'ConstructionWorkProjectWorkButton',
         title: ProjectDetailSegmentTitle.work,
       },

@@ -8,33 +8,42 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
-import {Article, ArticleType} from '@/modules/construction-work/types/api'
+import {ArticleType} from '@/modules/construction-work/types/api'
 import {useTheme} from '@/themes/useTheme'
+import {ApiImage} from '@/types/api'
 import {formatDate} from '@/utils/datetime/formatDate'
 
 type Props = {
-  article: Article
+  body: string | null
   children?: ReactNode
+  id: number
+  image?: ApiImage | null
+  intro?: string | null
+  publicationDate: string
+  title: string
   type?: ArticleType
 }
 
 export const ProjectArticle = ({
-  article,
+  body,
   children,
+  id,
+  image,
+  intro,
+  publicationDate,
+  title,
   type = 'article',
 }: Props) => {
   const {media} = useTheme()
-
-  const {body, id, image, intro, publication_date, title} = article
 
   return (
     <>
       {!!image && (
         <Image
-          accessibilityLabel={image.alternativeText ?? undefined}
-          accessible={!!image.alternativeText}
+          accessibilityLabel={image?.alternativeText ?? undefined}
+          accessible={!!image?.alternativeText}
           aspectRatio="wide"
-          source={image.sources}
+          source={image?.sources}
           testID={`ConstructionWorkProjectArticle${id}Image`}
         />
       )}
@@ -49,9 +58,9 @@ export const ProjectArticle = ({
       <HorizontalSafeArea>
         <Box>
           <Column gutter="md">
-            {!!publication_date && (
+            {!!publicationDate && (
               <Paragraph testID={`ConstructionWorkProjectArticle${id}Date`}>
-                {formatDate(publication_date)}
+                {formatDate(publicationDate)}
               </Paragraph>
             )}
             {!!title && (

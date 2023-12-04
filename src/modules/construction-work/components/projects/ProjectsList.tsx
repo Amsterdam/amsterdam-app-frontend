@@ -2,7 +2,6 @@ import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
-import {NavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -12,16 +11,9 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
-import {
-  getBaseProjectTraits,
-  getProjectTraits,
-} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {getUnreadArticlesLength} from '@/modules/construction-work/components/projects/utils/getUnreadArticlesLength'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
-import {
-  ProjectTraits,
-  ProjectTraitsProps,
-} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   ReadArticle,
@@ -38,67 +30,54 @@ const keyExtractor = ({id}: ProjectsItem) => id.toString()
 
 type ListItemProps = {
   byDistance: boolean
-  navigation: NavigationProp<ConstructionWorkRouteName>
+  onPress: (id: number) => void
   project: ProjectsItem
   readArticles: ReadArticle[]
+  showTraits: boolean
 }
 
 const ListItem = memo(
-  ({byDistance, navigation, project, readArticles}: ListItemProps) => {
-    const parsedTraits = useMemo<ProjectTraitsProps>(() => {
-      const traits = byDistance
-        ? getProjectTraits(project)
-        : getBaseProjectTraits(project)
+  ({byDistance, onPress, project, readArticles, showTraits}: ListItemProps) => {
+    const {followed, meter, recent_articles, strides} = project
 
-      return {
-        ...traits,
-        unreadArticlesLength: getUnreadArticlesLength(
-          readArticles,
-          traits?.recent_articles,
-        ),
+    const [additionalAccessibilityLabel, unreadArticlesLength] = useMemo(() => {
+      if (!showTraits) {
+        return []
       }
-    }, [byDistance, project, readArticles])
-    const {followed, meter, strides, unreadArticlesLength} = parsedTraits
 
-    const additionalAccessibilityLabel = accessibleText(
-      getAccessibleFollowingText(!!followed, unreadArticlesLength ?? 0),
-      getAccessibleDistanceText(meter, strides),
-    )
-    const projectTraits = useCallback(
-      () => (
-        <ProjectTraits
-          accessibilityLabel={additionalAccessibilityLabel}
-          {...parsedTraits}
-        />
-      ),
-      // trick to prevent unnecessary rerenders because of parsedTraits being a new object without new values
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [
-        additionalAccessibilityLabel,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        ...Object.values(parsedTraits),
-        unreadArticlesLength,
-      ],
-    )
+      const unreadLength = getUnreadArticlesLength(
+        readArticles,
+        recent_articles,
+      )
 
-    const onPress = useCallback(
-      () =>
-        navigation.navigate(ConstructionWorkRouteName.project, {
-          id: project.id,
-        }),
-      [navigation, project.id],
-    )
+      return [
+        accessibleText(
+          getAccessibleFollowingText(!!followed, unreadLength ?? 0),
+          getAccessibleDistanceText(meter, strides),
+        ),
+        unreadLength,
+      ]
+    }, [followed, meter, readArticles, recent_articles, showTraits, strides])
+
+    const {id, image, subtitle, title} = project
 
     return (
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
-        imageSource={project.image?.sources}
-        Kicker={projectTraits}
-        onPress={onPress}
-        subtitle={project.subtitle ?? undefined}
-        testID={`ConstructionWork${project.id}ProjectCard`}
-        title={project.title}
-      />
+        imageSource={image?.sources}
+        onPress={() => onPress(id)}
+        subtitle={subtitle ?? undefined}
+        testID={`ConstructionWork${id}ProjectCard`}
+        title={title}>
+        {showTraits ? (
+          <ProjectTraits
+            accessibilityLabel={additionalAccessibilityLabel}
+            byDistance={byDistance}
+            project={project}
+            unreadArticlesLength={unreadArticlesLength}
+          />
+        ) : undefined}
+      </ProjectCard>
     )
   },
 )
@@ -136,7 +115,7 @@ export const ProjectsList = ({
   isLoading,
   onItemsPerRowChange,
   onViewableItemsChanged,
-  searchText = undefined,
+  searchText,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
 }: Props) => {
@@ -153,12 +132,15 @@ export const ProjectsList = ({
     ({item}) => (
       <ListItem
         byDistance={byDistance}
-        navigation={navigation}
+        onPress={(id: number) =>
+          navigation.navigate(ConstructionWorkRouteName.project, {id})
+        }
         project={item}
         readArticles={readArticles}
+        showTraits={!searchText}
       />
     ),
-    [byDistance, navigation, readArticles],
+    [byDistance, navigation, readArticles, searchText],
   )
 
   if (isError) {

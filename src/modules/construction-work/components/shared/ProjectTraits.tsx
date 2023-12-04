@@ -4,21 +4,33 @@ import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
+import {
+  getBaseProjectTraits,
+  getProjectTraits,
+} from '@/modules/construction-work/components/projects/utils/getProjectTraits'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {getDistanceAndStrides} from '@/modules/construction-work/utils/getDistanceAndStrides'
 
 export type ProjectTraitsProps = {
-  followed?: ProjectsItem['followed']
-  meter?: ProjectsItem['meter']
-  strides?: ProjectsItem['strides']
+  byDistance?: boolean
+  project: ProjectsItem
   unreadArticlesLength?: number
 }
 
 type Props = ProjectTraitsProps & ViewProps
 
 export const ProjectTraits = memo(
-  ({followed, meter, strides, unreadArticlesLength, ...viewProps}: Props) => {
-    if ([followed, meter, strides].every(v => !v)) {
+  ({
+    byDistance = false,
+    project,
+    unreadArticlesLength,
+    ...viewProps
+  }: Props) => {
+    const {followed, meter, strides} = byDistance
+      ? getProjectTraits(project)
+      : getBaseProjectTraits(project)
+
+    if (!followed && !meter && !strides) {
       return null
     }
 

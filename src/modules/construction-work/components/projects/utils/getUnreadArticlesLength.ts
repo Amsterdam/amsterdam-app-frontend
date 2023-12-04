@@ -4,7 +4,7 @@ import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArt
 
 export const getUnreadArticlesLength = (
   readArticles: ReadArticle[],
-  recentArticles?: ProjectRecentArticle[],
+  recentArticles?: ProjectRecentArticle[] | null,
 ) => {
   if (!recentArticles || recentArticles.length === 0) {
     return 0
