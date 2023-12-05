@@ -20,14 +20,6 @@ export enum ProjectsEndpointName {
 
 // shared
 
-export type ArticleBase = {
-  body: string | null
-  id: number
-  modification_date: string
-  publication_date: string
-  title: string
-}
-
 export type ArticleType = 'article' | 'warning'
 
 export type ArticleMetaId = {
@@ -35,10 +27,34 @@ export type ArticleMetaId = {
   type: ArticleType
 }
 
-export type ProjectRecentArticle = {
+export type ArticleBase = {
+  body: string | null
+  id: number
   meta_id: ArticleMetaId
   modification_date: string
+  publication_date: string
+  title: string
 }
+
+export type ArticleNews = ArticleBase & {
+  active: boolean
+  creation_date: string
+  expiration_date: string | null
+  foreign_id: number
+  image: ApiImage | null
+  intro: string | null
+  last_seen: string | null
+  projects: number[]
+  url: string
+}
+
+export type ArticleWarning = ArticleBase & {
+  author_email: string | null
+  images: ApiImage[] | null
+  project_id: number | null
+}
+
+export type ProjectRecentArticle = ArticleNews | ArticleWarning
 
 export type ProjectBase = {
   followed: boolean
@@ -146,28 +162,13 @@ export type ProjectDetailsResponse = ProjectDetail
 
 export type ProjectNewsQueryArgs = ProjectIdQueryArgs
 
-export type ProjectNewsResponse = ArticleBase & {
-  active: boolean
-  creation_date: string
-  expiration_date: string | null
-  foreign_id: number
-  image: ApiImage | null
-  intro: string | null
-  last_seen: string | null
-  projects: number[]
-  type: ArticleType
-  url: string
-}
+export type ProjectNewsResponse = ArticleNews
 
 // /project/warning
 
 export type ProjectWarningQueryArgs = ProjectIdQueryArgs
 
-export type ProjectWarningResponse = ArticleBase & {
-  author_email: string | null
-  images: ApiImage[] | null
-  project_id: number | null
-}
+export type ProjectWarningResponse = ArticleWarning
 
 // /projects
 

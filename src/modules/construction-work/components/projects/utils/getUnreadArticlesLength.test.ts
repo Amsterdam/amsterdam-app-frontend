@@ -7,11 +7,11 @@ const mockReadArticles: ReadArticle[] = [
   {id: 'warning2', publicationDate: '2023-02-01'},
 ]
 
-const mockRecentArticles: ProjectRecentArticle[] = [
+const mockRecentArticles = [
   {meta_id: {id: 1, type: 'article'}, modification_date: '2023-03-01'},
   {meta_id: {id: 2, type: 'warning'}, modification_date: '2023-04-01'},
   {meta_id: {id: 3, type: 'warning'}, modification_date: '2023-04-01'},
-]
+] as ProjectRecentArticle[]
 
 describe('getUnreadArticlesLength', () => {
   it('should return 0 when recentArticles is empty', () => {
@@ -27,10 +27,11 @@ describe('getUnreadArticlesLength', () => {
   })
 
   it('should handle different types correctly, when there are matching IDs', () => {
-    const modifiedRecentArticles: ProjectRecentArticle[] = [
+    const modifiedRecentArticles = [
       ...mockRecentArticles,
       {meta_id: {id: 3, type: 'article'}, modification_date: '2023-05-01'},
-    ]
+    ] as ProjectRecentArticle[]
+
     const result = getUnreadArticlesLength(
       mockReadArticles,
       modifiedRecentArticles,
