@@ -1,4 +1,4 @@
-import {FC, ReactNode, useCallback} from 'react'
+import {FC, ReactNode, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -56,6 +56,30 @@ type Props = {
 } & TestProps &
   WithInsetProps
 
+type InnerWrapperProps = {
+  children: ReactNode
+  hasBottomsheet: boolean
+  style: StyleProp<ViewStyle>
+}
+
+const InnerWrapper: FC<InnerWrapperProps> = ({
+  hasBottomsheet,
+  style,
+  ...props
+}) =>
+  hasBottomsheet ? (
+    <HideFromAccessibility
+      {...props}
+      style={style}
+      whileBottomSheetIsOpen
+    />
+  ) : (
+    <View
+      style={style}
+      {...props}
+    />
+  )
+
 export const Screen = ({
   bottomSheet,
   children,
@@ -69,30 +93,29 @@ export const Screen = ({
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
-  const styles = createStyles(insets, {
-    hasStickyFooter: !!stickyFooter,
-    hasStickyHeader: !!stickyHeader,
-    withBottomInset,
-    withLeftInset,
-    withRightInset,
-    withTopInset,
-  })
 
-  const InnerWrapper: FC<{children: ReactNode}> = useCallback(
-    props =>
-      bottomSheet ? (
-        <HideFromAccessibility
-          {...props}
-          style={styles.content}
-          whileBottomSheetIsOpen
-        />
-      ) : (
-        <View
-          style={styles.content}
-          {...props}
-        />
-      ),
-    [bottomSheet, styles.content],
+  const hasStickyFooter = !!stickyFooter
+  const hasStickyHeader = !!stickyHeader
+
+  const styles = useMemo(
+    () =>
+      createStyles(insets, {
+        hasStickyFooter,
+        hasStickyHeader,
+        withBottomInset,
+        withLeftInset,
+        withRightInset,
+        withTopInset,
+      }),
+    [
+      insets,
+      hasStickyFooter,
+      hasStickyHeader,
+      withBottomInset,
+      withLeftInset,
+      withRightInset,
+      withTopInset,
+    ],
   )
 
   return (
@@ -103,7 +126,11 @@ export const Screen = ({
       <Wrapper
         keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
         {...wrapperProps}>
-        <InnerWrapper>{children}</InnerWrapper>
+        <InnerWrapper
+          hasBottomsheet={!!bottomSheet}
+          style={styles.content}>
+          {children}
+        </InnerWrapper>
       </Wrapper>
       {(!!stickyFooter || !!bottomSheet) && (
         <>

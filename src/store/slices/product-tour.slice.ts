@@ -3,14 +3,14 @@ import {Tip} from '@/components/features/onboarding/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type OnboardingState = {
+export type ProductTourState = {
   seenTips: Tip[]
 }
 
-const initialState: OnboardingState = {seenTips: []}
+const initialState: ProductTourState = {seenTips: []}
 
-export const onboardingSlice = createSlice({
-  name: ReduxKey.onboarding,
+export const productTourSlice = createSlice({
+  name: ReduxKey.productTour,
   initialState,
   reducers: {
     resetSeenTips: () => initialState,
@@ -22,7 +22,7 @@ export const onboardingSlice = createSlice({
   },
 })
 
-export const {addSeenTip, resetSeenTips} = onboardingSlice.actions
+export const {addSeenTip, resetSeenTips} = productTourSlice.actions
 
 export const selectSeenTips = (state: RootState) =>
-  state[ReduxKey.onboarding].seenTips
+  state[ReduxKey.productTour]?.seenTips

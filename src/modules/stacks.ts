@@ -36,6 +36,11 @@ import {
   HomeStackParams,
 } from '@/modules/home/routes'
 import {homeModals} from '@/modules/home/screenConfig'
+import {OnboardingStack} from '@/modules/onboarding/Stack'
+import {
+  OnboardingRouteName,
+  OnboardingStackParams,
+} from '@/modules/onboarding/routes'
 import {OpenWasteContainerStack} from '@/modules/open-waste-container/Stack'
 import {
   OpenWasteContainerModalParams,
@@ -70,8 +75,6 @@ import {
   WasteGuideStackParams,
 } from '@/modules/waste-guide/routes'
 import {wasteGuideModals} from '@/modules/waste-guide/screenConfig'
-import {WelcomeStack} from '@/modules/welcome/Stack'
-import {WelcomeRouteName, WelcomeStackParams} from '@/modules/welcome/routes'
 import {devError} from '@/processes/development'
 
 export type ModuleRoutes =
@@ -81,12 +84,12 @@ export type ModuleRoutes =
   | ConstructionWorkEditorRouteName
   | ContactRouteName
   | HomeRouteName
+  | OnboardingRouteName
   | OpenWasteContainerRouteName
   | RedirectsRouteName
   | ReportProblemRouteName
   | UserRouteName
   | WasteGuideRouteName
-  | WelcomeRouteName
 
 export type ModuleStackParams = AboutStackParams &
   AddressStackParams &
@@ -94,12 +97,12 @@ export type ModuleStackParams = AboutStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
   HomeStackParams &
+  OnboardingStackParams &
   OpenWasteContainerStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
-  WasteGuideStackParams &
-  WelcomeStackParams
+  WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
@@ -108,12 +111,12 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
   [ModuleSlug.home]: HomeStack,
+  [ModuleSlug.onboarding]: OnboardingStack,
   [ModuleSlug['open-waste-container']]: OpenWasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
-  [ModuleSlug.welcome]: WelcomeStack,
 }
 
 export type ModalParams = AddressModalParams &

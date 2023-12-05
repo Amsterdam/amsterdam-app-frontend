@@ -9,6 +9,7 @@ export const lightColorTokens = {
     emphasis: baseColor.primary.blue,
     inactive: baseColor.neutral.grey4,
     inverse: baseColor.neutral.grey5,
+    pagination: baseColor.primary.blue,
   },
   border: {
     default: baseColor.neutral.grey2,

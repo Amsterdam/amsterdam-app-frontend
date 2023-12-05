@@ -16,10 +16,14 @@ import {ImageAspectRatioTokens} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 // Image props supported by both Image and FastImage
+type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
+
 type SupportedImageRNProps = Omit<
   ImageRNProps,
   'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
->
+> & {
+  resizeMode?: ImageResizeMode
+}
 
 type Props = {
   aspectRatio?: keyof ImageAspectRatioTokens
@@ -123,7 +127,6 @@ const createStyles =
             : undefined,
         flex: 1,
         aspectRatio: aspectRatioValue,
-        resizeMode: 'cover',
       },
     })
   }

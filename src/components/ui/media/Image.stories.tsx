@@ -1,6 +1,6 @@
 import {Meta, StoryObj} from '@storybook/react'
 import {Image} from './Image'
-import source from '@/modules/welcome/assets/images/62225.wees-jezelf.4x5.md.jpg'
+import source from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.png'
 
 const meta: Meta<typeof Image> = {
   component: Image,

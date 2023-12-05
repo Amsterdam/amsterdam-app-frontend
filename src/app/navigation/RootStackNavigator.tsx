@@ -3,8 +3,8 @@ import {Platform} from 'react-native'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {screenOptions} from '@/app/navigation/screenOptions'
 import {RootStackParams} from '@/app/navigation/types'
-import {useModules} from '@/hooks/useModules'
 import {clientModules, coreModules} from '@/modules/modules'
+import {useHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
 import {useTheme} from '@/themes/useTheme'
@@ -45,14 +45,12 @@ const modalStacks = Object.entries(modals).map(([key, route]) => (
 
 export const RootStackNavigator = () => {
   const theme = useTheme()
-  const {userDisabledModulesBySlug} = useModules()
+  const hasSeenOnboarding = useHasSeenOnboarding()
 
   return (
     <Stack.Navigator
       initialRouteName={
-        userDisabledModulesBySlug.includes(ModuleSlug.welcome)
-          ? ModuleSlug.home
-          : ModuleSlug.welcome
+        hasSeenOnboarding ? ModuleSlug.home : ModuleSlug.onboarding
       }
       screenOptions={{
         headerShown: false,
