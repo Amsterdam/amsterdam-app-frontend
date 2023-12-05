@@ -43,9 +43,7 @@ export const ArticlePreview = ({
   useEffect(() => {
     setIsNewAndUnreadArticle(
       getDateDiffInDays(publication_date) <= recentArticleMaxAge &&
-        !readArticles.find(
-          readArticle => readArticle.id === getUniqueArticleId(meta_id),
-        ),
+        !readArticles.find(({id}) => id === getUniqueArticleId(meta_id)),
     )
   }, [meta_id, publication_date, readArticles])
 

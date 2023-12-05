@@ -21,10 +21,16 @@ export const ProjectNews = ({id, projectId}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const {markAsRead} = useMarkArticleAsRead()
 
-  const {data: article, isLoading: articleIsLoading} = useProjectNewsQuery({
+  const {
+    data: article,
+    isError: articleIsError,
+    isLoading: articleIsLoading,
+  } = useProjectNewsQuery({
     id,
   })
 
+  // If we come here via a deeplink, we don't have the projectId. Then we fetch the article first and use an ID from the response.
+  // Note that the article has an array of project IDs, because there is a many-to-many relation between news articles and projects. We assume the first ID is the correct one.
   const pId = projectId ?? article?.projects?.[0]
 
   const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
@@ -52,11 +58,11 @@ export const ProjectNews = ({id, projectId}: Props) => {
     })
   })
 
-  if (articleIsLoading || projectIsLoading || !article) {
+  if (articleIsLoading || projectIsLoading) {
     return <PleaseWait />
   }
 
-  if (!article) {
+  if (!article || articleIsError) {
     return <SomethingWentWrong />
   }
 

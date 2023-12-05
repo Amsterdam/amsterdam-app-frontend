@@ -15,7 +15,7 @@ type Props = {
   children?: ReactNode
   imageSource?: ImageSourcePropType
   onPress: () => void
-  subtitle?: string
+  subtitle?: string | null
   title: string
   width?: number
 } & TestProps

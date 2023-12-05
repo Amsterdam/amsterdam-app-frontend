@@ -1,11 +1,10 @@
-import {useMemo} from 'react'
 import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
+import {useUnreadArticlesLength} from '@/modules/construction-work/hooks/useUnreadArticlesLength'
 import {useProjectsFollowedArticlesQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
-import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 
 export const BadgeValue = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
@@ -14,31 +13,19 @@ export const BadgeValue = () => {
     article_max_age: recentArticleMaxAge,
   })
 
-  const unreadArticlesLength = useMemo(() => {
-    if (!data) {
-      return
-    }
+  const unreadArticlesLength = useUnreadArticlesLength(
+    readArticles,
+    data?.recent_articles,
+  )
 
-    return Object.values(data).reduce(
-      (total, articles) =>
-        articles.filter(
-          ({meta_id}) =>
-            !readArticles
-              .map(({id}) => id)
-              .includes(getUniqueArticleId(meta_id)),
-        ).length + total,
-      0,
-    )
-  }, [data, readArticles])
-
-  if (unreadArticlesLength) {
-    return (
-      <Badge
-        accessibilityLabel={simplur`${unreadArticlesLength} ongelezen bericht[|en]`}
-        value={unreadArticlesLength}
-      />
-    )
+  if (!unreadArticlesLength) {
+    return null
   }
 
-  return null
+  return (
+    <Badge
+      accessibilityLabel={simplur`${unreadArticlesLength} ongelezen bericht[|en]`}
+      value={unreadArticlesLength}
+    />
+  )
 }

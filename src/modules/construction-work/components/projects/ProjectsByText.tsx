@@ -24,8 +24,9 @@ export const ProjectsByText = () => {
       : skipToken,
   )
 
-  const resultsLabel =
-    data && simplur`${data?.result.length} zoekresulta[at|ten]`
+  const resultsLabel = data?.result
+    ? simplur`${data.result.length} zoekresulta[at|ten]`
+    : undefined
 
   useAccessibilityAnnounceEffect(resultsLabel)
 

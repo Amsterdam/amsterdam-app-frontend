@@ -9,53 +9,41 @@ import {
   useProjectWarningQuery,
 } from '@/modules/construction-work/service'
 
-type ProjectWarningContactsProps = {
-  projectId?: number | null
-}
-
-const ProjectWarningContacts = ({projectId}: ProjectWarningContactsProps) => {
-  const {data, isLoading} = useProjectDetailsQuery(
-    projectId
-      ? {
-          id: projectId,
-        }
-      : skipToken,
-  )
-
-  if (isLoading) {
-    return <PleaseWait />
-  }
-
-  if (!data?.contacts) {
-    return null
-  }
-
-  return (
-    <Box>
-      <ProjectContacts contacts={data.contacts} />
-    </Box>
-  )
-}
-
 type Props = {
   id: number
   projectId?: number
 }
 
 export const ProjectWarning = ({id, projectId}: Props) => {
-  const {data, isLoading} = useProjectWarningQuery({
+  const {
+    data: warningData,
+    isError: warningIsError,
+    isLoading: warningIsLoading,
+  } = useProjectWarningQuery({
     id,
   })
 
-  if (isLoading) {
+  // If we come here via a deeplink, we don't have the projectId. Then we fetch the warning article first and use the ID from the response.
+  const pId = projectId ?? warningData?.project_id
+
+  const {data: projectData, isLoading: projectIsLoading} =
+    useProjectDetailsQuery(
+      pId
+        ? {
+            id: pId,
+          }
+        : skipToken,
+    )
+
+  if (projectIsLoading || warningIsLoading) {
     return <PleaseWait />
   }
 
-  if (!data) {
+  if (!warningData || warningIsError) {
     return <SomethingWentWrong />
   }
 
-  const {body, images, publication_date, title} = data
+  const {body, images, publication_date, title} = warningData
 
   return (
     <ProjectArticle
@@ -65,7 +53,11 @@ export const ProjectWarning = ({id, projectId}: Props) => {
       publicationDate={publication_date}
       title={title}
       type="warning">
-      <ProjectWarningContacts projectId={projectId ?? data?.project_id} />
+      {!!projectData?.contacts && (
+        <Box>
+          <ProjectContacts contacts={projectData.contacts} />
+        </Box>
+      )}
     </ProjectArticle>
   )
 }

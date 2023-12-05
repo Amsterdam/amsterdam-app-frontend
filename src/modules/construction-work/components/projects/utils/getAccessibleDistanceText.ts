@@ -1,5 +1,4 @@
-const isNotNullish = <T>(maybeNullish: unknown): maybeNullish is T =>
-  maybeNullish !== undefined && maybeNullish !== null
+import {isNotNullish} from '@/utils/isNotNullish'
 
 export const getAccessibleDistanceText = (
   meter?: number | null,

@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -28,9 +29,13 @@ type YearlyArticleSection = {
 export const ArticleOverview = ({projectId, title}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
-  const {data: articles, isLoading} = useArticlesQuery({
-    project_ids: projectId?.toString(),
-  })
+  const {data: articles, isLoading} = useArticlesQuery(
+    projectId !== undefined
+      ? {
+          project_ids: projectId?.toString(),
+        }
+      : skipToken,
+  )
   const {markMultipleAsRead} = useMarkArticleAsRead()
 
   const yearlyArticleSections = articles?.reduce(
@@ -74,12 +79,10 @@ export const ArticleOverview = ({projectId, title}: Props) => {
       return
     }
 
-    if (type === 'article') {
-      navigation.navigate(ConstructionWorkRouteName.projectNews, {
-        id,
-        projectId,
-      })
-    }
+    navigation.navigate(ConstructionWorkRouteName.projectNews, {
+      id,
+      projectId,
+    })
   }
 
   if (isLoading || yearlyArticleSections === undefined) {

@@ -53,9 +53,9 @@ export const Projects = ({
   )
 
   const result = useInfiniteScroller<
-    ProjectsQueryArgs,
     ProjectsItem,
-    DummyProjectsItem
+    DummyProjectsItem,
+    ProjectsQueryArgs
   >(
     emptyProjectsItem,
     projectsApi.endpoints[ProjectsEndpointName.projects],

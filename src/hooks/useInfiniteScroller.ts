@@ -9,14 +9,14 @@ import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
 
-const getEmptyItems = <DummyItemType>(
+const getEmptyItems = <DummyItem>(
   length: number,
   baseIndex: number,
-  defaultEmptyItem: DummyItemType,
-  keyName: keyof DummyItemType,
+  defaultEmptyItem: DummyItem,
+  keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? Array<DummyItemType>(length)
+    ? Array<DummyItem>(length)
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
@@ -25,17 +25,17 @@ const getEmptyItems = <DummyItemType>(
     : []
 
 export const useInfiniteScroller = <
+  Item,
+  DummyItem,
   QueryArgs extends Record<string, any>,
-  ItemType,
-  DummyItemType,
 >(
-  defaultEmptyItem: DummyItemType,
+  defaultEmptyItem: DummyItem,
   endpoint: ApiEndpointQuery<
-    QueryDefinition<any, any, any, Paginated<ItemType>>,
+    QueryDefinition<any, any, any, Paginated<Item>>,
     any
   >,
-  keyName: keyof DummyItemType,
-  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<ItemType>>>,
+  keyName: keyof DummyItem,
+  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<Item>>>,
   page = 1,
   pageSize = 10,
   queryParams?: QueryArgs,
@@ -100,7 +100,7 @@ export const useInfiniteScroller = <
         const pageData =
           data?.result && status === QueryStatus.fulfilled
             ? data?.result
-            : getEmptyItems<DummyItemType>(
+            : getEmptyItems<DummyItem>(
                 Math.min(pageSize, totalElements - index * pageSize),
                 index * pageSize,
                 defaultEmptyItem,
@@ -108,7 +108,7 @@ export const useInfiniteScroller = <
               )
 
         return [...acc, ...pageData]
-      }, []) as ItemType[],
+      }, []) as Item[],
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,

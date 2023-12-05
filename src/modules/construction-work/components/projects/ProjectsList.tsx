@@ -11,7 +11,6 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
-import {getUnreadArticlesLength} from '@/modules/construction-work/components/projects/utils/getUnreadArticlesLength'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -20,6 +19,7 @@ import {
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
+import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -66,7 +66,7 @@ const ListItem = memo(
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
         onPress={() => onPress(id)}
-        subtitle={subtitle ?? undefined}
+        subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
         title={title}>
         {showTraits ? (
