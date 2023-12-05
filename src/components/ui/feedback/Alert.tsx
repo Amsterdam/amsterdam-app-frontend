@@ -1,4 +1,4 @@
-import {FC, Fragment, ReactNode, useCallback, useEffect, useRef} from 'react'
+import {Fragment, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {
   LayoutAnimation,
   Platform,
@@ -38,6 +38,27 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
+type WrapperProps = {
+  children: ReactNode
+  closeType: AlertCloseType
+  onPress: () => void
+}
+
+const Wrapper = ({onPress, closeType, ...props}: WrapperProps) => {
+  if (closeType !== AlertCloseType.withoutButton) {
+    return (
+      <Pressable
+        accessibilityLanguage="nl-NL"
+        accessibilityRole="button"
+        onPress={onPress}
+        {...props}
+      />
+    )
+  }
+
+  return <Fragment {...props} />
+}
+
 export const Alert = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const dispatch = useDispatch()
@@ -53,6 +74,14 @@ export const Alert = () => {
 
   const reset = useCallback(() => dispatch(resetAlert()), [dispatch])
 
+  const onPress = () => {
+    if (!isReduceMotionEnabled) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    }
+
+    dispatch(resetAlert())
+  }
+
   useBlurEffect(reset)
 
   useEffect(() => {
@@ -65,29 +94,11 @@ export const Alert = () => {
     return null
   }
 
-  const WrapperComponent: FC<{children: ReactNode}> =
-    closeType === AlertCloseType.withoutButton
-      ? props => (
-          <Pressable
-            accessibilityLanguage="nl-NL"
-            accessibilityRole="button"
-            onPress={() => {
-              if (!isReduceMotionEnabled) {
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                )
-              }
-
-              dispatch(resetAlert())
-            }}
-            {...props}
-          />
-        )
-      : Fragment
-
   return (
     <Box>
-      <WrapperComponent>
+      <Wrapper
+        closeType={closeType}
+        onPress={onPress}>
         <View
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
@@ -137,7 +148,7 @@ export const Alert = () => {
             )}
           </Row>
         </View>
-      </WrapperComponent>
+      </Wrapper>
     </Box>
   )
 }
