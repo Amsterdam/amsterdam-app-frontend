@@ -46,8 +46,9 @@ const config: StorybookConfig = {
       base: './',
       define: {
         __DEV__: false,
-        process: {
-          env: {},
+        // process.env is causing a conflict with immer (dependency of redux) and Vite requires us to fix it like so
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
       },
       optimizeDeps: {
