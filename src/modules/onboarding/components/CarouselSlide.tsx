@@ -44,7 +44,7 @@ export const CarouselSlide = ({
   const styles = useThemable(
     createStyles({width, index, carouselLength, isImageVisible, isPortrait}),
   )
-  const setAccessibilityAutoFocus = useAccessibilityAutoFocus({
+  const setAccessibilityAutoFocus = useAccessibilityAutoFocus<View>({
     isActive: isCurrentSlide,
   })
   const isLargeFontScale = fontScale >= 1.5
@@ -53,9 +53,7 @@ export const CarouselSlide = ({
   const ContentView = isMediumFontScale ? ScrollView : View
 
   return (
-    <View
-      ref={slideRef => !!slideRef && setAccessibilityAutoFocus(slideRef)}
-      style={styles.content}>
+    <View style={styles.content}>
       <View style={styles.backgroundImageContainer}>
         <AmsterdamHuisjesHorizontal />
       </View>
@@ -73,8 +71,14 @@ export const CarouselSlide = ({
             <Box>
               <ContentView>
                 <Wrapper>
-                  <Title text={title} />
-                  <Phrase variant="intro">{description}</Phrase>
+                  <View
+                    accessible={true}
+                    ref={contentRef =>
+                      setAccessibilityAutoFocus(contentRef as View)
+                    }>
+                    <Title text={title} />
+                    <Phrase variant="intro">{description}</Phrase>
+                  </View>
                 </Wrapper>
               </ContentView>
             </Box>
