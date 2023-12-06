@@ -45,7 +45,7 @@ export const OnboardingScreen = () => {
       stickyFooter={
         <Box
           insetHorizontal={insetHorizontal}
-          insetTop="sm">
+          insetVertical="sm">
           <Button
             label={isLastSlide ? 'Aan de slag' : 'Volgende'}
             onPress={onPress}
