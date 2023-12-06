@@ -101,7 +101,7 @@ export const AddressForm = () => {
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={setNumber}
           isLoading={isFetchingBagList}
-          keyboardType="numeric"
+          keyboardType="numbers-and-punctuation"
           number={number}
           selectResult={selectResult}
           street={street}
