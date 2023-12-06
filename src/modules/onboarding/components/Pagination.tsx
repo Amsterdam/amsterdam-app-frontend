@@ -14,7 +14,7 @@ export const Pagination = ({
 }: PaginationProps) => {
   const styles = useThemable(createStyles)
 
-  const handlePress = useCallback(
+  const handleOnPress = useCallback(
     (index: number) => {
       scrollToIndex({index})
       onPaginationSelectedIndex?.()
@@ -40,7 +40,7 @@ export const Pagination = ({
             accessibilityLabel={`Ga naar slide, ${index + 1}`}
             disabled={paginationTapDisabled}
             key={index}
-            onPress={() => handlePress(index)}
+            onPress={() => handleOnPress(index)}
             style={styles.pagination}
             testID={testId}
           />
