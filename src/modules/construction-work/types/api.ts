@@ -27,10 +27,14 @@ export type ArticleMetaId = {
   type: ArticleType
 }
 
-export type ArticleBase = {
+export type ArticleStub = {
+  meta_id: ArticleMetaId
+  modification_date: string
+}
+
+export type ArticleBase = ArticleStub & {
   body: string | null
   id: number
-  meta_id: ArticleMetaId
   modification_date: string
   publication_date: string
   title: string
@@ -51,17 +55,14 @@ export type ArticleNews = ArticleBase & {
 export type ArticleWarning = ArticleBase & {
   author_email: string | null
   images: ApiImage[] | null
-  project_id: number | null
+  project: number | null
 }
-
-export type ProjectRecentArticle = ArticleNews | ArticleWarning
 
 export type ProjectBase = {
   followed: boolean
   id: number
   image: ApiImage | null
   meter: number | null
-  recent_articles: ProjectRecentArticle[]
   strides: number | null
   subtitle: string | null
   title: string
@@ -81,7 +82,6 @@ export type ArticlesItem = {
   meta_id: ArticleMetaId
   publication_date: string
   title: string
-  type: ArticleType
 }
 
 export type ArticlesResponse = ArticlesItem[]
@@ -151,6 +151,7 @@ export type ProjectDetail = ProjectBase & {
   last_seen: string | null
   modification_date: string
   publication_date: string
+  recent_articles: (ArticleNews | ArticleWarning)[]
   sections: ProjectDetailSections | null
   timeline: ProjectDetailTimeline | null
   url: string
@@ -178,7 +179,9 @@ export type ProjectsQueryArgs = {
   page_size?: number
 } & AddressQueryArgs
 
-export type ProjectsItem = ProjectBase
+export type ProjectsItem = ProjectBase & {
+  recent_articles: ArticleStub[]
+}
 
 export type ProjectsResponse = Paginated<ProjectsItem>
 
@@ -192,14 +195,7 @@ export type ProjectsFollowedArticlesQueryArgs = {
   article_max_age: number
 }
 
-export type ProjectsFollowedArticlesItem = {
-  meta_id: ArticleMetaId
-}
-
-export type ProjectsFollowedArticlesResponse = Record<
-  string,
-  ProjectsFollowedArticlesItem[]
->
+export type ProjectsFollowedArticlesResponse = Record<string, ArticleStub[]>
 
 // /projects/search
 

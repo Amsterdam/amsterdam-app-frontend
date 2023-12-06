@@ -1,6 +1,6 @@
 import {getUnreadArticlesLength} from './getUnreadArticlesLength'
 import {ReadArticle} from '@/modules/construction-work/slice'
-import {ProjectRecentArticle} from '@/modules/construction-work/types/api'
+import {ArticleStub} from '@/modules/construction-work/types/api'
 
 const mockReadArticles: ReadArticle[] = [
   {id: 'article1', publicationDate: '2023-01-01'},
@@ -11,7 +11,7 @@ const mockRecentArticles = [
   {meta_id: {id: 1, type: 'article'}, modification_date: '2023-03-01'},
   {meta_id: {id: 2, type: 'warning'}, modification_date: '2023-04-01'},
   {meta_id: {id: 3, type: 'warning'}, modification_date: '2023-04-01'},
-] as ProjectRecentArticle[]
+] as ArticleStub[]
 
 describe('getUnreadArticlesLength', () => {
   it('should return 0 when recentArticles is empty', () => {
@@ -30,7 +30,7 @@ describe('getUnreadArticlesLength', () => {
     const modifiedRecentArticles = [
       ...mockRecentArticles,
       {meta_id: {id: 3, type: 'article'}, modification_date: '2023-05-01'},
-    ] as ProjectRecentArticle[]
+    ] as ArticleStub[]
 
     const result = getUnreadArticlesLength(
       mockReadArticles,

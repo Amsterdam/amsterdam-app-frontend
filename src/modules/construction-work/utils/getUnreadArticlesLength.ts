@@ -1,13 +1,10 @@
 import {ReadArticle} from '@/modules/construction-work/slice'
-import {
-  ProjectRecentArticle,
-  ProjectsFollowedArticlesItem,
-} from '@/modules/construction-work/types/api'
+import {ArticleStub} from '@/modules/construction-work/types/api'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 
 export const getUnreadArticlesLength = (
   readArticles: ReadArticle[],
-  recentArticles?: ProjectRecentArticle[] | ProjectsFollowedArticlesItem[],
+  recentArticles?: ArticleStub[],
 ) => {
   if (!recentArticles || recentArticles.length === 0) {
     return 0

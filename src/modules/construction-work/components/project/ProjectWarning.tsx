@@ -24,7 +24,7 @@ export const ProjectWarning = ({id, projectId}: Props) => {
   })
 
   // If we come here via a deeplink, we don't have the projectId. Then we fetch the warning article first and use the ID from the response.
-  const pId = projectId ?? warningData?.project_id
+  const pId = projectId ?? warningData?.project
 
   const {data: projectData, isLoading: projectIsLoading} =
     useProjectDetailsQuery(
