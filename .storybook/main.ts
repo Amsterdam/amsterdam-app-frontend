@@ -46,6 +46,9 @@ const config: StorybookConfig = {
       base: './',
       define: {
         __DEV__: false,
+        process: {
+          env: {},
+        },
       },
       optimizeDeps: {
         esbuildOptions: {
