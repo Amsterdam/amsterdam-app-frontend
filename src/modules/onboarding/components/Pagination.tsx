@@ -14,19 +14,6 @@ export const Pagination = ({
 }: PaginationProps) => {
   const styles = useThemable(createStyles)
 
-  const accessibilityLabel = useCallback(
-    (index: number) =>
-      paginationIndex !== index
-        ? `Ga naar slide, ${index + 1}`
-        : `Huidige slide, ${index + 1}`,
-    [paginationIndex],
-  )
-
-  const accessibilityRole = useCallback(
-    (index: number) => (paginationIndex === index ? 'none' : 'button'),
-    [paginationIndex],
-  )
-
   const handlePress = useCallback(
     (index: number) => {
       scrollToIndex({index})
@@ -37,20 +24,28 @@ export const Pagination = ({
 
   return (
     <View style={[styles.container]}>
-      {Array.from({length: size}).map((_, index) => (
-        <Pressable
-          accessibilityLabel={accessibilityLabel(index)}
-          accessibilityRole={accessibilityRole(index)}
-          disabled={paginationTapDisabled}
-          key={index}
-          onPress={() => handlePress(index)}
-          style={[
-            styles.pagination,
-            paginationIndex === index && styles.paginationActivated,
-          ]}
-          testID={`${e2eID}Pagination${index}`}
-        />
-      ))}
+      {Array.from({length: size}).map((_, index) => {
+        const testId = `${e2eID}Pagination${index}`
+
+        return index === paginationIndex ? (
+          <View
+            accessibilityLabel={`Huidige slide, ${index + 1}`}
+            accessible={true}
+            key={index}
+            style={[styles.pagination, styles.paginationActivated]}
+            testID={testId}
+          />
+        ) : (
+          <Pressable
+            accessibilityLabel={`Ga naar slide, ${index + 1}`}
+            disabled={paginationTapDisabled}
+            key={index}
+            onPress={() => handlePress(index)}
+            style={styles.pagination}
+            testID={testId}
+          />
+        )
+      })}
     </View>
   )
 }
