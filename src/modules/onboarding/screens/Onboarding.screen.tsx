@@ -49,6 +49,7 @@ export const OnboardingScreen = () => {
           <Button
             label={isLastSlide ? 'Aan de slag' : 'Volgende'}
             onPress={onPress}
+            testID="OnboardingNextSlideButton"
           />
         </Box>
       }
@@ -67,6 +68,7 @@ export const OnboardingScreen = () => {
                 />
               }
               onPress={handleOnboarding}
+              testID="OnboardingCloseButton"
             />
           </Row>
         </Box>
