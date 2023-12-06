@@ -141,7 +141,7 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.1100)
-  - PiwikPROSDK (1.1.10)
+  - PiwikPROSDK (1.2.1)
   - PromisesObjC (2.3.1)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -453,8 +453,8 @@ PODS:
     - React-Core
   - react-native-netinfo (9.5.0):
     - React-Core
-  - react-native-piwik-pro-sdk (1.0.9):
-    - PiwikPROSDK (= 1.1.10)
+  - react-native-piwik-pro-sdk (1.1.0):
+    - PiwikPROSDK (= 1.2.1)
     - React-Core
   - react-native-render-html (6.3.4):
     - React-Core
@@ -576,7 +576,7 @@ PODS:
     - React-perflogger (= 0.72.7)
   - RNBootSplash (4.7.5):
     - React-Core
-  - RNCAsyncStorage (1.19.8):
+  - RNCAsyncStorage (1.21.0):
     - React-Core
   - RNDeviceInfo (9.0.2):
     - React-Core
@@ -912,7 +912,7 @@ SPEC CHECKSUMS:
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  PiwikPROSDK: a103daabb4cb6545832d755783fceaf802a0171a
+  PiwikPROSDK: f8261f12839d723c913d6ed973f3e66b737d58e9
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 83bca1c184feb4d2e51c72c8369b83d641443f95
@@ -934,7 +934,7 @@ SPEC CHECKSUMS:
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 384787fd76976f5aec9465aff6fa9e9129af1e74
   react-native-netinfo: 48c5f79a84fbc3ba1d28a8b0d04adeda72885fa8
-  react-native-piwik-pro-sdk: c1126ae994d6ba57d4dff86e96e44399194d415c
+  react-native-piwik-pro-sdk: 21d69f9e0aa4d9a1a898bae62db33af358a480d7
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
@@ -957,7 +957,7 @@ SPEC CHECKSUMS:
   React-utils: 56838edeaaf651220d1e53cd0b8934fb8ce68415
   ReactCommon: 5f704096ccf7733b390f59043b6fa9cc180ee4f6
   RNBootSplash: 85f6b879c080e958afdb4c62ee04497b05fd7552
-  RNCAsyncStorage: 687bb9e85dd3d45b966662440dcfc0cd962347e6
+  RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNDeviceInfo: 1e3f62b9ec32f7754fac60bd06b8f8a27124e7f0
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 729c0666395b1953198dc4a1ec6deb8fbe1c302e
