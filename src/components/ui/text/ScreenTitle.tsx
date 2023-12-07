@@ -11,5 +11,6 @@ export const ScreenTitle = ({accessibilityLanguage = 'nl-NL', text}: Props) => (
     level="h5"
     testID="HeaderTitle"
     text={text}
+    textAlign="center"
   />
 )
