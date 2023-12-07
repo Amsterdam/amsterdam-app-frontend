@@ -6,6 +6,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {NumberInput} from '@/modules/address/components/NumberInput'
@@ -16,6 +17,7 @@ import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
+import {ModuleSlug} from '@/modules/slugs'
 import {setAlert} from '@/store/slices/alert'
 import {replaceString} from '@/utils/replaceString'
 
@@ -53,6 +55,8 @@ export const AddressForm = () => {
     setNumber(replaceString(text, 'houseNumber'))
   }, [])
 
+  const previousRoute = usePreviousRoute()
+
   const selectResult = useCallback(
     (item: PdokAddress) => {
       if (item.type === 'weg') {
@@ -61,22 +65,26 @@ export const AddressForm = () => {
         setCity(item.woonplaatsnaam)
       } else {
         dispatch(addAddress(transformAddressApiResponse(item)))
-        dispatch(
-          setAlert({
-            closeType: AlertCloseType.withoutButton,
-            content: {
-              title: 'Gelukt',
-              text: 'Het adres is toegevoegd aan uw profiel.',
-            },
-            testID: 'AddressAddedAlert',
-            variant: AlertVariant.positive,
-            withIcon: false,
-          }),
-        )
+
+        if (previousRoute?.name === ModuleSlug.user) {
+          dispatch(
+            setAlert({
+              closeType: AlertCloseType.withoutButton,
+              content: {
+                title: 'Gelukt',
+                text: 'Het adres is toegevoegd aan uw profiel.',
+              },
+              testID: 'AddressAddedAlert',
+              variant: AlertVariant.positive,
+              withIcon: false,
+            }),
+          )
+        }
+
         navigation.goBack()
       }
     },
-    [dispatch, navigation],
+    [dispatch, navigation, previousRoute?.name],
   )
 
   useEffect(() => {
