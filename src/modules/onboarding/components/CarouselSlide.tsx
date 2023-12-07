@@ -138,8 +138,8 @@ const createStyles =
       },
       content: {
         zIndex: 1000,
-        width: width,
-        paddingBottom: size.spacing.lg,
+        width,
+        paddingBottom: isPortrait ? size.spacing.lg : size.spacing.no,
         overflow: 'hidden',
         position: 'relative',
       },
