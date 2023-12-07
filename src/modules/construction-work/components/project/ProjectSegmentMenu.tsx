@@ -3,10 +3,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useProjectSegmentOptions} from '@/modules/construction-work/hooks/useProjectSegmentOptions'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {ProjectDetail} from '@/modules/construction-work/types/api'
+import {Project} from '@/modules/construction-work/types/api'
 
 type Props = {
-  project: ProjectDetail
+  project: Project
 }
 
 export const ProjectSegmentMenu = ({project}: Props) => {

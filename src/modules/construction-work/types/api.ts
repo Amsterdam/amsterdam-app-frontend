@@ -136,7 +136,7 @@ export type ProjectTimeline = {
   title: string
 }
 
-export type ProjectDetail = ProjectBase & {
+export type Project = ProjectBase & {
   active: boolean
   contacts: ProjectContact[] | null
   coordinates: {
@@ -157,7 +157,7 @@ export type ProjectDetail = ProjectBase & {
   url: string
 }
 
-export type ProjectDetailsResponse = ProjectDetail
+export type ProjectDetailsResponse = Project
 
 // /project/news
 

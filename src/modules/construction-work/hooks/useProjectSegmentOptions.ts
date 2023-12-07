@@ -1,8 +1,5 @@
 import {useMemo} from 'react'
-import {
-  ProjectDetail,
-  ProjectSection,
-} from '@/modules/construction-work/types/api'
+import {Project, ProjectSection} from '@/modules/construction-work/types/api'
 import {ProjectSegment} from '@/modules/construction-work/types/project'
 import {isEmptyObject} from '@/utils/object'
 
@@ -22,7 +19,7 @@ export const getProjectSegmentOptions = ({
   contacts,
   sections,
   timeline,
-}: ProjectDetail) => {
+}: Project) => {
   const options: ProjectSegment[] = []
   const {contact, what, when, where, work} = sections ?? {}
 
@@ -63,5 +60,5 @@ export const getProjectSegmentOptions = ({
   return options
 }
 
-export const useProjectSegmentOptions = (project: ProjectDetail) =>
+export const useProjectSegmentOptions = (project: Project) =>
   useMemo(() => getProjectSegmentOptions(project), [project])

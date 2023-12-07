@@ -3,10 +3,7 @@ import {
   getProjectSegmentOptions,
   hasContentToShow,
 } from './useProjectSegmentOptions'
-import {
-  ProjectDetail,
-  ProjectSection,
-} from '@/modules/construction-work/types/api'
+import {Project, ProjectSection} from '@/modules/construction-work/types/api'
 import {ProjectSegment} from '@/modules/construction-work/types/project'
 
 describe('hasContentToShow', () => {
@@ -37,7 +34,7 @@ describe('hasContentToShow', () => {
 
 describe('getProjectSegmentOptions', () => {
   test('returns options for "about" section when there is content in "what"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -47,13 +44,13 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.what,
+        sections: project.sections?.what,
         testID: 'ConstructionWorkProjectAboutButton',
         title: ProjectSegmentTitle.about,
       },
@@ -63,7 +60,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "about" section when there is content in "where"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -73,13 +70,13 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.where,
+        sections: project.sections?.where,
         testID: 'ConstructionWorkProjectAboutButton',
         title: ProjectSegmentTitle.about,
       },
@@ -89,7 +86,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('does not return options for sections when there is no content', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -99,9 +96,9 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = []
 
@@ -109,7 +106,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "contact" section when there is content in "contact"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [{body: 'Contact details', title: 'Contact'}],
@@ -119,14 +116,14 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.contact,
-        contacts: Project.contacts,
+        sections: project.sections?.contact,
+        contacts: project.contacts,
         testID: 'ConstructionWorkProjectContactButton',
         title: ProjectSegmentTitle.contact,
       },
@@ -136,7 +133,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "contact" section when there is content in "contacts"', () => {
-    const Project = {
+    const project = {
       contacts: [
         {
           id: 1,
@@ -155,14 +152,14 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.contact,
-        contacts: Project.contacts,
+        sections: project.sections?.contact,
+        contacts: project.contacts,
         testID: 'ConstructionWorkProjectContactButton',
         title: ProjectSegmentTitle.contact,
       },
@@ -172,7 +169,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "planning" section when there is content in "when"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -182,13 +179,13 @@ describe('getProjectSegmentOptions', () => {
         work: [],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.when,
+        sections: project.sections?.when,
         timeline: null,
         testID: 'ConstructionWorkProjectPlanningButton',
         title: ProjectSegmentTitle.planning,
@@ -199,7 +196,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "planning" section when there is content in "timeline"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -222,14 +219,14 @@ describe('getProjectSegmentOptions', () => {
         ],
         title: 'Project Timeline',
       },
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
         sections: [],
-        timeline: Project.timeline,
+        timeline: project.timeline,
         testID: 'ConstructionWorkProjectPlanningButton',
         title: ProjectSegmentTitle.planning,
       },
@@ -239,7 +236,7 @@ describe('getProjectSegmentOptions', () => {
   })
 
   test('returns options for "work" section when there is content in "work"', () => {
-    const Project = {
+    const project = {
       contacts: [],
       sections: {
         contact: [],
@@ -249,13 +246,13 @@ describe('getProjectSegmentOptions', () => {
         work: [{body: 'Work details', title: 'Work'}],
       },
       timeline: null,
-    } as unknown as ProjectDetail
+    } as unknown as Project
 
-    const result = getProjectSegmentOptions(Project)
+    const result = getProjectSegmentOptions(project)
 
     const expectedOptions: ProjectSegment[] = [
       {
-        sections: Project.sections?.work,
+        sections: project.sections?.work,
         testID: 'ConstructionWorkProjectWorkButton',
         title: ProjectSegmentTitle.work,
       },
