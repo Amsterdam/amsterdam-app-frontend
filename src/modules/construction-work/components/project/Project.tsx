@@ -17,19 +17,18 @@ import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
-import {ProjectDetailSegmentMenu} from '@/modules/construction-work/components/project/ProjectDetailSegmentMenu'
+import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {useSelectedAddressForConstructionWork} from '@/modules/construction-work/hooks/useSelectedAddressForConstructionWork'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  useProjectsFollowPostMutation,
+  useProjectFollowMutation,
   useProjectDetailsQuery,
-  useProjectsFollowDeleteMutation,
+  useProjectUnfollowMutation,
 } from '@/modules/construction-work/service'
-import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const ONBOARDING_TIP =
@@ -40,7 +39,7 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
+  const {address} = useSelectedAddressForConstructionWork()
 
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
@@ -52,9 +51,9 @@ export const Project = ({id}: Props) => {
     isFetching,
   } = useProjectDetailsQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
-    useProjectsFollowPostMutation()
+    useProjectFollowMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
-    useProjectsFollowDeleteMutation()
+    useProjectUnfollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
   const [onboardingTipTargetLayout, setTipComponentLayout] =
     useState<LayoutRectangle>()
@@ -173,7 +172,7 @@ export const Project = ({id}: Props) => {
                 )}
               </SingleSelectable>
             </Column>
-            <ProjectDetailSegmentMenu project={project} />
+            <ProjectSegmentMenu project={project} />
             <ArticleOverview
               projectId={id}
               title="Nieuws"

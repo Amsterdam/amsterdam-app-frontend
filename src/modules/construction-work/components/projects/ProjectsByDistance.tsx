@@ -13,14 +13,13 @@ export const ProjectsByDistance = ({address}: Props) => {
 
   return (
     <Projects
-      byDistance
+      addressParam={addressParam}
       HeaderButton={
         <ChangeLocationButton
           slug={ModuleSlug['construction-work']}
           testID="ConstructionWork"
         />
       }
-      queryParams={addressParam}
     />
   )
 }

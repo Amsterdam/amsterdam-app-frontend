@@ -9,11 +9,11 @@ import {
 export enum ProjectsEndpointName {
   articles = 'articles',
   projectDetails = 'projectDetails',
+  projectFollow = 'projectFollow',
   projectNews = 'projectNews',
+  projectUnfollow = 'projectUnfollow',
   projectWarning = 'projectWarning',
   projects = 'projects',
-  projectsFollowDelete = 'projectsFollowDelete',
-  projectsFollowPost = 'projectsFollowPost',
   projectsFollowedArticles = 'projectsFollowedArticles',
   projectsSearch = 'projectsSearch',
 }
@@ -93,7 +93,7 @@ export type ProjectDetailsQueryArgs = {
   id: number
 } & AddressQueryArgs
 
-export type ProjectDetailContact = {
+export type ProjectContact = {
   address: string | null // @TODO: not in API definition (100764)
   email: string | null
   id: number
@@ -102,43 +102,43 @@ export type ProjectDetailContact = {
   position: string | null
 }
 
-export type ProjectDetailSection = {
+export type ProjectSection = {
   body: string | null
   title: string | null
 }
 
-export type ProjectDetailSections = {
-  contact: ProjectDetailSection[] | null
-  what: ProjectDetailSection[] | null
-  when: ProjectDetailSection[] | null
-  where: ProjectDetailSection[] | null
-  work: ProjectDetailSection[] | null
+export type ProjectSections = {
+  contact: ProjectSection[] | null
+  what: ProjectSection[] | null
+  when: ProjectSection[] | null
+  where: ProjectSection[] | null
+  work: ProjectSection[] | null
 }
 
-export type ProjectDetailTimelineSubItem = {
+export type ProjectTimelineSubItem = {
   body: string | null
   date: string
   title: string
 }
 
-export type ProjectDetailTimelineItem = {
+export type ProjectTimelineItem = {
   body: string | null
   collapsed: boolean
   date: string
-  items: ProjectDetailTimelineSubItem[] | null
+  items: ProjectTimelineSubItem[] | null
   progress: 'Afgelopen' | 'Huidig' | 'Aankomend' // @TODO: not in API definition (100764)
   title: string
 }
 
-export type ProjectDetailTimeline = {
+export type ProjectTimeline = {
   intro: string | null
-  items: ProjectDetailTimelineItem[]
+  items: ProjectTimelineItem[]
   title: string
 }
 
 export type ProjectDetail = ProjectBase & {
   active: boolean
-  contacts: ProjectDetailContact[] | null
+  contacts: ProjectContact[] | null
   coordinates: {
     lat: number
     lon: number
@@ -152,8 +152,8 @@ export type ProjectDetail = ProjectBase & {
   modification_date: string
   publication_date: string
   recent_articles: (ArticleNews | ArticleWarning)[]
-  sections: ProjectDetailSections | null
-  timeline: ProjectDetailTimeline | null
+  sections: ProjectSections | null
+  timeline: ProjectTimeline | null
   url: string
 }
 

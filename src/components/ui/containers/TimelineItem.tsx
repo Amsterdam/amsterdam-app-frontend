@@ -6,13 +6,13 @@ import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {ProjectDetailTimelineItem} from '@/modules/construction-work/types/api'
+import {ProjectTimelineItem} from '@/modules/construction-work/types/api'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   isBeforeUpcoming: boolean
   isLast: boolean
-  item: ProjectDetailTimelineItem
+  item: ProjectTimelineItem
 }
 
 export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {

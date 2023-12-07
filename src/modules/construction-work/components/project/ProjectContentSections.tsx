@@ -1,10 +1,10 @@
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
-import {ProjectDetailSection} from '@/modules/construction-work/types/api'
+import {ProjectSection} from '@/modules/construction-work/types/api'
 
 type Props = {
-  sections: ProjectDetailSection[]
+  sections: ProjectSection[]
 }
 
 export const ProjectContentSections = ({sections}: Props) =>

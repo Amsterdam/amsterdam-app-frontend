@@ -1,7 +1,7 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useProjectDetailSegmentOptions} from '@/modules/construction-work/hooks/useProjectDetailSegmentOptions'
+import {useProjectSegmentOptions} from '@/modules/construction-work/hooks/useProjectSegmentOptions'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ProjectDetail} from '@/modules/construction-work/types/api'
 
@@ -9,10 +9,10 @@ type Props = {
   project: ProjectDetail
 }
 
-export const ProjectDetailSegmentMenu = ({project}: Props) => {
+export const ProjectSegmentMenu = ({project}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
-  const menuOptions = useProjectDetailSegmentOptions(project)
+  const menuOptions = useProjectSegmentOptions(project)
 
   if (menuOptions.length === 0) {
     return null
@@ -28,13 +28,10 @@ export const ProjectDetailSegmentMenu = ({project}: Props) => {
             key={title}
             label={title}
             onPress={() =>
-              navigation.navigate(
-                ConstructionWorkRouteName.projectDetailSegment,
-                {
-                  body: option,
-                  headerTitle: project.title,
-                },
-              )
+              navigation.navigate(ConstructionWorkRouteName.projectSegment, {
+                body: option,
+                headerTitle: project.title,
+              })
             }
             testID={testID}
           />

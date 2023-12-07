@@ -1,13 +1,13 @@
 import {
-  ProjectDetailSegmentTitle,
-  getProjectDetailSegmentOptions,
+  ProjectSegmentTitle,
+  getProjectSegmentOptions,
   hasContentToShow,
-} from './useProjectDetailSegmentOptions'
+} from './useProjectSegmentOptions'
 import {
   ProjectDetail,
-  ProjectDetailSection,
+  ProjectSection,
 } from '@/modules/construction-work/types/api'
-import {ProjectDetailSegment} from '@/modules/construction-work/types/project'
+import {ProjectSegment} from '@/modules/construction-work/types/project'
 
 describe('hasContentToShow', () => {
   test('returns true when sections have content', () => {
@@ -18,7 +18,7 @@ describe('hasContentToShow', () => {
   })
 
   test('returns false when sections are empty', () => {
-    const sections: ProjectDetailSection[] = []
+    const sections: ProjectSection[] = []
     const result = hasContentToShow(sections)
 
     expect(result).toBe(false)
@@ -35,9 +35,9 @@ describe('hasContentToShow', () => {
   })
 })
 
-describe('getProjectDetailSegmentOptions', () => {
+describe('getProjectSegmentOptions', () => {
   test('returns options for "about" section when there is content in "what"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -49,13 +49,13 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.what,
+        sections: Project.sections?.what,
         testID: 'ConstructionWorkProjectAboutButton',
-        title: ProjectDetailSegmentTitle.about,
+        title: ProjectSegmentTitle.about,
       },
     ]
 
@@ -63,7 +63,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('returns options for "about" section when there is content in "where"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -75,13 +75,13 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.where,
+        sections: Project.sections?.where,
         testID: 'ConstructionWorkProjectAboutButton',
-        title: ProjectDetailSegmentTitle.about,
+        title: ProjectSegmentTitle.about,
       },
     ]
 
@@ -89,7 +89,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('does not return options for sections when there is no content', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -101,15 +101,15 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = []
+    const expectedOptions: ProjectSegment[] = []
 
     expect(result).toEqual(expectedOptions)
   })
 
   test('returns options for "contact" section when there is content in "contact"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [{body: 'Contact details', title: 'Contact'}],
@@ -121,14 +121,14 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.contact,
-        contacts: projectDetail.contacts,
+        sections: Project.sections?.contact,
+        contacts: Project.contacts,
         testID: 'ConstructionWorkProjectContactButton',
-        title: ProjectDetailSegmentTitle.contact,
+        title: ProjectSegmentTitle.contact,
       },
     ]
 
@@ -136,7 +136,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('returns options for "contact" section when there is content in "contacts"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [
         {
           id: 1,
@@ -157,14 +157,14 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.contact,
-        contacts: projectDetail.contacts,
+        sections: Project.sections?.contact,
+        contacts: Project.contacts,
         testID: 'ConstructionWorkProjectContactButton',
-        title: ProjectDetailSegmentTitle.contact,
+        title: ProjectSegmentTitle.contact,
       },
     ]
 
@@ -172,7 +172,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('returns options for "planning" section when there is content in "when"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -184,14 +184,14 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.when,
+        sections: Project.sections?.when,
         timeline: null,
         testID: 'ConstructionWorkProjectPlanningButton',
-        title: ProjectDetailSegmentTitle.planning,
+        title: ProjectSegmentTitle.planning,
       },
     ]
 
@@ -199,7 +199,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('returns options for "planning" section when there is content in "timeline"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -224,14 +224,14 @@ describe('getProjectDetailSegmentOptions', () => {
       },
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
         sections: [],
-        timeline: projectDetail.timeline,
+        timeline: Project.timeline,
         testID: 'ConstructionWorkProjectPlanningButton',
-        title: ProjectDetailSegmentTitle.planning,
+        title: ProjectSegmentTitle.planning,
       },
     ]
 
@@ -239,7 +239,7 @@ describe('getProjectDetailSegmentOptions', () => {
   })
 
   test('returns options for "work" section when there is content in "work"', () => {
-    const projectDetail = {
+    const Project = {
       contacts: [],
       sections: {
         contact: [],
@@ -251,13 +251,13 @@ describe('getProjectDetailSegmentOptions', () => {
       timeline: null,
     } as unknown as ProjectDetail
 
-    const result = getProjectDetailSegmentOptions(projectDetail)
+    const result = getProjectSegmentOptions(Project)
 
-    const expectedOptions: ProjectDetailSegment[] = [
+    const expectedOptions: ProjectSegment[] = [
       {
-        sections: projectDetail.sections?.work,
+        sections: Project.sections?.work,
         testID: 'ConstructionWorkProjectWorkButton',
-        title: ProjectDetailSegmentTitle.work,
+        title: ProjectSegmentTitle.work,
       },
     ]
 

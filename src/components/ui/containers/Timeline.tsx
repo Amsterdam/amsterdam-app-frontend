@@ -1,8 +1,8 @@
 import {TimelineItem} from '@/components/ui/containers/TimelineItem'
-import {ProjectDetailTimelineItem} from '@/modules/construction-work/types/api'
+import {ProjectTimelineItem} from '@/modules/construction-work/types/api'
 
 type Props = {
-  items: ProjectDetailTimelineItem[]
+  items: ProjectTimelineItem[]
 }
 
 export const Timeline = ({items}: Props) => (

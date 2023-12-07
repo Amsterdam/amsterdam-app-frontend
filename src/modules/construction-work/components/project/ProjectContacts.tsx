@@ -5,11 +5,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ProjectDetailContact} from '@/modules/construction-work/types/api'
+import {ProjectContact} from '@/modules/construction-work/types/api'
 import {capitalizeString} from '@/utils/capitalizeString'
 
 type Props = {
-  contacts: ProjectDetailContact[]
+  contacts: ProjectContact[]
   emailSubject?: string
 }
 

@@ -1,12 +1,12 @@
 import {useMemo} from 'react'
 import {
   ProjectDetail,
-  ProjectDetailSection,
+  ProjectSection,
 } from '@/modules/construction-work/types/api'
-import {ProjectDetailSegment} from '@/modules/construction-work/types/project'
+import {ProjectSegment} from '@/modules/construction-work/types/project'
 import {isEmptyObject} from '@/utils/object'
 
-export enum ProjectDetailSegmentTitle {
+export enum ProjectSegmentTitle {
   about = 'Over dit project',
   contact = 'Contact',
   planning = 'Planning',
@@ -14,23 +14,23 @@ export enum ProjectDetailSegmentTitle {
 }
 
 export const hasContentToShow = (
-  section?: ProjectDetailSection[] | null,
-): section is ProjectDetailSection[] =>
+  section?: ProjectSection[] | null,
+): section is ProjectSection[] =>
   !!section?.length && section.some(({body}) => !!body)
 
-export const getProjectDetailSegmentOptions = ({
+export const getProjectSegmentOptions = ({
   contacts,
   sections,
   timeline,
 }: ProjectDetail) => {
-  const options: ProjectDetailSegment[] = []
+  const options: ProjectSegment[] = []
   const {contact, what, when, where, work} = sections ?? {}
 
   if (hasContentToShow(what) || hasContentToShow(where)) {
     options.push({
       sections: [...(what ?? []), ...(where ?? [])],
       testID: 'ConstructionWorkProjectAboutButton',
-      title: ProjectDetailSegmentTitle.about,
+      title: ProjectSegmentTitle.about,
     })
   }
 
@@ -39,7 +39,7 @@ export const getProjectDetailSegmentOptions = ({
       sections: when,
       timeline: timeline,
       testID: 'ConstructionWorkProjectPlanningButton',
-      title: ProjectDetailSegmentTitle.planning,
+      title: ProjectSegmentTitle.planning,
     })
   }
 
@@ -47,7 +47,7 @@ export const getProjectDetailSegmentOptions = ({
     options.push({
       sections: work,
       testID: 'ConstructionWorkProjectWorkButton',
-      title: ProjectDetailSegmentTitle.work,
+      title: ProjectSegmentTitle.work,
     })
   }
 
@@ -56,12 +56,12 @@ export const getProjectDetailSegmentOptions = ({
       sections: contact,
       contacts: contacts,
       testID: 'ConstructionWorkProjectContactButton',
-      title: ProjectDetailSegmentTitle.contact,
+      title: ProjectSegmentTitle.contact,
     })
   }
 
   return options
 }
 
-export const useProjectDetailSegmentOptions = (project: ProjectDetail) =>
-  useMemo(() => getProjectDetailSegmentOptions(project), [project])
+export const useProjectSegmentOptions = (project: ProjectDetail) =>
+  useMemo(() => getProjectSegmentOptions(project), [project])

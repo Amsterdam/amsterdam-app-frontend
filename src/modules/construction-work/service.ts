@@ -92,7 +92,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects/follow DELETE
-    [ProjectsEndpointName.projectsFollowDelete]: builder.mutation<
+    [ProjectsEndpointName.projectUnfollow]: builder.mutation<
       string,
       FollowProjectBody
     >({
@@ -105,7 +105,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects/follow POST
-    [ProjectsEndpointName.projectsFollowPost]: builder.mutation<
+    [ProjectsEndpointName.projectFollow]: builder.mutation<
       string,
       FollowProjectBody
     >({
@@ -161,11 +161,11 @@ export const projectsApi = baseApi.injectEndpoints({
 export const {
   useArticlesQuery,
   useProjectDetailsQuery,
+  useProjectFollowMutation,
   useProjectNewsQuery,
+  useProjectUnfollowMutation,
   useProjectWarningQuery,
-  useProjectsFollowDeleteMutation,
   useProjectsFollowedArticlesQuery,
-  useProjectsFollowPostMutation,
   useProjectsQuery,
   useProjectsSearchQuery,
 } = projectsApi

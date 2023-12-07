@@ -26,11 +26,11 @@ const managerAuthorizedEndpoints = [
 ]
 
 const deviceIdRequestingEndpoints: string[] = [
-  ProjectsEndpointName.projectsFollowPost,
+  ProjectsEndpointName.projectFollow,
   ProjectsEndpointName.projectDetails,
   ProjectsEndpointName.projects,
   ProjectsEndpointName.projectsFollowedArticles,
-  ProjectsEndpointName.projectsFollowDelete,
+  ProjectsEndpointName.projectUnfollow,
   DeviceRegistrationEndpointName.registerDevice,
   DeviceRegistrationEndpointName.unregisterDevice,
 ]

@@ -1,10 +1,10 @@
-import {ProjectDetailSegment} from '@/modules/construction-work/types/project'
+import {ProjectSegment} from '@/modules/construction-work/types/project'
 
 export enum ConstructionWorkRouteName {
   constructionWork = 'ConstructionWork',
   project = 'Project',
-  projectDetailSegment = 'ProjectDetailSegment',
   projectNews = 'ProjectNews',
+  projectSegment = 'ProjectSegment',
   projectWarning = 'ProjectWarning',
   search = 'ConstructionWorkSearch',
 }
@@ -13,8 +13,8 @@ export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.constructionWork]: undefined
   [ConstructionWorkRouteName.search]: undefined
   [ConstructionWorkRouteName.project]: {id: number}
-  [ConstructionWorkRouteName.projectDetailSegment]: {
-    body: ProjectDetailSegment
+  [ConstructionWorkRouteName.projectSegment]: {
+    body: ProjectSegment
     headerTitle: string
   }
   [ConstructionWorkRouteName.projectNews]: {id: number; projectId?: number}

@@ -29,7 +29,6 @@ const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 const keyExtractor = ({id}: ProjectsItem) => id.toString()
 
 type ListItemProps = {
-  byDistance: boolean
   onPress: (id: number) => void
   project: ProjectsItem
   readArticles: ReadArticle[]
@@ -37,7 +36,7 @@ type ListItemProps = {
 }
 
 const ListItem = memo(
-  ({byDistance, onPress, project, readArticles, showTraits}: ListItemProps) => {
+  ({onPress, project, readArticles, showTraits}: ListItemProps) => {
     const {followed, meter, recent_articles, strides} = project
 
     const [additionalAccessibilityLabel, unreadArticlesLength] = useMemo(() => {
@@ -72,7 +71,6 @@ const ListItem = memo(
         {showTraits ? (
           <ProjectTraits
             accessibilityLabel={additionalAccessibilityLabel}
-            byDistance={byDistance}
             project={project}
             unreadArticlesLength={unreadArticlesLength}
           />
@@ -131,13 +129,12 @@ export const ProjectsList = ({
   const renderItem: ListRenderItem<ProjectsItem> = useCallback(
     ({item}) => (
       <ListItem
-        byDistance={byDistance}
         onPress={(id: number) =>
           navigation.navigate(ConstructionWorkRouteName.project, {id})
         }
         project={item}
         readArticles={readArticles}
-        showTraits={!searchText}
+        showTraits={!searchText && (byDistance || item.followed)}
       />
     ),
     [byDistance, navigation, readArticles, searchText],

@@ -1,14 +1,14 @@
 import {ViewProps} from 'react-native'
 import {
-  ProjectDetailContact,
-  ProjectDetailSection,
-  ProjectDetailTimeline,
+  ProjectContact,
+  ProjectSection,
+  ProjectTimeline,
 } from '@/modules/construction-work/types/api'
 
-export type ProjectDetailSegment = {
-  contacts?: ProjectDetailContact[] | null
-  sections?: ProjectDetailSection[] | null
+export type ProjectSegment = {
+  contacts?: ProjectContact[] | null
+  sections?: ProjectSection[] | null
   testID: ViewProps['testID']
-  timeline?: ProjectDetailTimeline | null
+  timeline?: ProjectTimeline | null
   title: string
 }

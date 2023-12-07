@@ -16,11 +16,11 @@ import {
   ProjectsItem,
   ProjectsQueryArgs,
 } from '@/modules/construction-work/types/api'
+import {AddressQueryArgs} from '@/types/api'
 
 type Props = {
   HeaderButton: ReactNode
-  byDistance?: boolean
-  queryParams?: ProjectsQueryArgs
+  addressParam?: AddressQueryArgs
 }
 
 export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
@@ -38,11 +38,7 @@ const emptyProjectsItem: DummyProjectsItem = {
   title: ' ',
 }
 
-export const Projects = ({
-  byDistance = false,
-  HeaderButton,
-  queryParams,
-}: Props) => {
+export const Projects = ({addressParam, HeaderButton}: Props) => {
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
@@ -66,7 +62,7 @@ export const Projects = ({
     {
       article_max_age: recentArticleMaxAge,
       page_size: projectItemListPageSize,
-      ...queryParams,
+      ...addressParam,
     },
   )
 
@@ -86,7 +82,7 @@ export const Projects = ({
   return (
     <ProjectsList
       {...result}
-      byDistance={byDistance}
+      byDistance={!!addressParam}
       listHeader={
         <ProjectsListHeader>
           <SearchFieldNavigator />

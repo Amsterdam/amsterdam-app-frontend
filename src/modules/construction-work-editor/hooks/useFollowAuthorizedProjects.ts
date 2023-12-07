@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useProjectsFollowPostMutation} from '@/modules/construction-work/service'
+import {useProjectFollowMutation} from '@/modules/construction-work/service'
 import {ConstructionWorkEditorResponseProject} from '@/modules/construction-work-editor/types'
 
 export const useFollowAuthorizedProjects = () => {
-  const [followProject] = useProjectsFollowPostMutation()
+  const [followProject] = useProjectFollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
 
   const follow = useCallback(
