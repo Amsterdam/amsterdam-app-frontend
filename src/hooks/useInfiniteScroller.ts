@@ -8,31 +8,37 @@ import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
-import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
 
-const getEmptyItems = <T>(
+const getEmptyItems = <DummyItem>(
   length: number,
   baseIndex: number,
-  defaultEmptyItem: T,
-  keyName: keyof T,
+  defaultEmptyItem: DummyItem,
+  keyName: keyof DummyItem,
 ) =>
   length > 0
-    ? Array<T>(length)
+    ? Array<DummyItem>(length)
         .fill(defaultEmptyItem)
         .map((el, index) => ({
           ...el,
-          [keyName]: (index + baseIndex).toString(),
+          [keyName]: `dummy-${index + baseIndex}`,
         }))
     : []
 
-export const useInfiniteScroller = <T>(
-  defaultEmptyItem: T,
-  endpoint: ApiEndpointQuery<QueryDefinition<any, any, any, Paginated<T>>, any>,
-  keyName: keyof T,
-  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<T>>>,
+export const useInfiniteScroller = <
+  Item,
+  DummyItem,
+  QueryArgs extends Record<string, any>,
+>(
+  defaultEmptyItem: DummyItem,
+  endpoint: ApiEndpointQuery<
+    QueryDefinition<any, any, any, Paginated<Item>>,
+    any
+  >,
+  keyName: keyof DummyItem,
+  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<Item>>>,
   page = 1,
   pageSize = 10,
-  queryParams: InfiniteScrollerQueryParams = {},
+  queryParams?: QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
 
@@ -56,6 +62,7 @@ export const useInfiniteScroller = <T>(
     ...queryParams,
     page,
   })
+
   const {
     data: nextData,
     isError: isErrorNextPage,
@@ -93,7 +100,7 @@ export const useInfiniteScroller = <T>(
         const pageData =
           data?.result && status === QueryStatus.fulfilled
             ? data?.result
-            : getEmptyItems<T>(
+            : getEmptyItems<DummyItem>(
                 Math.min(pageSize, totalElements - index * pageSize),
                 index * pageSize,
                 defaultEmptyItem,
@@ -101,7 +108,7 @@ export const useInfiniteScroller = <T>(
               )
 
         return [...acc, ...pageData]
-      }, []) as T[],
+      }, []) as Item[],
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,

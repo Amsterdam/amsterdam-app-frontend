@@ -1,4 +1,4 @@
-import {ProjectIdQueryArg} from '@/modules/construction-work/types'
+import {ProjectIdQueryArgs} from '@/modules/construction-work/types/api'
 import {
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
@@ -14,7 +14,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ConstructionWorkEditorEndpointName.getProjectManager]: builder.query<
       ConstructionWorkEditorResponse,
-      ProjectIdQueryArg
+      ProjectIdQueryArgs
     >({
       query: params => generateRequestUrl({path: '/project/manager', params}),
       keepUnusedDataFor: CacheLifetime.second,

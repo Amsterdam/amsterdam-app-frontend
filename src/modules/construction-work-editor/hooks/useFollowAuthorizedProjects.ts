@@ -1,16 +1,18 @@
 import {useCallback} from 'react'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useFollowProjectMutation} from '@/modules/construction-work/service'
+import {useProjectFollowMutation} from '@/modules/construction-work/service'
 import {ConstructionWorkEditorResponseProject} from '@/modules/construction-work-editor/types'
 
 export const useFollowAuthorizedProjects = () => {
-  const [followProject] = useFollowProjectMutation()
+  const [followProject] = useProjectFollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
 
   const follow = useCallback(
     (authorizedProjects: ConstructionWorkEditorResponseProject[]) => {
-      authorizedProjects.forEach(async ({identifier}) => {
-        await followProject({project_id: identifier})
+      authorizedProjects.forEach(async ({id}) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        await followProject({id})
       })
       registerDeviceWithPermission()
     },

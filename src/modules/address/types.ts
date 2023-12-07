@@ -22,12 +22,6 @@ export type Address = {
   street: string
 }
 
-export type AddressQueryArg = {
-  address?: string
-  lat?: number
-  lon?: number
-}
-
 export type PdokAddress = {
   centroide_ll: `POINT(${number} ${number})`
   huisletter?: string

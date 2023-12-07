@@ -10,7 +10,7 @@ import {
 import {getUniqueId} from 'react-native-device-info'
 import {version as releaseVersion} from '@/../package.json'
 import {EnvironmentConfig} from '@/environment'
-import {ProjectsEndpointName} from '@/modules/construction-work/types'
+import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectEnvironment} from '@/store/slices/environment'
@@ -26,18 +26,11 @@ const managerAuthorizedEndpoints = [
 ]
 
 const deviceIdRequestingEndpoints: string[] = [
-  ProjectsEndpointName.followProject,
-  ProjectsEndpointName.getProject,
-  ProjectsEndpointName.getProjects,
-  ProjectsEndpointName.getProjectsFollowedArticles,
-  ProjectsEndpointName.unfollowProject,
-  DeviceRegistrationEndpointName.registerDevice,
-  DeviceRegistrationEndpointName.unregisterDevice,
-]
-
-const deviceAuthorizationHeaderEndpoints: string[] = [
-  ProjectsEndpointName.followProject,
-  ProjectsEndpointName.unfollowProject,
+  ProjectsEndpointName.projectFollow,
+  ProjectsEndpointName.projectDetails,
+  ProjectsEndpointName.projects,
+  ProjectsEndpointName.projectsFollowedArticles,
+  ProjectsEndpointName.projectUnfollow,
   DeviceRegistrationEndpointName.registerDevice,
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
@@ -63,8 +56,7 @@ const dynamicBaseQuery: BaseQueryFn<
           deviceIdRequestingEndpoints.includes(endpoint) &&
             headers.set('deviceid', getUniqueId())
 
-          deviceAuthorizationHeaderEndpoints.includes(endpoint) &&
-            headers.set('DeviceAuthorization', deviceAuthorizationToken)
+          headers.set('DeviceAuthorization', deviceAuthorizationToken)
 
           headers.set('releaseVersion', releaseVersion)
 

@@ -1,49 +1,56 @@
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useLayoutEffect} from 'react'
-import {Box} from '@/components/ui/containers/Box'
-import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {Column} from '@/components/ui/layout/Column'
-import {Image} from '@/components/ui/media/Image'
-import {HtmlContent} from '@/components/ui/text/HtmlContent'
-import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Title} from '@/components/ui/text/Title'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  useGetProjectNewsQuery,
-  useGetProjectQuery,
+  useProjectNewsQuery,
+  useProjectDetailsQuery,
 } from '@/modules/construction-work/service'
-import {formatDate} from '@/utils/datetime/formatDate'
-import {mapImageSources} from '@/utils/image/mapImageSources'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 
 type Props = {
-  id: string
-  projectId?: string
+  id: number
+  projectId?: number
 }
 
 export const ProjectNews = ({id, projectId}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const {markAsRead} = useMarkArticleAsRead()
 
-  const {data: news, isLoading: newsIsLoading} = useGetProjectNewsQuery({
+  const {
+    data: article,
+    isError: articleIsError,
+    isLoading: articleIsLoading,
+  } = useProjectNewsQuery({
     id,
   })
 
-  const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
-    {
-      id: projectId ?? news?.project_identifier ?? '',
-    },
-    {skip: !projectId && !news?.project_identifier},
+  // If we come here via a deeplink, we don't have the projectId. Then we fetch the article first and use an ID from the response.
+  // Note that the article has an array of project IDs, because there is a many-to-many relation between news articles and projects. We assume the first ID is the correct one.
+  const pId = projectId ?? article?.projects?.[0]
+
+  const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
+    pId !== undefined
+      ? {
+          id: pId,
+        }
+      : skipToken,
   )
 
   useEffect(() => {
-    news &&
-      markAsRead({
-        id: news.identifier,
-        publicationDate: news.publication_date,
-      })
-  }, [markAsRead, news])
+    if (!article) {
+      return
+    }
+
+    markAsRead({
+      id: getUniqueArticleId({id, type: 'article'}),
+      publicationDate: article.publication_date,
+    })
+  }, [article, id, markAsRead])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,44 +58,24 @@ export const ProjectNews = ({id, projectId}: Props) => {
     })
   })
 
-  if (newsIsLoading || projectIsLoading || !news) {
+  if (articleIsLoading || projectIsLoading) {
     return <PleaseWait />
   }
 
+  if (!article || articleIsError) {
+    return <SomethingWentWrong />
+  }
+
+  const {body, image, intro, publication_date, title} = article
+
   return (
-    <>
-      {!!news?.images?.length && (
-        <Image
-          aspectRatio="wide"
-          source={mapImageSources(news.images[0]?.sources)}
-          testID={`ConstructionWorkProjectArticle${news.identifier}Image`}
-        />
-      )}
-      {!!news && (
-        <HorizontalSafeArea>
-          <Box>
-            <Column gutter="md">
-              <Paragraph
-                testID={`ConstructionWorkProjectArticle${news.identifier}Date`}>
-                {formatDate(news.publication_date)}
-              </Paragraph>
-              <Title
-                testID={`ConstructionWorkProjectArticle${news.identifier}Title`}
-                text={news.title}
-              />
-              <HtmlContent
-                content={news.body?.preface.html}
-                isIntro
-                testID={`ConstructionWorkProjectArticle${news.identifier}Intro`}
-              />
-              <HtmlContent
-                content={news.body?.content.html}
-                testID={`ConstructionWorkProjectArticle${news.identifier}Body`}
-              />
-            </Column>
-          </Box>
-        </HorizontalSafeArea>
-      )}
-    </>
+    <ProjectArticle
+      body={body}
+      id={id}
+      image={image}
+      intro={intro}
+      publicationDate={publication_date}
+      title={title}
+    />
   )
 }

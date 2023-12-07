@@ -7,8 +7,8 @@ import {
 import {ConstructionWorkScreen} from '@/modules/construction-work/screens/ConstructionWork.screen'
 import {ConstructionWorkSearchScreen} from '@/modules/construction-work/screens/ConstructionWorkSearch.screen'
 import {ProjectScreen} from '@/modules/construction-work/screens/Project.screen'
-import {ProjectBodyScreen} from '@/modules/construction-work/screens/ProjectBody.screen'
 import {ProjectNewsScreen} from '@/modules/construction-work/screens/ProjectNews.screen'
+import {ProjectSegmentScreen} from '@/modules/construction-work/screens/ProjectSegment.screen'
 import {ProjectWarningScreen} from '@/modules/construction-work/screens/ProjectWarning.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -34,9 +34,9 @@ export const screenConfig: StackNavigationRoutes<
     component: ProjectScreen,
     name: ConstructionWorkRouteName.project,
   },
-  [ConstructionWorkRouteName.projectBody]: {
-    component: ProjectBodyScreen,
-    name: ConstructionWorkRouteName.projectBody,
+  [ConstructionWorkRouteName.projectSegment]: {
+    component: ProjectSegmentScreen,
+    name: ConstructionWorkRouteName.projectSegment,
   },
   [ConstructionWorkRouteName.projectNews]: {
     component: ProjectNewsScreen,

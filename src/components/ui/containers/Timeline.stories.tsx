@@ -1,22 +1,27 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Timeline} from '@/components/ui/containers/Timeline'
 
 export default {
   component: Timeline,
-} as ComponentMeta<typeof Timeline>
+} as Meta<typeof Timeline>
 
-export const Default: ComponentStoryObj<typeof Timeline> = {
+export const Default: StoryObj<typeof Timeline> = {
   args: {
     items: [
       {
         collapsed: false,
-        content: [
+        body: '<p>Dolor sit amet 1</p>',
+        date: '',
+        items: [
           {
-            title: 'Lorem ipsum 1',
-            body: {
-              html: '<p>Dolor sit amet 1</p>',
-              text: 'Dolor sit amet 1',
-            },
+            title: 'Lorem ipsum 1.1',
+            body: '<p>Dolor sit amet 1.1</p>',
+            date: '',
+          },
+          {
+            title: 'Lorem ipsum 1.2',
+            body: '<p>Dolor sit amet 1.2</p>',
+            date: '',
           },
         ],
         progress: 'Afgelopen',
@@ -24,13 +29,13 @@ export const Default: ComponentStoryObj<typeof Timeline> = {
       },
       {
         collapsed: true,
-        content: [
+        body: '<p>Dolor sit amet 2</p>',
+        date: '',
+        items: [
           {
-            title: 'Lorem ipsum 2',
-            body: {
-              html: '<p>Dolor sit amet 2</p>',
-              text: 'Dolor sit amet 2',
-            },
+            title: 'Lorem ipsum 2.1',
+            body: '<p>Dolor sit amet 2.1</p>',
+            date: '',
           },
         ],
         progress: 'Huidig',
@@ -38,13 +43,18 @@ export const Default: ComponentStoryObj<typeof Timeline> = {
       },
       {
         collapsed: true,
-        content: [
+        body: '<p>Dolor sit amet 3</p>',
+        date: '',
+        items: [
           {
-            title: 'Lorem ipsum 3',
-            body: {
-              html: '<p>Dolor sit amet 3</p>',
-              text: 'Dolor sit amet 3',
-            },
+            title: 'Lorem ipsum 3.1',
+            body: '<p>Dolor sit amet 3.1</p>',
+            date: '',
+          },
+          {
+            title: 'Lorem ipsum 3.2',
+            body: '<p>Dolor sit amet 3.2</p>',
+            date: '',
           },
         ],
         progress: 'Aankomend',

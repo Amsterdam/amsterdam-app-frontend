@@ -1,4 +1,4 @@
-import {Image} from '@/types/image'
+import {ApiImage} from '@/types/api'
 
 export enum ConstructionWorkEditorEndpointName {
   addProjectWarning = 'addProjectWarning',
@@ -13,8 +13,8 @@ export type ConstructionWorkEditor = {
 }
 
 export type ConstructionWorkEditorResponseProject = {
-  identifier: string
-  images: Image[]
+  id: string
+  images: ApiImage[]
   subtitle: string
   title: string
 }

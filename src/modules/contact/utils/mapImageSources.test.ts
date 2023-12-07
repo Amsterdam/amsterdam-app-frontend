@@ -1,5 +1,5 @@
-import {mapImageSources, mapWarningImageSources} from './mapImageSources'
-import {ImageSources} from '@/types/image'
+import {mapImageSources} from './mapImageSources'
+import {ImageSources} from '@/modules/contact/types'
 
 describe('mapImageSources', () => {
   test('handle undefined', () => {
@@ -88,43 +88,6 @@ describe('mapImageSources', () => {
         uri: 'urlorig',
         width: 940,
         height: Math.floor(940 / (940 / 415)),
-      },
-    ])
-  })
-})
-
-describe('mapWarningImageSources', () => {
-  test('handle undefined', () => {
-    expect(mapWarningImageSources()).toEqual([])
-  })
-  test('normal use case', () => {
-    expect(
-      mapWarningImageSources([
-        {
-          height: 800,
-          image_id: 'image_id',
-          mime_type: 'mime_type',
-          url: 'url800x450',
-          width: 450,
-        },
-        {
-          height: 1600,
-          image_id: 'image_id',
-          mime_type: 'mime_type',
-          url: 'url1600x900',
-          width: 900,
-        },
-      ]),
-    ).toEqual([
-      {
-        uri: 'url800x450',
-        width: 450,
-        height: 800,
-      },
-      {
-        uri: 'url1600x900',
-        width: 900,
-        height: 1600,
       },
     ])
   })

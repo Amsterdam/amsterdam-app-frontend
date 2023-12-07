@@ -9,25 +9,24 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components/ContactConstructionWorkSupport'
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {useTheme} from '@/themes/useTheme'
 import {isApiAuthorizationError} from '@/utils/api'
-import {mapImageSources} from '@/utils/image/mapImageSources'
 
 type ListItemProps = {
   navigation: NavigationProp<ConstructionWorkEditorRouteName>
-  project: Pick<ProjectsItem, 'identifier' | 'images' | 'subtitle' | 'title'>
+  project: Pick<ProjectsItem, 'id' | 'image' | 'subtitle' | 'title'>
 }
 
 const ListItem = ({navigation, project}: ListItemProps) => (
   <ProjectCard
-    imageSource={mapImageSources(project.images?.[0]?.sources)}
+    imageSource={project.image?.sources}
     onPress={() =>
       navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
-        projectId: project.identifier,
+        projectId: project.id,
         projectTitle: project.title,
       })
     }
@@ -84,7 +83,7 @@ export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
       itemContainerStyle={styles.itemContainer}
       itemDimension={itemDimension}
       keyboardDismissMode="on-drag"
-      keyExtractor={project => project.identifier}
+      keyExtractor={project => project.id}
       ListEmptyComponent={ListEmptyMessage}
       ListFooterComponent={ContactConstructionWorkSupport}
       ListFooterComponentStyle={{
@@ -96,6 +95,8 @@ export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
       renderItem={({item}) => (
         <ListItem
           navigation={navigation}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           project={item}
         />
       )}

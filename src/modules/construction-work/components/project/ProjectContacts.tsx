@@ -5,7 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ProjectContact} from '@/modules/construction-work/types'
+import {ProjectContact} from '@/modules/construction-work/types/api'
 import {capitalizeString} from '@/utils/capitalizeString'
 
 type Props = {
@@ -15,24 +15,24 @@ type Props = {
 
 export const ProjectContacts = ({contacts, emailSubject}: Props) => (
   <Column gutter="xl">
-    {contacts.map(({address, email, name, phone, position}) => (
+    {contacts.map(({address, email, id, name, phone, position}) => (
       <Column
         gutter="md"
-        key={name + email}>
-        <View>
-          {!!name && (
+        key={id}>
+        {!!name && (
+          <View>
             <Title
               level="h3"
               testID="ConstructionWorkProjectContactTitle"
               text={name}
             />
-          )}
-          {!!position && (
-            <Paragraph testID="ConstructionWorkProjectContactJobTitle">
-              {capitalizeString(position)}
-            </Paragraph>
-          )}
-        </View>
+            {!!position && (
+              <Paragraph testID="ConstructionWorkProjectContactJobTitle">
+                {capitalizeString(position)}
+              </Paragraph>
+            )}
+          </View>
+        )}
         {!!phone && (
           <Row>
             <PhoneButton

@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {ReactNode, useCallback, useState} from 'react'
 import {FlatGridProps} from 'react-native-super-grid'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
@@ -6,44 +6,39 @@ import {ProjectsListHeader} from '@/modules/construction-work/components/project
 import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
+import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
   projectsApi,
-  useGetProjectsQuery,
+  useProjectsQuery,
 } from '@/modules/construction-work/service'
-import {ProjectsItem} from '@/modules/construction-work/types'
-import {InfiniteScrollerQueryParams} from '@/types/infiniteScroller'
+import {
+  ProjectsEndpointName,
+  ProjectsItem,
+  ProjectsQueryArgs,
+} from '@/modules/construction-work/types/api'
+import {AddressQueryArgs} from '@/types/api'
 
 type Props = {
-  HeaderButton: React.ReactNode
-  getProjectTraits: (project: ProjectsItem) => Partial<ProjectsItem>
-  queryParams: InfiniteScrollerQueryParams
+  HeaderButton: ReactNode
+  addressParam?: AddressQueryArgs
 }
 
-const emptyProjectsItem = {
-  active: false,
-  content_html: '',
-  content_text: '',
-  district_id: 0,
-  district_name: '',
+export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
+  id: string
+}
+
+const emptyProjectsItem: DummyProjectsItem = {
   followed: false,
-  identifier: '',
-  images: null,
-  last_seen: '',
+  image: null,
   meter: 0,
-  modification_date: '',
-  publication_date: '',
-  score: 0,
-  source_url: '',
+  id: '',
+  recent_articles: [],
   strides: 0,
   subtitle: ' ',
   title: ' ',
 }
 
-export const Projects = ({
-  HeaderButton,
-  getProjectTraits,
-  queryParams,
-}: Props) => {
+export const Projects = ({addressParam, HeaderButton}: Props) => {
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
@@ -53,16 +48,21 @@ export const Projects = ({
     projectItemListPageSize,
   )
 
-  const result = useInfiniteScroller<ProjectsItem>(
+  const result = useInfiniteScroller<
+    ProjectsItem,
+    DummyProjectsItem,
+    ProjectsQueryArgs
+  >(
     emptyProjectsItem,
-    projectsApi.endpoints.getProjects,
-    'identifier',
-    useGetProjectsQuery,
+    projectsApi.endpoints[ProjectsEndpointName.projects],
+    'id',
+    useProjectsQuery,
     page,
     projectItemListPageSize,
     {
-      ...queryParams,
+      article_max_age: recentArticleMaxAge,
       page_size: projectItemListPageSize,
+      ...addressParam,
     },
   )
 
@@ -82,7 +82,7 @@ export const Projects = ({
   return (
     <ProjectsList
       {...result}
-      getProjectTraits={getProjectTraits}
+      byDistance={!!addressParam}
       listHeader={
         <ProjectsListHeader>
           <SearchFieldNavigator />

@@ -11,10 +11,13 @@ import {ProjectContacts} from '@/modules/construction-work/components/project/Pr
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 
-type Props = NavigationProps<ConstructionWorkRouteName.projectBody>
+type Props = NavigationProps<ConstructionWorkRouteName.projectSegment>
 
-export const ProjectBodyScreen = ({route}: Props) => {
-  const {body, headerTitle} = route.params
+export const ProjectSegmentScreen = ({route}: Props) => {
+  const {
+    body: {contacts, sections, timeline, title},
+    headerTitle,
+  } = route.params
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
   useLayoutEffect(() => {
@@ -28,16 +31,12 @@ export const ProjectBodyScreen = ({route}: Props) => {
       <Column gutter="md">
         <Box>
           <Column gutter="md">
-            <Title text={body.title} />
-            {!!body.contacts && <ProjectContacts contacts={body.contacts} />}
-            {!!body.sections && (
-              <ProjectContentSections sections={body.sections} />
-            )}
-            {body.timeline?.intro && (
-              <HtmlContent content={body.timeline.intro.html} />
-            )}
-            {body.timeline?.items?.length && (
-              <Timeline items={body.timeline.items} />
+            <Title text={title} />
+            {!!contacts && <ProjectContacts contacts={contacts} />}
+            {!!sections && <ProjectContentSections sections={sections} />}
+            {!!timeline?.intro && <HtmlContent content={timeline.intro} />}
+            {timeline?.items && timeline?.items?.length > 0 && (
+              <Timeline items={timeline.items} />
             )}
           </Column>
         </Box>

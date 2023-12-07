@@ -4,16 +4,22 @@ import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
-import {ProjectsItem} from '@/modules/construction-work/types'
+import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {getDistanceAndStrides} from '@/modules/construction-work/utils/getDistanceAndStrides'
 
-type Props = Partial<ProjectsItem> & {
+export type ProjectTraitsProps = {
+  byDistance?: boolean
+  project: ProjectsItem
   unreadArticlesLength?: number
-} & ViewProps
+}
+
+type Props = ProjectTraitsProps & ViewProps
 
 export const ProjectTraits = memo(
-  ({followed, meter, strides, unreadArticlesLength, ...viewProps}: Props) => {
-    if ([followed, meter, strides].every(v => !v)) {
+  ({project, unreadArticlesLength, ...viewProps}: Props) => {
+    const {followed, meter, strides} = project
+
+    if (!followed && !meter && !strides) {
       return null
     }
 

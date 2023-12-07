@@ -17,30 +17,29 @@ import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useAddress} from '@/modules/address/hooks/useAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
-import {ProjectBodyMenu} from '@/modules/construction-work/components/project/ProjectBodyMenu'
+import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {useSelectedAddressForConstructionWork} from '@/modules/construction-work/hooks/useSelectedAddressForConstructionWork'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  useFollowProjectMutation,
-  useGetProjectQuery,
-  useUnfollowProjectMutation,
+  useProjectFollowMutation,
+  useProjectDetailsQuery,
+  useProjectUnfollowMutation,
 } from '@/modules/construction-work/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {mapImageSources} from '@/utils/image/mapImageSources'
 
 const ONBOARDING_TIP =
   'Volg een project en blijf op de hoogte van onze werkzaamheden'
 
 type Props = {
-  id: string
+  id: number
 }
 
 export const Project = ({id}: Props) => {
-  const address = useAddress()
+  const {address} = useSelectedAddressForConstructionWork()
 
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
@@ -50,29 +49,27 @@ export const Project = ({id}: Props) => {
     data: project,
     isLoading,
     isFetching,
-  } = useGetProjectQuery({id, ...addressParam})
+  } = useProjectDetailsQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
-    useFollowProjectMutation()
+    useProjectFollowMutation()
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
-    useUnfollowProjectMutation()
+    useProjectUnfollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
   const [onboardingTipTargetLayout, setTipComponentLayout] =
     useState<LayoutRectangle>()
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
-      if (!project) {
+      if (isFollowed) {
+        void unfollowProject({id})
+
         return
       }
 
-      if (isFollowed) {
-        void unfollowProject({project_id: project.identifier})
-      } else {
-        void followProject({project_id: project.identifier})
-        registerDeviceWithPermission()
-      }
+      void followProject({id})
+      registerDeviceWithPermission()
     },
-    [followProject, project, registerDeviceWithPermission, unfollowProject],
+    [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
 
   useLayoutEffect(() => {
@@ -89,15 +86,15 @@ export const Project = ({id}: Props) => {
     return <Paragraph>Geen project.</Paragraph>
   }
 
-  const {images, followed, followers, meter, strides, subtitle, title} = project
+  const {image, followed, followers, meter, strides, subtitle, title} = project
   const followersPhrase = simplur`${[followers]} volger[|s]`
 
   return (
     <Column>
-      {!!images?.length && (
+      {image?.sources && (
         <Image
           aspectRatio="wide"
-          source={mapImageSources(images[0]?.sources)}
+          source={image.sources}
           testID="ConstructionWorkProjectImage"
         />
       )}
@@ -154,8 +151,8 @@ export const Project = ({id}: Props) => {
                 accessibilityLabel={accessibleText(
                   getAccessibleDistanceText(meter, strides),
                 )}
-                meter={meter}
-                strides={strides}
+                byDistance={!!address}
+                project={project}
               />
               <SingleSelectable
                 accessibilityLabel={accessibleText(title, subtitle)}
@@ -175,7 +172,7 @@ export const Project = ({id}: Props) => {
                 )}
               </SingleSelectable>
             </Column>
-            <ProjectBodyMenu project={project} />
+            <ProjectSegmentMenu project={project} />
             <ArticleOverview
               projectId={id}
               title="Nieuws"

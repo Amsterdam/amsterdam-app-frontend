@@ -1,7 +1,6 @@
 import {ImageURISource} from 'react-native'
-import {ProjectWarningImageSources} from '@/modules/construction-work/types'
+import {ImageSources} from '@/modules/contact/types'
 import {mediaTokens} from '@/themes/tokens/media'
-import {ImageSources} from '@/types/image'
 
 export const mapImageSources = (sources?: ImageSources): ImageURISource[] => {
   if (!sources) {
@@ -18,12 +17,3 @@ export const mapImageSources = (sources?: ImageSources): ImageURISource[] => {
     }
   })
 }
-
-export const mapWarningImageSources = (
-  sources?: ProjectWarningImageSources,
-): ImageURISource[] =>
-  sources?.map(({height, url, width}) => ({
-    uri: url,
-    width,
-    height,
-  })) ?? []

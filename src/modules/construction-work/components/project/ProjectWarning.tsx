@@ -1,109 +1,63 @@
-import {useEffect, useLayoutEffect} from 'react'
+import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {Box} from '@/components/ui/containers/Box'
-import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {Column} from '@/components/ui/layout/Column'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
-import {Image} from '@/components/ui/media/Image'
-import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
-import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
-import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  useGetProjectQuery,
-  useGetProjectWarningQuery,
+  useProjectDetailsQuery,
+  useProjectWarningQuery,
 } from '@/modules/construction-work/service'
-import {getProjectWarningMainImageInfo} from '@/modules/construction-work/utils/getProjectWarningMainImageInfo'
-import {useTheme} from '@/themes/useTheme'
-import {formatDate} from '@/utils/datetime/formatDate'
 
 type Props = {
-  id: string
-  projectId?: string
+  id: number
+  projectId?: number
 }
 
 export const ProjectWarning = ({id, projectId}: Props) => {
-  const navigation = useNavigation<ConstructionWorkRouteName>()
-  const {media} = useTheme()
-
-  const {markAsRead} = useMarkArticleAsRead()
-
-  const {data: projectWarning, isLoading: projectWarningIsLoading} =
-    useGetProjectWarningQuery({id})
-
-  const {data: project, isLoading: projectIsLoading} = useGetProjectQuery(
-    {
-      id: projectId ?? projectWarning?.project_identifier ?? '',
-    },
-    {skip: !projectId && !projectWarning?.project_identifier},
-  )
-
-  useEffect(() => {
-    if (!projectWarning) {
-      return
-    }
-
-    markAsRead({
-      id: projectWarning.identifier,
-      publicationDate: projectWarning.publication_date,
-    })
-  }, [markAsRead, projectWarning])
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: project?.title ?? '',
-    })
+  const {
+    data: warningData,
+    isError: warningIsError,
+    isLoading: warningIsLoading,
+  } = useProjectWarningQuery({
+    id,
   })
 
-  if (projectWarningIsLoading || projectIsLoading || !projectWarning) {
+  // If we come here via a deeplink, we don't have the projectId. Then we fetch the warning article first and use the ID from the response.
+  const pId = projectId ?? warningData?.project
+
+  const {data: projectData, isLoading: projectIsLoading} =
+    useProjectDetailsQuery(
+      pId
+        ? {
+            id: pId,
+          }
+        : skipToken,
+    )
+
+  if (projectIsLoading || warningIsLoading) {
     return <PleaseWait />
   }
 
-  const mainImage = getProjectWarningMainImageInfo(projectWarning)
+  if (!warningData || warningIsError) {
+    return <SomethingWentWrong />
+  }
+
+  const {body, images, publication_date, title} = warningData
 
   return (
-    <>
-      {mainImage ? (
-        <Image
-          accessibilityLabel={mainImage.description}
-          accessible
-          source={mainImage.sources}
-          testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
-        />
-      ) : (
-        <FigureWithFacadesBackground
-          height={media.figureHeight.md}
-          Image={<ProjectWarningFallbackImage />}
-          imageAspectRatio={media.aspectRatio.extraWide}
-          testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Image`}
-        />
-      )}
-      <HorizontalSafeArea>
+    <ProjectArticle
+      body={body}
+      id={id}
+      image={images?.[0]}
+      publicationDate={publication_date}
+      title={title}
+      type="warning">
+      {!!projectData?.contacts && (
         <Box>
-          <Column gutter="md">
-            <Paragraph
-              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Date`}>
-              {formatDate(projectWarning.publication_date)}
-            </Paragraph>
-            <Title
-              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Title`}
-              text={projectWarning.title}
-            />
-            <Paragraph
-              testID={`ConstructionWorkProjectArticle${projectWarning.identifier}Body`}>
-              {projectWarning.body}
-            </Paragraph>
-          </Column>
+          <ProjectContacts contacts={projectData.contacts} />
         </Box>
-        {project?.contacts && (
-          <Box>
-            <ProjectContacts contacts={project.contacts} />
-          </Box>
-        )}
-      </HorizontalSafeArea>
-    </>
+      )}
+    </ProjectArticle>
   )
 }

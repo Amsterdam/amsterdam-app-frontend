@@ -1,4 +1,4 @@
-import {FC, memo, useMemo} from 'react'
+import {ReactNode, memo, useMemo} from 'react'
 import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -11,11 +11,11 @@ import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
-  Kicker?: FC
   additionalAccessibilityLabel?: string
+  children?: ReactNode
   imageSource?: ImageSourcePropType
   onPress: () => void
-  subtitle?: string
+  subtitle?: string | null
   title: string
   width?: number
 } & TestProps
@@ -23,8 +23,8 @@ type Props = {
 export const ProjectCard = memo(
   ({
     additionalAccessibilityLabel,
+    children,
     imageSource,
-    Kicker,
     onPress,
     subtitle,
     testID,
@@ -57,9 +57,9 @@ export const ProjectCard = memo(
               <Gutter height="sm" />
             </>
           )}
-          {!!Kicker && (
+          {!!children && (
             <>
-              <Kicker />
+              {children}
               <Gutter height="xs" />
             </>
           )}

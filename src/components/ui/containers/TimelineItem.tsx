@@ -6,19 +6,18 @@ import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {ProjectTimelineItem} from '@/modules/construction-work/types/api'
 import {useTheme} from '@/themes/useTheme'
-import {TimelineItem as TimelineItemType} from '@/types/timeline'
 
 type Props = {
   isBeforeUpcoming: boolean
   isLast: boolean
-  item: TimelineItemType
+  item: ProjectTimelineItem
 }
 
 export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
   const isCurrent = !item.collapsed
-  const itemHasContent = item.content.some(c => c.body?.html || c.body?.text)
-  const [isExpanded, setIsExpanded] = useState(isCurrent && itemHasContent)
+  const [isExpanded, setIsExpanded] = useState(isCurrent)
 
   const theme = useTheme()
   const {fontScale} = useDeviceContext()
@@ -30,6 +29,10 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
     isExpanded,
     isLast,
   )
+
+  if (!item.body && !item.items?.length) {
+    return null
+  }
 
   return (
     <View>
@@ -49,17 +52,18 @@ export const TimelineItem = ({isBeforeUpcoming, isLast, item}: Props) => {
           key={item.title}
           onChangeExpanded={state => setIsExpanded(state)}
           title={item.title}>
-          {itemHasContent
-            ? item.content.map(({title, body: {html}}) => (
-                <Fragment key={title}>
-                  <Title
-                    level="h5"
-                    text={title}
-                  />
-                  <HtmlContent content={html} />
-                </Fragment>
-              ))
-            : undefined}
+          {!!item.body && <HtmlContent content={item.body} />}
+          {item.items?.map(({title, body}) => (
+            <Fragment key={title}>
+              {!!title && (
+                <Title
+                  level="h5"
+                  text={title}
+                />
+              )}
+              {!!body && <HtmlContent content={body} />}
+            </Fragment>
+          ))}
         </Accordion>
       </View>
       <View style={styles.line} />

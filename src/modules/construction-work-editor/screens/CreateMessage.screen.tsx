@@ -25,6 +25,8 @@ type Props = NavigationProps<ConstructionWorkEditorRouteName.createMessage>
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const mainImage = useSelector(selectMainImage(route.params.projectId))
 
   const formRef = useRef<{
@@ -36,10 +38,14 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
 
     dispatch(
       setProject({
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         id: projectId,
         title: projectTitle,
       }),
     )
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(setCurrentProjectId(projectId))
   }, [dispatch, route])
 

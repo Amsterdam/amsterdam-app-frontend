@@ -8,7 +8,8 @@ import {
   ReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
-import {Articles} from '@/modules/construction-work/types'
+import {ArticlesItem} from '@/modules/construction-work/types/api'
+import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
 
 export const useMarkArticleAsRead = () => {
@@ -42,12 +43,12 @@ export const useMarkArticleAsRead = () => {
   )
 
   const markMultipleAsRead = useCallback(
-    (articles: Articles) => {
+    (articles: ArticlesItem[]) => {
       deleteOldArticles()
-      articles?.forEach(({identifier, publication_date}) =>
+      articles?.forEach(({meta_id, publication_date}) =>
         markAsRead(
           {
-            id: identifier,
+            id: getUniqueArticleId(meta_id),
             publicationDate: publication_date,
           },
           false,
@@ -58,9 +59,9 @@ export const useMarkArticleAsRead = () => {
   )
 
   const markMultipleAsUnRead = useCallback(
-    (articles: Articles) => {
-      articles?.forEach(({identifier}) =>
-        dispatch(deleteReadArticle(identifier)),
+    (articles: ArticlesItem[]) => {
+      articles?.forEach(({meta_id}) =>
+        dispatch(deleteReadArticle(getUniqueArticleId(meta_id))),
       )
     },
     [dispatch],
