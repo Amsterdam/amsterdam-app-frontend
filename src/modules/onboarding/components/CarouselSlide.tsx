@@ -123,6 +123,7 @@ const createStyles =
     return StyleSheet.create({
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
+        paddingVertical: isPortrait ? size.spacing.lg : size.spacing.no,
       },
       backgroundImageContainer: {
         position: 'absolute',
@@ -133,13 +134,16 @@ const createStyles =
           {
             translateX: -(index * width),
           },
+          {
+            translateY: -25,
+          },
         ],
         zIndex: -10,
       },
       content: {
         zIndex: 1000,
         width,
-        paddingBottom: isPortrait ? size.spacing.lg : size.spacing.no,
+        paddingBottom: isPortrait ? size.spacing.lg : size.spacing.sm,
         overflow: 'hidden',
         position: 'relative',
       },
