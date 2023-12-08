@@ -1,17 +1,16 @@
 import Afvalwijzer from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.png'
-import AmsterdamApp from '@/modules/onboarding/assets/images/screenshot-amsterdam-app.png'
-import MeldingDoen from '@/modules/onboarding/assets/images/screenshot-melding-doen.png'
+import Melding from '@/modules/onboarding/assets/images/screenshot-melding.png'
 import Persoonlijk from '@/modules/onboarding/assets/images/screenshot-persoonlijk.png'
 import Relevant from '@/modules/onboarding/assets/images/screenshot-relevant.png'
+import Startscherm from '@/modules/onboarding/assets/images/screenshot-startscherm.png'
 import Werkzaamheden from '@/modules/onboarding/assets/images/screenshot-werkzaamheden.png'
 import {CarouselSlideItem} from '@/modules/onboarding/types'
 
 export const onboardingData: CarouselSlideItem[] = [
   {
     title: 'Amsterdam App',
-    description:
-      'Snel en gemakkelijk informatie opzoeken, werkzaamheden bekijken en meldingen doen.',
-    image: AmsterdamApp,
+    description: 'Informatie en diensten binnen handbereik.',
+    image: Startscherm,
   },
   {
     title: 'Persoonlijk',
@@ -37,6 +36,6 @@ export const onboardingData: CarouselSlideItem[] = [
   {
     title: 'Melding doen',
     description: 'Overlast? Iets kapot? Vertel het ons via de app.',
-    image: MeldingDoen,
+    image: Melding,
   },
 ]
