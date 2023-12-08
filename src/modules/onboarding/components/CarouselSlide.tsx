@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import AmsterdamHuisjesHorizontal from '@/assets/images/amsterdam-huisjes-horizontal.svg'
+import AmsterdamHuisjesBackground from '@/assets/images/amsterdam-huisjes-background.svg'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
@@ -55,7 +55,7 @@ export const CarouselSlide = ({
   return (
     <View style={styles.content}>
       <View style={styles.backgroundImageContainer}>
-        <AmsterdamHuisjesHorizontal />
+        <AmsterdamHuisjesBackground />
       </View>
       <Track
         align={isPortrait ? 'start' : 'center'}
