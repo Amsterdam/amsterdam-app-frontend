@@ -1,4 +1,3 @@
-import {View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {useTooltip} from '@/components/ui/feedback/tooltip/useTooltip'
@@ -98,7 +97,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
             />
           }
           onPress={toggleTooltip}
-          ref={ref => setAutoFocusRef(ref as View)}
+          ref={setAutoFocusRef}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>

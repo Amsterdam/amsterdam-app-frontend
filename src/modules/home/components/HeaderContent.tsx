@@ -33,7 +33,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
       gutter="lg"
       valign="center">
       <View
-        ref={ref => setAutoFocusRef(ref as View)}
+        ref={setAutoFocusRef}
         style={styles.sideColumn}>
         {!!back && (
           <IconButton
