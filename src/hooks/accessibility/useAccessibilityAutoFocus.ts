@@ -1,5 +1,11 @@
 import {useFocusEffect} from '@react-navigation/core'
-import {Component, useCallback, useLayoutEffect, useState} from 'react'
+import {
+  Component,
+  RefCallback,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from 'react'
 import {Platform} from 'react-native'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
@@ -16,7 +22,7 @@ export const useAccessibilityAutoFocus = <T extends Component>({
   platform,
 }: UseAccessibilityFocusProps = {}) => {
   const dispatch = useDispatch()
-  const [focusRef, setFocusRef] = useState<Component<T>>()
+  const [focusRef, setFocusRef] = useState<T>()
 
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const [isFocus, setIsFocus] = useState(false)
@@ -76,10 +82,10 @@ export const useAccessibilityAutoFocus = <T extends Component>({
     platform,
   ])
 
-  return useCallback(
-    (component: Component | null) => {
-      if (component && !focusRef) {
-        setFocusRef(component as Component<T>)
+  return useCallback<RefCallback<T>>(
+    ref => {
+      if (ref && !focusRef) {
+        setFocusRef(ref)
       }
     },
     [focusRef],
