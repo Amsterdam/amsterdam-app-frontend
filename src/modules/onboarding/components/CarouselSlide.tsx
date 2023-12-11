@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import AmsterdamHuisjesHorizontal from '@/assets/images/amsterdam-huisjes-horizontal.svg'
+import AmsterdamHuisjesBackground from '@/assets/images/amsterdam-huisjes-background.svg'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
@@ -44,7 +44,7 @@ export const CarouselSlide = ({
   const styles = useThemable(
     createStyles({width, index, carouselLength, isImageVisible, isPortrait}),
   )
-  const setAccessibilityAutoFocus = useAccessibilityAutoFocus({
+  const setAccessibilityAutoFocus = useAccessibilityAutoFocus<View>({
     isActive: isCurrentSlide,
   })
   const isLargeFontScale = fontScale >= 1.5
@@ -53,11 +53,9 @@ export const CarouselSlide = ({
   const ContentView = isMediumFontScale ? ScrollView : View
 
   return (
-    <View
-      ref={slideRef => !!slideRef && setAccessibilityAutoFocus(slideRef)}
-      style={styles.content}>
+    <View style={styles.content}>
       <View style={styles.backgroundImageContainer}>
-        <AmsterdamHuisjesHorizontal />
+        <AmsterdamHuisjesBackground />
       </View>
       <Track
         align={isPortrait ? 'start' : 'center'}
@@ -73,8 +71,12 @@ export const CarouselSlide = ({
             <Box>
               <ContentView>
                 <Wrapper>
-                  <Title text={title} />
-                  <Phrase variant="intro">{description}</Phrase>
+                  <View
+                    accessible={true}
+                    ref={setAccessibilityAutoFocus}>
+                    <Title text={title} />
+                    <Phrase variant="intro">{description}</Phrase>
+                  </View>
                 </Wrapper>
               </ContentView>
             </Box>
@@ -119,6 +121,7 @@ const createStyles =
     return StyleSheet.create({
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
+        paddingVertical: isPortrait ? size.spacing.lg : size.spacing.no,
       },
       backgroundImageContainer: {
         position: 'absolute',
@@ -129,13 +132,16 @@ const createStyles =
           {
             translateX: -(index * width),
           },
+          {
+            translateY: -25,
+          },
         ],
         zIndex: -10,
       },
       content: {
         zIndex: 1000,
-        width: width,
-        paddingBottom: size.spacing.lg,
+        width,
+        paddingBottom: isPortrait ? size.spacing.lg : size.spacing.sm,
         overflow: 'hidden',
         position: 'relative',
       },
