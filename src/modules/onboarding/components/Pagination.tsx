@@ -27,15 +27,19 @@ export const Pagination = ({
       {Array.from({length: size}).map((_, index) => {
         const testId = `${e2eID}OnboardingPagination${index}`
 
-        return index === paginationIndex ? (
-          <View
-            accessibilityLabel={`Huidige slide, ${index + 1}`}
-            accessible={true}
-            key={index}
-            style={[styles.pagination, styles.paginationActivated]}
-            testID={testId}
-          />
-        ) : (
+        if (index === paginationIndex) {
+          return (
+            <View
+              accessibilityLabel={`Huidige slide, ${index + 1}`}
+              accessible={true}
+              key={index}
+              style={[styles.pagination, styles.paginationActivated]}
+              testID={testId}
+            />
+          )
+        }
+
+        return (
           <Pressable
             accessibilityLabel={`Ga naar slide, ${index + 1}`}
             disabled={paginationTapDisabled}

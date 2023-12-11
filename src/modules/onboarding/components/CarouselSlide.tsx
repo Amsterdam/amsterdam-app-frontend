@@ -74,7 +74,7 @@ export const CarouselSlide = ({
                   <View
                     accessible={true}
                     ref={contentRef =>
-                      setAccessibilityAutoFocus(contentRef as View)
+                      contentRef && setAccessibilityAutoFocus(contentRef)
                     }>
                     <Title text={title} />
                     <Phrase variant="intro">{description}</Phrase>
