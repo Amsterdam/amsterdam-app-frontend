@@ -23,7 +23,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
   /*
    * TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
    */
-  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
+  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
     isActive: !preventInitialFocus,
     platform: 'ios',
   })
