@@ -17,7 +17,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: true,
       latestVersion: '1.34.7',
-      supported: false,
+      supported: true,
     },
   },
   isLoading: false,
