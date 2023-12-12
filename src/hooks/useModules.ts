@@ -1,7 +1,4 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useMemo, useState} from 'react'
-// eslint-disable-next-line no-restricted-imports
-import {version as releaseVersion} from '@/../package.json'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAppState} from '@/hooks/useAppState'
 import {clientModules} from '@/modules/modules'
@@ -26,7 +23,7 @@ export const useModules = () => {
     isLoading,
     isSuccess,
     refetch,
-  } = useGetReleaseQuery(releaseVersion ?? skipToken)
+  } = useGetReleaseQuery()
   const serverModules = release?.modules
   const {sendSentryErrorLog} = useSentry()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)

@@ -201,19 +201,19 @@ const createStyles = (
   } & WithInsetProps,
 ) =>
   StyleSheet.create({
+    content: {
+      flex: 1,
+      paddingBottom: withBottomInset && !hasStickyFooter ? bottom : 0,
+      paddingTop: withTopInset && !hasStickyHeader ? top : 0,
+    },
+    keyboardAwareScrollView: {
+      flex: 1,
+    },
     screen: {
       flex: 1,
       paddingBottom: withBottomInset && hasStickyFooter ? bottom : 0,
       paddingLeft: withLeftInset ? left : 0,
       paddingRight: withRightInset ? right : 0,
       paddingTop: withTopInset && hasStickyHeader ? top : 0,
-    },
-    keyboardAwareScrollView: {
-      flex: 1,
-    },
-    content: {
-      flex: 1,
-      paddingBottom: withBottomInset && !hasStickyFooter ? bottom : 0,
-      paddingTop: withTopInset && !hasStickyHeader ? top : 0,
     },
   })
