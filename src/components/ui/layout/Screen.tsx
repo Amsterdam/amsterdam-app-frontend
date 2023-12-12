@@ -2,7 +2,7 @@ import {FC, MutableRefObject, ReactNode, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {selectSeenTips} from '@/components/features/product-tour/product-tour.slice'
+import {selectSeenTips} from '@/components/features/product-tour/slice'
 import {Tip} from '@/components/features/product-tour/types'
 import {
   KeyboardAwareTrackScrollView,

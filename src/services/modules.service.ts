@@ -3,6 +3,12 @@ import {version} from '@/../package.json'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
 
+export type VersionInfo = {
+  deprecated: boolean
+  latest: string
+  supported: boolean
+}
+
 export type ModulesResponse = {
   created: string
   modified: string
@@ -11,11 +17,7 @@ export type ModulesResponse = {
   releaseNotes: string
   unpublished: string
   version: string
-  versionInfo: {
-    deprecated: boolean
-    latest: string
-    supported: boolean
-  }
+  versionInfo: VersionInfo
 }
 
 export const modulesApi = baseApi.injectEndpoints({
