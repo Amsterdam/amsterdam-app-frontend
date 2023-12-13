@@ -1,3 +1,4 @@
+import {Platform} from 'react-native'
 import {
   WebView as WebViewRN,
   WebViewProps as WebViewRNProps,
@@ -17,15 +18,19 @@ type Props = {
   'renderLoading' | 'source' | 'startInLoadingState' | 'style'
 >
 
-const webViewInjection = (
-  fontScale: number,
-  injectedJavaScript?: string,
-) => `(function() {
-  ${injectedJavaScript ?? ''}
-  document.getElementsByTagName("html")[0].style.fontSize = "${
-    fontScale * 100
-  }%";
-})()`
+const webViewInjection = (fontScale: number, injectedJavaScript?: string) => {
+  const iosFontScaleScript = `
+      document.getElementsByTagName("html")[0].style.fontSize = "${
+        fontScale * 100
+      }%";
+    `
+  const iosFontScale = Platform.OS === 'ios' ? iosFontScaleScript : ''
+
+  return `(function() {
+    ${injectedJavaScript ?? ''}
+    ${iosFontScale}
+  })()`
+}
 
 export const WebView = ({
   sliceFromTop,
@@ -54,6 +59,7 @@ export const WebView = ({
             : -sliceFromTop.landscape,
         }
       }
+      textZoom={fontScale * 100}
       {...webViewProps}
       injectedJavaScript={webViewInjection(fontScale, injectedJavaScript)}
     />
