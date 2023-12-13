@@ -16,7 +16,6 @@ type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 const injectedJavaScript = `
   window.postMessage = function(data) {
     window.ReactNativeWebView.postMessage(data);
-    alert('hi');
   };`
 
 const signalsCloseMessage = 'signals/close'
