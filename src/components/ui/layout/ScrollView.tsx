@@ -20,7 +20,7 @@ export const ScrollView = ({
   return (
     <RNScrollView
       contentContainerStyle={!!grow && layoutStyles.grow}
-      keyboardShouldPersistTaps={!!grow && 'handled'}
+      keyboardShouldPersistTaps={grow ? 'handled' : 'never'}
       scrollIndicatorInsets={{right: Number.MIN_VALUE}}
       style={[withBottomInset && {paddingBottom: insets.bottom}]}
       {...scrollViewProps}>
