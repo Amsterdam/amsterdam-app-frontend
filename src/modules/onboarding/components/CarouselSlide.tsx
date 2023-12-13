@@ -59,6 +59,7 @@ export const CarouselSlide = ({
       </View>
       <Track
         align={isPortrait ? 'start' : 'center'}
+        disableScreenReaderCheck
         flex={1}
         gutter={isPortrait ? 'no' : 'lg'}
         reverse={!isPortrait}>
