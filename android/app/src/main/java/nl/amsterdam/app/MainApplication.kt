@@ -1,6 +1,6 @@
 package nl.amsterdam.app
 
-import nl.amsterdam.app.textinput.RCTEditTextPackage;
+import nl.amsterdam.app.textinput.RCTEditTextPackage
 import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -19,7 +19,10 @@ class MainApplication : Application(), ReactApplication {
     object : DefaultReactNativeHost(this) {
       override fun getPackages(): List<ReactPackage> {
         // Packages that cannot be autolinked yet can be added manually here, for example:
-        packages.add(new RCTEditTextPackage());
+
+        // TO DO: fix RCTEditTextPackage
+        // packages.add(new RCTEditTextPackage())
+        
         return PackageList(this).packages
       }
 
