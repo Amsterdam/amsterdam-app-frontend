@@ -119,7 +119,7 @@ const createStyles =
           (hasFocus ? borderWidth(false) - borderWidth(true) : 0),
         paddingHorizontal: size.spacing.md,
         backgroundColor: color.box.background.white,
-        borderBottomStyle: 'solid',
+        borderStyle: 'solid',
         borderBottomColor: hasFocus
           ? color.control.focus.border
           : color.control.default.border,

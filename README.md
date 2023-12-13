@@ -10,12 +10,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - from Azure: `git clone git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App amsterdam-app-frontend`
   - or from GitHub: `git clone git@github.com:Amsterdam/amsterdam-app-frontend.git` (please check if it is up to date)
 - Set Node version
-  - Install the used node version:
-    - Linux/MacOS: `nvm install`
-    - Windows: `nvm install $(Get-Content .nvmrc)`
-  - Select the used node version
-    - Linux/MacOS: `nvm use`
-    - Windows: `nvm use $(Get-Content .nvmrc)`
+  - Install Volta (https://volta.sh/) and make sure it has set the correct Node version (see package.json)
 - Install Node dependencies: `npm i`.
 - For iOS development, install other dependencies:
   - Check if you have Ruby Gems (`gem -v`), if not, install via homebrew `brew install brew-gem` or <https://rubygems.org/>

@@ -21,9 +21,13 @@ export const sortSourcesByWidthAscending = (
  * This is the narrowest image that is wider than the available width, which is the width param times the device pixel density.
  */
 export const getUriForWidth = (
-  uriSources: ImageURISource | ImageURISource[],
   width: number,
+  uriSources?: ImageURISource | ImageURISource[],
 ) => {
+  if (!uriSources) {
+    return
+  }
+
   if (!Array.isArray(uriSources)) {
     return uriSources.uri
   }

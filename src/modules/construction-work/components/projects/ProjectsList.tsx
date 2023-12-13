@@ -99,7 +99,7 @@ type Props = {
   data?: ProjectsItem[]
   isError: boolean
   isLoading: boolean
-  listHeader?: JSX.Element
+  listHeader?: React.JSX.Element
   noResultsMessage?: string
   onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
   onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']

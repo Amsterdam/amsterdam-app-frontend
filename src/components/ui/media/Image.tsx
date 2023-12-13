@@ -30,7 +30,7 @@ type Props = {
 } & Omit<SupportedImageRNProps, 'style'>
 
 type CachedIosImageProps = {
-  uriSources: ImageURISource | ImageURISource[]
+  uriSources?: ImageURISource | ImageURISource[]
   width?: number
 } & Omit<SupportedImageRNProps, 'source'>
 
@@ -42,7 +42,7 @@ const CachedIosImage = ({
   ...imageProps
 }: CachedIosImageProps) => {
   const uri = useMemo(
-    () => getUriForWidth(uriSources, width),
+    () => getUriForWidth(width, uriSources),
     [uriSources, width],
   )
 
