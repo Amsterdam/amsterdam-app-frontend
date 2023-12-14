@@ -13,11 +13,10 @@ import {useEnvironment} from '@/store/slices/environment'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
-const injectedJavaScript = `(function() {
+const injectedJavaScript = `
   window.postMessage = function(data) {
-  window.ReactNativeWebView.postMessage(data);
-};
-})()`
+    window.ReactNativeWebView.postMessage(data);
+  };`
 
 const signalsCloseMessage = 'signals/close'
 
