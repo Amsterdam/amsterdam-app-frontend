@@ -4,7 +4,9 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Common} from '@/types/utils'
 
-type TrackProps = Common<ColumnProps, RowProps>
+type TrackProps = {
+  alwaysDisplayAsRowForScreenReader?: boolean
+} & Common<ColumnProps, RowProps>
 
 /**
  *  Renders a column on a device in portrait mode, or a row on a device in landscape mode.
@@ -16,11 +18,18 @@ type TrackProps = Common<ColumnProps, RowProps>
  *
  *  @example <Track gutter="lg">…</Track>
  */
-export const Track = ({children, ...props}: TrackProps) => {
+export const Track = ({
+  children,
+  alwaysDisplayAsRowForScreenReader = false,
+  ...props
+}: TrackProps) => {
   const {isPortrait} = useDeviceContext()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  if (isPortrait || isScreenReaderEnabled) {
+  if (
+    isPortrait ||
+    (isScreenReaderEnabled && !alwaysDisplayAsRowForScreenReader)
+  ) {
     return <Column {...props}>{children}</Column>
   }
 
