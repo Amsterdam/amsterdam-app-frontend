@@ -5,7 +5,7 @@ import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Common} from '@/types/utils'
 
 type TrackProps = {
-  disableScreenReaderCheck?: boolean
+  alwaysDisplayAsRowForScreenReader?: boolean
 } & Common<ColumnProps, RowProps>
 
 /**
@@ -20,13 +20,16 @@ type TrackProps = {
  */
 export const Track = ({
   children,
-  disableScreenReaderCheck = false,
+  alwaysDisplayAsRowForScreenReader = false,
   ...props
 }: TrackProps) => {
   const {isPortrait} = useDeviceContext()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  if (isPortrait || (isScreenReaderEnabled && !disableScreenReaderCheck)) {
+  if (
+    isPortrait ||
+    (isScreenReaderEnabled && !alwaysDisplayAsRowForScreenReader)
+  ) {
     return <Column {...props}>{children}</Column>
   }
 
