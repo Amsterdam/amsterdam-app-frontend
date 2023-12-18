@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {LayoutRectangle} from 'react-native'
+import {LayoutRectangle, View} from 'react-native'
 import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
 import {Tip} from '@/components/features/onboarding/types'
 import {AddButton} from '@/components/ui/buttons/AddButton'
@@ -20,21 +20,23 @@ export const HomeScreen = () => {
   return (
     <Screen
       stickyFooter={
-        <OnboardingTipWrapper
-          onboardingTipTargetLayout={onboardingTipTargetLayout}
-          placement={Placement.above}
-          testID="HomeModuleSettingsButtonTooltip"
-          text={ONBOARDING_TIP}
-          tipSlug={Tip.homeModuleSettingsButton}>
-          <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
-            <AddButton
-              accessibilityHint={ONBOARDING_TIP}
-              accessibilityLabel="Instellingen"
-              onPress={() => navigation.navigate(HomeRouteName.settings)}
-              testID="HomeModuleSettingsButton"
-            />
-          </Box>
-        </OnboardingTipWrapper>
+        <View>
+          <OnboardingTipWrapper
+            onboardingTipTargetLayout={onboardingTipTargetLayout}
+            placement={Placement.above}
+            testID="HomeModuleSettingsButtonTooltip"
+            text={ONBOARDING_TIP}
+            tipSlug={Tip.homeModuleSettingsButton}>
+            <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
+              <AddButton
+                accessibilityHint={ONBOARDING_TIP}
+                accessibilityLabel="Instellingen"
+                onPress={() => navigation.navigate(HomeRouteName.settings)}
+                testID="HomeModuleSettingsButton"
+              />
+            </Box>
+          </OnboardingTipWrapper>
+        </View>
       }>
       <Modules />
     </Screen>
