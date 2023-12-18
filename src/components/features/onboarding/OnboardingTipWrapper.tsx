@@ -6,11 +6,7 @@ import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {
-  selectSeenTips,
-  addSeenTip,
-  resetSeenTips,
-} from '@/store/slices/product-tour.slice'
+import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
@@ -40,34 +36,27 @@ export const OnboardingTipWrapper = ({
     dispatch(addSeenTip(tipSlug))
   }, [dispatch, tipSlug])
 
-  // TODO: uncomment following lines when developing #99108
-  // useEffect(
-  //   () => () => {
-  //     handleHasSeenTip()
-  //   },
-  //   [handleHasSeenTip],
-  // )
-
-  // TODO: remove following lines when developing #99108
-  useEffect(() => {
-    dispatch(resetSeenTips())
-  }, [dispatch])
+  useEffect(
+    () => () => {
+      handleHasSeenTip()
+    },
+    [handleHasSeenTip],
+  )
 
   return (
     <>
-      {!!hasSeenTip &&
-        !isScreenReaderEnabled && ( // TODO replace !!hasSeenTip with !hasSeenTip when developing #99108
-          <Tooltip
-            accessibilityLabel={text}
-            extraSpace={extraSpace}
-            fadeIn
-            onboardingTipTargetLayout={onboardingTipTargetLayout}
-            onPress={handleHasSeenTip}
-            placement={placement}
-            testID={testID}
-            text={text}
-          />
-        )}
+      {!hasSeenTip && !isScreenReaderEnabled && (
+        <Tooltip
+          accessibilityLabel={text}
+          extraSpace={extraSpace}
+          fadeIn
+          onboardingTipTargetLayout={onboardingTipTargetLayout}
+          onPress={handleHasSeenTip}
+          placement={placement}
+          testID={testID}
+          text={text}
+        />
+      )}
       {children}
     </>
   )
