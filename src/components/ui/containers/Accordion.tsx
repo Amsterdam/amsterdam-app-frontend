@@ -44,6 +44,7 @@ type AccordionProps = {
   children: ReactNode | undefined
   grow?: boolean
   initiallyExpanded?: boolean
+  isExpandable?: boolean
   onChangeExpanded?: (state: boolean) => void
   title: string
 }
@@ -51,12 +52,12 @@ type AccordionProps = {
 export const Accordion = ({
   grow,
   initiallyExpanded,
+  isExpandable = true,
   onChangeExpanded,
   children,
   title,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
-  const isExpandable = children !== undefined
   const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
   const {text} = useTheme()
 
