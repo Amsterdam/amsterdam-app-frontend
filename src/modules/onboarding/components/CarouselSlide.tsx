@@ -72,12 +72,11 @@ export const CarouselSlide = ({
             <Box>
               <ContentView>
                 <Wrapper>
-                  <View
-                    accessible={true}
-                    ref={setAccessibilityAutoFocus}>
-                    <Title text={title} />
-                    <Phrase variant="intro">{description}</Phrase>
-                  </View>
+                  <Title
+                    ref={setAccessibilityAutoFocus}
+                    text={title}
+                  />
+                  <Phrase variant="intro">{description}</Phrase>
                 </Wrapper>
               </ContentView>
             </Box>
