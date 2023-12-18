@@ -46,7 +46,7 @@
     "pascal-case": "^3.1.2",
     "react": "18.2.0",
     "react-hook-form": "^7.43.0",
-    "react-native": "0.73.0",
+    "react-native": "0.73.1",
     "react-native-bootsplash": "^4.4.2",
     "react-native-build-config": "^0.3.2",
     "react-native-device-info": "^9.0.2",
