@@ -36,12 +36,7 @@ export const OnboardingTipWrapper = ({
     dispatch(addSeenTip(tipSlug))
   }, [dispatch, tipSlug])
 
-  useEffect(
-    () => () => {
-      handleHasSeenTip()
-    },
-    [handleHasSeenTip],
-  )
+  useEffect(() => handleHasSeenTip, [handleHasSeenTip])
 
   return (
     <>
