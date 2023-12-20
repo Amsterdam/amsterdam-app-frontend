@@ -34,4 +34,10 @@ describe('formatPhoneNumber', () => {
   it('returns a text string', () => {
     expect(formatPhoneNumber('phone number')).toEqual('phone number')
   })
+  it('formats a landline number with +31 prefix', () => {
+    expect(formatPhoneNumber('+31201234567')).toEqual('020 123 4567')
+  })
+  it('formats a mobile phone number with +31 prefix', () => {
+    expect(formatPhoneNumber('+31612345678')).toEqual('06 1234 5678')
+  })
 })

@@ -21,6 +21,22 @@ export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
     return '020 25 15 020'
   }
 
+  if (phoneNumber.startsWith('+316')) {
+    return [
+      '06',
+      phoneNumber.substring(4, 8),
+      phoneNumber.substring(8, 12),
+    ].join(' ')
+  }
+
+  if (phoneNumber.startsWith('+3120')) {
+    return [
+      '020',
+      phoneNumber.substring(5, 8),
+      phoneNumber.substring(8, 12),
+    ].join(' ')
+  }
+
   if (phoneNumber.length === 10) {
     if (phoneNumber.startsWith('06')) {
       return [
