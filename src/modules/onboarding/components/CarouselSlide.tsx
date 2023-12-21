@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {AmsterdamHuisjesBackground} from '@/assets/images/amsterdam-huisjes-background'
+import {AmsterdamHuisjesBackground} from '@/assets/images/AmsterdamHuisjesBackground'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
