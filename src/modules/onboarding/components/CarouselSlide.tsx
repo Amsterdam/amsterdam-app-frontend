@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import AmsterdamHuisjesBackground from '@/assets/images/amsterdam-huisjes-background.svg'
+import {AmsterdamHuisjesBackground} from '@/assets/images/amsterdam-huisjes-background'
 import {Box} from '@/components/ui/containers/Box'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Center} from '@/components/ui/layout/Center'
@@ -19,7 +19,6 @@ import {useThemable} from '@/themes/useThemable'
 const MIN_IMAGE_HEiGHT = 350
 
 type Props = {
-  carouselLength: number
   fontScale: number
   index: number
   isCurrentSlide: boolean
@@ -30,7 +29,6 @@ type Props = {
 
 export const CarouselSlide = ({
   item: {image, description, title},
-  carouselLength,
   isCurrentSlide,
   index,
   width,
@@ -41,10 +39,8 @@ export const CarouselSlide = ({
   const isImageVisible = isPortrait
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
-  const styles = useThemable(
-    createStyles({width, index, carouselLength, isImageVisible, isPortrait}),
-  )
-  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
+  const styles = useThemable(createStyles({width, isImageVisible, isPortrait}))
+  const setAccessibilityAutoFocus = useAccessibilityAutoFocus<View>({
     isActive: isCurrentSlide,
   })
   const isLargeFontScale = fontScale >= 1.5
@@ -55,7 +51,10 @@ export const CarouselSlide = ({
   return (
     <View style={styles.content}>
       <View style={styles.backgroundImageContainer}>
-        <AmsterdamHuisjesBackground />
+        <AmsterdamHuisjesBackground
+          index={index}
+          width={width}
+        />
       </View>
       <Track
         align={isPortrait ? 'start' : 'center'}
@@ -73,7 +72,7 @@ export const CarouselSlide = ({
               <ContentView>
                 <Wrapper>
                   <Title
-                    ref={setAccessibilityAutoFocusRef}
+                    ref={setAccessibilityAutoFocus}
                     text={title}
                   />
                   <Phrase variant="intro">{description}</Phrase>
@@ -106,36 +105,23 @@ export const CarouselSlide = ({
 }
 
 type StyleProps = {
-  carouselLength: number
-  index: number
   isImageVisible: number | boolean | undefined
   isPortrait: boolean
   width: number
 }
 
 const createStyles =
-  ({width, carouselLength, index, isImageVisible, isPortrait}: StyleProps) =>
-  ({size}: Theme) => {
-    const backgroundWidth = carouselLength * width
-
-    return StyleSheet.create({
+  ({width, isImageVisible, isPortrait}: StyleProps) =>
+  ({size}: Theme) =>
+    StyleSheet.create({
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
         paddingVertical: isPortrait ? size.spacing.lg : size.spacing.no,
       },
       backgroundImageContainer: {
         position: 'absolute',
-        bottom: isPortrait ? 0 : undefined,
+        bottom: '15%',
         height: isPortrait ? '50%' : '100%',
-        width: backgroundWidth,
-        transform: [
-          {
-            translateX: -(index * width),
-          },
-          {
-            translateY: -25,
-          },
-        ],
         zIndex: -10,
       },
       content: {
@@ -146,4 +132,3 @@ const createStyles =
         position: 'relative',
       },
     })
-  }

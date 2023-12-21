@@ -33,7 +33,6 @@ export const Carousel = forwardRef<SwiperFlatList, Props>(
         ref={ref}
         renderItem={({item, index}: CarouselItem) => (
           <CarouselSlide
-            carouselLength={items.length}
             fontScale={fontScale}
             index={index}
             isCurrentSlide={index === slideIndex}
