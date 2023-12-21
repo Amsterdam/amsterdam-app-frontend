@@ -29,9 +29,11 @@ export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
     ].join(' ')
   }
 
-  if (phoneNumber.startsWith('+3120')) {
+  if (phoneNumber.startsWith('+31')) {
+    const extractedAreaCode = `0${phoneNumber.substring(3, 5)}`
+
     return [
-      '020',
+      extractedAreaCode,
       phoneNumber.substring(5, 8),
       phoneNumber.substring(8, 12),
     ].join(' ')
