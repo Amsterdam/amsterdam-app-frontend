@@ -1,5 +1,6 @@
 import {Alert, Linking, Platform} from 'react-native'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {SentryLogKey} from '@/types/sentry'
 
 export type OpenPhoneUrl = (phoneNumber: string) => void
 
@@ -17,7 +18,7 @@ export const useOpenPhoneUrl = (): OpenPhoneUrl => {
 
     Linking.openURL(phoneUrl).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog('useOpenPhoneUrl error', 'useOpenPhoneUrl.ts', {
+      sendSentryErrorLog(SentryLogKey.openPhoneUrl, 'useOpenPhoneUrl.ts', {
         phoneUrl,
       })
     })

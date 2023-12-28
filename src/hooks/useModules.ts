@@ -11,6 +11,7 @@ import {
   selectAuthorizedModules,
   selectDisabledModules,
 } from '@/store/slices/modules'
+import {SentryLogKey} from '@/types/sentry'
 import {postProcessModules} from '@/utils/modules'
 
 const MAX_RETRIES = 3
@@ -51,7 +52,7 @@ export const useModules = () => {
 
   useEffect(() => {
     if (error) {
-      sendSentryErrorLog('useGetModulesForAppQuery error', 'useModules.ts', {
+      sendSentryErrorLog(SentryLogKey.getModulesForAppQuery, 'useModules.ts', {
         error,
         retriesRemaining,
         serverModules,

@@ -1,5 +1,6 @@
 import {Alert, Linking} from 'react-native'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {SentryLogKey} from '@/types/sentry'
 
 export type OpenMailUrl = (emailAddress: string, subject?: string) => void
 
@@ -15,7 +16,7 @@ export const useOpenMailUrl = (): OpenMailUrl => {
 
     Linking.openURL(mailUrl).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog('useOpenMailUrl error', 'useOpenMailUrl.ts', {
+      sendSentryErrorLog(SentryLogKey.openMailUrl, 'useOpenMailUrl.ts', {
         mailUrl,
       })
     })

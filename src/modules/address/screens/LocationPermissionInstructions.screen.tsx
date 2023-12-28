@@ -10,6 +10,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
+import {SentryLogKey} from '@/types/sentry'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -32,7 +33,7 @@ export const LocationPermissionInstructionsScreen = () => {
           }
 
           sendSentryErrorLog(
-            'requestLocationPermission failed',
+            SentryLogKey.requestLocationPermission,
             'LocationPermissionInstructionsScreen.tsx',
             {error},
           )

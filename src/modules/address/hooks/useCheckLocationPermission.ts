@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {SentryLogKey} from '@/types/sentry'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -22,7 +23,7 @@ export const useCheckLocationPermission = () => {
 
         if (!getStatusFromError(error)) {
           sendSentryErrorLog(
-            'requestLocationPermission failed',
+            SentryLogKey.locationPermission,
             'useCheckLocationPermission.ts',
             {error},
           )

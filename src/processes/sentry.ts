@@ -24,6 +24,8 @@ import {
   BreadcrumbCategory,
   CaptureBreadcrumb,
   SendErrorLog,
+  SentryLogKey,
+  sentryWhitelist,
 } from '@/types/sentry'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
@@ -114,7 +116,8 @@ export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (message, filename, data) => {
     devLog('sendSentryErrorLog', message, filename, data)
-    const extraData = logData ? data : undefined
+
+    const extraData = logData ? sentryWhitelist[message] : undefined
 
     withScope(scope => {
       scope.setContext('data', {filename, ...extraData})
@@ -138,25 +141,26 @@ export const sentryLoggerMiddleware: Middleware =
     if (isRejectedWithValue(action)) {
       // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
       const consent = true
-      let error = 'Rejected RTK action'
+      // let error = 'Rejected RTK action'
       let dataWithDangerousSentryScrubbingOverride
 
-      if ((action.meta.arg as {endpointName: string})?.endpointName) {
-        error = `${
-          (action.payload as {originalStatus: string})?.originalStatus ??
-          'Error'
-        } for ${(action.meta.arg as {endpointName: string}).endpointName}`
+      // @TODO: SentryWhiteList fix
+      // if ((action.meta.arg as {endpointName: string})?.endpointName) {
+      //   error = `${
+      //     (action.payload as {originalStatus: string})?.originalStatus ??
+      //     'Error'
+      //   } for ${(action.meta.arg as {endpointName: string}).endpointName}`
 
-        // temporarily log additional data for getModulesForApp
-        if (
-          (action.meta.arg as {endpointName: string}).endpointName ===
-          'getModulesForApp'
-        ) {
-          dataWithDangerousSentryScrubbingOverride = (
-            action.meta as unknown as {baseQueryMeta: unknown}
-          ).baseQueryMeta
-        }
-      }
+      //   // temporarily log additional data for getModulesForApp
+      //   if (
+      //     (action.meta.arg as {endpointName: string}).endpointName ===
+      //     'getModulesForApp'
+      //   ) {
+      //     dataWithDangerousSentryScrubbingOverride = (
+      //       action.meta as unknown as {baseQueryMeta: unknown}
+      //     ).baseQueryMeta
+      //   }
+      // }
 
       const url = sanitizeUrl(
         (
@@ -175,14 +179,18 @@ export const sentryLoggerMiddleware: Middleware =
 
         setTag('endpoint', endpoint)
         setTag('status', status)
-        getSendSentryErrorLog(!!consent)(error, 'sentry.ts', {
-          ...action,
-          endpoint,
-          status,
-          url,
+        getSendSentryErrorLog(!!consent)(
+          SentryLogKey.sentryMiddleWareError,
+          'sentry.ts',
+          {
+            ...action,
+            endpoint,
+            status,
+            url,
 
-          dataWithDangerousSentryScrubbingOverride,
-        })
+            dataWithDangerousSentryScrubbingOverride,
+          },
+        )
         setTag('endpoint', undefined)
         setTag('status', undefined)
       }

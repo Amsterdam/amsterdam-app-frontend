@@ -3,6 +3,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
 import {setNoLocationPermissionForAndroid} from '@/modules/address/slice'
+import {SentryLogKey} from '@/types/sentry'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -19,7 +20,7 @@ export const useResetLocationPermissionForAndroid = () => {
         .catch((error: unknown) => {
           if (!getStatusFromError(error)) {
             sendSentryErrorLog(
-              'Check location permission on foreground failed',
+              SentryLogKey.resetLocationPermissionAndroid,
               'useResetLocationPermissionForAndroid.android.ts',
               {error},
             )

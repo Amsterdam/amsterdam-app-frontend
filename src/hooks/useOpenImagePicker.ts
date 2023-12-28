@@ -8,6 +8,7 @@ import {
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSentry} from '@/hooks/sentry/useSentry'
 import {setAlert} from '@/store/slices/alert'
+import {SentryLogKey} from '@/types/sentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
 const DEFAULT_OPTIONS: ImageCropPickerOptions = {
@@ -89,7 +90,9 @@ export const useOpenImagePicker = (
         }),
       )
       sendSentryErrorLog(
-        viaCamera ? 'Taking photo failed' : 'Picking image from device failed',
+        viaCamera
+          ? SentryLogKey.takingPhotoFailed
+          : SentryLogKey.pickingImageFailed,
         'useOpenImagePicker.ts',
         {error, code, viaCamera},
       )

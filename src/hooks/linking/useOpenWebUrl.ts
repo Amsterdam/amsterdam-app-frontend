@@ -1,5 +1,6 @@
 import {Alert, Linking} from 'react-native'
 import {useSentry} from '@/hooks/sentry/useSentry'
+import {SentryLogKey} from '@/types/sentry'
 
 export type OpenWebUrl = (url: string) => void
 
@@ -9,7 +10,7 @@ export const useOpenWebUrl = (): OpenWebUrl => {
   return (url: string) => {
     Linking.openURL(url).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog('useOpenWebUrl error', 'useOpenWebUrl.ts', {url})
+      sendSentryErrorLog(SentryLogKey.openWebUrl, 'useOpenWebUrl.ts', {url})
     })
   }
 }

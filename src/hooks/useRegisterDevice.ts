@@ -6,6 +6,7 @@ import {
   useRegisterDeviceMutation,
   useUnregisterDeviceMutation,
 } from '@/services/deviceRegistration.service'
+import {SentryLogKey} from '@/types/sentry'
 
 export const useRegisterDevice = (requestPermission = true) => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
@@ -26,7 +27,7 @@ export const useRegisterDevice = (requestPermission = true) => {
       .then(registerDevice)
       .catch((error: unknown) => {
         sendSentryErrorLog(
-          'Register device for push notifications failed',
+          SentryLogKey.registerDevice,
           'useRegisterDevice.ts',
           {
             error,
