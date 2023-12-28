@@ -25,8 +25,8 @@ import {
   CaptureBreadcrumb,
   SendErrorLog,
   SentryLogKey,
-  sentryWhitelist,
 } from '@/types/sentry'
+import {sentryLogData} from '@/utils/sentryLog'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -117,7 +117,7 @@ export const getSendSentryErrorLog =
   (message, filename, data) => {
     devLog('sendSentryErrorLog', message, filename, data)
 
-    const extraData = logData ? sentryWhitelist[message] : undefined
+    const extraData = logData ? sentryLogData(message, data) : undefined
 
     withScope(scope => {
       scope.setContext('data', {filename, ...extraData})
