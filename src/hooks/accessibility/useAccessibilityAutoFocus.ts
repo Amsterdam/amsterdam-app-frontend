@@ -84,7 +84,7 @@ export const useAccessibilityAutoFocus = <T extends Component>({
 
   return useCallback<RefCallback<T>>(
     ref => {
-      if (ref && !focusRef) {
+      if (ref && ref !== focusRef) {
         setFocusRef(ref)
       }
     },
