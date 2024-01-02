@@ -6,9 +6,9 @@ import {
   PermissionStatus,
   requestLocationAccuracy,
 } from 'react-native-permissions'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
-import {SentryLogKey} from '@/types/sentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
@@ -65,7 +65,7 @@ export const useGetCurrentCoordinates = (
                 const {code, message} = error
 
                 sendSentryErrorLog(
-                  SentryLogKey.currentCoordinates,
+                  SentryErrorLogKey.currentCoordinates,
                   'useGetCurrentPosition.ts',
                   {code, message},
                 )

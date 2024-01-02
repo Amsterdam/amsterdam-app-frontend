@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {AccessibilityInfo} from 'react-native'
-import {useSentry} from '@/hooks/sentry/useSentry'
-import {SentryLogKey} from '@/types/sentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 
 export const useIsScreenReaderEnabled = () => {
   const [enabled, setEnabled] = useState(false)
@@ -12,7 +12,7 @@ export const useIsScreenReaderEnabled = () => {
       .then(setEnabled)
       .catch((error: unknown) =>
         sendSentryErrorLog(
-          SentryLogKey.isScreenReaderEnabled,
+          SentryErrorLogKey.isScreenReaderEnabled,
           'useIsScreenReaderEnabled.ts',
           {error},
         ),

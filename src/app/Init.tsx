@@ -1,12 +1,12 @@
 import {ReactNode, useMemo} from 'react'
 import {AppStateStatus} from 'react-native'
-import {useInitSentry} from '@/hooks/sentry/useInitSentry'
 import {useAppState} from '@/hooks/useAppState'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
 import {usePiwik} from '@/hooks/usePiwik'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
+import {useInitSentry} from '@/processes/sentry/hooks/useInitSentry'
 
 type Props = {children: ReactNode}
 

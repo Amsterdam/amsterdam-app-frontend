@@ -3,15 +3,15 @@ import {useEffect, useMemo, useState} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {version as releaseVersion} from '@/../package.json'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
 import {clientModules} from '@/modules/modules'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {useGetReleaseQuery} from '@/services/modules.service'
 import {
   selectAuthorizedModules,
   selectDisabledModules,
 } from '@/store/slices/modules'
-import {SentryLogKey} from '@/types/sentry'
 import {postProcessModules} from '@/utils/modules'
 
 const MAX_RETRIES = 3
@@ -52,11 +52,15 @@ export const useModules = () => {
 
   useEffect(() => {
     if (error) {
-      sendSentryErrorLog(SentryLogKey.getModulesForAppQuery, 'useModules.ts', {
-        error,
-        retriesRemaining,
-        serverModules,
-      })
+      sendSentryErrorLog(
+        SentryErrorLogKey.getModulesForAppQuery,
+        'useModules.ts',
+        {
+          error,
+          retriesRemaining,
+          serverModules,
+        },
+      )
 
       if (retriesRemaining > 0) {
         void refetch()

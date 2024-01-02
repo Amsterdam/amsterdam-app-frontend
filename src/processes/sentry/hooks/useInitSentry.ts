@@ -1,13 +1,13 @@
 import NetInfo from '@react-native-community/netinfo'
 import {useEffect} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useSentry} from '@/hooks/sentry/useSentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {
   initSentry,
   setSentryBackEndEnvironment,
   setSentryUserData,
-} from '@/processes/sentry'
-import {BreadcrumbCategory} from '@/types/sentry'
+} from '@/processes/sentry/init'
+import {BreadCrumbKey, BreadcrumbCategory} from '@/processes/sentry/types'
 
 /**
  * Initialize Sentry and related listeners and side effects
@@ -31,7 +31,7 @@ export const useInitSentry = () => {
     () =>
       NetInfo.addEventListener(({isConnected, isInternetReachable}) => {
         captureSentryBreadcrumb(
-          'Internet connection change',
+          BreadCrumbKey.internetConnection,
           {isConnected, isInternetReachable},
           BreadcrumbCategory.internetConnection,
         )

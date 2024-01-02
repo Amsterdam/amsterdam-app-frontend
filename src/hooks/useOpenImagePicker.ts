@@ -6,9 +6,9 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSentry} from '@/hooks/sentry/useSentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {setAlert} from '@/store/slices/alert'
-import {SentryLogKey} from '@/types/sentry'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
 const DEFAULT_OPTIONS: ImageCropPickerOptions = {
@@ -91,8 +91,8 @@ export const useOpenImagePicker = (
       )
       sendSentryErrorLog(
         viaCamera
-          ? SentryLogKey.takingPhotoFailed
-          : SentryLogKey.pickingImageFailed,
+          ? SentryErrorLogKey.takingPhotoFailed
+          : SentryErrorLogKey.pickingImageFailed,
         'useOpenImagePicker.ts',
         {error, code, viaCamera},
       )

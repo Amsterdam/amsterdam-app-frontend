@@ -1,12 +1,12 @@
 import {useCallback} from 'react'
 import {PermissionStatus} from 'react-native-permissions'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {getFcmToken, getPushNotificationPermission} from '@/processes/firebase'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {
   useRegisterDeviceMutation,
   useUnregisterDeviceMutation,
 } from '@/services/deviceRegistration.service'
-import {SentryLogKey} from '@/types/sentry'
 
 export const useRegisterDevice = (requestPermission = true) => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
@@ -27,7 +27,7 @@ export const useRegisterDevice = (requestPermission = true) => {
       .then(registerDevice)
       .catch((error: unknown) => {
         sendSentryErrorLog(
-          SentryLogKey.registerDevice,
+          SentryErrorLogKey.registerDevice,
           'useRegisterDevice.ts',
           {
             error,
