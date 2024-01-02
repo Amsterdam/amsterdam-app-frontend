@@ -1,4 +1,4 @@
-import {ElementRef, ReactNode, forwardRef, useEffect, useRef} from 'react'
+import {ElementRef, ReactNode, forwardRef} from 'react'
 import {
   AccessibilityProps,
   LayoutRectangle,

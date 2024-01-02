@@ -19,6 +19,10 @@ import {useThemable} from '@/themes/useThemable'
 import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
+export type AlertBaseProps = {
+  inset?: keyof SpacingTokens
+} & AlertProps
+
 type WrapperProps = {
   children: ReactNode
   inset: AlertBaseProps['inset']
@@ -31,10 +35,6 @@ const Wrapper = ({children, inset}: WrapperProps) => {
 
   return <Fragment>{children}</Fragment>
 }
-
-export type AlertBaseProps = {
-  inset?: keyof SpacingTokens
-} & AlertProps
 
 export const AlertBase = ({
   hasCloseIcon = false,
@@ -58,6 +58,10 @@ export const AlertBase = ({
     }
   }, [setAccessibilityFocus])
 
+  if (!alert.content) {
+    return null
+  }
+
   return (
     <Wrapper inset={inset}>
       <View testID={`${testID}Wrapper`}>
@@ -65,7 +69,11 @@ export const AlertBase = ({
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
           accessible
-          ref={ref}
+          ref={component => {
+            if (alert.content) {
+              setAccessibilityFocus(component)
+            }
+          }}
           style={styles?.view}
           testID={testID}>
           <Row align="between">
