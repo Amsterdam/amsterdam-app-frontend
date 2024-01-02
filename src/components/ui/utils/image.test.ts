@@ -35,116 +35,104 @@ describe('sortSourcesByWidthAscending', () => {
 
 describe('getUriForWidth', () => {
   test('handle empty array', () => {
-    expect(getUriForWidth([], 100)).toBe(undefined)
+    expect(getUriForWidth(100, [])).toBe(undefined)
   })
   test('get first item larger than the width param, sorted input', () => {
     expect(
-      getUriForWidth(
-        [
-          {
-            height: 35,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
-            width: 80,
-          },
-          {
-            height: 97,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
-            width: 220,
-          },
-          {
-            height: 203,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/460px/940x415_keizersgracht.jpg',
-            width: 460,
-          },
-          {
-            height: 309,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/700px/940x415_keizersgracht.jpg',
-            width: 700,
-          },
-          {
-            height: 414,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/940x415_keizersgracht.jpg',
-            width: 940,
-          },
-        ],
-        100,
-      ),
+      getUriForWidth(100, [
+        {
+          height: 35,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
+          width: 80,
+        },
+        {
+          height: 97,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
+          width: 220,
+        },
+        {
+          height: 203,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/460px/940x415_keizersgracht.jpg',
+          width: 460,
+        },
+        {
+          height: 309,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/700px/940x415_keizersgracht.jpg',
+          width: 700,
+        },
+        {
+          height: 414,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/940x415_keizersgracht.jpg',
+          width: 940,
+        },
+      ]),
     ).toBe(
       'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
     )
   })
   test('get first item larger than the width param, unsorted input', () => {
     expect(
-      getUriForWidth(
-        [
-          {
-            height: 309,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/700px/940x415_keizersgracht.jpg',
-            width: 700,
-          },
-          {
-            height: 35,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
-            width: 80,
-          },
-          {
-            height: 414,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/940x415_keizersgracht.jpg',
-            width: 940,
-          },
-          {
-            height: 97,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
-            width: 220,
-          },
-          {
-            height: 203,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/460px/940x415_keizersgracht.jpg',
-            width: 460,
-          },
-        ],
-        100,
-      ),
+      getUriForWidth(100, [
+        {
+          height: 309,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/700px/940x415_keizersgracht.jpg',
+          width: 700,
+        },
+        {
+          height: 35,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
+          width: 80,
+        },
+        {
+          height: 414,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/940x415_keizersgracht.jpg',
+          width: 940,
+        },
+        {
+          height: 97,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
+          width: 220,
+        },
+        {
+          height: 203,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/460px/940x415_keizersgracht.jpg',
+          width: 460,
+        },
+      ]),
     ).toBe(
       'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
     )
   })
   test('width of zero returns undefined', () => {
     expect(
-      getUriForWidth(
-        [
-          {
-            height: 35,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
-            width: 80,
-          },
-          {
-            height: 97,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
-            width: 220,
-          },
-        ],
-        0,
-      ),
+      getUriForWidth(0, [
+        {
+          height: 35,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
+          width: 80,
+        },
+        {
+          height: 97,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
+          width: 220,
+        },
+      ]),
     ).toBe(undefined)
   })
   test('all items narrower than the width param, then get the widest', () => {
     expect(
-      getUriForWidth(
-        [
-          {
-            height: 35,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
-            width: 80,
-          },
-          {
-            height: 97,
-            uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
-            width: 220,
-          },
-        ],
-        10000,
-      ),
+      getUriForWidth(10000, [
+        {
+          height: 35,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/80px/940x415_keizersgracht.jpg',
+          width: 80,
+        },
+        {
+          height: 97,
+          uri: 'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
+          width: 220,
+        },
+      ]),
     ).toBe(
       'https://www.amsterdam.nl/publish/pages/949802/220px/940x415_keizersgracht.jpg',
     )

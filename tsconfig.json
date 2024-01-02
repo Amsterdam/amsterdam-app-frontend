@@ -30,5 +30,5 @@
     "__tests__/",
     "eslint-plugin-amsterdam"
   ],
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }

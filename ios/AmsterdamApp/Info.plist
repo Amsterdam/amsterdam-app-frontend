@@ -53,54 +53,28 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>app-amsterdam.nl</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
-			<key>masikh.org</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
-		</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot uw camera om foto’s te kunnen maken en te delen.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
+		<key>PreciseLocationAddressConstructionWork</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
 		<key>PreciseLocationAddressLookup</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om een adres op te zoeken.</string>
 		<key>PreciseLocationAddressWasteGuide</key>
 		<string>De Amsterdam app wil uw precieze locatie weten afvalinformatie bij u in de buurt te tonen.</string>
-		<key>PreciseLocationAddressConstructionWork</key>
-		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmsterdamSans-ExtraBold.otf</string>
