@@ -14,10 +14,12 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {City} from '@/modules/report-problem/types'
+import {useEnvironment} from '@/store/slices/environment'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 
 export const ReportProblemScreen = ({navigation}: Props) => {
+  const environment = useEnvironment()
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
   const {isPortrait} = useDeviceContext()
@@ -44,7 +46,9 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               Op{' '}
               <InlineLink
                 onPress={() =>
-                  openWebUrl('https://meldingen.amsterdam.nl/meldingenkaart')
+                  openWebUrl(
+                    environment.reportProblemAmsterdamUrl + '/meldingenkaart',
+                  )
                 }
                 testID="ReportProblemKnownProblemsMapLink">
                 de meldingenkaart
