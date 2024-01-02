@@ -1,19 +1,30 @@
-import {Component} from 'react'
+import {Component, useCallback} from 'react'
 import {findNodeHandle, AccessibilityInfo} from 'react-native'
-import {devError} from '@/processes/development'
+import {useSentry} from '@/hooks/sentry/useSentry'
 
 /** Set accessibility focus to element reference
  *
  * @param elementRef - React component reference
  */
-export const focusOnElement = (elementRef: Component) => {
-  const node = findNodeHandle(elementRef)
+export const useFocusOnElement = () => {
+  const {sendSentryErrorLog} = useSentry()
 
-  if (!node) {
-    devError('focusOnElement', 'node is not found')
+  return useCallback(
+    (elementRef: Component | null) => {
+      if (!elementRef) {
+        return
+      }
 
-    return
-  }
+      const node = findNodeHandle(elementRef)
 
-  AccessibilityInfo.setAccessibilityFocus(node)
+      if (!node) {
+        sendSentryErrorLog('Node not found for ref', 'useFocusOnElement')
+
+        return
+      }
+
+      AccessibilityInfo.setAccessibilityFocus(node)
+    },
+    [sendSentryErrorLog],
+  )
 }

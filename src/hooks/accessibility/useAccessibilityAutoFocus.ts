@@ -1,16 +1,10 @@
 import {useFocusEffect} from '@react-navigation/core'
-import {
-  Component,
-  RefCallback,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from 'react'
+import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {Duration} from '@/types/duration'
-import {focusOnElement} from '@/utils/accessibility/focusOnElement'
+import {useFocusOnElement} from '@/utils/accessibility/focusOnElement'
 
 type UseAccessibilityFocusProps = {
   isActive?: boolean
@@ -22,8 +16,8 @@ export const useAccessibilityAutoFocus = <T extends Component>({
   platform,
 }: UseAccessibilityFocusProps = {}) => {
   const dispatch = useDispatch()
-  const [focusRef, setFocusRef] = useState<T>()
-
+  const focusRef = useRef<T>(null)
+  const focusOnElement = useFocusOnElement()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const [isFocus, setIsFocus] = useState(false)
   const [isLayoutUpdated, setIsLayoutUpdated] = useState(false)
@@ -52,7 +46,7 @@ export const useAccessibilityAutoFocus = <T extends Component>({
     }
 
     if (
-      !focusRef ||
+      !focusRef.current ||
       !isActive ||
       !isFocus ||
       !isLayoutUpdated ||
@@ -62,18 +56,18 @@ export const useAccessibilityAutoFocus = <T extends Component>({
     }
 
     // Call focus as soon as all considition is met
-    focusOnElement(focusRef)
+    focusOnElement(focusRef.current)
 
     // Attempt to call it again just in case AccessibilityInfo.setAccessibilityFocus is delayed
-    const timeoutId = setTimeout(() => {
-      focusOnElement(focusRef)
-    }, Duration.normal)
+    const timeoutId = setTimeout(
+      () => focusOnElement(focusRef.current),
+      Duration.normal,
+    )
 
-    return () => {
-      clearTimeout(timeoutId)
-    }
+    return () => clearTimeout(timeoutId)
   }, [
     dispatch,
+    focusOnElement,
     focusRef,
     isActive,
     isFocus,
@@ -82,12 +76,5 @@ export const useAccessibilityAutoFocus = <T extends Component>({
     platform,
   ])
 
-  return useCallback<RefCallback<T>>(
-    ref => {
-      if (ref && ref !== focusRef) {
-        setFocusRef(ref)
-      }
-    },
-    [focusRef],
-  )
+  return focusRef
 }

@@ -23,7 +23,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
   /*
    * TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
    */
-  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
+  const a11yAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !preventInitialFocus,
     platform: 'ios',
   })
@@ -33,7 +33,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
       gutter="lg"
       valign="center">
       <View
-        ref={setAccessibilityAutoFocusRef}
+        ref={a11yAutoFocusRef}
         style={styles.sideColumn}>
         {!!back && (
           <IconButton
