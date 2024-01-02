@@ -1,8 +1,8 @@
 import {Component, useCallback} from 'react'
+import {useFocusOnElement} from '@/hooks/accessibility/useFocusOnElement'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useTimeout} from '@/hooks/useTimeout'
 import {Duration} from '@/types/duration'
-import {useFocusOnElement} from '@/utils/accessibility/focusOnElement'
 
 /**
  * Set accessibility focus on a component

@@ -1,10 +1,10 @@
 import {useFocusEffect} from '@react-navigation/core'
 import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
+import {useFocusOnElement} from '@/hooks/accessibility/useFocusOnElement'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {Duration} from '@/types/duration'
-import {useFocusOnElement} from '@/utils/accessibility/focusOnElement'
 
 type UseAccessibilityFocusProps = {
   isActive?: boolean
