@@ -67,7 +67,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
   const {isOpen, toggleTooltip} = useTooltip()
 
-  const setAutoFocusRef = useAccessibilityAutoFocus({
+  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
     isActive: !isOpen,
   })
 
@@ -97,7 +97,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
             />
           }
           onPress={toggleTooltip}
-          ref={setAutoFocusRef}
+          ref={setAccessibilityAutoFocusRef}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>
