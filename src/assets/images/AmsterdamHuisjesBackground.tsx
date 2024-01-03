@@ -1,18 +1,16 @@
-import {Line, Path, Svg} from 'react-native-svg'
+import {Line, Path, Svg, G} from 'react-native-svg'
 
 type Props = {
   index?: number
   width: number
 }
 
-export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
-  const positionX = -(width * index)
-
-  return (
-    <Svg
-      height={256}
-      viewBox={`0 0 ${width} 256`}
-      width={width}>
+export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => (
+  <Svg
+    height={256}
+    viewBox={`0 0 ${width} 256`}
+    width={width}>
+    <G x={-(width * index)}>
       <Path
         d="M186,232.7h46.1v-21.3l8.6-26.4h-8.6l-0.1-5h10.8l6.8-25.9l-0.9-2.3l-23.1,26.4l-4.6-6l25.8-22.1l2.9-11.3
 					L223.2,111l6-5.8l23,28.8l6.8,1.3l29.8-30.1l4.1,5.9l-30.3,26.1l1.8,10.7l19.8,21h4.3l12.4-31.1l9.7,28.9h3.6V162l3.6-0.3v-4.1
@@ -35,7 +33,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
         stroke="#EFEFEF"
         strokeMiterlimit="10"
         strokeWidth="2"
-        x={positionX}
       />
       <Path
         d="M1384.3,175.1h-4.4c0,0-3.2-8.4-17.2-8.4s-18.1,8.5-18.1,8.5h-5.2v19.2h-7.3v-12.2h3.7l-24.9-26.8v-7.5l1.9-0.1
@@ -59,7 +56,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				h-5.8l-1.6-0.9l-6.3-12.9l-1.6-0.9h-20l-1.5,0.8l-8,13.9h-5V191l-16.1-25.9l-16.5,23.8l-14.8-23.8l-16.3,23.5l-14.6-23.5l-14.4,20.7
 				v-29.1h-15.6c-0.3-4.6-6.9-8.3-14.9-8.3s-14.6,3.7-14.9,8.3h-16.9l0.7,17.9"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M1854,232.7h46.1v-21.3l8.6-26.4h-8.6l-0.1-5h10.8l6.8-25.9l-0.9-2.3l-23.1,26.4l-4.6-6l25.8-22.1l2.9-11.3
@@ -83,7 +79,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
         stroke="#EFEFEF"
         strokeMiterlimit="10"
         strokeWidth="2"
-        x={positionX}
       />
       <Path
         d="M3052.3,175.1h-4.4c0,0-3.2-8.4-17.2-8.4s-18.1,8.5-18.1,8.5h-5.2v19.2h-7.3v-12.2h3.7l-24.9-26.8v-7.5l1.9-0.1
@@ -107,7 +102,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				h-5.8l-1.6-0.9l-6.3-12.9l-1.6-0.9h-20l-1.5,0.8l-8,13.9h-5V191l-16.1-25.9l-16.5,23.8l-14.8-23.8l-16.3,23.5l-14.6-23.5l-14.4,20.7
 				v-29.1h-15.6c-0.3-4.6-6.9-8.3-14.9-8.3s-14.6,3.7-14.9,8.3h-16.9l0.7,17.9"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M161.9,213.7c0-4-2.5-7.4-6-8.6c0-0.1,0-0.3,0-0.4c0-5-3.6-9-8.1-9c-1.9,0-3.7,0.8-5.1,2c-1.2-0.6-2.5-1-3.9-1
@@ -116,7 +110,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C159.8,220.3,161.8,217.2,161.9,213.7L161.9,213.7z M139.2,225.6v0.1C139.2,225.7,139.1,225.6,139.2,225.6
 				C139.1,225.6,139.1,225.6,139.2,225.6z M144.6,214.3L144.6,214.3L144.6,214.3L144.6,214.3z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M126.9,216.7c0-4-2.5-7.4-6-8.6c0-0.1,0-0.3,0-0.4c0-5-3.6-9-8.1-9c-1.9,0-3.7,0.8-5.1,2c-1.2-0.6-2.5-1-3.9-1
@@ -125,7 +118,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C124.8,223.3,126.8,220.2,126.9,216.7L126.9,216.7z M104.2,228.6v0.1C104.2,228.7,104.1,228.6,104.2,228.6
 				C104.1,228.6,104.1,228.6,104.2,228.6z M109.6,217.3L109.6,217.3L109.6,217.3L109.6,217.3z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M96.3,222.7c0-3.4-2.1-6.2-5-7.2c0-0.1,0-0.2,0-0.4c0-4.2-3-7.5-6.7-7.5c-1.6,0-3.1,0.6-4.2,1.7
@@ -134,7 +126,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C94.7,228.3,96.3,225.7,96.3,222.7L96.3,222.7z M77.3,232.7v0.1C77.3,232.7,77.3,232.7,77.3,232.7L77.3,232.7z M81.9,223.2
 				L81.9,223.2C81.9,223.3,81.9,223.3,81.9,223.2C81.9,223.3,81.9,223.2,81.9,223.2z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M3522.7,233.1h46.1v-21.3l8.6-26.4h-8.6l-0.1-5h10.8l6.8-25.9l-0.9-2.3l-23.1,26.4l-4.6-6l25.8-22.1l2.9-11.3
@@ -158,7 +149,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
         stroke="#EFEFEF"
         strokeMiterlimit="10"
         strokeWidth="2"
-        x={positionX}
       />
       <Path
         d="M4721,175.5h-4.4c0,0-3.2-8.4-17.2-8.4s-18.1,8.5-18.1,8.5h-5.2v19.2h-7.3v-12.2h3.7l-24.9-26.8v-7.5l1.9-0.1
@@ -182,7 +172,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				l-8.5,14.3l2.4,0.1v7.6h-5.8l-1.6-0.9l-6.3-12.9l-1.6-0.9h-20l-1.5,0.8l-8,13.9h-5v-5.7l-16.1-25.9l-16.5,23.8l-14.8-23.8
 				l-16.3,23.5l-14.6-23.5l-14.4,20.7v-29.1h-15.6c-0.3-4.6-6.9-8.3-14.9-8.3s-14.6,3.7-14.9,8.3h-16.9l0.7,17.9"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M6851,217.3c0-4-2.5-7.4-6-8.6c0-0.1,0-0.3,0-0.4c0-5-3.6-9-8.1-9c-1.9,0-3.7,0.8-5.1,2c-1.2-0.6-2.5-1-3.9-1
@@ -191,7 +180,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C6848.9,223.9,6850.9,220.8,6851,217.3L6851,217.3z M6828.3,229.2v0.1C6828.3,229.3,6828.2,229.2,6828.3,229.2
 				C6828.2,229.2,6828.2,229.2,6828.3,229.2L6828.3,229.2z M6833.7,217.9L6833.7,217.9L6833.7,217.9L6833.7,217.9z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M6910,214c0-4.4-2.2-8.1-5.3-9.4c0-0.1,0-0.3,0-0.5c0-5.4-3.2-9.8-7.1-9.8c-1.7,0-3.2,0.8-4.4,2.2
@@ -200,7 +188,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C6908.2,221.2,6910,217.9,6910,214L6910,214z M6890.1,227v0.1C6890.1,227.1,6890.1,227.1,6890.1,227L6890.1,227L6890.1,227z
 				M6894.9,214.7L6894.9,214.7L6894.9,214.7L6894.9,214.7z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M6879.4,223.2c0-3.4-2.1-6.2-5-7.2c0-0.1,0-0.2,0-0.4c0-4.2-3-7.5-6.7-7.5c-1.6,0-3.1,0.6-4.2,1.7
@@ -209,7 +196,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C6877.7,228.8,6879.4,226.2,6879.4,223.2L6879.4,223.2z M6860.4,233.2v0.1C6860.4,233.3,6860.4,233.3,6860.4,233.2L6860.4,233.2
 				L6860.4,233.2z M6865,223.8L6865,223.8L6865,223.8L6865,223.8z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M6939.4,231c0-2.5-1.6-4.7-3.8-5.4c0-0.1,0-0.2,0-0.3c0-3.1-2.3-5.7-5.1-5.7c-1.2,0-2.3,0.5-3.2,1.3
@@ -218,7 +204,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				C6938.1,235.2,6939.4,233.3,6939.4,231L6939.4,231z M6925,238.5C6925,238.5,6925,238.6,6925,238.5C6925,238.6,6925,238.6,6925,238.5
 				C6925,238.6,6925,238.5,6925,238.5z M6928.5,231.4L6928.5,231.4L6928.5,231.4L6928.5,231.4L6928.5,231.4z"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Path
         d="M5191.4,233.1h46.1v-21.3l8.6-26.4h-8.6l-0.1-5h10.8l6.8-25.9l-0.9-2.3l-23.1,26.4l-4.6-6l25.8-22.1l2.9-11.3
@@ -243,7 +228,6 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
         stroke="#EFEFEF"
         strokeMiterlimit="10"
         strokeWidth="2"
-        x={positionX}
       />
       <Path
         d="M6389.7,175.5h-4.4c0,0-3.2-8.4-17.2-8.4s-18.1,8.5-18.1,8.5h-5.2v19.2h-7.3v-12.2h3.7l-24.9-26.8v-7.5l1.9-0.1
@@ -267,19 +251,17 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => {
 				l-8.5,14.3l2.4,0.1v7.6h-5.8l-1.6-0.9l-6.3-12.9l-1.6-0.9h-20l-1.5,0.8l-8,13.9h-5v-5.7l-16.1-25.9l-16.5,23.8l-14.8-23.8
 				l-16.3,23.5l-14.6-23.5l-14.4,20.7v-29.1h-15.6c-0.3-4.6-6.9-8.3-14.9-8.3s-14.6,3.7-14.9,8.3h-16.9l0.7,17.9"
         fill="#EFEFEF"
-        x={positionX}
       />
       <Line
         fill="none"
         stroke="#E6E6E6"
         strokeMiterlimit="10"
         strokeWidth="4"
-        x={positionX}
         x1="0"
         x2="7013.3"
         y1="254"
         y2="254"
       />
-    </Svg>
-  )
-}
+    </G>
+  </Svg>
+)
