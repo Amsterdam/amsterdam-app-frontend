@@ -13,30 +13,16 @@ const threeDigitAreaCodes = [
  * https://www.amsterdam.nl/schrijfwijzer/tekstonderdelen-heldere-taal/telefoonnummers/
  */
 export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
+  if (phoneNumber.startsWith('+31')) {
+    phoneNumber = phoneNumber.replace('+31', '0')
+  }
+
   if (phoneNumber === '14020') {
     return '14 020'
   }
 
   if (phoneNumber === '0202515020') {
     return '020 25 15 020'
-  }
-
-  if (phoneNumber.startsWith('+316')) {
-    return [
-      '06',
-      phoneNumber.substring(4, 8),
-      phoneNumber.substring(8, 12),
-    ].join(' ')
-  }
-
-  if (phoneNumber.startsWith('+31')) {
-    const extractedAreaCode = `0${phoneNumber.substring(3, 5)}`
-
-    return [
-      extractedAreaCode,
-      phoneNumber.substring(5, 8),
-      phoneNumber.substring(8, 12),
-    ].join(' ')
   }
 
   if (phoneNumber.length === 10) {
