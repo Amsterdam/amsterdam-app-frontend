@@ -10,6 +10,10 @@ describe('formatPhoneNumber', () => {
   it('formats a landline number for Texel', () => {
     expect(formatPhoneNumber('0222222222')).toEqual('0222 222 222')
   })
+
+  it('formats a landline number for Texel with prefix', () => {
+    expect(formatPhoneNumber('+31222222222')).toEqual('0222 222 222')
+  })
   it('formats a landline number for Utrecht', () => {
     expect(formatPhoneNumber('0301234567')).toEqual('030 123 4567')
   })
@@ -33,5 +37,11 @@ describe('formatPhoneNumber', () => {
   })
   it('returns a text string', () => {
     expect(formatPhoneNumber('phone number')).toEqual('phone number')
+  })
+  it('formats a landline number with +31 prefix', () => {
+    expect(formatPhoneNumber('+31201234567')).toEqual('020 123 4567')
+  })
+  it('formats a mobile phone number with +31 prefix', () => {
+    expect(formatPhoneNumber('+31612345678')).toEqual('06 1234 5678')
   })
 })
