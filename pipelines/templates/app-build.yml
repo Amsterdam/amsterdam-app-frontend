@@ -16,7 +16,7 @@ steps:
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
     inputs:
-      versionSpec: '11'
+      versionSpec: '17'
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
     condition: eq('${{ parameters.platform }}', 'android')
