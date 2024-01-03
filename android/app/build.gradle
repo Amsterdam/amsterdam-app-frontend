@@ -130,6 +130,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode getBuildNumber()
         versionName getVersionFromPackagejson()
+        resConfigs "nl" // Temporary fix for RN 0.73.1, to prevent the Play store from rejecting bundles (see: https://github.com/facebook/react-native/issues/42024)
     }
 
     splits {
