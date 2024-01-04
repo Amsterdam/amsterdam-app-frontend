@@ -34,6 +34,7 @@ type TooltipProps = {
   onPress: () => void
   onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
+  startFadeIn?: boolean
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
@@ -47,6 +48,7 @@ type WrapperProps = {
   | 'fadeInDuration'
   | 'onboardingTipTargetLayout'
   | 'placement'
+  | 'startFadeIn'
 >
 
 const Wrapper = forwardRef<View, WrapperProps>(
@@ -57,6 +59,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
       onboardingTipTargetLayout,
       fadeIn,
       fadeInDuration,
+      startFadeIn,
       ...props
     },
     ref,
@@ -74,6 +77,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
         {...props}
         duration={fadeInDuration}
         ref={ref}
+        startFadeIn={startFadeIn}
         style={styles.tooltip}
       />
     ) : (
@@ -86,61 +90,69 @@ const Wrapper = forwardRef<View, WrapperProps>(
   },
 )
 
-export const Tooltip = ({
-  accessibilityLabel,
-  accessibilityLanguage = 'nl-NL',
-  extraSpace,
-  fadeIn,
-  fadeInDuration,
-  placement,
-  onboardingTipTargetLayout,
-  testID,
-  text,
-  onPress,
-}: TooltipProps) => {
-  const direction = mapPlacementToDirection(placement)
-  const setAccessibilityFocus = useAccessibilityFocus<View>()
+export const Tooltip = forwardRef<View | null, TooltipProps>(
+  (
+    {
+      accessibilityLabel,
+      accessibilityLanguage = 'nl-NL',
+      extraSpace,
+      fadeIn,
+      fadeInDuration,
+      placement,
+      onboardingTipTargetLayout,
+      onPress,
+      startFadeIn,
+      testID,
+      text,
+    },
+    ref,
+  ) => {
+    const direction = mapPlacementToDirection(placement)
+    const setAccessibilityFocus = useAccessibilityFocus<View>()
 
-  const ref = useRef(null)
+    const wrapperRef = useRef(null)
 
-  useEffect(() => {
-    if (!ref?.current) {
-      return
-    }
+    useEffect(() => {
+      if (!wrapperRef?.current) {
+        return
+      }
 
-    setAccessibilityFocus(ref.current)
-  }, [setAccessibilityFocus])
+      setAccessibilityFocus(wrapperRef.current)
+    }, [setAccessibilityFocus])
 
-  const Pointer = <Triangle direction={direction} />
+    const Pointer = <Triangle direction={direction} />
 
-  return (
-    <Wrapper
-      extraSpace={extraSpace}
-      fadeIn={fadeIn}
-      fadeInDuration={fadeInDuration}
-      onboardingTipTargetLayout={onboardingTipTargetLayout}
-      placement={placement}>
-      <Pressable
-        accessibilityLabel={accessibilityLabel}
-        accessibilityLanguage={accessibilityLanguage}
-        accessibilityRole="alert"
-        onPress={onPress}>
-        <Row>
-          {placement === Placement.after && Pointer}
-          <Column>
-            {placement === Placement.below && Pointer}
-            <TooltipContent
-              testID={testID}
-              text={text}
-            />
-            {placement === Placement.above && Pointer}
-          </Column>
-          {placement === Placement.before && Pointer}
-        </Row>
-      </Pressable>
-    </Wrapper>
-  )
-}
+    return (
+      <Wrapper
+        extraSpace={extraSpace}
+        fadeIn={fadeIn}
+        fadeInDuration={fadeInDuration}
+        onboardingTipTargetLayout={onboardingTipTargetLayout}
+        placement={placement}
+        ref={ref}
+        startFadeIn={startFadeIn}>
+        <Pressable
+          accessibilityLabel={accessibilityLabel}
+          accessibilityLanguage={accessibilityLanguage}
+          accessibilityRole="alert"
+          onPress={onPress}>
+          <Row>
+            {placement === Placement.after && Pointer}
+            <Column>
+              {placement === Placement.below && Pointer}
+              <TooltipContent
+                testID={testID}
+                text={text}
+              />
+              {placement === Placement.above && Pointer}
+            </Column>
+            {placement === Placement.before && Pointer}
+          </Row>
+        </Pressable>
+      </Wrapper>
+    )
+  },
+)
 
 const createStyles =
   ({
