@@ -1,7 +1,6 @@
-import {useState} from 'react'
-import {LayoutRectangle, View} from 'react-native'
-import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
+import {View} from 'react-native'
 import {Tip} from '@/components/features/onboarding/types'
+import {withOnboardingTip} from '@/components/features/onboarding/withOnboardingTip'
 import {AddButton} from '@/components/ui/buttons/AddButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -14,20 +13,18 @@ const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeRouteName>()
-  const [onboardingTipTargetLayout, setTipComponentLayout] =
-    useState<LayoutRectangle>()
+  const WithOnboardingTip = withOnboardingTip(View)
 
   return (
     <Screen
       stickyFooter={
         <View>
-          <OnboardingTipWrapper
-            onboardingTipTargetLayout={onboardingTipTargetLayout}
+          <WithOnboardingTip
             placement={Placement.above}
             testID="HomeModuleSettingsButtonTooltip"
             text={ONBOARDING_TIP}
             tipSlug={Tip.homeModuleSettingsButton}>
-            <Box onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
+            <Box>
               <AddButton
                 accessibilityHint={ONBOARDING_TIP}
                 accessibilityLabel="Instellingen"
@@ -35,7 +32,7 @@ export const HomeScreen = () => {
                 testID="HomeModuleSettingsButton"
               />
             </Box>
-          </OnboardingTipWrapper>
+          </WithOnboardingTip>
         </View>
       }>
       <Modules />

@@ -1,8 +1,8 @@
-import {useCallback, useLayoutEffect, useState} from 'react'
-import {LayoutRectangle} from 'react-native'
+import {useCallback, useLayoutEffect} from 'react'
+import {View} from 'react-native'
 import simplur from 'simplur'
-import {OnboardingTipWrapper} from '@/components/features/onboarding/OnboardingTipWrapper'
 import {Tip} from '@/components/features/onboarding/types'
+import {withOnboardingTip} from '@/components/features/onboarding/withOnboardingTip'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -55,8 +55,7 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useProjectUnfollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
-  const [onboardingTipTargetLayout, setTipComponentLayout] =
-    useState<LayoutRectangle>()
+  const WithOnboardingTip = withOnboardingTip(View)
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -105,9 +104,8 @@ export const Project = ({id}: Props) => {
               gutter="md"
               valign="center"
               zIndex={1}>
-              <OnboardingTipWrapper
+              <WithOnboardingTip
                 extraSpace="md"
-                onboardingTipTargetLayout={onboardingTipTargetLayout}
                 placement={Placement.below}
                 testID="ConstructionWorkProjectFollowButtonTooltip"
                 text={ONBOARDING_TIP}
@@ -121,11 +119,10 @@ export const Project = ({id}: Props) => {
                     isUpdatingFollow || isUpdatingUnfollow || isFetching
                   }
                   followed={followed}
-                  onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}
                   onPress={onPressFollowButton}
                   testID="ConstructionWorkProjectFollowButton"
                 />
-              </OnboardingTipWrapper>
+              </WithOnboardingTip>
               <SingleSelectable
                 accessibilityLabel={accessibleText(
                   followers.toString(),
