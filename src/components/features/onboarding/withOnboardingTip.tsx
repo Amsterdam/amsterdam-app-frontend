@@ -46,7 +46,7 @@ export const withOnboardingTip =
 
     return (
       <>
-        {!!hasSeenTip && !isScreenReaderEnabled && (
+        {!hasSeenTip && !isScreenReaderEnabled && (
           <Tooltip
             accessibilityLabel={text}
             extraSpace={extraSpace}
