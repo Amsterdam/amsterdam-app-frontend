@@ -36,14 +36,16 @@ export const withProductTourTip =
     const hasSeenTip = seenTips.includes(tipSlug)
     const isScreenReaderEnabled = useIsScreenReaderEnabled()
     const scrollContext = useContext(ScrollContext)
-    const hasNoScrollView = scrollContext === null
+    const hasNoScrollViewParent = scrollContext === null
     const {setElementRef, isElementVisible} = scrollContext ?? {}
     const [productTourTipTargetLayout, setTipComponentLayout] =
       useState<LayoutRectangle>()
 
     const handleHasSeenTip = useCallback(() => {
-      isElementVisible && dispatch(addSeenTip(tipSlug))
-    }, [dispatch, isElementVisible, tipSlug])
+      if (hasNoScrollViewParent || isElementVisible) {
+        dispatch(addSeenTip(tipSlug))
+      }
+    }, [dispatch, hasNoScrollViewParent, isElementVisible, tipSlug])
 
     useEffect(() => handleHasSeenTip, [handleHasSeenTip])
 
@@ -58,7 +60,7 @@ export const withProductTourTip =
             placement={placement}
             productTourTipTargetLayout={productTourTipTargetLayout}
             ref={setElementRef}
-            startFadeIn={isElementVisible || hasNoScrollView}
+            startFadeIn={isElementVisible ?? hasNoScrollViewParent}
             testID={testID}
             text={text}
           />
