@@ -2,7 +2,7 @@ import {useCallback, useLayoutEffect} from 'react'
 import {View} from 'react-native'
 import simplur from 'simplur'
 import {Tip} from '@/components/features/product-tour/types'
-import {withOnboardingTip} from '@/components/features/product-tour/withOnboardingTip'
+import {withProductTourTip} from '@/components/features/product-tour/withProductTourTip'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -55,7 +55,7 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useProjectUnfollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
-  const WithOnboardingTip = withOnboardingTip(View)
+  const WithProductTourTip = withProductTourTip(View)
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -104,7 +104,7 @@ export const Project = ({id}: Props) => {
               gutter="md"
               valign="center"
               zIndex={1}>
-              <WithOnboardingTip
+              <WithProductTourTip
                 extraSpace="md"
                 placement={Placement.below}
                 testID="ConstructionWorkProjectFollowButtonTooltip"
@@ -122,7 +122,7 @@ export const Project = ({id}: Props) => {
                   onPress={onPressFollowButton}
                   testID="ConstructionWorkProjectFollowButton"
                 />
-              </WithOnboardingTip>
+              </WithProductTourTip>
               <SingleSelectable
                 accessibilityLabel={accessibleText(
                   followers.toString(),

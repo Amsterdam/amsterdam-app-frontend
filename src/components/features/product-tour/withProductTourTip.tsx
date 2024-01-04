@@ -28,7 +28,7 @@ type Props = {
   tipSlug: Tip
 } & TestProps
 
-export const withOnboardingTip =
+export const withProductTourTip =
   (WrappedComponent: ComponentType<ViewProps>) =>
   ({children, extraSpace, tipSlug, text, placement, testID}: Props) => {
     const dispatch = useDispatch()

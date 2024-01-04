@@ -1,6 +1,6 @@
 import {View} from 'react-native'
 import {Tip} from '@/components/features/product-tour/types'
-import {withOnboardingTip} from '@/components/features/product-tour/withOnboardingTip'
+import {withProductTourTip} from '@/components/features/product-tour/withProductTourTip'
 import {AddButton} from '@/components/ui/buttons/AddButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -13,13 +13,13 @@ const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeRouteName>()
-  const WithOnboardingTip = withOnboardingTip(View)
+  const WithProductTourTip = withProductTourTip(View)
 
   return (
     <Screen
       stickyFooter={
         <View>
-          <WithOnboardingTip
+          <WithProductTourTip
             placement={Placement.above}
             testID="HomeModuleSettingsButtonTooltip"
             text={ONBOARDING_TIP}
@@ -32,7 +32,7 @@ export const HomeScreen = () => {
                 testID="HomeModuleSettingsButton"
               />
             </Box>
-          </WithOnboardingTip>
+          </WithProductTourTip>
         </View>
       }>
       <Modules />
