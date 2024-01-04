@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
-import {productTourSlice} from '@/components/features/onboarding/product-tour.slice'
+import {productTourSlice} from '@/components/features/product-tour/product-tour.slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {sentryLoggerMiddleware} from '@/processes/sentry/logging'
 import {baseApi} from '@/services/init'

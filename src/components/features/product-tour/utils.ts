@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Layout} from '@/components/features/onboarding/types'
+import {Layout} from '@/components/features/product-tour/types'
 
 export const measureElement = (element: View) =>
   new Promise<Layout>(resolve => {

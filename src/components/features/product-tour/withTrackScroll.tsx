@@ -15,7 +15,7 @@ import {
 import {
   computeIsElementVisible,
   measureElement,
-} from '@/components/features/onboarding/utils'
+} from '@/components/features/product-tour/utils'
 import {ScrollViewProps} from '@/components/ui/layout/ScrollView'
 
 export type ScrollViewRef = ScrollView | KeyboardAwareScrollView

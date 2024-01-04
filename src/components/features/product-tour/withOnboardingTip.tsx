@@ -10,9 +10,9 @@ import {LayoutRectangle, View, ViewProps} from 'react-native'
 import {
   selectSeenTips,
   addSeenTip,
-} from '@/components/features/onboarding/product-tour.slice'
-import {Tip} from '@/components/features/onboarding/types'
-import {ScrollContext} from '@/components/features/onboarding/withTrackScroll'
+} from '@/components/features/product-tour/product-tour.slice'
+import {Tip} from '@/components/features/product-tour/types'
+import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
