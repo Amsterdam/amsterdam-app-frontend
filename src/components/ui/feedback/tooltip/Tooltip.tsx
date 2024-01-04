@@ -32,8 +32,8 @@ type TooltipProps = {
    */
   fadeInDuration?: number
   onPress: () => void
-  onboardingTipTargetLayout?: LayoutRectangle
   placement: Placement
+  productTourTipTargetLayout?: LayoutRectangle
   startFadeIn?: boolean
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
@@ -46,7 +46,7 @@ type WrapperProps = {
   | 'extraSpace'
   | 'fadeIn'
   | 'fadeInDuration'
-  | 'onboardingTipTargetLayout'
+  | 'productTourTipTargetLayout'
   | 'placement'
   | 'startFadeIn'
 >
@@ -56,7 +56,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
     {
       extraSpace,
       placement,
-      onboardingTipTargetLayout,
+      productTourTipTargetLayout,
       fadeIn,
       fadeInDuration,
       startFadeIn,
@@ -68,7 +68,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
       createStyles({
         extraSpace,
         placement,
-        onboardingTipTargetLayout,
+        productTourTipTargetLayout,
       }),
     )
 
@@ -99,7 +99,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
       fadeIn,
       fadeInDuration,
       placement,
-      onboardingTipTargetLayout,
+      productTourTipTargetLayout,
       onPress,
       startFadeIn,
       testID,
@@ -127,8 +127,8 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
         extraSpace={extraSpace}
         fadeIn={fadeIn}
         fadeInDuration={fadeInDuration}
-        onboardingTipTargetLayout={onboardingTipTargetLayout}
         placement={placement}
+        productTourTipTargetLayout={productTourTipTargetLayout}
         ref={ref}
         startFadeIn={startFadeIn}>
         <Pressable
@@ -158,10 +158,10 @@ const createStyles =
   ({
     extraSpace,
     placement,
-    onboardingTipTargetLayout,
+    productTourTipTargetLayout,
   }: Pick<
     TooltipProps,
-    'extraSpace' | 'placement' | 'onboardingTipTargetLayout'
+    'extraSpace' | 'placement' | 'productTourTipTargetLayout'
   > & {
     tooltipHeight?: number
   }) =>
@@ -173,12 +173,12 @@ const createStyles =
       right?: number
       top?: number
     } => {
-      if (!onboardingTipTargetLayout) {
-        return {position: 'relative'} // Default position, when no onboardingTipTargetLayout is set
+      if (!productTourTipTargetLayout) {
+        return {position: 'relative'} // Default position, when no productTourTipTargetLayout is set
       }
 
       const verticalPosition =
-        onboardingTipTargetLayout.height +
+        productTourTipTargetLayout.height +
         (extraSpace ? size.spacing[extraSpace] : 0)
 
       return {

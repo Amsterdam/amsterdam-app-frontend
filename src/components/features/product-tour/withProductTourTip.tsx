@@ -38,7 +38,7 @@ export const withProductTourTip =
     const scrollContext = useContext(ScrollContext)
     const hasNoScrollView = scrollContext === null
     const {setElementRef, isElementVisible} = scrollContext ?? {}
-    const [onboardingTipTargetLayout, setTipComponentLayout] =
+    const [productTourTipTargetLayout, setTipComponentLayout] =
       useState<LayoutRectangle>()
 
     const handleHasSeenTip = useCallback(() => {
@@ -54,9 +54,9 @@ export const withProductTourTip =
             accessibilityLabel={text}
             extraSpace={extraSpace}
             fadeIn
-            onboardingTipTargetLayout={onboardingTipTargetLayout}
             onPress={handleHasSeenTip}
             placement={placement}
+            productTourTipTargetLayout={productTourTipTargetLayout}
             ref={setElementRef}
             startFadeIn={isElementVisible || hasNoScrollView}
             testID={testID}
