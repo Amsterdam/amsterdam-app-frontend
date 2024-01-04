@@ -1,15 +1,45 @@
-import {FC, ReactNode, useMemo} from 'react'
+import {FC, MutableRefObject, ReactNode, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {withTrackScroll} from '@/components/features/onboarding/withTrackScroll'
 import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {TestProps} from '@/components/ui/types'
 
-type WrapperProps = Pick<Props, 'children' | 'keyboardAware' | 'scroll'> & {
+type WrapperProps = Pick<
+  Props,
+  'children' | 'keyboardAware' | 'scroll' | 'trackScroll'
+> & {
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
+} & {elementRef?: MutableRefObject<View | null>}
+
+const ScrollableWrapper = ({
+  children,
+  keyboardAware,
+  keyboardAwareScrollViewStyle,
+  trackScroll,
+}: WrapperProps) => {
+  const CustomScrollView = trackScroll
+    ? withTrackScroll(ScrollView)
+    : ScrollView
+  const CustomKeyboardAwareScrollView = trackScroll
+    ? withTrackScroll(KeyboardAwareScrollView, 'innerRef')
+    : KeyboardAwareScrollView
+
+  if (keyboardAware) {
+    return (
+      <CustomKeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        style={keyboardAwareScrollViewStyle}>
+        {children}
+      </CustomKeyboardAwareScrollView>
+    )
+  }
+
+  return <CustomScrollView grow>{children}</CustomScrollView>
 }
 
 const Wrapper = ({
@@ -17,19 +47,17 @@ const Wrapper = ({
   keyboardAware = false,
   keyboardAwareScrollViewStyle,
   scroll = true,
+  trackScroll,
 }: WrapperProps) => {
   if (scroll) {
-    if (keyboardAware) {
-      return (
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          style={keyboardAwareScrollViewStyle}>
-          {children}
-        </KeyboardAwareScrollView>
-      )
-    }
-
-    return <ScrollView grow>{children}</ScrollView>
+    return (
+      <ScrollableWrapper
+        keyboardAware={keyboardAware}
+        keyboardAwareScrollViewStyle={keyboardAwareScrollViewStyle}
+        trackScroll={trackScroll}>
+        {children}
+      </ScrollableWrapper>
+    )
   }
 
   if (keyboardAware) {
@@ -53,6 +81,7 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
+  trackScroll?: boolean
 } & TestProps &
   WithInsetProps
 
@@ -90,6 +119,7 @@ export const Screen = ({
   withRightInset = true,
   withTopInset = false,
   testID,
+  trackScroll = false,
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
@@ -125,6 +155,7 @@ export const Screen = ({
       {stickyHeader}
       <Wrapper
         keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
+        trackScroll={trackScroll}
         {...wrapperProps}>
         <InnerWrapper
           hasBottomsheet={!!bottomSheet}
