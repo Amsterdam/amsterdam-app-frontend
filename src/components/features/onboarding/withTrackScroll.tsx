@@ -3,6 +3,7 @@ import {
   ForwardedRef,
   createContext,
   forwardRef,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -65,10 +66,10 @@ export const withTrackScroll = (
       scrollEventThrottle: 16,
     }
 
-    const value = {
-      isElementVisible,
-      setElementRef,
-    }
+    const value = useMemo(
+      () => ({isElementVisible, setElementRef}),
+      [isElementVisible, setElementRef],
+    )
 
     return (
       <ScrollViewComp {...scrollViewProps}>
