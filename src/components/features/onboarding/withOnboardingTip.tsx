@@ -7,6 +7,10 @@ import {
   useState,
 } from 'react'
 import {LayoutRectangle, View, ViewProps} from 'react-native'
+import {
+  selectSeenTips,
+  addSeenTip,
+} from '@/components/features/onboarding/product-tour.slice'
 import {Tip} from '@/components/features/onboarding/types'
 import {ScrollContext} from '@/components/features/onboarding/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
@@ -14,7 +18,6 @@ import {Placement, TestProps} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {selectSeenTips, addSeenTip} from '@/store/slices/product-tour.slice'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
