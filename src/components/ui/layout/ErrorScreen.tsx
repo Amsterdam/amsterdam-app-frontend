@@ -74,6 +74,7 @@ export const ErrorScreen = ({
           insetHorizontal={isPortrait ? 'no' : 'xl'}>
           <Track
             align={isPortrait ? 'start' : 'center'}
+            alwaysDisplayAsRowForScreenReader
             flex={1}>
             <Size
               maxWidth={isPortrait ? '100%' : '50%'}
