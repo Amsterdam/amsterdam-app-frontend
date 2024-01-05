@@ -3,7 +3,6 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from 'react'
 import {LayoutRectangle, View, ViewProps} from 'react-native'
@@ -43,12 +42,10 @@ export const withProductTourTip =
       useState<LayoutRectangle>()
 
     const handleHasSeenTip = useCallback(() => {
-      if (hasNoScrollViewParent || isElementVisible) {
+      if ((hasNoScrollViewParent || isElementVisible) && !hasSeenTip) {
         dispatch(addSeenTip(tipSlug))
       }
-    }, [dispatch, hasNoScrollViewParent, isElementVisible, tipSlug])
-
-    useEffect(() => handleHasSeenTip, [handleHasSeenTip])
+    }, [dispatch, hasNoScrollViewParent, hasSeenTip, isElementVisible, tipSlug])
 
     useBlurEffect(handleHasSeenTip)
 
