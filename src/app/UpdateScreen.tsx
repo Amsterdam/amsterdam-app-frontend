@@ -1,10 +1,11 @@
 import {ReactNode} from 'react'
+import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {Screen} from '@/components/ui/layout/Screen'
-import {Phrase} from '@/components/ui/text/Phrase'
-import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
+import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
@@ -17,9 +18,9 @@ export const SNOOZE_TIME_IN_HOURS = 4
 const tempDummyRequest = () => ({
   data: {
     versionInfo: {
-      deprecated: true,
+      deprecated: false,
       latest: '1.34.7',
-      supported: true,
+      supported: false,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -29,8 +30,7 @@ const tempDummyRequest = () => ({
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
   const {isError, isLoading} = useGetReleaseQuery()
-
-  useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
+  const {isPortrait} = useDeviceContext()
 
   if (isLoading) {
     return <PleaseWait />
@@ -42,11 +42,22 @@ export const UpdateScreen = ({children}: Props) => {
 
   if (!data?.versionInfo.supported) {
     return (
-      <Screen withTopInset>
-        <Box>
-          <Phrase>Update!</Phrase>
-        </Box>
-      </Screen>
+      <ErrorScreen
+        Image={UpdateFigure}
+        stickyFooter={
+          <Box
+            insetHorizontal={isPortrait ? 'md' : 'xl'}
+            insetVertical="no">
+            <Button
+              accessibilityHint="Om de app te gebruiken moet u eerst updaten"
+              label="Update de app"
+              testID="UpdateAppButton"
+            />
+          </Box>
+        }
+        text="Om de app te kunnen gebruiken moet u eerst updaten."
+        title="De versie van de app is verouderd en werkt niet meer."
+      />
     )
   }
 
