@@ -11,6 +11,7 @@ import {Init} from '@/app/Init'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
 import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
+import {initSentry} from '@/processes/sentry'
 import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens/color-light'
@@ -45,7 +46,11 @@ const AppComponent = () => (
   </SafeAreaProvider>
 )
 
-export const App = SentryWrap(AppComponent)
+initSentry()
+
+export const App = SentryWrap(AppComponent, {
+  touchEventBoundaryProps: {labelName: 'testID'},
+})
 
 const styles = StyleSheet.create({
   appContainer: {

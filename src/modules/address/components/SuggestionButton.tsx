@@ -10,6 +10,7 @@ type Props = {
   label: string
   pdokAddress: PdokAddress
   selectResult: (item: PdokAddress) => void
+  'sentry-label'?: string
 } & Pick<AccessibilityProps, 'accessibilityLabel'> &
   TestProps
 
@@ -20,12 +21,14 @@ export const SuggestionButton = ({
   pdokAddress,
   selectResult,
   testID,
+  'sentry-label': sentryLabel,
 }: Props) => (
   <Pressable
     accessibilityLabel={accessibilityLabel}
     accessibilityRole="button"
     insetVertical="md"
     onPress={() => selectResult(pdokAddress)}
+    sentry-label={sentryLabel ?? testID}
     testID={testID}>
     <Row
       gutter="sm"
@@ -33,12 +36,14 @@ export const SuggestionButton = ({
       <Icon
         color="link"
         name="location"
+        sentry-label={`${sentryLabel ?? testID ?? ''}Icon`}
         size="lg"
         testID={testID ? `${testID}Icon` : undefined}
       />
       <Phrase
         color="link"
         ellipsizeMode="tail"
+        sentry-label={`${sentryLabel ?? testID ?? ''}Label`}
         testID={testID ? `${testID}Label` : undefined}>
         {label}
       </Phrase>
