@@ -81,7 +81,7 @@ export const AboutTheAppDutchScreen = () => (
                 <Title
                   level="h5"
                   testID="AboutAboutTheAppDutchReportProblemTitle"
-                  text="Melding maken"
+                  text="Melding doen"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchReportProblemParagraph">
                   Is de container voor afval vol? Doet de lantaarnpaal het niet?
