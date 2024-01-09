@@ -54,7 +54,6 @@ export const sentryLoggerMiddleware: Middleware =
       const consent = true
       let errorTitle = 'Rejected RTK action'
 
-      // @TODO: SentryWhiteList fix
       if ((action.meta.arg as {endpointName: string})?.endpointName) {
         errorTitle = `${
           (action.payload as {originalStatus: string})?.originalStatus ??
@@ -81,7 +80,7 @@ export const sentryLoggerMiddleware: Middleware =
         setTag('status', status)
         getSendSentryErrorLog(!!consent)(
           SentryErrorLogKey.sentryMiddleWareError,
-          'sentry.ts',
+          'processes/logging.ts',
           {
             ...action,
             endpoint,

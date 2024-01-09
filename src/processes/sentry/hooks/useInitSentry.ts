@@ -7,7 +7,7 @@ import {
   setSentryBackEndEnvironment,
   setSentryUserData,
 } from '@/processes/sentry/init'
-import {BreadCrumbKey, BreadcrumbCategory} from '@/processes/sentry/types'
+import {BreadcrumbKey, BreadcrumbCategory} from '@/processes/sentry/types'
 
 /**
  * Initialize Sentry and related listeners and side effects
@@ -31,7 +31,7 @@ export const useInitSentry = () => {
     () =>
       NetInfo.addEventListener(({isConnected, isInternetReachable}) => {
         captureSentryBreadcrumb(
-          BreadCrumbKey.internetConnection,
+          BreadcrumbKey.internetConnection,
           {isConnected, isInternetReachable},
           BreadcrumbCategory.internetConnection,
         )

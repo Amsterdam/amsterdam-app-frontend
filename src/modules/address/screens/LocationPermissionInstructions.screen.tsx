@@ -34,7 +34,7 @@ export const LocationPermissionInstructionsScreen = () => {
 
           sendSentryErrorLog(
             SentryErrorLogKey.requestLocationPermission,
-            'LocationPermissionInstructionsScreen.tsx',
+            'LocationPermissionInstructions.screen.tsx',
             {error},
           )
         })

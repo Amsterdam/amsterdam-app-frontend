@@ -66,7 +66,7 @@ export const useGetCurrentCoordinates = (
 
                 sendSentryErrorLog(
                   SentryErrorLogKey.currentCoordinates,
-                  'useGetCurrentPosition.ts',
+                  'useGetCurrentCoordinates.ts',
                   {code, message},
                 )
 

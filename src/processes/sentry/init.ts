@@ -10,12 +10,13 @@ import {
 } from '@sentry/react-native'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
-// eslint-disable-next-line no-restricted-imports
-import {getUniqueId, getVersion} from 'react-native-device-info'
+
+import {getVersion} from 'react-native-device-info'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {sanitizeUrl} from '@/processes/sentry/utils'
+import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -85,5 +86,5 @@ export const setSentryBackEndEnvironment = (environment: Environment): void => {
  */
 export const setSentryUserData = (enabled: boolean) => {
   // we explicitly cast user ID to string, since non-string type will cause issues
-  setUser(enabled ? {id: getUniqueId()} : null)
+  setUser(enabled ? {id: SHA256EncryptedDeviceId} : null)
 }

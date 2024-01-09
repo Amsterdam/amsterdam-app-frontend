@@ -1,5 +1,5 @@
-import {sentryWhitelist} from '@/processes/sentry/constants'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
+import {sentryWhitelist} from '@/processes/sentry/whitelist'
 
 /**
  * Get only whitelisted data for Sentry

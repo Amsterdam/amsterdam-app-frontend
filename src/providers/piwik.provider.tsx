@@ -65,7 +65,7 @@ export const PiwikProvider = ({children}: Props) => {
 
           sendSentryErrorLog(
             SentryErrorLogKey.piwikInitialization,
-            'useInitPiwik.ts',
+            'piwik.provider.tsx',
             {
               error,
             },

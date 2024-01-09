@@ -1,4 +1,4 @@
-export enum BreadCrumbKey {
+export enum BreadcrumbKey {
   internetConnection = 'Internet connection change',
 }
 
@@ -8,7 +8,7 @@ export enum BreadcrumbCategory {
 }
 
 export type CaptureBreadcrumb = (
-  message?: BreadCrumbKey,
+  message?: BreadcrumbKey,
   data?: Record<string, unknown>,
   category?: BreadcrumbCategory,
 ) => void
