@@ -127,8 +127,8 @@ const createStyles =
         borderColor: warning
           ? color.control.warning.border
           : hasFocus
-          ? color.control.focus.border
-          : color.control.default.border,
+            ? color.control.focus.border
+            : color.control.default.border,
         borderWidth,
       },
       textInput: {
