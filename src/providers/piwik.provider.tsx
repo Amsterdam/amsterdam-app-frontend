@@ -7,8 +7,9 @@ import {
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {createContext, ReactNode} from 'react'
 import {useEffect, useState} from 'react'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {isProductionApp} from '@/processes/development'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {PiwikProSdkType} from '@/types/piwik.temp'
 
 // temporary fix for typing, see: src/types/piwik.temp
@@ -62,9 +63,13 @@ export const PiwikProvider = ({children}: Props) => {
             return
           }
 
-          sendSentryErrorLog('Piwik initialization failed', 'useInitPiwik.ts', {
-            error,
-          })
+          sendSentryErrorLog(
+            SentryErrorLogKey.piwikInitialization,
+            'piwik.provider.tsx',
+            {
+              error,
+            },
+          )
         })
     }
   }, [piwikInstance, sendSentryErrorLog])

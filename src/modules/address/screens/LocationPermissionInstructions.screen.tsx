@@ -8,8 +8,9 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {useAppState} from '@/hooks/useAppState'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 
@@ -32,8 +33,8 @@ export const LocationPermissionInstructionsScreen = () => {
           }
 
           sendSentryErrorLog(
-            'requestLocationPermission failed',
-            'LocationPermissionInstructionsScreen.tsx',
+            SentryErrorLogKey.requestLocationPermission,
+            'LocationPermissionInstructions.screen.tsx',
             {error},
           )
         })

@@ -6,7 +6,8 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/Alert.types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSentry} from '@/hooks/sentry/useSentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {setAlert} from '@/store/slices/alert'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
@@ -89,7 +90,9 @@ export const useOpenImagePicker = (
         }),
       )
       sendSentryErrorLog(
-        viaCamera ? 'Taking photo failed' : 'Picking image from device failed',
+        viaCamera
+          ? SentryErrorLogKey.takingPhotoFailed
+          : SentryErrorLogKey.pickingImageFailed,
         'useOpenImagePicker.ts',
         {error, code, viaCamera},
       )

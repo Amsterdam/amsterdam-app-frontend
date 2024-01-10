@@ -1,7 +1,8 @@
 import {useCallback} from 'react'
 import {PermissionStatus} from 'react-native-permissions'
-import {useSentry} from '@/hooks/sentry/useSentry'
 import {getFcmToken, getPushNotificationPermission} from '@/processes/firebase'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {
   useRegisterDeviceMutation,
   useUnregisterDeviceMutation,
@@ -26,7 +27,7 @@ export const useRegisterDevice = (requestPermission = true) => {
       .then(registerDevice)
       .catch((error: unknown) => {
         sendSentryErrorLog(
-          'Register device for push notifications failed',
+          SentryErrorLogKey.registerDevice,
           'useRegisterDevice.ts',
           {
             error,
