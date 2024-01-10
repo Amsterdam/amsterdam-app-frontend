@@ -1,5 +1,5 @@
+import {sentryAllowList} from '@/processes/sentry/allowList'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {sentryWhitelist} from '@/processes/sentry/whitelist'
 
 /**
  * Get only whitelisted data for Sentry
@@ -12,7 +12,7 @@ export const getFilteredSentryData = (
     return undefined
   }
 
-  return sentryWhitelist[logKey]?.reduce(
+  return ((sentryAllowList[logKey] as readonly string[]) || undefined)?.reduce(
     (obj, key) => ({...obj, [key]: data[key]}),
     {},
   )

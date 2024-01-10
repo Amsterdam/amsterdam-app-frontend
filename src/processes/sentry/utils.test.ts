@@ -5,11 +5,11 @@ describe('Sentry log whitelist', () => {
   it('With valid logkey', () =>
     expect(
       getFilteredSentryData(SentryErrorLogKey.pickingImageFailed, {
+        error: 'Not found',
         code: '404',
-        message: 'Not found',
         viaCamera: true,
       }),
-    ).toStrictEqual({code: '404', message: 'Not found', viaCamera: true}))
+    ).toStrictEqual({error: 'Not found', code: '404', viaCamera: true}))
 
   it('Filtering data', () =>
     expect(
