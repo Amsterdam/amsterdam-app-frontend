@@ -6,6 +6,8 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useOpenStore} from '@/hooks/useOpenStore'
+import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
 import {VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
@@ -31,6 +33,9 @@ export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
   const {isError, isLoading} = useGetReleaseQuery()
   const {isPortrait} = useDeviceContext()
+  const openStore = useOpenStore()
+
+  useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
   if (isLoading) {
     return <PleaseWait />
@@ -51,6 +56,7 @@ export const UpdateScreen = ({children}: Props) => {
             <Button
               accessibilityHint="Om de app te gebruiken moet u eerst updaten"
               label="Update de app"
+              onPress={openStore}
               testID="UpdateAppButton"
             />
           </Box>
