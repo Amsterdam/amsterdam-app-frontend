@@ -10,7 +10,9 @@ export const useOpenStore = () => {
   return useCallback(() => {
     const link = getStoreLink()
     const log = (error: unknown) =>
-      sendSentryErrorLog(SentryErrorLogKey.openStore, '', {error})
+      sendSentryErrorLog(SentryErrorLogKey.openStore, 'useOpenStore.ts', {
+        error,
+      })
 
     Linking.canOpenURL(link)
       .then(supported => {
