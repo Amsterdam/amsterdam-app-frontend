@@ -22,6 +22,7 @@ Note that ErrorBoundaries will not catch exceptions thrown in event handlers! Th
 ## Config
 
 To connect Sentry to a different account:
+
 - Replace the content of `sentry.properties`
   - `defaults.url`: the URL of the server; will be `https://sentry.io/` if we're using Sentry SaaS or the domain name in the case of a "self hosted" solution
   - `defaults.org`: Sentry organistation slug, can be found in the Sentry interface
@@ -41,14 +42,33 @@ Current implementation is "consent ready". This means that when we implement a c
 To implement consent in this middleware, we can get consent info from the state like so:
 
 ```js
-export const sentryLoggerMiddleware: Middleware =
-  ({getState}: MiddlewareAPI) =>
-  next =>
-  action => {
-    if (isRejected(action)) {
-      const {dataUsageAllowed} = (getState() as RootState).consent // for example
-      getSendSentryErrorLog(dataUsageAllowed)(...)
-      ...
+  export const sentryLoggerMiddleware: Middleware =
+    ({getState}: MiddlewareAPI) =>
+    next =>
+    action => {
+      if (isRejected(action)) {
+        const {dataUsageAllowed} = (getState() as RootState).consent // for example
+        getSendSentryErrorLog(dataUsageAllowed)(...)
+        ...
 ```
 
-Note that the `useSentry` hooks has 2 parameters to optionally override the consent settings, which we can use *with care* to log errors before consent is initialised or to override the consent setting, only if we are sure we do not send any sensitive data.
+Note that the `useSentry` hooks has 2 parameters to optionally override the consent settings, which we can use _with care_ to log errors before consent is initialised or to override the consent setting, only if we are sure we do not send any sensitive data.
+
+## Sentry Touch Event
+
+When a touch event is triggered in the app a transaction (with component tree) is send to Sentry.
+We decide to define `testID` as the default name for components in de component tree.
+Sometimes, the name of the components in this tree includes sensitive data.
+In the case of sensitive data in the `testID` we decide to override the `testID` with `sentry-label`.
+In this specific case the `testID` have the sensitive data but it's not send to Sentry because we have defined a `sentry-label`.
+When there is no `testID` or `sentry-label` defined the fallback is the `displayName` will be send to Sentry.
+
+Below an example:
+
+```js
+  <SuggestionButton
+    ...
+    sentry-label="AddressSearchResultButton"
+    testID={`AddressSearchResult${address}Button`}
+  />
+```
