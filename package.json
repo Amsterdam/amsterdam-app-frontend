@@ -79,7 +79,7 @@
     "@react-native/metro-config": "^0.73.2",
     "@react-native/typescript-config": "^0.73.1",
     "@storybook/addon-a11y": "^7.6.3",
-    "@storybook/addon-essentials": "^7.6.3",
+    "@storybook/addon-essentials": "^7.6.7",
     "@storybook/react-vite": "^7.6.3",
     "@types/crypto-js": "^4.2.1",
     "@types/eslint": "^8.44.2",
