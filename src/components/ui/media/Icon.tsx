@@ -33,7 +33,6 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
-  testID?: string
 } & TestProps
 
 export const Icon = ({

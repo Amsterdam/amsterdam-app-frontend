@@ -1,5 +1,6 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps} from 'react-native'
+import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -15,7 +16,6 @@ export type PhraseProps = {
    */
   emphasis?: keyof typeof Emphasis
   'sentry-label'?: string
-  testID?: string
   /**
    * Whether the phrase is underlined. Use this for a link only.
    */
@@ -24,7 +24,8 @@ export type PhraseProps = {
    * Which variation of a phrase to display.
    */
   variant?: ParagraphVariants
-} & Omit<TextProps, 'style'>
+} & Omit<TextProps, 'style'> &
+  TestProps
 
 /**
  * Displays (very) short text phrases.

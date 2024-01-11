@@ -28,7 +28,7 @@ export const SuggestionButton = ({
     accessibilityRole="button"
     insetVertical="md"
     onPress={() => selectResult(pdokAddress)}
-    sentry-label={sentryLabel ?? testID}
+    sentry-label={sentryLabel}
     testID={testID}>
     <Row
       gutter="sm"

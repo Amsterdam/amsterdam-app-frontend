@@ -24,8 +24,8 @@ export const AddressSearchSuggestions = ({
         label={getSuggestionLabel(pdokAddress, showNumbersOnly)}
         pdokAddress={pdokAddress}
         selectResult={selectResult}
-        // sentry-label="AddressSearchResultButton"
-        // testID={`AddressSearchResult${pdokAddress.id}Button`}
+        sentry-label="AddressSearchResultButton"
+        testID={`AddressSearchResult${pdokAddress.id}Button`}
       />
     ))}
   </>
