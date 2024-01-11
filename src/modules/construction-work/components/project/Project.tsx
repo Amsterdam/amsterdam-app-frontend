@@ -37,6 +37,7 @@ const ONBOARDING_TIP =
 type Props = {
   id: number
 }
+const WithProductTourTip = withProductTourTip(View)
 
 export const Project = ({id}: Props) => {
   const {address} = useSelectedAddressForConstructionWork()
@@ -55,7 +56,6 @@ export const Project = ({id}: Props) => {
   const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
     useProjectUnfollowMutation()
   const {registerDeviceWithPermission} = useRegisterDevice()
-  const WithProductTourTip = withProductTourTip(View)
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {

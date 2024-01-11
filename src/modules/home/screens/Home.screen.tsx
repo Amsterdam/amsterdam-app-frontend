@@ -11,9 +11,10 @@ import {HomeRouteName} from '@/modules/home/routes'
 
 const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
+const WithProductTourTip = withProductTourTip(View)
+
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeRouteName>()
-  const WithProductTourTip = withProductTourTip(View)
 
   return (
     <Screen
