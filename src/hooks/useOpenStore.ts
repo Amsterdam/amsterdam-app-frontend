@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {Linking} from 'react-native'
-import {useSentry} from '@/hooks/sentry/useSentry'
+import {useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {getStoreLink} from '@/utils/getStoreLink'
 
 export const useOpenStore = () => {
@@ -8,7 +9,8 @@ export const useOpenStore = () => {
 
   return useCallback(() => {
     const link = getStoreLink()
-    const log = (error: unknown) => sendSentryErrorLog('', '', {error})
+    const log = (error: unknown) =>
+      sendSentryErrorLog(SentryErrorLogKey.openStore, '', {error})
 
     Linking.canOpenURL(link)
       .then(supported => {

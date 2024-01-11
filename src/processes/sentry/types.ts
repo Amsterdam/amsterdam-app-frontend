@@ -22,6 +22,7 @@ export enum SentryErrorLogKey {
   locationPermission = 'Check location permission failed',
   openMailUrl = 'Open mail url failed',
   openPhoneUrl = 'Open phone url failed',
+  openStore = 'Open app store',
   openWebUrl = 'Open web url failed',
   pickingImageFailed = 'Picking image from device failed',
   piwikInitialization = 'Piwik initialization failed',
