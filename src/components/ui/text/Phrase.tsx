@@ -14,6 +14,8 @@ export type PhraseProps = {
    * Allows the phrase to convey more emphasis.
    */
   emphasis?: keyof typeof Emphasis
+  'sentry-label'?: string
+  testID?: string
   /**
    * Whether the phrase is underlined. Use this for a link only.
    */
@@ -35,6 +37,8 @@ export const Phrase = ({
   emphasis = 'default',
   underline = false,
   variant = 'body',
+  testID,
+  'sentry-label': sentryLabel,
   ...textProps
 }: PhraseProps) => {
   const createdStyles = useMemo(
@@ -46,7 +50,9 @@ export const Phrase = ({
   return (
     <Text
       accessibilityLanguage="nl-NL"
+      sentry-label={sentryLabel}
       style={styles.text}
+      testID={testID}
       {...textProps}>
       {children}
     </Text>

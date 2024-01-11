@@ -36,14 +36,14 @@ export const SuggestionButton = ({
       <Icon
         color="link"
         name="location"
-        sentry-label={`${sentryLabel ?? testID ?? ''}Icon`}
+        sentry-label={`${sentryLabel ?? ''}Icon`}
         size="lg"
         testID={testID ? `${testID}Icon` : undefined}
       />
       <Phrase
         color="link"
         ellipsizeMode="tail"
-        sentry-label={`${sentryLabel ?? testID ?? ''}Label`}
+        sentry-label={`${sentryLabel ?? ''}Label`}
         testID={testID ? `${testID}Label` : undefined}>
         {label}
       </Phrase>
