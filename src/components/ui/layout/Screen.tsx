@@ -2,6 +2,8 @@ import {FC, MutableRefObject, ReactNode, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {selectSeenTips} from '@/components/features/product-tour/product-tour.slice'
+import {Tip} from '@/components/features/product-tour/types'
 import {
   KeyboardAwareTrackScrollView,
   TrackScrollView,
@@ -11,6 +13,7 @@ import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingV
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {TestProps} from '@/components/ui/types'
+import {useSelector} from '@/hooks/redux/useSelector'
 
 type WrapperProps = Pick<
   Props,
@@ -25,8 +28,12 @@ const ScrollableWrapper = ({
   keyboardAwareScrollViewStyle,
   trackScroll,
 }: WrapperProps) => {
+  const seenTips = useSelector(selectSeenTips)
+  const hasUnseenTips =
+    trackScroll && trackScroll.some(t => seenTips.includes(t))
+
   if (keyboardAware) {
-    const CustomKeyboardAwareScrollView = trackScroll
+    const CustomKeyboardAwareScrollView = hasUnseenTips
       ? KeyboardAwareTrackScrollView
       : KeyboardAwareScrollView
 
@@ -39,7 +46,7 @@ const ScrollableWrapper = ({
     )
   }
 
-  const CustomScrollView = trackScroll ? TrackScrollView : ScrollView
+  const CustomScrollView = hasUnseenTips ? TrackScrollView : ScrollView
 
   return <CustomScrollView grow>{children}</CustomScrollView>
 }
@@ -83,7 +90,10 @@ type Props = {
   scroll?: boolean
   stickyFooter?: ReactNode
   stickyHeader?: ReactNode
-  trackScroll?: boolean
+  /**
+   * Include all product-tour tips on the screen to determine if the scroll should be tracked
+   */
+  trackScroll?: Tip[]
 } & TestProps &
   WithInsetProps
 
@@ -121,7 +131,7 @@ export const Screen = ({
   withRightInset = true,
   withTopInset = false,
   testID,
-  trackScroll = false,
+  trackScroll,
   ...wrapperProps
 }: Props) => {
   const insets = useSafeAreaInsets()
