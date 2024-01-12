@@ -23,8 +23,8 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
   const iconName = external
     ? 'external-link'
     : direction === Direction.left
-    ? 'chevron-left'
-    : 'chevron-right'
+      ? 'chevron-left'
+      : 'chevron-right'
 
   return (
     <Size height={text.lineHeight.body}>
