@@ -32,7 +32,7 @@ type ScrollContext = {
 
 export const ScrollContext = createContext<ScrollContext | null>(null)
 
-export const withTrackScroll = (
+const withTrackScroll = (
   ScrollViewComp:
     | ComponentType<ScrollViewProps>
     | ComponentType<KeyboardAwareScrollViewProps>,
@@ -87,3 +87,9 @@ export const withTrackScroll = (
     />
   ))
 }
+
+export const KeyboardAwareTrackScrollView = withTrackScroll(
+  KeyboardAwareScrollView,
+  'innerRef',
+)
+export const TrackScrollView = withTrackScroll(ScrollView)
