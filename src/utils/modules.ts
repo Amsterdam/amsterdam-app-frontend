@@ -60,9 +60,9 @@ export const postProcessModules = (
   return {
     /** All modules, disregarding authentication. Be careful when using this prop. You probably want to consider authorized or selected modules instead. */
     allModulesDangerous: mergedModules,
-    /** Modules that a user has enabled in the settings or that are always enabled. They may be not active (remotely disabled). */
+    /** Modules that a user has not disabled in the settings or that are always enabled. They may be not active (remotely disabled). */
     enabledModules,
-    /** Modules that a user has enabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
+    /** Modules that a user has not disabled in the settings or that are always enabled, by slug.  They may be not active (remotely disabled). */
     enabledModulesBySlug,
     /** Modules that a user may enable/disable in the settings. They may be not active (remotely disabled). */
     toggleableModules,
