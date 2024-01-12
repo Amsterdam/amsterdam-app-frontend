@@ -18,7 +18,8 @@ import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
-type TooltipProps = {
+type WrapperProps = {
+  children: ReactNode
   /**
    * Extra space to set between target and tooltip
    */
@@ -31,25 +32,18 @@ type TooltipProps = {
    * Duration of the fade-in animation in milliseconds, only works when fade = true
    */
   fadeInDuration?: number
-  onPress: () => void
+
   placement: Placement
   productTourTipTargetLayout?: LayoutRectangle
   startFadeIn?: boolean
+}
+
+type TooltipProps = {
+  onPress: () => void
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
+  Omit<WrapperProps, 'children'> &
   TestProps
-
-type WrapperProps = {
-  children: ReactNode
-} & Pick<
-  TooltipProps,
-  | 'extraSpace'
-  | 'fadeIn'
-  | 'fadeInDuration'
-  | 'productTourTipTargetLayout'
-  | 'placement'
-  | 'startFadeIn'
->
 
 const Wrapper = forwardRef<View, WrapperProps>(
   (
