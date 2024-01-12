@@ -2,7 +2,10 @@ import {FC, MutableRefObject, ReactNode, useMemo} from 'react'
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {withTrackScroll} from '@/components/features/product-tour/withTrackScroll'
+import {
+  KeyboardAwareTrackScrollView,
+  TrackScrollView,
+} from '@/components/features/product-tour/withTrackScroll'
 import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -22,14 +25,11 @@ const ScrollableWrapper = ({
   keyboardAwareScrollViewStyle,
   trackScroll,
 }: WrapperProps) => {
-  const CustomScrollView = trackScroll
-    ? withTrackScroll(ScrollView)
-    : ScrollView
-  const CustomKeyboardAwareScrollView = trackScroll
-    ? withTrackScroll(KeyboardAwareScrollView, 'innerRef')
-    : KeyboardAwareScrollView
-
   if (keyboardAware) {
+    const CustomKeyboardAwareScrollView = trackScroll
+      ? KeyboardAwareTrackScrollView
+      : KeyboardAwareScrollView
+
     return (
       <CustomKeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
@@ -38,6 +38,8 @@ const ScrollableWrapper = ({
       </CustomKeyboardAwareScrollView>
     )
   }
+
+  const CustomScrollView = trackScroll ? TrackScrollView : ScrollView
 
   return <CustomScrollView grow>{children}</CustomScrollView>
 }
