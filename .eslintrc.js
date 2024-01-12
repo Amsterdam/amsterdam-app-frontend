@@ -174,7 +174,6 @@ module.exports = {
         'jsx-expressions/strict-logical-expressions': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/no-extra-semi': 'off',
       },
       parserOptions: {
         project: ['./tsconfig.json'],
