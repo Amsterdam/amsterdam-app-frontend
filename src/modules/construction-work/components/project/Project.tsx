@@ -1,8 +1,7 @@
 import {useCallback, useLayoutEffect} from 'react'
-import {View} from 'react-native'
 import simplur from 'simplur'
+import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
-import {withProductTourTip} from '@/components/features/product-tour/withProductTourTip'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
@@ -37,7 +36,6 @@ const ONBOARDING_TIP =
 type Props = {
   id: number
 }
-const WithProductTourTip = withProductTourTip(View)
 
 export const Project = ({id}: Props) => {
   const {address} = useSelectedAddressForConstructionWork()
@@ -104,7 +102,7 @@ export const Project = ({id}: Props) => {
               gutter="md"
               valign="center"
               zIndex={1}>
-              <WithProductTourTip
+              <ProductTourTipWrapper
                 extraSpace="md"
                 placement={Placement.below}
                 testID="ConstructionWorkProjectFollowButtonTooltip"
@@ -122,7 +120,7 @@ export const Project = ({id}: Props) => {
                   onPress={onPressFollowButton}
                   testID="ConstructionWorkProjectFollowButton"
                 />
-              </WithProductTourTip>
+              </ProductTourTipWrapper>
               <SingleSelectable
                 accessibilityLabel={accessibleText(
                   followers.toString(),
