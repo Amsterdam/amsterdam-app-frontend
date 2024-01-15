@@ -22,8 +22,10 @@ export const Init = ({children}: Props) => {
     () => ({
       onForeground: () => {
         if (enabledModules?.some(module => module.requiresFirebaseToken)) {
-          registerDeviceWithPermission()
+          registerDeviceWithPermission() // Because tokens refresh regularly, we need to re-register regularly
         } else {
+          /* When the user has disabled all modules that require a Firebase token,
+          we unregister the device so the user stops receiving push notifications */
           void unregisterDevice(undefined)
         }
       },
