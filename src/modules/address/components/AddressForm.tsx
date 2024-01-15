@@ -17,6 +17,7 @@ import {addAddress} from '@/modules/address/slice'
 import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {setAlert} from '@/store/slices/alert'
+import {replaceString} from '@/utils/replaceString'
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useDeviceContext()
@@ -41,12 +42,16 @@ export const AddressForm = () => {
       },
     )
 
-  const changeStreet = (text: string) => {
+  const changeStreet = useCallback((text: string) => {
     setIsStreetSelected(false)
     setCity(undefined)
-    setStreet(text)
+    setStreet(replaceString(text, 'address'))
     setNumber('')
-  }
+  }, [])
+
+  const changeNumber = useCallback((text: string) => {
+    setNumber(replaceString(text, 'number'))
+  }, [])
 
   const selectResult = useCallback(
     (item: PdokAddress) => {
@@ -99,7 +104,7 @@ export const AddressForm = () => {
         <NumberInput
           bagList={bagList?.response.docs ?? []}
           changeIsStreetSelected={setIsStreetSelected}
-          changeNumber={setNumber}
+          changeNumber={changeNumber}
           isLoading={isFetchingBagList}
           keyboardType="numbers-and-punctuation"
           number={number}
