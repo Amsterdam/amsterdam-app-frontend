@@ -1,3 +1,4 @@
+import {ProductTourState} from '@/components/features/product-tour/product-tour.slice'
 import {AddressState} from '@/modules/address/slice'
 import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
@@ -11,7 +12,6 @@ import {AuthState} from '@/store/slices/auth'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {ModulesState} from '@/store/slices/modules'
-import {ProductTourState} from '@/store/slices/product-tour.slice'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {ThemeState} from '@/themes/slice'
 
