@@ -2,7 +2,6 @@ import {ReactNode} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -22,7 +21,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: false,
+      supported: true,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -38,7 +37,7 @@ export const UpdateScreen = ({children}: Props) => {
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
   if (isLoading) {
-    return <PleaseWait />
+    return children
   }
 
   if (isError) {

@@ -7,6 +7,7 @@ export const sentryAllowList = {
     'retriesRemaining',
     'serverModules',
   ],
+  [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],
   [SentryErrorLogKey.locationPermission]: ['error'],
   [SentryErrorLogKey.openMailUrl]: [],

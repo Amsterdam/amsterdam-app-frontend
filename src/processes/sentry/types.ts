@@ -20,6 +20,7 @@ export enum SentryErrorLogKey {
   getModulesForAppQuery = 'Failed to get modules for app',
   isScreenReaderEnabled = 'Screenreader enabled check failed',
   locationPermission = 'Check location permission failed',
+  notSupportedStoredUrl = 'Can not use url to open store',
   openMailUrl = 'Open mail url failed',
   openPhoneUrl = 'Open phone url failed',
   openStore = 'Open app store',

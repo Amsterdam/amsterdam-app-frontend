@@ -1,6 +1,6 @@
 export const shouldShowUpdateSuggestion = (
   snoozeTimeInHours: number,
-  lastSeenTimestamp?: number,
+  lastSeenTimestamp?: number | null,
 ) => {
   if (!lastSeenTimestamp) {
     return true

@@ -4,9 +4,10 @@ jest.useFakeTimers()
 
 describe('shouldShowUpdateSuggestion', () => {
   it('should return true if lastSeenTimestamp is not provided', () => {
-    const result = shouldShowUpdateSuggestion(4)
-
-    expect(result).toBe(true)
+    expect(shouldShowUpdateSuggestion(4)).toBe(true)
+    expect(shouldShowUpdateSuggestion(4)).toBe(true)
+    expect(shouldShowUpdateSuggestion(4, undefined)).toBe(true)
+    expect(shouldShowUpdateSuggestion(4, null)).toBe(true)
   })
 
   it('should return true if past the snooze time', () => {
@@ -14,9 +15,8 @@ describe('shouldShowUpdateSuggestion', () => {
     const lastSeenTimestamp = currentTimestamp - 5 * 3600000 // 5 hours ago
 
     jest.setSystemTime(currentTimestamp)
-    const result = shouldShowUpdateSuggestion(4, lastSeenTimestamp)
 
-    expect(result).toBe(true)
+    expect(shouldShowUpdateSuggestion(4, lastSeenTimestamp)).toBe(true)
   })
 
   it('should return false if within the snooze time', () => {
@@ -24,9 +24,8 @@ describe('shouldShowUpdateSuggestion', () => {
     const lastSeenTimestamp = currentTimestamp - 3 * 3600000 // 3 hours ago
 
     jest.setSystemTime(currentTimestamp)
-    const result = shouldShowUpdateSuggestion(4, lastSeenTimestamp)
 
-    expect(result).toBe(false)
+    expect(shouldShowUpdateSuggestion(4, lastSeenTimestamp)).toBe(false)
   })
 
   afterEach(() => {

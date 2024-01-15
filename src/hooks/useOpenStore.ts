@@ -17,7 +17,10 @@ export const useOpenStore = () => {
     Linking.canOpenURL(link)
       .then(supported => {
         if (!supported) {
-          throw new Error('canOpenURL failed')
+          sendSentryErrorLog(
+            SentryErrorLogKey.notSupportedStoredUrl,
+            'useOpenStore.ts',
+          )
         }
 
         Linking.openURL(link).catch(log)
