@@ -13,9 +13,9 @@ describe('replaceString', () => {
     )
   })
 
-  it('should remove non-alphanumeric characters from number strings', () => {
-    expect(replaceString('AB-123', 'number')).toBe('AB-123')
-    expect(replaceString('12 34!', 'number')).toBe('12 34')
-    expect(replaceString('56-78?9', 'number')).toBe('56-789')
+  it('should remove non-alphanumeric characters from houseNumber strings', () => {
+    expect(replaceString('AB-123', 'houseNumber')).toBe('AB-123')
+    expect(replaceString('12 34!', 'houseNumber')).toBe('12 34')
+    expect(replaceString('56-78?9', 'houseNumber')).toBe('56-789')
   })
 })

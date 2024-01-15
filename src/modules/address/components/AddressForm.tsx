@@ -50,7 +50,7 @@ export const AddressForm = () => {
   }, [])
 
   const changeNumber = useCallback((text: string) => {
-    setNumber(replaceString(text, 'number'))
+    setNumber(replaceString(text, 'houseNumber'))
   }, [])
 
   const selectResult = useCallback(
