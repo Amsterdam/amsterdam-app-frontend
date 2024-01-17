@@ -4,7 +4,7 @@
 import 'react-native-get-random-values'
 import {AES, SHA256, enc} from 'crypto-js'
 // eslint-disable-next-line no-restricted-imports
-import {getUniqueId} from 'react-native-device-info'
+import {getUniqueIdSync} from 'react-native-device-info'
 
 type EncryptionParams = {
   password: string
@@ -22,4 +22,4 @@ export const decryptWithAES = ({password, salt}: EncryptionParams): string => {
 
 export const encryptWithSHA256 = (value: string) => SHA256(value).toString()
 
-export const SHA256EncryptedDeviceId = encryptWithSHA256(getUniqueId())
+export const SHA256EncryptedDeviceId = encryptWithSHA256(getUniqueIdSync())
