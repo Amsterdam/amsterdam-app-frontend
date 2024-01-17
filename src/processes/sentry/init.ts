@@ -7,7 +7,9 @@ import {
   ReactNavigationInstrumentation,
   setTag,
   setUser,
+  wrap,
 } from '@sentry/react-native'
+import {ReactNativeWrapperOptions} from '@sentry/react-native/dist/js/options'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
 
@@ -17,6 +19,8 @@ import {Environment} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {sanitizeUrl} from '@/processes/sentry/utils'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
+
+const enableSentry = appFlavour !== AppFlavour.local
 
 const routingInstrumentation = new ReactNavigationInstrumentation()
 
@@ -38,7 +42,7 @@ export const registerNavigationContainer = (
  */
 export const initSentry = () => {
   // We do not log errors when running the app locally, but may want to in the future
-  if (appFlavour === AppFlavour.local) {
+  if (!enableSentry) {
     return
   }
 
@@ -72,6 +76,17 @@ export const initSentry = () => {
       }),
     ],
   })
+}
+
+export const sentryWrap = <P extends Record<string, unknown>>(
+  RootComponent: React.ComponentType<P>,
+  options?: ReactNativeWrapperOptions,
+): React.ComponentType<P> => {
+  if (!enableSentry) {
+    return RootComponent
+  }
+
+  return wrap(RootComponent, options)
 }
 
 /**
