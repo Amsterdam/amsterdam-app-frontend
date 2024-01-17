@@ -11,9 +11,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {City} from '@/modules/report-problem/types'
 import {useEnvironment} from '@/store/slices/environment'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
@@ -22,7 +20,6 @@ export const ReportProblemScreen = ({navigation}: Props) => {
   const environment = useEnvironment()
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {isPortrait} = useDeviceContext()
 
   return (
     <Screen>
@@ -60,39 +57,18 @@ export const ReportProblemScreen = ({navigation}: Props) => {
           <Column
             flex={1}
             gutter="md">
-            <Title
-              level="h5"
-              text="Voor welke plaats wilt u een melding doen?"
-            />
             <Row
               gutter="md"
               wrap>
-              <Column flex={isPortrait ? 1 : undefined}>
+              <Column grow>
                 <Button
-                  label="Amsterdam"
+                  label="Doe een melding"
                   onPress={() =>
                     navigation.navigate(
                       ReportProblemRouteName.reportProblemWebView,
-                      {
-                        city: City.Amsterdam,
-                      },
                     )
                   }
-                  testID="ReportProblemAmsterdamButton"
-                />
-              </Column>
-              <Column flex={isPortrait ? 1 : undefined}>
-                <Button
-                  label="Weesp"
-                  onPress={() =>
-                    navigation.navigate(
-                      ReportProblemRouteName.reportProblemWebView,
-                      {
-                        city: City.Weesp,
-                      },
-                    )
-                  }
-                  testID="ReportProblemWeespButton"
+                  testID="ReportProblemButton"
                 />
               </Column>
             </Row>

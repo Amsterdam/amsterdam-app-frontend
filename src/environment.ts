@@ -13,7 +13,6 @@ export type EnvironmentConfig = {
   makeAppointmentWeespUrl: string
   modulesApiUrl: string
   reportProblemAmsterdamUrl: string
-  reportProblemWeespUrl: string
   seenonsScheduleWastePickupUrl: string
   wasteCollectionPointsUrl: string
   wasteContainersUrl: string
@@ -43,8 +42,6 @@ enum ExternalWebUrls {
   makeAppointmentWeespProd = 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx',
   reportProblemAmsterdamAcc = 'https://acc.app.meldingen.amsterdam.nl',
   reportProblemAmsterdamProd = 'https://app.meldingen.amsterdam.nl',
-  reportProblemWeespAcc = 'https://acc.meldingenweesp.amsterdam.nl',
-  reportProblemWeespProd = 'https://meldingenweesp.amsterdam.nl',
   seenonsScheduleWastePickupProd = 'https://afvalopafspraak.app.seenons.com',
   wasteCollectionPointsProd = 'https://kaart.amsterdam.nl/afvalpunten',
   wasteContainersProd = 'https://kaart.amsterdam.nl/afvalcontainers',
@@ -75,7 +72,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiDev,
     modulesApiUrl: ApiUrls.modulesApiDev,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.acceptance]: {
@@ -83,7 +79,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiAcc,
     modulesApiUrl: ApiUrls.modulesApiAcc,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
   [Environment.production]: {
@@ -91,7 +86,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiProd,
     modulesApiUrl: ApiUrls.modulesApiProd,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamProd,
-    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespProd,
     wasteGuideUrl: ApiUrls.wasteGuideApiProd,
   },
   [Environment.custom]: {
@@ -99,7 +93,6 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     apiUrl: ApiUrls.apiCustomDefault,
     modulesApiUrl: ApiUrls.modulesApiCustomDefault,
     reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    reportProblemWeespUrl: ExternalWebUrls.reportProblemWeespAcc,
     wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
   },
 }

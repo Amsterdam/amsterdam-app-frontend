@@ -1,5 +1,3 @@
-import {City} from '@/modules/report-problem/types'
-
 export enum ReportProblemRouteName {
   reportProblem = 'ReportProblem',
   reportProblemWebView = 'ReportProblemWebView',
@@ -7,9 +5,7 @@ export enum ReportProblemRouteName {
 
 export type ReportProblemStackParams = {
   [ReportProblemRouteName.reportProblem]: undefined
-  [ReportProblemRouteName.reportProblemWebView]: {
-    city: City
-  }
+  [ReportProblemRouteName.reportProblemWebView]: undefined
 }
 
 export enum ReportProblemModalName {}
