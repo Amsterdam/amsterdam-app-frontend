@@ -48,9 +48,7 @@ const AppComponent = () => (
 
 initSentry()
 
-export const App = sentryWrap(AppComponent, {
-  touchEventBoundaryProps: {labelName: 'testID'},
-})
+export const App = sentryWrap(AppComponent)
 
 const styles = StyleSheet.create({
   appContainer: {

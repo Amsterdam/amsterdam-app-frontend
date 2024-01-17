@@ -9,7 +9,6 @@ import {
   setUser,
   wrap,
 } from '@sentry/react-native'
-import {ReactNativeWrapperOptions} from '@sentry/react-native/dist/js/options'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
 
@@ -80,13 +79,14 @@ export const initSentry = () => {
 
 export const sentryWrap = <P extends Record<string, unknown>>(
   RootComponent: React.ComponentType<P>,
-  options?: ReactNativeWrapperOptions,
 ): React.ComponentType<P> => {
   if (!enableSentry) {
     return RootComponent
   }
 
-  return wrap(RootComponent, options)
+  return wrap(RootComponent, {
+    touchEventBoundaryProps: {labelName: 'testID'},
+  })
 }
 
 /**
