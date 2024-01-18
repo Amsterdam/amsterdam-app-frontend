@@ -1,4 +1,4 @@
-import {ErrorBoundary, wrap as SentryWrap} from '@sentry/react-native'
+import {ErrorBoundary} from '@sentry/react-native'
 import {StatusBar, StyleSheet} from 'react-native'
 import {
   initialWindowMetrics,
@@ -11,7 +11,7 @@ import {Init} from '@/app/Init'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
 import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
-import {initSentry} from '@/processes/sentry/init'
+import {initSentry, sentryWrap} from '@/processes/sentry/init'
 import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
 import {lightColorTokens} from '@/themes/tokens/color-light'
@@ -48,9 +48,7 @@ const AppComponent = () => (
 
 initSentry()
 
-export const App = SentryWrap(AppComponent, {
-  touchEventBoundaryProps: {labelName: 'testID'},
-})
+export const App = sentryWrap(AppComponent)
 
 const styles = StyleSheet.create({
   appContainer: {

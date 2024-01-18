@@ -82,7 +82,7 @@ module.exports = {
           },
           {
             name: 'react-native-device-info',
-            importNames: ['getUniqueId'],
+            importNames: ['getUniqueId', 'getUniqueIdSync'],
             message:
               'Do not use getUniqueId, this is considered personal (privacy sensitive) information.',
           },
