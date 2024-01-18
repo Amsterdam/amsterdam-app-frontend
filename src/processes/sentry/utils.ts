@@ -12,7 +12,7 @@ export const getFilteredSentryData = (
     return undefined
   }
 
-  return ((sentryAllowList[logKey] as readonly string[]) || undefined)?.reduce(
+  return (sentryAllowList[logKey] as readonly string[])?.reduce(
     (obj, key) => ({...obj, [key]: data[key]}),
     {},
   )
