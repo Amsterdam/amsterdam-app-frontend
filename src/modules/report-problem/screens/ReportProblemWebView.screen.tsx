@@ -1,13 +1,8 @@
-import {useCallback, useLayoutEffect} from 'react'
+import {useCallback} from 'react'
 import {WebViewMessageEvent} from 'react-native-webview'
 import {NavigationProps} from '@/app/navigation/types'
-import {Box} from '@/components/ui/containers/Box'
 import {WebView} from '@/components/ui/containers/WebView'
-import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
-import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
-import {Link} from '@/components/ui/text/Link'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {useEnvironment} from '@/store/slices/environment'
 
@@ -20,18 +15,9 @@ const injectedJavaScript = `
 
 const signalsCloseMessage = 'signals/close'
 
-export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
+export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   const environment = useEnvironment()
-  const {city} = route.params
-  const url = environment[`reportProblem${city}Url`]
-
-  useLayoutEffect(() => {
-    if (city) {
-      navigation.setOptions({
-        headerTitle: `Melding doen voor ${city}`,
-      })
-    }
-  }, [navigation, city])
+  const url = environment.reportProblemAmsterdamUrl
 
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -41,30 +27,6 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
     },
     [navigation],
   )
-
-  if (!city) {
-    return (
-      <Screen>
-        <Box>
-          <Column gutter="md">
-            <EmptyMessage
-              testID="ReportProblemWebViewCityNotFoundText"
-              text="Plaats niet gevonden."
-            />
-            <Row align="start">
-              <Link
-                label="Terug"
-                onPress={() =>
-                  navigation.navigate(ReportProblemRouteName.reportProblem)
-                }
-                variant="backward"
-              />
-            </Row>
-          </Column>
-        </Box>
-      </Screen>
-    )
-  }
 
   return (
     <Screen scroll={false}>
