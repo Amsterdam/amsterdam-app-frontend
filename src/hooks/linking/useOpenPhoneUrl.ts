@@ -18,9 +18,7 @@ export const useOpenPhoneUrl = (): OpenPhoneUrl => {
 
     Linking.openURL(phoneUrl).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog(SentryErrorLogKey.openPhoneUrl, 'useOpenPhoneUrl.ts', {
-        phoneUrl,
-      })
+      sendSentryErrorLog(SentryErrorLogKey.openPhoneUrl, 'useOpenPhoneUrl.ts')
     })
   }
 }
