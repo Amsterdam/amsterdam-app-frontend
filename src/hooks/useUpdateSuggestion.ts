@@ -4,7 +4,10 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {VersionInfo} from '@/services/modules.service'
-import {setLastSeenTimestamp, useLastSeenTimestamp} from '@/store/slices/update'
+import {
+  setLastSeenTimestamp,
+  useLastSeenTimestamp,
+} from '@/store/slices/updateApp'
 import {shouldShowUpdateSuggestion} from '@/utils/shouldShowUpdateSuggestion'
 
 export const useUpdateSuggestion = (
@@ -24,14 +27,14 @@ export const useUpdateSuggestion = (
       return
     }
 
-    dispatch(setLastSeenTimestamp(Date.now()))
+    dispatch(setLastSeenTimestamp)
 
     Alert.alert(
       'Update de app',
       `Versie ${versionInfo.latest} is beschikbaar`,
       [
         {
-          text: 'Naar de app',
+          text: 'Annuleer',
           style: 'cancel',
         },
         {

@@ -12,6 +12,6 @@ export enum ReduxKey {
   onboarding = 'onboarding',
   productTour = 'productTour',
   theme = 'theme',
-  update = 'update',
+  updateApp = 'updateApp',
   wasteGuide = 'wasteGuide',
 }

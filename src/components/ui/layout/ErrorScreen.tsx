@@ -2,6 +2,7 @@ import {ComponentType, ReactNode, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {SvgProps} from 'react-native-svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -20,8 +21,11 @@ const MIN_IMAGE_HEiGHT = 350
 
 type Props = {
   Image: ComponentType<SvgProps>
-  stickyFooter?: ReactNode
+  buttonAccessibilityLabel: string
+  buttonLabel: string
+  onPress: () => void
   stickyHeader?: ReactNode
+  testId: string
   text: string
   title: string
 }
@@ -31,7 +35,10 @@ export const ErrorScreen = ({
   text,
   Image,
   stickyHeader,
-  stickyFooter,
+  buttonAccessibilityLabel,
+  buttonLabel,
+  onPress,
+  testId,
 }: Props) => {
   const {isPortrait, fontScale} = useDeviceContext()
   const {media} = useTheme()
@@ -51,7 +58,18 @@ export const ErrorScreen = ({
   return (
     <Screen
       scroll={false}
-      stickyFooter={stickyFooter ?? undefined}
+      stickyFooter={
+        <Box
+          insetHorizontal={isPortrait ? 'md' : 'xl'}
+          insetVertical="no">
+          <Button
+            accessibilityHint={buttonAccessibilityLabel}
+            label={buttonLabel}
+            onPress={onPress}
+            testID={testId}
+          />
+        </Box>
+      }
       stickyHeader={stickyHeader ?? undefined}
       withLeftInset={!!isPortrait}
       withRightInset={!!isPortrait}
@@ -85,7 +103,7 @@ export const ErrorScreen = ({
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop="xl">
+                  insetTop={!stickyHeader ? 'xxl' : 'no'}>
                   <Wrapper style={styles.textContent}>
                     <Title
                       level="h3"
@@ -140,6 +158,7 @@ const createStyles =
       },
       textContent: {
         height: isPortrait ? 'auto' : '100%',
+        padding: isPortrait ? size.spacing.no : size.spacing.sm,
         backgroundColor: 'white',
       },
       imageVisibility: {

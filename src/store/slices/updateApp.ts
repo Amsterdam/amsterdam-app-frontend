@@ -7,8 +7,8 @@ export type UpdateState = {
   lastSeenTimestamp?: number
 }
 
-export const updateSlice = createSlice({
-  name: ReduxKey.update,
+export const updateAppSlice = createSlice({
+  name: ReduxKey.updateApp,
   initialState: {},
   reducers: {
     setLastSeenTimestamp: (
@@ -21,9 +21,11 @@ export const updateSlice = createSlice({
   },
 })
 
-export const {setLastSeenTimestamp} = updateSlice.actions
+export const setLastSeenTimestamp = updateAppSlice.actions.setLastSeenTimestamp(
+  Date.now(),
+)
 
 const selectLastSeenTimestamp = (state: RootState) =>
-  state[ReduxKey.update].lastSeenTimestamp
+  state[ReduxKey.updateApp].lastSeenTimestamp
 
 export const useLastSeenTimestamp = () => useSelector(selectLastSeenTimestamp)

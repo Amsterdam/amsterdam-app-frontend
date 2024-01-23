@@ -10,7 +10,7 @@ import {authSlice} from '@/store/slices/auth'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
 import {modulesSlice} from '@/store/slices/modules'
-import {updateSlice} from '@/store/slices/update'
+import {updateAppSlice} from '@/store/slices/updateApp'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {themeSlice} from '@/themes/slice'
@@ -23,7 +23,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
   {key: ReduxKey.theme, slice: themeSlice},
-  {key: ReduxKey.update, slice: updateSlice, persistVersion: -1},
+  {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: -1},
 ]
 
 const reducers = getReducers([
