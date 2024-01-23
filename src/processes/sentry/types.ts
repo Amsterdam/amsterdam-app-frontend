@@ -35,7 +35,9 @@ export enum SentryErrorLogKey {
 export type SendErrorLog = <T extends SentryErrorLogKey>(
   logKey: T,
   filename: string,
-  data?: Partial<Record<(typeof sentryAllowList)[T][number], unknown>>,
+  data?: (typeof sentryAllowList)[T][number] extends never
+    ? never
+    : Partial<Record<(typeof sentryAllowList)[T][number], unknown>>,
   errorTitle?: string,
 ) => void
 

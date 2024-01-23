@@ -16,9 +16,7 @@ export const useOpenMailUrl = (): OpenMailUrl => {
 
     Linking.openURL(mailUrl).catch(() => {
       Alert.alert('Sorry, deze functie is niet beschikbaar.')
-      sendSentryErrorLog(SentryErrorLogKey.openMailUrl, 'useOpenMailUrl.ts', {
-        mailUrl,
-      })
+      sendSentryErrorLog(SentryErrorLogKey.openMailUrl, 'useOpenMailUrl.ts')
     })
   }
 }
