@@ -103,7 +103,7 @@ export const ErrorScreen = ({
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop={!stickyHeader ? 'xxl' : 'no'}>
+                  insetTop={stickyHeader ? 'no' : isPortrait ? 'xl' : 'xxl'}>
                   <Wrapper style={styles.textContent}>
                     <Title
                       level="h3"
