@@ -3,7 +3,7 @@ import {LayoutRectangle, View} from 'react-native'
 import {
   selectSeenTips,
   addSeenTip,
-} from '@/components/features/product-tour/product-tour.slice'
+} from '@/components/features/product-tour/slice'
 import {Tip} from '@/components/features/product-tour/types'
 import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'

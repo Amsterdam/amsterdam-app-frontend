@@ -1,4 +1,4 @@
-import {ProductTourState} from '@/components/features/product-tour/product-tour.slice'
+import {ProductTourState} from '@/components/features/product-tour/slice'
 import {AddressState} from '@/modules/address/slice'
 import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
@@ -12,6 +12,7 @@ import {AuthState} from '@/store/slices/auth'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {ModulesState} from '@/store/slices/modules'
+import {UpdateState} from '@/store/slices/updateApp'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {ThemeState} from '@/themes/slice'
 
@@ -30,5 +31,6 @@ export type RootState = {
   [ReduxKey.onboarding]: OnboardingState
   [ReduxKey.productTour]: ProductTourState
   [ReduxKey.theme]: ThemeState
+  [ReduxKey.updateApp]: UpdateState
   [ReduxKey.wasteGuide]: WasteGuideState
 }

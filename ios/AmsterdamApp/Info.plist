@@ -48,6 +48,7 @@
 		<string>mailto</string>
 		<string>http</string>
 		<string>https</string>
+		<string>itms-apps</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

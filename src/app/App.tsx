@@ -8,6 +8,7 @@ import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 import {CustomErrorBoundary} from '@/app/CustomErrorBoundary'
 import {Init} from '@/app/Init'
+import {UpdateScreen} from '@/app/UpdateScreen'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
 import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
@@ -30,17 +31,19 @@ const AppComponent = () => (
         translucent
       />
       <RootProvider>
-        <AppNavigationContainer>
-          <PersistGate
-            loading={null}
-            persistor={persistor}>
-            <Init>
-              <ErrorBoundary fallback={<ErrorWithRestart />}>
-                <RootStackNavigator />
-              </ErrorBoundary>
-            </Init>
-          </PersistGate>
-        </AppNavigationContainer>
+        <PersistGate
+          loading={null}
+          persistor={persistor}>
+          <UpdateScreen>
+            <AppNavigationContainer>
+              <Init>
+                <ErrorBoundary fallback={<ErrorWithRestart />}>
+                  <RootStackNavigator />
+                </ErrorBoundary>
+              </Init>
+            </AppNavigationContainer>
+          </UpdateScreen>
+        </PersistGate>
       </RootProvider>
     </CustomErrorBoundary>
   </SafeAreaProvider>

@@ -1,5 +1,5 @@
 import {ReactNode, useMemo} from 'react'
-import {StyleSheet, Text, TextProps} from 'react-native'
+import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
 import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
@@ -16,6 +16,10 @@ export type PhraseProps = {
    */
   emphasis?: keyof typeof Emphasis
   'sentry-label'?: string
+  /**
+   * Defines the alignment of the text. Maps with the textAlign style prop options.
+   */
+  textAlign?: TextStyle['textAlign']
   /**
    * Whether the phrase is underlined. Use this for a link only.
    */
@@ -40,11 +44,12 @@ export const Phrase = ({
   variant = 'body',
   testID,
   'sentry-label': sentryLabel,
+  textAlign = 'left',
   ...textProps
 }: PhraseProps) => {
   const createdStyles = useMemo(
-    () => createStyles({color, emphasis, underline, variant}),
-    [color, emphasis, underline, variant],
+    () => createStyles({color, emphasis, underline, variant, textAlign}),
+    [color, emphasis, underline, variant, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -66,8 +71,12 @@ const createStyles =
     emphasis,
     underline,
     variant,
+    textAlign,
   }: Required<
-    Pick<PhraseProps, 'color' | 'emphasis' | 'underline' | 'variant'>
+    Pick<
+      PhraseProps,
+      'color' | 'emphasis' | 'underline' | 'variant' | 'textAlign'
+    >
   >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
@@ -79,5 +88,6 @@ const createStyles =
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant],
         textDecorationLine: underline ? 'underline' : 'none',
+        textAlign,
       },
     })

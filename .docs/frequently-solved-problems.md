@@ -43,6 +43,8 @@ Occasionally, something will be cached outside of the build folder. To make sure
 
 #### Archive failed
 
+If you see something resembling `The following build commands failed: PhaseScriptExecution Upload\ Debug\ Symbols\ to\ Sentry`, it is just a connectivity issue. Run the build again.
+
 During the Fastlane `build_app` task:
 
 ```shell

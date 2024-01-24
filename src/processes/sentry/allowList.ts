@@ -7,6 +7,7 @@ export const sentryAllowList = {
     'retriesRemaining',
     'serverModules',
   ],
+  [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],
   [SentryErrorLogKey.locationPermission]: ['error'],
   [SentryErrorLogKey.openMailUrl]: [],
@@ -19,4 +20,5 @@ export const sentryAllowList = {
   [SentryErrorLogKey.resetLocationPermissionAndroid]: ['error'],
   [SentryErrorLogKey.sentryMiddleWareError]: ['endpoint', 'status', 'url'],
   [SentryErrorLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
+  [SentryErrorLogKey.openStore]: ['error'],
 } as const
