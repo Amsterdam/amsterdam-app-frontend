@@ -5,7 +5,6 @@ jest.useFakeTimers()
 describe('shouldShowUpdateSuggestion', () => {
   it('should return true if lastSeenTimestamp is not provided', () => {
     expect(shouldShowUpdateSuggestion(4)).toBe(true)
-    expect(shouldShowUpdateSuggestion(4)).toBe(true)
     expect(shouldShowUpdateSuggestion(4, undefined)).toBe(true)
     expect(shouldShowUpdateSuggestion(4, null)).toBe(true)
   })
