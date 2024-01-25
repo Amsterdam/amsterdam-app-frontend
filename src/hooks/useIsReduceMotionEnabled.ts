@@ -7,7 +7,7 @@ type Options = {
   callbackAfterAppStateChange?: boolean
 }
 
-export let isReduceMotionEnabled: boolean | undefined
+export let isReduceMotionEnabled = false
 
 export const useIsReduceMotionEnabled = (
   {callback, callbackAfterAppStateChange = true}: Options = {},

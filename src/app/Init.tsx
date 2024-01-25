@@ -1,16 +1,18 @@
-import {ReactNode, useMemo} from 'react'
-import {AppStateStatus} from 'react-native'
+import {ReactNode, useEffect, useMemo} from 'react'
+import {useLogGeneralAnalytics} from '@/hooks/piwik/useLogGeneralAnalytics'
 import {useAppState} from '@/hooks/useAppState'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
-import {usePiwik} from '@/hooks/usePiwik'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
+import { usePiwik } from '@/hooks/piwik/usePiwik'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
+  const logGeneralAnalytics = useLogGeneralAnalytics()
+
   useForegroundPushNotificationHandler()
   useSetupSentry()
   const piwik = usePiwik()
@@ -18,9 +20,15 @@ export const Init = ({children}: Props) => {
     useRegisterDevice(false)
   const {enabledModules} = useModules()
 
-  const onAppState = useMemo(
+  useEffect(() => {
+    logGeneralAnalytics()
+  }, [logGeneralAnalytics])
+
+  const appStateHandlers = useMemo(
     () => ({
       onForeground: () => {
+        logGeneralAnalytics()
+
         if (enabledModules?.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission() // Because tokens refresh regularly, we need to re-register regularly
         } else {
@@ -29,14 +37,16 @@ export const Init = ({children}: Props) => {
           void unregisterDevice(undefined)
         }
       },
-      onChange: (nextAppState: AppStateStatus) => {
-        void piwik?.trackCustomEvent('appStateChange', nextAppState)
-      },
     }),
-    [enabledModules, piwik, registerDeviceWithPermission, unregisterDevice],
+    [
+      enabledModules,
+      logGeneralAnalytics,
+      registerDeviceWithPermission,
+      unregisterDevice,
+    ],
   )
 
-  useAppState(onAppState)
+  useAppState(appStateHandlers)
 
   useResetLocationPermissionForAndroid()
 
