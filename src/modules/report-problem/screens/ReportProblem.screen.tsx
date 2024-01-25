@@ -11,15 +11,15 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useReportProblemWebviewUrl} from '@/modules/report-problem/hooks/useWebviewUrl'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {useEnvironment} from '@/store/slices/environment'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 
 export const ReportProblemScreen = ({navigation}: Props) => {
-  const environment = useEnvironment()
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
+  const reportProblemUrl = useReportProblemWebviewUrl()
 
   return (
     <Screen>
@@ -42,11 +42,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
             <Paragraph>
               Op{' '}
               <InlineLink
-                onPress={() =>
-                  openWebUrl(
-                    environment.reportProblemAmsterdamUrl + '/meldingenkaart',
-                  )
-                }
+                onPress={() => openWebUrl(reportProblemUrl + '/meldingenkaart')}
                 testID="ReportProblemKnownProblemsMapLink">
                 de meldingenkaart
               </InlineLink>{' '}

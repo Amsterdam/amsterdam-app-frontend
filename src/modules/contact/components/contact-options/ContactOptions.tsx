@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {OpenPhoneUrl, useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {OpenWebUrl, useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useEnvironment} from '@/store/slices/environment'
+import {CONTACT_EXTERNAL_LINKS} from '@/modules/contact/constants'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
@@ -27,14 +27,14 @@ type ContactOption = {
 const getContactOptions = (
   openPhoneUrl: OpenPhoneUrl,
   openWebUrl: OpenWebUrl,
-  complaintUrl: string,
+  contactFormUrl: string,
 ): ContactOption[] => [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
     iconName: 'email',
     key: 'email',
-    onPress: () => openWebUrl(complaintUrl),
+    onPress: () => openWebUrl(contactFormUrl),
     testID: 'ContactContactFormButton',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
@@ -73,12 +73,12 @@ const getContactOptions = (
 export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {complaintUrl} = useEnvironment()
+  const {CONTACT_FORM_URL} = CONTACT_EXTERNAL_LINKS
 
   const contactOptions = getContactOptions(
     openPhoneUrl,
     openWebUrl,
-    complaintUrl,
+    CONTACT_FORM_URL,
   )
 
   return (

@@ -1,21 +1,21 @@
 import {useMemo} from 'react'
 import {useAddress} from '@/modules/address/hooks/useAddress'
+import {WASTE_GUIDE_EXTERNAL_LINKS} from '@/modules/waste-guide/constants'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
 import {getBulkyWasteAppointmentUrl} from '@/modules/waste-guide/utils/getBulkyWasteAppointmentUrl'
 import {getCollectionPointsMapUrl} from '@/modules/waste-guide/utils/getCollectionPointsMapUrl'
 import {getContainerMapUrl} from '@/modules/waste-guide/utils/getContainerMapUrl'
-import {useEnvironment} from '@/store/slices/environment'
 
 /**
- * This takes care of the post processing of the `afvalwijzerUrl` property. We check if the URL matches a known URL (bulkyWasteAppointmentUrl, wasteCollectionPointsUrl or wasteContainersUrl from the environment definitions) and if so, return the respective post processesed URL.
+ * This takes care of the post processing of the `afvalwijzerUrl` property. We check if the URL matches a known URL (BULKY_WASTE_APPOINTMENT_URLUrl, WASTE_COLLECTION_POINTS_URL or WASTE_CONTAINERS_URL from the environment definitions) and if so, return the respective post processesed URL.
  */
 export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   const {
-    bulkyWasteAppointmentUrl,
-    seenonsScheduleWastePickupUrl,
-    wasteCollectionPointsUrl,
-    wasteContainersUrl,
-  } = useEnvironment()
+    BULKY_WASTE_APPOINTMENT_URL,
+    SCHEDULE_WASTE_PICKUP_URL,
+    WASTE_COLLECTION_POINTS_URL,
+    WASTE_CONTAINERS_URL,
+  } = WASTE_GUIDE_EXTERNAL_LINKS
   const address = useAddress()
 
   const {afvalwijzerFractieCode, afvalwijzerInstructie2, afvalwijzerUrl} =
@@ -25,27 +25,27 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   return useMemo(
     () => ({
       bulkyWasteAppointmentUrl:
-        afvalwijzerUrl === bulkyWasteAppointmentUrl
-          ? getBulkyWasteAppointmentUrl(bulkyWasteAppointmentUrl, address)
+        afvalwijzerUrl === BULKY_WASTE_APPOINTMENT_URL
+          ? getBulkyWasteAppointmentUrl(BULKY_WASTE_APPOINTMENT_URL, address)
           : undefined,
       collectionPointsMapUrl:
         afvalwijzerInstructie2.includes('een Afvalpunt') &&
-        afvalwijzerUrl === wasteCollectionPointsUrl
+        afvalwijzerUrl === WASTE_COLLECTION_POINTS_URL
           ? getCollectionPointsMapUrl(
-              wasteCollectionPointsUrl,
+              WASTE_COLLECTION_POINTS_URL,
               address?.coordinates,
             )
           : undefined,
       containerMapUrl:
-        afvalwijzerUrl === wasteContainersUrl
+        afvalwijzerUrl === WASTE_CONTAINERS_URL
           ? getContainerMapUrl(
-              wasteContainersUrl,
+              WASTE_CONTAINERS_URL,
               address?.coordinates,
               afvalwijzerFractieCode,
             )
           : undefined,
       seenonsUrl:
-        afvalwijzerUrl?.indexOf(seenonsScheduleWastePickupUrl) === 0
+        afvalwijzerUrl?.indexOf(SCHEDULE_WASTE_PICKUP_URL) === 0
           ? afvalwijzerUrl
           : undefined,
     }),
@@ -54,10 +54,10 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
       afvalwijzerFractieCode,
       afvalwijzerInstructie2,
       afvalwijzerUrl,
-      bulkyWasteAppointmentUrl,
-      seenonsScheduleWastePickupUrl,
-      wasteCollectionPointsUrl,
-      wasteContainersUrl,
+      BULKY_WASTE_APPOINTMENT_URL,
+      SCHEDULE_WASTE_PICKUP_URL,
+      WASTE_COLLECTION_POINTS_URL,
+      WASTE_CONTAINERS_URL,
     ],
   )
 }
