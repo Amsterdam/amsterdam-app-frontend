@@ -6,6 +6,7 @@ import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SendErrorLog} from '@/processes/sentry/types'
 import {PiwikContext} from '@/providers/piwik.provider'
 import {Piwik} from '@/types/piwik'
+import {sanitizeUrl} from '@/utils/sanitizeUrl'
 export {
   PiwikAction,
   PiwikCategory,
@@ -40,7 +41,9 @@ const getPiwik = (
       },
     )
   },
-  trackOutlink: (url, ...rest) => {
+  trackOutlink: (rawUrl, ...rest) => {
+    const url = sanitizeUrl(rawUrl)
+
     trackOutlink(url, ...rest).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILE_NAME, {
         url,

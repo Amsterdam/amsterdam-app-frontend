@@ -7,13 +7,14 @@ import {
 } from '@sentry/react-native'
 import type {Middleware} from '@reduxjs/toolkit'
 import {devLog} from '@/processes/development'
+import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
   BreadcrumbCategory,
   CaptureBreadcrumb,
   SendErrorLog,
   SentryErrorLogKey,
 } from '@/processes/sentry/types'
-import {getFilteredSentryData, sanitizeUrl} from '@/processes/sentry/utils'
+import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 /**
  * Get the function to: add a breadcrumb to the stack trace in the error report
