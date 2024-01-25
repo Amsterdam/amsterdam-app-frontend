@@ -16,6 +16,8 @@ export const sentryAllowList = {
   [SentryErrorLogKey.openWebUrl]: ['url'],
   [SentryErrorLogKey.pickingImageFailed]: ['error', 'code', 'viaCamera'],
   [SentryErrorLogKey.piwikInitialization]: ['error'],
+  [SentryErrorLogKey.piwikTrackCustomEvent]: ['category', 'action', 'name'],
+  [SentryErrorLogKey.piwikTrackScreen]: ['path'],
   [SentryErrorLogKey.registerDevice]: ['error'],
   [SentryErrorLogKey.requestLocationPermission]: ['error'],
   [SentryErrorLogKey.resetLocationPermissionAndroid]: ['error'],

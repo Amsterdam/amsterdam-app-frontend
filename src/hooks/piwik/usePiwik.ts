@@ -2,10 +2,10 @@
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext} from 'react'
 import {useRoute} from '@/hooks/navigation/useRoute'
-import {useSentry} from '@/hooks/sentry/useSentry'
+import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
+import {SendErrorLog} from '@/processes/sentry/types'
 import {PiwikContext} from '@/providers/piwik.provider'
 import {Piwik} from '@/types/piwik'
-import {SendErrorLog} from '@/types/sentry'
 export {PiwikAction, PiwikCategory, PiwikDimensions} from '@/types/piwik'
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently.
@@ -23,17 +23,23 @@ const getPiwik = (
   trackCustomEvent: (category, action, options) => {
     trackCustomEvent(category, action, {path: routeName, ...options}).catch(
       () => {
-        sendSentryErrorLog('trackCustomEvent failed', 'usePiwik.ts', {
-          category,
-          action,
-          name: options?.name,
-        })
+        sendSentryErrorLog(
+          SentryErrorLogKey.piwikTrackCustomEvent,
+          'usePiwik.ts',
+          {
+            category,
+            action,
+            name: options?.name,
+          },
+        )
       },
     )
   },
   trackScreen: (path, options) => {
     trackScreen(path, options).catch(() => {
-      sendSentryErrorLog('trackScreen failed', 'usePiwik.ts', {path})
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, 'usePiwik.ts', {
+        path,
+      })
     })
   },
 })

@@ -3,7 +3,8 @@ import {
   getCaptureSentryBreadcrumb,
   getSendSentryErrorLog,
 } from '@/processes/sentry/logging'
-import {type SentryHandler} from '@/processes/sentry/types'
+import {SentryHandler} from '@/processes/sentry/types'
+
 export {SentryErrorLogKey} from '@/processes/sentry/types'
 
 /**

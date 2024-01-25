@@ -6,7 +6,6 @@ import {useModules} from '@/hooks/useModules'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
-import { usePiwik } from '@/hooks/piwik/usePiwik'
 
 type Props = {children: ReactNode}
 
@@ -15,7 +14,6 @@ export const Init = ({children}: Props) => {
 
   useForegroundPushNotificationHandler()
   useSetupSentry()
-  const piwik = usePiwik()
   const {registerDeviceWithPermission, unregisterDevice} =
     useRegisterDevice(false)
   const {enabledModules} = useModules()

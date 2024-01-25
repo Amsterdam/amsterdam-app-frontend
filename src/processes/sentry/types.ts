@@ -28,6 +28,8 @@ export enum SentryErrorLogKey {
   openWebUrl = 'Open web url failed',
   pickingImageFailed = 'Picking image from device failed',
   piwikInitialization = 'Piwik initialization failed',
+  piwikTrackCustomEvent = 'Piwik trackCustomEvent failed',
+  piwikTrackScreen = 'Piwik trackScreen failed',
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
   resetLocationPermissionAndroid = 'Android: Check location permission on foreground failed',
