@@ -1,4 +1,5 @@
 import {
+  CommonEventOptions,
   TrackCustomEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
@@ -11,10 +12,12 @@ export type Piwik = {
     action: PiwikAction,
     options?: TrackCustomEventOptions,
   ) => void
+  trackOutlink: (url: string, options?: CommonEventOptions) => void
   trackScreen: (
     path: keyof RootStackParams,
-    options?: TrackScreenOptions | undefined,
+    options?: TrackScreenOptions,
   ) => void
+  trackSearch: (keyword: string, options?: TrackScreenOptions) => void
 }
 
 /**
@@ -90,6 +93,5 @@ export enum PiwikAction {
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
-  linkPress = 'linkPress',
   toForeground = 'toForeground',
 }

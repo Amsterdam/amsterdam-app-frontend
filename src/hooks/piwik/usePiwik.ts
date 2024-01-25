@@ -11,35 +11,47 @@ export {PiwikAction, PiwikCategory, PiwikDimensions} from '@/types/piwik'
 // if Piwik is not initialized, we return dummy methods to make it fail silently.
 const defaultPiwikContext: Piwik = {
   trackCustomEvent: () => {},
+  trackOutlink: () => {},
   trackScreen: () => {},
+  trackSearch: () => {},
 }
 
-// we can extend the default Piwik methods here
+const FILE_NAME = 'usePiwik.ts'
+
+// We can extend the default Piwik methods here, e.g. to automatically add the route name
 const getPiwik = (
-  {trackCustomEvent, trackScreen}: PiwikProSdkType,
+  {trackCustomEvent, trackOutlink, trackScreen, trackSearch}: PiwikProSdkType,
   sendSentryErrorLog: SendErrorLog,
   routeName?: string,
 ): Piwik => ({
   trackCustomEvent: (category, action, options) => {
     trackCustomEvent(category, action, {path: routeName, ...options}).catch(
       () => {
-        sendSentryErrorLog(
-          SentryErrorLogKey.piwikTrackCustomEvent,
-          'usePiwik.ts',
-          {
-            category,
-            action,
-            name: options?.name,
-          },
-        )
+        sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILE_NAME, {
+          category,
+          action,
+          name: options?.name,
+        })
       },
     )
   },
-  trackScreen: (path, options) => {
-    trackScreen(path, options).catch(() => {
-      sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, 'usePiwik.ts', {
+  trackOutlink: (url, ...rest) => {
+    trackOutlink(url, ...rest).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILE_NAME, {
+        url,
+      })
+    })
+  },
+  trackScreen: (path, ...rest) => {
+    trackScreen(path, ...rest).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILE_NAME, {
         path,
       })
+    })
+  },
+  trackSearch: (...args) => {
+    trackSearch(...args).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILE_NAME)
     })
   },
 })
