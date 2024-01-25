@@ -23,7 +23,7 @@ export type Piwik = {
 /**
  * Custom dimensions; these should be configured in the Piwik system.
  */
-export enum PiwikDimensions {
+export enum PiwikDimension {
   // 1-17 are standard metrics, see Aansluitgids Technisch Generiek Meetplan 1.1 (20-03-2023)
 
   /** Gebruikerstype (al gebruikt door mijn.amsterdam als ProfileType) */
@@ -60,14 +60,14 @@ export enum PiwikDimensions {
   searchMachine = 16,
   /** Pagina type o.b.v. Amsterdam Content Meetmodel */
   pageType = 17,
+}
 
-  // 20+ are metrics specifically for the app:
-
-  /** Session: is reduced motion enabled */
+/**
+ * Custom session dimensions; these should be configured in the Piwik system.
+ */
+export enum PiwikSessionDimension {
   reduceMotionEnabled = 20,
-  /** Session: is reduced motion enabled */
   locationPermission = 21,
-  /** Session: is reduced motion enabled */
   screenReaderEnabled = 22,
 }
 

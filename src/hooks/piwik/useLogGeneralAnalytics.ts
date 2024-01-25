@@ -1,9 +1,13 @@
 import {useCallback} from 'react'
-import {PiwikAction, PiwikCategory, usePiwik} from '@/hooks/piwik/usePiwik'
+import {
+  PiwikAction,
+  PiwikCategory,
+  PiwikSessionDimension,
+  usePiwik,
+} from '@/hooks/piwik/usePiwik'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
-import {PiwikDimensions} from '@/types/piwik'
 
 const useLogA11yAnalytics = () => {
   const {trackCustomEvent} = usePiwik()
@@ -14,8 +18,9 @@ const useLogA11yAnalytics = () => {
     trackCustomEvent(PiwikCategory.general, PiwikAction.toForeground, {
       name: 'accessibility',
       customDimensions: {
-        [PiwikDimensions.screenReaderEnabled]: isScreenReaderEnabled.toString(),
-        [PiwikDimensions.reduceMotionEnabled]:
+        [PiwikSessionDimension.screenReaderEnabled]:
+          isScreenReaderEnabled.toString(),
+        [PiwikSessionDimension.reduceMotionEnabled]:
           isReduceMotionEnabled?.toString(),
       },
     })
@@ -30,7 +35,8 @@ const useLogPermissionAnalytics = () => {
     trackCustomEvent(PiwikCategory.general, PiwikAction.toForeground, {
       name: 'permissions',
       customDimensions: {
-        [PiwikDimensions.locationPermission]: hasLocationPermission.toString(),
+        [PiwikSessionDimension.locationPermission]:
+          hasLocationPermission.toString(),
       },
     })
   }, [hasLocationPermission, trackCustomEvent])
