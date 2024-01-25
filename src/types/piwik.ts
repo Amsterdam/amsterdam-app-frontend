@@ -8,7 +8,7 @@ import {ModuleSlug} from '@/modules/slugs'
 export type Piwik = {
   trackCustomEvent: (
     category: PiwikCategory,
-    action: string,
+    action: PiwikAction,
     options?: TrackCustomEventOptions,
   ) => void
   trackScreen: (
@@ -18,7 +18,7 @@ export type Piwik = {
 }
 
 /**
- * Custom dimsensions; these should be configured in the Piwik system.
+ * Custom dimensions; these should be configured in the Piwik system.
  */
 export enum PiwikDimensions {
   // 1-17 are standard metrics, see Aansluitgids Technisch Generiek Meetplan 1.1 (20-03-2023)
@@ -60,14 +60,12 @@ export enum PiwikDimensions {
 
   // 20+ are metrics specifically for the app:
 
-  /** Screentitle from navigation parameters */
-  screenTitle = 20,
   /** Session: is reduced motion enabled */
-  reduceMotionEnabled = 21,
+  reduceMotionEnabled = 20,
   /** Session: is reduced motion enabled */
-  locationPermission = 22,
+  locationPermission = 21,
   /** Session: is reduced motion enabled */
-  screenReaderEnabled = 23,
+  screenReaderEnabled = 22,
 }
 
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */

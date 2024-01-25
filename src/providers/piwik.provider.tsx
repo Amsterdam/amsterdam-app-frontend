@@ -8,7 +8,7 @@ import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {createContext, ReactNode} from 'react'
 import {useEffect, useState} from 'react'
-import {devLog, isProductionApp} from '@/processes/development'
+import {isProductionApp} from '@/processes/development'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 
@@ -34,7 +34,7 @@ const initPiwik = async (): Promise<void> => {
 type PiwikContextType = PiwikProSdkType | null | undefined
 
 /**
- * The PiwikContext contains the object with all methods, to be used via the usePiwik hook only. It fails silently if Piwik is not initialized.
+ * The PiwikContext contains the object with all methods, to be used via the usePiwik hook only.
  */
 export const PiwikContext = createContext<PiwikContextType>(undefined)
 
@@ -53,7 +53,6 @@ export const PiwikProvider = ({children}: Props) => {
           setPiwikInstance(PiwikProSdk)
         })
         .catch((error: Error) => {
-          devLog(error)
           setPiwikInstance(null)
 
           if (
