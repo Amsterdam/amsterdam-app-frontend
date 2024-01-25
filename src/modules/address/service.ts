@@ -1,4 +1,5 @@
 import {AddressResponse, Coordinates} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -50,7 +51,6 @@ const defaultPdokFreeApiParams: PdokFreeApiParams = {
 const defaultFq: PdokFreeApiParams['fq'] = ['bron:BAG']
 
 const path = '/free'
-const api = 'addressUrl'
 const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({
@@ -70,7 +70,7 @@ export const addressApi = baseApi.injectEndpoints({
           },
           path,
         }),
-        api,
+        slug: ModuleSlug.address,
         keepUnusedDataFor,
       }),
     }),
@@ -93,7 +93,7 @@ export const addressApi = baseApi.injectEndpoints({
           },
           path,
         }),
-        api,
+        slug: ModuleSlug.address,
         keepUnusedDataFor,
       }),
     }),

@@ -1,4 +1,5 @@
 import {Platform} from 'react-native'
+import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/init'
 import {MutationResponse} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
@@ -14,12 +15,13 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
       DeviceRegistrationQueryArg
     >({
       query: body => ({
-        url: '/device/register',
-        method: 'POST',
         body: {
           os: Platform.OS,
           ...body,
         },
+        method: 'POST',
+        slug: ModuleSlug['construction-work'],
+        url: '/device/register',
       }),
     }),
     [DeviceRegistrationEndpointName.unregisterDevice]: builder.mutation<
@@ -27,8 +29,9 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
       undefined
     >({
       query: () => ({
-        url: '/device/register',
         method: 'DELETE',
+        slug: ModuleSlug['construction-work'],
+        url: '/device/register',
       }),
     }),
   }),

@@ -10,12 +10,18 @@ import {CacheLifetime} from '@/types/api'
 export const contactApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ContactEndpointName.getCityOffices]: builder.query<CityOffice[], void>({
-      query: () => `/${ModuleSlug.contact}/city-offices`,
+      query: () => ({
+        slug: ModuleSlug.contact,
+        url: `/${ModuleSlug.contact}/city-offices`,
+      }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: CityOffice[]}) => response.result,
     }),
     [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
-      query: () => `/${ModuleSlug.contact}/waiting-times`,
+      query: () => ({
+        slug: ModuleSlug.contact,
+        url: `/${ModuleSlug.contact}/waiting-times`,
+      }),
       keepUnusedDataFor: CacheLifetime.none,
       transformResponse: (response: {result: WaitingTime[]}) => response.result,
     }),

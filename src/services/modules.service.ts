@@ -25,7 +25,7 @@ export const modulesApi = baseApi.injectEndpoints({
     getRelease: builder.query<ModulesResponse, void>({
       providesTags: ['Modules'],
       query: () => ({
-        api: 'modulesApiUrl',
+        slug: 'modules',
         url: `/release/${version}`,
       }),
     }),

@@ -1,109 +1,96 @@
+/* eslint-disable typescript-sort-keys/string-enum */
+import {ModuleSlug} from '@/modules/slugs'
+import {customDefaultUrls} from '@/store/slices/environment'
+
 export enum Environment {
-  acceptance = 'Acceptance',
-  custom = 'Custom',
   development = 'Development',
+  acceptance = 'Acceptance',
   production = 'Production',
+  custom = 'Custom',
 }
 
-export type EnvironmentConfig = {
-  addressUrl: string
-  apiUrl: string
-  bulkyWasteAppointmentUrl: string
-  complaintUrl: string
-  makeAppointmentWeespUrl: string
-  modulesApiUrl: string
-  reportProblemAmsterdamUrl: string
-  seenonsScheduleWastePickupUrl: string
-  wasteCollectionPointsUrl: string
-  wasteContainersUrl: string
-  wasteGuideUrl: string
+export enum EnvironmentAzure {
+  developmentAzure = 'DevelopmentAzure',
+  testAzure = 'TestAzure',
+  acceptanceAzure = 'AcceptanceAzure',
+  productionAzure = 'ProductionAzure',
 }
 
-enum ApiUrls {
-  apiAcc = 'https://api-test-backend.app-amsterdam.nl/api/v1',
-  apiCustomDefault = 'http://localhost:8000/api/v1',
-  apiDev = 'https://api-dev-backend.app-amsterdam.nl/api/v1',
-  apiProd = 'https://api-backend.app-amsterdam.nl/api/v1',
-  modulesApiAcc = 'https://api-test-modules.app-amsterdam.nl/api/v1',
-  modulesApiCustomDefault = 'http://localhost:9000/api/v1',
-  modulesApiDev = 'https://api-dev-modules.app-amsterdam.nl/api/v1',
-  modulesApiProd = 'https://api-modules.app-amsterdam.nl/api/v1',
-  wasteGuideApiAcc = 'https://api-test-waste-guide.app-amsterdam.nl/api/v1',
-  wasteGuideApiProd = 'https://api-waste-guide.app-amsterdam.nl/api/v1',
+export const environmentAzureLabels = {
+  [EnvironmentAzure.developmentAzure]: 'Development (Azure)',
+  [EnvironmentAzure.testAzure]: 'Test (Azure)',
+  [EnvironmentAzure.acceptanceAzure]: 'Acceptance (Azure)',
+  [EnvironmentAzure.productionAzure]: 'Production (Azure)',
 }
 
-enum ExternalApiUrls {
-  addressProd = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1',
+const getEnvForApiUrl = (environment: Environment) => {
+  switch (environment) {
+    case Environment.acceptance:
+      return 'test-'
+    case Environment.custom:
+      return 'test-'
+    case Environment.development:
+      return 'dev-'
+    case Environment.production:
+      return ''
+    default:
+      return ''
+  }
+}
+const getEnvForAzureApiUrl = (environment: EnvironmentAzure) => {
+  switch (environment) {
+    case EnvironmentAzure.acceptanceAzure:
+      return 'acc.'
+    case EnvironmentAzure.developmentAzure:
+      return 'ontw.'
+    case EnvironmentAzure.productionAzure:
+      return ''
+    case EnvironmentAzure.testAzure:
+      return 'test.'
+    default:
+      return ''
+  }
 }
 
-enum ExternalWebUrls {
-  bulkyWasteAppointmentProd = 'https://formulieren.amsterdam.nl/TriplEforms/Directregelen/formulier/nl-NL/evAmsterdam/grofafval.aspx',
-  complaintProd = 'https://formulieren.amsterdam.nl/tripleforms/DirectRegelen/formulier/nl-NL/evAmsterdam/Klachtenformulier.aspx',
-  makeAppointmentWeespProd = 'https://formulieren.amsterdam.nl/TriplEforms/DirectRegelen/formulier/nl-NL/evAmsterdam/afspraakmakenweesp.aspx',
-  reportProblemAmsterdamAcc = 'https://acc.app.meldingen.amsterdam.nl',
-  reportProblemAmsterdamProd = 'https://app.meldingen.amsterdam.nl',
-  seenonsScheduleWastePickupProd = 'https://afvalopafspraak.app.seenons.com',
-  wasteCollectionPointsProd = 'https://kaart.amsterdam.nl/afvalpunten',
-  wasteContainersProd = 'https://kaart.amsterdam.nl/afvalcontainers',
+const fitSlugToApi = (slug: ModuleSlug | 'modules') =>
+  slug === ModuleSlug['construction-work'] || slug === ModuleSlug.contact
+    ? 'backend'
+    : slug
+
+const externalApiUrls: Record<string, string> = {
+  [ModuleSlug.address]: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1',
 }
 
-const sharedEnvironmentConfig: Pick<
-  EnvironmentConfig,
-  | 'addressUrl'
-  | 'bulkyWasteAppointmentUrl'
-  | 'complaintUrl'
-  | 'makeAppointmentWeespUrl'
-  | 'seenonsScheduleWastePickupUrl'
-  | 'wasteCollectionPointsUrl'
-  | 'wasteContainersUrl'
-> = {
-  addressUrl: ExternalApiUrls.addressProd,
-  bulkyWasteAppointmentUrl: ExternalWebUrls.bulkyWasteAppointmentProd,
-  complaintUrl: ExternalWebUrls.complaintProd,
-  makeAppointmentWeespUrl: ExternalWebUrls.makeAppointmentWeespProd,
-  seenonsScheduleWastePickupUrl: ExternalWebUrls.seenonsScheduleWastePickupProd,
-  wasteCollectionPointsUrl: ExternalWebUrls.wasteCollectionPointsProd,
-  wasteContainersUrl: ExternalWebUrls.wasteContainersProd,
-}
-
-export const environments: Record<Environment, EnvironmentConfig> = {
-  [Environment.development]: {
-    ...sharedEnvironmentConfig,
-    apiUrl: ApiUrls.apiDev,
-    modulesApiUrl: ApiUrls.modulesApiDev,
-    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
-  },
-  [Environment.acceptance]: {
-    ...sharedEnvironmentConfig,
-    apiUrl: ApiUrls.apiAcc,
-    modulesApiUrl: ApiUrls.modulesApiAcc,
-    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
-  },
-  [Environment.production]: {
-    ...sharedEnvironmentConfig,
-    apiUrl: ApiUrls.apiProd,
-    modulesApiUrl: ApiUrls.modulesApiProd,
-    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamProd,
-    wasteGuideUrl: ApiUrls.wasteGuideApiProd,
-  },
-  [Environment.custom]: {
-    ...sharedEnvironmentConfig,
-    apiUrl: ApiUrls.apiCustomDefault,
-    modulesApiUrl: ApiUrls.modulesApiCustomDefault,
-    reportProblemAmsterdamUrl: ExternalWebUrls.reportProblemAmsterdamAcc,
-    wasteGuideUrl: ApiUrls.wasteGuideApiAcc,
-  },
-}
-
-export const getEnvironment = (
-  environment: Environment,
-  custom: Partial<EnvironmentConfig> = {},
+const getApiUrl = (
+  environment: Environment | EnvironmentAzure,
+  custom: typeof customDefaultUrls,
+  slug: ModuleSlug | 'modules',
 ) => {
-  if (environment === Environment.custom) {
-    return {...environments[environment], ...custom}
+  if (slug in externalApiUrls) {
+    return externalApiUrls[slug]
   }
 
-  return environments[environment]
+  if (environment === Environment.custom && slug in custom) {
+    return custom[slug as keyof typeof customDefaultUrls]
+  }
+
+  let env
+
+  if (
+    Object.values(EnvironmentAzure).includes(environment as EnvironmentAzure)
+  ) {
+    env = getEnvForAzureApiUrl(environment as EnvironmentAzure)
+
+    return `https://${env}app.amsterdam.nl/${slug}/api/v1`
+  } else {
+    env = getEnvForApiUrl(environment as Environment)
+
+    return `https://api-${env}${fitSlugToApi(slug)}.app-amsterdam.nl/api/v1`
+  }
 }
+
+export const getApi = (
+  environment: Environment | EnvironmentAzure,
+  custom: typeof customDefaultUrls,
+  slug: ModuleSlug | 'modules',
+) => getApiUrl(environment, custom, slug)

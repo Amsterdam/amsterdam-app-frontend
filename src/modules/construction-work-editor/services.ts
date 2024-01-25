@@ -6,9 +6,12 @@ import {
   ProjectWarningImageQueryArg,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/init'
 import {CacheLifetime, MutationResponse} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
+
+const MODULE_SLUG = ModuleSlug['construction-work-editor']
 
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -16,7 +19,10 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       ConstructionWorkEditorResponse,
       ProjectIdQueryArgs
     >({
-      query: params => generateRequestUrl({path: '/project/manager', params}),
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({path: '/project/manager', params}),
+      }),
       keepUnusedDataFor: CacheLifetime.second,
       transformResponse: (response: {
         result: [ConstructionWorkEditorResponse]
@@ -28,9 +34,10 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['Articles', 'Projects'],
       query: body => ({
-        url: '/project/warning',
-        method: 'POST',
         body,
+        method: 'POST',
+        slug: MODULE_SLUG,
+        url: '/project/warning',
       }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
@@ -40,9 +47,10 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       builder.mutation<MutationResponse, ProjectWarningImageQueryArg>({
         invalidatesTags: ['Articles', 'Projects'],
         query: body => ({
-          url: '/project/warning/image',
-          method: 'POST',
           body,
+          method: 'POST',
+          slug: MODULE_SLUG,
+          url: '/project/warning/image',
         }),
       }),
   }),
