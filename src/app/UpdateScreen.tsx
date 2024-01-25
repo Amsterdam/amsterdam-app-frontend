@@ -1,6 +1,5 @@
 import {ReactNode} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
@@ -27,17 +26,13 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isError, isLoading} = useGetReleaseQuery()
+  const {isLoading} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
   if (isLoading) {
     return children
-  }
-
-  if (isError) {
-    return <SomethingWentWrong />
   }
 
   if (!data?.versionInfo.supported) {
