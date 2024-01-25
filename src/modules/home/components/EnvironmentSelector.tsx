@@ -23,6 +23,7 @@ import {
 const SLUGS = {
   CONSTRUCTION_WORK_SLUG: ModuleSlug['construction-work'],
   CONTACT_SLUG: ModuleSlug.contact,
+  MODULE_SLUG: 'modules',
 }
 
 type CustomApiTextInputProps = {
@@ -49,7 +50,6 @@ const CustomApiTextInput = ({
 )
 
 export const EnvironmentSelector = () => {
-  const {CONSTRUCTION_WORK_SLUG, CONTACT_SLUG} = SLUGS
   const dispatch = useDispatch()
   const {environment, custom} = useSelector(selectEnvironmentConfig)
 
@@ -74,39 +74,20 @@ export const EnvironmentSelector = () => {
           </Column>
           {environment === Environment.custom && (
             <Column gutter="md">
-              <CustomApiTextInput
-                label={CONSTRUCTION_WORK_SLUG}
-                onChangeText={(text: string) =>
-                  dispatch(
-                    setCustomEnvironment({
-                      [CONSTRUCTION_WORK_SLUG]: text,
-                    }),
-                  )
-                }
-                value={custom['construction-work']}
-              />
-              <CustomApiTextInput
-                label={CONTACT_SLUG}
-                onChangeText={(text: string) =>
-                  dispatch(
-                    setCustomEnvironment({
-                      [CONTACT_SLUG]: text,
-                    }),
-                  )
-                }
-                value={custom.contact}
-              />
-              <CustomApiTextInput
-                label="modules"
-                onChangeText={(text: string) =>
-                  dispatch(
-                    setCustomEnvironment({
-                      modules: text,
-                    }),
-                  )
-                }
-                value={custom.modules}
-              />
+              {Object.entries(SLUGS).map(([key, value]) => (
+                <CustomApiTextInput
+                  key={key}
+                  label={value}
+                  onChangeText={(text: string) =>
+                    dispatch(
+                      setCustomEnvironment({
+                        [value]: text,
+                      }),
+                    )
+                  }
+                  value={custom[value as keyof typeof custom]}
+                />
+              ))}
             </Column>
           )}
         </>
