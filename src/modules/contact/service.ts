@@ -12,7 +12,7 @@ export const contactApi = baseApi.injectEndpoints({
     [ContactEndpointName.getCityOffices]: builder.query<CityOffice[], void>({
       query: () => ({
         slug: ModuleSlug.contact,
-        url: `/${ModuleSlug.contact}/city-offices`,
+        url: '/city-offices',
       }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: CityOffice[]}) => response.result,
@@ -20,7 +20,7 @@ export const contactApi = baseApi.injectEndpoints({
     [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
       query: () => ({
         slug: ModuleSlug.contact,
-        url: `/${ModuleSlug.contact}/waiting-times`,
+        url: '/waiting-times',
       }),
       keepUnusedDataFor: CacheLifetime.none,
       transformResponse: (response: {result: WaitingTime[]}) => response.result,
