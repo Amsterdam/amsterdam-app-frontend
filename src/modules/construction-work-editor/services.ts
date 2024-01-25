@@ -11,7 +11,7 @@ import {baseApi} from '@/services/init'
 import {CacheLifetime, MutationResponse} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
-const MODULE_SLUG = ModuleSlug['construction-work-editor']
+const MODULE_SLUG = ModuleSlug['construction-work']
 
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
