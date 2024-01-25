@@ -4,6 +4,7 @@ import {useContext} from 'react'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SendErrorLog} from '@/processes/sentry/types'
+// eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
 import {Piwik} from '@/types/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
@@ -64,8 +65,7 @@ const getPiwik = (
   },
 })
 
-export const usePiwik = (): Piwik => {
-  const {name} = useRoute()
+const usePiwikBase = (routeName?: string) => {
   const PiwikInstance = useContext(PiwikContext)
   const {sendSentryErrorLog} = useSentry()
 
@@ -73,5 +73,19 @@ export const usePiwik = (): Piwik => {
     return defaultPiwikContext
   }
 
-  return getPiwik(PiwikInstance, sendSentryErrorLog, name)
+  return getPiwik(PiwikInstance, sendSentryErrorLog, routeName)
 }
+
+/**
+ * Returns Piwik logging methods. This hook can only be used in components inside the navigation container, since it relies on the navigation to automatically add the route name to custom events.
+ */
+export const usePiwik = (): Piwik => {
+  const {name} = useRoute()
+
+  return usePiwikBase(name)
+}
+
+/**
+ * Use this for Piwik logging in components outside the navigation container. The usePiwik hook automatically adds the route name to custom events, but this causes an error when used outside the navigation container. This hook omits that behaviour and can be used safely anywhere.
+ */
+export const usePiwikOutsideNavigation = (): Piwik => usePiwikBase()

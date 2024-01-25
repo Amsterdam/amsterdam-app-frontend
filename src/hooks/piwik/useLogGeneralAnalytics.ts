@@ -3,14 +3,14 @@ import {
   PiwikAction,
   PiwikCategory,
   PiwikSessionDimension,
-  usePiwik,
+  usePiwikOutsideNavigation,
 } from '@/hooks/piwik/usePiwik'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 
-const useLogA11yAnalytics = () => {
-  const {trackCustomEvent} = usePiwik()
+const useLogAccessibilityAnalytics = () => {
+  const {trackCustomEvent} = usePiwikOutsideNavigation()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
@@ -28,7 +28,7 @@ const useLogA11yAnalytics = () => {
 }
 
 const useLogPermissionAnalytics = () => {
-  const {trackCustomEvent} = usePiwik()
+  const {trackCustomEvent} = usePiwikOutsideNavigation()
   const {hasLocationPermission} = useCheckLocationPermission()
 
   return useCallback(() => {
@@ -46,11 +46,11 @@ const useLogPermissionAnalytics = () => {
  * Any session related data can be logged here, e.g. which permissions a user has given.
  */
 export const useLogGeneralAnalytics = () => {
-  const logA11yAnalytics = useLogA11yAnalytics()
+  const logAccessibilityAnalytics = useLogAccessibilityAnalytics()
   const logPermissionAnalytics = useLogPermissionAnalytics()
 
   return useCallback(() => {
-    logA11yAnalytics()
+    logAccessibilityAnalytics()
     logPermissionAnalytics()
-  }, [logA11yAnalytics, logPermissionAnalytics])
+  }, [logAccessibilityAnalytics, logPermissionAnalytics])
 }
