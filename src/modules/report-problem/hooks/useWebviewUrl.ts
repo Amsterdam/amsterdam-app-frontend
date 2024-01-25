@@ -8,7 +8,7 @@ export const useReportProblemWebviewUrl = () => {
   const {REPORT_PROBLEM_ACC_URL, REPORT_PROBLEM_PROD_URL} =
     REPORT_PROBLEM_EXTERNAL_LINKS
 
-  return environment === Environment.acceptance
-    ? REPORT_PROBLEM_ACC_URL
-    : REPORT_PROBLEM_PROD_URL
+  return environment === Environment.production
+    ? REPORT_PROBLEM_PROD_URL
+    : REPORT_PROBLEM_ACC_URL
 }
