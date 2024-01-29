@@ -41,9 +41,9 @@ const getEnvForApiUrl = (environment: Environment) => {
   switch (environment) {
     case Environment.acceptance:
     case Environment.custom:
-      return 'test-'
+      return 'test'
     case Environment.development:
-      return 'dev-'
+      return 'dev'
     case Environment.production:
     default:
       return ''
@@ -52,11 +52,11 @@ const getEnvForApiUrl = (environment: Environment) => {
 const getEnvForAzureApiUrl = (environment: EnvironmentAzure) => {
   switch (environment) {
     case EnvironmentAzure.acceptanceAzure:
-      return 'acc.'
+      return 'acc'
     case EnvironmentAzure.developmentAzure:
-      return 'ontw.'
+      return 'ontw'
     case EnvironmentAzure.testAzure:
-      return 'test.'
+      return 'test'
     case EnvironmentAzure.productionAzure:
     default:
       return ''
@@ -92,12 +92,15 @@ const getApiUrl = (
     Object.values(EnvironmentAzure).includes(environment as EnvironmentAzure)
   ) {
     env = getEnvForAzureApiUrl(environment as EnvironmentAzure)
+    const interPunction =
+      environment === EnvironmentAzure.productionAzure ? '' : '.'
 
-    return `https://${env}app.amsterdam.nl/${slug}/api/v1`
+    return `https://${env}${interPunction}app.amsterdam.nl/${slug}/api/v1`
   } else {
     env = getEnvForApiUrl(environment as Environment)
+    const interPunction = environment === Environment.production ? '' : '-'
 
-    return `https://api-${env}${fitSlugToApi(slug)}.app-amsterdam.nl/api/v1`
+    return `https://api-${env}${interPunction}${fitSlugToApi(slug)}.app-amsterdam.nl/api/v1`
   }
 }
 
