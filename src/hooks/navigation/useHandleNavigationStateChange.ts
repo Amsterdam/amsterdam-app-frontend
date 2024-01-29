@@ -1,7 +1,8 @@
 import {NavigationState} from '@react-navigation/core'
 import {RootStackParams} from '@/app/navigation/types'
-import {usePiwik} from '@/hooks/piwik/usePiwik'
+import {usePiwikOutsideNavigation} from '@/hooks/piwik/usePiwik'
 
+// TODO: PBI 86991
 /**
  * We use this to set the screen title for screens with variable content (i.e. a project, for which the title comes from the backend).
  * If we use this consistently, we can add the screen title when logging a screen view.
@@ -17,7 +18,7 @@ const getScreenTitleFromParams = (params?: Record<string, unknown>) => {
 }
 
 export const useHandleNavigationStateChange = () => {
-  const {trackScreen} = usePiwik()
+  const {trackScreen} = usePiwikOutsideNavigation()
 
   return (navState?: NavigationState) => {
     // This cast fixes a typing issue: the NavigationContainer onStateChange prop will incorrectly not accept a function that handles state of type NavigationState<RootStackParams>

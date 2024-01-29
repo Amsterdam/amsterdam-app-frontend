@@ -6,11 +6,21 @@
 - https://help.piwik.pro/
 - [Meetplan](https://hoofdstad.sharepoint.com/:w:/r/sites/AmsterdamApp/_layouts/15/Doc.aspx?sourcedoc=%7B93166DC8-DF58-4D3A-8C2B-5380D8DC8333%7D&file=Meetplan%20Piwik%20Pro%20Amsterdam%20App.docx)
 
+## Piwik configuration
+
+To confige Piwik, you need to set two env vars: a URL and an ID.
+- `PIWIK_PRO_URL` and `PIWIK_PRO_ID` for production
+- `PIWIK_PRO_URL_ACCEPT` and `PIWIK_PRO_ID_ACCEPT` for anything else
+
+For local development, they can be set in the `.env` file. Do not use the production URL/ID for development work. This way we don't "pollute" the production data. For the app builds they are set in the variable group "React Native Piwik Pro Analytics".
+
 ## A note on privacy
 
-Anonymization is the feature that allows tracking a user’s activity for aggregated data analysis even if the user doesn’t consent to track the data. If a user does not agree to be tracked, he will not be identified as the same person across multiple sessions. In other words: if the anonymization is enabled, a new visitor ID will be created each time the application starts.
+> Anonymization is the feature that allows tracking a user’s activity for aggregated data analysis even if the user doesn’t consent to track the data. If a user does not agree to be tracked, he will not be identified as the same person across multiple sessions. In other words: if the anonymization is enabled, a new visitor ID will be created each time the application starts.
 
-Anonymization is enabled by default. We will not change this.
+> Anonymization is enabled by default.
+
+We have not changed the deafult: anonymization is enabled.
 
 (See: https://github.com/PiwikPRO/react-native-piwik-pro-sdk#data-anonymization)
 
@@ -75,7 +85,9 @@ The name is the unique metric that you are logging, e.g. "the waste guide module
 
 ### Dimensions
 
-What are dimensions? Dimensions are attributes of a log that describe specific characteristics. You can use them to add additional data to a log event.
+What are dimensions? You can use them to add additional data to a log event.
+
+> Dimensions are attributes of a log that describe specific characteristics.
 
 There are broadly 2 types of information that you may want to log:
 1. general information about the user, their preferences, profile or settings
@@ -91,14 +103,12 @@ See `src/types/piwik.ts` for the definitions of the custom dimensions and the cu
 
 Dimensions have to be created in the interface first: https://dap.amsterdam.nl/analytics/#/[PIWIK_ID]/settings/custom-dimensions/. Each dimension gets an integer index, to which we refer in our code. This index is shared between session and non-session dimensions, so 1 could be a session dimension, 2 could be a non-session dimension, etc.
 
-Add the new dimension to `src/types/piwik.ts`.
+Add the new dimension to `src/types/piwik.ts`. See: https://help.piwik.pro/support/reports/custom-dimension/
+
+#### The criteria for logging session dimensions
+
+A session dimension is often not related to a specific action. If that is the case, we can log them on start up and when the app comes to the foreground. See `src/hooks/piwik/useLogGeneralAnalytics.ts`. Note that you can log session dimensions multiple times. E.g. the mtric "user has given location permission" should be logged on start up/foreground, but can also be updated immediately after the user gives his/her permission in a dialog.
 
 ## Tracking screens
 
 The screen tracking is integrated in the React Navigation (see: `src/hooks/navigation/useHandleNavigationStateChange.ts`)
-
-## To do:
-- PBI for `trackScreen`: use `SCREEN_TITLE_PARAM_KEY` param to set variable screen titles, so they can be logged
-- TASK: allowList/sanitization for name and dimensions
-- TASK: define custom dimensions, both in Piwik and in enum (`src/types/piwik.ts`), also ongoing
-- TASK: define categories and actions in enums (`src/types/piwik.ts`), also ongoing
