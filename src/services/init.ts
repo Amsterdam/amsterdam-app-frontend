@@ -8,9 +8,9 @@ import {
 } from '@reduxjs/toolkit/query/react'
 /* eslint-disable no-restricted-imports */
 import {version as releaseVersion} from '@/../package.json'
+import {ApiSlugs} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
-import {ModuleSlug} from '@/modules/slugs'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -36,7 +36,7 @@ const deviceIdRequestingEndpoints: string[] = [
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
-  FetchArgs & {slug: ModuleSlug | 'modules'},
+  FetchArgs & {slug: ApiSlugs},
   unknown,
   FetchBaseQueryError
 > = async (args, baseQueryApi, extraOptions) =>

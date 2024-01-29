@@ -7,11 +7,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {
   Environment,
   EnvironmentAzure,
+  editableApiSlugs,
   environmentAzureLabels,
 } from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ModuleSlug} from '@/modules/slugs'
 import {isDevApp} from '@/processes/development'
 import {baseApi} from '@/services/init'
 import {
@@ -19,12 +19,6 @@ import {
   setCustomEnvironment,
   setEnvironment,
 } from '@/store/slices/environment'
-
-const SLUGS = {
-  CONSTRUCTION_WORK_SLUG: ModuleSlug['construction-work'],
-  CONTACT_SLUG: ModuleSlug.contact,
-  MODULE_SLUG: 'modules',
-}
 
 type CustomApiTextInputProps = {
   label: string
@@ -74,7 +68,7 @@ export const EnvironmentSelector = () => {
           </Column>
           {environment === Environment.custom && (
             <Column gutter="md">
-              {Object.entries(SLUGS).map(([key, value]) => (
+              {Object.entries(editableApiSlugs).map(([key, value]) => (
                 <CustomApiTextInput
                   key={key}
                   label={value}
@@ -85,7 +79,7 @@ export const EnvironmentSelector = () => {
                       }),
                     )
                   }
-                  value={custom[value as keyof typeof custom]}
+                  value={custom[value]}
                 />
               ))}
             </Column>

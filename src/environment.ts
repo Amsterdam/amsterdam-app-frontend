@@ -16,6 +16,18 @@ export enum EnvironmentAzure {
   productionAzure = 'ProductionAzure',
 }
 
+export enum CustomApiSlug {
+  modules = 'modules',
+}
+
+export type ApiSlugs = CustomApiSlug | ModuleSlug
+
+export const editableApiSlugs = {
+  constructionWork: ModuleSlug['construction-work'],
+  contact: ModuleSlug.contact,
+  modules: CustomApiSlug.modules,
+} as const
+
 export const environmentAzureLabels = {
   [EnvironmentAzure.developmentAzure]: 'Development (Azure)',
   [EnvironmentAzure.testAzure]: 'Test (Azure)',
@@ -26,13 +38,11 @@ export const environmentAzureLabels = {
 const getEnvForApiUrl = (environment: Environment) => {
   switch (environment) {
     case Environment.acceptance:
-      return 'test-'
     case Environment.custom:
       return 'test-'
     case Environment.development:
       return 'dev-'
     case Environment.production:
-      return ''
     default:
       return ''
   }
@@ -43,16 +53,16 @@ const getEnvForAzureApiUrl = (environment: EnvironmentAzure) => {
       return 'acc.'
     case EnvironmentAzure.developmentAzure:
       return 'ontw.'
-    case EnvironmentAzure.productionAzure:
-      return ''
     case EnvironmentAzure.testAzure:
       return 'test.'
+    case EnvironmentAzure.productionAzure:
     default:
       return ''
   }
 }
 
-const fitSlugToApi = (slug: ModuleSlug | 'modules') =>
+// Should no longer be necessary after backend is moved to Azure Cloud
+const fitSlugToApi = (slug: ApiSlugs) =>
   slug === ModuleSlug['construction-work'] || slug === ModuleSlug.contact
     ? 'backend'
     : slug
@@ -64,7 +74,7 @@ const externalApiUrls: Record<string, string> = {
 const getApiUrl = (
   environment: Environment | EnvironmentAzure,
   custom: typeof customDefaultUrls,
-  slug: ModuleSlug | 'modules',
+  slug: ApiSlugs,
 ) => {
   if (slug in externalApiUrls) {
     return externalApiUrls[slug]
@@ -92,5 +102,5 @@ const getApiUrl = (
 export const getApi = (
   environment: Environment | EnvironmentAzure,
   custom: typeof customDefaultUrls,
-  slug: ModuleSlug | 'modules',
+  slug: ApiSlugs,
 ) => getApiUrl(environment, custom, slug)
