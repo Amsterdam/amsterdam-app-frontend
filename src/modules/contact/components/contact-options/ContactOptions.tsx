@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {OpenPhoneUrl, useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {OpenWebUrl, useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {CONTACT_EXTERNAL_LINKS} from '@/modules/contact/constants'
+import {CONTACT_FORM} from '@/modules/contact/external-links'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
@@ -73,12 +73,11 @@ const getContactOptions = (
 export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {CONTACT_FORM_URL} = CONTACT_EXTERNAL_LINKS
 
   const contactOptions = getContactOptions(
     openPhoneUrl,
     openWebUrl,
-    CONTACT_FORM_URL,
+    CONTACT_FORM,
   )
 
   return (

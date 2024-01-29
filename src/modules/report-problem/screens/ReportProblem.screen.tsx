@@ -11,7 +11,8 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useReportProblemWebviewUrl} from '@/modules/report-problem/hooks/useWebviewUrl'
+import {useUrlForEnv} from '@/hooks/useMap'
+import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
@@ -19,7 +20,7 @@ type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const reportProblemUrl = useReportProblemWebviewUrl()
+  const reportProblemUrl = useUrlForEnv(reportProblemExternalLinks)
 
   return (
     <Screen>

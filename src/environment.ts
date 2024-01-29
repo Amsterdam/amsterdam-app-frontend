@@ -28,6 +28,8 @@ export const editableApiSlugs = {
   modules: CustomApiSlug.modules,
 } as const
 
+export type EnvUrlMap = Partial<Record<Environment | EnvironmentAzure, string>>
+
 export const environmentAzureLabels = {
   [EnvironmentAzure.developmentAzure]: 'Development (Azure)',
   [EnvironmentAzure.testAzure]: 'Test (Azure)',
