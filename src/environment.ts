@@ -78,8 +78,8 @@ const getApiUrl = (
   custom: typeof customDefaultUrls,
   slug: ApiSlugs,
 ) => {
-  if (slug in externalApiUrls) {
-    return externalApiUrls[slug]
+  if (externalApiUrls.slug) {
+    return externalApiUrls.slug
   }
 
   if (environment === Environment.custom && slug in custom) {
