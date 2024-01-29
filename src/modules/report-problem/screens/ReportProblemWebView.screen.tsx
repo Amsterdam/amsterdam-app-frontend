@@ -3,7 +3,7 @@ import {WebViewMessageEvent} from 'react-native-webview'
 import {NavigationProps} from '@/app/navigation/types'
 import {WebView} from '@/components/ui/containers/WebView'
 import {Screen} from '@/components/ui/layout/Screen'
-import {useUrlForEnv} from '@/hooks/useMap'
+import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 

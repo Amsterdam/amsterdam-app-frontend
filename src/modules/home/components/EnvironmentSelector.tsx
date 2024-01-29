@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {
   Environment,
   EnvironmentAzure,
-  editableApiSlugs,
+  editableApiSlug,
   environmentAzureLabels,
 } from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -68,7 +68,7 @@ export const EnvironmentSelector = () => {
           </Column>
           {environment === Environment.custom && (
             <Column gutter="md">
-              {Object.entries(editableApiSlugs).map(([key, value]) => (
+              {Object.entries(editableApiSlug).map(([key, value]) => (
                 <CustomApiTextInput
                   key={key}
                   label={value}

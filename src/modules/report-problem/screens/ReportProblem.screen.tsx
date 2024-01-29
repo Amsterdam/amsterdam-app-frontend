@@ -11,7 +11,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useUrlForEnv} from '@/hooks/useMap'
+import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 

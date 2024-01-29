@@ -3,18 +3,18 @@ import {
   Environment,
   EnvironmentAzure,
   getApi,
-  ApiSlugs,
-  editableApiSlugs,
+  ApiSlug,
+  editableApiSlug,
 } from '@/environment'
 import {isDevApp} from '@/processes/development'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export const customDefaultUrls = {
-  [editableApiSlugs.constructionWork]:
+  [editableApiSlug.constructionWork]:
     'http://localhost:8000/construction-work/api/v1',
-  [editableApiSlugs.contact]: 'http://localhost:8000/contact/api/v1',
-  [editableApiSlugs.modules]: 'http://localhost:9000/modules/api/v1',
+  [editableApiSlug.contact]: 'http://localhost:8000/contact/api/v1',
+  [editableApiSlug.modules]: 'http://localhost:9000/modules/api/v1',
 }
 
 export type EnvironmentState = {
@@ -49,7 +49,7 @@ export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 export const selectEnvironment = (state: RootState) =>
   state[ReduxKey.environment]
 
-export const selectApi = (state: RootState, api: ApiSlugs) =>
+export const selectApi = (state: RootState, api: ApiSlug) =>
   getApi(
     state[ReduxKey.environment].environment,
     state[ReduxKey.environment].custom,

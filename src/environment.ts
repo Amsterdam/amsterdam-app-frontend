@@ -16,16 +16,16 @@ export enum EnvironmentAzure {
   productionAzure = 'ProductionAzure',
 }
 
-export enum CustomApiSlug {
+export enum GlobalApiSlug {
   modules = 'modules',
 }
 
-export type ApiSlugs = CustomApiSlug | ModuleSlug
+export type ApiSlug = GlobalApiSlug | ModuleSlug
 
-export const editableApiSlugs = {
+export const editableApiSlug = {
   constructionWork: ModuleSlug['construction-work'],
   contact: ModuleSlug.contact,
-  modules: CustomApiSlug.modules,
+  modules: GlobalApiSlug.modules,
 } as const
 
 export type EnvUrlMap = Partial<Record<Environment | EnvironmentAzure, string>>
@@ -64,7 +64,7 @@ const getEnvForAzureApiUrl = (environment: EnvironmentAzure) => {
 }
 
 // Should no longer be necessary after backend is moved to Azure Cloud
-const fitSlugToApi = (slug: ApiSlugs) =>
+const fitSlugToApi = (slug: ApiSlug) =>
   slug === ModuleSlug['construction-work'] || slug === ModuleSlug.contact
     ? 'backend'
     : slug
@@ -76,7 +76,7 @@ const externalApiUrls: Record<string, string> = {
 const getApiUrl = (
   environment: Environment | EnvironmentAzure,
   custom: typeof customDefaultUrls,
-  slug: ApiSlugs,
+  slug: ApiSlug,
 ) => {
   if (externalApiUrls[slug]) {
     return externalApiUrls[slug]
@@ -107,5 +107,5 @@ const getApiUrl = (
 export const getApi = (
   environment: Environment | EnvironmentAzure,
   custom: typeof customDefaultUrls,
-  slug: ApiSlugs,
+  slug: ApiSlug,
 ) => getApiUrl(environment, custom, slug)
