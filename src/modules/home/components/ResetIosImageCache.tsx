@@ -16,7 +16,7 @@ export const ResetIosImageCache = () => {
   }
 
   return (
-    <Box borderStyle="solid">
+    <Box>
       <Button
         label="Clear iOS image cache"
         onPress={onPress}

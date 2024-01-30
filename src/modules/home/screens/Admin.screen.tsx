@@ -10,13 +10,13 @@ import {FULL_VERSION_NUMBER} from '@/utils/version'
 export const AdminScreen = () => (
   <Screen keyboardAware>
     {!!isDevApp && (
-      <Box>
-        <Column gutter="lg">
-          <EnvironmentSelector />
-          <ResetIosImageCache />
-          <Phrase>{FULL_VERSION_NUMBER}</Phrase>
-        </Column>
-      </Box>
+      <Column gutter="xl">
+        <EnvironmentSelector />
+        <ResetIosImageCache />
+        <Box>
+          <Phrase textAlign="center">{FULL_VERSION_NUMBER}</Phrase>
+        </Box>
+      </Column>
     )}
   </Screen>
 )
