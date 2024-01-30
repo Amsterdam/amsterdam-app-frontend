@@ -1,3 +1,4 @@
+import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/init'
 import {Notification, NotificationQueryArg} from '@/types/notification'
 
@@ -6,6 +7,7 @@ export const notificationsApi = baseApi.injectEndpoints({
     addNotification: builder.mutation<Notification, NotificationQueryArg>({
       invalidatesTags: ['Notifications'],
       query: body => ({
+        slug: ModuleSlug['construction-work'],
         url: '/notification',
         method: 'POST',
         body,

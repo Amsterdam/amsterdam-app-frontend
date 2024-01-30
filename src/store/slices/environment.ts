@@ -1,29 +1,45 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {Environment, EnvironmentConfig, getEnvironment} from '@/environment'
-import {useSelector} from '@/hooks/redux/useSelector'
+import {
+  Environment,
+  EnvironmentAzure,
+  getApi,
+  ApiSlug,
+  editableApiSlug,
+} from '@/environment'
 import {isDevApp} from '@/processes/development'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
+export const customDefaultUrls = {
+  [editableApiSlug.constructionWork]:
+    'http://localhost:8000/construction-work/api/v1',
+  [editableApiSlug.contact]: 'http://localhost:8000/contact/api/v1',
+  [editableApiSlug.modules]: 'http://localhost:9000/modules/api/v1',
+}
+
 export type EnvironmentState = {
-  custom?: Partial<EnvironmentConfig>
-  environment: Environment
+  custom: typeof customDefaultUrls
+  environment: Environment | EnvironmentAzure
 }
 
 export const environmentSlice = createSlice({
   name: ReduxKey.environment,
   initialState: {
+    custom: customDefaultUrls,
     environment: isDevApp ? Environment.acceptance : Environment.production,
   } as EnvironmentState,
   reducers: {
-    setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
+    setEnvironment: (
+      state,
+      {payload}: PayloadAction<Environment | EnvironmentAzure>,
+    ) => {
       state.environment = payload
     },
     setCustomEnvironment: (
       state,
-      {payload}: PayloadAction<Partial<EnvironmentConfig>>,
+      {payload}: PayloadAction<Partial<typeof customDefaultUrls>>,
     ) => {
-      state.custom = payload
+      state.custom = {...state.custom, ...payload}
     },
   },
 })
@@ -31,12 +47,14 @@ export const environmentSlice = createSlice({
 export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 
 export const selectEnvironment = (state: RootState) =>
-  getEnvironment(
+  state[ReduxKey.environment]
+
+export const selectApi = (state: RootState, api: ApiSlug) =>
+  getApi(
     state[ReduxKey.environment].environment,
     state[ReduxKey.environment].custom,
+    api,
   )
 
 export const selectEnvironmentConfig = (state: RootState) =>
   state[ReduxKey.environment]
-
-export const useEnvironment = () => useSelector(selectEnvironment)

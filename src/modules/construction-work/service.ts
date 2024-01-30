@@ -18,11 +18,13 @@ import {
 } from '@/modules/construction-work/types/api'
 import {processSearchQueryArgs} from '@/modules/construction-work/utils/processSearchQueryArgs'
 import {tempPostProcessProjectDetails} from '@/modules/construction-work/utils/tempPostProcessProjectDetails'
+import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/init'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
 const DEFAULT_SEARCH_PAGE_SIZE = 1000
+const MODULE_SLUG = ModuleSlug['construction-work']
 
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -32,11 +34,14 @@ export const projectsApi = baseApi.injectEndpoints({
       ArticlesQueryArgs
     >({
       providesTags: ['Articles'],
-      query: params =>
-        generateRequestUrl({
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({
           path: '/articles',
           params,
         }),
+      }),
+
       keepUnusedDataFor: CacheLifetime.minute,
     }),
 
@@ -46,7 +51,10 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectDetailsQueryArgs
     >({
       providesTags: ['FollowedProjects', 'Projects'],
-      query: params => generateRequestUrl({path: '/project/details', params}),
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({path: '/project/details', params}),
+      }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: tempPostProcessProjectDetails,
     }),
@@ -56,7 +64,10 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectNewsResponse,
       ProjectNewsQueryArgs
     >({
-      query: params => generateRequestUrl({path: '/project/news', params}),
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({path: '/project/news', params}),
+      }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
 
@@ -65,7 +76,10 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectWarningResponse,
       ProjectWarningQueryArgs
     >({
-      query: params => generateRequestUrl({path: '/project/warning', params}),
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({path: '/project/warning', params}),
+      }),
       keepUnusedDataFor: CacheLifetime.week,
     }),
 
@@ -75,18 +89,15 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsQueryArgs
     >({
       providesTags: ['FollowedProjects', 'Projects'],
-      query: params => {
-        const path = '/projects'
-
-        if (!params) {
-          return path
-        }
-
-        return generateRequestUrl({
-          path: '/projects',
-          params,
-        })
-      },
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: params
+          ? generateRequestUrl({
+              path: '/projects',
+              params,
+            })
+          : '/projects',
+      }),
 
       keepUnusedDataFor: CacheLifetime.hour,
     }),
@@ -98,9 +109,10 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['FollowedProjects'],
       query: body => ({
-        url: '/projects/follow',
-        method: 'DELETE',
         body,
+        method: 'DELETE',
+        slug: MODULE_SLUG,
+        url: '/projects/follow',
       }),
     }),
 
@@ -111,9 +123,10 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['FollowedProjects'],
       query: body => ({
-        url: '/projects/follow',
-        method: 'POST',
         body,
+        method: 'POST',
+        slug: MODULE_SLUG,
+        url: '/projects/follow',
       }),
     }),
 
@@ -123,18 +136,15 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsFollowedArticlesQueryArgs
     >({
       providesTags: ['Articles', 'FollowedProjects'],
-      query: params => {
-        const path = '/projects/followed/articles'
-
-        if (!params) {
-          return path
-        }
-
-        return generateRequestUrl({
-          path,
-          params,
-        })
-      },
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: params
+          ? generateRequestUrl({
+              path: '/projects/followed/articles',
+              params,
+            })
+          : '/projects/followed/articles',
+      }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
 
@@ -144,14 +154,16 @@ export const projectsApi = baseApi.injectEndpoints({
       ProjectsSearchQueryArgs
     >({
       providesTags: ['Projects'],
-      query: params =>
-        generateRequestUrl({
+      query: params => ({
+        slug: MODULE_SLUG,
+        url: generateRequestUrl({
           path: '/projects/search',
           params: {
             page_size: DEFAULT_SEARCH_PAGE_SIZE,
             ...processSearchQueryArgs(params),
           },
         }),
+      }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
   }),

@@ -8,11 +8,11 @@ import {
 } from '@reduxjs/toolkit/query/react'
 /* eslint-disable no-restricted-imports */
 import {version as releaseVersion} from '@/../package.json'
-import {EnvironmentConfig} from '@/environment'
+import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {selectAuthManagerToken} from '@/store/slices/auth'
-import {selectEnvironment} from '@/store/slices/environment'
+import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
@@ -36,16 +36,14 @@ const deviceIdRequestingEndpoints: string[] = [
 ]
 
 const dynamicBaseQuery: BaseQueryFn<
-  string | (FetchArgs & {api?: keyof EnvironmentConfig}),
+  FetchArgs & {slug: ApiSlug},
   unknown,
   FetchBaseQueryError
-> = async (args, baseQueryApi, extraOptions) => {
-  const api = typeof args !== 'string' && args.api ? args.api : 'apiUrl'
-
-  return retry(
+> = async (args, baseQueryApi, extraOptions) =>
+  retry(
     async () => {
       const result = await fetchBaseQuery({
-        baseUrl: selectEnvironment(baseQueryApi.getState() as RootState)[api],
+        baseUrl: selectApi(baseQueryApi.getState() as RootState, args.slug),
         prepareHeaders: (headers, {endpoint, getState}) => {
           const token = selectAuthManagerToken(getState() as RootState)
 
@@ -73,7 +71,6 @@ const dynamicBaseQuery: BaseQueryFn<
 
     {maxRetries: 5},
   )(args, baseQueryApi, extraOptions as never)
-}
 
 export const baseApi = createApi({
   baseQuery: dynamicBaseQuery,

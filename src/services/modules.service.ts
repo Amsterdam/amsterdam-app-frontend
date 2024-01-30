@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import {version} from '@/../package.json'
+import {GlobalApiSlug} from '@/environment'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
 
@@ -25,7 +26,7 @@ export const modulesApi = baseApi.injectEndpoints({
     getRelease: builder.query<ModulesResponse, void>({
       providesTags: ['Modules'],
       query: () => ({
-        api: 'modulesApiUrl',
+        slug: GlobalApiSlug.modules,
         url: `/release/${version}`,
       }),
     }),

@@ -1,3 +1,4 @@
+import {ModuleSlug} from '@/modules/slugs'
 import {
   WasteGuideEndpointName,
   WasteGuideQueryArg,
@@ -15,7 +16,7 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       WasteGuideQueryArg
     >({
       query: params => ({
-        api: 'wasteGuideUrl',
+        slug: ModuleSlug['waste-guide'],
         url: generateRequestUrl({
           params: {...params, _format: 'json'},
           path: '/search',

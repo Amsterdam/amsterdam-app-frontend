@@ -14,7 +14,7 @@ import {Platform} from 'react-native'
 
 import {getVersion} from 'react-native-device-info'
 import {RootStackParams} from '@/app/navigation/types'
-import {Environment} from '@/environment'
+import {Environment, EnvironmentAzure} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {sanitizeUrl} from '@/processes/sentry/utils'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
@@ -92,7 +92,9 @@ export const sentryWrap = <P extends Record<string, unknown>>(
 /**
  * Set/update the back end enviroment so in the case of a development app, we know which one was used
  */
-export const setSentryBackEndEnvironment = (environment: Environment): void => {
+export const setSentryBackEndEnvironment = (
+  environment: Environment | EnvironmentAzure,
+): void => {
   setTag('backEndEnvironment', environment)
 }
 
