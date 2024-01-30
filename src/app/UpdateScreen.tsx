@@ -31,23 +31,21 @@ export const UpdateScreen = ({children}: Props) => {
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
-  if (isLoading) {
+  const supported = !data || data.versionInfo.supported
+
+  if (isLoading || supported) {
     return children
   }
 
-  if (!data?.versionInfo.supported) {
-    return (
-      <ErrorScreen
-        buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
-        buttonLabel="Update de app"
-        Image={UpdateFigure}
-        onPress={openStore}
-        testId="ErrorScreenUpdateButton"
-        text="Om de app te kunnen gebruiken moet u eerst updaten."
-        title="De versie van de app is verouderd en werkt niet meer."
-      />
-    )
-  }
-
-  return children
+  return (
+    <ErrorScreen
+      buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
+      buttonLabel="Update de app"
+      Image={UpdateFigure}
+      onPress={openStore}
+      testId="ErrorScreenUpdateButton"
+      text="Om de app te kunnen gebruiken moet u eerst updaten."
+      title="De versie van de app is verouderd en werkt niet meer."
+    />
+  )
 }
