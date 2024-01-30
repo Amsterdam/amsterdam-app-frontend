@@ -20,7 +20,7 @@ For local development, they can be set in the `.env` file. Do not use the produc
 
 > Anonymization is enabled by default.
 
-We have not changed the deafult: anonymization is enabled.
+We have not changed the default: anonymization is enabled.
 
 (See: https://github.com/PiwikPRO/react-native-piwik-pro-sdk#data-anonymization)
 
