@@ -31,9 +31,7 @@ export const UpdateScreen = ({children}: Props) => {
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
-  const supported = !data || data.versionInfo.supported
-
-  if (isLoading || supported) {
+  if (isLoading || !data || data.versionInfo.supported) {
     return children
   }
 
