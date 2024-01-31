@@ -1,4 +1,3 @@
-import {BUILD_NUMBER} from '@env'
 import {NavigationContainerRef} from '@react-navigation/native'
 import {
   Breadcrumb,
@@ -11,13 +10,12 @@ import {
 } from '@sentry/react-native'
 import {RefObject} from 'react'
 import {Platform} from 'react-native'
-
-import {getVersion} from 'react-native-device-info'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment, EnvironmentAzure} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
+import {BUILD_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 const enableSentry = appFlavour !== AppFlavour.local
 
@@ -45,13 +43,11 @@ export const initSentry = () => {
     return
   }
 
-  const version = getVersion()
-
   init({
     dsn: 'https://39ba20d819034bc2a98af077acec8bec@o1315195.ingest.sentry.io/6567463',
     environment: appFlavour,
     dist: BUILD_NUMBER,
-    release: `${Platform.OS}@${version}.${BUILD_NUMBER ?? '0'}`,
+    release: `${Platform.OS}@${VERSION_NUMBER_WITH_BUILD}`,
     beforeBreadcrumb: (breadcrumb: Breadcrumb) => {
       // remove query params from request URLS as they may contain personal data
       if (breadcrumb.category === 'xhr') {

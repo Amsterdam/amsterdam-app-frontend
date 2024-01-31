@@ -11,7 +11,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {AboutRouteName} from '@/modules/about/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {FULL_VERSION_NUMBER} from '@/utils/version'
+import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 type Props = NavigationProps<AboutRouteName.about>
 
@@ -35,7 +35,7 @@ export const AboutScreen = ({navigation}: Props) => {
                 text="Amsterdam App"
               />
               <Phrase testID="AboutVersionNumberText">
-                Versie {FULL_VERSION_NUMBER}
+                Versie {VERSION_NUMBER_WITH_BUILD}
               </Phrase>
             </>
             <Column gutter="sm">

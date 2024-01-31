@@ -1,5 +1,5 @@
 import {ReactNode} from 'react'
-import {AccessibilityProps, FlexStyle, StyleSheet, View} from 'react-native'
+import {FlexStyle, StyleSheet, View} from 'react-native'
 import {
   CrossAxisAlignment,
   MainAxisAlignment,
@@ -27,8 +27,7 @@ export type RowProps = {
   wrap?: boolean
   /** Sets the zIndex style property */
   zIndex?: number
-} & Pick<FlexStyle, 'flex'> &
-  AccessibilityProps
+} & Pick<FlexStyle, 'flex'>
 
 /**
  * Lays out its children horizontally.

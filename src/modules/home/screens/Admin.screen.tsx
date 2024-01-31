@@ -5,7 +5,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {EnvironmentSelector} from '@/modules/home/components/EnvironmentSelector'
 import {ResetIosImageCache} from '@/modules/home/components/ResetIosImageCache'
 import {isDevApp} from '@/processes/development'
-import {FULL_VERSION_NUMBER} from '@/utils/version'
+import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export const AdminScreen = () => (
   <Screen keyboardAware>
@@ -14,7 +14,7 @@ export const AdminScreen = () => (
         <EnvironmentSelector />
         <ResetIosImageCache />
         <Box>
-          <Phrase textAlign="center">{FULL_VERSION_NUMBER}</Phrase>
+          <Phrase textAlign="center">{VERSION_NUMBER_WITH_BUILD}</Phrase>
         </Box>
       </Column>
     )}
