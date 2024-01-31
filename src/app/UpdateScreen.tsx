@@ -36,10 +36,10 @@ export const UpdateScreen = ({children}: Props) => {
   const supported = data?.versionInfo.supported
 
   useEffect(() => {
-    if (supported === false) {
+    if (supported === false || isError) {
       hideSplashScreen()
     }
-  }, [hideSplashScreen, supported])
+  }, [hideSplashScreen, isError, supported])
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
