@@ -64,10 +64,13 @@ const getEnvForAzureApiUrl = (environment: EnvironmentAzure) => {
 }
 
 // Should no longer be necessary after backend is moved to Azure Cloud
-const fitSlugToApi = (slug: ApiSlug) =>
-  slug === ModuleSlug['construction-work'] || slug === ModuleSlug.contact
-    ? 'backend'
-    : slug
+export const getApiSlugAndPath = (slug: ApiSlug) => ({
+  apiSlug:
+    slug === ModuleSlug['construction-work'] || slug === ModuleSlug.contact
+      ? 'backend'
+      : slug,
+  path: slug === ModuleSlug.contact ? '/contact' : '',
+})
 
 const externalApiUrls: Record<string, string> = {
   [ModuleSlug.address]: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1',
@@ -86,21 +89,20 @@ const getApiUrl = (
     return custom[slug as keyof typeof customDefaultUrls]
   }
 
-  let env
-
   if (
     Object.values(EnvironmentAzure).includes(environment as EnvironmentAzure)
   ) {
-    env = getEnvForAzureApiUrl(environment as EnvironmentAzure)
+    const env = getEnvForAzureApiUrl(environment as EnvironmentAzure)
     const interPunction =
       environment === EnvironmentAzure.productionAzure ? '' : '.'
 
     return `https://${env}${interPunction}app.amsterdam.nl/${slug}/api/v1`
   } else {
-    env = getEnvForApiUrl(environment as Environment)
+    const env = getEnvForApiUrl(environment as Environment)
     const interPunction = environment === Environment.production ? '' : '-'
+    const {apiSlug, path} = getApiSlugAndPath(slug)
 
-    return `https://api-${env}${interPunction}${fitSlugToApi(slug)}.app-amsterdam.nl/api/v1`
+    return `https://api-${env}${interPunction}${apiSlug}.app-amsterdam.nl/api/v1${path}`
   }
 }
 
