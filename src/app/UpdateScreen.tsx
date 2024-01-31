@@ -27,7 +27,7 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isError, isLoading, refetch} = useGetReleaseQuery()
+  const {isError, isLoading} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
   const hideSplashScreen = useHideSplashScreen()
@@ -45,12 +45,15 @@ export const UpdateScreen = ({children}: Props) => {
   if (isError) {
     return (
       <ErrorScreen
+        buttonAccessibilityLabel=""
         buttonLabel="Probeer het opnieuw"
         Image={UpdateFigure}
-        onPress={refetch}
-        testId="UpdateScreenError"
-        text="Sorry, het is niet gelukt om de data op te halen. Heb je internet aan staan?"
-        title="Er is iets misgegaan"
+        insetTop
+        isScreen
+        onPress={openStore}
+        testId="ErrorScreenUpdateButton"
+        text="Om de app te kunnen gebruiken moet u eerst updaten."
+        title="De versie van de app is verouderd en werkt niet meer."
       />
     )
   }

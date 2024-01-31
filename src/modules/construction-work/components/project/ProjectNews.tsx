@@ -1,7 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useLayoutEffect} from 'react'
+import {ConstructionWorkDetailFigure} from '@/assets/images/errors/ConstructionWorkDetailFigure'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
@@ -54,7 +55,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: project?.title ?? '',
+      headerTitle: project?.title ?? 'Project nieuws',
     })
   })
 
@@ -63,7 +64,19 @@ export const ProjectNews = ({id, projectId}: Props) => {
   }
 
   if (!article || articleIsError) {
-    return <SomethingWentWrong />
+    return (
+      <ErrorScreen
+        buttonAccessibilityLabel="Terug naar werkzaamheid"
+        buttonLabel="Terug naar werkzaamheid"
+        Image={ConstructionWorkDetailFigure}
+        onPress={() =>
+          navigation.navigate(ConstructionWorkRouteName.project, {id})
+        }
+        testId="ProjectDetailErrorScreen"
+        text="Ga terug naar de werkzaamheid."
+        title="Helaas is het nieuwsartikel niet gevonden worden..."
+      />
+    )
   }
 
   const {body, image, intro, publication_date, title} = article
@@ -75,7 +88,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
       image={image}
       intro={intro}
       publicationDate={publication_date}
-      title={title}
+      title={title ?? ''}
     />
   )
 }

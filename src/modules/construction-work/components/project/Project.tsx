@@ -1,5 +1,6 @@
 import {useCallback, useLayoutEffect} from 'react'
 import simplur from 'simplur'
+import {ConstructionWorkDetailFigure} from '@/assets/images/errors/ConstructionWorkDetailFigure'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
@@ -8,9 +9,9 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
@@ -71,7 +72,7 @@ export const Project = ({id}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: project?.title,
+      headerTitle: project?.title ?? 'Project Details',
     })
   }, [project?.title, navigation])
 
@@ -80,7 +81,19 @@ export const Project = ({id}: Props) => {
   }
 
   if (!project) {
-    return <Paragraph>Geen project.</Paragraph>
+    return (
+      <ErrorScreen
+        buttonAccessibilityLabel="Terug naar overzicht"
+        buttonLabel="Terug naar overzicht"
+        Image={ConstructionWorkDetailFigure}
+        onPress={() =>
+          navigation.navigate(ConstructionWorkRouteName.constructionWork)
+        }
+        testId="ProjectDetailErrorScreen"
+        text="Ga terug naar het overzicht."
+        title="Geen werkzaamheden gevonden"
+      />
+    )
   }
 
   const {image, followed, followers, meter, strides, subtitle, title} = project

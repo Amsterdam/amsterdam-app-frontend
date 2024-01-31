@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {ReportProblemFigure} from '@/assets/images/errors/ReportProblemFigure'
+import {ModulesFigure} from '@/assets/images/errors/ModulesFigure'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
 import {AddButton} from '@/components/ui/buttons/AddButton'
@@ -26,12 +26,13 @@ export const HomeScreen = () => {
   if (modulesError) {
     return (
       <ErrorScreen
-        buttonAccessibilityLabel="Laadt de modules opnieuw"
+        buttonAccessibilityLabel="Laad de modules opnieuw"
         buttonLabel="Laad opnieuw"
-        Image={ReportProblemFigure}
+        Image={ModulesFigure}
+        isScreen
         onPress={refetchModules}
         testId="HomeErrorScreen"
-        text="Probeer het later opnieuw foutcode: 404/405/422/500"
+        text="Probeer het later opnieuw foutcode: 404"
         title="Helaas kan de inhoud niet geladen worden"
       />
     )

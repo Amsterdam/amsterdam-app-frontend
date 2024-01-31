@@ -14,6 +14,8 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
+import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 type WrapperProps = Pick<
   Props,
@@ -58,7 +60,9 @@ const Wrapper = ({
   scroll = true,
   trackScroll,
 }: WrapperProps) => {
-  if (scroll) {
+  const isScrollDisabled = useIsScreenScrollDisabled()
+
+  if (scroll && !isScrollDisabled) {
     return (
       <ScrollableWrapper
         keyboardAware={keyboardAware}
@@ -161,28 +165,30 @@ export const Screen = ({
   )
 
   return (
-    <View
-      style={styles.screen}
-      testID={testID}>
-      {stickyHeader}
-      <Wrapper
-        keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
-        trackScroll={trackScroll}
-        {...wrapperProps}>
-        <InnerWrapper
-          hasBottomsheet={!!bottomSheet}
-          style={styles.content}>
-          {children}
-        </InnerWrapper>
-      </Wrapper>
-      {(!!stickyFooter || !!bottomSheet) && (
-        <>
-          <Gutter height="sm" />
-          {stickyFooter}
-          {bottomSheet}
-        </>
-      )}
-    </View>
+    <DisableScrollProvider>
+      <View
+        style={styles.screen}
+        testID={testID}>
+        {stickyHeader}
+        <Wrapper
+          keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
+          trackScroll={trackScroll}
+          {...wrapperProps}>
+          <InnerWrapper
+            hasBottomsheet={!!bottomSheet}
+            style={styles.content}>
+            {children}
+          </InnerWrapper>
+        </Wrapper>
+        {(!!stickyFooter || !!bottomSheet) && (
+          <>
+            <Gutter height="sm" />
+            {stickyFooter}
+            {bottomSheet}
+          </>
+        )}
+      </View>
+    </DisableScrollProvider>
   )
 }
 

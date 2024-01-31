@@ -5,6 +5,7 @@ import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Screen} from '@/components/ui/layout/Screen'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Size} from '@/components/ui/layout/Size'
@@ -13,33 +14,29 @@ import {Figure} from '@/components/ui/media/Figure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useScreenScrollDisable} from '@/hooks/useScreenScrollDisable'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 
 const MIN_IMAGE_HEiGHT = 350
 
-type Props = {
+type ContentProps = {
   Image: ComponentType<SvgProps>
-  buttonAccessibilityLabel?: string
-  buttonLabel: string
-  onPress: () => void
-  stickyHeader?: ReactNode
-  testId: string
+  children?: ReactNode
+  insetTop?: boolean
+  stickyFooter?: ReactNode
   text: string
   title: string
 }
 
-export const ErrorScreen = ({
-  title,
-  text,
+const ErrorContent = ({
   Image,
-  stickyHeader,
-  buttonAccessibilityLabel,
-  buttonLabel,
-  onPress,
-  testId,
-}: Props) => {
+  insetTop,
+  text,
+  title,
+  stickyFooter,
+}: ContentProps) => {
   const {isPortrait, fontScale} = useDeviceContext()
   const {media} = useTheme()
 
@@ -56,24 +53,7 @@ export const ErrorScreen = ({
   const Wrapper = !isFontScaleChanged ? View : ScrollView
 
   return (
-    <Screen
-      scroll={false}
-      stickyFooter={
-        <Box
-          insetHorizontal={isPortrait ? 'md' : 'xl'}
-          insetVertical="no">
-          <Button
-            accessibilityHint={buttonAccessibilityLabel}
-            label={buttonLabel}
-            onPress={onPress}
-            testID={testId}
-          />
-        </Box>
-      }
-      stickyHeader={stickyHeader ?? undefined}
-      withLeftInset={!!isPortrait}
-      withRightInset={!!isPortrait}
-      withTopInset={isPortrait}>
+    <View style={styles.screen}>
       <Box
         grow
         inset="no">
@@ -103,7 +83,7 @@ export const ErrorScreen = ({
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop={stickyHeader ? 'no' : isPortrait ? 'xl' : 'xxl'}>
+                  insetTop={insetTop ? 'xxl' : isPortrait ? 'xl' : 'no'}>
                   <Wrapper style={styles.textContent}>
                     <Title
                       level="h3"
@@ -128,7 +108,90 @@ export const ErrorScreen = ({
           </Track>
         </Box>
       </Box>
+      {!!stickyFooter && (
+        <>
+          <Gutter height="sm" />
+          {stickyFooter}
+        </>
+      )}
+    </View>
+  )
+}
+
+type Props = {
+  Image: ComponentType<SvgProps>
+  buttonAccessibilityLabel: string
+  buttonLabel: string
+  insetTop?: boolean
+  isScreen?: boolean
+  onPress: () => void
+  stickyHeader?: ReactNode
+  testId: string
+  text: string
+  title: string
+}
+
+export const ErrorScreen = ({
+  title,
+  text,
+  Image,
+  stickyHeader,
+  insetTop = false,
+  buttonAccessibilityLabel,
+  buttonLabel,
+  onPress,
+  testId,
+  isScreen = false,
+}: Props) => {
+  const {isPortrait} = useDeviceContext()
+
+  useScreenScrollDisable(true)
+
+  return isScreen ? (
+    <Screen
+      scroll={false}
+      stickyFooter={
+        <Box
+          insetHorizontal={isPortrait ? 'md' : 'xl'}
+          insetVertical="no">
+          <Button
+            accessibilityHint={buttonAccessibilityLabel}
+            label={buttonLabel}
+            onPress={onPress}
+            testID={testId}
+          />
+        </Box>
+      }
+      stickyHeader={stickyHeader ?? undefined}
+      withLeftInset={!!isPortrait}
+      withRightInset={!!isPortrait}
+      withTopInset={isPortrait ? !!stickyHeader : false}>
+      <ErrorContent
+        Image={Image}
+        insetTop={insetTop}
+        text={text}
+        title={title}
+      />
     </Screen>
+  ) : (
+    <ErrorContent
+      Image={Image}
+      insetTop={insetTop}
+      stickyFooter={
+        <Box
+          insetHorizontal={isPortrait ? 'md' : 'xl'}
+          insetVertical="no">
+          <Button
+            accessibilityHint={buttonAccessibilityLabel}
+            label={buttonLabel}
+            onPress={onPress}
+            testID={testId}
+          />
+        </Box>
+      }
+      text={text}
+      title={title}
+    />
   )
 }
 
@@ -164,5 +227,11 @@ const createStyles =
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
         paddingVertical: isPortrait ? size.spacing.lg : size.spacing.no,
+      },
+      screen: {
+        flex: 1,
+        paddingBottom: 0,
+        paddingTop: 0,
+        height: '100%',
       },
     })

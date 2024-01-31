@@ -28,7 +28,8 @@ export const ConstructionWorkScreen = () => {
         />
       }
       scroll={false}
-      withBottomInset={false}>
+      withLeftInset={false}
+      withRightInset={false}>
       {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
     </Screen>
   ) : null

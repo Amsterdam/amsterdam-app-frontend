@@ -8,6 +8,7 @@ import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated} from '@/types/api'
+import {getErrorCode} from '@/utils/getErrorCode'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -46,6 +47,8 @@ export const useInfiniteScroller = <
     data: previousData,
     isError: isErrorPreviousPage,
     isLoading: isLoadingPreviousPage,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    error: errorPreviousPage,
   } = useQueryHook(
     page > 1
       ? {
@@ -54,10 +57,13 @@ export const useInfiniteScroller = <
         }
       : skipToken,
   )
+
   const {
     data: currentData,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    error: errorCurrentPage,
   } = useQueryHook({
     ...queryParams,
     page,
@@ -67,6 +73,8 @@ export const useInfiniteScroller = <
     data: nextData,
     isError: isErrorNextPage,
     isLoading: isLoadingNextPage,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    error: errorNextPage,
   } = useQueryHook({
     ...queryParams,
     page: page + 1,
@@ -82,6 +90,11 @@ export const useInfiniteScroller = <
     currentData?.page.totalPages ??
     nextData?.page.totalPages ??
     page + 1
+
+  const errorCode: number | undefined =
+    getErrorCode(errorPreviousPage) ||
+    getErrorCode(errorCurrentPage) ||
+    getErrorCode(errorNextPage)
 
   return {
     // create an array of pages with data
@@ -109,6 +122,7 @@ export const useInfiniteScroller = <
 
         return [...acc, ...pageData]
       }, []) as Item[],
+    errorCode,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,
