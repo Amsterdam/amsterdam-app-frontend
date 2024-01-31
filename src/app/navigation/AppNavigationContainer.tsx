@@ -4,9 +4,9 @@ import {
   NavigationContainer,
 } from '@react-navigation/native'
 import {type ReactNode} from 'react'
-import RNBootSplash from 'react-native-bootsplash'
 import {linking} from '@/app/navigation/linking'
 import {type RootStackParams} from '@/app/navigation/types'
+import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {registerNavigationContainer} from '@/processes/sentry/init'
 
 type Props = {
@@ -16,6 +16,8 @@ type Props = {
 export const navigationRef = createNavigationContainerRef<RootStackParams>()
 
 export const AppNavigationContainer = ({children}: Props) => {
+  const hideSplashScreen = useHideSplashScreen()
+
   useFlipper(navigationRef)
 
   return (
@@ -23,7 +25,7 @@ export const AppNavigationContainer = ({children}: Props) => {
       linking={linking}
       onReady={() => {
         registerNavigationContainer(navigationRef)
-        void RNBootSplash.hide({fade: true})
+        hideSplashScreen()
       }}
       ref={navigationRef}>
       {children}

@@ -10,7 +10,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
-import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
+import {VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
   children: ReactNode
@@ -39,8 +39,6 @@ export const UpdateScreen = ({children}: Props) => {
 
   const supported = data?.versionInfo.supported
 
-  useTrackScreen(ScreenOutsideNavigationName.updateScreen, supported)
-
   const hideSplashScreen = useHideSplashScreen()
 
   useEffect(() => {
@@ -48,6 +46,8 @@ export const UpdateScreen = ({children}: Props) => {
       hideSplashScreen()
     }
   }, [hideSplashScreen, isError, supported])
+
+  useTrackScreen(ScreenOutsideNavigationName.updateScreen, !supported)
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
