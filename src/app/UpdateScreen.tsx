@@ -1,6 +1,5 @@
 import {type ReactNode, useEffect} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
@@ -28,7 +27,7 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isError, isLoading, refetch} = useGetReleaseQuery()
+  const {isError, refetch} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
   const hideSplashScreen = useHideSplashScreen()
@@ -42,10 +41,6 @@ export const UpdateScreen = ({children}: Props) => {
   }, [hideSplashScreen, isError, supported])
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
-
-  if (isLoading) {
-    return <PleaseWait />
-  }
 
   if (isError) {
     return (
