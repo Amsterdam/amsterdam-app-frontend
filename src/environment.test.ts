@@ -89,6 +89,20 @@ describe('getApi', () => {
       ),
     ).toBe('https://api-backend.app-amsterdam.nl/api/v1')
   })
+  test('returns url with additional path for contact', () => {
+    expect(
+      getApi(Environment.production, customDefaultUrls, ModuleSlug.contact),
+    ).toBe('https://api-backend.app-amsterdam.nl/api/v1/contact')
+  })
+  test('does not add additional path for contact in Azure env', () => {
+    expect(
+      getApi(
+        EnvironmentAzure.productionAzure,
+        customDefaultUrls,
+        ModuleSlug.contact,
+      ),
+    ).toBe('https://app.amsterdam.nl/contact/api/v1')
+  })
   test("returns external api url for 'address' slug", () => {
     expect(
       getApi(Environment.production, customDefaultUrls, ModuleSlug.address),
