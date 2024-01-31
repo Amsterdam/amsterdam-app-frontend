@@ -3,7 +3,8 @@ import {
   getCaptureSentryBreadcrumb,
   getSendSentryErrorLog,
 } from '@/processes/sentry/logging'
-import {SentryHandler} from '@/processes/sentry/types'
+import {type SentryHandler} from '@/processes/sentry/types'
+export {SentryErrorLogKey} from '@/processes/sentry/types'
 
 /**
  * Get logging and breadcrumb functions. If we call useSentry with dangerouslyOverrideConsent, we can log before the consent settings are initialized or indeed without consent.

@@ -8,6 +8,7 @@ export const sentryAllowList = {
     'serverModules',
   ],
   [SentryErrorLogKey.notSupportedStoredUrl]: [],
+  [SentryErrorLogKey.hideSplashScreen]: ['error'],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],
   [SentryErrorLogKey.locationPermission]: ['error'],
   [SentryErrorLogKey.openMailUrl]: [],

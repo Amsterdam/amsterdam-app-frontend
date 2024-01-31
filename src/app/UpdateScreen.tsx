@@ -1,9 +1,11 @@
-import {ReactNode} from 'react'
+import {type ReactNode, useEffect} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
+import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
-import {VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
+import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
   children: ReactNode
@@ -29,21 +31,35 @@ export const UpdateScreen = ({children}: Props) => {
   const {isLoading} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
+  const hideSplashScreen = useHideSplashScreen()
+
+  const supported = data?.versionInfo.supported
+
+  useEffect(() => {
+    if (supported === false) {
+      hideSplashScreen()
+    }
+  }, [hideSplashScreen, supported])
+
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
-  if (isLoading || !data || data.versionInfo.supported) {
-    return children
+  if (isLoading) {
+    return <PleaseWait />
   }
 
-  return (
-    <ErrorScreen
-      buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
-      buttonLabel="Update de app"
-      Image={UpdateFigure}
-      onPress={openStore}
-      testId="ErrorScreenUpdateButton"
-      text="Om de app te kunnen gebruiken moet u eerst updaten."
-      title="De versie van de app is verouderd en werkt niet meer."
-    />
-  )
+  if (supported === false) {
+    return (
+      <ErrorScreen
+        buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
+        buttonLabel="Update de app"
+        Image={UpdateFigure}
+        onPress={openStore}
+        testId="ErrorScreenUpdateButton"
+        text="Om de app te kunnen gebruiken moet u eerst updaten."
+        title="De versie van de app is verouderd en werkt niet meer."
+      />
+    )
+  }
+
+  return children
 }
