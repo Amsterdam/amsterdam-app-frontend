@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
-import {Metrics} from 'react-native-safe-area-context'
+import {type Metrics} from 'react-native-safe-area-context'
 import {FlatGrid} from 'react-native-super-grid'
-import {NavigationProp} from '@/app/navigation/types'
+import {type NavigationProp} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -27,7 +27,7 @@ const ListItem = ({navigation, project}: ListItemProps) => (
     onPress={() =>
       navigation.navigate(ConstructionWorkEditorRouteName.createMessage, {
         projectId: project.id,
-        projectTitle: project.title,
+        screenHeaderTitle: project.title,
       })
     }
     subtitle={project.subtitle ?? undefined}

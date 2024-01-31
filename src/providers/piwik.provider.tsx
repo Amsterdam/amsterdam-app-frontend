@@ -53,6 +53,10 @@ export const PiwikProvider = ({children}: Props) => {
           setPiwikInstance(PiwikProSdk)
         })
         .catch((error: Error) => {
+          if (error.message === 'Piwik Pro SDK has been already initialized') {
+            return
+          }
+
           setPiwikInstance(null)
 
           if (

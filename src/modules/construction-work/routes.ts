@@ -1,4 +1,5 @@
-import {ProjectSegment} from '@/modules/construction-work/types/project'
+import {type TitleParams} from '@/app/navigation/types'
+import {type ProjectSegment} from '@/modules/construction-work/types/project'
 
 export enum ConstructionWorkRouteName {
   constructionWork = 'ConstructionWork',
@@ -12,13 +13,18 @@ export enum ConstructionWorkRouteName {
 export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.constructionWork]: undefined
   [ConstructionWorkRouteName.search]: undefined
-  [ConstructionWorkRouteName.project]: {id: number}
-  [ConstructionWorkRouteName.projectSegment]: {
+  [ConstructionWorkRouteName.project]: TitleParams & {id: number}
+  [ConstructionWorkRouteName.projectSegment]: TitleParams & {
     body: ProjectSegment
-    headerTitle: string
   }
-  [ConstructionWorkRouteName.projectNews]: {id: number; projectId?: number}
-  [ConstructionWorkRouteName.projectWarning]: {id: number; projectId?: number}
+  [ConstructionWorkRouteName.projectNews]: TitleParams & {
+    id: number
+    projectId?: number
+  }
+  [ConstructionWorkRouteName.projectWarning]: TitleParams & {
+    id: number
+    projectId?: number
+  }
 }
 
 export enum ConstructionWorkModalName {}

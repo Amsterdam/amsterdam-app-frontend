@@ -2,14 +2,14 @@ import {useCallback} from 'react'
 import {
   PiwikAction,
   PiwikSessionDimension,
-  usePiwikOutsideNavigation,
+  usePiwik,
 } from '@/hooks/piwik/usePiwik'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 
 const useLogAccessibilityAnalytics = () => {
-  const {trackCustomEvent} = usePiwikOutsideNavigation()
+  const {trackCustomEvent} = usePiwik()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
@@ -27,7 +27,7 @@ const useLogAccessibilityAnalytics = () => {
 }
 
 const useLogPermissionAnalytics = () => {
-  const {trackCustomEvent} = usePiwikOutsideNavigation()
+  const {trackCustomEvent} = usePiwik()
   const {hasLocationPermission} = useCheckLocationPermission()
 
   return useCallback(() => {

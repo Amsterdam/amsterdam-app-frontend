@@ -1,4 +1,4 @@
-import {useCallback, useLayoutEffect} from 'react'
+import {useCallback} from 'react'
 import simplur from 'simplur'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
@@ -15,7 +15,7 @@ import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/Constru
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
@@ -40,8 +40,6 @@ type Props = {
 
 export const Project = ({id}: Props) => {
   const {address} = useSelectedAddressForConstructionWork()
-
-  const navigation = useNavigation<ConstructionWorkRouteName>()
 
   const addressParam = getAddressParam(address)
 
@@ -71,11 +69,7 @@ export const Project = ({id}: Props) => {
     [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: project?.title ?? 'Project Details',
-    })
-  }, [project?.title, navigation])
+  useSetScreenTitle(project?.title ?? 'Project Details')
 
   if (isLoading) {
     return <PleaseWait />
@@ -186,6 +180,7 @@ export const Project = ({id}: Props) => {
             <ProjectSegmentMenu project={project} />
             <ArticleOverview
               projectId={id}
+              projectTitle={title}
               title="Nieuws"
             />
           </Column>

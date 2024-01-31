@@ -3,7 +3,6 @@ import {
   TrackCustomEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
@@ -14,7 +13,7 @@ export type Piwik = {
   ) => void
   trackOutlink: (url: string, options?: CommonEventOptions) => void
   trackScreen: (
-    path: keyof RootStackParams,
+    path?: ScreenOutsideNavigationName,
     options?: TrackScreenOptions,
   ) => void
   trackSearch: (keyword: string, options?: TrackScreenOptions) => void
@@ -80,4 +79,10 @@ export enum PiwikAction {
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
   toForeground = 'toForeground',
+}
+
+/** The actions that can trigger a log. */
+export enum ScreenOutsideNavigationName {
+  errorWithRestart = 'errorWithRestart',
+  updateScreen = 'updateScreen',
 }

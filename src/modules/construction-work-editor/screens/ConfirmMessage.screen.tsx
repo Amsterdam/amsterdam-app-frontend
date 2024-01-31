@@ -1,5 +1,5 @@
-import {useLayoutEffect, useState} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
+import {useState} from 'react'
+import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Alert} from '@/components/ui/feedback/Alert'
@@ -17,6 +17,7 @@ import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
@@ -60,12 +61,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
   const {media} = useTheme()
 
-  useLayoutEffect(() => {
-    project &&
-      navigation.setOptions({
-        headerTitle: project.title,
-      })
-  }, [navigation, project])
+  useSetScreenTitle()
 
   const onSubmit = async () => {
     if (!message) {

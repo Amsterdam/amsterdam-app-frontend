@@ -1,6 +1,5 @@
-import {useLayoutEffect} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
-import {NavigationProps} from '@/app/navigation/types'
+import {type NavigationProps} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
@@ -8,6 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Title} from '@/components/ui/text/Title'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ImagePreview} from '@/modules/construction-work-editor/components/ImagePreview'
@@ -43,12 +43,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
   const form = useForm<FormData>()
   const {handleSubmit} = form
 
-  useLayoutEffect(() => {
-    project &&
-      navigation.setOptions({
-        headerTitle: project.title,
-      })
-  }, [navigation, project])
+  useSetScreenTitle(project?.title)
 
   const resetAndGoBack = () => {
     dispatch(setMainImage({projectId: currentProjectId, mainImage: undefined}))
