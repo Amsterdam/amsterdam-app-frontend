@@ -11,14 +11,15 @@ type Props = {
 }
 
 export const ImageFallback = ({aspectRatio = 'wide'}: Props) => {
-  const createdStyles = useMemo(() => createStyles(aspectRatio), [aspectRatio])
-  const styles = useThemable(createdStyles)
+  const {fallback} = useThemable(
+    useMemo(() => createStyles(aspectRatio), [aspectRatio]),
+  )
 
   return (
     <View
       accessibilityLabel="Afbeelding niet gevonden"
       accessibilityLanguage="nl-NL"
-      style={styles.fallback}>
+      style={fallback}>
       <ImageFallbackSvg />
     </View>
   )

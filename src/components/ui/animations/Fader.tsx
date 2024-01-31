@@ -3,7 +3,7 @@ import {Animated, Easing, StyleProp, View, ViewStyle} from 'react-native'
 import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 
 type Props = {
-  callback?: (result: {finished: boolean}) => void
+  callback?: Animated.EndCallback
   children: ReactNode
   duration?: number
   fadeOut?: boolean

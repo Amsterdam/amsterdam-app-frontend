@@ -17,15 +17,18 @@ import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
-// Image props supported by both Image and FastImage
+// onError function that can be shared between FastImage and Image, since this prop has a different signature for each component
+type OnError = (error?: NativeSyntheticEvent<ImageErrorEventData>) => void
+
+// resize modes that are supported by both FastImage and Image
 type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
 
+// Props supported by both Image and FastImage
 type SupportedImageRNProps = Omit<
   ImageRNProps,
   'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
 > & {
-  // we define the onError function here so it can be shared between FastImage and Image, since this prop has a different signature for each component
-  onError?: (error?: NativeSyntheticEvent<ImageErrorEventData>) => void
+  onError?: OnError
   resizeMode?: ImageResizeMode
 }
 

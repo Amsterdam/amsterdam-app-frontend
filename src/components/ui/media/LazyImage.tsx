@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 import {ImageStyle, StyleProp, View, ViewStyle} from 'react-native'
 import {StyleSheet} from 'react-native'
 import {ImageErrorEventData} from 'react-native'
@@ -28,12 +28,14 @@ export const LazyImage = ({
   const [loading, setLoading] = useState(true)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
-  const styles = useThemable(createStyles(aspectRatio))
+  const {fader, image, positionedView, wrapperView} = useThemable(
+    useMemo(() => createStyles(aspectRatio), [aspectRatio]),
+  )
 
   const handleError = useCallback(
-    (e?: NativeSyntheticEvent<ImageErrorEventData>) => {
+    (error?: NativeSyntheticEvent<ImageErrorEventData>) => {
       setFailed(true)
-      onError?.(e)
+      onError?.(error)
     },
     [onError],
   )
@@ -46,18 +48,18 @@ export const LazyImage = ({
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   return (
-    <View style={[styles.wrapperView, style]}>
+    <View style={[wrapperView, style]}>
       {!!showSkeleton && (
-        <View style={styles.positionedView}>
+        <View style={positionedView}>
           <Skeleton />
         </View>
       )}
-      <View style={styles.positionedView}>
+      <View style={positionedView}>
         <Fader
           callback={callback}
           duration={500}
           shouldAnimate={!loading || failed}
-          style={styles.fader}>
+          style={fader}>
           {failed ? (
             <ImageFallback aspectRatio={aspectRatio} />
           ) : (
@@ -66,7 +68,7 @@ export const LazyImage = ({
               aspectRatio={aspectRatio}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
-              style={[styles.image, imageStyle]}
+              style={[image, imageStyle]}
             />
           )}
         </Fader>
