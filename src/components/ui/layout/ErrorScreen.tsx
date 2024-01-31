@@ -21,7 +21,7 @@ const MIN_IMAGE_HEiGHT = 350
 
 type Props = {
   Image: ComponentType<SvgProps>
-  buttonAccessibilityLabel: string
+  buttonAccessibilityLabel?: string
   buttonLabel: string
   onPress: () => void
   stickyHeader?: ReactNode

@@ -28,7 +28,7 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isLoading} = useGetReleaseQuery()
+  const {isError, isLoading, refetch} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
   const hideSplashScreen = useHideSplashScreen()
@@ -45,6 +45,19 @@ export const UpdateScreen = ({children}: Props) => {
 
   if (isLoading) {
     return <PleaseWait />
+  }
+
+  if (isError) {
+    return (
+      <ErrorScreen
+        buttonLabel="Probeer het opnieuw"
+        Image={UpdateFigure}
+        onPress={refetch}
+        testId="UpdateScreenError"
+        text="Sorry, het is niet gelukt om de data op te halen. Heb je internet aan staan?"
+        title="Er is iets misgegaan"
+      />
+    )
   }
 
   if (supported === false) {
