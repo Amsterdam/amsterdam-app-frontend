@@ -1,9 +1,11 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {WasteGuideFigure} from '@/assets/images/errors/WasteGuideFigure'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
+import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
@@ -34,6 +36,7 @@ export const WasteGuide = () => {
     data: wasteGuideData,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
+    refetch: getGarbageCollectionAreaQueryRefetch,
   } = useGetGarbageCollectionAreaQuery(
     // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
     address?.bagId && isFocusedOrNotAndroid
@@ -54,7 +57,23 @@ export const WasteGuide = () => {
     !wasteGuideData ||
     !address
   ) {
-    return <SomethingWentWrong />
+    return (
+      <ErrorScreen
+        buttonAccessibilityLabel="Laad opnieuw"
+        buttonLabel="Laad opnieuw"
+        Image={WasteGuideFigure}
+        onPress={getGarbageCollectionAreaQueryRefetch}
+        testId="WasteGuideErrorScreen"
+        text="Probeer het later nog een keer"
+        title="Helaas is de afvalwijzer nu niet beschikbaar">
+        <Row>
+          <ChangeLocationButton
+            slug={ModuleSlug['waste-guide']}
+            testID="WasteGuide"
+          />
+        </Row>
+      </ErrorScreen>
+    )
   }
 
   const {city} = address

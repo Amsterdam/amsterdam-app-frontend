@@ -32,6 +32,7 @@ type ContentProps = {
 
 const ErrorContent = ({
   Image,
+  children,
   insetTop,
   text,
   title,
@@ -48,9 +49,17 @@ const ErrorContent = ({
 
   const isFontScaleChanged = fontScale !== 1
 
-  const styles = useThemable(createStyles({isPortrait, isImageVisible}))
+  const styles = useThemable(
+    createStyles({isPortrait, isImageVisible, hasChildren: !!children}),
+  )
 
   const Wrapper = !isFontScaleChanged ? View : ScrollView
+
+  const contentInsetTop = insetTop
+    ? 'xxl'
+    : isPortrait && !children
+      ? 'xl'
+      : 'no'
 
   return (
     <View style={styles.screen}>
@@ -83,8 +92,9 @@ const ErrorContent = ({
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop={insetTop ? 'xxl' : isPortrait ? 'xl' : 'no'}>
+                  insetTop={contentInsetTop}>
                   <Wrapper style={styles.textContent}>
+                    {children}
                     <Title
                       level="h3"
                       text={title}
@@ -118,10 +128,38 @@ const ErrorContent = ({
   )
 }
 
+type FooterProps = {
+  buttonAccessibilityLabel: string
+  buttonLabel: string
+  isPortrait: boolean
+  onPress: () => void
+  testId: string
+}
+
+const Footer = ({
+  isPortrait,
+  buttonAccessibilityLabel,
+  buttonLabel,
+  onPress,
+  testId,
+}: FooterProps) => (
+  <Box
+    insetHorizontal={isPortrait ? 'md' : 'xl'}
+    insetVertical="no">
+    <Button
+      accessibilityHint={buttonAccessibilityLabel}
+      label={buttonLabel}
+      onPress={onPress}
+      testID={testId}
+    />
+  </Box>
+)
+
 type Props = {
   Image: ComponentType<SvgProps>
   buttonAccessibilityLabel: string
   buttonLabel: string
+  children?: ReactNode
   insetTop?: boolean
   isScreen?: boolean
   onPress: () => void
@@ -141,6 +179,7 @@ export const ErrorScreen = ({
   buttonLabel,
   onPress,
   testId,
+  children,
   isScreen = false,
 }: Props) => {
   const {isPortrait} = useDeviceContext()
@@ -151,16 +190,13 @@ export const ErrorScreen = ({
     <Screen
       scroll={false}
       stickyFooter={
-        <Box
-          insetHorizontal={isPortrait ? 'md' : 'xl'}
-          insetVertical="no">
-          <Button
-            accessibilityHint={buttonAccessibilityLabel}
-            label={buttonLabel}
-            onPress={onPress}
-            testID={testId}
-          />
-        </Box>
+        <Footer
+          buttonAccessibilityLabel={buttonAccessibilityLabel}
+          buttonLabel={buttonLabel}
+          isPortrait={isPortrait}
+          onPress={onPress}
+          testId={testId}
+        />
       }
       stickyHeader={stickyHeader ?? undefined}
       withLeftInset={!!isPortrait}
@@ -170,38 +206,38 @@ export const ErrorScreen = ({
         Image={Image}
         insetTop={insetTop}
         text={text}
-        title={title}
-      />
+        title={title}>
+        {children}
+      </ErrorContent>
     </Screen>
   ) : (
     <ErrorContent
       Image={Image}
       insetTop={insetTop}
       stickyFooter={
-        <Box
-          insetHorizontal={isPortrait ? 'md' : 'xl'}
-          insetVertical="no">
-          <Button
-            accessibilityHint={buttonAccessibilityLabel}
-            label={buttonLabel}
-            onPress={onPress}
-            testID={testId}
-          />
-        </Box>
+        <Footer
+          buttonAccessibilityLabel={buttonAccessibilityLabel}
+          buttonLabel={buttonLabel}
+          isPortrait={isPortrait}
+          onPress={onPress}
+          testId={testId}
+        />
       }
       text={text}
-      title={title}
-    />
+      title={title}>
+      {children}
+    </ErrorContent>
   )
 }
 
 type StyleProps = {
+  hasChildren?: boolean
   isImageVisible: number | boolean | undefined
   isPortrait: boolean
 }
 
 const createStyles =
-  ({isPortrait, isImageVisible}: StyleProps) =>
+  ({isPortrait, isImageVisible, hasChildren = false}: StyleProps) =>
   ({media, size}: Theme) =>
     StyleSheet.create({
       container: {
@@ -223,6 +259,8 @@ const createStyles =
         height: isPortrait ? 'auto' : '100%',
         padding: isPortrait ? size.spacing.no : size.spacing.sm,
         backgroundColor: 'white',
+        flex: 1,
+        justifyContent: hasChildren ? 'flex-start' : 'center',
       },
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
