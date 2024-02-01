@@ -16,8 +16,8 @@ import {getVersion} from 'react-native-device-info'
 import {RootStackParams} from '@/app/navigation/types'
 import {Environment, EnvironmentAzure} from '@/environment'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
-import {sanitizeUrl} from '@/processes/sentry/utils'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
+import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 const enableSentry = appFlavour !== AppFlavour.local
 

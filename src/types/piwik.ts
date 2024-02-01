@@ -1,11 +1,29 @@
+import {
+  CommonEventOptions,
+  TrackCustomEventOptions,
+  TrackScreenOptions,
+} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {RootStackParams} from '@/app/navigation/types'
+import {ModuleSlug} from '@/modules/slugs'
+
+export type Piwik = {
+  trackCustomEvent: (
+    category: PiwikCategory,
+    action: PiwikAction,
+    options?: TrackCustomEventOptions,
+  ) => void
+  trackOutlink: (url: string, options?: CommonEventOptions) => void
+  trackScreen: (
+    path: keyof RootStackParams,
+    options?: TrackScreenOptions,
+  ) => void
+  trackSearch: (keyword: string, options?: TrackScreenOptions) => void
+}
+
 /**
- * Custom dimsensions volgens Aansluitgids Technisch Generiek Meetplan 1.1 (20-03-2023)
+ * Custom dimensions; these should be configured in the Piwik system.
  */
-export enum PiwikDimensions {
-  /** Gebruikerstype (al gebruikt door mijn.amsterdam als ProfileType) */
-  userType = 1,
-  /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
-  userCity = 2,
+export enum PiwikDimension {
   /** Zoekterm gebruikt in zoekmachine */
   searchTerm = 3,
   /** Aantal zoekresultaten */
@@ -36,4 +54,28 @@ export enum PiwikDimensions {
   searchMachine = 16,
   /** Pagina type o.b.v. Amsterdam Content Meetmodel */
   pageType = 17,
+}
+
+/**
+ * Custom session dimensions; these should be configured in the Piwik system.
+ */
+export enum PiwikSessionDimension {
+  /** Gebruikerstype (al gebruikt door mijn.amsterdam als ProfileType) */
+  userType = 1,
+  /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
+  userCity = 2,
+  reduceMotionEnabled = 18,
+  locationPermission = 19,
+  screenReaderEnabled = 20,
+}
+
+/** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
+export type PiwikCategory = ModuleSlug | 'general'
+
+/** The actions that can trigger a log. */
+export enum PiwikAction {
+  addressAdd = 'addressAdd',
+  addressChange = 'addressChange',
+  buttonPress = 'buttonPress',
+  toForeground = 'toForeground',
 }

@@ -63,6 +63,12 @@ module.exports = {
         ],
         paths: [
           {
+            name: '@/providers/piwik.provider',
+            importNames: ['PiwikContext'],
+            message:
+              'Do not use PiwikContext directly. The logging methods are exposed via the usePiwik hook.',
+          },
+          {
             name: '@gorhom/bottom-sheet',
             importNames: ['BottomSheet'],
             message:

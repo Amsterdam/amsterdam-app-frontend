@@ -21,7 +21,7 @@ export const AppNavigationContainer = ({children}: Props) => {
   const handleNavigationStateChange = useHandleNavigationStateChange()
 
   return (
-    <NavigationContainer
+    <NavigationContainer<RootStackParams>
       linking={linking}
       onReady={() => {
         registerNavigationContainer(navigation)

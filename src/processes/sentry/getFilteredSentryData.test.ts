@@ -1,5 +1,5 @@
+import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {getFilteredSentryData, sanitizeUrl} from '@/processes/sentry/utils'
 
 describe('Sentry log whitelist', () => {
   it('With valid logkey', () =>
@@ -34,16 +34,4 @@ describe('Sentry log whitelist', () => {
     expect(
       getFilteredSentryData(SentryErrorLogKey.openMailUrl, {}),
     ).toStrictEqual(undefined))
-})
-
-describe('Sanitize Url', () => {
-  it('Url without query', () =>
-    expect(sanitizeUrl('https://www.google.com')).toStrictEqual(
-      'https://www.google.com',
-    ))
-  it('Url with query', () =>
-    expect(sanitizeUrl('https://www.google.com?q="number"')).toStrictEqual(
-      'https://www.google.com',
-    ))
-  it('Url empty', () => expect(sanitizeUrl('')).toStrictEqual(''))
 })
