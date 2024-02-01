@@ -22,7 +22,7 @@ export const screenConfig: StackNavigationRoutes<
     component: RedirectsScreen,
     name: RedirectsRouteName.redirects,
     options: {
-      headerTitle: 'Direct regelen',
+      headerTitle: 'Veel gezocht',
     },
   },
   [RedirectsRouteName.selectCity]: {

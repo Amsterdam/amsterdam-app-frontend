@@ -11,7 +11,7 @@ export const RedirectsScreen = () => (
     <Box>
       <Column gutter="lg">
         <Column gutter="xs">
-          <Title text="Direct regelen" />
+          <Title text="Veel gezocht" />
           <Paragraph>
             Niet alle informatie staat in de app. Graag verwijzen we u naar onze
             website zodat u zelf aan de slag kunt.
