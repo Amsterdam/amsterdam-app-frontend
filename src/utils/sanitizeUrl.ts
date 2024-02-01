@@ -35,11 +35,11 @@ export const getSanitizedHashString = (hash?: string): string => {
  * Takes a URL and sanitizes it if it contains a query string and/or hash, i.e., replaces the values with `___`
  */
 export const sanitizeUrl = (url = ''): string => {
-  const [urlWithoutHash, hash, ...rest1] = url.split('#')
-  const [baseUrl, query, ...rest2] = urlWithoutHash.split('?')
+  const [urlWithoutHash, hash, ...additionalHashes] = url.split('#')
+  const [baseUrl, query, ...additionalQueries] = urlWithoutHash.split('?')
 
-  if (rest1.length || rest2.length) {
-    return ''
+  if (additionalHashes.length || additionalQueries.length) {
+    return baseUrl
   }
 
   const sanitizedQuery = getSanitizedQueryString(query)

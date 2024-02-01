@@ -88,9 +88,9 @@ describe('sanitizeUrl', () => {
   test('should handle nonsense input gracefully', () => {
     expect(
       sanitizeUrl('https://example.com/path/to/page#section1#section2'),
-    ).toBe('')
+    ).toBe('https://example.com/path/to/page')
     expect(
       sanitizeUrl('https://example.com/path/to/page?foo=bar?foo=quux'),
-    ).toBe('')
+    ).toBe('https://example.com/path/to/page')
   })
 })
