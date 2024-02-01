@@ -67,8 +67,7 @@ const dynamicBaseQuery: BaseQueryFn<
 
       return result
     },
-    // TODO: IMPORTANT Set maxretries back to 5
-    {maxRetries: 1},
+    {maxRetries: 5},
   )(args, baseQueryApi, extraOptions as never)
 
 export const baseApi = createApi({
