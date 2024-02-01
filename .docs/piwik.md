@@ -5,6 +5,7 @@
 - https://github.com/PiwikPRO/react-native-piwik-pro-sdk#readme
 - https://help.piwik.pro/
 - [Meetplan](https://hoofdstad.sharepoint.com/:w:/r/sites/AmsterdamApp/_layouts/15/Doc.aspx?sourcedoc=%7B93166DC8-DF58-4D3A-8C2B-5380D8DC8333%7D&file=Meetplan%20Piwik%20Pro%20Amsterdam%20App.docx)
+- [Aansluitgids](https://hoofdstad.sharepoint.com/:p:/r/sites/AmsterdamApp/_layouts/15/Doc.aspx?sourcedoc=%7B558373BD-BDBF-4268-BA07-DBB004B64AC8%7D&file=Technisch%20-%20Aansluitgids%20DAP%20-%20Generiek%20Meetplan.pptx)
 
 ## Piwik configuration
 
@@ -97,7 +98,7 @@ For the 1st case (general information) we use a custom *session* dimension. This
 
 For the 2nd case we use custom dimensions (as opposed to custom *session* dimensions) to pass additional data.
 
-See `src/types/piwik.ts` for the definitions of the custom dimensions and the custom session dimensions.
+See `src/types/piwik.ts` for the definitions of the custom dimensions and the custom session dimensions. Dimensions 1-17 match the default dimensions used in the organisation (see [Aansluitgids](https://hoofdstad.sharepoint.com/:p:/r/sites/AmsterdamApp/_layouts/15/Doc.aspx?sourcedoc=%7B558373BD-BDBF-4268-BA07-DBB004B64AC8%7D&file=Technisch%20-%20Aansluitgids%20DAP%20-%20Generiek%20Meetplan.pptx)).
 
 #### Create dimensions
 

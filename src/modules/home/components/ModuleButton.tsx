@@ -10,7 +10,7 @@ import {IconName} from '@/components/ui/media/iconPaths'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {PiwikAction, PiwikCategory, usePiwik} from '@/hooks/piwik/usePiwik'
+import {PiwikAction, usePiwik} from '@/hooks/piwik/usePiwik'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {HomeRouteName} from '@/modules/home/routes'
@@ -131,7 +131,7 @@ export const ModuleButton = ({
       <Pressable
         inset="md"
         onPress={() => {
-          trackCustomEvent(PiwikCategory.home, PiwikAction.buttonPress, {
+          trackCustomEvent(ModuleSlug.home, PiwikAction.buttonPress, {
             name: `Press ModuleButton for ${slug}`,
           })
 

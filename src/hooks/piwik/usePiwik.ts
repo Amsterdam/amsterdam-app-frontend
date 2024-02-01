@@ -8,12 +8,8 @@ import {SendErrorLog} from '@/processes/sentry/types'
 import {PiwikContext} from '@/providers/piwik.provider'
 import {Piwik} from '@/types/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
-export {
-  PiwikAction,
-  PiwikCategory,
-  PiwikDimension,
-  PiwikSessionDimension,
-} from '@/types/piwik'
+
+export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently.
 const defaultPiwikContext: Piwik = {

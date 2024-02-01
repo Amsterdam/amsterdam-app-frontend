@@ -24,12 +24,6 @@ export type Piwik = {
  * Custom dimensions; these should be configured in the Piwik system.
  */
 export enum PiwikDimension {
-  // 1-17 are standard metrics, see Aansluitgids Technisch Generiek Meetplan 1.1 (20-03-2023)
-
-  /** Gebruikerstype (al gebruikt door mijn.amsterdam als ProfileType) */
-  userType = 1,
-  /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
-  userCity = 2,
   /** Zoekterm gebruikt in zoekmachine */
   searchTerm = 3,
   /** Aantal zoekresultaten */
@@ -66,27 +60,17 @@ export enum PiwikDimension {
  * Custom session dimensions; these should be configured in the Piwik system.
  */
 export enum PiwikSessionDimension {
-  reduceMotionEnabled = 20,
-  locationPermission = 21,
-  screenReaderEnabled = 22,
+  /** Gebruikerstype (al gebruikt door mijn.amsterdam als ProfileType) */
+  userType = 1,
+  /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
+  userCity = 2,
+  reduceMotionEnabled = 18,
+  locationPermission = 19,
+  screenReaderEnabled = 20,
 }
 
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
-export enum PiwikCategory {
-  about = ModuleSlug.about,
-  address = ModuleSlug.address,
-  constructionWork = ModuleSlug['construction-work'],
-  constructionWorkEditor = ModuleSlug['construction-work-editor'],
-  contact = ModuleSlug.contact,
-  general = 'general',
-  home = ModuleSlug.home,
-  onboarding = ModuleSlug.onboarding,
-  openWasteContainer = ModuleSlug['open-waste-container'],
-  redirects = ModuleSlug.redirects,
-  reportProblem = ModuleSlug['report-problem'],
-  user = ModuleSlug.user,
-  wasteGuide = ModuleSlug['waste-guide'],
-}
+export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
