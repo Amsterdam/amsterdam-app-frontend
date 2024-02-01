@@ -1,6 +1,6 @@
-import {ComponentType, ReactNode, useState} from 'react'
+import {type ComponentType, ReactNode, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {SvgProps} from 'react-native-svg'
+import {type SvgProps} from 'react-native-svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -15,7 +15,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useScreenScrollDisable} from '@/hooks/useScreenScrollDisable'
-import {Theme} from '@/themes/themes'
+import {type Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 
@@ -25,18 +25,20 @@ type ContentProps = {
   Image: ComponentType<SvgProps>
   children?: ReactNode
   insetTop?: boolean
+  noBackgroundFacade: boolean
   stickyFooter?: ReactNode
   text: string
   title: string
 }
 
 const ErrorContent = ({
-  Image,
   children,
+  Image,
   insetTop,
+  noBackgroundFacade,
+  stickyFooter,
   text,
   title,
-  stickyFooter,
 }: ContentProps) => {
   const {isPortrait, fontScale} = useDeviceContext()
   const {media} = useTheme()
@@ -49,9 +51,7 @@ const ErrorContent = ({
 
   const isFontScaleChanged = fontScale !== 1
 
-  const styles = useThemable(
-    createStyles({isPortrait, isImageVisible, hasChildren: !!children}),
-  )
+  const styles = useThemable(createStyles({isPortrait, isImageVisible}))
 
   const Wrapper = !isFontScaleChanged ? View : ScrollView
 
@@ -66,15 +66,17 @@ const ErrorContent = ({
       <Box
         grow
         inset="no">
-        <View style={styles.figure}>
-          <Figure
-            aspectRatio="extraWide"
-            height={media.figureHeight.lg}>
-            <View style={styles.facade}>
-              <AmsterdamFacadesImage />
-            </View>
-          </Figure>
-        </View>
+        {!noBackgroundFacade && (
+          <View style={styles.figure}>
+            <Figure
+              aspectRatio="extraWide"
+              height={media.figureHeight.lg}>
+              <View style={styles.facade}>
+                <AmsterdamFacadesImage />
+              </View>
+            </Figure>
+          </View>
+        )}
         <Box
           grow
           inset="no"
@@ -84,8 +86,8 @@ const ErrorContent = ({
             alwaysDisplayAsRowForScreenReader
             flex={1}>
             <Size
-              maxWidth={isPortrait ? '100%' : '50%'}
-              minHeight={isFontScaleChanged || !isPortrait ? '100%' : '25%'}>
+              minHeight={isFontScaleChanged || !isPortrait ? '100%' : '25%'}
+              width={isPortrait ? '100%' : '50%'}>
               <Column
                 align={isPortrait ? 'start' : 'center'}
                 grow>
@@ -95,11 +97,15 @@ const ErrorContent = ({
                   insetTop={contentInsetTop}>
                   <Wrapper style={styles.textContent}>
                     {children}
-                    <Title
-                      level="h3"
-                      text={title}
-                      textAlign="center"
-                    />
+                    <Box
+                      inset="no"
+                      insetTop={children ? 'sm' : 'no'}>
+                      <Title
+                        level="h3"
+                        text={title}
+                        textAlign="center"
+                      />
+                    </Box>
                     <Paragraph textAlign="center">{text}</Paragraph>
                   </Wrapper>
                 </Box>
@@ -162,6 +168,7 @@ type Props = {
   children?: ReactNode
   insetTop?: boolean
   isScreen?: boolean
+  noBackgroundFacade?: boolean
   onPress: () => void
   stickyHeader?: ReactNode
   testId: string
@@ -181,6 +188,7 @@ export const ErrorScreen = ({
   testId,
   children,
   isScreen = false,
+  noBackgroundFacade = false,
 }: Props) => {
   const {isPortrait} = useDeviceContext()
 
@@ -205,6 +213,7 @@ export const ErrorScreen = ({
       <ErrorContent
         Image={Image}
         insetTop={insetTop}
+        noBackgroundFacade={noBackgroundFacade}
         text={text}
         title={title}>
         {children}
@@ -214,6 +223,7 @@ export const ErrorScreen = ({
     <ErrorContent
       Image={Image}
       insetTop={insetTop}
+      noBackgroundFacade={noBackgroundFacade}
       stickyFooter={
         <Footer
           buttonAccessibilityLabel={buttonAccessibilityLabel}
@@ -231,13 +241,12 @@ export const ErrorScreen = ({
 }
 
 type StyleProps = {
-  hasChildren?: boolean
   isImageVisible: number | boolean | undefined
   isPortrait: boolean
 }
 
 const createStyles =
-  ({isPortrait, isImageVisible, hasChildren = false}: StyleProps) =>
+  ({isPortrait, isImageVisible}: StyleProps) =>
   ({media, size}: Theme) =>
     StyleSheet.create({
       container: {
@@ -257,14 +266,12 @@ const createStyles =
       },
       textContent: {
         height: isPortrait ? 'auto' : '100%',
-        padding: isPortrait ? size.spacing.no : size.spacing.sm,
+        padding: isPortrait ? size.spacing.no : size.spacing.md,
         backgroundColor: 'white',
-        flex: 1,
-        justifyContent: hasChildren ? 'flex-start' : 'center',
       },
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
-        paddingVertical: isPortrait ? size.spacing.lg : size.spacing.no,
+        padding: isPortrait ? size.spacing.lg : size.spacing.no,
       },
       screen: {
         flex: 1,

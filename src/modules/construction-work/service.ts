@@ -53,7 +53,7 @@ export const projectsApi = baseApi.injectEndpoints({
       providesTags: ['FollowedProjects', 'Projects'],
       query: params => ({
         slug: MODULE_SLUG,
-        url: generateRequestUrl({path: '/project/details', params}),
+        url: generateRequestUrl({path: '/project/asdf', params}),
       }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: tempPostProcessProjectDetails,

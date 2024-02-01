@@ -69,6 +69,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
         buttonAccessibilityLabel="Terug naar werkzaamheid"
         buttonLabel="Terug naar werkzaamheid"
         Image={ConstructionWorkDetailFigure}
+        noBackgroundFacade
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.project, {id})
         }

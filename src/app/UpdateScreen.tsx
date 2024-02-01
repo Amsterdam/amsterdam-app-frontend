@@ -27,7 +27,7 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isError, isLoading} = useGetReleaseQuery()
+  const {isError} = useGetReleaseQuery()
   const openStore = useOpenStore()
 
   const hideSplashScreen = useHideSplashScreen()
@@ -59,24 +59,20 @@ export const UpdateScreen = ({children}: Props) => {
   }
 
   if (supported === false) {
-    if (isLoading) {
-      return children
-    }
-
-    if (!data?.versionInfo.supported) {
-      return (
-        <ErrorScreen
-          buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
-          buttonLabel="Update de app"
-          Image={UpdateFigure}
-          onPress={openStore}
-          testId="ErrorScreenUpdateButton"
-          text="Om de app te kunnen gebruiken moet u eerst updaten."
-          title="De versie van de app is verouderd en werkt niet meer."
-        />
-      )
-    }
-
-    return children
+    return (
+      <ErrorScreen
+        buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
+        buttonLabel="Update de app"
+        Image={UpdateFigure}
+        insetTop
+        isScreen
+        onPress={openStore}
+        testId="ErrorScreenUpdateButton"
+        text="Om de app te kunnen gebruiken moet u eerst updaten."
+        title="De versie van de app is verouderd en werkt niet meer."
+      />
+    )
   }
+
+  return children
 }
