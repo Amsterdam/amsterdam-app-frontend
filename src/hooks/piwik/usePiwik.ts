@@ -1,25 +1,47 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
-import {useContext} from 'react'
+import {
+  CommonEventOptions,
+  CustomDimensions,
+  TrackCustomEventOptions,
+} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {useContext, useMemo} from 'react'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
-import {Piwik} from '@/types/piwik'
+import {Piwik, PiwikSessionDimension} from '@/types/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
+import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
 
-// if Piwik is not initialized, we return dummy methods to make it fail silently.
-const defaultPiwikContext: Piwik = {
+// if Piwik is not initialized, we return dummy methods to make it fail silently
+const DEFAULT_PIWIK_CONTEXT: Piwik = {
   trackCustomEvent: () => {},
   trackOutlink: () => {},
   trackScreen: () => {},
   trackSearch: () => {},
 }
 
-const FILE_NAME = 'usePiwik.ts'
+const FILENAME = 'usePiwik.ts'
+
+const DEFAULT_DIMENSIONS: CustomDimensions = {
+  [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
+  [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
+}
+
+/** Add the default dimensions to any options object */
+const getOptionsWithDefaultDimensions = <
+  T extends TrackCustomEventOptions | CommonEventOptions,
+>(
+  options?: T,
+) =>
+  ({
+    ...options,
+    customDimensions: {...options?.customDimensions, ...DEFAULT_DIMENSIONS},
+  }) as T
 
 // We can extend the default Piwik methods here, e.g. to automatically add the route name
 const getPiwik = (
@@ -28,35 +50,40 @@ const getPiwik = (
   routeName?: string,
 ): Piwik => ({
   trackCustomEvent: (category, action, options) => {
-    trackCustomEvent(category, action, {path: routeName, ...options}).catch(
-      () => {
-        sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILE_NAME, {
-          category,
-          action,
-          name: options?.name,
-        })
-      },
-    )
+    const opts = getOptionsWithDefaultDimensions(options)
+
+    trackCustomEvent(category, action, {path: routeName, ...opts}).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
+        category,
+        action,
+        name: opts?.name,
+      })
+    })
   },
-  trackOutlink: (rawUrl, ...rest) => {
+  trackOutlink: (rawUrl, options) => {
+    const opts = getOptionsWithDefaultDimensions(options)
     const url = sanitizeUrl(rawUrl)
 
-    trackOutlink(url, ...rest).catch(() => {
-      sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILE_NAME, {
+    trackOutlink(url, opts).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILENAME, {
         url,
       })
     })
   },
-  trackScreen: (path, ...rest) => {
-    trackScreen(path, ...rest).catch(() => {
-      sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILE_NAME, {
+  trackScreen: (path, options) => {
+    const opts = getOptionsWithDefaultDimensions(options)
+
+    trackScreen(path, opts).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
         path,
       })
     })
   },
-  trackSearch: (...args) => {
-    trackSearch(...args).catch(() => {
-      sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILE_NAME)
+  trackSearch: (keyword, options) => {
+    const opts = getOptionsWithDefaultDimensions(options)
+
+    trackSearch(keyword, opts).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
     })
   },
 })
@@ -65,11 +92,13 @@ const usePiwikBase = (routeName?: string) => {
   const PiwikInstance = useContext(PiwikContext)
   const {sendSentryErrorLog} = useSentry()
 
-  if (!PiwikInstance) {
-    return defaultPiwikContext
-  }
+  return useMemo(() => {
+    if (!PiwikInstance) {
+      return DEFAULT_PIWIK_CONTEXT
+    }
 
-  return getPiwik(PiwikInstance, sendSentryErrorLog, routeName)
+    return getPiwik(PiwikInstance, sendSentryErrorLog, routeName)
+  }, [PiwikInstance, routeName, sendSentryErrorLog])
 }
 
 /**
