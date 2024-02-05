@@ -27,3 +27,6 @@ export const sentryAllowList = {
   [SentryErrorLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [SentryErrorLogKey.openStore]: ['error'],
 } as const
+
+export type AllowListKeys<LogKey extends SentryErrorLogKey> =
+  (typeof sentryAllowList)[LogKey][number]

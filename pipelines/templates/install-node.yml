@@ -1,4 +1,4 @@
-# Install node based on version in .nvmrc
+# Install node based on version in package.json
 steps:
   - script: |
       echo "##vso[task.setvariable variable=NODE_VERSION;]$(node ./nodescripts/getNodeVersion.js)"

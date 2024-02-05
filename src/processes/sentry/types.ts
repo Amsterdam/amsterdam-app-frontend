@@ -1,4 +1,4 @@
-import {sentryAllowList} from '@/processes/sentry/allowList'
+import {type AllowListKeys} from '@/processes/sentry/allowList'
 
 export enum BreadcrumbKey {
   internetConnection = 'Internet connection change',
@@ -42,9 +42,9 @@ export enum SentryErrorLogKey {
 export type SendErrorLog = <T extends SentryErrorLogKey>(
   logKey: T,
   filename: string,
-  data?: (typeof sentryAllowList)[T][number] extends never
+  data?: AllowListKeys<T> extends never
     ? never
-    : Partial<Record<(typeof sentryAllowList)[T][number], unknown>>,
+    : Partial<Record<AllowListKeys<T>, unknown>>,
   errorTitle?: string,
 ) => void
 
