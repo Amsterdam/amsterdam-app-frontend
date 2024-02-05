@@ -2,7 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useLayoutEffect} from 'react'
 import {ConstructionWorkDetailFigure} from '@/assets/images/errors/ConstructionWorkDetailFigure'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
@@ -65,7 +65,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
 
   if (!article || articleIsError) {
     return (
-      <ErrorContent
+      <FullScreenError
         buttonAccessibilityLabel="Terug naar werkzaamheid"
         buttonLabel="Terug naar werkzaamheid"
         Image={ConstructionWorkDetailFigure}

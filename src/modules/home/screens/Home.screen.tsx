@@ -5,7 +5,7 @@ import {Tip} from '@/components/features/product-tour/types'
 import {AddButton} from '@/components/ui/buttons/AddButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -46,7 +46,7 @@ export const HomeScreen = () => {
         )
       }>
       {modulesError ? (
-        <ErrorContent
+        <FullScreenError
           buttonAccessibilityLabel="Laad de modules opnieuw"
           buttonLabel="Laad opnieuw"
           Image={ModulesFigure}

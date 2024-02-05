@@ -20,7 +20,7 @@ import {useTheme} from '@/themes/useTheme'
 
 const MIN_IMAGE_HEiGHT = 350
 
-type ErrorContentProps = {
+type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
   buttonAccessibilityLabel: string
   buttonLabel: string
@@ -34,7 +34,7 @@ type ErrorContentProps = {
   title: string
 }
 
-export const ErrorContent = ({
+export const FullScreenError = ({
   children,
   Image,
   insetTop,
@@ -45,7 +45,7 @@ export const ErrorContent = ({
   buttonLabel,
   onPress,
   testId,
-}: ErrorContentProps) => {
+}: FullScreenErrorProps) => {
   const {isPortrait, fontScale} = useDeviceContext()
   const {media} = useTheme()
   const [imageHeight, setImageHeight] = useState<number | undefined>()

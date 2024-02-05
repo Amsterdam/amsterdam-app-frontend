@@ -9,7 +9,7 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -82,7 +82,7 @@ export const Project = ({id}: Props) => {
 
   if (!project) {
     return (
-      <ErrorContent
+      <FullScreenError
         buttonAccessibilityLabel="Terug naar overzicht"
         buttonLabel="Terug naar overzicht"
         Image={ConstructionWorkDetailFigure}

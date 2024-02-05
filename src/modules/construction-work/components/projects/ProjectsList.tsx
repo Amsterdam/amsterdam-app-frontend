@@ -6,7 +6,7 @@ import {ConstructionWorkFigure} from '@/assets/images/errors/ConstructionWorkFig
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -146,7 +146,7 @@ export const ProjectsList = ({
 
   if (isError) {
     return (
-      <ErrorContent
+      <FullScreenError
         buttonAccessibilityLabel="Naar het overzicht"
         buttonLabel="Naar het overzicht"
         Image={ConstructionWorkFigure}

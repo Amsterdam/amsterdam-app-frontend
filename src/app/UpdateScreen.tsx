@@ -1,6 +1,6 @@
 import {type ReactNode, useEffect} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
@@ -20,7 +20,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: false,
+      supported: true,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -52,7 +52,7 @@ export const UpdateScreen = ({children}: Props) => {
         withLeftInset={!!isPortrait}
         withRightInset={!!isPortrait}
         withTopInset={isPortrait}>
-        <ErrorContent
+        <FullScreenError
           buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
           buttonLabel="Update de app"
           Image={UpdateFigure}

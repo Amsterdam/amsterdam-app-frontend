@@ -4,7 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -58,7 +58,7 @@ export const WasteGuide = () => {
     !address
   ) {
     return (
-      <ErrorContent
+      <FullScreenError
         buttonAccessibilityLabel="Laad opnieuw"
         buttonLabel="Laad opnieuw"
         Image={WasteGuideFigure}
@@ -72,7 +72,7 @@ export const WasteGuide = () => {
             testID="WasteGuide"
           />
         </Row>
-      </ErrorContent>
+      </FullScreenError>
     )
   }
 
