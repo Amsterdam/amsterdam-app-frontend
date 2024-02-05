@@ -8,8 +8,10 @@ import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
 import {type Piwik} from '@/types/piwik'
-import {getTitleFromParams} from '@/utils/getTitleFromParams'
-import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
+import {
+  getOptionsWithDefaultDimensions,
+  getTitleFromParams,
+} from '@/utils/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'

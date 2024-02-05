@@ -2,15 +2,12 @@ import {type ReactNode, useEffect} from 'react'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ScreenOutsideNavigation} from '@/components/ui/layout/Screen'
 import {UpdateFigure} from '@/components/ui/media/errors/UpdateFigure'
-import {
-  ScreenOutsideNavigationName,
-  useTrackScreen,
-} from '@/hooks/piwik/useTrackScreen'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
-import {VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
+import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
+import {ScreenOutsideNavigationName} from '@/types/piwik'
 
 type Props = {
   children: ReactNode
@@ -24,7 +21,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: false,
+      supported: true,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -47,13 +44,12 @@ export const UpdateScreen = ({children}: Props) => {
     }
   }, [hideSplashScreen, isError, supported])
 
-  useTrackScreen(ScreenOutsideNavigationName.updateScreen, !supported)
-
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
   if (supported === false) {
     return (
       <ScreenOutsideNavigation
+        name={ScreenOutsideNavigationName.updateScreen}
         scroll={false}
         withLeftInset={!!isPortrait}
         withRightInset={!!isPortrait}

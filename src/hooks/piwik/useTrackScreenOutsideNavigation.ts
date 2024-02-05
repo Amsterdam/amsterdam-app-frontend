@@ -3,7 +3,7 @@ import {usePiwik} from '@/hooks/piwik/usePiwik'
 import {type ScreenOutsideNavigationName} from '@/types/piwik'
 export {ScreenOutsideNavigationName} from '@/types/piwik'
 
-export const useTrackScreen = (
+export const useTrackScreenOutsideNavigation = (
   name: ScreenOutsideNavigationName,
   shouldTrack = true,
 ) => {

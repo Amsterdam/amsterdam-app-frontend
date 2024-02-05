@@ -4,7 +4,6 @@ import {
   getSendSentryErrorLog,
 } from '@/processes/sentry/logging'
 import {SentryHandler} from '@/processes/sentry/types'
-export {SentryErrorLogKey} from '@/processes/sentry/types'
 
 export {SentryErrorLogKey} from '@/processes/sentry/types'
 

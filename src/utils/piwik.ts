@@ -24,3 +24,6 @@ export const getOptionsWithDefaultDimensions = <
     ...options,
     customDimensions: {...options?.customDimensions, ...DEFAULT_DIMENSIONS},
   }) as T
+
+export const getTitleFromParams = (params?: Record<string, unknown>) =>
+  (params?.screenTitle ?? params?.screenHeaderTitle) as string | undefined

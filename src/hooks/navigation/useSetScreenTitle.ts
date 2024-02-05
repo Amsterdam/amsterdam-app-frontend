@@ -3,6 +3,9 @@ import {RootStackParams, TitleParams} from '@/app/navigation/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 
+/**
+ * Set the screen title, using the `screenHeaderTitle` param as defined in type `TitleParams`.
+ */
 export const useSetScreenTitle = <RouteName extends keyof RootStackParams>(
   defaultTitle = '',
 ) => {

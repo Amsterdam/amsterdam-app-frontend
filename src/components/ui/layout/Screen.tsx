@@ -1,4 +1,3 @@
-import {useFocusEffect} from '@react-navigation/native'
 import {type FC, type MutableRefObject, type ReactNode, useMemo} from 'react'
 import {type StyleProp, StyleSheet, View, type ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
@@ -17,7 +16,11 @@ import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingV
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {type TestProps} from '@/components/ui/types'
-import {usePiwik} from '@/hooks/piwik/usePiwik'
+import {useTrackScreenOnFocus} from '@/hooks/piwik/useTrackScreenOnFocus'
+import {
+  ScreenOutsideNavigationName,
+  useTrackScreenOutsideNavigation,
+} from '@/hooks/piwik/useTrackScreenOutsideNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
@@ -229,14 +232,21 @@ const createStyles = (
     },
   })
 
-export const ScreenOutsideNavigation = ScreenBase
+type ScreenOutsideNavigationProps = Props & {
+  name: ScreenOutsideNavigationName
+}
+
+export const ScreenOutsideNavigation = ({
+  name,
+  ...screenProps
+}: ScreenOutsideNavigationProps) => {
+  useTrackScreenOutsideNavigation(name)
+
+  return <ScreenBase {...screenProps} />
+}
 
 export const Screen = (props: Props) => {
-  const {trackScreen} = usePiwik()
-
-  useFocusEffect(() => {
-    trackScreen()
-  })
+  useTrackScreenOnFocus()
 
   return <ScreenBase {...props} />
 }

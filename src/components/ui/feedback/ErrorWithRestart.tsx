@@ -5,21 +5,17 @@ import {Box} from '@/components/ui/containers/Box'
 import {Warning} from '@/components/ui/feedback/Warning'
 import {Column} from '@/components/ui/layout/Column'
 import {ScreenOutsideNavigation} from '@/components/ui/layout/Screen'
-import {
-  ScreenOutsideNavigationName,
-  useTrackScreen,
-} from '@/hooks/piwik/useTrackScreen'
 import {type Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {ScreenOutsideNavigationName} from '@/types/piwik'
 
 export const ErrorWithRestart = () => {
   const styles = useThemable(createStyles)
 
-  useTrackScreen(ScreenOutsideNavigationName.errorWithRestart)
-
   return (
     <View style={styles.screen}>
       <ScreenOutsideNavigation
+        name={ScreenOutsideNavigationName.errorWithRestart}
         scroll={false}
         withTopInset>
         <Box inset="lg">
