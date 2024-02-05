@@ -6,7 +6,6 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Screen} from '@/components/ui/layout/Screen'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Size} from '@/components/ui/layout/Size'
 import {Track} from '@/components/ui/layout/Track'
@@ -21,45 +20,47 @@ import {useTheme} from '@/themes/useTheme'
 
 const MIN_IMAGE_HEiGHT = 350
 
-type ContentProps = {
+type ErrorContentProps = {
   Image: ComponentType<SvgProps>
+  buttonAccessibilityLabel: string
+  buttonLabel: string
   children?: ReactNode
   insetTop?: boolean
-  noBackgroundFacade: boolean
+  noBackgroundFacade?: boolean
+  onPress: () => void
   stickyFooter?: ReactNode
+  testId: string
   text: string
   title: string
 }
 
-const ErrorContent = ({
+export const ErrorContent = ({
   children,
   Image,
   insetTop,
-  noBackgroundFacade,
-  stickyFooter,
+  noBackgroundFacade = false,
   text,
   title,
-}: ContentProps) => {
+  buttonAccessibilityLabel,
+  buttonLabel,
+  onPress,
+  testId,
+}: ErrorContentProps) => {
   const {isPortrait, fontScale} = useDeviceContext()
   const {media} = useTheme()
-
   const [imageHeight, setImageHeight] = useState<number | undefined>()
+
+  useScreenScrollDisable(true)
 
   const isImageVisible = isPortrait
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
 
-  const isFontScaleChanged = fontScale !== 1
-
   const styles = useThemable(createStyles({isPortrait, isImageVisible}))
 
-  const Wrapper = !isFontScaleChanged ? View : ScrollView
+  const Wrapper = fontScale === 1 ? View : ScrollView
 
-  const contentInsetTop = insetTop
-    ? 'xxl'
-    : isPortrait && !children
-      ? 'xl'
-      : 'no'
+  const alignCenter = isPortrait ? 'start' : 'center'
 
   return (
     <View style={styles.screen}>
@@ -82,19 +83,19 @@ const ErrorContent = ({
           inset="no"
           insetHorizontal={isPortrait ? 'no' : 'xl'}>
           <Track
-            align={isPortrait ? 'start' : 'center'}
+            align={alignCenter}
             alwaysDisplayAsRowForScreenReader
             flex={1}>
             <Size
-              minHeight={isFontScaleChanged || !isPortrait ? '100%' : '25%'}
+              minHeight={isPortrait ? '25%' : '100%'}
               width={isPortrait ? '100%' : '50%'}>
               <Column
-                align={isPortrait ? 'start' : 'center'}
+                align={alignCenter}
                 grow>
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop={contentInsetTop}>
+                  insetTop={contentInsetTop(isPortrait, !!children, insetTop)}>
                   <Wrapper style={styles.textContent}>
                     {children}
                     <Box
@@ -124,120 +125,36 @@ const ErrorContent = ({
           </Track>
         </Box>
       </Box>
-      {!!stickyFooter && (
-        <>
-          <Gutter height="sm" />
-          {stickyFooter}
-        </>
-      )}
+      <Gutter height="sm" />
+      <Box
+        insetHorizontal={isPortrait ? 'md' : 'xl'}
+        insetVertical="no">
+        <Button
+          accessibilityHint={buttonAccessibilityLabel}
+          label={buttonLabel}
+          onPress={onPress}
+          testID={testId}
+        />
+      </Box>
     </View>
   )
 }
 
-type FooterProps = {
-  buttonAccessibilityLabel: string
-  buttonLabel: string
-  isPortrait: boolean
-  onPress: () => void
-  testId: string
-}
+// Function for reduce Complexity of contentInset
+const contentInsetTop = (
+  isPortrait: boolean,
+  children: boolean,
+  insetTop?: boolean,
+) => {
+  if (insetTop) {
+    return 'xxl'
+  }
 
-const Footer = ({
-  isPortrait,
-  buttonAccessibilityLabel,
-  buttonLabel,
-  onPress,
-  testId,
-}: FooterProps) => (
-  <Box
-    insetHorizontal={isPortrait ? 'md' : 'xl'}
-    insetVertical="no">
-    <Button
-      accessibilityHint={buttonAccessibilityLabel}
-      label={buttonLabel}
-      onPress={onPress}
-      testID={testId}
-    />
-  </Box>
-)
+  if (isPortrait && !children) {
+    return 'xl'
+  }
 
-type Props = {
-  Image: ComponentType<SvgProps>
-  buttonAccessibilityLabel: string
-  buttonLabel: string
-  children?: ReactNode
-  insetTop?: boolean
-  isScreen?: boolean
-  noBackgroundFacade?: boolean
-  onPress: () => void
-  stickyHeader?: ReactNode
-  testId: string
-  text: string
-  title: string
-}
-
-export const ErrorScreen = ({
-  title,
-  text,
-  Image,
-  stickyHeader,
-  insetTop = false,
-  buttonAccessibilityLabel,
-  buttonLabel,
-  onPress,
-  testId,
-  children,
-  isScreen = false,
-  noBackgroundFacade = false,
-}: Props) => {
-  const {isPortrait} = useDeviceContext()
-
-  useScreenScrollDisable(true)
-
-  return isScreen ? (
-    <Screen
-      scroll={false}
-      stickyFooter={
-        <Footer
-          buttonAccessibilityLabel={buttonAccessibilityLabel}
-          buttonLabel={buttonLabel}
-          isPortrait={isPortrait}
-          onPress={onPress}
-          testId={testId}
-        />
-      }
-      stickyHeader={stickyHeader ?? undefined}
-      withLeftInset={!!isPortrait}
-      withRightInset={!!isPortrait}
-      withTopInset={isPortrait ? !!stickyHeader : false}>
-      <ErrorContent
-        Image={Image}
-        insetTop={insetTop}
-        noBackgroundFacade={noBackgroundFacade}
-        text={text}
-        title={title}>
-        {children}
-      </ErrorContent>
-    </Screen>
-  ) : (
-    <ErrorContent
-      Image={Image}
-      insetTop={insetTop}
-      noBackgroundFacade={noBackgroundFacade}
-      stickyFooter={
-        <Footer
-          buttonAccessibilityLabel={buttonAccessibilityLabel}
-          buttonLabel={buttonLabel}
-          isPortrait={isPortrait}
-          onPress={onPress}
-          testId={testId}
-        />
-      }
-      text={text}
-      title={title}>
-      {children}
-    </ErrorContent>
-  )
+  return 'no'
 }
 
 type StyleProps = {
@@ -249,10 +166,6 @@ const createStyles =
   ({isPortrait, isImageVisible}: StyleProps) =>
   ({media, size}: Theme) =>
     StyleSheet.create({
-      container: {
-        flex: 1,
-        position: 'relative',
-      },
       figure: {
         position: 'absolute',
         top: isPortrait ? '50%' : '25%',

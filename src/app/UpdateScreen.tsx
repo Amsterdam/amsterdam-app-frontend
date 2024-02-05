@@ -1,6 +1,8 @@
 import {type ReactNode, useEffect} from 'react'
 import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
-import {ErrorScreen} from '@/components/ui/layout/ErrorScreen'
+import {ErrorContent} from '@/components/ui/layout/ErrorScreen'
+import {Screen} from '@/components/ui/layout/Screen'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
@@ -10,7 +12,7 @@ type Props = {
   children: ReactNode
 }
 
-export const SNOOZE_TIME_IN_HOURS = 4
+export const SNOOZE_TIME_IN_HOURS = 0
 
 // @TODO
 const tempDummyRequest = () => ({
@@ -18,7 +20,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: true,
+      supported: false,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -27,8 +29,9 @@ const tempDummyRequest = () => ({
 
 export const UpdateScreen = ({children}: Props) => {
   const {data} = tempDummyRequest()
-  const {isError, refetch} = useGetReleaseQuery()
+  const {isError} = useGetReleaseQuery()
   const openStore = useOpenStore()
+  const {isPortrait} = useDeviceContext()
 
   const hideSplashScreen = useHideSplashScreen()
 
@@ -42,35 +45,24 @@ export const UpdateScreen = ({children}: Props) => {
 
   useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
 
-  if (isError) {
-    return (
-      <ErrorScreen
-        buttonAccessibilityLabel=""
-        buttonLabel="Probeer het opnieuw"
-        Image={UpdateFigure}
-        insetTop
-        isScreen
-        onPress={refetch}
-        testId="UpdateScreenErrorButton"
-        text="Sorry, het is niet gelukt om de data op te halen. Heb je internet aan staan?"
-        title="Er is iets misgegaan"
-      />
-    )
-  }
-
   if (supported === false) {
     return (
-      <ErrorScreen
-        buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
-        buttonLabel="Update de app"
-        Image={UpdateFigure}
-        insetTop
-        isScreen
-        onPress={openStore}
-        testId="UpdateScreenOpenStoreButton"
-        text="Om de app te kunnen gebruiken moet u eerst updaten."
-        title="De versie van de app is verouderd en werkt niet meer."
-      />
+      <Screen
+        scroll={false}
+        withLeftInset={!!isPortrait}
+        withRightInset={!!isPortrait}
+        withTopInset={isPortrait}>
+        <ErrorContent
+          buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
+          buttonLabel="Update de app"
+          Image={UpdateFigure}
+          insetTop
+          onPress={openStore}
+          testId="UpdateScreenOpenStoreButton"
+          text="Om de app te kunnen gebruiken moet u eerst updaten."
+          title="De versie van de app is verouderd en werkt niet meer."
+        />
+      </Screen>
     )
   }
 
