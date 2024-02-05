@@ -1,19 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
-import {
-  CommonEventOptions,
-  CustomDimensions,
-  TrackCustomEventOptions,
-} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {useContext, useMemo} from 'react'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
-import {Piwik, PiwikSessionDimension} from '@/types/piwik'
+import {Piwik} from '@/types/piwik'
+import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
-import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
 
@@ -27,22 +22,6 @@ const DEFAULT_PIWIK_CONTEXT: Piwik = {
 
 const FILENAME = 'usePiwik.ts'
 
-const DEFAULT_DIMENSIONS: CustomDimensions = {
-  [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
-  [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
-}
-
-/** Add the default dimensions to any options object */
-const getOptionsWithDefaultDimensions = <
-  T extends TrackCustomEventOptions | CommonEventOptions,
->(
-  options?: T,
-) =>
-  ({
-    ...options,
-    customDimensions: {...options?.customDimensions, ...DEFAULT_DIMENSIONS},
-  }) as T
-
 // We can extend the default Piwik methods here, e.g. to automatically add the route name
 const getPiwik = (
   {trackCustomEvent, trackOutlink, trackScreen, trackSearch}: PiwikProSdkType,
@@ -50,39 +29,39 @@ const getPiwik = (
   routeName?: string,
 ): Piwik => ({
   trackCustomEvent: (category, action, options) => {
-    const opts = getOptionsWithDefaultDimensions(options)
-
-    trackCustomEvent(category, action, {path: routeName, ...opts}).catch(() => {
-      sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
-        category,
-        action,
-        name: opts?.name,
-      })
+    const optionsWithDefaultDimensions = getOptionsWithDefaultDimensions({
+      path: routeName,
+      ...options,
     })
+
+    trackCustomEvent(category, action, optionsWithDefaultDimensions).catch(
+      () => {
+        sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
+          category,
+          action,
+          name: optionsWithDefaultDimensions?.name,
+        })
+      },
+    )
   },
   trackOutlink: (rawUrl, options) => {
-    const opts = getOptionsWithDefaultDimensions(options)
     const url = sanitizeUrl(rawUrl)
 
-    trackOutlink(url, opts).catch(() => {
+    trackOutlink(url, getOptionsWithDefaultDimensions(options)).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILENAME, {
         url,
       })
     })
   },
   trackScreen: (path, options) => {
-    const opts = getOptionsWithDefaultDimensions(options)
-
-    trackScreen(path, opts).catch(() => {
+    trackScreen(path, getOptionsWithDefaultDimensions(options)).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
         path,
       })
     })
   },
   trackSearch: (keyword, options) => {
-    const opts = getOptionsWithDefaultDimensions(options)
-
-    trackSearch(keyword, opts).catch(() => {
+    trackSearch(keyword, getOptionsWithDefaultDimensions(options)).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
     })
   },
