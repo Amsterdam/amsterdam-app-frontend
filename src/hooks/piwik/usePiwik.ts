@@ -29,20 +29,20 @@ const getPiwik = (
   routeName?: string,
 ): Piwik => ({
   trackCustomEvent: (category, action, options) => {
-    const optionsWithDefaultDimensions = getOptionsWithDefaultDimensions({
-      path: routeName,
-      ...options,
+    trackCustomEvent(
+      category,
+      action,
+      getOptionsWithDefaultDimensions({
+        path: routeName,
+        ...options,
+      }),
+    ).catch(() => {
+      sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
+        category,
+        action,
+        name: options?.name,
+      })
     })
-
-    trackCustomEvent(category, action, optionsWithDefaultDimensions).catch(
-      () => {
-        sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
-          category,
-          action,
-          name: optionsWithDefaultDimensions?.name,
-        })
-      },
-    )
   },
   trackOutlink: (rawUrl, options) => {
     const url = sanitizeUrl(rawUrl)
