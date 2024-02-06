@@ -20,7 +20,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: true,
+      supported: false,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
@@ -56,7 +56,6 @@ export const UpdateScreen = ({children}: Props) => {
           buttonAccessibilityLabel="Om de app te gebruiken moet u eerst updaten"
           buttonLabel="Update de app"
           Image={UpdateFigure}
-          insetTop
           onPress={openStore}
           testId="UpdateScreenOpenStoreButton"
           text="Om de app te kunnen gebruiken moet u eerst updaten."

@@ -25,10 +25,8 @@ type FullScreenErrorProps = {
   buttonAccessibilityLabel: string
   buttonLabel: string
   children?: ReactNode
-  insetTop?: boolean
   noBackgroundFacade?: boolean
   onPress: () => void
-  stickyFooter?: ReactNode
   testId: string
   text: string
   title: string
@@ -37,7 +35,6 @@ type FullScreenErrorProps = {
 export const FullScreenError = ({
   children,
   Image,
-  insetTop,
   noBackgroundFacade = false,
   text,
   title,
@@ -95,7 +92,7 @@ export const FullScreenError = ({
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
-                  insetTop={contentInsetTop(isPortrait, !!children, insetTop)}>
+                  insetTop={contentInsetTop(isPortrait, !!children)}>
                   <Wrapper style={styles.textContent}>
                     {children}
                     <Box
@@ -141,17 +138,13 @@ export const FullScreenError = ({
 }
 
 // Function for reduce Complexity of contentInset
-const contentInsetTop = (
-  isPortrait: boolean,
-  children: boolean,
-  insetTop?: boolean,
-) => {
-  if (insetTop) {
-    return 'xxl'
-  }
-
+const contentInsetTop = (isPortrait: boolean, children: boolean) => {
   if (isPortrait && !children) {
     return 'xl'
+  }
+
+  if (!isPortrait && !children) {
+    return 'xxl'
   }
 
   return 'no'

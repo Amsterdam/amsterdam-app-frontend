@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  BaseQueryFn,
+  EndpointDefinitions,
   QueryDefinition,
   QueryStatus,
   skipToken,
@@ -25,18 +26,22 @@ const getEmptyItems = <DummyItem>(
         }))
     : []
 
+type QueryDef<Item> = QueryDefinition<
+  unknown,
+  BaseQueryFn,
+  string,
+  Paginated<Item>
+>
+
 export const useInfiniteScroller = <
   Item,
   DummyItem,
-  QueryArgs extends Record<string, any>,
+  QueryArgs extends Record<string, unknown>,
 >(
   defaultEmptyItem: DummyItem,
-  endpoint: ApiEndpointQuery<
-    QueryDefinition<any, any, any, Paginated<Item>>,
-    any
-  >,
+  endpoint: ApiEndpointQuery<QueryDef<Item>, EndpointDefinitions>,
   keyName: keyof DummyItem,
-  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<Item>>>,
+  useQueryHook: UseQuery<QueryDef<Item>>,
   page = 1,
   pageSize = 10,
   queryParams?: QueryArgs,
@@ -47,7 +52,6 @@ export const useInfiniteScroller = <
     data: previousData,
     isError: isErrorPreviousPage,
     isLoading: isLoadingPreviousPage,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     error: errorPreviousPage,
   } = useQueryHook(
     page > 1
@@ -62,7 +66,6 @@ export const useInfiniteScroller = <
     data: currentData,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     error: errorCurrentPage,
   } = useQueryHook({
     ...queryParams,
@@ -73,7 +76,6 @@ export const useInfiniteScroller = <
     data: nextData,
     isError: isErrorNextPage,
     isLoading: isLoadingNextPage,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     error: errorNextPage,
   } = useQueryHook({
     ...queryParams,
