@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
-import {navigationRef} from '@/app/navigation/AppNavigationContainer'
+import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
