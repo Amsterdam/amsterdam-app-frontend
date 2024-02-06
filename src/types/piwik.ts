@@ -64,9 +64,11 @@ export enum PiwikSessionDimension {
   userType = 1,
   /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
   userCity = 2,
-  reduceMotionEnabled = 18,
-  locationPermission = 19,
-  screenReaderEnabled = 20,
+  appVersion = 18,
+  appVersionWithBuild = 19,
+  reduceMotionEnabled = 21,
+  locationPermission = 22,
+  screenReaderEnabled = 23,
 }
 
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
