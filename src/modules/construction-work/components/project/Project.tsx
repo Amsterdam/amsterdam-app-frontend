@@ -83,10 +83,10 @@ export const Project = ({id}: Props) => {
   if (!project) {
     return (
       <FullScreenError
+        backgroundVisible={false}
         buttonAccessibilityLabel="Terug naar overzicht"
         buttonLabel="Terug naar overzicht"
         Image={ConstructionWorkDetailFigure}
-        noBackgroundFacade
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.constructionWork)
         }

@@ -57,7 +57,7 @@ export const FullScreenError = ({
 
   const Wrapper = fontScale === 1 ? View : ScrollView
 
-  const alignCenter = isPortrait ? 'start' : 'center'
+  const trackAlignment = isPortrait ? 'start' : 'center'
 
   return (
     <View style={styles.screen}>
@@ -80,14 +80,14 @@ export const FullScreenError = ({
           inset="no"
           insetHorizontal={isPortrait ? 'no' : 'xl'}>
           <Track
-            align={alignCenter}
+            align={trackAlignment}
             alwaysDisplayAsRowForScreenReader
             flex={1}>
             <Size
               minHeight={isPortrait ? '25%' : '100%'}
               width={isPortrait ? '100%' : '50%'}>
               <Column
-                align={alignCenter}
+                align={trackAlignment}
                 grow>
                 <Box
                   grow

@@ -1,14 +1,17 @@
 import {
   BaseQueryFn,
   EndpointDefinitions,
+  FetchArgs,
+  FetchBaseQueryError,
   QueryDefinition,
   QueryStatus,
   skipToken,
 } from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import {ApiSlug} from '@/environment'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {Paginated} from '@/types/api'
+import {Paginated, PaginationQueryArgs} from '@/types/api'
 import {getErrorCode} from '@/utils/getErrorCode'
 
 const getEmptyItems = <DummyItem>(
@@ -26,9 +29,9 @@ const getEmptyItems = <DummyItem>(
         }))
     : []
 
-type QueryDef<Item> = QueryDefinition<
-  unknown,
-  BaseQueryFn,
+type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
+  QueryArgs,
+  BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
   string,
   Paginated<Item>
 >
@@ -36,15 +39,15 @@ type QueryDef<Item> = QueryDefinition<
 export const useInfiniteScroller = <
   Item,
   DummyItem,
-  QueryArgs extends Record<string, unknown>,
+  QueryArgs extends PaginationQueryArgs,
 >(
   defaultEmptyItem: DummyItem,
-  endpoint: ApiEndpointQuery<QueryDef<Item>, EndpointDefinitions>,
+  endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
   keyName: keyof DummyItem,
-  useQueryHook: UseQuery<QueryDef<Item>>,
+  useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
   page = 1,
   pageSize = 10,
-  queryParams?: QueryArgs,
+  queryParams: QueryArgs = {} as QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
 

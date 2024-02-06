@@ -9,55 +9,62 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {Modules} from '@/modules/home/components/Modules'
 import {HomeRouteName} from '@/modules/home/routes'
+import {getErrorCode} from '@/utils/getErrorCode'
 
 const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeRouteName>()
   const {modulesError, modulesLoading, refetchModules} = useModules()
+  const {isPortrait} = useDeviceContext()
 
   if (modulesLoading) {
     return <PleaseWait />
   }
 
-  return (
-    <Screen
-      stickyFooter={
-        !modulesError && (
-          <View>
-            <ProductTourTipWrapper
-              placement={Placement.above}
-              testID="HomeModuleSettingsButtonTooltip"
-              text={ONBOARDING_TIP}
-              tipSlug={Tip.homeModuleSettingsButton}>
-              <Box>
-                <AddButton
-                  accessibilityHint={ONBOARDING_TIP}
-                  accessibilityLabel="Instellingen"
-                  onPress={() => navigation.navigate(HomeRouteName.settings)}
-                  testID="HomeModuleSettingsButton"
-                />
-              </Box>
-            </ProductTourTipWrapper>
-          </View>
-        )
-      }>
-      {modulesError ? (
+  if (modulesError) {
+    return (
+      <Screen
+        withLeftInset={isPortrait}
+        withRightInset={isPortrait}>
         <FullScreenError
           buttonAccessibilityLabel="Laad de modules opnieuw"
           buttonLabel="Laad opnieuw"
           Image={ModulesFigure}
           onPress={refetchModules}
           testId="HomeErrorScreen"
-          text="Probeer het later opnieuw foutcode: 404"
+          text={`Probeer het later opnieuw foutcode: ${getErrorCode(modulesError) ?? '0'}`}
           title="Helaas kan de inhoud niet geladen worden"
         />
-      ) : (
-        <Modules />
-      )}
+      </Screen>
+    )
+  }
+
+  return (
+    <Screen
+      stickyFooter={
+        <View>
+          <ProductTourTipWrapper
+            placement={Placement.above}
+            testID="HomeModuleSettingsButtonTooltip"
+            text={ONBOARDING_TIP}
+            tipSlug={Tip.homeModuleSettingsButton}>
+            <Box>
+              <AddButton
+                accessibilityHint={ONBOARDING_TIP}
+                accessibilityLabel="Instellingen"
+                onPress={() => navigation.navigate(HomeRouteName.settings)}
+                testID="HomeModuleSettingsButton"
+              />
+            </Box>
+          </ProductTourTipWrapper>
+        </View>
+      }>
+      <Modules />
     </Screen>
   )
 }
