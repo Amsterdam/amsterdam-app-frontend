@@ -1,7 +1,7 @@
 import {type ReactNode, useEffect} from 'react'
-import {UpdateFigure} from '@/assets/images/errors/UpdateFigure'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Screen} from '@/components/ui/layout/Screen'
+import {UpdateFigure} from '@/components/ui/media/errors/UpdateFigure'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
@@ -20,7 +20,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: true,
+      supported: false,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
