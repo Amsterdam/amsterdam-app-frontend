@@ -12,7 +12,7 @@ type Props = {
   children: ReactNode
 }
 
-export const SNOOZE_TIME_IN_HOURS = 0
+export const SNOOZE_TIME_IN_HOURS = 4
 
 // @TODO
 const tempDummyRequest = () => ({
@@ -20,7 +20,7 @@ const tempDummyRequest = () => ({
     versionInfo: {
       deprecated: false,
       latest: '1.34.7',
-      supported: false,
+      supported: true,
     },
   } as unknown as {versionInfo: VersionInfo} | undefined,
   isLoading: false,
