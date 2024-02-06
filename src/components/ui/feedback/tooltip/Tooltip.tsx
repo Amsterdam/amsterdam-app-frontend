@@ -129,7 +129,8 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
           accessibilityLabel={accessibilityLabel}
           accessibilityLanguage={accessibilityLanguage}
           accessibilityRole="alert"
-          onPress={onPress}>
+          onPress={onPress}
+          testID={testID}>
           <Row>
             {placement === Placement.after && Pointer}
             <Column>
