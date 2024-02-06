@@ -22,10 +22,10 @@ const MIN_IMAGE_HEiGHT = 350
 
 type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
+  backgroundVisible?: boolean
   buttonAccessibilityLabel: string
   buttonLabel: string
   children?: ReactNode
-  noBackgroundFacade?: boolean
   onPress: () => void
   testId: string
   text: string
@@ -35,7 +35,7 @@ type FullScreenErrorProps = {
 export const FullScreenError = ({
   children,
   Image,
-  noBackgroundFacade = false,
+  backgroundVisible = true,
   text,
   title,
   buttonAccessibilityLabel,
@@ -64,7 +64,7 @@ export const FullScreenError = ({
       <Box
         grow
         inset="no">
-        {!noBackgroundFacade && (
+        {!!backgroundVisible && (
           <View style={styles.figure}>
             <Figure
               aspectRatio="extraWide"
@@ -181,8 +181,5 @@ const createStyles =
       },
       screen: {
         flex: 1,
-        paddingBottom: 0,
-        paddingTop: 0,
-        height: '100%',
       },
     })
