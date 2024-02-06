@@ -13,7 +13,6 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {Modules} from '@/modules/home/components/Modules'
 import {HomeRouteName} from '@/modules/home/routes'
-import {getErrorCode} from '@/utils/getErrorCode'
 
 const ONBOARDING_TIP = 'Voeg onderwerpen toe of haal weg wat u niet wilt zien'
 
@@ -34,10 +33,11 @@ export const HomeScreen = () => {
         <FullScreenError
           buttonAccessibilityLabel="Laad de modules opnieuw"
           buttonLabel="Laad opnieuw"
+          error={modulesError}
           Image={ModulesFigure}
           onPress={refetchModules}
           testId="HomeErrorScreen"
-          text={`Probeer het later opnieuw foutcode: ${getErrorCode(modulesError) ?? '0'}`}
+          text="Probeer het later opnieuw"
           title="Helaas kan de inhoud niet geladen worden"
         />
       </Screen>

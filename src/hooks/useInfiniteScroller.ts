@@ -12,7 +12,6 @@ import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {ApiSlug} from '@/environment'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
-import {getErrorCode} from '@/utils/getErrorCode'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -96,11 +95,6 @@ export const useInfiniteScroller = <
     nextData?.page.totalPages ??
     page + 1
 
-  const errorCode: number | undefined =
-    getErrorCode(errorPreviousPage) ||
-    getErrorCode(errorCurrentPage) ||
-    getErrorCode(errorNextPage)
-
   return {
     // create an array of pages with data
     data: Array(totalPages)
@@ -127,7 +121,7 @@ export const useInfiniteScroller = <
 
         return [...acc, ...pageData]
       }, []) as Item[],
-    errorCode,
+    error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,

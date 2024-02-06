@@ -1,3 +1,5 @@
+import {SerializedError} from '@reduxjs/toolkit'
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -99,7 +101,7 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 type Props = {
   byDistance?: boolean
   data?: ProjectsItem[]
-  errorCode?: number | undefined
+  error?: FetchBaseQueryError | SerializedError | undefined
   isError: boolean
   isLoading: boolean
   listHeader?: React.JSX.Element
@@ -119,7 +121,7 @@ export const ProjectsList = ({
   searchText,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
-  errorCode,
+  error,
 }: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
@@ -149,10 +151,11 @@ export const ProjectsList = ({
       <FullScreenError
         buttonAccessibilityLabel="Naar het overzicht"
         buttonLabel="Naar het overzicht"
+        error={error}
         Image={ConstructionWorkFigure}
         onPress={() => navigation.navigate(HomeRouteName.home)}
         testId="ConstructionWorkError"
-        text={`Ga terug naar het overzicht. Foutcode: ${errorCode ?? '0'}`}
+        text="Ga terug naar het overzicht"
         title="Er zijn geen werkzaamheden beschikbaar"
       />
     )

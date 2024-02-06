@@ -26,6 +26,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     data: article,
     isError: articleIsError,
     isLoading: articleIsLoading,
+    error: articleError,
   } = useProjectNewsQuery({
     id,
   })
@@ -67,15 +68,16 @@ export const ProjectNews = ({id, projectId}: Props) => {
     return (
       <FullScreenError
         backgroundVisible={false}
-        buttonAccessibilityLabel="Terug naar werkzaamheid"
-        buttonLabel="Terug naar werkzaamheid"
+        buttonAccessibilityLabel="Terug naar project"
+        buttonLabel="Terug naar project"
+        error={articleError}
         Image={ConstructionWorkDetailFigure}
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.project, {id})
         }
         testId="ProjectDetailErrorScreen"
-        text="Ga terug naar de werkzaamheid."
-        title="Helaas is het nieuwsartikel niet gevonden worden..."
+        text="Ga terug naar de project."
+        title="Helaas is het project niet gevonden..."
       />
     )
   }

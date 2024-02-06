@@ -1,3 +1,5 @@
+import {SerializedError} from '@reduxjs/toolkit'
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {type ComponentType, ReactNode, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type SvgProps} from 'react-native-svg'
@@ -17,8 +19,11 @@ import {useScreenScrollDisable} from '@/hooks/useScreenScrollDisable'
 import {type Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
+import {getErrorCode} from '@/utils/getErrorCode'
 
 const MIN_IMAGE_HEiGHT = 350
+
+type ErrorType = FetchBaseQueryError | SerializedError | undefined
 
 type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
@@ -26,9 +31,10 @@ type FullScreenErrorProps = {
   buttonAccessibilityLabel: string
   buttonLabel: string
   children?: ReactNode
+  error?: ErrorType
   onPress: () => void
   testId: string
-  text: string
+  text?: string
   title: string
 }
 
@@ -36,6 +42,7 @@ export const FullScreenError = ({
   children,
   Image,
   backgroundVisible = true,
+  error,
   text,
   title,
   buttonAccessibilityLabel,
@@ -43,7 +50,7 @@ export const FullScreenError = ({
   onPress,
   testId,
 }: FullScreenErrorProps) => {
-  const {isPortrait, fontScale} = useDeviceContext()
+  const {isPortrait} = useDeviceContext()
   const {media} = useTheme()
   const [imageHeight, setImageHeight] = useState<number | undefined>()
 
@@ -54,8 +61,6 @@ export const FullScreenError = ({
     : true
 
   const styles = useThemable(createStyles({isPortrait, isImageVisible}))
-
-  const Wrapper = fontScale === 1 ? View : ScrollView
 
   const trackAlignment = isPortrait ? 'start' : 'center'
 
@@ -93,7 +98,7 @@ export const FullScreenError = ({
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
                   insetTop={contentInsetTop(isPortrait, !!children)}>
-                  <Wrapper style={styles.textContent}>
+                  <ScrollView style={styles.textContent}>
                     {children}
                     <Box
                       inset="no"
@@ -104,8 +109,13 @@ export const FullScreenError = ({
                         textAlign="center"
                       />
                     </Box>
-                    <Paragraph textAlign="center">{text}</Paragraph>
-                  </Wrapper>
+                    {!!error && !!text && (
+                      <Paragraph textAlign="center">
+                        {text ?? ''}
+                        {!!error && `Foutcode is ${getErrorCode(error)}`}
+                      </Paragraph>
+                    )}
+                  </ScrollView>
                 </Box>
               </Column>
             </Size>

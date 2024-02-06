@@ -34,6 +34,7 @@ export const WasteGuide = () => {
 
   const {
     data: wasteGuideData,
+    error,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
     refetch: getGarbageCollectionAreaQueryRefetch,
@@ -61,6 +62,7 @@ export const WasteGuide = () => {
       <FullScreenError
         buttonAccessibilityLabel="Laad opnieuw"
         buttonLabel="Laad opnieuw"
+        error={error}
         Image={WasteGuideFigure}
         onPress={getGarbageCollectionAreaQueryRefetch}
         testId="WasteGuideErrorScreen"

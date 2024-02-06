@@ -49,6 +49,7 @@ export const Project = ({id}: Props) => {
     data: project,
     isLoading,
     isFetching,
+    error: projectError,
   } = useProjectDetailsQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useProjectFollowMutation()
@@ -84,15 +85,15 @@ export const Project = ({id}: Props) => {
     return (
       <FullScreenError
         backgroundVisible={false}
-        buttonAccessibilityLabel="Terug naar overzicht"
-        buttonLabel="Terug naar overzicht"
+        buttonAccessibilityLabel="Ga terug naar overzicht"
+        buttonLabel="Ga terug naar overzicht"
+        error={projectError}
         Image={ConstructionWorkDetailFigure}
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.constructionWork)
         }
         testId="ProjectDetailErrorScreen"
-        text="Ga terug naar het overzicht."
-        title="Geen werkzaamheden gevonden"
+        title="Geen project gevonden"
       />
     )
   }
