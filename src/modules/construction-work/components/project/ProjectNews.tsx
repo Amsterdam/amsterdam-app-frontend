@@ -77,7 +77,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
         }
         testId="ProjectDetailErrorScreen"
         text="Ga terug naar de project."
-        title="Helaas is het project niet gevonden..."
+        title="Helaas is het project niet gevonden"
       />
     )
   }
