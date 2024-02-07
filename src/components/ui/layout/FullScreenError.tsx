@@ -21,7 +21,7 @@ import {useThemable} from '@/themes/useThemable'
 import {useTheme} from '@/themes/useTheme'
 import {getErrorCode} from '@/utils/getErrorCode'
 
-const MIN_IMAGE_HEiGHT = 350
+const MIN_IMAGE_HEIGHT = 350
 
 type ErrorType = FetchBaseQueryError | SerializedError | undefined
 
@@ -57,7 +57,7 @@ export const FullScreenError = ({
   useScreenScrollDisable(true)
 
   const isImageVisible = isPortrait
-    ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
+    ? imageHeight && imageHeight > MIN_IMAGE_HEIGHT
     : true
 
   const styles = useThemable(createStyles({isPortrait, isImageVisible}))
@@ -112,7 +112,7 @@ export const FullScreenError = ({
                     {!!error && !!text && (
                       <Paragraph textAlign="center">
                         {text ?? ''}
-                        {!!error && `Foutcode is ${getErrorCode(error)}`}
+                        {!!error && ` Foutcode is ${getErrorCode(error)}`}
                       </Paragraph>
                     )}
                   </ScrollView>

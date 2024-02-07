@@ -155,7 +155,7 @@ export const ProjectsList = ({
         Image={ConstructionWorkFigure}
         onPress={() => navigation.navigate(HomeRouteName.home)}
         testId="ConstructionWorkError"
-        text="Ga terug naar het overzicht"
+        text="Ga terug naar het overzicht."
         title="Er zijn geen werkzaamheden beschikbaar"
       />
     )
