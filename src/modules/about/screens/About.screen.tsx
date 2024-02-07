@@ -10,12 +10,10 @@ import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {AboutRouteName} from '@/modules/about/routes'
-import {getVersionNumber} from '@/modules/about/utils/getVersionNumber'
 import {ModuleSlug} from '@/modules/slugs'
+import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 type Props = NavigationProps<AboutRouteName.about>
-
-const versionNumber = getVersionNumber()
 
 export const AboutScreen = ({navigation}: Props) => {
   const {isPortrait} = useDeviceContext()
@@ -37,7 +35,7 @@ export const AboutScreen = ({navigation}: Props) => {
                 text="Amsterdam App"
               />
               <Phrase testID="AboutVersionNumberText">
-                Versie {versionNumber}
+                Versie {VERSION_NUMBER_WITH_BUILD}
               </Phrase>
             </>
             <Column gutter="sm">

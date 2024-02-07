@@ -1,9 +1,11 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import {
+  ImageErrorEventData,
   Image as ImageRN,
   ImageProps as ImageRNProps,
   ImageURISource,
   LayoutChangeEvent,
+  NativeSyntheticEvent,
   Platform,
   StyleProp,
   StyleSheet,
@@ -12,22 +14,27 @@ import {
 import FastImage, {ImageStyle as FastImageStyle} from 'react-native-fast-image'
 import {getUriForWidth} from '@/components/ui/utils/image'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatioTokens} from '@/themes/tokens/media'
+import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
-// Image props supported by both Image and FastImage
+// onError function that can be shared between FastImage and Image, since this prop has a different signature for each component
+type OnError = (error?: NativeSyntheticEvent<ImageErrorEventData>) => void
+
+// resize modes that are supported by both FastImage and Image
 type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
 
+// Props supported by both Image and FastImage
 type SupportedImageRNProps = Omit<
   ImageRNProps,
   'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
 > & {
+  onError?: OnError
   resizeMode?: ImageResizeMode
 }
 
-type Props = {
-  aspectRatio?: keyof ImageAspectRatioTokens
-} & Omit<SupportedImageRNProps, 'style'>
+export type ImageProps = {
+  aspectRatio?: ImageAspectRatio
+} & SupportedImageRNProps
 
 type CachedIosImageProps = {
   uriSources?: ImageURISource | ImageURISource[]
@@ -41,8 +48,8 @@ const CachedIosImage = ({
   width = 0,
   ...imageProps
 }: CachedIosImageProps) => {
-  const uri = useMemo(
-    () => getUriForWidth(width, uriSources),
+  const source = useMemo(
+    () => ({uri: getUriForWidth(width, uriSources)}),
     [uriSources, width],
   )
 
@@ -50,8 +57,9 @@ const CachedIosImage = ({
     <FastImage
       accessibilityIgnoresInvertColors
       accessibilityLanguage="nl-NL"
+      key={source?.uri} // adding a key fixes an issue that the FastImage gets stuck in an error state when onError was triggered once
       onLayout={onLayout}
-      source={{uri}}
+      source={source}
       style={style as StyleProp<FastImageStyle>}
       {...imageProps}
     />
@@ -62,8 +70,9 @@ export const Image = ({
   aspectRatio = 'wide',
   onLayout,
   source,
+  style,
   ...imageProps
-}: Props) => {
+}: ImageProps) => {
   const {height: windowHeight, width: windowWidth} = useWindowDimensions()
   const [width, setWidth] = useState<number | undefined>(undefined)
 
@@ -92,7 +101,7 @@ export const Image = ({
     return (
       <CachedIosImage
         onLayout={onLayoutChange}
-        style={[styles.image]}
+        style={[styles.image, style]}
         uriSources={source}
         width={width}
         {...imageProps}
@@ -106,14 +115,14 @@ export const Image = ({
       accessibilityLanguage="nl-NL"
       onLayout={onLayoutChange}
       source={source}
-      style={[styles.image]}
+      style={[styles.image, style]}
       {...imageProps}
     />
   )
 }
 
 const createStyles =
-  (aspectRatio: keyof ImageAspectRatioTokens, width?: number) =>
+  (aspectRatio: ImageAspectRatio, width?: number) =>
   ({media}: Theme) => {
     const aspectRatioValue = media.aspectRatio[aspectRatio]
 

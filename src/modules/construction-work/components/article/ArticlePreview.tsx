@@ -4,7 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
-import {Image} from '@/components/ui/media/Image'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
@@ -89,7 +89,7 @@ export const ArticlePreview = ({
               />
               <View style={styles.image}>
                 {imageSources && imageSources.length > 0 ? (
-                  <Image
+                  <LazyImage
                     aspectRatio="extraWide"
                     source={imageSources}
                     testID={testID ? `${testID}Image` : undefined}

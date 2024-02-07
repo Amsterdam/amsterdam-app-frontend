@@ -49,25 +49,27 @@ export const EnvironmentSelector = () => {
 
   useEffect(() => () => RNRestart.Restart(), [])
 
-  return isDevApp ? (
+  if (!isDevApp) {
+    return null
+  }
+
+  return (
     <Box>
       <Column gutter="xl">
-        <>
-          <Column gutter="md">
-            {Object.values(Environment).map(env => (
-              <Button
-                key={env}
-                label={env}
-                onPress={() => {
-                  dispatch(setEnvironment(env as Environment))
-                  dispatch(baseApi.util.resetApiState())
-                }}
-                variant={environment === env ? 'secondary' : 'primary'}
-              />
-            ))}
-          </Column>
+        <Column gutter="md">
+          {Object.values(Environment).map(env => (
+            <Button
+              key={env}
+              label={env}
+              onPress={() => {
+                dispatch(setEnvironment(env as Environment))
+                dispatch(baseApi.util.resetApiState())
+              }}
+              variant={environment === env ? 'secondary' : 'primary'}
+            />
+          ))}
           {environment === Environment.custom && (
-            <Column gutter="md">
+            <Column gutter="sm">
               {Object.entries(editableApiSlug).map(([key, value]) => (
                 <CustomApiTextInput
                   key={key}
@@ -84,7 +86,7 @@ export const EnvironmentSelector = () => {
               ))}
             </Column>
           )}
-        </>
+        </Column>
         <Column gutter="md">
           {Object.values(EnvironmentAzure).map(env => (
             <Button
@@ -100,5 +102,5 @@ export const EnvironmentSelector = () => {
         </Column>
       </Column>
     </Box>
-  ) : null
+  )
 }

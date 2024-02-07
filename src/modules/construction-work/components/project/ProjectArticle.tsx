@@ -3,7 +3,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
-import {Image} from '@/components/ui/media/Image'
+import {LazyImage} from '@/components/ui/media/LazyImage'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -39,7 +39,7 @@ export const ProjectArticle = ({
   return (
     <>
       {!!image && (
-        <Image
+        <LazyImage
           accessibilityLabel={image?.alternativeText ?? undefined}
           accessible={!!image?.alternativeText}
           aspectRatio="wide"

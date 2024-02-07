@@ -1,26 +1,40 @@
 import {ReactNode, forwardRef, useEffect, useRef} from 'react'
 import {Animated, Easing, StyleProp, View, ViewStyle} from 'react-native'
+import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
 
 type Props = {
+  callback?: Animated.EndCallback
   children: ReactNode
   duration?: number
-  startFadeIn?: boolean
+  fadeOut?: boolean
+  shouldAnimate?: boolean
   style?: StyleProp<ViewStyle>
 }
 
-export const Fader = forwardRef<View, Props>(
-  ({duration = 300, startFadeIn = true, style, children}, ref) => {
-    const fadeAnim = useRef(new Animated.Value(0)).current
+export const AnimatedFader = forwardRef<View, Props>(
+  (
+    {
+      callback,
+      children,
+      duration = 300,
+      fadeOut = false,
+      shouldAnimate = true,
+      style,
+    },
+    ref,
+  ) => {
+    const opacityRef = useRef(new Animated.Value(fadeOut ? 1 : 0))
 
     useEffect(() => {
-      startFadeIn &&
-        Animated.timing(fadeAnim, {
-          easing: Easing.linear,
-          toValue: 1,
+      if (shouldAnimate) {
+        Animated.timing(opacityRef.current, {
           duration: duration,
+          easing: Easing.linear,
+          toValue: fadeOut ? 0 : 1,
           useNativeDriver: true,
-        }).start()
-    }, [fadeAnim, duration, startFadeIn])
+        }).start(callback)
+      }
+    }, [callback, duration, fadeOut, shouldAnimate])
 
     return (
       <Animated.View
@@ -28,7 +42,7 @@ export const Fader = forwardRef<View, Props>(
         style={[
           style,
           {
-            opacity: fadeAnim,
+            opacity: opacityRef.current,
           },
         ]}>
         {children}
@@ -36,3 +50,18 @@ export const Fader = forwardRef<View, Props>(
     )
   },
 )
+
+export const Fader = forwardRef<View, Props>((props, ref) => {
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
+
+  if (isReduceMotionEnabled) {
+    return <>{props.children}</>
+  }
+
+  return (
+    <AnimatedFader
+      {...props}
+      ref={ref}
+    />
+  )
+})

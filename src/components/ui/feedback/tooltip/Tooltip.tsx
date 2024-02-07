@@ -71,7 +71,7 @@ const Wrapper = forwardRef<View, WrapperProps>(
         {...props}
         duration={fadeInDuration}
         ref={ref}
-        startFadeIn={startFadeIn}
+        shouldAnimate={startFadeIn}
         style={styles.tooltip}
       />
     ) : (

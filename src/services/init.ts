@@ -6,8 +6,6 @@ import {
   FetchBaseQueryError,
   retry,
 } from '@reduxjs/toolkit/query/react'
-/* eslint-disable no-restricted-imports */
-import {version as releaseVersion} from '@/../package.json'
 import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
@@ -17,6 +15,7 @@ import {RootState} from '@/store/types/rootState'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {deviceAuthorizationToken} from '@/utils/getAuthToken'
+import {VERSION_NUMBER} from '@/utils/version'
 
 const managerAuthorizedEndpoints = [
   'addNotification',
@@ -56,7 +55,7 @@ const dynamicBaseQuery: BaseQueryFn<
 
           headers.set('DeviceAuthorization', deviceAuthorizationToken)
 
-          headers.set('releaseVersion', releaseVersion)
+          headers.set('releaseVersion', VERSION_NUMBER)
 
           return headers
         },

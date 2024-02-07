@@ -1,5 +1,6 @@
 export type MediaTokens = typeof mediaTokens
 export type ImageAspectRatioTokens = typeof mediaTokens.aspectRatio
+export type ImageAspectRatio = keyof ImageAspectRatioTokens
 
 export const mediaTokens = {
   aspectRatio: {

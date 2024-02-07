@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-restricted-imports
-import {version} from '@/../package.json'
 import {GlobalApiSlug} from '@/environment'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/init'
+import {VERSION_NUMBER} from '@/utils/version'
 
 export type VersionInfo = {
   deprecated: boolean
@@ -27,7 +26,7 @@ export const modulesApi = baseApi.injectEndpoints({
       providesTags: ['Modules'],
       query: () => ({
         slug: GlobalApiSlug.modules,
-        url: `/release/${version}`,
+        url: `/release/${VERSION_NUMBER}`,
       }),
     }),
   }),
