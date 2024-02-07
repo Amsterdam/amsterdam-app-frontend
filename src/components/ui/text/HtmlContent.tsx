@@ -37,25 +37,14 @@ export type HtmlTransformRule = {
   replace: string
 }
 
-const defaultTransformRules: HtmlTransformRule[] = [
-  {
-    find: /"\/publish/g,
-    replace: '"https://www.amsterdam.nl/publish',
-  },
-  {
-    find: /&quot;\/publish/g,
-    replace: '&quot;https://www.amsterdam.nl/publish',
-  },
-]
-
 /**
  * Applies all transform rules to the content.
  */
 const transformContent = (
   content: string,
-  additionalTransformRules: HtmlTransformRule[] = [],
+  transformRules: HtmlTransformRule[] = [],
 ) =>
-  [...defaultTransformRules, ...additionalTransformRules].reduce(
+  transformRules.reduce(
     (result, {find, replace}) => result.replace(find, replace),
     content,
   )
