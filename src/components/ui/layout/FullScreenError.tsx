@@ -29,7 +29,7 @@ type ErrorType = FetchBaseQueryError | SerializedError | undefined
 type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
   backgroundVisible?: boolean
-  buttonAccessibilityLabel: string
+  buttonAccessibilityLabel?: string
   buttonLabel: string
   children?: ReactNode
   error?: ErrorType
@@ -138,7 +138,7 @@ export const FullScreenError = ({
         insetHorizontal={isPortrait ? 'md' : 'xl'}
         insetVertical="no">
         <Button
-          accessibilityHint={buttonAccessibilityLabel}
+          accessibilityHint={buttonAccessibilityLabel ?? buttonLabel}
           label={buttonLabel}
           onPress={onPress}
           testID={testProps.testID}

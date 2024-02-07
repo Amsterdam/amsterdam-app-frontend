@@ -149,7 +149,6 @@ export const ProjectsList = ({
   if (isError) {
     return (
       <FullScreenError
-        buttonAccessibilityLabel="Naar het overzicht"
         buttonLabel="Naar het overzicht"
         error={error}
         Image={ConstructionWorkFigure}

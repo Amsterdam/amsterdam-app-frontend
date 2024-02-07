@@ -60,7 +60,6 @@ export const WasteGuide = () => {
   ) {
     return (
       <FullScreenError
-        buttonAccessibilityLabel="Laad opnieuw"
         buttonLabel="Laad opnieuw"
         error={error}
         Image={WasteGuideFigure}

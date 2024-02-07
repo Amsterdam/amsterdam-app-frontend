@@ -85,7 +85,6 @@ export const Project = ({id}: Props) => {
     return (
       <FullScreenError
         backgroundVisible={false}
-        buttonAccessibilityLabel="Ga terug naar overzicht"
         buttonLabel="Ga terug naar overzicht"
         error={projectError}
         Image={ConstructionWorkDetailFigure}

@@ -68,7 +68,6 @@ export const ProjectNews = ({id, projectId}: Props) => {
     return (
       <FullScreenError
         backgroundVisible={false}
-        buttonAccessibilityLabel="Terug naar project"
         buttonLabel="Terug naar project"
         error={articleError}
         Image={ConstructionWorkDetailFigure}
