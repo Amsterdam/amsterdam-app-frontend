@@ -1,7 +1,7 @@
 import {Column, ColumnProps} from '@/components/ui/layout/Column'
 import {Row, RowProps} from '@/components/ui/layout/Row'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Common} from '@/types/utils'
 
 type TrackProps = {

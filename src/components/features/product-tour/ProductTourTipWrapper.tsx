@@ -8,10 +8,10 @@ import {Tip} from '@/components/features/product-tour/types'
 import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {

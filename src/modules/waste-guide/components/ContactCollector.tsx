@@ -2,8 +2,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 
 const wasteDisposalBusinessesUrl =
   'https://www.amsterdam.nl/afval-hergebruik/bedrijfsafval/afvalpunten-bedrijven/'

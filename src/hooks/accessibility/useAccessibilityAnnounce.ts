@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from 'react'
 import {AccessibilityInfo} from 'react-native'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useTimeout} from '@/hooks/useTimeout'
 import {Duration} from '@/types/duration'
 
