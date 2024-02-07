@@ -19,13 +19,13 @@ export const TooltipContent = ({testID, text}: Props) => {
       accessibilityRole="text"
       accessible={false}
       style={styles.tooltip}
-      testID={testID}>
+      testID={testID ? `${testID}Content` : undefined}>
       <Column gutter="sm">
         {paragraphs.map((paragraph, index) => (
           <Paragraph
             color="inverse"
             key={paragraph}
-            testID={testID && index === 0 ? `${testID}Paragraph` : undefined}
+            testID={testID ? `${testID}Paragraph${index}` : undefined}
             variant="small">
             {paragraph}
           </Paragraph>
