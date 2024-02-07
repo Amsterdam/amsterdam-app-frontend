@@ -2,10 +2,13 @@ import {
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {version} from 'package.json'
 import {PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
 import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
 
 describe('getOptionsWithDefaultDimensions', () => {
+  const versionWithBuild = `${version}.unknown`
+
   it('should keep any dimensions already defined', () => {
     const options: CommonEventOptions = {
       customDimensions: {
@@ -18,8 +21,8 @@ describe('getOptionsWithDefaultDimensions', () => {
     expect(result).toEqual({
       customDimensions: {
         [PiwikDimension.pageType]: 'foo',
-        [PiwikSessionDimension.appVersion]: 'unknown',
-        [PiwikSessionDimension.appVersionWithBuild]: 'unknown.unknown',
+        [PiwikSessionDimension.appVersion]: version,
+        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
       },
     })
   })
@@ -29,8 +32,8 @@ describe('getOptionsWithDefaultDimensions', () => {
 
     expect(result).toEqual({
       customDimensions: {
-        [PiwikSessionDimension.appVersion]: 'unknown',
-        [PiwikSessionDimension.appVersionWithBuild]: 'unknown.unknown',
+        [PiwikSessionDimension.appVersion]: version,
+        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
       },
     })
   })
@@ -49,8 +52,8 @@ describe('getOptionsWithDefaultDimensions', () => {
       title: 'foo',
       customDimensions: {
         [PiwikDimension.pageType]: 'bar',
-        [PiwikSessionDimension.appVersion]: 'unknown',
-        [PiwikSessionDimension.appVersionWithBuild]: 'unknown.unknown',
+        [PiwikSessionDimension.appVersion]: version,
+        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
       },
     })
   })
