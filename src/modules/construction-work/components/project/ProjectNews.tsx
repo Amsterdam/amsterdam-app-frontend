@@ -76,7 +76,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
           navigation.navigate(ConstructionWorkRouteName.project, {id})
         }
         testId="ProjectDetailErrorScreen"
-        text="Ga terug naar de project."
+        text="Ga terug naar het project."
         title="Helaas is het project niet gevonden"
       />
     )
