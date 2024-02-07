@@ -65,7 +65,9 @@ export const WasteGuide = () => {
         error={error}
         Image={WasteGuideFigure}
         onPress={getGarbageCollectionAreaQueryRefetch}
-        testId="WasteGuideErrorScreen"
+        testProps={{
+          testID: 'WasteGuideErrorScreen',
+        }}
         text="Probeer het later nog een keer."
         title="Helaas is de afvalwijzer nu niet beschikbaar">
         <Row>

@@ -36,7 +36,9 @@ export const HomeScreen = () => {
           error={modulesError}
           Image={ModulesFigure}
           onPress={refetchModules}
-          testId="HomeErrorScreen"
+          testProps={{
+            testID: 'HomeErrorScreen',
+          }}
           text="Probeer het later opnieuw."
           title="Helaas kunnen de modules niet geladen worden"
         />

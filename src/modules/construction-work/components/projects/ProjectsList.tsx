@@ -101,7 +101,7 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 type Props = {
   byDistance?: boolean
   data?: ProjectsItem[]
-  error?: FetchBaseQueryError | SerializedError | undefined
+  error?: FetchBaseQueryError | SerializedError
   isError: boolean
   isLoading: boolean
   listHeader?: React.JSX.Element
@@ -154,7 +154,9 @@ export const ProjectsList = ({
         error={error}
         Image={ConstructionWorkFigure}
         onPress={() => navigation.navigate(HomeRouteName.home)}
-        testId="ConstructionWorkError"
+        testProps={{
+          testID: 'ConstructionWorkError',
+        }}
         text="Ga terug naar het overzicht."
         title="Er zijn geen werkzaamheden beschikbaar"
       />

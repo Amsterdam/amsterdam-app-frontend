@@ -75,7 +75,9 @@ export const ProjectNews = ({id, projectId}: Props) => {
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.project, {id})
         }
-        testId="ProjectDetailErrorScreen"
+        testProps={{
+          testID: 'ProjectDetailErrorScreen',
+        }}
         text="Ga terug naar het project."
         title="Helaas is het project niet gevonden"
       />

@@ -92,7 +92,9 @@ export const Project = ({id}: Props) => {
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.constructionWork)
         }
-        testId="ProjectDetailErrorScreen"
+        testProps={{
+          testID: 'ProjectDetailErrorScreen',
+        }}
         title="Geen project gevonden"
       />
     )

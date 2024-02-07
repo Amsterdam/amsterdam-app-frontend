@@ -57,7 +57,9 @@ export const UpdateScreen = ({children}: Props) => {
           buttonLabel="Update de app"
           Image={UpdateFigure}
           onPress={openStore}
-          testId="UpdateScreenOpenStoreButton"
+          testProps={{
+            testID: 'UpdateScreenOpenStoreButton',
+          }}
           text="Om de app te kunnen gebruiken moet u eerst updaten."
           title="De versie van de app is verouderd en werkt niet meer."
         />

@@ -14,6 +14,7 @@ import {Track} from '@/components/ui/layout/Track'
 import {Figure} from '@/components/ui/media/Figure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useScreenScrollDisable} from '@/hooks/useScreenScrollDisable'
 import {type Theme} from '@/themes/themes'
@@ -33,7 +34,7 @@ type FullScreenErrorProps = {
   children?: ReactNode
   error?: ErrorType
   onPress: () => void
-  testId: string
+  testProps: TestProps
   text?: string
   title: string
 }
@@ -48,7 +49,7 @@ export const FullScreenError = ({
   buttonAccessibilityLabel,
   buttonLabel,
   onPress,
-  testId,
+  testProps,
 }: FullScreenErrorProps) => {
   const {isPortrait} = useDeviceContext()
   const {media} = useTheme()
@@ -140,7 +141,7 @@ export const FullScreenError = ({
           accessibilityHint={buttonAccessibilityLabel}
           label={buttonLabel}
           onPress={onPress}
-          testID={testId}
+          testID={testProps.testID}
         />
       </Box>
     </View>
