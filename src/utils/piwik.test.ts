@@ -7,7 +7,7 @@ import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
 import {VERSION_NUMBER} from '@/utils/version'
 
 describe('getOptionsWithDefaultDimensions', () => {
-  const versionWithBuild = `${VERSION_NUMBER}.unknown`
+  const VERSION_NUMBER_WITH_BUILD = `${VERSION_NUMBER}.unknown`
 
   it('should keep any dimensions already defined', () => {
     const options: CommonEventOptions = {
@@ -22,7 +22,7 @@ describe('getOptionsWithDefaultDimensions', () => {
       customDimensions: {
         [PiwikDimension.pageType]: 'foo',
         [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
-        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
+        [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
       },
     })
   })
@@ -33,7 +33,7 @@ describe('getOptionsWithDefaultDimensions', () => {
     expect(result).toEqual({
       customDimensions: {
         [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
-        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
+        [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
       },
     })
   })
@@ -53,7 +53,7 @@ describe('getOptionsWithDefaultDimensions', () => {
       customDimensions: {
         [PiwikDimension.pageType]: 'bar',
         [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
-        [PiwikSessionDimension.appVersionWithBuild]: versionWithBuild,
+        [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
       },
     })
   })
