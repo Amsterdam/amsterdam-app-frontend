@@ -5,9 +5,9 @@ export const useScreenScrollDisable = (hasError: boolean) => {
   const screenContext = useContext(DisableScrollContext)
 
   useEffect(() => {
-    screenContext.setIsDisabledScroll(hasError)
+    screenContext.setScrollDisabled(hasError)
   }, [hasError, screenContext])
 }
 
 export const useIsScreenScrollDisabled = () =>
-  useContext(DisableScrollContext).isDisabledScroll
+  useContext(DisableScrollContext).scrollDisabled

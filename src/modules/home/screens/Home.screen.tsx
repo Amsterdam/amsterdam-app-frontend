@@ -38,7 +38,7 @@ export const HomeScreen = () => {
           onPress={refetchModules}
           testId="HomeErrorScreen"
           text="Probeer het later opnieuw"
-          title="Helaas kan de inhoud niet geladen worden"
+          title="Helaas kunnen de modules niet geladen worden"
         />
       </Screen>
     )

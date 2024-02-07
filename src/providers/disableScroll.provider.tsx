@@ -2,14 +2,14 @@ import {Dispatch, ReactNode} from 'react'
 import {createContext, useMemo, useState} from 'react'
 
 type DisableScrollContextType = {
-  isDisabledScroll: boolean
-  setIsDisabledScroll: Dispatch<React.SetStateAction<boolean>>
+  scrollDisabled: boolean
+  setScrollDisabled: Dispatch<React.SetStateAction<boolean>>
 }
 
 export const DisableScrollContext = createContext<DisableScrollContextType>({
-  isDisabledScroll: false,
+  scrollDisabled: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setIsDisabledScroll: () => {},
+  setScrollDisabled: () => {},
 })
 
 type Props = {
@@ -17,11 +17,11 @@ type Props = {
 }
 
 export const DisableScrollProvider = ({children}: Props) => {
-  const [isDisabledScroll, setIsDisabledScroll] = useState<boolean>(false)
+  const [scrollDisabled, setScrollDisabled] = useState<boolean>(false)
 
   const value = useMemo(
-    () => ({isDisabledScroll, setIsDisabledScroll}),
-    [isDisabledScroll, setIsDisabledScroll],
+    () => ({scrollDisabled, setScrollDisabled}),
+    [scrollDisabled, setScrollDisabled],
   )
 
   return (
