@@ -12,6 +12,7 @@ export const appFlavour =
   AppFlavour[__DEV__ ? 'local' : isDevApp ? 'development' : 'production']
 
 export const isProductionApp = appFlavour === AppFlavour.production
+export const isLocalApp = appFlavour === AppFlavour.local
 
 export const devLog = (...args: unknown[]) => {
   if (isDevApp) {
