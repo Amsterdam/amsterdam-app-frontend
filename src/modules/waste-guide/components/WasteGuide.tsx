@@ -2,9 +2,11 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
@@ -32,8 +34,10 @@ export const WasteGuide = () => {
 
   const {
     data: wasteGuideData,
+    error,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
+    refetch: getGarbageCollectionAreaQueryRefetch,
   } = useGetGarbageCollectionAreaQuery(
     // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
     address?.bagId && isFocusedOrNotAndroid
@@ -54,7 +58,25 @@ export const WasteGuide = () => {
     !wasteGuideData ||
     !address
   ) {
-    return <SomethingWentWrong />
+    return (
+      <FullScreenError
+        buttonLabel="Laad opnieuw"
+        error={error}
+        Image={WasteGuideFigure}
+        onPress={getGarbageCollectionAreaQueryRefetch}
+        testProps={{
+          testID: 'WasteGuideErrorScreen',
+        }}
+        text="Probeer het later nog een keer."
+        title="Helaas is de afvalwijzer nu niet beschikbaar">
+        <Row>
+          <ChangeLocationButton
+            slug={ModuleSlug['waste-guide']}
+            testID="WasteGuide"
+          />
+        </Row>
+      </FullScreenError>
+    )
   }
 
   const {city} = address

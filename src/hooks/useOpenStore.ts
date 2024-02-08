@@ -26,7 +26,7 @@ export const useOpenStore = () => {
         Linking.openURL(link).catch(() =>
           Alert.alert(
             `${Platform.OS === 'ios' ? 'App' : 'Google Play'} Store openen is niet mogelijk.`,
-            `Ga naar de ${Platform.OS === 'ios' ? 'Google App' : 'Play'} Store om de app handmatig te updaten.`,
+            `Ga naar de ${Platform.OS === 'ios' ? 'App' : 'Google Play'} Store om de app handmatig te updaten.`,
             [
               {
                 text: 'Sluiten',

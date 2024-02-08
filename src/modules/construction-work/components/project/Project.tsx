@@ -8,9 +8,10 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
@@ -48,6 +49,7 @@ export const Project = ({id}: Props) => {
     data: project,
     isLoading,
     isFetching,
+    error: projectError,
   } = useProjectDetailsQuery({id, ...addressParam})
   const [followProject, {isLoading: isUpdatingFollow}] =
     useProjectFollowMutation()
@@ -71,7 +73,7 @@ export const Project = ({id}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: project?.title,
+      headerTitle: project?.title ?? 'Project Details',
     })
   }, [project?.title, navigation])
 
@@ -80,7 +82,21 @@ export const Project = ({id}: Props) => {
   }
 
   if (!project) {
-    return <Paragraph>Geen project.</Paragraph>
+    return (
+      <FullScreenError
+        backgroundVisible={false}
+        buttonLabel="Ga terug naar overzicht"
+        error={projectError}
+        Image={ConstructionWorkDetailFigure}
+        onPress={() =>
+          navigation.navigate(ConstructionWorkRouteName.constructionWork)
+        }
+        testProps={{
+          testID: 'ProjectDetailErrorScreen',
+        }}
+        title="Geen project gevonden"
+      />
+    )
   }
 
   const {image, followed, followers, meter, strides, subtitle, title} = project

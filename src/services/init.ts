@@ -67,7 +67,6 @@ const dynamicBaseQuery: BaseQueryFn<
 
       return result
     },
-
     {maxRetries: 5},
   )(args, baseQueryApi, extraOptions as never)
 

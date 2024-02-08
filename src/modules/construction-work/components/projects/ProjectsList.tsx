@@ -1,3 +1,5 @@
+import {SerializedError} from '@reduxjs/toolkit'
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {memo, useCallback, useMemo} from 'react'
 import {ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -5,7 +7,8 @@ import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -20,6 +23,7 @@ import {
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
+import {HomeRouteName} from '@/modules/home/routes'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -97,6 +101,7 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 type Props = {
   byDistance?: boolean
   data?: ProjectsItem[]
+  error?: FetchBaseQueryError | SerializedError
   isError: boolean
   isLoading: boolean
   listHeader?: React.JSX.Element
@@ -116,6 +121,7 @@ export const ProjectsList = ({
   searchText,
   listHeader,
   noResultsMessage = DEFAULT_NO_RESULTS_MESSAGE,
+  error,
 }: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
 
@@ -141,7 +147,19 @@ export const ProjectsList = ({
   )
 
   if (isError) {
-    return <SomethingWentWrong />
+    return (
+      <FullScreenError
+        buttonLabel="Naar het overzicht"
+        error={error}
+        Image={ConstructionWorkFigure}
+        onPress={() => navigation.navigate(HomeRouteName.home)}
+        testProps={{
+          testID: 'ConstructionWorkError',
+        }}
+        text="Ga terug naar het overzicht."
+        title="Er zijn geen werkzaamheden beschikbaar"
+      />
+    )
   }
 
   return (

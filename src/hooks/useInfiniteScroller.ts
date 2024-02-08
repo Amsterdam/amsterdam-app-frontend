@@ -1,13 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  BaseQueryFn,
+  EndpointDefinitions,
+  FetchArgs,
+  FetchBaseQueryError,
   QueryDefinition,
   QueryStatus,
   skipToken,
 } from '@reduxjs/toolkit/dist/query'
 import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
 import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import {ApiSlug} from '@/environment'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {Paginated} from '@/types/api'
+import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -24,21 +28,25 @@ const getEmptyItems = <DummyItem>(
         }))
     : []
 
+type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
+  QueryArgs,
+  BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
+  string,
+  Paginated<Item>
+>
+
 export const useInfiniteScroller = <
   Item,
   DummyItem,
-  QueryArgs extends Record<string, any>,
+  QueryArgs extends PaginationQueryArgs,
 >(
   defaultEmptyItem: DummyItem,
-  endpoint: ApiEndpointQuery<
-    QueryDefinition<any, any, any, Paginated<Item>>,
-    any
-  >,
+  endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
   keyName: keyof DummyItem,
-  useQueryHook: UseQuery<QueryDefinition<any, any, any, Paginated<Item>>>,
+  useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
   page = 1,
   pageSize = 10,
-  queryParams?: QueryArgs,
+  queryParams: QueryArgs = {} as QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
 
@@ -46,6 +54,7 @@ export const useInfiniteScroller = <
     data: previousData,
     isError: isErrorPreviousPage,
     isLoading: isLoadingPreviousPage,
+    error: errorPreviousPage,
   } = useQueryHook(
     page > 1
       ? {
@@ -54,10 +63,12 @@ export const useInfiniteScroller = <
         }
       : skipToken,
   )
+
   const {
     data: currentData,
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
+    error: errorCurrentPage,
   } = useQueryHook({
     ...queryParams,
     page,
@@ -67,6 +78,7 @@ export const useInfiniteScroller = <
     data: nextData,
     isError: isErrorNextPage,
     isLoading: isLoadingNextPage,
+    error: errorNextPage,
   } = useQueryHook({
     ...queryParams,
     page: page + 1,
@@ -109,6 +121,7 @@ export const useInfiniteScroller = <
 
         return [...acc, ...pageData]
       }, []) as Item[],
+    error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
       isLoadingPreviousPage || isLoadingCurrentPage || isLoadingNextPage,

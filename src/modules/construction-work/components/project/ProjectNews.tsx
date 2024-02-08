@@ -1,7 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect, useLayoutEffect} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
@@ -25,6 +26,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     data: article,
     isError: articleIsError,
     isLoading: articleIsLoading,
+    error: articleError,
   } = useProjectNewsQuery({
     id,
   })
@@ -54,7 +56,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: project?.title ?? '',
+      headerTitle: project?.title ?? 'Project nieuws',
     })
   })
 
@@ -63,7 +65,22 @@ export const ProjectNews = ({id, projectId}: Props) => {
   }
 
   if (!article || articleIsError) {
-    return <SomethingWentWrong />
+    return (
+      <FullScreenError
+        backgroundVisible={false}
+        buttonLabel="Terug naar project"
+        error={articleError}
+        Image={ConstructionWorkDetailFigure}
+        onPress={() =>
+          navigation.navigate(ConstructionWorkRouteName.project, {id})
+        }
+        testProps={{
+          testID: 'ProjectDetailErrorScreen',
+        }}
+        text="Ga terug naar het project."
+        title="Helaas is het project niet gevonden"
+      />
+    )
   }
 
   const {body, image, intro, publication_date, title} = article
@@ -75,7 +92,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
       image={image}
       intro={intro}
       publicationDate={publication_date}
-      title={title}
+      title={title ?? ''}
     />
   )
 }

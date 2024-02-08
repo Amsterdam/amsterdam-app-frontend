@@ -92,7 +92,7 @@ export const useModules = () => {
     userDisabledModulesBySlug,
     modulesLoading,
     modulesError: error,
-    refetchModules: retriesRemaining === 0 ? refetch : undefined,
+    refetchModules: refetch,
     ...postProcessedModules,
   }
 }
