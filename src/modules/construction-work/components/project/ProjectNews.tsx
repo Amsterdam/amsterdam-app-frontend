@@ -55,7 +55,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     })
   }, [article, id, markAsRead])
 
-  const projectTitle = useSetScreenTitle(project?.title ?? '')
+  const projectTitle = useSetScreenTitle(project?.title)
 
   if (articleIsLoading || projectIsLoading) {
     return <PleaseWait />

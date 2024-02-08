@@ -18,7 +18,7 @@ import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {type TestProps} from '@/components/ui/types'
 import {useTrackScreenOnFocus} from '@/hooks/piwik/useTrackScreenOnFocus'
 import {
-  ScreenOutsideNavigationName,
+  type ScreenOutsideNavigationName,
   useTrackScreenOutsideNavigation,
 } from '@/hooks/piwik/useTrackScreenOutsideNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'

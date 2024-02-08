@@ -72,7 +72,7 @@ export const Project = ({id}: Props) => {
     [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
 
-  useSetScreenTitle(project?.title ?? '')
+  useSetScreenTitle(project?.title)
 
   if (isLoading) {
     return <PleaseWait />
