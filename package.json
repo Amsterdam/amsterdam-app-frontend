@@ -134,7 +134,8 @@
     "vite-plugin-svgr": "^4.2.0"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-x64": "0.18.20"
+    "@esbuild/darwin-x64": "0.18.20",
+    "@esbuild/darwin-arm64": "0.18.20"
   },
   "volta": {
     "node": "20.11.0"

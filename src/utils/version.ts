@@ -1,5 +1,6 @@
-import {version} from 'package.json'
 import {getBuildNumber, getVersion} from 'react-native-device-info'
+// eslint-disable-next-line no-restricted-imports
+import {version} from '@/../package.json'
 import {isLocalApp} from '@/processes/development'
 
 export const BUILD_NUMBER = getBuildNumber()
