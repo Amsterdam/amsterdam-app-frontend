@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
@@ -19,6 +20,7 @@ type Props = {
 }
 
 export const ProjectNews = ({id, projectId}: Props) => {
+  const navigation = useNavigation()
   const {markAsRead} = useMarkArticleAsRead()
 
   const {
@@ -53,7 +55,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     })
   }, [article, id, markAsRead])
 
-  useSetScreenTitle(project?.title ?? 'Project nieuws')
+  const projectTitle = useSetScreenTitle(project?.title ?? '')
 
   if (articleIsLoading || projectIsLoading) {
     return <PleaseWait />
@@ -67,7 +69,10 @@ export const ProjectNews = ({id, projectId}: Props) => {
         error={articleError}
         Image={ConstructionWorkDetailFigure}
         onPress={() =>
-          navigation.navigate(ConstructionWorkRouteName.project, {id})
+          navigation.navigate(ConstructionWorkRouteName.project, {
+            id,
+            screenHeaderTitle: projectTitle,
+          })
         }
         testProps={{
           testID: 'ProjectDetailErrorScreen',

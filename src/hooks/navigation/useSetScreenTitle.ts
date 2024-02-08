@@ -14,9 +14,13 @@ export const useSetScreenTitle = <RouteName extends keyof RootStackParams>(
 
   const {screenHeaderTitle} = params as unknown as TitleParams
 
+  const headerTitle = screenHeaderTitle ?? defaultTitle
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: screenHeaderTitle ?? defaultTitle,
+      headerTitle,
     })
-  }, [defaultTitle, navigation, screenHeaderTitle])
+  }, [headerTitle, navigation])
+
+  return headerTitle
 }

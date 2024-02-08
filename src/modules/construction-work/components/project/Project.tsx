@@ -15,6 +15,7 @@ import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/Constru
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {Placement} from '@/components/ui/types'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
@@ -40,6 +41,8 @@ type Props = {
 
 export const Project = ({id}: Props) => {
   const {address} = useSelectedAddressForConstructionWork()
+
+  const navigation = useNavigation()
 
   const addressParam = getAddressParam(address)
 
@@ -69,7 +72,7 @@ export const Project = ({id}: Props) => {
     [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
 
-  useSetScreenTitle(project?.title ?? 'Project Details')
+  useSetScreenTitle(project?.title ?? '')
 
   if (isLoading) {
     return <PleaseWait />
