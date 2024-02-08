@@ -3,7 +3,7 @@ import {
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {getOptionsWithDefaultDimensions} from './utils'
-import {PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
+import {PiwikDimension, PiwikSessionDimension} from '@/processes/piwik/types'
 import {VERSION_NUMBER} from '@/utils/version'
 
 describe('getOptionsWithDefaultDimensions', () => {

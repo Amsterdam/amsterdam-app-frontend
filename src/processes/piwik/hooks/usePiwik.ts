@@ -3,6 +3,7 @@ import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
+import {type Piwik} from '@/processes/piwik/types'
 import {
   getOptionsWithDefaultDimensions,
   getTitleFromParams,
@@ -11,10 +12,13 @@ import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
-import {type Piwik} from '@/types/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
-export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
+export {
+  PiwikAction,
+  PiwikDimension,
+  PiwikSessionDimension,
+} from '@/processes/piwik/types'
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {

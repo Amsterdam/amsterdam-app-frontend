@@ -6,8 +6,8 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
+import {ScreenOutsideNavigationName} from '@/processes/piwik/types'
 import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
-import {ScreenOutsideNavigationName} from '@/types/piwik'
 
 type Props = {
   children: ReactNode

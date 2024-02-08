@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {type ScreenOutsideNavigationName} from '@/types/piwik'
-export {ScreenOutsideNavigationName} from '@/types/piwik'
+import {type ScreenOutsideNavigationName} from '@/processes/piwik/types'
+export {ScreenOutsideNavigationName} from '@/processes/piwik/types'
 
 export const useTrackScreenOutsideNavigation = (
   name: ScreenOutsideNavigationName,
