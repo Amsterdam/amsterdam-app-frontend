@@ -1,10 +1,14 @@
 import {
-  CustomDimensions,
+  CustomDimensions as PiwikCustomDimensions,
   TrackCustomEventOptions,
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {PiwikSessionDimension} from '@/processes/piwik/types'
+import {
+  CustomDimensions,
+  PiwikDimension,
+  PiwikSessionDimension,
+} from '@/processes/piwik/types'
 import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 const DEFAULT_DIMENSIONS: CustomDimensions = {
@@ -27,3 +31,17 @@ export const getOptionsWithDefaultDimensions = <
 
 export const getTitleFromParams = (params?: Record<string, unknown>) =>
   (params?.screenTitle ?? params?.screenHeaderTitle) as string | undefined
+
+export const addIdFromParamsToCustomDimensions = (
+  customDimensions?: CustomDimensions,
+  params?: Record<string, unknown>,
+) => {
+  if (!params?.id && typeof params?.id !== 'number') {
+    return customDimensions as PiwikCustomDimensions | undefined
+  }
+
+  return {
+    ...customDimensions,
+    [PiwikDimension.contentId]: params.id.toString(),
+  } as PiwikCustomDimensions
+}

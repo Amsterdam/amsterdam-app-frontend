@@ -16,6 +16,10 @@ export type TitleParams = {
   screenTitle?: string
 }
 
+export type IdParams = {
+  id: number
+}
+
 type ModuleParams<
   ParamList extends ParamListBase,
   RouteName extends keyof ParamList = Extract<keyof ParamList, string>,

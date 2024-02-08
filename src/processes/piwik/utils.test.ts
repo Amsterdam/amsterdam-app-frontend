@@ -2,8 +2,15 @@ import {
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {getOptionsWithDefaultDimensions} from './utils'
-import {PiwikDimension, PiwikSessionDimension} from '@/processes/piwik/types'
+import {
+  addIdFromParamsToCustomDimensions,
+  getOptionsWithDefaultDimensions,
+} from './utils'
+import {
+  CustomDimensions,
+  PiwikDimension,
+  PiwikSessionDimension,
+} from '@/processes/piwik/types'
 import {VERSION_NUMBER} from '@/utils/version'
 
 describe('getOptionsWithDefaultDimensions', () => {
@@ -55,6 +62,65 @@ describe('getOptionsWithDefaultDimensions', () => {
         [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
         [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
       },
+    })
+  })
+})
+
+describe('addIdFromParamsToCustomDimensions', () => {
+  it('should not modify custom dimensions if params.id is not present', () => {
+    const customDimensions: CustomDimensions = {
+      [PiwikSessionDimension.userType]: 'civilian',
+    }
+    const result = addIdFromParamsToCustomDimensions(customDimensions, {})
+
+    expect(result).toEqual(customDimensions)
+  })
+
+  it('should not modify custom dimensions if params.id is null or undefined', () => {
+    const customDimensions: CustomDimensions = {
+      [PiwikSessionDimension.userType]: 'civilian',
+    }
+    const result1 = addIdFromParamsToCustomDimensions(customDimensions, {
+      id: undefined,
+    })
+    const result2 = addIdFromParamsToCustomDimensions(customDimensions, {
+      id: null,
+    })
+
+    expect(result1).toEqual(customDimensions)
+    expect(result2).toEqual(customDimensions)
+  })
+
+  it('should add contentId to custom dimensions, with string value, if params.id is present and has a value', () => {
+    const customDimensions: CustomDimensions = {}
+    const result = addIdFromParamsToCustomDimensions(customDimensions, {
+      id: 123,
+    })
+
+    expect(result).toEqual({[PiwikDimension.contentId]: '123'})
+  })
+
+  it('should handle undefined custom dimensions input and still return custom dimensions', () => {
+    const result = addIdFromParamsToCustomDimensions(undefined, {
+      id: 123,
+    })
+
+    expect(result).toEqual({[PiwikDimension.contentId]: '123'})
+  })
+
+  it('should add contentId to existing custom dimensions if params.id is present and has a value', () => {
+    const customDimensions: CustomDimensions = {
+      [PiwikSessionDimension.userType]: 'civilian',
+      [PiwikSessionDimension.userCity]: 'Amsterdam',
+    }
+    const result = addIdFromParamsToCustomDimensions(customDimensions, {
+      id: 123,
+    })
+
+    expect(result).toEqual({
+      [PiwikSessionDimension.userType]: 'civilian',
+      [PiwikSessionDimension.userCity]: 'Amsterdam',
+      [PiwikDimension.contentId]: '123',
     })
   })
 })
