@@ -108,6 +108,14 @@ describe('addIdFromParamsToCustomDimensions', () => {
     expect(result).toEqual({[PiwikDimension.contentId]: '123'})
   })
 
+  it('0 is a valid ID and should not be handled as falsy', () => {
+    const result = addIdFromParamsToCustomDimensions(undefined, {
+      id: 0,
+    })
+
+    expect(result).toEqual({[PiwikDimension.contentId]: '0'})
+  })
+
   it('should add contentId to existing custom dimensions if params.id is present and has a value', () => {
     const customDimensions: CustomDimensions = {
       [PiwikSessionDimension.userType]: 'civilian',
