@@ -1,9 +1,12 @@
-import {FC, MutableRefObject, ReactNode, useMemo} from 'react'
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native'
+import {type FC, type MutableRefObject, type ReactNode, useMemo} from 'react'
+import {type StyleProp, StyleSheet, View, type ViewStyle} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {
+  type EdgeInsets,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context'
 import {selectSeenTips} from '@/components/features/product-tour/slice'
-import {Tip} from '@/components/features/product-tour/types'
+import {type Tip} from '@/components/features/product-tour/types'
 import {
   KeyboardAwareTrackScrollView,
   TrackScrollView,
@@ -12,9 +15,14 @@ import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessib
 import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
+import {useTrackScreenOnFocus} from '@/processes/piwik/hooks/useTrackScreenOnFocus'
+import {
+  type ScreenOutsideNavigationName,
+  useTrackScreenOutsideNavigation,
+} from '@/processes/piwik/hooks/useTrackScreenOutsideNavigation'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 type WrapperProps = Pick<
@@ -125,7 +133,7 @@ const InnerWrapper: FC<InnerWrapperProps> = ({
     />
   )
 
-export const Screen = ({
+export const ScreenBase = ({
   bottomSheet,
   children,
   stickyFooter,
@@ -223,3 +231,22 @@ const createStyles = (
       paddingTop: withTopInset && hasStickyHeader ? top : 0,
     },
   })
+
+type ScreenOutsideNavigationProps = Props & {
+  name: ScreenOutsideNavigationName
+}
+
+export const ScreenOutsideNavigation = ({
+  name,
+  ...screenProps
+}: ScreenOutsideNavigationProps) => {
+  useTrackScreenOutsideNavigation(name)
+
+  return <ScreenBase {...screenProps} />
+}
+
+export const Screen = (props: Props) => {
+  useTrackScreenOnFocus()
+
+  return <ScreenBase {...props} />
+}

@@ -1,9 +1,9 @@
 import {SerializedError} from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {memo, useCallback, useMemo} from 'react'
-import {ListRenderItem, StyleSheet} from 'react-native'
+import {type ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {FlatGrid, FlatGridProps} from 'react-native-super-grid'
+import {FlatGrid, type FlatGridProps} from 'react-native-super-grid'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -18,7 +18,7 @@ import {ProjectCard} from '@/modules/construction-work/components/shared/Project
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  ReadArticle,
+  type ReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
@@ -136,7 +136,10 @@ export const ProjectsList = ({
     ({item}) => (
       <ListItem
         onPress={(id: number) =>
-          navigation.navigate(ConstructionWorkRouteName.project, {id})
+          navigation.navigate(ConstructionWorkRouteName.project, {
+            id,
+            screenHeaderTitle: item.title,
+          })
         }
         project={item}
         readArticles={readArticles}

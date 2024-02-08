@@ -1,16 +1,24 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
+import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
-import {useRoute} from '@/hooks/navigation/useRoute'
+import {navigationRef} from '@/app/navigation/navigationRef'
+import {RootStackParams} from '@/app/navigation/types'
+import {type Piwik} from '@/processes/piwik/types'
+import {
+  getOptionsWithDefaultDimensions,
+  getTitleFromParams,
+} from '@/processes/piwik/utils'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SendErrorLog} from '@/processes/sentry/types'
+import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
-import {Piwik} from '@/types/piwik'
-import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
-export {PiwikAction, PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
+export {
+  PiwikAction,
+  PiwikDimension,
+  PiwikSessionDimension,
+} from '@/processes/piwik/types'
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
@@ -22,11 +30,14 @@ const DEFAULT_PIWIK_CONTEXT: Piwik = {
 
 const FILENAME = 'usePiwik.ts'
 
+type Params = Record<string, unknown>
+
 // We can extend the default Piwik methods here, e.g. to automatically add the route name
 const getPiwik = (
   {trackCustomEvent, trackOutlink, trackScreen, trackSearch}: PiwikProSdkType,
   sendSentryErrorLog: SendErrorLog,
-  routeName?: string,
+  routeName?: keyof RootStackParams,
+  params?: Params,
 ): Piwik => ({
   trackCustomEvent: (category, action, options) => {
     trackCustomEvent(
@@ -54,7 +65,16 @@ const getPiwik = (
     })
   },
   trackScreen: (path, options) => {
-    trackScreen(path, getOptionsWithDefaultDimensions(options)).catch(() => {
+    const name = path ?? routeName
+
+    if (!name) {
+      return
+    }
+
+    trackScreen(name, {
+      title: getTitleFromParams(params),
+      ...options,
+    }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
         path,
       })
@@ -67,29 +87,23 @@ const getPiwik = (
   },
 })
 
-const usePiwikBase = (routeName?: string) => {
+export const usePiwik = () => {
   const PiwikInstance = useContext(PiwikContext)
   const {sendSentryErrorLog} = useSentry()
+  const route = navigationRef.isReady()
+    ? navigationRef.getCurrentRoute()
+    : undefined
 
   return useMemo(() => {
     if (!PiwikInstance) {
       return DEFAULT_PIWIK_CONTEXT
     }
 
-    return getPiwik(PiwikInstance, sendSentryErrorLog, routeName)
-  }, [PiwikInstance, routeName, sendSentryErrorLog])
+    return getPiwik(
+      PiwikInstance,
+      sendSentryErrorLog,
+      route?.name,
+      route?.params as Params,
+    )
+  }, [PiwikInstance, route?.name, route?.params, sendSentryErrorLog])
 }
-
-/**
- * Returns Piwik logging methods. This hook can only be used in components inside the navigation container, since it relies on the navigation to automatically add the route name to custom events.
- */
-export const usePiwik = (): Piwik => {
-  const {name} = useRoute()
-
-  return usePiwikBase(name)
-}
-
-/**
- * Use this for Piwik logging in components outside the navigation container. The usePiwik hook automatically adds the route name to custom events, but this causes an error when used outside the navigation container. This hook omits that behaviour and can be used safely anywhere.
- */
-export const usePiwikOutsideNavigation = (): Piwik => usePiwikBase()

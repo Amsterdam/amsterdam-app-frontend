@@ -1,14 +1,20 @@
 import {
   // eslint-disable-next-line no-restricted-imports
-  NavigationProp as NavigationPropOriginal,
-  ParamListBase,
+  type NavigationProp as NavigationPropOriginal,
+  type ParamListBase,
   // eslint-disable-next-line no-restricted-imports
-  RouteProp as RoutePropOriginal,
+  type RouteProp as RoutePropOriginal,
 } from '@react-navigation/core'
-import {StackNavigationOptions} from '@react-navigation/stack'
-import {ComponentType} from 'react'
-import {ModuleSlug} from '@/modules/slugs'
-import {ModuleStackParams, ModalParams} from '@/modules/stacks'
+import {type StackNavigationOptions} from '@react-navigation/stack'
+import {type ComponentType} from 'react'
+import {type ModuleSlug} from '@/modules/slugs'
+import {type ModuleStackParams, type ModalParams} from '@/modules/stacks'
+
+/** We use these param names exclusively to set a screen's titles: the header title and the title for analytics */
+export type TitleParams = {
+  screenHeaderTitle: string
+  screenTitle?: string
+}
 
 type ModuleParams<
   ParamList extends ParamListBase,

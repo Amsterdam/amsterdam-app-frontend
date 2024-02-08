@@ -1,11 +1,12 @@
 import {type ReactNode, useEffect} from 'react'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
-import {Screen} from '@/components/ui/layout/Screen'
+import {ScreenOutsideNavigation} from '@/components/ui/layout/Screen'
 import {UpdateFigure} from '@/components/ui/media/errors/UpdateFigure'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
+import {ScreenOutsideNavigationName} from '@/processes/piwik/types'
 import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
@@ -33,9 +34,9 @@ export const UpdateScreen = ({children}: Props) => {
   const openStore = useOpenStore()
   const {isPortrait} = useDeviceContext()
 
-  const hideSplashScreen = useHideSplashScreen()
-
   const supported = data?.versionInfo.supported
+
+  const hideSplashScreen = useHideSplashScreen()
 
   useEffect(() => {
     if (supported === false || isError) {
@@ -47,7 +48,8 @@ export const UpdateScreen = ({children}: Props) => {
 
   if (supported === false) {
     return (
-      <Screen
+      <ScreenOutsideNavigation
+        name={ScreenOutsideNavigationName.updateScreen}
         scroll={false}
         withLeftInset={!!isPortrait}
         withRightInset={!!isPortrait}
@@ -63,7 +65,7 @@ export const UpdateScreen = ({children}: Props) => {
           text="Om de app te kunnen gebruiken moet u eerst updaten."
           title="De versie van de app is verouderd en werkt niet meer."
         />
-      </Screen>
+      </ScreenOutsideNavigation>
     )
   }
 

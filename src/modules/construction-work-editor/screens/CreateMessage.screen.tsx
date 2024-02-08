@@ -1,4 +1,4 @@
-import {useEffect, useLayoutEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,6 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Title} from '@/components/ui/text/Title'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {MessageForm} from '@/modules/construction-work-editor/components/MessageForm'
@@ -25,17 +26,16 @@ type Props = NavigationProps<ConstructionWorkEditorRouteName.createMessage>
 
 export const CreateMessageScreen = ({navigation, route}: Props) => {
   const dispatch = useDispatch()
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const mainImage = useSelector(selectMainImage(route.params.projectId))
+
+  const {projectId, screenHeaderTitle: projectTitle} = route.params
+
+  const mainImage = useSelector(selectMainImage(projectId.toString()))
 
   const formRef = useRef<{
     handleSubmit: (onSuccess?: () => void) => Promise<void>
   }>()
 
   useEffect(() => {
-    const {projectId, projectTitle} = route.params
-
     dispatch(
       setProject({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,13 +47,9 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     dispatch(setCurrentProjectId(projectId))
-  }, [dispatch, route])
+  }, [dispatch, projectId, projectTitle])
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: route.params.projectTitle,
-    })
-  }, [navigation, route.params.projectTitle])
+  useSetScreenTitle()
 
   return (
     <Screen
@@ -73,7 +69,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                   navigation.navigate(
                     ConstructionWorkEditorModalName.writingGuide,
                     {
-                      projectTitle: route.params.projectTitle,
+                      screenHeaderTitle: projectTitle,
                     },
                   )
                 }}

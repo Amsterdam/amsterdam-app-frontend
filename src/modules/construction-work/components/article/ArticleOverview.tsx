@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {type TitleParams} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -10,14 +11,15 @@ import {ArticlePreview} from '@/modules/construction-work/components/article/Art
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useArticlesQuery} from '@/modules/construction-work/service'
-import {ArticlesItem} from '@/modules/construction-work/types/api'
+import {type ArticlesItem} from '@/modules/construction-work/types/api'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
-import {Theme} from '@/themes/themes'
+import {type Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {getYearOfPublicationDate} from '@/utils/datetime/getYearOfPublicationDate'
 
 type Props = {
-  projectId?: number
+  projectId: number
+  projectTitle: string
   title: string
 }
 
@@ -26,7 +28,7 @@ type YearlyArticleSection = {
   title: string
 }
 
-export const ArticleOverview = ({projectId, title}: Props) => {
+export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
   const {data: articles, isLoading} = useArticlesQuery(
@@ -69,20 +71,23 @@ export const ArticleOverview = ({projectId, title}: Props) => {
     [articles, markMultipleAsRead, navigation],
   )
 
-  const navigateToArticle = ({meta_id: {id, type}}: ArticlesItem) => {
-    if (type === 'warning') {
-      navigation.navigate(ConstructionWorkRouteName.projectWarning, {
-        id,
-        projectId,
-      })
-
-      return
-    }
-
-    navigation.navigate(ConstructionWorkRouteName.projectNews, {
+  const navigateToArticle = ({
+    meta_id: {id, type},
+    title: articleTitle,
+  }: ArticlesItem) => {
+    const params: TitleParams & {id: number; projectId?: number | undefined} = {
       id,
       projectId,
-    })
+      screenHeaderTitle: projectTitle,
+      screenTitle: `${projectTitle} - ${articleTitle}`,
+    }
+
+    navigation.navigate(
+      type === 'warning'
+        ? ConstructionWorkRouteName.projectWarning
+        : ConstructionWorkRouteName.projectNews,
+      params,
+    )
   }
 
   if (isLoading || yearlyArticleSections === undefined) {

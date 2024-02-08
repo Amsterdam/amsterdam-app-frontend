@@ -1,35 +1,11 @@
-import {
-  PIWIK_PRO_ID,
-  PIWIK_PRO_ID_ACCEPT,
-  PIWIK_PRO_URL,
-  PIWIK_PRO_URL_ACCEPT,
-} from '@env'
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {createContext, ReactNode} from 'react'
 import {useEffect, useState} from 'react'
-import {isProductionApp} from '@/processes/development'
+import {initPiwik} from '@/processes/piwik/init'
+import {PiwikError} from '@/processes/piwik/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-
-enum PiwikError {
-  alreadyInitialized = 'Piwik Pro SDK has been already initialized',
-  missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
-}
-
-const URL = isProductionApp ? PIWIK_PRO_URL : PIWIK_PRO_URL_ACCEPT
-
-const ID = isProductionApp ? PIWIK_PRO_ID : PIWIK_PRO_ID_ACCEPT
-
-const initPiwik = async (): Promise<void> => {
-  if (!URL || !ID) {
-    return Promise.reject(PiwikError.missingEnvVars)
-  }
-
-  await PiwikProSdk.init(URL, ID)
-  await PiwikProSdk.trackApplicationInstall()
-  await PiwikProSdk.setIncludeDefaultCustomVariables(true)
-}
 
 type PiwikContextType = PiwikProSdkType | null | undefined
 
@@ -53,12 +29,13 @@ export const PiwikProvider = ({children}: Props) => {
           setPiwikInstance(PiwikProSdk)
         })
         .catch((error: Error) => {
+          if (error.message === PiwikError.alreadyInitialized) {
+            return
+          }
+
           setPiwikInstance(null)
 
-          if (
-            error.message === PiwikError.alreadyInitialized ||
-            error.message === PiwikError.missingEnvVars
-          ) {
+          if (error.message === PiwikError.missingEnvVars) {
             return
           }
 

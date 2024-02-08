@@ -4,7 +4,7 @@ import {
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {PiwikSessionDimension} from '@/types/piwik'
+import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 const DEFAULT_DIMENSIONS: CustomDimensions = {
@@ -24,3 +24,6 @@ export const getOptionsWithDefaultDimensions = <
     ...options,
     customDimensions: {...options?.customDimensions, ...DEFAULT_DIMENSIONS},
   }) as T
+
+export const getTitleFromParams = (params?: Record<string, unknown>) =>
+  (params?.screenTitle ?? params?.screenHeaderTitle) as string | undefined

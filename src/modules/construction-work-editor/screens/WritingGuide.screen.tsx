@@ -1,4 +1,4 @@
-import {NavigationProps} from '@/app/navigation/types'
+import {type NavigationProps} from '@/app/navigation/types'
 import {CloseModalButton} from '@/components/ui/buttons/CloseModalButton'
 import {ModalHeader} from '@/components/ui/containers/ModalHeader'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -18,7 +18,7 @@ export const WritingGuideScreen = ({route}: Props) => (
     stickyHeader={
       <ModalHeader
         testID="ConstructionWorkEditorWritingGuideModalHeader"
-        title={route.params.projectTitle}
+        title={route.params.screenHeaderTitle}
       />
     }
     testID="ConstructionWorkEditorWritingGuideScreen">

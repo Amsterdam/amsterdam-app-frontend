@@ -4,8 +4,9 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Warning} from '@/components/ui/feedback/Warning'
 import {Column} from '@/components/ui/layout/Column'
-import {Screen} from '@/components/ui/layout/Screen'
-import {Theme} from '@/themes/themes'
+import {ScreenOutsideNavigation} from '@/components/ui/layout/Screen'
+import {ScreenOutsideNavigationName} from '@/processes/piwik/types'
+import {type Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export const ErrorWithRestart = () => {
@@ -13,7 +14,8 @@ export const ErrorWithRestart = () => {
 
   return (
     <View style={styles.screen}>
-      <Screen
+      <ScreenOutsideNavigation
+        name={ScreenOutsideNavigationName.errorWithRestart}
         scroll={false}
         withTopInset>
         <Box inset="lg">
@@ -28,7 +30,7 @@ export const ErrorWithRestart = () => {
             />
           </Column>
         </Box>
-      </Screen>
+      </ScreenOutsideNavigation>
     </View>
   )
 }

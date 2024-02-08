@@ -1,13 +1,10 @@
 import {useFlipper} from '@react-navigation/devtools'
-import {
-  NavigationContainer,
-  useNavigationContainerRef,
-} from '@react-navigation/native'
-import {ReactNode} from 'react'
-import RNBootSplash from 'react-native-bootsplash'
+import {NavigationContainer} from '@react-navigation/native'
+import {type ReactNode} from 'react'
 import {linking} from '@/app/navigation/linking'
-import {RootStackParams} from '@/app/navigation/types'
-import {useHandleNavigationStateChange} from '@/hooks/navigation/useHandleNavigationStateChange'
+import {navigationRef} from '@/app/navigation/navigationRef'
+import {type RootStackParams} from '@/app/navigation/types'
+import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {registerNavigationContainer} from '@/processes/sentry/init'
 
 type Props = {
@@ -15,20 +12,18 @@ type Props = {
 }
 
 export const AppNavigationContainer = ({children}: Props) => {
-  const navigation = useNavigationContainerRef<RootStackParams>()
+  const hideSplashScreen = useHideSplashScreen()
 
-  useFlipper(navigation)
-  const handleNavigationStateChange = useHandleNavigationStateChange()
+  useFlipper(navigationRef)
 
   return (
     <NavigationContainer<RootStackParams>
       linking={linking}
       onReady={() => {
-        registerNavigationContainer(navigation)
-        void RNBootSplash.hide({fade: true})
+        registerNavigationContainer(navigationRef)
+        hideSplashScreen()
       }}
-      onStateChange={handleNavigationStateChange}
-      ref={navigation}>
+      ref={navigationRef}>
       {children}
     </NavigationContainer>
   )

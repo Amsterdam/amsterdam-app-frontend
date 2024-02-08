@@ -3,7 +3,6 @@ import {
   TrackCustomEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
@@ -14,7 +13,7 @@ export type Piwik = {
   ) => void
   trackOutlink: (url: string, options?: CommonEventOptions) => void
   trackScreen: (
-    path: keyof RootStackParams,
+    path?: ScreenOutsideNavigationName,
     options?: TrackScreenOptions,
   ) => void
   trackSearch: (keyword: string, options?: TrackScreenOptions) => void
@@ -80,4 +79,15 @@ export enum PiwikAction {
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
   toForeground = 'toForeground',
+}
+
+/** We generally use the route name as the name of the screen when we log a screen view. This is not possible for screens outside the navigation tree, for those we use these names. */
+export enum ScreenOutsideNavigationName {
+  errorWithRestart = 'errorWithRestart',
+  updateScreen = 'updateScreen',
+}
+
+export enum PiwikError {
+  alreadyInitialized = 'Piwik Pro SDK has been already initialized',
+  missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
 }

@@ -1,3 +1,5 @@
+import {type TitleParams} from '@/app/navigation/types'
+
 export enum ConstructionWorkEditorRouteName {
   addMainImageToMessage = 'addMainImageToMessage',
   authorizedProjects = 'authorizedProjects',
@@ -12,9 +14,8 @@ export type ConstructionWorkEditorStackParams = {
     showSuccessfullySentMessageAlert?: boolean
   }
   [ConstructionWorkEditorRouteName.confirmMessage]: undefined
-  [ConstructionWorkEditorRouteName.createMessage]: {
+  [ConstructionWorkEditorRouteName.createMessage]: TitleParams & {
     projectId: number
-    projectTitle: string
   }
 }
 
@@ -23,7 +24,5 @@ export enum ConstructionWorkEditorModalName {
 }
 
 export type ConstructionWorkEditorModalParams = {
-  [ConstructionWorkEditorModalName.writingGuide]: {
-    projectTitle: string
-  }
+  [ConstructionWorkEditorModalName.writingGuide]: TitleParams
 }
