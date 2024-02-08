@@ -14,6 +14,8 @@ import {onboardingData} from '@/modules/onboarding/data/onboarding'
 import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 
+const navigationResetParam = {index: 0, routes: [{name: ModuleSlug.home}]}
+
 export const OnboardingScreen = () => {
   const carouselRef = useRef<SwiperFlatList>(null)
   const navigation = useNavigation<ModuleSlug>()
@@ -26,7 +28,7 @@ export const OnboardingScreen = () => {
 
   const handleOnboarding = useCallback(() => {
     dispatch(setHasSeenOnboarding(true))
-    navigation.navigate(ModuleSlug.home)
+    navigation.reset(navigationResetParam)
   }, [dispatch, navigation])
 
   const onPress = useCallback(() => {
