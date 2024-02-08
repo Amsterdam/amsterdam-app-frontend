@@ -86,3 +86,8 @@ export enum ScreenOutsideNavigationName {
   errorWithRestart = 'errorWithRestart',
   updateScreen = 'updateScreen',
 }
+
+export enum PiwikError {
+  alreadyInitialized = 'Piwik Pro SDK has been already initialized',
+  missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
+}
