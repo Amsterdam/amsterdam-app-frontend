@@ -1,10 +1,10 @@
 import {ReactNode, useEffect, useMemo} from 'react'
-import {useLogGeneralAnalytics} from '@/hooks/piwik/useLogGeneralAnalytics'
 import {useAppState} from '@/hooks/useAppState'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
+import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
 type Props = {children: ReactNode}

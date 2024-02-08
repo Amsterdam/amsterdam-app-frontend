@@ -16,13 +16,13 @@ import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingV
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {type TestProps} from '@/components/ui/types'
-import {useTrackScreenOnFocus} from '@/hooks/piwik/useTrackScreenOnFocus'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
+import {useTrackScreenOnFocus} from '@/processes/piwik/hooks/useTrackScreenOnFocus'
 import {
   type ScreenOutsideNavigationName,
   useTrackScreenOutsideNavigation,
-} from '@/hooks/piwik/useTrackScreenOutsideNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
+} from '@/processes/piwik/hooks/useTrackScreenOutsideNavigation'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 type WrapperProps = Pick<

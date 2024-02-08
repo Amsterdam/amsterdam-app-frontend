@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {usePiwik} from '@/hooks/piwik/usePiwik'
+import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {type ScreenOutsideNavigationName} from '@/types/piwik'
 export {ScreenOutsideNavigationName} from '@/types/piwik'
 

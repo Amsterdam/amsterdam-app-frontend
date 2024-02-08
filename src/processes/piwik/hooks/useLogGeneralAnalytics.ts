@@ -1,12 +1,12 @@
 import {useCallback} from 'react'
+import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
+import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 import {
   PiwikAction,
   PiwikSessionDimension,
   usePiwik,
-} from '@/hooks/piwik/usePiwik'
-import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
-import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
+} from '@/processes/piwik/hooks/usePiwik'
 
 const useLogAccessibilityAnalytics = () => {
   const {trackCustomEvent} = usePiwik()

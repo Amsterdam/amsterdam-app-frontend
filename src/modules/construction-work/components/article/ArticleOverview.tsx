@@ -82,13 +82,12 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
       screenTitle: `${projectTitle} - ${articleTitle}`,
     }
 
-    if (type === 'warning') {
-      navigation.navigate(ConstructionWorkRouteName.projectWarning, params)
-
-      return
-    }
-
-    navigation.navigate(ConstructionWorkRouteName.projectNews, params)
+    navigation.navigate(
+      type === 'warning'
+        ? ConstructionWorkRouteName.projectWarning
+        : ConstructionWorkRouteName.projectNews,
+      params,
+    )
   }
 
   if (isLoading || yearlyArticleSections === undefined) {

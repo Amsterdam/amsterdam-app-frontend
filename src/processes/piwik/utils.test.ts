@@ -2,8 +2,8 @@ import {
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {getOptionsWithDefaultDimensions} from './utils'
 import {PiwikDimension, PiwikSessionDimension} from '@/types/piwik'
-import {getOptionsWithDefaultDimensions} from '@/utils/piwik'
 import {VERSION_NUMBER} from '@/utils/version'
 
 describe('getOptionsWithDefaultDimensions', () => {
