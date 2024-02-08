@@ -10,7 +10,7 @@ import {type ComponentType} from 'react'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type ModuleStackParams, type ModalParams} from '@/modules/stacks'
 
-/** We use these param names exclusively to set a screen's titles: the header title and the title for anlytics */
+/** We use these param names exclusively to set a screen's titles: the header title and the title for analytics */
 export type TitleParams = {
   screenHeaderTitle: string
   screenTitle?: string
