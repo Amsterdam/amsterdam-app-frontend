@@ -11,7 +11,7 @@ export const useLogDeviceInfoAnalytics = () => {
   const {fontScale, isLandscape, isPortrait, isTablet} = useDeviceContext()
 
   const trackDeviceInfo = useCallback(
-    <T extends number | boolean>(deviceInfo: T, dimension: number) => {
+    (deviceInfo: number | boolean, dimension: PiwikSessionDimension) => {
       trackCustomEvent('general', PiwikAction.accessibilityEventListener, {
         name: 'device',
         customDimensions: {
