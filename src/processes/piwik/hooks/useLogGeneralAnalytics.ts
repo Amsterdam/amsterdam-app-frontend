@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {useLogAccessibilityAnalytics} from '@/hooks/accessibility/useLogAccessibilityAnalytics'
+import {useLogAccessibilityAnalytics} from '@/processes/piwik/hooks/useLogAccessibilityAnalytics'
 import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
 
 const useLogPermissionAnalytics = () => {

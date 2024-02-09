@@ -12,19 +12,18 @@ export type AccessibilityFeatureForLogging = {
   piwikDimension: PiwikSessionDimension
 }
 
-export const accessibilityFeaturesForLogging: AccessibilityFeatureForLogging[] =
-  [
-    {
-      feature: AccessibilityInfo.isScreenReaderEnabled(),
-      eventName: 'screenReaderChanged',
-      piwikDimension: PiwikSessionDimension.screenReaderEnabled,
-    },
-    {
-      feature: AccessibilityInfo.isReduceMotionEnabled(),
-      eventName: 'reduceMotionChanged',
-      piwikDimension: PiwikSessionDimension.reduceMotionEnabled,
-    },
-  ]
+export const accessibilityFeatures: AccessibilityFeatureForLogging[] = [
+  {
+    feature: AccessibilityInfo.isScreenReaderEnabled(),
+    eventName: 'screenReaderChanged',
+    piwikDimension: PiwikSessionDimension.screenReaderEnabled,
+  },
+  {
+    feature: AccessibilityInfo.isReduceMotionEnabled(),
+    eventName: 'reduceMotionChanged',
+    piwikDimension: PiwikSessionDimension.reduceMotionEnabled,
+  },
+]
 
 export const useLogAccessibilityAnalyticsForPlatform = (
   accessibilityFeatureForPlatform: AccessibilityFeatureForLogging[] = [],
@@ -32,7 +31,7 @@ export const useLogAccessibilityAnalyticsForPlatform = (
   const {trackCustomEvent} = usePiwikOutsideNavigation()
   const accessibilityFeaturesToLog = [
     ...accessibilityFeatureForPlatform,
-    ...accessibilityFeaturesForLogging,
+    ...accessibilityFeatures,
   ]
 
   const trackCustomGeneralEvent = useCallback(
