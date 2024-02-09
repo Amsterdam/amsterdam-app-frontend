@@ -74,6 +74,22 @@ export enum PiwikSessionDimension {
   userCity = 2,
   appVersion = 18,
   appVersionWithBuild = 19,
+  reduceMotionEnabled = 21,
+  locationPermission = 22,
+  screenReaderEnabled = 23,
+  accessibilityServiceEnabled = 24,
+  boldTextEnabled = 25,
+  grayscaleEnabled = 26,
+  invertColorsEnabled = 27,
+  reduceTransparencyEnabled = 28,
+  fontScale = 29,
+  isLandscape = 30,
+  isPortrait = 31,
+  isTablet = 32,
+  hasCameraPermission = 33,
+  hasPhotosPermission = 34,
+  hasLocationPermission = 35,
+  hasNotificationPermission = 36,
 }
 
 export type CustomDimensions = Partial<
@@ -89,9 +105,11 @@ export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
+  accessibilityEventListener = 'accessibilityEventListener',
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
+  onStartUp = 'onStartUp',
   toForeground = 'toForeground',
 }
 
