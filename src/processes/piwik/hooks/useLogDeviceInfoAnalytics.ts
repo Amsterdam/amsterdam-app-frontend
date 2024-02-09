@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import {
   usePiwikOutsideNavigation,
   PiwikSessionDimension,
@@ -22,19 +22,22 @@ export const useLogDeviceInfoAnalytics = () => {
     [trackCustomEvent],
   )
 
-  useEffect(() => {
-    trackDeviceInfo(fontScale, PiwikSessionDimension.fontScale)
-  }, [fontScale, trackDeviceInfo])
+  return useCallback(() => {
+    const deviceInfoList = [
+      {callbackFn: fontScale, piwikDimension: PiwikSessionDimension.fontScale},
+      {
+        callbackFn: isLandscape,
+        piwikDimension: PiwikSessionDimension.isLandscape,
+      },
+      {
+        callbackFn: isPortrait,
+        piwikDimension: PiwikSessionDimension.isPortrait,
+      },
+      {callbackFn: isTablet, piwikDimension: PiwikSessionDimension.isTablet},
+    ]
 
-  useEffect(() => {
-    trackDeviceInfo(isLandscape, PiwikSessionDimension.isLandscape)
-  }, [isLandscape, trackDeviceInfo])
-
-  useEffect(() => {
-    trackDeviceInfo(isPortrait, PiwikSessionDimension.isPortrait)
-  }, [isPortrait, trackDeviceInfo])
-
-  useEffect(() => {
-    trackDeviceInfo(isTablet, PiwikSessionDimension.isTablet)
-  }, [isTablet, trackDeviceInfo])
+    deviceInfoList.forEach(({callbackFn, piwikDimension}) => {
+      trackDeviceInfo(callbackFn, piwikDimension)
+    })
+  }, [fontScale, isLandscape, isPortrait, isTablet, trackDeviceInfo])
 }
