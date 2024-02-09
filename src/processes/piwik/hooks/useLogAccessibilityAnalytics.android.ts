@@ -2,8 +2,8 @@ import {AccessibilityInfo} from 'react-native'
 import {
   AccessibilityFeatureForLogging,
   useLogAccessibilityAnalyticsForPlatform,
-} from '@/hooks/piwik/useLogAccessibilityAnalyticsForPlatform'
-import {PiwikSessionDimension} from '@/hooks/piwik/usePiwik'
+} from '@/processes/piwik/hooks/useLogAccessibilityAnalyticsForPlatform'
+import {PiwikSessionDimension} from '@/processes/piwik/hooks/usePiwik'
 
 export const accessibilityFeaturesAndroidOnly: AccessibilityFeatureForLogging[] =
   [

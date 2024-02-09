@@ -8,8 +8,8 @@ import {
 import {
   PiwikAction,
   PiwikSessionDimension,
-  usePiwikOutsideNavigation,
-} from '@/hooks/piwik/usePiwik'
+  usePiwik,
+} from '@/processes/piwik/hooks/usePiwik'
 import {permissions} from '@/utils/permissions/permissions'
 
 export const permissionsForLogging = [
@@ -28,7 +28,7 @@ export const permissionsForLogging = [
 ]
 
 export const useLogPermissionAnalytics = () => {
-  const {trackCustomEvent} = usePiwikOutsideNavigation()
+  const {trackCustomEvent} = usePiwik()
 
   const logPermissionAnalytics = useCallback(
     (result: PermissionStatus, piwikDimension: PiwikSessionDimension) => {

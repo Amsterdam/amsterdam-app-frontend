@@ -1,6 +1,6 @@
 import {View, StyleSheet} from 'react-native'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder'
-import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
+import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'

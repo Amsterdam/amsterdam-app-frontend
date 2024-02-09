@@ -3,8 +3,8 @@ import {AccessibilityChangeEventName, AccessibilityInfo} from 'react-native'
 import {
   PiwikAction,
   PiwikSessionDimension,
-  usePiwikOutsideNavigation,
-} from '@/hooks/piwik/usePiwik'
+  usePiwik,
+} from '@/processes/piwik/hooks/usePiwik'
 
 export type AccessibilityFeatureForLogging = {
   eventName: AccessibilityChangeEventName | 'accessibilityServiceChanged' //TODO: remove this when react-native added this event
@@ -28,7 +28,7 @@ export const accessibilityFeatures: AccessibilityFeatureForLogging[] = [
 export const useLogAccessibilityAnalyticsForPlatform = (
   accessibilityFeatureForPlatform: AccessibilityFeatureForLogging[] = [],
 ) => {
-  const {trackCustomEvent} = usePiwikOutsideNavigation()
+  const {trackCustomEvent} = usePiwik()
   const accessibilityFeaturesToLog = [
     ...accessibilityFeatureForPlatform,
     ...accessibilityFeatures,

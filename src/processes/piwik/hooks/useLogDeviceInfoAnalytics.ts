@@ -1,13 +1,13 @@
 import {useCallback} from 'react'
-import {
-  usePiwikOutsideNavigation,
-  PiwikSessionDimension,
-  PiwikAction,
-} from '@/hooks/piwik/usePiwik'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {
+  PiwikAction,
+  PiwikSessionDimension,
+  usePiwik,
+} from '@/processes/piwik/hooks/usePiwik'
 
 export const useLogDeviceInfoAnalytics = () => {
-  const {trackCustomEvent} = usePiwikOutsideNavigation()
+  const {trackCustomEvent} = usePiwik()
   const {fontScale, isLandscape, isPortrait, isTablet} = useDeviceContext()
 
   const trackDeviceInfo = useCallback(
