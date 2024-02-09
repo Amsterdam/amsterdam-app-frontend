@@ -16,7 +16,7 @@ export type TitleParams = {
   screenTitle?: string
 }
 
-export type IdParams = {
+export type VariableContentParams = TitleParams & {
   id: number
 }
 
