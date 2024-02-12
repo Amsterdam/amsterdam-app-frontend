@@ -20,4 +20,6 @@ export const initPiwik = async (): Promise<void> => {
   await PiwikProSdk.init(URL, ID)
   await PiwikProSdk.trackApplicationInstall()
   await PiwikProSdk.setIncludeDefaultCustomVariables(true)
+
+  return Promise.resolve()
 }
