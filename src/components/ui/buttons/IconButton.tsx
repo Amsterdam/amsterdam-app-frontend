@@ -1,10 +1,6 @@
 import {ReactElement, forwardRef} from 'react'
-import {
-  Pressable,
-  PressableProps as PressableRNProps,
-  StyleSheet,
-  View,
-} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {config} from '@/components/ui/config'
 import {Badge, BadgeProps} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
@@ -22,7 +18,7 @@ type Props = {
    * The icon component to use for the button.
    */
   icon: ReactElement<IconProps>
-} & Omit<PressableRNProps, 'style'>
+} & Omit<PressableProps, 'style' | 'children'>
 
 export const IconButton = forwardRef<View, Props>(
   ({badgeValue, icon, ...pressableProps}, ref) => {
@@ -39,6 +35,7 @@ export const IconButton = forwardRef<View, Props>(
           accessibilityRole="button"
           hitSlop={hitSlop}
           ref={ref}
+          variant="transparent"
           {...pressableProps}>
           {icon}
           {badgeValue ? (

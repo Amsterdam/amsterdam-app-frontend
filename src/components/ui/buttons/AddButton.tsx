@@ -1,10 +1,12 @@
-import {PressableProps, StyleSheet} from 'react-native'
-import {Pressable} from '@/components/ui/buttons/Pressable'
+import {StyleSheet} from 'react-native'
+import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Icon} from '@/components/ui/media/Icon'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const AddButton = (props: PressableProps) => {
+type Props = Omit<PressableProps, 'children'>
+
+export const AddButton = (props: Props) => {
   const styles = useThemable(createStyles)
 
   return (

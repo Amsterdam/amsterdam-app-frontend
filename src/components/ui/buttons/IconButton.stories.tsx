@@ -1,24 +1,25 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {IconButton} from './IconButton'
 import {Icon} from '@/components/ui/media/Icon'
+import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 
-export default {
+const meta: Meta<typeof IconButton> = {
   component: IconButton,
-  argTypes: {
-    onPress: {
-      action: 'onPress',
-    },
+  argTypes: pressableArgTypes,
+}
+
+export default meta
+
+type Story = StoryObj<typeof IconButton>
+
+export const Default: Story = {
+  args: {
+    icon: (
+      <Icon
+        name="person"
+        size="lg"
+      />
+    ),
+    badgeValue: 7,
   },
-} as ComponentMeta<typeof IconButton>
-
-export const Default: ComponentStory<typeof Icon> = args => (
-  <IconButton
-    badgeValue={7}
-    icon={<Icon {...args} />}
-  />
-)
-
-Default.args = {
-  name: 'person',
-  size: 'lg',
 }

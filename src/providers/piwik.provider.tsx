@@ -1,7 +1,6 @@
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {createContext, ReactNode} from 'react'
-import {useEffect, useState} from 'react'
+import {createContext, ReactNode, useEffect, useState} from 'react'
 import {initPiwik} from '@/processes/piwik/init'
 import {PiwikError} from '@/processes/piwik/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'

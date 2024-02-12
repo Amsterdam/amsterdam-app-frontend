@@ -3,7 +3,7 @@ import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
-import {type Piwik} from '@/processes/piwik/types'
+import {PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {
   addIdFromParamsToCustomDimensions,
   getOptionsWithDefaultDimensions,
@@ -13,6 +13,7 @@ import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
+import {getCurrentModuleSlugFromNavigationRootState} from '@/utils/getCurrentModuleSlugFromNavigationRootState'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 export {
@@ -23,6 +24,7 @@ export {
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
+  suggestedCategory: 'general',
   trackCustomEvent: () => {},
   trackOutlink: () => {},
   trackScreen: () => {},
@@ -37,6 +39,7 @@ type Params = Record<string, unknown>
 const getPiwik = (
   {trackCustomEvent, trackOutlink, trackScreen, trackSearch}: PiwikProSdkType,
   sendSentryErrorLog: SendErrorLog,
+  suggestedCategory: PiwikCategory,
   routeName?: keyof RootStackParams,
   params?: Params,
 ): Piwik => ({
@@ -90,6 +93,7 @@ const getPiwik = (
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
     })
   },
+  suggestedCategory,
 })
 
 export const usePiwik = () => {
@@ -98,6 +102,8 @@ export const usePiwik = () => {
   const route = navigationRef.isReady()
     ? navigationRef.getCurrentRoute()
     : undefined
+  const suggestedCategory =
+    getCurrentModuleSlugFromNavigationRootState() ?? 'general'
 
   return useMemo(() => {
     if (!PiwikInstance) {
@@ -107,8 +113,15 @@ export const usePiwik = () => {
     return getPiwik(
       PiwikInstance,
       sendSentryErrorLog,
+      suggestedCategory,
       route?.name,
       route?.params as Params,
     )
-  }, [PiwikInstance, route?.name, route?.params, sendSentryErrorLog])
+  }, [
+    PiwikInstance,
+    sendSentryErrorLog,
+    suggestedCategory,
+    route?.name,
+    route?.params,
+  ])
 }
