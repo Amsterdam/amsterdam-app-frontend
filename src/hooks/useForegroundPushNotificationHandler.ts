@@ -1,7 +1,7 @@
 import notifee, {EventType} from '@notifee/react-native'
 import {useLinkTo} from '@react-navigation/native'
 import {useEffect} from 'react'
-import {createRouteFromNotification} from '@/app/navigation/linking'
+import {createPathFromNotification} from '@/app/navigation/linking'
 import {useDisplayNotificationOnAppForeground} from '@/hooks/useDisplayNotificationOnAppForeground'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
@@ -22,9 +22,13 @@ export const useForegroundPushNotificationHandler = () => {
         return
       }
 
-      const url = createRouteFromNotification(notification)
+      const url = createPathFromNotification(notification)
 
-      url && linkTo(url)
+      if (!url) {
+        return
+      }
+
+      linkTo(url)
     }
 
     return notifee.onForegroundEvent(({type, detail}) => {

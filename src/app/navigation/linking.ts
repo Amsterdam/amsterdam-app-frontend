@@ -31,7 +31,7 @@ export const pushNotificationTypes: Record<
   },
 }
 
-export const createRouteFromNotification = ({
+export const createPathFromNotification = ({
   data,
   notification,
 }: PushNotification) => {
@@ -73,7 +73,7 @@ export const linking: LinkingOptions<RootStackParams> = {
         (await messaging().getInitialNotification()) as PushNotification
       const routeWithPrefix =
         initialNotification?.data &&
-        createRouteFromNotification(initialNotification)
+        createPathFromNotification(initialNotification)
 
       return routeWithPrefix ?? null
     } catch (error) {
@@ -108,7 +108,7 @@ export const linking: LinkingOptions<RootStackParams> = {
         return
       }
 
-      const routeWithPrefix = createRouteFromNotification(
+      const routeWithPrefix = createPathFromNotification(
         message as PushNotification,
       )
 

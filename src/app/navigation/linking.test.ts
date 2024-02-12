@@ -1,4 +1,4 @@
-import {createRouteFromNotification} from './linking'
+import {createPathFromNotification} from './linking'
 import {Notification, PushNotification} from '@/types/notification'
 
 describe('createRoute', () => {
@@ -17,12 +17,12 @@ describe('createRoute', () => {
   }
 
   it('should return undefined if data or notification is not provided', () => {
-    expect(createRouteFromNotification({} as PushNotification)).toBeUndefined()
+    expect(createPathFromNotification({} as PushNotification)).toBeUndefined()
   })
 
   it('should return undefined if data linkSourceid is missing', () => {
     expect(
-      createRouteFromNotification({
+      createPathFromNotification({
         data: {},
         notification: mockNotification.notification,
       }),
@@ -34,7 +34,7 @@ describe('createRoute', () => {
 
     delete notificationWithoutTitle.title
     expect(
-      createRouteFromNotification({
+      createPathFromNotification({
         data: mockNotification.data,
         notification: notificationWithoutTitle as Notification,
       }),
@@ -46,7 +46,7 @@ describe('createRoute', () => {
 
     delete notificationWithoutBody.body
     expect(
-      createRouteFromNotification({
+      createPathFromNotification({
         data: mockNotification.data,
         notification: notificationWithoutBody as Notification,
       }),
@@ -54,7 +54,7 @@ describe('createRoute', () => {
   })
 
   it('should return route with all params', () => {
-    expect(createRouteFromNotification(mockNotification)).toBe(
+    expect(createPathFromNotification(mockNotification)).toBe(
       `amsterdam://news/123/Test Notification/Test Notification - Test Body`,
     )
   })
@@ -66,7 +66,7 @@ describe('createRoute', () => {
     }
 
     expect(
-      createRouteFromNotification({
+      createPathFromNotification({
         data: mockNotification.data,
         notification: notificationWithEmptyTitle as Notification,
       }),
@@ -80,7 +80,7 @@ describe('createRoute', () => {
     }
 
     expect(
-      createRouteFromNotification({
+      createPathFromNotification({
         data: mockNotification.data,
         notification: notificationWithEmptyBody as Notification,
       }),
