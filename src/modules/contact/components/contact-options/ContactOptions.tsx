@@ -1,6 +1,8 @@
 import {Key} from 'react'
-import {PressableProps} from 'react-native'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {
+  TopTaskButton,
+  TopTaskButtonProps,
+} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {IconName} from '@/components/ui/media/iconPaths'
@@ -19,7 +21,7 @@ type ContactOption = {
   title: string
 } & Partial<
   Pick<
-    PressableProps,
+    TopTaskButtonProps,
     'accessibilityHint' | 'accessibilityLabel' | 'testID' | 'onPress'
   >
 >

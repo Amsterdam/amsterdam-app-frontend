@@ -6,6 +6,7 @@ import {
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
+  suggestedCategory: PiwikCategory
   trackCustomEvent: (
     category: PiwikCategory,
     action: PiwikAction,
@@ -93,4 +94,11 @@ export enum ScreenOutsideNavigationName {
 export enum PiwikError {
   alreadyInitialized = 'Piwik Pro SDK has been already initialized',
   missingEnvVars = 'PIWIK_PRO_URL or PIWIK_PRO_ID are not defined in env',
+}
+
+export type LogProps = {
+  logAction: PiwikAction
+  logCategory?: PiwikCategory
+  logDimensions?: TrackCustomEventOptions['customDimensions']
+  logName?: string
 }

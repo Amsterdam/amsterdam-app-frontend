@@ -1,6 +1,6 @@
 import {ReactNode} from 'react'
-import {PressableProps, StyleSheet, View} from 'react-native'
-import {Pressable} from '@/components/ui/buttons/Pressable'
+import {StyleSheet, View} from 'react-native'
+import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
