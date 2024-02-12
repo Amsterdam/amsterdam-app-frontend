@@ -13,8 +13,7 @@ export const RedirectsScreen = () => (
         <Column gutter="xs">
           <Title text="Veel gezocht" />
           <Paragraph>
-            Niet alle informatie staat in de app. Graag verwijzen we u naar onze
-            website zodat u zelf aan de slag kunt.
+            Voor deze onderwerpen kun u terecht op onze website.
           </Paragraph>
         </Column>
         <Redirects />

@@ -21,7 +21,7 @@ export const screenConfig: StackNavigationRoutes<
     component: AboutTheAppDutchScreen,
     name: AboutRouteName.appSummary,
     options: {
-      headerTitle: 'Waarom deze app?',
+      headerTitle: 'Over deze app',
     },
   },
   [AboutRouteName.aboutEnglish]: {
