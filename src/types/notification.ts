@@ -16,11 +16,22 @@ export type NotificationWithProjectTitleAndReadState = Notification & {
   projectTitle: string
 }
 
+export type PushNotificationType =
+  | 'NewsUpdatedByProjectManager'
+  | 'ProjectWarningCreatedByProjectManager'
+
+export type PushNotificationRouteConfig = {
+  id: PushNotificationType
+  route: string
+  routeWithPrefix: string
+}
+
 export type PushNotificationData = {
   linkSourceid?: string
-  type?: string
+  type?: PushNotificationType
 }
 
 export type PushNotification = {
   data?: PushNotificationData
+  notification?: Notification
 }

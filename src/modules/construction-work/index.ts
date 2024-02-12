@@ -14,8 +14,10 @@ const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 export const constructionWorkModule: ModuleClientConfig = {
   BadgeValue,
   linking: {
-    [ConstructionWorkRouteName.projectNews]: 'news/:id',
-    [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
+    [ConstructionWorkRouteName.projectNews]:
+      'news/:id/:screenHeaderTitle/:screenTitle',
+    [ConstructionWorkRouteName.projectWarning]:
+      'warning/:id/:screenHeaderTitle/:screenTitle',
   },
   logDimension: PiwikSessionDimension.constructionWorkModule,
   name: 'ConstructionWorkModule',

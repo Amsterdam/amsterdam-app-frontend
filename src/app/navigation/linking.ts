@@ -6,20 +6,19 @@ import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {devLog} from '@/processes/development'
-import {PushNotificationData} from '@/types/notification'
+import {
+  PushNotification,
+  PushNotificationRouteConfig,
+  PushNotificationType,
+} from '@/types/notification'
 import {moduleLinkings} from '@/utils/moduleLinkings'
 
 const appPrefix = 'amsterdam://'
 
-type PushNotificationTypes = {
-  [type: string]: {
-    id: string
-    route: string
-    routeWithPrefix: string
-  }
-}
-
-export const pushNotificationTypes: PushNotificationTypes = {
+export const pushNotificationTypes: Record<
+  PushNotificationType,
+  PushNotificationRouteConfig
+> = {
   NewsUpdatedByProjectManager: {
     id: 'NewsUpdatedByProjectManager',
     route: '/news',
@@ -32,18 +31,29 @@ export const pushNotificationTypes: PushNotificationTypes = {
   },
 }
 
-const createRoutWithPrefixFromDataObject = (dataObj: PushNotificationData) => {
-  const notificationType = dataObj.type && pushNotificationTypes[dataObj.type]
+export const createRouteFromNotification = ({
+  data,
+  notification,
+}: PushNotification) => {
+  const notificationType = data?.type && pushNotificationTypes[data.type]
 
-  if (!notificationType) {
+  if (!notificationType?.routeWithPrefix || !data?.linkSourceid) {
     return
   }
 
-  if (notificationType?.routeWithPrefix) {
-    return dataObj.linkSourceid
-      ? `${notificationType.routeWithPrefix}/${dataObj.linkSourceid}`
-      : notificationType.routeWithPrefix
+  const baseRoute = `${notificationType.routeWithPrefix}/${data.linkSourceid}`
+
+  if (!notification?.title) {
+    return baseRoute
   }
+
+  const baseRouteWithTitle = `${baseRoute}/${notification.title}`
+
+  if (!notification.body) {
+    return baseRouteWithTitle
+  }
+
+  return `${baseRouteWithTitle}/${notification.title} - ${notification.body}`
 }
 
 export const linking: LinkingOptions<RootStackParams> = {
@@ -59,10 +69,11 @@ export const linking: LinkingOptions<RootStackParams> = {
         return url
       }
 
-      const initialNotification = await messaging().getInitialNotification()
+      const initialNotification =
+        (await messaging().getInitialNotification()) as PushNotification
       const routeWithPrefix =
         initialNotification?.data &&
-        createRoutWithPrefixFromDataObject(initialNotification.data)
+        createRouteFromNotification(initialNotification)
 
       return routeWithPrefix ?? null
     } catch (error) {
@@ -93,10 +104,19 @@ export const linking: LinkingOptions<RootStackParams> = {
     const onMessageReceived = (
       message: FirebaseMessagingTypes.RemoteMessage,
     ) => {
-      const routeWithPrefix =
-        message?.data && createRoutWithPrefixFromDataObject(message.data)
+      if (!message.data) {
+        return
+      }
 
-      routeWithPrefix && listener(routeWithPrefix)
+      const routeWithPrefix = createRouteFromNotification(
+        message as PushNotification,
+      )
+
+      if (!routeWithPrefix) {
+        return
+      }
+
+      listener(routeWithPrefix)
     }
 
     // navigate from push when app is in background-state
