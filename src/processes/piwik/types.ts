@@ -99,6 +99,6 @@ export enum PiwikError {
 export type LogProps = {
   logAction: PiwikAction
   logCategory?: PiwikCategory
-  logDimensions?: TrackCustomEventOptions['customDimensions']
+  logDimensions?: CustomDimensions
   logName?: string
 }
