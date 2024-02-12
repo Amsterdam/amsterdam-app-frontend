@@ -5,6 +5,7 @@ import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {type Piwik} from '@/processes/piwik/types'
 import {
+  addIdFromParamsToCustomDimensions,
   getOptionsWithDefaultDimensions,
   getTitleFromParams,
 } from '@/processes/piwik/utils'
@@ -72,8 +73,12 @@ const getPiwik = (
     }
 
     trackScreen(name, {
-      title: getTitleFromParams(params),
       ...options,
+      title: getTitleFromParams(params),
+      customDimensions: addIdFromParamsToCustomDimensions(
+        options?.customDimensions,
+        params,
+      ),
     }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
         path,

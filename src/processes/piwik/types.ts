@@ -53,6 +53,8 @@ export enum PiwikDimension {
   searchMachine = 16,
   /** Pagina type o.b.v. Amsterdam Content Meetmodel */
   pageType = 17,
+  /** The ID related to the content e.g. a project ID */
+  contentId = 20,
 }
 
 /**
@@ -65,10 +67,11 @@ export enum PiwikSessionDimension {
   userCity = 2,
   appVersion = 18,
   appVersionWithBuild = 19,
-  reduceMotionEnabled = 21,
-  locationPermission = 22,
-  screenReaderEnabled = 23,
 }
+
+export type CustomDimensions = Partial<
+  Record<PiwikDimension | PiwikSessionDimension, string>
+>
 
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
 export type PiwikCategory = ModuleSlug | 'general'

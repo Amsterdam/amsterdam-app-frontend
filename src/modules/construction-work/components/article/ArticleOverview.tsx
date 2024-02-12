@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {type TitleParams} from '@/app/navigation/types'
+import {type VariableContentParams} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -75,7 +75,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     meta_id: {id, type},
     title: articleTitle,
   }: ArticlesItem) => {
-    const params: TitleParams & {id: number; projectId?: number | undefined} = {
+    const params: VariableContentParams & {projectId?: number} = {
       id,
       projectId,
       screenHeaderTitle: projectTitle,
