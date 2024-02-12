@@ -1,3 +1,4 @@
+import {TrackCustomEventOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {ReactNode, forwardRef} from 'react'
 import {
   Pressable as PressableRN,
@@ -12,7 +13,7 @@ import {LogProps, PiwikAction} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-type PressableVariant = 'primary' | 'tertiary' | 'negative'
+type PressableVariant = 'primary' | 'tertiary' | 'negative' | 'transparent'
 
 export type PressableProps = {
   children: ReactNode
@@ -62,7 +63,8 @@ export const Pressable = forwardRef<View, PressableProps>(
               logName ??
               pressableProps['sentry-label'] ??
               pressableProps.testID,
-            customDimensions: logDimensions,
+            customDimensions:
+              logDimensions as TrackCustomEventOptions['customDimensions'],
           })
         }}
         ref={ref}
@@ -85,11 +87,17 @@ const createStyles =
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
-        backgroundColor: color.pressable[variant].default,
+        backgroundColor:
+          variant !== 'transparent'
+            ? color.pressable[variant].default
+            : undefined,
         flex: grow ? 1 : undefined,
         flexShrink: grow ? 0 : 1,
       },
       pressed: {
-        backgroundColor: color.pressable[variant].highlight,
+        backgroundColor:
+          variant !== 'transparent'
+            ? color.pressable[variant].highlight
+            : undefined,
       },
     })
