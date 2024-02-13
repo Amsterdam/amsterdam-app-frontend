@@ -2,12 +2,10 @@ import {
   checkIsPermissionGranted,
   requestIsPermissionGranted,
 } from '@/utils/permissions/isPermissionGranted'
-import {permissions} from '@/utils/permissions/permissions'
-
-export const locationPermission = permissions.location
+import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 export const checkLocationPermissionGranted = () =>
-  checkIsPermissionGranted(locationPermission)
+  checkIsPermissionGranted(PERMISSION_LOCATION)
 
 export const requestLocationPermissionGranted = () =>
-  requestIsPermissionGranted(locationPermission)
+  requestIsPermissionGranted(PERMISSION_LOCATION)

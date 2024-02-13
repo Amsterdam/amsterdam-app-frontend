@@ -10,7 +10,11 @@ import {
   PiwikSessionDimension,
   usePiwik,
 } from '@/processes/piwik/hooks/usePiwik'
-import {permissions} from '@/utils/permissions/permissions'
+import {
+  PERMISSION_CAMERA,
+  PERMISSION_LOCATION,
+  PERMISSION_PHOTOS,
+} from '@/utils/permissions/permissionsForPlatform'
 
 const getValueFromResult = (result: PermissionStatus) =>
   (result === RESULTS.GRANTED).toString()
@@ -21,9 +25,9 @@ export const useLogPermissionAnalytics = () => {
   return useCallback(
     (action = PiwikAction.toForeground) => {
       void Promise.all([
-        check(permissions.camera),
-        check(permissions.location),
-        check(permissions.photo),
+        check(PERMISSION_CAMERA),
+        check(PERMISSION_LOCATION),
+        check(PERMISSION_PHOTOS),
         checkNotifications(),
       ]).then(
         ([resultCamera, resultLocation, resultPhoto, resultNotifications]) => {
