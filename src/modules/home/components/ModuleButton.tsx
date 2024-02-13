@@ -14,7 +14,6 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {toggleModule} from '@/store/slices/modules'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -103,7 +102,6 @@ export const ModuleButton = ({
   testID,
   variant = 'tertiary',
 }: ModuleButtonProps) => {
-  const {trackCustomEvent} = usePiwik()
   const dispatch = useDispatch()
   const navigation = useNavigation<HomeRouteName>()
 
@@ -131,17 +129,14 @@ export const ModuleButton = ({
       <Pressable
         inset="md"
         onPress={() => {
-          trackCustomEvent(ModuleSlug.home, PiwikAction.buttonPress, {
-            name: `Press ModuleButton for ${slug}`,
-          })
-
           navigation.navigate(slug)
         }}
+        testID={testID ? `${testID}Button` : undefined}
         variant={variant}>
         {button}
       </Pressable>
     ),
-    [button, navigation, slug, trackCustomEvent, variant],
+    [button, navigation, slug, testID, variant],
   )
 
   if (disabled) {

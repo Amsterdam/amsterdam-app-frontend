@@ -29,3 +29,23 @@ export const getPropertyFromMaybeError = <T>(
 
   return (maybeError as Record<string, unknown>)[property] as T
 }
+
+/**
+ * Filters out properties that are undefined from an object
+ */
+export const filterOutUndefinedProperties = <
+  T extends string | number | symbol,
+  S,
+>(
+  input: Partial<Record<T, S | undefined>> | undefined,
+): Record<T, S> | undefined => {
+  if (input) {
+    return (Object.keys(input) as T[])
+      .filter(key => input[key] !== undefined)
+      .reduce<
+        Record<T, S>
+      >((acc, key) => ({...acc, [key]: input[key]}), {} as Record<T, S>)
+  }
+
+  return input
+}

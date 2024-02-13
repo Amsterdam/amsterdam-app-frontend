@@ -1,4 +1,3 @@
-import {TrackCustomEventOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {ReactNode, forwardRef} from 'react'
 import {
   Pressable as PressableRN,
@@ -8,6 +7,7 @@ import {
   GestureResponderEvent,
 } from 'react-native'
 import {Box, BoxProps} from '@/components/ui/containers/Box'
+import {devError} from '@/processes/development'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
@@ -44,13 +44,14 @@ export const Pressable = forwardRef<View, PressableProps>(
       logCategory,
       logName,
       logDimensions,
+      logValue,
       ...pressableProps
     },
     ref,
   ) => {
     const styles = useThemable(createStyles(grow, variant))
 
-    const {trackCustomEvent, suggestedCategory} = usePiwik()
+    const {trackCustomEvent} = usePiwik()
 
     return (
       <PressableRN
@@ -58,14 +59,20 @@ export const Pressable = forwardRef<View, PressableProps>(
         accessibilityRole="button"
         onPress={(event: GestureResponderEvent) => {
           onPress?.(event)
-          trackCustomEvent(logCategory ?? suggestedCategory, logAction, {
-            name:
-              logName ??
-              pressableProps['sentry-label'] ??
-              pressableProps.testID,
-            customDimensions:
-              logDimensions as TrackCustomEventOptions['customDimensions'],
-          })
+          const name =
+            logName ?? pressableProps['sentry-label'] ?? pressableProps.testID
+
+          if (name) {
+            trackCustomEvent(
+              name,
+              logAction,
+              logDimensions,
+              logCategory,
+              logValue,
+            )
+          } else {
+            devError('No name found for component')
+          }
         }}
         ref={ref}
         style={({pressed}) => [styles.button, pressed && styles.pressed]}

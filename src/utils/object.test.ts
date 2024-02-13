@@ -1,4 +1,9 @@
-import {getPropertyFromMaybeError, isEmptyObject, isErrorObject} from './object'
+import {
+  filterOutUndefinedProperties,
+  getPropertyFromMaybeError,
+  isEmptyObject,
+  isErrorObject,
+} from './object'
 
 describe('isEmptyObject', () => {
   test('true for empty object', () => {
@@ -49,5 +54,17 @@ describe('getPropertyFromMaybeError', () => {
     // @ts-ignore
     error.foo = 'bar'
     expect(getPropertyFromMaybeError(error, 'foo')).toBe('bar')
+  })
+})
+
+describe('filterOutUndefinedProperties', () => {
+  test('should filter out undefined properties', () => {
+    expect(filterOutUndefinedProperties({})).toStrictEqual({})
+    expect(
+      filterOutUndefinedProperties({something: 3, other: undefined}),
+    ).toStrictEqual({something: 3})
+  })
+  test('should work with undefined input', () => {
+    expect(filterOutUndefinedProperties(undefined)).toStrictEqual(undefined)
   })
 })

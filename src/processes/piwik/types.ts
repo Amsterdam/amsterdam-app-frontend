@@ -1,23 +1,29 @@
 import {
   CommonEventOptions,
-  TrackCustomEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
-  suggestedCategory: PiwikCategory
   trackCustomEvent: (
-    category: PiwikCategory,
+    name: string,
     action: PiwikAction,
-    options?: TrackCustomEventOptions,
+    dimensions?: CustomDimensions,
+    category?: PiwikCategory,
+    value?: number,
   ) => void
-  trackOutlink: (url: string, options?: CommonEventOptions) => void
+  trackOutlink: (
+    url: string,
+    options?: ReplaceCustomDimensions<CommonEventOptions>,
+  ) => void
   trackScreen: (
     path?: ScreenOutsideNavigationName,
-    options?: TrackScreenOptions,
+    options?: ReplaceCustomDimensions<TrackScreenOptions>,
   ) => void
-  trackSearch: (keyword: string, options?: TrackScreenOptions) => void
+  trackSearch: (
+    keyword: string,
+    options?: ReplaceCustomDimensions<TrackScreenOptions>,
+  ) => void
 }
 
 /**
@@ -74,6 +80,10 @@ export type CustomDimensions = Partial<
   Record<PiwikDimension | PiwikSessionDimension, string>
 >
 
+export type ReplaceCustomDimensions<T> = Omit<T, 'customDimensions'> & {
+  customDimensions?: CustomDimensions
+}
+
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
 export type PiwikCategory = ModuleSlug | 'general'
 
@@ -101,4 +111,5 @@ export type LogProps = {
   logCategory?: PiwikCategory
   logDimensions?: CustomDimensions
   logName?: string
+  logValue?: number
 }

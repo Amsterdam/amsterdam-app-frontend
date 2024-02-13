@@ -37,7 +37,7 @@ This can be configured with `setSessionTimeout`. We currently use the default of
 
 ### Basic examples
 
-A log will usually be triggered by an _action_ and have a _category_ and a _name_. With custom dimensions, additional data can be added to a log, which can be part of the event itself or can be conncted to the session.
+A log will usually be triggered by an _action_ and have a _category_ and a _name_. With custom dimensions, additional data can be added to a log, which can be part of the event itself or can be connected to the session.
 
 ```tsx
 export const HomeButton = ({moduleName, onPress}: Props) => {
@@ -46,14 +46,16 @@ export const HomeButton = ({moduleName, onPress}: Props) => {
 
   const handlePress = useCallback(() => {
     // log the event with category and action
-    trackCustomEvent(PiwikCategory.home, PiwikAction.buttonPress, {
+    trackCustomEvent(
       // add a unique, specific name
       name: `Navigate to ${moduleName}`,
+      PiwikAction.buttonPress, 
       // optionally add predefined custom dimensions
-      customDimensions: {
+      {
         [PiwikDimensions.hasAddress]: !!address.toString(),
       },
-    })
+      PiwikCategory.home,
+    )
     onPress()
   },
   [address, moduleName, trackCustomEvent])
