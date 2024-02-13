@@ -13,7 +13,7 @@ export const RedirectsScreen = () => (
         <Column gutter="xs">
           <Title text="Veel gezocht" />
           <Paragraph>
-            Voor deze onderwerpen kun u terecht op onze website.
+            Voor deze onderwerpen kunt u terecht op onze website.
           </Paragraph>
         </Column>
         <Redirects />

@@ -27,7 +27,7 @@ export const AboutTheAppDutchScreen = () => (
             <Column gutter="sm">
               <Title
                 testID="AboutAboutTheAppDutchTitle"
-                text="1 app voor alle Amsterdammers"
+                text="Éen app voor alle Amsterdammers en Weespers"
               />
               <Paragraph
                 testID="AboutAboutTheAppDutchIntroParagraph"
@@ -101,14 +101,7 @@ export const AboutTheAppDutchScreen = () => (
               <Title
                 level="h2"
                 testID="AboutAboutTheAppDutch1AppTitle"
-                text="1 app voor alle Amsterdammers en Weespers"
-              />
-            </Column>
-            <Column gutter="sm">
-              <Title
-                level="h2"
-                testID="AboutAboutTheAppDutchFutureFeaturesTitle"
-                text="Later meer."
+                text="Later meer"
               />
               <Paragraph testID="AboutAboutTheAppDutchFutureFeaturesParagraph">
                 Deze versie van de Amsterdam app heeft onderwerpen waar iedereen
