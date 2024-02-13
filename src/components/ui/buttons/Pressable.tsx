@@ -44,13 +44,14 @@ export const Pressable = forwardRef<View, PressableProps>(
       logCategory,
       logName,
       logDimensions,
+      logValue,
       ...pressableProps
     },
     ref,
   ) => {
     const styles = useThemable(createStyles(grow, variant))
 
-    const {trackCustomEvent, suggestedCategory} = usePiwik()
+    const {trackCustomEvent} = usePiwik()
 
     return (
       <PressableRN
@@ -62,10 +63,13 @@ export const Pressable = forwardRef<View, PressableProps>(
             logName ?? pressableProps['sentry-label'] ?? pressableProps.testID
 
           if (name) {
-            trackCustomEvent(logCategory ?? suggestedCategory, logAction, {
+            trackCustomEvent(
               name,
-              customDimensions: logDimensions,
-            })
+              logAction,
+              logDimensions,
+              logCategory,
+              logValue,
+            )
           } else {
             devError('No name found for component')
           }

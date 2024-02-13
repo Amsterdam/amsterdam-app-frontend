@@ -1,16 +1,16 @@
 import {
   CommonEventOptions,
-  TrackCustomEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
-  suggestedCategory: PiwikCategory
   trackCustomEvent: (
-    category: PiwikCategory,
+    name: string,
     action: PiwikAction,
-    options?: ReplaceCustomDimensions<TrackCustomEventOptions>,
+    dimensions?: CustomDimensions,
+    category?: PiwikCategory,
+    value?: number,
   ) => void
   trackOutlink: (
     url: string,
@@ -111,4 +111,5 @@ export type LogProps = {
   logCategory?: PiwikCategory
   logDimensions?: CustomDimensions
   logName?: string
+  logValue?: number
 }

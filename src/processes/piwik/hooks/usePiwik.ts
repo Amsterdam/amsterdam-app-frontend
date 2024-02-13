@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
+import {TrackCustomEventOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
+import {devLog} from '@/processes/development'
 import {PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {
   addIdFromParamsToCustomDimensions,
@@ -24,7 +26,6 @@ export {
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
-  suggestedCategory: 'general',
   trackCustomEvent: () => {},
   trackOutlink: () => {},
   trackScreen: () => {},
@@ -43,19 +44,29 @@ const getPiwik = (
   routeName?: keyof RootStackParams,
   params?: Params,
 ): Piwik => ({
-  trackCustomEvent: (category, action, options) => {
+  trackCustomEvent: (
+    name,
+    action,
+    dimensions,
+    category = suggestedCategory,
+    value = undefined,
+  ) => {
+    devLog('trackCustomEvent', {name, action, dimensions, category, value})
     trackCustomEvent(
       category,
       action,
-      getOptionsWithDefaultDimensions({
+      getOptionsWithDefaultDimensions<TrackCustomEventOptions>({
         path: routeName,
-        ...options,
+        customDimensions: dimensions,
+        value,
       }),
     ).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
         category,
         action,
-        name: options?.name,
+        name,
+        path: routeName,
+        value,
       })
     })
   },
@@ -93,7 +104,6 @@ const getPiwik = (
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
     })
   },
-  suggestedCategory,
 })
 
 export const usePiwik = () => {

@@ -6,9 +6,7 @@ const useLogAccessibilityAnalytics = () => {
   const {trackCustomEvent} = usePiwik()
 
   return useCallback(() => {
-    trackCustomEvent('general', PiwikAction.toForeground, {
-      name: 'accessibility',
-    })
+    trackCustomEvent('accessibility', PiwikAction.toForeground, {}, 'general')
   }, [trackCustomEvent])
 }
 
@@ -17,9 +15,7 @@ const useLogPermissionAnalytics = () => {
   const {trackCustomEvent} = usePiwik()
 
   return useCallback(() => {
-    trackCustomEvent('general', PiwikAction.toForeground, {
-      name: 'permissions',
-    })
+    trackCustomEvent('permissions', PiwikAction.toForeground, {}, 'general')
   }, [trackCustomEvent])
 }
 
