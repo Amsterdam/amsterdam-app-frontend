@@ -12,47 +12,37 @@ import {
 } from '@/processes/piwik/hooks/usePiwik'
 import {permissions} from '@/utils/permissions/permissions'
 
-export const permissionsForLogging = [
-  {
-    permissionByPlatform: permissions.camera,
-    piwikDimension: PiwikSessionDimension.hasCameraPermission,
-  },
-  {
-    permissionByPlatform: permissions.location,
-    piwikDimension: PiwikSessionDimension.hasLocationPermission,
-  },
-  {
-    permissionByPlatform: permissions.photo,
-    piwikDimension: PiwikSessionDimension.hasPhotosPermission,
-  },
-]
+const getValueFromResult = (result: PermissionStatus) =>
+  (result === RESULTS.GRANTED).toString()
 
 export const useLogPermissionAnalytics = () => {
   const {trackCustomEvent} = usePiwik()
 
-  const logPermissionAnalytics = useCallback(
-    (result: PermissionStatus, piwikDimension: PiwikSessionDimension) => {
-      trackCustomEvent('general', PiwikAction.toForeground, {
-        name: 'permissions',
-        customDimensions: {
-          [piwikDimension]: result === RESULTS.GRANTED ? 'true' : 'false',
+  return useCallback(
+    (action = PiwikAction.toForeground) => {
+      void Promise.all([
+        check(permissions.camera),
+        check(permissions.location),
+        check(permissions.photo),
+        checkNotifications(),
+      ]).then(
+        ([resultCamera, resultLocation, resultPhoto, resultNotifications]) => {
+          trackCustomEvent('general', action, {
+            name: 'permissions',
+            customDimensions: {
+              [PiwikSessionDimension.hasCameraPermission]:
+                getValueFromResult(resultCamera),
+              [PiwikSessionDimension.hasLocationPermission]:
+                getValueFromResult(resultLocation),
+              [PiwikSessionDimension.hasPhotosPermission]:
+                getValueFromResult(resultPhoto),
+              [PiwikSessionDimension.hasNotificationPermission]:
+                getValueFromResult(resultNotifications.status),
+            },
+          })
         },
-      })
+      )
     },
     [trackCustomEvent],
   )
-
-  return useCallback(() => {
-    permissionsForLogging.forEach(permission => {
-      void check(permission.permissionByPlatform).then(result => {
-        logPermissionAnalytics(result, permission.piwikDimension)
-      })
-    })
-    void checkNotifications().then(result => {
-      logPermissionAnalytics(
-        result.status,
-        PiwikSessionDimension.hasNotificationPermission,
-      )
-    })
-  }, [logPermissionAnalytics])
 }

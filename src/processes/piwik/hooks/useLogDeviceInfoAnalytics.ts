@@ -10,34 +10,18 @@ export const useLogDeviceInfoAnalytics = () => {
   const {trackCustomEvent} = usePiwik()
   const {fontScale, isLandscape, isPortrait, isTablet} = useDeviceContext()
 
-  const trackDeviceInfo = useCallback(
-    (deviceInfo: number | boolean, dimension: PiwikSessionDimension) => {
-      trackCustomEvent('general', PiwikAction.accessibilityEventListener, {
+  return useCallback(
+    (action = PiwikAction.toForeground) => {
+      trackCustomEvent('general', action, {
         name: 'device',
         customDimensions: {
-          [dimension]: deviceInfo.toString(),
+          [PiwikSessionDimension.fontScale]: fontScale.toString(),
+          [PiwikSessionDimension.isLandscape]: isLandscape.toString(),
+          [PiwikSessionDimension.isPortrait]: isPortrait.toString(),
+          [PiwikSessionDimension.isTablet]: isTablet.toString(),
         },
       })
     },
-    [trackCustomEvent],
+    [fontScale, isLandscape, isPortrait, isTablet, trackCustomEvent],
   )
-
-  return useCallback(() => {
-    const deviceInfoList = [
-      {callbackFn: fontScale, piwikDimension: PiwikSessionDimension.fontScale},
-      {
-        callbackFn: isLandscape,
-        piwikDimension: PiwikSessionDimension.isLandscape,
-      },
-      {
-        callbackFn: isPortrait,
-        piwikDimension: PiwikSessionDimension.isPortrait,
-      },
-      {callbackFn: isTablet, piwikDimension: PiwikSessionDimension.isTablet},
-    ]
-
-    deviceInfoList.forEach(({callbackFn, piwikDimension}) => {
-      trackDeviceInfo(callbackFn, piwikDimension)
-    })
-  }, [fontScale, isLandscape, isPortrait, isTablet, trackDeviceInfo])
 }
