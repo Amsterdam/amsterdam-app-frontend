@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
-import {TrackCustomEventOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {devLog} from '@/processes/development'
 import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {addIdFromParamsToCustomDimensions} from '@/processes/piwik/utils/addIdFromParamsToCustomDimensions'
-import {getOptionsWithDefaultDimensions} from '@/processes/piwik/utils/getOptionsWithDefaultDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
+import {postProcessDimensions} from '@/processes/piwik/utils/postProcessDimensions'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports
@@ -54,15 +53,11 @@ const getPiwik = (
     value = undefined,
   ) => {
     devLog('trackCustomEvent', {name, action, dimensions, category, value})
-    trackCustomEvent(
-      category,
-      action,
-      getOptionsWithDefaultDimensions<TrackCustomEventOptions>({
-        path: routeName,
-        customDimensions: dimensions,
-        value,
-      }),
-    ).catch(() => {
+    trackCustomEvent(category, action, {
+      path: routeName,
+      customDimensions: postProcessDimensions(dimensions),
+      value,
+    }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackCustomEvent, FILENAME, {
         category,
         action,
@@ -75,7 +70,10 @@ const getPiwik = (
   trackOutlink: (rawUrl, options) => {
     const url = sanitizeUrl(rawUrl)
 
-    trackOutlink(url, getOptionsWithDefaultDimensions(options)).catch(() => {
+    trackOutlink(url, {
+      ...options,
+      customDimensions: postProcessDimensions(options?.customDimensions),
+    }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILENAME, {
         url,
       })
@@ -88,13 +86,15 @@ const getPiwik = (
       return
     }
 
+    const customDimensions = addIdFromParamsToCustomDimensions(
+      options?.customDimensions,
+      params,
+    )
+
     trackScreen(name, {
       ...options,
       title: getTitleFromParams(params),
-      customDimensions: addIdFromParamsToCustomDimensions(
-        getOptionsWithDefaultDimensions(options).customDimensions,
-        params,
-      ),
+      customDimensions: postProcessDimensions(customDimensions),
     }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
         path,
@@ -102,7 +102,10 @@ const getPiwik = (
     })
   },
   trackSearch: (keyword, options) => {
-    trackSearch(keyword, getOptionsWithDefaultDimensions(options)).catch(() => {
+    trackSearch(keyword, {
+      ...options,
+      customDimensions: postProcessDimensions(options?.customDimensions),
+    }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
     })
   },

@@ -31,18 +31,15 @@ export const useLogPermissionAnalytics = () => {
         checkNotifications(),
       ]).then(
         ([resultCamera, resultLocation, resultPhoto, resultNotifications]) => {
-          trackCustomEvent('general', action, {
-            name: 'permissions',
-            customDimensions: {
-              [PiwikSessionDimension.hasCameraPermission]:
-                getValueFromResult(resultCamera),
-              [PiwikSessionDimension.hasLocationPermission]:
-                getValueFromResult(resultLocation),
-              [PiwikSessionDimension.hasPhotosPermission]:
-                getValueFromResult(resultPhoto),
-              [PiwikSessionDimension.hasNotificationPermission]:
-                getValueFromResult(resultNotifications.status),
-            },
+          trackCustomEvent('permissions', action, {
+            [PiwikSessionDimension.hasCameraPermission]:
+              getValueFromResult(resultCamera),
+            [PiwikSessionDimension.hasLocationPermission]:
+              getValueFromResult(resultLocation),
+            [PiwikSessionDimension.hasPhotosPermission]:
+              getValueFromResult(resultPhoto),
+            [PiwikSessionDimension.hasNotificationPermission]:
+              getValueFromResult(resultNotifications.status),
           })
         },
       )
