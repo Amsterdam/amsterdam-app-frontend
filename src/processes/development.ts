@@ -15,14 +15,14 @@ export const isProductionApp = appFlavour === AppFlavour.production
 export const isLocalApp = appFlavour === AppFlavour.local
 
 export const devLog = (...args: unknown[]) => {
-  if (isDevApp) {
+  if (appFlavour === 'local') {
     // eslint-disable-next-line no-console
     console.log(...args)
   }
 }
 
 export const devError = (...args: unknown[]) => {
-  if (isDevApp) {
+  if (appFlavour === 'local') {
     // eslint-disable-next-line no-console
     console.error(...args)
   }
