@@ -27,7 +27,7 @@ export const AboutTheAppDutchScreen = () => (
             <Column gutter="sm">
               <Title
                 testID="AboutAboutTheAppDutchTitle"
-                text="Éen app voor alle Amsterdammers en Weespers"
+                text="Eén app voor alle Amsterdammers en Weespers"
               />
               <Paragraph
                 testID="AboutAboutTheAppDutchIntroParagraph"
