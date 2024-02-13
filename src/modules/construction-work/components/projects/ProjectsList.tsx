@@ -152,14 +152,13 @@ export const ProjectsList = ({
   if (isError) {
     return (
       <FullScreenError
-        buttonLabel="Naar het overzicht"
+        buttonLabel="Ga terug"
         error={error}
         Image={ConstructionWorkFigure}
         onPress={() => navigation.navigate(HomeRouteName.home)}
         testProps={{
           testID: 'ConstructionWorkError',
         }}
-        text="Ga terug naar het overzicht."
         title="Er zijn geen werkzaamheden beschikbaar"
       />
     )

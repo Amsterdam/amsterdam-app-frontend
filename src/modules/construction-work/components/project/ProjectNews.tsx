@@ -65,7 +65,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
     return (
       <FullScreenError
         backgroundVisible={false}
-        buttonLabel="Terug naar project"
+        buttonLabel="Ga terug"
         error={articleError}
         Image={ConstructionWorkDetailFigure}
         onPress={() =>
@@ -77,8 +77,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
         testProps={{
           testID: 'ProjectDetailErrorScreen',
         }}
-        text="Ga terug naar het project."
-        title="Helaas is het project niet gevonden"
+        title="Helaas is het nieuwsartikel niet gevonden"
       />
     )
   }
