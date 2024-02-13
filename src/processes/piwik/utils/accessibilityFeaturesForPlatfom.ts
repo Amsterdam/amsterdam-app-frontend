@@ -1,6 +1,6 @@
 import {AccessibilityInfo} from 'react-native'
 import {PiwikSessionDimension} from '@/processes/piwik/hooks/usePiwik'
-import {AccessibilityFeatureLogConfig} from '@/processes/piwik/types'
+import {type AccessibilityFeatureLogConfig} from '@/processes/piwik/types'
 
 const {
   isBoldTextEnabled,

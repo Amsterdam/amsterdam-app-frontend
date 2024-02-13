@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {
-  PermissionStatus,
+  type PermissionStatus,
   RESULTS,
   check,
   checkNotifications,

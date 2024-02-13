@@ -1,4 +1,4 @@
-import {ReactNode, useMemo} from 'react'
+import {type ReactNode, useMemo} from 'react'
 import {useAppState} from '@/hooks/useAppState'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'

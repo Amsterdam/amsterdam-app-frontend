@@ -6,8 +6,8 @@ import {
   usePiwik,
 } from '@/processes/piwik/hooks/usePiwik'
 import {
-  AccessibilityFeatureLogConfig,
-  CustomDimensions,
+  type AccessibilityFeatureLogConfig,
+  type CustomDimensions,
 } from '@/processes/piwik/types'
 import {accessibilityFeaturesForPlatfom} from '@/processes/piwik/utils/accessibilityFeaturesForPlatfom'
 

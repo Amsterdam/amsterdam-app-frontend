@@ -37,15 +37,15 @@ export const filterOutUndefinedProperties = <
   T extends string | number | symbol,
   S,
 >(
-  input: Partial<Record<T, S | undefined>> | undefined,
+  input?: Partial<Record<T, S | undefined>>,
 ): Record<T, S> | undefined => {
-  if (input) {
-    return (Object.keys(input) as T[])
-      .filter(key => input[key] !== undefined)
-      .reduce<
-        Record<T, S>
-      >((acc, key) => ({...acc, [key]: input[key]}), {} as Record<T, S>)
+  if (!input) {
+    return
   }
 
-  return input
+  return (Object.keys(input) as T[])
+    .filter(key => input[key] !== undefined)
+    .reduce<
+      Record<T, S>
+    >((acc, key) => ({...acc, [key]: input[key]}), {} as Record<T, S>)
 }

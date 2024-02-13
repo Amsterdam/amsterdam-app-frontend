@@ -1,5 +1,8 @@
-import {CustomDimensions as PiwikCustomDimensions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {CustomDimensions, PiwikSessionDimension} from '@/processes/piwik/types'
+import {type CustomDimensions as PiwikCustomDimensions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {
+  type CustomDimensions,
+  PiwikSessionDimension,
+} from '@/processes/piwik/types'
 import {filterOutUndefinedProperties} from '@/utils/object'
 import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 

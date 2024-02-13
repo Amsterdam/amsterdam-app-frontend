@@ -1,4 +1,4 @@
-import {CustomDimensions, PiwikDimension} from '@/processes/piwik/types'
+import {type CustomDimensions, PiwikDimension} from '@/processes/piwik/types'
 
 export const addIdFromParamsToDimensions = (
   customDimensions?: CustomDimensions,

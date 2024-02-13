@@ -2,7 +2,7 @@
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
-import {RootStackParams} from '@/app/navigation/types'
+import {type RootStackParams} from '@/app/navigation/types'
 import {devLog} from '@/processes/development'
 import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
