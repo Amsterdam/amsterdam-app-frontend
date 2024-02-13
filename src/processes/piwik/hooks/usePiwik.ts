@@ -5,12 +5,10 @@ import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {devLog} from '@/processes/development'
-import {PiwikCategory, type Piwik} from '@/processes/piwik/types'
-import {
-  addIdFromParamsToCustomDimensions,
-  getOptionsWithDefaultDimensions,
-  getTitleFromParams,
-} from '@/processes/piwik/utils'
+import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
+import {addIdFromParamsToCustomDimensions} from '@/processes/piwik/utils/addIdFromParamsToCustomDimensions'
+import {getOptionsWithDefaultDimensions} from '@/processes/piwik/utils/getOptionsWithDefaultDimensions'
+import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
 // eslint-disable-next-line no-restricted-imports

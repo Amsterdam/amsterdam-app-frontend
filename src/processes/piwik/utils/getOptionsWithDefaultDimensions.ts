@@ -1,12 +1,10 @@
 import {
-  CustomDimensions as PiwikCustomDimensions,
   TrackCustomEventOptions,
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {
   CustomDimensions,
-  PiwikDimension,
   PiwikSessionDimension,
   ReplaceCustomDimensions,
 } from '@/processes/piwik/types'
@@ -33,22 +31,3 @@ export const getOptionsWithDefaultDimensions = <
       ...DEFAULT_DIMENSIONS,
     }),
   }) as T
-
-export const getTitleFromParams = (params?: Record<string, unknown>) =>
-  (params?.screenTitle ?? params?.screenHeaderTitle) as string | undefined
-
-export const addIdFromParamsToCustomDimensions = (
-  customDimensions?: CustomDimensions,
-  params?: Record<string, unknown>,
-) => {
-  if (!params?.id && typeof params?.id !== 'number') {
-    return filterOutUndefinedProperties(customDimensions) as
-      | PiwikCustomDimensions
-      | undefined
-  }
-
-  return {
-    ...filterOutUndefinedProperties(customDimensions),
-    [PiwikDimension.contentId]: params.id.toString(),
-  } as PiwikCustomDimensions
-}
