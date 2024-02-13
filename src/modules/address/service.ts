@@ -45,7 +45,7 @@ type PdokFreeApiParams = {
 const defaultPdokFreeApiParams: PdokFreeApiParams = {
   bq: ['type:weg^1.5', 'type:adres^1'],
   fl: 'id straatnaam huisnummer huisletter huisnummertoevoeging postcode woonplaatsnaam type score nummeraanduiding_id centroide_ll',
-  qf: 'exacte_match^0.5 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
+  qf: 'exacte_match^1 suggest^0.5 straatnaam^0.6 huisnummer^0.5 huisletter^0.5 huisnummertoevoeging^0.5',
 }
 
 const defaultFq: PdokFreeApiParams['fq'] = ['bron:BAG']
