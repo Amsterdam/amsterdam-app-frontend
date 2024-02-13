@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
-import {StyleSheet, Pressable, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {PaginationProps} from 'react-native-swiper-flatlist'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -40,7 +41,7 @@ export const Pagination = ({
         }
 
         return (
-          <Pressable
+          <PressableBase
             accessibilityLabel={`Ga naar slide, ${index + 1}`}
             disabled={paginationTapDisabled}
             key={index}

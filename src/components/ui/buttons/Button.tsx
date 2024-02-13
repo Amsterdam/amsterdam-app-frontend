@@ -1,11 +1,9 @@
 import {useCallback, useState} from 'react'
+import {GestureResponderEvent, StyleSheet, Text} from 'react-native'
 import {
-  GestureResponderEvent,
-  Pressable,
-  PressableProps,
-  StyleSheet,
-  Text,
-} from 'react-native'
+  PressableBaseProps,
+  PressableBase,
+} from '@/components/ui/buttons/PressableBase'
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -22,7 +20,7 @@ export type ButtonProps = {
   numberOfLines?: number
   small?: boolean
   variant?: ButtonVariant
-} & Omit<PressableProps, 'style'>
+} & Omit<PressableBaseProps, 'style' | 'children'>
 
 export const Button = ({
   ellipsizeMode,
@@ -55,7 +53,7 @@ export const Button = ({
   )
 
   return (
-    <Pressable
+    <PressableBase
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       onPressIn={mergeOnPressIn}
@@ -84,7 +82,7 @@ export const Button = ({
           </Text>
         )}
       </Row>
-    </Pressable>
+    </PressableBase>
   )
 }
 

@@ -1,9 +1,6 @@
 import {ElementType, Fragment, ReactNode} from 'react'
-import {
-  Pressable,
-  Switch as SwitchRN,
-  SwitchProps as SwitchRNProps,
-} from 'react-native'
+import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {useTheme} from '@/themes/useTheme'
@@ -32,7 +29,7 @@ export const Switch = ({
   const {color} = useTheme()
 
   return (
-    <Pressable
+    <PressableBase
       accessibilityHint="Dubbel tik om onderdeel aan of uit te zetten"
       accessibilityLabel={`${accessibilityLabel} onderdeel staat ${
         value ? 'aan' : 'uit'
@@ -65,6 +62,6 @@ export const Switch = ({
           />
         </FormField>
       </Wrapper>
-    </Pressable>
+    </PressableBase>
   )
 }

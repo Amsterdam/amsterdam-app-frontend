@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
-import {Pressable, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -61,7 +62,7 @@ export const ArticlePreview = ({
       style={styles.item}
       testID={testID}>
       <View style={styles.line} />
-      <Pressable
+      <PressableBase
         accessibilityRole="button"
         onPress={onPress}
         style={styles.button}>
@@ -107,7 +108,7 @@ export const ArticlePreview = ({
             </Column>
           </Box>
         </Column>
-      </Pressable>
+      </PressableBase>
     </View>
   )
 }

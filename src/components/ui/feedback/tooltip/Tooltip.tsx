@@ -2,11 +2,11 @@ import {ElementRef, ReactNode, forwardRef, useEffect, useRef} from 'react'
 import {
   AccessibilityProps,
   LayoutRectangle,
-  Pressable,
   StyleSheet,
   View,
 } from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {TooltipContent} from '@/components/ui/feedback/tooltip/TooltipContent'
 import {Column} from '@/components/ui/layout/Column'
@@ -125,7 +125,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
         productTourTipTargetLayout={productTourTipTargetLayout}
         ref={ref}
         startFadeIn={startFadeIn}>
-        <Pressable
+        <PressableBase
           accessibilityLabel={accessibilityLabel}
           accessibilityLanguage={accessibilityLanguage}
           accessibilityRole="alert"
@@ -143,7 +143,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
             </Column>
             {placement === Placement.before && Pointer}
           </Row>
-        </Pressable>
+        </PressableBase>
       </Wrapper>
     )
   },

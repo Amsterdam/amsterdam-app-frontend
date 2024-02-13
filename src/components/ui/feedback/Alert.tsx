@@ -2,12 +2,12 @@ import {Fragment, ReactNode, useCallback, useEffect, useRef} from 'react'
 import {
   LayoutAnimation,
   Platform,
-  Pressable,
   StyleSheet,
   UIManager,
   View,
 } from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {
@@ -47,7 +47,7 @@ type WrapperProps = {
 const Wrapper = ({onPress, closeType, ...props}: WrapperProps) => {
   if (closeType !== AlertCloseType.withoutButton) {
     return (
-      <Pressable
+      <PressableBase
         accessibilityLanguage="nl-NL"
         accessibilityRole="button"
         onPress={onPress}

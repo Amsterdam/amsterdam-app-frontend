@@ -1,15 +1,11 @@
 import {ReactNode, forwardRef} from 'react'
+import {View, StyleSheet} from 'react-native'
 import {
-  Pressable as PressableRN,
-  PressableProps as PressableRNProps,
-  View,
-  StyleSheet,
-  GestureResponderEvent,
-} from 'react-native'
+  PressableBase,
+  PressableBaseProps,
+} from '@/components/ui/buttons/PressableBase'
 import {Box, BoxProps} from '@/components/ui/containers/Box'
-import {devError} from '@/processes/development'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {LogProps, PiwikAction} from '@/processes/piwik/types'
+import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -23,7 +19,7 @@ export type PressableProps = {
   grow?: boolean
   'sentry-label'?: string
   variant?: PressableVariant
-} & PressableRNProps &
+} & PressableBaseProps &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
   Partial<LogProps>
 
@@ -39,41 +35,16 @@ export const Pressable = forwardRef<View, PressableProps>(
       insetHorizontal,
       insetVertical,
       variant = 'tertiary',
-      onPress = () => null,
-      logAction = PiwikAction.buttonPress,
-      logCategory,
-      logName,
-      logDimensions,
-      logValue,
       ...pressableProps
     },
     ref,
   ) => {
     const styles = useThemable(createStyles(grow, variant))
 
-    const {trackCustomEvent} = usePiwik()
-
     return (
-      <PressableRN
+      <PressableBase
         accessibilityLanguage="nl-NL"
         accessibilityRole="button"
-        onPress={(event: GestureResponderEvent) => {
-          onPress?.(event)
-          const name =
-            logName ?? pressableProps['sentry-label'] ?? pressableProps.testID
-
-          if (name) {
-            trackCustomEvent(
-              name,
-              logAction,
-              logDimensions,
-              logCategory,
-              logValue,
-            )
-          } else {
-            devError('No name found for component')
-          }
-        }}
         ref={ref}
         style={({pressed}) => [styles.button, pressed && styles.pressed]}
         {...pressableProps}>
@@ -84,7 +55,7 @@ export const Pressable = forwardRef<View, PressableProps>(
           insetVertical={insetVertical}>
           {children}
         </Box>
-      </PressableRN>
+      </PressableBase>
     )
   },
 )
