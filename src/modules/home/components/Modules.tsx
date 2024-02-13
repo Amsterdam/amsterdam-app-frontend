@@ -56,7 +56,7 @@ export const Modules = () => {
               key={slug}
               label={title}
               slug={slug}
-              testID={`Home${pascalCase(slug)}ModuleButton`}
+              testID={`Home${pascalCase(slug)}Module`}
               variant={requiresAuthorization ? 'primary' : 'tertiary'}
             />
           ),

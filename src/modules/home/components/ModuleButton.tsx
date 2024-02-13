@@ -137,11 +137,12 @@ export const ModuleButton = ({
 
           navigation.navigate(slug)
         }}
+        testID={testID ? `${testID}Button` : undefined}
         variant={variant}>
         {button}
       </Pressable>
     ),
-    [button, navigation, slug, trackCustomEvent, variant],
+    [button, navigation, slug, testID, trackCustomEvent, variant],
   )
 
   if (disabled) {
