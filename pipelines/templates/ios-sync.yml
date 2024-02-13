@@ -2,7 +2,7 @@ steps:
   - checkout: self
     path: "./s/"
     fetchDepth: 1
-  - checkout: Amsterdam-App-Frontend-iOS-Certificates
+  - checkout: aapp_app_ios-certificates
 
   - task: DownloadSecureFile@1
     displayName: 'Download App Store Connect API Key'

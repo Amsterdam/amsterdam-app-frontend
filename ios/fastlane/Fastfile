@@ -17,9 +17,9 @@ if ENV["TF_BUILD"]
 end
 
 # The URL to the repo for Match
-git_url = "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/Amsterdam-App-Frontend-iOS-Certificates"
+git_url = "git@ssh.dev.azure.com:v3/CloudCompetenceCenter/Amsterdam-App/aapp_app_ios-certificates"
 if ENV["MATCH_GIT_BEARER_AUTHORIZATION"] || ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
-  git_url = "https://CloudCompetenceCenter@dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/Amsterdam-App-Frontend-iOS-Certificates"
+  git_url = "https://CloudCompetenceCenter@dev.azure.com/CloudCompetenceCenter/Amsterdam-App/_git/aapp_app_ios-certificates"
 end
 
 # Config for the test and production app
