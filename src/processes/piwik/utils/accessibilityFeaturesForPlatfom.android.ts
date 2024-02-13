@@ -1,12 +1,12 @@
-import {AccessibilityInfo} from 'react-native'
-import {AccessibilityFeatureForLogging} from '@/processes/piwik/hooks/useLogAccessibilityAnalytics'
+import {AccessibilityChangeEventName, AccessibilityInfo} from 'react-native'
 import {PiwikSessionDimension} from '@/processes/piwik/hooks/usePiwik'
+import {AccessibilityFeatureLogConfig} from '@/processes/piwik/types'
 
-export const accessibilityFeaturesForPlatfom: AccessibilityFeatureForLogging[] =
+export const accessibilityFeaturesForPlatfom: AccessibilityFeatureLogConfig[] =
   [
     {
-      feature: AccessibilityInfo.isAccessibilityServiceEnabled(),
-      eventName: 'accessibilityServiceChanged',
-      piwikDimension: PiwikSessionDimension.accessibilityServiceEnabled,
+      dimension: PiwikSessionDimension.accessibilityServiceEnabled,
+      eventName: 'accessibilityServiceChanged' as AccessibilityChangeEventName, //TODO: remove this cast, when react-native added this event
+      getIsEnabled: () => AccessibilityInfo.isAccessibilityServiceEnabled(),
     },
   ]

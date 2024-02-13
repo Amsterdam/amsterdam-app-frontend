@@ -1,27 +1,34 @@
 import {AccessibilityInfo} from 'react-native'
-import {AccessibilityFeatureForLogging} from '@/processes/piwik/hooks/useLogAccessibilityAnalytics'
 import {PiwikSessionDimension} from '@/processes/piwik/hooks/usePiwik'
+import {AccessibilityFeatureLogConfig} from '@/processes/piwik/types'
 
-export const accessibilityFeaturesForPlatfom: AccessibilityFeatureForLogging[] =
+const {
+  isBoldTextEnabled,
+  isGrayscaleEnabled,
+  isInvertColorsEnabled,
+  isReduceTransparencyEnabled,
+} = AccessibilityInfo
+
+export const accessibilityFeaturesForPlatfom: AccessibilityFeatureLogConfig[] =
   [
     {
-      feature: AccessibilityInfo.isBoldTextEnabled(),
       eventName: 'boldTextChanged',
-      piwikDimension: PiwikSessionDimension.boldTextEnabled,
+      dimension: PiwikSessionDimension.boldTextEnabled,
+      getIsEnabled: isBoldTextEnabled,
     },
     {
-      feature: AccessibilityInfo.isGrayscaleEnabled(),
       eventName: 'grayscaleChanged',
-      piwikDimension: PiwikSessionDimension.grayscaleEnabled,
+      dimension: PiwikSessionDimension.grayscaleEnabled,
+      getIsEnabled: isGrayscaleEnabled,
     },
     {
-      feature: AccessibilityInfo.isInvertColorsEnabled(),
       eventName: 'invertColorsChanged',
-      piwikDimension: PiwikSessionDimension.invertColorsEnabled,
+      dimension: PiwikSessionDimension.invertColorsEnabled,
+      getIsEnabled: isInvertColorsEnabled,
     },
     {
-      feature: AccessibilityInfo.isReduceTransparencyEnabled(),
       eventName: 'reduceTransparencyChanged',
-      piwikDimension: PiwikSessionDimension.reduceTransparencyEnabled,
+      dimension: PiwikSessionDimension.reduceTransparencyEnabled,
+      getIsEnabled: isReduceTransparencyEnabled,
     },
   ]

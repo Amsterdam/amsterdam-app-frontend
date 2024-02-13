@@ -1,78 +1,69 @@
-import {useCallback, useEffect} from 'react'
-import {AccessibilityChangeEventName, AccessibilityInfo} from 'react-native'
+import {TrackCustomEventOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {useEffect} from 'react'
+import {AccessibilityInfo} from 'react-native'
 import {
   PiwikAction,
   PiwikSessionDimension,
   usePiwik,
 } from '@/processes/piwik/hooks/usePiwik'
+import {
+  AccessibilityFeatureLogConfig,
+  CustomDimensions,
+} from '@/processes/piwik/types'
 import {accessibilityFeaturesForPlatfom} from '@/processes/piwik/utils/accessibilityFeaturesForPlatfom'
 
-export type AccessibilityFeatureForLogging = {
-  eventName: AccessibilityChangeEventName | 'accessibilityServiceChanged' //TODO: remove this when react-native added this event
-  feature: Promise<boolean>
-  piwikDimension: PiwikSessionDimension
-}
+const {isReduceMotionEnabled, isScreenReaderEnabled} = AccessibilityInfo
 
-export const accessibilityFeatures: AccessibilityFeatureForLogging[] = [
+export const accessibilityFeatures: AccessibilityFeatureLogConfig[] = [
   ...accessibilityFeaturesForPlatfom,
   {
-    feature: AccessibilityInfo.isScreenReaderEnabled(),
-    eventName: 'screenReaderChanged',
-    piwikDimension: PiwikSessionDimension.screenReaderEnabled,
+    dimension: PiwikSessionDimension.reduceMotionEnabled,
+    eventName: 'reduceMotionChanged',
+    getIsEnabled: isReduceMotionEnabled,
   },
   {
-    feature: AccessibilityInfo.isReduceMotionEnabled(),
-    eventName: 'reduceMotionChanged',
-    piwikDimension: PiwikSessionDimension.reduceMotionEnabled,
+    dimension: PiwikSessionDimension.screenReaderEnabled,
+    eventName: 'screenReaderChanged',
+    getIsEnabled: isScreenReaderEnabled,
   },
 ]
 
-export const useLogAccessibilityAnalytics = () => {
-  const {trackCustomEvent} = usePiwik()
+const getDimensions = (results: boolean[]) => {
+  const dimensions: CustomDimensions = {}
 
-  const trackCustomGeneralEvent = useCallback(
-    (
-      piwikAction: PiwikAction,
-      piwikDimension: PiwikSessionDimension,
-      isEnabled: boolean,
-    ) => {
-      trackCustomEvent('general', piwikAction, {
-        name: 'accessibility',
-        customDimensions: {
-          [piwikDimension]: isEnabled.toString(),
-        },
-      })
-    },
-    [trackCustomEvent],
-  )
+  accessibilityFeatures.forEach(({dimension}, i) => {
+    dimensions[dimension] = results[i].toString()
+  })
+
+  return dimensions
+}
+
+export const useLogAccessibilityAnalytics = () => {
+  const {ready, trackCustomEvent} = usePiwik()
 
   useEffect(() => {
-    accessibilityFeatures.forEach(accessibilityFeature => {
-      const {feature, piwikDimension} = accessibilityFeature
-
-      void feature.then(isEnabled => {
-        trackCustomGeneralEvent(
-          PiwikAction.onStartUp,
-          piwikDimension,
-          isEnabled,
-        )
-      })
+    void Promise.all(
+      accessibilityFeatures.map(({getIsEnabled}) => getIsEnabled()),
+    ).then(results => {
+      trackCustomEvent('general', PiwikAction.startUp, {
+        customDimensions: getDimensions(results),
+      } as TrackCustomEventOptions)
     })
 
-    const listeners = accessibilityFeatures.map(accessibilityFeature =>
+    const subscriptions = accessibilityFeatures.map(accessibilityFeature =>
       AccessibilityInfo.addEventListener(
-        accessibilityFeature.eventName as AccessibilityChangeEventName,
+        accessibilityFeature.eventName,
         (isEnabled: boolean) => {
-          trackCustomGeneralEvent(
-            PiwikAction.accessibilityEventListener,
-            accessibilityFeature.piwikDimension,
-            isEnabled,
-          )
+          trackCustomEvent('general', PiwikAction.accessibilityEventListener, {
+            customDimensions: {
+              [accessibilityFeature.dimension]: isEnabled.toString(),
+            },
+          })
         },
       ),
     )
 
-    return () => listeners.forEach(l => l.remove())
+    return () => subscriptions.forEach(({remove}) => remove())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [ready])
 }

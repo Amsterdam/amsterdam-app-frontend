@@ -4,13 +4,16 @@ import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNot
 import {useModules} from '@/hooks/useModules'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
-import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
+import {
+  PiwikAction,
+  useLogGeneralAnalytics,
+} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
-  const logGeneralAnalytics = useLogGeneralAnalytics()
+  const {logGeneralAnalytics, ready} = useLogGeneralAnalytics()
 
   useForegroundPushNotificationHandler()
   useSetupSentry()
@@ -19,8 +22,9 @@ export const Init = ({children}: Props) => {
   const {enabledModules} = useModules()
 
   useEffect(() => {
-    logGeneralAnalytics()
-  }, [logGeneralAnalytics])
+    logGeneralAnalytics(PiwikAction.startUp)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready])
 
   const appStateHandlers = useMemo(
     () => ({

@@ -24,6 +24,8 @@ export {
 
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
+  ready: false,
+  suggestedCategory: 'general',
   trackCustomEvent: () => {},
   trackOutlink: () => {},
   trackScreen: () => {},
@@ -42,6 +44,8 @@ const getPiwik = (
   routeName?: keyof RootStackParams,
   params?: Params,
 ): Piwik => ({
+  ready: true,
+  suggestedCategory,
   trackCustomEvent: (
     name,
     action,
@@ -88,7 +92,7 @@ const getPiwik = (
       ...options,
       title: getTitleFromParams(params),
       customDimensions: addIdFromParamsToCustomDimensions(
-        options?.customDimensions,
+        getOptionsWithDefaultDimensions(options).customDimensions,
         params,
       ),
     }).catch(() => {
