@@ -11,8 +11,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useUrlForEnv} from '@/hooks/useUrlForEnv'
-import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblem>
@@ -20,7 +18,6 @@ type Props = NavigationProps<ReportProblemRouteName.reportProblem>
 export const ReportProblemScreen = ({navigation}: Props) => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const reportProblemUrl = useUrlForEnv(reportProblemExternalLinks)
 
   return (
     <Screen>
@@ -39,16 +36,6 @@ export const ReportProblemScreen = ({navigation}: Props) => {
               gemaakt of opgeruimd wordt, dan kunt u dat bij de gemeente melden.
               U kunt ook een gevaarlijke verkeerssituatie of overlast van
               personen en horeca aan ons doorgeven.
-            </Paragraph>
-            <Paragraph>
-              Op{' '}
-              <InlineLink
-                onPress={() => openWebUrl(reportProblemUrl + '/meldingenkaart')}
-                testID="ReportProblemKnownProblemsMapLink">
-                de meldingenkaart
-              </InlineLink>{' '}
-              ziet u welke meldingen al bekend zijn bij de gemeente. Staat uw
-              melding er niet bij? Doe dan een nieuwe melding.
             </Paragraph>
           </Column>
           <Column
