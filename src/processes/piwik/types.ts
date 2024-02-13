@@ -10,14 +10,20 @@ export type Piwik = {
   trackCustomEvent: (
     category: PiwikCategory,
     action: PiwikAction,
-    options?: TrackCustomEventOptions,
+    options?: ReplaceCustomDimensions<TrackCustomEventOptions>,
   ) => void
-  trackOutlink: (url: string, options?: CommonEventOptions) => void
+  trackOutlink: (
+    url: string,
+    options?: ReplaceCustomDimensions<CommonEventOptions>,
+  ) => void
   trackScreen: (
     path?: ScreenOutsideNavigationName,
-    options?: TrackScreenOptions,
+    options?: ReplaceCustomDimensions<TrackScreenOptions>,
   ) => void
-  trackSearch: (keyword: string, options?: TrackScreenOptions) => void
+  trackSearch: (
+    keyword: string,
+    options?: ReplaceCustomDimensions<TrackScreenOptions>,
+  ) => void
 }
 
 /**
@@ -73,6 +79,10 @@ export enum PiwikSessionDimension {
 export type CustomDimensions = Partial<
   Record<PiwikDimension | PiwikSessionDimension, string>
 >
+
+export type ReplaceCustomDimensions<T> = Omit<T, 'customDimensions'> & {
+  customDimensions?: CustomDimensions
+}
 
 /** Log categories, we use this to distinguish between modules. Non-module related data should be logged in the "general" category. */
 export type PiwikCategory = ModuleSlug | 'general'

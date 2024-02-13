@@ -8,7 +8,9 @@ import {
   CustomDimensions,
   PiwikDimension,
   PiwikSessionDimension,
+  ReplaceCustomDimensions,
 } from '@/processes/piwik/types'
+import {filterOutUndefinedProperties} from '@/utils/object'
 import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 const DEFAULT_DIMENSIONS: CustomDimensions = {
@@ -22,11 +24,14 @@ const DEFAULT_DIMENSIONS: CustomDimensions = {
 export const getOptionsWithDefaultDimensions = <
   T extends CommonEventOptions | TrackCustomEventOptions | TrackScreenOptions,
 >(
-  options?: T,
+  options?: ReplaceCustomDimensions<T>,
 ): T =>
   ({
     ...options,
-    customDimensions: {...options?.customDimensions, ...DEFAULT_DIMENSIONS},
+    customDimensions: filterOutUndefinedProperties({
+      ...options?.customDimensions,
+      ...DEFAULT_DIMENSIONS,
+    }),
   }) as T
 
 export const getTitleFromParams = (params?: Record<string, unknown>) =>
@@ -37,11 +42,13 @@ export const addIdFromParamsToCustomDimensions = (
   params?: Record<string, unknown>,
 ) => {
   if (!params?.id && typeof params?.id !== 'number') {
-    return customDimensions as PiwikCustomDimensions | undefined
+    return filterOutUndefinedProperties(customDimensions) as
+      | PiwikCustomDimensions
+      | undefined
   }
 
   return {
-    ...customDimensions,
+    ...filterOutUndefinedProperties(customDimensions),
     [PiwikDimension.contentId]: params.id.toString(),
   } as PiwikCustomDimensions
 }
